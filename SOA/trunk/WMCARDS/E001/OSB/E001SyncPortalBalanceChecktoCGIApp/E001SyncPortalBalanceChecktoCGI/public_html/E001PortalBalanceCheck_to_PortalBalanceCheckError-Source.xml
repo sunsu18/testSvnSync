@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<requestPayload xmlns="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheck">
+   <cardNumber>5tghtrhthh</cardNumber>
+   <mobilePhone></mobilePhone>
+   <userID>userID10</userID>
+</requestPayload>
