@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<ns1:responsePayload xmlns:ns1="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheck">
-   <ns1:state>ERROR</ns1:state>
-   <ns1:errorCode>E104</ns1:errorCode>
-   <ns1:errorMessage>CardNumber cannot be less than 13 digits.</ns1:errorMessage>
-   <ns1:instanceID/>
-</ns1:responsePayload>
