@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.logica.no/card/sms/soap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.logica.no/card/sms/soap" targetNamespace="http://www.logica.no/card/sms/soap">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.logica.no/card/sms/soap" version="1.0">
+
+  <xs:element name="account-balance-request" type="tns:accountBalanceRequest"/>
+
+  <xs:element name="account-balance-response" type="tns:accountBalanceResponse"/>
+
+  <xs:complexType name="accountBalanceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="balance" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="currencyCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="mobilePhone" type="xs:string"/>
+      <xs:element minOccurs="0" name="state" type="tns:state"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accountBalanceRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cardNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="mobilePhone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="state">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="account-balance-request">
+    <wsdl:part element="tns:account-balance-request" name="account-balance-request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="account-balance-response">
+    <wsdl:part element="tns:account-balance-response" name="account-balance-response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="sms">
+    <wsdl:operation name="account-balance">
+      <wsdl:input message="tns:account-balance-request" name="account-balance-request">
+    </wsdl:input>
+      <wsdl:output message="tns:account-balance-response" name="account-balance-response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="smsSoap11" type="tns:sms">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="account-balance">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="account-balance-request">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="account-balance-response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="smsService">
+    <wsdl:port binding="tns:smsSoap11" name="smsSoap11">
+      <soap:address location="https://loyalty.statoil.se:8443/sms/sms"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
