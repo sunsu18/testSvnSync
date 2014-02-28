@@ -11,8 +11,8 @@
   <reference name="CGIWebServiceV1" ui:wsdlLocation="smsWrapper.wsdl">
     <interface.wsdl interface="http://www.logica.no/card/sms/soap#wsdl.interface(sms)"/>
   </reference>
-  <reference name="NotificationService1"
-             ui:wsdlLocation="NotificationService.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/ias/pcbpel/NotificationService#wsdl.interface(NotificationService)"/>
+  <reference name="SOA_ErrorInfo_JMSQ"
+             ui:wsdlLocation="SOA_ErrorInfo_JMSQ.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/SOA_ErrorInfo_JMSQ#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
 </componentType>

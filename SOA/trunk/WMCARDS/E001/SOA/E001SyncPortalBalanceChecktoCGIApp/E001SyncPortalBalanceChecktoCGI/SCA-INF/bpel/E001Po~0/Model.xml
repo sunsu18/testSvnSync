@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E001PortalBalanceCheckBPEL" targetNamespace="http://xmlns.oracle.com/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/E001PortalBalanceCheckBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/E001PortalBalanceCheckBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://www.logica.no/card/sms/soap" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns2="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheck" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/ias/pcbpel/NotificationService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.statoilfuelretail.com/integration/E001/E001InstanceId" id="BpPrc0">
+<process name="E001PortalBalanceCheckBPEL" targetNamespace="http://xmlns.oracle.com/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/E001PortalBalanceCheckBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/E001PortalBalanceCheckBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://www.logica.no/card/sms/soap" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns2="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheck" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/ias/pcbpel/NotificationService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.statoilfuelretail.com/integration/E001/E001InstanceId" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/jms/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/SOA_ErrorInfo_JMSQ" xmlns:ns6="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheckling.xsd" xmlns:ns7="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" id="BpPrc0">
 
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
     -->
     <partnerLink name="e001portalbalancecheckbpel_client" partnerLinkType="client:E001PortalBalanceCheckBPEL" myRole="E001PortalBalanceCheckBPELProvider"/>
     <partnerLink name="CGIWebServiceV1" partnerLinkType="ns1:InvokeCGIWebServiceV1" partnerRole="sms"/>
-    <partnerLink name="NotificationService1" partnerLinkType="ns3:NotificationServiceLink" partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="SOA_ErrorInfo_JMSQ" partnerLinkType="ns5:Produce_Message_plt" partnerRole="Produce_Message_role"/>
   </partnerLinks>
 
   <!-- 
@@ -35,6 +35,7 @@
     <variable name="remoteFaultMsg" type="xsd:string"/>
     <variable name="instanceId" element="ns4:rootNode"/>
     <variable name="InstanceID" type="xsd:string"/>
+    <variable name="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" messageType="ns5:Produce_Message_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catchAll id="BpCAl0">
@@ -57,66 +58,53 @@
           </copy>
         </assign>
         <reply name="ReplyRemoteFault" variable="outputVariable" partnerLink="e001portalbalancecheckbpel_client" portType="client:E001PortalBalanceCheckBPEL" operation="process" id="BpRpl0"/>
-        <assign name="AssignRemoteFaultMsg" id="BpAss1">
-          <copy>
-            <from expression="ora:getFaultAsString()"/>
-            <to variable="remoteFaultMsg"/>
-          </copy>
+        <assign name="AssignCommonErrorHandlerMessage" id="BpAss1">
           <copy>
             <from expression="ora:getCompositeInstanceId()"/>
-            <to variable="InstanceID"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getCompositeName()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E001'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E001SyncPortalBalanceChecktoCGI'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+          </copy>
+          <copy>
+            <from expression="'Portal'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+          </copy>
+          <copy>
+            <from expression="'CGI'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns2:requestPayload/ns2:userID"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-001'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E001_TE'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
           </copy>
         </assign>
-        <scope name="Email1" id="BpScp0">
-          <bpelx:annotation>
-            <bpelx:pattern patternName="bpelx:email"/>
-            <bpelx:general>
-              <bpelx:property name="userLabel">EmailTechnicalFault</bpelx:property>
-            </bpelx:general>
-          </bpelx:annotation>
-          <variables>
-            <variable name="varNotificationReq" messageType="ns3:EmailNotificationRequest"/>
-            <variable name="varNotificationResponse" messageType="ns3:ArrayOfResponse"/>
-            <variable name="NotificationServiceFaultVariable" messageType="ns3:NotificationServiceErrorMessage"/>
-          </variables>
-          <sequence name="Sequence1" id="BpSeq1">
-            <assign name="EmailParamsAssign" id="BpAss2">
-              <copy>
-                <from expression="string('Default')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:FromAccountName"/>
-              </copy>
-              <copy>
-                <from expression="string('')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:Bcc"/>
-              </copy>
-              <copy>
-                <from expression="string('rahuld.91@gmail.com')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:Cc"/>
-              </copy>
-              <copy>
-                <from expression="string('')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:ReplyToAddress"/>
-              </copy>
-              <copy>
-                <from expression="string('Error in InterfaceID E001')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:Subject"/>
-              </copy>
-              <copy>
-                <from expression="string('ErolNishanth.Falleria2@statoilfuelretail.com')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:To"/>
-              </copy>
-              <copy>
-                <from expression="concat('Instance ID: ', bpws:getVariableData('InstanceID'),'&lt;br\>','Error Description: ',bpws:getVariableData('remoteFaultMsg'))"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:Content/ns3:ContentBody"/>
-              </copy>
-              <copy>
-                <from expression="string('text/html; charset=UTF-8')"/>
-                <to variable="varNotificationReq" part="EmailPayload" query="/EmailPayload/ns3:Content/ns3:MimeType"/>
-              </copy>
-            </assign>
-            <invoke name="InvokeNotificationService" portType="ns3:NotificationService" partnerLink="NotificationService1" inputVariable="varNotificationReq" outputVariable="varNotificationResponse" operation="sendEmailNotification" id="BpInv0"/>
-          </sequence>
-        </scope>
+        <invoke name="InvokeSOA_ErrorInfo_JMSQ" inputVariable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV" partnerLink="SOA_ErrorInfo_JMSQ" portType="ns5:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv0"/>
       </sequence>
     </catchAll>
   </faultHandlers>
@@ -127,24 +115,24 @@
      services integrated within this business process                  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
-  <sequence name="main" id="BpSeq2">
+  <sequence name="main" id="BpSeq1">
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in E001PortalBalanceCheckBPEL.wsdl) -->
     <receive name="receiveInput" partnerLink="e001portalbalancecheckbpel_client" portType="client:E001PortalBalanceCheckBPEL" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
-    <scope name="ValidateInputVariableScope" variableAccessSerializable="no" id="BpScp1">
+    <scope name="ValidateInputVariableScope" variableAccessSerializable="no" id="BpScp0">
       <variables>
         <variable name="errorPayload" messageType="client:E001PortalBalanceCheckBPELResponseMessage"/>
       </variables>
       <faultHandlers id="BpFhs1">
         <catch faultName="bpelx:invalidVariables" id="BpCFt0">
-          <sequence id="BpSeq3">
-            <assign name="AssigninstanceId" id="BpAss3">
+          <sequence id="BpSeq2">
+            <assign name="AssigninstanceId" id="BpAss2">
               <copy>
                 <from expression="ora:getCompositeInstanceId()"/>
                 <to variable="instanceId" query="/ns4:rootNode/ns4:instanceId"/>
               </copy>
             </assign>
-            <assign name="XformInputVariableToErrorPayload" id="BpAss4">
+            <assign name="XformInputVariableToErrorPayload" id="BpAss3">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -158,11 +146,11 @@
           </sequence>
         </catch>
       </faultHandlers>
-      <sequence name="Sequence2" id="BpSeq4">
+      <sequence name="Sequence2" id="BpSeq3">
         <bpelx:validate name="ValidateInputVariable" variables="inputVariable" id="BpVal0"/>
       </sequence>
     </scope>
-    <assign name="AssignInputVariable" id="BpAss5">
+    <assign name="AssignInputVariable" id="BpAss4">
       <copy>
         <from variable="inputVariable" part="payload" query="/ns2:requestPayload/ns2:cardNumber"/>
         <to variable="InvokeCGIWebServiceCallaccountbalance_account-balance_IV" part="account-balance-request" query="/ns1:account-balance-request/cardNumber"/>
@@ -181,7 +169,7 @@
             <bpelx:property name="userLabel">NonExistantCardNumber</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <assign name="AssignOutputVariableError" id="BpAss6">
+        <assign name="AssignOutputVariableError" id="BpAss5">
           <copy>
             <from expression="'E101'"/>
             <to variable="outputVariable" part="payload" query="/ns2:responsePayload/ns2:errorCode"/>
@@ -201,7 +189,7 @@
         </assign>
       </case>
       <otherwise>
-        <assign name="AssignOutputVariable" id="BpAss7">
+        <assign name="AssignOutputVariable" id="BpAss6">
           <copy>
             <from variable="InvokeCGIWebServiceCallaccountbalance_account-balance_OV" part="account-balance-response" query="/ns1:account-balance-response/balance"/>
             <to variable="outputVariable" part="payload" query="/ns2:responsePayload/ns2:balance"/>

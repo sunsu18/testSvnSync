@@ -32,7 +32,10 @@
          xmlns:ns3="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:ns4="http://www.statoilfuelretail.com/integration/E001/E001InstanceId">
+         xmlns:ns4="http://www.statoilfuelretail.com/integration/E001/E001InstanceId"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/jms/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/SOA_ErrorInfo_JMSQ"
+         xmlns:ns6="http://www.statoilfuelretail.com/integration/E001/E001PortalBalanceCheckling.xsd"
+         xmlns:ns7="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd">
 
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,9 +52,9 @@
     <partnerLink name="e001portalbalancecheckbpel_client" partnerLinkType="client:E001PortalBalanceCheckBPEL" myRole="E001PortalBalanceCheckBPELProvider"/>
     <partnerLink name="CGIWebServiceV1"
                  partnerLinkType="ns1:InvokeCGIWebServiceV1" partnerRole="sms"/>
-    <partnerLink name="NotificationService1"
-                 partnerLinkType="ns3:NotificationServiceLink"
-                 partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="SOA_ErrorInfo_JMSQ"
+                 partnerLinkType="ns5:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
   </partnerLinks>
 
   <!-- 
@@ -73,6 +76,8 @@
     <variable name="remoteFaultMsg" type="xsd:string"/>
     <variable name="instanceId" element="ns4:rootNode"/>
     <variable name="InstanceID" type="xsd:string"/>
+    <variable name="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+              messageType="ns5:Produce_Message_msg"/>
   </variables>
   <faultHandlers>
     <catchAll>
@@ -101,82 +106,80 @@
                partnerLink="e001portalbalancecheckbpel_client"
                portType="client:E001PortalBalanceCheckBPEL"
                operation="process"/>
-        <assign name="AssignRemoteFaultMsg">
-          <copy>
-            <from expression="ora:getFaultAsString()"/>
-            <to variable="remoteFaultMsg"/>
-          </copy>
+        <assign name="AssignCommonErrorHandlerMessage">
           <copy>
             <from expression="ora:getCompositeInstanceId()"/>
-            <to variable="InstanceID"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getCompositeName()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E001'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E001SyncPortalBalanceChecktoCGI'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+          </copy>
+          <copy>
+            <from expression="'Portal'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+          </copy>
+          <copy>
+            <from expression="'CGI'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns2:requestPayload/ns2:userID"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-001'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E001_TE'"/>
+            <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                part="body"
+                query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
           </copy>
         </assign>
-        <scope name="Email1">
-          <bpelx:annotation>
-            <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
-            <bpelx:general>
-              <bpelx:property name="userLabel">EmailTechnicalFault</bpelx:property>
-            </bpelx:general>
-          </bpelx:annotation>
-          <variables>
-            <variable name="varNotificationReq"
-                      messageType="ns3:EmailNotificationRequest"/>
-            <variable name="varNotificationResponse"
-                      messageType="ns3:ArrayOfResponse"/>
-            <variable name="NotificationServiceFaultVariable"
-                      messageType="ns3:NotificationServiceErrorMessage"/>
-          </variables>
-          <sequence name="Sequence1">
-            <assign name="EmailParamsAssign">
-              <copy>
-                <from expression="string('Default')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:FromAccountName"/>
-              </copy>
-              <copy>
-                <from expression="string('')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:Bcc"/>
-              </copy>
-              <copy>
-                <from expression="string('rahuld.91@gmail.com')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:Cc"/>
-              </copy>
-              <copy>
-                <from expression="string('')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:ReplyToAddress"/>
-              </copy>
-              <copy>
-                <from expression="string('Error in InterfaceID E001')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:Subject"/>
-              </copy>
-              <copy>
-                <from expression="string('ErolNishanth.Falleria2@statoilfuelretail.com')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:To"/>
-              </copy>
-              <copy>
-                <from expression="concat('Instance ID: ', bpws:getVariableData('InstanceID'),'&lt;br\>','Error Description: ',bpws:getVariableData('remoteFaultMsg'))"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:Content/ns3:ContentBody"/>
-              </copy>
-              <copy>
-                <from expression="string('text/html; charset=UTF-8')"/>
-                <to variable="varNotificationReq" part="EmailPayload"
-                    query="/EmailPayload/ns3:Content/ns3:MimeType"/>
-              </copy>
-            </assign>
-            <invoke name="InvokeNotificationService"
-                    portType="ns3:NotificationService"
-                    partnerLink="NotificationService1"
-                    inputVariable="varNotificationReq"
-                    outputVariable="varNotificationResponse"
-                    operation="sendEmailNotification"/>
-          </sequence>
-        </scope>
+        <invoke name="InvokeSOA_ErrorInfo_JMSQ"
+                inputVariable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
+                partnerLink="SOA_ErrorInfo_JMSQ"
+                portType="ns5:Produce_Message_ptt" operation="Produce_Message"
+                bpelx:invokeAsDetail="no"/>
       </sequence>
     </catchAll>
   </faultHandlers>
