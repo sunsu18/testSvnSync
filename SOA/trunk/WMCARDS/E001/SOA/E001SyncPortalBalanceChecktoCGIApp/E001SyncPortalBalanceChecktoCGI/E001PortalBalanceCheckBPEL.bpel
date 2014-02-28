@@ -257,7 +257,7 @@
         </bpelx:annotation>
         <assign name="AssignOutputVariableError">
           <copy>
-            <from expression="'E001'"/>
+            <from expression="'E101'"/>
             <to variable="outputVariable" part="payload"
                 query="/ns2:responsePayload/ns2:errorCode"/>
           </copy>
@@ -274,7 +274,7 @@
                 query="/ns2:responsePayload/ns2:state"/>
           </copy>
           <copy>
-            <from expression="'Card Number Entered does not exist'"/>
+            <from expression="'Invalid card or Mobile number'"/>
             <to variable="outputVariable" part="payload"
                 query="/ns2:responsePayload/ns2:errorMessage"/>
           </copy>

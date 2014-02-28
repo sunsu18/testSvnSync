@@ -1,12 +1,12 @@
-Feb 25, 2014 7:08:21 PM oracle.mds
+Feb 28, 2014 12:11:14 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Feb 25, 2014 7:08:21 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Feb 28, 2014 12:11:15 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Feb 25, 2014 7:08:21 PM com.collaxa.cube.CubeLogger info
+Feb 28, 2014 12:11:15 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E001PortalBalanceCheckBPEL.bpel" ...
-Feb 25, 2014 7:08:22 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Feb 28, 2014 12:11:15 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Feb 25, 2014 7:08:22 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Feb 28, 2014 12:11:15 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -14,13 +14,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSwitchBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Feb 25, 2014 7:08:22 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E001PortalBalanceCheckBPEL" in 123.7 milliseconds [nodes 35=2+33, 283.0 nodes/sec]
-Feb 25, 2014 7:08:23 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E001PortalBalanceCheckBPEL" in 1.077 seconds
-Feb 25, 2014 7:08:23 PM com.collaxa.cube.CubeLogger info
+Feb 28, 2014 12:11:15 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E001PortalBalanceCheckBPEL" in 76.5 milliseconds [nodes 35=2+33, 457.2 nodes/sec]
+Feb 28, 2014 12:11:17 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E001PortalBalanceCheckBPEL" in 1.497 seconds
+Feb 28, 2014 12:11:17 PM com.collaxa.cube.CubeLogger info
 INFO: Gathered 6 files in 0.6 milliseconds
 
-Feb 25, 2014 7:08:23 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E001PortalBalanceCheckBPEL" in 6.9 milliseconds
+Feb 28, 2014 12:11:17 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E001PortalBalanceCheckBPEL" in 37.7 milliseconds
 
