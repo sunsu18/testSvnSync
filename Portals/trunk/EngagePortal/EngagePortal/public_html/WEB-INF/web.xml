@@ -451,6 +451,10 @@
 	</param-value>
     </init-param>
   </servlet>
+  <servlet>
+    <servlet-name>imageservlet</servlet-name>
+    <servlet-class>com.sfr.engage.util.imageservlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
@@ -550,6 +554,10 @@
   <servlet-mapping>
     <servlet-name>JerseyWebApplication</servlet-name>
     <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>imageservlet</servlet-name>
+    <url-pattern>/imageservlet</url-pattern>
   </servlet-mapping>
   <mime-mapping>
     <extension>swf</extension>

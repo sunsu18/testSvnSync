@@ -40,4 +40,14 @@
     <page id="portal_pageTemplate_swooshyPageDef"
           path="com.sfr.engage.oracle.webcenter.portalapp.pagetemplates.pageTemplate_swooshyPageDef"/>
   </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="EngageAppModuleDataControl"
+                     Package="com.sfr.engage.model.module"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="EngageAppModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
 </Application>

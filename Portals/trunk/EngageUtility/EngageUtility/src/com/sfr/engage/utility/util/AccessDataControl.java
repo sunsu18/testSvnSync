@@ -21,7 +21,7 @@ public class AccessDataControl {
        On every backing bean we have to call this method to get the Adf logger */
 
 
-    public static ADFLogger getSFRLogger(String str) {
+    public static ADFLogger getSFRLogger() {
 
         HttpSession session = null;
         ExternalContext ectx;

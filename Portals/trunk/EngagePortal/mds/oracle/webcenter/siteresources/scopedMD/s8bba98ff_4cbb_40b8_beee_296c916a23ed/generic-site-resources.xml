@@ -204,6 +204,13 @@
             <customAttribute name="skinExtends" seeded="true" value="fusionFx-v1.desktop" visible="ALWAYS"/>
          </customAttributes>
       </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-02-28T11:44:55.892+05:30" description="" displayName="media" guid="gsr8438382b_d3d1_45d6_aa2a_4e9da52d965a" metadataFile="/oracle/webcenter/portalapp/skins/media.css" modifiedBy="system" modifiedDate="2014-02-28T11:44:55.893+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="media.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="media" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
    </resourceType>
    <resourceType name="taskFlowStyle" resourceBundle="">
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:58:09.285-08:00" description="Blank" displayName="Blank" guid="gsr0b090761_f3d7_44d0_abc2_365b210f6a7a" iconURI="/oracle/webcenter/portalapp/shared/taskFlowStyle_blank.png" jspx="/oracle/webcenter/datacomposer/mashupstyles/blank.jsff" metadataFile="/oracle/webcenter/datacomposer/mashupstyles/blank-definition.xml" modifiedBy="system" modifiedDate="2011-02-08T15:58:09.285-08:00" pageDef="/oracle/webcenter/datacomposer/mashupstyles/blankPageDef.xml" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">

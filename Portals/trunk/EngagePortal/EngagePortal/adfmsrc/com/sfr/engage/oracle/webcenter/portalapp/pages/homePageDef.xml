@@ -16,8 +16,40 @@
     <taskFlow id="pageeditorpanel"
               taskFlowId="#{pageEditorBean.pageEditorPanel}"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <iterator Binds="ProductsDisplayRVO1" RangeSize="10"
+              DataControl="EngageAppModuleDataControl"
+              id="ProductsDisplayRVO1Iterator"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO"
+                      Name="ProductsDisplayRVO10">
+        <AttrNames>
+          <Item Value="Itemno"/>
+          <Item Value="ArticleName"/>
+          <Item Value="B2bItemPriceUnit"/>
+          <Item Value="B2cItemPriceUnit"/>
+          <Item Value="CategCode10"/>
+          <Item Value="CategCode6"/>
+          <Item Value="CategCode7"/>
+          <Item Value="CategCode8"/>
+          <Item Value="CategCode9"/>
+          <Item Value="DescLine1"/>
+          <Item Value="DescLine2"/>
+          <Item Value="PackageDescription"/>
+          <Item Value="SalesCategCode3"/>
+          <Item Value="SalesCategCode4"/>
+          <Item Value="SalesCategCode5"/>
+          <Item Value="SalesCatSelection"/>
+          <Item Value="SalesText"/>
+          <Item Value="SubSection"/>
+          <Item Value="UnspscCode"/>
+          <Item Value="Uom"/>
+          <Item Value="UserResRef"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
               target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/home.jspx"
               xmlns="http://xmlns.oracle.com/adf/security">
