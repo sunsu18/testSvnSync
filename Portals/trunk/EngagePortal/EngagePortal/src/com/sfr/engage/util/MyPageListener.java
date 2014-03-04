@@ -25,10 +25,8 @@ public class MyPageListener implements PagePhaseListener {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
         String lang = (String)request.getAttribute("lang");
-        System.out.println("Inside Home carousal bean");
         if(lang == null){
-        System.out.println("Inside Home carousal bean- If block");
-            lang="SE";
+            lang="en_US";
         }
         session.setAttribute("lang", lang);
     }
