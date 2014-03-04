@@ -42,7 +42,7 @@
                    <af:panelGroupLayout id="pgl_03" layout="horizontal" inlineStyle="width:962px; height:200px;">
                    <af:panelGroupLayout id="pgl4" layout="vertical"
                                         inlineStyle="height:200px;width:605px;  border: 1px solid  #979796;">
-                    <af:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="width:605px;background-image:url(#{facesContext.externalContext.requestContextPath}/images/gradient.png);background-position:center top;background-repeat:repeat-x;padding-top:2px;"
+                    <af:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="height:30px;width:605px;background-image:url(#{facesContext.externalContext.requestContextPath}/images/gradient.png);background-position:center top;background-repeat:repeat-x;padding-top:2px;"
                                            valign="top">
                     <af:panelGroupLayout id="pgl3" layout="horizontal">
                       <af:spacer width="5" height="10" id="s16"/>
