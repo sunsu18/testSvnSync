@@ -1,0 +1,244 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Feb 25 17:11:13 IST 2014
+  Author:  10602239
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Common_ErrorHandler_NotificationBPEL"
+               targetNamespace="http://xmlns.oracle.com/ErrorHandlingFramework/Common_ErrorHandler_Notification/Common_ErrorHandler_NotificationBPEL"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/ErrorHandlingFramework/Common_ErrorHandler_Notification/Common_ErrorHandler_NotificationBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/ErrorHandlingFramework/Common_ErrorHandler_Notification/SOACommonErrorHandlerJMSConsumerV1"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ns2="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns3="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/ErrorHandlingFramework/Common_ErrorHandler_Notification/InsertErrorloggingDBAdapterV1"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertErrorloggingDBAdapterV1"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="SOACommonErrorHandlerJMSConsumerV1"
+                 partnerLinkType="ns1:Consume_Message_plt"
+                 myRole="Consume_Message_role"/>
+    <partnerLink name="NotificationService"
+                 partnerLinkType="ns3:NotificationServiceLink"
+                 partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="InsertErrorloggingDBAdapterV1"
+                 partnerLinkType="ns4:InsertErrorloggingDBAdapterV1_plt"
+                 partnerRole="InsertErrorloggingDBAdapterV1_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="InvokeInsertErrorloggingDBAdapterV1Startinsert_insert_InputVariable"
+              messageType="ns4:EngageSoaErrorLogsCollection_msg"/>
+    <variable name="ReceiveErrorInfo_Consume_Message_InputVariable"
+              messageType="ns1:Consume_Message_msg"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="FaultNotificationSequence">
+        <assign name="TemplateDataAssign">
+          <copy>
+            <from expression="string(ora:getCompositeInstanceId())"/>
+            <to variable="ReceiveErrorInfo_Consume_Message_InputVariable"
+                part="body"
+                query="/ns2:ErrorInfo/ns2:CommonErrorData/ns2:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="string(ora:getComponentName())"/>
+            <to variable="ReceiveErrorInfo_Consume_Message_InputVariable"
+                part="body"
+                query="/ns2:ErrorInfo/ns2:CommonErrorData/ns2:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="ReceiveErrorInfo_Consume_Message_InputVariable"
+                part="body"
+                query="/ns2:ErrorInfo/ns2:ErrorDetails/ns2:ErrorDescription"/>
+          </copy>
+        </assign>
+        <scope name="SendEmailScope">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+            <bpelx:general>
+              <bpelx:property name="userLabel">ErrorEmailNotification</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <variables>
+            <variable name="varNotificationReq"
+                      messageType="ns3:EmailNotificationRequest"/>
+            <variable name="varNotificationResponse"
+                      messageType="ns3:ArrayOfResponse"/>
+            <variable name="NotificationServiceFaultVariable"
+                      messageType="ns3:NotificationServiceErrorMessage"/>
+          </variables>
+          <sequence name="ErrorEmailNotificationSequence">
+            <assign name="EmailParamsAssign">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/Fault_To_ErrorNotificationEmail.xsl', $ReceiveErrorInfo_Consume_Message_InputVariable.body)"/>
+                <to variable="varNotificationReq" part="EmailPayload"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeNotificationService"
+                    portType="ns3:NotificationService"
+                    partnerLink="NotificationService"
+                    inputVariable="varNotificationReq"
+                    outputVariable="varNotificationResponse"
+                    operation="sendEmailNotification" bpelx:invokeAsDetail="no"/>
+          </sequence>
+        </scope>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <sequence name="main">
+    <receive name="ReceiveErrorInfo" createInstance="yes"
+             variable="ReceiveErrorInfo_Consume_Message_InputVariable"
+             partnerLink="SOACommonErrorHandlerJMSConsumerV1"
+             portType="ns1:Consume_Message_ptt" operation="Consume_Message"/>
+    <sequence name="ErrorLoggingSequence">
+      <switch name="SwitchErrorLogging">
+        <case condition="dvm:lookupValue(&quot;ErrorInfo_LoggingFlags.dvm&quot;,&quot;InterfaceID&quot;,bpws:getVariableData('ReceiveErrorInfo_Consume_Message_InputVariable','body','/ns2:ErrorInfo/ns2:CommonErrorData/ns2:ProjectID'),&quot;EnableLogging&quot;,&quot;Y&quot;) = &quot;Y&quot;">
+          <bpelx:annotation>
+            <bpelx:pattern>Check if Log Enabled is true means set to Y</bpelx:pattern>
+            <bpelx:general>
+              <bpelx:property name="userLabel">CheckLogEnabled</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <sequence name="DBinsertSequence">
+            <assign name="XformJMSToDB">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/ErrorHandling_To_InsertErrorloggingDBAdapter.xsl', $ReceiveErrorInfo_Consume_Message_InputVariable.body)"/>
+                <to variable="InvokeInsertErrorloggingDBAdapterV1Startinsert_insert_InputVariable"
+                    part="EngageSoaErrorLogsCollection"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeInsertErrorloggingDBAdapterV1Startinsert"
+                    inputVariable="InvokeInsertErrorloggingDBAdapterV1Startinsert_insert_InputVariable"
+                    partnerLink="InsertErrorloggingDBAdapterV1"
+                    portType="ns4:InsertErrorloggingDBAdapterV1_ptt"
+                    operation="insert" bpelx:invokeAsDetail="no"/>
+
+          
+          </sequence>
+        </case>
+        <otherwise>
+          <sequence name="EmptySequence">
+            <empty name="Empty"/>
+          </sequence>
+        </otherwise>
+      </switch>
+    </sequence>
+    <switch name="SwitchErrorType">
+      <case condition="contains(bpws:getVariableData('ReceiveErrorInfo_Consume_Message_InputVariable','body','/ns2:ErrorInfo/ns2:ErrorDetails/ns2:ErrorCode'),'BE')">
+        <bpelx:annotation>
+          <bpelx:pattern>Check whether Error is BE</bpelx:pattern>
+          <bpelx:general>
+            <bpelx:property name="userLabel">CheckErrrorType</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <scope name="SendBEEmailScope">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+            <bpelx:general>
+              <bpelx:property name="userLabel">BusinessErrorNotificationEmail</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <variables>
+                    <variable name="varNotificationReq"
+                              messageType="ns3:EmailNotificationRequest"/>
+                    <variable name="varNotificationResponse"
+                              messageType="ns3:ArrayOfResponse"/>
+                    <variable name="NotificationServiceFaultVariable"
+                              messageType="ns3:NotificationServiceErrorMessage"/>
+                  </variables>
+          <sequence name="BEerrorNotificationSequence">
+            <assign name="EmailParamsAssign">
+              <bpelx:annotation>              
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/ErrorHandling_To_BusinessErrorNotificationEmail.xsl', $ReceiveErrorInfo_Consume_Message_InputVariable.body)"/>
+                <to variable="varNotificationReq" part="EmailPayload"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeNotificationService"
+                    portType="ns3:NotificationService"
+                    partnerLink="NotificationService"
+                    inputVariable="varNotificationReq"
+                    outputVariable="varNotificationResponse"
+                    operation="sendEmailNotification"
+                    bpelx:invokeAsDetail="no"/>
+          </sequence>
+        </scope>
+      </case>
+      <otherwise>
+        <sequence name="TEerrorNotificationSequence">
+          <scope name="SendTEEmailScope">
+            <bpelx:annotation>
+              <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+              <bpelx:general>
+                <bpelx:property name="userLabel">TechnicalErrorNotificationEmail</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <variables>
+              <variable name="varNotificationReq"
+                        messageType="ns3:EmailNotificationRequest"/>
+              <variable name="varNotificationResponse"
+                        messageType="ns3:ArrayOfResponse"/>
+              <variable name="NotificationServiceFaultVariable"
+                        messageType="ns3:NotificationServiceErrorMessage"/>
+            </variables>
+            <sequence name="TEerrorNotificationSequence">
+              <assign name="AssignEmailParams">
+                <bpelx:annotation>
+                  <bpelx:pattern>transformation</bpelx:pattern>
+                </bpelx:annotation>
+                <copy>
+                  <from expression="ora:doXSLTransformForDoc('xsl/ErrorHandling_To_TechnicalErrorNotificationEmail.xsl', $ReceiveErrorInfo_Consume_Message_InputVariable.body)"/>
+                  <to variable="varNotificationReq" part="EmailPayload"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeNotificationService"
+                      portType="ns3:NotificationService"
+                      partnerLink="NotificationService"
+                      inputVariable="varNotificationReq"
+                      outputVariable="varNotificationResponse"
+                      operation="sendEmailNotification" bpelx:invokeAsDetail="no"/>
+            </sequence>
+          </scope>
+        </sequence>
+      </otherwise>
+    </switch>
+  </sequence>
+</process>

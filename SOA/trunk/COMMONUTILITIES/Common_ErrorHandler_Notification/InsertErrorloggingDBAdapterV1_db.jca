@@ -1,0 +1,14 @@
+<adapter-config name="InsertErrorloggingDBAdapterV1" adapter="Database Adapter" wsdlLocation="InsertErrorloggingDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/ErrorHandling" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="InsertErrorloggingDBAdapterV1_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="InsertErrorloggingDBAdapterV1.EngageSoaErrorLogs"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="InsertErrorloggingDBAdapterV1-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

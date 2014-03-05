@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_CODE:db_column_size">50</entry>
+   <entry key="root_descriptor_alias">ENGAGE_SOA_ERROR_LOGS</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ROW_ID:db_column_precision">0</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.SOURCE:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_ID:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_table_type">TABLE</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INSTANCE_ID:db_column_precision">0</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_10">ROW_ID</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INSTANCE_TIME:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_9">INSTANCE_TIME</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_8">ERROR_SEVERITY</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_7">ERROR_DESCRIPTION</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_6">ERROR_CODE</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_5">TARGET</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_4">SOURCE</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INSTANCE_ID:db_column_type">NUMBER</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ROW_ID:db_column_not_null">true</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.TARGET:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_3">INSTANCE_ID</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_2">COMPONENT_NAME</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.TARGET:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_1">INTERFACE_NAME</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_SEVERITY:db_column_precision">0</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS:db_column_0">INTERFACE_ID</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_DESCRIPTION:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_DESCRIPTION:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_CODE:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.SOURCE:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INSTANCE_ID:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_NAME:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.TARGET:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.COMPONENT_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_ID:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_DESCRIPTION:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.COMPONENT_NAME:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_SEVERITY:db_column_type">NUMBER</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.COMPONENT_NAME:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INSTANCE_TIME:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.SOURCE:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_ID:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ERROR_SEVERITY:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.ROW_ID:db_column_type">NUMBER</entry>
+   <entry key="ENGAGE_SOA_ERROR_LOGS.INTERFACE_NAME:db_column_not_null">false</entry>
+</properties>

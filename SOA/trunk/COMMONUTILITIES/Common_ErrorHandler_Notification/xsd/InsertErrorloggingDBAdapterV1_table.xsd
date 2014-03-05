@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertErrorloggingDBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertErrorloggingDBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="EngageSoaErrorLogsCollection" type="EngageSoaErrorLogsCollection"/>
+   <xs:complexType name="EngageSoaErrorLogsCollection">
+      <xs:sequence>
+         <xs:element name="EngageSoaErrorLogs" type="EngageSoaErrorLogs" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EngageSoaErrorLogs">
+      <xs:sequence>
+         <xs:element name="interfaceId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="interfaceName" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="componentName" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="instanceId" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="source" type="xs:string" minOccurs="0" nillable="true"/>
+         <xs:element name="target" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="errorCode" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="errorDescription" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="errorSeverity" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="instanceTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="rowId" type="xs:decimal"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,12 @@
+<adapter-config name="SOACommonErrorHandlerJMSConsumerV1" adapter="JMS Adapter" wsdlLocation="SOACommonErrorHandlerJMSConsumerV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/jms/SOA_Common_ErrorHandler_Notification" UIJmsProvider="WLSJMS" UIConnectionName="SOA_DEV"/>
+  <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
+    <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="UseMessageListener" value="false"/>
+      <property name="DestinationName" value="jms/SOA_ Common_ErrorHandler_Notification_ErrorQueue"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>
