@@ -9,7 +9,7 @@
   <f:loadBundle basename="oracle.webcenter.portalframework.sitestructure.resource.PortalAppPageResource"
                 var="portalResource"/>
   <af:pageTemplateDef var="attrs">
-    <af:panelGroupLayout id="pt_root" layout="scroll">
+    <af:panelGroupLayout id="pt_root" layout="scroll" inlineStyle="height:auto;">
       <!-- centered vertical stack: banner, navbar, content, footer -->
       <af:panelGroupLayout id="pt_pgl2" layout="vertical"
                            inlineStyle="width:#{attrs.contentWidth};margin: 0 auto;">
@@ -208,12 +208,12 @@
         <!-- (4) content -->
         <af:facetRef facetName="content"/>
         <!-- (5) footer -->
-        <af:panelGroupLayout id="pt_pgl15" layout="vertical"
+        <!--<af:panelGroupLayout id="pt_pgl15" layout="vertical"
                              rendered="#{!composerContext.inEditMode or facesContext.viewRoot.viewId == '/oracle/webcenter/siteresources/scopedMD/s8bba98ff_4cbb_40b8_beee_296c916a23ed/siteTemplate/gsr395559d2_16dc_4c21_89f8_f62c184d3bbc/Container.jspx'}">
           <af:spacer id="pt_sp8" height="3px"/>
           <af:outputText id="pt_ot5"
                          value="#{portalResource['copyright']}"/>
-        </af:panelGroupLayout>
+        </af:panelGroupLayout>-->
       </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:xmlContent>

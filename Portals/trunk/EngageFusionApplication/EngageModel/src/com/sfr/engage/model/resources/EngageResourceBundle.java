@@ -46,7 +46,7 @@ public class EngageResourceBundle extends ListResourceBundle {
                                   {"STATOIL_COMPANY_CARD",""},{"STATOIL_COMPANY_CARD_DESC",""},{"LEARN_MORE",""},
                                   {"APPLY_NOW",""},{"STATOIL_TRUCK_CARD_DESC",""},{"STATOIL_TRUCK_CARD",""},{"LOG_IN",""},
                                   {"STATOIL_EUROPE_CARD_DESC",""},{"STATOIL_EUROPE_CARD",""},{"STATOIL_MASTER_CARD",""},
-                                  {"STATOIL_MASTER_CARD_DESC",""}};
+                                  {"STATOIL_MASTER_CARD_DESC",""},{"VIEW_CATALOG",""}};
            
 
         /**
