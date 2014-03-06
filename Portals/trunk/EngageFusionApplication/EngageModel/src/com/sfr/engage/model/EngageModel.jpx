@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE JboProject SYSTEM "jbo_03_01.dtd">
+<!---->
+<JboProject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="EngageModel"
+  Version="11.1.1.61.92"
+  SeparateXMLFiles="true"
+  PackageName="com.sfr.engage.model">
+  <DesignTime>
+    <Attr Name="_jprName" Value="../../../../../EngageModel.jpr"/>
+    <Attr Name="_NamedConnection" Value="226"/>
+    <Attr Name="_appModuleNames0"
+      Value="com.sfr.engage.model.module.EngageAppModule"/>
+  </DesignTime>
+  <Containee
+    Name="module"
+    PackageName="com.sfr.engage.model.module"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_AM" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="rvo"
+    PackageName="com.sfr.engage.model.queries.rvo"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+</JboProject>
