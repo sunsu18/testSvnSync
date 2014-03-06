@@ -59,9 +59,9 @@
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>
-            <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
-            <url n="sourceOwnerURL" path="../EngageFusionApplication.jws"/>
-            <url n="sourceURL" path="../EngageModel/EngageModel.jpr"/>
+            <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
+            <url n="ownerURL" path="../EngageModel/EngageModel.jpr"/>
+            <value n="profileName" v="EngageModel"/>
          </hash>
       </list>
    </hash>
@@ -121,16 +121,16 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/EngageUI.jar"/>
+            <url n="jarURL" path="../../libraries/adfJAR/EngageUI.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
             <hash n="LibraryDependencies">
                <list n="dependencyList">
                   <hash>
-                     <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
-                     <url n="ownerURL" path="../EngageModel/EngageModel.jpr"/>
-                     <value n="profileName" v="EngageModel"/>
+                     <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
+                     <url n="sourceOwnerURL" path="../EngageFusionApplication.jws"/>
+                     <url n="sourceURL" path="../EngageModel/EngageModel.jpr"/>
                   </hash>
                </list>
             </hash>
