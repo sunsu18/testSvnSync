@@ -773,8 +773,8 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../libraries/adfJAR/adflibEngageModel.jar" jar-entry=""/>
-                  <url path="../../libraries/adfJAR/adflibEngageUI.jar" jar-entry=""/>
+                  <url path="../../libraries/adfJAR/EngageModel.jar" jar-entry=""/>
+                  <url path="../../libraries/adfJAR/EngageUI.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="ADF Library"/>
