@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="E002JDEE1toWebFuelBPEL"
+             targetNamespace="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+             xmlns:ns1="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg" schemaLocation="xsd/E002InvocationReqMsg.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="E002JDEE1toWebFuelBPELRequestMessage">
+		<wsdl:part name="payload" element="ns1:invocationMsg" />
+	</wsdl:message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the E002JDEE1toWebFuelBPEL BPEL process -->
+	<wsdl:portType name="E002JDEE1toWebFuelBPEL">
+		<wsdl:operation name="process">
+			<wsdl:input  message="client:E002JDEE1toWebFuelBPELRequestMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="E002JDEE1toWebFuelBPEL">
+		<plnk:role name="E002JDEE1toWebFuelBPELProvider">
+			<plnk:portType name="client:E002JDEE1toWebFuelBPEL"/>
+		</plnk:role>
+	</plnk:partnerLinkType>
+</wsdl:definitions>
