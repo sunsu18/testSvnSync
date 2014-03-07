@@ -1,5 +1,6 @@
 package com.sfr.engage.model.module;
 
+import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
 import oracle.jbo.server.ApplicationModuleImpl;
@@ -22,5 +23,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
      */
     public PrtGenStringRVOImpl getPrtGenStringRVO1() {
         return (PrtGenStringRVOImpl)findViewObject("PrtGenStringRVO1");
+    }
+
+    /**
+     * Container's getter for ProductsDisplayRVO1.
+     * @return ProductsDisplayRVO1
+     */
+    public ProductsDisplayRVOImpl getProductsDisplayRVO1() {
+        return (ProductsDisplayRVOImpl)findViewObject("ProductsDisplayRVO1");
     }
 }

@@ -15,4 +15,7 @@
   <ViewUsage
     Name="PrtGenStringRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenStringRVO"/>
+  <ViewUsage
+    Name="ProductsDisplayRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO"/>
 </AppModule>
