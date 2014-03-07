@@ -37,7 +37,7 @@
       <property name="weblogic.wsee.wsat.transaction.flowOption"
                 type="xs:string" many="false">WSDLDriven</property>
                 <property name="oracle.webservices.auth.password" type="xs:string"
-                      many="false" override="may">rns23JK</property>
+                      many="false" override="may">rns23JK#</property>
      <property name="oracle.webservices.auth.username" type="xs:string"
                       many="false" override="may">sms</property>
     </binding.ws>

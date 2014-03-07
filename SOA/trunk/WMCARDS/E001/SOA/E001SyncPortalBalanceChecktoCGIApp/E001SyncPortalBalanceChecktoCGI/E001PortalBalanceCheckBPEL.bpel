@@ -114,7 +114,7 @@
                 query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
           </copy>
           <copy>
-            <from expression="ora:getCompositeName()"/>
+            <from expression="ora:getComponentName()"/>
             <to variable="InvokeSOA_ErrorInfo_JMSQ_Produce_Message_IV"
                 part="body"
                 query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
