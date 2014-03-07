@@ -16,6 +16,8 @@
           location="E002JDEE1toWebFuelBPEL.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SelectJDEE1DBAdaptorV1"
           location="SelectJDEE1DBAdaptorV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SOAErorInfoJMSQ"
+          location="SOAErorInfoJMSQ.wsdl" importType="wsdl"/>
   <service name="E002JDEE1toWebFuelbpel_client_ep"
            ui:wsdlLocation="E002JDEE1toWebFuelBPEL.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL#wsdl.interface(E002JDEE1toWebFuelBPEL)"/>
@@ -50,6 +52,10 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="SOAErorInfoJMSQ" ui:wsdlLocation="SOAErorInfoJMSQ.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SOAErorInfoJMSQ#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAErorInfoJMSQ_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E002JDEE1toWebFuelbpel_client_ep</source.uri>
     <target.uri>E002JDEE1toWebFuelBPEL/E002JDEE1toWebFuelbpel_client</target.uri>
@@ -61,5 +67,9 @@
   <wire>
     <source.uri>E002JDEE1toWebFuelBPEL/SelectJDEE1DBAdaptorV1</source.uri>
     <target.uri>SelectJDEE1DBAdaptorV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E002JDEE1toWebFuelBPEL/SOAErorInfoJMSQ</source.uri>
+    <target.uri>SOAErorInfoJMSQ</target.uri>
   </wire>
 </composite>

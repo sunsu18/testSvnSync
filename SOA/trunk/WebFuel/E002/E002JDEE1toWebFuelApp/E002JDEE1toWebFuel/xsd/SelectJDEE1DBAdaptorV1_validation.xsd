@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+            targetNamespace="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+            elementFormDefault="qualified">
+  <xsd:element name="F5542112Collection">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+            <xsd:element name="F5542112" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:sequence>
+                       <xsd:element name="tlkcoo"
+                                    nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tldoco" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tldcto" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tllnid" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tlpefj" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:int"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tllitm" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tldsc1" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tluorg" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tluprc" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:decimal"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tluom4" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tlcrcd" nillable="false">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[A-Za-z]*"/>
+                    <xsd:minLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+         <xsd:element name="tly55Intst" type="xsd:string"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

@@ -16,4 +16,7 @@
              ui:wsdlLocation="SelectJDEE1DBAdaptorV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SelectJDEE1DBAdaptorV1#wsdl.interface(SelectJDEE1DBAdaptorV1_ptt)"/>
   </reference>
+  <reference name="SOAErorInfoJMSQ" ui:wsdlLocation="SOAErorInfoJMSQ.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SOAErorInfoJMSQ#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

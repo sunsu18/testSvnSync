@@ -1,0 +1,51 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
+     targetNamespace="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
+     elementFormDefault="qualified">
+    <xsd:element name="ErrorInfo">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CommonErrorData" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="InstanceID" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="ComponentName" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="ProjectID" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="ProjectName" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Timestamp" type="xsd:dateTime" minOccurs="0"/>
+                            <xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Target" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="UserID" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="ErrorDetails" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ErrorCode" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="ErrorDescription" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="ErrorNotification" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="LookupCriteria" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Attachment" minOccurs="0"
+                                         maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="AttachmentName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MimeType" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Value"
+                                                     type="xsd:anyType" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
