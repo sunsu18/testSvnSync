@@ -32,3 +32,305 @@ h3 {
     background-color: #3DB7CE !important;
     font-size: 12px;
 }
+
+
+.topproducttext{
+font-family: Lucida Sans !important;
+font-size: 14px !important;
+color: #ff9f00 !important;
+font-weight: bold;
+font-style:normal;
+text-decoration: none !important;
+}
+
+.productnotext{
+font-family : SansSerif !important;
+font-size : 14px !important;
+color : #878686 !important;
+font-weight: normal;
+font-style:normal;
+text-decoration: none !important;
+}
+
+.productprice{
+font-family : SansSerif !important;
+font-size : 14px !important;
+color : #3a3839 !important;
+font-weight : bold;
+font-style:normal;
+text-decoration: none !important;
+}
+
+.portalbackground{
+background-color: rgb(252,252,252);
+}
+
+.paneltopbackground{
+background-color: #4a4748; /* Old browsers */
+background: -moz-linear-gradient(top,  #4a4748 59%, #312e2f 89%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(59%,#4a4748), color-stop(89%,#312e2f)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* IE10+ */
+background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
+}
+
+.panelbackground{
+background-color: white;
+}
+
+.buttonback
+{
+###USING IMAGE###
+background-image: url("button_back.png");
+
+OR
+
+###USING CSS3####
+border-color: #f2af00;
+background-color: #F2AD00;
+background-image: linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -o-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -moz-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -webkit-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -ms-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -webkit-gradient(
+ linear,
+ left bottom,
+ left top,
+ color-stop(0.7, #F2AD00),
+ color-stop(1, #EC9200)
+ );
+}
+
+.buttontext{
+font-family: "Georgia";
+font-weight: bold;
+font-size : 16px;
+color : #3f3c3d;
+text-shadow: 0px 1px 0px rgba(231, 231, 231, 1);
+font-style:normal;
+text-decoration:none;
+}
+
+.contentheader{
+font-family: SansSerif;
+font-size: 18px;
+color: #ff9f00;
+font-style:italic;
+font-weight:bold;
+}
+
+.contenttext{
+font-family: SansSerif;
+font-size: 16px;
+color: #524e4f;
+font-weight: normal;
+font-style:normal;
+}
+
+.links{
+font-family: SansSerif !important;
+font-size: 16px !important;
+color: #2181dc !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+font-style:italic !important;
+cursor: auto;
+}
+
+.greylinks{
+font-family: SansSerif;
+font-size: 16px;
+color: #524e4f !important;
+font-weight: bold;
+font-style:normal;
+text-decoration: none !important;
+cursor:auto;
+}
+
+.cardheader{
+font-family: SansSerif;
+font-size: 16px;
+color: #ff9f00;
+font-weight: bold;
+font-style: italic;
+}
+
+.headertext{
+font-family: SansSerif;
+font-size: 16px;
+color : #524e4f;
+font-weight: normal;
+font-style:normal;
+}
+
+.headertexthome{
+font-family: 'Lucida Sans';
+font-size: 15px;
+color: #ffffff;
+font-weight: bold;
+font-style:normal;
+}
+
+.categorytext{
+font-family: SansSerif;
+font-size : 14px;
+color : #524e4f;
+font-weight: bold;
+font-style:normal;
+}
+
+.portalbackground{
+background-color: rgb(252,252,252);
+}
+
+.paneltopbackground{
+background-color: #4a4748; /* Old browsers */
+background: -moz-linear-gradient(top,  #4a4748 59%, #312e2f 89%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(59%,#4a4748), color-stop(89%,#312e2f)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* IE10+ */
+background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
+}
+
+.panelbackground{
+background-color: white;
+}
+
+
+.buttonback
+{
+###USING IMAGE###
+background-image: url("button_back.png");
+
+OR
+
+###USING CSS3####
+border-color: #f2af00;
+background-color: #F2AD00;
+background-image: linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -o-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -moz-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -webkit-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -ms-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
+background-image: -webkit-gradient(
+ linear,
+ left bottom,
+ left top,
+ color-stop(0.7, #F2AD00),
+ color-stop(1, #EC9200)
+ );
+}
+
+.buttontext{
+font-family: "Georgia";
+font-weight: bold;
+font-size : 16px;
+color : #3f3c3d;
+text-shadow: 0px 1px 0px rgba(231, 231, 231, 1);
+font-style:normal;
+text-decoration:none;
+}
+
+.contentheader{
+font-family: SansSerif;
+font-size: 18px;
+color: #ff9f00;
+font-style:italic;
+font-weight:bold;
+}
+
+.contenttext{
+font-family: Lucida Sans;
+font-size: 14px;
+color: #524e4f;
+font-weight: normal;
+font-style:normal;
+line-height: 1.4;
+text-align: justify;
+}
+
+.links{
+font-family: Lucida Sans !important;
+font-size: 14px !important;
+color: #2181dc !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+font-style:italic !important;
+cursor: auto;
+}
+
+.greylinks{
+font-family: SansSerif;
+font-size: 13px;
+color: #524e4f !important;
+font-weight: normal;
+font-style:normal;
+text-decoration: none !important;
+cursor:auto;
+}
+
+.cardheader{
+font-family: SansSerif;
+font-size: 16px;
+color: #ff9f00;
+font-weight: bold;
+font-style: normal;
+}
+
+.headertext{
+font-family: SansSerif;
+font-size: 16px;
+color : #524e4f;
+font-weight: normal;
+font-style:normal;
+}
+
+.headertexthome{
+font-family: Lucida Sans;
+font-size: 14px;
+color: #ffffff;
+font-weight: bolder !important;
+font-style:normal;
+background-position:center top;
+padding-top:2px;
+}
+
+.categorytext{
+font-family: SansSerif;
+font-size : 14px;
+color : #524e4f;
+font-weight: bold;
+font-style:normal;
+}
+
+.topproducttext{
+font-family: Lucida Sans !important;
+font-size: 14px !important;
+color: #ff9f00 !important;
+font-weight: bold;
+font-style:normal;
+text-decoration: none !important;
+}
+
+.productnotext{
+font-family : SansSerif !important;
+font-size : 14px !important;
+color : #878686 !important;
+font-weight: normal;
+font-style:normal;
+text-decoration: none !important;
+}
+
+.productprice{
+font-family : SansSerif !important;
+font-size : 14px !important;
+color : #3a3839 !important;
+font-weight : bold;
+font-style:normal;
+text-decoration: none !important;
+}

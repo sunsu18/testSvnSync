@@ -16,7 +16,7 @@
      </skin>
      <skin>
           <id>sfrJet.desktop</id>
-          <family>sfrJet</family>
+          <family>sfrPetro</family>
           <extends>fusionFx-v1.desktop</extends>
           <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
           <style-sheet-name>skins/jet-portal-skin.css</style-sheet-name>

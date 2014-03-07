@@ -30,7 +30,8 @@
               <af:spacer binding="#{homeCarousalBean.testSpacer}"/>
               <af:panelGroupLayout id="pgl_01"
                                        layout="vertical"
-                                  inlineStyle="width:962px; height:830px; background-color:rgb(252,252,252);">
+                                  inlineStyle="width:962px; height:830px;"
+                                   styleClass="portalbackground">
                   <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
                     <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}.png"
                               shortDesc="engage banner" id="i1"/>             
@@ -51,7 +52,7 @@
                                     id="i8"/>
                           <af:spacer width="10" height="10" id="s4"/>
                           <af:outputText value="#{sfr.TOP_PRODUCTS}" id="ot1"
-                                         inlineStyle="color:White; font-family:SansSerif; font-weight:bold; font-size:16.0px;"/>
+                                         inlineStyle="color:White; font-family:'Lucida Sans'; font-weight:bold; font-size:14px;"/>
                     </af:panelGroupLayout>
 
  <af:panelGroupLayout id="pgl19"
@@ -120,8 +121,8 @@
                                halign="left">
                         <af:spacer width="250" height="1" id="s19"/>
                         <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
-                                     inlineStyle="font-family:SansSerif; font-size:15px; text-align:right; vertical-align:bottom; text-decoration:none; font-weight:bold; color:White; background-image:url(../images/Buttons/button_back.png;);"
-                                     destination="http://www.statoil.se/"
+                                     inlineStyle="font-family:SansSerif; font-size:13px; text-align:right; vertical-align:bottom; text-decoration:none; font-weight:bold; color:White; background-image:url(../images/Buttons/button_back.png;);"
+                                     destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
                                      targetFrame="_blank"/>
                         <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
@@ -140,16 +141,18 @@
                     </af:panelGroupLayout>
                 <af:spacer width="10" height="10" id="s13"/>
                 <af:panelGroupLayout id="pgl5" layout="vertical"
-                                         inlineStyle="height:200px;width:342px ; border: 1px solid  #979796;">
+                                         inlineStyle="height:200px;width:342px ; border: 1px solid  #979796;"
+                                     styleClass="panelbackground">
                   <af:panelGroupLayout id="pgl2" layout="horizontal"
-                                       inlineStyle="height:30px;width:342px; background-image:url(#{facesContext.externalContext.requestContextPath}/images/gradient.png);background-position:center top;background-repeat:repeat-x;padding-top:2px;">
+                                       inlineStyle="height:30px;width:342px;"
+                                       styleClass="paneltopbackground">
                     <af:spacer width="1.5" height="10" id="s15"/>
                     <af:panelGroupLayout id="pgl6" layout="horizontal">
                           <af:image source="/images/Banner_icons/sign_in.png"
                                     id="i9"/>
                           <af:spacer width="5" height="10" id="s5"/>
                           <af:outputText value="#{sfr.SIGN_IN}" id="ot6"
-                                         inlineStyle="color:White; font-family:SansSerif; font-weight:bold; font-size:16.0px;"/>
+                                         styleClass="headertexthome"/>
                         </af:panelGroupLayout>
                   </af:panelGroupLayout>
                   <af:panelGroupLayout id="pgl18" layout="horizontal">
@@ -157,18 +160,17 @@
                     <af:panelGroupLayout id="pgl_05" layout="vertical">
                           <af:spacer width="10" height="5" id="s22"/>
                           <af:outputText value="#{sfr.CARD_SERVICES_WHENEVER_YOU_WANT}"
-                                     inlineStyle="font-family:SansSerif; color:#f2af00; font-weight:bold; font-style:italic; font-size:18.0px;"
-                                     id="ot3"/>
+                                     id="ot3" styleClass="contentheader"/>
                       <af:spacer width="10" height="15" id="s11"/>
                       <af:outputText value="#{sfr.CLICK_THE_BELOW_LINK_TO_LOGIN }"
-                                     inlineStyle="font-family:SansSerif; color:#d4d4d4; font-weight:bold; font-size:15px;"
-                                     id="outputText2"/>
+                                     id="outputText2"
+                                     styleClass="contenttext"/>
                       <af:spacer width="10" height="5" id="spacer1"/>
                       <af:panelGroupLayout id="pgl8" layout="vertical"
                                            inlineStyle="width:327px; height:60.0px;">
                         <af:goButton text="#{sfr.LOG_IN}" id="gb2"
-                                     inlineStyle="font-family:SansSerif; font-size:35px; font-style:italic; text-align:left; vertical-align:top; text-decoration:none; width:327.0px; height:60px; background-image:url(../images/Buttons/login_back_1.png);"
-                                     destination="http://www.statoil.se/"
+                                     inlineStyle="font-family:'Lucida Sans'; font-size:30px; text-align:left; vertical-align:top; text-decoration:none; width:327px; height:60px; background-image:url(../images/Buttons/login_back_1.png); font-weight:bold; font-style:normal;"
+                                     destination="https://signin.statoilfuelretail.com/sfrCommon"
                                      targetFrame="_blank"/>
                         <!--
                       -->
@@ -196,11 +198,11 @@
                       <af:spacer width="10" height="10" id="spacer15"/>
                       <af:panelGroupLayout id="pgl9" layout="horizontal">
                         <af:outputText value="#{sfr.NEW_TO_CARD}"
-                                       inlineStyle="font-family:SansSerif; color:#979796; font-weight:normal; font-size:15px; font-style:normal;"
-                                       id="outputText5"/>
+                                       id="outputText5"
+                                       styleClass="contenttext"/>
                         <af:spacer width="110" height="10" id="s12"/>
                         <af:goLink text="#{sfr.REGISTER_HERE}" id="gl1"
-                                   inlineStyle="font-size:15.0px; font-weight:bold; font-style:italic; color:#2181dc; font-family:SansSerif; text-decoration:underline;"/>
+                                   styleClass="links"/>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
@@ -208,23 +210,25 @@
                   </af:panelGroupLayout>
               <af:spacer width="10" height="5" id="spacer10"/>
               <af:panelGroupLayout id="pgl_06" layout="vertical"
-                                   inlineStyle="width:962px; height:340.0px; border:1px solid #979796;">
+                                   inlineStyle="width:962px; height:340.0px; border:1px solid #979796;"
+                                   styleClass="panelbackground">
                    <af:panelGroupLayout id="pgl_07" layout="horizontal"
-                                        inlineStyle="height:30px;width:962px;background-image:url(#{facesContext.externalContext.requestContextPath}/images/gradient.png);background-position:center top;background-repeat:repeat-x;padding-top:2px;">
+                                        inlineStyle="height:30px;width:962px;"
+                                        styleClass="paneltopbackground">
                   <af:spacer width="1" height="10" id="spacer11"/>
                   <af:panelGroupLayout id="pgl7" layout="horizontal">
                         <af:image source="/images/Banner_icons/card_back.png"
                                   id="i10"/>
                         <af:spacer width="5" height="10" id="s6"/>
                         <af:outputText value="#{sfr.CARD_GROUPS}" id="ot5"
-                                       inlineStyle="color:White; font-family:SansSerif; font-weight:bold; font-size:16.0px;"/>
+                                       styleClass="headertexthome"/>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
                     <af:spacer width="1" height="5" id="s20"/>
                     <af:panelGroupLayout id="pgl10" layout="horizontal">
                   <af:spacer width="10" height="10" id="s17"/>
                   <af:outputText value="#{sfr.CARD_GROUPS_DESC}" id="ot4"
-                                     inlineStyle="font-family:SansSerif; font-size:18.0px; color:#4f4b4c;"/>
+                                 styleClass="headertext"/>
                 </af:panelGroupLayout>
                     <af:spacer width="10" height="5" id="s21"/>
                     <af:panelGroupLayout id="pgl_08" layout="horizontal"
@@ -241,25 +245,25 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText6"
                                        value="#{sfr.STATOIL_COMPANY_CARD}"
-                                       inlineStyle="font-family:SansSerif; font-size:16.0px; font-weight:bold; color:#f2af00;"/>
+                                       styleClass="cardheader"/>
                         <af:panelGroupLayout id="pgl15" layout="vertical"
                                              inlineStyle="width:280.0px;">
                           <af:spacer width="10" height="5" id="s9"/>
                           <af:outputText id="outputText10"
                                          value="#{sfr.STATOIL_COMPANY_CARD_DESC}"
-                                         inlineStyle="font-family:SansSerif; font-size:16px; color:#979796;"/>
+                                         styleClass="contenttext"/>
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="pgl16" layout="horizontal">
                           <af:commandImageLink id="gl2"
-                                               inlineStyle="color:#979796;font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline; color:#979796;"
                                                iconPosition="trailing"
                                                icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"/>
+                                               text="#{sfr.LEARN_MORE}"
+                                               styleClass="greylinks"/>
                           <af:spacer width="20" height="10" id="s10"/>
                           <af:commandImageLink text="#{sfr.APPLY_NOW}" id="goLink1"
-                                               inlineStyle="color:#979796; font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline;"
                                                iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"/>
+                                               icon="/images/Buttons/arrow_learn_more.png"
+                                               styleClass="greylinks"/>
                         </af:panelGroupLayout>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
@@ -275,28 +279,28 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText7"
                                        value="#{sfr.STATOIL_TRUCK_CARD}"
-                                       inlineStyle="font-family:SansSerif; font-size:16.0px; font-weight:bold; color:#f2af00;"/>
+                                       styleClass="cardheader"/>
                         <af:panelGroupLayout id="panelGroupLayout5"
                                              layout="vertical"
                                              inlineStyle="width:280px;">
                           <af:spacer width="10" height="5" id="spacer4"/>
                           <af:outputText id="outputText11"
                                          value="#{sfr.STATOIL_TRUCK_CARD_DESC}"
-                                         inlineStyle="font-family:SansSerif; font-size:16px; color:#979796;"/>
+                                         styleClass="contenttext"/>
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="panelGroupLayout6"
                                              layout="horizontal">
                           <af:commandImageLink id="commandImageLink1"
-                                               inlineStyle="font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline; color:#979796;"
                                                iconPosition="trailing"
                                                icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"/>
+                                               text="#{sfr.LEARN_MORE}"
+                                               styleClass="greylinks"/>
                           <af:spacer width="20" height="10" id="spacer5"/>
                           <af:commandImageLink text="#{sfr.APPLY_NOW}"
                                                id="commandImageLink2"
-                                               inlineStyle="color:#979796; font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline;"
                                                iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"/>
+                                               icon="/images/Buttons/arrow_learn_more.png"
+                                               styleClass="greylinks"/>
                         </af:panelGroupLayout>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
@@ -317,28 +321,28 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText8"
                                        value="#{sfr.STATOIL_EUROPE_CARD}"
-                                       inlineStyle="font-family:SansSerif; font-size:16.0px; font-weight:bold; color:#f2af00;"/>
+                                       styleClass="cardheader"/>
                         <af:panelGroupLayout id="panelGroupLayout7"
                                              layout="vertical"
                                              inlineStyle="width:280px;">
                           <af:spacer width="10" height="5" id="spacer6"/>
                           <af:outputText id="outputText12"
                                          value="#{sfr.STATOIL_EUROPE_CARD_DESC}"
-                                         inlineStyle="font-family:SansSerif; font-size:16px; color:#979796;"/>
+                                         styleClass="contenttext"/>
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="panelGroupLayout8"
                                              layout="horizontal">
                           <af:commandImageLink id="commandImageLink3"
-                                               inlineStyle="font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline; color:#979796;"
                                                iconPosition="trailing"
                                                icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"/>
+                                               text="#{sfr.LEARN_MORE}"
+                                               styleClass="greylinks"/>
                           <af:spacer width="20" height="10" id="spacer7"/>
                           <af:commandImageLink text="#{sfr.APPLY_NOW}"
                                                id="commandImageLink4"
-                                               inlineStyle="color:#979796; font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline;"
                                                iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"/>
+                                               icon="/images/Buttons/arrow_learn_more.png"
+                                               styleClass="greylinks"/>
                         </af:panelGroupLayout>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
@@ -354,28 +358,28 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText9"
                                        value="#{sfr.STATOIL_MASTER_CARD}"
-                                       inlineStyle="font-family:SansSerif; font-size:16.0px; font-weight:bold; color:#f2af00;"/>
+                                       styleClass="cardheader"/>
                         <af:panelGroupLayout id="panelGroupLayout9"
                                              layout="vertical"
                                              inlineStyle="width:280px;">
                           <af:spacer width="10" height="5" id="spacer8"/>
                           <af:outputText id="outputText13"
                                          value="#{sfr.STATOIL_MASTER_CARD_DESC}"
-                                         inlineStyle="font-family:SansSerif; font-size:16px; color:#979796;"/>
+                                         styleClass="contenttext"/>
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="panelGroupLayout10"
                                              layout="horizontal">
                           <af:commandImageLink id="commandImageLink5"
-                                               inlineStyle="font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline; color:#979796;"
                                                iconPosition="trailing"
                                                icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"/>
+                                               text="#{sfr.LEARN_MORE}"
+                                               styleClass="greylinks"/>
                           <af:spacer width="20" height="10" id="spacer9"/>
                           <af:commandImageLink text="#{sfr.APPLY_NOW}"
                                                id="commandImageLink6"
-                                               inlineStyle="color:#979796; font-family:SansSerif; font-size:14.0px; font-style:italic; font-weight:bold; text-decoration:underline;"
                                                iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"/>
+                                               icon="/images/Buttons/arrow_learn_more.png"
+                                               styleClass="greylinks"/>
                         </af:panelGroupLayout>
                       </af:panelGroupLayout>
                     </af:panelGroupLayout>
