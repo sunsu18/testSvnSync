@@ -36,7 +36,9 @@
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
          xmlns:ns7="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
          xmlns:ns8="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeWebFuelDBAdapterV1"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectJDEE1DBAdaptorV1">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
