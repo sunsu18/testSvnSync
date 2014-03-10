@@ -1,25 +1,25 @@
-Mar 7, 2014 5:32:20 PM oracle.mds
+Mar 10, 2014 1:10:18 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Mar 7, 2014 5:32:20 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Mar 10, 2014 1:10:18 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Mar 7, 2014 5:32:20 PM com.collaxa.cube.CubeLogger info
+Mar 10, 2014 1:10:18 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E002JDEE1toWebFuelBPEL.bpel" ...
-Mar 7, 2014 5:32:20 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Mar 10, 2014 1:10:18 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Mar 7, 2014 5:32:20 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Mar 10, 2014 1:10:18 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Mar 7, 2014 5:32:20 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E002JDEE1toWebFuelBPEL" in 35.1 milliseconds [nodes 25=1+24, 711.7 nodes/sec]
-Mar 7, 2014 5:32:21 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E002JDEE1toWebFuelBPEL" in 1.053 seconds
-Mar 7, 2014 5:32:21 PM com.collaxa.cube.CubeLogger info
+Mar 10, 2014 1:10:19 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E002JDEE1toWebFuelBPEL" in 48.6 milliseconds [nodes 24=1+23, 493.7 nodes/sec]
+Mar 10, 2014 1:10:20 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E002JDEE1toWebFuelBPEL" in 1.072 seconds
+Mar 10, 2014 1:10:20 PM com.collaxa.cube.CubeLogger info
 INFO: Gathered 5 files in 0.4 milliseconds
 
-Mar 7, 2014 5:32:21 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E002JDEE1toWebFuelBPEL" in 5.8 milliseconds
+Mar 10, 2014 1:10:20 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E002JDEE1toWebFuelBPEL" in 5.9 milliseconds
 

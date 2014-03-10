@@ -6,10 +6,10 @@
    <partnerlink_locations>
       <partnerlink name="E002JDEE1toWebFuelbpel_client" x="4" y="90" side="left"/>
       <partnerlink name="SOAErorInfoJMSQ" x="4" y="477" side="left"/>
-      <partnerlink name="MergeWebFuelDBAdapterV1" x="1226" y="1056" side="right"/>
+      <partnerlink name="MergeWebFuelDBAdapterV1" x="1226" y="967" side="right"/>
       <partnerlink name="SelectJDEE1DBAdaptorV1" x="1226" y="278" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="369,450,524,494" show_swimlanes="true">
+   <graph_layout viewport="382,450,524,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll/sequence" type="sequence"/>

@@ -214,6 +214,18 @@
                     query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
               </copy>
               <copy>
+                <from expression='"Validation error in source JDEE1 table crprdta.F5542112"'/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorSummary"/>
+              </copy>
+              <copy>
+                <from expression='"Validation error details for E002"'/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:Subject"/>
+              </copy>
+              <copy>
                 <from expression="ora:getComponentName()"/>
                 <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV"
                     part="body"
@@ -257,13 +269,13 @@
                     query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
               </copy>
               <copy>
-                <from expression='"BE-0201"'/>
+                <from expression='"BE-001"'/>
                 <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV"
                     part="body"
                     query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
               </copy>
               <copy>
-                <from expression='"E002-BE"'/>
+                <from expression='"E002_BE"'/>
                 <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV"
                     part="body"
                     query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
@@ -280,7 +292,6 @@
                     partnerLink="SOAErorInfoJMSQ"
                     portType="ns6:Produce_Message_ptt"
                     operation="Produce_Message" bpelx:invokeAsDetail="no"/>
-            <terminate name="TerminateFlow"/>
           </sequence>
         </catch>
       </faultHandlers>

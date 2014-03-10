@@ -9,5 +9,4 @@
       <property name="DestinationName" value="jms/SOA_ Common_ErrorHandler_Notification_ErrorQueue"/>
     </interaction-spec>
   </endpoint-interaction>
-
 </adapter-config>

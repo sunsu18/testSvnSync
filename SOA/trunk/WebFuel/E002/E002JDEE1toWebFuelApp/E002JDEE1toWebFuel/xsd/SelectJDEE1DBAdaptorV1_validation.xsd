@@ -42,7 +42,9 @@
               </xsd:element>
          <xsd:element name="tllitm" nillable="false">
                 <xsd:simpleType>
-                  <xsd:restriction base="xsd:string"/>
+                  <xsd:restriction base="xsd:integer">
+                   
+                  </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
          <xsd:element name="tldsc1" nillable="false">
