@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="accountsPageDef"
+                Package="oracle.webcenter.portalapp.engagepages.menus">
+  <parameters>
+    <parameter id="page_title" value="accounts"/>
+    <parameter id="page_info"
+               value="title=accounts;desc=;keywords=;createdBy=weblogic;createDate=2014-03-10T19:32:29;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-10T19:32:44;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx.jspx;excluded=false;style="/>
+  </parameters>
+  <executables>
+    <variableIterator id="variables"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

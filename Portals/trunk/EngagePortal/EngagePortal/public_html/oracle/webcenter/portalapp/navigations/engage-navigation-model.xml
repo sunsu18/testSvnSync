@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<navigationDefinition visible="${true}" id="engage-navigation-model"
+                      xmlns="http://xmlns.oracle.com/adf/rcs/catalog">
+  <contents xmlns="http://xmlns.oracle.com/adf/rcs/catalog">
+    <url visible="#{true}" id="card"
+         factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+         url="page://oracle/webcenter/portalapp/pages/home.jspx">
+      <attributes>
+        <attribute attributeId="Title" isKey="false" value="card"/>
+      </attributes>
+      <contents>
+        <url visible="#{true}" id="home"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/pages/home.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="home"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="accounts"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/accounts.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="accounts"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="transaction"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/transactions.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="transaction"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="cardservices"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="cardservices"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="pricing"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/pricing.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="pricing"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="setup"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/setup.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="setup"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="webassist"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/webassist.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="webassist"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="support"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/support.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="support"/>
+          </attributes>
+        </url>
+        <url visible="#{true}" id="admintool"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             url="page://oracle/webcenter/portalapp/engagepages/menus/admintool.jspx">
+          <attributes>
+            <attribute attributeId="Title" isKey="false" value="admintool"/>
+          </attributes>
+        </url>
+      </contents>
+    </url>
+  </contents>
+  <schema resourceBundle="oracle.adf.rc.attribute.nls.AttributeBundle"
+          xmlns="http://xmlns.oracle.com/adf/rcs/catalog">
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="TITLE.PROMPT_KEY"
+                shortLabelKey="TITLE.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Title"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="ACCESS_KEY.PROMPT_KEY"
+                shortLabelKey="ACCESS_KEY.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="AccessKey"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="DESCRIPTION.PROMPT_KEY"
+                shortLabelKey="DESCRIPTION.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Description"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="ICON_URI.PROMPT_KEY"
+                shortLabelKey="ICON_URI.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="IconURI"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="true" endUserVisible="true"
+                labelKey="SUBJECT.PROMPT_KEY"
+                shortLabelKey="SUBJECT.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Subject"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="REDIRECT_FLAG.PROMPT_KEY"
+                shortLabelKey="REDIRECT_FLAG.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Redirect"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="TARGET_FRAME.PROMPT_KEY"
+                shortLabelKey="TARGET_FRAME.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Target"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="TOOL_TIP.PROMPT_KEY"
+                shortLabelKey="TOOL_TIP.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="ToolTip"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="MODIFIED.PROMPT_KEY"
+                shortLabelKey="MODIFIED.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Modified"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="CHANGE_FREQUENCY.PROMPT_KEY"
+                shortLabelKey="CHANGE_FREQUENCY.SHORT_PROMPT_KEY"
+                searchable="true" attributeId="ChangeFrequency"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor multivalue="false" endUserVisible="true"
+                labelKey="SIGNIFICANCE.PROMPT_KEY"
+                shortLabelKey="SIGNIFICANCE.SHORT_PROMPT_KEY" searchable="true"
+                attributeId="Significance"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+    <descriptor labelKey="EXTERNAL_ID"
+                resourceBundle="oracle.webcenter.navigationeditor.view.resource.NavigationEditorBundle"
+                attributeId="ExternalId" searchable="true" endUserVisible="true"
+                multivalue="false" shortLabelKey="EXTERNAL_ID"
+                xmlns="http://xmlns.oracle.com/adf/rcs/catalog"/>
+  </schema>
+</navigationDefinition>

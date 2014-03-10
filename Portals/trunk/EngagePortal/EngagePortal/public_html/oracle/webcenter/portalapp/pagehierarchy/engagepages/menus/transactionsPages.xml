@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd"
+          parent="/oracle/webcenter/portalapp/pagehierarchy/pages.xml">
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/transactions/transactions.jspx"
+           hidden="false" shared="false" hasSubPages="false" id="transactions"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx"
+           hidden="false" shared="false" hasSubPages="false"
+           id="invoiceoverview"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/transactions/aroverview.jspx"
+           hidden="false" shared="false" hasSubPages="false" id="aroverview"/>
+</pagesDef>

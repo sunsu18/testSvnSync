@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="transactionsPageDef"
+                Package="oracle.webcenter.portalapp.engagepages.menus">
+  <parameters>
+    <parameter id="page_title"/>
+    <parameter id="page_info"
+               value="title=;desc=;keywords=;createdBy=weblogic;createDate=2014-03-10T19:32:30;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-10T19:32:30;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx.jspx;excluded=false;style="/>
+  </parameters>
+  <executables>
+    <variableIterator id="variables"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

@@ -4,4 +4,20 @@
           xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
   <pageDef contentMRef="/oracle/webcenter/portalapp/pages/home.jspx"
            hidden="false" shared="false" hasSubPages="false" id="home"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="accounts"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="transactions"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="cardservices"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/pricing.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="pricing"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/setup.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="setup"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/support.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="support"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/webassist.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="webassist"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/admintool.jspx"
+           hidden="false" shared="false" hasSubPages="true" id="admintool"/>
 </pagesDef>

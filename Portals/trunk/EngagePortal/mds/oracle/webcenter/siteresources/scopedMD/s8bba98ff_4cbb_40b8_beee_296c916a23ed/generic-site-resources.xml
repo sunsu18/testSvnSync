@@ -204,6 +204,27 @@
             <customAttribute name="skinExtends" seeded="true" value="fusionFx-v1.desktop" visible="ALWAYS"/>
          </customAttributes>
       </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-10T19:50:12.445+05:30" description="" displayName="card-portal-skin" guid="gsr60e31321_131a_4b39_aa7e_7752cc81d505" metadataFile="/oracle/webcenter/portalapp/skins/card-portal-skin.css" modifiedBy="system" modifiedDate="2014-03-10T19:50:12.445+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="sfrCard.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="sfrCard" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-10T19:50:57.288+05:30" description="" displayName="jet-portal-skin" guid="gsrcf38dfdd_64b1_4452_a2ec_e263a2a99828" metadataFile="/oracle/webcenter/portalapp/skins/jet-portal-skin.css" modifiedBy="system" modifiedDate="2014-03-10T19:50:57.288+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="sfrJet.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="sfrJet" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-10T19:51:33.589+05:30" description="" displayName="petro-portal-skin" guid="gsr523cd010_3d6f_40cb_9be5_f08b292667fd" metadataFile="/oracle/webcenter/portalapp/skins/petro-portal-skin.css" modifiedBy="system" modifiedDate="2014-03-10T19:51:33.589+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="sfrPetro.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="sfrPetro" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
    </resourceType>
    <resourceType name="taskFlowStyle" resourceBundle="">
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:58:09.285-08:00" description="Blank" displayName="Blank" guid="gsr0b090761_f3d7_44d0_abc2_365b210f6a7a" iconURI="/oracle/webcenter/portalapp/shared/taskFlowStyle_blank.png" jspx="/oracle/webcenter/datacomposer/mashupstyles/blank.jsff" metadataFile="/oracle/webcenter/datacomposer/mashupstyles/blank-definition.xml" modifiedBy="system" modifiedDate="2011-02-08T15:58:09.285-08:00" pageDef="/oracle/webcenter/datacomposer/mashupstyles/blankPageDef.xml" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">

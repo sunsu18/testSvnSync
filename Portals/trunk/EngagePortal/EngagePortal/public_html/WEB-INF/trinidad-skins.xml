@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<skins xmlns="http://myfaces.apache.org/trinidad/skin">
+     <skin>
+          <id>sfrCard.desktop</id>
+          <family>sfrCard</family>
+          <extends>fusionFx-v1.desktop</extends>
+          <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+          <style-sheet-name>skins/card-portal-skin.css</style-sheet-name>
+     </skin>
+     <skin>
+          <id>sfrJet.desktop</id>
+          <family>sfrJet</family>
+          <extends>fusionFx-v1.desktop</extends>
+          <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+          <style-sheet-name>skins/jet-portal-skin.css</style-sheet-name>
+     </skin>
+     <skin>
+          <id>sfrPetro.desktop</id>
+          <family>sfrPetro</family>
+          <extends>fusionFx-v1.desktop</extends>
+          <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+          <style-sheet-name>skins/jet-portal-skin.css</style-sheet-name>
+     </skin>
+</skins>
