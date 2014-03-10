@@ -371,8 +371,8 @@
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="EngagePortal-EngagePortal-webapp"/>
-      <value n="j2eeWebContextRoot" v="EngagePortal-EngagePortal-context-root"/>
+      <value n="j2eeWebAppName" v="CustomerPortal"/>
+      <value n="j2eeWebContextRoot" v="CustomerPortal"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
             <string v="-WEB-INF/WSRP_v2_Service-java-wsdl-mapping.xml"/>
@@ -724,6 +724,22 @@
             <value n="id" v="Oracle JEWT"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="EngageCore.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EngageServices.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EngageUtility.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Library"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -733,6 +749,42 @@
                </list>
                <value n="description" v="Library1"/>
                <value n="id" v="Library1"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/jar/EngageCore.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="EngageCore.jar"/>
+               <value n="id" v="EngageCore.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/jar/EngageServices.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="EngageServices.jar"/>
+               <value n="id" v="EngageServices.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/jar/EngageUtility.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="EngageUtility.jar"/>
+               <value n="id" v="EngageUtility.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/adfJAR/EngageModel.jar" jar-entry=""/>
+                  <url path="../../libraries/adfJAR/EngageUI.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="ADF Library"/>
+               <value n="id" v="ADF Library"/>
             </hash>
          </list>
       </hash>
@@ -1055,6 +1107,22 @@
          </hash>
          <hash>
             <value n="id" v="Oracle JEWT"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EngageCore.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EngageServices.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="EngageUtility.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Library"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
