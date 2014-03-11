@@ -82,4 +82,20 @@ public class ProductsDisplayRVOImpl extends ViewObjectImpl {
         long value = super.getQueryHitCount(viewRowSet);
         return value;
     }
+
+    /**
+     * Returns the bind variable value for catalogType.
+     * @return bind variable value for catalogType
+     */
+    public String getcatalogType() {
+        return (String)getNamedWhereClauseParam("catalogType");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable catalogType.
+     * @param value value to bind as catalogType
+     */
+    public void setcatalogType(String value) {
+        setNamedWhereClauseParam("catalogType", value);
+    }
 }

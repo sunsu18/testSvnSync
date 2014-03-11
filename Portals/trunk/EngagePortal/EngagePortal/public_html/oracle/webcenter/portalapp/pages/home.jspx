@@ -27,17 +27,15 @@
           <f:facet name="content">
             <pe:pageCustomizable id="hm_pgc1">
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
-              <!--<af:spacer binding="#{homeCarousalBean.testSpacer}"/>-->
+              <af:spacer binding="#{homeCarousalBean.testSpacer}" id="s23"/>
               <af:panelGroupLayout id="pgl_01"
                                        layout="vertical"
                                   inlineStyle="width:962px; height:830px;"
                                    styleClass="portalbackground">
+                                
                   <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
                     <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}.png"
-                              shortDesc="engage banner" id="i1"/>             
-                  
-
-                    
+                              id="i1"/>
                   </af:panelGroupLayout>
                   <af:spacer id="sp01" width="10" height="5"/>
                    <af:panelGroupLayout id="pgl_03" layout="horizontal" inlineStyle="width:962px; height:200px;">
@@ -169,7 +167,7 @@
                       <af:panelGroupLayout id="pgl8" layout="vertical"
                                            inlineStyle="width:327px; height:60.0px;">
                         <af:goButton text="#{sfr.LOG_IN}" id="gb2"
-                                     inlineStyle="font-family:'Lucida Sans'; font-size:30px; text-align:left; vertical-align:top; text-decoration:none; width:327px; height:60px; background-image:url(../images/Buttons/login_back_1.png); font-weight:bold; font-style:normal;"
+                                     inlineStyle="font-family:'Lucida Sans'; font-size:30px; text-align:left; vertical-align:top; text-decoration:none; width:300px; height:60px; font-weight:bold; font-style:normal; background-image:url(../images/Buttons/login_back.png;);"
                                      destination="https://signin.statoilfuelretail.com/sfrCommon"
                                      targetFrame="_blank"/>
                         <!--

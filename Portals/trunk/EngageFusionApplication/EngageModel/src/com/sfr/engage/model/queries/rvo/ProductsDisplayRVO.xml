@@ -31,6 +31,10 @@
     Name="customerType"
     Kind="where"
     Type="java.lang.String"/>
+  <Variable
+    Name="catalogType"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[SELECT distinct    
     TRIM(plim.ITM_NUM) ItemNo, 

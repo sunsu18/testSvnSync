@@ -38,13 +38,13 @@ public class EngageResourceBundle extends ListResourceBundle{
         /**
              * This variable holds all keys and values of UI component text resource for localization.
              */
-        private Object contents [][]={{"TOP_PRODUCTS",""},{"SIGN_IN",""},{"CARD_PORTAL",""},
+        private Object contents [][]={{"TOP_PRODUCTS_ENGAGE",""},{"SIGN_IN",""},{"CARD_PORTAL",""},
                                       {"CARD_SERVICES_WHENEVER_YOU_WANT",""},{"CLICK_THE_BELOW_LINK_TO_LOGIN",""},
                                       {"NEW_TO_CARD",""},{"REGISTER_HERE",""},{"CARD_GROUPS",""},{"CARD_GROUPS_DESC",""},
                                       {"STATOIL_COMPANY_CARD",""},{"STATOIL_COMPANY_CARD_DESC",""},{"LEARN_MORE",""},
                                       {"APPLY_NOW",""},{"STATOIL_TRUCK_CARD_DESC",""},{"STATOIL_TRUCK_CARD",""},{"LOG_IN",""},
                                       {"STATOIL_EUROPE_CARD_DESC",""},{"STATOIL_EUROPE_CARD",""},{"STATOIL_MASTER_CARD",""},
-                                      {"STATOIL_MASTER_CARD_DESC",""}};
+                                      {"STATOIL_MASTER_CARD_DESC",""},{"LOGIN_IN_ENGAGE",""},{"VIEW_CATALOG",""}};
                
 
             /**
