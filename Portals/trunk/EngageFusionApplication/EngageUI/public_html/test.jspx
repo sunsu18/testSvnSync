@@ -7,7 +7,8 @@
   <f:view>
     <af:document id="d1">
       <af:form id="f1">
-        <af:commandButton text="commandButton 1" id="cb1"/>
+        <af:region value="#{bindings.VehicleInfoTaskFlow1.regionModel}"
+                   id="r1"/>        
       </af:form>
     </af:document>
   </f:view>
