@@ -3,12 +3,20 @@
 background-color: rgb(252,252,252);
 }
 
-
-/*Inside Panel Background*/
-/*.font{*/
-/*font-family : Lucida Sans,Georgia,Serif !important;*/
-/*font-size: 14px;*/
+.logintext{
+   background: url("/images/Buttons/login_back.png") !important;
+   font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:30px !important; 
+   text-align:left; 
+   vertical-align:top;
+   text-decoration:none; 
+   width:327px; 
+   height:60px; 
+   font-weight:bold !important; 
+   font-style:normal;
+   color: #656364 !important;
 }
+
 
 /*Inside Panel Background*/
 .panelbackground{
@@ -51,35 +59,34 @@ font-style:normal;
 
 
 
-/*Button Background -- Developers to modify the classname depending on the components*/
+/*Button Background*/
 .buttonback
 {
-border-color: #f2af00;
-background-color: #F2AD00;
-background-image: linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-background-image: -o-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-background-image: -moz-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-background-image: -webkit-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-background-image: -ms-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-background-image: -webkit-gradient(
- linear,
- left bottom,
- left top,
- color-stop(0.7, #F2AD00),
- color-stop(1, #EC9200)
- );
+background: #f2ad00 !important; /* Old browsers */
+background: -moz-linear-gradient(top,  #f2ad00 0%, #f9c300 100%) !important; /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2ad00), color-stop(100%,#f9c300)) !important; /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* IE10+ */
+background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%) !important; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 ) !important; /* IE6-9 */
+
+
 }
 
 
-/*Button Text -- Developers to modify the classname depending on the components*/
+/*Button Text */
 .buttontext{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
-font-weight: bold;
-color : #3f3c3d;
-text-shadow: 0px 1px 0px rgba(231, 231, 231, 1);
-font-style:normal;
-text-decoration:none;
+font-size: 14px !important;
+font-weight: bold !important;
+color : #ffffff !important;
+text-align:right !important; 
+vertical-align:bottom !important; 
+text-decoration:none !important;
+/*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
+font-style:normal !important;
+text-decoration:none !important;
 }
 
 /*Portal Text*/
@@ -138,7 +145,7 @@ font-weight:bold;
 /*Links*/
 .links{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 12px;
+font-size: 14px;
 color: #2181dc !important;
 font-weight: normal !important;
 text-decoration: underline !important;
@@ -147,23 +154,11 @@ cursor: auto;
 }
 
 
-.af_commandImageLink_text{
-   color: #524e4f !important;
-}
-
-
-.af_commandButton:hover, .af_resetButton:hover, .af_goButton:hover, .af_dialog_footer-button:hover, .af_query_button:hover, .AFNoteWindowAllButton:hover, .af_commandButton:focus:hover, .af_resetButton:focus:hover, .af_goButton:focus:hover, .af_dialog_footer-button:focus:hover, .af_query_button:focus:hover, .AFNoteWindowAllButton:focus:hover, .af_trainButtonBar_back-button:hover, .af_trainButtonBar_next-button:hover{
-    background-color: #ffffff !important;
-    /*background-image: none;*/
-   
-}
-
-
 .greylinks{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 12px;
+font-size: 12px !important;
 color: #524e4f !important;
-font-weight: bold;
+font-weight: bold ;
 font-style:normal;
 text-decoration: none !important;
 cursor:auto;
@@ -200,10 +195,29 @@ font-weight:bold;
 
 
 
+
+/*Component Based Styling*/
+
+.af_goButton:hover,.af_goButton:active,.af_goButton{
+    border-width: 0px;
+    border-style: none !important;
+    border-top-color:transparent !important;
+    border-right-color:transparent !important;
+    border-bottom-color: transparent !important;
+    border-left-color:transparent !important;
+   
+}   
+
+.af_commandImageLink_text, .af_goImageLink_text{
+    color:#524e4f !important;
+}
+
+
+
 /*SPRITE CSS*/
 
 .sign_in, .card_back, .oil1, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey{
-	background: url(sprites.png) no-repeat;
+	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .sign_in{
