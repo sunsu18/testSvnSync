@@ -2,34 +2,38 @@
 <Application xmlns="http://xmlns.oracle.com/adfm/application"
              version="11.1.1.61.92" id="DataBindings" SeparateXMLFiles="false"
              Package="com.sfr.engage.view" ClientType="Generic">
+
   <definitionFactories>
-    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
-             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding" className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
     <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
   </definitionFactories>
+
+
   <pageMap>
-    <page path="/WEB-INF/com/sfr/engage/cardtaskflow/Card.jsff"
-          usageId="com_sfr_engage_view_CardPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/cardtaskflow/Card.jsff" usageId="com_sfr_engage_view_CardPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/pricelist.jsff" usageId="com_sfr_engage_view_pricelistPageDef"/>
+    <page path="/test.jspx" usageId="com_sfr_engage_view_testPageDef"/>
+
     <page path="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfo.jsff"
           usageId="com_sfr_engage_view_VehicleInfoPageDef"/>
-    <page path="/test.jspx" usageId="com_sfr_engage_view_testPageDef"/>
+
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
           path="com.sfr.engage.cardtaskflow.CardPageDef"/>
+
+    <page id="com_sfr_engage_view_pricelistPageDef" path="com.sfr.engage.pricelisttaskflow.pricelistPageDef"/>
+    <page id="com_sfr_engage_view_testPageDef" path="com.sfr.engage.view.pageDefs.testPageDef"/>
+
     <page id="com_sfr_engage_view_VehicleInfoPageDef"
           path="com.sfr.engage.vehicleinfotaskflow.VehicleInfoPageDef"/>
-    <page id="com_sfr_engage_view_testPageDef"
-          path="com.sfr.engage.view.pageDefs.testPageDef"/>
+
   </pageDefinitionUsages>
+
   <dataControlUsages>
-    <BC4JDataControl id="EngageAppModuleDataControl"
-                     Package="com.sfr.engage.model.module"
-                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
-                     SupportsTransactions="true" SupportsFindMode="true"
-                     SupportsRangesize="true" SupportsResetState="true"
-                     SupportsSortCollection="true"
-                     Configuration="EngageAppModuleLocal" syncMode="Immediate"
-                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+    <BC4JDataControl id="EngageAppModuleDataControl" Package="com.sfr.engage.model.module" FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true" SupportsSortCollection="true"
+                     Configuration="EngageAppModuleLocal" syncMode="Immediate" xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
   </dataControlUsages>
+
 </Application>

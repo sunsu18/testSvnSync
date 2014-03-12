@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="pricelistPageDef" Package="com.sfr.engage.pricelisttaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PriceListRVO1" RangeSize="25" DataControl="EngageAppModuleDataControl" id="PriceListRVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PriceListRVO1Iterator" id="PriceListRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PriceListRVO" Name="PriceListRVO10">
+        <AttrNames>
+          <Item Value="DescLine1"/>
+          <Item Value="UnitPrice"/>
+          <Item Value="PricingUom"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PriceListRVO1Iterator" id="ModifiedDate">
+      <AttrNames>
+        <Item Value="ModifiedDate"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

@@ -18,10 +18,16 @@
   <ViewUsage
     Name="ProductsDisplayRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO"/>
+
+  <ViewUsage
+    Name="PriceListRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PriceListRVO"/>
+
   <ViewUsage
     Name="PrtTruckInformationVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
   <ViewUsage
     Name="PrtTruckInformationVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
+
 </AppModule>

@@ -36,6 +36,16 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
         return (ProductsDisplayRVOImpl)findViewObject("ProductsDisplayRVO1");
     }
 
+
+    /**
+     * Container's getter for PriceListRVO1.
+     * @return PriceListRVO1
+     */
+    public ViewObjectImpl getPriceListRVO1() {
+        return (ViewObjectImpl)findViewObject("PriceListRVO1");
+    }
+
+
     /**
      * Container's getter for PrtTruckInformationVO1.
      * @return PrtTruckInformationVO1
@@ -51,4 +61,5 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
     public PrtTruckInformationVOImpl getPrtTruckInformationVO2() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO2");
     }
+
 }
