@@ -1,17 +1,11 @@
-<?xml version="1.0" encoding="windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd"
-          parent="/oracle/webcenter/portalapp/pagehierarchy/pages.xml">
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx"
-           hidden="false" shared="false" hasSubPages="false"
+          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx" hidden="false" shared="false" hasSubPages="false"
            id="accountsummary"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/company.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="company"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="driverinfo"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/messages.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="messages"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="vehicleinfo"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/company.jspx" hidden="false" shared="false" hasSubPages="false" id="company"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx" hidden="false" shared="false" hasSubPages="false" id="driverinfo"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/messages.jspx" hidden="false" shared="false" hasSubPages="false" id="messages"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx" hidden="false" shared="false" hasSubPages="false" id="vehicleinfo"/>
 </pagesDef>

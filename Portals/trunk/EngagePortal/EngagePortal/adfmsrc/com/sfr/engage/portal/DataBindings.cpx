@@ -81,6 +81,10 @@
           usageId="com_sfr_engage_portal_transactionsPageDef1"/>
     <page path="/oracle/webcenter/portalapp/engagepages/webassist/customerview.jspx"
           usageId="com_sfr_engage_portal_customerviewPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/Temp.jspx" usageId="com_sfr_engage_portal_TempPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/PriceSample.jspx" usageId="com_sfr_engage_portal_PriceSamplePageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/PriceList_new.jspx" usageId="com_sfr_engage_portal_untitled1PageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/untitled1.jspx" usageId="com_sfr_engage_portal_untitled1PageDef1"/>
   </pageMap>
   <definitionFactories>
     <factory nameSpace="http://xmlns.oracle.com/portlet/bindings"
@@ -167,6 +171,10 @@
           path="oracle.webcenter.portalapp.engagepages.transactions.transactionsPageDef"/>
     <page id="com_sfr_engage_portal_customerviewPageDef"
           path="oracle.webcenter.portalapp.engagepages.webassist.customerviewPageDef"/>
+    <page id="com_sfr_engage_portal_TempPageDef" path="oracle.webcenter.portalapp.pages.TempPageDef"/>
+    <page id="com_sfr_engage_portal_PriceSamplePageDef" path="oracle.webcenter.portalapp.pages.PriceSamplePageDef"/>
+    <page id="com_sfr_engage_portal_untitled1PageDef" path="oracle.webcenter.portalapp.pages.untitled1PageDef"/>
+    <page id="com_sfr_engage_portal_untitled1PageDef1" path="oracle.webcenter.portalapp.pages.untitled1PageDef1"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="EngageAppModuleDataControl"

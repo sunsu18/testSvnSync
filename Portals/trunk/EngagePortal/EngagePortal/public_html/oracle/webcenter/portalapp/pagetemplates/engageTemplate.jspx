@@ -1,16 +1,244 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:pe="http://xmlns.oracle.com/adf/pageeditor" xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <!--<f:loadBundle basename="com.sfr.model.resource.OrderResourceBundle" var="sfr"/>-->
+  <!--<af:resource type="javascript" source="/js/modalPopup.js"/>-->
+  <c:set var="contextRoot" value="${facesContext.externalContext.requestContextPath}" scope="session"/>
   <af:pageTemplateDef var="attrs">
+    <af:panelGroupLayout id="pt_pgl11" layout="scroll" inlineStyle="height:auto;overflow-x:hidden;">
+      <af:panelGroupLayout id="pt_pgl4" layout="horizontal" styleClass="marginIE AFStretchWidth headerBGColor">
+        <!-- to get common scroll for Portal And ADF -->
+        <!--<af:outputText value="&lt;link rel='SHORTCUT ICON' href='#{facesContext.externalContext.requestContextPath}/fav.ico'/>" id="favicon" escape="false"/>-->
+        <af:panelGroupLayout id="pgl02" layout="horizontal" valign="top" halign="center">
+          <af:panelGroupLayout id="pt_root" layout="vertical" inlineStyle="width:962px; " halign="center" valign="middle">
+            <!-- centered vertical stack: banner, navbar, content, footer -->
+            <af:panelGroupLayout id="pt_pgl2" layout="vertical" inlineStyle="width:#{attrs.contentWidth};margin: 0px auto;" halign="start">
+              <af:panelBorderLayout id="pt_lc1" rendered="#{!composerContext.inEditMode or attrs.isEditingTemplate}" inlineStyle="margin-bottom:0px;">
+                <af:panelGroupLayout layout="vertical" id="pt_pgl1">
+                  <!--<af:panelGroupLayout id="panelout431" layout="horizontal" styleClass="marginIEHeader">
+                    <af:panelGroupLayout id="pgl9872" layout="vertical" halign="left" inlineStyle="width:450.0px;">
+                      <af:panelGroupLayout id="pgl8443" layout="horizontal" halign="left">
+                        <af:image source="/images/Satellite.png" id="pt_i1" inlineStyle="margin-left:2px; margin-top:15px; text-align:left; width:127.0px;"/>
+                      </af:panelGroupLayout>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl5444" layout="vertical" inlineStyle="width:500px; height:30.0px;" halign="right">
+                      -->
+                  <!--<af:panelGroupLayout id="panelout5"
+                                           layout="horizontal" valign="middle">
+                        -->
+                  <!--
+                      -->
+                  <!--<af:selectOneChoice label="Change Language:"
+                                            id="pt_soc1"
+                                            contentStyle="width:100px;">
+                          <af:selectItem label="English" value="English"
+                                         id="pt_si2"/>
+                          <af:selectItem label="Swedish" value="Swedish"
+                                         id="pt_si1"/>
+                        </af:selectOneChoice>-->
+                  <!--
+                      -->
+                  <!--
+                        <af:spacer width="20" height="10" id="pt_s4"/>
+                        <af:image source="/images/sfrsmall_logo.png" id="pt_i2"
+                                  inlineStyle=" margin-right: 2px; margin-top: -2px; "/>
+                        <af:goLink text="About Statoil" id="cl18"
+                                   destination="http://www.statoil.com"
+                                   targetFrame="_blank"
+                                   styleClass="headerAbtStatoil"/>
+                      </af:panelGroupLayout>-->
+                  <!--
+                    </af:panelGroupLayout>
+                  </af:panelGroupLayout>-->
+                  <af:spacer width="10" height="0" id="pt_s1"/>
+                  <pe:layoutCustomizable id="pt_lc2" type="twoColumnTop" showIcon="false" shortDesc="Header">
+                    <f:facet name="contentA">
+                      <!-- (2)-1 logo (Custom Text, Tag Line) -->
+                    </f:facet>
+                    <!-- (2)-2 global links (Welcome Message, Administration Link, Login/Logout -->
+                    <!-- (3) navbar (Home node, Page Hierarchy Nodes, Sub-level Nodes etc -->
+                    <cust:panelCustomizable id="pt_pc4" rendered="#{attrs.showNavigation and !attrs.isEditingTemplate}" inlineStyle="margin-top:20px;">
+                      <af:panelGroupLayout id="pt_pgl3" layout="horizontal" inlineStyle="height:20px;">
+                        <af:spacer id="pt_sp3" width="10"/>
+                        <!-- iterate over navigation items -->
+                        <!-- padding on top will increase the size of the header -->
+                        <div id="top-wrapper">
+                          <div id="topbar">
+                            <!-- JMB Start Nav -->
+                            <ul id="top">
+                              <c:set var="navNodes" value="${navigationContext.defaultNavigationModel.listModel['startNode=/card, includeStartNode=false']}"
+                                     scope="session"/>
+                               
+                              <c:forEach var="menu" varStatus="vs" items="${navNodes}">
+                                <li>
+                                  <a class="${(not empty menu.children)?'arrow':''}" onclick="${(not empty menu.children)?'return false':'return true'}"
+                                     href="${contextRoot}${menu.goLinkPrettyUrl}">
+                                    ${menu.title}</a>
+                                  <c:if test="${not empty menu.children}">
+                                    <ul>
+                                      <c:forEach var="child" items="#{menu.children}">
+                                        <li>
+                                          <a href="${contextRoot}${child.goLinkPrettyUrl}">
+                                            ${child.title}</a>
+                                        </li>
+                                      </c:forEach>
+                                    </ul>
+                                  </c:if>
+                                </li>
+                              </c:forEach>
+                               
+                              <af:commandToolbarButton id="commandToolbarButton1"
+                                                       inlineStyle=" background-color: rgb(44,42,43); background-image: none;border-style: none;color: #FFFFFF;font-size: 12px;margin-left: -188px;margin-top: -6px;padding: 5px 10px 4px 12px;"
+                                                       actionDelivery="none" text="Welcome" rendered="#{!securityContext.authenticated}">
+                                <!--<f:facet name="popup">
+                                  <af:menu id="m122"
+                                           inlineStyle="background-color:Black; background-image:none;">
+                                    <af:goMenuItem text="#{sfr.SIGN_IN}"
+                                                   id="pt_gmi2"
+                                                   destination="#{navigationContext.currentNavigationModel.node['header/signin'].goLinkPrettyUrl}"/>
+                                    <af:goMenuItem text="#{sfr.REGISTER}"
+                                                   id="pt_gmi1"
+                                                   destination="#{navigationContext.currentNavigationModel.node['header/register'].goLinkPrettyUrl}"
+                                                   rendered="#{!securityContext.authenticated}"/>
+                                  </af:menu>
+                                </f:facet>-->
+                              </af:commandToolbarButton>
+                               
+                              <af:commandToolbarButton id="pt_ctb1" rendered="#{securityContext.authenticated}"
+                                                       inlineStyle=" background-color: rgb(44,42,43); background-image: none;border-style: none;color: #FFFFFF;font-size: 12px;margin-left: -188px;margin-top: -6px;padding: 5px 10px 4px 12px;"
+                                                       actionDelivery="none" text="Welcome #{LoginBean.firstName}">
+                                <f:facet name="popup">
+                                  <af:menu id="pt_m1" inlineStyle="background-color:Black; background-image:none;">
+                                    <af:goMenuItem text="My Profile" rendered="#{securityContext.authenticated}" id="pt_gmi4"
+                                                   destination="#{navigationContext.currentNavigationModel.node['Profile'].goLinkPrettyUrl}"/>
+                                    <!--<af:goMenuItem text="#{sfr.CUSTOMER_INFORMATION}"
+                                                   rendered="#{MenuVisibleHelperBean.visibleCustomerInformation}"
+                                                   id="pt_gmi5"
+                                                   destination="#{navigationContext.currentNavigationModel.node['header/customerinfo'].goLinkPrettyUrl}"/>-->
+                                    <!--<af:goMenuItem text="#{sfr.CHANGE_ASSOCIATION}"
+                                                   rendered="#{MenuVisibleHelperBean.selectCustomerVisible}"
+                                                   id="pt_gmi3"
+                                                   destination="#{navigationContext.currentNavigationModel.node['header/changeAssociation'].goLinkPrettyUrl}"/>-->
+                                    <af:goMenuItem text="Administration" id="pt_gmi6" rendered="#{WCSecurityContext.userInAppRole['Administrator']}"
+                                                   destination="/admin"/>
+                                    <af:commandMenuItem text="Logout" id="pt_cmi2" action="#{o_w_s_l_LoginBackingBean.doLogout}"/>
+                                  </af:menu>
+                                </f:facet>
+                              </af:commandToolbarButton>
+                            </ul>
+                            <!-- JMB End -->
+                          </div>
+                        </div>
+                      </af:panelGroupLayout>
+                    </cust:panelCustomizable>
+                  </pe:layoutCustomizable>
+                </af:panelGroupLayout>
+              </af:panelBorderLayout>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <!-- (4) content -->
+      <af:panelGroupLayout id="pt_pgl13" layout="horizontal" halign="center" inlineStyle="margin-bottom:15px;">
+        <af:panelGroupLayout id="pt_pgl12" layout="vertical" styleClass="AFStretchWidth">
+          <af:spacer width="10" height="0" id="pt_s7"/>
+          <af:panelGroupLayout id="pt_pgl9" layout="horizontal" styleClass="contentMargin">
+            <af:facetRef facetName="content"/>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <!-- (5) footer -->
+      <af:panelGroupLayout id="pt_pgl10" layout="vertical" styleClass="AFStretchWidth footerOuterPanel" halign="center">
+        <af:panelGroupLayout id="pt_pgl7" layout="vertical" valign="bottom" halign="center" styleClass="footerInnerPanel">
+          <af:spacer width="10" height="0" id="pt_s2"/>
+          <!--<af:separator id="pt_s4"
+                        inlineStyle="border-top:solid Silver 1px; width:953.0px; margin-top: -1px;"/>-->
+          <af:spacer width="10" height="10" id="pt_s5"/>
+          <af:panelGroupLayout id="pgl31" valign="bottom" layout="horizontal" inlineStyle="width:955.0px;">
+            <af:panelGroupLayout id="pgl32" layout="vertical" halign="left" inlineStyle="width:200px;">
+              <af:panelGroupLayout id="pgl20" layout="horizontal" halign="left">
+                <af:spacer width="10" height="10" id="pt_s3"/>
+                <af:outputText value="© Statoil Fuel &amp; Retail 2013" id="ot6574" styleClass="footerCopyright"/>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl27" layout="vertical" inlineStyle="width:750px;" halign="right">
+              <af:panelGroupLayout id="pgl19" layout="horizontal" valign="bottom">
+                <af:goLink text="Terms &amp; Conditions" id="goLink3" styleClass="footerLinks"
+                           destination="http://www.statoil.com/en/About/Siteinfo/Pages/Termsandconditions.aspx" targetFrame="_blank"/>
+                <af:image source="/images/footerSeparator.gif" id="pt_i3" inlineStyle="margin-bottom:2px;margin-left:7px; margin-right:7px;"/>
+                <af:goLink text="Privacy Policy" id="goLink4" styleClass="footerLinks"
+                           destination="http://www.statoil.com/en/About/Siteinfo/Pages/Privacypolicy.aspx" targetFrame="_blank"/>
+                <af:image source="/images/footerSeparator.gif" id="pt_i4" inlineStyle="margin-bottom:2px;margin-left:7px; margin-right:7px;"/>
+                <af:goLink text="Feedback" id="goLink5" styleClass="footerLinks" destination="http://www.statoil.com/en/About/Siteinfo/Pages/Feedback.aspx"
+                           targetFrame="_blank"/>
+                <af:image source="/images/footerSeparator.gif" id="pt_i6" inlineStyle="margin-bottom:2px;margin-left:7px; margin-right:7px;"/>
+                <af:goLink text="Contact Statoil" id="goLink2" styleClass="footerLinks"
+                           destination="http://www.statoil.com/en/About/Siteinfo/Pages/Contact.aspx" targetFrame="_blank"/>
+                <af:spacer width="10" height="10" id="pt_s6"/>
+              </af:panelGroupLayout>
+              <!--<af:panelGroupLayout id="pgl32" layout="horizontal">
+              <af:commandLink id="cl3"
+                              actionListener="#{pageFlowScope.productCatalogBean.cartAction}">
+                <af:image source="/images/cartnew" id="i2"
+                          inlineStyle="width:28px; height:29px;"/>
+              </af:commandLink>
+              <af:spacer width="10" height="10" id="s13"/>
+              <af:panelGroupLayout id="pgl31" layout="horizontal">
+                <af:spacer width="10" height="15" id="s12"/>
+                <af:outputText value="Items: #{pageFlowScope.productCatalogBean.numberOfItems}"
+                               id="ot9" styleClass="boldOT"/>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>-->
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
     <af:xmlContent>
       <component xmlns="http://xmlns.oracle.com/adf/faces/rich/component">
-        <display-name>engageTemplate</display-name>
+        <display-name>Engage Template</display-name>
         <facet>
+          <description>Facet for content</description>
           <facet-name>content</facet-name>
         </facet>
+        <facet/>
+        <attribute>
+          <attribute-name>contentWidth</attribute-name>
+          <attribute-class>java.lang.String</attribute-class>
+          <default-value>960px</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>showNavigation</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{true}</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>showGreetings</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{securityContext.authenticated}</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>showLogin</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{true}</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>showAdmin</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{securityContext.authenticated}</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>isAdminPage</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{false}</default-value>
+        </attribute>
+        <attribute>
+          <attribute-name>isEditingTemplate</attribute-name>
+          <attribute-class>java.lang.Boolean</attribute-class>
+          <default-value>#{false}</default-value>
+        </attribute>
       </component>
     </af:xmlContent>
   </af:pageTemplateDef>

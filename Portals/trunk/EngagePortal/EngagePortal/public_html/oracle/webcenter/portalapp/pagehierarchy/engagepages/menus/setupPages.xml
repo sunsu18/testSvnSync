@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd"
-          parent="/oracle/webcenter/portalapp/pagehierarchy/pages.xml">
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="manageusers"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/reportsetup.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="reportsetup"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/alerts.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="alerts"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/webprofile.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="webprofile"/>
+          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/alerts.jspx" hidden="false" shared="false" hasSubPages="false" id="alerts"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx" hidden="false" shared="false" hasSubPages="false" id="manageusers"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/reportsetup.jspx" hidden="false" shared="false" hasSubPages="false" id="reportsetup"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/setup/webprofile.jspx" hidden="false" shared="false" hasSubPages="false" id="webprofile"/>
 </pagesDef>

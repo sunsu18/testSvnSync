@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="windows-1252" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd"
-          parent="/oracle/webcenter/portalapp/pagehierarchy/pages.xml">
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="viewcard"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/ordernewcard.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="ordernewcard"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/cardinfo.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="cardinfo"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/cardprofile.jspx"
-           hidden="false" shared="false" hasSubPages="false" id="cardprofile"/>
+          xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/cardinfo.jspx" hidden="false" shared="false" hasSubPages="false" id="cardinfo"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/cardprofile.jspx" hidden="false" shared="false" hasSubPages="false"
+           id="cardprofile"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/ordernewcard.jspx" hidden="false" shared="false" hasSubPages="false"
+           id="ordernewcard"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx" hidden="false" shared="false" hasSubPages="false" id="viewcard"/>
 </pagesDef>

@@ -4,7 +4,7 @@
                 Package="oracle.webcenter.portalapp.pages">
   <parameters>
     <parameter id="page_info"
-               value="title=login;desc=;keywords=;createdBy=weblogic;createDate=2010-06-08T14:27:30;lastUpdatedBy=weblogic;lastUpdateDate=2010-06-08T14:27:30;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/login.jspx;excluded=false;style="/>
+               value="title=login;desc=;keywords=;createdBy=weblogic;createDate=2014-03-11T15:28:30;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-11T15:28:30;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/login.jspx;excluded=false;style="/>
     <parameter id="page_title" value="login"/>
   </parameters>
   <executables>
