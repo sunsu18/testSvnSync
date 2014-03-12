@@ -7,6 +7,9 @@
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:57:52.851-08:00" description="Swooshy PageTemplate" displayName="Swooshy PageTemplate" guid="gsr2d5afdf1_6cc5_4db2_9f9f_883b58d68bea" jspx="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_swooshy.jspx" modifiedBy="system" modifiedDate="2011-02-08T15:57:52.851-08:00" pageDef="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_swooshyPageDef.xml" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">
          <customAttributes/>
       </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-12T20:25:04.289+05:30" description="" displayName="engageTemplate" guid="gsrf578b300_6d0b_4b02_927d_601938be2f7e" jspx="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx" modifiedDate="2014-03-12T20:52:13.327+05:30" pageDef="/oracle/webcenter/portalapp/pagetemplates/engageTemplatePageDef.xml" seeded="false" type="siteTemplate" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">
+         <customAttributes/>
+      </resource>
    </resourceType>
    <resourceType name="pageStyle" resourceBundle="">
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:58:12.376-08:00" description="Blank" displayName="Blank" guid="gsrc077a9a7_4774_4f04_a224_48440d89b0ea" jspx="/oracle/webcenter/page/pstemplates/TemplateBlank.jspx" modifiedBy="system" modifiedDate="2011-02-08T15:58:12.376-08:00" pageDef="/oracle/webcenter/page/pstemplates/TemplateBlankPageDef.xml" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">
@@ -193,6 +196,9 @@
    </resourceType>
    <resourceType name="navigation" resourceBundle="">
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:57:54.885-08:00" description="Default Navigation" displayName="Default Navigation" guid="gsra4361888_4262_42e5_ba74_5b0ed9271020" metadataFile="/oracle/webcenter/portalapp/navigations/default-navigation-model.xml" modifiedBy="system" modifiedDate="2011-02-08T15:57:54.885-08:00" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">
+         <customAttributes/>
+      </resource>
+      <resource createdBy="system" createdDate="2014-03-12T17:30:53.018+05:30" description="" displayName="engage-navigation-model" guid="gsr85e06588_fadc_41a7_8d0e_1197b8be7c43" metadataFile="/oracle/webcenter/portalapp/navigations/engage-navigation-model.xml" modifiedDate="2014-03-12T20:24:11.607+05:30" seeded="false" type="navigation" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">
          <customAttributes/>
       </resource>
    </resourceType>

@@ -17,8 +17,7 @@
           usageId="portal_pageTemplate_globePageDef"/>
     <page path="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_swooshy.jspx"
           usageId="portal_pageTemplate_swooshyPageDef"/>
-    <page path="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx"
-          usageId="com_sfr_engage_portal_engageTemplatePageDef"/>
+    
     <page path="/oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx"
           usageId="com_sfr_engage_portal_accountsummaryPageDef"/>
     <page path="/oracle/webcenter/portalapp/engagepages/accounts/company.jspx"
@@ -81,10 +80,8 @@
           usageId="com_sfr_engage_portal_transactionsPageDef1"/>
     <page path="/oracle/webcenter/portalapp/engagepages/webassist/customerview.jspx"
           usageId="com_sfr_engage_portal_customerviewPageDef"/>
-    <page path="/oracle/webcenter/portalapp/pages/Temp.jspx" usageId="com_sfr_engage_portal_TempPageDef"/>
-    <page path="/oracle/webcenter/portalapp/pages/PriceSample.jspx" usageId="com_sfr_engage_portal_PriceSamplePageDef"/>
-    <page path="/oracle/webcenter/portalapp/pages/PriceList_new.jspx" usageId="com_sfr_engage_portal_untitled1PageDef"/>
-    <page path="/oracle/webcenter/portalapp/pages/untitled1.jspx" usageId="com_sfr_engage_portal_untitled1PageDef1"/>
+    <page path="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx"
+          usageId="com_sfr_engage_portal_engageTemplatePageDef"/>
   </pageMap>
   <definitionFactories>
     <factory nameSpace="http://xmlns.oracle.com/portlet/bindings"
@@ -107,8 +104,7 @@
           path="oracle.webcenter.portalapp.pagetemplates.pageTemplate_globePageDef"/>
     <page id="portal_pageTemplate_swooshyPageDef"
           path="oracle.webcenter.portalapp.pagetemplates.pageTemplate_swooshyPageDef"/>
-    <page id="com_sfr_engage_portal_engageTemplatePageDef"
-          path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"/>
+    
     <page id="com_sfr_engage_portal_accountsummaryPageDef"
           path="oracle.webcenter.portalapp.engagepages.accounts.accountsummaryPageDef"/>
     <page id="com_sfr_engage_portal_companyPageDef"
@@ -175,6 +171,8 @@
     <page id="com_sfr_engage_portal_PriceSamplePageDef" path="oracle.webcenter.portalapp.pages.PriceSamplePageDef"/>
     <page id="com_sfr_engage_portal_untitled1PageDef" path="oracle.webcenter.portalapp.pages.untitled1PageDef"/>
     <page id="com_sfr_engage_portal_untitled1PageDef1" path="oracle.webcenter.portalapp.pages.untitled1PageDef1"/>
+    <page id="com_sfr_engage_portal_engageTemplatePageDef"
+          path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="EngageAppModuleDataControl"

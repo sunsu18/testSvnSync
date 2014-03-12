@@ -171,7 +171,7 @@
     <portal:preferences>
       <portal:preference id="oracle.webcenter.portalapp.navigation.model"
                          desc="Default Navigation Model"
-                         value="/oracle/webcenter/portalapp/navigations/default-navigation-model.xml"
+                         value="/oracle/webcenter/portalapp/navigations/engage-navigation-model.xml"
                          resourceType="navigation" display="true"/>
       <portal:preference id="oracle.webcenter.portalapp.resourcecatalog"
                          desc="Default Resource Catalog"
@@ -179,7 +179,7 @@
                          resourceType="ResourceCatalog" display="true"/>
       <portal:preference id="oracle.webcenter.portalapp.pagetemplate.pageTemplate"
                          desc="Default Page Template"
-                         value="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_globe.jspx"
+                         value="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx"
                          resourceType="Template" display="true"/>
       <portal:preference id="oracle.webcenter.portalapp.navigation.renderer"
                          desc="Default Navigation Renderer"
