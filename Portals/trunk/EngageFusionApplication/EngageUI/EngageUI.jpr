@@ -126,7 +126,7 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/EngageUI.jar"/>
+            <url n="jarURL" path="../../libraries/adfJAR/EngageUI.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
