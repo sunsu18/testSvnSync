@@ -69,6 +69,7 @@
                                  valign="top">
                  
                
+  <af:panelGroupLayout id="pgl0" layout="vertical">
    <af:commandLink  id="ot2" styleClass="carousalOT"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}" >
                         <af:image source="/imageservlet?id=#{bindings.ProductsDisplayRVO1.children[stat.index].Itemno}&amp;categId=#{(bindings.ProductsDisplayRVO1.children[stat.index].CategCode9)}"
@@ -76,11 +77,22 @@
                                   
                                  
                               </af:commandLink>
-
-                
+ <af:spacer id="s3" width="5" height="2"/>
+            <af:panelGroupLayout id="pgl12" layout="horizontal" halign="center">
+   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
+                                     id="cl3" styleClass="carousalOT prdName"
+                                      actionListener="#{homeCarousalBean.goProductCatalogListener}"
+                                               disabled="true" inlineStyle="font-family:SansSerif; font-size:12px;font-weight:bold; color:black;">
+                                               </af:commandLink>   
+                                               <af:spacer id="s24" width="5"/>
+                                               <af:outputText value='#{(homeCarousalBean.lang eq "no_NO" )?"NOK":(homeCarousalBean.lang eq "da_DK") ? "DKK":(homeCarousalBean.lang eq "en_US") ? "USD":(homeCarousalBean.lang eq "se_SE") ? "SEK":"-"}'
+                                                              id="ot7" styleClass="carousalOT prdName"
+                                                              inlineStyle="font-family:SansSerif; font-size:12px;font-weight:bold; color:black;"/>
+</af:panelGroupLayout>
+</af:panelGroupLayout>
                     
         
-        <af:spacer id="s3" width="5" height="3"/>
+        <af:spacer id="s2" width="5" height="3"/>
              <af:panelGroupLayout id="pgl233" layout="vertical"
                                          halign="left"
                                   inlineStyle="width:20px; text-align:left; vertical-align:top;"
@@ -92,19 +104,9 @@
                                       
                       
                               </af:commandLink>
-                               <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].Itemno) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].Itemno) : &quot;--&quot;}"
-                                     id="cl2" styleClass="carousalOT prdName"
-                                      actionListener="#{homeCarousalBean.goProductCatalogListener}"
-                                               disabled="true" inlineStyle="font-family:SansSerif; font-size:12px; color:#979796;">
-                                      
-                                 
-                              </af:commandLink>
-                              <af:spacer id="s2" width="5" height="5"/>
-                              <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
-                                     id="cl3" styleClass="carousalOT prdName"
-                                      actionListener="#{homeCarousalBean.goProductCatalogListener}"
-                                               disabled="true" inlineStyle="font-family:SansSerif; font-size:12px;font-weight:bold; color:black;">
-                                               </af:commandLink>
+                             
+                             
+                              
                   </af:panelGroupLayout>
             </af:panelGroupLayout>
                        </li>                 
@@ -208,7 +210,7 @@
                   </af:panelGroupLayout>
               <af:spacer width="10" height="5" id="spacer10"/>
               <af:panelGroupLayout id="pgl_06" layout="vertical"
-                                   inlineStyle="width:962px; height:340.0px; border:1px solid #979796;"
+                                   inlineStyle="width:962px; height:auto.0px; border:1px solid #979796;"
                                    styleClass="panelbackground">
                    <af:panelGroupLayout id="pgl_07" layout="horizontal"
                                         inlineStyle="height:30px;width:962px;"
@@ -296,85 +298,6 @@
                           <af:spacer width="20" height="10" id="spacer5"/>
                           <af:commandImageLink text="#{sfr.APPLY_NOW}"
                                                id="commandImageLink2"
-                                               iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"
-                                               styleClass="greylinks"/>
-                        </af:panelGroupLayout>
-                      </af:panelGroupLayout>
-                    </af:panelGroupLayout>
-                  </af:panelGroupLayout>
-                </af:panelGroupLayout>
-                <af:spacer width="10" height="17" id="spacer14"/>
-                <af:panelGroupLayout id="pgl_11" layout="horizontal"
-                                        inlineStyle="width:962px; height:115px">
-                  <af:spacer width="10" height="10" id="spacer13"/>
-                  <af:panelGroupLayout id="pgl_12" layout="horizontal" inlineStyle="width:481px;"
-                                         valign="top">
-                    <af:panelGroupLayout id="pgl12" layout="horizontal"
-                                         valign="top">
-                      <af:image source="/images/Cards/Card3.png"
-                                shortDesc="engage banner" id="i6"/>
-                      <af:spacer width="10" height="10" id="spacer2"/>
-                      <af:panelGroupLayout id="panelGroupLayout3"
-                                           layout="vertical" halign="left">
-                        <af:outputText id="outputText8"
-                                       value="#{sfr.STATOIL_EUROPE_CARD}"
-                                       styleClass="cardheader"/>
-                        <af:panelGroupLayout id="panelGroupLayout7"
-                                             layout="vertical"
-                                             inlineStyle="width:280px;">
-                          <af:spacer width="10" height="5" id="spacer6"/>
-                          <af:outputText id="outputText12"
-                                         value="#{sfr.STATOIL_EUROPE_CARD_DESC}"
-                                         styleClass="contenttext"/>
-                        </af:panelGroupLayout>
-                        <af:panelGroupLayout id="panelGroupLayout8"
-                                             layout="horizontal">
-                          <af:commandImageLink id="commandImageLink3"
-                                               iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"
-                                               styleClass="greylinks"/>
-                          <af:spacer width="20" height="10" id="spacer7"/>
-                          <af:commandImageLink text="#{sfr.APPLY_NOW}"
-                                               id="commandImageLink4"
-                                               iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"
-                                               styleClass="greylinks"/>
-                        </af:panelGroupLayout>
-                      </af:panelGroupLayout>
-                    </af:panelGroupLayout>
-                  </af:panelGroupLayout>
-                   <af:panelGroupLayout id="pgl_13" layout="horizontal" inlineStyle="width:481px;"
-                                        valign="top">
-                    <af:panelGroupLayout id="pgl14" valign="top"
-                                         layout="horizontal">
-                      <af:image source="/images/Cards/Card4.png"
-                                shortDesc="engage banner" id="i7"/>
-                      <af:spacer width="10" height="10" id="spacer3"/>
-                      <af:panelGroupLayout id="panelGroupLayout4"
-                                           layout="vertical" halign="left">
-                        <af:outputText id="outputText9"
-                                       value="#{sfr.STATOIL_MASTER_CARD}"
-                                       styleClass="cardheader"/>
-                        <af:panelGroupLayout id="panelGroupLayout9"
-                                             layout="vertical"
-                                             inlineStyle="width:280px;">
-                          <af:spacer width="10" height="5" id="spacer8"/>
-                          <af:outputText id="outputText13"
-                                         value="#{sfr.STATOIL_MASTER_CARD_DESC}"
-                                         styleClass="contenttext"/>
-                        </af:panelGroupLayout>
-                        <af:panelGroupLayout id="panelGroupLayout10"
-                                             layout="horizontal">
-                          <af:commandImageLink id="commandImageLink5"
-                                               iconPosition="trailing"
-                                               icon="/images/Buttons/arrow_learn_more.png"
-                                               text="#{sfr.LEARN_MORE}"
-                                               styleClass="greylinks"/>
-                          <af:spacer width="20" height="10" id="spacer9"/>
-                          <af:commandImageLink text="#{sfr.APPLY_NOW}"
-                                               id="commandImageLink6"
                                                iconPosition="trailing"
                                                icon="/images/Buttons/arrow_learn_more.png"
                                                styleClass="greylinks"/>
