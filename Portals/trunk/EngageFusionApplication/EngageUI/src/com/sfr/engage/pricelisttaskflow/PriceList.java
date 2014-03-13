@@ -1,7 +1,6 @@
 package com.sfr.engage.pricelisttaskflow;
 
-import com.sfr.engage.model.queries.rvo.KeyDisplayRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtGenKeyDisplayRVORowImpl;
+
 import java.util.Locale;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
