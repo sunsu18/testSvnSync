@@ -7,6 +7,10 @@
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
     <taskFlow id="PriceListTaskflow2" taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow" activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="VehicleInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
 </pageDefinition>

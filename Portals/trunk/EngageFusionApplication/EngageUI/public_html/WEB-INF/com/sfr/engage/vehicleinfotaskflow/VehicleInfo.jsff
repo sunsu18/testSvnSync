@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
             xmlns:f="http://java.sun.com/jsf/core"
-             version="2.1"
-          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+            version="2.1"           
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:c="http://java.sun.com/jsp/jstl/core">
   <af:panelGroupLayout id="pgl3">
   <af:panelGroupLayout id="pgl41">
-    <af:panelGroupLayout id="pgl1" layout="horizontal">
-      <af:selectManyChoice label="Linked Account:" id="smc1"
+    <af:panelGroupLayout id="pgl1"
+                         binding="#{pageFlowScope.VehicleInfoBean.searchPanelGroupLayout}">
+        <h:panelGrid columns="1" id="pg1">
+        <af:selectManyChoice label="Linked Account:" id="smc1"
                            binding="#{pageFlowScope.VehicleInfoBean.linkedAccount}">
         <af:selectItem label="100" value="100" id="si1"/>
         <af:selectItem label="200" value="200" id="si3"/>
@@ -19,14 +23,18 @@
         <af:selectItem label="900" value="900" id="si9"/>
         <af:selectItem label="1000" value="1000" id="si00"/>        
       </af:selectManyChoice>
-      <af:spacer width="12" height="10" id="s1"/>
+      <af:inputText label="Registration Number" id="it7"
+                  binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"/>
+      </h:panelGrid>
+      <!--<af:spacer width="12" height="10" id="s1"/>-->
+       <af:panelGroupLayout id="pgal1">  
       <af:commandButton text="Search" id="cb1"
                         actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}"/>
       <af:spacer width="12" height="10" id="s2"/>
-      <af:commandButton text="Cancel" id="cb2"/>
-    </af:panelGroupLayout>
-    <af:inputText label="Registration Number" id="it7"
-                  binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"/>
+      <af:commandButton text="Cancel" id="cb2"
+                        actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout> 
 </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl2"
                          binding="#{pageFlowScope.VehicleInfoBean.searchResults}"
@@ -46,15 +54,16 @@
       <af:panelGroupLayout id="pgl4">   
       <af:spacer width="10" height="20" id="s6"/>
          <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccount}" var="var">
-          <af:panelGroupLayout id="pgl5" layout="horizontal">
+          <c:if test="${not empty var.vehicleInfoList}">
+          <af:panelGroupLayout id="pgl5" layout="horizontal">          
           <af:outputText value="Account: " id="ot2"/>
           <af:outputText value="#{var.accountNumber}" id="ot3"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl6">
-                <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.vehicleInfoList}"
-                          width="1200px" rows="5" inlineStyle="height:100.0px;"
+          <af:panelGroupLayout id="pgl6">            
+            <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.vehicleInfoList}"
+                          width="915px" rows="5" inlineStyle="height:100.0px;" 
                           fetchSize="10">
-                  <af:column sortable="false" id="c13">
+                  <af:column sortable="false" id="c13" width="14px">
                 <af:selectBooleanCheckbox id="sbc1" 
                                           valueChangeListener="#{pageFlowScope.VehicleInfoBean.deleteCheckBoxListener}"
                                           autoSubmit="true">
@@ -74,19 +83,7 @@
                   </af:column>
                    <af:column sortable="false" headerText="Reg No." id="c4">
                     <af:outputText value="#{row.registrationNumber}" id="ot7"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="Brand/Make No." id="c5">
-                    <af:outputText value="#{row.brand}" id="ot8"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="Year" id="c6">
-                    <af:outputText value="#{row.year}" id="ot9"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="Reg Date" id="c7">
-                    <af:outputText value="#{row.registrationDate}" id="ot10"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="End Date" id="c8">
-                    <af:outputText value="#{row.endDate}" id="ot11"/>
-                  </af:column>
+                  </af:column>                  
                     <af:column sortable="false" headerText="Remarks" id="c9">
                     <af:outputText value="#{row.remarks}" id="ot12"/>
                   </af:column>
@@ -99,19 +96,18 @@
                     <af:column sortable="false" headerText="OdoMeter" id="c12">
                     <af:outputText value="#{row.ODOMeter}" id="ot15"/>
                   </af:column>
-                  <af:column sortable="false" headerText="Edit" id="c14">                    
+                  <af:column sortable="false" headerText="More Details" id="c14" width="50px">                    
                 <af:commandButton id="cb4"
                                   action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
                   <af:setPropertyListener from="#{row.prtTruckInformationPK}" type="action"
                                           to="#{pageFlowScope.primarykey}"/>
-                </af:commandButton>
+                </af:commandButton>                 
               </af:column>
                 </af:table>
-            <af:spacer width="10" height="20" id="s4"
-                       inlineStyle="height:15.0px;"/>
           </af:panelGroupLayout>
-            </af:forEach>
+          </c:if>
+        </af:forEach>
       </af:panelGroupLayout>
       
     </af:panelGroupLayout>
@@ -456,11 +452,13 @@
                                  styleClass="WCPanelMargin">
                 <af:panelFormLayout id="pfasl1" >
                 <af:outputText value="Are you sure you want to delete? If OK press YES" id="ot16"/>
+                <af:spacer width="10" height="10" id="s1"/>
               </af:panelFormLayout>              
             </af:panelGroupLayout>
           </f:facet>
         </af:panelStretchLayout>
       </af:dialog>
-    </af:popup>
+    </af:popup>   
+    
   </af:panelGroupLayout>
 </jsp:root>

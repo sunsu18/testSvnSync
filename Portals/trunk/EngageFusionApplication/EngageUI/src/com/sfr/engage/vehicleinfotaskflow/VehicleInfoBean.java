@@ -44,10 +44,13 @@ public class VehicleInfoBean {
     private boolean searchResultsShow = false;
     private RichPopup newVehicle;
     private RichInputText registerNumber;
-    private RichPopup editVehicle;
-    private RichTable searchResultstableBinding;
+    private RichPopup editVehicle;    
     private RichPopup deleteVehicle;
-    HashMap<String,String> val=new HashMap<String,String>();    
+    HashMap<String,String> val=new HashMap<String,String>();  
+    private boolean vehicleNumber;
+    private RichPopup moreColumnsPopup;
+    List<VehicleInfo> moreColumnsTable;
+    private RichPanelGroupLayout searchPanelGroupLayout;
 
     public VehicleInfoBean() {
         super();
@@ -95,7 +98,7 @@ public class VehicleInfoBean {
             List<VehicleInfo> myVehicleList = new ArrayList<VehicleInfo>();            
             ViewObject vo =
                 ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");           
-            vo.setWhereClause("ACCOUNT_NUMBER =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')");
+            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')");
             System.out.println("values of i"+values[i]);
             vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(), null); 
             if(registerNumber.getValue()!=null)
@@ -134,15 +137,17 @@ public class VehicleInfoBean {
                 }
 
             }       
-        //            if("ACCOUNT_NUMBER =: accountNumber".equalsIgnoreCase(vo.getWhereClause())) {
-        //                vo.removeNamedWhereClauseParam("accountNumber");
-        //                vo.setWhereClause("");
-        //                vo.executeQuery();
-        //            }
+                    if("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                        vo.removeNamedWhereClauseParam("accountNumber");
+                        vo.removeNamedWhereClauseParam("registrationNumber");
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
             acc.setVehicleInfoList(myVehicleList);
             myAccount.add(acc);
         }
         searchResultsShow = true;
+        vehicleNumber=false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
         }
     }
@@ -242,15 +247,7 @@ public class VehicleInfoBean {
         getEditVehicle().show(new RichPopup.PopupHints());
         return null;
     }
-
-    public void setSearchResultstableBinding(RichTable searchResultstableBinding) {
-        this.searchResultstableBinding = searchResultstableBinding;
-    }
-
-    public RichTable getSearchResultstableBinding() {
-        return searchResultstableBinding;
-    }
-
+    
     public String vehicleDeleteAction() {
         // Add event code here...  
         getDeleteVehicle().show(new RichPopup.PopupHints());
@@ -324,5 +321,47 @@ public class VehicleInfoBean {
             }
         }
     }
-  
+
+    public void setVehicleNumber(boolean vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public boolean isVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void moreColumnsButton(ActionEvent actionEvent) {
+        // Add event code here...
+        vehicleNumber=true;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);        
+    }    
+
+    public void setMoreColumnsPopup(RichPopup moreColumnsPopup) {
+        this.moreColumnsPopup = moreColumnsPopup;
+    }
+
+    public RichPopup getMoreColumnsPopup() {
+        return moreColumnsPopup;
+    }
+
+    public void setMoreColumnsTable(List<VehicleInfo> moreColumnsTable) {
+        this.moreColumnsTable = moreColumnsTable;
+    }
+
+    public List<VehicleInfo> getMoreColumnsTable() {
+        return moreColumnsTable;
+    }
+
+    public void searchCancel(ActionEvent actionEvent) {
+        // Add event code here...
+        
+    }
+
+    public void setSearchPanelGroupLayout(RichPanelGroupLayout searchPanelGroupLayout) {
+        this.searchPanelGroupLayout = searchPanelGroupLayout;
+    }
+
+    public RichPanelGroupLayout getSearchPanelGroupLayout() {
+        return searchPanelGroupLayout;
+    }
 }
