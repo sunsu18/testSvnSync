@@ -3450,6 +3450,11 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
@@ -3572,6 +3577,11 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
@@ -3663,6 +3673,12 @@
                                 <name>oracle_webcenter_siteresource_s8bba98ff_4cbb_40b8_beee_296c916a23ed_taskflowstyle_.*</name>
                                 <actions>manage</actions>
                             </permission>
+
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
+                            </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow</name>
@@ -3673,6 +3689,7 @@
                                 <name>/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfoTaskFlow.xml#DriverInfoTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+
                         </permissions>
                     </grant>
                     <grant>
@@ -3686,6 +3703,57 @@
                                 <class>oracle.wsm.security.WSIdentityPermission</class>
                                 <name>resource=EngagePortal</name>
                                 <actions>assert</actions>
+                            </permission>
+                        </permissions>
+                    </grant>
+                    <grant>
+                        <grantee>
+                            <principals>
+                                <principal>
+                                    <name>AppConnectionManager</name>
+                                    <class>oracle.security.jps.service.policystore.ApplicationRole</class>
+                                </principal>
+                            </principals>
+                        </grantee>
+                        <permissions>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
+                            </permission>
+                        </permissions>
+                    </grant>
+                    <grant>
+                        <grantee>
+                            <principals>
+                                <principal>
+                                    <name>AppConnectionViewer</name>
+                                    <class>oracle.security.jps.service.policystore.ApplicationRole</class>
+                                </principal>
+                            </principals>
+                        </grantee>
+                        <permissions>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
+                            </permission>
+                        </permissions>
+                    </grant>
+                    <grant>
+                        <grantee>
+                            <principals>
+                                <principal>
+                                    <name>test-all</name>
+                                    <class>oracle.security.jps.service.policystore.ApplicationRole</class>
+                                </principal>
+                            </principals>
+                        </grantee>
+                        <permissions>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow</name>
+                                <actions>view</actions>
                             </permission>
                         </permissions>
                     </grant>
