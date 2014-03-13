@@ -16,6 +16,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
@@ -36,6 +37,7 @@ public class DriverInfoBean {
         private RichPopup newDriver;
         private RichPopup editDriver;
         private RichPopup deleteDriver;
+        private RichInputText driverName;
         HashMap<String,String> driverMap=new HashMap<String,String>();
         
         public DriverInfoBean() {
@@ -305,4 +307,17 @@ public class DriverInfoBean {
                 }
             }
         }
+        
+    public void searchCancel(ActionEvent actionEvent) {
+        // Add event code here...
+        
+    }
+
+    public void setDriverName(RichInputText driverName) {
+        this.driverName = driverName;
+    }
+
+    public RichInputText getDriverName() {
+        return driverName;
+    }
 }

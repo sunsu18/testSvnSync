@@ -5,12 +5,22 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:h="http://java.sun.com/jsf/html"
          xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <af:panelGroupLayout id="pgl3">
+  <af:panelGroupLayout id="pgl3" styleClass="spacerStyle">
   <af:panelGroupLayout id="pgl41">
+  
+   <af:panelGroupLayout id="printPanel1" layout="horizontal"
+                        >
+      <af:outputText value="#{sfr.VEHICLE_INFO}" id="ot1" styleClass="heading"/>
+      <af:spacer width="20" height="1" id="s1"/>     
+     </af:panelGroupLayout>
+       <af:spacer width="10" height="10" id="s11"/>
+    <af:panelGroupLayout id="pgl2" layout="horizontal">
+      <af:separator id="s4" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl1"
                          binding="#{pageFlowScope.VehicleInfoBean.searchPanelGroupLayout}">
         <h:panelGrid columns="1" id="pg1">
-        <af:selectManyChoice label="Linked Account:" id="smc1"
+        <af:selectManyChoice label="#{sfr.LINKED_ACCOUNT} :" id="smc1"
                            binding="#{pageFlowScope.VehicleInfoBean.linkedAccount}">
         <af:selectItem label="100" value="100" id="si1"/>
         <af:selectItem label="200" value="200" id="si3"/>
@@ -23,42 +33,45 @@
         <af:selectItem label="900" value="900" id="si9"/>
         <af:selectItem label="1000" value="1000" id="si00"/>        
       </af:selectManyChoice>
-      <af:inputText label="Registration Number" id="it7"
+      <af:inputText label="#{sfr.REGISTRATION_NUMBER} :" id="it7"
                   binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"/>
       </h:panelGrid>
       <!--<af:spacer width="12" height="10" id="s1"/>-->
        <af:panelGroupLayout id="pgal1">  
-      <af:commandButton text="Search" id="cb1"
-                        actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}"/>
+      <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                        actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}" styleClass="buttonback buttontext"/>
       <af:spacer width="12" height="10" id="s2"/>
-      <af:commandButton text="Cancel" id="cb2"
-                        actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"/>
+      <af:commandButton text="#{sfr.CANCEL}" id="cb2"
+                        actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
     </af:panelGroupLayout> 
 </af:panelGroupLayout>
-    <af:panelGroupLayout id="pgl2"
+    <af:panelGroupLayout id="pgl7"
                          binding="#{pageFlowScope.VehicleInfoBean.searchResults}"
                          visible="#{pageFlowScope.VehicleInfoBean.searchResultsShow}">  
+    <af:spacer width="10" height="10" id="s13"/>            
     <af:separator id="s3"/>
+    <af:spacer width="10" height="20" id="s14"/>
     <af:panelGroupLayout id="pgl0" layout="horizontal">
-      <af:outputText value="SearchResults:" id="ot1"/>
+      <af:outputText value="#{sfr.SERACH_RESULTS} :" id="ot8"/>
         <af:spacer width="10" height="10" id="s7"/>
-        <af:commandButton text="Add" id="cb3" actionListener="#{bindings.CreateInsert.execute}"
-                        action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}">
+        <af:commandButton text="#{sfr.ADD}" id="cb3" actionListener="#{bindings.CreateInsert.execute}"
+                        action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}" styleClass="buttonback buttontext">
           <af:showPopupBehavior triggerType="click" popupId="new_vehicle"/>
         </af:commandButton>
-        <af:spacer width="10" height="10" id="s11"/>
-        <af:commandButton text="Delete" id="cb6"
-                          action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}"/>
+        <af:spacer width="10" height="10" id="s15"/>
+        <af:commandButton text="#{sfr.DELETE}" id="cb6"
+                          action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl4">   
       <af:spacer width="10" height="20" id="s6"/>
          <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccount}" var="var">
           <c:if test="${not empty var.vehicleInfoList}">
           <af:panelGroupLayout id="pgl5" layout="horizontal">          
-          <af:outputText value="Account: " id="ot2"/>
+          <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"/>
           <af:outputText value="#{var.accountNumber}" id="ot3"/>
           </af:panelGroupLayout>
+           <af:spacer width="10" height="15" id="s12"/>
           <af:panelGroupLayout id="pgl6">            
             <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.vehicleInfoList}"
                           width="915px" rows="5" inlineStyle="height:100.0px;" 
@@ -72,31 +85,31 @@
                                           type="valueChange"/>
                 </af:selectBooleanCheckbox>
                   </af:column>
-                  <af:column sortable="false" headerText="VehicleNumber" id="c1">
+                  <af:column sortable="false" headerText="#{sfr.VEHICLE_NUMBER}" id="c1">
                     <af:outputText value="#{row.vehicleNumber}" id="ot4"/>
                   </af:column>
-                  <af:column sortable="false" headerText="CardNumber" id="c2">
+                  <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}" id="c2">
                     <af:outputText value="#{row.cardNumber}" id="ot5"/>
                   </af:column>
-                   <af:column sortable="false" headerText="InternalName" id="c3">
+                   <af:column sortable="false" headerText="#{sfr.INTERNAL_NAME}" id="c3">
                     <af:outputText value="#{row.internalName}" id="ot6"/>
                   </af:column>
-                   <af:column sortable="false" headerText="Reg No." id="c4">
+                   <af:column sortable="false" headerText="#{sfr.REGISTRATION_NUMBER}" id="c4">
                     <af:outputText value="#{row.registrationNumber}" id="ot7"/>
                   </af:column>                  
-                    <af:column sortable="false" headerText="Remarks" id="c9">
+                    <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c9">
                     <af:outputText value="#{row.remarks}" id="ot12"/>
                   </af:column>
-                   <af:column sortable="false" headerText="Fuel Type" id="c10">
+                   <af:column sortable="false" headerText="#{sfr.FUEL_TYPE}" id="c10">
                     <af:outputText value="#{row.fuelType}" id="ot13"/>
                   </af:column>
-                    <af:column sortable="false" headerText="Max Fuel" id="c11">
+                    <af:column sortable="false" headerText="#{sfr.MAX_FUEL}" id="c11">
                     <af:outputText value="#{row.maxFuel}" id="ot14"/>
                   </af:column>
-                    <af:column sortable="false" headerText="OdoMeter" id="c12">
+                    <af:column sortable="false" headerText="#{sfr.ODOMETER}" id="c12">
                     <af:outputText value="#{row.ODOMeter}" id="ot15"/>
                   </af:column>
-                  <af:column sortable="false" headerText="More Details" id="c14" width="50px">                    
+                  <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}" id="c14" width="50px">                    
                 <af:commandButton id="cb4"
                                   action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
@@ -123,14 +136,14 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="horizontal">
               <af:spacer width="10" height="10" id="s5"/>               
-                <af:commandButton text="SAVE" id="save"
+                <af:commandButton text="#{sfr.SAVE}" id="save"
                                   actionListener="#{bindings.Commit.execute}"
-                                  action="#{pageFlowScope.VehicleInfoBean.newVehicleSave}"/>
+                                  action="#{pageFlowScope.VehicleInfoBean.newVehicleSave}" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s8"/>
                 <af:commandButton text="Cancel" id="ccb11"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
-                                  action="#{pageFlowScope.VehicleInfoBean.newVehicleCancel}">                  
+                                  action="#{pageFlowScope.VehicleInfoBean.newVehicleCancel}" styleClass="buttonback buttontext">                  
                 </af:commandButton>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -282,12 +295,12 @@
                 <af:commandButton text="SAVE" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
-                                  partialSubmit="true"/>
+                                  partialSubmit="true" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
                 <af:commandButton text="Cancel" id="cb5"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
-                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}">                  
+                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}" styleClass="buttonback buttontext">                  
                 </af:commandButton>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -437,12 +450,12 @@
               <af:panelGroupLayout id="delete_footer_panel" layout="horizontal">
               <af:spacer width="10" height="10" id="sas5"/>               
                 <af:commandButton text="Yes" id="deletesave"                                  
-                                  action="#{pageFlowScope.VehicleInfoBean.deleteVehicleSave}"/>
+                                  action="#{pageFlowScope.VehicleInfoBean.deleteVehicleSave}" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s10"/>
                 <af:commandButton text="No" id="cb7"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
-                                  action="#{pageFlowScope.VehicleInfoBean.deleteVehicleCancel}">             
+                                  action="#{pageFlowScope.VehicleInfoBean.deleteVehicleCancel}" styleClass="buttonback buttontext">             
                 </af:commandButton>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -452,7 +465,7 @@
                                  styleClass="WCPanelMargin">
                 <af:panelFormLayout id="pfasl1" >
                 <af:outputText value="Are you sure you want to delete? If OK press YES" id="ot16"/>
-                <af:spacer width="10" height="10" id="s1"/>
+                <af:spacer width="10" height="10" id="s16"/>
               </af:panelFormLayout>              
             </af:panelGroupLayout>
           </f:facet>

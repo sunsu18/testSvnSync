@@ -73,23 +73,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
 
 
     /**
-     * Container's getter for KeyDisplayRVO1.
-     * @return KeyDisplayRVO1
-     */
-    public ViewObjectImpl getKeyDisplayRVO1() {
-        return (ViewObjectImpl)findViewObject("KeyDisplayRVO1");
-    }
-
-
-    /**
-     * Container's getter for PrtGenKeyDisplayRVO1.
-     * @return PrtGenKeyDisplayRVO1
-     */
-    public ViewObjectImpl getPrtGenKeyDisplayRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtGenKeyDisplayRVO1");
-    }
-
-    /**
      * Container's getter for PrtDriverInformationVO2.
      * @return PrtDriverInformationVO2
      */

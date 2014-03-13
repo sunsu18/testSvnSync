@@ -31,13 +31,6 @@
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
 
   <ViewUsage
-    Name="KeyDisplayRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.KeyDisplayRVO"/>
-  <ViewUsage
-    Name="PrtGenKeyDisplayRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenKeyDisplayRVO"/>
-
-  <ViewUsage
     Name="PrtDriverInformationVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtDriverInformationVO"/>
   <ViewUsage
