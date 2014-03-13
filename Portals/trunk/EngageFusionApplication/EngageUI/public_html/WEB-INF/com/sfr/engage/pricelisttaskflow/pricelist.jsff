@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
+  <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
   <af:panelGroupLayout id="printPanelInvoice" layout="vertical">
-    <af:panelGroupLayout id="printPanel1" layout="horizontal">
+    <af:panelGroupLayout id="printPanel1" layout="horizontal"
+                        >
       <af:outputText value="#{sfr.PRICES}" id="ot1" styleClass="heading"/>
       <af:spacer width="20" height="1" id="s1"/>
-      <input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton" style="border-color:White; border-style:none;"/>
-      <af:goButton text="" id="gb1" icon="/skin/image/download.jpg" styleClass="printButton">
-        <af:clientListener method="printDiv('pt1:r1:0:printPanel2')" type="click"/>
-      </af:goButton>
-    </af:panelGroupLayout>
+      <input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
+             style="border-color:White; border-style:none; width:23px; height:23.0px;"
+             alt="   "/>
+     </af:panelGroupLayout>
     <af:spacer width="5" height="5" id="s31"/>
     <af:panelGroupLayout id="pgl28" valign="middle" halign="start" layout="horizontal">
       <af:spacer width="7" height="10" id="spacer2"/>
@@ -38,7 +38,7 @@
         <af:spacer width="10" height="10" id="s7"/>
         <af:table value="#{bindings.PriceListRVO1.collectionModel}" var="row" rows="#{bindings.PriceListRVO1.rangeSize}"
                   emptyText="#{bindings.PriceListRVO1.viewable ? 'No data to display.' : 'Access Denied.'}" fetchSize="#{bindings.PriceListRVO1.rangeSize}"
-                  rowBandingInterval="0" id="t1" binding="#{pageFlowScope.PriceListBean.priceTable}" summary="pricelist table">
+                  rowBandingInterval="1" id="t1" binding="#{pageFlowScope.PriceListBean.priceTable}" summary="pricelist table">
           <af:column sortProperty="DescLine1" sortable="false" headerText="#{sfr.PRODUCTS}" id="c3" width="145" inlineStyle="padding-left:10px;">
             <af:outputText value="#{row.DescLine1}" id="ot3"/>
           </af:column>
@@ -50,7 +50,11 @@
               </af:outputText>
               <af:spacer width="10" height="1" id="s2"/>
               <af:outputText value="  kr./" id="ot5"/>
-              <af:outputText value="#{row.PricingUom}" id="ot7"/>
+              <af:outputText value="#{row.PricingUom}" id="ot7"
+                             binding="#{pageFlowScope.PriceListBean.keycode}">
+                <af:serverListener type="myCustomEvent"
+                                   method="#{pageFlowScope.PriceListBean.mapvalue}"/>
+              </af:outputText>
             </af:panelGroupLayout>
           </af:column>
           <!--<af:column sortProperty="PricingUom" sortable="false" headerText="#{bindings.PriceListRVO1.hints.PricingUom.label}" id="c2">
