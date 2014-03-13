@@ -23,9 +23,7 @@ input.image{
 }
 /*Page Background*/
 .portalbackground{
-background-color: rgb(252,252,252);
-
-    
+background-color: rgb(252,252,252);    
 }
 
 .logintext{
@@ -51,14 +49,16 @@ background-color: rgb(252,252,252);
 }
 
 
-af|table::data-row af|column::data-cell{
+af|table::data-row af|column::data-cell
+{
 background-color:Gray;
 border-bottom: 1px solid Gray  !important;
 border-right: 1px solid gray !important;
 padding-right: 2px !important;
 }
 
-af|table::data-row af|column::banded-data-cell{
+af|table::data-row af|column::banded-data-cell
+{
 background-color:white !important;
 border-bottom: 1px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
@@ -121,7 +121,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', end
 
     border-style: none !important;
 
-
+}
 /*Text Header On Panel*/
 .headertexthome{
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -156,8 +156,6 @@ background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Ope
 background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* IE10+ */
 background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%) !important; /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 ) !important; /* IE6-9 */
-
-
 }
 
 
