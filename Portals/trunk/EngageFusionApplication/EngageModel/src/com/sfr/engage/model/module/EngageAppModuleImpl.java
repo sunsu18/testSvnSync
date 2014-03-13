@@ -1,5 +1,6 @@
 package com.sfr.engage.model.module;
 
+import com.sfr.engage.model.queries.rvo.KeyDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
@@ -70,6 +71,24 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
         return (ViewObjectImpl)findViewObject("PrtDriverInformationVO1");
     }
 
+
+    /**
+     * Container's getter for KeyDisplayRVO1.
+     * @return KeyDisplayRVO1
+     */
+    public ViewObjectImpl getKeyDisplayRVO1() {
+        return (ViewObjectImpl)findViewObject("KeyDisplayRVO1");
+    }
+
+
+    /**
+     * Container's getter for PrtGenKeyDisplayRVO1.
+     * @return PrtGenKeyDisplayRVO1
+     */
+    public ViewObjectImpl getPrtGenKeyDisplayRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtGenKeyDisplayRVO1");
+    }
+
     /**
      * Container's getter for PrtDriverInformationVO2.
      * @return PrtDriverInformationVO2
@@ -77,4 +96,5 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
     public PrtDriverInformationVOImpl getPrtDriverInformationVO2() {
         return (PrtDriverInformationVOImpl)findViewObject("PrtDriverInformationVO2");
     }
+
 }
