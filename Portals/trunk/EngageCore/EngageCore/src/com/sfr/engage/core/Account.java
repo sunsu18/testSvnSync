@@ -35,4 +35,8 @@ public class Account{
     public void setVehicleInfoList(List<VehicleInfo> vehicleInfoList) {
         this.vehicleInfoList = vehicleInfoList;
     }
+
+    public void setDriverInfoList(List<DriverInfo> driverInfoList) {
+        this.driverInfoList = driverInfoList;
+    }
 }
