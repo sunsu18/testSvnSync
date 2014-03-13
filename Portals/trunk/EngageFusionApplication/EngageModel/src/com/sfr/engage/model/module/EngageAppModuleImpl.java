@@ -1,6 +1,6 @@
 package com.sfr.engage.model.module;
 
-import com.sfr.engage.model.queries.rvo.KeyDisplayRVOImpl;
+
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
