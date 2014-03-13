@@ -3,6 +3,7 @@ package com.sfr.engage.model.module;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
+import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
 import oracle.jbo.server.ApplicationModuleImpl;
@@ -61,5 +62,19 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
     public PrtTruckInformationVOImpl getPrtTruckInformationVO2() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO2");
     }
+/**
+     * Container's getter for PrtDriverInformationVO1.
+     * @return PrtDriverInformationVO1
+     */
+    public ViewObjectImpl getPrtDriverInformationVO1() {
+        return (ViewObjectImpl)findViewObject("PrtDriverInformationVO1");
+    }
 
+    /**
+     * Container's getter for PrtDriverInformationVO2.
+     * @return PrtDriverInformationVO2
+     */
+    public PrtDriverInformationVOImpl getPrtDriverInformationVO2() {
+        return (PrtDriverInformationVOImpl)findViewObject("PrtDriverInformationVO2");
+    }
 }

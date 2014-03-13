@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="DriverInfoPageDef"
+                Package="com.sfr.engage.driverinfotaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtDriverInformationVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtDriverInformationVO2Iterator"/>
+    <iterator id="PrtDriverInformationVO1Iterator"
+              Binds="PrtDriverInformationVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="CardNumber">
+      <AttrNames>
+        <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="DriverNumber">
+      <AttrNames>
+        <Item Value="DriverNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="DriverName">
+      <AttrNames>
+        <Item Value="DriverName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="Nationality">
+      <AttrNames>
+        <Item Value="Nationality"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="MobileNumber">
+      <AttrNames>
+        <Item Value="MobileNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="PassportNumber">
+      <AttrNames>
+        <Item Value="PassportNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="PassportExpiry">
+      <AttrNames>
+        <Item Value="PassportExpiry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="LicenseNumber">
+      <AttrNames>
+        <Item Value="LicenseNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="LicenseExpiry">
+      <AttrNames>
+        <Item Value="LicenseExpiry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="EmployStart">
+      <AttrNames>
+        <Item Value="EmployStart"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="EmployEnd">
+      <AttrNames>
+        <Item Value="EmployEnd"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="PrtDriverInformationVO2Iterator" id="CreateInsert"
+            InstanceName="EngageAppModuleDataControl.PrtDriverInformationVO2"
+            DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
+            Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

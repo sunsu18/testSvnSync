@@ -11,6 +11,10 @@
               taskFlowId="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfoTaskFlow.xml#VehicleInfoTaskFlow"
               activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="DriverInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfoTaskFlow.xml#DriverInfoTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
 </pageDefinition>

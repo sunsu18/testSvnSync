@@ -1,0 +1,463 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:f="http://java.sun.com/jsf/core"
+version="2.1"
+xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+<af:panelGroupLayout id="pgl1">
+    <af:panelGroupLayout id="pgl2">
+      <af:panelGroupLayout id="pgl3" layout="horizontal">
+        <af:selectManyChoice label="Linked Account:" id="smc1"
+                             binding="#{pageFlowScope.DriverInfoBean.linkedAccount}">
+          <af:selectItem label="1000000000" value="1000000000" id="si5"/>
+          <af:selectItem label="2000000000" value="2000000000" id="si6"/>
+          <af:selectItem label="3000000000" value="3000000000" id="si3"/>
+          <af:selectItem label="4000000000" value="4000000000" id="si4"/>
+          <af:selectItem label="5000000000" value="5000000000" id="si1"/>
+          <af:selectItem label="6000000000" value="6000000000" id="si7"/>
+          <af:selectItem label="7000000000" value="7000000000" id="si8"/>
+          <af:selectItem label="8000000000" value="8000000000" id="si2"/>
+        </af:selectManyChoice>
+        <af:spacer width="12" height="10" id="s1"/>
+        <af:commandButton text="Search" id="cb1"
+                          actionListener="#{pageFlowScope.DriverInfoBean.searchAction}" >
+                          
+        </af:commandButton>                  
+        <af:spacer width="12" height="10" id="s2"/>
+        <af:commandButton text="Cancel" id="cb2"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl4"
+                         binding="#{pageFlowScope.DriverInfoBean.searchResults}"
+                         visible="#{pageFlowScope.DriverInfoBean.searchResultsShow}">
+    <af:separator id="s3"/>
+      <af:panelGroupLayout id="pgl5" layout="horizontal">
+      <af:outputText value="SearchResults:" id="ot1"/>
+        <af:spacer width="10" height="10" id="s4"/>
+        <!--<af:commandButton text="Add" id="cb3"
+                          actionListener="#{bindings.CreateInsert.execute}"
+                          action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}">
+        <af:showPopupBehavior triggerType="click" popupId="new_driver"/>
+        </af:commandButton>-->
+        <af:commandButton actionListener="#{bindings.CreateInsert.execute}" id="cb3"
+                          text="Add"
+                          action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}">
+         <af:showPopupBehavior triggerType="click" popupId="new_driver"/>                 
+         </af:commandButton>                 
+        <af:spacer width="10" height="10" id="s11"/>
+        <af:commandButton text="Delete" id="cb4"
+                          action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl6">
+      <af:spacer width="10" height="20" id="s6"/>
+      <af:forEach items="#{pageFlowScope.DriverInfoBean.myAccount}" var="var">
+      <af:panelGroupLayout id="pgl7" layout="horizontal">
+      <af:outputText value="Account: " id="ot2"/>
+      <af:outputText value="#{var.accountNumber}" id="ot3"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl8">
+      <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.driverInfoList}"
+                          width="840px" rows="5" inlineStyle="height:100.0px;"
+                          fetchSize="10">
+                  <af:column sortable="false" id="c13">
+                <af:selectBooleanCheckbox id="sbc1" 
+                                          valueChangeListener="#{pageFlowScope.DriverInfoBean.deleteCheckBoxListener}"
+                                          autoSubmit="true">
+                  <af:setPropertyListener from="#{row.prtDriverInformationPK}"
+                                          to="#{pageFlowScope.checkBoxPrimaryKey}"
+                                          type="valueChange"/>
+                </af:selectBooleanCheckbox>
+                  </af:column>
+                  <af:column sortable="false" headerText="Driver Number" id="c1">
+                    <af:outputText value="#{row.driverNumber}" id="ot4"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="Card Number" id="c2">
+                    <af:outputText value="#{row.cardNumber}" id="ot5"/>
+                  </af:column>
+                   <af:column sortable="false" headerText="Driver Name" id="c3">
+                    <af:outputText value="#{row.driverName}" id="ot6"/>
+                  </af:column>
+                   <af:column sortable="false" headerText="Nationality" id="c4">
+                    <af:outputText value="#{row.nationality}" id="ot7"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="Mobile Number" id="c5">
+                    <af:outputText value="#{row.mobileNumber}" id="ot8"/>
+                  </af:column>
+                  <!-- <af:column sortable="false" headerText="Passport Number" id="c6">
+                    <af:outputText value="#{row.passportNumber}" id="ot9"/>
+                  </af:column>
+                   <af:column sortable="false" headerText="Passport Expiry" id="c7">
+                    <af:outputText value="#{row.passportExpiry}" id="ot10"/>
+                  </af:column>
+                   <af:column sortable="false" headerText="License Number" id="c8">
+                    <af:outputText value="#{row.licenseNumber}" id="ot11"/>
+                  </af:column>
+                    <af:column sortable="false" headerText="License Expiry" id="c9">
+                    <af:outputText value="#{row.licenseExpiry}" id="ot12"/>
+                  </af:column>
+                   <af:column sortable="false" headerText="Employ Start" id="c10">
+                    <af:outputText value="#{row.employStart}" id="ot13"/>
+                  </af:column>
+                    <af:column sortable="false" headerText="Employ End" id="c11">
+                    <af:outputText value="#{row.employEnd}" id="ot14"/>
+                  </af:column>-->
+                    <af:column sortable="false" headerText="Remarks" id="c12">
+                    <af:outputText value="#{row.remarks}" id="ot15"/>
+                  </af:column>
+                  <af:column sortable="false" headerText="More Details" id="c14">                    
+                 <af:commandButton id="cb5"
+                                  action="#{pageFlowScope.DriverInfoBean.tableEditAction}"
+                                  icon="/images/edit.png">
+                  <af:setPropertyListener from="#{row.prtDriverInformationPK}" type="action"
+                                          to="#{pageFlowScope.primarykey}"/>
+                </af:commandButton>
+              </af:column>
+                </af:table>
+      <af:spacer width="10" height="20" id="s7"
+                       inlineStyle="height:15.0px;"/>
+      </af:panelGroupLayout>
+      </af:forEach>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    
+    <af:popup id="new_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.newDriver}"
+              autoCancel="disabled">
+      <af:dialog id="newDriver" title="AddDriver" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="psl6"
+                               dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="new_driver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="new_footer_panel" layout="horizontal">
+              <af:spacer width="10" height="10" id="s5"/>               
+                <af:commandButton text="SAVE" id="save"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  action="#{pageFlowScope.DriverInfoBean.newDriverSave}"/>
+                <af:spacer width="10" height="10" id="s8"/>
+                <af:commandButton text="Cancel" id="ccb11"
+                                  actionListener="#{bindings.Rollback.execute}"
+                                  immediate="true"
+                                  action="#{pageFlowScope.DriverInfoBean.newDriverCancel}">                  
+                </af:commandButton>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="newDriver_scroll"
+                                 styleClass="WCPanelMargin">
+                <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
+                 <af:inputText value="#{bindings.AccountId.inputValue}"
+                            label="#{bindings.AccountId.hints.label}"
+                            required="#{bindings.AccountId.hints.mandatory}"
+                            columns="#{bindings.AccountId.hints.displayWidth}"
+                            maximumLength="#{bindings.AccountId.hints.precision}"
+                            shortDesc="#{bindings.AccountId.hints.tooltip}"
+                            id="it4">
+                <f:validator binding="#{bindings.AccountId.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.CardNumber.inputValue}"
+                            label="#{bindings.CardNumber.hints.label}"
+                            required="#{bindings.CardNumber.hints.mandatory}"
+                            columns="#{bindings.CardNumber.hints.displayWidth}"
+                            maximumLength="#{bindings.CardNumber.hints.precision}"
+                            shortDesc="#{bindings.CardNumber.hints.tooltip}"
+                            id="it3">
+                <f:validator binding="#{bindings.CardNumber.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.DriverNumber.inputValue}"
+                            label="#{bindings.DriverNumber.hints.label}"
+                            required="#{bindings.DriverNumber.hints.mandatory}"
+                            columns="#{bindings.DriverNumber.hints.displayWidth}"
+                            maximumLength="#{bindings.DriverNumber.hints.precision}"
+                            shortDesc="#{bindings.DriverNumber.hints.tooltip}"
+                            id="it2">
+                <f:validator binding="#{bindings.DriverNumber.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.DriverName.inputValue}"
+                            label="#{bindings.DriverName.hints.label}"
+                            required="#{bindings.DriverName.hints.mandatory}"
+                            columns="#{bindings.DriverName.hints.displayWidth}"
+                            maximumLength="#{bindings.DriverName.hints.precision}"
+                            shortDesc="#{bindings.DriverName.hints.tooltip}"
+                            id="it8">
+                <f:validator binding="#{bindings.DriverName.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.Nationality.inputValue}"
+                            label="#{bindings.Nationality.hints.label}"
+                            required="#{bindings.Nationality.hints.mandatory}"
+                            columns="#{bindings.Nationality.hints.displayWidth}"
+                            maximumLength="#{bindings.Nationality.hints.precision}"
+                            shortDesc="#{bindings.Nationality.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.Nationality.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.MobileNumber.inputValue}"
+                            label="#{bindings.MobileNumber.hints.label}"
+                            required="#{bindings.MobileNumber.hints.mandatory}"
+                            columns="#{bindings.MobileNumber.hints.displayWidth}"
+                            maximumLength="#{bindings.MobileNumber.hints.precision}"
+                            shortDesc="#{bindings.MobileNumber.hints.tooltip}"
+                            id="it9">
+                <f:validator binding="#{bindings.MobileNumber.validator}"/>
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.MobileNumber.format}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.Remarks.inputValue}"
+                            label="#{bindings.Remarks.hints.label}"
+                            required="#{bindings.Remarks.hints.mandatory}"
+                            columns="#{bindings.Remarks.hints.displayWidth}"
+                            maximumLength="#{bindings.Remarks.hints.precision}"
+                            shortDesc="#{bindings.Remarks.hints.tooltip}"
+                            id="it1">
+                <f:validator binding="#{bindings.Remarks.validator}"/>
+              </af:inputText>
+              <af:inputText value="#{bindings.PassportNumber.inputValue}"
+                            label="#{bindings.PassportNumber.hints.label}"
+                            required="#{bindings.PassportNumber.hints.mandatory}"
+                            columns="#{bindings.PassportNumber.hints.displayWidth}"
+                            maximumLength="#{bindings.PassportNumber.hints.precision}"
+                            shortDesc="#{bindings.PassportNumber.hints.tooltip}"
+                            id="it6">
+                <f:validator binding="#{bindings.PassportNumber.validator}"/>
+              </af:inputText>
+              <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
+                            label="#{bindings.PassportExpiry.hints.label}"
+                            required="#{bindings.PassportExpiry.hints.mandatory}"
+                            shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
+                            id="id6">
+                <f:validator binding="#{bindings.PassportExpiry.validator}"/>
+                <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
+              </af:inputDate>
+              <af:inputText value="#{bindings.LicenseNumber.inputValue}"
+                            label="#{bindings.LicenseNumber.hints.label}"
+                            required="#{bindings.LicenseNumber.hints.mandatory}"
+                            columns="#{bindings.LicenseNumber.hints.displayWidth}"
+                            maximumLength="#{bindings.LicenseNumber.hints.precision}"
+                            shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
+                            id="it7">
+                <f:validator binding="#{bindings.LicenseNumber.validator}"/>
+              </af:inputText>
+              <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
+                            label="#{bindings.LicenseExpiry.hints.label}"
+                            required="#{bindings.LicenseExpiry.hints.mandatory}"
+                            shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
+                            id="id3">
+                <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
+                <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
+              </af:inputDate>
+              <af:inputDate value="#{bindings.EmployStart.inputValue}"
+                            label="#{bindings.EmployStart.hints.label}"
+                            required="#{bindings.EmployStart.hints.mandatory}"
+                            shortDesc="#{bindings.EmployStart.hints.tooltip}"
+                            id="id5">
+                <f:validator binding="#{bindings.EmployStart.validator}"/>
+                <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
+              </af:inputDate>
+              <af:inputDate value="#{bindings.EmployEnd.inputValue}"
+                            label="#{bindings.EmployEnd.hints.label}"
+                            required="#{bindings.EmployEnd.hints.mandatory}"
+                            shortDesc="#{bindings.EmployEnd.hints.tooltip}"
+                            id="id2">
+                <f:validator binding="#{bindings.EmployEnd.validator}"/>
+                <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
+              </af:inputDate>                               
+                </af:panelFormLayout>              
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    
+  <af:popup id="edit_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.editDriver}"
+              autoCancel="disabled">
+      <af:dialog id="editDriver" title="EditDriver" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="pssl6"
+                               dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="edit_driver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
+              <af:spacer width="10" height="10" id="ss5"/>               
+                <af:commandButton text="SAVE" id="editsave"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
+                                  partialSubmit="true"/>
+                <af:spacer width="10" height="10" id="s9"/>
+                <af:commandButton text="Cancel" id="cb8"
+                                  actionListener="#{bindings.Rollback.execute}"
+                                  immediate="true"
+                                  action="#{pageFlowScope.DriverInfoBean.editDriverCancel}">                  
+                </af:commandButton>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="editDriver_scroll"
+                                 styleClass="WCPanelMargin">
+              <af:panelFormLayout id="pfl2" rows="7" maxColumns="3">
+                <af:inputText value="#{bindings.AccountId.inputValue}"
+                              label="#{bindings.AccountId.hints.label}"
+                              required="#{bindings.AccountId.hints.mandatory}"
+                              columns="#{bindings.AccountId.hints.displayWidth}"
+                              maximumLength="#{bindings.AccountId.hints.precision}"
+                              shortDesc="#{bindings.AccountId.hints.tooltip}"
+                              id="it11">
+                  <f:validator binding="#{bindings.AccountId.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CardNumber.inputValue}"
+                              label="#{bindings.CardNumber.hints.label}"
+                              required="#{bindings.CardNumber.hints.mandatory}"
+                              columns="#{bindings.CardNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.CardNumber.hints.precision}"
+                              shortDesc="#{bindings.CardNumber.hints.tooltip}"
+                              id="it16">
+                  <f:validator binding="#{bindings.CardNumber.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.DriverNumber.inputValue}"
+                              label="#{bindings.DriverNumber.hints.label}"
+                              required="#{bindings.DriverNumber.hints.mandatory}"
+                              columns="#{bindings.DriverNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverNumber.hints.precision}"
+                              shortDesc="#{bindings.DriverNumber.hints.tooltip}"
+                              id="it14">
+                  <f:validator binding="#{bindings.DriverNumber.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.DriverName.inputValue}"
+                              label="#{bindings.DriverName.hints.label}"
+                              required="#{bindings.DriverName.hints.mandatory}"
+                              columns="#{bindings.DriverName.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverName.hints.precision}"
+                              shortDesc="#{bindings.DriverName.hints.tooltip}"
+                              id="it15">
+                  <f:validator binding="#{bindings.DriverName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Nationality.inputValue}"
+                              label="#{bindings.Nationality.hints.label}"
+                              required="#{bindings.Nationality.hints.mandatory}"
+                              columns="#{bindings.Nationality.hints.displayWidth}"
+                              maximumLength="#{bindings.Nationality.hints.precision}"
+                              shortDesc="#{bindings.Nationality.hints.tooltip}"
+                              id="it12">
+                  <f:validator binding="#{bindings.Nationality.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.MobileNumber.inputValue}"
+                              label="#{bindings.MobileNumber.hints.label}"
+                              required="#{bindings.MobileNumber.hints.mandatory}"
+                              columns="#{bindings.MobileNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.MobileNumber.hints.precision}"
+                              shortDesc="#{bindings.MobileNumber.hints.tooltip}"
+                              id="it17">
+                  <f:validator binding="#{bindings.MobileNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.MobileNumber.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Remarks.inputValue}"
+                              label="#{bindings.Remarks.hints.label}"
+                              required="#{bindings.Remarks.hints.mandatory}"
+                              columns="#{bindings.Remarks.hints.displayWidth}"
+                              maximumLength="#{bindings.Remarks.hints.precision}"
+                              shortDesc="#{bindings.Remarks.hints.tooltip}"
+                              id="it18">
+                  <f:validator binding="#{bindings.Remarks.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.PassportNumber.inputValue}"
+                              label="#{bindings.PassportNumber.hints.label}"
+                              required="#{bindings.PassportNumber.hints.mandatory}"
+                              columns="#{bindings.PassportNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.PassportNumber.hints.precision}"
+                              shortDesc="#{bindings.PassportNumber.hints.tooltip}"
+                              id="it13">
+                  <f:validator binding="#{bindings.PassportNumber.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
+                              label="#{bindings.PassportExpiry.hints.label}"
+                              required="#{bindings.PassportExpiry.hints.mandatory}"
+                              shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
+                              id="id1">
+                  <f:validator binding="#{bindings.PassportExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
+                </af:inputDate>
+                <af:inputText value="#{bindings.LicenseNumber.inputValue}"
+                              label="#{bindings.LicenseNumber.hints.label}"
+                              required="#{bindings.LicenseNumber.hints.mandatory}"
+                              columns="#{bindings.LicenseNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.LicenseNumber.hints.precision}"
+                              shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
+                              id="it10">
+                  <f:validator binding="#{bindings.LicenseNumber.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
+                              label="#{bindings.LicenseExpiry.hints.label}"
+                              required="#{bindings.LicenseExpiry.hints.mandatory}"
+                              shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
+                              id="id8">
+                  <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EmployStart.inputValue}"
+                              label="#{bindings.EmployStart.hints.label}"
+                              required="#{bindings.EmployStart.hints.mandatory}"
+                              shortDesc="#{bindings.EmployStart.hints.tooltip}"
+                              id="id4">
+                  <f:validator binding="#{bindings.EmployStart.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
+                </af:inputDate>
+                <af:inputDate value="#{bindings.EmployEnd.inputValue}"
+                              label="#{bindings.EmployEnd.hints.label}"
+                              required="#{bindings.EmployEnd.hints.mandatory}"
+                              shortDesc="#{bindings.EmployEnd.hints.tooltip}"
+                              id="id7">
+                  <f:validator binding="#{bindings.EmployEnd.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
+                </af:inputDate>
+              </af:panelFormLayout>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    
+    <af:popup id="delete_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.deleteDriver}"
+              autoCancel="disabled">
+      <af:dialog id="deleteDriver" title="DeleteDriver" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="psal6"
+                               dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="delete_Driver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="delete_footer_panel" layout="horizontal">
+              <af:spacer width="10" height="10" id="sas5"/>               
+                <af:commandButton text="Yes" id="deletesave"                                  
+                                  action="#{pageFlowScope.DriverInfoBean.deleteDriverSave}"/>
+                <af:spacer width="10" height="10" id="s10"/>
+                <af:commandButton text="No" id="cb9"
+                                  actionListener="#{bindings.Rollback.execute}"
+                                  immediate="true"
+                                  action="#{pageFlowScope.DriverInfoBean.deleteDriverCancel}">             
+                </af:commandButton>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="deleteDriver_scroll"
+                                 styleClass="WCPanelMargin">
+                <af:panelFormLayout id="pfasl1" >
+                <af:outputText value="Are you sure you want to delete? If OK press YES" id="ot16"/>
+              </af:panelFormLayout>              
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+          
+        
+      </af:panelGroupLayout>
+
+
+
+</jsp:root>

@@ -17,6 +17,8 @@
     <page path="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfo.jsff"
           usageId="com_sfr_engage_view_VehicleInfoPageDef"/>
 
+    <page path="/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfo.jsff"
+          usageId="com_sfr_engage_view_DriverInfoPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -28,6 +30,8 @@
     <page id="com_sfr_engage_view_VehicleInfoPageDef"
           path="com.sfr.engage.vehicleinfotaskflow.VehicleInfoPageDef"/>
 
+    <page id="com_sfr_engage_view_DriverInfoPageDef"
+          path="com.sfr.engage.driverinfotaskflow.DriverInfoPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
