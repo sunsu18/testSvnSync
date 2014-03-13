@@ -1,6 +1,31 @@
+
+input.image{
+    border-style: none !important; 
+    width:23.0px !important;
+    height:23.0px !important;
+}
+
+/*******************************AF:Table***********************************/
+.portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell {
+    background: none repeat scroll 0 0 none;
+    border-bottom: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    font-family: Georgia;
+    font-size: 12px;
+    font-weight: bold;
+    height: 32px;
+    overflow: hidden;
+    padding: 1px 2px;
+    text-align: left !important;
+    word-wrap: break-word;
+    text-align: center;
+}
 /*Page Background*/
 .portalbackground{
 background-color: rgb(252,252,252);
+
+    
 }
 
 .logintext{
@@ -15,7 +40,53 @@ background-color: rgb(252,252,252);
    font-weight:bold !important; 
    font-style:normal;
    color: #656364 !important;
+    background-color:Blue;
 }
+.af_table_data-table-VH-lines .af_column_banded-data-cell
+{
+    border-bottom: 1px solid #FFFFFF !important;
+    border-right: 1px solid #FFFFFF !important;
+    padding-right: 2px !important;
+    background-color:Red !important;
+}
+
+
+af|table::data-row af|column::data-cell{
+background-color:Gray;
+border-bottom: 1px solid Gray  !important;
+border-right: 1px solid gray !important;
+padding-right: 2px !important;
+}
+
+af|table::data-row af|column::banded-data-cell{
+background-color:white !important;
+border-bottom: 1px solid #FFFFFF !important;
+    border-right: 1px solid #FFFFFF !important;
+    padding-right: 2px !important;
+}
+af|column::column-header-cell
+    {
+      color: Black;
+
+      font-weight: bold;
+    }
+
+
+.portlet-table-body, .portlet-table-selected, .portlet-table-footer, .portlet-table-text, .af_column_data-cell {
+    background-color: none;
+    border-bottom: medium none;
+    border-right: medium none;
+    color: #333333;
+    font-family: Lucida Sans;
+    font-size: 12px;
+    font-weight: normal;
+    height: 26px;
+    overflow: hidden;
+    padding: 1px 3px 1px 2px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
 
 
 /*Inside Panel Background*/
@@ -34,6 +105,21 @@ background: -ms-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* IE10+ */
 background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
 }
+
+/**************************************************************/
+.printButton {
+    /*background-color: rgb(244, 189, 46)!important;*/
+    /*background-image: none !important;*/
+    /*font-family: Georgia;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid rgb(198,49,0)  189, 46)!important;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: black !important;*/
+
+    border-style: none !important;
 
 
 /*Text Header On Panel*/
