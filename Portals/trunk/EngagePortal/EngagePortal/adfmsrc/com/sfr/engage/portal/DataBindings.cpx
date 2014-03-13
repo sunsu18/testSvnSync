@@ -82,6 +82,12 @@
           usageId="com_sfr_engage_portal_customerviewPageDef"/>
     <page path="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx"
           usageId="com_sfr_engage_portal_engageTemplatePageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"
+          usageId="com_sfr_engage_portal_changeaccountPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/changeaccount/selectaccount.jspx"
+          usageId="com_sfr_engage_portal_selectaccountPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/admintool/requests.jspx"
+          usageId="com_sfr_engage_portal_requestsPageDef"/>
   </pageMap>
   <definitionFactories>
     <factory nameSpace="http://xmlns.oracle.com/portlet/bindings"
@@ -173,6 +179,12 @@
     <page id="com_sfr_engage_portal_untitled1PageDef1" path="oracle.webcenter.portalapp.pages.untitled1PageDef1"/>
     <page id="com_sfr_engage_portal_engageTemplatePageDef"
           path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"/>
+    <page id="com_sfr_engage_portal_changeaccountPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.changeaccountPageDef"/>
+    <page id="com_sfr_engage_portal_selectaccountPageDef"
+          path="oracle.webcenter.portalapp.engagepages.changeaccount.selectaccountPageDef"/>
+    <page id="com_sfr_engage_portal_requestsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.admintool.requestsPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="EngageAppModuleDataControl"

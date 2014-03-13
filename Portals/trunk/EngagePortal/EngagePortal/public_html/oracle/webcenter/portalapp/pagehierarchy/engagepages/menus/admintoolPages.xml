@@ -2,6 +2,4 @@
 <pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/admintool/feeds.jspx" hidden="false" shared="false" hasSubPages="false" id="feeds"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/admintool/portalcost.jspx" hidden="false" shared="false" hasSubPages="false" id="portalcost"/>
 </pagesDef>

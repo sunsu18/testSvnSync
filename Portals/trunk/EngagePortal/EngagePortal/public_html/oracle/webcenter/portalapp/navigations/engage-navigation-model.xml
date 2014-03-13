@@ -15,14 +15,14 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/pages/home.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="home"/>
+            <attribute attributeId="Title" isKey="false" value="Home"/>
           </attributes>
         </url>
         <url visible="#{true}" id="accounts"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/accounts.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="accounts"/>
+            <attribute attributeId="Title" isKey="false" value="Accounts"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -30,7 +30,7 @@
                  id="accountsummary"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx">
               <attributes>
-                <attribute value="accountsummary" isKey="false"
+                <attribute value="Account Summary" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -39,7 +39,7 @@
                  id="company"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/company.jspx">
               <attributes>
-                <attribute value="company" isKey="false" attributeId="Title"/>
+                <attribute value="Company" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -47,7 +47,7 @@
                  id="driverinfo"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx">
               <attributes>
-                <attribute value="driverinfo" isKey="false"
+                <attribute value="Driver Info" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -56,7 +56,7 @@
                  id="messages"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/messages.jspx">
               <attributes>
-                <attribute value="messages" isKey="false" attributeId="Title"/>
+                <attribute value="Messages" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -64,7 +64,7 @@
                  id="vehicleinfo"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx">
               <attributes>
-                <attribute value="vehicleinfo" isKey="false"
+                <attribute value="Vehicle Info" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -74,7 +74,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/transactions.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="transaction"/>
+            <attribute attributeId="Title" isKey="false" value="Transaction"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -82,7 +82,7 @@
                  id="aroverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/aroverview.jspx">
               <attributes>
-                <attribute value="aroverview" isKey="false"
+                <attribute value="AR Overview" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -91,7 +91,7 @@
                  id="invoiceoverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx">
               <attributes>
-                <attribute value="invoiceoverview" isKey="false"
+                <attribute value="Invoice Overview" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -100,7 +100,7 @@
                  id="transactions"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/transactions.jspx">
               <attributes>
-                <attribute value="transactions" isKey="false"
+                <attribute value="Transactions" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -110,7 +110,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="cardservices"/>
+            <attribute attributeId="Title" isKey="false" value="Card Services"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -118,7 +118,7 @@
                  id="cardinfo"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/cardinfo.jspx">
               <attributes>
-                <attribute value="cardinfo" isKey="false" attributeId="Title"/>
+                <attribute value="Card Info" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -126,7 +126,7 @@
                  id="cardprofile"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/cardprofile.jspx">
               <attributes>
-                <attribute value="cardprofile" isKey="false"
+                <attribute value="Card Profile" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -135,7 +135,7 @@
                  id="ordernewcard"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/ordernewcard.jspx">
               <attributes>
-                <attribute value="ordernewcard" isKey="false"
+                <attribute value="Order New Card" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -144,7 +144,7 @@
                  id="viewcard"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx">
               <attributes>
-                <attribute value="viewcard" isKey="false" attributeId="Title"/>
+                <attribute value="View Card" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
           </contents>
@@ -153,7 +153,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/pricing.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="pricing"/>
+            <attribute attributeId="Title" isKey="false" value="Pricing"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -161,7 +161,7 @@
                  id="agreements"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/agreements.jspx">
               <attributes>
-                <attribute value="agreements" isKey="false"
+                <attribute value="Agreements" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -170,7 +170,7 @@
                  id="fuelprices"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx">
               <attributes>
-                <attribute value="fuelprices" isKey="false"
+                <attribute value="Fuel Prices" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -180,7 +180,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/setup.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="setup"/>
+            <attribute attributeId="Title" isKey="false" value="Setup"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -188,7 +188,7 @@
                  id="alerts"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/alerts.jspx">
               <attributes>
-                <attribute value="alerts" isKey="false" attributeId="Title"/>
+                <attribute value="Alerts" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -196,7 +196,7 @@
                  id="manageusers"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx">
               <attributes>
-                <attribute value="manageusers" isKey="false"
+                <attribute value="Manage Users" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -205,7 +205,7 @@
                  id="reportsetup"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/reportsetup.jspx">
               <attributes>
-                <attribute value="reportsetup" isKey="false"
+                <attribute value="Report Setup" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -214,7 +214,7 @@
                  id="webprofile"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/webprofile.jspx">
               <attributes>
-                <attribute value="webprofile" isKey="false"
+                <attribute value="Web Profile" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -224,7 +224,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/webassist.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="webassist"/>
+            <attribute attributeId="Title" isKey="false" value="Web Assist"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -232,7 +232,7 @@
                  id="customerview"
                  url="page://oracle/webcenter/portalapp/engagepages/webassist/customerview.jspx">
               <attributes>
-                <attribute value="customerview" isKey="false"
+                <attribute value="Customer View" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -242,7 +242,7 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/support.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="support"/>
+            <attribute attributeId="Title" isKey="false" value="Support"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -250,7 +250,7 @@
                  id="contact"
                  url="page://oracle/webcenter/portalapp/engagepages/support/contact.jspx">
               <attributes>
-                <attribute value="contact" isKey="false" attributeId="Title"/>
+                <attribute value="Contact" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -258,32 +258,23 @@
                  id="faq"
                  url="page://oracle/webcenter/portalapp/engagepages/support/faq.jspx">
               <attributes>
-                <attribute value="faq" isKey="false" attributeId="Title"/>
+                <attribute value="FAQ" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
           </contents>
         </url>
-        <url visible="#{true}" id="admintool"
-             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
-             url="page://oracle/webcenter/portalapp/engagepages/menus/admintool.jspx">
+        <url url="page://oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"
+             id="changeaccount" visible="#{true}"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="admintool"/>
+            <attribute isKey="false" value="Change Account" attributeId="Title"/>
           </attributes>
           <contents>
-            <url visible="#{true}"
-                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
-                 id="feeds"
-                 url="page://oracle/webcenter/portalapp/engagepages/admintool/feeds.jspx">
+            <url url="page://oracle/webcenter/portalapp/engagepages/changeaccount/selectaccount.jspx"
+                 id="selectaccount" visible="#{true}"
+                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory">
               <attributes>
-                <attribute value="feeds" isKey="false" attributeId="Title"/>
-              </attributes>
-            </url>
-            <url visible="#{true}"
-                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
-                 id="portalcost"
-                 url="page://oracle/webcenter/portalapp/engagepages/admintool/portalcost.jspx">
-              <attributes>
-                <attribute value="portalcost" isKey="false"
+                <attribute isKey="false" value="Select Account"
                            attributeId="Title"/>
               </attributes>
             </url>

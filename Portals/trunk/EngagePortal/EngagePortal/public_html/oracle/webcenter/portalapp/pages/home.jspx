@@ -30,7 +30,7 @@
               <af:spacer binding="#{homeCarousalBean.testSpacer}" id="s23"/>
               <af:panelGroupLayout id="pgl_01"
                                        layout="vertical"
-                                  inlineStyle="width:962px; height:830px;"
+                                  inlineStyle="width:962px; height:auto;"
                                    styleClass="portalbackground">
                                 
                   <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
