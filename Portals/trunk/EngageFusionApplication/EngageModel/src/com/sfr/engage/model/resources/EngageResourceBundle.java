@@ -48,8 +48,8 @@ public class EngageResourceBundle extends ListResourceBundle{
 					{ "PRICES", "" }, { "LATEST_UPDATE", "" }, { "PRODUCTS", "" }, { "UNIT_PRICE", "" },
     { "DRIVER_INFO", "" },{ "VEHICLE_INFO", "" }, { "LINKED_ACCOUNT", "" },{ "DRIVER_NAME", "" },{ "REGISTRATION_NUMBER", "" },{ "SERACH_RESULTS", "" },
     { "SAVE", "" },{ "DELETE", "" }, { "ADD", "" },  { "ACCOUNT", "" } ,  { "CANCEL", "" }, { "SEARCH", "" },                                     
-    { "VEHICLE_NUMBER", "" },{ "CARD_NUMBER", "" }, { "INTERNAL_NAME", "" },  { "REGISTRATION_NUMBER", "" } ,  { "REMARKS", "" }, { "FUEL_TYPE", "" }, 
-    { "MAX_FUEL", "" },{ "ODOMETER", "" }, { "MORE_DETAILS", "" },  { "DRIVER_NUMBER", "" } ,  { "CARD_NUMBER", "" }, { "DRIVER_NAME", "" }, { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }
+    { "VEHICLE_NUMBER", "" },{ "CARD_NUMBER", "" }, { "INTERNAL_NAME", "" },  { "REMARKS", "" }, { "FUEL_TYPE", "" }, 
+    { "MAX_FUEL", "" },{ "ODOMETER", "" }, { "MORE_DETAILS", "" },  { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }
                                       };
                
 
