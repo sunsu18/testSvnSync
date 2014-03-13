@@ -117,20 +117,38 @@ public class VehicleInfoBean {
                             (PrtTruckInformationVORowImpl)vo.next();
                         if (currRow != null) {
                             VehicleInfo vehicle = new VehicleInfo();
+                            if(currRow.getPrtTruckInformationPk()!=null)
+                            {
                             vehicle.setPrtTruckInformationPK(currRow.getPrtTruckInformationPk().toString());
+                            }
                             vehicle.setAccountNumber(currRow.getAccountNumber());
                             vehicle.setVehicleNumber(currRow.getVehicleNumber());
                             vehicle.setCardNumber(currRow.getCardNumber());
                             vehicle.setInternalName(currRow.getInternalName());
                             vehicle.setRegistrationNumber(currRow.getRegistrationNumber());
                             vehicle.setBrand(currRow.getBrand());
-                            vehicle.setYear(Integer.parseInt(currRow.getYear().toString()));                            
+                            if(currRow.getYear()!=null)
+                            {
+                            vehicle.setYear(Integer.parseInt(currRow.getYear().toString()));  
+                            }
+                            if(currRow.getRegistrationDate()!=null)
+                            {
                             vehicle.setRegistrationDate(currRow.getRegistrationDate().getValue());
+                            }
+                            if(currRow.getEndDate()!=null)
+                            {
                             vehicle.setEndDate(currRow.getEndDate().getValue());
+                            }
                             vehicle.setRemarks(currRow.getRemarks());
                             vehicle.setFuelType(currRow.getFuelType());
+                            if(currRow.getMaxFuel()!=null)
+                            {
                             vehicle.setMaxFuel(Integer.parseInt(currRow.getMaxFuel().toString()));
+                            }
+                            if(currRow.getOdometer()!=null)
+                            {
                             vehicle.setODOMeter(Integer.parseInt(currRow.getOdometer().toString()));
+                            }
                             myVehicleList.add(vehicle);
                         }
                     }
