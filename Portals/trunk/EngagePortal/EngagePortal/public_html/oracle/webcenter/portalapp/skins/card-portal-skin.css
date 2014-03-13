@@ -1,422 +1,385 @@
-/*******************************AF:Table***********************************/
-.portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell {
-    background: none repeat scroll 0 0 none;
-    border-bottom: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
-    border-top: 1px solid #FFFFFF;
-    font-family: Georgia;
-    font-size: 12px;
-    font-weight: bold;
-    height: 32px;
-    overflow: hidden;
-    padding: 1px 2px;
-    text-align: left !important;
-    word-wrap: break-word;
-    text-align: center;
-}
-
-.af_table_data-table-VH-lines.af_column_data-cell {
-    border-bottom: 1px solid #FFFFFF !important;
-    border-right: 1px solid #FFFFFF !important;
-    padding-right: 2px !important;
-}
-
-.portlet-table-body, .portlet-table-selected, .portlet-table-footer, .portlet-table-text, .af_column_data-cell {
-    background-color: none;
-    border-bottom: medium none;
-    border-right: medium none;
-    color: #333333;
-    font-family: Lucida Sans;
-    font-size: 12px;
-    font-weight: normal;
-    height: 26px;
-    overflow: hidden;
-    padding: 1px 3px 1px 2px;
-    text-align: left;
-    word-wrap: break-word;
-}
-
-.af_treeTable, .af_table {
-    border: 1px solid #FFFFFF;
-}
-
-.link {
-    color: #524e4f;
-    font-size: 12px;
-    font-family: Lucida Sans;
-    text-decoration: underline;
-    font-weight: normal;
-}
-/**************************************************************/
-.printButton {
-    /*background-color: rgb(244, 189, 46)!important;
-    background-image: none !important;
-    font-family: Georgia;
-    font-weight: bold;
-    font-size: 12px;
-    text-align: center;
-    border: 1pxsolidrgb(244, 189, 46)!important;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    color: black !important;*/
-
-    background-image: url("/faces/images/download.jpg")!important;
-    background-repeat: no-repeat !important;
-}
-
-.printButton:hover {
-    /*background-color: rgb(220, 174, 53)!important;
-    background-image: none !important;
-    font-family: Georgia !important;
-    font-weight: bold !important;
-    font-size: 12px !important;
-    text-align: center !important;
-    border: 1pxsolidrgb(220, 174, 53)!important;
-    color: White !important;
-    padding-top: 3px;
-    padding-bottom: 3px;*/
-}
-
-.heading {
-    color: rgb(242, 175, 0);
-    font-size: 20px;
-    font-family: Georgia;
-    font-weight: bold;
-    text-align: left;
-}
 /*Page Background*/
-.portalbackground {
-    background-color: rgb(252, 252, 252);
+.portalbackground{
+background-color: rgb(252,252,252);
 }
+
+.logintext{
+   background: url("/images/Buttons/login_back.png") !important;
+   font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:30px !important; 
+   text-align:left; 
+   vertical-align:top;
+   text-decoration:none; 
+   width:327px; 
+   height:60px; 
+   font-weight:bold !important; 
+   font-style:normal;
+   color: #656364 !important;
+}
+
+
 /*Inside Panel Background*/
-/*.font{*/
-/*font-family : Lucida Sans,Georgia,Serif !important;*/
-/*font-size: 14px;*/
+.panelbackground{
+background-color: white;
 }
-/*Inside Panel Background*/
-.panelbackground {
-    background-color: white;
-}
+
 /*Panel Top Gradient*/
-.paneltopbackground {
-    background-color: #4a4748;
-    /* Old browsers */
-
-    background: -moz-linear-gradient(top, #4a4748 59%, #312e2f 89%);
-    /* FF3.6+ */
-
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(59%, #4a4748), color-stop(89%, #312e2f));
-    /* Chrome,Safari4+ */
-
-    background: -webkit-linear-gradient(top, #4a4748 59%, #312e2f 89%);
-    /* Chrome10+,Safari5.1+ */
-
-    background: -o-linear-gradient(top, #4a4748 59%, #312e2f 89%);
-    /* Opera 11.10+ */
-
-    background: -ms-linear-gradient(top, #4a4748 59%, #312e2f 89%);
-    /* IE10+ */
-
-    background: linear-gradient(to bottom, #4a4748 59%, #312e2f 89%);
-    /* W3C */
-
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#4a4748', endColorstr='#312e2f', GradientType=0);
-    /* IE6-9 */
+.paneltopbackground{
+background-color: #4a4748; /* Old browsers */
+background: -moz-linear-gradient(top,  #4a4748 59%, #312e2f 89%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(59%,#4a4748), color-stop(89%,#312e2f)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* IE10+ */
+background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
 }
+
+
 /*Text Header On Panel*/
-.headertexthome {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #ffffff;
-    font-weight: bolder !important;
-    font-style: normal;
-    background-position: center top;
-    padding-top: 2px;
+.headertexthome{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ffffff;
+font-weight: bolder !important;
+font-style:normal;
+background-position:center top;
+padding-top:2px;
 }
+
+
 /*Shop By Category Header*/
-.categorytext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #524e4f;
-    font-weight: bold;
-    font-style: normal;
+.categorytext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #524e4f;
+font-weight: bold;
+font-style:normal;
 }
-/*Button Background -- Developers to modify the classname depending on the components*/
-.buttonback {
-    border-color: #f2af00;
-    background-color: #F2AD00;
-    background-image: linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-    background-image: -o-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-    background-image: -moz-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-    background-image: -webkit-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-    background-image: -ms-linear-gradient(bottom, #F2AD00 70%, #EC9200 100%);
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.7, #F2AD00), color-stop(1, #EC9200));
+
+
+
+/*Button Background*/
+.buttonback
+{
+background: #f2ad00 !important; /* Old browsers */
+background: -moz-linear-gradient(top,  #f2ad00 0%, #f9c300 100%) !important; /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2ad00), color-stop(100%,#f9c300)) !important; /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* IE10+ */
+background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%) !important; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 ) !important; /* IE6-9 */
+
+
 }
-/*Button Text -- Developers to modify the classname depending on the components*/
-.buttontext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    font-weight: bold;
-    color: #3f3c3d;
-    text-shadow: 0px 1px 0pxrgba(231, 231, 231, 1);
-    font-style: normal;
-    text-decoration: none;
+
+
+/*Button Text */
+.buttontext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px !important;
+font-weight: bold !important;
+color : #ffffff !important;
+text-align:right !important; 
+vertical-align:bottom !important; 
+text-decoration:none !important;
+/*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
+font-style:normal !important;
+text-decoration:none !important;
 }
+
 /*Portal Text*/
-.contenttext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #524e4f;
-    font-weight: normal;
-    font-style: normal;
-    line-height: 1.4;
-    text-align: justify;
+.contenttext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #524e4f;
+font-weight: normal;
+font-style:normal;
+line-height: 1.4;
+text-align: justify;
 }
+
+
 /*Top Product Text for Carousel*/
-.topproducttext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #ff9f00 !important;
-    font-weight: bold;
-    font-style: normal;
-    text-decoration: none !important;
+.topproducttext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ff9f00 !important;
+font-weight: bold;
+font-style:normal;
+text-decoration: none !important;
 }
+
 /*Product No Text for Carousel*/
-.productnotext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #878686 !important;
-    font-weight: normal;
-    font-style: normal;
-    text-decoration: none !important;
+.productnotext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #878686 !important;
+font-weight: normal;
+font-style:normal;
+text-decoration: none !important;
 }
+
 /*Product Price Text for Carousel*/
-.productprice {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #3a3839 !important;
-    font-weight: bold;
-    font-style: normal;
-    text-decoration: none !important;
+.productprice{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #3a3839 !important;
+font-weight : bold;
+font-style:normal;
+text-decoration: none !important;
 }
+
+
 /*Headers Font on All pages*/
-.header {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 15px;
-    color: #ff9f00;
-    font-style: italic;
-    font-weight: bold;
+.header{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 15px;
+color: #ff9f00;
+font-style:italic;
+font-weight:bold;
 }
+
+
 /*Links*/
-.links {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 12px;
-    color: #2181dc !important;
-    font-weight: normal !important;
-    text-decoration: underline !important;
-    font-style: italic !important;
-    cursor: auto;
+.links{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #2181dc !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+font-style:italic !important;
+cursor: auto;
 }
 
-.af_commandImageLink_text {
-    color: #524e4f !important;
+
+.greylinks{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 12px !important;
+color: #524e4f !important;
+font-weight: bold ;
+font-style:normal;
+text-decoration: none !important;
+cursor:auto;
 }
 
-.af_commandButton:hover, .af_resetButton:hover, .af_goButton:hover, .af_dialog_footer-button:hover, .af_query_button:hover, .AFNoteWindowAllButton:hover, .af_commandButton:focus:hover, .af_resetButton:focus:hover, .af_goButton:focus:hover, .af_dialog_footer-button:focus:hover, .af_query_button:focus:hover, .AFNoteWindowAllButton:focus:hover, .af_trainButtonBar_back-button:hover, .af_trainButtonBar_next-button:hover {
-    background-color: #ffffff !important;
-    /*background-image: none;*/
-}
 
-.greylinks {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 12px;
-    color: #524e4f !important;
-    font-weight: bold;
-    font-style: normal;
-    text-decoration: none !important;
-    cursor: auto;
-}
+
 /*Card Header*/
-.cardheader {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 14px;
-    color: #ff9f00;
-    font-weight: bold;
-    /*font-style: italic;*/
+.cardheader{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ff9f00;
+font-weight: bold;
+/*font-style: italic;*/
 }
+
 /*All afterlogin panel headers should have this class */
-.headertext {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 15px;
-    color: #524e4f;
-    font-weight: normal;
-    font-style: normal;
+.headertext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 15px;
+color : #524e4f;
+font-weight: normal;
+font-style:normal;
 }
+
 /*Content Header*/
-.contentheader {
-    font-family: Lucida Sans, Georgia, Serif !important;
-    font-size: 18px;
-    color: #ff9f00;
-    /*font-style:italic;*/
-
-    font-weight: bold;
+.contentheader{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 18px;
+color: #ff9f00;
+/*font-style:italic;*/
+font-weight:bold;
 }
+
+
+
+
+/*Component Based Styling*/
+
+.af_goButton:hover,.af_goButton:active,.af_goButton{
+    border-width: 0px;
+    border-style: none !important;
+    border-top-color:transparent !important;
+    border-right-color:transparent !important;
+    border-bottom-color: transparent !important;
+    border-left-color:transparent !important;
+   
+}   
+
+.af_commandImageLink_text, .af_goImageLink_text{
+    color:#524e4f !important;
+}
+
+
+
 /*SPRITE CSS*/
-.sign_in, .card_back, .oil1, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey {
-    background: url(sprites.png)no-repeat;
+
+.sign_in, .card_back, .oil1, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey{
+	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
-.sign_in {
-    background-position: -67px-3px;
-    width: 20px;
-    height: 20px;
+.sign_in{
+	background-position: -67px -3px ;
+	width: 20px;
+	height: 20px;
 }
 
-.card_back {
-    background-position: -41px-1px;
-    width: 20px;
-    height: 20px;
+.card_back{
+	background-position: -41px -1px ;
+	width: 20px;
+	height: 20px;
 }
 
-.oil1 {
-    background-position: 0px 0px;
-    width: 35px;
-    height: 20px;
+.oil1{
+	background-position: 0px 0px;
+	width: 35px;
+	height: 20px;
 }
 
-.arrow_learn_more {
-    background-position: -155px-7px;
-    width: 8px;
-    height: 8px;
+.arrow_learn_more{
+	background-position: -155px -7px ;
+	width: 8px;
+	height: 8px;
 }
 
-.arrow_learn_more_white {
-    background-position: -172px-7px;
-    width: 8px;
-    height: 8px;
+.arrow_learn_more_white{
+	background-position: -172px -7px ;
+	width: 8px;
+	height: 8px;
 }
 
-.card_icon_ws {
-    background-position: -114px-4px;
-    width: 35px;
-    height: 20px;
+.card_icon_ws{
+	background-position: -114px -4px ;
+	width: 35px;
+	height: 20px;
 }
 
-.category_icon {
-    background-position: -106px-37px;
-    width: 15px;
-    height: 20px;
+.category_icon{
+	background-position: -106px -37px ;
+	width: 15px;
+	height: 20px;
 }
 
-.mail_icon {
-    background-position: -37px-37px;
-    width: 20px;
-    height: 20px;
+.mail_icon{
+	background-position: -37px -37px ;
+	width: 20px;
+	height: 20px;
 }
 
-.message_bell {
-    background-position: -67px-37px;
-    width: 30px;
-    height: 20px;
+.message_bell{
+	background-position: -67px -37px ;
+	width: 30px;
+	height: 20px;
 }
 
-.pdf_icon {
-    background-position: -7px-36px;
-    width: 20px;
-    height: 20px;
+.pdf_icon{
+	background-position: -7px -36px ;
+	width: 20px;
+	height: 20px;
 }
 
-.shop_categories {
-    background-position: -90px-3px;
-    width: 20px;
-    height: 20px;
+.shop_categories{
+	background-position: -90px -3px ;
+	width: 20px;
+	height: 20px;
 }
 
-.arrow_grey {
-    background-position: -186px-6px;
-    width: 8px;
-    height: 8px;
+.arrow_grey{
+	background-position: -186px -6px ;
+	width: 8px;
+	height: 8px;
 }
+
+
+
+
+
+
+
 /* Menu Popup */
-.AFPopupMenuPopup {
-    background-image: none;
-    width: 195px;
-    background-color: rgb(44, 42, 43);
-    border-style: none;
+
+.AFPopupMenuPopup{
+     background-image: none;
+   width: 195px;
+     background-color: rgb(44,42,43);
+     border-style: none;
+}
+.af_menu_child-container{
+    background-color: rgb(44,42,43);
 }
 
-.af_menu_child-container {
-    background-color: rgb(44, 42, 43);
-}
 /*commandMenuItem_menu-item*/
-.af_commandMenuItem_menu-item, .af_goMenuItem_menu-item, .af_menu_submenu {
-    height: 30px;
+
+.af_commandMenuItem_menu-item, .af_goMenuItem_menu-item, .af_menu_submenu{
+  height:30px;  
 }
-
-.af_commandMenuItem.p_AFHighlighted.af_commandMenuItem_menu-item-text, .af_commandMenuItem.p_AFHighlighted.af_commandMenuItem_menu-item-accelerator, .af_commandMenuItem.p_AFHighlighted.af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem.p_AFHighlighted.af_goMenuItem_menu-item-text, .af_goMenuItem.p_AFHighlighted.af_goMenuItem_menu-item-accelerator, .af_goMenuItem.p_AFHighlighted.af_goMenuItem_menu-item-open-indicator, .af_menu.p_AFHighlighted.af_menu_submenu-text, .af_menu.p_AFHighlighted.af_menu_submenu-accelerator, .af_menu.p_AFHighlighted.af_menu_submenu-open-indicator, .af_commandMenuItem.p_AFHighlighted.af_commandMenuItem_menu-item-icon-style, .af_goMenuItem.p_AFHighlighted.af_goMenuItem_menu-item-icon-style, .af_menu.p_AFHighlighted.af_menu_submenu-icon-style {
-    background-color: rgb(44, 42, 43);;
+.af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-text, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-accelerator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-text, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-accelerator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-open-indicator, .af_menu.p_AFHighlighted .af_menu_submenu-text, .af_menu.p_AFHighlighted .af_menu_submenu-accelerator, .af_menu.p_AFHighlighted .af_menu_submenu-open-indicator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-icon-style, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-icon-style, .af_menu.p_AFHighlighted .af_menu_submenu-icon-style{
+    background-color: rgb(44,42,43);;
+    
     /*color: #C1E6FF;*/
-
     color: #3cb6ce;
 }
-
-.af_commandMenuItem_menu-item-text, .af_goMenuItem_menu-item-text, .af_menu_submenu-text {
-    background-color: rgb(44, 42, 43);
-    color: white;
-    font: bold 12px Georgia;
-    cursor: pointer;
+.af_commandMenuItem_menu-item-text, .af_goMenuItem_menu-item-text, .af_menu_submenu-text{
+     background-color: rgb(44,42,43);
+     color: white;
+      font: bold 12px Georgia;
+       cursor:pointer;
 }
-
-.af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem_menu-item-open-indicator, .af_menu_submenu-open-indicator, .af_commandMenuItem_menu-item-accelerator, .af_goMenuItem_menu-item-accelerator, .af_menu_submenu-accelerator {
+.af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem_menu-item-open-indicator, .af_menu_submenu-open-indicator,.af_commandMenuItem_menu-item-accelerator, .af_goMenuItem_menu-item-accelerator, .af_menu_submenu-accelerator{
     background-color: #2C2A2B !important;
 }
+
 /*commandToolbarButton*/
-.af_commandToolbarButton:hover.af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed.af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed:hover.af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected.af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected:hover.af_commandToolbarButton_text {
-    color: #3cb6ce;
-    font: bold 12px Georgia;
-    white-space: pre;
+.af_commandToolbarButton:hover .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed:hover .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected:hover .af_commandToolbarButton_text {
+  
+   color: #3cb6ce;
+     font: bold 12px Georgia;
+      white-space: pre;
     width: 140px;
-    cursor: pointer;
-}
-
-.af_commandToolbarButton_text {
+    cursor:pointer;
+  }
+  
+ .af_commandToolbarButton_text {
     color: #3cb6ce;
-    font: bold 12px Georgia;
-    white-space: pre;
+     font: bold 12px Georgia;
+      white-space: pre;
     width: 140px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.af_commandToolbarButton_dropdown-icon-style {
-    background-image: url("/faces/images/arrow/arrow_blue_down.png")!important;
-}
-
-.af_commandToolbarButton:hover.af_commandToolbarButton_dropdown-icon-style {
-    background-image: url("/faces/images/arrow/arrow_blue_down.png")!important;
-}
-
-.af_commandToolbarButton.p_AFDepressed.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed:hover.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:hover.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active:hover.af_commandToolbarButton_dropdown-icon-style {
-    background-image: url("/faces/images/arrow/arrow_blue_down.png")!important;
-}
-
-.af_commandToolbarButton.p_AFDisabled.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDisabled:hover.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled:hover.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:hover.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active.af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active:hover.af_commandToolbarButton_dropdown-icon-style {
-    background-image: url("/faces/images/arrow/arrow_blue_down.png")!important;
-}
+    text-overflow:ellipsis;
+    overflow:hidden;
+  }
+.af_commandToolbarButton_dropdown-icon-style{
+  background-image: url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  .af_commandToolbarButton:hover .af_commandToolbarButton_dropdown-icon-style{
+  background-image:url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  
+  .af_commandToolbarButton.p_AFDepressed .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active:hover .af_commandToolbarButton_dropdown-icon-style{
+      background-image: url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  .af_commandToolbarButton.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active:hover .af_commandToolbarButton_dropdown-icon-style{
+     background-image: url("/faces/images/arrow/arrow_blue_down.png") !important; 
+  }
+  /*nav list*/
 /*nav list*/
-#top-wrapper {
+/*#top-wrapper {
     background: none repeat-x scroll 0 0 #3A3839;
     border-top: 2px solid #3CB6CE;
     margin: -9px;
     margin-bottom: 0px;
     padding: 2px 2px 8px;
-    width: 948px;
+    width: 958px;
 }
 
 #topbar {
     height: 19px;
     margin: 0 auto;
-    width: 960px;
+    width: 962px !important;
 }
 
 #top {
@@ -479,9 +442,113 @@
     z-index: 100;
 }
 
+
+#top li:hover ul, #top li.hvr ul {
+    display: block;
+}
+#top li:hover ul a, #top li.hvr ul a {
+    background-color: transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#top li ul li.hr {
+    border-bottom: 1px solid #444444;
+    border-top: 1px solid #000000;
+    display: block;
+    font-size: 1px;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+}
+#top ul a:hover {
+    color: #3BB7CF !important;
+    text-decoration: none;
+}
+#top a span, #top a.arrow span {
+    color: #888888;
+    display: block;
+    font: bold 12px/16px Arial;
+    text-shadow: 1px 2px 2px #000000;
+    text-transform: uppercase;
+}
+#top li:hover a span, #top li:hover a.arrow span {
+    color: #F8A932;
+    display: block;
+}*/
+
+.af_panelCustomizable {
+    padding: 0px !important;
+}
+
+#top-wrapper {
+    background: none repeat-x scroll 0 0 #3A3839;
+    border-top: 2px solid rgb(242,175,0);
+    margin: -9px;
+    margin-bottom:0px;
+   padding: 2px 2px 8px;
+    width: 958px !important;
+}
+#topbar {
+    height: 19px;
+    margin: 0 auto;
+    width: 962px !important;
+}
+#top {
+    width: 100%;
+}
+#top, #top ul {
+    font-family: Georgia;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#top a {
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px Georgia;
+    margin-right: 10px;
+    margin-top: -2px;
+    padding: 8px 10px 6px;
+    text-decoration: none;
+    text-transform: none;
+}
+#top a.arrow {
+    background-image: url("/faces/images/arrow/arrow_orange_down.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+#top li {
+    float: left;
+    position: static;
+    width: auto;
+}
+#top li ul, #top ul li {
+    background-color: #3A3839;
+    width: 118px;
+}
+#top ul li a {
+    border: medium none;
+    color: #FFFFFF;
+    font-family: Georgia;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 10px;
+    text-align: left;
+    text-transform: none;
+    margin-left:5px;
+}
+#top li ul {
+    background: none repeat scroll 0 0 #222222;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+    display: none;
+    padding-bottom: 0;
+    position: absolute;
+    z-index: 100;
+}
+
 #top li:hover a, #top a:active, #top a:focus, #top li.hvr a {
     background-color: #222222;
-    color: #3BB7CF;
+    color: rgb(242,175,0);
 }
 
 #top li:hover ul, #top li.hvr ul {
@@ -505,14 +572,14 @@
 }
 
 #top ul a:hover {
-    color: #3BB7CF !important;
+    color: rgb(242,175,0) !important;
     text-decoration: none;
 }
 
 #top a span, #top a.arrow span {
     color: #888888;
     display: block;
-    font: bold 12px/16px Arial;
+    font: bold 12px/16px Georgia;
     text-shadow: 1px 2px 2px #000000;
     text-transform: uppercase;
 }
