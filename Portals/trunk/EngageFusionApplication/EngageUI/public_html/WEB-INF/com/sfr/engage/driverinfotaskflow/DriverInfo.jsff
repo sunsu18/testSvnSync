@@ -18,8 +18,11 @@
     </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl3" layout="vertical">
       
-         <h:panelGrid columns="1" id="pg1">
-        <af:selectManyChoice label="#{sfr.LINKED_ACCOUNT} :" id="smc1"
+        
+           <h:panelGrid columns="3" id="pg1">
+            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
+               <af:spacer width="15" height="10" id="s18"/>
+             <af:selectManyChoice  id="smc1"
                              binding="#{pageFlowScope.DriverInfoBean.linkedAccount}">
           <af:selectItem label="1000000000" value="1000000000" id="si5"/>
           <af:selectItem label="2000000000" value="2000000000" id="si6"/>
@@ -30,9 +33,16 @@
           <af:selectItem label="7000000000" value="7000000000" id="si8"/>
           <af:selectItem label="8000000000" value="8000000000" id="si2"/>
         </af:selectManyChoice>
-         <af:inputText label="#{sfr.DRIVER_NAME} :" id="it7"
+          
+          <af:outputText value="#{sfr.DRIVER_NAME}" id="colon1"/>
+              <af:spacer width="15" height="10" id="s19"/>
+           <af:inputText  id="it7"
                  binding="#{pageFlowScope.DriverInfoBean.driverName}"/>
+          
         </h:panelGrid>
+        
+        
+        
         <af:spacer width="12" height="10" id="s15"/>
        <af:panelGroupLayout id="pgl0" layout="horizontal">
    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
@@ -49,7 +59,7 @@
                          binding="#{pageFlowScope.DriverInfoBean.searchResults}"
                          visible="#{pageFlowScope.DriverInfoBean.searchResultsShow}">
       <af:spacer width="10" height="10" id="s13"/>
-      <af:separator id="s3"/>
+      <af:separator id="s3" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
       <af:spacer width="10" height="20" id="s14"/>
       <af:panelGroupLayout id="pgl5" layout="horizontal">
       <af:outputText value="#{sfr.SERACH_RESULTS} :" id="ot9"/>
