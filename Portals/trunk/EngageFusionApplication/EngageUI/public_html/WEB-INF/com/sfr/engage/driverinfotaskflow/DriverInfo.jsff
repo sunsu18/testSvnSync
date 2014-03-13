@@ -19,8 +19,9 @@
       <af:panelGroupLayout id="pgl3" layout="vertical">
       
         
-           <h:panelGrid columns="3" id="pg1">
+           <h:panelGrid columns="4" id="pg1">
             <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
+             <af:outputText value=":" id="col"/>
                <af:spacer width="15" height="10" id="s18"/>
              <af:selectManyChoice  id="smc1"
                              binding="#{pageFlowScope.DriverInfoBean.linkedAccount}">
@@ -35,6 +36,7 @@
         </af:selectManyChoice>
           
           <af:outputText value="#{sfr.DRIVER_NAME}" id="colon1"/>
+             <af:outputText value=":" id="coll3"/>
               <af:spacer width="15" height="10" id="s19"/>
            <af:inputText  id="it7"
                  binding="#{pageFlowScope.DriverInfoBean.driverName}"/>
@@ -44,7 +46,7 @@
         
         
         <af:spacer width="12" height="10" id="s15"/>
-       <af:panelGroupLayout id="pgl0" layout="horizontal">
+       <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left: 200px;">
    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                           actionListener="#{pageFlowScope.DriverInfoBean.searchAction}" styleClass="buttonback buttontext">
                            
@@ -62,7 +64,7 @@
       <af:separator id="s3" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
       <af:spacer width="10" height="20" id="s14"/>
       <af:panelGroupLayout id="pgl5" layout="horizontal">
-      <af:outputText value="#{sfr.SERACH_RESULTS} :" id="ot9"/>
+      <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"/>
         <af:spacer width="10" height="10" id="s16"/>
         <!--<af:commandButton text="Add" id="cb3"
                           actionListener="#{bindings.CreateInsert.execute}"
