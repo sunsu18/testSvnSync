@@ -4,6 +4,7 @@ import com.sfr.engage.core.Account;
 
 import com.sfr.engage.core.DriverInfo;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
+import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.utility.util.ADFUtils;
 
 import java.util.ArrayList;
@@ -11,6 +12,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.ResourceBundle;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
@@ -25,12 +30,13 @@ import oracle.adf.view.rich.util.ResetUtils;
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
+import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
 
 public class DriverInfoBean {
-    private List<Account> myAccount;
+        private List<Account> myAccount;
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
         private boolean searchResultsShow = false;
@@ -39,25 +45,42 @@ public class DriverInfoBean {
         private RichPopup deleteDriver;
         private RichInputText driverName;
         HashMap<String,String> driverMap=new HashMap<String,String>();
+        ResourceBundle resourceBundle;
+        private String driverN;
+        private String accountsList;
         
         public DriverInfoBean() {
             super();
+            resourceBundle = new EngageResourceBundle();
         }
-        
-        public void setMyAccount(List<Account> myAccount) {
+
+    /**
+     * @param myAccount
+     */
+    public void setMyAccount(List<Account> myAccount) {
             this.myAccount = myAccount;
         }
 
-        public List<Account> getMyAccount() {
+    /**
+     * @return
+     */
+    public List<Account> getMyAccount() {
             return myAccount;
         }
 
-        public void searchAction(ActionEvent actionEvent) {
-            // Add event code here...
+    /**
+     * This method performs search functionality in DriverInfo Page.
+     * @param actionEvent
+     */
+    public void searchAction(ActionEvent actionEvent) {
             searchResults();  
         }
-        
+    
+    /**
+     * This method is reusable for different scenario's in DriverInfo Page to show searchResults.
+     */
         public void searchResults() {
+        try{
             if(linkedAccount.getValue()!=null)
             {
             int count = 0;
@@ -85,9 +108,15 @@ public class DriverInfoBean {
                 List<DriverInfo> myDriverList = new ArrayList<DriverInfo>();            
                 ViewObject vo =
                     ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");           
-                vo.setWhereClause("trim(ACCOUNT_ID) =: accountId");
+                vo.setWhereClause("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')");
                 System.out.println("values of i"+values[i]);
-                vo.defineNamedWhereClauseParam("accountId", values[i].trim(), null); 
+                vo.defineNamedWhereClauseParam("accountId", values[i].trim(), null);
+                if(driverName.getValue() != null){
+                    vo.defineNamedWhereClauseParam("driverName",  driverName.getValue().toString(), null);
+                }
+                else{
+                    vo.defineNamedWhereClauseParam("driverName",  null , null);
+                }
                 System.out.println("Query =="+vo.getQuery());
                 vo.executeQuery();
                 if (vo.getEstimatedRowCount() != 0) {
@@ -131,8 +160,9 @@ public class DriverInfoBean {
                     }
 
                 }       
-                        if("trim(ACCOUNT_ID) =: accountId".equalsIgnoreCase(vo.getWhereClause())) {
+                        if("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
                             vo.removeNamedWhereClauseParam("accountId");
+                            vo.removeNamedWhereClauseParam("driverName");
                             vo.setWhereClause("");
                             vo.executeQuery();
                         }
@@ -141,119 +171,240 @@ public class DriverInfoBean {
             }
             searchResultsShow = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
-            }
+            }else {
+                        if (resourceBundle.containsKey("DRIVER_LINKED_ACCOUNT")) {
+                            FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                 (String)resourceBundle.getObject("DRIVER_LINKED_ACCOUNT"),
+                                                 "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+        }catch(JboException ex){
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),"");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }catch(Exception ex){
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),"");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
         }
 
-        public void setLinkedAccount(RichSelectManyChoice linkedAccount) {
+    /**
+     * @param linkedAccount
+     */
+    public void setLinkedAccount(RichSelectManyChoice linkedAccount) {
             this.linkedAccount = linkedAccount;
         }
 
-        public RichSelectManyChoice getLinkedAccount() {
+    /**
+     * @return
+     */
+    public RichSelectManyChoice getLinkedAccount() {
             return linkedAccount;
         }
 
-        public void setSearchResults(RichPanelGroupLayout searchResults) {
+    /**
+     * @param searchResults
+     */
+    public void setSearchResults(RichPanelGroupLayout searchResults) {
             this.searchResults = searchResults;
         }
 
-        public RichPanelGroupLayout getSearchResults() {
+    /**
+     * @return
+     */
+    public RichPanelGroupLayout getSearchResults() {
             return searchResults;
         }
 
-        public void setSearchResultsShow(boolean searchResultsShow) {
+    /**
+     * @param searchResultsShow
+     */
+    public void setSearchResultsShow(boolean searchResultsShow) {
             this.searchResultsShow = searchResultsShow;
         }
 
-        public boolean isSearchResultsShow() {
+    /**
+     * @return
+     */
+    public boolean isSearchResultsShow() {
             return searchResultsShow;
         }
-        
 
-        public void setNewDriver(RichPopup newDriver) {
+
+    /**
+     * @param newDriver
+     */
+    public void setNewDriver(RichPopup newDriver) {
             this.newDriver = newDriver;
         }
 
-        public RichPopup getNewDriver() {
+    /**
+     * @return
+     */
+    public RichPopup getNewDriver() {
             return newDriver;
         }
-        
 
-        public void newDriverSave(ActionEvent actionEvent) {
+
+    /**
+     * @param actionEvent
+     */
+    public void newDriverSave(ActionEvent actionEvent) {
             // Add event code here...
         }
 
-        public String newDriverSave() {
+    /**
+     * This Method will save new driver information in DB.
+     * @return
+     */
+    public String newDriverSave() {
             // Add event code here...
             newDriver.hide();
             searchResults();
+            if (resourceBundle.containsKey("DRIVER_ADD")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_ADD"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
            // AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
             return null;
         }
 
-        public String newDriverCancel() {
+    /**
+     * @return
+     */
+    public String newDriverCancel() {
             // Add event code here...
             ResetUtils.reset(newDriver);
             newDriver.hide();           
             return null;
         }
 
-        public String newDriverAddAction() {
+    /**
+     * @return
+     */
+    public String newDriverAddAction() {
             // Add event code here...
             return null;
         }
 
-        public void setEditDriver(RichPopup editDriver) {
+    /**
+     * @param editDriver
+     */
+    public void setEditDriver(RichPopup editDriver) {
             this.editDriver = editDriver;
         }
 
-        public RichPopup getEditDriver() {
+    /**
+     * @return
+     */
+    public RichPopup getEditDriver() {
             return editDriver;
-        }    
+        }
 
-        public String editDriverSave() {        
+    /**
+     * This Method will save edited driver information in DB.
+     * @return
+     */
+    public String editDriverSave() {        
             editDriver.hide();
             searchResults();
+            if (resourceBundle.containsKey("DRIVER_EDIT")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_EDIT"),"");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
             return null;
         }
 
-        public String editDriverCancel() {        
+    /**
+     * @return
+     */
+    public String editDriverCancel() {        
             ResetUtils.reset(editDriver);
             editDriver.hide();
             return null;
         }
 
-        public String tableEditAction() {            
+    /**
+     *  This Method will execute VO and fetches selected row from DB and perform Edit operation.
+     * @return
+     */
+    public String tableEditAction() { 
+        try{
             String primaryKey=(String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey"); 
             System.out.println("PrimaryKey ="+primaryKey);
+            if(primaryKey!= null){
             ViewObject vo =
                 ADFUtils.getViewObject("PrtDriverInformationVO2Iterator");
             vo.setWhereClause("PRT_DRIVER_INFORMATION_PK =: prtDriverInformationPK");        
             vo.defineNamedWhereClauseParam("prtDriverInformationPK", primaryKey, null);        
             vo.executeQuery();
             getEditDriver().show(new RichPopup.PopupHints());
+            }
+        }catch(JboException ex){
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }catch(Exception ex){
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
             return null;
         }
 
-        public String driverDeleteAction() {
-            // Add event code here...  
-            getDeleteDriver().show(new RichPopup.PopupHints());
+    /**
+     * This Method will show confirmation popup for Delete operation.
+     * @return
+     */
+    public String driverDeleteAction() {
+            if(driverMap.size()!=0)
+            { 
+                getDeleteDriver().show(new RichPopup.PopupHints());
+            }else{
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("DRIVER_DELETE_FAILURE_1"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
             return null;
         }
 
-        public BindingContainer getBindings() {
+    /**
+     * @return
+     */
+    public BindingContainer getBindings() {
             return BindingContext.getCurrent().getCurrentBindingsEntry();
         }
-        
-        public void setDeleteDriver(RichPopup deleteDriver) {
+
+    /**
+     * @param deleteDriver
+     */
+    public void setDeleteDriver(RichPopup deleteDriver) {
             this.deleteDriver = deleteDriver;
         }
 
-        public RichPopup getDeleteDriver() {
+    /**
+     * @return
+     */
+    public RichPopup getDeleteDriver() {
             return deleteDriver;
         }
-        
-        public String deleteDriverSave() {
-            // Add event code here...
+
+    /**
+     * This Method will delete selected driver rows from DB.
+     * @return
+     */
+    public String deleteDriverSave() {
+        try{
             Iterator iter = driverMap.keySet().iterator();
             while(iter.hasNext()) {
                 String key = (String)iter.next();
@@ -271,9 +422,6 @@ public class DriverInfoBean {
                         vo.setCurrentRow(r);
                         vo.removeCurrentRow();
                     }
-        //                System.out.println("RowCount"+vo.getEstimatedRowCount());
-        //                System.out.println("currentRow"+vo.getCurrentRow().getAttribute("PrtTruckInformationPk"));
-        //                vo.removeCurrentRow();
                 }            
             }     
             BindingContainer bindings = getBindings();
@@ -285,18 +433,48 @@ public class DriverInfoBean {
                 getDeleteDriver().hide();
                 driverMap=new HashMap<String,String>();
                 searchResults();
+                if (resourceBundle.containsKey("DRIVER_DELETE_SUCCESS")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                         (String)resourceBundle.getObject("DRIVER_DELETE_SUCCESS"),"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             } else {
+                if (resourceBundle.containsKey("DRIVER_DELETE_FAILURE")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("DRIVER_DELETE_FAILURE"),"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
              System.out.println("Error while commiting");   
             }
+        }catch (JboException ex) {
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
+                                 "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception ex) {
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
+                                 "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
             return null;
         }
 
-        public String deleteDriverCancel() {        
+    /**
+     * @return
+     */
+    public String deleteDriverCancel() {        
             getDeleteDriver().hide();
             return null;
         }
 
-        public void deleteCheckBoxListener(ValueChangeEvent valueChangeEvent) {
+    /**
+     * This Method will store selected driver rows in HashMap for Delete operation.
+     * @param valueChangeEvent
+     */
+    public void deleteCheckBoxListener(ValueChangeEvent valueChangeEvent) {
             // Add event code here... 
             if(valueChangeEvent.getNewValue().equals(true)) {
                 System.out.println("Value =="+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));            
@@ -307,17 +485,79 @@ public class DriverInfoBean {
                 }
             }
         }
-        
+
+    /**
+     * This Method will clears selected Linked Account and Driver Name from DriverInfo Page.
+     * @param actionEvent
+     */
     public void searchCancel(ActionEvent actionEvent) {
-        // Add event code here...
+        try{
+            ViewObject vo = ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");           
+            if ("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                vo.removeNamedWhereClauseParam("accountId");
+                vo.removeNamedWhereClauseParam("driverName");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
+        this.linkedAccount.setValue(null);
+        driverN = null;
+        searchResultsShow = false;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(this.driverName);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(this.linkedAccount);
+        }catch (JboException ex) {
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
+                                 "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception ex) {
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
+                                 "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
         
     }
 
+    /**
+     * @param driverName
+     */
     public void setDriverName(RichInputText driverName) {
         this.driverName = driverName;
     }
 
+    /**
+     * @return
+     */
     public RichInputText getDriverName() {
         return driverName;
+    }
+
+    /**
+     * @param accountsList
+     */
+    public void setAccountsList(String accountsList) {
+        this.accountsList = accountsList;
+    }
+
+    /**
+     * @return
+     */
+    public String getAccountsList() {
+        return accountsList;
+    }
+
+    /**
+     * @param driverN
+     */
+    public void setDriverN(String driverN) {
+        this.driverN = driverN;
+    }
+
+    /**
+     * @return
+     */
+    public String getDriverN() {
+        return driverN;
     }
 }
