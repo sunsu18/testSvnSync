@@ -1,4 +1,5 @@
 
+
 /*Page Background*/
 .portalbackground{
 background-color: rgb(252,252,252);    
@@ -24,6 +25,7 @@ background-color: rgb(252,252,252);
     height:23.0px !important;
 }*/
 
+
 /*******************************AF:Table***********************************/
 
 
@@ -31,6 +33,24 @@ background-color: rgb(252,252,252);
 text-align: left;
 }
 
+.af_table_data-row .af_column_data-cell {
+background-color: white !important;
+height: 25px;
+padding-top: 2px !important;
+border-bottom: 0px solid #FFFFFF !important;
+border-right: 1px solid #EEEEEE !important;
+padding-right: 10px !important;
+padding-left: 10px !important;
+}
+
+.af_table_data-row .af_column_banded-data-cell {
+background-color: rgb(240,240,240) !important;
+height: 25px;
+border-bottom: 0px solid #FFFFFF !important;
+border-right: 1px solid #FFFFFF !important;
+padding-right: 10px !important;
+padding-left: 10px !important;
+}
 
 .af_table_data-row, .af_column_data-cell {
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -84,8 +104,8 @@ font-weight: bold;
 }
 
 .tablepanel{
-    padding-right:10px;
-    padding-left:10px;
+    /*padding-right:10px;
+    padding-left:10px;*/
 }
 
 .af_table_data-table-VH-lines .af_column_banded-data-cell
