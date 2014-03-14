@@ -53,6 +53,9 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       { "MORE_DETAILS", "" },  { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }, { "DRIVER_NUMBER", "" }, 
                                       { "VEHICLE_LINKED_ACCOUNT", "" },{ "VEHICLE_ADD", "" },{ "VEHICLE_EDIT", "" }, { "VEHICLE_DELETE_SUCCESS", "" },
                                       { "VEHICLE_DELETE_FAILURE", "" },{ "VEHICLE_DELETE_FAILURE_1", "" },{ "DRIVER_LINKED_ACCOUNT", "" },{ "DRIVER_ADD", "" },
+                                    { "STATOIL_COMPANY_CARD", ""},{ "STATOIL_TRUCK_CARD", ""},{ "STATOIL_EUROPE_CARD", ""},
+                                         { "STATOIL_MASTER_CARD", ""},{ "STATOIL_COMPANY_CARD_DESC", ""},{ "STATOIL_TRUCK_CARD_DESC", ""},
+                                        { "STATOIL_EUROPE_CARD_DESC", ""},{ "STATOIL_MASTER_CARD_DESC", ""},
                                       { "DRIVER_EDIT", "" }, { "DRIVER_DELETE_SUCCESS", "" }, { "DRIVER_DELETE_FAILURE", "" },{ "DRIVER_DELETE_FAILURE_1", "" }};
                
 

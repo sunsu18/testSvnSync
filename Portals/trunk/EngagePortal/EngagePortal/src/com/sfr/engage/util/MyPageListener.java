@@ -29,6 +29,12 @@ public class MyPageListener implements PagePhaseListener {
             lang="en_US";
         }
         session.setAttribute("lang", lang);
+        //profile
+        String profile = (String)request.getAttribute("profile");
+        if(profile == null){
+            profile="private";    
+        }
+        session.setAttribute("profile", profile);
     }
 
   
