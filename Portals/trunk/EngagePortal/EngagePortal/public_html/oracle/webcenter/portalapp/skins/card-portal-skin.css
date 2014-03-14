@@ -19,14 +19,115 @@ background-color: rgb(252,252,252);
    color: #656364 !important;
     background-color:#f2ad00;
 }
+
+.boldtext{
+    font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:14px !important; 
+   font-weight:bold !important; 
+   color:#524e4f; 
+}
 /*input.image{
     border-style: none !important; 
     width:23.0px !important;
     height:23.0px !important;
 }*/
 
+.outputText, .af_document{
+color:#524e4f; 
+font-size:14px;
+font-family : Lucida Sans,Georgia,Serif !important;
+}
+
+
+.af_panelFormLayout_label-cell {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #524e4f;
+font-weight: normal;
+text-align: right;
+line-height: 2.5;
+}
+
+/*Sneha Pls check this*/
+/*.popup_align{
+    width:158px !important;
+    height:21.0px !important;
+    padding-top: 8px !important;
+}*/
+
+.af_inputDate_content{
+    font-size: 12px;
+}
+
+
+.af_panelWindow_title, .af_dialog_title {
+margin-top: 2px;
+cursor: default;
+white-space: nowrap;
+color: #f2ad00;
+font-family: Lucida Sans,Georgia,Serif !important;
+font-size: 16px;
+font-weight: bolder;
+margin-left: 4px;
+margin-top: 10px;
+}
 
 /*******************************AF:Table***********************************/
+
+
+.af_inputText_content, .WCInputText {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 14px;
+border-color: #9297A6;
+border-style: solid;
+border-width: 1px;
+border-top-color: #aeb4bd;
+border-left-color: #aeb4bd;
+border-bottom-color: #e0e3e8;
+border-right-color: #e0e3e8;
+background-image: url(/CustomerPortal/afr/fusion/inputText_bg.png);
+background-repeat: repeat-x;
+color: #524e4f;
+padding: 1px 2px 1px 3px;
+margin: 1px;
+width: 170px;
+overflow-x: hidden;
+overflow-y: auto;
+}
+
+.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style
+{
+    /*padding-right: 16px;
+background-repeat: no-repeat;
+vertical-align: text-bottom;
+background-position: center;
+margin-left: 0px;
+margin-right: 0px;
+padding: 1px 10px 3px 1px;
+font-size: 10px;*/
+background-color: #f2ad00;
+/*background-image: url("/faces/images/download.jpg")!important;
+padding-bottom: 4px;
+display: inline-block;
+-webkit-box-sizing: border-box;
+height: 11px;*/
+/*background-position-y: 60%;*/
+
+}
+
+
+.af_selectManyChoice_content {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: bold;
+font-size: 14px !important;
+border: 0px;
+width: 155px;
+padding: 0px 2px 0px 3px;
+margin: 0px;
+color: #333333;
+background-color: transparent;
+}
 
 
 .af_treeTable, .af_table {
@@ -150,8 +251,7 @@ padding-right: 10px !important;
 af|column::column-header-cell
     {
       color: Black;
-
-      font-weight: bold;
+font-weight: bold;
     }
 
 
@@ -239,7 +339,7 @@ font-style:normal;
 
 
 /*Button Background*/
-.af_commandButton.p_AFTextOnly, .af_goButton.p_AFTextOnly
+.af_commandButton.p_AFTextOnly
 {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
@@ -478,8 +578,8 @@ font-weight:bold;
 
 .AFPopupMenuPopup{
      background-image: none;
-   width: 195px;
-     background-color: rgb(44,42,43);
+   /*width: 195px;
+     background-color: rgb(44,42,43);*/
      border-style: none;
 }
 .af_menu_child-container{
@@ -774,6 +874,6 @@ margin-left: 15px;
 .heading{
 color:#f2ad00;
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 22px;
-font-weight:bold;
+font-size: 20px;
+font-weight:bolder;
 }
