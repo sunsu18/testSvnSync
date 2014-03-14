@@ -19,13 +19,11 @@
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl1"
                          binding="#{pageFlowScope.VehicleInfoBean.searchPanelGroupLayout}" >
-       
-      
         <h:panelGrid columns="4" id="pg1">
             <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
                <af:outputText value=":" id="coll"/>
                <af:spacer width="15" height="10" id="s18"/>
-             <af:selectManyChoice  id="smc1"
+             <af:selectManyChoice  id="smc1" 
                               binding="#{pageFlowScope.VehicleInfoBean.linkedAccount}">
            <af:selectItem label="100" value="100" id="si1"/>
         <af:selectItem label="200" value="200" id="si3"/>
@@ -43,12 +41,10 @@
              <af:outputText value=":" id="coll2"/>
               <af:spacer width="15" height="10" id="s19"/>
              <af:inputText id="it7"
-                  binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"/>
+                  binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"
+                           value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"/>
           
-        </h:panelGrid>
-      
-      
-      
+        </h:panelGrid>  
       <!--<af:spacer width="12" height="10" id="s1"/>-->
        <af:panelGroupLayout id="pgal1"  inlineStyle="margin-left: 200px;">  
       <af:commandButton text="#{sfr.SEARCH}" id="cb1"

@@ -49,7 +49,8 @@ public class EngageResourceBundle extends ListResourceBundle{
     { "DRIVER_INFO", "" },{ "VEHICLE_INFO", "" }, { "LINKED_ACCOUNT", "" },{ "DRIVER_NAME", "" },{ "REGISTRATION_NUMBER", "" },{ "SEARCH_RESULTS", "" },
     { "SAVE", "" },{ "DELETE", "" }, { "ADD", "" },  { "ACCOUNT", "" } ,  { "CANCEL", "" }, { "SEARCH", "" },                                     
     { "VEHICLE_NUMBER", "" },{ "CARD_NUMBER", "" }, { "INTERNAL_NAME", "" },  { "REMARKS", "" }, { "FUEL_TYPE", "" }, 
-    { "MAX_FUEL", "" },{ "ODOMETER", "" }, { "MORE_DETAILS", "" },  { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }, { "DRIVER_NUMBER", "" }
+    { "MAX_FUEL", "" },{ "ODOMETER", "" }, { "MORE_DETAILS", "" },  { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }, { "DRIVER_NUMBER", "" }, { "VEHICLE_LINKED_ACCOUNT", "" },{ "VEHICLE_ADD", "" },
+    { "VEHICLE_EDIT", "" }, { "VEHICLE_DELETE_SUCCESS", "" }, { "VEHICLE_DELETE_FAILURE", "" },{ "VEHICLE_DELETE_FAILURE_1", "" }  
                                       };
                
 
