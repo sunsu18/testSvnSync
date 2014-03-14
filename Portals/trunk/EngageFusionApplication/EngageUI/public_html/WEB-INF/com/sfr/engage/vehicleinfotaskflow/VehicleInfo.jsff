@@ -7,22 +7,23 @@
          xmlns:c="http://java.sun.com/jsp/jstl/core">
   <af:panelGroupLayout id="pgl3" styleClass="spacerStyle">
   <af:panelGroupLayout id="pgl41">
-  
-   <af:panelGroupLayout id="printPanel1" layout="horizontal"
-                        >
-      <af:outputText value="#{sfr.VEHICLE_INFO}" id="ot1" styleClass="heading"/>
-      <af:spacer width="20" height="1" id="s1"/>     
+  <af:spacer width="10" height="5" id="s17"/>
+   <af:panelGroupLayout id="printPanel1" layout="horizontal">
+        
+        <af:outputText value="#{sfr.VEHICLE_INFO}" id="ot1" styleClass="heading"/>
+      <af:spacer width="10" height="1" id="s1"/>     
      </af:panelGroupLayout>
-       <af:spacer width="10" height="10" id="s11"/>
+       <af:spacer width="10" height="1" id="s11"/>
     <af:panelGroupLayout id="pgl2" layout="horizontal">
-      <af:separator id="s4" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
+      <af:separator id="s4" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl1"
                          binding="#{pageFlowScope.VehicleInfoBean.searchPanelGroupLayout}" >
         <h:panelGrid columns="4" id="pg1">
-            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
+         
+          <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
                <af:outputText value=":" id="coll"/>
-               <af:spacer width="15" height="10" id="s18"/>
+               <af:spacer width="2" height="10" id="s18"/>
              <af:selectManyChoice  id="smc1" 
                               binding="#{pageFlowScope.VehicleInfoBean.linkedAccount}">
            <af:selectItem label="100" value="100" id="si1"/>
@@ -36,34 +37,37 @@
         <af:selectItem label="900" value="900" id="si9"/>
         <af:selectItem label="1000" value="1000" id="si00"/>       
         </af:selectManyChoice>
-          
+          <af:spacer height="10" id="s20"/>
+          <af:spacer height="10" id="s21"/>
+          <af:spacer height="10" id="s22"/>
+          <af:spacer height="10" id="s23"/>
           <af:outputText value="#{sfr.REGISTRATION_NUMBER}" id="colon1"/>
              <af:outputText value=":" id="coll2"/>
-              <af:spacer width="15" height="10" id="s19"/>
+              <af:spacer width="2" height="10" id="s19"/>
              <af:inputText id="it7"
                   binding="#{pageFlowScope.VehicleInfoBean.registerNumber}"
                            value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"/>
           
         </h:panelGrid>  
       <!--<af:spacer width="12" height="10" id="s1"/>-->
-       <af:panelGroupLayout id="pgal1"  inlineStyle="margin-left: 200px;">  
+       <af:panelGroupLayout id="pgal1"  inlineStyle="margin-left: 192px;">  
       <af:commandButton text="#{sfr.SEARCH}" id="cb1"
-                        actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}" styleClass="buttonback buttontext"/>
+                        actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}" />
       <af:spacer width="12" height="10" id="s2"/>
       <af:commandButton text="#{sfr.CANCEL}" id="cb2"
-                        actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}" styleClass="buttonback buttontext"/>
+                        actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}" />
       </af:panelGroupLayout>
     </af:panelGroupLayout> 
 </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl7"
                          binding="#{pageFlowScope.VehicleInfoBean.searchResults}"
                          visible="#{pageFlowScope.VehicleInfoBean.searchResultsShow}">  
-    <af:spacer width="10" height="10" id="s13"/>            
-    <af:separator id="s3" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
-    <af:spacer width="10" height="20" id="s14"/>
+    <af:spacer width="10" height="30" id="s13"/>            
+    <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    <af:spacer width="10" height="10" id="s14"/>
     <af:panelGroupLayout id="pgl0" layout="horizontal">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot8"/>
-        <af:spacer width="10" height="10" id="s7"/>
+        <af:spacer width="705" height="10" id="s7"/>
         <af:commandButton text="#{sfr.ADD}" id="cb3" actionListener="#{bindings.CreateInsert.execute}"
                         action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}" styleClass="buttonback buttontext">
           <af:showPopupBehavior triggerType="click" popupId="new_vehicle"/>
@@ -77,14 +81,17 @@
          <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccount}" var="var">
          <!-- <c:if test="${not empty var.vehicleInfoList}">-->
           <af:panelGroupLayout id="pgl5" layout="horizontal">          
-          <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"/>
-          <af:outputText value="#{var.accountNumber}" id="ot3"/>
-          </af:panelGroupLayout>         
+          <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"
+                         styleClass="boldtext"/>
+          <af:outputText value="#{var.accountNumber}" id="ot3"
+                         styleClass="boldtext"/>
+          </af:panelGroupLayout>
+          <af:spacer width="10" height="10" id="s25"/>
           <af:panelGroupLayout id="pgl6">            
-            <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.vehicleInfoList}"
-                          width="915px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
+            <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.vehicleInfoList}"
+                          width="950px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
                           fetchSize="10">
-                  <af:column sortable="false" id="c13" width="14px">
+                  <af:column sortable="false" id="c13" width="36px">
                 <af:selectBooleanCheckbox id="sbc1" 
                                           valueChangeListener="#{pageFlowScope.VehicleInfoBean.deleteCheckBoxListener}"
                                           autoSubmit="true">
@@ -126,7 +133,7 @@
                 </af:commandButton>                 
               </af:column>
                 </af:table>
-              <af:spacer width="10" height="10" id="s12"/>
+              <af:spacer width="10" height="25" id="s12"/>
             </af:panelGroupLayout>
           <!--</c:if>-->
         </af:forEach>
@@ -144,7 +151,7 @@
             <af:toolbar id="new_vehicle_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="horizontal">
-              <af:spacer width="10" height="10" id="s5"/>               
+              <af:spacer width="475" height="10" id="s5"/>               
                 <af:commandButton text="#{sfr.SAVE}" id="save"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.newVehicleSave}" styleClass="buttonback buttontext"/>
@@ -167,7 +174,8 @@
                                 columns="#{bindings.VehicleNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.VehicleNumber.hints.precision}"
                                 shortDesc="#{bindings.VehicleNumber.hints.tooltip}"
-                                id="it1">
+                                id="it1"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.VehicleNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.CardNumber.inputValue}"
@@ -176,7 +184,8 @@
                                 columns="#{bindings.CardNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.CardNumber.hints.precision}"
                                 shortDesc="#{bindings.CardNumber.hints.tooltip}"
-                                id="it12">
+                                id="it12"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.CardNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.AccountNumber.inputValue}"
@@ -185,7 +194,8 @@
                                 columns="#{bindings.AccountNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.AccountNumber.hints.precision}"
                                 shortDesc="#{bindings.AccountNumber.hints.tooltip}"
-                                id="it3">
+                                id="it3"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.AccountNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.InternalName.inputValue}"
@@ -194,7 +204,8 @@
                                 columns="#{bindings.InternalName.hints.displayWidth}"
                                 maximumLength="#{bindings.InternalName.hints.precision}"
                                 shortDesc="#{bindings.InternalName.hints.tooltip}"
-                                id="it8">
+                                id="it8"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.InternalName.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.RegistrationNumber.inputValue}"
@@ -203,7 +214,8 @@
                                 columns="#{bindings.RegistrationNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.RegistrationNumber.hints.precision}"
                                 shortDesc="#{bindings.RegistrationNumber.hints.tooltip}"
-                                id="it9">
+                                id="it9"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.RegistrationNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.Brand.inputValue}"
@@ -212,7 +224,8 @@
                                 columns="#{bindings.Brand.hints.displayWidth}"
                                 maximumLength="#{bindings.Brand.hints.precision}"
                                 shortDesc="#{bindings.Brand.hints.tooltip}"
-                                id="it11">
+                                id="it11"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Brand.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.Year.inputValue}"
@@ -221,7 +234,8 @@
                                 columns="#{bindings.Year.hints.displayWidth}"
                                 maximumLength="#{bindings.Year.hints.precision}"
                                 shortDesc="#{bindings.Year.hints.tooltip}"
-                                id="it5">
+                                id="it5"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Year.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.Year.format}"/>
@@ -230,7 +244,8 @@
                                 label="#{bindings.RegistrationDate.hints.label}"
                                 required="#{bindings.RegistrationDate.hints.mandatory}"
                                 shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
-                                id="id3">
+                                id="id3"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                     <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                   </af:inputDate>
@@ -238,7 +253,8 @@
                                 label="#{bindings.EndDate.hints.label}"
                                 required="#{bindings.EndDate.hints.mandatory}"
                                 shortDesc="#{bindings.EndDate.hints.tooltip}"
-                                id="id2">
+                                id="id2"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.EndDate.validator}"/>
                     <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                   </af:inputDate>
@@ -248,7 +264,8 @@
                                 columns="#{bindings.FuelType.hints.displayWidth}"
                                 maximumLength="#{bindings.FuelType.hints.precision}"
                                 shortDesc="#{bindings.FuelType.hints.tooltip}"
-                                id="it2">
+                                id="it2"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.FuelType.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.MaxFuel.inputValue}"
@@ -257,7 +274,8 @@
                                 columns="#{bindings.MaxFuel.hints.displayWidth}"
                                 maximumLength="#{bindings.MaxFuel.hints.precision}"
                                 shortDesc="#{bindings.MaxFuel.hints.tooltip}"
-                                id="it4">
+                                id="it4"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.MaxFuel.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.MaxFuel.format}"/>
@@ -268,7 +286,8 @@
                                 columns="#{bindings.Odometer.hints.displayWidth}"
                                 maximumLength="#{bindings.Odometer.hints.precision}"
                                 shortDesc="#{bindings.Odometer.hints.tooltip}"
-                                id="it6">
+                                id="it6"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Odometer.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.Odometer.format}"/>
@@ -279,7 +298,8 @@
                                 columns="#{bindings.Remarks.hints.displayWidth}"
                                 maximumLength="#{bindings.Remarks.hints.precision}"
                                 shortDesc="#{bindings.Remarks.hints.tooltip}"
-                                id="it10">
+                                id="it10"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Remarks.validator}"/>
                   </af:inputText>                                 
                 </af:panelFormLayout>              
@@ -300,16 +320,16 @@
             <af:toolbar id="edit_vehicle_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
-              <af:spacer width="10" height="10" id="ss5"/>               
-                <af:commandButton text="SAVE" id="editsave"
+              <af:spacer width="475" height="10" id="ss5"/>               
+                <af:commandButton text="Save" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
-                                  partialSubmit="true" styleClass="buttonback buttontext"/>
+                                  partialSubmit="true"/>
                 <af:spacer width="10" height="10" id="s9"/>
                 <af:commandButton text="Cancel" id="cb5"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
-                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}" styleClass="buttonback buttontext">                  
+                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}">                  
                 </af:commandButton>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -324,7 +344,8 @@
                                 columns="#{bindings.VehicleNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.VehicleNumber.hints.precision}"
                                 shortDesc="#{bindings.VehicleNumber.hints.tooltip}"
-                                id="it13">
+                                id="it13"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.VehicleNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.CardNumber.inputValue}"
@@ -333,7 +354,8 @@
                                 columns="#{bindings.CardNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.CardNumber.hints.precision}"
                                 shortDesc="#{bindings.CardNumber.hints.tooltip}"
-                                id="it14">
+                                id="it14"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.CardNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.AccountNumber.inputValue}"
@@ -342,7 +364,8 @@
                                 columns="#{bindings.AccountNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.AccountNumber.hints.precision}"
                                 shortDesc="#{bindings.AccountNumber.hints.tooltip}"
-                                id="it15">
+                                id="it15"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.AccountNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.InternalName.inputValue}"
@@ -351,7 +374,8 @@
                                 columns="#{bindings.InternalName.hints.displayWidth}"
                                 maximumLength="#{bindings.InternalName.hints.precision}"
                                 shortDesc="#{bindings.InternalName.hints.tooltip}"
-                                id="it16">
+                                id="it16"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.InternalName.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.RegistrationNumber.inputValue}"
@@ -360,7 +384,8 @@
                                 columns="#{bindings.RegistrationNumber.hints.displayWidth}"
                                 maximumLength="#{bindings.RegistrationNumber.hints.precision}"
                                 shortDesc="#{bindings.RegistrationNumber.hints.tooltip}"
-                                id="it17">
+                                id="it17"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.RegistrationNumber.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.Brand.inputValue}"
@@ -369,7 +394,8 @@
                                 columns="#{bindings.Brand.hints.displayWidth}"
                                 maximumLength="#{bindings.Brand.hints.precision}"
                                 shortDesc="#{bindings.Brand.hints.tooltip}"
-                                id="it18">
+                                id="it18"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Brand.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.Year.inputValue}"
@@ -378,7 +404,8 @@
                                 columns="#{bindings.Year.hints.displayWidth}"
                                 maximumLength="#{bindings.Year.hints.precision}"
                                 shortDesc="#{bindings.Year.hints.tooltip}"
-                                id="it19">
+                                id="it19"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Year.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.Year.format}"/>
@@ -387,7 +414,8 @@
                                 label="#{bindings.RegistrationDate.hints.label}"
                                 required="#{bindings.RegistrationDate.hints.mandatory}"
                                 shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
-                                id="id1">
+                                id="id1"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                     <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                   </af:inputDate>
@@ -395,7 +423,8 @@
                                 label="#{bindings.EndDate.hints.label}"
                                 required="#{bindings.EndDate.hints.mandatory}"
                                 shortDesc="#{bindings.EndDate.hints.tooltip}"
-                                id="id4">
+                                id="id4"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.EndDate.validator}"/>
                     <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                   </af:inputDate>
@@ -405,7 +434,8 @@
                                 columns="#{bindings.FuelType.hints.displayWidth}"
                                 maximumLength="#{bindings.FuelType.hints.precision}"
                                 shortDesc="#{bindings.FuelType.hints.tooltip}"
-                                id="it20">
+                                id="it20"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.FuelType.validator}"/>
                   </af:inputText>
                   <af:inputText value="#{bindings.MaxFuel.inputValue}"
@@ -414,7 +444,8 @@
                                 columns="#{bindings.MaxFuel.hints.displayWidth}"
                                 maximumLength="#{bindings.MaxFuel.hints.precision}"
                                 shortDesc="#{bindings.MaxFuel.hints.tooltip}"
-                                id="it21">
+                                id="it21"
+                                contentStyle="width:158px;height:21.0px;padding-top: 8px">
                     <f:validator binding="#{bindings.MaxFuel.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.MaxFuel.format}"/>
@@ -425,7 +456,8 @@
                                 columns="#{bindings.Odometer.hints.displayWidth}"
                                 maximumLength="#{bindings.Odometer.hints.precision}"
                                 shortDesc="#{bindings.Odometer.hints.tooltip}"
-                                id="it22">
+                                id="it22"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Odometer.validator}"/>
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.Odometer.format}"/>
@@ -436,7 +468,8 @@
                                 columns="#{bindings.Remarks.hints.displayWidth}"
                                 maximumLength="#{bindings.Remarks.hints.precision}"
                                 shortDesc="#{bindings.Remarks.hints.tooltip}"
-                                id="it23">
+                                id="it23"
+                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                     <f:validator binding="#{bindings.Remarks.validator}"/>
                   </af:inputText>                                 
                 </af:panelFormLayout>              
