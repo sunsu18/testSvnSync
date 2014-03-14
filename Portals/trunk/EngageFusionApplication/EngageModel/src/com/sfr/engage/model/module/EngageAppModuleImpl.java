@@ -80,4 +80,11 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
         return (PrtDriverInformationVOImpl)findViewObject("PrtDriverInformationVO2");
     }
 
+    /**
+     * Container's getter for PriceListNewRVO1.
+     * @return PriceListNewRVO1
+     */
+    public ViewObjectImpl getPriceListNewRVO1() {
+        return (ViewObjectImpl)findViewObject("PriceListNewRVO1");
+    }
 }

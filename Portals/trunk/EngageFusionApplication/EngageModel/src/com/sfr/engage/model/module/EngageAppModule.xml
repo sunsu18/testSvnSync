@@ -36,5 +36,7 @@
   <ViewUsage
     Name="PrtDriverInformationVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtDriverInformationVO"/>
-
+  <ViewUsage
+    Name="PriceListNewRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PriceListNewRVO"/>
 </AppModule>
