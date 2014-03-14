@@ -39,7 +39,8 @@
              <af:outputText value=":" id="coll3"/>
               <af:spacer width="15" height="10" id="s19"/>
            <af:inputText  id="it7"
-                 binding="#{pageFlowScope.DriverInfoBean.driverName}"/>
+                 binding="#{pageFlowScope.DriverInfoBean.driverName}"
+                 value="#{pageFlowScope.DriverInfoBean.driverN}"/>
           
         </h:panelGrid>
         
@@ -90,7 +91,7 @@
           <af:spacer width="10" height="15" id="s12"/>
           <af:panelGroupLayout id="pgl8">
       <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.driverInfoList}"
-                          width="840px" rows="5" inlineStyle="height:100.0px;"
+                          width="840px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
                           fetchSize="10">
                   <af:column sortable="false" id="c13">
                 <af:selectBooleanCheckbox id="sbc1" 
