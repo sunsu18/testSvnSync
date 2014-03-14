@@ -1,0 +1,25 @@
+Mar 13, 2014 3:07:58 PM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+Mar 13, 2014 3:07:58 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+Mar 13, 2014 3:07:58 PM com.collaxa.cube.CubeLogger info
+INFO: validating "E002JDEE1toWebFuelBPEL.bpel" ...
+Mar 13, 2014 3:07:58 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+Mar 13, 2014 3:07:58 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
+Mar 13, 2014 3:07:58 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E002JDEE1toWebFuelBPEL" in 45.8 milliseconds [nodes 32=1+31, 698.4 nodes/sec]
+Mar 13, 2014 3:07:59 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E002JDEE1toWebFuelBPEL" in 1.131 seconds
+Mar 13, 2014 3:07:59 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 5 files in 0.4 milliseconds
+
+Mar 13, 2014 3:07:59 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E002JDEE1toWebFuelBPEL" in 6.9 milliseconds
+

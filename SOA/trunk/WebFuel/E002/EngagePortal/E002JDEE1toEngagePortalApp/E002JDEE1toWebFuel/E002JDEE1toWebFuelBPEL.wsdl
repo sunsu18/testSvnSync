@@ -1,0 +1,40 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="E002JDEE1toWebFuelBPEL"
+     targetNamespace="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+     xmlns:ns2="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:client="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="E002JDEE1toWebFuelBPEL">
+        <plnk:role name="E002JDEE1toWebFuelBPELProvider">
+            <plnk:portType name="client:E002JDEE1toWebFuelBPEL"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+             xmlns:ns1="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg"
+                 schemaLocation="xsd/E002InvocationReqMsg.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+             xmlns:ns1="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation"
+                 schemaLocation="xsd/SelectJDEE1DBAdaptorV1_validation.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="E002JDEE1toWebFuelBPELRequestMessage">
+        <wsdl:part name="payload" element="ns1:invocationMsg"/>
+    </wsdl:message>
+    <wsdl:portType name="E002JDEE1toWebFuelBPEL">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:E002JDEE1toWebFuelBPELRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

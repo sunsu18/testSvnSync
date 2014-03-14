@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="E002JDEE1toWebFuelBPEL" targetNamespace="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.statoilfuelretail.com/integration/E002/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/E002JDEE1toWebFuelBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/MergeWebFuelDBAdapterV1" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/CraeteJDEE1DBAdapterV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SelectJDEE1DBAdaptorV1" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns4="http://www.statoilfuelretail.com/integration/E002/E002InvocationReqMsg" xmlns:ns5="http://www.statoilfuelretail.com/integration/E002/SelectJDEE1DBAdaptorV1_validation" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/jms/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SOAErorInfoJMSQ" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns7="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns8="http://xmlns.oracle.com/ias/pcbpel/NotificationService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeWebFuelDBAdapterV1" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectJDEE1DBAdaptorV1" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="E002JDEE1toWebFuelbpel_client" partnerLinkType="client:E002JDEE1toWebFuelBPEL" myRole="E002JDEE1toWebFuelBPELProvider"/>
+    <partnerLink name="MergeWebFuelDBAdapterV1" partnerLinkType="ns1:MergeWebFuelDBAdapterV1_plt" partnerRole="MergeWebFuelDBAdapterV1_role"/>
+    <partnerLink name="SelectJDEE1DBAdaptorV1" partnerLinkType="ns3:SelectJDEE1DBAdaptorV1_plt" partnerRole="SelectJDEE1DBAdaptorV1_role"/>
+    <partnerLink name="SOAErorInfoJMSQ" partnerLinkType="ns6:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:E002JDEE1toWebFuelBPELRequestMessage"/>
+    <variable name="InvokeJDEE1DBAdaptorV1Select_IV" messageType="ns3:SelectJDEE1DBAdaptorV1Select_inputParameters"/>
+    <variable name="InvokeJDEE1DBAdaptorV1Select_OV" messageType="ns3:F5542112Collection_msg"/>
+    <variable name="InvokeWebFuelMerge_IV" messageType="ns1:PrtListPricesCollection_msg"/>
+    <variable name="UserName" type="xsd:string"/>
+    <variable name="InvokeJDEE1DBAdaptorV1Select_OV_validate" element="ns5:F5542112Collection"/>
+    <variable name="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" messageType="ns6:Produce_Message_msg"/>
+    <variable name="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" messageType="ns6:Produce_Message_msg"/>
+    <variable name="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" messageType="ns6:Produce_Message_msg"/>
+  </variables>
+  <faultHandlers id="BpFhs0">
+    <catch faultName="bpelx:bindingFault" id="BpCFt0">
+      <sequence name="SequenceErrorBinding" id="BpSeq0">
+        <assign name="AssignSOAErrorInfoBindingJMSQ" id="BpAss0">
+          <copy>
+            <from expression="&quot;E002_TE&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:SenderSystem"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:UserName"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;TE-001&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="&quot;Binding Fault in E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOAErrorInfoBindingJMSQ" inputVariable="InvokeSOAErrorInfoBindingJMSQ_Produce_Message_IV" partnerLink="SOAErorInfoJMSQ" portType="ns6:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv0"/>
+      </sequence>
+    </catch>
+    <catch faultName="bpelx:remoteFault" id="BpCFt1">
+      <sequence name="SequenceErrorRemote" id="BpSeq1">
+        <assign name="AssignSOAErrorInfoRemoteJMSQ" id="BpAss1">
+          <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002_TE&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortalBPEL&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:SenderSystem"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:UserName"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;TE-002&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="&quot;Remote Fault in E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOAErrorInfoRemoteJMSQ" inputVariable="InvokeSOAErrorInfoRemoteJMSQ_Produce_Message_IV" partnerLink="SOAErorInfoJMSQ" portType="ns6:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv1"/>
+      </sequence>
+    </catch>
+    <catchAll id="BpCAl0">
+      <sequence name="SequenceErrorDefault" id="BpSeq2">
+        <assign name="AssignSOAErrorInfoDefaultJMSQ" id="BpAss2">
+          <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;Technical Fault in  E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:Subject"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortalBPEL&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002JDEE1toEngagePortal&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:UserName"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:SenderSystem"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+          </copy>
+          <copy>
+            <from expression="&quot;TE-003&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="&quot;E002_TE&quot;"/>
+            <to variable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOAErrorInfoDefaultJMSQV1" inputVariable="InvokeSOAErrorInfoRemoteJMSQV1_Produce_Message_InputVariable" partnerLink="SOAErorInfoJMSQ" portType="ns6:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv2"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main" id="BpSeq3">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in E002JDEE1toWebFuelBPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="E002JDEE1toWebFuelbpel_client" portType="client:E002JDEE1toWebFuelBPEL" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
+    <assign name="AssignUserName" id="BpAss3">
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:UserName"/>
+        <to variable="UserName"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeSelectJDEE1DBAdaptorV1" inputVariable="InvokeJDEE1DBAdaptorV1Select_IV" partnerLink="SelectJDEE1DBAdaptorV1" portType="ns3:SelectJDEE1DBAdaptorV1_ptt" operation="SelectJDEE1DBAdaptorV1Select" outputVariable="InvokeJDEE1DBAdaptorV1Select_OV" bpelx:invokeAsDetail="no" id="BpInv3"/>
+    <scope name="ScopeInvokeJDEE1_OV_Validate" variableAccessSerializable="no" id="BpScp0">
+      <variables>
+        <variable name="SelectJDEE1_OV_Error" element="ns5:F5542112Collection"/>
+        <variable name="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" messageType="ns6:Produce_Message_msg"/>
+      </variables>
+      <faultHandlers id="BpFhs1">
+        <catch faultName="bpelx:invalidVariables" id="BpCFt2">
+          <sequence name="SequenceErrorvalidation" id="BpSeq4">
+            <assign name="xformSelectJDEE1ValidatetoSelectJDEE1Error" id="BpAss4">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/SelectJDEE1validatetoSelectJDEE1Error.xsl', $InvokeJDEE1DBAdaptorV1Select_OV_validate)"/>
+                <to variable="SelectJDEE1_OV_Error"/>
+              </copy>
+            </assign>
+            <assign name="AssignSOAErrorJMSQ" id="BpAss5">
+              <copy>
+                <from expression="ora:getCompositeInstanceId()"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:InstanceID"/>
+              </copy>
+              <copy>
+                <from expression="&quot;Validation error in source JDEE1 table F5542112&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorSummary"/>
+              </copy>
+              <copy>
+                <from expression="&quot;Validation error details for E002&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:Subject"/>
+              </copy>
+              <copy>
+                <from expression="&quot;E002JDEE1toEngagePortalBPEL&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ComponentName"/>
+              </copy>
+              <copy>
+                <from expression="&quot;E002&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectID"/>
+              </copy>
+              <copy>
+                <from expression="&quot;E002JDEE1toEngagePortal&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:ProjectName"/>
+              </copy>
+              <copy>
+                <from expression="xp20:current-dateTime()"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Timestamp"/>
+              </copy>
+              <copy>
+                <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:UserName"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:UserID"/>
+              </copy>
+              <copy>
+                <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:SenderSystem"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Source"/>
+              </copy>
+              <copy>
+                <from variable="inputVariable" part="payload" query="/ns4:invocationMsg/ns4:ReceiverSystem"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:CommonErrorData/ns7:Target"/>
+              </copy>
+              <copy>
+                <from expression="&quot;BE-001&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorCode"/>
+              </copy>
+              <copy>
+                <from expression="&quot;E002_BE&quot;"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorNotification/ns7:LookupCriteria"/>
+              </copy>
+              <copy>
+                <from expression="ora:getNodeValue(bpws:getVariableData('SelectJDEE1_OV_Error','/ns5:F5542112Collection'))"/>
+                <to variable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" part="body" query="/ns7:ErrorInfo/ns7:ErrorDetails/ns7:ErrorDescription"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeSOAErrorInfoJMSQV1" inputVariable="InvokeSOAErrorInfoJMSQV1_Produce_Message_IV" partnerLink="SOAErorInfoJMSQ" portType="ns6:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv4"/>
+          </sequence>
+        </catch>
+      </faultHandlers>
+      <sequence name="SequenceInvokeJDEE1_OV_Validate" id="BpSeq5">
+        <assign name="xformInvokeSelectJDEE1toSelectJDEE1Validate" id="BpAss6">
+          <bpelx:annotation>
+            <bpelx:pattern>transformation</bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from expression="ora:doXSLTransformForDoc('xsl/InvokeJDEE1Select_OVtoInvokeJDEE1SelectValidate.xsl', $InvokeJDEE1DBAdaptorV1Select_OV.F5542112Collection)"/>
+            <to variable="InvokeJDEE1DBAdaptorV1Select_OV_validate"/>
+          </copy>
+        </assign>
+        <bpelx:validate name="ValidateSelectJDEE1_OV_Validate" variables="InvokeJDEE1DBAdaptorV1Select_OV_validate" id="BpVal0"/>
+      </sequence>
+    </scope>
+    <assign name="xformInvokeJDEE1toMergeEnagePortal" id="BpAss7">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/JDEE1DBAdaptorV1Select_OVtoMergeEngagePortal_IV.xsl', $InvokeJDEE1DBAdaptorV1Select_OV.F5542112Collection,'UserName',$UserName)"/>
+        <to variable="InvokeWebFuelMerge_IV" part="PrtListPricesCollection"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeMergeEngagePortalDBAdaptorV1" inputVariable="InvokeWebFuelMerge_IV" partnerLink="MergeWebFuelDBAdapterV1" portType="ns1:MergeWebFuelDBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv5"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Mar 06 15:58:26 IST 2014
+  Author:  10608609
+  Type: BPEL 1.1 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

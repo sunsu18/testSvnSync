@@ -1,0 +1,25 @@
+<?binding.jca SelectJDEE1DBAdaptorV1_db.jca?>
+<wsdl:definitions name="SelectJDEE1DBAdaptorV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SelectJDEE1DBAdaptorV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E002JDEE1toWebFuelApp/E002JDEE1toWebFuel/SelectJDEE1DBAdaptorV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectJDEE1DBAdaptorV1">
+    <plt:partnerLinkType name="SelectJDEE1DBAdaptorV1_plt">
+        <plt:role name="SelectJDEE1DBAdaptorV1_role">
+            <plt:portType name="tns:SelectJDEE1DBAdaptorV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectJDEE1DBAdaptorV1" schemaLocation="xsd/SelectJDEE1DBAdaptorV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectJDEE1DBAdaptorV1Select_inputParameters">
+        <wsdl:part name="SelectJDEE1DBAdaptorV1Select_inputParameters" element="top:SelectJDEE1DBAdaptorV1SelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="F5542112Collection_msg">
+        <wsdl:part name="F5542112Collection" element="top:F5542112Collection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectJDEE1DBAdaptorV1_ptt">
+        <wsdl:operation name="SelectJDEE1DBAdaptorV1Select">
+            <wsdl:input message="tns:SelectJDEE1DBAdaptorV1Select_inputParameters"/>
+            <wsdl:output message="tns:F5542112Collection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
