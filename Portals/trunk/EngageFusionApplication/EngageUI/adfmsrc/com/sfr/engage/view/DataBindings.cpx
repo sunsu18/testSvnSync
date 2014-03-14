@@ -19,6 +19,8 @@
 
     <page path="/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfo.jsff"
           usageId="com_sfr_engage_view_DriverInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/pricelist_new.jsff"
+          usageId="com_sfr_engage_view_pricelist_newPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -32,6 +34,8 @@
 
     <page id="com_sfr_engage_view_DriverInfoPageDef"
           path="com.sfr.engage.driverinfotaskflow.DriverInfoPageDef"/>
+    <page id="com_sfr_engage_view_pricelist_newPageDef"
+          path="com.sfr.engage.pricelisttaskflow.pricelist_newPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
