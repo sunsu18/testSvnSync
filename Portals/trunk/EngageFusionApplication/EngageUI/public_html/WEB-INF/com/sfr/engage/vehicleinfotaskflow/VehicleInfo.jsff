@@ -79,15 +79,14 @@
       <af:panelGroupLayout id="pgl4">   
       <af:spacer width="10" height="20" id="s6"/>
          <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccount}" var="var">
-          <c:if test="${not empty var.vehicleInfoList}">
+         <!-- <c:if test="${not empty var.vehicleInfoList}">-->
           <af:panelGroupLayout id="pgl5" layout="horizontal">          
           <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"/>
           <af:outputText value="#{var.accountNumber}" id="ot3"/>
-          </af:panelGroupLayout>
-           <af:spacer width="10" height="15" id="s12"/>
+          </af:panelGroupLayout>         
           <af:panelGroupLayout id="pgl6">            
             <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.vehicleInfoList}"
-                          width="915px" rows="5" inlineStyle="height:100.0px;" 
+                          width="915px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
                           fetchSize="10">
                   <af:column sortable="false" id="c13" width="14px">
                 <af:selectBooleanCheckbox id="sbc1" 
@@ -131,8 +130,9 @@
                 </af:commandButton>                 
               </af:column>
                 </af:table>
-          </af:panelGroupLayout>
-          </c:if>
+              <af:spacer width="10" height="10" id="s12"/>
+            </af:panelGroupLayout>
+          <!--</c:if>-->
         </af:forEach>
       </af:panelGroupLayout>
       

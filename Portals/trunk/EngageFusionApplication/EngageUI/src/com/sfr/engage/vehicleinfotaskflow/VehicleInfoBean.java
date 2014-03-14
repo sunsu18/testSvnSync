@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import javax.faces.event.ValueChangeEvent;
@@ -167,6 +169,9 @@ public class VehicleInfoBean {
         searchResultsShow = true;
         vehicleNumber=false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
+        }else {
+            FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_ERROR,"Please select Linked Account","");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
@@ -210,6 +215,8 @@ public class VehicleInfoBean {
         // Add event code here...
         newVehicle.hide();
         searchResults();
+        FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_INFO,"new vehicle added successfully","");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
        // AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
         return null;
     }
@@ -245,6 +252,8 @@ public class VehicleInfoBean {
     public String editVehicleSave() {        
         editVehicle.hide();
         searchResults();
+        FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_INFO,"vehicle details updated successfully","");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         return null;
     }
 
@@ -317,8 +326,12 @@ public class VehicleInfoBean {
             getDeleteVehicle().hide();
             val=new HashMap<String,String>();
             searchResults();
+            FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_INFO,"selected vehicle's are deleted successfully","");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-         System.out.println("Error while commiting");   
+            FacesMessage msg=new FacesMessage(FacesMessage.SEVERITY_ERROR,"error occured while commiting","");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println("Error while commiting");   
         }
         return null;
     }
