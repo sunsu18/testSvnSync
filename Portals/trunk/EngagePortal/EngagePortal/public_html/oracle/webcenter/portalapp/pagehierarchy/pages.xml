@@ -19,4 +19,6 @@
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"
            hidden="false" shared="false" hasSubPages="true"
            id="changeaccount" />
+  <pageDef contentMRef="/oracle/webcenter/portalapp/pages/login.jspx"
+           hidden="true" shared="false" hasSubPages="false" id="login"/>
 </pagesDef>

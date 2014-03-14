@@ -280,6 +280,14 @@
             </url>
           </contents>
         </url>
+        <url visible="#{true}"
+             url="page://oracle/webcenter/portalapp/pages/login.jspx"
+             factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+             id="login">
+          <attributes>
+            <attribute isKey="false" attributeId="Title" value="login"/>
+          </attributes>
+        </url>
       </contents>
     </url>
   </contents>
