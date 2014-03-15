@@ -1,13 +1,16 @@
 package com.sfr.engage.core;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account{
-  
+public class Account implements Serializable {
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
     private String accountNumber;
-   List<VehicleInfo> vehicleInfoList;
-   List<DriverInfo> driverInfoList;
+    private List<VehicleInfo> vehicleInfoList;
+    private List<DriverInfo> driverInfoList;
 
 
     public void setAccountNumber(String accountNumber) {

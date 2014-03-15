@@ -1,8 +1,12 @@
 package com.sfr.engage.core;
 
+import java.io.Serializable;
+
 import java.util.Date;
 
-public class DriverInfo {
+public class DriverInfo implements Serializable {
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
     public DriverInfo() {
         super();
     }
