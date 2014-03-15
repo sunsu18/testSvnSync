@@ -53,10 +53,19 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       { "MORE_DETAILS", "" },  { "NATIONALITY", "" }, { "MOBILE_NUMBER", "" }, { "DRIVER_NUMBER", "" }, 
                                       { "VEHICLE_LINKED_ACCOUNT", "" },{ "VEHICLE_ADD", "" },{ "VEHICLE_EDIT", "" }, { "VEHICLE_DELETE_SUCCESS", "" },
                                       { "VEHICLE_DELETE_FAILURE", "" },{ "VEHICLE_DELETE_FAILURE_1", "" },{ "DRIVER_LINKED_ACCOUNT", "" },{ "DRIVER_ADD", "" },
-                                    { "STATOIL_COMPANY_CARD", ""},{ "STATOIL_TRUCK_CARD", ""},{ "STATOIL_EUROPE_CARD", ""},
-                                         { "STATOIL_MASTER_CARD", ""},{ "STATOIL_COMPANY_CARD_DESC", ""},{ "STATOIL_TRUCK_CARD_DESC", ""},
-                                        { "STATOIL_EUROPE_CARD_DESC", ""},{ "STATOIL_MASTER_CARD_DESC", ""},
-                                      { "DRIVER_EDIT", "" }, { "DRIVER_DELETE_SUCCESS", "" }, { "DRIVER_DELETE_FAILURE", "" },{ "DRIVER_DELETE_FAILURE_1", "" }};
+                                      { "STATOIL_COMPANY_CARD", ""},{ "STATOIL_TRUCK_CARD", ""},{ "STATOIL_EUROPE_CARD", ""},
+                                      { "STATOIL_MASTER_CARD", ""},{ "STATOIL_COMPANY_CARD_DESC", ""},{ "STATOIL_TRUCK_CARD_DESC", ""},
+                                      { "STATOIL_EUROPE_CARD_DESC", ""},{ "STATOIL_MASTER_CARD_DESC", ""},
+                                      { "DRIVER_EDIT", "" }, { "DRIVER_DELETE_SUCCESS", "" }, { "DRIVER_DELETE_FAILURE", "" },{ "DRIVER_DELETE_FAILURE_1", "" },
+                                      { "ADD_DRIVER", "" }, { "ACCOUNT_ID", "" }, { "PASSPORT_NUMBER", "" },{ "PASSPORT_EXPIRY", "" },
+                                      { "LICENSE_NUMBER", "" }, { "LICENSE_EXPIRY", "" }, { "EMPLOY_START", "" },{ "EMPLOY_END", "" },
+                                      { "EDIT_DRIVER", "" }, { "DELETE_DRIVER", "" }, { "YES", "" },{ "NO", "" },{"DELETE_COMFIRMATION_DRIVER",""},
+                                      { "VEHICLEINFO_VEHICLENUMBER", "" }, { "VEHICLEINFO_CARDNUMBER", "" }, { "VEHICLEINFO_ACCOUNTNUMBER", "" },
+                                      { "VEHICLEINFO_INTERNALNAME", "" },{ "VEHICLEINFO_REGISTRATIONNUMBER", "" }, { "VEHICLEINFO_BRAND", "" }, 
+                                      { "VEHICLEINFO_YEAR", "" },{ "VEHICLEINFO_REGISTRATIONDATE", "" },{ "VEHICLEINFO_ENDDATE", "" }, 
+                                      { "VEHICLEINFO_FUELTYPE", "" }, { "VEHICLEINFO_MAXFUEL", "" },{ "VEHICLEINFO_ODOMETER", "" },{ "VEHICLEINFO_REMARKS", "" }, 
+                                      { "VEHICLEINFO_ADDVEHICLE", "" }, { "VEHICLEINFO_CANCEL", "" },{ "VEHICLEINFO_EDITVEHICLE", "" },{ "VEHICLEINFO_DELETEVEHICLE", "" }, 
+                                      { "VEHICLEINFO_YES", "" }, { "VEHICLEINFO_NO", "" },{ "VEHICLEINFO_DELETE_CONFIRMATION", "" }};
                
 
             /**
