@@ -163,7 +163,7 @@ background-color: rgb(252,252,252);
 
 .outputText, .af_document{
 color:#524e4f; 
-font-size:14px;
+font-size:11px;
 font-family : Lucida Sans,Georgia,Serif !important;
 }
 
@@ -307,7 +307,7 @@ cursor: default;
 
 .af_column_column-header-cell {
 font-family: Lucida Sans;
-font-size: 11px;
+font-size: 13px;
 text-align: center;
 font-weight: bold;
 }
@@ -322,7 +322,7 @@ font-weight: bold;
     border-right: 1px solid #F0EEEE;
     border-top: 0px solid #FFFFFF;
     font-family : Lucida Sans,Georgia,Serif !important;
-    font-size: 12px;
+    font-size: 13px;
     /*font-weight: bold;*/
     height: 30px;
     overflow: hidden;

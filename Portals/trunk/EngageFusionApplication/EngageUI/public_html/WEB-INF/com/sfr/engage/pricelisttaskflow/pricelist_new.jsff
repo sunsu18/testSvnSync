@@ -9,7 +9,7 @@
                         >
       <af:outputText value="#{sfr.PRICES}" id="ot1" styleClass="heading"/>
       <af:spacer width="20" height="1" id="s1"/>
-      <input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
+      <input onclick="printDiv('pt1:r2:0:printPanel2');" type="image" class="printButton"
              style="border-color:White; border-style:none;"
              src="../../../images/download.jpg"/>
      </af:panelGroupLayout>
@@ -28,7 +28,7 @@
         <af:spacer width="2" height="1" id="s3"/>
         <af:outputText value="#{sfr.LATEST_UPDATE}" id="ot4"
                        inlineStyle="font-weight:bold;"/>
-        <af:spacer width="100" height="10" id="s5"/>
+        <af:spacer width="80" height="10" id="s5"/>
         <af:outputText value="#{bindings.ModifiedDate.inputValue}" id="ot8"
                        >
           <af:convertDateTime pattern="dd-MMM-yyyy  HH:mm:ss"/>
@@ -45,7 +45,7 @@
                   emptyText="#{bindings.PriceListNewRVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
                   fetchSize="#{bindings.PriceListNewRVO11.rangeSize}"
                   rowBandingInterval="1" id="t1"
-                  binding="#{pageFlowScope.PriceList_newBean.pricelisttable}" >
+                  binding="#{pageFlowScope.PriceList_newBean.bindings.pricelisttable}" >
           <af:column sortProperty="DescLine1" sortable="false"
                      headerText="#{sfr.PRODUCTS}" width="145"
                      id="c2">
