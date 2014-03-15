@@ -89,7 +89,8 @@
           <af:panelGroupLayout id="pgl6">            
             <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.vehicleInfoList}"
                           width="950px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
-                          fetchSize="10">
+                          fetchSize="10" columnResizing="disabled"
+                      disableColumnReordering="true">
                   <af:column sortable="false" id="c13" width="36px">
                 <af:selectBooleanCheckbox id="sbc1" 
                                           valueChangeListener="#{pageFlowScope.VehicleInfoBean.deleteCheckBoxListener}"
