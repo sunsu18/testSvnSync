@@ -17,14 +17,12 @@
       <af:separator id="s4" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl3" layout="vertical">
-      
-        
-           <h:panelGrid columns="4" id="pg1">
+       <h:panelGrid columns="4" id="pg1">
             <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
              <af:outputText value=":" id="col"/>
                <af:spacer width="15" height="10" id="s18"/>
              <af:selectManyChoice  id="smc1"
-                             binding="#{pageFlowScope.DriverInfoBean.linkedAccount}">
+                             binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}">
           <af:selectItem label="1000000000" value="1000000000" id="si5"/>
           <af:selectItem label="2000000000" value="2000000000" id="si6"/>
           <af:selectItem label="3000000000" value="3000000000" id="si3"/>
@@ -43,14 +41,10 @@
              <af:outputText value=":" id="coll3"/>
               <af:spacer width="15" height="10" id="s19"/>
            <af:inputText  id="it7"
-                 binding="#{pageFlowScope.DriverInfoBean.driverName}"
+                 binding="#{pageFlowScope.DriverInfoBean.bindings.driverName}"
                  value="#{pageFlowScope.DriverInfoBean.driverN}"/>
-          
         </h:panelGrid>
-        
-        
-        
-        <af:spacer width="12" height="10" id="s15"/>
+         <af:spacer width="12" height="10" id="s15"/>
        <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left: 200px;">
    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                           actionListener="#{pageFlowScope.DriverInfoBean.searchAction}" styleClass="buttonback buttontext">
@@ -63,7 +57,7 @@
       </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl4"
-                         binding="#{pageFlowScope.DriverInfoBean.searchResults}"
+                         binding="#{pageFlowScope.DriverInfoBean.bindings.searchResults}"
                          visible="#{pageFlowScope.DriverInfoBean.searchResultsShow}">
       <af:spacer width="10" height="10" id="s13"/>
       <af:separator id="s3" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
@@ -71,11 +65,6 @@
       <af:panelGroupLayout id="pgl5" layout="horizontal">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"/>
         <af:spacer width="10" height="10" id="s16"/>
-        <!--<af:commandButton text="Add" id="cb3"
-                          actionListener="#{bindings.CreateInsert.execute}"
-                          action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}">
-        <af:showPopupBehavior triggerType="click" popupId="new_driver"/>
-        </af:commandButton>-->
         <af:commandButton actionListener="#{bindings.CreateInsert.execute}" id="cb3"
                           text="#{sfr.ADD}"
                           action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}" styleClass="buttonback buttontext">
@@ -96,9 +85,8 @@
           <af:panelGroupLayout id="pgl8">
 
       <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.driverInfoList}"
-                          width="960px" rows="5"
-
-                          fetchSize="10">
+                          width="960px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
+                          fetchSize="10" columnResizing="disabled" disableColumnReordering="true">
                   <af:column sortable="false" id="c13" width="22px">
                 <af:selectBooleanCheckbox id="sbc1" 
                                           valueChangeListener="#{pageFlowScope.DriverInfoBean.deleteCheckBoxListener}"
@@ -161,9 +149,9 @@
     </af:panelGroupLayout>
     
     <af:popup id="new_driver" contentDelivery="immediate"
-              binding="#{pageFlowScope.DriverInfoBean.newDriver}"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" title="AddDriver" type="none"
+      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psl6"
                                dimensionsFrom="children">
@@ -176,7 +164,7 @@
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverSave}" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s8"/>
-                <af:commandButton text="Cancel" id="ccb11"
+                <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverCancel}" styleClass="buttonback buttontext">                  
@@ -189,7 +177,7 @@
                                  styleClass="WCPanelMargin">
                 <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
                  <af:inputText value="#{bindings.AccountId.inputValue}"
-                            label="#{bindings.AccountId.hints.label}"
+                            label="#{sfr.ACCOUNT_ID}"
                             required="#{bindings.AccountId.hints.mandatory}"
                             columns="#{bindings.AccountId.hints.displayWidth}"
                             maximumLength="#{bindings.AccountId.hints.precision}"
@@ -198,7 +186,7 @@
                 <f:validator binding="#{bindings.AccountId.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.CardNumber.inputValue}"
-                            label="#{bindings.CardNumber.hints.label}"
+                            label="#{sfr.CARD_NUMBER}"
                             required="#{bindings.CardNumber.hints.mandatory}"
                             columns="#{bindings.CardNumber.hints.displayWidth}"
                             maximumLength="#{bindings.CardNumber.hints.precision}"
@@ -207,7 +195,7 @@
                 <f:validator binding="#{bindings.CardNumber.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.DriverNumber.inputValue}"
-                            label="#{bindings.DriverNumber.hints.label}"
+                            label="#{sfr.DRIVER_NUMBER}"
                             required="#{bindings.DriverNumber.hints.mandatory}"
                             columns="#{bindings.DriverNumber.hints.displayWidth}"
                             maximumLength="#{bindings.DriverNumber.hints.precision}"
@@ -216,7 +204,7 @@
                 <f:validator binding="#{bindings.DriverNumber.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.DriverName.inputValue}"
-                            label="#{bindings.DriverName.hints.label}"
+                            label="#{sfr.DRIVER_NAME}"
                             required="#{bindings.DriverName.hints.mandatory}"
                             columns="#{bindings.DriverName.hints.displayWidth}"
                             maximumLength="#{bindings.DriverName.hints.precision}"
@@ -225,7 +213,7 @@
                 <f:validator binding="#{bindings.DriverName.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.Nationality.inputValue}"
-                            label="#{bindings.Nationality.hints.label}"
+                            label="#{sfr.NATIONALITY}"
                             required="#{bindings.Nationality.hints.mandatory}"
                             columns="#{bindings.Nationality.hints.displayWidth}"
                             maximumLength="#{bindings.Nationality.hints.precision}"
@@ -234,7 +222,7 @@
                 <f:validator binding="#{bindings.Nationality.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.MobileNumber.inputValue}"
-                            label="#{bindings.MobileNumber.hints.label}"
+                            label="#{sfr.MOBILE_NUMBER}"
                             required="#{bindings.MobileNumber.hints.mandatory}"
                             columns="#{bindings.MobileNumber.hints.displayWidth}"
                             maximumLength="#{bindings.MobileNumber.hints.precision}"
@@ -245,7 +233,7 @@
                                   pattern="#{bindings.MobileNumber.format}"/>
               </af:inputText>
               <af:inputText value="#{bindings.Remarks.inputValue}"
-                            label="#{bindings.Remarks.hints.label}"
+                            label="#{sfr.REMARKS}"
                             required="#{bindings.Remarks.hints.mandatory}"
                             columns="#{bindings.Remarks.hints.displayWidth}"
                             maximumLength="#{bindings.Remarks.hints.precision}"
@@ -254,7 +242,7 @@
                 <f:validator binding="#{bindings.Remarks.validator}"/>
               </af:inputText>
               <af:inputText value="#{bindings.PassportNumber.inputValue}"
-                            label="#{bindings.PassportNumber.hints.label}"
+                            label="#{sfr.PASSPORT_NUMBER}"
                             required="#{bindings.PassportNumber.hints.mandatory}"
                             columns="#{bindings.PassportNumber.hints.displayWidth}"
                             maximumLength="#{bindings.PassportNumber.hints.precision}"
@@ -263,7 +251,7 @@
                 <f:validator binding="#{bindings.PassportNumber.validator}"/>
               </af:inputText>
               <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
-                            label="#{bindings.PassportExpiry.hints.label}"
+                            label="#{sfr.PASSPORT_EXPIRY}"
                             required="#{bindings.PassportExpiry.hints.mandatory}"
                             shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
                             id="id6">
@@ -271,7 +259,7 @@
                 <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
               </af:inputDate>
               <af:inputText value="#{bindings.LicenseNumber.inputValue}"
-                            label="#{bindings.LicenseNumber.hints.label}"
+                            label="#{sfr.LICENSE_NUMBER}"
                             required="#{bindings.LicenseNumber.hints.mandatory}"
                             columns="#{bindings.LicenseNumber.hints.displayWidth}"
                             maximumLength="#{bindings.LicenseNumber.hints.precision}"
@@ -280,7 +268,7 @@
                 <f:validator binding="#{bindings.LicenseNumber.validator}"/>
               </af:inputText>
               <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
-                            label="#{bindings.LicenseExpiry.hints.label}"
+                            label="#{sfr.LICENSE_EXPIRY}"
                             required="#{bindings.LicenseExpiry.hints.mandatory}"
                             shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
                             id="id3">
@@ -288,7 +276,7 @@
                 <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
               </af:inputDate>
               <af:inputDate value="#{bindings.EmployStart.inputValue}"
-                            label="#{bindings.EmployStart.hints.label}"
+                            label="#{sfr.EMPLOY_START}"
                             required="#{bindings.EmployStart.hints.mandatory}"
                             shortDesc="#{bindings.EmployStart.hints.tooltip}"
                             id="id5">
@@ -296,7 +284,7 @@
                 <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
               </af:inputDate>
               <af:inputDate value="#{bindings.EmployEnd.inputValue}"
-                            label="#{bindings.EmployEnd.hints.label}"
+                            label="#{sfr.EMPLOY_END}"
                             required="#{bindings.EmployEnd.hints.mandatory}"
                             shortDesc="#{bindings.EmployEnd.hints.tooltip}"
                             id="id2">
@@ -311,9 +299,9 @@
     </af:popup>
     
   <af:popup id="edit_driver" contentDelivery="immediate"
-              binding="#{pageFlowScope.DriverInfoBean.editDriver}"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriver}"
               autoCancel="disabled">
-      <af:dialog id="editDriver" title="EditDriver" type="none"
+      <af:dialog id="editDriver" title="#{sfr.EDIT_DRIVER}" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="pssl6"
                                dimensionsFrom="children">
@@ -322,12 +310,12 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
               <af:spacer width="10" height="10" id="ss5"/>               
-                <af:commandButton text="SAVE" id="editsave"
+                <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
                                   partialSubmit="true" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
-                <af:commandButton text="Cancel" id="cb8"
+                <af:commandButton text="#{sfr.CANCEL}" id="cb8"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverCancel}" styleClass="buttonback buttontext">                  
@@ -340,7 +328,7 @@
                                  styleClass="WCPanelMargin">
               <af:panelFormLayout id="pfl2" rows="7" maxColumns="3">
                 <af:inputText value="#{bindings.AccountId.inputValue}"
-                              label="#{bindings.AccountId.hints.label}"
+                              label="#{sfr.ACCOUNT_ID}"
                               required="#{bindings.AccountId.hints.mandatory}"
                               columns="#{bindings.AccountId.hints.displayWidth}"
                               maximumLength="#{bindings.AccountId.hints.precision}"
@@ -349,7 +337,7 @@
                   <f:validator binding="#{bindings.AccountId.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.CardNumber.inputValue}"
-                              label="#{bindings.CardNumber.hints.label}"
+                              label="#{sfr.CARD_NUMBER}"
                               required="#{bindings.CardNumber.hints.mandatory}"
                               columns="#{bindings.CardNumber.hints.displayWidth}"
                               maximumLength="#{bindings.CardNumber.hints.precision}"
@@ -358,7 +346,7 @@
                   <f:validator binding="#{bindings.CardNumber.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.DriverNumber.inputValue}"
-                              label="#{bindings.DriverNumber.hints.label}"
+                              label="#{sfr.DRIVER_NUMBER}"
                               required="#{bindings.DriverNumber.hints.mandatory}"
                               columns="#{bindings.DriverNumber.hints.displayWidth}"
                               maximumLength="#{bindings.DriverNumber.hints.precision}"
@@ -367,7 +355,7 @@
                   <f:validator binding="#{bindings.DriverNumber.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.DriverName.inputValue}"
-                              label="#{bindings.DriverName.hints.label}"
+                              label="#{sfr.DRIVER_NAME}"
                               required="#{bindings.DriverName.hints.mandatory}"
                               columns="#{bindings.DriverName.hints.displayWidth}"
                               maximumLength="#{bindings.DriverName.hints.precision}"
@@ -376,7 +364,7 @@
                   <f:validator binding="#{bindings.DriverName.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.Nationality.inputValue}"
-                              label="#{bindings.Nationality.hints.label}"
+                              label="#{sfr.NATIONALITY}"
                               required="#{bindings.Nationality.hints.mandatory}"
                               columns="#{bindings.Nationality.hints.displayWidth}"
                               maximumLength="#{bindings.Nationality.hints.precision}"
@@ -385,7 +373,7 @@
                   <f:validator binding="#{bindings.Nationality.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.MobileNumber.inputValue}"
-                              label="#{bindings.MobileNumber.hints.label}"
+                              label="#{sfr.MOBILE_NUMBER}"
                               required="#{bindings.MobileNumber.hints.mandatory}"
                               columns="#{bindings.MobileNumber.hints.displayWidth}"
                               maximumLength="#{bindings.MobileNumber.hints.precision}"
@@ -396,7 +384,7 @@
                                     pattern="#{bindings.MobileNumber.format}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.Remarks.inputValue}"
-                              label="#{bindings.Remarks.hints.label}"
+                              label="#{sfr.REMARKS}"
                               required="#{bindings.Remarks.hints.mandatory}"
                               columns="#{bindings.Remarks.hints.displayWidth}"
                               maximumLength="#{bindings.Remarks.hints.precision}"
@@ -405,7 +393,7 @@
                   <f:validator binding="#{bindings.Remarks.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.PassportNumber.inputValue}"
-                              label="#{bindings.PassportNumber.hints.label}"
+                              label="#{sfr.PASSPORT_NUMBER}"
                               required="#{bindings.PassportNumber.hints.mandatory}"
                               columns="#{bindings.PassportNumber.hints.displayWidth}"
                               maximumLength="#{bindings.PassportNumber.hints.precision}"
@@ -414,7 +402,7 @@
                   <f:validator binding="#{bindings.PassportNumber.validator}"/>
                 </af:inputText>
                 <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
-                              label="#{bindings.PassportExpiry.hints.label}"
+                              label="#{sfr.PASSPORT_EXPIRY}"
                               required="#{bindings.PassportExpiry.hints.mandatory}"
                               shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
                               id="id1">
@@ -422,7 +410,7 @@
                   <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
                 </af:inputDate>
                 <af:inputText value="#{bindings.LicenseNumber.inputValue}"
-                              label="#{bindings.LicenseNumber.hints.label}"
+                              label="#{sfr.LICENSE_NUMBER}"
                               required="#{bindings.LicenseNumber.hints.mandatory}"
                               columns="#{bindings.LicenseNumber.hints.displayWidth}"
                               maximumLength="#{bindings.LicenseNumber.hints.precision}"
@@ -431,7 +419,7 @@
                   <f:validator binding="#{bindings.LicenseNumber.validator}"/>
                 </af:inputText>
                 <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
-                              label="#{bindings.LicenseExpiry.hints.label}"
+                              label="#{sfr.LICENSE_EXPIRY}"
                               required="#{bindings.LicenseExpiry.hints.mandatory}"
                               shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
                               id="id8">
@@ -439,7 +427,7 @@
                   <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
                 </af:inputDate>
                 <af:inputDate value="#{bindings.EmployStart.inputValue}"
-                              label="#{bindings.EmployStart.hints.label}"
+                              label="#{sfr.EMPLOY_START}"
                               required="#{bindings.EmployStart.hints.mandatory}"
                               shortDesc="#{bindings.EmployStart.hints.tooltip}"
                               id="id4">
@@ -447,7 +435,7 @@
                   <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
                 </af:inputDate>
                 <af:inputDate value="#{bindings.EmployEnd.inputValue}"
-                              label="#{bindings.EmployEnd.hints.label}"
+                              label="#{sfr.EMPLOY_END}"
                               required="#{bindings.EmployEnd.hints.mandatory}"
                               shortDesc="#{bindings.EmployEnd.hints.tooltip}"
                               id="id7">
@@ -462,9 +450,9 @@
     </af:popup>
     
     <af:popup id="delete_driver" contentDelivery="immediate"
-              binding="#{pageFlowScope.DriverInfoBean.deleteDriver}"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.deleteDriver}"
               autoCancel="disabled">
-      <af:dialog id="deleteDriver" title="DeleteDriver" type="none"
+      <af:dialog id="deleteDriver" title="#{sfr.DELETE_DRIVER}" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psal6"
                                dimensionsFrom="children">
@@ -473,10 +461,10 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="delete_footer_panel" layout="horizontal">
               <af:spacer width="10" height="10" id="sas5"/>               
-                <af:commandButton text="Yes" id="deletesave"                                  
+                <af:commandButton text="#{sfr.YES}" id="deletesave"                                  
                                   action="#{pageFlowScope.DriverInfoBean.deleteDriverSave}" styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s10"/>
-                <af:commandButton text="No" id="cb9"
+                <af:commandButton text="#{sfr.NO}" id="cb9"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.deleteDriverCancel}" styleClass="buttonback buttontext">             
@@ -488,17 +476,12 @@
             <af:panelGroupLayout id="deleteDriver_scroll"
                                  styleClass="WCPanelMargin">
                 <af:panelFormLayout id="pfasl1" >
-                <af:outputText value="Are you sure you want to delete? If OK press YES" id="ot16"/>
+                <af:outputText value="#{sfr.DELETE_COMFIRMATION_DRIVER}" id="ot16"/>
               </af:panelFormLayout>              
             </af:panelGroupLayout>
           </f:facet>
         </af:panelStretchLayout>
       </af:dialog>
     </af:popup>
-          
-        
-      </af:panelGroupLayout>
-
-
-
+ </af:panelGroupLayout>
 </jsp:root>
