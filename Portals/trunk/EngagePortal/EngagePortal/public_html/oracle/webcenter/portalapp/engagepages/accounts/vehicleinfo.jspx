@@ -4,7 +4,7 @@
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
-    <af:document id="d1">
+    <af:document id="d1" title="#{sfr.VEHICLE_INFO}">
       <af:form id="f1">
         <af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1">
           <f:facet name="content">
