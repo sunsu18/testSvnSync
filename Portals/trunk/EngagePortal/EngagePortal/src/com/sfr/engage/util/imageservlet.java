@@ -1,6 +1,7 @@
 package com.sfr.engage.util;
 
 
+import com.sfr.engage.services.core.dao.factory.DAOFactory;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
