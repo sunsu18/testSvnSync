@@ -21,6 +21,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import oracle.adf.model.BindingContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
@@ -46,7 +47,9 @@ public class VehicleInfoBean implements Serializable {
     HashMap<String, String> val = new HashMap<String, String>();
     private List<VehicleInfo> moreColumnsTable;
     private String registrationNumber;
-    private String accountsList;
+    private String accountsList;    
+    private static ADFLogger logger = ADFLogger.createADFLogger("En_portal");
+
 
     /**
      * @return bindings Object
@@ -90,6 +93,7 @@ public class VehicleInfoBean implements Serializable {
      * This method is reusable for different scenario's in VehicleInfo Page to show searchResults.
      */
     public void searchResults() {
+        logger.info("Currency code ");
         try {
             if (getBindings().getLinkedAccount().getValue() != null) {
                 int count = 0;
@@ -113,7 +117,7 @@ public class VehicleInfoBean implements Serializable {
                     System.out.println("Length==1");
                 }
                 myAccount = new ArrayList<Account>();
-                for (int i = 0; i < count; i++) {
+                for (int i = 0; i < count; i++) {                  
                     Account acc = new Account();
                     acc.setAccountNumber(values[i]);
                     List<VehicleInfo> myVehicleList =
@@ -126,7 +130,7 @@ public class VehicleInfoBean implements Serializable {
                                                    values[i].trim(), null);
                     if (getBindings().getRegisterNumber().getValue() != null) {
                         vo.defineNamedWhereClauseParam("registrationNumber",
-                                                       getBindings().getRegisterNumber().toString(),
+                                                       getBindings().getRegisterNumber().getValue().toString(),
                                                        null);
                     } else {
                         vo.defineNamedWhereClauseParam("registrationNumber",
@@ -459,7 +463,7 @@ public class VehicleInfoBean implements Serializable {
             vo.executeQuery();
         }
         getBindings().getLinkedAccount().setValue(null);
-        registrationNumber = null;
+        getBindings().getRegisterNumber().setValue(null);        
         searchResultsShow = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
