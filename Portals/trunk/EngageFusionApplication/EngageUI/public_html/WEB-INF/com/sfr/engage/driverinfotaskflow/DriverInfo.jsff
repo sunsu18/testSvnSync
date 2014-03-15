@@ -34,6 +34,10 @@
           <af:selectItem label="7000000000" value="7000000000" id="si8"/>
           <af:selectItem label="8000000000" value="8000000000" id="si2"/>
         </af:selectManyChoice>
+          <af:spacer  height="10" id="s17"/>
+          <af:spacer  height="10" id="s20"/>
+          <af:spacer  height="10" id="s21"/>
+          <af:spacer  height="10" id="s22"/>
           
           <af:outputText value="#{sfr.DRIVER_NAME}" id="colon1"/>
              <af:outputText value=":" id="coll3"/>
@@ -77,7 +81,7 @@
                           action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}" styleClass="buttonback buttontext">
          <af:showPopupBehavior triggerType="click" popupId="new_driver"/>                 
          </af:commandButton>                 
-        <af:spacer width="10" height="10" id="s17"/>
+        <af:spacer width="10" height="10" id="s23"/>
         <af:commandButton text="#{sfr.DELETE}" id="cb4"
                           action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
@@ -90,10 +94,12 @@
       </af:panelGroupLayout>
           <af:spacer width="10" height="15" id="s12"/>
           <af:panelGroupLayout id="pgl8">
-      <af:table var="row" rowBandingInterval="0" id="t1" value="#{var.driverInfoList}"
-                          width="840px" rows="5" inlineStyle="height:100.0px;" emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
+
+      <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.driverInfoList}"
+                          width="960px" rows="5"
+
                           fetchSize="10">
-                  <af:column sortable="false" id="c13">
+                  <af:column sortable="false" id="c13" width="22px">
                 <af:selectBooleanCheckbox id="sbc1" 
                                           valueChangeListener="#{pageFlowScope.DriverInfoBean.deleteCheckBoxListener}"
                                           autoSubmit="true">
@@ -138,7 +144,7 @@
                     <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12">
                     <af:outputText value="#{row.remarks}" id="ot15"/>
                   </af:column>
-                  <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}" id="c14">                    
+                  <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}" id="c14" width="50px">                    
                  <af:commandButton id="cb5"
                                   action="#{pageFlowScope.DriverInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
