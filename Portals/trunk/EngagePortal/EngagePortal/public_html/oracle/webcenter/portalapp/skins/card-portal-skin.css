@@ -1,9 +1,138 @@
-
-
-/*Page Background*/
-.portalbackground{
-background-color: rgb(252,252,252);    
+/* background color of whole page default is blue gradient*/
+body{
+    background-color: White !important;
 }
+
+/*Dialog Box starts*/
+.af_dialog_content,.af_dialog_footer,.af_dialog_content-start,.af_dialog_content-end,.af_dialog_footer-start,.af_dialog_footer-end, .af_dialog_header-end,.af_dialog_header-start,.af_dialog_header{
+    background-color:white;
+    background-image:none;
+    padding:0px !important;
+}
+.af_dialog_header-end,.af_dialog_header,.af_dialog_header-start{
+    height:10px  !important;
+}
+.af_dialog_footer-start,.af_dialog_footer-end,.af_dialog_footer{
+    height:10px  !important;
+}
+.af_dialog_content-start{
+      border-left: 1px solid white !important;
+ }
+.af_dialog_content-end{
+     border-right: 1px solid white !important;
+}
+af|dialog::main 
+{ 
+opacity:1 !important;
+}
+/*.af_dialog_content {
+border: 0px;
+padding-top: 7px;
+padding-bottom: 7px;
+padding-right: 5px;
+padding-left: 5px;
+background-color: White !important;
+}
+.af_dialog_content-start {
+width: 0px !important;
+font-size: 0px;
+border-right: none;
+border-left: solid 1px #C2C7D3;
+background-color: #EBEFF5;
+}
+.af_dialog_content-end {
+width: 0px !important;
+font-size: 0px;
+border-left: none;
+border-right: solid 1px #C2C7D3;
+background-color: #EBEFF5;
+}
+.af_dialog_footer {
+background-position: bottom;
+border-top: none !important;
+height: 0px;
+background-image: url(/CustomerPortal/afr/fusion/dialog-footer-middle.png);
+background-image : none !important;
+background-repeat: no-repeat !important;
+padding: 0px !important;
+}
+
+.af_dialog_header
+{
+background-image : none !important;
+background-repeat: no-repeat !important;
+padding: 0px !important;
+}
+*/
+     /*Dialog Box Ends*/
+
+/* command button backgtround*/     
+.af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
+border-style: none !important;
+border-width: 0px !important;
+border-top-color: transparent !important;
+border-right-color: transparent !important;
+border-bottom-color: transparent !important;
+border-left-color: transparent !important;
+text-decoration: none !important;
+white-space: nowrap !important;
+/*background-image: url(/CustomerPortal/afr/fusion/button_bg_ena.png);*/
+background-image: none !important;
+/*background-position: ;*/
+background-repeat: no-repeat !important;
+margin: 0px !important;
+padding-top: 0px !important;
+padding-bottom: 0px !important;
+background-color: transparent !important;
+/*padding: 1px 1px 0px 2px;
+padding-left: 9px;
+padding-right: 9px;*/
+}
+.af_commandButton:hover{
+border-width: 0px  !important;
+border-style: none !important;
+border-top-color: transparent  !important;
+border-right-color: transparent  !important;
+border-bottom-color: transparent  !important;
+border-left-color: transparent  !important;
+background-image: none  !important;
+background-color: transparent !important;
+/*font-family: Tahoma, Verdana, Helvetica, sans-serif;
+font-weight: normal;
+font-size: 11px;
+color: #000000;*/
+}
+
+/*command button ends here*/
+
+
+/*.AFModalGlassPane
+{
+    background-color: White !important; 
+}
+
+af|popup {
+     background-color: White !important; 
+}
+af:menu {
+background-color: White !important; 
+}
+af:dialog{
+    background-color: White !important; 
+}
+af:panelWindow{
+    background-color: White !important; 
+}
+af:noteWindow{
+    background-color: White !important; 
+}
+
+af|dialog::inactive-background
+{background-color:#FFFFFF;}*/
+/*Page Background*/
+/*.portalbackground{
+background-color: rgb(252,252,252);    
+}*/
 
 .logintext{
    background: url("/images/Buttons/login_back.png") !important;
