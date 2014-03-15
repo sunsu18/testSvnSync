@@ -7,7 +7,7 @@ import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.utility.util.ADFUtils;
 
-import java.sql.SQLException;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,22 +36,27 @@ import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
 
-public class VehicleInfoBean {
+public class VehicleInfoBean implements Serializable {
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    private transient Bindings bindings;
     private List<Account> myAccount;
-    private RichSelectManyChoice linkedAccount;
-    private RichPanelGroupLayout searchResults;
     private boolean searchResultsShow = false;
-    private RichPopup newVehicle;
-    private RichInputText registerNumber;
-    private RichPopup editVehicle;
-    private RichPopup deleteVehicle;
-    ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
     HashMap<String, String> val = new HashMap<String, String>();
-    private RichPopup moreColumnsPopup;
-    List<VehicleInfo> moreColumnsTable;
-    private RichPanelGroupLayout searchPanelGroupLayout;
+    private List<VehicleInfo> moreColumnsTable;
     private String registrationNumber;
     private String accountsList;
+
+    /**
+     * @return bindings Object
+     */
+    public Bindings getBindings() {
+        if (bindings == null) {
+            bindings = new Bindings();
+        }
+        return bindings;
+    }
 
     public VehicleInfoBean() {
         super();
@@ -77,7 +82,7 @@ public class VehicleInfoBean {
      * This method performs search functionality in VehicleInfo Page.
      * @param actionEvent
      */
-    public void searchAction(ActionEvent actionEvent) {       
+    public void searchAction(ActionEvent actionEvent) {
         searchResults();
     }
 
@@ -86,13 +91,13 @@ public class VehicleInfoBean {
      */
     public void searchResults() {
         try {
-            if (linkedAccount.getValue() != null) {
+            if (getBindings().getLinkedAccount().getValue() != null) {
                 int count = 0;
                 String[] values;
                 System.out.println("Selected Valued==" +
-                                   linkedAccount.getValue());
+                                   getBindings().getLinkedAccount().getValue());
                 String selectedValues =
-                    linkedAccount.getValue().toString().trim();
+                    getBindings().getLinkedAccount().getValue().toString().trim();
                 String passingValues =
                     selectedValues.substring(1, selectedValues.length() - 1);
                 System.out.println("PassedValues==" + passingValues);
@@ -119,9 +124,9 @@ public class VehicleInfoBean {
                     System.out.println("values of i" + values[i]);
                     vo.defineNamedWhereClauseParam("accountNumber",
                                                    values[i].trim(), null);
-                    if (registerNumber.getValue() != null) {
+                    if (getBindings().getRegisterNumber().getValue() != null) {
                         vo.defineNamedWhereClauseParam("registrationNumber",
-                                                       registerNumber.getValue().toString(),
+                                                       getBindings().getRegisterNumber().toString(),
                                                        null);
                     } else {
                         vo.defineNamedWhereClauseParam("registrationNumber",
@@ -181,7 +186,7 @@ public class VehicleInfoBean {
                     myAccount.add(acc);
                 }
                 searchResultsShow = true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             } else {
                 if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
                     FacesMessage msg =
@@ -205,34 +210,6 @@ public class VehicleInfoBean {
     }
 
     /**
-     * @param linkedAccount
-     */
-    public void setLinkedAccount(RichSelectManyChoice linkedAccount) {
-        this.linkedAccount = linkedAccount;
-    }
-
-    /**
-     * @return
-     */
-    public RichSelectManyChoice getLinkedAccount() {
-        return linkedAccount;
-    }
-
-    /**
-     * @param searchResults
-     */
-    public void setSearchResults(RichPanelGroupLayout searchResults) {
-        this.searchResults = searchResults;
-    }
-
-    /**
-     * @return
-     */
-    public RichPanelGroupLayout getSearchResults() {
-        return searchResults;
-    }
-
-    /**
      * @param searchResultsShow
      */
     public void setSearchResultsShow(boolean searchResultsShow) {
@@ -247,24 +224,10 @@ public class VehicleInfoBean {
     }
 
     /**
-     * @param newVehicle
-     */
-    public void setNewVehicle(RichPopup newVehicle) {
-        this.newVehicle = newVehicle;
-    }
-
-    /**
-     * @return
-     */
-    public RichPopup getNewVehicle() {
-        return newVehicle;
-    }
-
-    /**
      * @param actionEvent
      */
     public void newVehicleSave(ActionEvent actionEvent) {
-       
+
     }
 
     /**
@@ -272,8 +235,7 @@ public class VehicleInfoBean {
      * @return
      */
     public String newVehicleSave() {
-       
-        newVehicle.hide();
+        getBindings().getNewVehicle().hide();
         searchResults();
         if (resourceBundle.containsKey("VEHICLE_ADD")) {
             FacesMessage msg =
@@ -289,9 +251,8 @@ public class VehicleInfoBean {
      * @return
      */
     public String newVehicleCancel() {
-       
-        ResetUtils.reset(newVehicle);
-        newVehicle.hide();
+        ResetUtils.reset(getBindings().getNewVehicle());
+        getBindings().getNewVehicle().hide();
         return null;
     }
 
@@ -299,36 +260,8 @@ public class VehicleInfoBean {
      * @return
      */
     public String newVehicleAddAction() {
-       
+
         return null;
-    }
-
-    /**
-     * @param registerNumber
-     */
-    public void setRegisterNumber(RichInputText registerNumber) {
-        this.registerNumber = registerNumber;
-    }
-
-    /**
-     * @return
-     */
-    public RichInputText getRegisterNumber() {
-        return registerNumber;
-    }
-
-    /**
-     * @param editVehicle
-     */
-    public void setEditVehicle(RichPopup editVehicle) {
-        this.editVehicle = editVehicle;
-    }
-
-    /**
-     * @return
-     */
-    public RichPopup getEditVehicle() {
-        return editVehicle;
     }
 
     /**
@@ -336,7 +269,7 @@ public class VehicleInfoBean {
      * @return
      */
     public String editVehicleSave() {
-        editVehicle.hide();
+        getBindings().getEditVehicle().hide();
         searchResults();
         if (resourceBundle.containsKey("VEHICLE_EDIT")) {
             FacesMessage msg =
@@ -351,8 +284,8 @@ public class VehicleInfoBean {
      * @return
      */
     public String editVehicleCancel() {
-        ResetUtils.reset(editVehicle);
-        editVehicle.hide();
+        ResetUtils.reset(getBindings().getEditVehicle());
+        getBindings().getEditVehicle().hide();
         return null;
     }
 
@@ -372,7 +305,7 @@ public class VehicleInfoBean {
                 vo.defineNamedWhereClauseParam("prtTruckInformationPK",
                                                primaryKey, null);
                 vo.executeQuery();
-                getEditVehicle().show(new RichPopup.PopupHints());
+                getBindings().getEditVehicle().show(new RichPopup.PopupHints());
             }
         } catch (JboException ex) {
             FacesMessage msg =
@@ -393,38 +326,15 @@ public class VehicleInfoBean {
      * @return
      */
     public String vehicleDeleteAction() {
-        if(val.size()!=0)
-        {
-        getDeleteVehicle().show(new RichPopup.PopupHints());
-        }else {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE_1"),
-                                     "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
+        if (val.size() != 0) {
+            getBindings().getDeleteVehicle().show(new RichPopup.PopupHints());
+        } else {
+            FacesMessage msg =
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE_1"),
+                                 "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
         return null;
-    }
-
-    /**
-     * @param deleteVehicle
-     */
-    public void setDeleteVehicle(RichPopup deleteVehicle) {
-        this.deleteVehicle = deleteVehicle;
-    }
-
-    /**
-     * @return
-     */
-    public BindingContainer getBindings() {
-        return BindingContext.getCurrent().getCurrentBindingsEntry();
-    }
-
-    /**
-     * @return
-     */
-    public RichPopup getDeleteVehicle() {
-        return deleteVehicle;
     }
 
     /**
@@ -432,7 +342,7 @@ public class VehicleInfoBean {
      * @return
      */
     public String deleteVehicleSave() {
-        try {            
+        try {
             Iterator iter = val.keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String)iter.next();
@@ -453,13 +363,14 @@ public class VehicleInfoBean {
                     }
                 }
             }
-            BindingContainer bindings = getBindings();
+            BindingContainer bindings =
+                BindingContext.getCurrent().getCurrentBindingsEntry();
             OperationBinding operationBinding =
                 bindings.getOperationBinding("Commit");
             operationBinding.execute();
             if (operationBinding.getErrors().isEmpty()) {
                 System.out.println("Success");
-                getDeleteVehicle().hide();
+                getBindings().getDeleteVehicle().hide();
                 val = new HashMap<String, String>();
                 searchResults();
                 if (resourceBundle.containsKey("VEHICLE_DELETE_SUCCESS")) {
@@ -497,7 +408,7 @@ public class VehicleInfoBean {
      * @return
      */
     public String deleteVehicleCancel() {
-        getDeleteVehicle().hide();
+        getBindings().getDeleteVehicle().hide();
         return null;
     }
 
@@ -506,7 +417,7 @@ public class VehicleInfoBean {
      * @param valueChangeEvent
      */
     public void deleteCheckBoxListener(ValueChangeEvent valueChangeEvent) {
-       
+
         if (valueChangeEvent.getNewValue().equals(true)) {
             System.out.println("Value ==" +
                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
@@ -517,20 +428,6 @@ public class VehicleInfoBean {
                 val.remove(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
             }
         }
-    }
-
-    /**
-     * @param moreColumnsPopup
-     */
-    public void setMoreColumnsPopup(RichPopup moreColumnsPopup) {
-        this.moreColumnsPopup = moreColumnsPopup;
-    }
-
-    /**
-     * @return
-     */
-    public RichPopup getMoreColumnsPopup() {
-        return moreColumnsPopup;
     }
 
     /**
@@ -552,7 +449,7 @@ public class VehicleInfoBean {
      * @param actionEvent
      */
     public void searchCancel(ActionEvent actionEvent) {
-       
+
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
         if ("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
@@ -561,27 +458,12 @@ public class VehicleInfoBean {
             vo.setWhereClause("");
             vo.executeQuery();
         }
-        this.linkedAccount.setValue(null);
+        getBindings().getLinkedAccount().setValue(null);
         registrationNumber = null;
         searchResultsShow = false;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.registerNumber);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(this.linkedAccount);
-
-    }
-
-    /**
-     * @param searchPanelGroupLayout
-     */
-    public void setSearchPanelGroupLayout(RichPanelGroupLayout searchPanelGroupLayout) {
-        this.searchPanelGroupLayout = searchPanelGroupLayout;
-    }
-
-    /**
-     * @return
-     */
-    public RichPanelGroupLayout getSearchPanelGroupLayout() {
-        return searchPanelGroupLayout;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
     }
 
     /**
@@ -610,5 +492,129 @@ public class VehicleInfoBean {
      */
     public String getAccountsList() {
         return accountsList;
+    }
+
+
+    public class Bindings {
+        private RichSelectManyChoice linkedAccount;
+        private RichPanelGroupLayout searchResults;
+        private RichPopup newVehicle;
+        private RichInputText registerNumber;
+        private RichPopup editVehicle;
+        private RichPopup deleteVehicle;
+        private RichPopup moreColumnsPopup;
+        private RichPanelGroupLayout searchPanelGroupLayout;
+
+        /**
+         * @param linkedAccount
+         */
+        public void setLinkedAccount(RichSelectManyChoice linkedAccount) {
+            this.linkedAccount = linkedAccount;
+        }
+
+        /**
+         * @return
+         */
+        public RichSelectManyChoice getLinkedAccount() {
+            return linkedAccount;
+        }
+
+        /**
+         * @param searchResults
+         */
+        public void setSearchResults(RichPanelGroupLayout searchResults) {
+            this.searchResults = searchResults;
+        }
+
+        /**
+         * @return
+         */
+        public RichPanelGroupLayout getSearchResults() {
+            return searchResults;
+        }
+
+        /**
+         * @param newVehicle
+         */
+        public void setNewVehicle(RichPopup newVehicle) {
+            this.newVehicle = newVehicle;
+        }
+
+        /**
+         * @return
+         */
+        public RichPopup getNewVehicle() {
+            return newVehicle;
+        }
+
+        /**
+         * @param registerNumber
+         */
+        public void setRegisterNumber(RichInputText registerNumber) {
+            this.registerNumber = registerNumber;
+        }
+
+        /**
+         * @return
+         */
+        public RichInputText getRegisterNumber() {
+            return registerNumber;
+        }
+
+        /**
+         * @param deleteVehicle
+         */
+        public void setDeleteVehicle(RichPopup deleteVehicle) {
+            this.deleteVehicle = deleteVehicle;
+        }
+
+        /**
+         * @return
+         */
+        public RichPopup getDeleteVehicle() {
+            return deleteVehicle;
+        }
+
+        /**
+         * @param editVehicle
+         */
+        public void setEditVehicle(RichPopup editVehicle) {
+            this.editVehicle = editVehicle;
+        }
+
+        /**
+         * @return
+         */
+        public RichPopup getEditVehicle() {
+            return editVehicle;
+        }
+
+        /**
+         * @param moreColumnsPopup
+         */
+        public void setMoreColumnsPopup(RichPopup moreColumnsPopup) {
+            this.moreColumnsPopup = moreColumnsPopup;
+        }
+
+        /**
+         * @return
+         */
+        public RichPopup getMoreColumnsPopup() {
+            return moreColumnsPopup;
+        }
+
+        /**
+         * @param searchPanelGroupLayout
+         */
+        public void setSearchPanelGroupLayout(RichPanelGroupLayout searchPanelGroupLayout) {
+            this.searchPanelGroupLayout = searchPanelGroupLayout;
+        }
+
+        /**
+         * @return
+         */
+        public RichPanelGroupLayout getSearchPanelGroupLayout() {
+            return searchPanelGroupLayout;
+        }
     }
 }
