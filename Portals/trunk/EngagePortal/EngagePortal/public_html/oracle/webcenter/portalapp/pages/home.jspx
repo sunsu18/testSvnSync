@@ -180,7 +180,7 @@
                       <af:panelGroupLayout id="pgl8" layout="vertical"
                                            inlineStyle="width:327px; height:60.0px;">
                         <af:goButton text="#{sfr.LOG_IN}" id="gb2"
-                                     destination="https://signin.statoilfuelretail.com/sfrCommon"
+                                     destination="/faces/login"
                                      targetFrame="_blank"
                                      styleClass="logintext"/>
                         <!--

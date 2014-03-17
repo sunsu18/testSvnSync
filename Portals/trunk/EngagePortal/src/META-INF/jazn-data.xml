@@ -3464,16 +3464,6 @@
                                 <actions>view</actions>
                             </permission>
                             <permission>
-                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
-                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx</name>
-                                <actions>view</actions>
-                            </permission>
-                            <permission>
-                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
-                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/pricing.jspx</name>
-                                <actions>view</actions>
-                            </permission>
-                            <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new</name>
                                 <actions>view</actions>
@@ -3606,8 +3596,23 @@
                                 <actions>view</actions>
                             </permission>
                             <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
                                 <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
                                 <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx</name>
+                                <actions>personalize,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx</name>
+                                <actions>personalize,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx</name>
                                 <actions>personalize,view</actions>
                             </permission>
                             <permission>
@@ -3616,9 +3621,19 @@
                                 <actions>personalize,view</actions>
                             </permission>
                             <permission>
-                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new</name>
-                                <actions>view</actions>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/setup.jspx</name>
+                                <actions>personalize,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/webassist.jspx</name>
+                                <actions>personalize,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx</name>
+                                <actions>personalize,view</actions>
                             </permission>
                         </permissions>
                     </grant>
@@ -3719,8 +3734,23 @@
                                 <actions>view</actions>
                             </permission>
                             <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
                                 <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
                                 <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx</name>
+                                <actions>create,delete,grant,personalize,update,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx</name>
+                                <actions>create,delete,grant,personalize,update,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx</name>
                                 <actions>create,delete,grant,personalize,update,view</actions>
                             </permission>
                             <permission>
@@ -3729,9 +3759,19 @@
                                 <actions>create,delete,grant,personalize,update,view</actions>
                             </permission>
                             <permission>
-                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new</name>
-                                <actions>view</actions>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/setup.jspx</name>
+                                <actions>create,delete,grant,personalize,update,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/webassist.jspx</name>
+                                <actions>create,delete,grant,personalize,update,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
+                                <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx</name>
+                                <actions>create,delete,grant,personalize,update,view</actions>
                             </permission>
                         </permissions>
                     </grant>

@@ -4,21 +4,23 @@
           xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd">
   <pageDef contentMRef="/oracle/webcenter/portalapp/pages/home.jspx"
            hidden="false" shared="false" hasSubPages="false" id="home"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx" hidden="false" shared="false" hasSubPages="true" id="accounts"/>
-  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx" hidden="false" shared="false" hasSubPages="true" id="transactions"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx" hidden="false" shared="false" hasSubPages="true" id="accounts"
+           overridePolicy="true"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx" hidden="false" shared="false" hasSubPages="true" id="transactions"
+           overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx" hidden="false" shared="false" hasSubPages="true" id="cardservices"
-           />
+           overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/pricing.jspx" hidden="false" shared="false" hasSubPages="true" id="pricing"
-           />
+           overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/setup.jspx" hidden="false" shared="false" hasSubPages="true" id="setup"
-           />
+           overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/support.jspx" hidden="false" shared="false" hasSubPages="true" id="support"
            />
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/webassist.jspx" hidden="false" shared="false" hasSubPages="true" id="webassist"
-           />
+           overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"
            hidden="false" shared="false" hasSubPages="true"
-           id="changeaccount" />
+           id="changeaccount" overridePolicy="true"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/pages/login.jspx"
            hidden="true" shared="false" hasSubPages="false" id="login"/>
 </pagesDef>
