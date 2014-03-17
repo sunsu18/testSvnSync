@@ -69,7 +69,7 @@
       <af:panelGroupLayout id="pgl0" layout="horizontal">
         <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot8"
                        styleClass="subheading"/>
-        <af:spacer width="695" height="10" id="s7"/>
+        <af:spacer width="683" height="10" id="s7"/>
         <af:commandButton text="#{sfr.ADD}" id="cb3"
                           actionListener="#{bindings.CreateInsert.execute}"
                           action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}"
