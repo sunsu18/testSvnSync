@@ -181,7 +181,7 @@
                                            inlineStyle="width:327px; height:60.0px;">
                         <af:goButton text="#{sfr.LOG_IN}" id="gb2"
                                      destination="/faces/login"
-                                     targetFrame="_blank"
+                                     targetFrame="_self"
                                      styleClass="logintext"/>
                         <!--
                       -->
