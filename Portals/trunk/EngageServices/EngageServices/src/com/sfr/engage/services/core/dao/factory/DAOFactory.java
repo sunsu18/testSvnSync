@@ -1,5 +1,7 @@
 package com.sfr.engage.services.core.dao.factory;
 
+import java.io.Serializable;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -11,13 +13,22 @@ import javax.naming.NamingException;
 
 import javax.sql.DataSource;
 
-public class DAOFactory {
+public class DAOFactory implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    
     public DAOFactory() {
         super();
     }
 
+    /**
+     * This method is used to get JNDI connection for processing business logic
+     * @return
+     * @throws SQLException
+     * @throws NamingException
+     */
     public static Connection getJNDIConnection() throws SQLException, NamingException {
-
         // initially no connection
         Connection connection = null;
         InitialContext objinitialContext = null;
