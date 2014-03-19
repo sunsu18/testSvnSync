@@ -44,11 +44,10 @@ public class VehicleInfoBean implements Serializable {
     private List<Account> myAccount;
     private boolean searchResultsShow = false;
     private ResourceBundle resourceBundle;
-    HashMap<String, String> val = new HashMap<String, String>();
+    private HashMap<String, String> val = new HashMap<String, String>();
     private List<VehicleInfo> moreColumnsTable;
     private String registrationNumber;
-    private String accountsList;    
-    private static ADFLogger logger = ADFLogger.createADFLogger("En_portal");
+    private String accountsList; 
 
 
     /**
@@ -92,8 +91,7 @@ public class VehicleInfoBean implements Serializable {
     /**
      * This method is reusable for different scenario's in VehicleInfo Page to show searchResults.
      */
-    public void searchResults() {
-        logger.info("Currency code ");
+    public void searchResults() {        
         try {
             if (getBindings().getLinkedAccount().getValue() != null) {
                 int count = 0;
@@ -172,7 +170,7 @@ public class VehicleInfoBean implements Serializable {
                                         vehicle.setMaxFuel(Integer.parseInt(currRow.getMaxFuel().toString()));
                                     }
                                     if (currRow.getOdometer() != null) {
-                                        vehicle.setODOMeter(Integer.parseInt(currRow.getOdometer().toString()));
+                                        vehicle.setOdoMeter(Integer.parseInt(currRow.getOdometer().toString()));
                                     }
                                     myVehicleList.add(vehicle);
                                 }
@@ -246,8 +244,7 @@ public class VehicleInfoBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ADD"),
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        // AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
+        }        
         return null;
     }
 
