@@ -23,7 +23,7 @@ public class VehicleInfo implements Serializable {
     private Date endDate;
     private String fuelType;
     private Integer maxFuel;
-    private Integer ODOMeter;
+    private Integer odoMeter;
     private String remarks;
     private String modifiedBy;
 
@@ -123,14 +123,7 @@ public class VehicleInfo implements Serializable {
     public Integer getMaxFuel() {
         return maxFuel;
     }
-
-    public void setODOMeter(Integer ODOMeter) {
-        this.ODOMeter = ODOMeter;
-    }
-
-    public Integer getODOMeter() {
-        return ODOMeter;
-    }
+    
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
@@ -146,5 +139,13 @@ public class VehicleInfo implements Serializable {
 
     public String getModifiedBy() {
         return modifiedBy;
+    }
+
+    public void setOdoMeter(Integer odoMeter) {
+        this.odoMeter = odoMeter;
+    }
+
+    public Integer getOdoMeter() {
+        return odoMeter;
     }
 }
