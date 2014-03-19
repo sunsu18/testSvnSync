@@ -2,6 +2,8 @@ package com.sfr.engage.utility.util;
 
 import com.sfr.engage.utility.constant.Constants;
 
+import java.io.Serializable;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -11,18 +13,20 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.share.logging.ADFLogger;
 
 
-public class AccessDataControl {
+public class AccessDataControl implements Serializable{
 
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
     public AccessDataControl() {
         super();
-    }
+    } 
 
-    /* This method is to get the Log Handler depending upon the portal being run,
-       On every backing bean we have to call this method to get the Adf logger */
-
-
+    /**
+     * This method is to get the Log Handler depending upon the portal being run,
+       On every backing bean we have to call this method to get the Adf logger
+     * @return
+     */
     public static ADFLogger getSFRLogger() {
-
         HttpSession session = null;
         ExternalContext ectx;
         HttpServletRequest request;

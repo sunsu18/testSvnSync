@@ -1,6 +1,10 @@
 package com.sfr.engage.validations;
 
-public class ThreadSerialization {
+import java.io.Serializable;
+
+public class ThreadSerialization implements Serializable{
+
+    @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
 
     public ThreadSerialization() {

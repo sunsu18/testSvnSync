@@ -1,5 +1,7 @@
 package com.sfr.engage.utility.util;
 
+import java.io.Serializable;
+
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
@@ -11,7 +13,17 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class JSFUtils {
+
+public class JSFUtils implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    
+    
+    public JSFUtils() {
+        super();
+    }
+    
     /**
      * Method for taking a reference to a JSF binding expression and returning
      * the matching object (or creating it).
@@ -29,6 +41,9 @@ public class JSFUtils {
         return valueExp.getValue(elContext);
     }
 
+    /**
+     * @return
+     */
     public static String resolveRemoteUser() {
         FacesContext facesContext = getFacesContext();
         ExternalContext ectx = facesContext.getExternalContext();
@@ -43,6 +58,9 @@ public class JSFUtils {
         return FacesContext.getCurrentInstance();
     }
 
+    /**
+     * @return
+     */
     public static String resolveUserPrincipal() {
         FacesContext facesContext = getFacesContext();
         ExternalContext ectx = facesContext.getExternalContext();
@@ -50,6 +68,14 @@ public class JSFUtils {
         return request.getUserPrincipal().getName();
     }
 
+    /**
+     * This method is used to execute any method in backingbean.
+     * @param expression
+     * @param returnType
+     * @param argTypes
+     * @param argValues
+     * @return
+     */
     public static Object resloveMethodExpression(String expression,
                                                  Class returnType,
                                                  Class[] argTypes,

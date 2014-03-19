@@ -3,19 +3,26 @@ package com.sfr.engage.utility.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import java.io.Serializable;
+
 import java.util.Enumeration;
 import java.util.Properties;
 
-public class ConfigurationUtility {
+public class ConfigurationUtility implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    
     public ConfigurationUtility() {
         super();
-    }
+    }    
 
-    /*
-     This method is used for reading the values from properties file of environment
-    */
-
-    public static String getPropertyValue(String PName) {
+    /**
+     * This method is used for reading the values from properties file of environment
+     * @param pName
+     * @return
+     */
+    public static String getPropertyValue(String pName) {
         Properties propertiesFile = new Properties();
         //        System.out.println(System.getenv("ENV_PROPERTIES_PATH"));
         String key = "";
@@ -27,8 +34,8 @@ public class ConfigurationUtility {
                 Enumeration e = propertiesFile.propertyNames();
                 while (e.hasMoreElements()) {
                     key = (String)e.nextElement();
-                    if (key.equalsIgnoreCase(PName)) {
-                        //                        System.out.println(key + " = " + propertiesFile.getProperty(key));
+                    if (key.equalsIgnoreCase(pName)) {
+                        //System.out.println(key + " = " + propertiesFile.getProperty(key));
                         return propertiesFile.getProperty(key);
                     }
                 }
@@ -36,7 +43,7 @@ public class ConfigurationUtility {
                 System.out.println("************************ CANNOT READ ENVIRONMENT PROPERTIES ******************");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error Occured while getting connection"+e.getMessage());            
         }
         return null;
     }

@@ -1,6 +1,12 @@
 package com.sfr.engage.utility.constant;
 
-public class Constants {
+import java.io.Serializable;
+
+public class Constants implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+
     public Constants() {
         super();
     }

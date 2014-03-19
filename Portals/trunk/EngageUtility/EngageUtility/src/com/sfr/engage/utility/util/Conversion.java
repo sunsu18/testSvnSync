@@ -1,21 +1,39 @@
 package com.sfr.engage.utility.util;
 
-public class Conversion {
+import java.io.Serializable;
+
+public class Conversion implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    
     public Conversion() {
         super();
     }
-    
-    public String getCurrencyCode(String Country) {
-        if (Country == null || Country.isEmpty())
+
+    /**
+     * This Method will return Country Code for translations.
+     * @param country
+     * @return
+     */
+    public String getCurrencyCode(String country) {
+        if (country == null || country.isEmpty())
+        {
             return null;
-        if (Country.equalsIgnoreCase("SE"))
+        }else if(country.equalsIgnoreCase("SE"))
+        {
             return "SEK";
-        if (Country.equalsIgnoreCase("NO"))
+        }else if (country.equalsIgnoreCase("NO"))
+        {
             return "NOK";
-        if (Country.equalsIgnoreCase("DE"))
+        }else if(country.equalsIgnoreCase("DE"))
+        {
             return "DKK";
+        }
         else
+        {
             return "US";
+        }
 
     }
 
