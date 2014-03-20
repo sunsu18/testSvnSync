@@ -20,6 +20,10 @@
     <param-name>oracle.adf.view.rich.dvt.DEFAULT_IMAGE_FORMAT</param-name>
     <param-value>HTML5</param-value>
   </context-param>
+  <context-param>
+    <param-name>oracle.adf.view.rich.security.FRAME_BUSTING</param-name>
+    <param-value>never</param-value>
+  </context-param>
   <filter>
     <filter-name>JpsFilter</filter-name>
     <filter-class>oracle.security.jps.ee.http.JpsFilter</filter-class>
