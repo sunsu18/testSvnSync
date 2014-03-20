@@ -56,7 +56,7 @@ public class DAOFactory implements Serializable{
 
             // use datasource for connection to physical data source.
             // Give JNDI name under lookup.
-            datasource = (DataSource)objinitialContext.lookup("jdbc/wcpcustom");
+            datasource = (DataSource)objinitialContext.lookup("jdbc/engagecustom");
 
             if (datasource != null) {
                 connection = datasource.getConnection();
