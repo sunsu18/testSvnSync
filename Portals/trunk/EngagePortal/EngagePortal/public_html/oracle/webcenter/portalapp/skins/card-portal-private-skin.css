@@ -1,0 +1,1023 @@
+/* background color of whole page default is blue gradient*/
+body{
+    background-color: White !important;
+}
+
+/*Dialog Box starts*/
+.af_dialog_content,.af_dialog_footer,.af_dialog_content-start,.af_dialog_content-end,.af_dialog_footer-start,.af_dialog_footer-end, .af_dialog_header-end,.af_dialog_header-start,.af_dialog_header{
+    background-color:white;
+    background-image:none;
+    padding:0px !important;
+}
+.af_dialog_header-end,.af_dialog_header,.af_dialog_header-start{
+    height:10px  !important;
+}
+.af_dialog_footer-start,.af_dialog_footer-end,.af_dialog_footer{
+    height:10px  !important;
+}
+.af_dialog_content-start{
+      border-left: 1px solid white !important;
+ }
+.af_dialog_content-end{
+     border-right: 1px solid white !important;
+}
+af|dialog::main 
+{ 
+opacity:1 !important;
+}
+/*.af_dialog_content {
+border: 0px;
+padding-top: 7px;
+padding-bottom: 7px;
+padding-right: 5px;
+padding-left: 5px;
+background-color: White !important;
+}
+.af_dialog_content-start {
+width: 0px !important;
+font-size: 0px;
+border-right: none;
+border-left: solid 1px #C2C7D3;
+background-color: #EBEFF5;
+}
+.af_dialog_content-end {
+width: 0px !important;
+font-size: 0px;
+border-left: none;
+border-right: solid 1px #C2C7D3;
+background-color: #EBEFF5;
+}
+.af_dialog_footer {
+background-position: bottom;
+border-top: none !important;
+height: 0px;
+background-image: url(/CustomerPortal/afr/fusion/dialog-footer-middle.png);
+background-image : none !important;
+background-repeat: no-repeat !important;
+padding: 0px !important;
+}
+
+.af_dialog_header
+{
+background-image : none !important;
+background-repeat: no-repeat !important;
+padding: 0px !important;
+}
+*/
+     /*Dialog Box Ends*/
+
+/* command button backgtround*/     
+.af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
+border-style: none !important;
+border-width: 0px !important;
+border-top-color: transparent !important;
+border-right-color: transparent !important;
+border-bottom-color: transparent !important;
+border-left-color: transparent !important;
+text-decoration: none !important;
+white-space: nowrap !important;
+/*background-image: url(/CustomerPortal/afr/fusion/button_bg_ena.png);*/
+background-image: none !important;
+/*background-position: ;*/
+background-repeat: no-repeat !important;
+margin: 0px !important;
+padding-top: 0px !important;
+padding-bottom: 0px !important;
+background-color: transparent !important;
+/*padding: 1px 1px 0px 2px;
+padding-left: 9px;
+padding-right: 9px;*/
+}
+.af_commandButton:hover{
+border-width: 0px  !important;
+border-style: none !important;
+border-top-color: transparent  !important;
+border-right-color: transparent  !important;
+border-bottom-color: transparent  !important;
+border-left-color: transparent  !important;
+background-image: none  !important;
+background-color: transparent !important;
+/*font-family: Tahoma, Verdana, Helvetica, sans-serif;
+font-weight: normal;
+font-size: 11px;
+color: #000000;*/
+}
+
+/*command button ends here*/
+
+
+/*.AFModalGlassPane
+{
+    background-color: White !important; 
+}
+
+af|popup {
+     background-color: White !important; 
+}
+af:menu {
+background-color: White !important; 
+}
+af:dialog{
+    background-color: White !important; 
+}
+af:panelWindow{
+    background-color: White !important; 
+}
+af:noteWindow{
+    background-color: White !important; 
+}
+
+af|dialog::inactive-background
+{background-color:#FFFFFF;}*/
+/*Page Background*/
+/*.portalbackground{
+background-color: rgb(252,252,252);    
+}*/
+
+.logintext{
+   background: url("/images/Buttons/login_private.png") !important;
+   font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:30px !important; 
+   text-align:left; 
+   vertical-align:top;
+   text-decoration:none; 
+   width:327px; 
+   height:60px; 
+   font-weight:bold !important; 
+   font-style:normal;
+   color: #656364 !important;
+    background-color:#f2ad00;
+}
+
+.boldtext{
+    font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:14px !important; 
+   font-weight:bold !important; 
+   color:#524e4f; 
+}
+/*input.image{
+    border-style: none !important; 
+    width:23.0px !important;
+    height:23.0px !important;
+}*/
+
+.outputText, .af_document{
+color:#524e4f; 
+font-size:13px;
+font-family : Lucida Sans,Georgia,Serif !important;
+}
+
+
+.af_panelFormLayout_label-cell {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px;
+color: #524e4f;
+font-weight: normal;
+text-align: right;
+line-height: 2.5;
+}
+
+/*Sneha Pls check this*/
+/*.popup_align{
+    width:158px !important;
+    height:21.0px !important;
+    padding-top: 8px !important;
+}*/
+
+.af_messages_detail{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 13px;
+color: #524e4f;
+}
+
+.af_inputDate_content{
+    font-size: 12px;
+}
+
+
+.af_panelWindow_title, .af_dialog_title {
+margin-top: 2px;
+cursor: default;
+white-space: nowrap;
+color: #f2ad00;
+font-family: Lucida Sans,Georgia,Serif !important;
+font-size: 16px;
+font-weight: bolder;
+margin-left: 4px;
+margin-top: 10px;
+}
+
+/*******************************AF:Table***********************************/
+
+
+.af_inputText_content, .WCInputText {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 14px;
+border-color: #9297A6;
+border-style: solid;
+border-width: 1px;
+border-top-color: #aeb4bd;
+border-left-color: #aeb4bd;
+border-bottom-color: #e0e3e8;
+border-right-color: #e0e3e8;
+background-image: url(/CustomerPortal/afr/fusion/inputText_bg.png);
+background-repeat: repeat-x;
+color: #524e4f;
+padding: 1px 2px 1px 3px;
+margin: 1px;
+width: 170px;
+overflow-x: hidden;
+overflow-y: auto;
+}
+
+.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style
+{
+    /*padding-right: 16px;
+background-repeat: no-repeat;
+vertical-align: text-bottom;
+background-position: center;
+margin-left: 0px;
+margin-right: 0px;
+padding: 1px 10px 3px 1px;
+font-size: 10px;*/
+background-color: #f2ad00;
+/*background-image: url("/faces/images/download.jpg")!important;
+padding-bottom: 4px;
+display: inline-block;
+-webkit-box-sizing: border-box;
+height: 11px;*/
+/*background-position-y: 60%;*/
+
+}
+
+
+.af_selectManyChoice_content {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 14px !important;
+border: 0px;
+width: 155px;
+padding: 0px 2px 0px 3px;
+margin: 0px;
+color: #524e4f;
+background-color: transparent;
+height:21px;
+}
+
+
+.af_treeTable, .af_table {
+text-align: left;
+}
+
+.af_table_data-row .af_column_data-cell {
+background-color: white !important;
+height: 25px;
+padding-top: 2px !important;
+border-bottom: 0px solid #FFFFFF !important;
+border-right: 1px solid #EEEEEE !important;
+padding-right: 10px !important;
+padding-left: 10px !important;
+}
+
+.af_table_data-row .af_column_banded-data-cell {
+background-color: rgb(240,240,240) !important;
+height: 25px;
+border-bottom: 0px solid #FFFFFF !important;
+border-right: 1px solid #FFFFFF !important;
+padding-right: 10px !important;
+padding-left: 10px !important;
+}
+
+.af_table_data-row, .af_column_data-cell {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 13px;
+color: #333333;
+cursor: default;
+background-color: white !important;
+height: 25px;
+padding-top: 2px !important;
+border-bottom: 1px solid #E2E2E2 !important;
+border-right: 1px solid #E2E2E2 !important;
+padding-right: 2px !important;
+}
+
+.portlet-table-alternate, .af_column_banded-data-cell {
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 13px;
+color: #333333;
+cursor: default;
+}
+
+
+.af_column_column-header-cell {
+font-family: Lucida Sans;
+font-size: 13px;
+text-align: center;
+font-weight: bold;
+}
+
+
+
+
+.portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell {
+    background-color: rgb(201, 201, 201) !important;
+    background: none repeat scroll 0 0 none;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #F0EEEE;
+    border-top: 0px solid #FFFFFF;
+    font-family : Lucida Sans,Georgia,Serif !important;
+    font-size: 13px;
+    /*font-weight: bold;*/
+    height: 30px;
+    overflow: hidden;
+    padding: 1px 2px;
+    /*padding: 10px 10px;*/
+    /*text-align: left !important;*/
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.tablepanel{
+    /*padding-right:10px;
+    padding-left:10px;*/
+}
+
+.af_table_data-table-VH-lines .af_column_banded-data-cell
+{
+    border-bottom: 1px solid #FFFFFF !important;
+    border-right: 1px solid #FFFFFF !important;
+    padding-right: 2px !important;
+    background-color:Red !important;
+}
+.af_treeTable, .af_table
+{
+    border-style: none !important;
+    border : 0px !important;
+}
+
+
+af|table::data-row af|column::data-cell
+{
+background-color : White !important;
+height: 25px;
+padding-top:2px !important;
+padding-right:10px !important;
+border-bottom: 0px solid #FFFFFF  !important;
+border-right: 1px solid #EEEEEE !important;
+padding-right: 10px !important;
+}
+
+af|table::data-row af|column::banded-data-cell
+{
+background-color : rgb(240,240,240) !important;
+
+height: 25px;
+padding-right:10px !important;
+
+border-bottom: 0px solid #FFFFFF !important;
+border-right: 1px solid #FFFFFF !important;
+padding-right: 10px !important;
+}
+
+
+
+af|column::column-header-cell
+    {
+      color: Black;
+font-weight: bold;
+    }
+
+
+
+
+.portlet-table-body, .portlet-table-selected, .portlet-table-footer, .portlet-table-text {
+    background-color: none;
+    border-bottom: medium none;
+    border-right: medium none;
+    color: #333333;
+    font-family: Lucida Sans;
+    font-size: 12px;
+    font-weight: normal;
+    height: 26px;
+    overflow: hidden;
+    padding: 1px 3px 1px 2px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+
+
+
+
+
+
+
+
+
+/*Inside Panel Background*/
+.panelbackground{
+background-color: white;
+}
+
+/*Panel Top Gradient*/
+.paneltopbackground{
+background-color: #4a4748; /* Old browsers */
+background: -moz-linear-gradient(top,  #4a4748 59%, #312e2f 89%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(59%,#4a4748), color-stop(89%,#312e2f)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #4a4748 59%,#312e2f 89%); /* IE10+ */
+background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
+}
+
+/**************************************************************/
+.printButton {
+    /*background-color: rgb(244, 189, 46)!important;*/
+    /*background-image: none !important;*/
+    /*font-family: Georgia;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid rgb(198,49,0)  189, 46)!important;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: black !important;*/
+  background-image: url("/faces/images/download.jpg")!important;
+    background-repeat: no-repeat !important;
+    border-style: none !important;
+
+}
+/*Text Header On Panel*/
+.headertexthome{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ffffff;
+font-weight: bolder !important;
+font-style:normal;
+background-position:center top;
+padding-top:2px;
+}
+
+
+/*Shop By Category Header*/
+.categorytext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #524e4f;
+font-weight: bold;
+font-style:normal;
+}
+
+
+
+/*Button Background*/
+.af_commandButton.p_AFTextOnly,.af_dialog_footer-button 
+{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px !important;
+font-weight: bold !important;
+color : #ffffff !important;
+text-align:right !important; 
+vertical-align:bottom !important; 
+text-decoration:none !important;
+/*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
+font-style:normal !important;
+text-decoration:none !important;
+padding-top: 1px;
+padding-bottom: 0px;
+background: #f2ad00 !important; /* Old browsers */
+background: -moz-linear-gradient(top,  #f2ad00 0%, #f9c300 100%) !important; /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2ad00), color-stop(100%,#f9c300)) !important; /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* IE10+ */
+background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%) !important; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 ) !important; /* IE6-9 */
+}
+
+
+/*Portal Text*/
+.contenttext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #524e4f;
+font-weight: normal;
+font-style:normal;
+line-height: 1.4;
+text-align: justify;
+display:inline-block;
+}
+
+
+/*Top Product Text for Carousel*/
+.topproducttext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ff9f00 !important;
+font-weight: bold;
+font-style:normal;
+text-decoration: none !important;
+}
+
+/*Product No Text for Carousel*/
+.productnotext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #878686 !important;
+font-weight: normal;
+font-style:normal;
+text-decoration: none !important;
+}
+
+/*Product Price Text for Carousel*/
+.productprice{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color : #3a3839 !important;
+font-weight : bold;
+font-style:normal;
+text-decoration: none !important;
+}
+
+
+/*Headers Font on All pages*/
+.header{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 15px;
+color: #ff9f00;
+font-style:italic;
+font-weight:bold;
+}
+
+
+/*Links*/
+.links{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #2181dc !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+font-style:italic !important;
+cursor: auto;
+}
+
+
+.greylinks{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 12px !important;
+color: #524e4f !important;
+font-weight: bold ;
+font-style:normal;
+text-decoration: none !important;
+cursor:auto;
+}
+
+
+
+/*Card Header*/
+.cardheader{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #ff9f00;
+font-weight: bold;
+/*font-style: italic;*/
+}
+
+/*All afterlogin panel headers should have this class */
+.headertext{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 15px;
+color : #524e4f;
+font-weight: normal;
+font-style:normal;
+}
+
+/*Content Header*/
+.contentheader{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 18px;
+color: #ff9f00;
+/*font-style:italic;*/
+font-weight:bold;
+}
+
+
+
+
+/*Component Based Styling*/
+
+.af_goButton:hover,.af_goButton:active,.af_goButton{
+    border-width: 0px;
+    border-style: none !important;
+    border-top-color:transparent !important;
+    border-right-color:transparent !important;
+    border-bottom-color: transparent !important;
+    border-left-color:transparent !important;
+   
+}   
+
+.af_commandImageLink_text, .af_goImageLink_text{
+    color:#524e4f !important;
+}
+
+
+
+/*SPRITE CSS*/
+
+.sign_in, .card_back, .oil1, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey{
+	background: url("/images/Sprite/sprites.png") no-repeat;
+}
+
+.sign_in{
+	background-position: -67px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.card_back{
+	background-position: -41px -1px ;
+	width: 20px;
+	height: 20px;
+}
+
+.oil1{
+	background-position: 0px 0px;
+	width: 35px;
+	height: 20px;
+}
+
+.arrow_learn_more{
+	background-position: -155px -7px ;
+	width: 8px;
+	height: 8px;
+}
+
+.arrow_learn_more_white{
+	background-position: -172px -7px ;
+	width: 8px;
+	height: 8px;
+}
+
+.card_icon_ws{
+	background-position: -114px -4px ;
+	width: 35px;
+	height: 20px;
+}
+
+.category_icon{
+	background-position: -106px -37px ;
+	width: 15px;
+	height: 20px;
+}
+
+.mail_icon{
+	background-position: -37px -37px ;
+	width: 20px;
+	height: 20px;
+}
+
+.message_bell{
+	background-position: -67px -37px ;
+	width: 30px;
+	height: 20px;
+}
+
+.pdf_icon{
+	background-position: -7px -36px ;
+	width: 20px;
+	height: 20px;
+}
+
+.shop_categories{
+	background-position: -90px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.arrow_grey{
+	background-position: -186px -6px ;
+	width: 8px;
+	height: 8px;
+}
+
+
+
+
+
+
+
+/* Menu Popup */
+
+.AFPopupMenuPopup{
+     background-image: none;
+   /*width: 195px;
+     background-color: rgb(44,42,43);*/
+     border-style: none;
+}
+.af_menu_child-container{
+    background-color: rgb(44,42,43);
+}
+
+/*commandMenuItem_menu-item*/
+
+.af_commandMenuItem_menu-item, .af_goMenuItem_menu-item, .af_menu_submenu{
+  height:30px;  
+}
+.af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-text, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-accelerator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-text, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-accelerator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-open-indicator, .af_menu.p_AFHighlighted .af_menu_submenu-text, .af_menu.p_AFHighlighted .af_menu_submenu-accelerator, .af_menu.p_AFHighlighted .af_menu_submenu-open-indicator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-icon-style, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-icon-style, .af_menu.p_AFHighlighted .af_menu_submenu-icon-style{
+    background-color: rgb(44,42,43);;
+    
+    /*color: #C1E6FF;*/
+    color: #3cb6ce;
+}
+.af_commandMenuItem_menu-item-text, .af_goMenuItem_menu-item-text, .af_menu_submenu-text{
+     background-color: rgb(44,42,43);
+     color: white;
+      font: bold 12px Georgia;
+       cursor:pointer;
+}
+.af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem_menu-item-open-indicator, .af_menu_submenu-open-indicator,.af_commandMenuItem_menu-item-accelerator, .af_goMenuItem_menu-item-accelerator, .af_menu_submenu-accelerator{
+    background-color: #2C2A2B !important;
+}
+
+/*commandToolbarButton*/
+.af_commandToolbarButton:hover .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFDepressed:hover .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected .af_commandToolbarButton_text, .af_commandToolbarButton.p_AFSelected:hover .af_commandToolbarButton_text {
+  
+   color: #3cb6ce;
+     font: bold 12px Georgia;
+      white-space: pre;
+    width: 140px;
+    cursor:pointer;
+  }
+  
+ .af_commandToolbarButton_text {
+    color: #3cb6ce;
+     font: bold 12px Georgia;
+      white-space: pre;
+    width: 140px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+  }
+.af_commandToolbarButton_dropdown-icon-style{
+  background-image: url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  .af_commandToolbarButton:hover .af_commandToolbarButton_dropdown-icon-style{
+  background-image:url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  
+  .af_commandToolbarButton.p_AFDepressed .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected:active:hover .af_commandToolbarButton_dropdown-icon-style{
+      background-image: url("/faces/images/arrow/arrow_blue_down.png") !important;
+  }
+  
+  .af_commandToolbarButton.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active:hover .af_commandToolbarButton_dropdown-icon-style{
+     background-image: url("/faces/images/arrow/arrow_blue_down.png") !important; 
+  }
+  /*nav list*/
+/*nav list*/
+/*#top-wrapper {
+    background: none repeat-x scroll 0 0 #3A3839;
+    border-top: 2px solid #3CB6CE;
+    margin: -9px;
+    margin-bottom: 0px;
+    padding: 2px 2px 8px;
+    width: 958px;
+}
+
+#topbar {
+    height: 19px;
+    margin: 0 auto;
+    width: 962px !important;
+}
+
+#top {
+    width: 100%;
+}
+
+#top, #top ul {
+    font-family: Georgia;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+#top a {
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px Georgia;
+    margin-right: 10px;
+    margin-top: -2px;
+    padding: 8px 12px 6px;
+    text-decoration: none;
+    text-transform: none;
+}
+
+#top a.arrow {
+    background-image: url("/faces/images/arrow/arrow_blue_down.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+#top li {
+    float: left;
+    position: static;
+    width: auto;
+}
+
+#top li ul, #top ul li {
+    background-color: #3A3839;
+    width: 144px;
+}
+
+#top ul li a {
+    border: medium none;
+    color: #FFFFFF;
+    font-family: Georgia;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 10px;
+    text-align: left;
+    text-transform: none;
+    margin-left: 5px;
+}
+
+#top li ul {
+    background: none repeat scroll 0 0 #222222;
+    box-shadow: 0 2px 2pxrgba(0, 0, 0, 0.6);
+    display: none;
+    padding-bottom: 0;
+    position: absolute;
+    z-index: 100;
+}
+
+
+#top li:hover ul, #top li.hvr ul {
+    display: block;
+}
+#top li:hover ul a, #top li.hvr ul a {
+    background-color: transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#top li ul li.hr {
+    border-bottom: 1px solid #444444;
+    border-top: 1px solid #000000;
+    display: block;
+    font-size: 1px;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+}
+#top ul a:hover {
+    color: #3BB7CF !important;
+    text-decoration: none;
+}
+#top a span, #top a.arrow span {
+    color: #888888;
+    display: block;
+    font: bold 12px/16px Arial;
+    text-shadow: 1px 2px 2px #000000;
+    text-transform: uppercase;
+}
+#top li:hover a span, #top li:hover a.arrow span {
+    color: #F8A932;
+    display: block;
+}*/
+
+.af_panelCustomizable {
+    padding: 0px !important;
+}
+
+#top-wrapper {
+    background: none repeat-x scroll 0 0 #3A3839;
+    border-top: 2px solid rgb(242,175,0);
+    margin: -9px;
+    margin-bottom:0px;
+   padding: 2px 2px 8px;
+    width: 958px !important;
+}
+#topbar {
+    height: 19px;
+    margin: 0 auto;
+    width: 962px !important;
+}
+#top {
+    width: 100%;
+}
+#top, #top ul {
+    font-family: Georgia;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#top a {
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px Georgia;
+    margin-right: 10px;
+    margin-top: -2px;
+    padding: 8px 10px 6px;
+    text-decoration: none;
+    text-transform: none;
+}
+#top a.arrow {
+    background-image: url("/faces/images/arrow/arrow_orange_down.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+#top li {
+    float: left;
+    position: static;
+    width: auto;
+}
+#top li ul, #top ul li {
+    background-color: #3A3839;
+    width: 118px;
+}
+#top ul li a {
+    border: medium none;
+    color: #FFFFFF;
+    font-family: Georgia;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 10px;
+    text-align: left;
+    text-transform: none;
+    margin-left:5px;
+}
+#top li ul {
+    background: none repeat scroll 0 0 #222222;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+    display: none;
+    padding-bottom: 0;
+    position: absolute;
+    z-index: 100;
+}
+
+#top li:hover a, #top a:active, #top a:focus, #top li.hvr a {
+    background-color: #222222;
+    color: rgb(242,175,0);
+}
+
+#top li:hover ul, #top li.hvr ul {
+    display: block;
+}
+
+#top li:hover ul a, #top li.hvr ul a {
+    background-color: transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#top li ul li.hr {
+    border-bottom: 1px solid #444444;
+    border-top: 1px solid #000000;
+    display: block;
+    font-size: 1px;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+}
+
+#top ul a:hover {
+    color: rgb(242,175,0) !important;
+    text-decoration: none;
+}
+
+#top a span, #top a.arrow span {
+    color: #888888;
+    display: block;
+    font: bold 12px/16px Georgia;
+    text-shadow: 1px 2px 2px #000000;
+    text-transform: uppercase;
+}
+
+#top li:hover a span, #top li:hover a.arrow span {
+    color: #F8A932;
+    display: block;
+}
+
+
+.spacerStyle{
+margin-left: 15px;
+}
+
+
+.heading{
+color:#f2ad00;
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 20px;
+font-weight:bolder;
+}
+
+.subheading{
+color:#f2ad00;
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 15px;
+font-weight:bolder;
+}

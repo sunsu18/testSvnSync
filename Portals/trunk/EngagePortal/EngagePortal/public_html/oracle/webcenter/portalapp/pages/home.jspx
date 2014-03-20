@@ -86,7 +86,7 @@
                               
  <af:spacer id="s3" width="5" height="4"/>
   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) : &quot;--&quot;}"
-                                     id="cl1" styleClass="carousalOT prdName"
+                                     id="cl1" styleClass="topproducttext"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}"
                                       disabled="true" inlineStyle="font-family:SansSerif; font-size:12.0px; font-weight:bold; color:#f2af00;">
                                       
@@ -132,7 +132,7 @@
                         <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
                                      destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
                                      targetFrame="_blank"
-                                     styleClass="buttonback buttontext"/>
+                                     styleClass="button1"/>
                         <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
         

@@ -231,6 +231,20 @@
             <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
          </customAttributes>
       </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-20T12:20:06.3+05:30" description="" displayName="card-portal-business-skin" guid="gsr036dc452_8fea_4462_860c_231845fe6c59" metadataFile="/oracle/webcenter/portalapp/skins/card-portal-business-skin.css" modifiedBy="system" modifiedDate="2014-03-20T12:20:06.3+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="sfrCardBusiness.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="sfrCardBusiness" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
+      <resource contentDir="/oracle/webcenter/portalapp/shared/" createdBy="system" createdDate="2014-03-20T12:20:29.966+05:30" description="" displayName="card-portal-private-skin" guid="gsr09a28418_007c_4a80_b13d_8e4c60cf379e" metadataFile="/oracle/webcenter/portalapp/skins/card-portal-private-skin.css" modifiedBy="system" modifiedDate="2014-03-20T12:20:29.966+05:30" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="false" type="skin" usesCustomSecurity="false" version="11.1.1.4.0" visible="FALSE">
+         <customAttributes>
+            <customAttribute name="skinId" seeded="false" value="sfrCardPrivate.desktop" visible="ALWAYS"/>
+            <customAttribute name="skinFamily" seeded="false" value="sfrCardPrivate" visible="ALWAYS"/>
+            <customAttribute name="skinExtends" seeded="false" value="fusionFx-v1.desktop" visible="ALWAYS"/>
+         </customAttributes>
+      </resource>
    </resourceType>
    <resourceType name="taskFlowStyle" resourceBundle="">
       <resource contentDir="/oracle/webcenter/siteresources/scopedMD/shared" createdBy="system" createdDate="2011-02-08T15:58:09.285-08:00" description="Blank" displayName="Blank" guid="gsr0b090761_f3d7_44d0_abc2_365b210f6a7a" iconURI="/oracle/webcenter/portalapp/shared/taskFlowStyle_blank.png" jspx="/oracle/webcenter/datacomposer/mashupstyles/blank.jsff" metadataFile="/oracle/webcenter/datacomposer/mashupstyles/blank-definition.xml" modifiedBy="system" modifiedDate="2011-02-08T15:58:09.285-08:00" pageDef="/oracle/webcenter/datacomposer/mashupstyles/blankPageDef.xml" resourceBundle="oracle.webcenter.framework.translations.TranslationsMDSResourceBundle" seeded="true" usesCustomSecurity="false" version="11.1.1.4.0" visible="TRUE">

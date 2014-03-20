@@ -16,10 +16,11 @@ public class SkinHelper extends ThreadSerialization {
 
     String portal;
     String style;
-    String skinStyleCard = "sfrCard";
+    String skinStyleCardPrivate = "sfrCardPrivate";
+    String skinStyleCardBusiness = "sfrCardBusiness";
     String skinStyleJet = "sfrJet";
     String skinStylePetro = "sfrPetro";
-
+    String profile;
 
     //request.getSession(true);
     private String currentSkin;
@@ -38,7 +39,19 @@ public class SkinHelper extends ThreadSerialization {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
         System.out.println("request ---" + request.getParameter("portal"));
-
+        
+        
+        
+        if (request != null && request.getParameter("profile") != null)
+        {
+profile=request.getParameter("profile");
+        }
+        else {
+            profile="private";
+        }
+            
+        
+        
         if (request.getParameter("portal") != null &&
             (request.getParameter("portal").toString().equalsIgnoreCase("card") || request.getParameter("portal").toString().equalsIgnoreCase("jet") ||
              request.getParameter("portal").toString().equalsIgnoreCase("petro"))) {
@@ -55,11 +68,18 @@ public class SkinHelper extends ThreadSerialization {
         System.out.println("from session" + (String)session.getAttribute("portal"));
 
         if (portal == null) {
-            currentSkin = skinStyleCard;
+            currentSkin = skinStyleCardPrivate;
             System.out.println("skinStyleCard --------------------------------------");
         } else if (portal.equals("card")) {
             System.out.println("skinStyleCard");
-            currentSkin = skinStyleCard;
+            if(profile.equalsIgnoreCase("private")) {
+                currentSkin = skinStyleCardPrivate;
+            }
+            else {
+                currentSkin = skinStyleCardBusiness;
+            }
+                
+       
         } else if (portal.equals("jet")) {
             System.out.println("skinStyleJet");
             currentSkin = skinStyleJet;
@@ -68,5 +88,13 @@ public class SkinHelper extends ThreadSerialization {
             currentSkin = skinStylePetro;
         }
         return currentSkin;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
     }
 }
