@@ -39,7 +39,8 @@ body
     overflow: visible;
 }
 .jcarousel-skin-tango .jcarousel-clip-horizontal {
-    height: 120px;
+       height: 140px !important;
+    margin-top: -10px !important;
     /*width: 600px;*/
 }
 .jcarousel-skin-tango .jcarousel-clip-vertical {
