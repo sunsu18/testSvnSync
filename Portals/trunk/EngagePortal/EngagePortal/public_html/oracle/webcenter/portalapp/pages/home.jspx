@@ -42,7 +42,8 @@
                                         inlineStyle="width:962px; height:200px;">
                    <af:panelGroupLayout id="pgl4" layout="vertical"
                                         inlineStyle="height:220px;width:605px;  border: 1px solid  #979796;"
-                                        valign="bottom" halign="left">
+                                        valign="bottom" halign="left"
+                                        styleClass="panelbackground">
                     <af:panelGroupLayout id="pgl1" layout="vertical"
                                          inlineStyle="height:30px;width:605px;"
                                            valign="top" halign="left"
@@ -88,7 +89,7 @@
   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) : &quot;--&quot;}"
                                      id="cl1" styleClass="topproducttext"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}"
-                                      disabled="true" inlineStyle="font-family:SansSerif; font-size:12.0px; font-weight:bold; color:#f2af00;">
+                                      disabled="true">
                                       
                       
                               </af:commandLink>
@@ -104,14 +105,14 @@
                   </af:panelGroupLayout>!-->
            <af:panelGroupLayout id="pgl12" layout="horizontal" halign="center">
    <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
-                                     id="cl3" styleClass="carousalOT prdName"
+                                     id="cl3" styleClass="productprice"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}"
-                                               disabled="true" inlineStyle="font-family:SansSerif; font-size:12px;font-weight:bold; color:black;">
+                                               disabled="true">
                                                </af:commandLink>   
                                                <af:spacer id="s1" width="5"/>
                                                <af:outputText value='#{(homeCarousalBean.lang eq "no_NO" )?"NOK":(homeCarousalBean.lang eq "da_DK") ? "DKK":(homeCarousalBean.lang eq "en_US") ? "USD":(homeCarousalBean.lang eq "se_SE") ? "SEK":"-"}'
-                                                              id="ot7" styleClass="carousalOT prdName"
-                                                              inlineStyle="font-family:SansSerif; font-size:12px;font-weight:bold; color:black;"/>
+                                                              id="ot7"
+                                                              styleClass="productprice"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
                     
@@ -132,7 +133,7 @@
                         <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
                                      destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
                                      targetFrame="_blank"
-                                     styleClass="button1"/>
+                                     styleClass="gobutton1"/>
                         <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
         

@@ -420,7 +420,7 @@ font-weight: bold;
 
 /*Inside Panel Background*/
 .panelbackground{
-background-color: white;
+background-color:#ffffff !important;
 }
 
 /*Panel Top Gradient*/
@@ -476,13 +476,13 @@ font-style:normal;
 
 
 /*Button Background*/
-.af_commandButton.p_AFTextOnly,.af_dialog_footer-button 
+.af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton 
 {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
 font-weight: bold !important;
 color : #ffffff !important;
-text-align:right !important; 
+text-align:left !important; 
 vertical-align:bottom !important; 
 text-decoration:none !important;
 /*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
@@ -517,7 +517,7 @@ display:inline-block;
 /*Top Product Text for Carousel*/
 .topproducttext{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color: #ff9f00 !important;
 font-weight: bold;
 font-style:normal;
@@ -537,7 +537,7 @@ text-decoration: none !important;
 /*Product Price Text for Carousel*/
 .productprice{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color : #3a3839 !important;
 font-weight : bold;
 font-style:normal;

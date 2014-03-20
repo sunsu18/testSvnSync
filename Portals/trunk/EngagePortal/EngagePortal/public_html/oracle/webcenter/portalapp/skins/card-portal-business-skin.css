@@ -424,7 +424,7 @@ font-weight: bold;
 
 /*Inside Panel Background*/
 .panelbackground{
-background-color: white;
+background-color:#ffffff !important;
 }
 
 /*Panel Top Gradient*/
@@ -480,7 +480,7 @@ font-style:normal;
 
 
 /*Button Background*/
-.af_commandButton.p_AFTextOnly,.af_dialog_footer-button,button1
+.af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton
 {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
@@ -492,16 +492,16 @@ text-decoration:none !important;
 /*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
 font-style:normal !important;
 text-decoration:none !important;
-padding-top: 1px;
-padding-bottom: 0px;
-background: #3cb6ce; /* Old browsers */
-background: -moz-linear-gradient(top,  #3cb6ce 0%, #40c4d6 51%, #3aafc4 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3cb6ce), color-stop(51%,#40c4d6), color-stop(100%,#3aafc4)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3cb6ce', endColorstr='#3aafc4',GradientType=0 ); /* IE6-9 */
+padding-top: 1px !important;
+padding-bottom: 0px !important;
+background: #3cb6ce !important; /* Old browsers */
+background: -moz-linear-gradient(top,  #3cb6ce 0%, #40c4d6 51%, #3aafc4 100%) !important; /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3cb6ce), color-stop(51%,#40c4d6), color-stop(100%,#3aafc4)) !important; /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* IE10+ */
+background: linear-gradient(to bottom,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3cb6ce', endColorstr='#3aafc4',GradientType=0 )!important; /* IE6-9 */
 
 }
 
@@ -522,7 +522,7 @@ display:inline-block;
 /*Top Product Text for Carousel*/
 .topproducttext{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color: #3CB6CE !important;
 font-weight: bold;
 font-style:normal;
@@ -542,7 +542,7 @@ text-decoration: none !important;
 /*Product Price Text for Carousel*/
 .productprice{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color : #3a3839 !important;
 font-weight : bold;
 font-style:normal;
