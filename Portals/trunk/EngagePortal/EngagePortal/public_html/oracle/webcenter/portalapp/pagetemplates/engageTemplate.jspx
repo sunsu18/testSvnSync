@@ -7,7 +7,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core">
  <f:loadBundle basename="com.sfr.engage.model.resources.EngageResourceBundle" var="sfr"/> 
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
- 
+     
  <af:resource type="javascript">
         function refreshTF(evt) {
           //  alert('ja');
@@ -17,15 +17,18 @@
            // alert('Que');
             event.cancel();
         }
+        
+        
     </af:resource>
- <c:set var="contextRoot"
+    
+<c:set var="contextRoot"
          value="${facesContext.externalContext.requestContextPath}"
          scope="session"/>
   <af:pageTemplateDef var="attrs">
     <af:panelGroupLayout id="pt_pgl11" layout="scroll"
                          inlineStyle="height:auto;overflow-x:hidden;">
       <af:panelGroupLayout id="pt_pgl4"
-                           styleClass="marginIE AFStretchWidth headerBGColor"
+                           styleClass="marginIE AFStretchWidth headerBGColor secondaryMenu"
                            layout="horizontal">
         <!-- to get common scroll for Portal And ADF -->
         <af:outputText value="&lt;link rel='SHORTCUT ICON' href='#{facesContext.externalContext.requestContextPath}/fav.ico'/>"
@@ -42,7 +45,7 @@
               <af:panelBorderLayout id="pt_lc1"
                                     rendered="#{!composerContext.inEditMode or attrs.isEditingTemplate}"
                                     inlineStyle="margin-bottom:0px;">
-                <af:panelGroupLayout layout="vertical" id="pt_pgl1">
+                <af:panelGroupLayout layout="vertical" id="pt_pgl1" styleClass="hLine">
                 
                 
                
@@ -75,7 +78,7 @@
                                
                               <c:forEach var="menu" varStatus="vs"
                                          items="${navNodes}">
-                                <li>
+                                <li id="vLine">
                                   <a class="${(not empty menu.children)?'arrow':''}"
                                      onclick="${(not empty menu.children)?'return false':'return true'}"
                                      href="${contextRoot}${menu.goLinkPrettyUrl}">
