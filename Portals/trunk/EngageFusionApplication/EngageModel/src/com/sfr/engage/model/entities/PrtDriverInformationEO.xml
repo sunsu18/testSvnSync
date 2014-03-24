@@ -35,7 +35,7 @@
     IsNotNull="true"
     Precision="10"
     ColumnName="ACCOUNT_ID"
-    SQLType="CHAR"
+    SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="CHAR"
     TableName="PRT_DRIVER_INFORMATION"
@@ -227,6 +227,13 @@
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
   </Attribute>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtAccountEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
   <Key
     Name="SysC0025866">
     <DesignTime>
