@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="AuthenticatedHomeTaskFlow">
+    <default-activity id="__5">AuthenticatedHome</default-activity>
     <managed-bean id="__2">
-      <managed-bean-name id="__3">AuthenticatedHomeBean</managed-bean-name>
-      <managed-bean-class id="__4">com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean</managed-bean-class>
-      <managed-bean-scope id="__1">pageFlow</managed-bean-scope>
+      <managed-bean-name id="__4">AuthenticatedHomeBean</managed-bean-name>
+      <managed-bean-class id="__1">com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean</managed-bean-class>
+      <managed-bean-scope id="__3">pageFlow</managed-bean-scope>
     </managed-bean>
+    <view id="AuthenticatedHome">
+      <page>/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHome.jsff</page>
+    </view>
     <use-page-fragments/>
   </task-flow-definition>
 </adfc-config>
