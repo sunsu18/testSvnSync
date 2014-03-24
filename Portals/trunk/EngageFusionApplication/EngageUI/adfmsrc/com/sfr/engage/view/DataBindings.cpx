@@ -23,6 +23,8 @@
           usageId="com_sfr_engage_view_pricelist_newPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHome.jsff"
           usageId="com_sfr_engage_view_AuthenticatedHomePageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/changepasswordtaskflow/ChangePassword.jsff"
+          usageId="com_sfr_engage_view_ChangePasswordPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -40,6 +42,8 @@
           path="com.sfr.engage.pricelisttaskflow.pricelist_newPageDef"/>
     <page id="com_sfr_engage_view_AuthenticatedHomePageDef"
           path="com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomePageDef"/>
+    <page id="com_sfr_engage_view_ChangePasswordPageDef"
+          path="com.sfr.engage.changepasswordtaskflow.ChangePasswordPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
