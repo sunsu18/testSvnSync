@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtDriverInformationPrFk1Assoc"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="PrtAccountEO"
+    Cardinality="1"
+    Source="true"
+    Owner="com.sfr.engage.model.entities.PrtAccountEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtAccountEO"/>
+      <Attr Name="_foreignKey"
+        Value="com.sfr.engage.model.entities.PrtAccountEO.PrtAccountPk"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_minCardinality" Value="1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.AccountId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="PrtDriverInformationEO"
+    Cardinality="-1"
+    Owner="com.sfr.engage.model.entities.PrtDriverInformationEO">
+    <DesignTime>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="PrtDriverInformationEO"/>
+      <Attr Name="_foreignKey"
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.PrtDriverInformationPrFk1"/>
+      <Attr Name="_isUpdateable" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.CountryCode"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.AccountId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>
