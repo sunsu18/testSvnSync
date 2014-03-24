@@ -138,7 +138,7 @@ background-color: rgb(252,252,252);
    background: url("/images/Buttons/login_private.png") !important;
    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
-   text-align:left; 
+   text-align:left !important; 
    vertical-align:top;
    text-decoration:none; 
    width:327px; 
@@ -778,145 +778,46 @@ font-weight:bold;
   .af_commandToolbarButton.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFDepressed.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:hover .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active .af_commandToolbarButton_dropdown-icon-style, .af_commandToolbarButton.p_AFSelected.p_AFDisabled:active:hover .af_commandToolbarButton_dropdown-icon-style{
      background-image: url("/faces/images/arrow/arrow_blue_down.png") !important; 
   }
-  /*nav list*/
+
 /*nav list*/
-/*#top-wrapper {
-    background: none repeat-x scroll 0 0 #3A3839;
-    border-top: 2px solid #3CB6CE;
-    margin: -9px;
-    margin-bottom: 0px;
-    padding: 2px 2px 8px;
-    width: 958px;
-}
-
-#topbar {
-    height: 19px;
-    margin: 0 auto;
-    width: 962px !important;
-}
-
-#top {
-    width: 100%;
-}
-
-#top, #top ul {
-    font-family: Georgia;
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-}
-
-#top a {
-    color: #FFFFFF;
-    display: block;
-    font: bold 12px Georgia;
-    margin-right: 10px;
-    margin-top: -2px;
-    padding: 8px 12px 6px;
-    text-decoration: none;
-    text-transform: none;
-}
-
-#top a.arrow {
-    background-image: url("/faces/images/arrow/arrow_blue_down.png");
-    background-position: right center;
-    background-repeat: no-repeat;
-}
-
-#top li {
-    float: left;
-    position: static;
-    width: auto;
-}
-
-#top li ul, #top ul li {
-    background-color: #3A3839;
-    width: 144px;
-}
-
-#top ul li a {
-    border: medium none;
-    color: #FFFFFF;
-    font-family: Georgia;
-    font-size: 12px;
-    font-weight: 400;
-    padding: 8px 10px;
-    text-align: left;
-    text-transform: none;
-    margin-left: 5px;
-}
-
-#top li ul {
-    background: none repeat scroll 0 0 #222222;
-    box-shadow: 0 2px 2pxrgba(0, 0, 0, 0.6);
-    display: none;
-    padding-bottom: 0;
-    position: absolute;
-    z-index: 100;
-}
-
-
-#top li:hover ul, #top li.hvr ul {
-    display: block;
-}
-#top li:hover ul a, #top li.hvr ul a {
-    background-color: transparent;
-    color: #FFFFFF;
-    text-decoration: none;
-}
-#top li ul li.hr {
-    border-bottom: 1px solid #444444;
-    border-top: 1px solid #000000;
-    display: block;
-    font-size: 1px;
-    height: 0;
-    line-height: 0;
-    margin: 0;
-}
-#top ul a:hover {
-    color: #3BB7CF !important;
-    text-decoration: none;
-}
-#top a span, #top a.arrow span {
-    color: #888888;
-    display: block;
-    font: bold 12px/16px Arial;
-    text-shadow: 1px 2px 2px #000000;
-    text-transform: uppercase;
-}
-#top li:hover a span, #top li:hover a.arrow span {
-    color: #F8A932;
-    display: block;
-}*/
 
 .af_panelCustomizable {
     padding: 0px !important;
 }
 
 #top-wrapper {
-    background: none repeat-x scroll 0 0 #3A3839;
-    border-top: 2px solid rgb(242,175,0);
+    background: none repeat-x scroll 0 0 #F3F3F3;
+    border-top: 3px solid #F3F3F3;
     margin: -9px;
     margin-bottom:0px;
-   padding: 2px 2px 8px;
+    padding: 2px 2px 8px;
     width: 958px !important;
+    border-top: 5px solid #F3F3F3;
+    border-bottom: 5px solid #F3F3F3;
 }
+
 #topbar {
     height: 19px;
     margin: 0 auto;
     width: 962px !important;
+    border-top: 1.5px solid #F3F3F3
 }
+
 #top {
+    border-top: 0px solid #F3F3F3;
     width: 100%;
+    border-bottom: 0px solid #F3F3F3;
 }
+
 #top, #top ul {
     font-family: Georgia;
     list-style: none outside none;
     margin: 0;
     padding: 0;
 }
+
 #top a {
-    color: #FFFFFF;
+    color: black;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;
@@ -925,20 +826,24 @@ font-weight:bold;
     text-decoration: none;
     text-transform: none;
 }
+
 #top a.arrow {
     background-image: url("/faces/images/arrow/arrow_orange_down.png");
     background-position: right center;
     background-repeat: no-repeat;
 }
+
 #top li {
     float: left;
     position: static;
     width: auto;
 }
+
 #top li ul, #top ul li {
-    background-color: #3A3839;
+    background-color: #F3F3F3;
     width: 118px;
 }
+
 #top ul li a {
     border: medium none;
     color: #FFFFFF;
@@ -950,6 +855,7 @@ font-weight:bold;
     text-transform: none;
     margin-left:5px;
 }
+
 #top li ul {
     background: none repeat scroll 0 0 #222222;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
@@ -959,23 +865,45 @@ font-weight:bold;
     z-index: 100;
 }
 
-#top li:hover a, #top a:active, #top a:focus, #top li.hvr a {
-    background-color: #222222;
+ #top li:hover a,#top a:active, #top a:focus, #top li.hvr a {
+    background-color: #F3F3F3;
     color: rgb(242,175,0);
 }
 
+ #topbar #top li a:hover{
+    border-bottom: 5px solid rgb(242,175,0);
+    margin-left:9.0px;
+}
+ 
+ #topbar #top li a{
+     margin-left:9.0px;
+}
+ 
+ #topbar #top li ul li a{
+    border-bottom:1px solid #C3C3C3;
+    margin-left:9.0px;
+}
+ 
+#vLine{
+ border-right: 1px solid #C3C3C3;
+}
+  
+.hLine{
+    border-bottom:1px solid #C3C3C3;
+}
+
 #top li:hover ul, #top li.hvr ul {
-    display: block;
+    display: block; 
 }
 
 #top li:hover ul a, #top li.hvr ul a {
     background-color: transparent;
-    color: #FFFFFF;
+    color: black;
     text-decoration: none;
 }
 
 #top li ul li.hr {
-    border-bottom: 1px solid #444444;
+    border-bottom:1px solid #C3C3C3;
     border-top: 1px solid #000000;
     display: block;
     font-size: 1px;
@@ -987,6 +915,7 @@ font-weight:bold;
 #top ul a:hover {
     color: rgb(242,175,0) !important;
     text-decoration: none;
+          
 }
 
 #top a span, #top a.arrow span {
@@ -1002,6 +931,9 @@ font-weight:bold;
     display: block;
 }
 
+#top li:hover, #top li.active {
+    color: rgb(242,175,0);
+}
 
 .spacerStyle{
 margin-left: 15px;
