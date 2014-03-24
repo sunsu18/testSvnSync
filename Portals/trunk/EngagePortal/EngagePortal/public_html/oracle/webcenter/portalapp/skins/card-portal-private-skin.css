@@ -1,43 +1,74 @@
 .af_panelAccordion_body-content {
-overflow: hidden;
-width: auto;
-height : 100px;
- border-left: 0px solid #979991; 
- border-right: 0px solid #979991; 
- border-bottom: 2px solid #979991; 
-position: absolute;
-left: 0px;
-right: 0px;
-color: #333333;
-border-width: 0px 0px 1px 0px;
-padding-top: 1px;
-border-style: solid;
-border-color: #D0DAE6;
-/*background-color: #F0F7FD;*/
-background-position: top, bottom;
-background-repeat: repeat-x, repeat-x;
-/* background-image: url(/CustomerPortal/afr/fusionFx-v1/pabbgt.png), url(/CustomerPortal/afr/fusionFx-v1/pabbgb.png); */
-background-image: none;
-background-color: White ;
+    overflow: hidden;
+    width: auto;
+    height : 100px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    color: #333333;
+    border-width: 0px 0px 1px 0px;
+    padding-top: 1px;
+    border-color: transparent;
+    background-position: top, bottom;
+    background-repeat: repeat-x, repeat-x;
+    background-image: none;
+    background-color: transparent;
+    color: #524e4f;
+    font-size: 13px;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:normal;
+}
+
+.af_showDetailItem{
+    border-bottom: 1px dotted #979991;
+}
+
+.af_panelAccordion_header.p_AFDisclosed,
+.af_panelAccordion_header-subsequent.p_AFDisclosed{
+    border:none;
+   
+}
+
+.af_panelAccordion_header-subsequent{
+    border:none !important;
+    color: #524e4f;
+    font-size: 13px;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:bold;
+}
+
+.af_panelAccordion{
+    width:700px !important;
+    background:transparent;
+}
+.af_panelAccordion_header .af_panelAccordion_header-start{
+    padding-left:2px;
+}
+
+.af_panelAccordion_header .af_panelAccordion_header-disclose{
+    padding right:0px !important;
 }
 
 .af_panelAccordion_header {
-overflow: hidden;
-border-bottom-width: 1px;
-border-bottom-style: solid;
-border-bottom-color: #979991;
-font-family: Tahoma, Verdana, Helvetica, sans-serif;
-font-weight: normal;
-font-size: 11px;
-margin: 0px;
-position: absolute;
-left: 0px;
-right: 0px;
-padding-bottom: 2px;
-border-bottom: 2px;
-background-color: White !important;
-/* border-right: 1px solid #c2c7d3; */
-/* border-left: 1px solid #c2c7d3; */
+    color: #524e4f;
+    font-size: 13px;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:bold;
+    border:none;
+    overflow: hidden;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #979991;
+    font-family: Tahoma, Verdana, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+    margin: 0px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    padding-bottom: 2px;
+    border-bottom: 2px;
+    background-color: transparent !important;
 }
 
 .af_panelAccordion_header-subsequent.p_AFDisclosed .af_panelAccordion_header-title,
@@ -46,34 +77,45 @@ background-color: White !important;
 .af_panelAccordion_header-subsequent .af_panelAccordion_header-disclose,
 .af_panelAccordion_header-subsequent .af_panelAccordion_header-end,
 .af_panelAccordion_header-subsequent .af_panelAccordion_header-start,
-af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title
-{
-   background-image: none !important; 
-   background-color: White !important;
+af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title{
+    background-image: none !important; 
+    background-color: transparent !important;
 }
+
 .af_panelAccordion_header .af_panelAccordion_header-start,
 .af_panelAccordion_header .af_panelAccordion_header-toolbar,
 .af_panelAccordion_header .af_panelAccordion_header-title,
 .af_panelAccordion_header .af_panelAccordion_header-end,
-.af_panelAccordion_header .af_panelAccordion_header-disclose
-{
-width: 0px;
-/*background-repeat: repeat-x;*/
-background-image: none !important;
-background-color: White !important;
+.af_panelAccordion_header .af_panelAccordion_header-disclose{
+    width: 0px;
+    background-image: none !important;
+    background-color: transparent !important;
 }
 
 
-.af_panelAccordion_header-disclose{
-  background-color: White;  
+.af_panelAccordion_header .af_panelAccordion_header-disclose{
+    background-color: transparent;
+    width:10px !important;
 }
 
 af|panelAccordion::header af|panelAccordion::header-end,
 af|panelAccordion::header-subsequent af|panelAccordion::header-end,
 af|panelAccordion::header:disclosed af|panelAccordion::header-end,
 af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
-  /*background-image: url("/faces/images/download.jpg");*/
-  background-color: transparent;
+    background-color: transparent;
+}
+
+.af_panelAccordion_disclosed-icon-style,
+.af_panelAccordion_undisclosed-icon-style,
+.af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_undisclosed-icon-style,
+.af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_disclosed-icon-style,
+.af_pannelAccordion_header-subsequent.p_AFHilight.af_pannelAccordion_undisclosed-icon-style
+.af_pannelAccordion_header-subsequent.p_AFHilight.af_pannelAccordion_disclosed-icon-style{
+    background-image: url("/faces/images/FAQ_list_icon.png") !important;
+    height:18px;
+    width:30px;
+    border:none;
+    border-color: transparent;
 }
 
 /* background color of whole page default is blue gradient*/
