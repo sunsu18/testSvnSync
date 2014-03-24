@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="helptaskflow">
+    <default-activity id="__1">help</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name id="__4">HelpInfoBean</managed-bean-name>
+      <managed-bean-class id="__3">com.sfr.engage.helptaskflow.HelpInfo</managed-bean-class>
+      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="help">
+      <page>/WEB-INF/com/sfr/engage/helptaskflow/help.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

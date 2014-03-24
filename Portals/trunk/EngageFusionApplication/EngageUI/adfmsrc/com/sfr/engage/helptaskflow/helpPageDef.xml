@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="helpPageDef"
+                Package="com.sfr.engage.helptaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtGenHelpRVO1" RangeSize="10"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtGenHelpRVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PrtGenHelpRVO1Iterator" id="PrtGenHelpRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"
+                      Name="PrtGenHelpRVO10">
+        <AttrNames>
+          <Item Value="KeyAnswer"/>
+          <Item Value="KeyQuest"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
