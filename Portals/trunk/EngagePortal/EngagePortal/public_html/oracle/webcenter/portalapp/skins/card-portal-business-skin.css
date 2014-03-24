@@ -282,7 +282,7 @@ color: #524e4f;
 margin-top: 2px;
 cursor: default;
 white-space: nowrap;
-color: #f2ad00;
+color: #3cb6ce;
 font-family: Lucida Sans,Georgia,Serif !important;
 font-size: 16px;
 font-weight: bolder;
@@ -349,152 +349,73 @@ height:21px;
 }
 
 
-.af_treeTable, .af_table {
-text-align: left;
-}
+.portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell{
+    background-color: #C9C9C9 !important;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #F0EEEE;
+    border-top: 0 solid #FFFFFF;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-size: 13px;
+    font-weight: bold;
+    height: 30px;
+    overflow: hidden;
+    padding: 1px 2px;
+    text-align: center;
+    word-wrap: break-word;
 
-.af_table_data-row .af_column_data-cell {
-background-color: white !important;
-height: 25px;
-padding-top: 2px !important;
-border-bottom: 0px solid #FFFFFF !important;
-border-right: 1px solid #EEEEEE !important;
-padding-right: 10px !important;
-padding-left: 10px !important;
 }
-
 .af_table_data-row .af_column_banded-data-cell {
 background-color: rgb(240,240,240) !important;
 height: 25px;
 border-bottom: 0px solid #FFFFFF !important;
 border-right: 1px solid #FFFFFF !important;
-padding-right: 10px !important;
-padding-left: 10px !important;
+
 }
 
-.af_table_data-row, .af_column_data-cell {
-font-family : Lucida Sans,Georgia,Serif !important;
-font-weight: normal;
-font-size: 13px;
-color: #333333;
-cursor: default;
-background-color: white !important;
-height: 25px;
-padding-top: 2px !important;
-border-bottom: 1px solid #E2E2E2 !important;
-border-right: 1px solid #E2E2E2 !important;
-padding-right: 2px !important;
-}
-
-.portlet-table-alternate, .af_column_banded-data-cell {
-font-family : Lucida Sans,Georgia,Serif !important;
-font-weight: normal;
-font-size: 13px;
-color: #333333;
-cursor: default;
-}
-
-
-.af_column_column-header-cell {
-font-family: Lucida Sans;
-font-size: 13px;
-text-align: center;
-font-weight: bold;
-}
-
-
-
-
-.portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell {
-    background-color: rgb(201, 201, 201) !important;
-    background: none repeat scroll 0 0 none;
-    border-bottom: 1px solid #888888;
-    border-right: 1px solid #F0EEEE;
-    border-top: 0px solid #FFFFFF;
-    font-family : Lucida Sans,Georgia,Serif !important;
-    font-size: 13px;
-    /*font-weight: bold;*/
-    height: 30px;
-    overflow: hidden;
-    padding: 1px 2px;
-    /*padding: 10px 10px;*/
-    /*text-align: left !important;*/
-    word-wrap: break-word;
-    text-align: center;
-}
-
-.tablepanel{
-    /*padding-right:10px;
-    padding-left:10px;*/
-}
-
-.af_table_data-table-VH-lines .af_column_banded-data-cell
-{
-    border-bottom: 1px solid #FFFFFF !important;
-    border-right: 1px solid #FFFFFF !important;
-    padding-right: 2px !important;
-    background-color:Red !important;
-}
-.af_treeTable, .af_table
-{
-    border-style: none !important;
-    border : 0px !important;
-}
-
-
-af|table::data-row af|column::data-cell
-{
-background-color : White !important;
-height: 25px;
-padding-top:2px !important;
-padding-right:10px !important;
-border-bottom: 0px solid #FFFFFF  !important;
-border-right: 1px solid #EEEEEE !important;
-padding-right: 10px !important;
-}
-
-af|table::data-row af|column::banded-data-cell
-{
-background-color : rgb(240,240,240) !important;
-
-height: 25px;
-padding-right:10px !important;
-
-border-bottom: 0px solid #FFFFFF !important;
-border-right: 1px solid #FFFFFF !important;
-padding-right: 10px !important;
-}
-
-
-
-af|column::column-header-cell
-    {
-      color: Black;
-font-weight: bold;
-    }
-
-
-
-
-.portlet-table-body, .portlet-table-selected, .portlet-table-footer, .portlet-table-text {
-    background-color: none;
-    border-bottom: medium none;
-    border-right: medium none;
+ .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
     color: #333333;
-    font-family: Lucida Sans;
-    font-size: 12px;
-    font-weight: normal;
-    height: 26px;
-    overflow: hidden;
-    padding: 1px 3px 1px 2px;
-    text-align: left;
-    word-wrap: break-word;
+    cursor: default;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-size: 13px;
+    font-weight: normal; 
+    height: 25px;
+    border-bottom: 0px solid #FFFFFF !important;
+    border-right: 1px solid #FFFFFF !important;
+    
 }
 
 
+.portlet-table-body, .portlet-table-selected, .portlet-table-footer, 
+.portlet-table-text{
+ 
+    background-color: #FFFFFF !important;
+    border-bottom: 0 solid #FFFFFF !important;
+    border-right: 1px solid #EEEEEE !important;
+    height: 25px;
+    padding: 1px 3px 1px 2px !important;  
+} 
+.af_treeTable, .af_table{
+   
+    border: 1px solid #FFFFFF;
+    margin: 0;
+    text-align: left;
+    font: bold 12px Arial, Helvetica, sans-serif;
+    line-height: 1.4em;    
+    border: 1px solid #ffffff;
+    color: #000000;
+}
 
-
-
+/*.table {
+    margin: 0;
+    text-align: center;
+    font: bold 12px Arial, Helvetica, sans-serif;
+    line-height: 1.4em;
+   
+    border: 1px solid #ffffff;
+    color: #000000;
+    
+       
+}*/
 
 
 

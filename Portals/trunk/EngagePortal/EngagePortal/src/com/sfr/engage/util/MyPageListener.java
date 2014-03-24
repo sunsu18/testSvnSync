@@ -24,13 +24,13 @@ public class MyPageListener implements PagePhaseListener {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
-        String lang = (String)request.getAttribute("lang");
+        String lang = (String)request.getParameter("lang");
         if(lang == null){
             lang="en_US";
         }
         session.setAttribute("lang", lang);
         //profile
-        String profile = (String)request.getAttribute("profile");
+        String profile = (String)request.getParameter("profile");
         if(profile == null){
             profile="private";    
         }

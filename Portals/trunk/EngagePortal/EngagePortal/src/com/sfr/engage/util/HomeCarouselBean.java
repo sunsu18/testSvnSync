@@ -30,7 +30,7 @@ public class HomeCarouselBean {
     ResourceBundle resourceBundle;
     
     public HomeCarouselBean() {
-            getBanner();
+
             getCard1();
             getCard2();
             resourceBundle=new EngageResourceBundle();
@@ -73,9 +73,10 @@ public class HomeCarouselBean {
         
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession();
+        HttpSession session = (HttpSession)request.getSession(false);
         lang = (String)session.getAttribute("lang");
-        
+        profile=(String)session.getAttribute("profile");
+//        lang= request.getParameter("lang");
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding iter;
                 if (bindings != null) {
@@ -106,46 +107,48 @@ public class HomeCarouselBean {
         this.banner = banner;
     }
     
-    public String getBanner() {
-        
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession();
-        lang = (String)session.getAttribute("lang");
-        profile = (String)session.getAttribute("profile");
-        
-        if(profile.equalsIgnoreCase("private")){
-            if(lang.equalsIgnoreCase("se_SE")){
-                banner="Banner2";
-            }
-            else if(lang.equalsIgnoreCase("en_US")){
-                banner="Banner2";                
-            }
-            else if(lang.equalsIgnoreCase("da_UK")){
-                banner="Banner1";                
-            }
-            else if(lang.equalsIgnoreCase("no_NO")){
-                banner="Banner3";                
-            }
-        }
-        
-        else if(profile.equalsIgnoreCase("business")){
-            if(lang.equalsIgnoreCase("se_SE")){
-                banner="Banner2";
-            }
-            else if(lang.equalsIgnoreCase("en_US")){
-                banner="Banner2";                
-            }
-            else if(lang.equalsIgnoreCase("da_UK")){
-                banner="Banner1";                
-            }
-            else if(lang.equalsIgnoreCase("no_NO")){
-                banner="Banner3";                
-            }
-        }
-        
-        return banner;
-    }
+//    public String getBanner() {
+//        
+//        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+//        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+//        HttpSession session = (HttpSession)request.getSession(false);
+//        lang = (String)session.getAttribute("lang");
+//        profile = (String)session.getAttribute("profile");
+////        profile=request.getParameter("profile");
+////        lang=request.getParameter("lang");
+//        
+//        if(profile.equalsIgnoreCase("private")){
+//            if(lang.equalsIgnoreCase("se_SE")){
+//                banner="Banner2";
+//            }
+//            else if(lang.equalsIgnoreCase("en_US")){
+//                banner="Banner2";                
+//            }
+//            else if(lang.equalsIgnoreCase("da_UK")){
+//                banner="Banner1";                
+//            }
+//            else if(lang.equalsIgnoreCase("no_NO")){
+//                banner="Banner3";                
+//            }
+//        }
+//        
+//        else if(profile.equalsIgnoreCase("business")){
+//            if(lang.equalsIgnoreCase("se_SE")){
+//                banner="Banner2";
+//            }
+//            else if(lang.equalsIgnoreCase("en_US")){
+//                banner="Banner2";                
+//            }
+//            else if(lang.equalsIgnoreCase("da_UK")){
+//                banner="Banner1";                
+//            }
+//            else if(lang.equalsIgnoreCase("no_NO")){
+//                banner="Banner3";                
+//            }
+//        }
+//        
+//        return banner;
+//    }
 
     public void setCard1(String card1) {
         this.card1 = card1;
@@ -155,9 +158,11 @@ public class HomeCarouselBean {
         
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession();
+        HttpSession session = (HttpSession)request.getSession(false);
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
+//                profile=request.getParameter("profile");
+//        lang=request.getParameter("lang");
         
         if(profile.equalsIgnoreCase("private")){
             if(lang.equalsIgnoreCase("se_SE")){
@@ -166,7 +171,7 @@ public class HomeCarouselBean {
             else if(lang.equalsIgnoreCase("en_US")){
                 card1="Europe-Card";                
             }
-            else if(lang.equalsIgnoreCase("da_UK")){
+            else if(lang.equalsIgnoreCase("da_DK")){
                 card1="Company-Card";                
             }
             else if(lang.equalsIgnoreCase("no_NO")){
@@ -180,7 +185,7 @@ public class HomeCarouselBean {
             else if(lang.equalsIgnoreCase("en_US")){
                 card1="Europe-Card";                
             }
-            else if(lang.equalsIgnoreCase("da_UK")){
+            else if(lang.equalsIgnoreCase("da_DK")){
                 card1="Company-Card";                
             }
             else if(lang.equalsIgnoreCase("no_NO")){
@@ -198,9 +203,11 @@ public class HomeCarouselBean {
         
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession();
+        HttpSession session = (HttpSession)request.getSession(false);
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
+//                profile=request.getParameter("profile");
+//        lang=request.getParameter("lang");
         
         if(profile.equalsIgnoreCase("private")){
             if(lang.equalsIgnoreCase("se_SE")){
@@ -209,7 +216,7 @@ public class HomeCarouselBean {
             else if(lang.equalsIgnoreCase("en_US")){
                 card2="Master-Card";                
             }
-            else if(lang.equalsIgnoreCase("da_UK")){
+            else if(lang.equalsIgnoreCase("da_DK")){
                 card2="Company-Card";                
             }
             else if(lang.equalsIgnoreCase("no_NO")){
@@ -218,12 +225,12 @@ public class HomeCarouselBean {
         }
         else if(profile.equalsIgnoreCase("business")){
             if(lang.equalsIgnoreCase("se_SE")){
-                card2="Europe-Card";
+                card2="Company-Card";
             }
             else if(lang.equalsIgnoreCase("en_US")){
                 card2="Europe-Card";                
             }
-            else if(lang.equalsIgnoreCase("da_UK")){
+            else if(lang.equalsIgnoreCase("da_DK")){
                 card2="Company-Card";                
             }
             else if(lang.equalsIgnoreCase("no_NO")){

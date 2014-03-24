@@ -96,12 +96,12 @@
           <af:spacer width="10" height="10" id="s25"/>
           <af:panelGroupLayout id="pgl6">
             <af:table var="row" rowBandingInterval="1" id="t1"
-                      value="#{var.vehicleInfoList}"  rows="5" width="965px"
+                      value="#{var.vehicleInfoList}"  rows="5" width="962px"
                      
                       emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
                       fetchSize="10" columnResizing="disabled"
                       disableColumnReordering="true" autoHeightRows="5">
-              <af:column sortable="false" id="c13" width="28px">
+              <af:column sortable="false" id="c13" width="28px" align="center">
                 <af:selectBooleanCheckbox id="sbc1"
                                           valueChangeListener="#{pageFlowScope.VehicleInfoBean.deleteCheckBoxListener}"
                                           autoSubmit="true">
@@ -142,7 +142,7 @@
                 <af:outputText value="#{row.odoMeter}" id="ot15"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
-                         id="c14" width="120">
+                         id="c14" width="120" align="center">
                 <af:commandButton id="cb4"
                                   action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
