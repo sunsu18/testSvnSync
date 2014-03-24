@@ -19,6 +19,10 @@
     <iterator Binds="ProductsDisplayRVO1" RangeSize="10"
               DataControl="EngageAppModuleDataControl"
               id="ProductsDisplayRVO1Iterator"/>
+    <taskFlow id="AuthenticatedHomeTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings>
     <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">

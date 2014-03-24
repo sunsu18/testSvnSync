@@ -951,3 +951,33 @@ font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 15px;
 font-weight:bolder;
 }
+
+/*Image for information from statoil*/
+.info
+{
+height:20px;
+width:30px;
+
+  background: url("/images/Info/info_business.png") !important;
+  background-position: right !important;
+  background-repeat:no-repeat  !important;
+  
+}
+
+/*headings for after login page*/
+.heading1
+{
+color:#524e4f;
+font-family :SansSerif !important;
+font-size: 16px;
+ font-weight:bold;  
+}
+/* box shadow for panels*/
+.box-shadow
+{
+
+-webkit-box-shadow: 2px 2px 1px #d7d6d6; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
+box-shadow: 2px 2px 1px #d7d6d6; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+border: 1px solid  #979796;
+  
+}

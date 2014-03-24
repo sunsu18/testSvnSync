@@ -343,12 +343,12 @@
                               </af:panelGroupLayout>
                             </af:panelGroupLayout>
                           </af:panelGroupLayout>
+                          
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
-                  
-                
-                  
+                    <af:region value="#{bindings.AuthenticatedHomeTaskFlow1.regionModel}"
+                               id="r1"/>
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
               </cust:panelCustomizable>
