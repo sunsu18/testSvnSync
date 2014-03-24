@@ -47,6 +47,7 @@ public class DriverInfoBean implements Serializable {
     ResourceBundle resourceBundle;
     private String driverN;
     private String accountsList;
+    private String displayAccountNumber;
         
         
     /**
@@ -126,8 +127,7 @@ public class DriverInfoBean implements Serializable {
                 }
                 else{
                     vo.defineNamedWhereClauseParam("driverName",  null , null);
-                }
-                System.out.println("Query =="+vo.getQuery());
+                    }
                 vo.executeQuery();
                 if (vo.getEstimatedRowCount() != 0) {
                     System.out.println("RowCount"+values[i]);
@@ -327,6 +327,19 @@ public class DriverInfoBean implements Serializable {
             }
             return null;
         }
+    
+    /**
+        * This Method will show confirmation popup for Delete All records operation.
+        * @return
+        */
+       public String deleteAllRecordsAction() {
+               if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
+               { 
+                   displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString();
+                   getBindings().getDeleteAllInfoDriver().show(new RichPopup.PopupHints());
+               }
+               return null;
+           }
 
     /**
      * This Method will delete selected driver rows from DB.
@@ -358,7 +371,6 @@ public class DriverInfoBean implements Serializable {
                 bindings.getOperationBinding("Commit");
             Object result = operationBinding.execute();
             if (operationBinding.getErrors().isEmpty()) {
-            System.out.println("Success");            
                 getBindings().getDeleteDriver().hide();
                 driverMap=new HashMap<String,String>();
                 searchResults();
@@ -375,7 +387,6 @@ public class DriverInfoBean implements Serializable {
                                          (String)resourceBundle.getObject("DRIVER_DELETE_FAILURE"),"");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
-             System.out.println("Error while commiting");   
             }
         }catch (JboException ex) {
             FacesMessage msg =
@@ -390,6 +401,38 @@ public class DriverInfoBean implements Serializable {
         }
             return null;
         }
+    
+    /**
+     * This method will delete all the driver details for the Selected Account./
+     * @return
+     */
+    public String delteAllForAccount(){
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
+            {
+                BindingContainer bindings =  BindingContext.getCurrent().getCurrentBindingsEntry();
+                OperationBinding operationBinding = bindings.getOperationBinding("deleteAllForAccount");
+                operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
+                operationBinding.getParamsMap().put("type", "driver");
+                operationBinding.getParamsMap().put("countryCd", "en_US");
+                if(getBindings().getDriverName().getValue().toString() != null){
+                System.out.println("Inside driver bean this block===================");
+                    System.out.println("value of driver name in this block==================="+getBindings().getDriverName().getValue().toString());
+                    operationBinding.getParamsMap().put("regDriverValue", getBindings().getDriverName().getValue().toString());
+                }else{
+                    System.out.println("value of driver name in else block==================="+getBindings().getDriverName().getValue().toString());
+                    System.out.println("Inside driver bean else block===================");
+                    operationBinding.getParamsMap().put("regDriverValue", null);
+                }
+                Object result = operationBinding.execute();
+                if (operationBinding.getErrors().isEmpty()) {
+                    getBindings().getDeleteAllInfoDriver().hide();
+                    searchResults();
+                }else{
+                    
+                }
+            }
+        return null;
+    }
 
     /**
      * @return
@@ -398,6 +441,15 @@ public class DriverInfoBean implements Serializable {
             getBindings().getDeleteDriver().hide();
             return null;
         }
+    
+    /**
+     * This method will hide the Delete all account pop up when user click on 'NO'.
+     * @return
+     */
+    public String deleteAllForAccountCancel(){
+        getBindings().getDeleteAllInfoDriver().hide();
+        return null;
+    }
 
     /**
      * This Method will store selected driver rows in HashMap for Delete operation.
@@ -477,7 +529,21 @@ public class DriverInfoBean implements Serializable {
     public String getDriverN() {
         return driverN;
     }
-    
+
+    /**
+     * @param displayAccountNumber
+     */
+    public void setDisplayAccountNumber(String displayAccountNumber) {
+        this.displayAccountNumber = displayAccountNumber;
+    }
+
+    /**
+     * @return
+     */
+    public String getDisplayAccountNumber() {
+        return displayAccountNumber;
+    }
+
     public class Bindings{
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
@@ -485,6 +551,7 @@ public class DriverInfoBean implements Serializable {
         private RichPopup editDriver;
         private RichPopup deleteDriver;
         private RichInputText driverName;
+        private RichPopup deleteAllInfoDriver;
         
         /**
          * @param linkedAccount
@@ -568,6 +635,14 @@ public class DriverInfoBean implements Serializable {
          */
         public RichInputText getDriverName() {
             return driverName;
+        }
+
+        public void setDeleteAllInfoDriver(RichPopup deleteAllInfoDriver) {
+            this.deleteAllInfoDriver = deleteAllInfoDriver;
+        }
+
+        public RichPopup getDeleteAllInfoDriver() {
+            return deleteAllInfoDriver;
         }
     }
 }

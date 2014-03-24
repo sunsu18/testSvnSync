@@ -65,16 +65,8 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       { "VEHICLEINFO_YEAR", "" },{ "VEHICLEINFO_REGISTRATIONDATE", "" },{ "VEHICLEINFO_ENDDATE", "" }, 
                                       { "VEHICLEINFO_FUELTYPE", "" }, { "VEHICLEINFO_MAXFUEL", "" },{ "VEHICLEINFO_ODOMETER", "" },{ "VEHICLEINFO_REMARKS", "" }, 
                                       { "VEHICLEINFO_ADDVEHICLE", "" }, { "VEHICLEINFO_CANCEL", "" },{ "VEHICLEINFO_EDITVEHICLE", "" },{ "VEHICLEINFO_DELETEVEHICLE", "" }, 
-                                      { "VEHICLEINFO_YES", "" }, { "VEHICLEINFO_NO", "" },{ "VEHICLEINFO_DELETE_CONFIRMATION", "" },{ "PRICE_LIST", "" },
-                                      
-                                      
-    { "FILTER_DRIVER_NAME", "" }, { "FILTER_REGISTRATION_NUMBER", "" }
-                                      
-                                      
-                                      
-                                      
-                                      
-                                      };
+                                      { "VEHICLEINFO_YES", "" }, { "VEHICLEINFO_NO", "" },{ "VEHICLEINFO_DELETE_CONFIRMATION", "" },{ "PRICE_LIST", "" },{ "FILTER_DRIVER_NAME", "" }, 
+                                      { "FILTER_REGISTRATION_NUMBER", "" },{"DELETE_ALL_ACCOUNT",""},{"DELETE_COMFIRMATION_ALL_DRIVER",""}};
                
 
             /**

@@ -1,11 +1,17 @@
 package com.sfr.engage.model.module;
 
 
+import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
@@ -15,7 +21,7 @@ import oracle.jbo.server.ViewObjectImpl;
 // ---    Custom code may be added to this class.
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
-public class EngageAppModuleImpl extends ApplicationModuleImpl {
+public class EngageAppModuleImpl extends ApplicationModuleImpl implements EngageAppModule {
     /**
      * This is the default constructor (do not remove).
      */
@@ -87,8 +93,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
     public ViewObjectImpl getPriceListNewRVO1() {
         return (ViewObjectImpl)findViewObject("PriceListNewRVO1");
     }
-
-    /**
+/**
      * Container's getter for PrtGenHelpVO1.
      * @return PrtGenHelpVO1
      */
@@ -102,5 +107,48 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
      */
     public ViewObjectImpl getPrtGenHelpRVO1() {
         return (ViewObjectImpl)findViewObject("PrtGenHelpRVO1");
+    }
+/**
+     * @param accountId
+     * @param type
+     * @param countryCd
+     * @param regDriverValue
+     * This method is used to delete Driver/Truck details for the Account.
+     */
+    public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue ){
+        System.out.println("Account Number in Application module===>"+accountId);
+        System.out.println("type in application module====>"+type);
+        System.out.println("countryCd in application module=====>"+countryCd);
+        System.out.println("regDriverValue in apppilcation module====>"+regDriverValue);
+        
+        Connection con=null;
+        PreparedStatement pStmt = null;
+        String statement = null;
+                try {
+                    Statement stmt = getDBTransaction().createStatement(0);
+                    con = stmt.getConnection();
+                    if(type.equals("driver")){
+                        if(regDriverValue!= null){
+                        System.out.println("Inside this block of driver in application moule");
+                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
+                        }else{
+                            System.out.println("Inside else block of driver in application moule");
+                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
+                        }
+                    }else{
+                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"'";
+                    }
+                    pStmt = con.prepareStatement(statement);   
+                    pStmt.executeUpdate();
+                    con.commit();
+                } catch (SQLException sqle) {
+                    sqle.getMessage();
+                } finally {
+                    try {
+                        pStmt.close();
+                    } catch (SQLException sqle) {
+                        sqle.getMessage();
+                    }
+                }
     }
 }

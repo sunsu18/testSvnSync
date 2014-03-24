@@ -7,7 +7,9 @@
   Version="11.1.1.61.92"
   InheritPersonalization="true"
   ClearCacheOnRollback="true"
-  ComponentClass="com.sfr.engage.model.module.EngageAppModuleImpl">
+  ComponentClass="com.sfr.engage.model.module.EngageAppModuleImpl"
+  ComponentInterface="com.sfr.engage.model.module.common.EngageAppModule"
+  ClientProxyName="com.sfr.engage.model.module.client.EngageAppModuleClient">
   <DesignTime>
     <Attr Name="_deployType" Value="0"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -39,10 +41,29 @@
   <ViewUsage
     Name="PriceListNewRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PriceListNewRVO"/>
-  <ViewUsage
+<ViewUsage
     Name="PrtGenHelpVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtGenHelpVO"/>
   <ViewUsage
     Name="PrtGenHelpRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/>
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/> 
+<ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
 </AppModule>

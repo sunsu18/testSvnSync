@@ -98,5 +98,15 @@
             InstanceName="EngageAppModuleDataControl.PrtDriverInformationVO2"
             DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
             Action="createInsertRow"/>
+    <methodAction id="deleteAllForAccount"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAllForAccount" IsViewObjectMethod="false">
+      <NamedData NDName="accountId" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="regDriverValue" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>
