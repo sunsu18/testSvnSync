@@ -2,6 +2,7 @@
 <jws:workspace xmlns:jws="http://xmlns.oracle.com/ide/project">
    <hash n="adrs-workspace-properties">
       <value n="adrs-cleanup-mds-repos-dir" v="true"/>
+      <value n="adrs-instance-binding" v="DefaultServer"/>
    </hash>
    <value n="application-package-prefix" v="com.sfr.engage"/>
    <value n="appTemplateId" v="#WebCenter Portal - Framework Application"/>

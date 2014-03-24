@@ -87,4 +87,20 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl {
     public ViewObjectImpl getPriceListNewRVO1() {
         return (ViewObjectImpl)findViewObject("PriceListNewRVO1");
     }
+
+    /**
+     * Container's getter for PrtGenHelpVO1.
+     * @return PrtGenHelpVO1
+     */
+    public ViewObjectImpl getPrtGenHelpVO1() {
+        return (ViewObjectImpl)findViewObject("PrtGenHelpVO1");
+    }
+
+    /**
+     * Container's getter for PrtGenHelpRVO1.
+     * @return PrtGenHelpRVO1
+     */
+    public ViewObjectImpl getPrtGenHelpRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtGenHelpRVO1");
+    }
 }

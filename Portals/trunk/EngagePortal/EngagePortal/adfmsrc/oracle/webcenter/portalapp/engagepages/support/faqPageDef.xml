@@ -10,8 +10,13 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="helptaskflow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/helptaskflow/helptaskflow.xml#helptaskflow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
-  <bindings/>
+  <bindings>
+  </bindings>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
               target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/support/faq.jspx"
               xmlns="http://xmlns.oracle.com/adf/security">

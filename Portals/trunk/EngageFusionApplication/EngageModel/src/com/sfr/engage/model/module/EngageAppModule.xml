@@ -39,4 +39,10 @@
   <ViewUsage
     Name="PriceListNewRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PriceListNewRVO"/>
+  <ViewUsage
+    Name="PrtGenHelpVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtGenHelpVO"/>
+  <ViewUsage
+    Name="PrtGenHelpRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/>
 </AppModule>
