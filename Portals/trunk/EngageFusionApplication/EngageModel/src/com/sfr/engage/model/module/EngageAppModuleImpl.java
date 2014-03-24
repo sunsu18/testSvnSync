@@ -136,8 +136,15 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                         statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
                         }
                     }else{
-                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"'";
-                    }
+                        if(regDriverValue!= null){
+                        System.out.println("Inside this block of vehicle in application moule");
+                        statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
+                        }else{
+                            System.out.println("Inside else block of vehilce in application moule");
+                        statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
+                        }
+                    }                    
+                   
                     pStmt = con.prepareStatement(statement);   
                     pStmt.executeUpdate();
                     con.commit();
@@ -150,5 +157,12 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                         sqle.getMessage();
                     }
                 }
+    }
+/**
+     * Container's getter for PrtAccountRVO1.
+     * @return PrtAccountRVO1
+     */
+    public ViewObjectImpl getPrtAccountRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtAccountRVO1");
     }
 }

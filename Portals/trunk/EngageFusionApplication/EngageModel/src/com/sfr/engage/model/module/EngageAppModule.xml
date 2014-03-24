@@ -66,4 +66,8 @@
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>
+
+<ViewUsage
+    Name="PrtAccountRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtAccountRVO"/>
 </AppModule>

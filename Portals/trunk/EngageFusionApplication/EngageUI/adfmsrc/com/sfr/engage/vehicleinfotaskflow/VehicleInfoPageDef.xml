@@ -10,6 +10,8 @@
     <iterator Binds="PrtTruckInformationVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtTruckInformationVO2Iterator"/>
+    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="-1"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="EngageAppModuleDataControl"
@@ -26,12 +28,6 @@
                      id="CardNumber">
       <AttrNames>
         <Item Value="CardNumber"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
-                     id="AccountNumber">
-      <AttrNames>
-        <Item Value="AccountNumber"/>
       </AttrNames>
     </attributeValues>
     <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
@@ -91,5 +87,28 @@
             InstanceName="EngageAppModuleDataControl.PrtTruckInformationVO2"
             DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
             Action="createInsertRow"/>
+    <list IterBinding="PrtTruckInformationVO2Iterator" id="AccountNumber"
+          DTSupportsMRU="true" StaticList="false"
+          ListIter="PrtAccountRVO1Iterator">
+      <AttrNames>
+        <Item Value="AccountNumber"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="AccountId"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="AccountId"/>
+      </ListDisplayAttrNames>
+    </list>
+    <methodAction id="deleteAllForAccount"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAllForAccount" IsViewObjectMethod="false">
+      <NamedData NDName="accountId" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="regDriverValue" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

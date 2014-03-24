@@ -3,6 +3,8 @@ package com.sfr.engage.vehicleinfotaskflow;
 
 import com.sfr.engage.core.Account;
 import com.sfr.engage.core.VehicleInfo;
+import com.sfr.engage.model.queries.rvo.PrtAccountRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtAccountRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.utility.util.ADFUtils;
@@ -10,6 +12,7 @@ import com.sfr.engage.utility.util.ADFUtils;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +23,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import javax.faces.model.SelectItem;
+
 import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
@@ -35,6 +41,7 @@ import oracle.binding.OperationBinding;
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
+import oracle.jbo.uicli.binding.JUCtrlListBinding;
 
 
 public class VehicleInfoBean implements Serializable {
@@ -47,7 +54,12 @@ public class VehicleInfoBean implements Serializable {
     private HashMap<String, String> val = new HashMap<String, String>();
     private List<VehicleInfo> moreColumnsTable;
     private String registrationNumber;
-    private String accountsList; 
+    private String accountsList;
+    private ArrayList<SelectItem> linkedAccountList = null;
+    private String addAccountNumberVal = null;
+    private String editAccountNumberVal = null;
+    private List<String> linkedAccountLOVValues;
+    private String displayAccountNumber;
 
 
     /**
@@ -63,8 +75,36 @@ public class VehicleInfoBean implements Serializable {
     public VehicleInfoBean() {
         super();
         resourceBundle = new EngageResourceBundle();
+        linkedAccountLOVValues = new ArrayList<String>();
+        ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+        vo.setNamedWhereClauseParam("countryCode", "en_US");
+        vo.executeQuery();
+        while (vo.hasNext()) {
+            PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+            if (currRow.getAccountId() != null) {
+                linkedAccountLOVValues.add(currRow.getAccountId());
+            }
+        }
     }
 
+    public ArrayList<SelectItem> getLinkedAccountList() {
+        if (linkedAccountList == null) {
+            ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+            vo.setNamedWhereClauseParam("countryCode", "en_US");
+            vo.executeQuery();
+            linkedAccountList = new ArrayList<SelectItem>();
+            while (vo.hasNext()) {
+                PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+                if (currRow.getAccountId() != null) {
+                    SelectItem selectItem = new SelectItem();
+                    selectItem.setLabel(currRow.getAccountId());
+                    selectItem.setValue(currRow.getAccountId());
+                    linkedAccountList.add(selectItem);
+                }
+            }
+        }
+        return linkedAccountList;
+    }
 
     /**
      * @param myAccount
@@ -85,118 +125,73 @@ public class VehicleInfoBean implements Serializable {
      * @param actionEvent
      */
     public void searchAction(ActionEvent actionEvent) {
-        searchResults();
+        searchResults(true);
     }
 
     /**
      * This method is reusable for different scenario's in VehicleInfo Page to show searchResults.
      */
-    public void searchResults() {        
-        try {
-            if (getBindings().getLinkedAccount().getValue() != null) {
-                int count = 0;
-                String[] values;
-                System.out.println("Selected Valued==" +
-                                   getBindings().getLinkedAccount().getValue());
-                String selectedValues =
-                    getBindings().getLinkedAccount().getValue().toString().trim();
-                String passingValues =
-                    selectedValues.substring(1, selectedValues.length() - 1);
-                System.out.println("PassedValues==" + passingValues);
-                if (passingValues.contains(",")) {
-                    values = passingValues.split(",");
-                    System.out.println("Count==" + values.length);
-                    count = values.length;
+    public void searchResults(boolean value) {
 
+        try {
+            if (value == true) {
+                if (getBindings().getLinkedAccount().getValue() != null) {
+                    searchResultsExecution();
                 } else {
-                    count = 1;
-                    values = new String[1];
-                    values[0] = passingValues;
-                    System.out.println("Length==1");
-                }
-                myAccount = new ArrayList<Account>();
-                for (int i = 0; i < count; i++) {                  
-                    Account acc = new Account();
-                    acc.setAccountNumber(values[i]);
-                    List<VehicleInfo> myVehicleList =
-                        new ArrayList<VehicleInfo>();
-                    ViewObject vo =
-                        ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-                    vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')");
-                    System.out.println("values of i" + values[i]);
-                    vo.defineNamedWhereClauseParam("accountNumber",
-                                                   values[i].trim(), null);
-                    if (getBindings().getRegisterNumber().getValue() != null) {
-                        vo.defineNamedWhereClauseParam("registrationNumber",
-                                                       getBindings().getRegisterNumber().getValue().toString(),
-                                                       null);
-                    } else {
-                        vo.defineNamedWhereClauseParam("registrationNumber",
-                                                       null, null);
+                    if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                             (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                     msg);
                     }
-                    System.out.println("Query ==" + vo.getQuery());
-                    vo.executeQuery();
-                    if (vo.getEstimatedRowCount() != 0) {
-                        System.out.println("RowCount" + values[i]);
-                        for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
-                            while (vo.hasNext()) {
-                                PrtTruckInformationVORowImpl currRow =
-                                    (PrtTruckInformationVORowImpl)vo.next();
-                                if (currRow != null) {
-                                    VehicleInfo vehicle = new VehicleInfo();
-                                    if (currRow.getPrtTruckInformationPk() !=
-                                        null) {
-                                        vehicle.setPrtTruckInformationPK(currRow.getPrtTruckInformationPk().toString());
-                                    }
-                                    vehicle.setAccountNumber(currRow.getAccountNumber());
-                                    vehicle.setVehicleNumber(currRow.getVehicleNumber());
-                                    vehicle.setCardNumber(currRow.getCardNumber());
-                                    vehicle.setInternalName(currRow.getInternalName());
-                                    vehicle.setRegistrationNumber(currRow.getRegistrationNumber());
-                                    vehicle.setBrand(currRow.getBrand());
-                                    if (currRow.getYear() != null) {
-                                        vehicle.setYear(Integer.parseInt(currRow.getYear().toString()));
-                                    }
-                                    if (currRow.getRegistrationDate() !=
-                                        null) {
-                                        vehicle.setRegistrationDate(currRow.getRegistrationDate().getValue());
-                                    }
-                                    if (currRow.getEndDate() != null) {
-                                        vehicle.setEndDate(currRow.getEndDate().getValue());
-                                    }
-                                    vehicle.setRemarks(currRow.getRemarks());
-                                    vehicle.setFuelType(currRow.getFuelType());
-                                    if (currRow.getMaxFuel() != null) {
-                                        vehicle.setMaxFuel(Integer.parseInt(currRow.getMaxFuel().toString()));
-                                    }
-                                    if (currRow.getOdometer() != null) {
-                                        vehicle.setOdoMeter(Integer.parseInt(currRow.getOdometer().toString()));
-                                    }
-                                    myVehicleList.add(vehicle);
+                }
+            } else {
+                System.out.println("Add/Edit number val");
+                if (getBindings().getLinkedAccount().getValue() == null &&
+                    addAccountNumberVal != null) {
+                    System.out.println("Adding only addAccount");
+                    linkedAccountLOVValues.add(addAccountNumberVal);
+                } else {
+                    if (getBindings().getLinkedAccount().getValue() != null) {
+                        System.out.println("Comming");
+                        String searchValues =
+                            getBindings().getLinkedAccount().getValue().toString().trim();
+                        String[] search = StringConversion(searchValues);
+                        System.out.println("searchResults =" + search.length);
+                        if (addAccountNumberVal != null) {
+                            int count = 0;
+                            for (int i = 0; i < search.length; i++) {
+                                System.out.println("String =" + search[i]);
+                                if ((addAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
+                                    System.out.println("ADDInside");
+                                    count = 1;
                                 }
                             }
+                            if (count == 0) {
+                                linkedAccountLOVValues.add(addAccountNumberVal);
+                            }
                         }
-
+                        if (editAccountNumberVal != null) {
+                            int count = 0;
+                            for (int i = 0; i < search.length; i++) {
+                                System.out.println("String =" + search[i]);
+                                if ((editAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
+                                    System.out.println("EditInside");
+                                    count = 1;                                    
+                                }
+                            }
+                            if (count ==0) {
+                                linkedAccountLOVValues.add(editAccountNumberVal);
+                            }
+                        }
                     }
-                    if ("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
-                        vo.removeNamedWhereClauseParam("accountNumber");
-                        vo.removeNamedWhereClauseParam("registrationNumber");
-                        vo.setWhereClause("");
-                        vo.executeQuery();
-                    }
-                    acc.setVehicleInfoList(myVehicleList);
-                    myAccount.add(acc);
                 }
-                searchResultsShow = true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-            } else {
-                if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+                addAccountNumberVal = null;
+                editAccountNumberVal = null;
+                searchResultsExecution();
             }
         } catch (JboException ex) {
             FacesMessage msg =
@@ -209,6 +204,109 @@ public class VehicleInfoBean implements Serializable {
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+
+    public String[] StringConversion(String passedVal) {
+        List<String> container;
+        String tempString = passedVal.substring(1, passedVal.length() - 1);
+        String[] val = tempString.split(",");
+        return val;
+    }
+
+    public void searchResultsExecution() {
+        System.out.println("searchResultsExecution");
+        int count = 0;
+        String[] values;
+        System.out.println("Selected Valued==" +
+                           getBindings().getLinkedAccount().getValue());
+        String selectedValues =
+            getBindings().getLinkedAccount().getValue().toString().trim();
+        String passingValues =
+            selectedValues.substring(1, selectedValues.length() - 1);
+        System.out.println("PassedValues==" + passingValues);
+        if (passingValues.contains(",")) {
+            values = passingValues.split(",");
+            System.out.println("Count==" + values.length);
+            count = values.length;
+
+        } else {
+            count = 1;
+            values = new String[1];
+            values[0] = passingValues;
+            System.out.println("Length==1");
+        }
+        myAccount = new ArrayList<Account>();
+        for (int i = 0; i < count; i++) {
+            Account acc = new Account();
+            acc.setAccountNumber(values[i]);
+            List<VehicleInfo> myVehicleList = new ArrayList<VehicleInfo>();
+            ViewObject vo =
+                ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
+            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')");
+            System.out.println("values of i" + values[i]);
+            vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
+                                           null);
+            if (getBindings().getRegisterNumber().getValue() != null) {
+                vo.defineNamedWhereClauseParam("registrationNumber",
+                                               getBindings().getRegisterNumber().getValue().toString(),
+                                               null);
+            } else {
+                vo.defineNamedWhereClauseParam("registrationNumber", null,
+                                               null);
+            }
+            System.out.println("Query ==" + vo.getQuery());
+            vo.executeQuery();
+            if (vo.getEstimatedRowCount() != 0) {
+                System.out.println("RowCount" + values[i]);
+                for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
+                    while (vo.hasNext()) {
+                        PrtTruckInformationVORowImpl currRow =
+                            (PrtTruckInformationVORowImpl)vo.next();
+                        if (currRow != null) {
+                            VehicleInfo vehicle = new VehicleInfo();
+                            if (currRow.getPrtTruckInformationPk() != null) {
+                                vehicle.setPrtTruckInformationPK(currRow.getPrtTruckInformationPk().toString());
+                            }
+                            vehicle.setAccountNumber(currRow.getAccountNumber());
+                            vehicle.setVehicleNumber(currRow.getVehicleNumber());
+                            vehicle.setCardNumber(currRow.getCardNumber());
+                            vehicle.setInternalName(currRow.getInternalName());
+                            vehicle.setRegistrationNumber(currRow.getRegistrationNumber());
+                            vehicle.setBrand(currRow.getBrand());
+                            if (currRow.getYear() != null) {
+                                vehicle.setYear(Integer.parseInt(currRow.getYear().toString()));
+                            }
+                            if (currRow.getRegistrationDate() != null) {
+                                vehicle.setRegistrationDate(currRow.getRegistrationDate().getValue());
+                            }
+                            if (currRow.getEndDate() != null) {
+                                vehicle.setEndDate(currRow.getEndDate().getValue());
+                            }
+                            vehicle.setRemarks(currRow.getRemarks());
+                            vehicle.setFuelType(currRow.getFuelType());
+                            if (currRow.getMaxFuel() != null) {
+                                vehicle.setMaxFuel(Integer.parseInt(currRow.getMaxFuel().toString()));
+                            }
+                            if (currRow.getOdometer() != null) {
+                                vehicle.setOdoMeter(Integer.parseInt(currRow.getOdometer().toString()));
+                            }
+                            myVehicleList.add(vehicle);
+                        }
+                    }
+                }
+
+            }
+            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                vo.removeNamedWhereClauseParam("accountNumber");
+                vo.removeNamedWhereClauseParam("registrationNumber");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
+            acc.setVehicleInfoList(myVehicleList);
+            myAccount.add(acc);
+        }
+        searchResultsShow = true;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
     }
 
     /**
@@ -238,13 +336,17 @@ public class VehicleInfoBean implements Serializable {
      */
     public String newVehicleSave() {
         getBindings().getNewVehicle().hide();
-        searchResults();
+        if (addAccountNumberVal != null) {
+            System.out.println("save =" + addAccountNumberVal);
+
+        }
+        searchResults(false);
         if (resourceBundle.containsKey("VEHICLE_ADD")) {
             FacesMessage msg =
                 new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ADD"),
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }        
+        }
         return null;
     }
 
@@ -271,7 +373,12 @@ public class VehicleInfoBean implements Serializable {
      */
     public String editVehicleSave() {
         getBindings().getEditVehicle().hide();
-        searchResults();
+        if (editAccountNumberVal != null) {
+            System.out.println("save =" + editAccountNumberVal);
+
+        }
+        searchResults(false);
+        System.out.println("After Edit Save");
         if (resourceBundle.containsKey("VEHICLE_EDIT")) {
             FacesMessage msg =
                 new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_EDIT"),
@@ -373,7 +480,7 @@ public class VehicleInfoBean implements Serializable {
                 System.out.println("Success");
                 getBindings().getDeleteVehicle().hide();
                 val = new HashMap<String, String>();
-                searchResults();
+                searchResults(false);
                 if (resourceBundle.containsKey("VEHICLE_DELETE_SUCCESS")) {
                     FacesMessage msg =
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -460,7 +567,7 @@ public class VehicleInfoBean implements Serializable {
             vo.executeQuery();
         }
         getBindings().getLinkedAccount().setValue(null);
-        getBindings().getRegisterNumber().setValue(null);        
+        getBindings().getRegisterNumber().setValue(null);
         searchResultsShow = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
@@ -495,6 +602,112 @@ public class VehicleInfoBean implements Serializable {
         return accountsList;
     }
 
+    public void AddAccountNumberListener(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        if (valueChangeEvent.getNewValue() != null) {
+            BindingContainer bindings =
+                BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding itr =
+                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+            Row row =
+                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+            if (row != null) {
+
+                addAccountNumberVal = (String)row.getAttribute("AccountId");
+            }
+            System.out.println("addAccountNumber =" + addAccountNumberVal);
+        }
+    }
+
+    public void setAddAccountNumberVal(String addAccountNumberVal) {
+        this.addAccountNumberVal = addAccountNumberVal;
+    }
+
+    public String getAddAccountNumberVal() {
+        return addAccountNumberVal;
+    }
+
+    public void setEditAccountNumberVal(String editAccountNumberVal) {
+        this.editAccountNumberVal = editAccountNumberVal;
+    }
+
+    public String getEditAccountNumberVal() {
+        return editAccountNumberVal;
+    }
+
+    public void setLinkedAccountLOVValues(List<String> linkedAccountLOVValues) {
+        this.linkedAccountLOVValues = linkedAccountLOVValues;
+    }
+
+    public List<String> getLinkedAccountLOVValues() {
+        return linkedAccountLOVValues;
+    }
+
+    public void editAccountNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if (valueChangeEvent.getNewValue() != null) {
+            BindingContainer bindings =
+                BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding itr =
+                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+            Row row =
+                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+            if (row != null) {
+                editAccountNumberVal = (String)row.getAttribute("AccountId");
+            }
+            System.out.println("editAccountNumber =" + editAccountNumberVal);
+        }
+
+    }
+
+    public String deleteAllRecordsAction() {
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
+        { 
+            displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString();
+            getBindings().getDeleteAllInfoVehicle().show(new RichPopup.PopupHints());
+        }
+        return null;
+    }
+
+    public String deleteAllForAccount() {
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
+        {
+            BindingContainer bindings =  BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("deleteAllForAccount");
+            operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
+            operationBinding.getParamsMap().put("type", "vehicle");
+            operationBinding.getParamsMap().put("countryCd", "en_US");
+            if(registrationNumber.isEmpty()){
+            System.out.println("Inside vehicle bean this block===================");
+                System.out.println("value of vehicle name in this block==================="+getBindings().getRegisterNumber().getValue().toString());
+                operationBinding.getParamsMap().put("regDriverValue", registrationNumber);
+            }else{               
+                System.out.println("Inside vehicle bean else block===================");
+                operationBinding.getParamsMap().put("regDriverValue", null);
+            }
+            Object result = operationBinding.execute();
+            if (operationBinding.getErrors().isEmpty()) {
+                getBindings().getDeleteAllInfoVehicle().hide();
+                searchResults(true);
+            }else{
+                
+            }
+        }
+        return null;
+    }
+
+    public String deleteAllForAccountCancel() {
+        getBindings().getDeleteAllInfoVehicle().hide();
+        return null;
+    }
+
+    public void setDisplayAccountNumber(String displayAccountNumber) {
+        this.displayAccountNumber = displayAccountNumber;
+    }
+
+    public String getDisplayAccountNumber() {
+        return displayAccountNumber;
+    }
+
 
     public class Bindings {
         private RichSelectManyChoice linkedAccount;
@@ -504,6 +717,7 @@ public class VehicleInfoBean implements Serializable {
         private RichPopup editVehicle;
         private RichPopup deleteVehicle;
         private RichPopup moreColumnsPopup;
+        private RichPopup deleteAllInfoVehicle;
         private RichPanelGroupLayout searchPanelGroupLayout;
 
         /**
@@ -616,6 +830,14 @@ public class VehicleInfoBean implements Serializable {
          */
         public RichPanelGroupLayout getSearchPanelGroupLayout() {
             return searchPanelGroupLayout;
+        }
+
+        public void setDeleteAllInfoVehicle(RichPopup deleteAllInfoVehicle) {
+            this.deleteAllInfoVehicle = deleteAllInfoVehicle;
+        }
+
+        public RichPopup getDeleteAllInfoVehicle() {
+            return deleteAllInfoVehicle;
         }
     }
 }
