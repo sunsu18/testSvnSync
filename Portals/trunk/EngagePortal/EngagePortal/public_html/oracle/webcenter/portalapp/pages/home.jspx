@@ -31,7 +31,8 @@
               <af:panelGroupLayout id="pgl_01"
                                        layout="vertical"
                                   inlineStyle="width:962px; height:auto;"
-                                   styleClass="portalbackground">
+                                   styleClass="portalbackground"
+                                   visible="#{not securityContext.authenticated}">
                                 
                   <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
                     <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}.png"
@@ -346,11 +347,12 @@
                           
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
-                </af:panelGroupLayout>
-                    <af:region value="#{bindings.AuthenticatedHomeTaskFlow1.regionModel}"
-                               id="r1"/>
+                </af:panelGroupLayout>                    
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
+                <af:region value="#{bindings.AuthenticatedHomeTaskFlow1.regionModel}"
+                            id="r1"
+                           visible="#{securityContext.authenticated}"/>
               </cust:panelCustomizable>
               <!--f:facet name="editor">
                 <pe:pageEditorPanel id="pep1"/>
