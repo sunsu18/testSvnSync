@@ -675,8 +675,8 @@ public class VehicleInfoBean implements Serializable {
             OperationBinding operationBinding = bindings.getOperationBinding("deleteAllForAccount");
             operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
             operationBinding.getParamsMap().put("type", "vehicle");
-            operationBinding.getParamsMap().put("countryCd", "en_US");
-            if(registrationNumber.isEmpty()){
+            operationBinding.getParamsMap().put("countryCd", "en_US");              
+            if (getBindings().getRegisterNumber().getValue()!=null && getBindings().getRegisterNumber().getValue().toString().length()>0) {
             System.out.println("Inside vehicle bean this block===================");
                 System.out.println("value of vehicle name in this block==================="+getBindings().getRegisterNumber().getValue().toString());
                 operationBinding.getParamsMap().put("regDriverValue", registrationNumber);
