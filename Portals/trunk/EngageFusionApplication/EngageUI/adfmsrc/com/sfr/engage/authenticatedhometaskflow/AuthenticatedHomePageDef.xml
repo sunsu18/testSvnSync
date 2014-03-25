@@ -7,6 +7,9 @@
     <variableIterator id="variables"/>
     <iterator id="PrtPcmFeedsRVO1Iterator" Binds="PrtPcmFeedsRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCustomerCardMapRVO1_1Iterator"
+              Binds="PrtCustomerCardMapRVO1_1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
    

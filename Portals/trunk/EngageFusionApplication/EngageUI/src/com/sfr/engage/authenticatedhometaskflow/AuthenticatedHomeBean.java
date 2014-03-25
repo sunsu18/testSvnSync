@@ -2,6 +2,7 @@ package com.sfr.engage.authenticatedhometaskflow;
 
 
 import com.sfr.engage.core.Messages;
+import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
@@ -28,9 +29,10 @@ public class AuthenticatedHomeBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
-    private String infoValue="";
+    private String infoValue = "";
     private List<Messages> messages;
     private boolean infoPanelVisible;
+    private String customerTypeValue;
 
 
     /**
@@ -46,86 +48,113 @@ public class AuthenticatedHomeBean implements Serializable {
     public AuthenticatedHomeBean() {
         DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
         Date date = new Date();
-        System.out.println(dateFormat.format(date));       
-        java.sql.Date passedDate=new  java.sql.Date(date.getTime());
-        ViewObject prtPCMFeedsVO = ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");        
-        prtPCMFeedsVO.setWhereClause("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
-        prtPCMFeedsVO.defineNamedWhereClauseParam("customerType", "B2B FLEET", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("infoType", "INFO_STATOIL", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate, null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate, null);
-        System.out.println("Query ="+prtPCMFeedsVO.getQuery());
-        prtPCMFeedsVO.executeQuery();
-        System.out.println("Information Row Count "+prtPCMFeedsVO.getEstimatedRowCount());
-       
-        if (prtPCMFeedsVO.getEstimatedRowCount() != 0) 
-        {
-            infoPanelVisible=true;
-            System.out.println("coming inside INFORMATION block");          
+        System.out.println(dateFormat.format(date));
+        java.sql.Date passedDate = new java.sql.Date(date.getTime());
+
+        ViewObject prtCustomerCardMapVO =
+            ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+        prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", "FA1");
+        prtCustomerCardMapVO.executeQuery();
+        if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
+            while (prtCustomerCardMapVO.hasNext()) {
+                PrtCustomerCardMapRVO1RowImpl currRow =
+                    (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                if (currRow != null) {
+                    customerTypeValue = currRow.getCustomerType();
+                }
+            }
+        }
+
+        if (customerTypeValue != null) {
+            ViewObject prtPCMFeedsVO =
+                ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+            prtPCMFeedsVO.setWhereClause("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
+            prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                      customerTypeValue, null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
+                                                      "INFO_STATOIL", null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE",
+                                                      null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate,
+                                                      null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
+                                                      null);
+            System.out.println("Query =" + prtPCMFeedsVO.getQuery());
+            prtPCMFeedsVO.executeQuery();
+            System.out.println("Information Row Count " +
+                               prtPCMFeedsVO.getEstimatedRowCount());
+
+            if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
+                infoPanelVisible = true;
+                System.out.println("coming inside INFORMATION block");
                 while (prtPCMFeedsVO.hasNext()) {
                     PrtPcmFeedsRVORowImpl currRow =
                         (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                     if (currRow != null) {
-                        if(currRow.getMessageLang()!=null)
-                        {
-                        infoValue = infoValue+currRow.getMessageLang();
-                        }else {
-                            if(currRow.getMessageEnglish()!=null) {
-                                infoValue = infoValue+currRow.getMessageLang();
+                        if (currRow.getMessageLang() != null) {
+                            infoValue = infoValue + currRow.getMessageLang();
+                        } else {
+                            if (currRow.getMessageEnglish() != null) {
+                                infoValue =
+                                        infoValue + currRow.getMessageLang();
                             }
                         }
                     }
-                }            
-        }
-       if(infoValue==null) {
-           infoPanelVisible=false;
-       }
-        
-        prtPCMFeedsVO.defineNamedWhereClauseParam("customerType", "B2B FLEET", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("infoType", "MESSAGES", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE", null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate, null);
-        prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate, null);
-        prtPCMFeedsVO.executeQuery();
-        System.out.println("Messages Row Count "+prtPCMFeedsVO.getEstimatedRowCount());
-        if (prtPCMFeedsVO.getEstimatedRowCount() != 0) 
-        {          
-            messages=new ArrayList<Messages>();
-            System.out.println("coming inside MESSAGE block");          
+                }
+            }
+            if (infoValue == null) {
+                infoPanelVisible = false;
+            }
+
+            prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                      customerTypeValue, null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("infoType", "MESSAGES",
+                                                      null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE",
+                                                      null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate,
+                                                      null);
+            prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
+                                                      null);
+            prtPCMFeedsVO.executeQuery();
+            System.out.println("Messages Row Count " +
+                               prtPCMFeedsVO.getEstimatedRowCount());
+            if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
+                messages = new ArrayList<Messages>();
+                System.out.println("coming inside MESSAGE block");
                 while (prtPCMFeedsVO.hasNext()) {
                     PrtPcmFeedsRVORowImpl currRow =
                         (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                     if (currRow != null) {
-                        Messages message=new Messages();
-                        if(currRow.getMessageLang()!=null)
-                        {
-                        message.setMessage(currRow.getMessageLang());                       
-                        }else {
-                            if(currRow.getMessageEnglish()!=null) {
+                        Messages message = new Messages();
+                        if (currRow.getMessageLang() != null) {
+                            message.setMessage(currRow.getMessageLang());
+                        } else {
+                            if (currRow.getMessageEnglish() != null) {
                                 message.setMessage(currRow.getMessageEnglish());
                             }
                         }
-                        if(message.getMessage()!=null)
-                        {
-                        messages.add(message);
+                        if (message.getMessage() != null) {
+                            messages.add(message);
                         }
                     }
-                }            
-        } 
-        
-        if ("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
-            prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");            
-            prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-            prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-            prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-            prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");            
-            prtPCMFeedsVO.setWhereClause("");
-            prtPCMFeedsVO.executeQuery();
-        }        
-        
+                }
+            }
+
+            if ("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
+                prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
+                prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
+                prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
+                prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+                prtPCMFeedsVO.setWhereClause("");
+                prtPCMFeedsVO.executeQuery();
+            }
+
+        }
+
     }
 
     public void setMessages(List<Messages> messages) {
@@ -152,6 +181,14 @@ public class AuthenticatedHomeBean implements Serializable {
         return infoValue;
     }
 
+    public void setCustomerTypeValue(String customerTypeValue) {
+        this.customerTypeValue = customerTypeValue;
+    }
+
+    public String getCustomerTypeValue() {
+        return customerTypeValue;
+    }
+
 
     public class Bindings {
         private RichOutputText infoText;
@@ -164,7 +201,7 @@ public class AuthenticatedHomeBean implements Serializable {
         public RichOutputText getInfoText() {
             return infoText;
         }
-        
+
         public void setInfoPanel(RichPanelGroupLayout infoPanel) {
             this.infoPanel = infoPanel;
         }
