@@ -521,7 +521,7 @@ public class DriverInfoBean implements Serializable {
                 operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
                 operationBinding.getParamsMap().put("type", "driver");
                 operationBinding.getParamsMap().put("countryCd", "en_US");
-                if(getBindings().getDriverName().getValue() != null){
+                if(getBindings().getDriverName().getValue() != null && getBindings().getDriverName().getValue().toString().length()>0){
                 System.out.println("Inside driver bean this block===================");
                     System.out.println("value of driver name in this block==================="+getBindings().getDriverName().getValue().toString());
                     operationBinding.getParamsMap().put("regDriverValue", getBindings().getDriverName().getValue().toString());

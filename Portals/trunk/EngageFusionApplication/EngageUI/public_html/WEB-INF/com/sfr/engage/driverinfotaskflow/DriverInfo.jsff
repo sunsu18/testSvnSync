@@ -71,7 +71,7 @@
       <af:panelGroupLayout id="pgl5" layout="horizontal">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"
                      styleClass="subheading"/>
-        <af:spacer width="929" height="10" id="s16"/>
+        <af:spacer width="630" height="10" id="s16"/>
         <af:commandButton text="#{sfr.DELETE}" id="cb4"
                           action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
@@ -189,8 +189,8 @@
               </af:inputText>-->
               <af:selectOneChoice value="#{bindings.AccountId.inputValue}"                                    
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
-                                    id="soc1" autoSubmit="true"
-                                    contentStyle="width:166px;height:18.0px;padding-top: 4px"
+                                    id="acc" autoSubmit="true"
+                                    
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si1"/>
@@ -391,7 +391,7 @@
                 <af:selectOneChoice value="#{bindings.AccountId.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="soc2"
-                                    contentStyle="width:166px;height:18.0px;padding-top: 4px"
+                                    
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si2"/>
