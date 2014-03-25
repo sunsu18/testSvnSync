@@ -46,8 +46,14 @@
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtGenHelpVO"/>
   <ViewUsage
     Name="PrtGenHelpRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/> 
-<ClientInterface>
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/>
+  <ViewUsage
+    Name="PrtAccountRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtAccountRVO"/>
+  <ViewUsage
+    Name="PrtPcmFeedsRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"/>
+  <ClientInterface>
     <Method
       Name="deleteAllForAccount">
       <Return
@@ -66,8 +72,23 @@
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>
-
-<ViewUsage
-    Name="PrtAccountRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtAccountRVO"/>
+  <ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
 </AppModule>

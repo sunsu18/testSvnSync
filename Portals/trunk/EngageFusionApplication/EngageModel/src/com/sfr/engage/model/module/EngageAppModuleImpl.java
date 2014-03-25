@@ -3,6 +3,8 @@ package com.sfr.engage.model.module;
 
 import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtAccountRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
@@ -164,5 +166,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtAccountRVO1() {
         return (ViewObjectImpl)findViewObject("PrtAccountRVO1");
+    }
+
+    /**
+     * Container's getter for PrtPcmFeedsRVO1.
+     * @return PrtPcmFeedsRVO1
+     */
+    public ViewObjectImpl getPrtPcmFeedsRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtPcmFeedsRVO1");
     }
 }

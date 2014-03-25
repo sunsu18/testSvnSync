@@ -1,9 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-  <af:panelGroupLayout id="pgl2">
- <af:panelGroupLayout id="pgl0">
-   <af:outputText value="Infomation from Statoil" id="ot2"
+  <af:panelGroupLayout id="pgl2" >
+    <af:panelGroupLayout id="pgl7" layout="vertical" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoPanel}"
+                         visible="#{pageFlowScope.AuthenticatedHomeBean.infoPanelVisible}">
+    <af:panelGroupLayout id="pgl0">
+   <af:outputText value="Information from Statoil" id="ot2"
                  styleClass="heading1"/>
                  
   <af:spacer width="10" height="10" id="s1"/>
@@ -14,7 +16,7 @@
                        styleClass="panelbackground box-shadow info">
     <af:spacer width="10" height="10" id="s2"/>
    
-    <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infovalue}" id="ot1"                 
+    <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"                 
                    styleClass="contenttext"
                    binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>
                
@@ -22,6 +24,7 @@
                          inlineStyle="height:50px; width:50px; text-align:right;"
                          styleClass="info">
                          </af:panelGroupLayout>-->
+  </af:panelGroupLayout>
   </af:panelGroupLayout>
   <af:spacer width="10" height="10" id="s3"/>
     <af:panelGroupLayout id="pgl6" layout="vertical">
