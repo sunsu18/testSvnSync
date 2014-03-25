@@ -32,12 +32,16 @@
     <af:panelGroupLayout id="pgl3" layout="vertical"
                        inlineStyle="height:314px; width:200px;"
                        styleClass="box-shadow">
+    <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
+                    var="var">
     <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top">
       <af:panelGroupLayout id="pgl5"
                            layout="horizontal" styleClass="message_bell"
                           />
-      <af:outputText value="hello world" id="ot3" styleClass="contenttext"/>
+      <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"/>
     </af:panelGroupLayout>
+    </af:forEach>
   </af:panelGroupLayout>
+  
   </af:panelGroupLayout>
 </jsp:root>
