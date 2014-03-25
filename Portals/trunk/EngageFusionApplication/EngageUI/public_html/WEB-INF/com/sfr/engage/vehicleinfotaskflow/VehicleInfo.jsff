@@ -597,7 +597,7 @@
     <af:popup id="delete_all" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.deleteAllInfoVehicle}"
               autoCancel="disabled">
-      <af:dialog id="deleteAllVehicle" title="#{sfr.DELETE_VEHICLE}" type="none"
+      <af:dialog id="deleteAllVehicle" title="#{sfr.VEHICLEINFO_DELETEVEHICLE}" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psl1"
                                dimensionsFrom="children">
@@ -623,7 +623,7 @@
                <af:separator id="s37"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
                 <af:panelFormLayout id="pfasl2" >
-                <af:outputText value="#{sfr.DELETE_COMFIRMATION_ALL_VEHICLE}" id="ot17"/>
+                <af:outputText value="#{sfr.DELETE_COMFIRMATION_ALL_DRIVER}" id="ot17"/>
               </af:panelFormLayout>     
                <af:spacer width="10" height="15" id="s33fg"/>
             </af:panelGroupLayout>
