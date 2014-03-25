@@ -24,15 +24,11 @@
              <af:outputText value=":" id="col"/>
                <af:spacer width="15" height="10" id="s18"/>
              <af:selectManyChoice  id="smc1"
-                             binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}">
-          <af:selectItem label="1000000000" value="1000000000" id="si5"/>
-          <af:selectItem label="2000000000" value="2000000000" id="si6"/>
-          <af:selectItem label="3000000000" value="3000000000" id="si3"/>
-          <af:selectItem label="4000000000" value="4000000000" id="si4"/>
-          <af:selectItem label="5000000000" value="5000000000" id="si1"/>
-          <af:selectItem label="6000000000" value="6000000000" id="si7"/>
-          <af:selectItem label="7000000000" value="7000000000" id="si8"/>
-          <af:selectItem label="8000000000" value="8000000000" id="si2"/>
+                             binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
+                             value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
+                             <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}" var="listItem">
+                             <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item"/>
+                             </af:forEach>
         </af:selectManyChoice>
           <af:spacer  height="10" id="s24"/>
           <af:spacer  height="10" id="s20"/>
@@ -42,17 +38,24 @@
           <af:outputText value="#{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
              <af:outputText value=":" id="coll3"/>
               <af:spacer width="15" height="10" id="s19"/>
-           <af:inputText  id="it7"
+           <af:inputText  id="it7"  autoSubmit="true"
                  binding="#{pageFlowScope.DriverInfoBean.bindings.driverName}"
                  value="#{pageFlowScope.DriverInfoBean.driverN}"/>
         </h:panelGrid>
          <af:spacer width="12" height="10" id="s15"/>
        <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left:185px;">
-   <af:commandButton text="#{sfr.SEARCH}" id="cb1"
-                          actionListener="#{pageFlowScope.DriverInfoBean.searchAction}">
-                           
+        <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                          actionListener="#{pageFlowScope.DriverInfoBean.searchAction}"
+                          partialTriggers="it7">
         </af:commandButton>                  
         <af:spacer width="12" height="10" id="s2"/>
+        <af:commandButton actionListener="#{bindings.CreateInsert.execute}" id="cb3"
+                          text="#{sfr.ADD}"
+                          action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}" 
+                          styleClass="buttonback buttontext">
+         <af:showPopupBehavior triggerType="click" popupId="new_driver"/>                 
+         </af:commandButton>                 
+        <af:spacer width="12" height="10" id="s23"/>
             <af:commandButton text="#{sfr.CANCEL}" id="cb2"
                        actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}">
                        </af:commandButton> 
@@ -68,13 +71,7 @@
       <af:panelGroupLayout id="pgl5" layout="horizontal">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"
                      styleClass="subheading"/>
-        <af:spacer width="630" height="10" id="s16"/>
-        <af:commandButton actionListener="#{bindings.CreateInsert.execute}" id="cb3"
-                          text="#{sfr.ADD}"
-                          action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}" styleClass="buttonback buttontext">
-         <af:showPopupBehavior triggerType="click" popupId="new_driver"/>                 
-         </af:commandButton>                 
-        <af:spacer width="10" height="10" id="s23"/>
+        <af:spacer width="929" height="10" id="s16"/>
         <af:commandButton text="#{sfr.DELETE}" id="cb4"
                           action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
@@ -127,25 +124,7 @@
                              width="120">
                     <af:outputText value="#{row.mobileNumber}" id="ot8"/>
                   </af:column>
-                  <!-- <af:column sortable="false" headerText="Passport Number" id="c6">
-                    <af:outputText value="#{row.passportNumber}" id="ot9"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="Passport Expiry" id="c7">
-                    <af:outputText value="#{row.passportExpiry}" id="ot10"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="License Number" id="c8">
-                    <af:outputText value="#{row.licenseNumber}" id="ot11"/>
-                  </af:column>
-                    <af:column sortable="false" headerText="License Expiry" id="c9">
-                    <af:outputText value="#{row.licenseExpiry}" id="ot12"/>
-                  </af:column>
-                   <af:column sortable="false" headerText="Employ Start" id="c10">
-                    <af:outputText value="#{row.employStart}" id="ot13"/>
-                  </af:column>
-                    <af:column sortable="false" headerText="Employ End" id="c11">
-                    <af:outputText value="#{row.employEnd}" id="ot14"/>
-                  </af:column>-->
-                    <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12">
+                  <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12">
                     <af:outputText value="#{row.remarks}" id="ot15"/>
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}" id="c14"
@@ -200,14 +179,22 @@
                <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Acctid"/>
           <af:outputText value=":" id="colonpop"/>
           <af:spacer width="15" height="10" id="s1856"/>
-                <af:inputText value="#{bindings.AccountId.inputValue}" 
+                <!--<af:inputText value="#{bindings.AccountId.inputValue}" 
                             columns="#{bindings.AccountId.hints.displayWidth}"
                             maximumLength="#{bindings.AccountId.hints.precision}"
                             shortDesc="#{bindings.AccountId.hints.tooltip}"
                             id="acc"
                                contentStyle="width:158px;height:16.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.AccountId.validator}"/>
-              </af:inputText>
+              </af:inputText>-->
+              <af:selectOneChoice value="#{bindings.AccountId.inputValue}"                                    
+                                    shortDesc="#{bindings.AccountId.hints.tooltip}"
+                                    id="soc1" autoSubmit="true"
+                                    contentStyle="width:166px;height:18.0px;padding-top: 4px"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}">
+                  <f:selectItems value="#{bindings.AccountId.items}"
+                                 id="si1"/>
+                </af:selectOneChoice>
                 <af:spacer width="25" height="10" id="colnSpace"/>
                <af:outputText value="*#{sfr.CARD_NUMBER}" id="Acctid1"/>
           <af:outputText value=":" id="colonpop1"/>
@@ -393,14 +380,22 @@
                     <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Driv1"/>
           <af:outputText value=":" id="Driv2"/>
           <af:spacer width="15" height="10" id="Driv3"/>
-           <af:inputText value="#{bindings.AccountId.inputValue}"
+           <!--<af:inputText value="#{bindings.AccountId.inputValue}"
                               columns="#{bindings.AccountId.hints.displayWidth}"
                               maximumLength="#{bindings.AccountId.hints.precision}"
                               shortDesc="#{bindings.AccountId.hints.tooltip}"
                               id="it11"
                               contentStyle="width:158px;height:16.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.AccountId.validator}"/>
-                </af:inputText>
+                </af:inputText>-->
+                <af:selectOneChoice value="#{bindings.AccountId.inputValue}"  autoSubmit="true"                                 
+                                    shortDesc="#{bindings.AccountId.hints.tooltip}"
+                                    id="soc2"
+                                    contentStyle="width:166px;height:18.0px;padding-top: 4px"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}">
+                  <f:selectItems value="#{bindings.AccountId.items}"
+                                 id="si2"/>
+                </af:selectOneChoice>
                     <af:spacer width="25" height="10" id="DrivSpac"/>
                   <af:outputText value="*#{sfr.CARD_NUMBER}" id="Driv12"/>
           <af:outputText value=":" id="Driv22"/>

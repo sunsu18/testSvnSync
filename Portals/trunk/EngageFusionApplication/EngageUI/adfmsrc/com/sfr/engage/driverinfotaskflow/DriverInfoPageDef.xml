@@ -11,14 +11,23 @@
     <iterator id="PrtDriverInformationVO1Iterator"
               Binds="PrtDriverInformationVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="-1"/>
   </executables>
   <bindings>
-    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
-                     id="AccountId">
+  <list IterBinding="PrtDriverInformationVO2Iterator" id="AccountId"
+          DTSupportsMRU="true" StaticList="false"
+          ListIter="PrtAccountRVO1Iterator">
       <AttrNames>
         <Item Value="AccountId"/>
       </AttrNames>
-    </attributeValues>
+      <ListAttrNames>
+        <Item Value="AccountId"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="AccountId"/>
+      </ListDisplayAttrNames>
+    </list>
     <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
                      id="CardNumber">
       <AttrNames>

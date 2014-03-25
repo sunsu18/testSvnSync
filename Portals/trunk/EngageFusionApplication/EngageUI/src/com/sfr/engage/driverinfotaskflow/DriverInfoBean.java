@@ -3,6 +3,7 @@ package com.sfr.engage.driverinfotaskflow;
 import com.sfr.engage.core.Account;
 
 import com.sfr.engage.core.DriverInfo;
+import com.sfr.engage.model.queries.rvo.PrtAccountRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.utility.util.ADFUtils;
@@ -21,7 +22,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
+import javax.faces.model.SelectItem;
+
 import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
@@ -47,6 +51,10 @@ public class DriverInfoBean implements Serializable {
     ResourceBundle resourceBundle;
     private String driverN;
     private String accountsList;
+    private ArrayList<SelectItem> linkedAccountList = null;
+    private String addAccountIdVal = null;
+    private String editAccountIdVal = null;
+    private List<String> linkedAccountLOVValues;
     private String displayAccountNumber;
         
         
@@ -63,6 +71,35 @@ public class DriverInfoBean implements Serializable {
         public DriverInfoBean() {
             super();
             resourceBundle = new EngageResourceBundle();
+            linkedAccountLOVValues = new ArrayList<String>();
+                    ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+                    vo.setNamedWhereClauseParam("countryCode", "en_US");
+                    vo.executeQuery();
+                    while (vo.hasNext()) {
+                        PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+                        if (currRow.getAccountId() != null) {
+                            linkedAccountLOVValues.add(currRow.getAccountId());
+                        }
+                    }
+        }
+        
+    public ArrayList<SelectItem> getLinkedAccountList() {
+            if (linkedAccountList == null) {
+                ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+                vo.setNamedWhereClauseParam("countryCode", "en_US");
+                vo.executeQuery();
+                linkedAccountList = new ArrayList<SelectItem>();
+                while (vo.hasNext()) {
+                    PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+                    if (currRow.getAccountId() != null) {
+                        SelectItem selectItem = new SelectItem();
+                        selectItem.setLabel(currRow.getAccountId());
+                        selectItem.setValue(currRow.getAccountId());
+                        linkedAccountList.add(selectItem);
+                    }
+                }
+            }
+            return linkedAccountList;
         }
 
     /**
@@ -84,112 +121,74 @@ public class DriverInfoBean implements Serializable {
      * @param actionEvent
      */
     public void searchAction(ActionEvent actionEvent) {
-            searchResults();  
+            searchResults(true);  
         }
     
     /**
      * This method is reusable for different scenario's in DriverInfo Page to show searchResults.
      */
-        public void searchResults() {
+        public void searchResults(boolean value) {
         try{
-            if(getBindings().getLinkedAccount().getValue()!=null)
-            {
-            int count = 0;
-            String[] values;
-            System.out.println("Selected Valued==" + getBindings().getLinkedAccount().getValue());
-            String selectedValues = getBindings().getLinkedAccount().getValue().toString().trim();
-            String passingValues =
-                selectedValues.substring(1, selectedValues.length() - 1);
-            System.out.println("PassedValues==" + passingValues);
-            if (passingValues.contains(",")) {
-                values = passingValues.split(",");
-                System.out.println("Count==" + values.length);
-                count = values.length;
-
-            } else {
-                count = 1;
-                values = new String[1];
-                values[0] = passingValues;
-                System.out.println("Length==1");
-            }
-            myAccount = new ArrayList<Account>();
-            for (int i = 0; i < count; i++) {
-                Account acc = new Account();
-                acc.setAccountNumber(values[i]);
-                List<DriverInfo> myDriverList = new ArrayList<DriverInfo>();            
-                ViewObject vo =
-                    ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");           
-                vo.setWhereClause("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')");
-                System.out.println("values of i"+values[i]);
-                vo.defineNamedWhereClauseParam("accountId", values[i].trim(), null);
-                if(getBindings().getDriverName().getValue() != null){
-                    vo.defineNamedWhereClauseParam("driverName",  getBindings().getDriverName().getValue().toString(), null);
-                }
-                else{
-                    vo.defineNamedWhereClauseParam("driverName",  null , null);
+            if (value == true) {
+                if(getBindings().getLinkedAccount().getValue()!=null)
+                {
+                    searchResultsExecution();
+                }else{
+                    if (resourceBundle.containsKey("DRIVER_LINKED_ACCOUNT")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                             (String)resourceBundle.getObject("DRIVER_LINKED_ACCOUNT"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
-                vo.executeQuery();
-                if (vo.getEstimatedRowCount() != 0) {
-                    System.out.println("RowCount"+values[i]);
-                    for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
-                        while (vo.hasNext()) {
-                            PrtDriverInformationVORowImpl currRow =
-                                (PrtDriverInformationVORowImpl)vo.next();
-                            if (currRow != null) {
-                                DriverInfo driver = new DriverInfo();
-                                if(currRow.getPrtDriverInformationPk() != null){
-                                driver.setPrtDriverInformationPK(currRow.getPrtDriverInformationPk().toString());
-                                }
-                                driver.setAccountId(currRow.getAccountId());
-                                driver.setCardNumber(currRow.getCardNumber());
-                                driver.setDriverName(currRow.getDriverName());
-                                driver.setDriverNumber(currRow.getDriverNumber());
-                                driver.setNationality(currRow.getNationality());
-                                if(currRow.getMobileNumber()!= null){
-                                driver.setMobileNumber(Integer.parseInt(currRow.getMobileNumber().toString()));
-                                }
-                                driver.setRemarks(currRow.getRemarks());                            
-                                driver.setPassportNumber(currRow.getPassportNumber());
-                                if(currRow.getPassportExpiry()!= null){
-                                driver.setPassportExpiry(currRow.getPassportExpiry().getValue());
-                                }
-                                driver.setLicenseNumber(currRow.getLicenseNumber());
-                                if(currRow.getLicenseExpiry()!= null){
-                                driver.setLicenseExpiry(currRow.getLicenseExpiry().getValue());
-                                }
-                                if(currRow.getEmployStart()!= null){
-                                driver.setEmployStart(currRow.getEmployStart().getValue());
-                                }
-                                if(currRow.getEmployEnd()!= null){
-                                driver.setEmployEnd(currRow.getEmployEnd().getValue());
-                                }
-                                driver.setCountryCd(currRow.getRemarks());
-                                myDriverList.add(driver);
+                }
+            }else{
+                    if(getBindings().getLinkedAccount().getValue()!=null && addAccountIdVal != null)
+                    {
+                        linkedAccountLOVValues.add(addAccountIdVal);
+                    }else{
+                        if (getBindings().getLinkedAccount().getValue() != null) {
+                        
+                        System.out.println("Selected Valued==" + getBindings().getLinkedAccount().getValue());
+                        String searchValues = getBindings().getLinkedAccount().getValue().toString().trim();
+                        String[] search = StringConversion(searchValues);
+                        System.out.println("PassedValues==" + search.length);
+                        
+                        if (addAccountIdVal != null) {
+                            int count = 0;
+                            for (int i = 0; i < search.length; i++) {
+                            System.out.println("String =" + search[i]);
+                            if ((addAccountIdVal.equalsIgnoreCase(search[i].trim()))) {
+                                System.out.println("ADDInside");
+                                count = 1;
                             }
                         }
-                    }
-
-                }       
-                        if("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
-                            vo.removeNamedWhereClauseParam("accountId");
-                            vo.removeNamedWhereClauseParam("driverName");
-                            vo.setWhereClause("");
-                            vo.executeQuery();
+                        if (count == 0) {
+                            linkedAccountLOVValues.add(addAccountIdVal);
                         }
-                acc.setDriverInfoList(myDriverList);
-                myAccount.add(acc);
+        
+                    } 
+                    
+                        if (editAccountIdVal != null) {
+                            int count = 0;
+                            for (int i = 0; i < search.length; i++) {
+                                System.out.println("String =" + search[i]);
+                                if ((editAccountIdVal.equalsIgnoreCase(search[i].trim()))) {
+                                    System.out.println("EditInside");
+                                    count = 1;                                    
+                                }
+                            }
+                            if (count ==0) {
+                                linkedAccountLOVValues.add(editAccountIdVal);
+                            }
+                        }
+                        }
+                    }
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+                        addAccountIdVal = null;
+                        editAccountIdVal = null;
+                        searchResultsExecution();
             }
-            searchResultsShow = true;
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-            }else {
-                        if (resourceBundle.containsKey("DRIVER_LINKED_ACCOUNT")) {
-                            FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                 (String)resourceBundle.getObject("DRIVER_LINKED_ACCOUNT"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-                    }
         }catch(JboException ex){
             FacesMessage msg =
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),"");
@@ -200,7 +199,107 @@ public class DriverInfoBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         }
+    
+            public String[] StringConversion(String passedVal) {
+                List<String> container;
+                String tempString = passedVal.substring(1, passedVal.length() - 1);
+                String[] val = tempString.split(",");
+                return val;
+            }
+               
+            public void searchResultsExecution() {  
+                        System.out.println("searchResultsExecution");
+                        int count = 0;
+                        String[] values;
+                        System.out.println("Selected Valued==" +
+                                           getBindings().getLinkedAccount().getValue());
+                        String selectedValues =
+                            getBindings().getLinkedAccount().getValue().toString().trim();
+                        String passingValues =
+                            selectedValues.substring(1, selectedValues.length() - 1);
+                        System.out.println("PassedValues==" + passingValues);
+                        if (passingValues.contains(",")) {
+                            values = passingValues.split(",");
+                            System.out.println("Count==" + values.length);
+                            count = values.length;
 
+                        } else {
+                            count = 1;
+                            values = new String[1];
+                            values[0] = passingValues;
+                            System.out.println("Length==1");
+                        }
+                    myAccount = new ArrayList<Account>();
+                    for (int i = 0; i < count; i++) {
+                        Account acc = new Account();
+                        acc.setAccountNumber(values[i]);
+                        List<DriverInfo> myDriverList = new ArrayList<DriverInfo>();            
+                        ViewObject vo =
+                            ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");           
+                        vo.setWhereClause("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')");
+                        System.out.println("values of i"+values[i]);
+                        vo.defineNamedWhereClauseParam("accountId", values[i].trim(), null);
+                        if(getBindings().getDriverName().getValue() != null){
+                            vo.defineNamedWhereClauseParam("driverName",  getBindings().getDriverName().getValue().toString(), null);
+                        }
+                        else{
+                            vo.defineNamedWhereClauseParam("driverName",  null , null);
+                            }
+                        vo.executeQuery();
+                        if (vo.getEstimatedRowCount() != 0) {
+                            System.out.println("RowCount"+values[i]);
+                            for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
+                                while (vo.hasNext()) {
+                                    PrtDriverInformationVORowImpl currRow =
+                                        (PrtDriverInformationVORowImpl)vo.next();
+                                    if (currRow != null) {
+                                        DriverInfo driver = new DriverInfo();
+                                        if(currRow.getPrtDriverInformationPk() != null){
+                                        driver.setPrtDriverInformationPK(currRow.getPrtDriverInformationPk().toString());
+                                        }
+                                        driver.setAccountId(currRow.getAccountId());
+                                        driver.setCardNumber(currRow.getCardNumber());
+                                        driver.setDriverName(currRow.getDriverName());
+                                        driver.setDriverNumber(currRow.getDriverNumber());
+                                        driver.setNationality(currRow.getNationality());
+                                        if(currRow.getMobileNumber()!= null){
+                                        driver.setMobileNumber(Integer.parseInt(currRow.getMobileNumber().toString()));
+                                        }
+                                        driver.setRemarks(currRow.getRemarks());                            
+                                        driver.setPassportNumber(currRow.getPassportNumber());
+                                        if(currRow.getPassportExpiry()!= null){
+                                        driver.setPassportExpiry(currRow.getPassportExpiry().getValue());
+                                        }
+                                        driver.setLicenseNumber(currRow.getLicenseNumber());
+                                        if(currRow.getLicenseExpiry()!= null){
+                                        driver.setLicenseExpiry(currRow.getLicenseExpiry().getValue());
+                                        }
+                                        if(currRow.getEmployStart()!= null){
+                                        driver.setEmployStart(currRow.getEmployStart().getValue());
+                                        }
+                                        if(currRow.getEmployEnd()!= null){
+                                        driver.setEmployEnd(currRow.getEmployEnd().getValue());
+                                        }
+                                        driver.setCountryCd(currRow.getRemarks());
+                                        myDriverList.add(driver);
+                                    }
+                                }
+                            }
+        
+                        }       
+                                if("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                                    vo.removeNamedWhereClauseParam("accountId");
+                                    vo.removeNamedWhereClauseParam("driverName");
+                                    vo.setWhereClause("");
+                                    vo.executeQuery();
+                                }
+                        acc.setDriverInfoList(myDriverList);
+                        myAccount.add(acc);
+                    }
+                    searchResultsShow = true;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                    }
+        
     /**
      * @param searchResultsShow
      */
@@ -229,7 +328,11 @@ public class DriverInfoBean implements Serializable {
     public String newDriverSave() {
             // Add event code here...
             getBindings().getNewDriver().hide();
-            searchResults();
+            if (addAccountIdVal != null) {
+                System.out.println("save =" + addAccountIdVal);
+
+            }
+            searchResults(false);
             if (resourceBundle.containsKey("DRIVER_ADD")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_ADD"),
@@ -262,7 +365,11 @@ public class DriverInfoBean implements Serializable {
      */
     public String editDriverSave() {        
             getBindings().getEditDriver().hide();
-            searchResults();
+            if (editAccountIdVal != null) {
+                System.out.println("save =" + editAccountIdVal);
+
+            }
+            searchResults(false);
             if (resourceBundle.containsKey("DRIVER_EDIT")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_EDIT"),"");
@@ -373,7 +480,7 @@ public class DriverInfoBean implements Serializable {
             if (operationBinding.getErrors().isEmpty()) {
                 getBindings().getDeleteDriver().hide();
                 driverMap=new HashMap<String,String>();
-                searchResults();
+                searchResults(false);
                 if (resourceBundle.containsKey("DRIVER_DELETE_SUCCESS")) {
                     FacesMessage msg =
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -414,19 +521,18 @@ public class DriverInfoBean implements Serializable {
                 operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
                 operationBinding.getParamsMap().put("type", "driver");
                 operationBinding.getParamsMap().put("countryCd", "en_US");
-                if(getBindings().getDriverName().getValue().toString() != null){
+                if(getBindings().getDriverName().getValue() != null){
                 System.out.println("Inside driver bean this block===================");
                     System.out.println("value of driver name in this block==================="+getBindings().getDriverName().getValue().toString());
                     operationBinding.getParamsMap().put("regDriverValue", getBindings().getDriverName().getValue().toString());
                 }else{
-                    System.out.println("value of driver name in else block==================="+getBindings().getDriverName().getValue().toString());
                     System.out.println("Inside driver bean else block===================");
                     operationBinding.getParamsMap().put("regDriverValue", null);
                 }
                 Object result = operationBinding.execute();
                 if (operationBinding.getErrors().isEmpty()) {
                     getBindings().getDeleteAllInfoDriver().hide();
-                    searchResults();
+                    searchResults(true);
                 }else{
                     
                 }
@@ -499,7 +605,63 @@ public class DriverInfoBean implements Serializable {
         }
         
     }
+    
+    public void AddAccountNumberListener(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        if (valueChangeEvent.getNewValue() != null) {
+            BindingContainer bindings =
+                BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding itr =
+                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+            Row row =
+                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+            if (row != null) {
 
+                addAccountIdVal = (String)row.getAttribute("AccountId");
+            }
+            System.out.println("addAccountNumber =" + addAccountIdVal);
+        }
+    }
+    
+    public void setAddAccountIDVal(String addAccountIdVal) {
+        this.addAccountIdVal = addAccountIdVal;
+    }
+
+    public String getAddAccountIdVal() {
+        return addAccountIdVal;
+    }
+
+    public void setEditAccountIdVal(String editAccountIdVal) {
+        this.editAccountIdVal = editAccountIdVal;
+    }
+
+    public String getEditAccountIdVal() {
+        return editAccountIdVal;
+    }
+
+    public void setLinkedAccountLOVValues(List<String> linkedAccountLOVValues) {
+        this.linkedAccountLOVValues = linkedAccountLOVValues;
+    }
+
+    public List<String> getLinkedAccountLOVValues() {
+        return linkedAccountLOVValues;
+    }
+
+    public void editAccountNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if (valueChangeEvent.getNewValue() != null) {
+            BindingContainer bindings =
+                BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding itr =
+                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+            Row row =
+                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+            if (row != null) {
+                editAccountIdVal = (String)row.getAttribute("AccountId");
+            }
+            System.out.println("editAccountNumber =" + editAccountIdVal);
+        }
+
+    }
     
 
     /**
@@ -552,6 +714,7 @@ public class DriverInfoBean implements Serializable {
         private RichPopup deleteDriver;
         private RichInputText driverName;
         private RichPopup deleteAllInfoDriver;
+        private RichPanelGroupLayout searchPanelGroupLayout;
         
         /**
          * @param linkedAccount
@@ -643,6 +806,14 @@ public class DriverInfoBean implements Serializable {
 
         public RichPopup getDeleteAllInfoDriver() {
             return deleteAllInfoDriver;
+        }
+
+        public void setSearchPanelGroupLayout(RichPanelGroupLayout searchPanelGroupLayout) {
+            this.searchPanelGroupLayout = searchPanelGroupLayout;
+        }
+
+        public RichPanelGroupLayout getSearchPanelGroupLayout() {
+            return searchPanelGroupLayout;
         }
     }
 }
