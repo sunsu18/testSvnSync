@@ -146,7 +146,7 @@
     <af:popup id="new_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="700"
+      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="710"
                  closeIconVisible="false">
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
@@ -157,7 +157,7 @@
             <af:toolbar id="new_driver_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="horizontal">
-              <af:spacer width="575" height="10" id="s5"/>               
+              <af:spacer width="500" height="10" id="s5"/>               
                 <af:commandButton text="#{sfr.SAVE}" id="save"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverSave}" styleClass="buttonback buttontext"/>
@@ -190,7 +190,7 @@
               <af:selectOneChoice value="#{bindings.AccountId.inputValue}"                                    
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="acc" autoSubmit="true"
-                                    
+                                    contentStyle="width:162px;height:16.0px"
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si1"/>
@@ -348,7 +348,7 @@
               binding="#{pageFlowScope.DriverInfoBean.bindings.editDriver}"
               autoCancel="disabled">
       <af:dialog id="editDriver" title="#{sfr.EDIT_DRIVER}" type="none"
-                 contentWidth="700"
+                 contentWidth="710"
                 closeIconVisible="false">
                   <af:separator id="s28"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
@@ -359,7 +359,7 @@
             <af:toolbar id="edit_driver_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
-              <af:spacer width="575" height="10" id="ss5"/>               
+              <af:spacer width="500" height="10" id="ss5"/>               
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
@@ -391,7 +391,7 @@
                 <af:selectOneChoice value="#{bindings.AccountId.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="soc2"
-                                    
+                                    contentStyle="width:162px;height:16.0px"
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si2"/>
@@ -497,6 +497,7 @@
                               columns="#{bindings.LicenseNumber.hints.displayWidth}"
                               maximumLength="#{bindings.LicenseNumber.hints.precision}"
                               shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
+                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                               id="it10">
                   <f:validator binding="#{bindings.LicenseNumber.validator}"/>
                 </af:inputText>
