@@ -4,9 +4,11 @@ package com.sfr.engage.model.module;
 import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtAccountRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
+import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
@@ -174,5 +176,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtPcmFeedsRVO1() {
         return (ViewObjectImpl)findViewObject("PrtPcmFeedsRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCustomerCardMapRVO1_1.
+     * @return PrtCustomerCardMapRVO1_1
+     */
+    public PrtCustomerCardMapRVO1Impl getPrtCustomerCardMapRVO1_1() {
+        return (PrtCustomerCardMapRVO1Impl)findViewObject("PrtCustomerCardMapRVO1_1");
     }
 }

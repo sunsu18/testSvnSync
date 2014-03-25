@@ -53,6 +53,28 @@
   <ViewUsage
     Name="PrtPcmFeedsRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"/>
+  <ViewUsage
+    Name="PrtCustomerCardMapRVO1_1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1"/>
+  <ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
