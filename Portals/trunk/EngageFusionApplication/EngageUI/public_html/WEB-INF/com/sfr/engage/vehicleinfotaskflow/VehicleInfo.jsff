@@ -79,7 +79,7 @@
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl4">
         <af:spacer width="10" height="20" id="s6"/>
-        <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccount}"
+        <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccountList}"
                     var="var">
           <!-- <c:if test="${not empty var.vehicleInfoList}">-->
           <af:panelGroupLayout id="pgl5" layout="horizontal">
@@ -144,13 +144,19 @@
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
                          id="c14" width="120" align="center">
-                <af:commandButton id="cb4"
+                     <af:commandImageLink id="cil1"
+                                     action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
+                                     icon="/images/edit.png">
+                <af:setPropertyListener from="#{row.prtTruckInformationPK}" type="action"
+                                        to="#{pageFlowScope.primarykey}"/>
+                </af:commandImageLink>
+                <!--<af:commandButton id="cb4"
                                   action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
                   <af:setPropertyListener from="#{row.prtTruckInformationPK}"
                                           type="action"
                                           to="#{pageFlowScope.primarykey}"/>
-                </af:commandButton>
+                </af:commandButton>-->
               </af:column>
             </af:table>
             <af:spacer width="10" height="30" id="s12"/>

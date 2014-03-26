@@ -60,6 +60,7 @@ public class VehicleInfoBean implements Serializable {
     private String editAccountNumberVal = null;
     private List<String> linkedAccountLOVValues;
     private String displayAccountNumber;
+    private List<Account> myAccountList;
 
 
     /**
@@ -305,8 +306,41 @@ public class VehicleInfoBean implements Serializable {
             acc.setVehicleInfoList(myVehicleList);
             myAccount.add(acc);
         }
-        searchResultsShow = true;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            myAccountList = new ArrayList<Account>();
+            if (myAccount.size() > 0) {
+                if(getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length()>0){
+                System.out.println("Inside if block of new account list++++++++++++++++++++++++++++++");
+                    for (int k = 0; k < myAccount.size(); k++) {
+                        if (myAccount.get(k).getVehicleInfoList().size() > 0) {
+                            System.out.println("Inside if block of driver info list");
+                         myAccountList.add(myAccount.get(k));
+                        }
+                    }
+                }else{
+                    System.out.println("Inside else block of new account list++++++++++++++++++++++++++");
+                    for(int m = 0; m < myAccount.size(); m++) {
+                        myAccountList.add(myAccount.get(m));
+                    }
+                }
+            }
+
+            if (myAccountList.size() > 0) {
+                System.out.println("Inside if block of the show condition of panel +++++++++++++++++++++");
+                searchResultsShow = true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            }else{
+                System.out.println("Inside else block of the show condition of panel +++++++++++++++++++++");
+                if (resourceBundle.containsKey("NO_RECORDS_FOUND_VEHICLE")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                         (String)resourceBundle.getObject("NO_RECORDS_FOUND_VEHICLE"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+                searchResultsShow = false;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            }
+       
     }
 
     /**
@@ -706,6 +740,14 @@ public class VehicleInfoBean implements Serializable {
 
     public String getDisplayAccountNumber() {
         return displayAccountNumber;
+    }
+
+    public void setMyAccountList(List<Account> myAccountList) {
+        this.myAccountList = myAccountList;
+    }
+
+    public List<Account> getMyAccountList() {
+        return myAccountList;
     }
 
 
