@@ -48,8 +48,10 @@
 }
 .FAQInfo{
     color: #524e4f !important;
-    font-size: 16px !important;
+     
+    font-size: 14px;
     font-family: Lucida Sans,Georgia,Serif !important;
+    line-height: 1.4;
 }
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{

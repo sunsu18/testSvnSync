@@ -22,8 +22,9 @@
 
 .FAQInfo{
     color: #524e4f;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Lucida Sans,Georgia,Serif !important;
+    line-height: 1.4;
 }
 
 .af_showDetailItem{
