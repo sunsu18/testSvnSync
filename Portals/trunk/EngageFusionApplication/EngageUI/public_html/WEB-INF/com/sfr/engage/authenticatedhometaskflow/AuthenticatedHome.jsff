@@ -4,22 +4,23 @@
   <af:panelGroupLayout id="pgl2" >
     <af:panelGroupLayout id="pgl7" layout="vertical" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoPanel}"
                          visible="#{pageFlowScope.AuthenticatedHomeBean.infoPanelVisible}">
-    <af:panelGroupLayout id="pgl0">
+    <af:panelGroupLayout id="pgl0" layout="vertical">
+     <af:spacer width="10" height="10" id="s1"/>
    <af:outputText value="Information from Statoil" id="ot2"
                  styleClass="heading1"/>
                  
-  <af:spacer width="10" height="10" id="s1"/>
+  <af:spacer width="10" height="10" id="s8"/>
 </af:panelGroupLayout>
   <af:panelGroupLayout id="pgl1"
-                       inlineStyle="width:962px; height:70.0px;"
+                       inlineStyle="width:962.0px; height:70px;"
                        layout="vertical"
                        styleClass="panelbackground box-shadow info">
     <af:spacer width="10" height="10" id="s2"/>
-   
-    <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"                 
-                   styleClass="contenttext"
+        <af:panelGroupLayout id="pgl8" layout="scroll">
+        <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"                 
+                   styleClass="contenttext contentpadding"
                    binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>
-               
+            </af:panelGroupLayout>   
     <!--<af:panelGroupLayout id="pgl2"
                          inlineStyle="height:50px; width:50px; text-align:right;"
                          styleClass="info">
@@ -34,15 +35,25 @@
     
     <af:panelGroupLayout id="pgl3" layout="vertical"
                        inlineStyle="height:314px; width:200px;"
-                       styleClass="box-shadow">
+                       styleClass="box-shadow panelbackground">
+                       <af:spacer width="7" height="5" id="s6"/>
     <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
                     var="var">
+                    
     <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top">
+     <af:spacer width="7" height="20" id="s9"/>
       <af:panelGroupLayout id="pgl5"
                            layout="horizontal" styleClass="message_bell"
                           />
-      <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"/>
-    </af:panelGroupLayout>
+                          <af:spacer width="7" height="30" id="s5"/>
+          <af:panelGroupLayout id="pgl9"
+                               inlineStyle="width:200px; height:100.0px;">
+          <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"
+                    />
+                       <af:spacer width="7" height="30" id="s7"/>
+                     </af:panelGroupLayout>
+        
+        </af:panelGroupLayout>
     </af:forEach>
   </af:panelGroupLayout>
   
