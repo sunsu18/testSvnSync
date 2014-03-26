@@ -320,6 +320,17 @@ public class DriverInfoBean implements Serializable {
                         System.out.println("Inside if block of the show condition of panel +++++++++++++++++++++");
                         searchResultsShow = true;
                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                    }else{
+                        System.out.println("Inside else block of the show condition of panel +++++++++++++++++++++");
+                        if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
+                            FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                                 (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"),
+                                                 "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                        searchResultsShow = false;
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
                     }
 
                     // searchResultsShow = true;
