@@ -43,7 +43,7 @@
                  value="#{pageFlowScope.DriverInfoBean.driverN}"/>
         </h:panelGrid>
          <af:spacer width="12" height="10" id="s15"/>
-       <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left:185px;">
+       <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left:145px;">
         <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                           actionListener="#{pageFlowScope.DriverInfoBean.searchAction}"
                           partialTriggers="it7">
@@ -71,7 +71,7 @@
       <af:panelGroupLayout id="pgl5" layout="horizontal">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"
                      styleClass="subheading"/>
-        <af:spacer width="630" height="10" id="s16"/>
+        <af:spacer width="690" height="10" id="s16"/>
         <af:commandButton text="#{sfr.DELETE}" id="cb4"
                           action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}" styleClass="buttonback buttontext"/>
       </af:panelGroupLayout>
