@@ -44,7 +44,7 @@
                         value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"/>
         </h:panelGrid>
         <af:spacer width="12" height="10" id="s24"/>
-        <af:panelGroupLayout id="pgal1" inlineStyle="margin-left:195px;">
+        <af:panelGroupLayout id="pgal1" inlineStyle="margin-left:145px;">
           <af:commandButton text="#{sfr.SEARCH}" id="cb1" 
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}"
                             partialTriggers="it7"></af:commandButton>
@@ -71,7 +71,7 @@
       <af:panelGroupLayout id="pgl0" layout="horizontal">
         <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot8"
                        styleClass="subheading"/>
-        <af:spacer width="929" height="10" id="s7"/>        
+        <af:spacer width="690" height="10" id="s7"/>        
         <af:spacer width="10" height="10" id="s15"/>
         <af:commandButton text="#{sfr.DELETE}" id="cb6"
                           action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}"
