@@ -17,10 +17,17 @@
     font-size: 13px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:normal;
+    padding-left: 40px;
+}
+
+.FAQInfo{
+    color: #524e4f;
+    font-size: 16px;
+    font-family: Lucida Sans,Georgia,Serif !important;
 }
 
 .af_showDetailItem{
-    border-bottom: 1px dotted #979991;
+    /*border-bottom: 1px dotted #979991;*/
 }
 
 .af_panelAccordion_header.p_AFDisclosed,
@@ -28,11 +35,15 @@
     border:none;
    
 }
-
+.af_panelAccordion_header.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFFlow{
+        padding-bottom:10px;   
+   
+}
 .af_panelAccordion_header-subsequent{
     border:none !important;
     color: #524e4f;
-    font-size: 13px;
+    font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
 }
@@ -51,7 +62,7 @@
 
 .af_panelAccordion_header {
     color: #524e4f;
-    font-size: 13px;
+    font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
     border:none;

@@ -17,10 +17,11 @@
     font-size: 13px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:normal;
+    padding-left: 40px;
 }
 
 .af_showDetailItem{
-    border-bottom: 1px dotted #979991;
+    /*border-bottom: 1px dotted #979991;*/
 }
 
 .af_panelAccordion_header.p_AFDisclosed,
@@ -32,7 +33,7 @@
 .af_panelAccordion_header-subsequent{
     border:none !important;
     color: #524e4f;
-    font-size: 13px;
+    font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
 }
@@ -41,8 +42,19 @@
     width:700px !important;
     background:transparent;
 }
+
 .af_panelAccordion_header .af_panelAccordion_header-start{
     padding-left:2px;
+}
+.FAQInfo{
+    color: #524e4f !important;
+    font-size: 16px !important;
+    font-family: Lucida Sans,Georgia,Serif !important;
+}
+.af_panelAccordion_header.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFFlow{
+    padding-bottom:10px;   
+   
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
@@ -51,7 +63,7 @@
 
 .af_panelAccordion_header {
     color: #524e4f;
-    font-size: 13px;
+    font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
     border:none;
@@ -69,6 +81,12 @@
     padding-bottom: 2px;
     border-bottom: 2px;
     background-color: transparent !important;
+}
+.af_panelAccordion_header-title{
+    color: #524e4f;
+    font-size: 15px;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:bold;
 }
 
 .af_panelAccordion_header-subsequent.p_AFDisclosed .af_panelAccordion_header-title,
@@ -549,7 +567,7 @@ background-color: rgb(240,240,240) !important;
 height: 25px;
 border-bottom: 0px solid #FFFFFF !important;
 border-right: 1px solid #FFFFFF !important;
-
+/*padding-left:2px !important;*/
 }
 
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
@@ -561,7 +579,8 @@ border-right: 1px solid #FFFFFF !important;
     height: 25px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
-    
+    /*padding-left:10px !important;*/
+    margin-left:10px !important;
 }
 
 

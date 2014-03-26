@@ -4,38 +4,27 @@
 <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
 
   <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
-    <af:spacer width="10" height="20" id="s9"/>
-    <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
-      <af:outputText value="FAQ" id="outputText1"
-                     styleClass="heading"/>
-      <af:spacer width="20" height="1" id="spacer1"/>
-      
+   <af:spacer width="10" height="20" id="s9"/>
+    <af:panelGroupLayout id="printPanel1" layout="horizontal">
+      <af:outputText value="#{sfr.FAQ}" id="ot1" styleClass="heading"/>
     </af:panelGroupLayout>
-    <af:spacer width="5" height="5" id="spacer2"/>
-    <af:panelGroupLayout id="pgl28" valign="middle" halign="start"
-                         layout="horizontal">
-      <af:spacer width="7" height="10" id="spacer3"/>
-    </af:panelGroupLayout>
-    <af:spacer width="10" height="10" id="s11"/>
+    <af:spacer width="5" height="10" id="s31"/>
+    
     <af:panelGroupLayout id="pgl2" layout="horizontal">
-      <af:separator id="s4"
-                    inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
+      <af:separator id="s4" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s6"/>
     <!--<af:spacer width="10" height="20" id="s9"/>-->
-    <af:panelGroupLayout id="printPanel1" layout="horizontal">
-      <af:outputText value="#{sfr.HELP}" id="ot1" styleClass="heading"/>
-      <af:spacer width="20" height="1" id="s1"/>
-     
-     
-     
-     </af:panelGroupLayout>
-    <af:spacer width="5" height="10" id="s31"/>
+    <af:panelGroupLayout id="pgl3">
+      <af:outputText value="#{sfr.FAQ_INFO}" id="ot2"
+                     styleClass="FAQInfo"/>
+    </af:panelGroupLayout>
+    <af:spacer width="5" height="20" id="s3"/>
           <af:panelGroupLayout id="pgl1"
                                binding="#{pageFlowScope.HelpInfoBean.bindings.helpinfopanel}">
           
            <af:panelAccordion id="pa1" discloseNone="true"
-                              dimensionsFrom="auto">
+                              dimensionsFrom="children">
           <af:forEach var="var" items="#{pageFlowScope.HelpInfoBean.helpList}">
             <af:showDetailItem text="#{var.question}" id="sdi1"
                                stretchChildren="none"
