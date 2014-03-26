@@ -37,10 +37,12 @@
       <af:spacer width="10" height="10" id="s4"/>
     </af:panelGroupLayout>
     
-    <af:panelGroupLayout id="pgl3" layout="vertical"
+    <af:panelGroupLayout id="pgl3" layout="scroll"
                        inlineStyle="height:314px; width:200px;"
                        styleClass="box-shadow panelbackground">
-                       <af:spacer width="7" height="5" id="s6"/>
+      
+      <af:spacer width="7" height="5" id="s6"/>
+    
     <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
                     var="var">
                     
@@ -56,10 +58,10 @@
                     inlineStyle="padding-right:5px;"/>
                        <af:spacer width="7" height="30" id="s7"/>
                      </af:panelGroupLayout>
-        
         </af:panelGroupLayout>
+       
     </af:forEach>
+</af:panelGroupLayout>
   </af:panelGroupLayout>
-  
-  </af:panelGroupLayout>
+
 </jsp:root>
