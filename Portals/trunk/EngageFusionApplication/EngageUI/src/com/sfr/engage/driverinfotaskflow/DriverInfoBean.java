@@ -56,6 +56,7 @@ public class DriverInfoBean implements Serializable {
     private String editAccountIdVal = null;
     private List<String> linkedAccountLOVValues;
     private String displayAccountNumber;
+    private List<Account> myAccountDriver;
         
         
     /**
@@ -143,7 +144,7 @@ public class DriverInfoBean implements Serializable {
                     }
                 }
             }else{
-                    if(getBindings().getLinkedAccount().getValue()!=null && addAccountIdVal != null)
+                    if(getBindings().getLinkedAccount().getValue()==null && addAccountIdVal != null)
                     {
                         linkedAccountLOVValues.add(addAccountIdVal);
                     }else{
@@ -296,9 +297,34 @@ public class DriverInfoBean implements Serializable {
                         acc.setDriverInfoList(myDriverList);
                         myAccount.add(acc);
                     }
-                    searchResultsShow = true;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                    
+                    myAccountDriver = new ArrayList<Account>();
+                    if (myAccount.size() > 0) {
+                        if(getBindings().getDriverName().getValue() != null && getBindings().getDriverName().getValue().toString().length()>0){
+                        System.out.println("Inside if block of new account list++++++++++++++++++++++++++++++");
+                            for (int k = 0; k < myAccount.size(); k++) {
+                                if (myAccount.get(k).getDriverInfoList().size() > 0) {
+                                    System.out.println("Inside if block of driver info list");
+                                 myAccountDriver.add(myAccount.get(k));
+                                }
+                            }
+                        }else{
+                            System.out.println("Inside else block of new account list++++++++++++++++++++++++++");
+                            for(int m = 0; m < myAccount.size(); m++) {
+                                myAccountDriver.add(myAccount.get(m));
+                            }
+                        }
                     }
+
+                    if (myAccountDriver.size() > 0) {
+                        System.out.println("Inside if block of the show condition of panel +++++++++++++++++++++");
+                        searchResultsShow = true;
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                    }
+
+                    // searchResultsShow = true;
+                    //AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            }
         
     /**
      * @param searchResultsShow
@@ -704,6 +730,14 @@ public class DriverInfoBean implements Serializable {
      */
     public String getDisplayAccountNumber() {
         return displayAccountNumber;
+    }
+
+    public void setMyAccountDriver(List<Account> myAccountDriver) {
+        this.myAccountDriver = myAccountDriver;
+    }
+
+    public List<Account> getMyAccountDriver() {
+        return myAccountDriver;
     }
 
     public class Bindings{

@@ -77,7 +77,7 @@
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl6">
       <af:spacer width="10" height="20" id="s6"/>
-      <af:forEach items="#{pageFlowScope.DriverInfoBean.myAccount}" var="var">
+      <af:forEach items="#{pageFlowScope.DriverInfoBean.myAccountDriver}" var="var">
       <af:panelGroupLayout id="pgl7" layout="horizontal">
       <af:outputText value="#{sfr.ACCOUNT} : " id="ot2" styleClass="boldtext"/>
         <af:spacer width="10" height="10" id="s31"/>
