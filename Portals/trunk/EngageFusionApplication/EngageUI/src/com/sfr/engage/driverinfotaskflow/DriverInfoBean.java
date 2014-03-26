@@ -479,8 +479,29 @@ public class DriverInfoBean implements Serializable {
        public String deleteAllRecordsAction() {
                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
                { 
-                   displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString();
-                   getBindings().getDeleteAllInfoDriver().show(new RichPopup.PopupHints());
+                   int count = 0;
+                   displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
+                   if(myAccountDriver.size()>0){
+                       for(int i=0 ; i<myAccountDriver.size();i++){
+                           if(myAccountDriver.get(i).getAccountNumber().trim().equals(displayAccountNumber)){
+                               if(myAccountDriver.get(i).getDriverInfoList().size()>0){
+                                   count = 1;
+                               }else{
+                                   count = 0;
+                               }
+                           }
+                       }
+                   }
+                   if(count >0){
+                        getBindings().getDeleteAllInfoDriver().show(new RichPopup.PopupHints());
+                   }else{
+                       if (resourceBundle.containsKey("NO_RECORDS_FOUND_DELETE_ALL")) {
+                           FacesMessage msg =
+                               new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                (String)resourceBundle.getObject("NO_RECORDS_FOUND_DELETE_ALL"),"");
+                           FacesContext.getCurrentInstance().addMessage(null, msg);
+                       }
+                   }
                }
                return null;
            }

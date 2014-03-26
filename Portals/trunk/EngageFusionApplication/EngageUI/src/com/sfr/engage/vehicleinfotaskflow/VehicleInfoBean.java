@@ -696,8 +696,29 @@ public class VehicleInfoBean implements Serializable {
     public String deleteAllRecordsAction() {
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
         { 
-            displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString();
-            getBindings().getDeleteAllInfoVehicle().show(new RichPopup.PopupHints());
+            int count = 0;
+            displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
+            if(myAccountList.size()>0){
+                for(int i=0 ; i<myAccountList.size();i++){
+                    if(myAccountList.get(i).getAccountNumber().trim().equals(displayAccountNumber)){
+                        if(myAccountList.get(i).getVehicleInfoList().size()>0){
+                            count = 1;
+                        }else{
+                            count = 0;
+                        }
+                    }
+                }
+            }
+            if(count >0){
+                getBindings().getDeleteAllInfoVehicle().show(new RichPopup.PopupHints());
+            }else{
+                if (resourceBundle.containsKey("NO_RECORDS_FOUND_DELETE_ALL")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("NO_RECORDS_FOUND_DELETE_ALL"),"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
         }
         return null;
     }
