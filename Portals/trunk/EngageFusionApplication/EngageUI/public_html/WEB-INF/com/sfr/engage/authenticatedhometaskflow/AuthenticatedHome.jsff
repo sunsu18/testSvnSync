@@ -14,9 +14,12 @@
   <af:panelGroupLayout id="pgl1"
                        inlineStyle="width:962.0px; height:70px;"
                        layout="vertical"
-                       styleClass="panelbackground box-shadow info">
-    <af:spacer width="10" height="10" id="s2"/>
-        <af:panelGroupLayout id="pgl8" layout="scroll">
+                      >
+        <af:panelGroupLayout id="pgl10" layout="scroll" inlineStyle="width:940px; height:60.0px;" styleClass="panelbackground box-shadow info">
+        <af:spacer width="10" height="5" id="s2"/>
+        <af:panelGroupLayout id="pgl8"
+                             
+                             >
         <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"                 
                    styleClass="contenttext contentpadding"
                    binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>
@@ -27,7 +30,8 @@
                          </af:panelGroupLayout>-->
   </af:panelGroupLayout>
   </af:panelGroupLayout>
-  <af:spacer width="10" height="10" id="s3"/>
+  </af:panelGroupLayout>
+  <af:spacer width="10" height="5" id="s3"/>
     <af:panelGroupLayout id="pgl6" layout="vertical">
       <af:outputText value="Messages" id="ot4" styleClass="heading1"/>
       <af:spacer width="10" height="10" id="s4"/>
@@ -49,7 +53,7 @@
           <af:panelGroupLayout id="pgl9"
                                inlineStyle="width:200px; height:100.0px;">
           <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"
-                    />
+                    inlineStyle="padding-right:5px;"/>
                        <af:spacer width="7" height="30" id="s7"/>
                      </af:panelGroupLayout>
         
