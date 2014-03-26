@@ -3,7 +3,6 @@ package com.sfr.engage.vehicleinfotaskflow;
 
 import com.sfr.engage.core.Account;
 import com.sfr.engage.core.VehicleInfo;
-import com.sfr.engage.model.queries.rvo.PrtAccountRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtAccountRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
@@ -12,7 +11,6 @@ import com.sfr.engage.utility.util.ADFUtils;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,12 +20,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
-
 import javax.faces.model.SelectItem;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCIteratorBinding;
-import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
@@ -41,7 +37,6 @@ import oracle.binding.OperationBinding;
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
-import oracle.jbo.uicli.binding.JUCtrlListBinding;
 
 
 public class VehicleInfoBean implements Serializable {
@@ -152,7 +147,11 @@ public class VehicleInfoBean implements Serializable {
                 System.out.println("Add/Edit number val");
                 if (getBindings().getLinkedAccount().getValue() == null &&
                     addAccountNumberVal != null) {
+                System.out.println("Linked Account Values="+linkedAccountLOVValues);
                     System.out.println("Adding only addAccount");
+                    if(linkedAccountLOVValues==null) {
+                        linkedAccountLOVValues=new ArrayList<String>();
+                    }
                     linkedAccountLOVValues.add(addAccountNumberVal);
                 } else {
                     if (getBindings().getLinkedAccount().getValue() != null) {
