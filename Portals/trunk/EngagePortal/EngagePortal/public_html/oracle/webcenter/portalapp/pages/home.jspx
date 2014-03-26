@@ -350,6 +350,7 @@
                 </af:panelGroupLayout>                    
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
+                <af:spacer width="10" height="15" id="s29"  visible="#{securityContext.authenticated}"/>
                 <af:region value="#{bindings.AuthenticatedHomeTaskFlow1.regionModel}"
                             id="r1"
                            visible="#{securityContext.authenticated}"/>

@@ -709,6 +709,7 @@ font-style:normal;
 line-height: 1.4;
 text-align: justify;
 display:inline-block;
+
 }
 
 
@@ -1161,15 +1162,17 @@ width:30px;
   background: url("/images/Info/info_private.png") !important;
   background-position: right !important;
   background-repeat:no-repeat  !important;
+ 
   
 }
 /*headings for after login page*/
 .heading1
 {
 color:#524e4f;
-font-family :SansSerif !important;
+font-family :Lucida Sans,Georgia,Serif !important;
 font-size: 16px;
  font-weight:bold;  
+ padding-left: 10px
 }
 /* box shadow for panels*/
 .box-shadow
@@ -1179,4 +1182,9 @@ font-size: 16px;
 box-shadow: 2px 2px 1px #d7d6d6; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
 border: 1px solid  #979796;
   
+}
+.contentpadding
+{
+    padding-left: 5px;
+    padding-right: 5px;   
 }
