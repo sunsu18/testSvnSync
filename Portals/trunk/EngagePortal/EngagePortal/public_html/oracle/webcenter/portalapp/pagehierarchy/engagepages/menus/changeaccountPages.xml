@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="windows-1252" ?>
 <pagesDef xmlns="http://xmlns.oracle.com/webcenter/page"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://xmlns.oracle.com/webcenter/page/pagesDef.xsd"
@@ -6,4 +6,7 @@
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/changeaccount/selectaccount.jspx"
            hidden="false" shared="false" hasSubPages="false"
            id="selectaccount"/>
+  <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx"
+           hidden="false" shared="false" hasSubPages="false"
+           id="changepassword"/>
 </pagesDef>

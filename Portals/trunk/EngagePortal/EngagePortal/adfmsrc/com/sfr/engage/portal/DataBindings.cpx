@@ -88,6 +88,8 @@
           usageId="com_sfr_engage_portal_selectaccountPageDef"/>
     <page path="/oracle/webcenter/portalapp/engagepages/admintool/requests.jspx"
           usageId="com_sfr_engage_portal_requestsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx"
+          usageId="com_sfr_engage_portal_changepasswordPageDef"/>
   </pageMap>
   <definitionFactories>
     <factory nameSpace="http://xmlns.oracle.com/portlet/bindings"
@@ -185,6 +187,8 @@
           path="oracle.webcenter.portalapp.engagepages.changeaccount.selectaccountPageDef"/>
     <page id="com_sfr_engage_portal_requestsPageDef"
           path="oracle.webcenter.portalapp.engagepages.admintool.requestsPageDef"/>
+    <page id="com_sfr_engage_portal_changepasswordPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.changepasswordPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="EngageAppModuleDataControl"

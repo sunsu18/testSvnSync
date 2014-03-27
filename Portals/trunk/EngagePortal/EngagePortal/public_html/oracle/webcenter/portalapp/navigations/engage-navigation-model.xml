@@ -262,6 +262,15 @@
                            attributeId="Title"/>
               </attributes>
             </url>
+            <url id="changepassword"
+                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+                 visible="#{true}"
+                 url="page://oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx">
+              <attributes>
+                <attribute attributeId="Title" value="Change Password"
+                           isKey="false"/>
+              </attributes>
+            </url>
           </contents>
         </url>
       </contents>
