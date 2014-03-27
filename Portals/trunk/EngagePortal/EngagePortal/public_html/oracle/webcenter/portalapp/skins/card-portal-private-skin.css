@@ -209,6 +209,7 @@ padding: 0px !important;
 /* command button backgtround*/     
 .af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
 border-style: none !important;
+#height:20px !important;
 border-width: 0px !important;
 border-top-color: transparent !important;
 border-right-color: transparent !important;
@@ -224,6 +225,7 @@ margin: 0px !important;
 padding-top: 0px !important;
 padding-bottom: 0px !important;
 background-color: transparent !important;
+#height:20px;
 /*padding: 1px 1px 0px 2px;
 padding-left: 9px;
 padding-right: 9px;*/
@@ -682,7 +684,7 @@ font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
 font-weight: bold !important;
 color : #ffffff !important;
-text-align:left !important; 
+text-align:center !important; 
 vertical-align:bottom !important; 
 text-decoration:none !important;
 /*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/

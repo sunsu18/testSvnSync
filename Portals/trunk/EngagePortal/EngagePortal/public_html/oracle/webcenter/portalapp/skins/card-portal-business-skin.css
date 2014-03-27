@@ -204,6 +204,7 @@ padding: 0px !important;
 .af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
 
 border-style: none !important;
+#height:20px !important;
 border-width: 0px !important;
 border-top-color: transparent !important;
 border-right-color: transparent !important;
@@ -538,7 +539,7 @@ font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
 font-weight: bold !important;
 color : #ffffff !important;
-text-align:right !important; 
+text-align:center !important; 
 vertical-align:bottom !important; 
 text-decoration:none !important;
 /*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
