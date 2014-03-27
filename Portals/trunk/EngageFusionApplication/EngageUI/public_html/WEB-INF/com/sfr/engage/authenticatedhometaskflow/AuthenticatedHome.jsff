@@ -12,10 +12,10 @@
   <af:spacer width="10" height="10" id="s8"/>
 </af:panelGroupLayout>
   <af:panelGroupLayout id="pgl1"
-                       inlineStyle="width:962.0px; height:70px;"
+                       inlineStyle="width:962.0px; height:80px;"
                        layout="vertical"
                       >
-        <af:panelGroupLayout id="pgl10" layout="scroll" inlineStyle="width:940px; height:60.0px;" styleClass="panelbackground box-shadow info">
+        <af:panelGroupLayout id="pgl10" layout="scroll" inlineStyle="width:962px; height:80.0px;" styleClass="panelbackground box-shadow info">
         <af:spacer width="10" height="5" id="s2"/>
         <af:panelGroupLayout id="pgl8"
                              
@@ -53,7 +53,7 @@
                           />
                           <af:spacer width="7" height="30" id="s5"/>
           <af:panelGroupLayout id="pgl9"
-                               inlineStyle="width:200px; height:100.0px;">
+                               inlineStyle="width:200px; height:100.0px;" halign="start">
           <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"
                     inlineStyle="padding-right:5px;"/>
                        <af:spacer width="7" height="30" id="s7"/>

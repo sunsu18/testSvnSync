@@ -18,32 +18,37 @@
       <af:separator id="s4"/>
     </af:panelGroupLayout>
       <af:spacer width="10" height="15" id="s17"/>
-      <af:panelGroupLayout id="pgl3" layout="vertical">
-       <h:panelGrid columns="4" id="pg1">
+      <af:panelGroupLayout id="pgl3" layout="vertical"
+                           inlineStyle="width:331.0px;">
+        <af:panelGroupLayout id="pgl10">
+          <h:panelGrid columns="4" id="pg1">
             <af:outputText value="*#{sfr.LINKED_ACCOUNT}" id="colon"/>
-             <af:outputText value=":" id="col"/>
-               <af:spacer width="15" height="10" id="s18"/>
-             <af:selectManyChoice  id="smc1"
-                             binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
-                             value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
-                             <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}" var="listItem">
-                             <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item"/>
-                             </af:forEach>
-        </af:selectManyChoice>
-          <af:spacer  height="10" id="s24"/>
-          <af:spacer  height="10" id="s20"/>
-          <af:spacer  height="10" id="s21"/>
-          <af:spacer  height="10" id="s22"/>
-          
-          <af:outputText value="#{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
-             <af:outputText value=":" id="coll3"/>
-              <af:spacer width="15" height="10" id="s19"/>
-           <af:inputText  id="it7"  autoSubmit="true"
-                 binding="#{pageFlowScope.DriverInfoBean.bindings.driverName}"
-                 value="#{pageFlowScope.DriverInfoBean.driverN}"/>
-        </h:panelGrid>
-         <af:spacer width="12" height="10" id="s15"/>
-       <af:panelGroupLayout id="pgl0" layout="horizontal" inlineStyle="margin-left:145px;">
+            <af:outputText value=":" id="col"/>
+            <af:spacer width="15" height="10" id="s18"/>
+            <af:selectManyChoice id="smc1"
+                                 binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
+                                 value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
+              <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}"
+                          var="listItem">
+                <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="select_item"/>
+              </af:forEach>
+            </af:selectManyChoice>
+            <af:spacer height="10" id="s24"/>
+            <af:spacer height="10" id="s20"/>
+            <af:spacer height="10" id="s21"/>
+            <af:spacer height="10" id="s22"/>
+            <af:outputText value="#{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
+            <af:outputText value=":" id="coll3"/>
+            <af:spacer width="15" height="10" id="s19"/>
+            <af:inputText id="it7" autoSubmit="true"
+                          binding="#{pageFlowScope.DriverInfoBean.bindings.driverName}"
+                          value="#{pageFlowScope.DriverInfoBean.driverN}"/>
+          </h:panelGrid>
+        </af:panelGroupLayout>
+        <af:spacer width="12" height="10" id="s15"/>
+       <af:panelGroupLayout id="pgl0" layout="horizontal"
+                            halign="right">
         <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                           actionListener="#{pageFlowScope.DriverInfoBean.searchAction}"
                           partialTriggers="it7">
@@ -59,6 +64,7 @@
             <af:commandButton text="#{sfr.CANCEL}" id="cb2"
                        actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}">
                        </af:commandButton> 
+                       <af:spacer width="10" height="10" id="s35"/>
 </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>
@@ -68,17 +74,20 @@
       <af:spacer width="10" height="10" id="s13"/>
       <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       <af:spacer width="10" height="20" id="s14"/>
-      <af:panelGroupLayout id="pgl5" layout="horizontal">
+      <af:panelGroupLayout id="pgl5" layout="horizontal" inlineStyle="width:888.0px;">
       <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot9"
                      styleClass="subheading"/>
         <af:spacer width="690" height="10" id="s16"/>
+          <af:panelGroupLayout id="pgl80" halign="right"
+                            >
         <af:commandButton text="#{sfr.DELETE}" id="cb4"
                           action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}" styleClass="buttonback buttontext"/>
+                          </af:panelGroupLayout>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl6">
       <af:spacer width="10" height="20" id="s6"/>
       <af:forEach items="#{pageFlowScope.DriverInfoBean.myAccountDriver}" var="var">
-      <af:panelGroupLayout id="pgl7" layout="horizontal">
+      <af:panelGroupLayout id="pgl7" layout="horizontal" >
       <af:outputText value="#{sfr.ACCOUNT} : " id="ot2" styleClass="boldtext"/>
         <af:spacer width="10" height="10" id="s31"/>
       <af:outputText value="#{var.accountNumber}" id="ot3"
