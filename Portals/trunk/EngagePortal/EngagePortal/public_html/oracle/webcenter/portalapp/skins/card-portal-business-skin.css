@@ -13,40 +13,60 @@
     background-repeat: repeat-x, repeat-x;
     background-image: none;
     background-color: transparent;
-    color: #524e4f;
-    font-size: 13px;
+    color: #524e4f !important;
+    font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-weight:normal;
+    font-weight:normal !important;
     padding-left: 40px;
 }
 
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-toolbar{
+    width:500px;
+}
+
 .FAQInfo{
-    color: #524e4f;
+    color: #524e4f !important;
     font-size: 14px;
     font-family: Lucida Sans,Georgia,Serif !important;
     line-height: 1.4;
 }
 
-.af_showDetailItem{
-    /*border-bottom: 1px dotted #979991;*/
+.af_panelAccordion_body-content.p_AFFlow{
+    border-bottom:2px dotted Black;
 }
 
 .af_panelAccordion_header.p_AFDisclosed,
 .af_panelAccordion_header-subsequent.p_AFDisclosed{
-    border:none;
-   
+    border-bottom:none !important;
 }
+
+.af_panelAccordion_header.p_AFDisclosed.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFDisclosed.p_AFFlow{
+    border-bottom:none !important;
+}
+
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{
-        padding-bottom:10px;   
-   
+    border-bottom:2px dotted Black !important;
+}
+
+.p_AFDisclosed .p_AFFlow{
+    border:none !important;
+}
+
+.af_panelAccordion_header.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFFlow{
+   padding-bottom:10px;   
+   padding-top:5px;
 }
 .af_panelAccordion_header-subsequent{
     border:none !important;
-    color: #524e4f;
-    font-size: 15px;
+    color: #524e4f !important;
+    font-size: 15px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-weight:bold;
+    font-weight:bold !important;
 }
 
 .af_panelAccordion{
@@ -68,19 +88,22 @@
     font-weight:bold;
     border:none;
     overflow: hidden;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #979991;
-    font-family: Tahoma, Verdana, Helvetica, sans-serif;
-    font-weight: normal;
-    font-size: 11px;
+    color: #524e4f !important;
+    font-size: 13px !important;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:normal !important;
     margin: 0px;
     position: absolute;
     left: 0px;
     right: 0px;
     padding-bottom: 2px;
-    border-bottom: 2px;
     background-color: transparent !important;
+}
+.af_panelAccordion_header-title{
+    color: #524e4f;
+    font-size: 15px;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-weight:bold;
 }
 
 .af_panelAccordion_header-subsequent.p_AFDisclosed .af_panelAccordion_header-title,
@@ -108,6 +131,7 @@ af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title{
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
     background-color: transparent;
     width:10px !important;
+    /*padding-left:5px;*/
 }
 
 af|panelAccordion::header af|panelAccordion::header-end,
@@ -142,7 +166,7 @@ body {
     width: 962px;
    
 }
-@platform windows, linux, solaris{
+/*@platform windows, linux, solaris{
             .marginIEHeader{
                 margin-bottom:15px;
                             }
@@ -597,9 +621,11 @@ background: -o-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !impor
 background: -ms-linear-gradient(top,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* IE10+ */
 background: linear-gradient(to bottom,  #3cb6ce 0%,#40c4d6 51%,#3aafc4 100%) !important; /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3cb6ce', endColorstr='#3aafc4',GradientType=0 )!important; /* IE6-9 */
-
 }
 
+.af_commandButton.p_AFTextOnly, .af_goButton.p_AFTextOnly{
+    cursor:pointer;
+}
 
 /*Portal Text*/
 .contenttext{
@@ -1082,4 +1108,4 @@ border: 1px solid  #979796;
 {
     padding-left: 5px;
     padding-right: 5px;   
-}
+}*/

@@ -14,26 +14,44 @@
     background-image: none;
     background-color: transparent;
     color: #524e4f;
-    font-size: 13px;
+    font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-weight:normal;
+    font-weight:normal !important;
     padding-left: 40px;
 }
 
-.af_showDetailItem{
-    /*border-bottom: 1px dotted #979991;*/
+
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-toolbar{
+    width:500px;
 }
+.af_panelAccordion_header .af_panelAccordion_header-close{
+    width:500px !important;
+}
+
+.af_panelAccordion_body-content.p_AFFlow{
+    border-bottom:2px dotted Black;
+}
+
 
 .af_panelAccordion_header.p_AFDisclosed,
 .af_panelAccordion_header-subsequent.p_AFDisclosed{
-    border:none;
-   
+    border-bottom:none !important;
+}
+.af_panelAccordion_header.p_AFDisclosed.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFDisclosed.p_AFFlow{
+    border-bottom:none !important;
+}
+.af_panelAccordion_header.p_AFFlow,
+.af_panelAccordion_header-subsequent.p_AFFlow{
+    border-bottom:2px dotted Black !important;
 }
 
 .af_panelAccordion_header-subsequent{
     border:none !important;
-    color: #524e4f;
-    font-size: 15px;
+    color: #524e4f !important;
+    font-size: 15px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
 }
@@ -41,22 +59,27 @@
 .af_panelAccordion{
     width:700px !important;
     background:transparent;
+    /*border-bottom:2px dotted Black !important;*/
+}
+.p_AFDisclosed .p_AFFlow{
+    border:none !important;
 }
 
+.af_panelAccordion_header .p_AFDisclosed .p_AFFlow
 .af_panelAccordion_header .af_panelAccordion_header-start{
     padding-left:2px;
 }
 .FAQInfo{
     color: #524e4f !important;
-     
-    font-size: 14px;
+    font-size: 14px ;
     font-family: Lucida Sans,Georgia,Serif !important;
     line-height: 1.4;
 }
+
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{
-    padding-bottom:10px;   
-   
+    padding-bottom:10px; 
+    padding-top:5px;
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
@@ -70,9 +93,6 @@
     font-weight:bold;
     border:none;
     overflow: hidden;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #979991;
     font-family: Tahoma, Verdana, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 11px;
@@ -81,7 +101,6 @@
     left: 0px;
     right: 0px;
     padding-bottom: 2px;
-    border-bottom: 2px;
     background-color: transparent !important;
 }
 .af_panelAccordion_header-title{
@@ -116,6 +135,7 @@ af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title{
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
     background-color: transparent;
     width:10px !important;
+    padding-left:5px;
 }
 
 af|panelAccordion::header af|panelAccordion::header-end,
@@ -294,7 +314,9 @@ background-color: rgb(252,252,252);
 }*/
 
 .logintext{
+
    background: transparent url("/images/Buttons/login_private.png") !important;
+
    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
    text-align:left !important; 
@@ -305,7 +327,7 @@ background-color: rgb(252,252,252);
    font-weight:bold !important; 
    font-style:normal;
    color: #656364 !important;
-    background-color:#f2ad00;
+    /*background-color:#f2ad00;*/
 }
 
 .boldtext{
@@ -742,9 +764,15 @@ background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%)!important; /* W
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 )!important; /* IE6-9 */
 }
 
+
+.af_commandButton.p_AFTextOnly, .af_goButton.p_AFTextOnly{
+    cursor:pointer;
+}
+
 af_selectManyChoice_dropdown-icon-style{
     
 }
+
 
 .af_selectManyChoice_control{
     font-family : Lucida Sans,Georgia,Serif !important;
