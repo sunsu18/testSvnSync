@@ -31,7 +31,7 @@
   </af:panelGroupLayout>
   </af:panelGroupLayout>
   </af:panelGroupLayout>
-  <af:spacer width="10" height="5" id="s3"/>
+  <af:spacer width="10" height="15" id="s3"/>
     <af:panelGroupLayout id="pgl6" layout="vertical">
       <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4" styleClass="heading1"/>
       <af:spacer width="10" height="10" id="s4"/>
