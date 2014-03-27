@@ -22,8 +22,10 @@
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
                 <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground">
                   <!--<af:region value="#{bindings.PriceListTaskflow1.regionModel}" id="r1"/>-->
-                  <af:region value="#{bindings.PriceListTaskflow_new1.regionModel}"
-                   id="r2"/>
+                  <!--<af:region value="#{bindings.PriceListTaskflow_new1.regionModel}"
+                   id="r2"/>-->
+                  <af:region value="#{bindings.PriceListInfoTaskFlow1.regionModel}"
+                             id="r1"/>
                 </af:panelGroupLayout>
               </cust:panelCustomizable>
             </pe:pageCustomizable>

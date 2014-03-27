@@ -3478,6 +3478,17 @@
                                 <name>/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                           
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3660,6 +3671,16 @@
                                 <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx</name>
                                 <actions>personalize,view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3808,10 +3829,20 @@
                                 <name>/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
-                            <permission>
+                             <permission>
                                 <class>oracle.webcenter.security.auth.HierarchicalResourcePermission</class>
                                 <name>serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx</name>
                                 <actions>create,delete,grant,personalize,update,view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
+                                <actions>view</actions>
                             </permission>
                         </permissions>
                     </grant>
@@ -3854,6 +3885,16 @@
                                 <name>/WEB-INF/com/sfr/engage/helptaskflow/helptaskflow.xml#helptaskflow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3879,6 +3920,16 @@
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/helptaskflow/helptaskflow.xml#helptaskflow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -3916,6 +3967,16 @@
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>

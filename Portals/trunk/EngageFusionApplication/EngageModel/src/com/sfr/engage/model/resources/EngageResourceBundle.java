@@ -67,7 +67,7 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       { "VEHICLEINFO_ADDVEHICLE", "" }, { "VEHICLEINFO_CANCEL", "" },{ "VEHICLEINFO_EDITVEHICLE", "" },{ "VEHICLEINFO_DELETEVEHICLE", "" }, 
                                       { "VEHICLEINFO_YES", "" }, { "VEHICLEINFO_NO", "" },{ "VEHICLEINFO_DELETE_CONFIRMATION", "" },{ "PRICE_LIST", "" },{ "FILTER_DRIVER_NAME", "" }, 
                                       { "FILTER_REGISTRATION_NUMBER", "" },{"DELETE_ALL_ACCOUNT",""},{"DELETE_COMFIRMATION_ALL_DRIVER",""},{"FAQ",""},{"FAQ_INFO",""},{"NO_RECORDS_FOUND_DRIVER",""},
-                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""}};
+                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},{"CONTACT_US",""}};
                
 
             /**

@@ -38,7 +38,9 @@
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
                 <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground"
                                     >
-                  <af:region value="#{bindings.helptaskflow1.regionModel}"
+                  <!--<af:region value="#{bindings.helptaskflow1.regionModel}"
+                             id="r1"/>-->
+                  <af:region value="#{bindings.HelpInfoTaskFlow1.regionModel}"
                              id="r1"/>
                 </af:panelGroupLayout>
               </cust:panelCustomizable>

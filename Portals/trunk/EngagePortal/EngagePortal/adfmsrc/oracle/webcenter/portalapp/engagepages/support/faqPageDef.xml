@@ -10,8 +10,8 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
-    <taskFlow id="helptaskflow1"
-              taskFlowId="/WEB-INF/com/sfr/engage/helptaskflow/helptaskflow.xml#helptaskflow"
+    <taskFlow id="HelpInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/helptaskflow/HelpInfoTaskFlow.xml#HelpInfoTaskFlow"
               activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>

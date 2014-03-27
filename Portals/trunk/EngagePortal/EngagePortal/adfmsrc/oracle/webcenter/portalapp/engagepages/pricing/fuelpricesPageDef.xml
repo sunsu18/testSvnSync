@@ -17,6 +17,10 @@
               taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new"
               activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="PriceListInfoTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
