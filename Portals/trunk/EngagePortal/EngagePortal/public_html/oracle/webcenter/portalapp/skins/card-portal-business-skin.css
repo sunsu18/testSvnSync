@@ -58,7 +58,7 @@
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
-    padding right:0px !important;
+    padding-right:0px !important;
 }
 
 .af_panelAccordion_header {
@@ -130,9 +130,28 @@ af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
     border-color: transparent;
 }
 /* background color of whole page default is blue gradient*/
-body{
-    background-color: White !important;
+body {
+   /* background-color: rgb(214,214,214) !important;*/
+   background-color: rgb(255,255,255)!important;
+    background-image: none !important;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    
+    margin: 0;
+   overflow-x:hidden;
+    width: 962px;
+   
 }
+@platform windows, linux, solaris{
+            .marginIEHeader{
+                margin-bottom:15px;
+                            }
+        .contentMargin{
+        width:962px; 
+        margin-left:7px;
+        
+    }
+
 
 /*Dialog Box starts*/
 .af_dialog_content,.af_dialog_footer,.af_dialog_content-start,.af_dialog_content-end,.af_dialog_footer-start,.af_dialog_footer-end, .af_dialog_header-end,.af_dialog_header-start,.af_dialog_header{
@@ -204,7 +223,6 @@ padding: 0px !important;
 .af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
 
 border-style: none !important;
-#height:20px !important;
 border-width: 0px !important;
 border-top-color: transparent !important;
 border-right-color: transparent !important;
@@ -271,7 +289,7 @@ background-color: rgb(252,252,252);
 }*/
 
 .logintext{
-   background: url("/images/Buttons/login_business.png") !important;
+   background: transparent url("/images/Buttons/login_business.png") !important;
    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
    text-align:left !important; 
@@ -282,7 +300,7 @@ background-color: rgb(252,252,252);
    font-weight:bold !important; 
    font-style:normal;
    color: #656364 !important;
-    background-color:#f2ad00;
+   background-color:#f2ad00;
 }
 
 .boldtext{
@@ -532,7 +550,31 @@ font-style:normal;
 
 
 
+/*Seperator*/
+.af_separator
+{
+    width:962px;
+    height:0.5px;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px;
+
+}
+
+
+
 /*Button Background*/
+
+ @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:default){
+     .af_commandButton.p_AFTextOnly{
+         padding-top: 3px !important;
+     padding-bottom: 3px !important;
+     padding-left: 5px !important;
+     padding-right:5px !important;
+     }
+ }
+ 
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton
 {
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -546,7 +588,7 @@ text-decoration:none !important;
 font-style:normal !important;
 text-decoration:none !important;
 padding-top: 1px !important;
-padding-bottom: 0px !important;
+padding-bottom: 2px !important;
 background: #3cb6ce !important; /* Old browsers */
 background: -moz-linear-gradient(top,  #3cb6ce 0%, #40c4d6 51%, #3aafc4 100%) !important; /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3cb6ce), color-stop(51%,#40c4d6), color-stop(100%,#3aafc4)) !important; /* Chrome,Safari4+ */

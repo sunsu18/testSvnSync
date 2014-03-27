@@ -60,7 +60,7 @@
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
-    padding right:0px !important;
+    padding-right:0px !important;
 }
 
 .af_panelAccordion_header {
@@ -121,7 +121,8 @@ af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title{
 af|panelAccordion::header af|panelAccordion::header-end,
 af|panelAccordion::header-subsequent af|panelAccordion::header-end,
 af|panelAccordion::header:disclosed af|panelAccordion::header-end,
-af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
+af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end
+{
     background-color: transparent;
 }
 
@@ -139,9 +140,27 @@ af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
 }
 
 /* background color of whole page default is blue gradient*/
-body{
-    background-color: White !important;
+body {
+   /* background-color: rgb(214,214,214) !important;*/
+   background-color: rgb(255,255,255)!important;
+    background-image: none !important;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    
+    margin: 0;
+   overflow-x:hidden;
+    width: 962px;
+   
 }
+/*@platform windows, linux, solaris{
+            .marginIEHeader{
+                margin-bottom:15px;
+                            }
+        .contentMargin{
+        width:962px; 
+        margin-left:7px;
+        
+    }
 
 /*Dialog Box starts*/
 .af_dialog_content,.af_dialog_footer,.af_dialog_content-start,.af_dialog_content-end,.af_dialog_footer-start,.af_dialog_footer-end, .af_dialog_header-end,.af_dialog_header-start,.af_dialog_header{
@@ -209,7 +228,6 @@ padding: 0px !important;
 /* command button backgtround*/     
 .af_commandButton, .af_goButton, .af_resetButton, .portlet-form-button {
 border-style: none !important;
-#height:20px !important;
 border-width: 0px !important;
 border-top-color: transparent !important;
 border-right-color: transparent !important;
@@ -225,7 +243,6 @@ margin: 0px !important;
 padding-top: 0px !important;
 padding-bottom: 0px !important;
 background-color: transparent !important;
-#height:20px;
 /*padding: 1px 1px 0px 2px;
 padding-left: 9px;
 padding-right: 9px;*/
@@ -277,7 +294,7 @@ background-color: rgb(252,252,252);
 }*/
 
 .logintext{
-   background: url("/images/Buttons/login_private.png") !important;
+   background: transparent url("/images/Buttons/login_private.png") !important;
    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
    text-align:left !important; 
@@ -537,7 +554,7 @@ font-weight: bold;
 
 
 .portlet-table-body, .portlet-table-selected, .portlet-table-footer, .portlet-table-text {
-    background-color: none;
+    background-color:none;
     border-bottom: medium none;
     border-right: medium none;
     color: #333333;
@@ -676,8 +693,30 @@ font-style:normal;
 }
 
 
+.af_separator
+{
+    width:962px;
+    height:0.5px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px;
+
+}
+
+
 
 /*Button Background*/
+
+ @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:11){
+     .af_commandButton.p_AFTextOnly{
+         padding-top: 3px !important;
+     padding-bottom: 3px !important;
+     padding-left: 5px !important;
+     padding-right:5px !important;
+     }
+ }
+ 
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton 
 {
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -690,16 +729,27 @@ text-decoration:none !important;
 /*text-shadow:0px 1px 0px rgba(231, 231, 231, 1 ) !important;*/
 font-style:normal !important;
 text-decoration:none !important;
-padding-top: 1px;
-padding-bottom: 0px;
+padding-top: 1px !important;
+padding-bottom: 2px !important;
+
 background: #f2ad00 !important; /* Old browsers */
 background: -moz-linear-gradient(top,  #f2ad00 0%, #f9c300 100%) !important; /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2ad00), color-stop(100%,#f9c300)) !important; /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%) !important; /* IE10+ */
-background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%) !important; /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 ) !important; /* IE6-9 */
+background: -o-linear-gradient(top,  #f2ad00 0%,#f9c300 100%)!important; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2ad00 0%,#f9c300 100%)!important; /* IE10+ */
+background: linear-gradient(to bottom,  #f2ad00 0%,#f9c300 100%)!important; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', endColorstr='#f9c300',GradientType=0 )!important; /* IE6-9 */
+}
+
+af_selectManyChoice_dropdown-icon-style{
+    
+}
+
+.af_selectManyChoice_control{
+    font-family : Lucida Sans,Georgia,Serif !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
 }
 
 
@@ -1191,4 +1241,4 @@ border: 1px solid  #979796;
 {
     padding-left: 5px;
     padding-right: 5px;   
-}
+}*/

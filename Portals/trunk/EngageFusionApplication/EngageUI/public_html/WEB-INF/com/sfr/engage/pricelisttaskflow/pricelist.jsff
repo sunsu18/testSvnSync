@@ -20,7 +20,7 @@
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s11"/>
     <af:panelGroupLayout id="pgl2" layout="horizontal">
-      <af:separator id="s4" inlineStyle="width:950px; height:1px; background-color:Scrollbar;"/>
+      <af:separator id="s4"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s6"/>
     <af:panelGroupLayout id="printPanel2" halign="left" layout="vertical" inlineStyle="border-style:none;">
