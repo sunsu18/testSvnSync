@@ -20,20 +20,69 @@
     </SchemaBasedProperties>
   </Properties>
   <Variable
-    Name="countrycode"
+    Name="pricinguom"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="currencycode"
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT PrtListPrices.DESC_LINE1,
-       PrtListPrices.UNIT_PRICE,
-       PrtListPrices.PRICING_UOM,
+    <![CDATA[SELECT plim.itm_num as ITM_NUM, PrtListPrices.item_num,PrtListPrices.DESC_LINE1,
+       PrtListPrices.UNIT_PRICE,catDescription.description Item_Category,plim.sales_categ_code5,
+       (Select DISPLAY_VALUE from PRT_GEN_KEY_DISPLAY where DISPLAY_KEY=:pricinguom) UOM,
        PrtListPrices.COUNTRY_CODE,
-       PrtListPrices.CURRENCY_CODE,
+        (Select DISPLAY_VALUE from PRT_GEN_KEY_DISPLAY where DISPLAY_KEY=:currencycode) CURRENCY_CODE,
        PrtListPrices.UNIT_QTY,
        PrtListPrices.MODIFIED_DATE
-FROM PRT_LIST_PRICES PrtListPrices
-where PrtListPrices.COUNTRY_CODE =: countrycode]]>
+FROM PRT_LIST_PRICES PrtListPrices 
+
+LEFT OUTER JOIN prt_load_item_master plim
+        on (plim.itm_num = PrtListPrices.item_num)
+
+LEFT OUTER JOIN 
+       (SELECT user_defined_code, description
+        FROM prt_load_udc_info
+        WHERE product_code = 41
+        AND user_defined_codes = 'S5'
+        AND trim(user_defined_code) IS NOT NULL) catDescription 
+        ON trim(plim.sales_categ_code5) = trim(catDescription.user_defined_code)
+        
+where PRTLISTPRICES.CURRENCY_CODE=: currencycode and PRTLISTPRICES.PRICING_UOM =: pricinguom]]>
   </SQLQuery>
+  <ViewAttribute
+    Name="ItmNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="ITM_NUM"
+    Expression="ITM_NUM"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="8"
+    Scale="0"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="ITEM_NUM"
+    Expression="ITEM_NUM"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="DescLine1"
     IsUpdateable="false"
@@ -68,19 +117,48 @@ where PrtListPrices.COUNTRY_CODE =: countrycode]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="PricingUom"
+    Name="ItemCategory"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
-    Precision="10"
+    Precision="30"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="PRICING_UOM"
-    Expression="PRICING_UOM"
+    AliasName="ITEM_CATEGORY"
+    Expression="ITEM_CATEGORY"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SalesCategCode5"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SALES_CATEG_CODE5"
+    Expression="SALES_CATEG_CODE5"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -143,6 +221,21 @@ where PrtListPrices.COUNTRY_CODE =: countrycode]]>
     SQLType="TIMESTAMP">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PricingUom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRICING_UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
   <ResourceBundle>
