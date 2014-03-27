@@ -21,15 +21,12 @@
  <page path="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHome.jsff"
           usageId="com_sfr_engage_view_AuthenticatedHomePageDef"/>
 
-    <page path="/WEB-INF/com/sfr/engage/helptaskflow/Help.jsff"
-          usageId="com_sfr_engage_view_helpPageDef"/>
-
     <page path="/WEB-INF/com/sfr/engage/changepasswordtaskflow/ChangePassword.jsff"
           usageId="com_sfr_engage_view_ChangePasswordPageDef"/>
-    <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceList.jsff"
-          usageId="com_sfr_engage_view_PriceListPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfo.jsff"
           usageId="com_sfr_engage_view_PriceListInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/helptaskflow/HelpInfo.jsff"
+          usageId="com_sfr_engage_view_HelpInfoPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -44,15 +41,12 @@
 <page id="com_sfr_engage_view_AuthenticatedHomePageDef"
           path="com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomePageDef"/>
 
-    <page id="com_sfr_engage_view_helpPageDef"
-          path="com.sfr.engage.helptaskflow.helpPageDef"/>
-
     <page id="com_sfr_engage_view_ChangePasswordPageDef"
           path="com.sfr.engage.changepasswordtaskflow.ChangePasswordPageDef"/>
-    <page id="com_sfr_engage_view_PriceListPageDef"
-          path="com.sfr.engage.pricelisttaskflow.PriceListPageDef"/>
     <page id="com_sfr_engage_view_PriceListInfoPageDef"
           path="com.sfr.engage.pricelisttaskflow.PriceListInfoPageDef"/>
+    <page id="com_sfr_engage_view_HelpInfoPageDef"
+          path="com.sfr.engage.helptaskflow.HelpInfoPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
