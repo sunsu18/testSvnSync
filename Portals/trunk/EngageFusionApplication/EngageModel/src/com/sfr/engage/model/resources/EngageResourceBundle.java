@@ -67,16 +67,16 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       { "VEHICLEINFO_ADDVEHICLE", "" }, { "VEHICLEINFO_CANCEL", "" },{ "VEHICLEINFO_EDITVEHICLE", "" },{ "VEHICLEINFO_DELETEVEHICLE", "" }, 
                                       { "VEHICLEINFO_YES", "" }, { "VEHICLEINFO_NO", "" },{ "VEHICLEINFO_DELETE_CONFIRMATION", "" },{ "PRICE_LIST", "" },{ "FILTER_DRIVER_NAME", "" }, 
                                       { "FILTER_REGISTRATION_NUMBER", "" },{"DELETE_ALL_ACCOUNT",""},{"DELETE_COMFIRMATION_ALL_DRIVER",""},{"FAQ",""},{"FAQ_INFO",""},{"NO_RECORDS_FOUND_DRIVER",""},
-                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""}
+                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},{"CONTACT_US",""},
                                         {"ENGAGE_CHANGE_PASSWORD",""},{"ENGAGE_PASS_POLY1",""},{"ENGAGE_PASS_POLY2",""},{"ENGAGE_PASS_POLY3",""},{"ENGAGE_PASS_POLY4",""},{"ENGAGE_PASS_POLY5",""},{"ENGAGE_PASS_POLY6",""},{"ENGAGE_PASS_POLY7",""},
                                         {"ENGAGE_PASS_POLY8",""},{"ENGAGE_OLD_PASSWORD",""},{"ENGAGE_NEW_PASSWORD",""},{"ENGAGE_PASS_POLY_LINK",""},{"ENGAGE_CONFIRM_PASSWORD",""},{"ENGAGE_PASS_POLY",""},{"ENGAGE_SUBMIT",""},{"ENGAGE_NO_OLD_PASSWORD",""},{"ENGAGE_NO_NEW_PASSWORD",""},{"ENGAGE_NO_CONFIRM_PASSWORD",""},{"ENGAGE_NO_SAME_PASSWORD",""},
-                                      {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},{"CONTACT_US",""}};
-<<<<<<< .mine                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},
+                                      {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},
+                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},
                                         {"ENGAGE_CHANGE_PASSWORD",""},{"ENGAGE_PASS_POLY1",""},{"ENGAGE_PASS_POLY2",""},{"ENGAGE_PASS_POLY3",""},{"ENGAGE_PASS_POLY4",""},{"ENGAGE_PASS_POLY5",""},{"ENGAGE_PASS_POLY6",""},{"ENGAGE_PASS_POLY7",""},
                                         {"ENGAGE_PASS_POLY8",""},{"ENGAGE_OLD_PASSWORD",""},{"ENGAGE_NEW_PASSWORD",""},{"ENGAGE_PASS_POLY_LINK",""},{"ENGAGE_CONFIRM_PASSWORD",""},{"ENGAGE_PASS_POLY",""},{"ENGAGE_SUBMIT",""},{"ENGAGE_NO_OLD_PASSWORD",""},{"ENGAGE_NO_NEW_PASSWORD",""},{"ENGAGE_NO_CONFIRM_PASSWORD",""},{"ENGAGE_NO_SAME_PASSWORD",""},
                                       {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""}};
-=======                                      {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},{"CONTACT_US",""}};
->>>>>>> .theirs               
+                                      
+              
 
             /**
              * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
