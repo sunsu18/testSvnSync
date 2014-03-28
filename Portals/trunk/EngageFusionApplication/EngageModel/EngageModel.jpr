@@ -249,6 +249,10 @@
             <value n="id" v="EngageUtility.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="UtilityJAR.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -277,6 +281,15 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="EngageUtility.jar"/>
                <value n="id" v="EngageUtility.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/jar/utilityJAR.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="UtilityJAR.jar"/>
+               <value n="id" v="UtilityJAR.jar"/>
                <value n="locked" v="true"/>
             </hash>
          </list>
@@ -360,6 +373,10 @@
          </hash>
          <hash>
             <value n="id" v="EngageUtility.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="UtilityJAR.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
