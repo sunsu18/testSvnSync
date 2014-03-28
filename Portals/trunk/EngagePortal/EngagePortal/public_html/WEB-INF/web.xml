@@ -459,6 +459,10 @@
     <servlet-name>imageservlet</servlet-name>
     <servlet-class>com.sfr.engage.util.imageservlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <servlet-class>com.sfr.engage.util.ImageMapServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
@@ -562,6 +566,10 @@
   <servlet-mapping>
     <servlet-name>imageservlet</servlet-name>
     <url-pattern>/imageservlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <url-pattern>/imagemapservlet</url-pattern>
   </servlet-mapping>
   <mime-mapping>
     <extension>swf</extension>

@@ -38,7 +38,7 @@
                   emptyText="#{bindings.PriceListRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                   fetchSize="#{bindings.PriceListRVO1.rangeSize}"
                   rowBandingInterval="1" id="t1"
-                  binding="#{pageFlowScope.PriceListInfoBean.pricelistinfotable}">
+                  binding="#{pageFlowScope.PriceListInfoBean.pricelistinfotable}" disableColumnReordering="true" columnResizing="disabled">
           <!--<af:column sortProperty="ItmNum" sortable="false"
                      headerText="#{bindings.PriceListRVO1.hints.ItmNum.label}"
                      id="c8">
@@ -47,23 +47,34 @@
                                 pattern="#{bindings.PriceListRVO1.hints.ItmNum.format}"/>
             </af:outputText>
           </af:column>-->
-          <af:column sortProperty="ItemNum" sortable="false"
+          <!--<af:column sortProperty="ItemNum" sortable="false"
                      headerText="#{bindings.PriceListRVO1.hints.ItemNum.label}"
                      id="c9">
             <af:outputText value="#{row.ItemNum}" id="ot14">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PriceListRVO1.hints.ItemNum.format}"/>
             </af:outputText>
-          </af:column>
+          </af:column>-->
           <af:column sortProperty="DescLine1" sortable="false"
                      headerText="#{sfr.PRODUCTS}"
-                     id="c7">
-                    <af:panelGroupLayout id="pgl4" layout="horizontal">
-  
- <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
-                      id="img33ww2"/>
-            <af:outputText value="#{row.DescLine1}" id="ot9"/>
-            </af:panelGroupLayout>
+                     id="c1" width="160" 
+                     inlineStyle="vertical-align:middle;">
+           
+            <!--<af:outputText value="out" id="ot6"/>--><!--
+            </af:panelGroupLayout>-->
+            <!--<af:commandButton text="#{row.DescLine1}" id="cb1"
+                                icon="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="/>-->
+              <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
+                      id="i1" styleClass="pricelistimage"/>
+              <!--<af:goImageLink text="#{row.DescLine1}" id="gil1" icon="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="/>-->
+              <!--<af:commandLink text="#{row.DescLine1}" id="cl1"
+                              inlineStyle="background-image:/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="/>-->
+            <af:spacer width="10" height="8" id="s10"/>
+            <af:outputText value="#{row.DescLine1}" id="ot6"
+                             styleClass="pricelisttext"
+                           inlineStyle="width: 100px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis"/>
+            
+            <!--<af:commandImageLink text="#{row.DescLine1}" id="cil1" icon="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="/>-->
           </af:column>
           <af:column sortProperty="UnitPrice" sortable="false"
                      headerText="#{sfr.UNIT_PRICE}"

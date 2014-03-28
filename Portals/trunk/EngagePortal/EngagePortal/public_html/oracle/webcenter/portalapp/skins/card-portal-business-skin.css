@@ -1,3 +1,18 @@
+.pricelisttext
+{
+    z-index: 100;
+    position: relative;
+    color: White;
+    font-weight: bold;
+    padding-left: 35px;
+}
+
+.pricelistimage
+{
+    z-index: 1;
+    position: absolute;
+}
+
 .af_panelAccordion_body-content {
     overflow: hidden;
     width: auto;
@@ -486,7 +501,7 @@ border-right: 1px solid #FFFFFF !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 25px;
+    height: 35px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     
