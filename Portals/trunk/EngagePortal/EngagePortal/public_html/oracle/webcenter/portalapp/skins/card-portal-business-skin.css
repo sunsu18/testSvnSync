@@ -948,7 +948,7 @@ font-weight:bold;
 }
 
 #top a {
-    color: black;
+    color: #524E4F !important;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;

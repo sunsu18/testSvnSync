@@ -151,7 +151,7 @@
                 <af:outputText value="#{row.odoMeter}" id="ot15"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
-                         id="c14" width="120" align="center">
+                         id="c14" width="116" align="center">
                      <af:commandImageLink id="cil1"
                                      action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                      icon="/images/edit.png">
@@ -179,7 +179,7 @@
       <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="800"
                  type="none" closeIconVisible="false">
         <af:separator id="s26"
-                      inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+                      inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0px !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
