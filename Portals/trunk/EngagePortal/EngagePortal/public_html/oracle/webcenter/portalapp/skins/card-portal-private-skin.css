@@ -46,13 +46,9 @@ text-overflow: ellipsis;
 .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
     margin-right:-15px !important;
+    margin-left:-3px !important;
 }
 }
-
-
-
-
-
 
 
 .af_panelAccordion_body-content.p_AFFlow{
@@ -773,13 +769,20 @@ font-style:normal;
 
 /*Button Background*/
 
- @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:11){
+ @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:default){
      .af_commandButton.p_AFTextOnly{
          padding-top: 3px !important;
      padding-bottom: 3px !important;
      padding-left: 5px !important;
      padding-right:5px !important;
      }
+     
+     .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
+.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
+    margin-right:-15px !important;
+    margin-left:-2px !important;
+}
+
  }
  
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton 
