@@ -1274,6 +1274,19 @@ font-weight:bold;
 margin-left: 15px;
 }
 
+.outputText3{
+color:#524e4f; 
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+font-weight: 900;
+}
+
+.outputText1{
+color:#524e4f; 
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+}
+
 
 .heading{
 color:#f2ad00;
@@ -1323,24 +1336,6 @@ border: 1px solid  #979796;
 {
     padding-left: 5px;
     padding-right: 5px;   
-<<<<<<< .mine}
-=======}*/
-
->>>>>>> .theirs.outputText3{
-color:#524e4f; 
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-font-weight: 900;
 }
 
-.outputText1{
-color:#524e4f; 
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-}
 
-.outputText{
-color:#524e4f; 
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-}

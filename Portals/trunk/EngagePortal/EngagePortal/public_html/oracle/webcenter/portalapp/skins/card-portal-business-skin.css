@@ -1135,7 +1135,7 @@ border: 1px solid  #979796;
 {
     padding-left: 5px;
     padding-right: 5px;   
-}*/
+}
 
 .outputText3{
 color:#524e4f; 
@@ -1150,11 +1150,6 @@ font-size:12px;
 font-family:Arial, Helvetica, sans-serif;
 }
 
-.outputText{
-color:#524e4f; 
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-}
 
 .af_selectOneChoice_content {
 color: #524e4f;
@@ -1175,4 +1170,4 @@ border-color: #AFAFAF;
 {
 color: #524e4f;
    font-family : Lucida Sans,Georgia,Serif !important; 
-}0
+}
