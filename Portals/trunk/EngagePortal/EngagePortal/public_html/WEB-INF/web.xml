@@ -459,6 +459,10 @@
     <servlet-name>imageservlet</servlet-name>
     <servlet-class>com.sfr.engage.util.imageservlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <servlet-class>com.sfr.engage.util.ImageMapServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
@@ -563,6 +567,10 @@
     <servlet-name>imageservlet</servlet-name>
     <url-pattern>/imageservlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <url-pattern>/imagemapservlet</url-pattern>
+  </servlet-mapping>
   <mime-mapping>
     <extension>swf</extension>
     <mime-type>application/x-shockwave-flash</mime-type>
@@ -574,6 +582,12 @@
   <welcome-file-list>
     <welcome-file>/index.html</welcome-file>
   </welcome-file-list>
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsff</url-pattern>
+      <is-xml>true</is-xml>
+    </jsp-property-group>
+  </jsp-config>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>adfAuthentication</web-resource-name>

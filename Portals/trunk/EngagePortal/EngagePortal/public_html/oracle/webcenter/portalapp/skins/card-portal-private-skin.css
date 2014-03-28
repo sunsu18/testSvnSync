@@ -1,3 +1,25 @@
+.pricelistimage
+{
+    z-index: -1  !important;
+    position: absolute;
+}
+
+.pricelisttext
+{
+    z-index: 1  !important;
+    position: static;
+    color: white;
+     font-weight: bold;
+     padding-left: 35px;
+     width: 100px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+    
+}
+
+
+
 .af_panelAccordion_body-content {
     overflow: hidden;
     width: auto;
@@ -624,7 +646,8 @@ font-weight: bold;
 
 }
 .af_table_data-row .af_column_banded-data-cell {
-background-color: rgb(240,240,240) !important;
+/*background-color: rgb(240,240,240) !important;*/
+background-color: transparent !important;
 height: 25px;
 border-bottom: 0px solid #FFFFFF !important;
 border-right: 1px solid #FFFFFF !important;
@@ -632,12 +655,13 @@ border-right: 1px solid #FFFFFF !important;
 }
 
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
+    background-color: transparent;
     color: #333333;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 25px;
+    height: 40px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     /*padding-left:10px !important;*/

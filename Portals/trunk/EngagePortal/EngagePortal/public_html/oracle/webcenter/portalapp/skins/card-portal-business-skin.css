@@ -481,7 +481,8 @@ height:21px;
 
 }
 .af_table_data-row .af_column_banded-data-cell {
-background-color: rgb(240,240,240) !important;
+/*background-color: rgb(240,240,240) !important;*/
+background-color: transparent !important;
 height: 25px;
 border-bottom: 0px solid #FFFFFF !important;
 border-right: 1px solid #FFFFFF !important;
@@ -494,7 +495,7 @@ border-right: 1px solid #FFFFFF !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 25px;
+    height: 40px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     

@@ -1,4 +1,4 @@
-package com.sfr.engage.view.servlet;
+package com.sfr.engage.util;
 
 import com.sfr.engage.services.core.dao.factory.DAOFactory;
 import com.sfr.engage.services.core.dao.factory.DAOFactory.*;
@@ -105,6 +105,7 @@ public class ImageMapServlet extends HttpServlet{
                                         os.write(buffer, 0, b);
                                     }
                                     os.close();
+                                    Connection1.close();
                                 }
                                 
                             }
@@ -133,14 +134,6 @@ public class ImageMapServlet extends HttpServlet{
         
 
     }
-
-
-    @Override
-    protected void doPost(HttpServletRequest httpServletRequest,
-                          HttpServletResponse httpServletResponse) throws ServletException,
-                                                                          IOException {
-        //super.doPost(httpServletRequest, httpServletResponse);
-        doGet(httpServletRequest, httpServletResponse);
-        
-    }
+    
+   
 }
