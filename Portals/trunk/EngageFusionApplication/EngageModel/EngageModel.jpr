@@ -63,9 +63,6 @@
    <value n="defaultPackage" v="com.sfr.engage.model"/>
    <value n="jbo.JpxName" v="com.sfr.engage.model.EngageModel"/>
    <value n="JboProject" v="true"/>
-   <hash n="oracle.adfdtinternal.model.ide.settings.ADFMSettings">
-      <value n="hasDataControls" v="true"/>
-   </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="ADFbc"/>
@@ -252,14 +249,6 @@
             <value n="id" v="EngageUtility.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
-         <hash>
-            <value n="id" v="UtilityJAR.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="ADF Model Generic Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -288,15 +277,6 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="EngageUtility.jar"/>
                <value n="id" v="EngageUtility.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../../libraries/jar/utilityJAR.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="UtilityJAR.jar"/>
-               <value n="id" v="UtilityJAR.jar"/>
                <value n="locked" v="true"/>
             </hash>
          </list>
@@ -380,14 +360,6 @@
          </hash>
          <hash>
             <value n="id" v="EngageUtility.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="UtilityJAR.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="ADF Model Generic Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

@@ -93,6 +93,10 @@
     <servlet-name>GatewayServlet</servlet-name>
     <servlet-class>oracle.adfinternal.view.faces.bi.renderkit.graph.FlashBridgeServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <servlet-class>com.sfr.engage.view.servlet.ImageMapServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
@@ -124,6 +128,10 @@
   <servlet-mapping>
     <servlet-name>GatewayServlet</servlet-name>
     <url-pattern>/flashbridge/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageMapServlet</servlet-name>
+    <url-pattern>/imagemapservlet</url-pattern>
   </servlet-mapping>
   <mime-mapping>
     <extension>swf</extension>

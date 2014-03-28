@@ -20,14 +20,11 @@
     padding-left: 40px;
 }
 
-@agent gecko{
-.af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
-.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
-    margin-left:-3px !important;
-    margin-right:-15px !important;
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title,
+.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-toolbar{
+    width:500px;
 }
-}
-
 
 .FAQInfo{
     color: #524e4f !important;
@@ -77,7 +74,7 @@
     background:transparent;
 }
 .af_panelAccordion_header .af_panelAccordion_header-start{
-    padding-left:4px;
+    padding-left:2px;
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-disclose{
@@ -107,7 +104,6 @@
     font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
-    /*padding-left:10px;*/
 }
 
 .af_panelAccordion_header-subsequent.p_AFDisclosed .af_panelAccordion_header-title,
@@ -432,25 +428,19 @@ margin-left: -1px;
 margin-right: -1px;
 margin-bottom: -5px;
 margin-top: -5px;
-font-size: 8px;
+font-size: 9px;
 background-color:white;
 border:none;
-/*background-image:  url("/faces/images/arrow/arrow_blue_down.png") !important;*/
+/*background-image: url("/faces/images/arrow_orange_down.jpg") !important;*/
 /*background-color: #f2ad00;*/
 }
 
 .af_selectManyChoice_dropdown-icon-style,
 .af_inputComboboxListOfValues_dropdown-icon-style{
+    background-image:  url("/faces/images/arrow/arrow_blue_down.png") !important;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 7px auto;
-    padding:2px 2px 2px 10px;
-}
-.af_selectManyChoice_control{
-    font-family : Lucida Sans,Georgia,Serif !important;
-    font-size: 13px !important;
-    font-weight: normal !important;
-    padding:1px;
 }
 
 .af_selectManyChoice_content {
@@ -483,8 +473,7 @@ height:21px;
 
 }
 .af_table_data-row .af_column_banded-data-cell {
-/*background-color: rgb(240,240,240) !important;*/
-background-color: transparent !important;
+background-color: rgb(240,240,240) !important;
 height: 25px;
 border-bottom: 0px solid #FFFFFF !important;
 border-right: 1px solid #FFFFFF !important;
@@ -497,7 +486,7 @@ border-right: 1px solid #FFFFFF !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 40px;
+    height: 25px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     
@@ -620,13 +609,6 @@ font-style:normal;
      padding-left: 5px !important;
      padding-right:5px !important;
      }
-     
-     .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
-.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
-    margin-right:-15px !important;
-    margin-left:-2px !important;
-}
-
  }
  
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton
@@ -966,7 +948,7 @@ font-weight:bold;
 }
 
 #top a {
-    color: #524E4F !important;
+    color: black;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;
