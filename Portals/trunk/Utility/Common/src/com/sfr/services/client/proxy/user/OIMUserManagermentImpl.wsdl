@@ -1,0 +1,189 @@
+<definitions
+     name="OIMUserManagermentImpl"
+     targetNamespace="http://ws.oim.sfr.com/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://ws.oim.sfr.com/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns="http://schemas.xmlsoap.org/ws/2004/09/policy"
+         xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" orawsp:provides="{http://docs.oasis-open.org/ns/opencsa/sca/200903}authentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication, {http://docs.oasis-open.org/ns/opencsa/sca/200903}clientAuthentication.message"
+         wsu:Id="wss_saml_or_username_token_service_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:SamlToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV11Token10/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:SupportingTokens>
+            </wsp:All>
+            <wsp:All>
+                <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssUsernameToken10/>
+                            </wsp:Policy>
+                        </sp:UsernameToken>
+                    </wsp:Policy>
+                </sp:SupportingTokens>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://ws.oim.sfr.com/" schemaLocation="OIMUserManagermentImplPort_xsd_1.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="updateOIMUser">
+        <part name="parameters" element="tns:updateOIMUser"/>
+    </message>
+    <message name="updateOIMUserResponse">
+        <part name="parameters" element="tns:updateOIMUserResponse"/>
+    </message>
+    <message name="createOIMUser">
+        <part name="parameters" element="tns:createOIMUser"/>
+    </message>
+    <message name="createOIMUserResponse">
+        <part name="parameters" element="tns:createOIMUserResponse"/>
+    </message>
+    <message name="deleteOIMUser">
+        <part name="parameters" element="tns:deleteOIMUser"/>
+    </message>
+    <message name="deleteOIMUserResponse">
+        <part name="parameters" element="tns:deleteOIMUserResponse"/>
+    </message>
+    <message name="changePassword">
+        <part name="parameters" element="tns:changePassword"/>
+    </message>
+    <message name="changePasswordResponse">
+        <part name="parameters" element="tns:changePasswordResponse"/>
+    </message>
+    <message name="isUserChangePasswordNextLogin">
+        <part name="parameters" element="tns:isUserChangePasswordNextLogin"/>
+    </message>
+    <message name="isUserChangePasswordNextLoginResponse">
+        <part name="parameters" element="tns:isUserChangePasswordNextLoginResponse"/>
+    </message>
+    <message name="searchOIMUser">
+        <part name="parameters" element="tns:searchOIMUser"/>
+    </message>
+    <message name="searchOIMUserResponse">
+        <part name="parameters" element="tns:searchOIMUserResponse"/>
+    </message>
+    <message name="forgotPassword">
+        <part name="parameters" element="tns:forgotPassword"/>
+    </message>
+    <message name="forgotPasswordResponse">
+        <part name="parameters" element="tns:forgotPasswordResponse"/>
+    </message>
+    <portType name="OIMUserManagermentImpl">
+        <operation name="updateOIMUser">
+            <input message="tns:updateOIMUser"/>
+            <output message="tns:updateOIMUserResponse"/>
+        </operation>
+        <operation name="createOIMUser">
+            <input message="tns:createOIMUser"/>
+            <output message="tns:createOIMUserResponse"/>
+        </operation>
+        <operation name="deleteOIMUser">
+            <input message="tns:deleteOIMUser"/>
+            <output message="tns:deleteOIMUserResponse"/>
+        </operation>
+        <operation name="changePassword">
+            <input message="tns:changePassword"/>
+            <output message="tns:changePasswordResponse"/>
+        </operation>
+        <operation name="isUserChangePasswordNextLogin">
+            <input message="tns:isUserChangePasswordNextLogin"/>
+            <output message="tns:isUserChangePasswordNextLoginResponse"/>
+        </operation>
+        <operation name="searchOIMUser">
+            <input message="tns:searchOIMUser"/>
+            <output message="tns:searchOIMUserResponse"/>
+        </operation>
+        <operation name="forgotPassword">
+            <input message="tns:forgotPassword"/>
+            <output message="tns:forgotPasswordResponse"/>
+        </operation>
+    </portType>
+    <binding name="OIMUserManagermentImplPortBinding" type="tns:OIMUserManagermentImpl">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wss_saml_or_username_token_service_policy"
+             wsdl:required="false"/>
+        <operation name="updateOIMUser">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="createOIMUser">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="deleteOIMUser">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="changePassword">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="isUserChangePasswordNextLogin">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="searchOIMUser">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="forgotPassword">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="OIMUserManagermentImpl">
+        <port name="OIMUserManagermentImplPort" binding="tns:OIMUserManagermentImplPortBinding">
+            <soap:address location="http://elb1cn12.statoilfuelretail.com:10021/OIMWebServices_ENGAGE/OIMUserManagermentImplPort"/>
+        </port>
+    </service>
+</definitions>
