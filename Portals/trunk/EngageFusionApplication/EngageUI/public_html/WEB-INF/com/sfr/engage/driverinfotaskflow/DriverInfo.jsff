@@ -161,7 +161,7 @@
     <af:popup id="new_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="710"
+      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="800"
                  closeIconVisible="false">
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
@@ -171,8 +171,10 @@
           <f:facet name="bottom">
             <af:toolbar id="new_driver_panel_toolbar"
                         styleClass="WCPanelColor">
-              <af:panelGroupLayout id="new_footer_panel" layout="horizontal">
-              <af:spacer width="500" height="10" id="s5"/>               
+              <af:panelGroupLayout id="new_footer_panel" layout="vertical"
+                                   halign="right" inlineStyle="width:662.0px;">
+              <af:spacer width="479" height="10" id="s5"/>
+                <af:panelGroupLayout id="pgl11" halign="right">
                 <af:commandButton text="#{sfr.SAVE}" id="save"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverSave}" styleClass="buttonback buttontext"/>
@@ -182,12 +184,13 @@
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverCancel}" styleClass="buttonback buttontext">                  
                 </af:commandButton>
+                </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:toolbar>
           </f:facet>
           <f:facet name="center">
             <af:panelGroupLayout id="newDriver_scroll"
-                                 styleClass="WCPanelMargin">
+                                 styleClass="WCPanelMargin" layout="horizontal">
               
                   <h:panelGrid columns="9" id="popupGrid">
               
@@ -205,7 +208,7 @@
               <af:selectOneChoice value="#{bindings.AccountId.inputValue}"                                    
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="acc" autoSubmit="true"
-                                    contentStyle="width:162px;height:16.0px"
+                                  contentStyle="width:165px;height:24.0px;"
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si1"/>
@@ -300,7 +303,7 @@
               <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
                             shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
                             id="id6"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.PassportExpiry.validator}"/>
                 <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
               </af:inputDate>
@@ -322,7 +325,7 @@
               <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
                             shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
                             id="id3"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
                 <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
               </af:inputDate>
@@ -333,7 +336,7 @@
               <af:inputDate value="#{bindings.EmployStart.inputValue}"
                             shortDesc="#{bindings.EmployStart.hints.tooltip}"
                             id="id5"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.EmployStart.validator}"/>
                 <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
               </af:inputDate>
@@ -343,7 +346,7 @@
               <af:inputDate value="#{bindings.EmployEnd.inputValue}"
                             shortDesc="#{bindings.EmployEnd.hints.tooltip}"
                             id="id2"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.EmployEnd.validator}"/>
                 <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
               </af:inputDate>                               
@@ -373,8 +376,12 @@
           <f:facet name="bottom">
             <af:toolbar id="edit_driver_panel_toolbar"
                         styleClass="WCPanelColor">
-              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
-              <af:spacer width="500" height="10" id="ss5"/>               
+              <af:panelGroupLayout id="edit_footer_panel" layout="vertical"
+                                   inlineStyle="width:662.0px;" halign="right">
+              <af:spacer width="500" height="10" id="ss5"/> 
+              <af:panelGroupLayout id="pgl12" halign="right"
+                                   layout="horizontal">
+             
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
@@ -385,7 +392,9 @@
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverCancel}" styleClass="buttonback buttontext">                  
                 </af:commandButton>
-              </af:panelGroupLayout>
+                </af:panelGroupLayout>
+                </af:panelGroupLayout>
+           
             </af:toolbar>
           </f:facet>
           <f:facet name="center">
