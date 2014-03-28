@@ -420,9 +420,15 @@ background-repeat: no-repeat;
 vertical-align: text-bottom;
 background-position: center;
 padding: 1px 10px 3px 1px;
-font-size: 10px;
-background-image: url("/faces/images/download.jpg")!important;
-padding-bottom: 4px;
+<<<<<<< .minefont-size: 10px;*/
+=======font-size: 10px;
+>>>>>>> .theirsbackground-color: #f2ad00;
+<<<<<<< .mine/*margin-right: 0px !important;
+margin-top: 1.5px !important;
+margin-bottom: 0px !important;*/
+
+/*background-image: url("/faces/images/download.jpg")!important;
+=======>>>>>>> .theirspadding-bottom: 4px;
 display: inline-block;
 -webkit-box-sizing: border-box;
 height: 11px;
@@ -457,8 +463,28 @@ margin: 0px;
 color: #524e4f;
 background-color: transparent;
 height:21px;
+
 }
 
+.af_selectOneChoice_content {
+color: #524e4f;
+border-style: solid;
+border-width: 1px;
+border-top-color: #267AF8;
+border-left-color: #176AE6;
+border-bottom-color: #2977FA;
+border-right-color: #2B78FA;
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 13px;
+margin: 1px;
+border-color: #AFAFAF;
+}
+
+
+.af_inputDate_launch-icon-style, .af_panelList .af_inputDate_launch-icon-style{
+  background-image: url("/faces/images/calendar.png") !important;
+}
 
 /*.af_treeTable, .af_table {
 text-align: left;
@@ -782,6 +808,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', end
 }
 
 af_selectManyChoice_dropdown-icon-style{
+    
     
 }
 
@@ -1281,9 +1308,10 @@ border: 1px solid  #979796;
 {
     padding-left: 5px;
     padding-right: 5px;   
-}*/
+<<<<<<< .mine}
+=======}*/
 
-.outputText3{
+>>>>>>> .theirs.outputText3{
 color:#524e4f; 
 font-size:12px;
 font-family:Arial, Helvetica, sans-serif;

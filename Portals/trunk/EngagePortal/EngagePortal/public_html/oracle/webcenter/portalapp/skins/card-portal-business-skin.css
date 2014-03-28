@@ -1140,3 +1140,24 @@ color:#524e4f;
 font-size:12px;
 font-family:Arial, Helvetica, sans-serif;
 }
+
+.af_selectOneChoice_content {
+color: #524e4f;
+border-style: solid;
+border-width: 1px;
+border-top-color: #267AF8;
+border-left-color: #176AE6;
+border-bottom-color: #2977FA;
+border-right-color: #2B78FA;
+font-family : Lucida Sans,Georgia,Serif !important;
+font-weight: normal;
+font-size: 13px;
+margin: 1px;
+border-color: #AFAFAF;
+}
+
+.af_inputDate_content
+{
+color: #524e4f;
+   font-family : Lucida Sans,Georgia,Serif !important; 
+}0
