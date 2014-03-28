@@ -50,6 +50,7 @@
   </pageDefinitionUsages>
 
   <dataControlUsages>
+    <dc id="UserClient" path="com.sfr.engage.model.UserClient"/>
     <BC4JDataControl id="EngageAppModuleDataControl" Package="com.sfr.engage.model.module" FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
                      SupportsTransactions="true" SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true" SupportsSortCollection="true"
                      Configuration="EngageAppModuleLocal" syncMode="Immediate" xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>

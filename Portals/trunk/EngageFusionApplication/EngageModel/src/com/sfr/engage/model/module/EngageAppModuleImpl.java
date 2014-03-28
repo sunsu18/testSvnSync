@@ -12,11 +12,16 @@ import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
+import com.sfr.engage.utility.util.AccessDataControl;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import oracle.jbo.Row;
+import oracle.jbo.ViewCriteria;
+import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -161,6 +166,29 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                         sqle.getMessage();
                     }
                 }
+    }
+
+
+
+    public String getWebServiceErrorMessage(String errorMessage, String countryCode) {
+        String translatedValue = "";
+        PrtGenStringRVOImpl vo = getPrtGenStringRVO1();
+        ViewCriteria vc = vo.createViewCriteria();
+        ViewCriteriaRow vcr = vc.createViewCriteriaRow();
+        vcr.setAttribute("KeyCode", errorMessage);
+        vc.add(vcr);
+        vcr.setAttribute("TypeValue", "GENERAL_ERROR_MESSAGE");
+        vc.add(vcr);
+        vcr.setAttribute("LangCode", countryCode);
+        vc.add(vcr);
+        vo.applyViewCriteria(vc);
+        vo.executeQuery();
+        System.out.println("getGeneralErrorMessage Row Count:" + vo.getRowCount());
+        while (vo.hasNext()) {
+            Row tran = vo.next();
+            translatedValue = (String)tran.getAttribute("KeyValue");
+        }
+        return translatedValue;
     }
 /**
      * Container's getter for PrtAccountRVO1.

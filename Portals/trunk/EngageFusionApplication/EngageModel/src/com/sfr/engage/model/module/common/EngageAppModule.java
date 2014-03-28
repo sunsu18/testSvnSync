@@ -8,4 +8,6 @@ import oracle.jbo.ApplicationModule;
 public interface EngageAppModule extends ApplicationModule {
     void deleteAllForAccount(String accountId, String type, String countryCd,
                              String regDriverValue);
+
+    String getWebServiceErrorMessage(String errorMessage, String countryCode);
 }

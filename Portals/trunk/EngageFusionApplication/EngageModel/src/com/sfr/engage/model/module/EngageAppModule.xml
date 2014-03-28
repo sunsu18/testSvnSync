@@ -71,42 +71,15 @@
         Name="regDriverValue"
         Type="java.lang.String"/>
     </Method>
-  </ClientInterface>
-  <ClientInterface>
     <Method
-      Name="deleteAllForAccount">
+      Name="getWebServiceErrorMessage">
       <Return
-        Type="void"/>
-      <Parameter
-        Name="accountId"
         Type="java.lang.String"/>
       <Parameter
-        Name="type"
+        Name="errorMessage"
         Type="java.lang.String"/>
       <Parameter
-        Name="countryCd"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="regDriverValue"
-        Type="java.lang.String"/>
-    </Method>
-  </ClientInterface>
-  <ClientInterface>
-    <Method
-      Name="deleteAllForAccount">
-      <Return
-        Type="void"/>
-      <Parameter
-        Name="accountId"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="type"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="countryCd"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="regDriverValue"
+        Name="countryCode"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>

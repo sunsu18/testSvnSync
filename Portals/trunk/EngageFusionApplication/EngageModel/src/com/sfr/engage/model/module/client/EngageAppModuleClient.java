@@ -16,10 +16,18 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
     public EngageAppModuleClient() {
     }
 
+
     public void deleteAllForAccount(String accountId, String type,
                                     String countryCd, String regDriverValue) {
         Object _ret =
             this.riInvokeExportedMethod(this,"deleteAllForAccount",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {accountId, type, countryCd, regDriverValue});
         return;
+    }
+
+    public String getWebServiceErrorMessage(String errorMessage,
+                                            String countryCode) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"getWebServiceErrorMessage",new String [] {"java.lang.String","java.lang.String"},new Object[] {errorMessage, countryCode});
+        return (String)_ret;
     }
 }
