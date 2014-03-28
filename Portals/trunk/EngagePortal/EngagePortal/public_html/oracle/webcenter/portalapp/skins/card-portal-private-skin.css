@@ -1317,3 +1317,22 @@ border: 1px solid  #979796;
     padding-left: 5px;
     padding-right: 5px;   
 }*/
+
+.outputText3{
+color:#524e4f; 
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+font-weight: 900;
+}
+
+.outputText1{
+color:#524e4f; 
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.outputText{
+color:#524e4f; 
+font-size:12px;
+font-family:Arial, Helvetica, sans-serif;
+}
