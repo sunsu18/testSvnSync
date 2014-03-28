@@ -415,24 +415,36 @@ overflow-y: auto;
 
 .af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style
 {
-    /*padding-right: 16px;
+/*padding-right: 16px;
 background-repeat: no-repeat;
 vertical-align: text-bottom;
 background-position: center;
-margin-left: 0px;
-margin-right: 0px;
 padding: 1px 10px 3px 1px;
-font-size: 10px;*/
-background-color: #f2ad00;
-/*background-image: url("/faces/images/download.jpg")!important;
+font-size: 10px;
+background-image: url("/faces/images/download.jpg")!important;
 padding-bottom: 4px;
 display: inline-block;
 -webkit-box-sizing: border-box;
-height: 11px;*/
-/*background-position-y: 60%;*/
+height: 11px;
+background-position-y: 60%;*/
+margin-left: -1px;
+margin-right: -1px;
+margin-bottom: -5px;
+margin-top: -5px;
+font-size: 9px;
+background-color:white;
+border:none;
+/*background-image: url("/faces/images/arrow_orange_down.jpg") !important;*/
+/*background-color: #f2ad00;*/
 
 }
-
+.af_selectManyChoice_dropdown-icon-style,
+.af_inputComboboxListOfValues_dropdown-icon-style{
+    background-image:  url("/faces/images/arrow/arrow_orange_down.png") !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 7px auto;
+}
 
 .af_selectManyChoice_content {
 font-family : Lucida Sans,Georgia,Serif !important;
