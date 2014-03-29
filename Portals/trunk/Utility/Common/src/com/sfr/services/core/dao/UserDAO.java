@@ -295,9 +295,10 @@ public class UserDAO {
             } else {
                 System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"OPSS search using USER_NAME");
                 ssfilter = idStore.getSimpleSearchFilter(UserProfile.USER_NAME, SimpleSearchFilter.TYPE_EQUAL, userId);
+                System.out.println("value of ssfilter======>"+ssfilter.getValue());
             }
             SearchParameters params = new SearchParameters(ssfilter, SearchParameters.SEARCH_USERS_ONLY);
-
+            System.out.println("value of [params======>"+params);
             SearchResponse response = idStore.searchProfiles(params);
 
             oracle.security.idm.Identity id = null;
@@ -412,8 +413,8 @@ public class UserDAO {
                 
                 /*Enage Portal starts here*/
                 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_CARD_B2B_MGR));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_CARD_B2C_PETRO));
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
                 
                 
                 
@@ -618,13 +619,13 @@ public class UserDAO {
                 
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
-                    List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_CARD_B2B_MGR));
+                    List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2B_MGR));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_MGR, null, custID, user.getRoleList()));
                 }
                 
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2C_PETRO)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
-                    List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_CARD_B2C_PETRO));
+                    List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_PETRO, null, custID, user.getRoleList()));
                 }
                 
@@ -636,7 +637,9 @@ public class UserDAO {
                 
                 if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
+                    System.out.println("property value of=====================>"+profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
+                    System.out.println("List of WCP card admin================================================================>"+custID);
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, null, custID, user.getRoleList()));
                 }
                 

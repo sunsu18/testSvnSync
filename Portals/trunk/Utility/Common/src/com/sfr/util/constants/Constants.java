@@ -628,15 +628,15 @@ public class Constants {
     //Constants to hold the ParameterValue of Engage Portal for OPSS call 
     
    
-    public static final String OPSS_WCP_CARD_B2C_SFR="WCP_CARD_B2C_SFR";
-    public static final String OPSS_WCP_CARD_B2C_JET="WCP_CARD_B2C_JET";
-    public static final String OPSS_WCP_CARD_B2B_ADMIN="WCP_CARD_B2B_ADMIN";
-    public static final String OPSS_CARD_B2B_MGR="WCP_CARD_B2B_MGR";
-    public static final String OPSS_CARD_B2C_PETRO="WCP_CARD_B2C_PETRO";
-    public static final String OPSS_WCP_CARD_B2B_EMP="WCP_CARD_B2B_EMP";
-    public static final String OPSS_WCP_CARD_ADMIN="WCP_CARD_ADMIN";
-    public static final String OPSS_WCP_CARD_CSR="WCP_CARD_CSR";
-    public static final String OPSS_WCP_CARD_SALES_REP="WCP_CARD_SALES_REP";
+    public static final String OPSS_WCP_CARD_B2C_SFR="CARD_B2C_SFR";
+    public static final String OPSS_WCP_CARD_B2C_JET="CARD_B2C_JET";
+    public static final String OPSS_WCP_CARD_B2B_ADMIN="CARD_B2B_ADMIN";
+    public static final String OPSS_WCP_CARD_B2B_MGR="CARD_B2B_MGR";
+    public static final String OPSS_WCP_CARD_B2C_PETRO="CARD_B2C_PETRO";
+    public static final String OPSS_WCP_CARD_B2B_EMP="CARD_B2B_EMP";
+    public static final String OPSS_WCP_CARD_ADMIN="CARD_ADMIN";
+    public static final String OPSS_WCP_CARD_CSR="CARD_CSR";
+    public static final String OPSS_WCP_CARD_SALES_REP="CARD_SALES_REP";
     
 
 }
