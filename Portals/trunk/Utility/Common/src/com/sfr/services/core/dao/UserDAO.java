@@ -127,6 +127,21 @@ public class UserDAO {
         sb.append("--identity.getRemoveRoleList():<" + identity.getRemoveRoleList() + ">");
         sb.append("--identity.getDesignation():<" + identity.getDesignation() + ">");
         sb.append("--identity.getSiteIDs():<" + identity.getSiteIDs() + ">");
+        
+        /* Engage Portal Starts here*/
+        
+        sb.append("--identity.getCARDADMINID():<" + identity.getCARDADMINID() + ">");
+        sb.append("--identity.getCARDB2BADMINID():<" + identity.getCARDB2BADMINID() + ">");
+        sb.append("--identity.getCARDB2BEMPID():<" + identity.getCARDB2BEMPID() + ">");
+        sb.append("--identity.getCARDB2BMGRID():<" + identity.getCARDB2BMGRID() + ">");
+        sb.append("--identity.getCARDB2CJETID():<" + identity.getCARDB2CJETID() + ">");
+        sb.append("--identity.getCARDB2CPETROID():<" + identity.getCARDB2CPETROID() + ">");
+        sb.append("--identity.getCARDB2CSFRID():<" + identity.getCARDB2CSFRID() + ">");
+        sb.append("--identity.getCARDCSRID():<" + identity.getCARDCSRID() + ">");
+        sb.append("--identity.getCARDSALESREPID():<" + identity.getCARDSALESREPID() + ">");
+        
+        
+        /*Engage Portal ends here*/
         sb.append("Displaying Identity ends::::::::::::");
         return sb.toString();
     }
@@ -373,27 +388,36 @@ public class UserDAO {
                     user.setInternal(true);
                 }
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"isInternal:" + profile.getPropertyVal(Constants.searchType));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"CustomerId:" + profile.getPropertyVal("customerId"));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"employeeNumber:" + profile.getPropertyVal("employeeNumber"));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Manager:" + profile.getPropertyVal(Constants.OPSS_WCP_B2BM));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Employee" + profile.getPropertyVal(Constants.OPSS_WCP_B2BEMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Customer:" + profile.getPropertyVal(Constants.OPSS_WCP_B2C));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Supervisor:" + profile.getPropertyVal(Constants.OPSS_WCP_AVSUP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_RESM));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSM));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_RESEMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal CSR:" + profile.getPropertyVal(Constants.OPSS_WCP_ICSR));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_AVEMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Sup:" + profile.getPropertyVal(Constants.OPSS_WCP_MRSUP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Emp:" + profile.getPropertyVal(Constants.OPSS_WCP_MREMP));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Webshop mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_WSM));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"designation:" + profile.getPropertyVal("designation"));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"title:" + profile.getPropertyVal("title"));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"SiteIDs:" + profile.getPropertyVal("sstation_ManagerExt"));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"isInternal:" + profile.getPropertyVal(Constants.searchType));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"CustomerId:" + profile.getPropertyVal("customerId"));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"employeeNumber:" + profile.getPropertyVal("employeeNumber"));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Manager:" + profile.getPropertyVal(Constants.OPSS_WCP_B2BM));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Employee" + profile.getPropertyVal(Constants.OPSS_WCP_B2BEMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Customer:" + profile.getPropertyVal(Constants.OPSS_WCP_B2C));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Supervisor:" + profile.getPropertyVal(Constants.OPSS_WCP_AVSUP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_RESM));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSM));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_RESEMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal CSR:" + profile.getPropertyVal(Constants.OPSS_WCP_ICSR));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_AVEMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Sup:" + profile.getPropertyVal(Constants.OPSS_WCP_MRSUP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Emp:" + profile.getPropertyVal(Constants.OPSS_WCP_MREMP));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Webshop mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_WSM));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"designation:" + profile.getPropertyVal("designation"));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"title:" + profile.getPropertyVal("title"));
+//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"SiteIDs:" + profile.getPropertyVal("sstation_ManagerExt"));
+                
+                /*Enage Portal starts here*/
+                
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_CARD_B2B_MGR));
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_CARD_B2C_PETRO));
+                
+                
+                
+                /* Engage portal end here*/
                 
 
                 user.setRoleList(new ArrayList<Roles>());
@@ -610,7 +634,7 @@ public class UserDAO {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_EMP, null, custID, user.getRoleList()));
                 }
                 
-               /* if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
+                if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, null, custID, user.getRoleList()));
@@ -626,9 +650,9 @@ public class UserDAO {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_SALES_REP));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, null, custID, user.getRoleList()));
-                }*/
+                }
                 
-                if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
+                /*if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, user.getRoleList()));
                 }
                 
@@ -638,7 +662,7 @@ public class UserDAO {
                 
                 if (roleList.contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, user.getRoleList()));
-                }
+                }*/
                 
                 /* Engage Portal Roles List Ended for OPSS*/
             }
@@ -1257,7 +1281,7 @@ public class UserDAO {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_EMP, null,custID, user.getRoleList()));
                             }
                             
-                            /*if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) && identityResult.getCARDADMINID() != null && !identityResult.getCARDADMINID().isEmpty()) {
+                            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) && identityResult.getCARDADMINID() != null && !identityResult.getCARDADMINID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDADMINID());
                                 if(custID==null || custID.size()<1){
@@ -1282,9 +1306,9 @@ public class UserDAO {
                                     System.out.println("Role found"+Constants.ROLE_WCP_CARD_SALES_REP+"but Card Sales Rep IDs not found");
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, null,custID, user.getRoleList()));
-                            }*/
+                            }
                             
-                            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)) {
+                            /*if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, user.getRoleList()));
                             }
                             
@@ -1294,7 +1318,7 @@ public class UserDAO {
                             
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, user.getRoleList()));
-                            }
+                            }*/
                             
                             /* Added till here */
                             
