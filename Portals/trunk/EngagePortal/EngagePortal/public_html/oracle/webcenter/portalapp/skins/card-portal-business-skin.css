@@ -36,11 +36,14 @@
     padding-left: 40px;
 }
 
-.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
+/*.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
 .af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title,
 .af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-toolbar{
     width:500px;
 }
+.af_panelAccordion_header .af_panelAccordion_header-close{
+    width:500px !important;
+}*/
 
 .FAQInfo{
     color: #524e4f !important;
@@ -89,6 +92,8 @@
     width:700px !important;
     background:transparent;
 }
+
+.af_panelAccordion_header .p_AFDisclosed .p_AFFlow
 .af_panelAccordion_header .af_panelAccordion_header-start{
     padding-left:2px;
 }
@@ -328,7 +333,14 @@ af|dialog::inactive-background
 background-color: rgb(252,252,252);    
 }*/
 
-.logintext{
+.p_AFHoverTarget.af_commandButton.p_AFTextOnly
+{
+     color:Black !important; 
+}
+
+
+
+.af_goButton{
    background: transparent url("/images/Buttons/login_business.png") !important;
    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
@@ -426,7 +438,7 @@ overflow-x: hidden;
 overflow-y: auto;
 }
 
-.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style
+.af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style
 {
 /*padding-right: 16px;
 background-repeat: no-repeat;
@@ -434,30 +446,28 @@ vertical-align: text-bottom;
 background-position: center;
 padding: 1px 10px 3px 1px;
 font-size: 10px;
-background-image: url("/faces/images/download.jpg")!important;
 padding-bottom: 4px;
 display: inline-block;
 -webkit-box-sizing: border-box;
 height: 11px;
 background-position-y: 60%;*/
-margin-left: -1px;
-margin-right: -1px;
-margin-bottom: -5px;
-margin-top: -5px;
-font-size: 9px;
-background-color:white;
-border:none;
-/*background-image: url("/faces/images/arrow_orange_down.jpg") !important;*/
+ margin-left: -1px !important;
+    margin-right: -1px !important;
+    margin-bottom: -2px !important;
+    margin-top: -1px !important;
+    font-size: 9px !important;
+    background-color:white !important;
+    border:none !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: 7px auto !important;
+    padding:0px !important;
+background-image: url("/faces/images/arrow_orange_down.jpg") !important;
 /*background-color: #f2ad00;*/
 }
 
-.af_selectManyChoice_dropdown-icon-style,
-.af_inputComboboxListOfValues_dropdown-icon-style{
-    background-image:  url("/faces/images/arrow/arrow_blue_down.png") !important;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 7px auto;
-    padding:2px 2px 2px 10px;}
+
+
 .af_selectManyChoice_control{
     font-family : Lucida Sans,Georgia,Serif !important;
     font-size: 13px !important;
@@ -650,9 +660,12 @@ font-style:normal;
     margin-right:-15px !important;
     margin-left:-2px !important;
 } 
+
+
+
 }
  
-.af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton
+.af_commandButton.p_AFTextOnly,.af_dialog_footer-button
 {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px !important;
