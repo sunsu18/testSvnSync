@@ -388,8 +388,10 @@
           <f:facet name="bottom">
             <af:toolbar id="edit_vehicle_panel_toolbar"
                         styleClass="WCPanelColor">
-              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal">
-                <af:spacer width="475" height="10" id="ss5"/>
+              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal"   inlineStyle="width:712.0px;" halign="right">
+                <af:spacer width="479" height="10" id="ss5"/>
+                <af:panelGroupLayout id="pgl11" layout="horizontal"
+                                     halign="right">
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
@@ -399,6 +401,7 @@
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}"></af:commandButton>
+              </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:toolbar>
           </f:facet>
@@ -436,7 +439,8 @@
                 <af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountNumber.hints.tooltip}"
                                     id="soc2"
-                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}">
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
+                                    contentStyle="width:164px;height:24.0px;">
                   <f:selectItems value="#{bindings.AccountNumber.items}"
                                  id="si2"/>
                 </af:selectOneChoice>
@@ -503,7 +507,7 @@
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"
                               shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
                               id="id1"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                 </af:inputDate>
@@ -513,7 +517,7 @@
                 <af:inputDate value="#{bindings.EndDate.inputValue}"
                               shortDesc="#{bindings.EndDate.hints.tooltip}"
                               id="id4"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EndDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                 </af:inputDate>
@@ -537,7 +541,7 @@
                               maximumLength="#{bindings.MaxFuel.hints.precision}"
                               shortDesc="#{bindings.MaxFuel.hints.tooltip}"
                               id="it21"
-                              contentStyle="width:158px;height:21.0px;padding-top: 8px">
+                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.MaxFuel.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.MaxFuel.format}"/>

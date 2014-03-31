@@ -415,7 +415,7 @@
                 <af:selectOneChoice value="#{bindings.AccountId.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="soc2"
-                                    contentStyle="width:162px;height:16.0px"
+                                    contentStyle="width:165px;height:24.0px;"
                                     valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}">
                   <f:selectItems value="#{bindings.AccountId.items}"
                                  id="si2"/>
@@ -509,7 +509,7 @@
                 <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
                               shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
                               id="id1"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.PassportExpiry.validator}"/>
                   <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
                 </af:inputDate>
@@ -531,7 +531,7 @@
                 <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
                               shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
                               id="id8"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
                   <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
                 </af:inputDate>
@@ -542,7 +542,7 @@
                 <af:inputDate value="#{bindings.EmployStart.inputValue}"
                               shortDesc="#{bindings.EmployStart.hints.tooltip}"
                               id="id4"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EmployStart.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
                 </af:inputDate>
@@ -552,7 +552,7 @@
                 <af:inputDate value="#{bindings.EmployEnd.inputValue}"
                               shortDesc="#{bindings.EmployEnd.hints.tooltip}"
                               id="id7"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EmployEnd.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
                 </af:inputDate>
