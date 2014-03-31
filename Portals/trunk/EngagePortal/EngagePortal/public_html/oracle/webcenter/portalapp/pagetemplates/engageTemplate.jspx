@@ -100,7 +100,19 @@
                                 </li>
                               </c:forEach>
                                
-                           
+                           <af:commandToolbarButton id="pt_ctb1"
+                            rendered="#{securityContext.authenticated}"
+                            inlineStyle="background-image: none;border-style: none;font-size: 12px;margin-left: -38px;margin-top: -8px;padding: 5px 10px 4px 12px;"
+                            actionDelivery="none">
+                            <f:facet name="popup">
+                            <af:menu id="pt_m1"
+                            inlineStyle="background-image:none;">
+                            <af:commandMenuItem id="pt_logoutcb" visible="#{true}"
+                               action="#{LoginBean.sfrLogout}"
+                               text="#{sfr.LOG_OUT}"/>
+                                </af:menu>
+                              </f:facet>
+                              </af:commandToolbarButton>
                                
                              
                             </ul>
