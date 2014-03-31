@@ -102,14 +102,14 @@
                                
                            <af:commandToolbarButton id="pt_ctb1"
                             rendered="#{securityContext.authenticated}"
-                            inlineStyle="background-image: none;border-style: none;font-size: 12px;margin-left: -38px;margin-top: -8px;padding: 5px 10px 4px 12px;"
+                            inlineStyle="background-image: none; border-style: none; font-size: 12px; margin-left: -6px; margin-top: -4px; padding: 0px 0px 0px 0px; height: 10px; width: 10px; background-color: #F3F3F3;"
                             actionDelivery="none">
                             <f:facet name="popup">
                             <af:menu id="pt_m1"
-                            inlineStyle="background-image:none;">
+                            inlineStyle="background-image: none; background-color: #F3F3F3;display: inline;">
                             <af:commandMenuItem id="pt_logoutcb" visible="#{true}"
                                action="#{LoginBean.sfrLogout}"
-                               text="#{sfr.LOG_OUT}"/>
+                               text="Logout"/>
                                 </af:menu>
                               </f:facet>
                               </af:commandToolbarButton>

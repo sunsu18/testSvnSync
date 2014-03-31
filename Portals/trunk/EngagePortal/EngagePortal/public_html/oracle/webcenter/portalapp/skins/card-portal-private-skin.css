@@ -1089,22 +1089,24 @@ font-weight:bold;
 /*commandMenuItem_menu-item*/
 
 .af_commandMenuItem_menu-item, .af_goMenuItem_menu-item, .af_menu_submenu{
-  height:30px;  
+  height:30px;
+  width:40px;
 }
 .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-text, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-accelerator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-text, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-accelerator, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-open-indicator, .af_menu.p_AFHighlighted .af_menu_submenu-text, .af_menu.p_AFHighlighted .af_menu_submenu-accelerator, .af_menu.p_AFHighlighted .af_menu_submenu-open-indicator, .af_commandMenuItem.p_AFHighlighted .af_commandMenuItem_menu-item-icon-style, .af_goMenuItem.p_AFHighlighted .af_goMenuItem_menu-item-icon-style, .af_menu.p_AFHighlighted .af_menu_submenu-icon-style{
-    background-color: rgb(44,42,43);;
+    background-color: #F3F3F3;
     
     /*color: #C1E6FF;*/
-    color: #3cb6ce;
+    color: #F3F3F3;
 }
 .af_commandMenuItem_menu-item-text, .af_goMenuItem_menu-item-text, .af_menu_submenu-text{
-     background-color: rgb(44,42,43);
-     color: white;
+     background-color: #F3F3F3;
+     color: #524E4F !important;
       font: bold 12px Georgia;
-       cursor:pointer;
+      cursor:pointer;
+      text-align:left !important;
 }
 .af_commandMenuItem_menu-item-open-indicator, .af_goMenuItem_menu-item-open-indicator, .af_menu_submenu-open-indicator,.af_commandMenuItem_menu-item-accelerator, .af_goMenuItem_menu-item-accelerator, .af_menu_submenu-accelerator{
-    background-color: #2C2A2B !important;
+    background-color: #F3F3F3 !important;
 }
 
 /*commandToolbarButton*/
