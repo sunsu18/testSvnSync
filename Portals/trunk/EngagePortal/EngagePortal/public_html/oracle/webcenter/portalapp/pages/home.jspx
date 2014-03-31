@@ -20,9 +20,21 @@
      
       <af:resource type="css" source="/css/carousal.css"/>
       <af:resource type="javascript" source="/js/jquery.min.js"/>
+     
       <af:resource type="javascript" source="/js/jquery-1.4.2.min.js"/>
       <af:resource type="javascript" source="/js/jquery.jcarousel.min.js"/>
       <af:resource type="javascript" source="/js/homeCarousel.js"/> 
+      <af:resource type="javascript">
+      
+    function redirect() {
+
+       
+         window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
+        window.focus(); 
+        
+
+    }
+      </af:resource>
 	<af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1"          >
           <f:facet name="content">
             <pe:pageCustomizable id="hm_pgc1">
@@ -131,10 +143,16 @@
                         <af:panelGroupLayout id="pgl17" layout="horizontal" 
                                halign="left">
                         <af:spacer width="250" height="1" id="s19"/>
-                        <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
+                       <!-- <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
                                      destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
                                      targetFrame="_blank"
-                                     styleClass="gobutton1"/>
+                                     styleClass="gobutton1"/> !-->
+                                     <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb1"
+                                                      
+                                                      >
+                            <af:clientListener method="redirect" type="click"/>
+                          </af:commandButton>            
+                                     
                         <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
         
