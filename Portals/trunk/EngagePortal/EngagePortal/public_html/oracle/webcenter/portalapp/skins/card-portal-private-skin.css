@@ -82,8 +82,9 @@
 
 .af_panelAccordion_header .p_AFDisclosed .p_AFFlow
 .af_panelAccordion_header .af_panelAccordion_header-start{
-    padding-left:2px;
+    padding-left:4px;
 }
+
 .FAQInfo{
     color: #524e4f !important;
     font-size: 14px ;
@@ -465,6 +466,7 @@ border:none;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 7px auto;
+     padding:2px 2px 2px 10px;
 }
 
 .af_selectManyChoice_content {
@@ -672,7 +674,8 @@ border-right: 1px solid #FFFFFF !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 35px;
+    height: 40px;
+    /*HITEN CHANGES*/
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     /*padding-left:10px !important;*/
@@ -782,6 +785,23 @@ font-style:normal;
 
 
 /*Button Background*/
+@agent gecko{
+.af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style{
+margin-right:-18px !important;
+margin-left:-3px !important;
+}
+.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
+    margin-right:-15px !important;
+    margin-left:-3px !important;
+}
+}
+
+@agent webkit {
+    .af_commandButton.p_AFTextOnly{
+        padding-top: 3px !important;
+    }
+    
+}
 
  @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:11){
      .af_commandButton.p_AFTextOnly{
@@ -790,6 +810,12 @@ font-style:normal;
      padding-left: 5px !important;
      padding-right:5px !important;
      }
+     
+      .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
+.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
+    margin-right:-15px !important;
+    margin-left:-2px !important;
+}
  }
  
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton 
@@ -832,6 +858,7 @@ af_selectManyChoice_dropdown-icon-style{
     font-family : Lucida Sans,Georgia,Serif !important;
     font-size: 13px !important;
     font-weight: normal !important;
+    padding:1px;
 }
 
 
@@ -1152,7 +1179,7 @@ font-weight:bold;
 }
 
 #top a {
-    color: black;
+    color: #524E4F !important;;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;

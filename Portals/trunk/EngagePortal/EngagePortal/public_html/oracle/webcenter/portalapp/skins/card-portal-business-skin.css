@@ -456,8 +456,13 @@ border:none;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 7px auto;
+    padding:2px 2px 2px 10px;}
+.af_selectManyChoice_control{
+    font-family : Lucida Sans,Georgia,Serif !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
+    padding:1px;
 }
-
 .af_selectManyChoice_content {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-weight: normal;
@@ -501,7 +506,7 @@ border-right: 1px solid #FFFFFF !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 13px;
     font-weight: normal; 
-    height: 35px;
+    height: 40px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
     
@@ -617,6 +622,21 @@ font-style:normal;
 
 /*Button Background*/
 
+@agent gecko{
+.af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
+.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
+    margin-left:-3px !important;
+    margin-right:-15px !important;
+}
+}
+
+@agent webkit {
+    .af_commandButton.p_AFTextOnly{
+        padding-top: 3px !important;
+    }
+    
+}
+
  @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:default){
      .af_commandButton.p_AFTextOnly{
          padding-top: 3px !important;
@@ -624,7 +644,12 @@ font-style:normal;
      padding-left: 5px !important;
      padding-right:5px !important;
      }
- }
+     .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
+.af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
+    margin-right:-15px !important;
+    margin-left:-2px !important;
+} 
+}
  
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button,.af_goButton
 {
@@ -963,7 +988,7 @@ font-weight:bold;
 }
 
 #top a {
-    color: black;
+    color: #524E4F !important;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;
