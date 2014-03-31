@@ -11,6 +11,7 @@
 {
     z-index: 1;
     position: absolute;
+        padding-left: 5px;
 }
 
 .af_panelAccordion_body-content {
