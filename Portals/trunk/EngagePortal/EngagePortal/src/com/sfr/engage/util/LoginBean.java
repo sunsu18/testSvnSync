@@ -65,7 +65,7 @@ public class LoginBean {
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("/PartnerPortal")) {
+                if (cookie.getName().equals("/CustomerPortal")) {
                     cookie.setValue(null);
                     cookie.setMaxAge(0);
                     cookie.setPath("/");

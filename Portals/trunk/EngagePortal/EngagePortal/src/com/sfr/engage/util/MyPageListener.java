@@ -14,6 +14,8 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.PhaseId;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +26,8 @@ import oracle.adf.controller.v2.lifecycle.PagePhaseListener;
 import oracle.adf.share.ADFContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.share.security.SecurityContext;
+
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.webcenter.portalframework.sitestructure.SiteStructure;
 import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
@@ -132,11 +136,24 @@ public class MyPageListener implements PagePhaseListener {
                 }
             }
             
-            
-            
+            if (phase == PhaseId.RESTORE_VIEW.getOrdinal()) {
+                
+                if (!AdfFacesContext.getCurrentInstance().isPostback()) {
+                FacesContext facesCtx = FacesContext.getCurrentInstance();
+                String currentViewId = facesCtx.getViewRoot().getViewId();
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"facesCtx.getViewRoot().getViewId():: " + currentViewId);
+                // if user is authenticated and requested for sign in page then redirect to home page
+
+                if (currentViewId.contains("signin") && securityContext.isAuthenticated()) {
+                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"Inside OAM authenticated");
+                    session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
+                    String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+                    ectx.redirect(ectx.getRequestContextPath() + requestedPage);
+                   }
+                }
+            }
         } catch (Exception e) {
-           
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
     
@@ -177,6 +194,11 @@ public class MyPageListener implements PagePhaseListener {
                 session.setAttribute(Constants.SESSION_USER_DISPLAY_NAME, user.getFirstName());
                 if(user.getRolelist() != null && !user.getRolelist().isEmpty())
                 {
+                    System.out.println("Checking user get role list is proper or not===================>");
+                if(user.getRoleList().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                    System.out.println("user role name=======>"+user.getRoleList());
+                }
+                    
                     //getLanguageForLocalization(session,user.getRolelist());
                 }
             } else {
