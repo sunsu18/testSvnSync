@@ -78,13 +78,14 @@
           </af:column>
           <af:column sortProperty="UnitPrice" sortable="false"
                      headerText="#{sfr.UNIT_PRICE}"
-                     id="c6">
+                     id="c6" width="160">
                      <af:panelGroupLayout id="pgl0" layout="horizontal" halign="right" 
                                  styleClass="tablepanel">
             <af:outputText value="#{row.UnitPrice}" id="ot15">
               <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
-                                locale="#{pageFlowScope.PriceListInfoBean.locale}"/>
+                                locale="#{pageFlowScope.PriceListInfoBean.locale}"
+                                minFractionDigits="2"/>
             </af:outputText>
             <af:spacer width="10" height="1" id="s2"/>
               <af:outputText value="#{row.CurrencyCode}" id="ot5"/>
