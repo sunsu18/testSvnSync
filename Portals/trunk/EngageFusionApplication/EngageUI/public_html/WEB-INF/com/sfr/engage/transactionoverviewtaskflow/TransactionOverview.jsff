@@ -1,2 +1,140 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"></jsp:root>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+            xmlns:f="http://java.sun.com/jsf/core"
+            version="2.1"           
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:c="http://java.sun.com/jsp/jstl/core">
+          <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
+<af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
+    <af:panelGroupLayout id="pgl2">
+    <af:spacer width="10" height="20" id="s9ghghg"/>
+    <af:panelGroupLayout id="printPanel1" layout="horizontal"
+                        >
+      <af:outputText value="#{sfr.TRANSACTION_OVERVIEW}" id="ot1" styleClass="heading"/>
+      <af:spacer width="20" height="1" id="s1"/>     
+     </af:panelGroupLayout>
+       <af:spacer width="5" height="10" id="s11"/>
+    <af:panelGroupLayout id="pgl9" layout="horizontal">
+      <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
+      <af:spacer width="10" height="15" id="s17"/>
+      <af:panelGroupLayout id="pgl3" layout="horizontal"
+                           inlineStyle="width:960.0px;">
+        <af:panelGroupLayout id="pgl4" layout="vertical"
+                             inlineStyle="width:300px; height:200.0px;">
+          <h:panelGrid columns="5" id="pg1">
+           <af:outputText value="*" id="op51"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+            <af:spacer width="5" height="15" id="s86"/>
+            <af:outputText value="#{sfr.TERMINAL}" id="ot2"/>
+            <af:spacer width="10" height="15" id="s6"/>
+            <af:selectOneChoice id="soc1" showRequired="false">
+              <af:selectItem label="test" value="test" id="si1"/>
+              <af:selectItem label="test" value="test" id="si2"/>
+            </af:selectOneChoice>
+             <af:outputText value="*" id="ot11"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+                                   <af:spacer width="5" height="15" id="s14"/>
+            <af:outputText value="#{sfr.TYPE}" id="ot3"/>
+            <af:spacer width="10" height="15" id="s7"/>
+            <af:selectOneChoice id="soc2" showRequired="false">
+              <af:selectItem label="test" value="test" id="si3"/>
+              <af:selectItem label="test" value="test" id="si4"/>
+            </af:selectOneChoice>
+             <af:outputText value="*" id="ot10"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+                                   <af:spacer width="5" height="15" id="s13"/>
+             <af:outputText value="#{sfr.ACCOUNT}" id="ot4"/>
+             <af:spacer width="10" height="15" id="s8"/>
+            <af:selectOneChoice id="soc3" showRequired="false">
+              <af:selectItem label="test" value="test" id="si8"/>
+              <af:selectItem label="test" value="test" id="si5"/>
+            </af:selectOneChoice>
+             <af:outputText value="*" id="ot9"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+                                   <af:spacer width="5" height="15" id="s12"/>
+             <af:outputText value="#{sfr.CARDGROUP}" id="ot5"/>
+             <af:spacer width="10" height="15" id="s9"/>
+            <af:selectOneChoice id="soc4" showRequired="false">
+              <af:selectItem label="test" value="test" id="si6"/>
+              <af:selectItem label="test" value="test" id="si7"/>
+            </af:selectOneChoice>
+          </h:panelGrid>
+        </af:panelGroupLayout>
+        
+         <af:panelGroupLayout id="pgl6" layout="horizontal">
+      <af:separator id="s2" styleClass="vertical_seprator"/>
+    </af:panelGroupLayout>
+        
+        <af:panelGroupLayout id="pgl5" layout="horizontal"
+                             inlineStyle="width:300px; height:200.0px;">
+          <af:spacer width="10" height="10" id="spacer3"/>
+          <af:panelGroupLayout id="pgl7" layout="vertical" valign="top">
+            <h:panelGrid columns="13" id="pg2">
+              <af:outputText value="*" id="ot12"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+            <af:spacer width="5" height="15" id="s15"/>
+             <af:outputText value="#{sfr.FROM_DATE}" id="ot7"/>
+              <af:inputDate id="id1">
+              <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
+              <af:spacer width="15" height="15" id="s4"/>
+                <af:outputText value="*" id="ot13"
+                                   inlineStyle="color:red;margin-left:-10px;"/>
+            <af:spacer width="5" height="15" id="s16"/>
+               <af:outputText value="#{sfr.TO_DATE}" id="ot8"/>
+              <af:inputDate id="id2">
+              <af:convertDateTime pattern="dd.MM.yyyy"/>
+              </af:inputDate>
+            </h:panelGrid>
+            <af:spacer width="10" height="10" id="spacer4"/>
+            <h:panelGrid columns="3" id="pg4">
+            <af:spacer width="10" height="10" id="s18"/>
+            <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal">
+              <af:selectItem label="#{sfr.CARD}" value="Card" id="si10"/>
+              <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
+                             id="si11"/>
+              <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si12"/>
+              <!--<f:selectItems value="#{pageFlowScope.ledgerBean.searchItemCriteriaLOV}"
+                             id="si1"/>-->
+            </af:selectOneRadio>
+            </h:panelGrid>
+            <af:spacer width="10" height="10" id="spacer7"/>
+            <h:panelGrid columns="3" id="pg3">
+              <af:outputText value="#{sfr.CARD}" id="ot6"/>
+              <af:spacer width="10" height="10" id="spacer5"/>
+              <af:selectOneChoice id="soc5">
+                <af:selectItem label="test" value="test" id="si9"/>
+              </af:selectOneChoice>
+            </h:panelGrid>
+            <af:spacer width="10" height="10" id="s10"/>
+            <af:panelGroupLayout id="pgl8" layout="horizontal"
+                                 inlineStyle="width:300.0px;" halign="right">
+              <af:spacer width="250" height="10" id="s5"/>
+              
+              <h:commandButton value="#{sfr.SEARCH}" id="cb1"/>
+              <af:spacer width="20" height="10" id="spacer6"/>
+              <h:commandButton value="#{sfr.CLEAR}" id="commandButton1"/>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="spacer1"/>
+      <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
+        <af:separator id="separator1"
+                      inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+      </af:panelGroupLayout>
+      <af:spacer width="10" height="15" id="spacer2"/>
+    </af:panelGroupLayout>
+   
+    
+   
+    
+  
+    
+   
+    
+    
+ </af:panelGroupLayout>
+</jsp:root>

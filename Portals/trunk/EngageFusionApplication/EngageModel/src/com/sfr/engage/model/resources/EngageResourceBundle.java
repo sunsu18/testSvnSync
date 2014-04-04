@@ -74,8 +74,12 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       {"NO_RECORDS_FOUND_VEHICLE",""},{"STATOIL_INFO",""},{"AUTH_MESSAGES",""},{"NO_RECORDS_FOUND_DELETE_ALL",""},
                                         {"ENGAGE_CHANGE_PASSWORD",""},{"ENGAGE_PASS_POLY1",""},{"ENGAGE_PASS_POLY2",""},{"ENGAGE_PASS_POLY3",""},{"ENGAGE_PASS_POLY4",""},{"ENGAGE_PASS_POLY5",""},{"ENGAGE_PASS_POLY6",""},{"ENGAGE_PASS_POLY7",""},
                                         {"ENGAGE_PASS_POLY8",""},{"ENGAGE_OLD_PASSWORD",""},{"ENGAGE_NEW_PASSWORD",""},{"ENGAGE_PASS_POLY_LINK",""},{"ENGAGE_CONFIRM_PASSWORD",""},{"ENGAGE_PASS_POLY",""},{"ENGAGE_SUBMIT",""},{"ENGAGE_NO_OLD_PASSWORD",""},{"ENGAGE_NO_NEW_PASSWORD",""},{"ENGAGE_NO_CONFIRM_PASSWORD",""},{"ENGAGE_NO_SAME_PASSWORD",""},
+
+                                      {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},{"TRANSACTION_OVERVIEW",""},
                                         {"ENGAGE_INVOICE_OVERVIEW",""},{"ENGAGE_ACCOUNT",""},{"ENGAGE_FROM",""},{"ENGAGE_TO",""},{"ENGAGE_INVOICE_DETAILS",""},{"ENGAGE_INVOICE_TYPE",""},
-                                      {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""}};
+                                      {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},{"TERMINAL",""},{"TYPE",""},{"ACCOUNT",""},{"CARDGROUP",""},{"FROM_DATE",""},{"TO_DATE",""},{"CARDS",""},{"VEHICLES",""},
+                                      {"DRIVERS",""},{"CLEAR",""}};
+
                                       
               
 
