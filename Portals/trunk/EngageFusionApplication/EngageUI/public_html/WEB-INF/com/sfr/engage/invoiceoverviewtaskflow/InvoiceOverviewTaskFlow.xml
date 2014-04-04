@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="InvoiceOverviewTaskFlow">
+    <default-activity id="__1">InvoiceOverview</default-activity>
+    <managed-bean id="__4">
+      <managed-bean-name id="__3">InvoiceOverviewBean</managed-bean-name>
+      <managed-bean-class id="__5">com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean</managed-bean-class>
+      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="InvoiceOverview">
+      <page>/WEB-INF/com/sfr/engage/invoiceoverviewtaskflow/InvoiceOverview.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

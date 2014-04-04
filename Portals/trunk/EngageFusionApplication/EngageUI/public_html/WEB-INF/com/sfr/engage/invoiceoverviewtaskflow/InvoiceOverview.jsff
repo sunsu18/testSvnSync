@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html">
+ <af:panelGroupLayout id="pgl2">
+  <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="spacerStyle">
+   <af:spacer width="10" height="10" id="s10"/>
+   <af:panelGroupLayout id="pgl4" layout="horizontal">
+    <af:outputText value="#{sfr.ENGAGE_INVOICE_OVERVIEW}" id="ot1"
+                   styleClass="heading"/>
+   </af:panelGroupLayout>
+   <af:spacer width="10" height="5" id="s1"/>
+   <af:panelGroupLayout id="pgl3" layout="horizontal">
+    <af:separator id="s2"
+                  inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+   </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl6">
+    <h:panelGrid columns="4" id="pg1">
+    <af:outputText value="*#{sfr.ENGAGE_ACCOUNT}" id="colon"/>
+    <af:outputText value=":" id="coll"/>
+    <af:spacer width="15" height="10" id="s18"/>
+    <af:selectOneChoice id="smc1"
+                         binding="#{pageFlowScope.InvoiceOverviewBean.bindings.account}"
+                         value="#{pageFlowScope.InvoiceOverviewBean.accountValue}">
+     <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.accountList}"
+                 var="listItem">
+      <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                     id="select_item"/>
+     </af:forEach>
+    </af:selectOneChoice>
+   
+    <af:outputText value="*#{sfr.ENGAGE_INVOICE_TYPE}" id="ot2"/>
+    <af:outputText value=":" id="ot3"/>
+    <af:spacer width="15" height="10" id="s3"/>
+    <af:selectOneChoice id="soc1" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceType}"
+                        value="#{pageFlowScope.InvoiceOverviewBean.invoiceTypeValue}">
+     <af:selectItem label="Truck" value="Truck" id="si1"/>
+     <af:selectItem label="Truck V" value="Truck V" id="si2"/>
+     <af:selectItem label="Bulk" value="Bulk" id="si3"/>
+    </af:selectOneChoice>
+    </h:panelGrid>
+    <af:panelGroupLayout id="pgl5" layout="horizontal">
+    <af:outputText value="*#{sfr.ENGAGE_FROM}" id="ot4"/>
+    <af:outputText value=":" id="ot5"/>
+    <af:spacer width="15" height="10" id="s4"/>
+     <af:inputDate id="fromId" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.fromDate}">
+              <af:convertDateTime pattern="dd.MM.yyyy"/>
+        </af:inputDate>
+        
+     <af:outputText value="*#{sfr.ENGAGE_TO}" id="ot6"/>
+    <af:outputText value=":" id="ot7"/>
+    <af:spacer width="15" height="10" id="s5"/>
+     <af:inputDate id="id1" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.toDate}">
+              <af:convertDateTime pattern="dd.MM.yyyy"/>
+        </af:inputDate>
+    </af:panelGroupLayout>
+     <af:spacer width="10" height="10" id="s7"/>
+    <af:panelGroupLayout id="pgl7" layout="horizontal">
+    <af:spacer width="300" height="10" id="s6"/>
+     <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                       actionListener="#{pageFlowScope.InvoiceOverviewBean.searchResultsListener}"/>
+     <af:spacer width="10" height="10" id="s11"/>
+     <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb2"
+                       actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl8">
+    <af:separator id="s8"
+                  inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+     <af:spacer width="10" height="10" id="s9"/>
+      <af:outputText value="#{sfr.ENGAGE_INVOICE_DETAILS}" id="ot8"
+                   styleClass="heading"/>
+    </af:panelGroupLayout>
+   </af:panelGroupLayout>
+  </af:panelGroupLayout>
+ </af:panelGroupLayout>
+</jsp:root>
