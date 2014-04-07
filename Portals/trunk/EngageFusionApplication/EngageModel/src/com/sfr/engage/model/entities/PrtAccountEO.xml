@@ -340,13 +340,6 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
-  <AccessorAttribute
-    Name="PrtInvoiceEO"
-    Association="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtInvoiceEO"
-    AssociationOtherEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtAccountEO"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
   <Key
     Name="PrtAccountPk"
     PrimaryKey="true">

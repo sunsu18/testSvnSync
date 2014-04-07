@@ -272,16 +272,6 @@ public class PrtAccountEOImpl extends EntityImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
-        ,
-        PrtInvoiceEO {
-            public Object get(PrtAccountEOImpl obj) {
-                return obj.getPrtInvoiceEO();
-            }
-
-            public void put(PrtAccountEOImpl obj, Object value) {
-                obj.setAttributeInternal(index(), value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -336,7 +326,6 @@ public class PrtAccountEOImpl extends EntityImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int PRTDRIVERINFORMATIONEO = AttributesEnum.PrtDriverInformationEO.index();
-    public static final int PRTINVOICEEO = AttributesEnum.PrtInvoiceEO.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -777,13 +766,6 @@ public class PrtAccountEOImpl extends EntityImpl {
      */
     public RowIterator getPrtDriverInformationEO() {
         return (RowIterator)getAttributeInternal(PRTDRIVERINFORMATIONEO);
-    }
-
-    /**
-     * @return the associated entity oracle.jbo.RowIterator.
-     */
-    public RowIterator getPrtInvoiceEO() {
-        return (RowIterator)getAttributeInternal(PRTINVOICEEO);
     }
 
     /**

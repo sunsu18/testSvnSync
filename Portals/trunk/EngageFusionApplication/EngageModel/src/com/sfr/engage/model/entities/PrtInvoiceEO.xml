@@ -279,13 +279,6 @@
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </Attribute>
-  <AccessorAttribute
-    Name="PrtAccountEO"
-    Association="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtAccountEO"
-    AssociationOtherEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtInvoiceEO"
-    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
-    IsUpdateable="true"/>
   <Key
     Name="PrtInvoicePk"
     PrimaryKey="true">
@@ -471,34 +464,6 @@
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PrtCardPk"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="PrtInvoicePrtAccountFk1">
-    <DesignTime>
-      <Attr Name="_referencedKey" Value="PRT_ACCOUNT_PK"/>
-      <Attr Name="_isForeign" Value="true"/>
-      <Attr Name="_DBObjectName" Value="PRT_INVOICE_PRT_ACCOUNT_FK1"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CountryCode"/>
-      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.AccountId"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="PrtInvoicePrtCardgroupFk1">
-    <DesignTime>
-      <Attr Name="_referencedKey" Value="PRT_CARDGROUP_PK"/>
-      <Attr Name="_isForeign" Value="true"/>
-      <Attr Name="_DBObjectName" Value="PRT_INVOICE_PRT_CARDGROUP_FK1"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PartnerId"/>
-      <Item
-        Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupMainType"/>
-      <Item
-        Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupSubType"/>
-      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupSeq"/>
     </AttrArray>
   </Key>
 </Entity>
