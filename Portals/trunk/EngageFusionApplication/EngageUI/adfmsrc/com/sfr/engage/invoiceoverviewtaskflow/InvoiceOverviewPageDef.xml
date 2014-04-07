@@ -7,6 +7,54 @@
     <variableIterator id="variables"/>
     <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator Binds="PrtInvoiceVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtInvoiceVO1Iterator"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceVO"
+                      Name="PrtInvoiceVO10">
+        <AttrNames>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoiceDueDate"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="Net"/>
+          <Item Value="Vat"/>
+          <Item Value="TotalAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceNumber">
+      <AttrNames>
+        <Item Value="InvoiceNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceDate">
+      <AttrNames>
+        <Item Value="InvoiceDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="Net">
+      <AttrNames>
+        <Item Value="Net"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="Vat">
+      <AttrNames>
+        <Item Value="Vat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="TotalAmount">
+      <AttrNames>
+        <Item Value="TotalAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceAddress">
+      <AttrNames>
+        <Item Value="InvoiceAddress"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
 </pageDefinition>
