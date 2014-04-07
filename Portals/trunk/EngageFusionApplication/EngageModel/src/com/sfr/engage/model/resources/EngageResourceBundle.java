@@ -76,7 +76,7 @@ public class EngageResourceBundle extends ListResourceBundle{
                                         {"ENGAGE_PASS_POLY8",""},{"ENGAGE_OLD_PASSWORD",""},{"ENGAGE_NEW_PASSWORD",""},{"ENGAGE_PASS_POLY_LINK",""},{"ENGAGE_CONFIRM_PASSWORD",""},{"ENGAGE_PASS_POLY",""},{"ENGAGE_SUBMIT",""},{"ENGAGE_NO_OLD_PASSWORD",""},{"ENGAGE_NO_NEW_PASSWORD",""},{"ENGAGE_NO_CONFIRM_PASSWORD",""},{"ENGAGE_NO_SAME_PASSWORD",""},
                                         {"ENGAGE_INVOICE_OVERVIEW",""},{"ENGAGE_ACCOUNT",""},{"ENGAGE_FROM",""},{"ENGAGE_TO",""},{"ENGAGE_INVOICE_DETAILS",""},{"ENGAGE_INVOICE_TYPE",""},{"ENGAGE_CARD_GROUP",""},{"ENGAGE_CARD",""},
                                       {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},{"TRANSACTION_OVERVIEW",""},
-                                        {"ENGAGE_INVOICE_OVERVIEW",""},{"ENGAGE_ACCOUNT",""},{"ENGAGE_FROM",""},{"ENGAGE_TO",""},{"ENGAGE_INVOICE_DETAILS",""},{"ENGAGE_INVOICE_TYPE",""},
+                                      {"ENGAGE_INVOICE_OVERVIEW",""},{"ENGAGE_ACCOUNT",""},{"ENGAGE_FROM",""},{"ENGAGE_TO",""},{"ENGAGE_INVOICE_DETAILS",""},{"ENGAGE_INVOICE_TYPE",""},{"ENGAGE_CANCEL",""},
                                         {"TERMINAL",""},{"TYPE",""},{"ACCOUNT",""},{"CARDGROUP",""},{"FROM_DATE",""},{"TO_DATE",""},{"CARDS",""},{"VEHICLES",""},
                                       {"DRIVERS",""},{"CLEAR",""}};
 
