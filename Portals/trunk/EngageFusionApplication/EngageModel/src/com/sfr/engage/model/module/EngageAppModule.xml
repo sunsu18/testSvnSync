@@ -6,10 +6,10 @@
   Name="EngageAppModule"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
-  ClearCacheOnRollback="true"
   ComponentClass="com.sfr.engage.model.module.EngageAppModuleImpl"
   ComponentInterface="com.sfr.engage.model.module.common.EngageAppModule"
-  ClientProxyName="com.sfr.engage.model.module.client.EngageAppModuleClient">
+  ClientProxyName="com.sfr.engage.model.module.client.EngageAppModuleClient"
+  ClearCacheOnRollback="true">
   <DesignTime>
     <Attr Name="_deployType" Value="0"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -20,18 +20,15 @@
   <ViewUsage
     Name="ProductsDisplayRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO"/>
-
   <ViewUsage
     Name="PriceListRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PriceListRVO"/>
-
   <ViewUsage
     Name="PrtTruckInformationVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
   <ViewUsage
     Name="PrtTruckInformationVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
-
   <ViewUsage
     Name="PrtDriverInformationVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtDriverInformationVO"/>
@@ -46,13 +43,52 @@
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/>
   <ViewUsage
     Name="PrtAccountRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtAccountRVO"/>
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtAccountVO"/>
   <ViewUsage
     Name="PrtPcmFeedsRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"/>
   <ViewUsage
     Name="PrtCustomerCardMapRVO1_1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1"/>
+  <ViewUsage
+    Name="PrtInvoiceVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtInvoiceVO"/>
+  <ViewUsage
+    Name="PrtCardVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardVO"/>
+  <ViewUsage
+    Name="PrtCardgroupVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardgroupVO"/>
+  <ViewUsage
+    Name="PrtPartnerVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtPartnerVO"/>
+  <ViewUsage
+    Name="PrtCardgroupVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardgroupVO"/>
+  <ViewUsage
+    Name="PrtCardVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardVO"/>
+  <ViewUsage
+    Name="PrtCardVO3"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardVO"/>
+  <ViewLinkUsage
+    Name="PrtCardgroupPrtPartnerFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtPartnerVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardgroupVO2"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="PrtCardPrtCardgroupFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardPrtCardgroupFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardgroupVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardVO2"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="PrtCardPrtPartnerFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardPrtPartnerFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtPartnerVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardVO3"
+    Reversed="false"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">

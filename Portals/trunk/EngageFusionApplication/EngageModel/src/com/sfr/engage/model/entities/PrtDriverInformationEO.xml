@@ -13,8 +13,8 @@
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.entities.PrtDriverInformationEOImpl">
   <DesignTime>
-    <AttrArray Name="_publishEvents"/>
     <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
+    <AttrArray Name="_publishEvents"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Attribute
@@ -189,13 +189,13 @@
   <Attribute
     Name="ModifiedBy"
     IsNotNull="true"
+    DefaultValue="Siddharth"
     Precision="20"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    TableName="PRT_DRIVER_INFORMATION"
-    DefaultValue="Siddharth">
+    TableName="PRT_DRIVER_INFORMATION">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -216,13 +216,13 @@
   <Attribute
     Name="CountryCode"
     IsNotNull="true"
+    DefaultValue="en_US"
     Precision="8"
     ColumnName="COUNTRY_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    TableName="PRT_DRIVER_INFORMATION"
-    DefaultValue="en_US">
+    TableName="PRT_DRIVER_INFORMATION">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>

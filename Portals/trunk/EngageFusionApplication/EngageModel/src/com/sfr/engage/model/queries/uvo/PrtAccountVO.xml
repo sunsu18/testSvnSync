@@ -3,7 +3,7 @@
 <!---->
 <ViewObject
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="PrtAccountRVO"
+  Name="PrtAccountVO"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
   SelectList="PrtAccountEO.COUNTRY_CODE, 
@@ -34,8 +34,8 @@
   Where="PrtAccountEO.COUNTRY_CODE =: countryCode"
   BindingStyle="OracleName"
   CustomQuery="false"
-  RowClass="com.sfr.engage.model.queries.rvo.PrtAccountRVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.rvo.PrtAccountRVOImpl"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtAccountVOImpl"
   PageIterMode="Full"
   UseGlueCode="false">
   <DesignTime>

@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtInvoiceEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_INVOICE"
+  AliasName="PrtInvoiceEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="InvoiceNumber"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="INVOICE_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CountryCode"
+    IsNotNull="true"
+    Precision="8"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CurrencyCode"
+    IsNotNull="true"
+    Precision="8"
+    ColumnName="CURRENCY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceDate"
+    IsNotNull="true"
+    ColumnName="INVOICE_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceType"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="INVOICE_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceSubType"
+    IsNotNull="true"
+    Precision="15"
+    ColumnName="INVOICE_SUB_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceDueDate"
+    IsNotNull="true"
+    ColumnName="INVOICE_DUE_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Net"
+    IsNotNull="true"
+    ColumnName="NET"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Vat"
+    IsNotNull="true"
+    ColumnName="VAT"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TotalAmount"
+    IsNotNull="true"
+    ColumnName="TOTAL_AMOUNT"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountId"
+    Precision="10"
+    ColumnName="ACCOUNT_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceUcmType"
+    IsNotNull="true"
+    Precision="15"
+    ColumnName="INVOICE_UCM_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceGrouping"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="INVOICE_GROUPING"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerId"
+    IsNotNull="true"
+    Precision="8"
+    ColumnName="PARTNER_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupMainType"
+    Precision="3"
+    ColumnName="CARDGROUP_MAIN_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSubType"
+    Precision="3"
+    ColumnName="CARDGROUP_SUB_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSeq"
+    Precision="5"
+    ColumnName="CARDGROUP_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardInternalId"
+    Precision="20"
+    ColumnName="CARD_INTERNAL_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddress"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="INVOICE_ADDRESS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoicePayRef"
+    IsNotNull="true"
+    ColumnName="INVOICE_PAY_REF"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PrtCardPk"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="PRT_CARD_PK"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtAccountEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtInvoiceEO"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PrtInvoicePk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_INVOICE_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceNumber"/>
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054273">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054273"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_NUMBER" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceNumber"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054274">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054274"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054275">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054275"/>
+      <Attr Name="_checkCondition" Value='"CURRENCY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CurrencyCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054276">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054276"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054277">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054277"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054278">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054278"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_SUB_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceSubType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054279">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054279"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_DUE_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceDueDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054280">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054280"/>
+      <Attr Name="_checkCondition" Value='"NET" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.Net"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054281">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054281"/>
+      <Attr Name="_checkCondition" Value='"VAT" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.Vat"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054282">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054282"/>
+      <Attr Name="_checkCondition" Value='"TOTAL_AMOUNT" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.TotalAmount"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054283">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054283"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_UCM_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceUcmType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054284">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054284"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_GROUPING" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceGrouping"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054285">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054285"/>
+      <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PartnerId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054286">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054286"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_ADDRESS" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceAddress"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054287">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054287"/>
+      <Attr Name="_checkCondition" Value='"INVOICE_PAY_REF" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoicePayRef"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0054288">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0054288"/>
+      <Attr Name="_checkCondition" Value='"PRT_CARD_PK" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PrtCardPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtInvoicePrtAccountFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_ACCOUNT_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_INVOICE_PRT_ACCOUNT_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtInvoicePrtCardgroupFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_CARDGROUP_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_INVOICE_PRT_CARDGROUP_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PartnerId"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupMainType"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupSubType"/>
+      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.CardgroupSeq"/>
+    </AttrArray>
+  </Key>
+</Entity>

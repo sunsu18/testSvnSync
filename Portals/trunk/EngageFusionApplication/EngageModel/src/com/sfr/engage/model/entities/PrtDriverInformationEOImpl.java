@@ -208,6 +208,16 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
                 obj.setPrtAccountEO((PrtAccountEOImpl)value);
             }
         }
+        ,
+        PrtAccountEO1 {
+            public Object get(PrtDriverInformationEOImpl obj) {
+                return obj.getPrtAccountEO1();
+            }
+
+            public void put(PrtDriverInformationEOImpl obj, Object value) {
+                obj.setPrtAccountEO1((PrtAccountEOImpl)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -237,6 +247,7 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
         }
     }
 
+
     public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
@@ -255,12 +266,14 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PRTACCOUNTEO = AttributesEnum.PrtAccountEO.index();
+    public static final int PRTACCOUNTEO1 = AttributesEnum.PrtAccountEO1.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtDriverInformationEOImpl() {
     }
+
 
     /**
      * @return the definition object for this instance class.
@@ -581,6 +594,21 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
      */
     public void setPrtAccountEO(PrtAccountEOImpl value) {
         setAttributeInternal(PRTACCOUNTEO, value);
+    }
+
+
+    /**
+     * @return the associated entity PrtAccountEOImpl.
+     */
+    public PrtAccountEOImpl getPrtAccountEO1() {
+        return (PrtAccountEOImpl)getAttributeInternal(PRTACCOUNTEO1);
+    }
+
+    /**
+     * Sets <code>value</code> as the associated entity PrtAccountEOImpl.
+     */
+    public void setPrtAccountEO1(PrtAccountEOImpl value) {
+        setAttributeInternal(PRTACCOUNTEO1, value);
     }
 
 

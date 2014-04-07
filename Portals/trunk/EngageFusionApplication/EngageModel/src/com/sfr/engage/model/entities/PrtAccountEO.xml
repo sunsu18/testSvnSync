@@ -38,7 +38,7 @@
     ColumnName="ACCOUNT_ID"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     PrimaryKey="true"
     RetrievedOnUpdate="true"
@@ -53,7 +53,7 @@
     ColumnName="PARTNER_ID"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -78,7 +78,7 @@
     ColumnName="CREATED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -103,7 +103,7 @@
     ColumnName="CHANGE_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -117,7 +117,7 @@
     ColumnName="ACCOUNT_RECON_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -131,7 +131,7 @@
     ColumnName="ACCOUNT_STMT_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -145,7 +145,7 @@
     ColumnName="INTEREST_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -159,7 +159,7 @@
     ColumnName="ACCOUNT_GROUP"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -173,7 +173,7 @@
     ColumnName="BLOCK_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -187,7 +187,7 @@
     ColumnName="ACCOUNT_DESC"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -201,7 +201,7 @@
     ColumnName="CREDIT_BLOCK_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -228,7 +228,7 @@
     ColumnName="DUNNING_LEVEL_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -286,7 +286,7 @@
     ColumnName="DUNNING_PROC_ID"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -300,7 +300,7 @@
     ColumnName="GIRO_NUMBER"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     TableName="PRT_ACCOUNT"
     RetrievedOnUpdate="true"
     RetrievedOnInsert="true">
@@ -340,6 +340,13 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtInvoiceEO"
+    Association="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtInvoiceEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtInvoicePrtAccountFk1Assoc.PrtAccountEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <Key
     Name="PrtAccountPk"
     PrimaryKey="true">
@@ -352,9 +359,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0052734">
+    Name="SysC0054192">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0052734"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054192"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -363,9 +370,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0052735">
+    Name="SysC0054193">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0052735"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054193"/>
       <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -374,9 +381,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0052736">
+    Name="SysC0054194">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0052736"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054194"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -385,14 +392,26 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0052737">
+    Name="SysC0054195">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0052737"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054195"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="com.sfr.engage.model.entities.PrtAccountEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtAccountPrtPartnerFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_PARTNER_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_ACCOUNT_PRT_PARTNER_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.PartnerId"/>
     </AttrArray>
   </Key>
 </Entity>
