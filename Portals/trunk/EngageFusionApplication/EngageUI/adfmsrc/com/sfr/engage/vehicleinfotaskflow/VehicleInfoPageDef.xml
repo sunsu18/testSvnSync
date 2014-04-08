@@ -10,8 +10,8 @@
     <iterator Binds="PrtTruckInformationVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtTruckInformationVO2Iterator"/>
-    <iterator id="PrtAccountRVO1Iterator" Binds="PrtAccountRVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="-1"/>
+    <iterator id="PrtAccountVO1Iterator" Binds="PrtAccountVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="EngageAppModuleDataControl"
@@ -89,7 +89,7 @@
             Action="createInsertRow"/>
     <list IterBinding="PrtTruckInformationVO2Iterator" id="AccountNumber"
           DTSupportsMRU="true" StaticList="false"
-          ListIter="PrtAccountRVO1Iterator">
+          ListIter="PrtAccountVO1Iterator">
       <AttrNames>
         <Item Value="AccountNumber"/>
       </AttrNames>

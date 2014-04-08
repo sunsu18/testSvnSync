@@ -42,9 +42,6 @@
     Name="PrtGenHelpRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtGenHelpRVO"/>
   <ViewUsage
-    Name="PrtAccountRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtAccountVO"/>
-  <ViewUsage
     Name="PrtPcmFeedsRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVO"/>
   <ViewUsage
@@ -71,6 +68,9 @@
   <ViewUsage
     Name="PrtCardVO3"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardVO"/>
+  <ViewUsage
+    Name="PrtAccountVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtAccountVO"/>
   <ViewLinkUsage
     Name="PrtCardgroupPrtPartnerFk1Link1"
     ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"

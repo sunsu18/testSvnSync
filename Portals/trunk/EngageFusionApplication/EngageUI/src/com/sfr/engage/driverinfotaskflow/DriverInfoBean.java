@@ -3,7 +3,7 @@ package com.sfr.engage.driverinfotaskflow;
 import com.sfr.engage.core.Account;
 
 import com.sfr.engage.core.DriverInfo;
-import com.sfr.engage.model.queries.rvo.PrtAccountRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.utility.util.ADFUtils;
@@ -73,11 +73,11 @@ public class DriverInfoBean implements Serializable {
         super();
         resourceBundle = new EngageResourceBundle();
         linkedAccountLOVValues = new ArrayList<String>();
-        ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+        ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
         vo.setNamedWhereClauseParam("countryCode", "en_US");
         vo.executeQuery();
         while (vo.hasNext()) {
-            PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+            PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
             if (currRow.getAccountId() != null) {
                 linkedAccountLOVValues.add(currRow.getAccountId());
             }
@@ -86,12 +86,12 @@ public class DriverInfoBean implements Serializable {
 
     public ArrayList<SelectItem> getLinkedAccountList() {
         if (linkedAccountList == null) {
-            ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
+            ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
             vo.setNamedWhereClauseParam("countryCode", "en_US");
             vo.executeQuery();
             linkedAccountList = new ArrayList<SelectItem>();
             while (vo.hasNext()) {
-                PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
+                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
                 if (currRow.getAccountId() != null) {
                     SelectItem selectItem = new SelectItem();
                     selectItem.setLabel(currRow.getAccountId());
@@ -698,7 +698,7 @@ public class DriverInfoBean implements Serializable {
             BindingContainer bindings =
                 BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding itr =
-                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+                (DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
             Row row =
                 itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
             if (row != null) {
@@ -738,7 +738,7 @@ public class DriverInfoBean implements Serializable {
             BindingContainer bindings =
                 BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding itr =
-                (DCIteratorBinding)bindings.get("PrtAccountRVO1Iterator");
+                (DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
             Row row =
                 itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
             if (row != null) {

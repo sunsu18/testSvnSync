@@ -3,13 +3,16 @@ package com.sfr.engage.model.module;
 
 import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
-import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
 import com.sfr.engage.utility.util.AccessDataControl;
@@ -191,13 +194,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
         return translatedValue;
     }
-/**
-     * Container's getter for PrtAccountRVO1.
-     * @return PrtAccountRVO1
-     */
-    public ViewObjectImpl getPrtAccountRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtAccountRVO1");
-    }
 
     /**
      * Container's getter for PrtPcmFeedsRVO1.
@@ -293,5 +289,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewLinkImpl getPrtCardPrtPartnerFk1Link1() {
         return (ViewLinkImpl)findViewLink("PrtCardPrtPartnerFk1Link1");
+    }
+
+    /**
+     * Container's getter for PrtAccountVO1.
+     * @return PrtAccountVO1
+     */
+    public PrtAccountVOImpl getPrtAccountVO1() {
+        return (PrtAccountVOImpl)findViewObject("PrtAccountVO1");
     }
 }
