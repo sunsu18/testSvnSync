@@ -12,14 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
+
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
@@ -30,9 +34,12 @@ public class InvoiceOverviewBean implements Serializable {
     private String accountValue;
     private List<String> cardGroupValue;
     private String invoiceTypeValue;    
-    private List<String> cardValue;
+    private List<String> cardValue;    
     private ArrayList<SelectItem> accountList = null;
     private ArrayList<SelectItem> invoiceTypeList = null;
+    private boolean searchResults=false;
+    private boolean cardGroup=false;
+    private boolean card=false;
     
     public InvoiceOverviewBean() {
         super();
@@ -40,19 +47,28 @@ public class InvoiceOverviewBean implements Serializable {
     
     public ArrayList<SelectItem> getAccountList() {
         if (accountList == null) {
-            ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
-            vo.setNamedWhereClauseParam("countryCode", "en_US");
-            vo.executeQuery();
-            accountList = new ArrayList<SelectItem>();
-            while (vo.hasNext()) {
-                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
-                if (currRow.getAccountId() != null) {
-                    SelectItem selectItem = new SelectItem();
-                    selectItem.setLabel(currRow.getAccountId());
-                    selectItem.setValue(currRow.getAccountId());
-                    accountList.add(selectItem);
-                }
-            }
+            accountList = new ArrayList<SelectItem>();            
+                SelectItem selectItem = new SelectItem();
+                selectItem.setLabel("100");
+                selectItem.setValue("100");
+                accountList.add(selectItem);
+            SelectItem selectItem1 = new SelectItem();
+            selectItem1.setLabel("200");
+            selectItem1.setValue("200");
+            accountList.add(selectItem1);
+//            ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
+//            vo.setNamedWhereClauseParam("countryCode", "en_US");
+//            vo.executeQuery();
+//            accountList = new ArrayList<SelectItem>();
+//            while (vo.hasNext()) {
+//                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
+//                if (currRow.getAccountId() != null) {
+//                    SelectItem selectItem = new SelectItem();
+//                    selectItem.setLabel(currRow.getAccountId());
+//                    selectItem.setValue(currRow.getAccountId());
+//                    accountList.add(selectItem);
+//                }
+//            }
         }
         return accountList;
     }
@@ -62,7 +78,20 @@ public class InvoiceOverviewBean implements Serializable {
 //            ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
 //            vo.setNamedWhereClauseParam("countryCode", "en_US");
 //            vo.executeQuery();
-            invoiceTypeList = new ArrayList<SelectItem>();
+            invoiceTypeList = new ArrayList<SelectItem>();            
+                SelectItem selectItem = new SelectItem();
+                selectItem.setLabel("Truck");
+                selectItem.setValue("Truck");
+                invoiceTypeList.add(selectItem);
+            SelectItem selectItem1 = new SelectItem();
+            selectItem1.setLabel("Truck V");
+            selectItem1.setValue("Truck V");
+            invoiceTypeList.add(selectItem1);
+            SelectItem selectItem2 = new SelectItem();
+            selectItem2.setLabel("Bulk");
+            selectItem2.setValue("Bulk");
+            invoiceTypeList.add(selectItem2);
+            
 //            while (vo.hasNext()) {
 //                PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
 //                if (currRow.getAccountId() != null) {
@@ -73,7 +102,7 @@ public class InvoiceOverviewBean implements Serializable {
 //                }
 //            }
         }
-        return accountList;
+        return invoiceTypeList;
     }
     
     /**
@@ -104,10 +133,27 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
+        searchResults=true;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
         // Add event code here...
+        getBindings().getAccount().setValue(null);
+        getBindings().getCardGpCardList().setValue(null);
+        this.invoiceTypeValue=null;
+        getBindings().getFromDate().setValue(null);
+        getBindings().getToDate().setValue(null);
+        searchResults=false;
+        card=false;
+        cardGroup=false;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());  
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceType()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
     }
 
     public void setCardValue(List<String> cardValue) {
@@ -132,8 +178,57 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceNumberAction() {
+        ViewObject vo =
+            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");       
+      
+        
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
         return null;
+    }
+
+    public void cgValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        if(valueChangeEvent.getNewValue()!=null) {
+            System.out.println("Value ="+valueChangeEvent.getNewValue());
+            if(valueChangeEvent.getNewValue().equals("CardGroup")) {
+            cardGroup=true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
+                card=false;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
+                
+            }else{
+                card=true;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
+                cardGroup=false;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
+                      
+            }            
+            
+        }
+    }
+
+    public void setSearchResults(boolean searchResults) {
+        this.searchResults = searchResults;
+    }
+
+    public boolean isSearchResults() {
+        return searchResults;
+    }
+
+    public void setCardGroup(boolean cardGroup) {
+        this.cardGroup = cardGroup;
+    }
+
+    public boolean isCardGroup() {
+        return cardGroup;
+    }
+
+    public void setCard(boolean card) {
+        this.card = card;
+    }
+
+    public boolean isCard() {
+        return card;
     }
 
     public class Bindings {
@@ -143,8 +238,11 @@ public class InvoiceOverviewBean implements Serializable {
         private RichSelectManyChoice card;
         private RichInputDate fromDate;
         private RichInputDate toDate;
+        private RichSelectOneRadio cardGpCardList;
         private RichPopup invoiceDetails;
         private RichPanelGroupLayout searchResults;
+        private RichPanelGroupLayout cardGroupPGL;
+        private RichPanelGroupLayout cardPGL;
 
         public void setAccount(RichSelectOneChoice account) {
             this.account = account;
@@ -208,6 +306,30 @@ public class InvoiceOverviewBean implements Serializable {
 
         public RichPopup getInvoiceDetails() {
             return invoiceDetails;
+        }
+
+        public void setCardGroupPGL(RichPanelGroupLayout cardGroupPGL) {
+            this.cardGroupPGL = cardGroupPGL;
+        }
+
+        public RichPanelGroupLayout getCardGroupPGL() {
+            return cardGroupPGL;
+        }
+
+        public void setCardPGL(RichPanelGroupLayout cardPGL) {
+            this.cardPGL = cardPGL;
+        }
+
+        public RichPanelGroupLayout getCardPGL() {
+            return cardPGL;
+        }
+
+        public void setCardGpCardList(RichSelectOneRadio cardGpCardList) {
+            this.cardGpCardList = cardGpCardList;
+        }
+
+        public RichSelectOneRadio getCardGpCardList() {
+            return cardGpCardList;
         }
     }
 }

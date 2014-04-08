@@ -23,10 +23,12 @@
        PrtInvoiceEO.CARDGROUP_MAIN_TYPE, 
        PrtInvoiceEO.CARDGROUP_SUB_TYPE, 
        PrtInvoiceEO.CARDGROUP_SEQ, 
-       PrtInvoiceEO.CARD_INTERNAL_ID, 
-       PrtInvoiceEO.INVOICE_ADDRESS, 
        PrtInvoiceEO.INVOICE_PAY_REF, 
-       PrtInvoiceEO.PRT_CARD_PK"
+       PrtInvoiceEO.PRT_CARD_PK, 
+       PrtInvoiceEO.ADDRESS_1, 
+       PrtInvoiceEO.ADDRESS_2, 
+       PrtInvoiceEO.CITY, 
+       PrtInvoiceEO.POSTAL_CODE"
   FromList="PRT_INVOICE PrtInvoiceEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -154,19 +156,6 @@
     EntityUsage="PrtInvoiceEO"
     AliasName="CARDGROUP_SEQ"/>
   <ViewAttribute
-    Name="CardInternalId"
-    PrecisionRule="true"
-    EntityAttrName="CardInternalId"
-    EntityUsage="PrtInvoiceEO"
-    AliasName="CARD_INTERNAL_ID"/>
-  <ViewAttribute
-    Name="InvoiceAddress"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="InvoiceAddress"
-    EntityUsage="PrtInvoiceEO"
-    AliasName="INVOICE_ADDRESS"/>
-  <ViewAttribute
     Name="InvoicePayRef"
     IsNotNull="true"
     PrecisionRule="true"
@@ -180,4 +169,28 @@
     EntityAttrName="PrtCardPk"
     EntityUsage="PrtInvoiceEO"
     AliasName="PRT_CARD_PK"/>
+  <ViewAttribute
+    Name="Address1"
+    PrecisionRule="true"
+    EntityAttrName="Address1"
+    EntityUsage="PrtInvoiceEO"
+    AliasName="ADDRESS_1"/>
+  <ViewAttribute
+    Name="Address2"
+    PrecisionRule="true"
+    EntityAttrName="Address2"
+    EntityUsage="PrtInvoiceEO"
+    AliasName="ADDRESS_2"/>
+  <ViewAttribute
+    Name="City"
+    PrecisionRule="true"
+    EntityAttrName="City"
+    EntityUsage="PrtInvoiceEO"
+    AliasName="CITY"/>
+  <ViewAttribute
+    Name="PostalCode"
+    PrecisionRule="true"
+    EntityAttrName="PostalCode"
+    EntityUsage="PrtInvoiceEO"
+    AliasName="POSTAL_CODE"/>
 </ViewObject>

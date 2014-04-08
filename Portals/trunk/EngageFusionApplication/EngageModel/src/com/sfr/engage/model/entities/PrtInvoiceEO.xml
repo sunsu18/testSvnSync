@@ -228,32 +228,7 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="5"/>
     </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="CardInternalId"
-    Precision="20"
-    ColumnName="CARD_INTERNAL_ID"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_INVOICE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="InvoiceAddress"
-    IsNotNull="true"
-    Precision="20"
-    ColumnName="INVOICE_ADDRESS"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_INVOICE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </Attribute>
+  </Attribute>  
   <Attribute
     Name="InvoicePayRef"
     IsNotNull="true"
@@ -277,6 +252,54 @@
     TableName="PRT_INVOICE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Address1"
+    Precision="20"
+    ColumnName="ADDRESS_1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Address2"
+    Precision="20"
+    ColumnName="ADDRESS_2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="City"
+    Precision="20"
+    ColumnName="CITY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PostalCode"
+    Precision="20"
+    ColumnName="POSTAL_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_INVOICE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
   <Key
@@ -431,17 +454,6 @@
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.PartnerId"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="SysC0054286">
-    <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054286"/>
-      <Attr Name="_checkCondition" Value='"INVOICE_ADDRESS" IS NOT NULL'/>
-      <Attr Name="_isCheck" Value="true"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtInvoiceEO.InvoiceAddress"/>
     </AttrArray>
   </Key>
   <Key
