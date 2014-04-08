@@ -2,6 +2,11 @@
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="TransactionOverviewTaskFlow">
     <default-activity id="__1">TransactionOverview</default-activity>
+    <managed-bean id="__4">
+      <managed-bean-name id="__3">TransactionOverviewBean</managed-bean-name>
+      <managed-bean-class id="__5">com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewBean</managed-bean-class>
+      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+    </managed-bean>
     <view id="TransactionOverview">
       <page>/WEB-INF/com/sfr/engage/transactionoverviewtaskflow/TransactionOverview.jsff</page>
     </view>

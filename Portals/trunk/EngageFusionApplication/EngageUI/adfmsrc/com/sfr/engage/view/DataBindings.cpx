@@ -29,6 +29,8 @@
           usageId="com_sfr_engage_view_HelpInfoPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/invoiceoverviewtaskflow/InvoiceOverview.jsff"
           usageId="com_sfr_engage_view_InvoiceOverviewPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/transactionoverviewtaskflow/TransactionOverview.jsff"
+          usageId="com_sfr_engage_view_TransactionOverviewPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -51,6 +53,8 @@
           path="com.sfr.engage.helptaskflow.HelpInfoPageDef"/>
     <page id="com_sfr_engage_view_InvoiceOverviewPageDef"
           path="com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewPageDef"/>
+    <page id="com_sfr_engage_view_TransactionOverviewPageDef"
+          path="com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="TransactionOverviewPageDef"
+                Package="com.sfr.engage.transactionoverviewtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardTransactionOverviewRVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO10">
+        <AttrNames>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="PalsCountryCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>
