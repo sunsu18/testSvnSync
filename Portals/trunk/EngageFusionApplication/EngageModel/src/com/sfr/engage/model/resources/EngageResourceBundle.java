@@ -1,16 +1,12 @@
 package com.sfr.engage.model.resources;
 
-import java.util.ListResourceBundle;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
-
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
-
-import com.sfr.engage.utility.util.AccessDataControl;
 
 import java.sql.SQLException;
 
 import java.util.HashMap;
-
+import java.util.ListResourceBundle;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -18,14 +14,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import oracle.adf.share.logging.ADFLogger;
-
-import oracle.adf.view.rich.context.AdfFacesContext;
-
 import oracle.jbo.ApplicationModule;
 import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.client.Configuration;
+
 
 public class EngageResourceBundle extends ListResourceBundle{
     
