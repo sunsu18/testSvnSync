@@ -1,7 +1,7 @@
 package com.sfr.engage.util;
 
-import com.sfr.engage.utility.constant.Constants;
-import com.sfr.engage.validations.ThreadSerialization;
+
+import com.sfr.util.ThreadSerialization;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
