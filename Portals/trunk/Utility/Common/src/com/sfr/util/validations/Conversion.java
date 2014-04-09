@@ -22,7 +22,26 @@ public class Conversion {
         super();
     }
 
+    public String getCurrencyCode(String country) {
+        if (country == null || country.isEmpty())
+        {
+            return null;
+        }else if(country.equalsIgnoreCase("SE"))
+        {
+            return "SEK";
+        }else if (country.equalsIgnoreCase("NO"))
+        {
+            return "NOK";
+        }else if(country.equalsIgnoreCase("DE"))
+        {
+            return "DKK";
+        }
+        else
+        {
+            return "US";
+        }
 
+    }
     public Locale getLocaleFromCountryCode(String countryCode) {
         if (countryCode == null || countryCode.isEmpty())
             return null;
