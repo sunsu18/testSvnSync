@@ -6,7 +6,7 @@ import com.sfr.engage.core.VehicleInfo;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
-import com.sfr.engage.utility.util.ADFUtils;
+import com.sfr.util.ADFUtils;
 
 import java.io.Serializable;
 

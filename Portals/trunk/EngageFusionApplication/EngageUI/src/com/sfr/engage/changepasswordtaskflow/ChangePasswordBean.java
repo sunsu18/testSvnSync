@@ -5,7 +5,7 @@ import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
-import com.sfr.engage.utility.util.AccessDataControl;
+import com.sfr.util.AccessDataControl;
 
 import java.io.Serializable;
 

@@ -6,7 +6,7 @@ import com.sfr.engage.core.DriverInfo;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
-import com.sfr.engage.utility.util.ADFUtils;
+import com.sfr.util.ADFUtils;
 
 import java.io.Serializable;
 

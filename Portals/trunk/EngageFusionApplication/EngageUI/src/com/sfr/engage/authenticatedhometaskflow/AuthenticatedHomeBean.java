@@ -6,7 +6,7 @@ import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
-import com.sfr.engage.utility.util.ADFUtils;
+import com.sfr.util.ADFUtils;
 
 import com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean;
 

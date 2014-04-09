@@ -3,7 +3,7 @@ package com.sfr.engage.invoiceoverviewtaskflow;
 import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
 
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
-import com.sfr.engage.utility.util.ADFUtils;
+import com.sfr.util.ADFUtils;
 
 import java.io.Serializable;
 
