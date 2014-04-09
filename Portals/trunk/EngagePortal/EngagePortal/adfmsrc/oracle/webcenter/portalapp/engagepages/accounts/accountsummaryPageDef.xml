@@ -11,8 +11,142 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <iterator Binds="PrtAccountVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtAccountVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <taskFlow id="AccountSummaryTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="PrtAccountVO1Iterator" id="PrtAccountVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtAccountVO"
+                      Name="PrtAccountVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccountId"/>
+          <Item Value="PartnerId"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="AccountReconCode"/>
+          <Item Value="AccountStmtCode"/>
+          <Item Value="InterestCode"/>
+          <Item Value="AccountGroup"/>
+          <Item Value="BlockCode"/>
+          <Item Value="AccountDesc"/>
+          <Item Value="CreditBlockCode"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="DunningLevelCode"/>
+          <Item Value="CreditBlockDate"/>
+          <Item Value="CreditBlockTime"/>
+          <Item Value="AccountBlockDate"/>
+          <Item Value="AccountBlockTime"/>
+          <Item Value="DunningProcId"/>
+          <Item Value="GiroNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardgroupVO1Iterator" id="PrtCardgroupVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardgroupVO"
+                      Name="PrtCardgroupVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="EstbGroup"/>
+          <Item Value="BusiRelationGroup"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="PayProof"/>
+          <Item Value="DeleteCode"/>
+          <Item Value="MarketingCode"/>
+          <Item Value="ArchiveRef"/>
+          <Item Value="NotAvgFrom"/>
+          <Item Value="NotAvgTo"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="CardType"/>
+          <Item Value="PayDocLevel"/>
+          <Item Value="BusiRelationNace"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitRefNumber"/>
+          <Item Value="BusiRelationDesc"/>
+          <Item Value="PurchaseLimitCode"/>
+          <Item Value="BlockCode"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardVO1Iterator" id="PrtCardVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardVO"
+                      Name="PrtCardVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="BlockCode"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="CardType"/>
+          <Item Value="CustomerGroup"/>
+          <Item Value="PrevCardId"/>
+          <Item Value="PhysicalCardId"/>
+          <Item Value="CardIssueDate"/>
+          <Item Value="CardReturnDate"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="PurchaseProfileCode"/>
+          <Item Value="NumPrintlines"/>
+          <Item Value="CardAppId"/>
+          <Item Value="GeoUseRef"/>
+          <Item Value="CardStatusCode"/>
+          <Item Value="ExtCardNum"/>
+          <Item Value="CardRenewDate"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardRenewBlock"/>
+          <Item Value="PinOffset"/>
+          <Item Value="CardDesignCode"/>
+          <Item Value="CardCreatedBy"/>
+          <Item Value="CardCopies"/>
+          <Item Value="CardSearchId"/>
+          <Item Value="MagneticCode"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitAgreeRef"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="DeletionCode"/>
+          <Item Value="SperrebehKd"/>
+          <Item Value="SperrelisteDt"/>
+          <Item Value="SpesialbestJn"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
               target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx"
               xmlns="http://xmlns.oracle.com/adf/security">
