@@ -12,6 +12,17 @@
                       DataControl="PartnerInfoListClient"
                       BeanClass="com.sfr.engage.core.PartnerInfo"
                       id="partnerlistIterator"/>
+    <iterator Binds="PrtAccountVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtAccountVO1Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator Binds="PrtPartnerVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPartnerVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="partnerlistIterator" id="partnerlist">
@@ -49,5 +60,61 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtAccountVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO1Iterator" id="PrtCardPk">
+      <AttrNames>
+        <Item Value="PrtCardPk"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO1Iterator"
+                     id="CardgroupMainType">
+      <AttrNames>
+        <Item Value="CardgroupMainType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="FirstLastName">
+      <AttrNames>
+        <Item Value="FirstLastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CompanyType">
+      <AttrNames>
+        <Item Value="CompanyType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerId">
+      <AttrNames>
+        <Item Value="PartnerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CreditLimit">
+      <AttrNames>
+        <Item Value="CreditLimit"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PhoneNumber">
+      <AttrNames>
+        <Item Value="PhoneNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="MobileNumber">
+      <AttrNames>
+        <Item Value="MobileNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO1Iterator" id="CardStatusCode">
+      <AttrNames>
+        <Item Value="CardStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO1Iterator" id="CardType">
+      <AttrNames>
+        <Item Value="CardType"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

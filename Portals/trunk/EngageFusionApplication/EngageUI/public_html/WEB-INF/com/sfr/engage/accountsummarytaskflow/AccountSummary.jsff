@@ -41,20 +41,26 @@
     <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
    <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="printPanel1" layout="horizontal">
-      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"
-                     visible="false"
-                     binding="#{pageFlowScope.AccountSummaryBean.overviewOutputText}"/>
-      <!--<af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"
-                     visible="false"
-                     binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverviewText}"/>-->
-      <!--<af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"
-                     visible="false"
-                     binding="#{pageFlowScope.AccountSummaryBean.accountOverviewText}"
-                     partialTriggers="t1"/>-->
-      <!--<af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot28" styleClass="heading"
-                     visible="false"
-                     binding="#{pageFlowScope.AccountSummaryBean.companyOverviewText}"/>-->
+    <af:panelGroupLayout id="CardOverviewText" layout="horizontal"
+                         visible="false"
+                         binding="#{pageFlowScope.AccountSummaryBean.cardOverviewTextPanel}">
+      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"/>
     </af:panelGroupLayout>
+     <af:panelGroupLayout id="CardGroupOverviewText" layout="horizontal"
+      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverviewTextPanel}" visible="false"><af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"/>
+    </af:panelGroupLayout>
+     <af:panelGroupLayout id="AccountOverviewText" layout="horizontal"
+                          visible="false"
+                          binding="#{pageFlowScope.AccountSummaryBean.accountOverviewTextPanel}">
+      <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
+    </af:panelGroupLayout>
+     <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal"
+                          visible="false"
+                          binding="#{pageFlowScope.AccountSummaryBean.companyOverviewTextPanel}">
+      <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot28" styleClass="heading"/>
+    </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    
     <af:spacer width="5" height="10" id="s31"/>
     
     <af:panelGroupLayout id="pgl2" layout="horizontal">
@@ -119,17 +125,23 @@
             <af:outputText value=":" id="ot56"/>
           <af:spacer width="15" height="10" id="s47"/>
               
-               <af:inputText value=""                          
+               <af:inputText value="#{bindings.FirstLastName.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             id="it26">
+                             id="it26"
+                             required="#{bindings.FirstLastName.hints.mandatory}"
+                             maximumLength="#{bindings.FirstLastName.hints.precision}">
+                <f:validator binding="#{bindings.FirstLastName.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s48"/>
                <af:outputText value="*#{sfr.COMPANY_ID}" id="ot57"/>
           <af:outputText value=":" id="ot58"/>
           <af:spacer width="15" height="10" id="s50"/>
-              <af:inputText value=""
+              <af:inputText value="#{bindings.PartnerId.inputValue}"
                             id="it28"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            required="#{bindings.PartnerId.hints.mandatory}"
+                            maximumLength="#{bindings.PartnerId.hints.precision}">
+                <f:validator binding="#{bindings.PartnerId.validator}"/>
               </af:inputText>
               
               
@@ -138,17 +150,23 @@
           <af:outputText value=":" id="ot60"/>
           <af:spacer width="15" height="10" id="s51"/>
               
-               <af:inputText value=""
+               <af:inputText value="#{bindings.CompanyType.inputValue}"
                             id="it29"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             required="#{bindings.CompanyType.hints.mandatory}"
+                             maximumLength="#{bindings.CompanyType.hints.precision}">
+                <f:validator binding="#{bindings.CompanyType.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s49"/>
                <af:outputText value="*#{sfr.CREDIT_LIMIT}" id="ot62"/>
           <af:outputText value=":" id="ot61"/>
           <af:spacer width="15" height="10" id="s52"/>
-              <af:inputText value=""
+              <af:inputText value="#{bindings.CreditLimit.inputValue}"
                             id="it30"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            required="#{bindings.CreditLimit.hints.mandatory}"
+                            maximumLength="#{bindings.CreditLimit.hints.precision}">
+                <f:validator binding="#{bindings.CreditLimit.validator}"/>
               </af:inputText>
               
               
@@ -156,7 +174,7 @@
           <af:outputText value=":" id="ot64"/>
           <af:spacer width="15" height="10" id="s53"/>
               
-               <af:inputText value=""
+               <af:inputText value="External"
                             id="it31"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -174,7 +192,7 @@
           <af:outputText value=":" id="ot69"/>
           <af:spacer width="15" height="10" id="s55"/>
               
-               <af:inputText value=""
+               <af:inputText value="ENKELKORT"
                             id="it33"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -182,7 +200,7 @@
                <af:outputText value="*#{sfr.COMPANY_LANGUAGE}" id="ot68"/>
           <af:outputText value=":" id="ot71"/>
           <af:spacer width="15" height="10" id="s57"/>
-              <af:inputText value=""
+              <af:inputText value="English"
                             id="it34"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -193,7 +211,7 @@
                <af:outputText value="*#{sfr.COMPANY_ADDRESS_2}" id="ot74"/>
           <af:outputText value=":" id="ot73"/>
           <af:spacer width="15" height="10" id="s62"/>
-              <af:inputText value=""
+              <af:inputText value="FAKTURA ENHET 0038"
                             id="it36"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -201,7 +219,7 @@
               <af:outputText value="*#{sfr.COMPANY_CURRENCY}" id="ot75"/>
           <af:outputText value=":" id="ot77"/>
           <af:spacer width="15" height="10" id="s59"/>
-               <af:inputText value=""
+               <af:inputText value="Swedish Krona"
                             id="it37"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -212,7 +230,7 @@
           <af:outputText value=":" id="ot76"/>
           <af:spacer width="15" height="10" id="s65"/>
           
-           <af:inputText value=""
+           <af:inputText value="151 87"
                             id="it39"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -222,9 +240,12 @@
           <af:outputText value=":" id="ot83"/>
           <af:spacer width="15" height="10" id="s67"/>
           
-           <af:inputText value=""
+           <af:inputText value="#{bindings.PhoneNumber.inputValue}"
                             id="it40"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                         required="#{bindings.PhoneNumber.hints.mandatory}"
+                         maximumLength="#{bindings.PhoneNumber.hints.precision}">
+                <f:validator binding="#{bindings.PhoneNumber.validator}"/>
               </af:inputText>
               
               
@@ -234,7 +255,7 @@
           <af:outputText value=":" id="ot84"/>
           <af:spacer width="15" height="10" id="s69"/>
           
-           <af:inputText value=""
+           <af:inputText value="SÖDERTÄLJE"
                             id="it41"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -243,9 +264,12 @@
           <af:outputText value=":" id="ot86"/>
           <af:spacer width="15" height="10" id="s70"/>
           
-           <af:inputText value=""
+           <af:inputText value="#{bindings.MobileNumber.inputValue}"
                             id="it42"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                         required="#{bindings.MobileNumber.hints.mandatory}"
+                         maximumLength="#{bindings.MobileNumber.hints.precision}">
+                <f:validator binding="#{bindings.MobileNumber.validator}"/>
               </af:inputText>
          
                
@@ -255,7 +279,7 @@
           <af:outputText value=":" id="ot80"/>
           <af:spacer width="15" height="10" id="s64"/>
               
-               <af:inputText value=""
+               <af:inputText value="Sweden"
                             id="it38"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -321,9 +345,11 @@
           <af:outputText value=":" id="ot72"/>
           <af:spacer width="15" height="10" id="s60"/>
               
-               <af:inputText value=""                          
+               <af:inputText value="#{bindings.AccountId.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             id="it35">
+                             id="it35"
+                             required="#{bindings.AccountId.hints.mandatory}">
+                <f:validator binding="#{bindings.AccountId.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s63"/>
                <af:outputText value="*#{sfr.ACCOUNT_PHONE}" id="ot87"/>
@@ -473,9 +499,12 @@
           <af:outputText value=":" id="ot30"/>
           <af:spacer width="15" height="10" id="s24"/>
               
-               <af:inputText value=""                          
+               <af:inputText value="#{bindings.CardgroupMainType.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             id="it1">
+                             id="it1"
+                             required="#{bindings.CardgroupMainType.hints.mandatory}"
+                             maximumLength="#{bindings.CardgroupMainType.hints.precision}">
+                <f:validator binding="#{bindings.CardgroupMainType.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s26"/>
                <af:outputText value="*#{sfr.COUNTRY}" id="ot31"/>
@@ -643,9 +672,12 @@
                <af:outputText value="*#{sfr.CARD_NUMBER}" id="Acctid3"/>
           <af:outputText value=":" id="colonpop3"/>
           <af:spacer width="15" height="10" id="s18563"/>
-              <af:inputText value=""
+              <af:inputText value="#{bindings.PrtCardPk.inputValue}"
                             id="it8"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            required="#{bindings.PrtCardPk.hints.mandatory}"
+                            columns="#{bindings.PrtCardPk.hints.displayWidth}">
+                <f:validator binding="#{bindings.PrtCardPk.validator}"/>
               </af:inputText>
               
               
@@ -653,9 +685,12 @@
           <af:outputText value=":" id="ot111"/>
           <af:spacer width="15" height="10" id="s1"/>
               
-               <af:inputText value=""
+               <af:inputText value="#{bindings.CardType.inputValue}"
                             id="it2"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             required="#{bindings.CardType.hints.mandatory}"
+                             maximumLength="#{bindings.CardType.hints.precision}">
+                <f:validator binding="#{bindings.CardType.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s2"/>
                <af:outputText value="*#{sfr.CARD_BALANCE}" id="ot112"/>
@@ -679,7 +714,7 @@
                <af:outputText value="*#{sfr.CARD_TEXTLINE_1}" id="ot8"/>
           <af:outputText value=":" id="ot9"/>
           <af:spacer width="15" height="10" id="s11"/>
-              <af:inputText value=""
+              <af:inputText value="Card text line 1"
                             id="it14"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -697,7 +732,7 @@
                <af:outputText value="*#{sfr.CARD_TEXTLINE_2}" id="ot12"/>
           <af:outputText value=":" id="ot13"/>
           <af:spacer width="15" height="10" id="s14"/>
-              <af:inputText value=""
+              <af:inputText value="Card text line 2"
                             id="it16"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -715,7 +750,7 @@
                <af:outputText value="*#{sfr.CARD_REMARKS}" id="ot16"/>
           <af:outputText value=":" id="ot17"/>
           <af:spacer width="15" height="10" id="s17"/>
-              <af:inputText value=""
+              <af:inputText value="This is sample card for Engage."
                             id="it18"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>
@@ -733,9 +768,12 @@
                <af:outputText value="*#{sfr.CARD_STATUS}" id="ot20"/>
           <af:outputText value=":" id="ot21"/>
           <af:spacer width="15" height="10" id="s20"/>
-              <af:inputText value=""
+              <af:inputText value="#{bindings.CardStatusCode.inputValue}"
                             id="it21"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            required="#{bindings.CardStatusCode.hints.mandatory}"
+                            maximumLength="#{bindings.CardStatusCode.hints.precision}">
+                <f:validator binding="#{bindings.CardStatusCode.validator}"/>
               </af:inputText>
               
               

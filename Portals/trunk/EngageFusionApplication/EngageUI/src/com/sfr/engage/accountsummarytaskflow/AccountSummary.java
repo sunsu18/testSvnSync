@@ -23,10 +23,10 @@ public class AccountSummary {
     private RichPanelGroupLayout cardGroupOverview;
     private RichPanelGroupLayout cardOverview;
     private RichPanelGroupLayout companyOverview;
-    private RichOutputText cardOverviewText;
-    private RichOutputText cardGroupOverviewText;
-    private RichOutputText accountOverviewText;
-    private RichOutputText companyOverviewText;
+    private RichPanelGroupLayout cardOverviewTextPanel;
+    private RichPanelGroupLayout cardGroupOverviewTextPanel;
+    private RichPanelGroupLayout accountOverviewTextPanel;
+    private RichPanelGroupLayout companyOverviewTextPanel;
     private String overviewText;
     private RichOutputText overviewOutputText;
 
@@ -145,39 +145,6 @@ public class AccountSummary {
         return companyOverview;
     }
 
-    public void setCardOverviewText(RichOutputText cardOverviewText) {
-        this.cardOverviewText = cardOverviewText;
-    }
-
-    public RichOutputText getCardOverviewText() {
-        return cardOverviewText;
-    }
-
-    public void setCardGroupOverviewText(RichOutputText cardGroupOverviewText) {
-        this.cardGroupOverviewText = cardGroupOverviewText;
-    }
-
-    public RichOutputText getCardGroupOverviewText() {
-        return cardGroupOverviewText;
-    }
-
-    public void setAccountOverviewText(RichOutputText accountOverviewText) {
-        this.accountOverviewText = accountOverviewText;
-    }
-
-    public RichOutputText getAccountOverviewText() {
-        return accountOverviewText;
-    }
-
-    public void setCompanyOverviewText(RichOutputText companyOverviewText) {
-        this.companyOverviewText = companyOverviewText;
-    }
-
-    public RichOutputText getCompanyOverviewText() {
-        return companyOverviewText;
-    }
-
-
     public void setOverviewText(String overviewText) {
         this.overviewText = overviewText;
     }
@@ -192,5 +159,37 @@ public class AccountSummary {
 
     public RichOutputText getOverviewOutputText() {
         return overviewOutputText;
+    }
+
+    public void setCardOverviewTextPanel(RichPanelGroupLayout cardOverviewTextPanel) {
+        this.cardOverviewTextPanel = cardOverviewTextPanel;
+    }
+
+    public RichPanelGroupLayout getCardOverviewTextPanel() {
+        return cardOverviewTextPanel;
+    }
+
+    public void setCardGroupOverviewTextPanel(RichPanelGroupLayout cardGroupOverviewTextPanel) {
+        this.cardGroupOverviewTextPanel = cardGroupOverviewTextPanel;
+    }
+
+    public RichPanelGroupLayout getCardGroupOverviewTextPanel() {
+        return cardGroupOverviewTextPanel;
+    }
+
+    public void setAccountOverviewTextPanel(RichPanelGroupLayout accountOverviewTextPanel) {
+        this.accountOverviewTextPanel = accountOverviewTextPanel;
+    }
+
+    public RichPanelGroupLayout getAccountOverviewTextPanel() {
+        return accountOverviewTextPanel;
+    }
+
+    public void setCompanyOverviewTextPanel(RichPanelGroupLayout companyOverviewTextPanel) {
+        this.companyOverviewTextPanel = companyOverviewTextPanel;
+    }
+
+    public RichPanelGroupLayout getCompanyOverviewTextPanel() {
+        return companyOverviewTextPanel;
     }
 }
