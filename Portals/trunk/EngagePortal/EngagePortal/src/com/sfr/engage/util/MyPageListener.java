@@ -792,7 +792,7 @@ FacesContext.getCurrentInstance().getExternalContext();
                                        currentViewId);
                     // if user is authenticated and requested for sign in page then redirect to home page
 
-                    if (currentViewId.contains("signin") &&
+                    if (currentViewId.contains("login") &&
                         securityContext.isAuthenticated()) {
                         System.out.println(AccessDataControl.getDisplayRecord() +
                                            this.getClass() +
