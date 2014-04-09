@@ -1,0 +1,796 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+                <af:resource type="javascript">
+      function expandNode(event)
+      { 
+      //alert();
+        var _tree = event.getSource(); 
+        rwKeySet = _tree.getSelectedRowKeys(); 
+        
+        var firstRowKey; 
+
+            for(rowKey in rwKeySet)
+            { 
+            firstRowKey = rowKey; 
+            // we are interested in the first hit, 
+            //so break out here 
+          //  alert(firstRowKey);
+            break; 
+            }
+            
+            if (_tree.isPathExpanded(firstRowKey))
+            { 
+                _tree.setDisclosedRowKey(firstRowKey,false); 
+            }
+            else
+            { 
+            _tree.setDisclosedRowKey(firstRowKey,true); 
+            
+            }
+            
+      }
+      </af:resource>
+  
+  
+  <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
+  
+    <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
+   <af:spacer width="10" height="20" id="s9"/>
+    <af:panelGroupLayout id="printPanel1" layout="horizontal">
+      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"
+                     visible="false"
+                     binding="#{pageFlowScope.AccountSummaryBean.overviewOutputText}"/>
+      <!--<af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"
+                     visible="false"
+                     binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverviewText}"/>-->
+      <!--<af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"
+                     visible="false"
+                     binding="#{pageFlowScope.AccountSummaryBean.accountOverviewText}"
+                     partialTriggers="t1"/>-->
+      <!--<af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot28" styleClass="heading"
+                     visible="false"
+                     binding="#{pageFlowScope.AccountSummaryBean.companyOverviewText}"/>-->
+    </af:panelGroupLayout>
+    <af:spacer width="5" height="10" id="s31"/>
+    
+    <af:panelGroupLayout id="pgl2" layout="horizontal">
+      <af:separator id="s4"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s6"/>
+     <af:panelGroupLayout id="Both" layout="horizontal">
+     <af:panelGroupLayout id="Tree" layout="vertical"
+                          inlineStyle="width:200px;">
+        <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
+                 selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
+                 rowSelection="single" id="t1">
+          <f:facet name="nodeStamp">
+            <af:group id="g1">
+      <af:outputText value="#{node.partnerValue}" id="ot109"/>
+      <af:outputText value="#{node.accountNumber}" id="ot2"/>
+      <af:outputText value="#{node.cardGroupID}" id="ot4"/>
+      <af:outputText value="#{node.cardID}" id="ot3"/>
+      </af:group>
+          </f:facet>
+           <af:clientListener method="expandNode" type="click"/> 
+        </af:tree>
+        <!--<af:tree value="#{bindings.partnerlist.treeModel}" var="node"
+           selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
+           rowSelection="single" id="t1" summary="Partner Tree"
+           initiallyExpanded="false">
+    <f:facet name="nodeStamp">
+    <af:group id="g1">
+      <af:outputText value="#{node.partnerValue}" id="ot109"/>
+      <af:outputText value="#{node.accountNumber}" id="ot2"/>
+      <af:outputText value="#{node.cardGroupID}" id="ot4"/>
+      <af:outputText value="#{node.cardID}" id="ot3"/>
+      </af:group>
+    </f:facet>
+       <af:clientListener method="expandNode" type="click"/> 
+  </af:tree>-->
+  
+     
+     </af:panelGroupLayout>
+    <af:panelGroupLayout id="Overview" layout="vertical">
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
+                       binding="#{pageFlowScope.AccountSummaryBean.companyOverview}">
+  
+   <af:panelFormLayout id="pfl3" rows="9" maxColumns="2">
+        <h:panelGrid columns="9" id="pg3">
+        
+        
+        
+        
+      <af:outputText value="*#{sfr.COMPANY_NAME}" id="ot55"/>
+            <af:outputText value=":" id="ot56"/>
+          <af:spacer width="15" height="10" id="s47"/>
+              
+               <af:inputText value=""                          
+                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             id="it26">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s48"/>
+               <af:outputText value="*#{sfr.COMPANY_ID}" id="ot57"/>
+          <af:outputText value=":" id="ot58"/>
+          <af:spacer width="15" height="10" id="s50"/>
+              <af:inputText value=""
+                            id="it28"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              
+              <af:outputText value="*#{sfr.COMPANY_TYPE}" id="ot59"/>
+          <af:outputText value=":" id="ot60"/>
+          <af:spacer width="15" height="10" id="s51"/>
+              
+               <af:inputText value=""
+                            id="it29"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s49"/>
+               <af:outputText value="*#{sfr.CREDIT_LIMIT}" id="ot62"/>
+          <af:outputText value=":" id="ot61"/>
+          <af:spacer width="15" height="10" id="s52"/>
+              <af:inputText value=""
+                            id="it30"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.TERMINAL_TYPE}" id="ot63"/>
+          <af:outputText value=":" id="ot64"/>
+          <af:spacer width="15" height="10" id="s53"/>
+              
+               <af:inputText value=""
+                            id="it31"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s54"/>
+               <af:outputText value="*#{sfr.CREDIT_BALANCE}" id="ot65"/>
+          <af:outputText value=":" id="ot66"/>
+          <af:spacer width="15" height="10" id="s56"/>
+              <af:inputText value=""
+                            id="it32"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.COMPANY_ADDRESS_1}" id="ot67"/>
+          <af:outputText value=":" id="ot69"/>
+          <af:spacer width="15" height="10" id="s55"/>
+              
+               <af:inputText value=""
+                            id="it33"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s58"/>
+               <af:outputText value="*#{sfr.COMPANY_LANGUAGE}" id="ot68"/>
+          <af:outputText value=":" id="ot71"/>
+          <af:spacer width="15" height="10" id="s57"/>
+              <af:inputText value=""
+                            id="it34"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+             
+             
+               <af:outputText value="*#{sfr.COMPANY_ADDRESS_2}" id="ot74"/>
+          <af:outputText value=":" id="ot73"/>
+          <af:spacer width="15" height="10" id="s62"/>
+              <af:inputText value=""
+                            id="it36"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+                  <af:spacer width="25" height="10" id="s61"/>             
+              <af:outputText value="*#{sfr.COMPANY_CURRENCY}" id="ot75"/>
+          <af:outputText value=":" id="ot77"/>
+          <af:spacer width="15" height="10" id="s59"/>
+               <af:inputText value=""
+                            id="it37"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+               
+               <af:outputText value="*#{sfr.POSTAL_CODE}" id="ot78"/>
+          <af:outputText value=":" id="ot76"/>
+          <af:spacer width="15" height="10" id="s65"/>
+          
+           <af:inputText value=""
+                            id="it39"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s66"/>
+               
+                <af:outputText value="*#{sfr.COMPANY_PHONE}" id="ot79"/>
+          <af:outputText value=":" id="ot83"/>
+          <af:spacer width="15" height="10" id="s67"/>
+          
+           <af:inputText value=""
+                            id="it40"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              
+              
+            <af:outputText value="*#{sfr.CITY}" id="ot82"/>
+          <af:outputText value=":" id="ot84"/>
+          <af:spacer width="15" height="10" id="s69"/>
+          
+           <af:inputText value=""
+                            id="it41"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s71"/>
+               <af:outputText value="*#{sfr.COMPANY_MOBILE}" id="ot85"/>
+          <af:outputText value=":" id="ot86"/>
+          <af:spacer width="15" height="10" id="s70"/>
+          
+           <af:inputText value=""
+                            id="it42"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+         
+               
+              
+              
+              <af:outputText value="*#{sfr.COUNTRY}" id="ot81"/>
+          <af:outputText value=":" id="ot80"/>
+          <af:spacer width="15" height="10" id="s64"/>
+              
+               <af:inputText value=""
+                            id="it38"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+            <af:spacer width="25" height="10" id="s101"/>
+               <af:outputText value="*#{sfr.COMPANY_ALIAS}" id="ot116"/>
+          <af:outputText value=":" id="ot118"/>
+          <af:spacer width="15" height="10" id="s102"/>
+          
+           <af:inputText value=""
+                            id="it57"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+            
+               
+              
+              
+              <af:outputText value="*#{sfr.ORGANISATION_NUMBER}" id="ot114"/>
+          <af:outputText value=":" id="ot117"/>
+          <af:spacer width="15" height="10" id="s104"/>
+              
+               <af:inputText value=""
+                            id="it58"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>   
+              
+        </h:panelGrid>
+    </af:panelFormLayout>
+    
+    <af:panelGroupLayout id="pgl4" layout="vertical"
+                                   halign="right" inlineStyle="width:705.0px;">
+              <af:spacer width="479" height="10" id="s73"/>
+                <af:panelGroupLayout id="pgl5" halign="right">
+               
+                <af:commandButton text="#{sfr.EDIT}" id="cb7" styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s74"/>
+                <af:commandButton text="#{sfr.SAVE}" id="cb6"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  immediate="true" styleClass="buttonback buttontext">                  
+                </af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+
+ </af:panelGroupLayout>
+ 
+ 
+ 
+  <af:panelGroupLayout id="AccountOverview" layout="vertical" visible="false"
+                       binding="#{pageFlowScope.AccountSummaryBean.accountOverview}">
+  <af:panelGroupLayout id="pgl10">
+        <af:breadCrumbs id="bc3">
+            <af:commandNavigationItem text="Pattern Name"/>
+            <af:commandNavigationItem text="Account"/>
+        </af:breadCrumbs>
+      </af:panelGroupLayout>
+    <af:panelFormLayout id="pfl4" rows="7" maxColumns="2">
+        <h:panelGrid columns="9" id="pg4">
+        
+        
+        
+        
+        <af:outputText value="*#{sfr.ACCOUNT_NAME}" id="ot70"/>
+          <af:outputText value=":" id="ot72"/>
+          <af:spacer width="15" height="10" id="s60"/>
+              
+               <af:inputText value=""                          
+                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             id="it35">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s63"/>
+               <af:outputText value="*#{sfr.ACCOUNT_PHONE}" id="ot87"/>
+          <af:outputText value=":" id="ot88"/>
+          <af:spacer width="15" height="10" id="s68"/>
+              <af:inputText value=""
+                            id="it43"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.ACCOUNT_ADDRESS_1}" id="ot89"/>
+          <af:outputText value=":" id="ot90"/>
+          <af:spacer width="15" height="10" id="s72"/>
+              
+               <af:inputText value=""
+                            id="it44"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s75"/>
+               <af:outputText value="*#{sfr.ACCOUNT_MOBILE}" id="ot91"/>
+          <af:outputText value=":" id="ot92"/>
+          <af:spacer width="15" height="10" id="s76"/>
+              <af:inputText value=""
+                            id="it45"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.ACCOUNT_ADDRESS_2}" id="ot93"/>
+          <af:outputText value=":" id="ot94"/>
+          <af:spacer width="15" height="10" id="s77"/>
+              
+               <af:inputText value=""
+                            id="it46"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s78"/>
+               <af:outputText value="*#{sfr.ACCOUNT_CREDIT_LIMIT}" id="ot95"/>
+          <af:outputText value=":" id="ot96"/>
+          <af:spacer width="15" height="10" id="s79"/>
+              <af:inputText value=""
+                            id="it47"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.POSTAL_CODE}" id="ot97"/>
+          <af:outputText value=":" id="ot98"/>
+          <af:spacer width="15" height="10" id="s80"/>
+              
+               <af:inputText value=""
+                            id="it48"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s81"/>
+               <af:outputText value="*#{sfr.ACCOUNT_CREDIT_BALANCE}" id="ot99"/>
+          <af:outputText value=":" id="ot100"/>
+          <af:spacer width="15" height="10" id="s82"/>
+              <af:inputText value=""
+                            id="it49"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CITY}" id="ot101"/>
+          <af:outputText value=":" id="ot102"/>
+          <af:spacer width="15" height="10" id="s83"/>
+              
+               <af:inputText value=""
+                            id="it50"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s84"/>
+               <af:outputText value="*#{sfr.ACCOUNT_ALIAS}" id="ot103"/>
+          <af:outputText value=":" id="ot104"/>
+          <af:spacer width="15" height="10" id="s85"/>
+              <af:inputText value=""
+                            id="it51"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.COUNTRY}" id="ot105"/>
+          <af:outputText value=":" id="ot106"/>
+          <af:spacer width="15" height="10" id="s86"/>
+              
+               <af:inputText value=""
+                            id="it52"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s87"/>
+               <af:outputText value="*#{sfr.ACCOUNT_MANAGER}" id="ot107"/>
+          <af:outputText value=":" id="ot108"/>
+          <af:spacer width="15" height="10" id="s88"/>
+              <!--<af:inputText value=""
+                            id="it26"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>-->
+              <af:commandButton text="#{sfr.SHOW_ALL}" id="cb5" styleClass="buttonback buttontext"
+                                inlineStyle="margin-left:8px !important;"/>
+              
+              
+              
+        </h:panelGrid>
+    </af:panelFormLayout>
+    
+    
+    
+    
+    
+    
+    
+    
+      <af:panelGroupLayout id="pgl6" layout="vertical"
+                                   halign="right" inlineStyle="width:705.0px;">
+              <af:spacer width="479" height="10" id="s89"/>
+                <af:panelGroupLayout id="pgl7" halign="right">
+                 
+                <af:commandButton text="#{sfr.EDIT}" id="cb9" styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s91"/>
+                <af:commandButton text="#{sfr.SAVE}" id="cb8"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  immediate="true" styleClass="buttonback buttontext">                  
+                </af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+
+ </af:panelGroupLayout>
+ 
+ <af:panelGroupLayout id="CardGroupOverview" layout="vertical" visible="false"
+                      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverview}">
+ <af:panelGroupLayout id="pgl9">
+        <af:breadCrumbs id="bc2">
+            <af:commandNavigationItem text="Pattern Name"/>
+            <af:commandNavigationItem text="Account"/>
+            <af:commandNavigationItem text="CardGroup"/>
+        </af:breadCrumbs>
+      </af:panelGroupLayout>
+    <af:panelFormLayout id="pfl2" rows="7" maxColumns="2">
+        <h:panelGrid columns="9" id="pg2">
+        
+        
+        
+        
+        <af:outputText value="*#{sfr.CARDGROUP}" id="ot29"/>
+          <af:outputText value=":" id="ot30"/>
+          <af:spacer width="15" height="10" id="s24"/>
+              
+               <af:inputText value=""                          
+                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             id="it1">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s26"/>
+               <af:outputText value="*#{sfr.COUNTRY}" id="ot31"/>
+          <af:outputText value=":" id="ot32"/>
+          <af:spacer width="15" height="10" id="s25"/>
+              <af:inputText value=""
+                            id="it3"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARDGROUP_NAME_1}" id="ot33"/>
+          <af:outputText value=":" id="ot34"/>
+          <af:spacer width="15" height="10" id="s27"/>
+              
+               <af:inputText value=""
+                            id="it4"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s28"/>
+               <af:outputText value="*#{sfr.CARD_TYPE}" id="ot35"/>
+          <af:outputText value=":" id="ot36"/>
+          <af:spacer width="15" height="10" id="s29"/>
+              <af:inputText value=""
+                            id="it5"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARDGROUP_NAME_2}" id="ot37"/>
+          <af:outputText value=":" id="ot38"/>
+          <af:spacer width="15" height="10" id="s30"/>
+              
+               <af:inputText value=""
+                            id="it6"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s32"/>
+               <af:outputText value="*#{sfr.CREDIT_LIMIT}" id="ot39"/>
+          <af:outputText value=":" id="ot40"/>
+          <af:spacer width="15" height="10" id="s33"/>
+              <af:inputText value=""
+                            id="it11"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARDGROUP_ADDRESS_1}" id="ot41"/>
+          <af:outputText value=":" id="ot42"/>
+          <af:spacer width="15" height="10" id="s34"/>
+              
+               <af:inputText value=""
+                            id="it12"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s35"/>
+               <af:outputText value="*#{sfr.BALANCE}" id="ot43"/>
+          <af:outputText value=":" id="ot44"/>
+          <af:spacer width="15" height="10" id="s36"/>
+              <af:inputText value=""
+                            id="it13"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARDGROUP_ADDRESS_2}" id="ot45"/>
+          <af:outputText value=":" id="ot46"/>
+          <af:spacer width="15" height="10" id="s37"/>
+              
+               <af:inputText value=""
+                            id="it20"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s38"/>
+               <af:outputText value="*#{sfr.CARDGROUP_ALIAS}" id="ot47"/>
+          <af:outputText value=":" id="ot48"/>
+          <af:spacer width="15" height="10" id="s39"/>
+              <af:inputText value=""
+                            id="it22"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.POSTAL_CODE}" id="ot54"/>
+          <af:outputText value=":" id="ot53"/>
+          <af:spacer width="15" height="10" id="s43"/>
+              
+               <af:inputText value=""
+                            id="it27"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s42"/>
+               <af:outputText value="*#{sfr.CARDGROUP_MANAGER}" id="ot52"/>
+          <af:outputText value=":" id="ot51"/>
+          <af:spacer width="15" height="10" id="s41"/>
+              <!--<af:inputText value=""
+                            id="it26"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>-->
+              <af:commandButton text="#{sfr.SHOW_ALL}" id="cb1" styleClass="buttonback buttontext"
+                                inlineStyle="margin-left: 8px !important"/>
+              
+              <af:outputText value="*#{sfr.CITY}" id="ot49"/>
+          <af:outputText value=":" id="ot50"/>
+          <af:spacer width="15" height="10" id="s40"/>
+              
+               <af:inputText value=""
+                            id="it25"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+        </h:panelGrid>
+    </af:panelFormLayout>
+    
+    
+    
+    
+    
+    
+    
+    
+      <af:panelGroupLayout id="pgl1" layout="vertical"
+                                   halign="right" inlineStyle="width:705.0px;">
+              <af:spacer width="479" height="10" id="s44"/>
+                <af:panelGroupLayout id="pgl3" halign="right">
+                 <af:commandButton text="#{sfr.ADD_CARD}" id="cb3" styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s45"/>
+                <af:commandButton text="#{sfr.EDIT}" id="cb4" styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s46"/>
+                <af:commandButton text="#{sfr.SAVE}" id="cb2"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  immediate="true" styleClass="buttonback buttontext">                  
+                </af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+
+ </af:panelGroupLayout>
+ 
+   <af:panelGroupLayout id="CardOverview" layout="vertical" visible="false"
+                        binding="#{pageFlowScope.AccountSummaryBean.cardOverview}">
+      <af:panelGroupLayout id="pgl8">
+        <af:breadCrumbs id="bc1">
+            <af:commandNavigationItem text="Pattern Name"/>
+            <af:commandNavigationItem text="Account"/>
+            <af:commandNavigationItem text="CardGroup"/>
+            <af:commandNavigationItem text="Card"/>
+        </af:breadCrumbs>
+      </af:panelGroupLayout>
+      <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
+        <h:panelGrid columns="9" id="pg1">
+        
+        
+        
+        
+        <af:outputText value="*#{sfr.CARDHOLDER_NAME}" id="Acctid2"/>
+          <af:outputText value=":" id="colonpop2"/>
+          <af:spacer width="15" height="10" id="s18562"/>
+              
+               <af:inputText value=""                          
+                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             id="it7">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="colnSpace1"/>
+               <af:outputText value="*#{sfr.CARD_NUMBER}" id="Acctid3"/>
+          <af:outputText value=":" id="colonpop3"/>
+          <af:spacer width="15" height="10" id="s18563"/>
+              <af:inputText value=""
+                            id="it8"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARD_TYPE}" id="ot110"/>
+          <af:outputText value=":" id="ot111"/>
+          <af:spacer width="15" height="10" id="s1"/>
+              
+               <af:inputText value=""
+                            id="it2"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s2"/>
+               <af:outputText value="*#{sfr.CARD_BALANCE}" id="ot112"/>
+          <af:outputText value=":" id="ot5"/>
+          <af:spacer width="15" height="10" id="s3"/>
+              <af:inputText value=""
+                            id="it9"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARD_ADDRESS_1}" id="ot6"/>
+          <af:outputText value=":" id="ot7"/>
+          <af:spacer width="15" height="10" id="s7"/>
+              
+               <af:inputText value=""
+                            id="it10"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s10"/>
+               <af:outputText value="*#{sfr.CARD_TEXTLINE_1}" id="ot8"/>
+          <af:outputText value=":" id="ot9"/>
+          <af:spacer width="15" height="10" id="s11"/>
+              <af:inputText value=""
+                            id="it14"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CARD_ADDRESS_2}" id="ot10"/>
+          <af:outputText value=":" id="ot11"/>
+          <af:spacer width="15" height="10" id="s12"/>
+              
+               <af:inputText value=""
+                            id="it15"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s13"/>
+               <af:outputText value="*#{sfr.CARD_TEXTLINE_2}" id="ot12"/>
+          <af:outputText value=":" id="ot13"/>
+          <af:spacer width="15" height="10" id="s14"/>
+              <af:inputText value=""
+                            id="it16"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.POSTAL_CODE}" id="ot14"/>
+          <af:outputText value=":" id="ot15"/>
+          <af:spacer width="15" height="10" id="s15"/>
+              
+               <af:inputText value=""
+                            id="it17"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s16"/>
+               <af:outputText value="*#{sfr.CARD_REMARKS}" id="ot16"/>
+          <af:outputText value=":" id="ot17"/>
+          <af:spacer width="15" height="10" id="s17"/>
+              <af:inputText value=""
+                            id="it18"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.CITY}" id="ot18"/>
+          <af:outputText value=":" id="ot19"/>
+          <af:spacer width="15" height="10" id="s18"/>
+              
+               <af:inputText value=""
+                            id="it19"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s19"/>
+               <af:outputText value="*#{sfr.CARD_STATUS}" id="ot20"/>
+          <af:outputText value=":" id="ot21"/>
+          <af:spacer width="15" height="10" id="s20"/>
+              <af:inputText value=""
+                            id="it21"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+              
+              <af:outputText value="*#{sfr.COUNTRY}" id="ot22"/>
+          <af:outputText value=":" id="ot23"/>
+          <af:spacer width="15" height="10" id="s21"/>
+              
+               <af:inputText value=""
+                            id="it23"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+               <af:spacer width="25" height="10" id="s22"/>
+               <af:outputText value="*#{sfr.ASSIGNED_NAME_VEHICLE}" id="ot24"/>
+          <af:outputText value=":" id="ot25"/>
+          <af:spacer width="15" height="10" id="s23"/>
+              <af:inputText value=""
+                            id="it24"
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+              </af:inputText>
+              
+        </h:panelGrid>
+    </af:panelFormLayout>
+    
+    
+    
+    
+    
+    
+    
+    
+      <af:panelGroupLayout id="new_footer_panel" layout="vertical"
+                                   halign="right" inlineStyle="width:705.0px;">
+              <af:spacer width="479" height="10" id="s5"/>
+                <af:panelGroupLayout id="pgl11" halign="right">
+                <af:commandButton text="#{sfr.EDIT}" id="save" styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s8"/>
+                <af:commandButton text="#{sfr.SAVE}" id="ccb11"
+                                  actionListener="#{bindings.Commit.execute}"
+                                  immediate="true" styleClass="buttonback buttontext">                  
+                </af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+
+ </af:panelGroupLayout>
+ 
+ </af:panelGroupLayout>
+ 
+ 
+ 
+ </af:panelGroupLayout>
+ 
+ 
+ 
+ 
+ 
+    </af:panelGroupLayout>
+  
+</jsp:root>

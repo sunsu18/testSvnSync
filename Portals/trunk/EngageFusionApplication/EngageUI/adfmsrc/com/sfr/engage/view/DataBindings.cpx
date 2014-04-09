@@ -31,6 +31,8 @@
           usageId="com_sfr_engage_view_InvoiceOverviewPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/transactionoverviewtaskflow/TransactionOverview.jsff"
           usageId="com_sfr_engage_view_TransactionOverviewPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummary.jsff"
+          usageId="com_sfr_engage_view_AccountSummaryPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -55,9 +57,14 @@
           path="com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewPageDef"/>
     <page id="com_sfr_engage_view_TransactionOverviewPageDef"
           path="com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewPageDef"/>
+          <page id="com_sfr_engage_view_AccountSummaryPageDef" 
+          path="com.sfr.engage.accountsummarytaskflow.AccountSummaryPageDef"/>
+          
   </pageDefinitionUsages>
 
   <dataControlUsages>
+    <dc id="PartnerInfoListClient"
+        path="com.sfr.engage.model.PartnerInfoListClient"/>
     <dc id="UserClient" path="com.sfr.engage.model.UserClient"/>
     <BC4JDataControl id="EngageAppModuleDataControl" Package="com.sfr.engage.model.module" FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
                      SupportsTransactions="true" SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true" SupportsSortCollection="true"

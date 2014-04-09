@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
+          id="AccountInfo" Package="com.sfr.engage.core"
+          BeanClass="com.sfr.engage.core.AccountInfo" isJavaBased="true">
+  <Attribute Name="accountNumber" Type="java.lang.String"/>
+  <AccessorAttribute id="cardGroup" IsCollection="true"
+                     BeanClass="com.sfr.engage.core.CardGroupInfo"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.AccountInfo"
+                     BeanClass="com.sfr.engage.core.AccountInfo"
+                     id="AccountInfo"/>
+</JavaBean>
