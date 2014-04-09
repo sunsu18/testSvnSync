@@ -71,7 +71,13 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       {"ENGAGE_PASSWORD_CHANGED_SUCCESS",""},{"TRANSACTION_OVERVIEW",""},
                                       {"ENGAGE_INVOICE_OVERVIEW",""},{"ENGAGE_ACCOUNT",""},{"ENGAGE_FROM",""},{"ENGAGE_TO",""},{"ENGAGE_INVOICE_DETAILS",""},{"ENGAGE_INVOICE_TYPE",""},{"ENGAGE_CANCEL",""},{"ENGAGE_INVOICE_INVOICE_NO",""},{"ENGAGE_INVOICE_INVOICE_DATE",""},{"ENGAGE_INVOICE_DUE_DATE",""},{"ENGAGE_INVOICE_TYPE_1",""},{"ENGAGE_INVOICE_NET",""},{"ENGAGE_INVOICE_VAT",""},{"ENGAGE_INVOICE_TOTAL_AMOUNT",""},
                                         {"TERMINAL",""},{"TYPE",""},{"ACCOUNT",""},{"CARDGROUP",""},{"FROM_DATE",""},{"TO_DATE",""},{"CARDS",""},{"VEHICLES",""}, {"ENGAGE_INVOICE",""},{"ENGAGE_INVOICE_POPUP_1",""},{"ENGAGE_INVOICE_POPUP_2",""},{"ENGAGE_INVOICE_ADDRESS_1",""},{"ENGAGE_INVOICE_DELIVERY",""},
-                                      {"DRIVERS",""},{"CLEAR",""}};
+                                      {"DRIVERS",""},{"CLEAR",""},
+    {"CARD_OVERVIEW",""},{"CARDHOLDER_NAME",""},{"CARD_ADDRESS_1",""},{"CARD_ADDRESS_2",""},{"POSTAL_CODE",""},
+                                          {"CITY",""},{"COUNTRY",""},{"CARD_BALANCE",""},{"CARD_TEXTLINE_1",""},{"CARD_TEXTLINE_2",""},{"CARD_REMARKS",""},{"CARD_STATUS",""},
+                                          {"ASSIGNED_NAME_VEHICLE",""},{"EDIT",""},{"CARD_TYPE",""},{"CARDGROUP_OVERVIEW",""},{"CARDGROUP",""},{"CARDGROUP_NAME_1",""},{"CARDGROUP_NAME_2",""},{"CARDGROUP_ADDRESS_1",""},
+                                          {"CARDGROUP_ADDRESS_2",""},{"CREDIT_LIMIT",""},{"BALANCE",""},{"CARDGROUP_ALIAS",""},{"CARDGROUP_MANAGER",""},{"SHOW_ALL",""},{"ADD_CARD",""}, {"COMPANY_OVERVIEW",""},{"COMPANY_NAME",""},{"COMPANY_TYPE",""},{"TERMINAL_TYPE",""},
+                                          {"COMPANY_ADDRESS_1",""},{"COMPANY_ADDRESS_2",""},{"ORGANISATION_NUMBER",""},{"COMPANY_ID",""},{"CREDIT_BALANCE",""},{"COMPANY_LANGUAGE",""},{"COMPANY_CURRENCY",""},{"COMPANY_PHONE",""},{"COMPANY_MOBILE",""},{"COMPANY_ALIAS",""},
+                                          {"ACCOUNT_OVERVIEW",""},{"ACCOUNT_NAME",""},{"ACCOUNT_ADDRESS_1",""},{"ACCOUNT_ADDRESS_2",""},{"ACCOUNT_PHONE",""},{"ACCOUNT_MOBILE",""},{"ACCOUNT_CREDIT_LIMIT",""},{"ACCOUNT_CREDIT_BALANCE",""},{"ACCOUNT_ALIAS",""},{"ACCOUNT_MANAGER",""}};
 
                                       
               
