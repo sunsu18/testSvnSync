@@ -78,7 +78,8 @@ public class MyPageListener implements PagePhaseListener {
         //ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         //HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         //HttpSession session = (HttpSession)request.getSession();
-
+//TODO : Amit - We need to check, how many times beforePhase gets/should be called for respective page, 
+//as it could improve or degrade render time. Presently for Home page alone, it shows 5-7 beforePhase calls.
         ExternalContext ectx = null;
         HttpServletRequest request = null;
         HttpSession session = null;
@@ -167,7 +168,7 @@ public class MyPageListener implements PagePhaseListener {
                         if (user == null) {
                             user =
 (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                            //Todo : Below if loop to be removed once Incident 23951 is fixed.
+                            //TODO: Below if loop to be removed once Incident 23951 is fixed.
                             //SOP's added for troubleshooting incorrect Customer Association problem
 
                             if (null != user.getRolelist()) {
@@ -826,7 +827,9 @@ FacesContext.getCurrentInstance().getExternalContext();
         userClient = new UserClient();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
+            //TODO : Amit - Is this Role list or UserList ? We are populating Role in the userList object. Plz check.
             userList.add(populateUser(Constants.ROLE_WCP_CARD_ADMIN));
+            //TODO : Amit - Users to be fetched from IDM for actual testing.
             //userList = userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
@@ -840,6 +843,7 @@ FacesContext.getCurrentInstance().getExternalContext();
             if (!success) {
                 return;
             } else {
+                //TODO : Didnt get purpose of this block? This else can be removed if not needed.
                 String methodName =
                     this.getClass().toString() + ".setUserInfoInSession";
             }
@@ -851,12 +855,19 @@ FacesContext.getCurrentInstance().getExternalContext();
                            securityContext.getUserName() + ">");
         session.setAttribute(Constants.SESSION_USER_NAME,
                              securityContext.getUserName());
+        
+        //TODO : Amit - Remove such SOPs/conditions when functionality is tested. Try incorporating logs/SOPs within required methods. 
+        //Below SOPs end up adding to complexitity of the class 
+        
         if (userList != null)
             System.out.println("userlist size " + userList.size());
         else
             System.out.println("userlist size is null");
 
         if (userList != null && !userList.isEmpty()) {
+            //TODO : We are setting 1st user value from the List. Is that right ? 
+            //Do we get multiple results from OPSS call while searching using UserName ? 
+            //If we end up with multiple results for given username, we may always pick the 1st item in the object, which could be incorrect.
             setUser(userList.get(0));
             if (getUser() != null) {
                 session.setAttribute(Constants.SESSION_USER_INFO, user);
@@ -968,6 +979,8 @@ FacesContext.getCurrentInstance().getExternalContext();
 
     boolean validateOPSSCall(List<User> liuser, HttpSession session) {
         if (liuser != null && liuser.size() > 0) {
+           //TODO : Why liuser ? Are we searching multiple users in a single request from IDM ? Again, from liuser we are only picking 1st value. Plz check.
+        //TODO : Also kindly follow naming conventions for variables used across application. 
             User us = liuser.get(0);
             if (us != null) {
                 if (us.getEmailID() == null) {
@@ -1035,7 +1048,7 @@ FacesContext.getCurrentInstance().getExternalContext();
         return true;
     }
 
-
+    //TODO : Amit - Below method to be deleted before moving to Dev or highler envs.
     private User populateUser(String role) {
         User user = new User();
         user.setFirstName("Hanif");
