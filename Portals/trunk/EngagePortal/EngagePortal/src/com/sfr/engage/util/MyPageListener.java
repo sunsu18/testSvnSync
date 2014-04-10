@@ -239,7 +239,7 @@ public class MyPageListener implements PagePhaseListener {
                                     if (partnerinfo_list.size() > 0) {
                                         System.out.println("partner info list size" +
                                                            partnerinfo_list.size());
-
+                                        //TODO : Remove unwanted code.
                                         for (int k = 0;
                                              k < partnerinfo_list.size();
                                              k++) {
@@ -292,7 +292,7 @@ public class MyPageListener implements PagePhaseListener {
 
                     PartnerInfo part = new PartnerInfo();
                     AccountInfo acc = new AccountInfo();
-                    ;
+                    
                     CardGroupInfo cardgrp = new CardGroupInfo();
                     CardInfo card = new CardInfo();
                     List<AccountInfo> accountlist =
@@ -827,7 +827,7 @@ FacesContext.getCurrentInstance().getExternalContext();
         userClient = new UserClient();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
-            //TODO : Amit - Is this Role list or UserList ? We are populating Role in the userList object. Plz check.
+            //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
             userList.add(populateUser(Constants.ROLE_WCP_CARD_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
             //userList = userClient.searchUserWithUserId(securityContext.getUserName());
