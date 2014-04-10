@@ -67,7 +67,16 @@ public class AccountSummary {
         System.out.println("Selected values " + o.toString());
              id = o.toString();
         }
+//        for (Object o : nodeBinding1.getParent().getAttributeValues()) {
+//            System.out.println("Node Binding333 ");
+//        System.out.println("Selected values " + o.toString());
+//             id = o.toString();
+//        }
+            
+//            System.out.println("qwerty   ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
         
+        
+//        System.out.println("--------------> " + nodeBinding1.getParent().getAttribute("Cat1shortdesc").toString());
         //System.out.println("Node Binding3 " + nodeBinding1.getRowKey().toString());
             
         rw = nodeBinding1.getRow();
@@ -81,6 +90,8 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
+//            System.out.println("qwerty   ACC ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
+//            System.out.println("qwerty   ACC PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
            
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtAccountVO2Iterator");
@@ -115,6 +126,10 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
+//            System.out.println("qwerty   CARDGRP ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
+//            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
+//            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
+         
             
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtCardgroupVO3Iterator");
@@ -158,6 +173,12 @@ public class AccountSummary {
             
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
+            
+//            System.out.println("qwerty   cardID ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
+//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
+//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
+//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("cardID").toString());
+         
             
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtCardVO4Iterator");

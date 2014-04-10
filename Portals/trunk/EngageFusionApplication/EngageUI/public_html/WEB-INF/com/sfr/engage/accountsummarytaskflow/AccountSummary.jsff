@@ -62,11 +62,7 @@
                  selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
                  rowSelection="single" id="t1">
                     <f:facet name="nodeStamp">
-           
-     
-      
-      
-      <af:switcher id="s1" 
+           <af:switcher id="s1" 
                  facetName="#{node.hierTypeBinding.viewDefName}">
       <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
@@ -93,45 +89,7 @@
        </af:group>
       </f:facet>
    </af:switcher>
-
-      
-           
-           
-          </f:facet>
-
-          <!--<f:facet name="nodeStamp">
-            <af:group id="g1">
-     
-      <af:outputText value="#{node.partnerValue}" id="ot109"/>
-
-      <af:outputText value="#{node.accountNumber}" id="ot2"/>
-      <af:outputText value="#{node.cardGroupID}" id="ot4"/>
-      <af:outputText value="#{node.cardID}" id="ot3"/>
-      </af:group>
-       --><!--<af:switcher id="s1" 
-                 facetName="#{node.hierTypeBinding.viewDefName}">
-      <f:facet name="com.sfr.engage.core.PartnerInfo">
-        <af:commandImageLink text="#{node}" 
-              icon="/images/download.jpg" id="cil4"
-              inlineStyle="height:16px; width:17px;" disabled="true"/>
-      </f:facet>
-      <f:facet name="com.sfr.engage.core.AccountInfo">
-         <af:commandImageLink text="#{node}" icon="/images/edit.png" 
-               id="cil6" 
-               inlineStyle="height:16px; width:17px;" disabled="true"/>
-      </f:facet>
-      <f:facet name="com.sfr.engage.core.CardGroupInfo">
-        <af:commandImageLink text="#{node}" icon="/images/editIcon.png" 
-             id="cil8"
-             inlineStyle="height:16px; width:17px;" disabled="true"/>
-      </f:facet>
-      <f:facet name="com.sfr.engage.core.CardInfo">
-        <af:commandImageLink text="#{node}" icon="/images/download.jpg" 
-             id="cil1"
-             inlineStyle="height:16px; width:17px;" disabled="true"/>
-      </f:facet>
-   </af:switcher>--><!--
-          </f:facet>-->
+</f:facet>
            <af:clientListener method="expandNode" type="click"/> 
         </af:tree>
        
@@ -367,10 +325,10 @@
     </af:panelGroupLayout>
     <af:spacer width="10" height="20" id="s94"/>
   <af:panelGroupLayout id="pgl10">
-        <af:breadCrumbs id="bc3">
+        <!--<af:breadCrumbs id="bc3">
             <af:commandNavigationItem text="Partner Name"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
-        </af:breadCrumbs>
+        </af:breadCrumbs>-->
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl4" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg4">
@@ -524,11 +482,11 @@
     </af:panelGroupLayout>
     <af:spacer width="10" height="20" id="s92"/>
  <af:panelGroupLayout id="pgl9">
-        <af:breadCrumbs id="bc2">
+        <!--<af:breadCrumbs id="bc2">
             <af:commandNavigationItem text="Partner Name"/>
             <af:commandNavigationItem text="Account"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
-        </af:breadCrumbs>
+        </af:breadCrumbs>-->
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl2" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg2">
@@ -694,12 +652,12 @@
       <af:panelGroupLayout id="pgl8">
       
       
-        <af:breadCrumbs id="bc1">
+        <!--<af:breadCrumbs id="bc1">
             <af:commandNavigationItem text="Partner Name"/>
             <af:commandNavigationItem text="Account"/>
             <af:commandNavigationItem text="Card Group"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
-        </af:breadCrumbs>
+        </af:breadCrumbs>-->
       </af:panelGroupLayout>
       <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg1">
@@ -730,7 +688,7 @@
               
               <af:outputText value="*#{sfr.CARD_TYPE}" id="ot110"/>
           <af:outputText value=":" id="ot111"/>
-          <af:spacer width="15" height="10" id="s90"/>
+          <af:spacer width="15" height="10" id="s96"/>
               
                <af:inputText value="#{bindings.CardType.inputValue}"
                             id="it2"
