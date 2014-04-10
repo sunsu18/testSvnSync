@@ -5,9 +5,14 @@ import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
+import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
 import java.sql.Connection;
@@ -299,5 +304,29 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtCardTransactionOverviewRVOImpl getPrtCardTransactionOverviewRVO1() {
         return (PrtCardTransactionOverviewRVOImpl)findViewObject("PrtCardTransactionOverviewRVO1");
+    }
+
+    /**
+     * Container's getter for PrtAccountVO2.
+     * @return PrtAccountVO2
+     */
+    public PrtAccountVOImpl getPrtAccountVO2() {
+        return (PrtAccountVOImpl)findViewObject("PrtAccountVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardgroupVO3.
+     * @return PrtCardgroupVO3
+     */
+    public PrtCardgroupVOImpl getPrtCardgroupVO3() {
+        return (PrtCardgroupVOImpl)findViewObject("PrtCardgroupVO3");
+    }
+
+    /**
+     * Container's getter for PrtCardVO4.
+     * @return PrtCardVO4
+     */
+    public PrtCardVOImpl getPrtCardVO4() {
+        return (PrtCardVOImpl)findViewObject("PrtCardVO4");
     }
 }
