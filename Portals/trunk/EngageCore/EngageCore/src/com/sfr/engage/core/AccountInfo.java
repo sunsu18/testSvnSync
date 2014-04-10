@@ -1,9 +1,13 @@
 package com.sfr.engage.core;
 
+import java.io.Serializable;
+
 import java.util.List;
 
-public class AccountInfo {
-    
+public class AccountInfo implements Serializable{
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
     private String accountNumber;
     private List<CardGroupInfo> cardGroup;
         

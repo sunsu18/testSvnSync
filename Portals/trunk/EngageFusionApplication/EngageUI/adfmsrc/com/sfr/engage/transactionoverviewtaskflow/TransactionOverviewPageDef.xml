@@ -28,5 +28,74 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO110">
+        <AttrNames>
+          <Item Value="DeltaTimestamp"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyUnitPrice">
+      <AttrNames>
+        <Item Value="CurrencyUnitPrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyGrossAmount">
+      <AttrNames>
+        <Item Value="CurrencyGrossAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyVat">
+      <AttrNames>
+        <Item Value="CurrencyVat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyNetAmount">
+      <AttrNames>
+        <Item Value="CurrencyNetAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedGrossAmount">
+      <AttrNames>
+        <Item Value="InvoicedGrossAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedUnitPrice">
+      <AttrNames>
+        <Item Value="InvoicedUnitPrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoiceDiscountAmount">
+      <AttrNames>
+        <Item Value="InvoiceDiscountAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedGrossAmountRebated">
+      <AttrNames>
+        <Item Value="InvoicedGrossAmountRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedNetAmount">
+      <AttrNames>
+        <Item Value="InvoicedNetAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedVat">
+      <AttrNames>
+        <Item Value="InvoicedVat"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>
