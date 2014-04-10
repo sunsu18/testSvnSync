@@ -41,23 +41,11 @@
     <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
    <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="printPanel1" layout="horizontal">
-    <af:panelGroupLayout id="CardOverviewText" layout="horizontal"
-                         visible="false"
-                         binding="#{pageFlowScope.AccountSummaryBean.cardOverviewTextPanel}">
-      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"/>
-    </af:panelGroupLayout>
-     <af:panelGroupLayout id="CardGroupOverviewText" layout="horizontal"
-      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverviewTextPanel}" visible="false"><af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"/>
-    </af:panelGroupLayout>
-     <af:panelGroupLayout id="AccountOverviewText" layout="horizontal"
-                          visible="false"
-                          binding="#{pageFlowScope.AccountSummaryBean.accountOverviewTextPanel}">
-      <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
-    </af:panelGroupLayout>
-     <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal"
-                          visible="false"
-                          binding="#{pageFlowScope.AccountSummaryBean.companyOverviewTextPanel}">
-      <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot28" styleClass="heading"/>
+ 
+     <af:panelGroupLayout id="AccountSummaryText" layout="horizontal"
+                          visible="true"
+                        >
+      <af:outputText value="#{sfr.ACCOUNT_SUMMARY}" id="ot28" styleClass="heading"/>
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     
@@ -100,21 +88,15 @@
   
      
      </af:panelGroupLayout>
-    <af:panelGroupLayout id="Overview" layout="vertical">
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:350px;">
+
   <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
-                       binding="#{pageFlowScope.AccountSummaryBean.companyOverview}">
+                       binding="#{pageFlowScope.AccountSummaryBean.companyOverview}">             
+     <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal" >
+      <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading"/>
+  </af:panelGroupLayout>
   
+   <af:spacer width="10" height="20" id="s95"/>
    <af:panelFormLayout id="pfl3" rows="9" maxColumns="2">
         <h:panelGrid columns="9" id="pg3">
         
@@ -123,12 +105,12 @@
         
       <af:outputText value="*#{sfr.COMPANY_NAME}" id="ot55"/>
             <af:outputText value=":" id="ot56"/>
-          <af:spacer width="15" height="10" id="s47"/>
+          <af:spacer width="15" height="10" id="s90"/>
               
                <af:inputText value="#{bindings.FirstLastName.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it26"
-                             required="#{bindings.FirstLastName.hints.mandatory}"
+                        
                              maximumLength="#{bindings.FirstLastName.hints.precision}">
                 <f:validator binding="#{bindings.FirstLastName.validator}"/>
               </af:inputText>
@@ -139,7 +121,7 @@
               <af:inputText value="#{bindings.PartnerId.inputValue}"
                             id="it28"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                            required="#{bindings.PartnerId.hints.mandatory}"
+                          
                             maximumLength="#{bindings.PartnerId.hints.precision}">
                 <f:validator binding="#{bindings.PartnerId.validator}"/>
               </af:inputText>
@@ -153,7 +135,7 @@
                <af:inputText value="#{bindings.CompanyType.inputValue}"
                             id="it29"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             required="#{bindings.CompanyType.hints.mandatory}"
+                          
                              maximumLength="#{bindings.CompanyType.hints.precision}">
                 <f:validator binding="#{bindings.CompanyType.validator}"/>
               </af:inputText>
@@ -164,7 +146,7 @@
               <af:inputText value="#{bindings.CreditLimit.inputValue}"
                             id="it30"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                            required="#{bindings.CreditLimit.hints.mandatory}"
+                          
                             maximumLength="#{bindings.CreditLimit.hints.precision}">
                 <f:validator binding="#{bindings.CreditLimit.validator}"/>
               </af:inputText>
@@ -243,7 +225,7 @@
            <af:inputText value="#{bindings.PhoneNumber.inputValue}"
                             id="it40"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                         required="#{bindings.PhoneNumber.hints.mandatory}"
+                     
                          maximumLength="#{bindings.PhoneNumber.hints.precision}">
                 <f:validator binding="#{bindings.PhoneNumber.validator}"/>
               </af:inputText>
@@ -267,7 +249,7 @@
            <af:inputText value="#{bindings.MobileNumber.inputValue}"
                             id="it42"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                         required="#{bindings.MobileNumber.hints.mandatory}"
+                       
                          maximumLength="#{bindings.MobileNumber.hints.precision}">
                 <f:validator binding="#{bindings.MobileNumber.validator}"/>
               </af:inputText>
@@ -329,10 +311,15 @@
  
   <af:panelGroupLayout id="AccountOverview" layout="vertical" visible="false"
                        binding="#{pageFlowScope.AccountSummaryBean.accountOverview}">
+ 
+     <af:panelGroupLayout id="pgl12" layout="horizontal">
+      <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="20" id="s94"/>
   <af:panelGroupLayout id="pgl10">
         <af:breadCrumbs id="bc3">
-            <af:commandNavigationItem text="Pattern Name"/>
-            <af:commandNavigationItem text="Account"/>
+            <af:commandNavigationItem text="Partner Name"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl4" rows="7" maxColumns="2">
@@ -481,12 +468,16 @@
  </af:panelGroupLayout>
  
  <af:panelGroupLayout id="CardGroupOverview" layout="vertical" visible="false"
-                      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverview}">
+                      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverview}">        
+     <af:panelGroupLayout id="CardGroupOverviewText" layout="horizontal">
+      <af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="20" id="s92"/>
  <af:panelGroupLayout id="pgl9">
         <af:breadCrumbs id="bc2">
-            <af:commandNavigationItem text="Pattern Name"/>
+            <af:commandNavigationItem text="Partner Name"/>
             <af:commandNavigationItem text="Account"/>
-            <af:commandNavigationItem text="CardGroup"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl2" rows="7" maxColumns="2">
@@ -502,7 +493,7 @@
                <af:inputText value="#{bindings.CardgroupMainType.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it1"
-                             required="#{bindings.CardgroupMainType.hints.mandatory}"
+                            
                              maximumLength="#{bindings.CardgroupMainType.hints.precision}">
                 <f:validator binding="#{bindings.CardgroupMainType.validator}"/>
               </af:inputText>
@@ -645,13 +636,19 @@
  </af:panelGroupLayout>
  
    <af:panelGroupLayout id="CardOverview" layout="vertical" visible="false"
-                        binding="#{pageFlowScope.AccountSummaryBean.cardOverview}">
+                        binding="#{pageFlowScope.AccountSummaryBean.cardOverview}">        
+                 <af:panelGroupLayout id="CardOverviewText" layout="horizontal">
+      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="20" id="s93"/>
       <af:panelGroupLayout id="pgl8">
+      
+      
         <af:breadCrumbs id="bc1">
-            <af:commandNavigationItem text="Pattern Name"/>
+            <af:commandNavigationItem text="Partner Name"/>
             <af:commandNavigationItem text="Account"/>
-            <af:commandNavigationItem text="CardGroup"/>
-            <af:commandNavigationItem text="Card"/>
+            <af:commandNavigationItem text="Card Group"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.nodeBinding1}"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
       <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
@@ -675,7 +672,7 @@
               <af:inputText value="#{bindings.PrtCardPk.inputValue}"
                             id="it8"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                            required="#{bindings.PrtCardPk.hints.mandatory}"
+                           
                             columns="#{bindings.PrtCardPk.hints.displayWidth}">
                 <f:validator binding="#{bindings.PrtCardPk.validator}"/>
               </af:inputText>
@@ -688,7 +685,7 @@
                <af:inputText value="#{bindings.CardType.inputValue}"
                             id="it2"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             required="#{bindings.CardType.hints.mandatory}"
+                          
                              maximumLength="#{bindings.CardType.hints.precision}">
                 <f:validator binding="#{bindings.CardType.validator}"/>
               </af:inputText>
@@ -771,7 +768,7 @@
               <af:inputText value="#{bindings.CardStatusCode.inputValue}"
                             id="it21"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                            required="#{bindings.CardStatusCode.hints.mandatory}"
+                          
                             maximumLength="#{bindings.CardStatusCode.hints.precision}">
                 <f:validator binding="#{bindings.CardStatusCode.validator}"/>
               </af:inputText>
@@ -830,5 +827,5 @@
  
  
     </af:panelGroupLayout>
-  
+
 </jsp:root>
