@@ -61,30 +61,80 @@
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
                  rowSelection="single" id="t1">
-          <f:facet name="nodeStamp">
+                    <f:facet name="nodeStamp">
+           
+     
+      
+      
+      <af:switcher id="s1" 
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+      <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g2">
+          <af:image source="/images/download.jpg" id="i5"/>
+                <af:outputText value="#{node.partnerValue}" id="ot109"/>
+                </af:group>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g3">
+         <af:image source="/images/edit.png" id="i1"/>
+                <af:outputText value="#{node.accountNumber}" id="ot4"/>
+       </af:group>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g1">
+        <af:image source="/images/editIcon.png" id="i2"/>
+                <af:outputText value="#{node.cardGroupID}" id="ot2"/>
+        </af:group>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g4">
+       <af:image source="/images/download.jpg" id="i4"/>
+                <af:outputText value="#{node.cardID}" id="ot3"/>
+       </af:group>
+      </f:facet>
+   </af:switcher>
+
+      
+           
+           
+          </f:facet>
+
+          <!--<f:facet name="nodeStamp">
             <af:group id="g1">
+     
       <af:outputText value="#{node.partnerValue}" id="ot109"/>
+
       <af:outputText value="#{node.accountNumber}" id="ot2"/>
       <af:outputText value="#{node.cardGroupID}" id="ot4"/>
       <af:outputText value="#{node.cardID}" id="ot3"/>
       </af:group>
-          </f:facet>
+       --><!--<af:switcher id="s1" 
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+      <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:commandImageLink text="#{node}" 
+              icon="/images/download.jpg" id="cil4"
+              inlineStyle="height:16px; width:17px;" disabled="true"/>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+         <af:commandImageLink text="#{node}" icon="/images/edit.png" 
+               id="cil6" 
+               inlineStyle="height:16px; width:17px;" disabled="true"/>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:commandImageLink text="#{node}" icon="/images/editIcon.png" 
+             id="cil8"
+             inlineStyle="height:16px; width:17px;" disabled="true"/>
+      </f:facet>
+      <f:facet name="com.sfr.engage.core.CardInfo">
+        <af:commandImageLink text="#{node}" icon="/images/download.jpg" 
+             id="cil1"
+             inlineStyle="height:16px; width:17px;" disabled="true"/>
+      </f:facet>
+   </af:switcher>--><!--
+          </f:facet>-->
            <af:clientListener method="expandNode" type="click"/> 
         </af:tree>
-        <!--<af:tree value="#{bindings.partnerlist.treeModel}" var="node"
-           selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
-           rowSelection="single" id="t1" summary="Partner Tree"
-           initiallyExpanded="false">
-    <f:facet name="nodeStamp">
-    <af:group id="g1">
-      <af:outputText value="#{node.partnerValue}" id="ot109"/>
-      <af:outputText value="#{node.accountNumber}" id="ot2"/>
-      <af:outputText value="#{node.cardGroupID}" id="ot4"/>
-      <af:outputText value="#{node.cardID}" id="ot3"/>
-      </af:group>
-    </f:facet>
-       <af:clientListener method="expandNode" type="click"/> 
-  </af:tree>-->
+       
   
      
      </af:panelGroupLayout>
@@ -680,7 +730,7 @@
               
               <af:outputText value="*#{sfr.CARD_TYPE}" id="ot110"/>
           <af:outputText value=":" id="ot111"/>
-          <af:spacer width="15" height="10" id="s1"/>
+          <af:spacer width="15" height="10" id="s90"/>
               
                <af:inputText value="#{bindings.CardType.inputValue}"
                             id="it2"
