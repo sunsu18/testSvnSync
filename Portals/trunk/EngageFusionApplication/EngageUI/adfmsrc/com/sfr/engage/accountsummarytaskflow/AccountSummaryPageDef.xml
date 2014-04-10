@@ -12,14 +12,14 @@
                       DataControl="PartnerInfoListClient"
                       BeanClass="com.sfr.engage.core.PartnerInfo"
                       id="partnerlistIterator"/>
-    <iterator Binds="PrtAccountVO1" RangeSize="25"
+    <iterator Binds="PrtAccountVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
-              id="PrtAccountVO1Iterator"/>
-    <iterator Binds="PrtCardVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
-    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              id="PrtAccountVO2Iterator"/>
+    <iterator Binds="PrtCardVO4" RangeSize="25"
+              DataControl="EngageAppModuleDataControl" id="PrtCardVO4Iterator"/>
+    <iterator Binds="PrtCardgroupVO3" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
-              id="PrtCardgroupVO1Iterator"/>
+              id="PrtCardgroupVO3Iterator"/>
     <iterator Binds="PrtPartnerVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtPartnerVO1Iterator"/>
@@ -60,17 +60,17 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <attributeValues IterBinding="PrtAccountVO1Iterator" id="AccountId">
+    <attributeValues IterBinding="PrtAccountVO2Iterator" id="AccountId">
       <AttrNames>
         <Item Value="AccountId"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardVO1Iterator" id="PrtCardPk">
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="PrtCardPk">
       <AttrNames>
         <Item Value="PrtCardPk"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardgroupVO1Iterator"
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
                      id="CardgroupMainType">
       <AttrNames>
         <Item Value="CardgroupMainType"/>
@@ -106,12 +106,12 @@
         <Item Value="MobileNumber"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardVO1Iterator" id="CardStatusCode">
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardStatusCode">
       <AttrNames>
         <Item Value="CardStatusCode"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardVO1Iterator" id="CardType">
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardType">
       <AttrNames>
         <Item Value="CardType"/>
       </AttrNames>

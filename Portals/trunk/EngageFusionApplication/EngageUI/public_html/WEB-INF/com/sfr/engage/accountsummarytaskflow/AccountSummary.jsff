@@ -348,7 +348,7 @@
                <af:inputText value="#{bindings.AccountId.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it35"
-                             required="#{bindings.AccountId.hints.mandatory}">
+                             >
                 <f:validator binding="#{bindings.AccountId.validator}"/>
               </af:inputText>
                <af:spacer width="25" height="10" id="s63"/>
