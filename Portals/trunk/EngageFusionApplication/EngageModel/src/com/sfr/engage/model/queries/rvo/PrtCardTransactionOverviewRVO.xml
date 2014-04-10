@@ -31,13 +31,13 @@
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="TIMESTAMP"
     AliasName="DELTA_TIMESTAMP"
     Expression="DELTA_TIMESTAMP"
     SQLType="TIMESTAMP">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
+      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -49,7 +49,7 @@
     ColumnType="DATE"
     AliasName="LAST_UPDATED"
     Expression="LAST_UPDATED"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -215,7 +215,7 @@
     ColumnType="DATE"
     AliasName="TRANSACTION_DT"
     Expression="TRANSACTION_DT"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -225,13 +225,13 @@
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="TIMESTAMP"
     AliasName="TRANSACTION_TIME"
     Expression="TRANSACTION_TIME"
     SQLType="TIMESTAMP">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
+      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -318,7 +318,7 @@
     ColumnType="DATE"
     AliasName="INVOICING_DATE"
     Expression="INVOICING_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -539,13 +539,13 @@
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
+    Type="java.sql.Timestamp"
+    ColumnType="TIMESTAMP"
     AliasName="DELTA_TIMESTAMP"
     Expression="DELTA_TIMESTAMP"
     SQLType="TIMESTAMP">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
+      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

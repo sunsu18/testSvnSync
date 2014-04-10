@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import java.sql.Date;
 
+import java.sql.Timestamp;
+
 import oracle.jbo.server.AttributeDefImpl;
 import oracle.jbo.server.ViewRowImpl;
 // ---------------------------------------------------------------------
@@ -24,7 +26,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setDeltaTimestamp((Date)value);
+                obj.setDeltaTimestamp((Timestamp)value);
             }
         }
         ,
@@ -167,7 +169,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setTransactionTime((Date)value);
+                obj.setTransactionTime((Timestamp)value);
             }
         }
         ,
@@ -398,7 +400,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setDeltaTimestamp1((Date)value);
+                obj.setDeltaTimestamp1((Timestamp)value);
             }
         }
         ,
@@ -781,6 +783,8 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
     public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
     public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
@@ -859,15 +863,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute DeltaTimestamp.
      * @return the DeltaTimestamp
      */
-    public Date getDeltaTimestamp() {
-        return (Date) getAttributeInternal(DELTATIMESTAMP);
+    public Timestamp getDeltaTimestamp() {
+        return (Timestamp) getAttributeInternal(DELTATIMESTAMP);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute DeltaTimestamp.
      * @param value value to set the  DeltaTimestamp
      */
-    public void setDeltaTimestamp(Date value) {
+    public void setDeltaTimestamp(Timestamp value) {
         setAttributeInternal(DELTATIMESTAMP, value);
     }
 
@@ -1067,15 +1071,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute TransactionTime.
      * @return the TransactionTime
      */
-    public Date getTransactionTime() {
-        return (Date) getAttributeInternal(TRANSACTIONTIME);
+    public Timestamp getTransactionTime() {
+        return (Timestamp) getAttributeInternal(TRANSACTIONTIME);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute TransactionTime.
      * @param value value to set the  TransactionTime
      */
-    public void setTransactionTime(Date value) {
+    public void setTransactionTime(Timestamp value) {
         setAttributeInternal(TRANSACTIONTIME, value);
     }
 
@@ -1399,19 +1403,20 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         setAttributeInternal(TERMINAL, value);
     }
 
+
     /**
      * Gets the attribute value for the calculated attribute DeltaTimestamp1.
      * @return the DeltaTimestamp1
      */
-    public Date getDeltaTimestamp1() {
-        return (Date) getAttributeInternal(DELTATIMESTAMP1);
+    public Timestamp getDeltaTimestamp1() {
+        return (Timestamp) getAttributeInternal(DELTATIMESTAMP1);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute DeltaTimestamp1.
      * @param value value to set the  DeltaTimestamp1
      */
-    public void setDeltaTimestamp1(Date value) {
+    public void setDeltaTimestamp1(Timestamp value) {
         setAttributeInternal(DELTATIMESTAMP1, value);
     }
 
@@ -1446,6 +1451,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public void setPalsCountryCode1(String value) {
         setAttributeInternal(PALSCOUNTRYCODE1, value);
     }
+
 
     /**
      * Gets the attribute value for the calculated attribute DetailNo.
