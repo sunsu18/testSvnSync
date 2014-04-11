@@ -34,6 +34,7 @@ public class AccountSummary {
     private String overviewText;
     private RichOutputText overviewOutputText;
     private String id;
+    private RichOutputText cardidoutputtext;
 
 
     public AccountSummary() {
@@ -53,10 +54,22 @@ public class AccountSummary {
         while (rksIterator.hasNext()) {
         List key1 = (List)rksIterator.next();
         JUCtrlHierBinding treeBinding = null;
-        JUCtrlHierBinding treeBinding2 = null;
+      
         CollectionModel collectionModel = (CollectionModel)tree1.getValue();
         treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
-        treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
+        JUCtrlHierNodeBinding rootNode = treeBinding.getRootNodeBinding();
+        System.out.println("root node--------->" + rootNode);
+            
+        JUCtrlHierNodeBinding dropNodeParent =  nodeBinding1.getParent();
+        System.out.println("dropNodeParent--------->" + dropNodeParent);
+            
+        //walk up the tree to find parent nodes 
+            
+        while(dropNodeParent != null && dropNodeParent != rootNode){
+        System.out.println("inside while");
+        dropNodeParent = dropNodeParent.getParent();
+        System.out.println("dropNodeParent--------->" + dropNodeParent.toString()); 
+        }
         
         nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
         System.out.println("String 1--------->" + treeBinding.getPath());
@@ -69,7 +82,7 @@ public class AccountSummary {
         }
 //        for (Object o : nodeBinding1.getParent().getAttributeValues()) {
 //            System.out.println("Node Binding333 ");
-//        System.out.println("Selected values " + o.toString());
+//        System.out.println("Selected values " + o);
 //             id = o.toString();
 //        }
             
@@ -126,7 +139,7 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
-//            System.out.println("qwerty   CARDGRP ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
+            System.out.println("qwerty   CARDGRP ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
 //            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
 //            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
          
@@ -173,7 +186,7 @@ public class AccountSummary {
             
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
-            
+           // System.out.println("12345v " +cardidoutputtext.getAttributes().get("Cardnumber").toString());
 //            System.out.println("qwerty   cardID ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
 //            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
 //            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
@@ -343,5 +356,13 @@ public class AccountSummary {
 
     public String getId() {
         return id;
+    }
+
+    public void setCardidoutputtext(RichOutputText cardidoutputtext) {
+        this.cardidoutputtext = cardidoutputtext;
+    }
+
+    public RichOutputText getCardidoutputtext() {
+        return cardidoutputtext;
     }
 }
