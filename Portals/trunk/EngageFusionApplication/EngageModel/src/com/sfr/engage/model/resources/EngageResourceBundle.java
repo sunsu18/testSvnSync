@@ -153,7 +153,7 @@ public class EngageResourceBundle extends ListResourceBundle{
         { "ACCOUNT_CREDIT_LIMIT", "" }, { "ACCOUNT_CREDIT_BALANCE", "" },
         { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" },
         {"ENGAGE_KM_TOTAL",""},{"ENGAGE_KM_PER_LT",""},{"ENGAGE_LT_PER_HUNDRED",""},
-        {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},};
+        {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},{"PLEASE_SELECT",""}};
 
 
     /**
