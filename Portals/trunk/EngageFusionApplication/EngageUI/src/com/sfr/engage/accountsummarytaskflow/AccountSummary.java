@@ -1,5 +1,6 @@
 package com.sfr.engage.accountsummarytaskflow;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.RowKeySetImpl;
 
 public class AccountSummary {
     private RichPanelGroupLayout accountOverview;
@@ -34,8 +36,13 @@ public class AccountSummary {
     private String overviewText;
     private RichOutputText overviewOutputText;
     private String id;
-    private RichOutputText cardidoutputtext;
-
+    private String accountId;
+    private String cardGroupId;
+    private String cardId;
+    private String partnerId;
+    JUCtrlHierNodeBinding dropNodeParent;
+    RowKeySetImpl rksImpl;
+    JUCtrlHierNodeBinding rootNode;
 
     public AccountSummary() {
     }
@@ -54,43 +61,33 @@ public class AccountSummary {
         while (rksIterator.hasNext()) {
         List key1 = (List)rksIterator.next();
         JUCtrlHierBinding treeBinding = null;
-      
+        JUCtrlHierBinding treeBinding2 = null;
         CollectionModel collectionModel = (CollectionModel)tree1.getValue();
         treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
-        JUCtrlHierNodeBinding rootNode = treeBinding.getRootNodeBinding();
-        System.out.println("root node--------->" + rootNode);
-            
-        JUCtrlHierNodeBinding dropNodeParent =  nodeBinding1.getParent();
-        System.out.println("dropNodeParent--------->" + dropNodeParent);
-            
-        //walk up the tree to find parent nodes 
-            
-        while(dropNodeParent != null && dropNodeParent != rootNode){
-        System.out.println("inside while");
-        dropNodeParent = dropNodeParent.getParent();
-        System.out.println("dropNodeParent--------->" + dropNodeParent.toString()); 
-        }
-        
+        treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
+       rksImpl = new RowKeySetImpl();
         nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
-        System.out.println("String 1--------->" + treeBinding.getPath());
-            System.out.println("String 2---------->" + treeBinding.getAllRowsInRange().length);
-        //System.out.println("Node Binding1 " + nodeBinding1.getRowKey().toString());
+     
+      
+
+        rksImpl.add(key1);
+        System.out.println(" rksImpl-------->" +  rksImpl);
+        //the first key to add is the node that received the drop
+        //operation (departments).            
+         rootNode = treeBinding.getRootNodeBinding();
+        System.out.println("root node--------->" + rootNode);
+       dropNodeParent =  nodeBinding1.getParent();
+        System.out.println("dropNodeParent--------->" + dropNodeParent);
+           
+      
         for (Object o : nodeBinding1.getAttributeValues()) {
-            System.out.println("Node Binding2 ");
-        System.out.println("Selected values " + o.toString());
+    
              id = o.toString();
-        }
-//        for (Object o : nodeBinding1.getParent().getAttributeValues()) {
-//            System.out.println("Node Binding333 ");
-//        System.out.println("Selected values " + o);
-//             id = o.toString();
-//        }
             
-//            System.out.println("qwerty   ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
-        
-        
-//        System.out.println("--------------> " + nodeBinding1.getParent().getAttribute("Cat1shortdesc").toString());
-        //System.out.println("Node Binding3 " + nodeBinding1.getRowKey().toString());
+       
+            
+        }
+      
             
         rw = nodeBinding1.getRow();
         rowType = rw.getStructureDef().getDefName();
@@ -98,14 +95,15 @@ public class AccountSummary {
     }
         
         if(rowType.contains("AccountInfo")) {
+            partnerId=dropNodeParent.toString();
+            accountId=id;
             System.out.println("Account node clicked");
+            System.out.println("Accountid"+accountId);
             companyOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
-//            System.out.println("qwerty   ACC ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
-//            System.out.println("qwerty   ACC PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
-           
+     
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtAccountVO2Iterator");
                 System.out.println("DC Iterator bindings for Account found in mypagelistner");
@@ -139,10 +137,7 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
-            System.out.println("qwerty   CARDGRP ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
-//            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
-//            System.out.println("qwerty   CARDGRP PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
-         
+     
             
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtCardgroupVO3Iterator");
@@ -158,9 +153,9 @@ public class AccountSummary {
             ViewObject vo_cg = iter1.getViewObject();
             vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc");
 
-            //vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid");
+
             vo_cg.defineNamedWhereClauseParam("cgid",id,null);
-           // vo_cg.setWhereClause("COUNTRY_CODE =: cc");
+
             vo_cg.defineNamedWhereClauseParam("cc","no_NO",null);
          
             System.out.println(vo_cg.getQuery());                                                        
@@ -177,7 +172,13 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
             cardOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
-            
+           
+            partnerId=dropNodeParent.getParent().toString();
+            cardGroupId=id;
+            accountId=dropNodeParent.toString();
+          
+             
+        
 
         }else if(rowType.contains("CardInfo")) {
             System.out.println("card node clicked");
@@ -186,13 +187,8 @@ public class AccountSummary {
             
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
-           // System.out.println("12345v " +cardidoutputtext.getAttributes().get("Cardnumber").toString());
-//            System.out.println("qwerty   cardID ------ " + nodeBinding1.getParent().getAttribute("accountNumber").toString());
-//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("partnerValue").toString());
-//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("cardGroupID").toString());
-//            System.out.println("qwerty   cardID PART ------ " + nodeBinding1.getParent().getAttribute("cardID").toString());
-         
             
+         
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtCardVO4Iterator");
                 System.out.println("DC Iterator bindings for Card found in mypagelistner");
@@ -206,9 +202,9 @@ public class AccountSummary {
             
             ViewObject vo_card = iter1.getViewObject();
             vo_card.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
-            //vo_card.setWhereClause("PRT_CARD_PK =: cardid");
+
             vo_card.defineNamedWhereClauseParam("cardid",id,null);
-           //s vo_card.setWhereClause("COUNTRY_CODE =: cc");
+
             vo_card.defineNamedWhereClauseParam("cc","no_NO",null);
             
             System.out.println(vo_card.getQuery());                                                        
@@ -223,6 +219,15 @@ public class AccountSummary {
             cardGroupOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
             
+            
+            cardId=id;
+      
+        
+         cardGroupId=dropNodeParent.toString();
+            dropNodeParent=dropNodeParent.getParent();
+          accountId=dropNodeParent.toString();
+         partnerId=dropNodeParent.getParent().toString();
+        
 
         }
         else {
@@ -358,11 +363,35 @@ public class AccountSummary {
         return id;
     }
 
-    public void setCardidoutputtext(RichOutputText cardidoutputtext) {
-        this.cardidoutputtext = cardidoutputtext;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
-    public RichOutputText getCardidoutputtext() {
-        return cardidoutputtext;
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setCardGroupId(String cardGroupId) {
+        this.cardGroupId = cardGroupId;
+    }
+
+    public String getCardGroupId() {
+        return cardGroupId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getPartnerId() {
+        return partnerId;
     }
 }
