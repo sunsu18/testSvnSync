@@ -347,14 +347,6 @@ public class MyPageListener implements PagePhaseListener {
                                     (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                                 //  DCBindingContainer dc1 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
                                 DCIteratorBinding iter1;
-                                // if(dc1!= null) {
-                                //     iter = bindings.findIteratorBinding("PrtAccountRVO1Iterator");
-                                //     System.out.println("DC Iterator bindings for Account found in mypagelistner template");
-                                //  }
-                                //  else
-                                //      System.out.println("no bindings on template");
-
-
                                 if (bindings != null) {
                                     iter1 =
                                             bindings.findIteratorBinding("PrtAccountVO1Iterator");
@@ -500,6 +492,9 @@ public class MyPageListener implements PagePhaseListener {
 
                                                 String CardgroupID =
                                                     cardgrp.getCardGroupID();
+                                                String CardgroupMainType = cardgrp.getCardGroupMainType().toString();
+                                                String CardgroupSubType = cardgrp.getCardGroupSubType().toString();
+                                                String CardgroupSeq = cardgrp.getCardGroupSeq().toString();
                                                 bindings =
                                                         (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                                                 DCIteratorBinding iter3;
@@ -513,12 +508,14 @@ public class MyPageListener implements PagePhaseListener {
                                                 }
                                                 ViewObject vo3 =
                                                     iter3.getViewObject();
-
+                                                //TODO : Change hard coded contry code
                                                 vo3 = iter3.getViewObject();
-                                                vo3.setWhereClause("CARDGROUP_SEQ =: cardgroupid");
-                                                vo3.defineNamedWhereClauseParam("cardgroupid",
-                                                                                CardgroupID,
-                                                                                null);
+                                                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                                              
+                                                vo3.defineNamedWhereClauseParam("cgid",CardgroupSeq,null);
+                                                vo3.defineNamedWhereClauseParam("cc","no_NO",null);
+                                                vo3.defineNamedWhereClauseParam("cgmain",CardgroupMainType,null);
+                                                vo3.defineNamedWhereClauseParam("cgsub",CardgroupSubType,null);
 
 
                                                 vo3.executeQuery();

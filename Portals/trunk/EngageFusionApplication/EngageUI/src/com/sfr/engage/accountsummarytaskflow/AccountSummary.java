@@ -157,15 +157,12 @@ public class AccountSummary {
             System.out.println("Sub type "+ subtype);
             String cardgroupseq= id.substring(6);
             System.out.println("card seq " + cardgroupseq);
-            
-            vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub" );
-
-
+            //TODO : change hardcoded country code
+            vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
             vo_cg.defineNamedWhereClauseParam("cgid",cardgroupseq,null);
-
             vo_cg.defineNamedWhereClauseParam("cc","no_NO",null);
-                vo_cg.defineNamedWhereClauseParam("cgmain","maintype",null);
-                vo_cg.defineNamedWhereClauseParam("cgsub","subtype",null);
+            vo_cg.defineNamedWhereClauseParam("cgmain",maintype,null);
+            vo_cg.defineNamedWhereClauseParam("cgsub",subtype,null);
          
             System.out.println(vo_cg.getQuery());                                                        
             vo_cg.executeQuery();
