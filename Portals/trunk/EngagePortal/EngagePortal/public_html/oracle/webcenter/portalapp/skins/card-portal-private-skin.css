@@ -1,3 +1,56 @@
+/*#f2ad00*/
+/*------------------------------ADF tree---------------------------*/
+.af_tree_node-stamp-text{
+    border-style: none ;
+    padding-left:0px;
+    padding-right: 0px;
+    border-color: white;
+    border-style: none;
+    border-width: 0px;
+     color:#524e4f;
+      text-decoration:underline;
+    /*font-family:Georgia;
+    font-size:12px;*/
+     font-family: Lucida Sans,Georgia,Serif !important;
+     font-size:13px;
+    line-height: 1.5em;
+}
+.af_tree_data-row.p_AFSelected .af_tree_node-stamp-text{
+      background-color: white;
+    border-color: white;
+    border-style: none  !important;
+    border-width: 0px;
+    padding:0px;
+    font-weight: bold;
+    padding:0px;
+    color:#f2ad00;
+}
+
+.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text
+.af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFSelected .af_tree_node-stamp-text,
+.af_tree_data-row.p_AFSelected.p_AFInactive .af_tree_node-stamp-text, .af_tree_data-row.p_AFSelected.p_AFInactive .af_selectBooleanCheckbox_item-text,
+.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFDropTarget .af_tree_node-stamp-text, .af_tree_data-row.p_AFDropTarget .af_selectBooleanCheckbox_item-text,
+.af_tree_data-row.p_AFSelected.p_AFInactive .af_tree_node-stamp-text, .af_tree_data-row.p_AFSelected.p_AFInactive .af_selectBooleanCheckbox_item-text{
+       border: 0px none white !important;
+        border-style: none;
+        font-weight: bold;
+        padding:0px;
+        color:rgb(242,175,0) !important;
+         background-color: white;
+       
+}
+.af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text{
+    background-color: white !important;
+     padding:0px;
+}
+.af_tree_node-anim-icon-style{
+    padding-right: 0px;
+     /*cursor: url("../images/transparent.png");*/
+     background-image: none;
+     cursor:none;
+      
+}
+/*---------------------------------------------------------*/
 .pricelisttext
 {
     z-index: 100;
@@ -477,7 +530,7 @@ background-image: url("/faces/images/arrow_orange_down.jpg") !important;
 /*background-color: #f2ad00;*/
 }
 
-.af_selectManyChoice_content {
+.af_selectManyChoice_content,.af_selectOneChoice_content {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-weight: normal;
 font-size: 14px !important;
@@ -868,7 +921,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2ad00', end
 
 
 
-.af_selectManyChoice_control{
+.af_selectManyChoice_control,.af_selectOneChoice_control{
     font-family : Lucida Sans,Georgia,Serif !important;
     font-size: 13px !important;
     font-weight: normal !important;
