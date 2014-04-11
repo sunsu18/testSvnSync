@@ -9,7 +9,7 @@
   PackageName="com.sfr.engage.model">
   <DesignTime>
     <Attr Name="_jprName" Value="../../../../../EngageModel.jpr"/>
-    <Attr Name="_NamedConnection" Value="Engage_DEV"/>
+    <Attr Name="_NamedConnection" Value="226"/>
     <Attr Name="_appModuleNames0"
       Value="com.sfr.engage.model.module.EngageAppModule"/>
     <Attr Name="_jbo.TypeMapEntries" Value="Java"/>
@@ -17,13 +17,18 @@
   <Containee
     Name="associations"
     PackageName="com.sfr.engage.model.associations"
-    ObjectType="JboPackage"/>
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_AS" Value="true"/>
+    </DesignTime>
+  </Containee>
   <Containee
     Name="entities"
     PackageName="com.sfr.engage.model.entities"
     ObjectType="JboPackage">
     <DesignTime>
       <Attr Name="_EO" Value="true"/>
+      <Attr Name="_AS" Value="true"/>
     </DesignTime>
   </Containee>
   <Containee

@@ -558,6 +558,18 @@
       <Attr Name="_DisplaySize" Value="1"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CardRemarks"
+    Precision="255"
+    ColumnName="CARD_REMARKS"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtCardgroupEO"
     Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
@@ -572,6 +584,27 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtPartnerEO1"
+    Association="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtCardEO1"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtCardEO"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO1"
+    Association="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc.PrtCardEO1"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
   <Key
     Name="PrtCardPk1"
     PrimaryKey="true">
@@ -584,9 +617,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054209">
+    Name="SysC0054526">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054209"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054526"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -595,9 +628,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054210">
+    Name="SysC0054527">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054210"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054527"/>
       <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -606,9 +639,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054211">
+    Name="SysC0054528">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054211"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054528"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_MAIN_TYPE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -617,9 +650,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054212">
+    Name="SysC0054529">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054212"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054529"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_SUB_TYPE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -628,9 +661,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054213">
+    Name="SysC0054530">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054213"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054530"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_SEQ" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -639,9 +672,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054214">
+    Name="SysC0054531">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054214"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054531"/>
       <Attr Name="_checkCondition" Value='"PRT_CARD_PK" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -650,9 +683,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054215">
+    Name="SysC0054532">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054215"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054532"/>
       <Attr Name="_checkCondition" Value='"EXT_CARD_NUM" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -684,6 +717,7 @@
       <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupMainType"/>
       <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSubType"/>
       <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSeq"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
     </AttrArray>
   </Key>
   <Key

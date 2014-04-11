@@ -85,7 +85,9 @@
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
        <af:image source="/images/download.jpg" id="i4"/>
-                <af:outputText value="#{node.cardID}" id="ot3"/>
+                <af:outputText value="#{node.cardID}" id="ot3">
+                <f:attribute name="Cardnumber" value="#{node.cardID}"/>
+                </af:outputText>
        </af:group>
       </f:facet>
    </af:switcher>

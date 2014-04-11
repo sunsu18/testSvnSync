@@ -272,6 +272,46 @@ public class PrtAccountEOImpl extends EntityImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
+        ,
+        PrtPartnerEO {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtPartnerEO();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setPrtPartnerEO((EntityImpl)value);
+            }
+        }
+        ,
+        PrtCardEO {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtCardEO();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtDriverInformationEO1 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtDriverInformationEO1();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtCardgroupEO {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtCardgroupEO();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -326,6 +366,10 @@ public class PrtAccountEOImpl extends EntityImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int PRTDRIVERINFORMATIONEO = AttributesEnum.PrtDriverInformationEO.index();
+    public static final int PRTPARTNEREO = AttributesEnum.PrtPartnerEO.index();
+    public static final int PRTCARDEO = AttributesEnum.PrtCardEO.index();
+    public static final int PRTDRIVERINFORMATIONEO1 = AttributesEnum.PrtDriverInformationEO1.index();
+    public static final int PRTCARDGROUPEO = AttributesEnum.PrtCardgroupEO.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -766,6 +810,41 @@ public class PrtAccountEOImpl extends EntityImpl {
      */
     public RowIterator getPrtDriverInformationEO() {
         return (RowIterator)getAttributeInternal(PRTDRIVERINFORMATIONEO);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.server.EntityImpl.
+     */
+    public EntityImpl getPrtPartnerEO() {
+        return (EntityImpl)getAttributeInternal(PRTPARTNEREO);
+    }
+
+    /**
+     * Sets <code>value</code> as the associated entity oracle.jbo.server.EntityImpl.
+     */
+    public void setPrtPartnerEO(EntityImpl value) {
+        setAttributeInternal(PRTPARTNEREO, value);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtCardEO() {
+        return (RowIterator)getAttributeInternal(PRTCARDEO);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtDriverInformationEO1() {
+        return (RowIterator)getAttributeInternal(PRTDRIVERINFORMATIONEO1);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtCardgroupEO() {
+        return (RowIterator)getAttributeInternal(PRTCARDGROUPEO);
     }
 
     /**

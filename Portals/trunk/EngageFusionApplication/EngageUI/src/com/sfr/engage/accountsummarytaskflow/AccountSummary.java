@@ -151,15 +151,25 @@ public class AccountSummary {
             {
             
             ViewObject vo_cg = iter1.getViewObject();
-            vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc");
+            String maintype = id.substring(0,3);
+            System.out.println("Main type "+maintype);
+            String subtype= id.substring(3,6);
+            System.out.println("Sub type "+ subtype);
+            String cardgroupseq= id.substring(6);
+            System.out.println("card seq " + cardgroupseq);
+            
+            vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub" );
 
 
-            vo_cg.defineNamedWhereClauseParam("cgid",id,null);
+            vo_cg.defineNamedWhereClauseParam("cgid",cardgroupseq,null);
 
             vo_cg.defineNamedWhereClauseParam("cc","no_NO",null);
+                vo_cg.defineNamedWhereClauseParam("cgmain","maintype",null);
+                vo_cg.defineNamedWhereClauseParam("cgsub","subtype",null);
          
             System.out.println(vo_cg.getQuery());                                                        
             vo_cg.executeQuery();
+            System.out.println("rows " + vo_cg.getEstimatedRowCount());
             
             }
             

@@ -234,6 +234,13 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO"
     Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
     IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtAccountEO1"
+    Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO1"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
   <Key
     Name="SysC0025866">
     <DesignTime>

@@ -626,6 +626,66 @@
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="PartnerAddr1"
+    Precision="50"
+    ColumnName="PARTNER_ADDR1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerAddr2"
+    Precision="50"
+    ColumnName="PARTNER_ADDR2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerPostalCode"
+    Precision="20"
+    ColumnName="PARTNER_POSTAL_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerCity"
+    Precision="20"
+    ColumnName="PARTNER_CITY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerCountry"
+    Precision="20"
+    ColumnName="PARTNER_COUNTRY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PARTNER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtCardgroupEO"
     Association="com.sfr.engage.model.associations.PrtCardgroupPrtPartnerFk1Assoc"
@@ -640,6 +700,27 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtCardEO1"
+    Association="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtCardEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtAccountEO"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtPartnerEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO1"
+    Association="com.sfr.engage.model.entities.PrtCardgroupPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardgroupPrtPartnerFk1Assoc.PrtCardgroupEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardgroupPrtPartnerFk1Assoc.PrtPartnerEO1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <Key
     Name="PrtPartnerPk"
     PrimaryKey="true">
@@ -652,9 +733,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054189">
+    Name="SysC0054506">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054189"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054506"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -663,9 +744,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054190">
+    Name="SysC0054507">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054190"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054507"/>
       <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>

@@ -340,6 +340,34 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtPartnerEO"
+    Association="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtPartnerEO"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtAccountEO"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardEO"
+    Association="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtCardEO"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtDriverInformationEO1"
+    Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO1"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO"
+    Association="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc.PrtCardgroupEO"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc.PrtAccountEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <Key
     Name="PrtAccountPk"
     PrimaryKey="true">
@@ -352,9 +380,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054192">
+    Name="SysC0054509">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054192"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054509"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -363,9 +391,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054193">
+    Name="SysC0054510">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054193"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054510"/>
       <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -374,9 +402,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054194">
+    Name="SysC0054511">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054194"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054511"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -385,9 +413,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054195">
+    Name="SysC0054512">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054195"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0054512"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
