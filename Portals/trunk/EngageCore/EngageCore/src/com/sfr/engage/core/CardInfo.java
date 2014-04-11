@@ -6,6 +6,7 @@ public class CardInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardID;
+    private String externalCardID;
     public CardInfo() {
         super();
     }
@@ -16,5 +17,13 @@ public class CardInfo implements Serializable {
 
     public String getCardID() {
         return cardID;
+    }
+
+    public void setExternalCardID(String externalCardID) {
+        this.externalCardID = externalCardID;
+    }
+
+    public String getExternalCardID() {
+        return externalCardID;
     }
 }

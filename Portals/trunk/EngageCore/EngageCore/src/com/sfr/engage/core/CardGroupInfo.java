@@ -9,6 +9,9 @@ public class CardGroupInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardGroupID;
+    private String cardGroupMainType;
+    private String cardGroupSubType;
+    private String cardGroupSeq;
     private List<CardInfo> card;
     
     
@@ -30,5 +33,29 @@ public class CardGroupInfo implements Serializable {
 
     public List<CardInfo> getCard() {
         return card;
+    }
+
+    public void setCardGroupMainType(String cardGroupMainType) {
+        this.cardGroupMainType = cardGroupMainType;
+    }
+
+    public String getCardGroupMainType() {
+        return cardGroupMainType;
+    }
+
+    public void setCardGroupSubType(String cardGroupSubType) {
+        this.cardGroupSubType = cardGroupSubType;
+    }
+
+    public String getCardGroupSubType() {
+        return cardGroupSubType;
+    }
+
+    public void setCardGroupSeq(String cardGroupSeq) {
+        this.cardGroupSeq = cardGroupSeq;
+    }
+
+    public String getCardGroupSeq() {
+        return cardGroupSeq;
     }
 }

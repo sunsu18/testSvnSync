@@ -8,7 +8,8 @@ public class PartnerInfo implements Serializable{
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
-    private String partnerValue = "111";
+    private String partnerValue;
+    private String country;
     private List<AccountInfo> accountList;
     
     public PartnerInfo() {
@@ -30,5 +31,13 @@ public class PartnerInfo implements Serializable{
 
     public List<AccountInfo> getAccountList() {
         return accountList;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
