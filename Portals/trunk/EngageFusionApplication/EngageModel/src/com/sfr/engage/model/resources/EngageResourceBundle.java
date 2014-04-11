@@ -151,7 +151,7 @@ public class EngageResourceBundle extends ListResourceBundle{
         { "ACCOUNT_ADDRESS_1", "" }, { "ACCOUNT_ADDRESS_2", "" },
         { "ACCOUNT_PHONE", "" }, { "ACCOUNT_MOBILE", "" },
         { "ACCOUNT_CREDIT_LIMIT", "" }, { "ACCOUNT_CREDIT_BALANCE", "" },
-        { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" } };
+        { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" }, { "ENGAGE_DISCOUNTED_PRICE", "" } };
 
 
     /**
