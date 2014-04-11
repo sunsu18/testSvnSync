@@ -151,7 +151,9 @@ public class EngageResourceBundle extends ListResourceBundle{
         { "ACCOUNT_ADDRESS_1", "" }, { "ACCOUNT_ADDRESS_2", "" },
         { "ACCOUNT_PHONE", "" }, { "ACCOUNT_MOBILE", "" },
         { "ACCOUNT_CREDIT_LIMIT", "" }, { "ACCOUNT_CREDIT_BALANCE", "" },
-        { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" }, { "ENGAGE_DISCOUNTED_PRICE", "" } ,{"ACCOUNT_SUMMARY",""}};
+        { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" },
+        {"ENGAGE_KM_TOTAL",""},{"ENGAGE_KM_PER_LT",""},{"ENGAGE_LT_PER_HUNDRED",""},
+        {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},};
 
 
     /**

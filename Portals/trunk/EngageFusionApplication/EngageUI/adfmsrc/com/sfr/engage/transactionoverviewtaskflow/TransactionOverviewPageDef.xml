@@ -8,6 +8,9 @@
     <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardTransactionOverviewRVO1Iterator"/>
+    <iterator id="PrtCardDriverVehicleInfoRVO1Iterator"
+              Binds="PrtCardDriverVehicleInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
@@ -25,6 +28,10 @@
           <Item Value="Quantity"/>
           <Item Value="InvoicedGrossAmount"/>
           <Item Value="PalsCountryCode"/>
+          <Item Value="kmTotal"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="grandTotal"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -95,6 +102,30 @@
                      id="InvoicedVat">
       <AttrNames>
         <Item Value="InvoicedVat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="kmTotal">
+      <AttrNames>
+        <Item Value="kmTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="kmPerLt">
+      <AttrNames>
+        <Item Value="kmPerLt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="ltPerHundred">
+      <AttrNames>
+        <Item Value="ltPerHundred"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="PalsCountryCode">
+      <AttrNames>
+        <Item Value="PalsCountryCode"/>
       </AttrNames>
     </attributeValues>
   </bindings>

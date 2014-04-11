@@ -755,6 +755,50 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setInvoicedNetAmountRabeted((Float)value);
             }
         }
+        ,
+        kmTotal {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getkmTotal();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setkmTotal((Float)value);
+            }
+        }
+        ,
+        kmPerLt {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getkmPerLt();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setkmPerLt((Float)value);
+            }
+        }
+        ,
+        ltPerHundred {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getltPerHundred();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setltPerHundred((Float)value);
+            }
+        }
+        ,
+        grandTotal {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getgrandTotal();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setgrandTotal((Integer)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -852,6 +896,10 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
     public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
     public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
+    public static final int KMTOTAL = AttributesEnum.kmTotal.index();
+    public static final int KMPERLT = AttributesEnum.kmPerLt.index();
+    public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
+    public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1931,6 +1979,71 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setInvoicedNetAmountRabeted(Float value) {
         setAttributeInternal(INVOICEDNETAMOUNTRABETED, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute kmTotal.
+     * @return the kmTotal
+     */
+    public Float getkmTotal() {
+        return (Float) getAttributeInternal(KMTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute kmTotal.
+     * @param value value to set the  kmTotal
+     */
+    public void setkmTotal(Float value) {
+        setAttributeInternal(KMTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute kmPerLt.
+     * @return the kmPerLt
+     */
+    public Float getkmPerLt() {
+        return (Float) getAttributeInternal(KMPERLT);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute kmPerLt.
+     * @param value value to set the  kmPerLt
+     */
+    public void setkmPerLt(Float value) {
+        setAttributeInternal(KMPERLT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ltPerHundred.
+     * @return the ltPerHundred
+     */
+    public Float getltPerHundred() {
+        return (Float) getAttributeInternal(LTPERHUNDRED);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ltPerHundred.
+     * @param value value to set the  ltPerHundred
+     */
+    public void setltPerHundred(Float value) {
+        setAttributeInternal(LTPERHUNDRED, value);
+    }
+
+
+    /**
+     * Gets the attribute value for the calculated attribute grandTotal.
+     * @return the grandTotal
+     */
+    public Integer getgrandTotal() {
+        return (Integer) getAttributeInternal(GRANDTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute grandTotal.
+     * @param value value to set the  grandTotal
+     */
+    public void setgrandTotal(Integer value) {
+        setAttributeInternal(GRANDTOTAL, value);
     }
 
     /**

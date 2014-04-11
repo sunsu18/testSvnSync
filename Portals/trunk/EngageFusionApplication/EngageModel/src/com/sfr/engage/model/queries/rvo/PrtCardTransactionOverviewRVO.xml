@@ -1046,6 +1046,46 @@
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
+  <ViewAttribute
+    Name="kmTotal"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="VIEW_ATTR"
+    SQLType="FLOAT"/>
+  <ViewAttribute
+    Name="kmPerLt"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="VIEW_ATTR"
+    SQLType="FLOAT"/>
+  <ViewAttribute
+    Name="ltPerHundred"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="VIEW_ATTR"
+    SQLType="FLOAT"/>
+  <ViewAttribute
+    Name="grandTotal"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
