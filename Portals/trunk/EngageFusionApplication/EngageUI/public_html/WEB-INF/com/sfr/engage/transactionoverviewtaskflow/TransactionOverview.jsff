@@ -301,7 +301,7 @@
       <f:facet name="center">
         <af:panelGroupLayout layout="horizontal" 
                              id="pgl25"> 
-<af:panelGroupLayout id="pgl26" layout="vertical" inlineStyle="width:250.0px;"
+<af:panelGroupLayout id="pgl26" layout="vertical" inlineStyle="width:250.0px;height:230.0px;"
                      valign="top">
 <af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY}" styleClass="subheading"
                                    id="plam3"/>  
@@ -311,24 +311,39 @@
               </af:panelGroupLayout>-->
                   <af:spacer width="10" height="5" id="spacer8"/>
                   <af:panelGroupLayout id="pgl16">
-                <af:outputText value="* #{sfr.ENGAGE_PRICES_AS_SHOWN_ON_RECEIPT}" id="ot25"
+                <af:outputText value="(* #{sfr.ENGAGE_PRICES_AS_SHOWN_ON_RECEIPT})" id="ot25"
                                inlineStyle="color:Red; font-weight:bold;" />
               </af:panelGroupLayout>
                   <af:spacer width="10" height="5" id="spacer9"/>
-                  <h:panelGrid columns="3">
+                  <h:panelGrid columns="5">
           <af:outputText value="#{sfr.ENGAGE_PRICE}:"
                                    id="ot23"/>
-            <af:spacer width="10" height="1" id="s30"/>    
+            <af:spacer width="10" height="1" id="s30"/> 
+             <af:outputText value=":" id="ot231"/>
+             <af:spacer width="10" height="1" id="s301"/>  
            <af:outputText value="#{bindings.CurrencyUnitPrice.inputValue}"
                            id="ot16">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.CurrencyUnitPrice.format}"/>
             </af:outputText> 
           
+           <af:outputText value="#{sfr.ENGAGE_DISCOUNTED_PRICE}:"
+                                   id="ot237"/>
+            <af:spacer width="10" height="1" id="s370"/> 
+             <af:outputText value=":" id="ot2731"/>
+             <af:spacer width="10" height="1" id="s3071"/>  
+           <af:outputText value="#{bindings.CurrencyUnitPrice.inputValue}"
+                           id="ot176">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.CurrencyUnitPrice.format}"/>
+            </af:outputText> 
           
           <af:outputText value="#{sfr.ENGAGE_AMOUNT}:"
                                    id="plam4"/>
-                                   <af:spacer width="10" height="1" id="s27"/> 
+             <af:spacer width="10" height="1" id="s27"/> 
+                                  
+             <af:outputText value=":" id="ot2311"/>
+             <af:spacer width="10" height="1" id="s3012"/>  
             <af:outputText value="#{bindings.CurrencyGrossAmount.inputValue}"
                            id="ot29">
               <af:convertNumber groupingUsed="false"
@@ -337,7 +352,9 @@
          
           <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}:"
                                    id="plam1"/>
-                                   <af:spacer width="10" height="1" id="s26"/> 
+            <af:spacer width="10" height="1" id="s26"/> 
+              <af:outputText value=":" id="ot23113"/>
+             <af:spacer width="10" height="1" id="s30123"/> 
             <af:outputText value="#{bindings.CurrencyVat.inputValue}" id="ot22">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.CurrencyVat.format}"/>
@@ -345,7 +362,9 @@
           
           <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}:"
                                    id="plam8"/>
-                                   <af:spacer width="10" height="1" id="s25"/> 
+           <af:spacer width="10" height="1" id="s25"/> 
+             <af:outputText value=":" id="ot23114"/>
+             <af:spacer width="10" height="1" id="s30124"/> 
             <af:outputText value="#{bindings.CurrencyNetAmount.inputValue}"
                            id="ot15">
               <af:convertNumber groupingUsed="false"
@@ -356,7 +375,8 @@
 <af:panelGroupLayout id="pgl23" layout="vertical" inlineStyle="height:180.0px;">
  <af:separator id="s28" styleClass="vertical_seprator"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl24" layout="vertical" inlineStyle="width:250.0px;"
+<af:panelGroupLayout id="pgl24" layout="vertical"
+                     inlineStyle="width:250px; height:230.0px;"
                      valign="top">
 <af:outputText value="#{sfr.ENGAGE_PRICES_IN} SEK" styleClass="subheading"
                                    id="ot24"/>  
@@ -365,12 +385,14 @@
                 <af:separator id="s31" />
               </af:panelGroupLayout>-->
                   <af:spacer width="10" height="5" id="spacer10"/>
-                  <h:panelGrid columns="3">
+                  <h:panelGrid columns="5">
          
           
           <af:outputText value="#{sfr.ENGAGE_PRICE}:"
                                    id="plam9"/>
-                                   <af:spacer width="10" height="1" id="s32"/> 
+           <af:spacer width="10" height="1" id="s32"/> 
+             <af:outputText value=":" id="ot23115"/>
+             <af:spacer width="10" height="1" id="s30125"/> 
             <af:outputText value="#{bindings.InvoicedUnitPrice.inputValue}"
                            id="ot17">
               <af:convertNumber groupingUsed="false"
@@ -378,7 +400,9 @@
             </af:outputText>
            <af:outputText value="#{sfr.ENGAGE_GROSS_AMOUNT}:"
                                    id="plam5"/>
-                                   <af:spacer width="10" height="1" id="s24"/> 
+            <af:spacer width="10" height="1" id="s24"/> 
+              <af:outputText value=":" id="ot23161"/>
+             <af:spacer width="10" height="1" id="s30162"/> 
             <af:outputText value="#{bindings.InvoicedGrossAmount.inputValue}"
                            id="ot19">
               <af:convertNumber groupingUsed="false"
@@ -386,7 +410,9 @@
             </af:outputText>
           <af:outputText value="#{sfr.ENGAGE_DISCOUNT}:"
                                    id="plam7"/>
-                                   <af:spacer width="10" height="1" id="s33"/> 
+            <af:spacer width="10" height="1" id="s33"/> 
+              <af:outputText value=":" id="ot23171"/>
+             <af:spacer width="10" height="1" id="s30712"/> 
             <af:outputText value="#{bindings.InvoiceDiscountAmount.inputValue}"
                            id="ot18">
               <af:convertNumber groupingUsed="false"
@@ -395,7 +421,9 @@
          
           <af:outputText value="#{sfr.ENGAGE_AMOUNT}:"
                                    id="plam6"/>
-                                   <af:spacer width="10" height="1" id="s34"/> 
+           <af:spacer width="10" height="1" id="s34"/> 
+             <af:outputText value=":" id="ot23118"/>
+             <af:spacer width="10" height="1" id="s30182"/> 
             <af:outputText value="#{bindings.InvoicedGrossAmountRebated.inputValue}"
                            id="ot21">
               <af:convertNumber groupingUsed="false"
@@ -403,7 +431,9 @@
             </af:outputText>
           <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}:"
                                    id="plam2"/>
-                                   <af:spacer width="10" height="1" id="s35"/> 
+         <af:spacer width="10" height="1" id="s35"/> 
+           <af:outputText value=":" id="ot23191"/>
+             <af:spacer width="10" height="1" id="s30912"/> 
             <af:outputText value="#{bindings.InvoicedVat.inputValue}"
                            id="ot20">
               <af:convertNumber groupingUsed="false"
@@ -412,7 +442,9 @@
          
           <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}:"
                                    id="ot26"/>
-                                   <af:spacer width="10" height="1" id="s36"/> 
+         <af:spacer width="10" height="1" id="s36"/> 
+           <af:outputText value=":" id="ot23011"/>
+             <af:spacer width="10" height="1" id="s30012"/> 
             <af:outputText value="#{bindings.InvoicedNetAmount.inputValue}"
                            id="ot27">
               <af:convertNumber groupingUsed="false"
