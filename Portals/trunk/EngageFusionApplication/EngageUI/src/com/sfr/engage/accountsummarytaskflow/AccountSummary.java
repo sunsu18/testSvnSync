@@ -67,12 +67,15 @@ public class AccountSummary {
     RowKeySetImpl rksImpl;
     JUCtrlHierNodeBinding rootNode;
     PartnerInfo partner = new PartnerInfo();
+    AccountInfo account = new AccountInfo();
+    
     List <AccountInfo> AccountList = new ArrayList<AccountInfo>();
     List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     private HttpServletRequest request;
     private ExternalContext ectx;
     private HttpSession session;
     private boolean displayAccountOverview = false;
+    private boolean displayCardGroupOverview = false;
     
    
     public AccountSummary() {
@@ -208,6 +211,28 @@ public class AccountSummary {
 
         }else if(rowType.contains("CardGroupInfo")) {
             System.out.println("cardgroup node clicked");
+            
+            
+            for (int k = 0;
+                 k < AccountList.size();
+                 k++) {
+                System.out.println("account id value in account list " +
+                                   AccountList.get(k).getAccountNumber());
+                account = AccountList.get(k);
+                cardgrouplist = account.getCardGroup();
+
+                if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(id)) {
+                    System.out.println("cardgroup id exists in cardgroup list of account " + account.getAccountNumber());
+                    displayCardGroupOverview =
+                    cardgrouplist.get(k).isCardGroupOverview();
+                    break;
+                }
+            }
+            
+            
+            if(displayCardGroupOverview)
+            {
+            
             companyOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -309,7 +334,7 @@ public class AccountSummary {
              
         
             
-           
+        }
             
 
         }else if(rowType.contains("CardInfo")) {
@@ -554,5 +579,13 @@ public class AccountSummary {
 
     public boolean isDisplayAccountOverview() {
         return displayAccountOverview;
+    }
+
+    public void setDisplayCardGroupOverview(boolean displayCardGroupOverview) {
+        this.displayCardGroupOverview = displayCardGroupOverview;
+    }
+
+    public boolean isDisplayCardGroupOverview() {
+        return displayCardGroupOverview;
     }
 }
