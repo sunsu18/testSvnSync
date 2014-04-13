@@ -3,14 +3,20 @@ package com.sfr.engage.invoiceoverviewtaskflow;
 import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
 
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
+import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 
 import java.io.Serializable;
 
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 
+import java.util.ResourceBundle;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -40,9 +46,13 @@ public class InvoiceOverviewBean implements Serializable {
     private boolean searchResults=false;
     private boolean cardGroup=false;
     private boolean card=false;
+    private String countryCode;
+    private ResourceBundle resourceBundle;
     
     public InvoiceOverviewBean() {
         super();
+        resourceBundle = new EngageResourceBundle();
+        countryCode="se_SE";
     }
     
     public ArrayList<SelectItem> getAccountList() {
@@ -133,8 +143,74 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
-        searchResults=true;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+        if(getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null) {
+            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
+            if (toDate.before(fromDate)) {
+                if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {                    
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 msg);                                         
+                }
+          } 
+            // else if (fromDate.after(toDate)) {
+            //                if (resourceBundle.containsKey("REPORT_ERROR_MESSAGE_5")) {
+            //                    reportErrormessage =
+            //                            (String)resourceBundle.getObject("REPORT_ERROR_MESSAGE_5");
+            //                    setErrorVisible(true);
+            //                    setFormVisible(false);
+            //                }            
+            
+            else {
+                System.out.println("AccountValue="+getBindings().getAccount().getValue());
+                ViewObject invoiceVO =
+                    ADFUtils.getViewObject("PrtInvoiceVO1Iterator"); 
+//                invoiceVO.setWhereClause("trim(ACCOUNT_ID) =:accountId");
+//                invoiceVO.defineNamedWhereClauseParam("accountId",100,null);
+                //invoiceVO.defineNamedWhereClauseParam("countryCode",countryCode,null);
+//                invoiceVO.defineNamedWhereClauseParam("fromDateBV",getBindings().getFromDate().getValue(),null);
+//                invoiceVO.defineNamedWhereClauseParam("toDateBV",getBindings().getToDate().getValue(),null);
+//                if(getBindings().getInvoiceType().getValue()!=null) {
+//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
+//                }else {
+//                    invoiceVO.defineNamedWhereClauseParam("toDateBV",null,null);
+//                }
+                
+//                if(getBindings().getCard().getValue()!=null) {
+//                    invoiceVO.setWhereClause("AND PRT_CARD_PK IN (:cardPK)");
+//                    invoiceVO.defineNamedWhereClauseParam("cardPK","'0058973605','005897360'",null);
+//                }               
+//                
+//                if(getBindings().getCardGroup().getValue()!=null) {                    
+//                    invoiceVO.setWhereClause("AND CARDGROUP_MAIN_TYPE IN(:cardGroupMainType) AND CARDGROUP_SUB_TYPE IN(:cardGroupSubType) AND CARDGROUP_SEQ IN (:cardGroupSeqbType)");                    
+//                    invoiceVO.defineNamedWhereClauseParam("cardGroupMainType","'SLU','USV'",null);
+//                    invoiceVO.defineNamedWhereClauseParam("cardGroupSubType","'TRX','RTX'",null);
+//                    invoiceVO.defineNamedWhereClauseParam("cardGroupSeqbType","'00003','00004'",null);
+//                    
+//                }   
+                System.out.println("Query Formed is="+invoiceVO.getQuery());
+                invoiceVO.executeQuery();
+                System.out.println("Estimated Row count=="+invoiceVO.getEstimatedRowCount());
+                searchResults=true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+                System.out.println("Where condition:"+invoiceVO.getWhereClause());
+                
+            }
+            
+        }else {
+            if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("INVOICE_MANDATORY_CHECK"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             msg);
+            }
+        }
+       
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
@@ -179,8 +255,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String invoiceNumberAction() {
         ViewObject vo =
-            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");       
-      
+            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");  
         
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
         return null;
@@ -229,6 +304,14 @@ public class InvoiceOverviewBean implements Serializable {
 
     public boolean isCard() {
         return card;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
     }
 
     public class Bindings {

@@ -138,6 +138,12 @@
      <af:outputText value="#{sfr.ENGAGE_INVOICE_DETAILS}" id="ot8"
                     styleClass="heading"/>
     </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl24" layout="vertical"
+                               halign="right"
+                               inlineStyle="width:640.0px; height:15.0px;">
+     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CountryCode.inputValue}"
+                           id="ot59" styleClass="popupoutputText"/> 
+    </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">
      <af:spacer width="10" height="10" id="s7"/>
      <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}" var="row"
