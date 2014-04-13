@@ -2,11 +2,17 @@ package com.sfr.engage.invoiceoverviewtaskflow;
 
 import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
 
+import com.sfr.engage.core.PartnerInfo;
+import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 
 import java.io.Serializable;
+
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 
@@ -16,10 +22,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
@@ -43,44 +53,87 @@ public class InvoiceOverviewBean implements Serializable {
     private List<String> cardValue;    
     private ArrayList<SelectItem> accountList = null;
     private ArrayList<SelectItem> invoiceTypeList = null;
+    private ArrayList<SelectItem> cardGroupList = null;
+    private ArrayList<SelectItem> cardList = null;
     private boolean searchResults=false;
     private boolean cardGroup=false;
     private boolean card=false;
     private String countryCode;
     private ResourceBundle resourceBundle;
+    private HttpSession session;
+    private ExternalContext ectx;
+    private HttpServletRequest request;
+    private PartnerInfo partnerInfo;
     
     public InvoiceOverviewBean() {
         super();
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);        
         resourceBundle = new EngageResourceBundle();
-        countryCode="se_SE";
+        accountList=new ArrayList<SelectItem>();
+        if(session.getAttribute("Partner_Object_List") != null){
+            partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
+        }
+        if(partnerInfo != null){
+            if(partnerInfo.getPartnerValue() != null){   
+                String partnerId = partnerInfo.getPartnerValue().toString(); 
+            }
+         
+            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                    System.out.println("value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    SelectItem selectItem = new SelectItem();
+                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    accountList.add(selectItem);
+                }
+            }
+        }
+        countryCode="no_NO";
     }
     
     public ArrayList<SelectItem> getAccountList() {
-        if (accountList == null) {
-            accountList = new ArrayList<SelectItem>();            
-                SelectItem selectItem = new SelectItem();
-                selectItem.setLabel("100");
-                selectItem.setValue("100");
-                accountList.add(selectItem);
-            SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("200");
-            selectItem1.setValue("200");
-            accountList.add(selectItem1);
-//            ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
-//            vo.setNamedWhereClauseParam("countryCode", "en_US");
-//            vo.executeQuery();
-//            accountList = new ArrayList<SelectItem>();
-//            while (vo.hasNext()) {
-//                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
-//                if (currRow.getAccountId() != null) {
-//                    SelectItem selectItem = new SelectItem();
-//                    selectItem.setLabel(currRow.getAccountId());
-//                    selectItem.setValue(currRow.getAccountId());
-//                    accountList.add(selectItem);
-//                }
-//            }
-        }
+//        if (accountList == null) {
+//            accountList = new ArrayList<SelectItem>();            
+//                SelectItem selectItem = new SelectItem();
+//                selectItem.setLabel("100");
+//                selectItem.setValue("100");
+//                accountList.add(selectItem);
+//            SelectItem selectItem1 = new SelectItem();
+//            selectItem1.setLabel("200");
+//            selectItem1.setValue("200");
+//            accountList.add(selectItem1);
         return accountList;
+    }
+    
+    public ArrayList<SelectItem> getCardGroupList() {
+    //        if (accountList == null) {
+    //            accountList = new ArrayList<SelectItem>();
+    //                SelectItem selectItem = new SelectItem();
+    //                selectItem.setLabel("100");
+    //                selectItem.setValue("100");
+    //                accountList.add(selectItem);
+    //            SelectItem selectItem1 = new SelectItem();
+    //            selectItem1.setLabel("200");
+    //            selectItem1.setValue("200");
+    //            accountList.add(selectItem1);
+        return cardGroupList;
+    }
+    
+    public ArrayList<SelectItem> getCardList() {
+    //        if (accountList == null) {
+    //            accountList = new ArrayList<SelectItem>();
+    //                SelectItem selectItem = new SelectItem();
+    //                selectItem.setLabel("100");
+    //                selectItem.setValue("100");
+    //                accountList.add(selectItem);
+    //            SelectItem selectItem1 = new SelectItem();
+    //            selectItem1.setLabel("200");
+    //            selectItem1.setValue("200");
+    //            accountList.add(selectItem1);
+        return cardList;
     }
     
     public ArrayList<SelectItem> getInvoiceTypeList() {
@@ -166,37 +219,66 @@ public class InvoiceOverviewBean implements Serializable {
             
             else {
                 System.out.println("AccountValue="+getBindings().getAccount().getValue());
+                System.out.println("FromDate ="+getBindings().getFromDate().getValue());
                 ViewObject invoiceVO =
                     ADFUtils.getViewObject("PrtInvoiceVO1Iterator"); 
-//                invoiceVO.setWhereClause("trim(ACCOUNT_ID) =:accountId");
-//                invoiceVO.defineNamedWhereClauseParam("accountId",100,null);
-                //invoiceVO.defineNamedWhereClauseParam("countryCode",countryCode,null);
-//                invoiceVO.defineNamedWhereClauseParam("fromDateBV",getBindings().getFromDate().getValue(),null);
-//                invoiceVO.defineNamedWhereClauseParam("toDateBV",getBindings().getToDate().getValue(),null);
-//                if(getBindings().getInvoiceType().getValue()!=null) {
-//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
-//                }else {
-//                    invoiceVO.defineNamedWhereClauseParam("toDateBV",null,null);
-//                }
+                if ("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardPK,PRT_CARD_PK)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                    invoiceVO.removeNamedWhereClauseParam("countryCode");
+                    invoiceVO.removeNamedWhereClauseParam("accountId");
+                    invoiceVO.removeNamedWhereClauseParam("fromDateBV");
+                    invoiceVO.removeNamedWhereClauseParam("toDateBV");
+                    invoiceVO.removeNamedWhereClauseParam("invoiceType");
+                    invoiceVO.removeNamedWhereClauseParam("cardPK");
+                    invoiceVO.setWhereClause("");
+                    invoiceVO.executeQuery();
+                }else {
+                    if ("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                        invoiceVO.removeNamedWhereClauseParam("countryCode");
+                        invoiceVO.removeNamedWhereClauseParam("accountId");
+                        invoiceVO.removeNamedWhereClauseParam("fromDateBV");
+                        invoiceVO.removeNamedWhereClauseParam("toDateBV");
+                        invoiceVO.removeNamedWhereClauseParam("invoiceType");
+                        invoiceVO.removeNamedWhereClauseParam("cardGroupMainType");
+                        invoiceVO.removeNamedWhereClauseParam("cardGroupSubType");
+                        invoiceVO.removeNamedWhereClauseParam("cardGroupSeqType");
+                        invoiceVO.setWhereClause("");
+                        invoiceVO.executeQuery();
+                    }
+                }
+                invoiceVO.setWhereClause("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')");
+               invoiceVO.defineNamedWhereClauseParam("accountId",getBindings().getAccount().getValue(),null);
+                invoiceVO.defineNamedWhereClauseParam("countryCode",countryCode,null);
+                invoiceVO.defineNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString(),null);
+                invoiceVO.defineNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString(),null);
+                if(getBindings().getInvoiceType().getValue()!=null) {
+                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
+                }else {
+                    invoiceVO.defineNamedWhereClauseParam("invoiceType",null,null);
+                }
+                String baseWhereClause=invoiceVO.getWhereClause();
                 
-//                if(getBindings().getCard().getValue()!=null) {
-//                    invoiceVO.setWhereClause("AND PRT_CARD_PK IN (:cardPK)");
-//                    invoiceVO.defineNamedWhereClauseParam("cardPK","'0058973605','005897360'",null);
-//                }               
-//                
-//                if(getBindings().getCardGroup().getValue()!=null) {                    
-//                    invoiceVO.setWhereClause("AND CARDGROUP_MAIN_TYPE IN(:cardGroupMainType) AND CARDGROUP_SUB_TYPE IN(:cardGroupSubType) AND CARDGROUP_SEQ IN (:cardGroupSeqbType)");                    
-//                    invoiceVO.defineNamedWhereClauseParam("cardGroupMainType","'SLU','USV'",null);
-//                    invoiceVO.defineNamedWhereClauseParam("cardGroupSubType","'TRX','RTX'",null);
-//                    invoiceVO.defineNamedWhereClauseParam("cardGroupSeqbType","'00003','00004'",null);
-//                    
-//                }   
+                if(getBindings().getCardGpCardList().getValue()!=null) {
+                    if("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
+                        System.out.println("Inside card");             
+                         invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardPK,PRT_CARD_PK)<>0");
+                         String cardValuesList=populateStringValues(getBindings().getCard().getValue().toString());
+                          invoiceVO.defineNamedWhereClauseParam("cardPK",cardValuesList,null);
+                    }else {
+                        System.out.println("Inside cardgroup");                
+                            invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0");                    
+                            String val="NPX,NPK";
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupMainType",val,null);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupSubType","TRX,RTX",null);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupSeqType","104,105",null);                            
+                    }
+                    
+                } 
                 System.out.println("Query Formed is="+invoiceVO.getQuery());
                 invoiceVO.executeQuery();
                 System.out.println("Estimated Row count=="+invoiceVO.getEstimatedRowCount());
                 searchResults=true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-                System.out.println("Where condition:"+invoiceVO.getWhereClause());
+                System.out.println("Where condition:"+invoiceVO.getWhereClause());              
                 
             }
             
@@ -211,6 +293,22 @@ public class InvoiceOverviewBean implements Serializable {
             }
         }
        
+    }
+    
+    public String formatConversion(Date date) {
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMM-yy");
+        return sdf.format(date);
+    }
+    
+    public String populateStringValues(String var){
+        String passingValues = null;
+        if(var != null){
+            String lovValues = var.trim();
+            String selectedValues = lovValues.substring(1, lovValues.length() - 1);
+            passingValues = selectedValues.trim();
+                
+        }
+        return passingValues;
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
@@ -249,13 +347,58 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceDetailsCancel() {
+        ViewObject cardTransactionVO =
+            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator"); 
+        if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+            cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");           
+            cardTransactionVO.setWhereClause("");
+            cardTransactionVO.executeQuery();
+        }
+        if ("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+            cardTransactionVO.removeNamedWhereClauseParam("nonCollecInvNo");           
+            cardTransactionVO.setWhereClause("");
+            cardTransactionVO.executeQuery();
+        }
         getBindings().getInvoiceDetails().hide();
         return null;
     }
 
     public String invoiceNumberAction() {
-        ViewObject vo =
+        ViewObject invoiceVO =
+            ADFUtils.getViewObject("PrtInvoiceVO2Iterator");        
+        String invoiceNumberValue =
+            (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValue");
+        String invoiceGroupingValue =null;            
+        invoiceVO.setWhereClause("INVOICE_NUMBER =:invoiceNumber");
+        invoiceVO.defineNamedWhereClauseParam("invoiceNumber",invoiceNumberValue,null);
+        invoiceVO.executeQuery();
+        if(invoiceVO.getEstimatedRowCount()==1) {
+            while (invoiceVO.hasNext()) {
+                PrtInvoiceVORowImpl currRow =
+                    (PrtInvoiceVORowImpl)invoiceVO.next();
+                if (currRow != null) {
+                    invoiceGroupingValue = currRow.getInvoiceGrouping();
+                }
+            }
+        }
+        System.out.println("InvoiceNumber ="+invoiceNumberValue);
+        System.out.println("InvoiceGroupingValue ="+invoiceGroupingValue);
+        ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");  
+        if(invoiceGroupingValue!=null) {
+            if(invoiceGroupingValue.equals("FAK")) {
+                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo");
+                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",invoiceNumberValue,null);
+            }else {
+                if(invoiceGroupingValue.equals("SAM")) {
+                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo");
+                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",invoiceNumberValue,null);
+                }
+            }
+            System.out.println("cardTransaction Query="+cardTransactionVO.getQuery());
+            cardTransactionVO.executeQuery();
+            System.out.println("cardTransactionVO estimatedRow:"+cardTransactionVO.getEstimatedRowCount());
+        }
         
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
         return null;
@@ -263,15 +406,19 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void cgValueChangeListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
+        if(getBindings().getAccount().getValue()!=null)
+        {
         if(valueChangeEvent.getNewValue()!=null) {
             System.out.println("Value ="+valueChangeEvent.getNewValue());
             if(valueChangeEvent.getNewValue().equals("CardGroup")) {
+            populateValue(valueChangeEvent.getNewValue().toString());
             cardGroup=true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
                 card=false;
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
                 
             }else{
+                populateValue(valueChangeEvent.getNewValue().toString());
                 card=true;
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
                 cardGroup=false;
@@ -279,6 +426,71 @@ public class InvoiceOverviewBean implements Serializable {
                       
             }            
             
+        }
+        }else {
+            if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK_1")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("INVOICE_MANDATORY_CHECK_1"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null,
+                                                             msg);
+            }
+        }
+    }
+    
+    public void populateValue(String paramType){
+        if(paramType != null){
+            if(paramType.equals("CardGroup")){
+                cardGroupList  = new ArrayList<SelectItem>();
+                cardGroupValue  = new ArrayList<String>();
+                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                        System.out.println("Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
+                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
+                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
+                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+                                    System.out.println("Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupList.add(selectItem);
+                                    cardGroupValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }else{
+                if(paramType.equals("Card")){
+                cardList  = new ArrayList<SelectItem>();
+                cardValue  = new ArrayList<String>();
+                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
+                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){ 
+                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
+                                    for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
+                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null){
+                                                SelectItem selectItem = new SelectItem();
+                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                                selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                                cardList.add(selectItem);
+                                                cardValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+            }
+        }
         }
     }
 
@@ -314,6 +526,15 @@ public class InvoiceOverviewBean implements Serializable {
         return countryCode;
     }
 
+    public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        if(valueChangeEvent.getNewValue()!=null) {
+            getBindings().getCardGpCardList().setValue(null);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());  
+            
+        }
+    }
+
     public class Bindings {
         private RichSelectOneChoice account;
         private RichSelectOneChoice invoiceType;
@@ -325,7 +546,8 @@ public class InvoiceOverviewBean implements Serializable {
         private RichPopup invoiceDetails;
         private RichPanelGroupLayout searchResults;
         private RichPanelGroupLayout cardGroupPGL;
-        private RichPanelGroupLayout cardPGL;
+        private RichPanelGroupLayout cardPGL;        
+        
 
         public void setAccount(RichSelectOneChoice account) {
             this.account = account;
@@ -414,5 +636,6 @@ public class InvoiceOverviewBean implements Serializable {
         public RichSelectOneRadio getCardGpCardList() {
             return cardGpCardList;
         }
+       
     }
 }

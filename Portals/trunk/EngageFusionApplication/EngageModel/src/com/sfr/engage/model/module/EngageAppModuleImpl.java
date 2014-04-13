@@ -339,4 +339,11 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtCardDriverVehicleInfoRVOImpl)findViewObject("PrtCardDriverVehicleInfoRVO1");
     }
 
+    /**
+     * Container's getter for PrtInvoiceVO2.
+     * @return PrtInvoiceVO2
+     */
+    public ViewObjectImpl getPrtInvoiceVO2() {
+        return (ViewObjectImpl)findViewObject("PrtInvoiceVO2");
+    }
 }
