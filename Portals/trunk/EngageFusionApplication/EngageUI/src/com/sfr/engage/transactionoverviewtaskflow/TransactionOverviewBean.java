@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 
 import java.util.ResourceBundle;
@@ -37,7 +38,7 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
-import oracle.jbo.domain.Date;
+
 
 public class TransactionOverviewBean implements Serializable{
     @SuppressWarnings("compatibility")
@@ -62,20 +63,19 @@ public class TransactionOverviewBean implements Serializable{
     private boolean cardGPGL   = false;
     private boolean dNamePGL   = false;
     private boolean vNumberPGL = false;
-   
     private HttpSession session;
-
     private ExternalContext ectx;
     private HttpServletRequest request;
     private PartnerInfo partnerInfo;
-    
     private Boolean isTableVisible=false;
-     
     ResourceBundle resourceBundle;
     private Float sum=0.0f;
+    private String cardGroupSubtypePassValues;
+    private String cardGroupMaintypePassValue;
+    private String cardGroupSeqPassValues;
+    private String partnerId;
     
-
-
+   
     public TransactionOverviewBean() {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
@@ -85,14 +85,18 @@ public class TransactionOverviewBean implements Serializable{
         accountIdList  = new ArrayList<SelectItem>();
         terminalValue  = new ArrayList<String>();
         typeValue      = new ArrayList<String>();
+        partnerId      = null;
         
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
         }
-        if(partnerInfo != null){
-            if(partnerInfo.getPartnerValue() != null){   
-                String partnerId = partnerInfo.getPartnerValue().toString(); 
-            }
+        
+            System.out.println("Inside partner info object");
+            if(partnerInfo.getPartnerValue() != null){
+                System.out.println("Inside partner info object value====>"+partnerInfo.getPartnerValue());
+               partnerId = partnerInfo.getPartnerValue().toString(); 
+               System.out.println("value of partner number========>"+partnerId);
+            
          
             if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
                 System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
@@ -129,17 +133,6 @@ public class TransactionOverviewBean implements Serializable{
      * @return accountIdList
      */
     public ArrayList<SelectItem> getAccountIdList() {
-//        if (accountIdList == null) {
-//            accountIdList = new ArrayList<SelectItem>();            
-//            SelectItem selectItem = new SelectItem();
-//            selectItem.setLabel("555");
-//            selectItem.setValue("555");
-//            accountIdList.add(selectItem);
-//            SelectItem selectItem1 = new SelectItem();
-//            selectItem1.setLabel("666");
-//            selectItem1.setValue("666");
-//            accountIdList.add(selectItem1);
-//        }
         return accountIdList;
     }
     
@@ -215,7 +208,7 @@ public class TransactionOverviewBean implements Serializable{
             }
         }
     }
-
+    
     public void setCardIdPGL(boolean cardIdPGL) {
         this.cardIdPGL = cardIdPGL;
     }
@@ -316,9 +309,9 @@ public class TransactionOverviewBean implements Serializable{
                                 for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
                                     for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
-                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null){
+                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID()!= null){
                                                 SelectItem selectItem = new SelectItem();
-                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
                                                 selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
                                                 cardNumberList.add(selectItem);
                                                 cardNumberValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
@@ -346,7 +339,7 @@ public class TransactionOverviewBean implements Serializable{
                         vo.setNamedWhereClauseParam("accountValue",getBindings().account.getValue());
                         }
                         vo.setNamedWhereClauseParam("countryCd", "no_NO");
-                        vo.setNamedWhereClauseParam("partnerValue", "101");
+                        vo.setNamedWhereClauseParam("partnerValue", partnerId);
                         vo.setNamedWhereClauseParam("paramValue", paramType);
                         vo.executeQuery();
                         if(vo.getEstimatedRowCount() > 0){
@@ -383,6 +376,8 @@ public class TransactionOverviewBean implements Serializable{
         String transTypePassingValues = null;
         String cardNumberPasingValues = null ;
         String cardGroupPassingValues = null;
+        String  newFromDate = null;
+        String  newToDate = null;
         
         if(getBindings().getTerminalType().getValue() != null){
         System.out.println("value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
@@ -398,57 +393,64 @@ public class TransactionOverviewBean implements Serializable{
         if(getBindings().getCardGroup().getValue() != null){
         System.out.println("value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
             cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
+            populateCardGroupValues(cardGroupPassingValues);
         }
         if(getBindings().getCard().getValue() != null){
         System.out.println("value of card ================>"+getBindings().getCard().getValue().toString().trim());
             cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
         }
+        if(getBindings().getFromDate().getValue() != null){
+            System.out.println("value of from date ================>"+getBindings().getFromDate().getValue());
+            
+            DateFormat   sdf = new SimpleDateFormat("dd-MMM-yy");
+            Date effectiveDate= (java.util.Date)getBindings().getFromDate().getValue();
+            newFromDate = sdf.format(effectiveDate);   
+            System.out.println("value of new from date ================>"+newFromDate);
+        }
+        if(getBindings().getToDate().getValue() != null){
+            System.out.println("value of to date ================>"+getBindings().getToDate().getValue());
+            
+            DateFormat   sdf1 = new SimpleDateFormat("dd-MMM-yy");
+            Date effectiveDate1= (java.util.Date)getBindings().getToDate().getValue();
+            newToDate = sdf1.format(effectiveDate1);
+            System.out.println("value of new to date ================>"+newToDate);
+        }
         System.out.println("value of terminal pass ================>"+terminalPassingValues);
         System.out.println("value of trans type ================>"+transTypePassingValues);
         System.out.println("value of card ================>"+cardNumberPasingValues);
         
-        
-        
-//        DateFormat   sdf = new SimpleDateFormat("dd-MMM-yy");
-//        String  effectiveDateString = sdf.format((java.util.Date)getBindings().getFromDate().getValue());
-//        java.sql.Date effectiveDate = java.sql.Date.valueOf(effectiveDateString);
-//        Date newFromDate=new Date(effectiveDate);
-//        
-//        DateFormat   sdf1 = new SimpleDateFormat("dd-MMM-yy");
-//        String  effectiveDateString1 = sdf1.format((java.util.Date)getBindings().getFromDate().getValue());
-//        java.sql.Date effectiveDate1 = java.sql.Date.valueOf(effectiveDateString1);
-//        Date newToDate=new Date(effectiveDate1);
-        
-        System.out.println("value of from date ================>"+getBindings().getFromDate().getValue());
-//        System.out.println("value of new from date ================>"+effectiveDate);
-        System.out.println("value of to date ================>"+getBindings().getToDate().getValue());
-//        System.out.println("value of new to date ================>"+effectiveDate1);
-        
         isTableVisible = false;
-        Boolean card = true;
+        ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         if (cardIdPGL || vNumberPGL || dNamePGL) {
-        System.out.println("Inside block for card");
-            ViewObject vo =
-                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
-            vo.setWhereClause(" INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND (TRANSACTION_DT between :fromDate AND :toDate)");
-
+            System.out.println("Inside block for card");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)");
+            vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+        }else{
+            System.out.println("Coming inside card group block");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)");
+            vo.defineNamedWhereClauseParam("cardGrpMainType", cardGroupMaintypePassValue, null);
+            vo.defineNamedWhereClauseParam("cardgrpSubType", cardGroupSubtypePassValues, null);
+            vo.defineNamedWhereClauseParam("cardGrpSeq", cardGroupSeqPassValues, null);
+        }
             vo.defineNamedWhereClauseParam("terminal", terminalPassingValues , null);
             vo.defineNamedWhereClauseParam("type", transTypePassingValues, null);
-            vo.defineNamedWhereClauseParam("fromDate", "07-APR-14" , null);
-            vo.defineNamedWhereClauseParam("toDate", "10-APR-14", null);
-            vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
+            vo.defineNamedWhereClauseParam("fromDate", newFromDate , null);
+            vo.defineNamedWhereClauseParam("toDate", newToDate, null);
+            //vo.defineNamedWhereClauseParam("countryCd", "no_NO", null);
+            vo.defineNamedWhereClauseParam("partnerNumber", "26773218", null);
+            vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
             vo.executeQuery();
-            
+            System.out.println("where clause of view object=====>"+vo.getWhereClause());
             if (vo.getEstimatedRowCount() != 0) {
-                System.out.println("EstimatedRowCount--> CARD" + vo.getEstimatedRowCount());
+                System.out.println("Inside Estimated row count" + vo.getEstimatedRowCount());
                 for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
                     Row rw = vo.getRowAtRangeIndex(i);
                         if(rw != null){               
                             Float temp = (Float)rw.getAttribute("InvoicedGrossAmount");
                             sum = sum + temp;
-                            }
+                        }
                             //                vo.getViewObject().next();
-                    }
+                }
                 isTableVisible = true;
             } else {
                 isTableVisible = false;
@@ -460,43 +462,40 @@ public class TransactionOverviewBean implements Serializable{
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
-        } else {
-            System.out.println("Inside block for card group");
-            ViewObject vo =
-                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
-            vo.setWhereClause("trim(TERMINAL) =: terminal AND trim(TRANSACTION_TYPE) =: type AND trim(KSID) IN : card AND (TRANSACTION_DT between :fromDate AND :toDate)");
-            vo.setWhereClause("CARD_SEQUENCE =: cardGrpvalue");
-            
-            vo.defineNamedWhereClauseParam("cardGrpvalue", "cardGroupId" , null);
-            vo.defineNamedWhereClauseParam("terminal", "EXTERNAL", null);
-            vo.defineNamedWhereClauseParam("type", "PRI", null);
-            vo.defineNamedWhereClauseParam("fromDate", "07-APR-14", null);
-            vo.defineNamedWhereClauseParam("toDate", "10-APR-14", null);
-            vo.defineNamedWhereClauseParam("card", "7458", null);
-            vo.executeQuery();
-            if (vo.getEstimatedRowCount() != 0) {
-                System.out.println("EstimatedRowCount -->CARDGROUP" +vo.getEstimatedRowCount());
-                for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
-                    Row rw = vo.getRowAtRangeIndex(i);
-                        if(rw != null){               
-                            Float temp = (Float)rw.getAttribute("InvoicedGrossAmount");
-                            sum = sum + temp;
-                            }
-                            //                vo.getViewObject().next();
-                    }
-                isTableVisible = true;
-            } else {
-                isTableVisible = false;
-                if (resourceBundle.containsKey("NO_RECORDS_FOUND_TRANSACTIONS")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                         (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+            if(cardIdPGL || vNumberPGL || dNamePGL){
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)".equalsIgnoreCase(vo.getWhereClause())){
+                    System.out.println("inside  card where removal class");
+                        vo.removeNamedWhereClauseParam("card");
+                        vo.removeNamedWhereClauseParam("terminal");
+                        vo.removeNamedWhereClauseParam("type");
+                        vo.removeNamedWhereClauseParam("fromDate");
+                        vo.removeNamedWhereClauseParam("toDate");
+                        vo.removeNamedWhereClauseParam("partnerNumber");
+                        vo.removeNamedWhereClauseParam("accountId");
+                        vo.setWhereClause("");
+                        vo.executeQuery();
                 }
-            }
+            }else{
+                    System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)".equalsIgnoreCase(vo.getWhereClause())){
+                        System.out.println("inside  card group where removal class");
+                        vo.removeNamedWhereClauseParam("cardGrpMainType");
+                        vo.removeNamedWhereClauseParam("cardgrpSubType");
+                        vo.removeNamedWhereClauseParam("cardGrpSeq");
+                        vo.removeNamedWhereClauseParam("terminal");
+                        vo.removeNamedWhereClauseParam("type");
+                        vo.removeNamedWhereClauseParam("fromDate");
+                        vo.removeNamedWhereClauseParam("toDate");
+                        vo.removeNamedWhereClauseParam("partnerNumber");
+                        vo.removeNamedWhereClauseParam("accountId");
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                }
         }
-    }
+    
     
     public String populateStringValues(String var){
         String passingValues = null;
@@ -507,6 +506,56 @@ public class TransactionOverviewBean implements Serializable{
                 
         }
         return passingValues;
+    }
+    
+    public void populateCardGroupValues(String cardGrpVar){
+        String[] cardGroupvalues;
+        int cardGroupCount = 0;
+        StringBuffer cardGroupMaintypeValues = new StringBuffer();
+        StringBuffer cardGroupSubtypeValues  = new StringBuffer();
+        StringBuffer cardGroupSeqValues      = new StringBuffer();
+        
+        String cardGroupMaintype = null;
+        String cardGroupSubtype = null;
+        String cardGroupSeq = null;
+        
+        cardGroupSubtypePassValues = null;
+        cardGroupMaintypePassValue = null;
+        cardGroupSeqPassValues     = null;
+        
+        if(cardGrpVar != null ){ 
+            if(cardGrpVar.contains(",")){
+                cardGroupvalues = cardGrpVar.split(",");
+                cardGroupCount  = cardGroupvalues.length;
+            }else{
+                cardGroupCount  = 1;
+                cardGroupvalues = new String[1];
+                cardGroupvalues[0] = cardGrpVar;
+            }
+            
+            for(int cGrp =0; cGrp < cardGroupCount; cGrp++){
+                cardGroupMaintypeValues.append(cardGroupvalues[cGrp].substring(0,3));
+                cardGroupMaintypeValues.append(",");
+                
+                cardGroupSubtypeValues.append(cardGroupvalues[cGrp].substring(3,6));
+                cardGroupSubtypeValues.append(",");
+                
+                cardGroupSeqValues.append(cardGroupvalues[cGrp].substring(6));
+                cardGroupSeqValues.append(",");
+            }
+                
+                cardGroupMaintype = " " +cardGroupMaintypeValues;
+                cardGroupSubtype  = " " +cardGroupSubtypeValues;
+                cardGroupSeq      = " " +cardGroupSeqValues;
+                
+              cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length()-1);
+              cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
+              cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
+              
+              System.out.println("card group main type======>"+cardGroupMaintypePassValue);
+              System.out.println("card group sub type===>"+cardGroupSubtypePassValues);
+              System.out.println("card group sequence value====>"+cardGroupSeqPassValues);
+        }
     }
     
     public void setTypeValue(List<String> typeValue) {
@@ -571,6 +620,38 @@ public class TransactionOverviewBean implements Serializable{
 
     public Float getSum() {
         return sum;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getPartnerId() {
+        return partnerId;
+    }
+
+    public void setCardGroupSubtypePassValues(String cardGroupSubtypePassValues) {
+        this.cardGroupSubtypePassValues = cardGroupSubtypePassValues;
+    }
+
+    public String getCardGroupSubtypePassValues() {
+        return cardGroupSubtypePassValues;
+    }
+
+    public void setCardGroupMaintypePassValue(String cardGroupMaintypePassValue) {
+        this.cardGroupMaintypePassValue = cardGroupMaintypePassValue;
+    }
+
+    public String getCardGroupMaintypePassValue() {
+        return cardGroupMaintypePassValue;
+    }
+
+    public void setCardGroupSeqPassValues(String cardGroupSeqPassValues) {
+        this.cardGroupSeqPassValues = cardGroupSeqPassValues;
+    }
+
+    public String getCardGroupSeqPassValues() {
+        return cardGroupSeqPassValues;
     }
 
     public class Bindings {

@@ -242,7 +242,7 @@
         <af:separator id="separator1"
                       inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
-     <af:panelGroupLayout id="pgl0" visible="true"
+     <af:panelGroupLayout id="pgl0" visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
                            layout="vertical">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
           <af:spacer height="10" id="spacer18" width="0"/>
