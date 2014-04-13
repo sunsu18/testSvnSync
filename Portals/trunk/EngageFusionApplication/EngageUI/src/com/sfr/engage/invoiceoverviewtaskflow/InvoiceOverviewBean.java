@@ -64,6 +64,9 @@ public class InvoiceOverviewBean implements Serializable {
     private ExternalContext ectx;
     private HttpServletRequest request;
     private PartnerInfo partnerInfo;
+    private String cardGroupSubtypePassValues = "";
+    private String cardGroupMaintypePassValue = "";
+    private String cardGroupSeqPassValues     = "";
     
     public InvoiceOverviewBean() {
         super();
@@ -193,6 +196,47 @@ public class InvoiceOverviewBean implements Serializable {
     public String getInvoiceTypeValue() {
         return invoiceTypeValue;
     }
+    
+    public void populateCardGroupValues(String cardGrpVar){
+        System.out.println("PassedcardGrpVar ="+cardGrpVar);
+           String[] cardGroupvalues;
+           int cardGroupCount = 0;         
+           
+           String cardGroupMaintype = "";
+           String cardGroupSubtype = "";
+           String cardGroupSeq = "";           
+          
+           
+           if(cardGrpVar != null ){ 
+               if(cardGrpVar.contains(",")){
+                   cardGroupvalues = cardGrpVar.split(",");
+                   cardGroupCount  = cardGroupvalues.length;
+               }else{
+                   cardGroupCount  = 1;
+                   cardGroupvalues = new String[1];
+                   cardGroupvalues[0] = cardGrpVar;
+               }
+               
+               for(int cGrp =0; cGrp < cardGroupCount; cGrp++){
+                   cardGroupMaintype=cardGroupMaintype+cardGroupvalues[cGrp].trim().substring(0,3);  
+                   cardGroupMaintype=cardGroupMaintype+",";
+                   
+                   cardGroupSubtype=cardGroupSubtype+cardGroupvalues[cGrp].trim().substring(3,6);  
+                   cardGroupSubtype=cardGroupSubtype+",";
+                   
+                   cardGroupSeq=cardGroupSeq+cardGroupvalues[cGrp].trim().substring(6);  
+                   cardGroupSeq=cardGroupSeq+",";  
+               }
+               
+               System.out.println("CardGroupMainType ="+cardGroupMaintype);
+               System.out.println("cardGroupSubtype ="+cardGroupSubtype);
+               System.out.println("cardGroupSeq ="+cardGroupSeq);                   
+                  
+                 cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length()-1);
+                 cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
+                 cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
+           }
+       }
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
@@ -266,10 +310,13 @@ public class InvoiceOverviewBean implements Serializable {
                     }else {
                         System.out.println("Inside cardgroup");                
                             invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0");                    
-                            String val="NPX,NPK";
-                            invoiceVO.defineNamedWhereClauseParam("cardGroupMainType",val,null);
-                            invoiceVO.defineNamedWhereClauseParam("cardGroupSubType","TRX,RTX",null);
-                            invoiceVO.defineNamedWhereClauseParam("cardGroupSeqType","104,105",null);                            
+                            populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString()));                            
+                        System.out.println("card group main type======>"+cardGroupMaintypePassValue);
+                        System.out.println("card group sub type===>"+cardGroupSubtypePassValues);
+                        System.out.println("card group sequence value====>"+cardGroupSeqPassValues);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupMainType",cardGroupMaintypePassValue,null);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupSubType",cardGroupSubtypePassValues,null);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroupSeqType",cardGroupSeqPassValues,null);                            
                     }
                     
                 } 
@@ -474,9 +521,9 @@ public class InvoiceOverviewBean implements Serializable {
                                 for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
                                     for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
-                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null){
+                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID() != null){
                                                 SelectItem selectItem = new SelectItem();
-                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
                                                 selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
                                                 cardList.add(selectItem);
                                                 cardValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
