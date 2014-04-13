@@ -16,8 +16,7 @@
                   inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
    </af:panelGroupLayout>
    <af:panelGroupLayout id="pgl6" layout="horizontal">
-    <af:panelGroupLayout id="pgl9">
-     <af:panelGroupLayout id="pgl18">
+    <af:panelGroupLayout id="pgl9">    
       <h:panelGrid columns="4" id="pg1">
        <af:outputText value="*#{sfr.ENGAGE_ACCOUNT}" id="colon"/>
        <af:outputText value=":" id="coll"/>
@@ -32,8 +31,7 @@
                         id="select_item"/>
         </af:forEach>
        </af:selectOneChoice>
-      </h:panelGrid>
-     </af:panelGroupLayout>
+      </h:panelGrid>    
      <af:panelGroupLayout id="pgl20">
       <af:spacer width="10" height="10" id="s19"/>
       <af:selectOneRadio id="sor1" layout="horizontal" autoSubmit="true"
@@ -81,7 +79,7 @@
       </af:panelGroupLayout>
      </af:panelGroupLayout>
     </af:panelGroupLayout>
-    <af:spacer width="30" height="10" id="s4"/>
+    <af:spacer width="40" height="10" id="s4"/>
     <af:panelGroupLayout id="pgl5" layout="vertical">
      <af:separator id="s30" styleClass="vertical_seprator"/>
     </af:panelGroupLayout>
@@ -109,17 +107,18 @@
                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.fromDate}">
        <af:convertDateTime pattern="dd.MM.yyyy"/>
       </af:inputDate>
+      <af:spacer width="15" height="10" id="s5"/>
       <af:outputText value="*#{sfr.ENGAGE_TO}" id="ot6"/>
       <af:outputText value=":" id="ot7"/>
-      <af:spacer width="15" height="10" id="s5"/>
+      <af:spacer width="15" height="10" id="s9"/>
       <af:inputDate id="id1"
                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.toDate}">
        <af:convertDateTime pattern="dd.MM.yyyy"/>
       </af:inputDate>
      </af:panelGroupLayout>
-     <af:spacer width="10" height="10" id="s24"/>
+     <af:spacer width="10" height="40" id="s24"/>
      <af:panelGroupLayout id="pgl7" layout="horizontal">
-      <af:spacer width="300" height="10" id="s6"/>
+      <af:spacer width="318" height="10" id="s6"/>
       <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.searchResultsListener}"/>
       <af:spacer width="10" height="10" id="s11"/>
