@@ -3,6 +3,7 @@
           id="PartnerInfo" Package="com.sfr.engage.core"
           BeanClass="com.sfr.engage.core.PartnerInfo" isJavaBased="true">
   <Attribute Name="partnerValue" Type="java.lang.String"/>
+  <Attribute Name="country" Type="java.lang.String"/>
   <AccessorAttribute id="accountList" IsCollection="true"
                      BeanClass="com.sfr.engage.core.AccountInfo"
                      CollectionBeanClass="UpdateableCollection"/>

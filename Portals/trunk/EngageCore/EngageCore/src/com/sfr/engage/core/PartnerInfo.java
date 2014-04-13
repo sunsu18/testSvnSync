@@ -11,6 +11,7 @@ public class PartnerInfo implements Serializable{
     private String partnerValue;
     private String country;
     private List<AccountInfo> accountList;
+    private boolean companyOverview;
     
     public PartnerInfo() {
         super();
@@ -39,5 +40,13 @@ public class PartnerInfo implements Serializable{
 
     public String getCountry() {
         return country;
+    }
+
+    public void setCompanyOverview(boolean companyOverview) {
+        this.companyOverview = companyOverview;
+    }
+
+    public boolean isCompanyOverview() {
+        return companyOverview;
     }
 }

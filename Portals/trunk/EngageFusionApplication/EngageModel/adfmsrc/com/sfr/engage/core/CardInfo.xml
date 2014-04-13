@@ -3,6 +3,7 @@
           id="CardInfo" Package="com.sfr.engage.core"
           BeanClass="com.sfr.engage.core.CardInfo" isJavaBased="true">
   <Attribute Name="cardID" Type="java.lang.String"/>
+  <Attribute Name="externalCardID" Type="java.lang.String"/>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.CardInfo"
                      BeanClass="com.sfr.engage.core.CardInfo" id="CardInfo"/>
 </JavaBean>

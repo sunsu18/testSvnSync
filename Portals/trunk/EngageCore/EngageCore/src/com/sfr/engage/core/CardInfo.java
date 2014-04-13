@@ -7,6 +7,8 @@ public class CardInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cardID;
     private String externalCardID;
+    private boolean cardOverview;
+    
     public CardInfo() {
         super();
     }
@@ -25,5 +27,14 @@ public class CardInfo implements Serializable {
 
     public String getExternalCardID() {
         return externalCardID;
+    }
+
+
+    public void setCardOverview(boolean cardOverview) {
+        this.cardOverview = cardOverview;
+    }
+
+    public boolean isCardOverview() {
+        return cardOverview;
     }
 }

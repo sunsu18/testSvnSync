@@ -3,6 +3,9 @@
           id="CardGroupInfo" Package="com.sfr.engage.core"
           BeanClass="com.sfr.engage.core.CardGroupInfo" isJavaBased="true">
   <Attribute Name="cardGroupID" Type="java.lang.String"/>
+  <Attribute Name="cardGroupMainType" Type="java.lang.String"/>
+  <Attribute Name="cardGroupSubType" Type="java.lang.String"/>
+  <Attribute Name="cardGroupSeq" Type="java.lang.String"/>
   <AccessorAttribute id="card" IsCollection="true"
                      BeanClass="com.sfr.engage.core.CardInfo"
                      CollectionBeanClass="UpdateableCollection"/>

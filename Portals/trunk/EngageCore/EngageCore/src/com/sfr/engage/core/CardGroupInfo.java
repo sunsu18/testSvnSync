@@ -13,6 +13,8 @@ public class CardGroupInfo implements Serializable {
     private String cardGroupSubType;
     private String cardGroupSeq;
     private List<CardInfo> card;
+    private boolean cardGroupOverview;
+    
     
     
     public CardGroupInfo() {
@@ -57,5 +59,13 @@ public class CardGroupInfo implements Serializable {
 
     public String getCardGroupSeq() {
         return cardGroupSeq;
+    }
+
+    public void setCardGroupOverview(boolean cardGroupOverview) {
+        this.cardGroupOverview = cardGroupOverview;
+    }
+
+    public boolean isCardGroupOverview() {
+        return cardGroupOverview;
     }
 }

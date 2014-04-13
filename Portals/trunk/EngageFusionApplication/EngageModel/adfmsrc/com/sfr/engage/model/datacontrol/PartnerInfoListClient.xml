@@ -12,6 +12,9 @@
   <AccessorAttribute id="ectx" IsCollection="false"
                      BeanClass="javax.faces.context.ExternalContext"
                      CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="user" IsCollection="false"
+                     BeanClass="com.sfr.core.bean.User"
+                     CollectionBeanClass="UpdateableSingleValue"/>
   <ConstructorMethod IsCollection="true"
                      Type="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
                      BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
