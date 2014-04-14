@@ -221,7 +221,7 @@ public class AccountSummary {
                 account = AccountList.get(k);
                 cardgrouplist = account.getCardGroup();
                 
-                for(int cardgrp_count;cardgrp_count<cardgrouplist.size();cardgrp_count++)
+                for(int cardgrp_count=0;cardgrp_count<cardgrouplist.size();cardgrp_count++)
                 {
                 if (cardgrouplist.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(id)) {
                     System.out.println("cardgroup id exists in cardgroup list of account " + account.getAccountNumber());
