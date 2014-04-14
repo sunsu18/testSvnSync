@@ -775,6 +775,25 @@ border-right: 1px solid #FFFFFF !important;
     
        
 }*/
+/*Style class for footer*/
+
+
+.af_column_column-footer-cell {
+    background-color: #C9C9C9 !important;
+    border-bottom: 1px solid #8C8E95;
+    border-right: 1px solid #8C8E95;
+    border-top: 1px solid #8C8E95;
+    font-family: Lucida Sans,Georgia,Serif !important;
+    font-size: 13px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 1px 2px;
+    text-align: right;
+    word-wrap: break-word;
+    height: 30px;
+
+}
+
 
 /*Inside Panel Background*/
 .panelbackground{
