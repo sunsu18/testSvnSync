@@ -79,13 +79,11 @@
           </h:panelGrid>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl6" layout="horizontal">
-      <af:separator id="s2" 
-                    inlineStyle="width: 1px; height: 200px;"/>
+      <af:separator id="s2" styleClass="vertical_seprator"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl5" layout="horizontal"
                              inlineStyle="width:450px; height:120.0px;"
                          valign="top">
-          <af:spacer width="10" height="10" id="spacer3"/>
           <af:panelGroupLayout id="pgl7" layout="vertical" valign="top">
             <h:panelGrid columns="19" id="pg2">
               <af:outputText value="*" id="ot12"
@@ -99,7 +97,7 @@
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.fromDate}">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
-              <af:spacer width="15" height="15" id="s4"/>
+              <af:spacer width="5" height="15" id="s4"/>
                 <af:outputText value="*" id="ot13"
                                    inlineStyle="color:red;margin-left:-10px;"/>
             <af:spacer width="5" height="15" id="s16"/>
@@ -247,10 +245,10 @@
                       inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
      <af:panelGroupLayout id="pgl0" 
-	 visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
+	 visible="true"
                            layout="vertical"
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
-        <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
+        <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
           <af:spacer height="10" id="spacer18" width="0"/>
           <af:panelGroupLayout id="pgl73" inlineStyle="width:300.0px;"
                                layout="horizontal">

@@ -107,7 +107,10 @@ public class TransactionOverviewBean implements Serializable{
                System.out.println("value of partner number========>"+partnerId);
                
                if(partnerInfo.getCountry() !=null){
-                            partnerCountry=partnerInfo.getCountry().toString();
+               
+                            partnerCountry=partnerInfo.getCountry().toString().substring(3);
+                            
+                
                 }else{
                         partnerCountry="SE";
                     }
