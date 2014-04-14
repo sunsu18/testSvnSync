@@ -220,12 +220,15 @@ public class AccountSummary {
                                    AccountList.get(k).getAccountNumber());
                 account = AccountList.get(k);
                 cardgrouplist = account.getCardGroup();
-
-                if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(id)) {
+                
+                for(int cardgrp_count;cardgrp_count<cardgrouplist.size();cardgrp_count++)
+                {
+                if (cardgrouplist.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(id)) {
                     System.out.println("cardgroup id exists in cardgroup list of account " + account.getAccountNumber());
                     displayCardGroupOverview =
-                    cardgrouplist.get(k).isCardGroupOverview();
+                    cardgrouplist.get(cardgrp_count).isCardGroupOverview();
                     break;
+                }
                 }
             }
             
