@@ -154,7 +154,7 @@ public class EngageResourceBundle extends ListResourceBundle{
         { "ACCOUNT_ALIAS", "" }, { "ACCOUNT_MANAGER", "" },
         {"ENGAGE_KM_TOTAL",""},{"ENGAGE_KM_PER_LT",""},{"ENGAGE_LT_PER_HUNDRED",""},
         {"INVOICE_MANDATORY_CHECK",""},{"INVOICE_TODATE_LESSTHAN",""},{"INVOICE_MANDATORY_CHECK_1",""},
-        {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},{"PLEASE_SELECT",""},{"ACCOUNT_SUMMARY",""}};
+        {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},{"PLEASE_SELECT",""},{"ACCOUNT_SUMMARY",""},
         {"ENGAGE_NO_TERMINAL_TYPE",""},{"ENGAGE_NO_TO_DATE",""},                             
         {"ENGAGE_NO_FROM_DATE",""},{"ENGAGE_NO_CARD",""},
         {"ENGAGE_NO_CARD_GROUP",""},{"ENGAGE_NO_TRANSACTION_TYPE",""},
