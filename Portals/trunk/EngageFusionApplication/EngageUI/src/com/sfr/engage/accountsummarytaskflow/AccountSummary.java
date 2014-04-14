@@ -285,6 +285,15 @@ public class AccountSummary {
                 }
                 
                 ViewObject vo3 =iter3.getViewObject();
+                
+                if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+                    System.out.println("Remove query2 executed");
+                    vo3.removeNamedWhereClauseParam("cardid");
+                        vo3.removeNamedWhereClauseParam("cc");
+                    vo3.setWhereClause("");
+                    vo3.executeQuery(); 
+                    }
+                
 
                 vo3 = iter3.getViewObject();
                 vo3.setWhereClause("CARDGROUP_SEQ =: cgid");
@@ -311,11 +320,7 @@ public class AccountSummary {
                 }
                 System.out.println("vo3 getWhereClause" + vo3.getWhereClause());
                 
-                if ("CARDGROUP_SEQ =: cgid".equalsIgnoreCase(vo3.getWhereClause())) {
-                    System.out.println("Remove query executed");
-                    vo3.removeNamedWhereClauseParam("cgid");
-                    vo3.setWhereClause("");
-                    vo3.executeQuery(); }
+               
                 
                 
                 
@@ -361,6 +366,13 @@ public class AccountSummary {
             {
             
             ViewObject vo_card = iter1.getViewObject();
+            
+                if ("CARDGROUP_SEQ =: cgid".equalsIgnoreCase(vo_card.getWhereClause())) {
+                    System.out.println("Remove query executed");
+                    vo_card.removeNamedWhereClauseParam("cgid");
+                    vo_card.setWhereClause("");
+                    vo_card.executeQuery(); } 
+                
             vo_card.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
 
             vo_card.defineNamedWhereClauseParam("cardid",id,null);
@@ -369,6 +381,12 @@ public class AccountSummary {
             
             System.out.println(vo_card.getQuery());                                                        
             vo_card.executeQuery();
+            
+              
+            
+               
+            
+            
             
             }
             
@@ -387,6 +405,7 @@ public class AccountSummary {
             dropNodeParent=dropNodeParent.getParent();
           accountId=dropNodeParent.toString();
          partnerId=dropNodeParent.getParent().toString();
+         
         
 
         }

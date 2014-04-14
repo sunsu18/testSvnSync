@@ -60,13 +60,13 @@
                           inlineStyle="width:200px;">
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
-                 rowSelection="single" id="t1">
+                 rowSelection="single" id="t1" summary="Partner_Tree">
                     <f:facet name="nodeStamp">
            <af:switcher id="s1" 
                  facetName="#{node.hierTypeBinding.viewDefName}">
       <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
-          <af:image source="/images/partner.jpg" id="i5"/>
+          <af:image source="/images/partner.png" id="i5"/>
                 <af:outputText value="#{node.partnerValue}" id="ot109"/>
                 </af:group>
       </f:facet>
@@ -78,13 +78,13 @@
       </f:facet>
       <f:facet name="com.sfr.engage.core.CardGroupInfo">
         <af:group id="g1">
-        <af:image source="/images/cardgroup.jpg" id="i2"/>
+        <af:image source="/images/cardgroup.png" id="i2"/>
                 <af:outputText value="#{node.cardGroupID}" id="ot2"/>
         </af:group>
       </f:facet>
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
-       <af:image source="/images/card.jpg" id="i4"/>
+       <af:image source="/images/card.png" id="i4"/>
                 <af:outputText value="#{node.cardID}" id="ot3">
                 <f:attribute name="Cardnumber" value="#{node.cardID}"/>
                 </af:outputText>
@@ -311,7 +311,8 @@
               
                <af:inputText value=""
                             id="it58"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             readOnly="true">
               </af:inputText>   
               
         </h:panelGrid>
@@ -344,9 +345,10 @@
     <af:spacer width="10" height="20" id="s94"/>
   <af:panelGroupLayout id="pgl10">
        <af:breadCrumbs id="bc3">
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
+                                      disabled="true"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
-                                     />
+                                     disabled="true"/>
         </af:breadCrumbs> 
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl4" rows="7" maxColumns="2">
@@ -512,9 +514,12 @@
     <af:spacer width="10" height="20" id="s92"/>
  <af:panelGroupLayout id="pgl9">
         <af:breadCrumbs id="bc2">
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"/>
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"/>
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
+                                      disabled="true"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
+                                      disabled="true"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"
+                                      disabled="true"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
     <af:panelFormLayout id="pfl2" rows="7" maxColumns="2">
@@ -699,10 +704,14 @@
       
       
        <af:breadCrumbs id="bc1">
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"/>
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"/>
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"/>
-            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardId}"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
+                                      disabled="true" id="cni4"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
+                                      disabled="true" id="cni3"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"
+                                      disabled="true" id="cni2"/>
+            <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardId}"
+                                      disabled="true" id="cni1"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
       <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
