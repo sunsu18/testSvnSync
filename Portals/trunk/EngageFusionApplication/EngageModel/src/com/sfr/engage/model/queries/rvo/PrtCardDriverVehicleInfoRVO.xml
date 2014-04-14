@@ -40,8 +40,8 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT PDI.DRIVER_NAME
-      ,null as VEHICLE_NUMBER
+    <![CDATA[SELECT PDI.DRIVER_NAME || '-' || PC.EXT_CARD_NUM AS DRIVER_NAME
+       ,null as VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
 FROM PRT_CARD PC
     ,PRT_DRIVER_INFORMATION PDI
@@ -56,7 +56,7 @@ AND   'Driver'               = :paramValue
 UNION
 
 SELECT null as DRIVER_NAME 
-      ,PTI.VEHICLE_NUMBER
+      ,PTI.VEHICLE_NUMBER || '-' || PC.EXT_CARD_NUM AS VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
 FROM PRT_CARD PC
     ,PRT_TRUCK_INFORMATION PTI
