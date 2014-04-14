@@ -32,6 +32,8 @@
           <Item Value="kmPerLt"/>
           <Item Value="ltPerHundred"/>
           <Item Value="grandTotal"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="Ksid"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

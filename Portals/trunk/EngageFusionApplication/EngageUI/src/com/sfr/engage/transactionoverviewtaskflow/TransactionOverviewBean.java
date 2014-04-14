@@ -7,6 +7,8 @@ import com.sfr.engage.model.resources.EngageResourceBundle;
 
 import com.sfr.util.ADFUtils;
 
+import com.sfr.util.validations.Conversion;
+
 import java.io.Serializable;
 
 import java.text.DateFormat;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -33,6 +36,7 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
@@ -74,13 +78,17 @@ public class TransactionOverviewBean implements Serializable{
     private String cardGroupMaintypePassValue;
     private String cardGroupSeqPassValues;
     private String partnerId;
+    private Locale locale;
+    private String partnerCountry=null;
+    Conversion conversionUtility;
     
-   
+
+
     public TransactionOverviewBean() {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        
+        conversionUtility = new Conversion();
         resourceBundle = new EngageResourceBundle();
         accountIdList  = new ArrayList<SelectItem>();
         terminalValue  = new ArrayList<String>();
@@ -91,24 +99,33 @@ public class TransactionOverviewBean implements Serializable{
             partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
         }
         
+            if(partnerInfo != null){
             System.out.println("Inside partner info object");
             if(partnerInfo.getPartnerValue() != null){
                 System.out.println("Inside partner info object value====>"+partnerInfo.getPartnerValue());
                partnerId = partnerInfo.getPartnerValue().toString(); 
                System.out.println("value of partner number========>"+partnerId);
+               
+               if(partnerInfo.getCountry() !=null){
+                            partnerCountry=partnerInfo.getCountry().toString();
+                }else{
+                        partnerCountry="SE";
+                    }
+                        locale = conversionUtility.getLocaleFromCountryCode(partnerCountry);
             
          
-            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
-                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                    System.out.println("value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    SelectItem selectItem = new SelectItem();
-                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    accountIdList.add(selectItem);
+                    if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                        System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+                        for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                            System.out.println("value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                            SelectItem selectItem = new SelectItem();
+                            selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                            selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                            accountIdList.add(selectItem);
+                        }
+                    }
                 }
             }
-        }
         
         terminalValue.add("HOME");
         terminalValue.add("EXTERNAL");
@@ -162,50 +179,55 @@ public class TransactionOverviewBean implements Serializable{
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        if(valueChangeEvent.getNewValue() != null){
-            System.out.println("value of radioButon value change event======>"+valueChangeEvent.getNewValue());
-            if(valueChangeEvent.getNewValue().equals("CardGroup")){
-                
-                cardGPGL   = true;
-                cardIdPGL = false;
-                dNamePGL   = false;
-                vNumberPGL = false;
-                populateValue(valueChangeEvent.getNewValue().toString());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-            }else if(valueChangeEvent.getNewValue().equals("Card")){
-                cardGPGL   = false;
-                cardIdPGL    = true;
-                dNamePGL   = false;
-                vNumberPGL = false;
-                populateValue(valueChangeEvent.getNewValue().toString());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-            }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
-                cardGPGL   = false;
-                cardIdPGL    = false;
-                dNamePGL   = false;
-                vNumberPGL = true;
-                populateValue(valueChangeEvent.getNewValue().toString());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
-            }else{
-                cardGPGL   = false;
-                cardIdPGL    = false;
-                dNamePGL   = true;
-                vNumberPGL = false;
-                populateValue(valueChangeEvent.getNewValue().toString());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+        if(getBindings().getAccount().getValue()!=null)
+        {
+            if(valueChangeEvent.getNewValue() != null){
+                System.out.println("value of radioButon value change event======>"+valueChangeEvent.getNewValue());
+                if(valueChangeEvent.getNewValue().equals("CardGroup")){
+                    
+                    cardGPGL   = true;
+                    cardIdPGL = false;
+                    dNamePGL   = false;
+                    vNumberPGL = false;
+                    populateValue(valueChangeEvent.getNewValue().toString());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+                }else if(valueChangeEvent.getNewValue().equals("Card")){
+                    cardGPGL   = false;
+                    cardIdPGL    = true;
+                    dNamePGL   = false;
+                    vNumberPGL = false;
+                    populateValue(valueChangeEvent.getNewValue().toString());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+                }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
+                    cardGPGL   = false;
+                    cardIdPGL    = false;
+                    dNamePGL   = false;
+                    vNumberPGL = true;
+                    populateValue(valueChangeEvent.getNewValue().toString());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+                }else{
+                    cardGPGL   = false;
+                    cardIdPGL    = false;
+                    dNamePGL   = true;
+                    vNumberPGL = false;
+                    populateValue(valueChangeEvent.getNewValue().toString());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+                }
             }
+        }else{
+            showErrorMessage("ENGAGE_NO_ACCOUNT_CHECK");
         }
     }
     
@@ -378,43 +400,60 @@ public class TransactionOverviewBean implements Serializable{
         String cardGroupPassingValues = null;
         String  newFromDate = null;
         String  newToDate = null;
+        if(getBindings().getAccount().getValue() != null && getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
+            if(getBindings().getTerminalType().getValue() != null){
+            System.out.println("value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
+               terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
+            }else{
+                showErrorMessage("ENGAGE_NO_TERMINAL_TYPE");
+            }
+            
+            if(getBindings().getTransationType().getValue() != null){
+            System.out.println("value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
+                transTypePassingValues =  populateStringValues(getBindings().getTransationType().getValue().toString());
+            }else{
+                showErrorMessage("ENGAGE_NO_TRANSACTION_TYPE");
+            }
+            
+            if(getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
+                DateFormat   sdf = new SimpleDateFormat("dd-MMM-yy");
+                Date effectiveDate= (java.util.Date)getBindings().getFromDate().getValue();
+                Date effectiveDate1= (java.util.Date)getBindings().getToDate().getValue();
+                newFromDate = sdf.format(effectiveDate);   
+                newToDate   = sdf.format(effectiveDate1);
+                System.out.println("value of new from date ================>"+newFromDate);
+            }else{
+                showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
+            }
         
-        if(getBindings().getTerminalType().getValue() != null){
-        System.out.println("value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
-           terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
-        }
-        if(getBindings().getTransationType().getValue() != null){
-        System.out.println("value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
-            transTypePassingValues =  populateStringValues(getBindings().getTransationType().getValue().toString());
-        }
-        if(getBindings().getAccount().getValue() != null){
-        System.out.println("value of account================>"+getBindings().getAccount().getValue().toString().trim());
-        }
-        if(getBindings().getCardGroup().getValue() != null){
-        System.out.println("value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
-            cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
-            populateCardGroupValues(cardGroupPassingValues);
-        }
-        if(getBindings().getCard().getValue() != null){
-        System.out.println("value of card ================>"+getBindings().getCard().getValue().toString().trim());
-            cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
-        }
-        if(getBindings().getFromDate().getValue() != null){
-            System.out.println("value of from date ================>"+getBindings().getFromDate().getValue());
             
-            DateFormat   sdf = new SimpleDateFormat("dd-MMM-yy");
-            Date effectiveDate= (java.util.Date)getBindings().getFromDate().getValue();
-            newFromDate = sdf.format(effectiveDate);   
-            System.out.println("value of new from date ================>"+newFromDate);
-        }
-        if(getBindings().getToDate().getValue() != null){
-            System.out.println("value of to date ================>"+getBindings().getToDate().getValue());
+            if(cardGPGL){
+                if(getBindings().getCardGroup().getValue() != null){
+                System.out.println("value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
+                    cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
+                    populateCardGroupValues(cardGroupPassingValues);
+                }
+                else{
+                    showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                }
+            }
             
-            DateFormat   sdf1 = new SimpleDateFormat("dd-MMM-yy");
-            Date effectiveDate1= (java.util.Date)getBindings().getToDate().getValue();
-            newToDate = sdf1.format(effectiveDate1);
-            System.out.println("value of new to date ================>"+newToDate);
-        }
+            if(cardIdPGL){
+                if(getBindings().getCard().getValue() != null){
+                System.out.println("value of card ================>"+getBindings().getCard().getValue().toString().trim());
+                    cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
+                }else{
+                    showErrorMessage("ENGAGE_NO_CARD");
+                }
+            }
+            
+//            if(getBindings().getToDate().getValue() == null){
+//                showErrorMessage("ENGAGE_NO_FROM_DATE");
+//            }
+//            
+//            if(getBindings().getToDate().getValue() == null){
+//                showErrorMessage("ENGAGE_NO_TO_DATE");
+//            }
         System.out.println("value of terminal pass ================>"+terminalPassingValues);
         System.out.println("value of trans type ================>"+transTypePassingValues);
         System.out.println("value of card ================>"+cardNumberPasingValues);
@@ -423,11 +462,11 @@ public class TransactionOverviewBean implements Serializable{
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         if (cardIdPGL || vNumberPGL || dNamePGL) {
             System.out.println("Inside block for card");
-            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
         }else{
             System.out.println("Coming inside card group block");
-            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("cardGrpMainType", cardGroupMaintypePassValue, null);
             vo.defineNamedWhereClauseParam("cardgrpSubType", cardGroupSubtypePassValues, null);
             vo.defineNamedWhereClauseParam("cardGrpSeq", cardGroupSeqPassValues, null);
@@ -437,7 +476,7 @@ public class TransactionOverviewBean implements Serializable{
             vo.defineNamedWhereClauseParam("fromDate", newFromDate , null);
             vo.defineNamedWhereClauseParam("toDate", newToDate, null);
             //vo.defineNamedWhereClauseParam("countryCd", "no_NO", null);
-            vo.defineNamedWhereClauseParam("partnerNumber", "26773218", null);
+            vo.defineNamedWhereClauseParam("partnerNumber", partnerId, null);
             vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
             vo.executeQuery();
             System.out.println("where clause of view object=====>"+vo.getWhereClause());
@@ -452,6 +491,7 @@ public class TransactionOverviewBean implements Serializable{
                             //                vo.getViewObject().next();
                 }
                 isTableVisible = true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
             } else {
                 isTableVisible = false;
                 if (resourceBundle.containsKey("NO_RECORDS_FOUND_TRANSACTIONS")) {
@@ -465,7 +505,7 @@ public class TransactionOverviewBean implements Serializable{
             System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
             if(cardIdPGL || vNumberPGL || dNamePGL){
                 System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
-                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)".equalsIgnoreCase(vo.getWhereClause())){
+                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
                     System.out.println("inside  card where removal class");
                         vo.removeNamedWhereClauseParam("card");
                         vo.removeNamedWhereClauseParam("terminal");
@@ -479,7 +519,7 @@ public class TransactionOverviewBean implements Serializable{
                 }
             }else{
                     System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND (TRANSACTION_DT between :fromDate AND :toDate)".equalsIgnoreCase(vo.getWhereClause())){
+                    if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
                         System.out.println("inside  card group where removal class");
                         vo.removeNamedWhereClauseParam("cardGrpMainType");
                         vo.removeNamedWhereClauseParam("cardgrpSubType");
@@ -494,7 +534,44 @@ public class TransactionOverviewBean implements Serializable{
                         vo.executeQuery();
                     }
                 }
+        }else{
+            showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
         }
+    }
+    
+    public void clearSearchListener(ActionEvent actionEvent) {
+        // Add event code here...
+        getBindings().getAccount().setValue(null);
+        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+        getBindings().getFromDate().setValue(null);
+        getBindings().getToDate().setValue(null);
+        isTableVisible=false;
+        cardIdPGL     =false;
+        cardGPGL      =false;
+        vNumberPGL    =false;
+        dNamePGL      =false; 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());  
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate()); 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+    }
+    
+    public String showErrorMessage(String errorVar){
+        if(errorVar != null){
+            if (resourceBundle.containsKey(errorVar)) {                    
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject(errorVar),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);                                         
+            }
+        }
+        return null;
+    }
     
     
     public String populateStringValues(String var){
@@ -511,17 +588,14 @@ public class TransactionOverviewBean implements Serializable{
     public void populateCardGroupValues(String cardGrpVar){
         String[] cardGroupvalues;
         int cardGroupCount = 0;
-        StringBuffer cardGroupMaintypeValues = new StringBuffer();
-        StringBuffer cardGroupSubtypeValues  = new StringBuffer();
-        StringBuffer cardGroupSeqValues      = new StringBuffer();
         
-        String cardGroupMaintype = null;
-        String cardGroupSubtype = null;
-        String cardGroupSeq = null;
+        String cardGroupMaintype = "";
+        String cardGroupSubtype = "";
+        String cardGroupSeq = "";
         
-        cardGroupSubtypePassValues = null;
-        cardGroupMaintypePassValue = null;
-        cardGroupSeqPassValues     = null;
+        cardGroupSubtypePassValues = "";
+        cardGroupMaintypePassValue = "";
+        cardGroupSeqPassValues     = "";
         
         if(cardGrpVar != null ){ 
             if(cardGrpVar.contains(",")){
@@ -534,27 +608,31 @@ public class TransactionOverviewBean implements Serializable{
             }
             
             for(int cGrp =0; cGrp < cardGroupCount; cGrp++){
-                cardGroupMaintypeValues.append(cardGroupvalues[cGrp].substring(0,3));
-                cardGroupMaintypeValues.append(",");
+                cardGroupMaintype=cardGroupMaintype+cardGroupvalues[cGrp].trim().substring(0,3);  
+                cardGroupMaintype=cardGroupMaintype+",";
                 
-                cardGroupSubtypeValues.append(cardGroupvalues[cGrp].substring(3,6));
-                cardGroupSubtypeValues.append(",");
+                cardGroupSubtype=cardGroupSubtype+cardGroupvalues[cGrp].trim().substring(3,6);  
+                cardGroupSubtype=cardGroupSubtype+",";
                 
-                cardGroupSeqValues.append(cardGroupvalues[cGrp].substring(6));
-                cardGroupSeqValues.append(",");
+                cardGroupSeq=cardGroupSeq+cardGroupvalues[cGrp].trim().substring(6);  
+                cardGroupSeq=cardGroupSeq+",";
             }
                 
-                cardGroupMaintype = " " +cardGroupMaintypeValues;
-                cardGroupSubtype  = " " +cardGroupSubtypeValues;
-                cardGroupSeq      = " " +cardGroupSeqValues;
-                
-              cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length()-1);
-              cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
-              cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
+                cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length()-1);
+                cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
+                cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
               
               System.out.println("card group main type======>"+cardGroupMaintypePassValue);
               System.out.println("card group sub type===>"+cardGroupSubtypePassValues);
               System.out.println("card group sequence value====>"+cardGroupSeqPassValues);
+        }
+    }
+    
+    public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        if(valueChangeEvent.getNewValue()!=null) {
+            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());  
         }
     }
     
@@ -654,6 +732,14 @@ public class TransactionOverviewBean implements Serializable{
         return cardGroupSeqPassValues;
     }
 
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
     public class Bindings {
         private RichSelectOneChoice account;
         private RichInputDate fromDate;
@@ -668,6 +754,8 @@ public class TransactionOverviewBean implements Serializable{
         private RichPanelGroupLayout driverNamePGL;
         private RichPanelGroupLayout cardGroupPGL;
         private RichPanelGroupLayout cardNoPGL;
+        private RichSelectOneRadio cardCardGrpDrVhOneRadio;
+        private RichPanelGroupLayout showSearchResultPG;
         
 
         public void setAccount(RichSelectOneChoice account) {
@@ -772,6 +860,22 @@ public class TransactionOverviewBean implements Serializable{
 
         public RichPanelGroupLayout getCardNoPGL() {
             return cardNoPGL;
+        }
+        
+        public void setCardCardGrpDrVhOneRadio(RichSelectOneRadio cardCardGrpDrVhOneRadio) {
+            this.cardCardGrpDrVhOneRadio = cardCardGrpDrVhOneRadio;
+        }
+
+        public RichSelectOneRadio getCardCardGrpDrVhOneRadio() {
+            return cardCardGrpDrVhOneRadio;
+        }
+        
+        public void setShowSearchResultPG(RichPanelGroupLayout showSearchResultPG) {
+            this.showSearchResultPG = showSearchResultPG;
+        }
+
+        public RichPanelGroupLayout getShowSearchResultPG() {
+            return showSearchResultPG;
         }
     }
 }

@@ -68,7 +68,8 @@
                                 unselectedLabel="&lt;Please Select>"
                                 value="#{pageFlowScope.TransactionOverviewBean.accountIdValue}"
                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.account}"
-                                autoSubmit="true" contentStyle="width: 150px;">
+                                autoSubmit="true" contentStyle="width: 150px;"
+                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.accountValueChangeListener}">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.accountIdList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -78,7 +79,8 @@
           </h:panelGrid>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl6" layout="horizontal">
-      <af:separator id="s2" inlineStyle="width: 1px; height: 200px;"/>
+      <af:separator id="s2" 
+                    inlineStyle="width: 1px; height: 200px;"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl5" layout="horizontal"
                              inlineStyle="width:450px; height:120.0px;"
@@ -114,7 +116,8 @@
             <h:panelGrid columns="3" id="pg4">
             <af:spacer width="10" height="10" id="s18"/>
             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
-                               valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}">
+                               valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
+                               binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}">
               <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si10"/>
               <af:selectItem label="#{sfr.CARD}" value="Card" id="si13"/>
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
@@ -232,7 +235,8 @@
               actionListener="#{pageFlowScope.TransactionOverviewBean.searchTransactionAction_event}">
               </af:commandButton>
               <af:spacer width="20" height="10" id="s23"/>
-              <af:commandButton text="#{sfr.CLEAR}" id="cb3"/>
+              <af:commandButton text="#{sfr.CLEAR}" id="cb3"
+                                actionListener="#{pageFlowScope.TransactionOverviewBean.clearSearchListener}"/>
             </af:panelGroupLayout>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
@@ -242,14 +246,16 @@
         <af:separator id="separator1"
                       inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
-     <af:panelGroupLayout id="pgl0" visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
-                           layout="vertical">
+     <af:panelGroupLayout id="pgl0" 
+	 visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
+                           layout="vertical"
+                           binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
           <af:spacer height="10" id="spacer18" width="0"/>
           <af:panelGroupLayout id="pgl73" inlineStyle="width:300.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
-                           styleClass="subheading"/>
+                           styleClass="heading1"/>
           </af:panelGroupLayout>
          
           <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
@@ -299,10 +305,13 @@
               </af:panelGroupLayout>
             </f:facet>
           </af:column>
-     
-        <af:column sortProperty="StationName" sortable="false"
-                   headerText="#{sfr.CARD}"
-                   id="c2">
+          <af:column headerText="#{sfr.CARD}"
+                     id="c13" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}">
+            <af:outputText value="#{row.Ksid}" id="ot35"/>
+          </af:column>
+          <af:column sortProperty="StationName" sortable="false"
+                   headerText="#{sfr.ENGAGE_STATION_NAME}"
+                   id="c2" >
             <af:panelGroupLayout id="pgl15">
               <af:spacer width="2" height="1" id="spacer11"/>
               <af:outputText value="#{row.bindings.StationName.inputValue}"
@@ -347,6 +356,7 @@
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoicedGrossAmount.tooltip}"
                               id="it3"
                               text="#{row.bindings.InvoicedGrossAmount.inputValue}">
+                               
                 <af:showPopupBehavior triggerType="click" popupId="::pp1"/>
                 
               </af:commandLink>
@@ -356,9 +366,10 @@
             <af:panelGroupLayout id="pgl42" halign="right" layout="horizontal">
   <af:panelGroupLayout id="pgl44" layout="horizontal" halign="right" >
                   <af:outputText value="#{pageFlowScope.TransactionOverviewBean.sum}" id="ot33">
-                    <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.grandTotal.format}"/>
-                                      
+                    <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
                   </af:outputText>
                   <af:spacer width="2" height="1" id="s39"/>
                 </af:panelGroupLayout> 
@@ -386,22 +397,29 @@
                              id="it8"/>
             </af:panelGroupLayout>
           </af:column>
+           <af:column headerText="Odometer"
+                     id="c6" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+            <af:outputText value="#{row.OdometerPortal}" id="ot30">
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>
+            </af:outputText>
+          </af:column>
           <af:column headerText="#{sfr.ENGAGE_KM_TOTAL}"
-                     id="c6" width="35">
-            <af:outputText value="#{row.kmTotal}" id="ot30">
+                     id="c12" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+            <af:outputText value="#{row.kmTotal}" id="ot34">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmTotal.format}"/>
             </af:outputText>
           </af:column>
           <af:column headerText="#{sfr.ENGAGE_KM_PER_LT}"
-                     id="c10" width="35">
+                     id="c10" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.kmPerLt}" id="ot31">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmPerLt.format}"/>
             </af:outputText>
           </af:column>
           <af:column headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
-                     id="c11" width="35">
+                     id="c11" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.ltPerHundred}" id="ot32">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.ltPerHundred.format}"/>
