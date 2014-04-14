@@ -146,18 +146,13 @@ public class InvoiceOverviewBean implements Serializable {
 //            vo.executeQuery();
             invoiceTypeList = new ArrayList<SelectItem>();            
                 SelectItem selectItem = new SelectItem();
-                selectItem.setLabel("Truck");
-                selectItem.setValue("Truck");
+                selectItem.setLabel("Card");
+                selectItem.setValue("Card");
                 invoiceTypeList.add(selectItem);
             SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Truck V");
-            selectItem1.setValue("Truck V");
-            invoiceTypeList.add(selectItem1);
-            SelectItem selectItem2 = new SelectItem();
-            selectItem2.setLabel("Bulk");
-            selectItem2.setValue("Bulk");
-            invoiceTypeList.add(selectItem2);
-            
+            selectItem1.setLabel("Bulk");
+            selectItem1.setValue("Bulk");
+            invoiceTypeList.add(selectItem1);  
 //            while (vo.hasNext()) {
 //                PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
 //                if (currRow.getAccountId() != null) {
