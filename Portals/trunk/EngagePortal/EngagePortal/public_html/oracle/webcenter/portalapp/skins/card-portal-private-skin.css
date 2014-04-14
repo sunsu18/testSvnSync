@@ -432,7 +432,7 @@ background-color: rgb(252,252,252);
     height:23.0px !important;
 }*/
 
-.outputText, .af_document{
+.outputText, .af_document,.af_panelFormLayout_content-cell{
 color:#524e4f; 
 font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -503,7 +503,7 @@ overflow-x: hidden;
 overflow-y: auto;
 }
 
-.af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style
+.af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style,.af_selectOneChoice_content
 {
 /*padding-right: 16px;
 background-repeat: no-repeat;
