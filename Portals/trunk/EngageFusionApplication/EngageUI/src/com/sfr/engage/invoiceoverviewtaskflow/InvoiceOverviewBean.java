@@ -390,7 +390,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String invoiceDetailsCancel() {
         ViewObject cardTransactionVO =
-            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator"); 
+            ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator"); 
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");           
             cardTransactionVO.setWhereClause("");
@@ -426,7 +426,7 @@ public class InvoiceOverviewBean implements Serializable {
         System.out.println("InvoiceNumber ="+invoiceNumberValue);
         System.out.println("InvoiceGroupingValue ="+invoiceGroupingValue);
         ViewObject cardTransactionVO =
-            ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");  
+            ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");  
         if(invoiceGroupingValue!=null) {
             if(invoiceGroupingValue.equals("FAK")) {
                 cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo");

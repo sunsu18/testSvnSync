@@ -262,48 +262,48 @@
          <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
                         styleClass="subheading"/>
          <af:spacer width="10" height="10" id="s25"/>
-         <af:table value="#{bindings.PrtCardTransactionOverviewRVO1.collectionModel}"
+         <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="962px"
-                   rows="#{bindings.PrtCardTransactionOverviewRVO1.rangeSize}"
-                   emptyText="#{bindings.PrtCardTransactionOverviewRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.PrtCardTransactionOverviewRVO1.rangeSize}"
-                   rowBandingInterval="0" id="t2" varStatus="vs">
-        <af:column headerText="LineNo"
+                   rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
+                   emptyText="#{bindings.PrtCardTransactionInvoiceRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
+                   rowBandingInterval="0" id="t3" varStatus="vs">
+            <af:column headerText="#{sfr.INVOICE_LINENO}"
                      id="c114">
            <af:outputText value="#{vs.index+1}" id="ot42"/>
           </af:column>
-          <af:column headerText="Product"
-                     id="c14">
-           <af:outputText value="#{row.ProductName}" id="ot33"/>
+          <af:column headerText="#{sfr.INVOICE_PRODUCT_NAME}"
+                     id="c19">
+           <af:outputText value="#{row.ProductName}" id="ot50"/>
           </af:column>
-          <af:column headerText="Quantity"
-                     id="c15">
-           <af:outputText value="#{row.Quantity}" id="ot34"/>
+          <af:column headerText="#{sfr.INVOICE_QUANTITY}"
+                     id="c21">
+           <af:outputText value="#{row.Quantity}" id="ot24"/>
           </af:column>
-          <af:column headerText="Station"
-                     id="c10">
-           <af:outputText value="#{row.StationName}" id="ot40"/>
+          <af:column headerText="#{sfr.INVOICE_STATION}"
+                     id="c16">
+           <af:outputText value="#{row.StationName}" id="ot49"/>
           </af:column>
-          <af:column headerText="RecieptNo"
-                     id="c12">
-           <af:outputText value="#{row.RecieptNo}" id="ot39"/>
+          <af:column headerText="#{sfr.INVOICE_RECEIPT_NO}"
+                     id="c17">
+           <af:outputText value="#{row.RecieptNo}" id="ot46"/>
           </af:column>
-          <af:column headerText="Card"
-                     id="c11">
-           <af:outputText value="#{row.Card1Id}" id="ot41"/>
+          <af:column headerText="#{sfr.INVOICE_CARD}"
+                     id="c22">
+           <af:outputText value="#{row.Card1Id}" id="ot48"/>
           </af:column>
-          <af:column headerText="Net"
-                     id="c13">
-           <af:outputText value="#{row.InvoicedNetAmount}" id="ot27">
+          <af:column headerText="#{sfr.INVOICE_NET}"
+                     id="c20">
+           <af:outputText value="#{row.InvoicedNetAmount}" id="ot26">
             <af:convertNumber groupingUsed="false"
-                              pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoicedNetAmount.format}"/>
+                              pattern="#{bindings.PrtCardTransactionInvoiceRVO1.hints.InvoicedNetAmount.format}"/>
            </af:outputText>
           </af:column>
-          <af:column headerText="GrossAmount"
-                     id="c9">
-           <af:outputText value="#{row.InvoicedGrossAmount}" id="ot38">
+          <af:column headerText="#{sfr.INVOICE_GROSS_AMOUNT}"
+                     id="c18">
+           <af:outputText value="#{row.InvoicedGrossAmount}" id="ot47">
             <af:convertNumber groupingUsed="false"
-                              pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoicedGrossAmount.format}"/>
+                              pattern="#{bindings.PrtCardTransactionInvoiceRVO1.hints.InvoicedGrossAmount.format}"/>
            </af:outputText>
           </af:column>
          </af:table>

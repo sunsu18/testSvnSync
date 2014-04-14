@@ -4,6 +4,7 @@ package com.sfr.engage.model.module;
 import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
@@ -13,6 +14,7 @@ import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
@@ -346,5 +348,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtCardTransactionOverviewRVOImpl getPrtCardTransactionOverviewRVO1() {
         return (PrtCardTransactionOverviewRVOImpl)findViewObject("PrtCardTransactionOverviewRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardTransactionInvoiceRVO1.
+     * @return PrtCardTransactionInvoiceRVO1
+     */
+    public PrtCardTransactionInvoiceRVOImpl getPrtCardTransactionInvoiceRVO1() {
+        return (PrtCardTransactionInvoiceRVOImpl)findViewObject("PrtCardTransactionInvoiceRVO1");
     }
 }

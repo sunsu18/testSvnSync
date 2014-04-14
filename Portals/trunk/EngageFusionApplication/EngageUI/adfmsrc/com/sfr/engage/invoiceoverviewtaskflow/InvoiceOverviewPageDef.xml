@@ -16,6 +16,9 @@
     <iterator Binds="PrtInvoiceVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtInvoiceVO2Iterator"/>
+    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardTransactionInvoiceRVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -107,5 +110,20 @@
         <Item Value="CountryCode"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
+          id="PrtCardTransactionInvoiceRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
+                      Name="PrtCardTransactionInvoiceRVO10">
+        <AttrNames>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="StationName"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="Card1Id"/>
+          <Item Value="InvoicedNetAmount"/>
+          <Item Value="InvoicedGrossAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

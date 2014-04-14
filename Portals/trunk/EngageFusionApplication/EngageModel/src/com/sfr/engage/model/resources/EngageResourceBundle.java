@@ -158,7 +158,11 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"ENGAGE_NO_TERMINAL_TYPE",""},{"ENGAGE_NO_TO_DATE",""},                             
         {"ENGAGE_NO_FROM_DATE",""},{"ENGAGE_NO_CARD",""},
         {"ENGAGE_NO_CARD_GROUP",""},{"ENGAGE_NO_TRANSACTION_TYPE",""},
-        {"ENGAGE_VALID_FROM_TO_DATE",""},{"ENGAGE_SELECT_TRANSACTION_MANDATORY",""},
+        {"ENGAGE_VALID_FROM_TO_DATE",""},{"ENGAGE_SELECT_TRANSACTION_MANDATORY",""},        
+        {"INVOICE_LINENO",""},{"INVOICE_PRODUCT_NAME",""},                             
+         {"INVOICE_QUANTITY",""},{"INVOICE_STATION",""},
+        {"INVOICE_RECEIPT_NO",""},{"INVOICE_CARD",""},
+        {"INVOICE_NET",""},{"INVOICE_GROSS_AMOUNT",""},
         {"ENGAGE_NO_ACCOUNT_CHECK",""},{"ENGAGE_STATION_NAME",""},};
 
 
