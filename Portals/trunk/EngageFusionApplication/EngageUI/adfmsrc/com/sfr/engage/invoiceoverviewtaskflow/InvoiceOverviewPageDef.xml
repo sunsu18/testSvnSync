@@ -125,5 +125,15 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="CurrencyCode">
+      <AttrNames>
+        <Item Value="CurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="CurrencyCode1">
+      <AttrNames>
+        <Item Value="CurrencyCode"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

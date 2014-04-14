@@ -143,7 +143,7 @@
     <af:panelGroupLayout id="pgl24" layout="vertical"
                                halign="right"
                                inlineStyle="width:640.0px; height:15.0px;">    
-     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CountryCode.inputValue}" id="ot22" styleClass="popupoutputText"/>      
+     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CurrencyCode.inputValue}" id="ot22" styleClass="popupoutputText"/>      
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">
@@ -259,8 +259,16 @@
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl19">
          <af:separator id="s21"/>
-         <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
+         <af:panelGroupLayout id="pgl126" layout="horizontal">
+        <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
                         styleClass="subheading"/>
+         <af:panelGroupLayout id="pgl26" layout="vertical"
+                               halign="right"
+                               inlineStyle="width:640.0px; height:15.0px;">    
+        <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CurrencyCode1.inputValue}"
+                       id="ot27" styleClass="popupoutputText"/>      
+         </af:panelGroupLayout>
+        </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s25"/>
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="962px"
