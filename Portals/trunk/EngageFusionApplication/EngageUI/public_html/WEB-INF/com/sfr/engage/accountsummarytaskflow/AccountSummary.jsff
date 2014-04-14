@@ -138,7 +138,15 @@
                 <f:validator binding="#{bindings.PartnerId.validator}"/>
               </af:inputText>
               
-              
+                 <af:spacer width="25" height="10" id="s47"/>
+              <af:spacer width="25" height="10" id="s97"/>
+              <af:spacer width="25" height="10" id="s98"/>
+              <af:spacer width="25" height="10" id="s99"/>
+              <af:spacer width="25" height="10" id="s103"/>
+              <af:spacer width="25" height="10" id="s100"/>
+              <af:spacer width="25" height="10" id="s105"/>
+              <af:spacer width="25" height="10" id="s106"/>
+              <af:spacer width="25" height="10" id="s107"/>
               
               <af:outputText value="#{sfr.COMPANY_TYPE}" id="ot59"/>
           <af:outputText value=":" id="ot60"/>
@@ -165,7 +173,15 @@
                 <f:validator binding="#{bindings.CreditLimit.validator}"/>
               </af:inputText>
               
-              
+               <af:spacer width="25" height="10" id="s108"/>
+              <af:spacer width="25" height="10" id="s109"/>
+              <af:spacer width="25" height="10" id="s110"/>
+              <af:spacer width="25" height="10" id="s111"/>
+              <af:spacer width="25" height="10" id="s112"/>
+              <af:spacer width="25" height="10" id="s113"/>
+              <af:spacer width="25" height="10" id="s114"/>
+              <af:spacer width="25" height="10" id="s116"/>
+              <af:spacer width="25" height="10" id="s115"/>
               <af:outputText value="#{sfr.TERMINAL_TYPE}" id="ot63"/>
           <af:outputText value=":" id="ot64"/>
           <af:spacer width="15" height="10" id="s53"/>
@@ -185,7 +201,15 @@
                             readOnly="true">
               </af:inputText>
               
-              
+               <af:spacer width="25" height="10" id="s117"/>
+              <af:spacer width="25" height="10" id="s118"/>
+              <af:spacer width="25" height="10" id="s119"/>
+              <af:spacer width="25" height="10" id="s121"/>
+              <af:spacer width="25" height="10" id="s120"/>
+              <af:spacer width="25" height="10" id="s122"/>
+              <af:spacer width="25" height="10" id="s123"/>
+              <af:spacer width="25" height="10" id="s124"/>
+              <af:spacer width="25" height="10" id="s126"/>
               <af:outputText value="#{sfr.COMPANY_ADDRESS_1}" id="ot67"/>
           <af:outputText value=":" id="ot69"/>
           <af:spacer width="15" height="10" id="s55"/>
@@ -207,7 +231,15 @@
               
               
              
-             
+              <af:spacer width="25" height="10" id="s125"/>
+              <af:spacer width="25" height="10" id="s127"/>
+              <af:spacer width="25" height="10" id="s128"/>
+              <af:spacer width="25" height="10" id="s129"/>
+              <af:spacer width="25" height="10" id="s130"/>
+              <af:spacer width="25" height="10" id="s131"/>
+              <af:spacer width="25" height="10" id="s132"/>
+              <af:spacer width="25" height="10" id="s133"/>
+              <af:spacer width="25" height="10" id="s134"/>      
                <af:outputText value="#{sfr.COMPANY_ADDRESS_2}" id="ot74"/>
           <af:outputText value=":" id="ot73"/>
           <af:spacer width="15" height="10" id="s62"/>
@@ -226,7 +258,15 @@
                              readOnly="true">
               </af:inputText>
               
-              
+               <af:spacer width="25" height="10" id="s135"/>
+              <af:spacer width="25" height="10" id="s136"/>
+              <af:spacer width="25" height="10" id="s137"/>
+              <af:spacer width="25" height="10" id="s139"/>
+              <af:spacer width="25" height="10" id="s138"/>
+              <af:spacer width="25" height="10" id="s140"/>
+              <af:spacer width="25" height="10" id="s141"/>
+              <af:spacer width="25" height="10" id="s142"/>
+              <af:spacer width="25" height="10" id="s143"/>
                
                <af:outputText value="#{sfr.POSTAL_CODE}" id="ot78"/>
           <af:outputText value=":" id="ot76"/>
@@ -253,7 +293,15 @@
               </af:inputText>
               
               
-              
+                <af:spacer width="25" height="10" id="s144"/>
+              <af:spacer width="25" height="10" id="s145"/>
+              <af:spacer width="25" height="10" id="s146"/>
+              <af:spacer width="25" height="10" id="s148"/>
+              <af:spacer width="25" height="10" id="s147"/>
+              <af:spacer width="25" height="10" id="s149"/>
+              <af:spacer width="25" height="10" id="s151"/>
+              <af:spacer width="25" height="10" id="s150"/>
+              <af:spacer width="25" height="10" id="s152"/>
               
             <af:outputText value="#{sfr.CITY}" id="ot82"/>
           <af:outputText value=":" id="ot84"/>
@@ -279,7 +327,15 @@
               </af:inputText>
          
                
-              
+              <af:spacer width="25" height="10" id="s153"/>
+              <af:spacer width="25" height="10" id="s154"/>
+              <af:spacer width="25" height="10" id="s155"/>
+              <af:spacer width="25" height="10" id="s156"/>
+              <af:spacer width="25" height="10" id="s157"/>
+              <af:spacer width="25" height="10" id="s158"/>
+              <af:spacer width="25" height="10" id="s159"/>
+              <af:spacer width="25" height="10" id="s161"/>
+              <af:spacer width="25" height="10" id="s160"/>   
               
               <af:outputText value="#{sfr.COUNTRY}" id="ot81"/>
           <af:outputText value=":" id="ot80"/>
@@ -304,7 +360,15 @@
             
                
               
-              
+              <af:spacer width="25" height="10" id="s162"/>
+              <af:spacer width="25" height="10" id="s163"/>
+              <af:spacer width="25" height="10" id="s164"/>
+              <af:spacer width="25" height="10" id="s165"/>
+              <af:spacer width="25" height="10" id="s168"/>
+              <af:spacer width="25" height="10" id="s170"/>
+              <af:spacer width="25" height="10" id="s167"/>
+              <af:spacer width="25" height="10" id="s169"/>
+              <af:spacer width="25" height="10" id="s166"/>
               <af:outputText value="#{sfr.ORGANISATION_NUMBER}" id="ot114"/>
           <af:outputText value=":" id="ot117"/>
           <af:spacer width="15" height="10" id="s104"/>
@@ -378,7 +442,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+               <af:spacer width="25" height="10" id="s171"/>
+              <af:spacer width="25" height="10" id="s172"/>
+              <af:spacer width="25" height="10" id="s173"/>
+              <af:spacer width="25" height="10" id="s174"/>
+              <af:spacer width="25" height="10" id="s175"/>
+              <af:spacer width="25" height="10" id="s176"/>
+              <af:spacer width="25" height="10" id="s177"/>
+              <af:spacer width="25" height="10" id="s179"/>
+              <af:spacer width="25" height="10" id="s178"/> 
               
               <af:outputText value="#{sfr.ACCOUNT_ADDRESS_1}" id="ot89"/>
           <af:outputText value=":" id="ot90"/>
@@ -398,7 +470,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+              <af:spacer width="25" height="10" id="s180"/>
+              <af:spacer width="25" height="10" id="s181"/>
+              <af:spacer width="25" height="10" id="s182"/>
+              <af:spacer width="25" height="10" id="s183"/>
+              <af:spacer width="25" height="10" id="s184"/>
+              <af:spacer width="25" height="10" id="s185"/>
+              <af:spacer width="25" height="10" id="s186"/>
+              <af:spacer width="25" height="10" id="s187"/>
+              <af:spacer width="25" height="10" id="s188"/>
               
               <af:outputText value="#{sfr.ACCOUNT_ADDRESS_2}" id="ot93"/>
           <af:outputText value=":" id="ot94"/>
@@ -419,7 +499,15 @@
                             readOnly="true">
               </af:inputText>
               
-              
+                <af:spacer width="25" height="10" id="s189"/>
+              <af:spacer width="25" height="10" id="s190"/>
+              <af:spacer width="25" height="10" id="s191"/>
+              <af:spacer width="25" height="10" id="s195"/>
+              <af:spacer width="25" height="10" id="s193"/>
+              <af:spacer width="25" height="10" id="s196"/>
+              <af:spacer width="25" height="10" id="s197"/>
+              <af:spacer width="25" height="10" id="s192"/>
+              <af:spacer width="25" height="10" id="s194"/>  
               <af:outputText value="#{sfr.POSTAL_CODE}" id="ot97"/>
           <af:outputText value=":" id="ot98"/>
           <af:spacer width="15" height="10" id="s80"/>
@@ -438,6 +526,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
+               <af:spacer width="25" height="10" id="s198"/>
+              <af:spacer width="25" height="10" id="s199"/>
+              <af:spacer width="25" height="10" id="s200"/>
+              <af:spacer width="25" height="10" id="s201"/>
+              <af:spacer width="25" height="10" id="s202"/>
+              <af:spacer width="25" height="10" id="s203"/>
+              <af:spacer width="25" height="10" id="s204"/>
+              <af:spacer width="25" height="10" id="s205"/>
+              <af:spacer width="25" height="10" id="s206"/>
               
               
               <af:outputText value="#{sfr.CITY}" id="ot101"/>
@@ -458,7 +555,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+                <af:spacer width="25" height="10" id="s207"/>
+              <af:spacer width="25" height="10" id="s208"/>
+              <af:spacer width="25" height="10" id="s209"/>
+              <af:spacer width="25" height="10" id="s215"/>
+              <af:spacer width="25" height="10" id="s210"/>
+              <af:spacer width="25" height="10" id="s211"/>
+              <af:spacer width="25" height="10" id="s212"/>
+              <af:spacer width="25" height="10" id="s213"/>
+              <af:spacer width="25" height="10" id="s214"/>   
               
               <af:outputText value="#{sfr.COUNTRY}" id="ot105"/>
           <af:outputText value=":" id="ot106"/>
@@ -554,7 +659,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+              <af:spacer width="25" height="10" id="s216"/>
+              <af:spacer width="25" height="10" id="s217"/>
+              <af:spacer width="25" height="10" id="s218"/>
+              <af:spacer width="25" height="10" id="s219"/>
+              <af:spacer width="25" height="10" id="s220"/>
+              <af:spacer width="25" height="10" id="s221"/>
+              <af:spacer width="25" height="10" id="s222"/>
+              <af:spacer width="25" height="10" id="s224"/>
+              <af:spacer width="25" height="10" id="s223"/>
               
               <af:outputText value="#{sfr.CARDGROUP_NAME_1}" id="ot33"/>
           <af:outputText value=":" id="ot34"/>
@@ -585,7 +698,15 @@
                             id="it5"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px">
               </af:inputText>-->
-              
+               <af:spacer width="25" height="10" id="s225"/>
+              <af:spacer width="25" height="10" id="s226"/>
+              <af:spacer width="25" height="10" id="s227"/>
+              <af:spacer width="25" height="10" id="s228"/>
+              <af:spacer width="25" height="10" id="s229"/>
+              <af:spacer width="25" height="10" id="s230"/>
+              <af:spacer width="25" height="10" id="s231"/>
+              <af:spacer width="25" height="10" id="s232"/>
+              <af:spacer width="25" height="10" id="s233"/>
               
               <af:outputText value="#{sfr.CARDGROUP_NAME_2}" id="ot37"/>
           <af:outputText value=":" id="ot38"/>
@@ -605,7 +726,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+              <af:spacer width="25" height="10" id="s234"/>
+              <af:spacer width="25" height="10" id="s235"/>
+              <af:spacer width="25" height="10" id="s236"/>
+              <af:spacer width="25" height="10" id="s237"/>
+              <af:spacer width="25" height="10" id="s238"/>
+              <af:spacer width="25" height="10" id="s239"/>
+              <af:spacer width="25" height="10" id="s240"/>
+              <af:spacer width="25" height="10" id="s241"/>
+              <af:spacer width="25" height="10" id="s242"/>
               
               <af:outputText value="#{sfr.CARDGROUP_ADDRESS_1}" id="ot41"/>
           <af:outputText value=":" id="ot42"/>
@@ -625,7 +754,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+               <af:spacer width="25" height="10" id="s243"/>
+              <af:spacer width="25" height="10" id="s244"/>
+              <af:spacer width="25" height="10" id="s245"/>
+              <af:spacer width="25" height="10" id="s252"/>
+              <af:spacer width="25" height="10" id="s246"/>
+              <af:spacer width="25" height="10" id="s250"/>
+              <af:spacer width="25" height="10" id="s247"/>
+              <af:spacer width="25" height="10" id="s248"/>
+              <af:spacer width="25" height="10" id="s249"/>
               
               <af:outputText value="#{sfr.CARDGROUP_ADDRESS_2}" id="ot45"/>
           <af:outputText value=":" id="ot46"/>
@@ -645,7 +782,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+               <af:spacer width="25" height="10" id="s251"/>
+              <af:spacer width="25" height="10" id="s253"/>
+              <af:spacer width="25" height="10" id="s254"/>
+              <af:spacer width="25" height="10" id="s255"/>
+              <af:spacer width="25" height="10" id="s256"/>
+              <af:spacer width="25" height="10" id="s260"/>
+              <af:spacer width="25" height="10" id="s257"/>
+              <af:spacer width="25" height="10" id="s258"/>
+              <af:spacer width="25" height="10" id="s259"/> 
               
               <af:outputText value="#{sfr.POSTAL_CODE}" id="ot54"/>
           <af:outputText value=":" id="ot53"/>
@@ -667,7 +812,15 @@
               <af:commandButton text="#{sfr.SHOW_ALL}" id="cb1" styleClass="buttonback buttontext"
                                 inlineStyle="margin-left: 8px !important"
                                 disabled="true"/>
-              
+               <af:spacer width="25" height="10" id="s261"/>
+              <af:spacer width="25" height="10" id="s262"/>
+              <af:spacer width="25" height="10" id="s263"/>
+              <af:spacer width="25" height="10" id="s264"/>
+              <af:spacer width="25" height="10" id="s265"/>
+              <af:spacer width="25" height="10" id="s266"/>
+              <af:spacer width="25" height="10" id="s267"/>
+              <af:spacer width="25" height="10" id="s268"/>
+              <af:spacer width="25" height="10" id="s269"/>
               <af:outputText value="#{sfr.CITY}" id="ot49"/>
           <af:outputText value=":" id="ot50"/>
           <af:spacer width="15" height="10" id="s40"/>
@@ -755,7 +908,15 @@
                             readOnly="true">
                 <f:validator binding="#{bindings.PrtCardPk.validator}"/>
               </af:inputText>
-              
+              <af:spacer width="25" height="10" id="s270"/>
+              <af:spacer width="25" height="10" id="s271"/>
+              <af:spacer width="25" height="10" id="s272"/>
+              <af:spacer width="25" height="10" id="s277"/>
+              <af:spacer width="25" height="10" id="s273"/>
+              <af:spacer width="25" height="10" id="s278"/>
+              <af:spacer width="25" height="10" id="s274"/>
+              <af:spacer width="25" height="10" id="s275"/>
+              <af:spacer width="25" height="10" id="s276"/>
               
               <af:outputText value="#{sfr.CARD_TYPE}" id="ot110"/>
           <af:outputText value=":" id="ot111"/>
@@ -779,7 +940,15 @@
                             readOnly="true">
               </af:inputText>
               
-              
+              <af:spacer width="25" height="10" id="s279"/>
+              <af:spacer width="25" height="10" id="s280"/>
+              <af:spacer width="25" height="10" id="s281"/>
+              <af:spacer width="25" height="10" id="s282"/>
+              <af:spacer width="25" height="10" id="s283"/>
+              <af:spacer width="25" height="10" id="s284"/>
+              <af:spacer width="25" height="10" id="s285"/>
+              <af:spacer width="25" height="10" id="s286"/>
+              <af:spacer width="25" height="10" id="s287"/>
               <af:outputText value="#{sfr.CARD_ADDRESS_1}" id="ot6"/>
           <af:outputText value=":" id="ot7"/>
           <af:spacer width="15" height="10" id="s7"/>
@@ -798,7 +967,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+                <af:spacer width="25" height="10" id="s288"/>
+              <af:spacer width="25" height="10" id="s289"/>
+              <af:spacer width="25" height="10" id="s291"/>
+              <af:spacer width="25" height="10" id="s290"/>
+              <af:spacer width="25" height="10" id="s292"/>
+              <af:spacer width="25" height="10" id="s293"/>
+              <af:spacer width="25" height="10" id="s294"/>
+              <af:spacer width="25" height="10" id="s295"/>
+              <af:spacer width="25" height="10" id="s296"/>
               
               <af:outputText value="#{sfr.CARD_ADDRESS_2}" id="ot10"/>
           <af:outputText value=":" id="ot11"/>
@@ -818,7 +995,15 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-              
+                <af:spacer width="25" height="10" id="s297"/>
+              <af:spacer width="25" height="10" id="s298"/>
+              <af:spacer width="25" height="10" id="s301"/>
+              <af:spacer width="25" height="10" id="s299"/>
+              <af:spacer width="25" height="10" id="s303"/>
+              <af:spacer width="25" height="10" id="s302"/>
+              <af:spacer width="25" height="10" id="s304"/>
+              <af:spacer width="25" height="10" id="s306"/>
+              <af:spacer width="25" height="10" id="s305"/> 
               
               <af:outputText value="#{sfr.POSTAL_CODE}" id="ot14"/>
           <af:outputText value=":" id="ot15"/>
@@ -839,7 +1024,15 @@
                             readOnly="true">
               </af:inputText>
               
-              
+               <af:spacer width="25" height="10" id="s300"/>
+              <af:spacer width="25" height="10" id="s307"/>
+              <af:spacer width="25" height="10" id="s308"/>
+              <af:spacer width="25" height="10" id="s309"/>
+              <af:spacer width="25" height="10" id="s310"/>
+              <af:spacer width="25" height="10" id="s311"/>
+              <af:spacer width="25" height="10" id="s312"/>
+              <af:spacer width="25" height="10" id="s313"/>
+              <af:spacer width="25" height="10" id="s314"/>
               <af:outputText value="#{sfr.CITY}" id="ot18"/>
           <af:outputText value=":" id="ot19"/>
           <af:spacer width="15" height="10" id="s18"/>
@@ -862,7 +1055,15 @@
                 <f:validator binding="#{bindings.CardStatusCode.validator}"/>
               </af:inputText>
               
-              
+               <af:spacer width="25" height="10" id="s315"/>
+              <af:spacer width="25" height="10" id="s316"/>
+              <af:spacer width="25" height="10" id="s317"/>
+              <af:spacer width="25" height="10" id="s318"/>
+              <af:spacer width="25" height="10" id="s322"/>
+              <af:spacer width="25" height="10" id="s319"/>
+              <af:spacer width="25" height="10" id="s323"/>
+              <af:spacer width="25" height="10" id="s320"/>
+              <af:spacer width="25" height="10" id="s321"/>
               <af:outputText value="#{sfr.COUNTRY}" id="ot22"/>
           <af:outputText value=":" id="ot23"/>
           <af:spacer width="15" height="10" id="s21"/>
