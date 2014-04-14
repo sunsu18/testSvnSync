@@ -390,6 +390,7 @@ new AccountInfo();
                                                         System.out.println("account id " +
                                                                            accid);
                                                         acc.setAccountNumber(accid);
+                                                        acc.setAccountOverview(true);
 
 
                                                         addflagaccount = false;
@@ -465,6 +466,7 @@ iter2.getViewObject();
                                                                         cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
                                                                         cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
                                                                         cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                                                        cardgrp.setCardGroupOverview(true);
 
                                                                     }
 
@@ -559,7 +561,13 @@ new CardInfo();
                                                                                 System.out.println("Card id is " +
                                                                                                    currRowcard.getPrtCardPk());
                                                                                 card.setCardID(currRowcard.getPrtCardPk().toString());
+                                                                                
+                                                                                
                                                                             }
+                                                                            if(currRowcard.getExtCardNum()!=null)
+                                                                                card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                                                                            
+                                                                            
 
                                                                             addflagcard =
                                                                                     false;
@@ -751,9 +759,13 @@ new CardInfo();
                                                                         System.out.println("Card id is " +
                                                                                            currRowcard.getPrtCardPk());
                                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
+                                                                        
                                                                         accountId_cardVO =
                                                                                 currRowcard.getAccountId().toString();
                                                                     }
+                                                                    
+                                                                    if(currRowcard.getExtCardNum()!=null)
+                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
 
                                                                     addflagcard =
                                                                             false;
@@ -1097,9 +1109,12 @@ new CardInfo();
                                                                         System.out.println("Card id is " +
                                                                                            currRowcard.getPrtCardPk());
                                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
-                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                                                                        
                                                                         card.setCardOverview(true);
                                                                     }
+                                                                    
+                                                                    if(currRowcard.getExtCardNum()!= null)
+                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
 
                                                                     addflagcard =
                                                                             false;
@@ -1611,17 +1626,18 @@ new CardInfo();
 
         List<Roles> listrole = new ArrayList<Roles>();
         Roles rr = new Roles();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
         List<String> idString = new ArrayList<String>();
-        //        idString.add("NOPP26773218AC0022883797");
+                idString.add("NOPP26773218AC0022883797");
         //        idString.add("NOPP26773218CGSLUTRX00001");
 //        idString.add("NOPP26773218CC0058973603");
 //        idString.add("NOPP26773218CC0058588948");
 //        idString.add("NOPP26773218CC0058589003");
         
         
-                        idString.add("NOPP26773218");
+//                        idString.add("NOPP26773218");
         rr.setIdString(idString);
         listrole.add(rr);
 
@@ -1637,7 +1653,7 @@ new CardInfo();
         //        user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                       Constants.ROLE_WCP_CARD_B2B_MGR);
 //        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_EMP);
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
         user.setUserID("B2BMgr1@test.com");
 
         return user;

@@ -267,8 +267,8 @@ public class AccountSummary {
             vo_cg.defineNamedWhereClauseParam("cgid",cardgroupseq,null);
 
             vo_cg.defineNamedWhereClauseParam("cc","no_NO",null);
-                vo_cg.defineNamedWhereClauseParam("cgmain","maintype",null);
-                vo_cg.defineNamedWhereClauseParam("cgsub","subtype",null);
+                vo_cg.defineNamedWhereClauseParam("cgmain",maintype,null);
+                vo_cg.defineNamedWhereClauseParam("cgsub",subtype,null);
          
             System.out.println(vo_cg.getQuery());                                                        
             vo_cg.executeQuery();
@@ -315,7 +315,7 @@ public class AccountSummary {
                         }
                     }
                     
-                    
+                    System.out.println("Cardtypelist " + cardTypeList.size());
             
                 }
                 System.out.println("vo3 getWhereClause" + vo3.getWhereClause());
