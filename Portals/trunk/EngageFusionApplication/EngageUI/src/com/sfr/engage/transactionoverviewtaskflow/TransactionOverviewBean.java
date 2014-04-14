@@ -206,7 +206,7 @@ public class TransactionOverviewBean implements Serializable{
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
                 }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
                     cardGPGL   = false;
-                    cardIdPGL    = false;
+                    cardIdPGL  = false;
                     dNamePGL   = false;
                     vNumberPGL = true;
                     populateValue(valueChangeEvent.getNewValue().toString());
@@ -439,7 +439,9 @@ public class TransactionOverviewBean implements Serializable{
                 }
             }
             
-            if(cardIdPGL || vNumberPGL || dNamePGL){
+            System.out.println("bollean value of vehicle====>"+vNumberPGL+dNamePGL);
+            
+            if(cardIdPGL ){
                 if(getBindings().getCard().getValue() != null){
                 System.out.println("value of card ================>"+getBindings().getCard().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
@@ -447,6 +449,25 @@ public class TransactionOverviewBean implements Serializable{
                     showErrorMessage("ENGAGE_NO_CARD");
                 }
             }
+            
+            if(vNumberPGL){
+                if(getBindings().getVehicleNumber().getValue() != null){
+                System.out.println("value of card ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
+                    cardNumberPasingValues =  populateStringValues(getBindings().getVehicleNumber().getValue().toString());
+                }else{
+                    showErrorMessage("ENGAGE_NO_VEHICLE");
+                }
+            }
+            
+            if(dNamePGL){
+                if(getBindings().getDriverName().getValue() != null){
+                System.out.println("value of card ================>"+getBindings().getDriverName().getValue().toString().trim());
+                    cardNumberPasingValues =  populateStringValues(getBindings().getDriverName().getValue().toString());
+                }else{
+                    showErrorMessage("ENGAGE_NO_DRIVER");
+                }
+            }
+            
             
 //            if(getBindings().getToDate().getValue() == null){
 //                showErrorMessage("ENGAGE_NO_FROM_DATE");
