@@ -66,6 +66,14 @@
         padding-left: 5px;
 }
 
+.af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text {
+    color: #524E4F;
+    font-family: Lucida Sans,Georgia,Serif;
+    font-size: 13px;
+    font-weight: normal;
+   
+}
+
 .af_breadCrumbs_step {
  font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
@@ -721,13 +729,18 @@ font-style:normal;
     margin-left:-3px !important;
     margin-right:-15px !important;
 }
+.af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
+    vertical-align:20% !important;
+}
 }
 
 @agent webkit {
     .af_commandButton.p_AFTextOnly{
         padding-top: 3px !important;
     }
-    
+        .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
+    vertical-align:35% !important;
+}
 }
 
  @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:default){
@@ -742,7 +755,9 @@ font-style:normal;
     margin-right:-15px !important;
     margin-left:-2px !important;
 } 
-
+.af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
+    vertical-align:0% !important;
+}
 
 
 }
