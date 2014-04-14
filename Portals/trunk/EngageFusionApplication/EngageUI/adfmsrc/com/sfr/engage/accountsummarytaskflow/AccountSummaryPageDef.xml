@@ -116,5 +116,11 @@
         <Item Value="CardType"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
+                     id="CardgroupSubType">
+      <AttrNames>
+        <Item Value="CardgroupSubType"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

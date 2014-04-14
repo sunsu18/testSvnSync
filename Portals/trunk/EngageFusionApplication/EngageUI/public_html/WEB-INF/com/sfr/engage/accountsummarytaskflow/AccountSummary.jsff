@@ -642,6 +642,18 @@
           <af:outputText value=":" id="ot30"/>
           <af:spacer width="15" height="10" id="s24"/>
               
+               <!--<af:inputText value="#{bindings.CardgroupSubType.inputValue}"                          
+                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             id="it1"
+                            
+                             maximumLength="#{bindings.CardgroupMainType.hints.precision}"
+                             readOnly="true"
+                             required="#{bindings.CardgroupSubType.hints.mandatory}"
+                             columns="#{bindings.CardgroupSubType.hints.displayWidth}">
+                <f:validator binding="#{bindings.CardgroupSubType.validator}"/>
+              </af:inputText>-->
+              
+              
                <af:inputText value="#{bindings.CardgroupMainType.inputValue} #{bindings.CardgroupSubType.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it1"
@@ -650,6 +662,8 @@
                              readOnly="true">
                 <f:validator binding="#{bindings.CardgroupSubType.validator}"/>
               </af:inputText>
+              
+              
                <af:spacer width="25" height="10" id="s26"/>
                <af:outputText value="#{sfr.COUNTRY}" id="ot31"/>
           <af:outputText value=":" id="ot32"/>
