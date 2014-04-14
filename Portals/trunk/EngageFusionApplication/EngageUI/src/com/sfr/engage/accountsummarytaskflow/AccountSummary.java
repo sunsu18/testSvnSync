@@ -296,12 +296,16 @@ public class AccountSummary {
                 
 
                 vo3 = iter3.getViewObject();
-                vo3.setWhereClause("CARDGROUP_SEQ =: cgid");
-                vo3.defineNamedWhereClauseParam("cgid",id,null);
+                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub" );
+                vo3.defineNamedWhereClauseParam("cgid",cardgroupseq,null);
+
+                vo3.defineNamedWhereClauseParam("cc","no_NO",null);
+                    vo3.defineNamedWhereClauseParam("cgmain",maintype,null);
+                    vo3.defineNamedWhereClauseParam("cgsub",subtype,null);
                 
                 
                 vo3.executeQuery();
-                
+                System.out.println("vo3 estimated rows " + vo3.getEstimatedRowCount());
                 if (vo3.getEstimatedRowCount() != 0) {
                     cardTypeList = new ArrayList<SelectItem>();
                     while (vo3.hasNext()) {
@@ -367,9 +371,12 @@ public class AccountSummary {
             
             ViewObject vo_card = iter1.getViewObject();
             
-                if ("CARDGROUP_SEQ =: cgid".equalsIgnoreCase(vo_card.getWhereClause())) {
+                if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo_card.getWhereClause())) {
                     System.out.println("Remove query executed");
                     vo_card.removeNamedWhereClauseParam("cgid");
+                        vo_card.removeNamedWhereClauseParam("cc");
+                        vo_card.removeNamedWhereClauseParam("cgmain");
+                        vo_card.removeNamedWhereClauseParam("cgsub");
                     vo_card.setWhereClause("");
                     vo_card.executeQuery(); } 
                 
