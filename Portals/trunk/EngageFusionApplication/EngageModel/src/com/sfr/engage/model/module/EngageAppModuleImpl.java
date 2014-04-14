@@ -299,13 +299,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtAccountVOImpl)findViewObject("PrtAccountVO1");
     }
 
-    /**
-     * Container's getter for PrtCardTransactionOverviewRVO1.
-     * @return PrtCardTransactionOverviewRVO1
-     */
-    public PrtCardTransactionOverviewRVOImpl getPrtCardTransactionOverviewRVO1() {
-        return (PrtCardTransactionOverviewRVOImpl)findViewObject("PrtCardTransactionOverviewRVO1");
-    }
 
     /**
      * Container's getter for PrtAccountVO2.
@@ -345,5 +338,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtInvoiceVO2() {
         return (ViewObjectImpl)findViewObject("PrtInvoiceVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardTransactionOverviewRVO1.
+     * @return PrtCardTransactionOverviewRVO1
+     */
+    public PrtCardTransactionOverviewRVOImpl getPrtCardTransactionOverviewRVO1() {
+        return (PrtCardTransactionOverviewRVOImpl)findViewObject("PrtCardTransactionOverviewRVO1");
     }
 }

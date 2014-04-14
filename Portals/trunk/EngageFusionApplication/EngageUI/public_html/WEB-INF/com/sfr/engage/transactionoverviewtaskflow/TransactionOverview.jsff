@@ -309,6 +309,14 @@
                      id="c13" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}">
             <af:outputText value="#{row.Ksid}" id="ot35"/>
           </af:column>
+          <af:column headerText="#{sfr.VEHICLE_NUMBER}"
+                     id="c14" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+            <af:outputText value="#{row.VehicleNumber}" id="ot36"/>
+          </af:column>
+          <af:column headerText="#{sfr.DRIVER_NAME}"
+                     id="c15" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}">
+            <af:outputText value="#{row.DriverName}" id="ot37"/>
+          </af:column>
           <af:column sortProperty="StationName" sortable="false"
                    headerText="#{sfr.ENGAGE_STATION_NAME}"
                    id="c2" >

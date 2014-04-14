@@ -756,6 +756,380 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PrtDriverInformationPk {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPrtDriverInformationPk();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPrtDriverInformationPk((String)value);
+            }
+        }
+        ,
+        AccountId1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getAccountId1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setAccountId1((String)value);
+            }
+        }
+        ,
+        CardNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardNumber((String)value);
+            }
+        }
+        ,
+        DriverNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getDriverNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setDriverNumber((String)value);
+            }
+        }
+        ,
+        DriverName {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getDriverName();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setDriverName((String)value);
+            }
+        }
+        ,
+        Nationality {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getNationality();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setNationality((String)value);
+            }
+        }
+        ,
+        MobileNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getMobileNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setMobileNumber((BigDecimal)value);
+            }
+        }
+        ,
+        Remarks {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getRemarks();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setRemarks((String)value);
+            }
+        }
+        ,
+        PassportNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPassportNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPassportNumber((String)value);
+            }
+        }
+        ,
+        PassportExpiry {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPassportExpiry();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPassportExpiry((Date)value);
+            }
+        }
+        ,
+        LicenseNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getLicenseNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setLicenseNumber((String)value);
+            }
+        }
+        ,
+        LicenseExpiry {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getLicenseExpiry();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setLicenseExpiry((Date)value);
+            }
+        }
+        ,
+        EmployStart {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getEmployStart();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setEmployStart((Date)value);
+            }
+        }
+        ,
+        EmployEnd {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getEmployEnd();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setEmployEnd((Date)value);
+            }
+        }
+        ,
+        ModifiedBy {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getModifiedBy();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setModifiedBy((String)value);
+            }
+        }
+        ,
+        ModifiedDate {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getModifiedDate();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setModifiedDate((Timestamp)value);
+            }
+        }
+        ,
+        CountryCode {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCountryCode();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCountryCode((String)value);
+            }
+        }
+        ,
+        PrtTruckInformationPk {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPrtTruckInformationPk();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPrtTruckInformationPk((String)value);
+            }
+        }
+        ,
+        AccountNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getAccountNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setAccountNumber((String)value);
+            }
+        }
+        ,
+        CardNumber1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardNumber1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardNumber1((String)value);
+            }
+        }
+        ,
+        VehicleNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getVehicleNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setVehicleNumber((String)value);
+            }
+        }
+        ,
+        InternalName {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getInternalName();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setInternalName((String)value);
+            }
+        }
+        ,
+        RegistrationNumber {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getRegistrationNumber();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setRegistrationNumber((String)value);
+            }
+        }
+        ,
+        Brand {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getBrand();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setBrand((String)value);
+            }
+        }
+        ,
+        Year {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getYear();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setYear((BigDecimal)value);
+            }
+        }
+        ,
+        RegistrationDate {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getRegistrationDate();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setRegistrationDate((Date)value);
+            }
+        }
+        ,
+        EndDate {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getEndDate();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setEndDate((Date)value);
+            }
+        }
+        ,
+        FuelType {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getFuelType();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setFuelType((String)value);
+            }
+        }
+        ,
+        MaxFuel {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getMaxFuel();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setMaxFuel((BigDecimal)value);
+            }
+        }
+        ,
+        Odometer1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getOdometer1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setOdometer1((BigDecimal)value);
+            }
+        }
+        ,
+        Remarks1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getRemarks1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setRemarks1((String)value);
+            }
+        }
+        ,
+        ModifiedBy1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getModifiedBy1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setModifiedBy1((String)value);
+            }
+        }
+        ,
+        ModifiedDate1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getModifiedDate1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setModifiedDate1((Timestamp)value);
+            }
+        }
+        ,
+        CountryCode1 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCountryCode1();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCountryCode1((String)value);
+            }
+        }
+        ,
         kmTotal {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
                 return obj.getkmTotal();
@@ -896,6 +1270,40 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
     public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
     public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
+    public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
+    public static final int ACCOUNTID1 = AttributesEnum.AccountId1.index();
+    public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
+    public static final int DRIVERNUMBER = AttributesEnum.DriverNumber.index();
+    public static final int DRIVERNAME = AttributesEnum.DriverName.index();
+    public static final int NATIONALITY = AttributesEnum.Nationality.index();
+    public static final int MOBILENUMBER = AttributesEnum.MobileNumber.index();
+    public static final int REMARKS = AttributesEnum.Remarks.index();
+    public static final int PASSPORTNUMBER = AttributesEnum.PassportNumber.index();
+    public static final int PASSPORTEXPIRY = AttributesEnum.PassportExpiry.index();
+    public static final int LICENSENUMBER = AttributesEnum.LicenseNumber.index();
+    public static final int LICENSEEXPIRY = AttributesEnum.LicenseExpiry.index();
+    public static final int EMPLOYSTART = AttributesEnum.EmployStart.index();
+    public static final int EMPLOYEND = AttributesEnum.EmployEnd.index();
+    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
+    public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+    public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
+    public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
+    public static final int CARDNUMBER1 = AttributesEnum.CardNumber1.index();
+    public static final int VEHICLENUMBER = AttributesEnum.VehicleNumber.index();
+    public static final int INTERNALNAME = AttributesEnum.InternalName.index();
+    public static final int REGISTRATIONNUMBER = AttributesEnum.RegistrationNumber.index();
+    public static final int BRAND = AttributesEnum.Brand.index();
+    public static final int YEAR = AttributesEnum.Year.index();
+    public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
+    public static final int ENDDATE = AttributesEnum.EndDate.index();
+    public static final int FUELTYPE = AttributesEnum.FuelType.index();
+    public static final int MAXFUEL = AttributesEnum.MaxFuel.index();
+    public static final int ODOMETER1 = AttributesEnum.Odometer1.index();
+    public static final int REMARKS1 = AttributesEnum.Remarks1.index();
+    public static final int MODIFIEDBY1 = AttributesEnum.ModifiedBy1.index();
+    public static final int MODIFIEDDATE1 = AttributesEnum.ModifiedDate1.index();
+    public static final int COUNTRYCODE1 = AttributesEnum.CountryCode1.index();
     public static final int KMTOTAL = AttributesEnum.kmTotal.index();
     public static final int KMPERLT = AttributesEnum.kmPerLt.index();
     public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
@@ -1979,6 +2387,550 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setInvoicedNetAmountRabeted(Float value) {
         setAttributeInternal(INVOICEDNETAMOUNTRABETED, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PrtDriverInformationPk.
+     * @return the PrtDriverInformationPk
+     */
+    public String getPrtDriverInformationPk() {
+        return (String) getAttributeInternal(PRTDRIVERINFORMATIONPK);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PrtDriverInformationPk.
+     * @param value value to set the  PrtDriverInformationPk
+     */
+    public void setPrtDriverInformationPk(String value) {
+        setAttributeInternal(PRTDRIVERINFORMATIONPK, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute AccountId1.
+     * @return the AccountId1
+     */
+    public String getAccountId1() {
+        return (String) getAttributeInternal(ACCOUNTID1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute AccountId1.
+     * @param value value to set the  AccountId1
+     */
+    public void setAccountId1(String value) {
+        setAttributeInternal(ACCOUNTID1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardNumber.
+     * @return the CardNumber
+     */
+    public String getCardNumber() {
+        return (String) getAttributeInternal(CARDNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardNumber.
+     * @param value value to set the  CardNumber
+     */
+    public void setCardNumber(String value) {
+        setAttributeInternal(CARDNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute DriverNumber.
+     * @return the DriverNumber
+     */
+    public String getDriverNumber() {
+        return (String) getAttributeInternal(DRIVERNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute DriverNumber.
+     * @param value value to set the  DriverNumber
+     */
+    public void setDriverNumber(String value) {
+        setAttributeInternal(DRIVERNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute DriverName.
+     * @return the DriverName
+     */
+    public String getDriverName() {
+        return (String) getAttributeInternal(DRIVERNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute DriverName.
+     * @param value value to set the  DriverName
+     */
+    public void setDriverName(String value) {
+        setAttributeInternal(DRIVERNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Nationality.
+     * @return the Nationality
+     */
+    public String getNationality() {
+        return (String) getAttributeInternal(NATIONALITY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Nationality.
+     * @param value value to set the  Nationality
+     */
+    public void setNationality(String value) {
+        setAttributeInternal(NATIONALITY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute MobileNumber.
+     * @return the MobileNumber
+     */
+    public BigDecimal getMobileNumber() {
+        return (BigDecimal) getAttributeInternal(MOBILENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute MobileNumber.
+     * @param value value to set the  MobileNumber
+     */
+    public void setMobileNumber(BigDecimal value) {
+        setAttributeInternal(MOBILENUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Remarks.
+     * @return the Remarks
+     */
+    public String getRemarks() {
+        return (String) getAttributeInternal(REMARKS);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Remarks.
+     * @param value value to set the  Remarks
+     */
+    public void setRemarks(String value) {
+        setAttributeInternal(REMARKS, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PassportNumber.
+     * @return the PassportNumber
+     */
+    public String getPassportNumber() {
+        return (String) getAttributeInternal(PASSPORTNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PassportNumber.
+     * @param value value to set the  PassportNumber
+     */
+    public void setPassportNumber(String value) {
+        setAttributeInternal(PASSPORTNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PassportExpiry.
+     * @return the PassportExpiry
+     */
+    public Date getPassportExpiry() {
+        return (Date) getAttributeInternal(PASSPORTEXPIRY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PassportExpiry.
+     * @param value value to set the  PassportExpiry
+     */
+    public void setPassportExpiry(Date value) {
+        setAttributeInternal(PASSPORTEXPIRY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute LicenseNumber.
+     * @return the LicenseNumber
+     */
+    public String getLicenseNumber() {
+        return (String) getAttributeInternal(LICENSENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LicenseNumber.
+     * @param value value to set the  LicenseNumber
+     */
+    public void setLicenseNumber(String value) {
+        setAttributeInternal(LICENSENUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute LicenseExpiry.
+     * @return the LicenseExpiry
+     */
+    public Date getLicenseExpiry() {
+        return (Date) getAttributeInternal(LICENSEEXPIRY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LicenseExpiry.
+     * @param value value to set the  LicenseExpiry
+     */
+    public void setLicenseExpiry(Date value) {
+        setAttributeInternal(LICENSEEXPIRY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute EmployStart.
+     * @return the EmployStart
+     */
+    public Date getEmployStart() {
+        return (Date) getAttributeInternal(EMPLOYSTART);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute EmployStart.
+     * @param value value to set the  EmployStart
+     */
+    public void setEmployStart(Date value) {
+        setAttributeInternal(EMPLOYSTART, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute EmployEnd.
+     * @return the EmployEnd
+     */
+    public Date getEmployEnd() {
+        return (Date) getAttributeInternal(EMPLOYEND);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute EmployEnd.
+     * @param value value to set the  EmployEnd
+     */
+    public void setEmployEnd(Date value) {
+        setAttributeInternal(EMPLOYEND, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ModifiedBy.
+     * @return the ModifiedBy
+     */
+    public String getModifiedBy() {
+        return (String) getAttributeInternal(MODIFIEDBY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedBy.
+     * @param value value to set the  ModifiedBy
+     */
+    public void setModifiedBy(String value) {
+        setAttributeInternal(MODIFIEDBY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ModifiedDate.
+     * @return the ModifiedDate
+     */
+    public Timestamp getModifiedDate() {
+        return (Timestamp) getAttributeInternal(MODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedDate.
+     * @param value value to set the  ModifiedDate
+     */
+    public void setModifiedDate(Timestamp value) {
+        setAttributeInternal(MODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CountryCode.
+     * @return the CountryCode
+     */
+    public String getCountryCode() {
+        return (String) getAttributeInternal(COUNTRYCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CountryCode.
+     * @param value value to set the  CountryCode
+     */
+    public void setCountryCode(String value) {
+        setAttributeInternal(COUNTRYCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PrtTruckInformationPk.
+     * @return the PrtTruckInformationPk
+     */
+    public String getPrtTruckInformationPk() {
+        return (String) getAttributeInternal(PRTTRUCKINFORMATIONPK);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PrtTruckInformationPk.
+     * @param value value to set the  PrtTruckInformationPk
+     */
+    public void setPrtTruckInformationPk(String value) {
+        setAttributeInternal(PRTTRUCKINFORMATIONPK, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute AccountNumber.
+     * @return the AccountNumber
+     */
+    public String getAccountNumber() {
+        return (String) getAttributeInternal(ACCOUNTNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute AccountNumber.
+     * @param value value to set the  AccountNumber
+     */
+    public void setAccountNumber(String value) {
+        setAttributeInternal(ACCOUNTNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardNumber1.
+     * @return the CardNumber1
+     */
+    public String getCardNumber1() {
+        return (String) getAttributeInternal(CARDNUMBER1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardNumber1.
+     * @param value value to set the  CardNumber1
+     */
+    public void setCardNumber1(String value) {
+        setAttributeInternal(CARDNUMBER1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute VehicleNumber.
+     * @return the VehicleNumber
+     */
+    public String getVehicleNumber() {
+        return (String) getAttributeInternal(VEHICLENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute VehicleNumber.
+     * @param value value to set the  VehicleNumber
+     */
+    public void setVehicleNumber(String value) {
+        setAttributeInternal(VEHICLENUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute InternalName.
+     * @return the InternalName
+     */
+    public String getInternalName() {
+        return (String) getAttributeInternal(INTERNALNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InternalName.
+     * @param value value to set the  InternalName
+     */
+    public void setInternalName(String value) {
+        setAttributeInternal(INTERNALNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute RegistrationNumber.
+     * @return the RegistrationNumber
+     */
+    public String getRegistrationNumber() {
+        return (String) getAttributeInternal(REGISTRATIONNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute RegistrationNumber.
+     * @param value value to set the  RegistrationNumber
+     */
+    public void setRegistrationNumber(String value) {
+        setAttributeInternal(REGISTRATIONNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Brand.
+     * @return the Brand
+     */
+    public String getBrand() {
+        return (String) getAttributeInternal(BRAND);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Brand.
+     * @param value value to set the  Brand
+     */
+    public void setBrand(String value) {
+        setAttributeInternal(BRAND, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Year.
+     * @return the Year
+     */
+    public BigDecimal getYear() {
+        return (BigDecimal) getAttributeInternal(YEAR);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Year.
+     * @param value value to set the  Year
+     */
+    public void setYear(BigDecimal value) {
+        setAttributeInternal(YEAR, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute RegistrationDate.
+     * @return the RegistrationDate
+     */
+    public Date getRegistrationDate() {
+        return (Date) getAttributeInternal(REGISTRATIONDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute RegistrationDate.
+     * @param value value to set the  RegistrationDate
+     */
+    public void setRegistrationDate(Date value) {
+        setAttributeInternal(REGISTRATIONDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute EndDate.
+     * @return the EndDate
+     */
+    public Date getEndDate() {
+        return (Date) getAttributeInternal(ENDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute EndDate.
+     * @param value value to set the  EndDate
+     */
+    public void setEndDate(Date value) {
+        setAttributeInternal(ENDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute FuelType.
+     * @return the FuelType
+     */
+    public String getFuelType() {
+        return (String) getAttributeInternal(FUELTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute FuelType.
+     * @param value value to set the  FuelType
+     */
+    public void setFuelType(String value) {
+        setAttributeInternal(FUELTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute MaxFuel.
+     * @return the MaxFuel
+     */
+    public BigDecimal getMaxFuel() {
+        return (BigDecimal) getAttributeInternal(MAXFUEL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute MaxFuel.
+     * @param value value to set the  MaxFuel
+     */
+    public void setMaxFuel(BigDecimal value) {
+        setAttributeInternal(MAXFUEL, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Odometer1.
+     * @return the Odometer1
+     */
+    public BigDecimal getOdometer1() {
+        return (BigDecimal) getAttributeInternal(ODOMETER1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Odometer1.
+     * @param value value to set the  Odometer1
+     */
+    public void setOdometer1(BigDecimal value) {
+        setAttributeInternal(ODOMETER1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Remarks1.
+     * @return the Remarks1
+     */
+    public String getRemarks1() {
+        return (String) getAttributeInternal(REMARKS1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Remarks1.
+     * @param value value to set the  Remarks1
+     */
+    public void setRemarks1(String value) {
+        setAttributeInternal(REMARKS1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ModifiedBy1.
+     * @return the ModifiedBy1
+     */
+    public String getModifiedBy1() {
+        return (String) getAttributeInternal(MODIFIEDBY1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedBy1.
+     * @param value value to set the  ModifiedBy1
+     */
+    public void setModifiedBy1(String value) {
+        setAttributeInternal(MODIFIEDBY1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ModifiedDate1.
+     * @return the ModifiedDate1
+     */
+    public Timestamp getModifiedDate1() {
+        return (Timestamp) getAttributeInternal(MODIFIEDDATE1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedDate1.
+     * @param value value to set the  ModifiedDate1
+     */
+    public void setModifiedDate1(Timestamp value) {
+        setAttributeInternal(MODIFIEDDATE1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CountryCode1.
+     * @return the CountryCode1
+     */
+    public String getCountryCode1() {
+        return (String) getAttributeInternal(COUNTRYCODE1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CountryCode1.
+     * @param value value to set the  CountryCode1
+     */
+    public void setCountryCode1(String value) {
+        setAttributeInternal(COUNTRYCODE1, value);
     }
 
     /**

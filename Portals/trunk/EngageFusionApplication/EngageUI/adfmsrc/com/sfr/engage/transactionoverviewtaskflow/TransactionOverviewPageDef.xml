@@ -34,6 +34,8 @@
           <Item Value="grandTotal"/>
           <Item Value="OdometerPortal"/>
           <Item Value="Ksid"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="DriverName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
