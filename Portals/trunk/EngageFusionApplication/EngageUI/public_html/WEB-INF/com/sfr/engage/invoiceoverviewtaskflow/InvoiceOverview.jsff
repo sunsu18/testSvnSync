@@ -185,9 +185,13 @@
        <af:outputText value="#{row.TotalAmount}" id="ot17"/>
       </af:column>
       <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8">
-       <af:commandImageLink id="cil1" styleClass="pdf_icon"
+      <af:panelGroupLayout id="pgl18" layout="horizontal">
+        <af:commandImageLink id="cil1" styleClass="pdf_icon"
                             icon="/images/pdf1.jpg"/>
-       <af:commandImageLink id="cil2" styleClass="mail_icon"/>
+        <af:spacer width="10" height="10" id="ss26"/>
+       <af:commandImageLink id="cil2" styleClass="mail_icon"
+                            icon="/images/mail_send.png"/>
+        </af:panelGroupLayout>
       </af:column>
      </af:table>
     </af:panelGroupLayout>
@@ -234,9 +238,13 @@
            <af:outputText value="#{sfr.ENGAGE_INVOICE}" id="ot35"/>
            <af:outputText value=":" id="ot36"/>
            <af:spacer width="15" height="10" id="s20"/>
-           <af:commandImageLink id="cil3" styleClass="pdf_icon"
+           <af:panelGroupLayout id="pgl25" layout="horizontal">
+            <af:commandImageLink id="cil3" styleClass="pdf_icon"
                                 icon="/images/pdf1.jpg"/>
-           <af:commandImageLink id="cil4" styleClass="mail_icon"/>
+            <af:spacer width="10" height="10" id="s26"/>
+           <af:commandImageLink id="cil4" styleClass="mail_icon"
+                                icon="/images/mail_send.png"/>
+            </af:panelGroupLayout>
           </h:panelGrid>
          </af:panelGroupLayout>
          <!--  <af:panelGroupLayout id="pgl18" layout="horizontal">
