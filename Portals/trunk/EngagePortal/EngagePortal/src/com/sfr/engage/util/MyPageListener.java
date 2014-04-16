@@ -50,7 +50,7 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
 //import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 
 
-public class MyPageListener implements PagePhaseListener {
+    public class MyPageListener implements PagePhaseListener {
     private User user = null;
     private boolean passwordChangeRequired;
     private List<AccountInfo> accountlist_session = null;
@@ -663,6 +663,8 @@ new CardInfo();
 
                                                         acc =
 new AccountInfo();
+                                                        cardgrouplist =
+                                                                new ArrayList<CardGroupInfo>();
                                                         cardgrp =
                                                                 new CardGroupInfo();
                                                         cardlist =
@@ -1467,9 +1469,9 @@ new CardInfo();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-//            userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+            userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
-            userList = userClient.searchUserWithUserId(securityContext.getUserName());
+//            userList = userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
@@ -1628,14 +1630,14 @@ new CardInfo();
 
         List<Roles> listrole = new ArrayList<Roles>();
         Roles rr = new Roles();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
         List<String> idString = new ArrayList<String>();
 //                idString.add("NOPP26773218AC0022883797");
 //        idString.add("NOPP26773218AC0022883898");
-//                idString.add("NOPP26773218CGSLUTRX00001");
-//        idString.add("NOPP26773218CGSLUTRX00006");
+                idString.add("NOPP26773218CGSLUTRX00001");
+        idString.add("NOPP26773218CGSLUTRX00002");
 //        idString.add("NOPP26773218CGSLUTRX00004");
                 
 //        idString.add("NOPP26773218CC0058973603");
@@ -1643,7 +1645,7 @@ new CardInfo();
 //        idString.add("NOPP26773218CC0058589003");
         
         
-                        idString.add("NOPP26773218");
+//                        idString.add("NOPP26773218");
         rr.setIdString(idString);
         listrole.add(rr);
 
@@ -1660,7 +1662,7 @@ new CardInfo();
         //                       Constants.ROLE_WCP_CARD_B2B_MGR);
 //        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_EMP);
 //        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
         user.setUserID("B2BMgr1@test.com");
 
         return user;
