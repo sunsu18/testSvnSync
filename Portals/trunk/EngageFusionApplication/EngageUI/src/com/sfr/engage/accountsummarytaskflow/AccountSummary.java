@@ -203,11 +203,12 @@ public class AccountSummary {
            
            
         
+            
+        }  
             cardOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
             cardGroupOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
-        }  
 
         }else if(rowType.contains("CardGroupInfo")) {
             System.out.println("cardgroup node clicked");
@@ -444,7 +445,7 @@ public class AccountSummary {
 //            
 //            }
             
-             ;
+         
     
     if(session!= null) {
         System.out.println("partner list from session");

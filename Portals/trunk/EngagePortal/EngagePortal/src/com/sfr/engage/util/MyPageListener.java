@@ -376,8 +376,8 @@ public class MyPageListener implements PagePhaseListener {
 
                                                         System.out.println("Account B2B Manager");
 
-                                                        acc =
-new AccountInfo();
+                                                        acc = new AccountInfo();
+                                                        cardgrouplist =  new ArrayList<CardGroupInfo>();
                                                         int accid_start =
                                                             user.getRoleList().get(i).getIdString().get(idlist).indexOf("AC");
                                                         System.out.println("accid start index " +
@@ -635,28 +635,28 @@ new CardInfo();
                                                     String CardGroupID = user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +2);
                                                     System.out.println("CardGroupId is " + CardGroupID);
                                                     int cardgrp_count = 0;
-                                                    for (int k = 0;
-                                                         k < accountlist.size();
-                                                         k++) {
-                                                        System.out.println("account id value in account list " +
-                                                                           accountlist.get(k).getAccountNumber());
-                                                        account_check = accountlist.get(k);
-                                                        cardgrouplist_check = account_check.getCardGroup();
-                                                      
-                                                        
-                                                        for(cardgrp_count =0;cardgrp_count<cardgrouplist_check.size();cardgrp_count++)
-                                                        {
-                                                        if (cardgrouplist_check.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(CardGroupID)) {
-                                                            System.out.println("cardgroup id exists in cardgroup list of account " + account_check.getAccountNumber());
-                                                            executeCardGroupLogic =
-                                                            cardgrouplist_check.get(cardgrp_count).isCardGroupOverview();
-                                                            break;
-                                                        }
-                                                        }
-                                                    }
+//                                                    for (int k = 0;
+//                                                         k < accountlist.size();
+//                                                         k++) {
+//                                                        System.out.println("account id value in account list " +
+//                                                                           accountlist.get(k).getAccountNumber());
+//                                                        account_check = accountlist.get(k);
+//                                                        cardgrouplist_check = account_check.getCardGroup();
+//                                                      
+//                                                        
+//                                                        for(cardgrp_count =0;cardgrp_count<cardgrouplist_check.size();cardgrp_count++)
+//                                                        {
+//                                                        if (cardgrouplist_check.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(CardGroupID)) {
+//                                                            System.out.println("cardgroup id exists in cardgroup list of account " + account_check.getAccountNumber());
+//                                                            executeCardGroupLogic =
+//                                                            cardgrouplist_check.get(cardgrp_count).isCardGroupOverview();
+//                                                            break;
+//                                                        }
+//                                                        }
+//                                                    }
                                                     
                                                     
-                                                    if(executeCardGroupLogic)
+                                                    if(!executeCardGroupLogic)
                                                         {
 
                                                         System.out.println("Card Group B2B Manager");
@@ -665,6 +665,8 @@ new CardInfo();
 new AccountInfo();
                                                         cardgrp =
                                                                 new CardGroupInfo();
+                                                        cardlist =
+                                                                new ArrayList<CardInfo>();
                                                         String accountId_cardVO =
                                                             "";
 
@@ -1465,9 +1467,9 @@ new CardInfo();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-            userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+//            userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
-            //userList = userClient.searchUserWithUserId(securityContext.getUserName());
+            userList = userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
@@ -1631,7 +1633,11 @@ new CardInfo();
         rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
         List<String> idString = new ArrayList<String>();
                 idString.add("NOPP26773218AC0022883797");
-        //        idString.add("NOPP26773218CGSLUTRX00001");
+        idString.add("NOPP26773218AC0022883898");
+//                idString.add("NOPP26773218CGSLUTRX00001");
+//        idString.add("NOPP26773218CGSLUTRX00006");
+//        idString.add("NOPP26773218CGSLUTRX00004");
+                
 //        idString.add("NOPP26773218CC0058973603");
 //        idString.add("NOPP26773218CC0058588948");
 //        idString.add("NOPP26773218CC0058589003");
