@@ -638,5 +638,11 @@ public class Constants {
     public static final String OPSS_WCP_CARD_CSR="CARD_CSR";
     public static final String OPSS_WCP_CARD_SALES_REP="CARD_SALES_REP";
     
+    
+    //Engage Portal constants    
+    public static final String ENGAGE_UCM_WSDL_URL = "ENGAGE_UCM_WSDL_URL";
+    public static final String ENGAGE_UCM_USERNAME="ENGAGE_UCM_USERNAME";
+    public static final String ENGAGE_UCM_PASSWORD="ENGAGE_UCM_PASSWORD";
+    
 
 }
