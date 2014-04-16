@@ -157,6 +157,7 @@
     font-size: 14px ;
     font-family: Lucida Sans,Georgia,Serif !important;
     line-height: 1.4;
+    font-weight: bold;
 }
 
 .af_panelAccordion_header.p_AFFlow,
@@ -884,6 +885,7 @@ font-style:normal;
 /*firefox*/
 @agent gecko{
 
+
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style,
 .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style{
     margin-right:-15px !important;
@@ -892,9 +894,11 @@ font-style:normal;
 .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
     vertical-align:20% !important;
 }
+
 }
 /*chrome*/
 @agent webkit {
+
     .af_commandButton.p_AFTextOnly{
         padding-top: 3px !important;
     }
@@ -904,6 +908,7 @@ font-style:normal;
 }
 /*ie*/
  @agent ie (version: 7) and (version: 8) and (version:9) and (version:10) and (version:11){
+
      .af_commandButton.p_AFTextOnly{
          padding-top: 3px !important;
      padding-bottom: 3px !important;
@@ -1041,6 +1046,16 @@ text-decoration: none !important;
 cursor:auto;
 }
 
+.faqlink
+{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 14px;
+color: #524e4f !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+font-style:italic !important;
+cursor: auto;    
+}
 
 
 /*Card Header*/
@@ -1307,7 +1322,7 @@ font-weight:bold;
 
 #top li ul, #top ul li {
     background-color: #F3F3F3;
-    width: 118px;
+    width: 150px;
 }
 
 #top ul li a {
@@ -1339,10 +1354,12 @@ font-weight:bold;
  #topbar #top li a:hover{
     border-bottom: 5px solid rgb(242,175,0);
     margin-left:9.0px;
+    white-space: nowrap !important;
 }
  
  #topbar #top li a{
      margin-left:9.0px;
+      white-space: nowrap !important;
 }
  
  #topbar #top li ul li a{

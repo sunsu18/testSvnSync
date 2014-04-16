@@ -32,13 +32,16 @@
   </af:panelGroupLayout>
   </af:panelGroupLayout>
   <af:spacer width="10" height="15" id="s3"/>
-    <af:panelGroupLayout id="pgl6" layout="vertical">
+    <af:panelGroupLayout id="pgl16" layout="horizontal" halign="left"
+                         inlineStyle="width:962.0px;">
+      <af:panelGroupLayout id="pgl22" layout="vertical">
+      <af:panelGroupLayout id="pgl6" layout="vertical">
       <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4" styleClass="heading1"/>
       <af:spacer width="10" height="10" id="s4"/>
     </af:panelGroupLayout>
     
     <af:panelGroupLayout id="pgl3" layout="scroll"
-                       inlineStyle="height:314px; width:200px;"
+                       inlineStyle="height:314px; width:300px;"
                        styleClass="box-shadow panelbackground">
       
       <af:spacer width="7" height="5" id="s6"/>
@@ -62,6 +65,67 @@
        
     </af:forEach>
 </af:panelGroupLayout>
-  </af:panelGroupLayout>
+</af:panelGroupLayout>
+      <af:spacer width="20" height="10" id="s20"/>
+      <af:panelGroupLayout id="pgl23" layout="vertical" visible="false">
+      <af:panelGroupLayout id="pgl11" layout="vertical">
+      <af:outputText value="test panel 1" id="ot5" styleClass="heading1"/>
+      <af:spacer width="10" height="10" id="s10"/>
+    </af:panelGroupLayout>
+    
+    <af:panelGroupLayout id="pgl12" layout="scroll"
+                       inlineStyle="height:314px; width:300px;"
+                       styleClass="box-shadow panelbackground">
+      
+      <af:spacer width="7" height="5" id="s11"/>
+    
+ 
+    <af:panelGroupLayout id="pgl13" layout="horizontal" valign="top">
+     <af:spacer width="7" height="20" id="s12"/>
+      <af:panelGroupLayout id="pgl14"
+                           layout="horizontal"
+                          />
+                          <af:spacer width="7" height="30" id="s13"/>
+          <af:panelGroupLayout id="pgl15"
+                               inlineStyle="width:200px; height:100.0px;" halign="start">
+          <af:outputText value="" id="ot6" styleClass="contenttext"
+                    inlineStyle="padding-right:5px;"/>
+                       <af:spacer width="7" height="30" id="s14"/>
+                     </af:panelGroupLayout>
+        </af:panelGroupLayout>
 
+</af:panelGroupLayout> 
+    </af:panelGroupLayout>
+      <af:spacer width="20" height="10" id="s21"/>
+      <af:panelGroupLayout id="pgl24" layout="vertical" visible="false">
+      <af:panelGroupLayout id="pgl17" layout="vertical">
+      <af:outputText value="test panel 2" id="ot7" styleClass="heading1"/>
+      <af:spacer width="10" height="10" id="s15"/>
+    </af:panelGroupLayout>
+    
+    <af:panelGroupLayout id="pgl18" layout="scroll"
+                       inlineStyle="height:314px; width:300px;"
+                       styleClass="box-shadow panelbackground">
+      
+      <af:spacer width="7" height="5" id="s16"/>
+    
+ 
+    <af:panelGroupLayout id="pgl19" layout="horizontal" valign="top">
+     <af:spacer width="7" height="20" id="s17"/>
+      <af:panelGroupLayout id="pgl20"
+                           layout="horizontal"
+                          />
+                          <af:spacer width="7" height="30" id="s18"/>
+          <af:panelGroupLayout id="pgl21"
+                               inlineStyle="width:200px; height:100.0px;" halign="start">
+          <af:outputText value="" id="ot8" styleClass="contenttext"
+                    inlineStyle="padding-right:5px;"/>
+                       <af:spacer width="7" height="30" id="s19"/>
+                     </af:panelGroupLayout>
+        </af:panelGroupLayout>
+
+</af:panelGroupLayout> 
+    </af:panelGroupLayout>
+  </af:panelGroupLayout>
+</af:panelGroupLayout>
 </jsp:root>

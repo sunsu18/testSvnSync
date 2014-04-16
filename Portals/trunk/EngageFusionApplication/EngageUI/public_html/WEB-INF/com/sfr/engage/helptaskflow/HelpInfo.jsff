@@ -22,7 +22,7 @@
       <af:outputText value="#{sfr.FAQ_INFO}" id="ot2"
                      styleClass="FAQInfo"/>
                       <af:goLink text="#{sfr.CONTACT_US}" id="gl1"
-                                 styleClass="greylinks"
+                                 styleClass="faqlink"
                                  destination="http://www.statoil.se/sv_SE/pg1332347194333/Kontakt.html"/>
     </af:panelGroupLayout>
     <af:spacer width="5" height="20" id="s3"/>

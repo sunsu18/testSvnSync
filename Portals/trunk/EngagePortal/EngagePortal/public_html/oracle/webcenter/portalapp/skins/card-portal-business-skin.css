@@ -115,6 +115,7 @@
     font-size: 14px;
     font-family: Lucida Sans,Georgia,Serif !important;
     line-height: 1.4;
+     font-weight: bold;
 }
 
 .af_panelAccordion_body-content.p_AFFlow{
@@ -1125,7 +1126,7 @@ font-weight:bold;
 
 #top li ul, #top ul li {
     background-color: #F3F3F3;
-    width: 118px;
+    width: 150px;
 }
 
 #top ul li a {
@@ -1157,9 +1158,11 @@ font-weight:bold;
 #topbar #top li a:hover{
     border-bottom: 5px solid #3cb6ce;
     margin-left:9.0px;
+      white-space: nowrap !important;
 }
 #topbar #top li a{
      margin-left:9.0px;
+       white-space: nowrap !important;
 }
 
 #topbar #top li ul li a{
