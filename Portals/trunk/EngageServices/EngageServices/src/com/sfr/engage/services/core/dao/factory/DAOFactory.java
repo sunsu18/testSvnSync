@@ -1,5 +1,12 @@
 package com.sfr.engage.services.core.dao.factory;
 
+import com.sfr.engage.services.client.ucm.UCMCustomWeb;
+
+import com.sfr.services.core.dao.factory.WebServiceProxy;
+import com.sfr.util.AccessDataControl;
+import com.sfr.util.ConfigurationUtility;
+import com.sfr.util.constants.Constants;
+
 import java.io.Serializable;
 
 import java.sql.Connection;
@@ -13,6 +20,10 @@ import javax.naming.NamingException;
 
 import javax.sql.DataSource;
 
+import javax.xml.ws.BindingProvider;
+
+import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
+
 public class DAOFactory implements Serializable{
 
     @SuppressWarnings("compatibility")
@@ -20,6 +31,36 @@ public class DAOFactory implements Serializable{
     
     public DAOFactory() {
         super();
+    }
+    
+    
+    public static String getPropertyValue(String PName) {
+        return ConfigurationUtility.getPropertyValue(PName);
+    }
+    
+    public UCMCustomWeb getUCMService()
+    {
+        Class<UCMCustomWeb> serviceEndPoint = UCMCustomWeb.class;
+        String wsdlUrl = getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL);
+        String targetNamespace = "http://ws.wcc.lnt.com/";
+        String serviceName = "UCMCustomWebService";
+        String portName = "UCMCustomWebPort";
+        String ucmUsername = getPropertyValue(Constants.ENGAGE_UCM_USERNAME);
+        String ucmPassword = getPropertyValue(Constants.ENGAGE_UCM_PASSWORD);
+        UCMCustomWeb uCMCustomWeb = null;
+        try {
+            WebServiceProxy client = new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
+            SecurityPoliciesFeature securityFeatures = new SecurityPoliciesFeature(new String[] { "oracle/wss_username_token_client_policy" });
+            uCMCustomWeb = client.getServicePortWithFeatures(portName, serviceEndPoint, securityFeatures);
+            ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, ucmUsername);
+            ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
+           
+        } catch (Exception e) {
+            System.out.println(AccessDataControl.getDisplayRecord() +this.getClass() + ".getUCMService : " +"Exception");
+            e.printStackTrace();
+
+        }
+         return uCMCustomWeb;
     }
 
     /**
