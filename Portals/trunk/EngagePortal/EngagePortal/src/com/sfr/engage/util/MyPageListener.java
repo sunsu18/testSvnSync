@@ -1628,12 +1628,12 @@ new CardInfo();
 
         List<Roles> listrole = new ArrayList<Roles>();
         Roles rr = new Roles();
-//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
         List<String> idString = new ArrayList<String>();
-                idString.add("NOPP26773218AC0022883797");
-        idString.add("NOPP26773218AC0022883898");
+//                idString.add("NOPP26773218AC0022883797");
+//        idString.add("NOPP26773218AC0022883898");
 //                idString.add("NOPP26773218CGSLUTRX00001");
 //        idString.add("NOPP26773218CGSLUTRX00006");
 //        idString.add("NOPP26773218CGSLUTRX00004");
@@ -1643,7 +1643,7 @@ new CardInfo();
 //        idString.add("NOPP26773218CC0058589003");
         
         
-//                        idString.add("NOPP26773218");
+                        idString.add("NOPP26773218");
         rr.setIdString(idString);
         listrole.add(rr);
 
@@ -1656,10 +1656,11 @@ new CardInfo();
         //            listrole.add(rr);
 
         user.setRoleList(listrole);
-        //        user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
+//                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                       Constants.ROLE_WCP_CARD_B2B_MGR);
 //        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_EMP);
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
+//        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         user.setUserID("B2BMgr1@test.com");
 
         return user;
