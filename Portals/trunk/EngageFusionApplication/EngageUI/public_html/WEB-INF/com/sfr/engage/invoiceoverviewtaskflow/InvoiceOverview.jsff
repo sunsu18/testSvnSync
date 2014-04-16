@@ -316,7 +316,12 @@
           </af:column>
           <af:column headerText="#{sfr.INVOICE_QUANTITY}"
                      id="c21">
-           <af:outputText value="#{row.Quantity}" id="ot24"/>
+           <af:outputText value="#{row.Quantity}" id="ot24">
+            <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                                minFractionDigits="2"/>  
+           </af:outputText>
           </af:column>
           <af:column headerText="#{sfr.INVOICE_STATION}"
                      id="c16">
