@@ -10,6 +10,9 @@ import com.sfr.engage.model.queries.uvo.PrtInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 
+import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
+
 import java.io.Serializable;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -67,9 +71,12 @@ public class InvoiceOverviewBean implements Serializable {
     private String cardGroupSubtypePassValues = "";
     private String cardGroupMaintypePassValue = "";
     private String cardGroupSeqPassValues     = "";
+    private Conversion conversionUtility;
+    private Locale locale;
     
     public InvoiceOverviewBean() {
         super();
+        conversionUtility = new Conversion(); 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);        
@@ -95,6 +102,7 @@ public class InvoiceOverviewBean implements Serializable {
             }
         }
         countryCode="no_NO";
+        locale = conversionUtility.getLocaleFromCountryCode("SE");
     }
     
     public ArrayList<SelectItem> getAccountList() {
@@ -575,6 +583,14 @@ public class InvoiceOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());  
             
         }
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 
     public class Bindings {
