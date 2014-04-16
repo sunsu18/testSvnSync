@@ -83,7 +83,7 @@
                  id="invoiceoverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx">
               <attributes>
-                <attribute value="Invoices" isKey="false"
+                <attribute value="Invoice Overview" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
