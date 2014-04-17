@@ -64,7 +64,7 @@
                     <af:panelGroupLayout id="pgl3" layout="horizontal"
                                          inlineStyle=" padding-top:4px;">
                       <af:spacer width="5" height="10" id="s16"/>
-                          <af:panelGroupLayout id="pgl14" styleClass="oil1"
+                          <af:panelGroupLayout id="pgl14" styleClass="cart"
                                                layout="vertical"/>
                           
                           <af:spacer width="10" height="10" id="s4"/>

@@ -877,7 +877,7 @@ font-style:normal;
     background-color:#C3C3C3 !important;
     margin-left: -15px!important;
     margin-top: 3px;
-    margin-bottom:3px; 
+    margin-bottom:3px;
 }
 
 
@@ -1108,25 +1108,19 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.sign_in, .card_back, .oil1, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey{
+.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue,.cart, .card_grp, .partner_1, .card, .account{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .sign_in{
-	background-position: -67px -3px ;
+	background-position: -64px -4px ;
 	width: 20px;
 	height: 20px;
 }
 
 .card_back{
-	background-position: -41px -1px ;
+	background-position: -35px -4px ;
 	width: 20px;
-	height: 20px;
-}
-
-.oil1{
-	background-position: 0px 0px;
-	width: 35px;
 	height: 20px;
 }
 
@@ -1137,7 +1131,7 @@ font-weight:bold;
 }
 
 .arrow_learn_more_white{
-	background-position: -172px -7px ;
+	background-position: -116px 0;
 	width: 8px;
 	height: 8px;
 }
@@ -1183,6 +1177,73 @@ font-weight:bold;
 	width: 8px;
 	height: 8px;
 }
+
+.card_back_blue{
+	background-position: -340px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.sign_in_blue{
+	background-position: -366px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.shop_categories_blue{
+	background-position: -390px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.arrow_learn_more_blue{
+	background-position: -416px -9px ;
+	width: 8px;
+	height: 8px;
+}
+
+.category_icon_blue{
+	background-position: -431px -4px ;
+	width: 15px;
+	height: 20px;
+}
+
+.cart{
+	background-position: -6px -3px ;
+	width: 20px;
+	height: 20px;
+}
+
+.card_grp{
+	background-position: -10px -134px ;
+	width: 20px;
+	height: 15px;
+}
+
+.partner_1{
+	background-position: -8px -65px ;
+	width: 20px;
+	height: 20px;
+}
+
+.card{
+	background-position: -10px -114px ;
+	width: 18px;
+	height: 13px;
+}
+
+.account{
+	background-position: -10px -87px ;
+	width: 18px;
+	height: 18px;
+}
+
+
+
+
+
+
+
 
 
 

@@ -918,12 +918,13 @@ font-weight:bold;
 
 
 /*SPRITE CSS*/
-.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon, .arrow_grey, .oil1, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon{
+
+.arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .card_grp, .partner_1, .card, .account{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .arrow_learn_more_white{
-	background-position: -172px -7px ;
+	background-position: -116px 0px;
 	width: 8px;
 	height: 8px;
 }
@@ -952,16 +953,11 @@ font-weight:bold;
 	height: 20px;
 }
 
+
 .arrow_grey{
 	background-position: -186px -6px ;
 	width: 8px;
 	height: 8px;
-}
-
-.oil1{
-	background-position: -298px 0;
-	width: 35px;
-	height: 20px;
 }
 
 .card_back{
@@ -993,6 +989,37 @@ font-weight:bold;
 	width: 15px;
 	height: 20px;
 }
+
+.cart{
+	background-position: -310px -2px ;
+	width: 20px;
+	height: 20px;
+}
+
+.card_grp{
+	background-position: -10px -134px ;
+	width: 20px;
+	height: 15px;
+}
+
+.partner_1{
+	background-position: -8px -65px ;
+	width: 20px;
+	height: 20px;
+}
+
+.card{
+	background-position: -10px -114px ;
+	width: 18px;
+	height: 13px;
+}
+
+.account{
+	background-position: -10px -87px ;
+	width: 18px;
+	height: 18px;
+}
+
 
 
 
