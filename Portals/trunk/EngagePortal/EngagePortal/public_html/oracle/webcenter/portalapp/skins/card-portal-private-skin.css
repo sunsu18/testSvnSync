@@ -26,6 +26,21 @@
     color:#f2ad00;
 }
 
+.af_tree
+{
+    height:400px !important;
+    width:200px !important;
+ 
+}
+
+
+.af_table_data-body
+{
+    height:400px !important;
+    width:200px !important;
+    
+    
+}
 .af_tree_data-row.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text
 .af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFSelected .af_tree_node-stamp-text,
 .af_tree_data-row.p_AFSelected.p_AFInactive .af_tree_node-stamp-text, .af_tree_data-row.p_AFSelected.p_AFInactive .af_selectBooleanCheckbox_item-text,
@@ -100,6 +115,7 @@
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:normal !important;
     padding-left: 40px;
+   
 }
 
 
@@ -478,7 +494,9 @@ font-size: 16px;
 font-weight: bolder;
 margin-left: 4px;
 margin-top: 10px;
+
 }
+
 
 /*******************************AF:Table***********************************/
 
@@ -871,7 +889,17 @@ font-style:normal;
 
 }
 
-.vertical_seprator{
+.vertical_seperator_account{
+    width:1px !important;
+    height:500px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px; 
+}
+
+
+.vertical_seperator_transaction{
     width:1px !important;
     height:200px !important;
     background-color:#C3C3C3 !important;
@@ -879,6 +907,7 @@ font-style:normal;
     margin-top: 3px;
     margin-bottom:3px;
 }
+
 
 
 /*Button Background*/
@@ -1383,7 +1412,7 @@ font-weight:bold;
 
 #top li ul, #top ul li {
     background-color: #F3F3F3;
-    width: 150px;
+    width: 165px;
 }
 
 #top ul li a {
@@ -1547,4 +1576,9 @@ border: 1px solid  #979796;
     padding-right: 5px;   
 }
 
+
+.af_selectOneRadio_content-input {
+    padding: 5px 3px 0px 15px !important;
+    vertical-align: 10%;
+}
 

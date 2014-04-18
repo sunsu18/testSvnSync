@@ -49,6 +49,23 @@
      background-image: none;
      cursor:none;   
 }
+
+
+.af_tree
+{
+    height:400px !important;
+    width:200px !important;
+ 
+}
+
+
+.af_table_data-body
+{
+    height:400px !important;
+    width:200px !important;
+    
+    
+}
 /*---------------------------------------------------------*/
 .pricelisttext
 {
@@ -712,7 +729,17 @@ font-style:normal;
     margin-bottom:3px;
 
 }
-.vertical_seprator{
+.vertical_seperator_account{
+    width:1px !important;
+    height:500px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px; 
+}
+
+
+.vertical_seperator_transaction{
     width:1px !important;
     height:200px !important;
     background-color:#C3C3C3 !important;
@@ -1153,7 +1180,7 @@ font-weight:bold;
 
 #top li ul, #top ul li {
     background-color: #F3F3F3;
-    width: 150px;
+    width: 165px;
 }
 
 #top ul li a {
@@ -1338,4 +1365,9 @@ border-color: #AFAFAF;
 {
 color: #524e4f;
    font-family : Lucida Sans,Georgia,Serif !important; 
+}
+
+.af_selectOneRadio_content-input {
+    padding: 5px 3px 0px 15px !important;
+    vertical-align: 10%;
 }

@@ -27,19 +27,24 @@
     </af:panelGroupLayout>
     <af:spacer width="5" height="20" id="s3"/>
           <af:panelGroupLayout id="pgl1"
-                               binding="#{pageFlowScope.HelpInfoBean.bindings.helpinfopanel}">
-          
-           <af:panelAccordion id="pa1" discloseNone="true"
+                               binding="#{pageFlowScope.HelpInfoBean.bindings.helpinfopanel}"
+                               inlineStyle="width:962.0px;">
+      <af:spacer width="10" height="10" id="s1"/>
+      <af:panelAccordion id="pa1" discloseNone="true"
                               dimensionsFrom="children">
+                      
           <af:forEach var="var" items="#{pageFlowScope.HelpInfoBean.helpList}">
-            <af:showDetailItem text="#{var.question}" id="sdi1"
+       
+          <af:showDetailItem text="#{var.question}" id="sdi1"
                                stretchChildren="none"
                                inlineStyle="height:50.0px;">
+            <af:spacer width="10" height="10" id="s2"/>
             <af:outputText value="#{var.answer}" id="otj1"/>
+           <af:spacer width="10" height="10" id="s7"/>  
             </af:showDetailItem>
          
         </af:forEach>
-       
+
           </af:panelAccordion>
           </af:panelGroupLayout>
 

@@ -57,7 +57,7 @@
     <af:spacer width="10" height="10" id="s6"/>
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
-                          inlineStyle="width:200px;">
+                          inlineStyle="width:200px; height:480px">
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
                  rowSelection="single" id="t1" summary="Partner_Tree">
@@ -98,7 +98,10 @@
   
      
      </af:panelGroupLayout>
-    <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:350px;">
+      <af:panelGroupLayout id="pgl13">
+        <af:separator id="s324" styleClass="vertical_seperator_account"/>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:480px;">
 
   <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
                        binding="#{pageFlowScope.AccountSummaryBean.companyOverview}">             
