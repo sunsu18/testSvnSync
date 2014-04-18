@@ -744,6 +744,16 @@ font-style:normal;
 .vertical_seprator
 {
      width:1px !important;
+    height:160px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px;
+}
+
+.vertical_seprator_trans
+{
+     width:1px !important;
     height:200px !important;
     background-color:#C3C3C3 !important;
     margin-left: -15px!important;
