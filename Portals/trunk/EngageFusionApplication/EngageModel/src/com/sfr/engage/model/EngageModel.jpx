@@ -12,7 +12,7 @@
     <Attr Name="_NamedConnection" Value="226"/>
     <Attr Name="_appModuleNames0"
       Value="com.sfr.engage.model.module.EngageAppModule"/>
-    <Attr Name="_jbo.TypeMapEntries" Value="Java"/>
+    <Attr Name="_jbo.TypeMapEntries" Value="Oracle"/>
   </DesignTime>
   <Containee
     Name="associations"

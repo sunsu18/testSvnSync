@@ -6,6 +6,7 @@ import java.sql.Date;
 
 import java.sql.Timestamp;
 
+import oracle.jbo.domain.Number;
 import oracle.jbo.server.AttributeDefImpl;
 import oracle.jbo.server.ViewRowImpl;
 // ---------------------------------------------------------------------
@@ -268,7 +269,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setExchangeRate((BigDecimal)value);
+                obj.setExchangeRate((Number)value);
             }
         }
         ,
@@ -488,18 +489,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setQuantity((BigDecimal)value);
-            }
-        }
-        ,
-        UnitOfMeasure {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getUnitOfMeasure();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setUnitOfMeasure((String)value);
+                obj.setQuantity((Number)value);
             }
         }
         ,
@@ -510,7 +500,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setVatRate((BigDecimal)value);
+                obj.setVatRate((Number)value);
             }
         }
         ,
@@ -664,7 +654,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setAsIabf538aPrpslsats((BigDecimal)value);
+                obj.setAsIabf538aPrpslsats((Number)value);
             }
         }
         ,
@@ -756,6 +746,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        UnitOfMeasure {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getUnitOfMeasure();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setUnitOfMeasure((String)value);
+            }
+        }
+        ,
         PrtDriverInformationPk {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
                 return obj.getPrtDriverInformationPk();
@@ -829,7 +830,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setMobileNumber((BigDecimal)value);
+                obj.setMobileNumber((Number)value);
             }
         }
         ,
@@ -1027,7 +1028,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setYear((BigDecimal)value);
+                obj.setYear((Number)value);
             }
         }
         ,
@@ -1071,7 +1072,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setMaxFuel((BigDecimal)value);
+                obj.setMaxFuel((Number)value);
             }
         }
         ,
@@ -1082,7 +1083,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setOdometer1((BigDecimal)value);
+                obj.setOdometer1((Number)value);
             }
         }
         ,
@@ -1137,7 +1138,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setkmTotal((Float)value);
+                obj.setkmTotal((Number)value);
             }
         }
         ,
@@ -1148,7 +1149,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setkmPerLt((Float)value);
+                obj.setkmPerLt((Number)value);
             }
         }
         ,
@@ -1159,7 +1160,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setltPerHundred((Float)value);
+                obj.setltPerHundred((Number)value);
             }
         }
         ,
@@ -1246,7 +1247,6 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int FUELYN = AttributesEnum.FuelYn.index();
     public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
     public static final int QUANTITY = AttributesEnum.Quantity.index();
-    public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
     public static final int VATRATE = AttributesEnum.VatRate.index();
     public static final int CURRENCYVAT = AttributesEnum.CurrencyVat.index();
     public static final int INVOICEDVAT = AttributesEnum.InvoicedVat.index();
@@ -1270,6 +1270,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
     public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
     public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
+    public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
     public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
     public static final int ACCOUNTID1 = AttributesEnum.AccountId1.index();
     public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
@@ -1671,15 +1672,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute ExchangeRate.
      * @return the ExchangeRate
      */
-    public BigDecimal getExchangeRate() {
-        return (BigDecimal) getAttributeInternal(EXCHANGERATE);
+    public Number getExchangeRate() {
+        return (Number) getAttributeInternal(EXCHANGERATE);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute ExchangeRate.
      * @param value value to set the  ExchangeRate
      */
-    public void setExchangeRate(BigDecimal value) {
+    public void setExchangeRate(Number value) {
         setAttributeInternal(EXCHANGERATE, value);
     }
 
@@ -1861,6 +1862,70 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
 
     /**
+     * Gets the attribute value for the calculated attribute kmTotal.
+     * @return the kmTotal
+     */
+    public Number getkmTotal() {
+        return (Number) getAttributeInternal(KMTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute kmTotal.
+     * @param value value to set the  kmTotal
+     */
+    public void setkmTotal(Number value) {
+        setAttributeInternal(KMTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute kmPerLt.
+     * @return the kmPerLt
+     */
+    public Number getkmPerLt() {
+        return (Number) getAttributeInternal(KMPERLT);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute kmPerLt.
+     * @param value value to set the  kmPerLt
+     */
+    public void setkmPerLt(Number value) {
+        setAttributeInternal(KMPERLT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ltPerHundred.
+     * @return the ltPerHundred
+     */
+    public Number getltPerHundred() {
+        return (Number) getAttributeInternal(LTPERHUNDRED);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ltPerHundred.
+     * @param value value to set the  ltPerHundred
+     */
+    public void setltPerHundred(Number value) {
+        setAttributeInternal(LTPERHUNDRED, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute grandTotal.
+     * @return the grandTotal
+     */
+    public Integer getgrandTotal() {
+        return (Integer) getAttributeInternal(GRANDTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute grandTotal.
+     * @param value value to set the  grandTotal
+     */
+    public void setgrandTotal(Integer value) {
+        setAttributeInternal(GRANDTOTAL, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute DeltaTimestamp1.
      * @return the DeltaTimestamp1
      */
@@ -1993,47 +2058,31 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute Quantity.
      * @return the Quantity
      */
-    public BigDecimal getQuantity() {
-        return (BigDecimal) getAttributeInternal(QUANTITY);
+    public Number getQuantity() {
+        return (Number) getAttributeInternal(QUANTITY);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute Quantity.
      * @param value value to set the  Quantity
      */
-    public void setQuantity(BigDecimal value) {
+    public void setQuantity(Number value) {
         setAttributeInternal(QUANTITY, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute UnitOfMeasure.
-     * @return the UnitOfMeasure
-     */
-    public String getUnitOfMeasure() {
-        return (String) getAttributeInternal(UNITOFMEASURE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute UnitOfMeasure.
-     * @param value value to set the  UnitOfMeasure
-     */
-    public void setUnitOfMeasure(String value) {
-        setAttributeInternal(UNITOFMEASURE, value);
     }
 
     /**
      * Gets the attribute value for the calculated attribute VatRate.
      * @return the VatRate
      */
-    public BigDecimal getVatRate() {
-        return (BigDecimal) getAttributeInternal(VATRATE);
+    public Number getVatRate() {
+        return (Number) getAttributeInternal(VATRATE);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute VatRate.
      * @param value value to set the  VatRate
      */
-    public void setVatRate(BigDecimal value) {
+    public void setVatRate(Number value) {
         setAttributeInternal(VATRATE, value);
     }
 
@@ -2249,15 +2298,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute AsIabf538aPrpslsats.
      * @return the AsIabf538aPrpslsats
      */
-    public BigDecimal getAsIabf538aPrpslsats() {
-        return (BigDecimal) getAttributeInternal(ASIABF538APRPSLSATS);
+    public Number getAsIabf538aPrpslsats() {
+        return (Number) getAttributeInternal(ASIABF538APRPSLSATS);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute AsIabf538aPrpslsats.
      * @param value value to set the  AsIabf538aPrpslsats
      */
-    public void setAsIabf538aPrpslsats(BigDecimal value) {
+    public void setAsIabf538aPrpslsats(Number value) {
         setAttributeInternal(ASIABF538APRPSLSATS, value);
     }
 
@@ -2390,6 +2439,22 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute UnitOfMeasure.
+     * @return the UnitOfMeasure
+     */
+    public String getUnitOfMeasure() {
+        return (String) getAttributeInternal(UNITOFMEASURE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute UnitOfMeasure.
+     * @param value value to set the  UnitOfMeasure
+     */
+    public void setUnitOfMeasure(String value) {
+        setAttributeInternal(UNITOFMEASURE, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute PrtDriverInformationPk.
      * @return the PrtDriverInformationPk
      */
@@ -2420,6 +2485,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public void setAccountId1(String value) {
         setAttributeInternal(ACCOUNTID1, value);
     }
+
 
     /**
      * Gets the attribute value for the calculated attribute CardNumber.
@@ -2489,15 +2555,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute MobileNumber.
      * @return the MobileNumber
      */
-    public BigDecimal getMobileNumber() {
-        return (BigDecimal) getAttributeInternal(MOBILENUMBER);
+    public Number getMobileNumber() {
+        return (Number) getAttributeInternal(MOBILENUMBER);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute MobileNumber.
      * @param value value to set the  MobileNumber
      */
-    public void setMobileNumber(BigDecimal value) {
+    public void setMobileNumber(Number value) {
         setAttributeInternal(MOBILENUMBER, value);
     }
 
@@ -2709,6 +2775,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARDNUMBER1, value);
     }
 
+
     /**
      * Gets the attribute value for the calculated attribute VehicleNumber.
      * @return the VehicleNumber
@@ -2777,15 +2844,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute Year.
      * @return the Year
      */
-    public BigDecimal getYear() {
-        return (BigDecimal) getAttributeInternal(YEAR);
+    public Number getYear() {
+        return (Number) getAttributeInternal(YEAR);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute Year.
      * @param value value to set the  Year
      */
-    public void setYear(BigDecimal value) {
+    public void setYear(Number value) {
         setAttributeInternal(YEAR, value);
     }
 
@@ -2841,15 +2908,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute MaxFuel.
      * @return the MaxFuel
      */
-    public BigDecimal getMaxFuel() {
-        return (BigDecimal) getAttributeInternal(MAXFUEL);
+    public Number getMaxFuel() {
+        return (Number) getAttributeInternal(MAXFUEL);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute MaxFuel.
      * @param value value to set the  MaxFuel
      */
-    public void setMaxFuel(BigDecimal value) {
+    public void setMaxFuel(Number value) {
         setAttributeInternal(MAXFUEL, value);
     }
 
@@ -2857,15 +2924,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute Odometer1.
      * @return the Odometer1
      */
-    public BigDecimal getOdometer1() {
-        return (BigDecimal) getAttributeInternal(ODOMETER1);
+    public Number getOdometer1() {
+        return (Number) getAttributeInternal(ODOMETER1);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute Odometer1.
      * @param value value to set the  Odometer1
      */
-    public void setOdometer1(BigDecimal value) {
+    public void setOdometer1(Number value) {
         setAttributeInternal(ODOMETER1, value);
     }
 
@@ -2933,70 +3000,6 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         setAttributeInternal(COUNTRYCODE1, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute kmTotal.
-     * @return the kmTotal
-     */
-    public Float getkmTotal() {
-        return (Float) getAttributeInternal(KMTOTAL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute kmTotal.
-     * @param value value to set the  kmTotal
-     */
-    public void setkmTotal(Float value) {
-        setAttributeInternal(KMTOTAL, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute kmPerLt.
-     * @return the kmPerLt
-     */
-    public Float getkmPerLt() {
-        return (Float) getAttributeInternal(KMPERLT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute kmPerLt.
-     * @param value value to set the  kmPerLt
-     */
-    public void setkmPerLt(Float value) {
-        setAttributeInternal(KMPERLT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute ltPerHundred.
-     * @return the ltPerHundred
-     */
-    public Float getltPerHundred() {
-        return (Float) getAttributeInternal(LTPERHUNDRED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute ltPerHundred.
-     * @param value value to set the  ltPerHundred
-     */
-    public void setltPerHundred(Float value) {
-        setAttributeInternal(LTPERHUNDRED, value);
-    }
-
-
-    /**
-     * Gets the attribute value for the calculated attribute grandTotal.
-     * @return the grandTotal
-     */
-    public Integer getgrandTotal() {
-        return (Integer) getAttributeInternal(GRANDTOTAL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute grandTotal.
-     * @param value value to set the  grandTotal
-     */
-    public void setgrandTotal(Integer value) {
-        setAttributeInternal(GRANDTOTAL, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

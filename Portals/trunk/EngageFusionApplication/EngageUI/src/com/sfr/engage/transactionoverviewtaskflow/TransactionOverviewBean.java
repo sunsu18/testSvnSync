@@ -395,7 +395,7 @@ public class TransactionOverviewBean implements Serializable{
         }
     }
     
-    public void searchTransactionAction_event(ActionEvent actionEvent) {
+    public String searchTransactionAction_event(ActionEvent actionEvent) {
         sum=0.0f;
         String terminalPassingValues  = null;
         String transTypePassingValues = null;
@@ -409,6 +409,7 @@ public class TransactionOverviewBean implements Serializable{
                terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TERMINAL_TYPE");
+                return null;
             }
             
             if(getBindings().getTransationType().getValue() != null){
@@ -416,6 +417,7 @@ public class TransactionOverviewBean implements Serializable{
                 transTypePassingValues =  populateStringValues(getBindings().getTransationType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TRANSACTION_TYPE");
+                return null;
             }
             
             if(getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
@@ -428,6 +430,7 @@ public class TransactionOverviewBean implements Serializable{
                 if (effectiveToDate1.before(effectiveFromDate)) {
                 System.out.println("value of new from date ================>"+newFromDate);
                     showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
+                    return null;
                 }
             }
         
@@ -439,6 +442,7 @@ public class TransactionOverviewBean implements Serializable{
                 }
                 else{
                     showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                    return null;
                 }
             }
             
@@ -446,28 +450,32 @@ public class TransactionOverviewBean implements Serializable{
             
             if(cardIdPGL ){
                 if(getBindings().getCard().getValue() != null){
-                System.out.println("value of card ================>"+getBindings().getCard().getValue().toString().trim());
+                System.out.println("value of card  for card Id================>"+getBindings().getCard().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_CARD");
+                    return null;
                 }
             }
             
             if(vNumberPGL){
                 if(getBindings().getVehicleNumber().getValue() != null){
-                System.out.println("value of card ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
+                System.out.println("value of card  for vehicle ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getVehicleNumber().getValue().toString());
                 }else{
+                    System.out.println("Is it coming inside vehicle else number block");
                     showErrorMessage("ENGAGE_NO_VEHICLE");
+                    return null;
                 }
             }
             
             if(dNamePGL){
                 if(getBindings().getDriverName().getValue() != null){
-                System.out.println("value of card ================>"+getBindings().getDriverName().getValue().toString().trim());
+                System.out.println("value of card driver================>"+getBindings().getDriverName().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getDriverName().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_DRIVER");
+                    return null;
                 }
             }
             
@@ -481,12 +489,14 @@ public class TransactionOverviewBean implements Serializable{
 //            }
         System.out.println("value of terminal pass ================>"+terminalPassingValues);
         System.out.println("value of trans type ================>"+transTypePassingValues);
-        System.out.println("value of card ================>"+cardNumberPasingValues);
+        System.out.println("value of card111111 ================>"+cardNumberPasingValues);
         
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
+        vo.setNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim());
+        vo.setNamedWhereClauseParam("countryCd", "no_NO");
         
-            if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
+            if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
             System.out.println("inside  card where removal class");
                 vo.removeNamedWhereClauseParam("card");
                 vo.removeNamedWhereClauseParam("terminal");
@@ -494,12 +504,12 @@ public class TransactionOverviewBean implements Serializable{
                 vo.removeNamedWhereClauseParam("fromDate");
                 vo.removeNamedWhereClauseParam("toDate");
                 vo.removeNamedWhereClauseParam("partnerNumber");
-                vo.removeNamedWhereClauseParam("accountId");
+                //vo.removeNamedWhereClauseParam("accountId");
                 vo.setWhereClause("");
                 vo.executeQuery();
                 System.out.println("count of vo=====>"+vo.getEstimatedRowCount());
             }else{
-                if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
+                if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
                     System.out.println("inside  card group where removal class");
                     vo.removeNamedWhereClauseParam("cardGrpMainType");
                     vo.removeNamedWhereClauseParam("cardgrpSubType");
@@ -509,7 +519,7 @@ public class TransactionOverviewBean implements Serializable{
                     vo.removeNamedWhereClauseParam("fromDate");
                     vo.removeNamedWhereClauseParam("toDate");
                     vo.removeNamedWhereClauseParam("partnerNumber");
-                    vo.removeNamedWhereClauseParam("accountId");
+                    //vo.removeNamedWhereClauseParam("accountId");
                     vo.setWhereClause("");
                     vo.executeQuery();
                     System.out.println("count of vo1111111=====>"+vo.getEstimatedRowCount());
@@ -518,11 +528,11 @@ public class TransactionOverviewBean implements Serializable{
         
         if (cardIdPGL || vNumberPGL || dNamePGL) {
             System.out.println("Inside block for card");
-            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
         }else{
             System.out.println("Coming inside card group block");
-            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND ACCOUNT_ID = :accountId AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
+            vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("cardGrpMainType", cardGroupMaintypePassValue, null);
             vo.defineNamedWhereClauseParam("cardgrpSubType", cardGroupSubtypePassValues, null);
             vo.defineNamedWhereClauseParam("cardGrpSeq", cardGroupSeqPassValues, null);
@@ -533,7 +543,7 @@ public class TransactionOverviewBean implements Serializable{
             vo.defineNamedWhereClauseParam("toDate", newToDate, null);
             //vo.defineNamedWhereClauseParam("countryCd", "no_NO", null);
             vo.defineNamedWhereClauseParam("partnerNumber", partnerId, null);
-            vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
+            //vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
             vo.executeQuery();
             isTableVisible = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
@@ -561,7 +571,9 @@ public class TransactionOverviewBean implements Serializable{
             }
         }else{
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
+            return null;
         }
+        return null;
     }
     
     public void clearSearchListener(ActionEvent actionEvent) {
@@ -593,7 +605,8 @@ public class TransactionOverviewBean implements Serializable{
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      (String)resourceBundle.getObject(errorVar),
                                      "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);                                         
+                FacesContext.getCurrentInstance().addMessage(null, msg);  
+                return null;
             }
         }
         return null;

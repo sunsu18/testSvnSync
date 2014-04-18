@@ -245,7 +245,7 @@
                       inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       </af:panelGroupLayout>
      <af:panelGroupLayout id="pgl0" 
-	 visible="true"
+	 visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
                            layout="vertical"
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->

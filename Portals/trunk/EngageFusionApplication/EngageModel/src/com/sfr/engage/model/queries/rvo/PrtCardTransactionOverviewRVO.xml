@@ -23,6 +23,14 @@
         ResId="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="accountId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCd"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[SELECT * 
 FROM PRT_CARD_TRANSACTION_HEADER inner join PRT_CARD_TRANSACTION_DETAIL ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
@@ -30,7 +38,9 @@ and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pa
 left join PRT_DRIVER_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_DRIVER_INFORMATION.ACCOUNT_ID and PRT_CARD_TRANSACTION_HEADER.CARD_1_ID = PRT_DRIVER_INFORMATION.CARD_NUMBER 
 and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_DRIVER_INFORMATION.COUNTRY_CODE 
 left join PRT_TRUCK_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_TRUCK_INFORMATION.ACCOUNT_NUMBER and PRT_CARD_TRANSACTION_HEADER.CARD_1_ID = PRT_TRUCK_INFORMATION.CARD_NUMBER 
-and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTRY_CODE]]>
+and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTRY_CODE
+WHERE PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = :accountId
+AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
   </SQLQuery>
   <ViewAttribute
     Name="DeltaTimestamp"
@@ -366,7 +376,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     PrecisionRule="true"
     Precision="13"
     Scale="0"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="EXCHANGE_RATE"
     Expression="EXCHANGE_RATE"
@@ -548,7 +558,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.sql.Timestamp"
     ColumnType="TIMESTAMP"
     AliasName="DELTA_TIMESTAMP"
-    SQLType="TIMESTAMP">
+    SQLType="TIMESTAMP"
+    Expression="DELTA_TIMESTAMP">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
@@ -563,7 +574,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="UREF_TRANSACTION_ID"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="UREF_TRANSACTION_ID">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -578,11 +590,13 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PALS_COUNTRY_CODE"
+    Expression="PALS_COUNTRY_CODE"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
   </ViewAttribute>
+
   <ViewAttribute
     Name="DetailNo"
     IsUpdateable="false"
@@ -664,7 +678,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="QUANTITY"
     Expression="QUANTITY"
@@ -674,26 +688,11 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="UnitOfMeasure"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="UNIT_OF_MEASURE"
-    Expression="UNIT_OF_MEASURE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="VatRate"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="VAT_RATE"
     Expression="VAT_RATE"
@@ -912,7 +911,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="AS_IABF538A_PRPSLSATS"
     Expression="AS_IABF538A_PRPSLSATS"
@@ -1050,6 +1049,21 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="UnitOfMeasure"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_OF_MEASURE"
+    Expression="UNIT_OF_MEASURE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="PrtDriverInformationPk"
     IsUpdateable="false"
     IsPersistent="false"
@@ -1073,8 +1087,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="CHAR"
     AliasName="ACCOUNT_ID"
-    Expression="ACCOUNT_ID"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="ACCOUNT_ID">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -1144,7 +1158,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="MOBILE_NUMBER"
     Expression="MOBILE_NUMBER"
@@ -1337,8 +1351,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARD_NUMBER"
-    Expression="CARD_NUMBER"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="CARD_NUMBER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -1408,7 +1422,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="YEAR"
     Expression="YEAR"
@@ -1465,7 +1479,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="MAX_FUEL"
     Expression="MAX_FUEL"
@@ -1479,11 +1493,11 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.math.BigDecimal"
+    Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="ODOMETER"
-    Expression="ODOMETER"
-    SQLType="NUMERIC">
+    SQLType="NUMERIC"
+    Expression="ODOMETER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -1503,6 +1517,7 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
+
   <ViewAttribute
     Name="ModifiedBy1"
     IsUpdateable="false"
@@ -1512,8 +1527,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="MODIFIED_BY"
-    Expression="MODIFIED_BY"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="MODIFIED_BY">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -1526,8 +1541,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.sql.Timestamp"
     ColumnType="TIMESTAMP"
     AliasName="MODIFIED_DATE"
-    Expression="MODIFIED_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="TIMESTAMP"
+    Expression="MODIFIED_DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
@@ -1541,8 +1556,8 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="COUNTRY_CODE"
-    Expression="COUNTRY_CODE"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="COUNTRY_CODE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
@@ -1553,30 +1568,30 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
-    SQLType="FLOAT"/>
+    SQLType="NUMERIC"/>
   <ViewAttribute
     Name="kmPerLt"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
-    SQLType="FLOAT"/>
+    SQLType="NUMERIC"/>
   <ViewAttribute
     Name="ltPerHundred"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
-    SQLType="FLOAT"/>
+    SQLType="NUMERIC"/>
   <ViewAttribute
     Name="grandTotal"
     IsUpdateable="false"
@@ -1584,9 +1599,9 @@ and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTR
     IsPersistent="false"
     PrecisionRule="true"
     Type="java.lang.Integer"
-    ColumnType="INTEGER"
+    ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
-    SQLType="INTEGER"/>
+    SQLType="NUMERIC"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
