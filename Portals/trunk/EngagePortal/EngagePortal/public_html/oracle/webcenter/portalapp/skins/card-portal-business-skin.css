@@ -59,13 +59,6 @@
 }
 
 
-.af_table_data-body
-{
-    height:400px !important;
-    width:200px !important;
-    
-    
-}
 /*---------------------------------------------------------*/
 .pricelisttext
 {
@@ -748,7 +741,15 @@ font-style:normal;
     margin-bottom:3px; 
 }
 
-
+.vertical_seprator
+{
+     width:1px !important;
+    height:200px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px;
+}
 /*Button Background*/
 
 @agent gecko{

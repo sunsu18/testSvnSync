@@ -34,13 +34,13 @@
 }
 
 
-.af_table_data-body
+/*.af_table_data-body
 {
     height:400px !important;
     width:200px !important;
     
     
-}
+}*/
 .af_tree_data-row.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text
 .af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFSelected .af_tree_node-stamp-text,
 .af_tree_data-row.p_AFSelected.p_AFInactive .af_tree_node-stamp-text, .af_tree_data-row.p_AFSelected.p_AFInactive .af_selectBooleanCheckbox_item-text,
@@ -899,16 +899,24 @@ font-style:normal;
 }
 
 
-.vertical_seperator_transaction{
+/*.vertical_seperator{
     width:1px !important;
     height:200px !important;
     background-color:#C3C3C3 !important;
     margin-left: -15px!important;
     margin-top: 3px;
     margin-bottom:3px;
+}*/
+
+.vertical_seprator
+{
+     width:1px !important;
+    height:200px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px;
 }
-
-
 
 /*Button Background*/
 /*firefox*/
