@@ -149,6 +149,15 @@ public class AccountSummary {
         
         if(rowType.contains("AccountInfo")) {
             
+            accountOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+            companyOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+            cardOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+            cardGroupOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            
             for (int k = 0;
                  k < AccountList.size();
                  k++) {
@@ -173,8 +182,8 @@ public class AccountSummary {
             accountId=id;
             System.out.println("Account node clicked");
             System.out.println("Accountid"+accountId);
-            companyOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+//            companyOverview.setVisible(false);
+//            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
      
@@ -205,10 +214,7 @@ public class AccountSummary {
         
             
         }  
-            cardOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
-            cardGroupOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+           
 
         }else if(rowType.contains("CardGroupInfo")) {
             System.out.println("cardgroup node clicked");
