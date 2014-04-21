@@ -47,6 +47,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
@@ -57,6 +58,8 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
+
+import org.apache.myfaces.trinidad.event.SelectionEvent;
 
 public class InvoiceOverviewBean implements Serializable {
     @SuppressWarnings("compatibility")
@@ -612,23 +615,25 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void getUCMService(FacesContext facesContext,OutputStream outputStream) throws IOException {  
-        //String invoiceNumberValuePdf = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValuePdf"); 
-        System.out.println("invoice number"+invoiceNumberPdfValue);
         
+        ViewObject invoiceVO =
+            ADFUtils.getViewObject("PrtInvoiceVO1Iterator");     
+        PrtInvoiceVORowImpl row=(PrtInvoiceVORowImpl)invoiceVO.getCurrentRow();
+        String invoiceNumberValuePdf = row.getInvoiceNumber(); 
+        System.out.println("invoice number"+invoiceNumberValuePdf);        
         System.out.println("PartnerId "+partnerId);
         byte[] responseByteArr = null;
-        Boolean isError=false;
-        String ucmContentId;
+        Boolean isError=false;        
         UCMCustomWeb uCMCustomWeb = null;
         
        if(session.getAttribute("ucmInvoiceContentList")!=null){    
        System.out.println("session is available");
                     try {
                         ucmInvoiceContentList = (HashMap<String,String>)session.getAttribute("ucmInvoiceContentList");
-                        String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberPdfValue);
+                        String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
                         if (UCMInvoiceContentId != null && UCMInvoiceContentId.trim().length() > 0) {
                             System.out.println("ContentId is available from session");
-                            uCMCustomWeb = new DAOFactory().getUCMService();
+                            uCMCustomWeb = new DAOFactory().getUCMService();                            
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
                                                                 UCMInvoiceContentId);
                             if (responseByteArr == null || responseByteArr.length == 0) {
@@ -636,13 +641,15 @@ public class InvoiceOverviewBean implements Serializable {
                             } else
                             {
                                 outputStream.write(responseByteArr);
+                                
                             }
                         }  
                         else {
-                            byte[] result=searchGetFile(invoiceNumberPdfValue);
+                            byte[] result=searchGetFile(invoiceNumberValuePdf);
                             if(result!=null && result.length!=0) {
-                               outputStream.write(result);
+                               outputStream.write(result);                            
                             }
+                            isError = true;
                             
                         }
                         
@@ -652,22 +659,29 @@ public class InvoiceOverviewBean implements Serializable {
                         System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
                         e.printStackTrace();
                     }
-                    //retrieve error pdf in case of error
-                    if (isError) {                       
-                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"No PDF Found for the selected Invoice","");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-                    
 
         }
         else{
            System.out.println("session is null");
-            byte[] result=searchGetFile(invoiceNumberPdfValue);
+            isError = true;
+            byte[] result=searchGetFile(invoiceNumberValuePdf);
            if(result!=null && result.length!=0) {
                outputStream.write(result);
+               isError = true;
+           }else {
+               isError = true;
            }
               
         }
+        //retrieve error pdf in case of error
+        if (isError) {             
+            System.out.println("Error PDF");
+                responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),                                                                
+                                                                               DAOFactory.getPropertyValue("ERROR_PDF_CID"));
+                                              outputStream.write(responseByteArr);
+             System.out.println("Error while downloading PDF");
+
+            }
     }
     
     public byte[] searchGetFile(String invoiceNumber) {
@@ -715,8 +729,6 @@ public class InvoiceOverviewBean implements Serializable {
         searchInputVO.getSearchResultMetadata().add("dDocTitle");
         searchInputVO.getSearchResultMetadata().add("dDocName");
         
-        
-        
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     if (uCMCustomWeb != null) {
@@ -728,24 +740,8 @@ public class InvoiceOverviewBean implements Serializable {
                         if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         System.out.println("get file from ucm");
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
-                                                                ucmContentId);
-                            if (responseByteArr == null || responseByteArr.length == 0) {
-                                isError = true;
-                            } else {
-                                System.out.println("Outputstream");
-                                return responseByteArr;
-                            }
-                               
-                        } else {
-                            isError = true;
-                        }
-                        if (isError) {
-        //                                responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
-        //                                                                    DAOFactory.getPropertyValue("ERROR_PDF_CID"));
-        //                                outputStream.write(responseByteArr);
-                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"No PDF Found for the selected Invoice","");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
+                                                                ucmContentId); 
+                        }                       
                     }
                 } catch (Exception e) {                        
                     System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
@@ -762,13 +758,7 @@ public class InvoiceOverviewBean implements Serializable {
     public String getInvoiceNumberPdfValue() {
         return invoiceNumberPdfValue;
     }
-
-    public void invoicePdfListener(ActionEvent actionEvent) {
-        // Add event code here...
-      invoiceNumberPdfValue= (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValuePdf"); 
-      System.out.println("invoice pdf listener"+ invoiceNumberPdfValue);
-        
-    }
+   
 
     public class Bindings {
         private RichSelectOneChoice account;
@@ -781,7 +771,8 @@ public class InvoiceOverviewBean implements Serializable {
         private RichPopup invoiceDetails;
         private RichPanelGroupLayout searchResults;
         private RichPanelGroupLayout cardGroupPGL;
-        private RichPanelGroupLayout cardPGL;        
+        private RichPanelGroupLayout cardPGL;    
+        private RichTable invoiceResults;
         
 
         public void setAccount(RichSelectOneChoice account) {
@@ -871,6 +862,13 @@ public class InvoiceOverviewBean implements Serializable {
         public RichSelectOneRadio getCardGpCardList() {
             return cardGpCardList;
         }
-       
+
+        public void setInvoiceResults(RichTable invoiceResults) {
+            this.invoiceResults = invoiceResults;
+        }
+
+        public RichTable getInvoiceResults() {
+            return invoiceResults;
+        }
     }
 }
