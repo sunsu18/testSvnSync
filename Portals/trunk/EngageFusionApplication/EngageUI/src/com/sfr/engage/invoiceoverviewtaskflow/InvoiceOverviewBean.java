@@ -20,6 +20,7 @@ import com.sfr.util.ConfigurationUtility;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 
@@ -84,6 +85,8 @@ public class InvoiceOverviewBean implements Serializable {
     private Conversion conversionUtility;
     private Locale locale;
     private String partnerId;
+    private String invoiceNumberPdfValue;
+    Map<String,String> ucmInvoiceContentList = new HashMap<String,String>();
     
     public InvoiceOverviewBean() {
         super();
@@ -608,20 +611,21 @@ public class InvoiceOverviewBean implements Serializable {
         return ConfigurationUtility.getPropertyValue(PName);
     }
 
-    public void getUCMService(FacesContext facesContext,OutputStream outputStream) {
+    public void getUCMService(FacesContext facesContext,OutputStream outputStream) throws IOException {  
+        //String invoiceNumberValuePdf = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValuePdf"); 
+        System.out.println("invoice number"+invoiceNumberPdfValue);
         
-        String invoiceNumberValuePdf = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValuePdf"); 
-        Map<String,String> ucmInvoiceContentList = new HashMap<String,String>();
         System.out.println("PartnerId "+partnerId);
         byte[] responseByteArr = null;
         Boolean isError=false;
         String ucmContentId;
         UCMCustomWeb uCMCustomWeb = null;
         
-       if(session.getAttribute("ucmInvoiceContentList")!=null){            
+       if(session.getAttribute("ucmInvoiceContentList")!=null){    
+       System.out.println("session is available");
                     try {
                         ucmInvoiceContentList = (HashMap<String,String>)session.getAttribute("ucmInvoiceContentList");
-                        String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
+                        String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberPdfValue);
                         if (UCMInvoiceContentId != null && UCMInvoiceContentId.trim().length() > 0) {
                             System.out.println("ContentId is available from session");
                             uCMCustomWeb = new DAOFactory().getUCMService();
@@ -633,7 +637,15 @@ public class InvoiceOverviewBean implements Serializable {
                             {
                                 outputStream.write(responseByteArr);
                             }
-                        }                         
+                        }  
+                        else {
+                            byte[] result=searchGetFile(invoiceNumberPdfValue);
+                            if(result!=null && result.length!=0) {
+                               outputStream.write(result);
+                            }
+                            
+                        }
+                        
                         
                     } catch (Exception e) {
                         isError = true;
@@ -649,84 +661,113 @@ public class InvoiceOverviewBean implements Serializable {
 
         }
         else{
-
-            SearchInputVO searchInputVO = new SearchInputVO();
-            System.out.println("UserName ="+getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
-            System.out.println("Password ="+getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
-            searchInputVO.setUsername(getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
-            searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
-            searchInputVO.setSourceSystem("WebPortal");
-            
-            Property invoiceNo = new Property();
-            invoiceNo.setName("xInvoiceNo");
-            invoiceNo.setValue("141291");
-            
-            Property partnerId = new Property();
-            partnerId.setName("xPartnerId");
-            partnerId.setValue("BA201091");
-            
-            Property docType = new Property();
-            docType.setName("xDocumentType");
-            docType.setValue("CSV");
-            
-            Property contentType = new Property(); 
-            contentType.setName("xContentType");
-            contentType.setValue("O2C");
-            
-            Property subType = new Property(); 
-            subType.setName("xSubType");
-            subType.setValue("Self_Billing_Print_Reports");
-            
-            System.out.println("ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
-            
-            searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
-            searchInputVO.getSearchInputQueryProperty().add(partnerId);
-            searchInputVO.getSearchInputQueryProperty().add(docType);
-            searchInputVO.getSearchInputQueryProperty().add(contentType);
-            searchInputVO.getSearchInputQueryProperty().add(subType);
-            
-            searchInputVO.getSearchResultMetadata().add("dDocTitle");
-            searchInputVO.getSearchResultMetadata().add("dDocName");
-            
-            
-            
-                    try {
-                        uCMCustomWeb = new DAOFactory().getUCMService();
-                        if (uCMCustomWeb != null) {
-                            List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO); 
-                            ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
-                            System.out.println("Content id="+ucmContentId);
-                            ucmInvoiceContentList.put(invoiceNumberValuePdf,ucmContentId);
-                            session.setAttribute("ucmInvoiceContentList", ucmInvoiceContentList);
-                            if (ucmContentId != null && ucmContentId.trim().length() > 0) {
-                            System.out.println("get file from ucm");
-                                responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
-                                                                    ucmContentId);
-                                if (responseByteArr == null || responseByteArr.length == 0) {
-                                    isError = true;
-                                } else {
-                                    System.out.println("Outputstream");
-                                    outputStream.write(responseByteArr);
-                                }
-                                   
-                            } else {
-                                isError = true;
-                            }
-                            if (isError) {
-//                                responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
-//                                                                    DAOFactory.getPropertyValue("ERROR_PDF_CID"));
-//                                outputStream.write(responseByteArr);
-                                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"No PDF Found for the selected Invoice","");
-                                FacesContext.getCurrentInstance().addMessage(null, msg);
-                            }
-                        }
-                    } catch (Exception e) {                        
-                        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
-                        e.printStackTrace();
-                    }
-                    //retrieve error pdf in case of error
+           System.out.println("session is null");
+            byte[] result=searchGetFile(invoiceNumberPdfValue);
+           if(result!=null && result.length!=0) {
+               outputStream.write(result);
+           }
               
         }
+    }
+    
+    public byte[] searchGetFile(String invoiceNumber) {
+        
+        byte[] responseByteArr = null;
+        Boolean isError=false;
+        String ucmContentId;
+        UCMCustomWeb uCMCustomWeb = null;
+        
+        SearchInputVO searchInputVO = new SearchInputVO();
+        System.out.println("UserName ="+getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
+        System.out.println("Password ="+getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
+        searchInputVO.setUsername(getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
+        searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
+        searchInputVO.setSourceSystem("WebPortal");
+        
+        Property invoiceNo = new Property();
+        invoiceNo.setName("xInvoiceNo");
+        invoiceNo.setValue("141291");
+        
+        Property partnerId = new Property();
+        partnerId.setName("xPartnerId");
+        partnerId.setValue("BA201091");
+        
+        Property docType = new Property();
+        docType.setName("xDocumentType");
+        docType.setValue("CSV");
+        
+        Property contentType = new Property(); 
+        contentType.setName("xContentType");
+        contentType.setValue("O2C");
+        
+        Property subType = new Property(); 
+        subType.setName("xSubType");
+        subType.setValue("Self_Billing_Print_Reports");
+        
+        System.out.println("ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
+        
+        searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
+        searchInputVO.getSearchInputQueryProperty().add(partnerId);
+        searchInputVO.getSearchInputQueryProperty().add(docType);
+        searchInputVO.getSearchInputQueryProperty().add(contentType);
+        searchInputVO.getSearchInputQueryProperty().add(subType);
+        
+        searchInputVO.getSearchResultMetadata().add("dDocTitle");
+        searchInputVO.getSearchResultMetadata().add("dDocName");
+        
+        
+        
+                try {
+                    uCMCustomWeb = new DAOFactory().getUCMService();
+                    if (uCMCustomWeb != null) {
+                        List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO); 
+                        ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
+                        System.out.println("Content id="+ucmContentId);
+                        ucmInvoiceContentList.put(invoiceNumber,ucmContentId);
+                        session.setAttribute("ucmInvoiceContentList", ucmInvoiceContentList);
+                        if (ucmContentId != null && ucmContentId.trim().length() > 0) {
+                        System.out.println("get file from ucm");
+                            responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
+                                                                ucmContentId);
+                            if (responseByteArr == null || responseByteArr.length == 0) {
+                                isError = true;
+                            } else {
+                                System.out.println("Outputstream");
+                                return responseByteArr;
+                            }
+                               
+                        } else {
+                            isError = true;
+                        }
+                        if (isError) {
+        //                                responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
+        //                                                                    DAOFactory.getPropertyValue("ERROR_PDF_CID"));
+        //                                outputStream.write(responseByteArr);
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"No PDF Found for the selected Invoice","");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                } catch (Exception e) {                        
+                    System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
+                    e.printStackTrace();
+                }
+                return responseByteArr;
+        
+    }
+
+    public void setInvoiceNumberPdfValue(String invoiceNumberPdfValue) {
+        this.invoiceNumberPdfValue = invoiceNumberPdfValue;
+    }
+
+    public String getInvoiceNumberPdfValue() {
+        return invoiceNumberPdfValue;
+    }
+
+    public void invoicePdfListener(ActionEvent actionEvent) {
+        // Add event code here...
+      invoiceNumberPdfValue= (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValuePdf"); 
+      System.out.println("invoice pdf listener"+ invoiceNumberPdfValue);
+        
     }
 
     public class Bindings {
