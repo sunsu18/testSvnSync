@@ -169,11 +169,12 @@
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">
      <af:spacer width="10" height="10" id="s7"/>
-     <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}" var="row"
+     <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}" var="row" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
                rows="#{bindings.PrtInvoiceVO1.rangeSize}" width="962px"
                emptyText="#{bindings.PrtInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                fetchSize="#{bindings.PrtInvoiceVO1.rangeSize}"
-               rowBandingInterval="0" id="t1">
+               rowBandingInterval="0" id="t1" rowSelection="single"
+               selectionListener="#{bindings.PrtInvoiceVO1.collectionModel.makeCurrent}">
       <af:column headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" id="c5">
        <af:commandLink text="#{row.InvoiceNumber}" id="cl1"
                        action="#{pageFlowScope.InvoiceOverviewBean.invoiceNumberAction}">
@@ -226,10 +227,7 @@
                             icon="/images/pdf1.jpg">
         <af:fileDownloadActionListener contentType="application/pdf"
                               method="#{pageFlowScope.InvoiceOverviewBean.getUCMService}"
-                                                  filename="#{row.InvoiceNumber}.pdf"/>
-         <af:setPropertyListener from="#{row.InvoiceNumber}"
-                                to="#{pageFlowScope.invoiceNumberValuePdf}"
-                                type="action"/>   
+                                                  filename="#{row.InvoiceNumber}.pdf"/>        
         </af:commandImageLink>
         <af:spacer width="10" height="10" id="ss26"/>
        <af:commandImageLink id="cil2" styleClass="mail_icon"
@@ -298,7 +296,11 @@
            <af:spacer width="15" height="10" id="s20"/>
            <af:panelGroupLayout id="pgl25" layout="horizontal">
             <af:commandImageLink id="cil3" styleClass="pdf_icon"
-                                icon="/images/pdf1.jpg"/>
+                                icon="/images/pdf1.jpg">
+              <af:fileDownloadActionListener contentType="application/pdf"
+                              method="#{pageFlowScope.InvoiceOverviewBean.getUCMService}"
+                                                  filename="#{bindings.InvoiceNumber1.inputValue}.pdf"/>     
+         </af:commandImageLink>
             <af:spacer width="10" height="10" id="s26"/>
            <af:commandImageLink id="cil4" styleClass="mail_icon"
                                 icon="/images/mail_send.png"/>
