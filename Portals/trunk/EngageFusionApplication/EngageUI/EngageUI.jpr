@@ -288,7 +288,24 @@
             <value n="id" v="Resource Bundle Variable Resolver"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Poi-3.10-FINAL-20140208.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
+      <hash n="internalDefinitions">
+         <list n="libraryDefinitions">
+            <hash>
+               <list n="classPath">
+                  <url path="../../libraries/jar/poi-3.10-FINAL-20140208.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Poi-3.10-FINAL-20140208.jar"/>
+               <value n="id" v="Poi-3.10-FINAL-20140208.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+         </list>
+      </hash>
       <list n="libraryReferences">
          <hash>
             <value n="id" v="JSP Runtime"/>
@@ -412,6 +429,10 @@
          </hash>
          <hash>
             <value n="id" v="Resource Bundle Variable Resolver"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Poi-3.10-FINAL-20140208.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

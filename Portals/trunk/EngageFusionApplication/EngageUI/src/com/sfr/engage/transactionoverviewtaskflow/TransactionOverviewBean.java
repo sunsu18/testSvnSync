@@ -9,6 +9,8 @@ import com.sfr.util.ADFUtils;
 
 import com.sfr.util.validations.Conversion;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 import java.text.DateFormat;
@@ -42,6 +44,13 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 public class TransactionOverviewBean implements Serializable{
@@ -777,6 +786,44 @@ public class TransactionOverviewBean implements Serializable{
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public void exportToExcelListener(FacesContext facesContext,
+                                      OutputStream outputStream) throws IOException {
+        // Add event code here...
+        HSSFWorkbook XLS = new HSSFWorkbook();
+        HSSFRow XLS_SH_R=null;
+        HSSFCell XLS_SH_R_C=null;
+        int intRow=0;
+        HSSFCellStyle cs = XLS.createCellStyle();
+        HSSFFont f =XLS.createFont();
+        
+        //create sheet
+        HSSFSheet XLS_SH=XLS.createSheet();
+        XLS.setSheetName(0,"InvoiceDetails");
+        
+        f.setFontHeightInPoints((short) 10);
+        //f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        f.setItalic(true);
+        //f.setColor();
+        cs.setFont(f);
+        
+        String strHeaderValues="REG#,MC#,NAME,DOB/AGE,GENDER,MODALITY,OWNER,BREEDER,SIRE,DAM";//removed ano
+        String[] strHead=strHeaderValues.split(",");
+        XLS_SH.setColumnWidth(10, 10);
+        XLS_SH_R=XLS_SH.createRow(0);
+        XLS_SH_R_C=XLS_SH_R.createCell(0);
+        XLS_SH_R_C.setCellStyle(cs);        
+        XLS_SH_R_C.setCellValue("Purna");
+        
+        intRow=intRow+1;    
+        XLS_SH_R= XLS_SH.createRow(intRow);
+        XLS_SH_R_C=XLS_SH_R.createCell(0);
+        XLS_SH_R_C.setCellStyle(cs);        
+        XLS_SH_R_C.setCellValue("Lnt");  
+        XLS.write(outputStream);  
+        outputStream.close();        
+        
     }
 
     public class Bindings {

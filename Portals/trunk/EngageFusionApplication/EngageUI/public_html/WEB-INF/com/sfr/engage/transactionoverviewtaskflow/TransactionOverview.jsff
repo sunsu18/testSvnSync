@@ -447,9 +447,14 @@
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.ltPerHundred.format}"/>
             </af:outputText>
-          </af:column>
-          
+          </af:column>          
         </af:table>
+        <af:spacer width="10" height="10" id="s9"/>
+        <af:commandButton text="ExportToExcel" id="cb1">
+         <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
+                                         filename="Transaction_Report.xls"
+                                        method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
+        </af:commandButton>
       </af:panelGroupLayout>
        <af:popup id="pp1" contentDelivery="immediate"
               autoCancel="disabled">
