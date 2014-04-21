@@ -155,7 +155,7 @@
                 <f:validator binding="#{bindings.PartnerId.validator}"/>
               </af:inputText>
               
-                 <af:spacer width="25" height="10" id="s324"/>
+                 <af:spacer width="25" height="10" id="s327"/>
               <af:spacer width="25" height="10" id="s97"/>
               <af:spacer width="25" height="10" id="s98"/>
               <af:spacer width="25" height="10" id="s99"/>
