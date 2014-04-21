@@ -115,15 +115,15 @@
                    <af:spacer width="5" height="15" id="s152s"/>
                     <af:outputText value=":" id="ot27s"/>
                       <af:spacer width="10" height="15" id="s14"/>
-                 <!--   </af:panelGroupLayout> !--><!--
-                 <!--<af:spacer width="45" height="5" id="s1s25s"/>--><!--
-              <!--    <af:panelGroupLayout id="pgl34"> !-->
+                 <!--   </af:panelGroupLayout> 
+                 <af:spacer width="45" height="5" id="s1s25s"/>
+                 <af:panelGroupLayout id="pgl34"> -->
                   <af:inputDate id="id2"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.toDate}">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
-             <!-- </af:panelGroupLayout> !--><!--
-           <!--   </af:panelGroupLayout> !--><!--
+             <!-- </af:panelGroupLayout> 
+           </af:panelGroupLayout> 
               </af:panelGroupLayout>-->
             </h:panelGrid>
             
@@ -424,22 +424,20 @@
           </af:column>
           <!--odometer to be localised!-->
           <af:column headerText="Odometer"
-                     id="c6" width="35" >
-            <af:outputText value="#{row.OdometerPortal}" id="ot30">
+                     id="c6" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+            <af:outputText value="#{row.OdometerPortal}" id="ot30" visible="#{row.OdometerPortal ne null ? true : false}">
               <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>
-                                
+                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>                                
             </af:outputText>
-            
-            <af:outputText value="#{row.Odometer}" id="ot39" visible="#{row.OdometerPortal eq null ? true : false}"/>
-          </af:column>
-           <af:column headerText="Odometer"
+          <af:outputText value="#{row.Odometer}" id="ot39" visible="#{row.OdometerPortal eq null ? true : false}"/>
+        </af:column>
+          <!-- <af:column headerText="Odometer"
                      id="c16" width="35">
-            <af:outputText value="#{row.OdometerPortal}" id="ot30"  visible="#{row.OdometerPortal ne null ? true : false}">
+            <af:outputText value="#{row.OdometerPortal}" id="ot40"  visible="#{row.OdometerPortal ne null ? true : false}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>
             </af:outputText>
-          </af:column>
+          </af:column>-->
           <af:column headerText="#{sfr.ENGAGE_KM_TOTAL}"
                      id="c12" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.kmTotal}" id="ot34">

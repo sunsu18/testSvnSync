@@ -3,6 +3,7 @@ package com.sfr.engage.transactionoverviewtaskflow;
 
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
 import com.sfr.util.ADFUtils;
@@ -14,6 +15,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -787,10 +789,55 @@ public class TransactionOverviewBean implements Serializable{
     public Locale getLocale() {
         return locale;
     }
+    
+    
+    public String formatConversion(Date date) {
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(date);
+    }
+    
+    public String checkALL(String selectedValues,String type) {
+        String val="";
+        String[] listValues=selectedValues.split(",");   
+        if(listValues.length>1) {
+        if("Terminal".equalsIgnoreCase(type)) {
+            if(termianlList.size()  == listValues.length) {
+                val="ALL";
+            }else {
+                val=selectedValues;
+            }
+        }else if("Type".equalsIgnoreCase(type)) {
+            if(typeList.size()==listValues.length) {
+                val="ALL";
+            }else {
+                val=selectedValues;
+            }
+        }
+            
+        }else {
+            val=selectedValues;
+        }
+        
+        return val;
+    }
+              
 
     public void exportToExcelListener(FacesContext facesContext,
                                       OutputStream outputStream) throws IOException {
         // Add event code here...
+        String partnerCompanyName="";
+        ViewObject partnerVO = ADFUtils.getViewObject("PrtPartnerVO1Iterator");
+        partnerVO.setWhereClause("PARTNER_ID =: partnerId");
+        partnerVO.defineNamedWhereClauseParam("partnerId", partnerId,null);
+        partnerVO.executeQuery();
+        if (partnerVO.getEstimatedRowCount() != 0) {
+            while(partnerVO.hasNext()) {
+                PrtPartnerVORowImpl row=(PrtPartnerVORowImpl)partnerVO.next();
+                partnerCompanyName=row.getFirstLastName();
+            }
+        }
+        System.out.println("Partner Company Name"+partnerCompanyName);
+        
         HSSFWorkbook XLS = new HSSFWorkbook();
         HSSFRow XLS_SH_R=null;
         HSSFCell XLS_SH_R_C=null;
@@ -800,27 +847,176 @@ public class TransactionOverviewBean implements Serializable{
         
         //create sheet
         HSSFSheet XLS_SH=XLS.createSheet();
-        XLS.setSheetName(0,"InvoiceDetails");
+        XLS.setSheetName(0,"TransactionReport");
         
         f.setFontHeightInPoints((short) 10);
-        //f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        f.setItalic(true);
-        //f.setColor();
+        f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);        
+        f.setColor((short)0);
         cs.setFont(f);
         
-        String strHeaderValues="REG#,MC#,NAME,DOB/AGE,GENDER,MODALITY,OWNER,BREEDER,SIRE,DAM";//removed ano
-        String[] strHead=strHeaderValues.split(",");
-        XLS_SH.setColumnWidth(10, 10);
+       
+        XLS_SH.setColumnWidth(50, 50);
         XLS_SH_R=XLS_SH.createRow(0);
         XLS_SH_R_C=XLS_SH_R.createCell(0);
         XLS_SH_R_C.setCellStyle(cs);        
-        XLS_SH_R_C.setCellValue("Purna");
+        XLS_SH_R_C.setCellValue("Company: "+partnerCompanyName);
+              
+       
         
-        intRow=intRow+1;    
-        XLS_SH_R= XLS_SH.createRow(intRow);
+        XLS_SH_R= XLS_SH.createRow(1);
         XLS_SH_R_C=XLS_SH_R.createCell(0);
         XLS_SH_R_C.setCellStyle(cs);        
-        XLS_SH_R_C.setCellValue("Lnt");  
+        XLS_SH_R_C.setCellValue("Account: "+getBindings().getAccount().getValue().toString()+partnerCompanyName);  
+        
+        
+        
+        XLS_SH_R= XLS_SH.createRow(2);
+        XLS_SH_R_C=XLS_SH_R.createCell(0);
+        XLS_SH_R_C.setCellStyle(cs);        
+        XLS_SH_R_C.setCellValue("Terminal: "+checkALL((populateStringValues(getBindings().getTerminalType().getValue().toString())),"Terminal")); 
+        
+        XLS_SH_R= XLS_SH.createRow(3);
+        XLS_SH_R_C=XLS_SH_R.createCell(0);
+        XLS_SH_R_C.setCellStyle(cs);        
+        XLS_SH_R_C.setCellValue("Type: "+checkALL((populateStringValues(getBindings().getTransationType().getValue().toString())),"Type"));        
+       
+        
+        XLS_SH_R= XLS_SH.createRow(4);
+        XLS_SH_R_C=XLS_SH_R.createCell(0);
+        XLS_SH_R_C.setCellStyle(cs);        
+        XLS_SH_R_C.setCellValue("Period: "+formatConversion((Date)getBindings().getFromDate().getValue())+" to "+formatConversion((Date)getBindings().getToDate().getValue()));
+        
+        for(int row=5;row<=7;row++) {
+            XLS_SH_R= XLS_SH.createRow(row);            
+        }           
+       
+        
+        
+        XLS_SH_R= XLS_SH.createRow(8);       
+        XLS_SH_R_C=XLS_SH_R.createCell(5);
+        XLS_SH_R_C.setCellStyle(cs);  
+        XLS_SH_R_C.setCellValue("*Note : All prices below are in "+"NOK");
+        
+        if(getBindings().getCardCardGrpDrVhOneRadio().getValue()!=null) {            
+            if("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                String strHeaderValues="Date,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";//removed ano
+                String[] strHead=strHeaderValues.split(",");                
+                HSSFCellStyle css = XLS.createCellStyle();
+                HSSFFont fcss =XLS.createFont();
+                fcss.setFontHeightInPoints((short) 10);
+                fcss.setItalic(true);        
+                fcss.setColor((short)0);
+                css.setFont(fcss);
+                XLS_SH_R= XLS_SH.createRow(9);
+                for (int col = 0; col < strHead.length; col++)
+                {
+                XLS_SH_R_C =XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(strHead[col].toString());
+                }
+                XLS_SH_R= XLS_SH.createRow(11);        
+                XLS_SH_R= XLS_SH.createRow(12);        
+                
+                XLS_SH_R= XLS_SH.createRow(13);
+                XLS_SH_R_C=XLS_SH_R.createCell(0);
+                XLS_SH_R_C.setCellStyle(cs);        
+                XLS_SH_R_C.setCellValue("Total Price");
+                XLS_SH_R_C=XLS_SH_R.createCell(5);
+                XLS_SH_R_C.setCellStyle(cs);  
+                XLS_SH_R_C.setCellValue("300,25");
+                
+            }else if("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())){
+                String strHeaderValues="Date,Card,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";//removed ano
+                String[] strHead=strHeaderValues.split(",");                
+                HSSFCellStyle css = XLS.createCellStyle();
+                HSSFFont fcss =XLS.createFont();
+                fcss.setFontHeightInPoints((short) 10);
+                fcss.setItalic(true);        
+                fcss.setColor((short)0);
+                css.setFont(fcss);
+                XLS_SH_R= XLS_SH.createRow(9);
+                for (int col = 0; col < strHead.length; col++)
+                {
+                XLS_SH_R_C =XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(strHead[col].toString());
+                }
+                
+                XLS_SH_R= XLS_SH.createRow(11);        
+                XLS_SH_R= XLS_SH.createRow(12);        
+                
+                XLS_SH_R= XLS_SH.createRow(13);
+                XLS_SH_R_C=XLS_SH_R.createCell(6);
+                XLS_SH_R_C.setCellStyle(cs);        
+                XLS_SH_R_C.setCellValue("Total Price");
+                XLS_SH_R_C=XLS_SH_R.createCell(1);
+                XLS_SH_R_C.setCellStyle(cs);  
+                XLS_SH_R_C.setCellValue("300,25");
+                
+            }else if("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())){
+                String strHeaderValues="Date,Vehicle No,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No,Odometer,TotalKM,KM/L,L/10 0KM";//removed ano
+                String[] strHead=strHeaderValues.split(",");                
+                HSSFCellStyle css = XLS.createCellStyle();
+                HSSFFont fcss =XLS.createFont();
+                fcss.setFontHeightInPoints((short) 10);
+                fcss.setItalic(true);        
+                fcss.setColor((short)0);
+                css.setFont(fcss);
+                XLS_SH_R= XLS_SH.createRow(9);
+                for (int col = 0; col < strHead.length; col++)
+                {
+                XLS_SH_R_C =XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(strHead[col].toString());
+                }
+                XLS_SH_R= XLS_SH.createRow(11);        
+                XLS_SH_R= XLS_SH.createRow(12);        
+                
+                XLS_SH_R= XLS_SH.createRow(13);
+                XLS_SH_R_C=XLS_SH_R.createCell(0);
+                XLS_SH_R_C.setCellStyle(cs);        
+                XLS_SH_R_C.setCellValue("Total Price");
+                XLS_SH_R_C=XLS_SH_R.createCell(6);
+                XLS_SH_R_C.setCellStyle(cs);  
+                XLS_SH_R_C.setCellValue("300,25");
+            }else {
+                String strHeaderValues="Date,Driver Name,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";//removed ano
+                String[] strHead=strHeaderValues.split(",");                
+                HSSFCellStyle css = XLS.createCellStyle();
+                HSSFFont fcss =XLS.createFont();
+                fcss.setFontHeightInPoints((short) 10);
+                fcss.setItalic(true);        
+                fcss.setColor((short)0);
+                css.setFont(fcss);
+                XLS_SH_R= XLS_SH.createRow(9);
+                for (int col = 0; col < strHead.length; col++)
+                {
+                XLS_SH_R_C =XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(strHead[col].toString());
+                }
+                XLS_SH_R= XLS_SH.createRow(11);        
+                XLS_SH_R= XLS_SH.createRow(12);        
+                
+                XLS_SH_R= XLS_SH.createRow(13);
+                XLS_SH_R_C=XLS_SH_R.createCell(0);
+                XLS_SH_R_C.setCellStyle(cs);        
+                XLS_SH_R_C.setCellValue("Total Price");
+                XLS_SH_R_C=XLS_SH_R.createCell(6);
+                XLS_SH_R_C.setCellStyle(cs);  
+                XLS_SH_R_C.setCellValue("300,25");
+            }            
+            
+        }
+        
+       
+      
+        
+       
+//        XLS_SH_R_C=XLS_SH_R.createCell(0);
+//        XLS_SH_R_C.setCellStyle(cs);        
+//        XLS_SH_R_C.setCellValue("Account 22883797 - 00001 - SCANIA TRANSPORTLABORATORIUM AB - ENKELKORT");
+        
         XLS.write(outputStream);  
         outputStream.close();        
         
