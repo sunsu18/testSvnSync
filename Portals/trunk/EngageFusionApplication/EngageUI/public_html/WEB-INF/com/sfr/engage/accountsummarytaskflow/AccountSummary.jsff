@@ -58,6 +58,8 @@
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
                           inlineStyle="width:200px; height:480px">
+                          
+                          
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
                  rowSelection="single" id="t1" summary="Partner_Tree">
@@ -68,8 +70,8 @@
      
      <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
-        <af:image id="i5" styleClass="partner_1"/>
-        <af:spacer width="4"  id="s328"/>
+     <af:image id="i5" source="/images/partner.png"/>
+    <af:spacer width="4"  id="s328"/>
         <af:outputText value="#{node.partnerValue}" id="ot109"/>
         </af:group>
       </f:facet>
@@ -77,7 +79,7 @@
       
       <f:facet name="com.sfr.engage.core.AccountInfo">
       <af:group id="g3">
-      <af:image id="i1" styleClass="account"/>
+      <af:image id="i1" source="/images/account.png"/>
        <af:spacer width="4"  id="s47"/>  
       <af:outputText value="#{node.accountNumber}" id="ot4"/>
       </af:group>
@@ -86,7 +88,7 @@
       
       <f:facet name="com.sfr.engage.core.CardGroupInfo">
         <af:group id="g1">
-        <af:image id="i2" styleClass="card_grp"/>
+        <af:image id="i2" source="/images/cardgroup.png"/>
         <af:spacer width="4"  id="s325"/>
          <af:outputText value="#{node.cardGroupID}" id="ot2"/>
         </af:group>
@@ -95,11 +97,10 @@
       
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
-      <af:image id="i4" styleClass="card"/>
+      <af:image id="i4" source="/images/card.png"/>
        <af:spacer width="4"  id="s326"/>
        <af:outputText value="#{node.cardID}" id="ot3">
-      <!--<f:attribute name="Cardnumber" value="#{node.cardID}"/>-->
-                </af:outputText>
+       </af:outputText>
        </af:group>
       </f:facet>
       
@@ -155,7 +156,7 @@
                 <f:validator binding="#{bindings.PartnerId.validator}"/>
               </af:inputText>
               
-                 <af:spacer width="25" height="10" id="s327"/>
+                 <af:spacer width="25" height="10" id="s999"/>
               <af:spacer width="25" height="10" id="s97"/>
               <af:spacer width="25" height="10" id="s98"/>
               <af:spacer width="25" height="10" id="s99"/>
