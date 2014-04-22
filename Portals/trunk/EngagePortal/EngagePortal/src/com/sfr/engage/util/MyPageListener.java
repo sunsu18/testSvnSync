@@ -1536,10 +1536,10 @@ new CardInfo();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-                        userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+//                        userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
-//            userList =
-//                    userClient.searchUserWithUserId(securityContext.getUserName());
+            userList =
+                    userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
