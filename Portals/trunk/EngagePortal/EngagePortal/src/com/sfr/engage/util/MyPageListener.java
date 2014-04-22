@@ -1303,14 +1303,14 @@ new CardInfo();
 
                                                     }
                                                     if (createCardList == true)
-                                                        //Cardgrp doesnot exists
+                                                    {     //Cardgrp doesnot exists
                                                         cardlist =
                                                                 new ArrayList<CardInfo>();
                                                     cardlist.add(card);
                                                     cardgrp.setCard(cardlist);
                                                     cardgrp.setCardGroupOverview(false);
                                                     // cardgrouplist = cardgrplist_check;
-                                                    cardgrouplist.add(cardgrp);
+                                                    cardgrouplist.add(cardgrp);}
 
 
                                                     if (cardGroupOverview ==
@@ -1328,6 +1328,7 @@ new CardInfo();
 
                                                             }
                                                         part.setAccountList(accountlist);
+                                                        break;
                                                     }
 
                                                 }
@@ -1992,14 +1993,7 @@ new CardInfo();
         List<String> idString = new ArrayList<String>();
 
 
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-//                idString = new ArrayList<String>();
-        idString.add("NOPP26773218CC0058973603");
-//
-        idString.add("NOPP26773218CC0058589248");
-////        idString.add("NOPP26773218CC0058589003");
-        rr.setIdString(idString);
-        listrole.add(rr);
+        
 
         //        rr= new Roles();
 
@@ -2011,24 +2005,49 @@ new CardInfo();
 //                rr.setIdString(idString);
 //                listrole.add(rr);
 
-//        rr = new Roles();
-//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-//        idString = new ArrayList<String>();
-//        idString.add("NOPP26773218AC0022883797");
-////        idString.add("NOPP26773218AC0022883898");
-////        idString.add("NOPP26773218AC0022883797");
-//        rr.setIdString(idString);
-//        listrole.add(rr);
 
-rr = new Roles();
-                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-                                idString = new ArrayList<String>();
-                idString.add("NOPP26773218CGSLUTRX00001");
-//                
-                idString.add("NOPP26773218CGSLUTRX00002");
-////        idString.add("NOPP26773218CGSLUTRX00006");
-                rr.setIdString(idString);
-                listrole.add(rr);
+
+//rr = new Roles();
+//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+////                                idString = new ArrayList<String>();
+////                idString.add("NOPP26773218CGSLUTRX00001");
+////                
+////                idString.add("NOPP26773218CGSLUTRX00002");
+////        idString.add("NOPP26773218AC0022883797");
+//        idString.add("NOPP26773218CGSLUTRX00006");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
+                
+//        rr = new Roles();
+        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+//                        idString = new ArrayList<String>();
+        
+
+        idString.add("NOPP26773218CC0058589248");
+        idString.add("NOPP26773218CC0058973603");
+        idString.add("NOPP26773218CC0058589003");
+        rr.setIdString(idString);
+        listrole.add(rr);
+        
+        rr = new Roles();
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                        idString = new ArrayList<String>();
+        //                idString.add("NOPP26773218CGSLUTRX00001");
+        //                
+        //                idString.add("NOPP26773218CGSLUTRX00002");
+        //        idString.add("NOPP26773218AC0022883797");
+                idString.add("NOPP26773218CGSLUTRX00006");
+                        rr.setIdString(idString);
+                        listrole.add(rr);
+                
+//                rr = new Roles();
+//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+//                idString = new ArrayList<String>();
+//                idString.add("NOPP26773218AC0022883797");
+        ////        idString.add("NOPP26773218AC0022883898");
+        ////        idString.add("NOPP26773218AC0022883797");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
 
 
         user.setRoleList(listrole);
