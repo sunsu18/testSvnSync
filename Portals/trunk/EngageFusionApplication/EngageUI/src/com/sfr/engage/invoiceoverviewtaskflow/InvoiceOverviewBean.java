@@ -74,8 +74,9 @@ public class InvoiceOverviewBean implements Serializable {
     private ArrayList<SelectItem> cardGroupList = null;
     private ArrayList<SelectItem> cardList = null;
     private boolean searchResults=false;
-    private boolean cardGroup=false;
-    private boolean card=false;
+    private boolean cardGroupVisible=false;
+    private boolean cardVisible=false;
+    private boolean cGCardVisible=false;
     private String countryCode;
     private ResourceBundle resourceBundle;
     private HttpSession session;
@@ -386,11 +387,11 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getFromDate().setValue(null);
         getBindings().getToDate().setValue(null);
         searchResults=false;
-        card=false;
-        cardGroup=false;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount()); 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL()); 
+        cGCardVisible=false;
+        cardVisible=false;
+        cardGroupVisible=false;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getFromDate());  
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate()); 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceType()); 
@@ -479,17 +480,21 @@ public class InvoiceOverviewBean implements Serializable {
             System.out.println("Value ="+valueChangeEvent.getNewValue());
             if(valueChangeEvent.getNewValue().equals("CardGroup")) {
             populateValue(valueChangeEvent.getNewValue().toString());
-            cardGroup=true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
-                card=false;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
+                cGCardVisible=true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
+            cardGroupVisible=true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
+                cardVisible=false;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
                 
             }else{
                 populateValue(valueChangeEvent.getNewValue().toString());
-                card=true;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardPGL());  
-                cardGroup=false;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
+                cGCardVisible=true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
+                cardVisible=true;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
+                cardGroupVisible=false;
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
                       
             }            
             
@@ -569,22 +574,7 @@ public class InvoiceOverviewBean implements Serializable {
         return searchResults;
     }
 
-    public void setCardGroup(boolean cardGroup) {
-        this.cardGroup = cardGroup;
-    }
-
-    public boolean isCardGroup() {
-        return cardGroup;
-    }
-
-    public void setCard(boolean card) {
-        this.card = card;
-    }
-
-    public boolean isCard() {
-        return card;
-    }
-
+   
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
@@ -758,7 +748,31 @@ public class InvoiceOverviewBean implements Serializable {
     public String getInvoiceNumberPdfValue() {
         return invoiceNumberPdfValue;
     }
-   
+
+    public void setCardGroupVisible(boolean cardGroupVisible) {
+        this.cardGroupVisible = cardGroupVisible;
+    }
+
+    public boolean isCardGroupVisible() {
+        return cardGroupVisible;
+    }
+
+    public void setCardVisible(boolean cardVisible) {
+        this.cardVisible = cardVisible;
+    }
+
+    public boolean isCardVisible() {
+        return cardVisible;
+    }
+
+    public void setCGCardVisible(boolean cGCardVisible) {
+        this.cGCardVisible = cGCardVisible;
+    }
+
+    public boolean isCGCardVisible() {
+        return cGCardVisible;
+    }
+
 
     public class Bindings {
         private RichSelectOneChoice account;
