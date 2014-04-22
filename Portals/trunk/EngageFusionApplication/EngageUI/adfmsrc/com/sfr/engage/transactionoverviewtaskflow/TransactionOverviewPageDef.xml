@@ -39,6 +39,7 @@
           <Item Value="VehicleNumber"/>
           <Item Value="DriverName"/>
           <Item Value="Odometer"/>
+          <Item Value="PurchaseCountryCode"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

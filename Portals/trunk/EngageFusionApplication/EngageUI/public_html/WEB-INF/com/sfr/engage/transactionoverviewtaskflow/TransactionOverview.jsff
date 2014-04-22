@@ -349,9 +349,10 @@
                      id="c1" width="50">
             <af:panelGroupLayout id="pgl17">
               <af:spacer width="2" height="1" id="spacer12"/>
-              <af:outputText value="#{row.bindings.PalsCountryCode.inputValue}"
+            <af:outputText value="#{row.PurchaseCountryCode}" id="ot40"/>
+            <!--<af:outputText value="#{row.bindings.PalsCountryCode.inputValue}"
                              shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.PalsCountryCode.tooltip}"
-                             id="it5"/>
+                             id="it5"/>-->
             </af:panelGroupLayout>
           </af:column>
           <af:column sortProperty="ProductName" sortable="false"
