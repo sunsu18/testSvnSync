@@ -297,11 +297,11 @@
                 </af:inputText>
                      <af:spacer width="25" height="10" id="sp41"/>
                   <af:outputText value="#{sfr.VEHICLEINFO_REGISTRATIONDATE}" id="Acctid272"/>
-          <af:outputText value=":" id="colonpop272"/>
+          <af:outputText value=":" id="abvc"/>
           <af:spacer width="15" height="10" id="s21722"/>
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"
                               shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
-                              id="id3"
+                              id="fgh"
                               contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
@@ -321,17 +321,17 @@
                 </af:inputText>
                      <af:spacer width="25" height="10" id="sp15"/>
                    <af:outputText value="#{sfr.VEHICLEINFO_ENDDATE}" id="Acctid282"/>
-          <af:outputText value=":" id="colonpop292"/>
+          <af:outputText value=":" id="hjk"/>
           <af:spacer width="15" height="10" id="s21292"/>
              <af:inputDate value="#{bindings.EndDate.inputValue}"
                               shortDesc="#{bindings.EndDate.hints.tooltip}"
-                              id="id4"
+                              id="rty"
                                 contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EndDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                 </af:inputDate>
                   <af:outputText value="#{sfr.VEHICLEINFO_MAXFUEL}" id="Acctid220"/>
-          <af:outputText value=":" id="colonpop220"/>
+          <af:outputText value=":" id="ert"/>
           <af:spacer width="15" height="10" id="s21202"/>
                 <af:inputText value="#{bindings.MaxFuel.inputValue}"
                               columns="#{bindings.MaxFuel.hints.displayWidth}"
@@ -494,11 +494,11 @@
                 </af:inputText>
                   <af:spacer width="25" height="10" id="colnSpace51"/>
                  <af:outputText value="*#{sfr.VEHICLEINFO_REGISTRATIONDATE}" id="Acctid278"/>
-          <af:outputText value=":" id="colonpop28"/>
+          <af:outputText value=":" id="bnbn"/>
           <af:spacer width="15" height="10" id="s2128"/>
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"
                               shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
-                              id="id1"
+                              id="jkjl"
                               contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
@@ -517,11 +517,11 @@
                   <af:spacer width="25" height="10" id="colnSpace61"/>
                
                  <af:outputText value="#{sfr.VEHICLEINFO_ENDDATE}" id="Acctid279"/>
-          <af:outputText value=":" id="colonpop29"/>
+          <af:outputText value=":" id="dfg"/>
           <af:spacer width="15" height="10" id="s2129"/>
                 <af:inputDate value="#{bindings.EndDate.inputValue}"
                               shortDesc="#{bindings.EndDate.hints.tooltip}"
-                              id="id4"
+                              id="jkl"
                               contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EndDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
@@ -648,10 +648,4 @@
       </af:dialog>
     </af:popup>
   </af:panelGroupLayout>
-  <af:inputDate value="#{bindings.EndDate.inputValue}"
-                shortDesc="#{bindings.EndDate.hints.tooltip}" id="id2"
-                contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
-    <f:validator binding="#{bindings.EndDate.validator}"/>
-    <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
-  </af:inputDate>
-</jsp:root>
+  </jsp:root>
