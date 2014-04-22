@@ -339,11 +339,20 @@ public class MyPageListener implements PagePhaseListener {
 
 
                                 if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
-
-                                    //System.out.println("List contains ADmin role");
+                                {
+                                    System.out.println("List contains ADmin role");
                                     executeAdmin(user);
+                                    System.out.println("This should not be printed");
+                                }
 
                             }
+                            
+                            
+                            
+                                if (session != null)
+                                    if (session.getAttribute("executePartnerObjLogic") ==
+                                        null) {
+                            
 
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
@@ -812,6 +821,16 @@ new AccountInfo();
                                                         vo3 =
 iter3.getViewObject();
 
+
+                                                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+                                                            System.out.println("Remove query executed");
+                                                            vo3.removeNamedWhereClauseParam("cardid");
+                                                            vo3.removeNamedWhereClauseParam("cc");
+                                                            vo3.setWhereClause("");
+                                                            vo3.executeQuery();
+                                                        }
+                                                        
+                                                        
                                                         vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
 
                                                         vo3.defineNamedWhereClauseParam("cgid",
@@ -976,8 +995,11 @@ new CardInfo();
                                                                          z++)
                                                                         if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
                                                                             //accountInterchange = accountlist.get(z);
+                                                                            acc.setCardGroup(cardgrouplist);
                                                                             accountlist.set(z,
                                                                                             acc);
+                                                                            part.setAccountList(accountlist);
+                                                                            break;
 
                                                                         } 
                                                                            
@@ -1461,6 +1483,8 @@ new CardInfo();
 
 
                             }
+                            
+                            }
 
 
                         }
@@ -1512,10 +1536,10 @@ new CardInfo();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-//                        userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+                        userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
-            userList =
-                    userClient.searchUserWithUserId(securityContext.getUserName());
+//            userList =
+//                    userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
@@ -1968,43 +1992,43 @@ new CardInfo();
         List<String> idString = new ArrayList<String>();
 
 
-//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-        //        idString = new ArrayList<String>();
-//        idString.add("NOPP26773218CC0058973603");
-
-//        idString.add("NOPP26773218CC0058589248");
-//        idString.add("NOPP26773218CC0058589003");
-//        rr.setIdString(idString);
-//        listrole.add(rr);
-
-        //        rr= new Roles();
-
+        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+//                idString = new ArrayList<String>();
+        idString.add("NOPP26773218CC0058973603");
+//
+        idString.add("NOPP26773218CC0058589248");
+////        idString.add("NOPP26773218CC0058589003");
+        rr.setIdString(idString);
+        listrole.add(rr);
 
         //        rr= new Roles();
-        //        idString = new ArrayList<String>();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-                idString.add("NOPP26773218");
-                rr.setIdString(idString);
-                listrole.add(rr);
+
+
+//                rr= new Roles();
+//                idString = new ArrayList<String>();
+//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+//                idString.add("NOPP26773218");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
 
 //        rr = new Roles();
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
 //        idString = new ArrayList<String>();
 //        idString.add("NOPP26773218AC0022883797");
-//        idString.add("NOPP26773218AC0022883898");
-//        idString.add("NOPP26773218AC0022883797");
+////        idString.add("NOPP26773218AC0022883898");
+////        idString.add("NOPP26773218AC0022883797");
 //        rr.setIdString(idString);
 //        listrole.add(rr);
 
-
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-        //        //                idString = new ArrayList<String>();
-//                idString.add("NOPP26773218CGSLUTRX00001");
-                
-//                idString.add("NOPP26773218CGSLUTRX00002");
-//        idString.add("NOPP26773218CGSLUTRX00006");
-//                rr.setIdString(idString);
-//                listrole.add(rr);
+rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                                idString = new ArrayList<String>();
+                idString.add("NOPP26773218CGSLUTRX00001");
+//                
+                idString.add("NOPP26773218CGSLUTRX00002");
+////        idString.add("NOPP26773218CGSLUTRX00006");
+                rr.setIdString(idString);
+                listrole.add(rr);
 
 
         user.setRoleList(listrole);
