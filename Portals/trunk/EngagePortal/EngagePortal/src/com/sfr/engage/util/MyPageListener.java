@@ -50,20 +50,20 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
 //import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 
 
-    public class MyPageListener implements PagePhaseListener {
+public class MyPageListener implements PagePhaseListener {
     private User user = null;
     private boolean passwordChangeRequired;
     private List<AccountInfo> accountlist_session = null;
     private List<CardGroupInfo> cardgrouplist_session = null;
     private List<CardInfo> cardlist_session = null;
-//    private List<PartnerInfo> partnerlist;
+    //    private List<PartnerInfo> partnerlist;
     private HttpServletRequest request;
     private ExternalContext ectx;
     private HttpSession session;
     //private static boolean flagexecute = false;
 
     Conversion conv = new Conversion();
-    
+
     PartnerInfo part = new PartnerInfo();
 
     AccountInfo acc = new AccountInfo();
@@ -74,9 +74,8 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
     List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     List<CardInfo> cardlist = new ArrayList<CardInfo>();
     List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
-    
-    
-    
+
+
     boolean addflagaccount = false;
     boolean addflagcardgroup = false;
     boolean addflagcard = false;
@@ -84,7 +83,10 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
     boolean executeAcc = false;
     boolean accountOverView = false;
     boolean cardGroupOverview = false;
-    
+    AccountInfo account_check =
+        new AccountInfo();
+    CardGroupInfo cardgrp_check =
+        new CardGroupInfo();
 
 
     public void afterPhase(PagePhaseEvent pagePhaseEvent) {
@@ -120,8 +122,10 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession();
         boolean isChangeInRedirectionRequired = false;
-        boolean createCardGroupList = false; 
+        boolean createCardGroupList = false;
         boolean createCardList = false;
+        List<CardGroupInfo> cardgrplist_check =
+            new ArrayList<CardGroupInfo>();
 
         try {
 
@@ -319,9 +323,7 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
                                                user.getRoleList().get(0).getIdString().get(0));
                             System.out.println("gfgfgf " +
                                                partnerinfo_list.get(0).getPartnerValue());
-
-
-                          
+                            accountlist = new ArrayList<AccountInfo>();
 
 
                             if (partnerinfo_list.size() == 1) {
@@ -331,17 +333,17 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
                                 //   part.setPartnerValue(partnerinfo_list.get(0).toString());
 
                             }
-                            
+
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
-                            
-                         
-                            if(user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
-                            
-                                //System.out.println("List contains ADmin role");
-                                executeAdmin(user);
-                         
-                                 }
+
+
+                                if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
+
+                                    //System.out.println("List contains ADmin role");
+                                    executeAdmin(user);
+
+                            }
 
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
@@ -394,8 +396,10 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
 
                                                         System.out.println("Account B2B Manager");
 
-                                                        acc = new AccountInfo();
-                                                        cardgrouplist =  new ArrayList<CardGroupInfo>();
+                                                        acc =
+new AccountInfo();
+                                                        cardgrouplist =
+                                                                new ArrayList<CardGroupInfo>();
                                                         int accid_start =
                                                             user.getRoleList().get(i).getIdString().get(idlist).indexOf("AC");
                                                         System.out.println("accid start index " +
@@ -411,347 +415,355 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
                                                         acc.setAccountOverview(true);
                                                         System.out.println("Account overview should be visible");
 
-                                                        AccountInfo account_check = new AccountInfo();
+                                                        AccountInfo account_check =
+                                                            new AccountInfo();
                                                         addflagaccount = false;
-                                                        for (int listsize = 0; listsize < accountlist.size();listsize++) {
-                                                        System.out.println("account id value in account list " + accountlist.get(listsize).getAccountNumber());
-                                                         account_check = accountlist.get(listsize);
-//                                                      //cardgrouplist_check = account_check.getCardGroup();
-//                                                                                                                                                           
-                                                        if(account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                        System.out.println("Account ID already exists in partner object");
-//                                                        executeEmp = true;
-                                                        if(account_check.isAccountOverview())
-                                                        {
-                                                            addflagaccount = true;
-                                                            break;
-                                                        }
-                                                                      }
-                                                }
-
-
-
-
-//System.out.println("Execute employee " + executeEmp);
-                                                        if(!addflagaccount)    
-                                                        {
-//This means account only does not exists or Account exists but account overview is false, so in both the cases we have to create new cardgrplist new cardlist .....
-
-//                                                        addflagaccount = false;
-//                                                        for (int k = 0;
-//                                                             k < accountlist.size();
-//                                                             k++) {
-//                                                            System.out.println("account id value in account list " +
-//                                                                               accountlist.get(k).getAccountNumber());
-//                                                            System.out.println("New account id value to compare" +
-//                                                                               acc.getAccountNumber());
-//
-//
-//                                                            if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-//                                                                
-//                                                                if(!acc.isAccountOverview())
-//                                                                {
-//                                                                System.out.println("account id already exists in account list");
-//                                                                addflagaccount =
-//                                                                        true;
-//                                                                break;}
-//                                                            }
-//                                                        }
-
-                                                        String AccountID =
-                                                            acc.getAccountNumber();
-                                                        bindings =
-                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                        DCIteratorBinding iter2;
-                                                        if (bindings != null) {
-                                                            iter2 =
-                                                                    bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
-                                                            System.out.println("DC Iterator bindings for Card group found in mypagelistner");
-                                                        } else {
-                                                            System.out.println("bindings is null");
-                                                            iter2 = null;
-                                                        }
-                                                        ViewObject vo2 =
-                                                            iter2.getViewObject();
-
-                                                        vo2 =
-iter2.getViewObject();
-                                                        vo2.setWhereClause("ACCOUNT_ID =: accid");
-                                                        vo2.defineNamedWhereClauseParam("accid",
-                                                                                        AccountID,
-                                                                                        null);
-
-
-                                                        vo2.executeQuery();
-                                                        System.out.println("row count from cardgroup vo" +
-                                                                           vo2.getEstimatedRowCount());
-
-                                                        if (vo2.getEstimatedRowCount() !=
-                                                            0) {
-
-                                                            //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
-
-                                                            while (vo2.hasNext()) {
-
-
-                                                                cardgrp =
-                                                                        new CardGroupInfo();
-                                                                cardlist =
-                                                                        new ArrayList<CardInfo>();
-                                                                PrtCardgroupVORowImpl currRowcardgrp =
-                                                                    (PrtCardgroupVORowImpl)vo2.next();
-
-                                                                if (currRowcardgrp !=
-                                                                    null) {
-                                                                    System.out.println(" row != null");
-
-                                                                    if (currRowcardgrp.getCardgroupSeq() !=
-                                                                        null) {
-                                                                        System.out.println("Cardgroup id is " +
-                                                                                           currRowcardgrp.getCardgroupSeq());
-                                                                        cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
-                                                                        cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
-                                                                        cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
-                                                                        cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
-                                                                        cardgrp.setCardGroupOverview(true);
-
-                                                                    }
-
-                                                                    addflagcardgroup =
-                                                                            false;
-                                                                    for (int k =
-                                                                         0;
-                                                                         k < cardgrouplist.size();
-                                                                         k++) {
-                                                                        System.out.println("cardgroup id value in cardgroup list " +
-                                                                                           cardgrouplist.get(k).getCardGroupID());
-                                                                        System.out.println("New cardgroup id value to compare" +
-                                                                                           cardgrp.getCardGroupID());
-
-
-                                                                        if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
-                                                                            System.out.println("cardgroup id already exists in cardgroup list");
-                                                                            addflagcardgroup =
-                                                                                    true;
-                                                                            break;
-                                                                        }
-                                                                    }
-
-
+                                                        for (int listsize = 0;
+                                                             listsize <
+                                                             accountlist.size();
+                                                             listsize++) {
+                                                            System.out.println("account id value in account list " +
+                                                                               accountlist.get(listsize).getAccountNumber());
+                                                            account_check =
+                                                                    accountlist.get(listsize);
+                                                            //                                                      //cardgrouplist_check = account_check.getCardGroup();
+                                                            //
+                                                            if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                System.out.println("Account ID already exists in partner object");
+                                                                //                                                        executeEmp = true;
+                                                                if (account_check.isAccountOverview()) {
+                                                                    addflagaccount =
+                                                                            true;
+                                                                    break;
                                                                 }
+                                                            }
+                                                        }
+
+
+                                                        //System.out.println("Execute employee " + executeEmp);
+                                                        if (!addflagaccount) {
+                                                            //This means account only does not exists or Account exists but account overview is false, so in both the cases we have to create new cardgrplist new cardlist .....
+
+                                                            //                                                        addflagaccount = false;
+                                                            //                                                        for (int k = 0;
+                                                            //                                                             k < accountlist.size();
+                                                            //                                                             k++) {
+                                                            //                                                            System.out.println("account id value in account list " +
+                                                            //                                                                               accountlist.get(k).getAccountNumber());
+                                                            //                                                            System.out.println("New account id value to compare" +
+                                                            //                                                                               acc.getAccountNumber());
+                                                            //
+                                                            //
+                                                            //                                                            if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                            //
+                                                            //                                                                if(!acc.isAccountOverview())
+                                                            //                                                                {
+                                                            //                                                                System.out.println("account id already exists in account list");
+                                                            //                                                                addflagaccount =
+                                                            //                                                                        true;
+                                                            //                                                                break;}
+                                                            //                                                            }
+                                                            //                                                        }
+
+                                                            String AccountID =
+                                                                acc.getAccountNumber();
+                                                            bindings =
+                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                            DCIteratorBinding iter2;
+                                                            if (bindings !=
+                                                                null) {
+                                                                iter2 =
+                                                                        bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
+                                                                System.out.println("DC Iterator bindings for Card group found in mypagelistner");
+                                                            } else {
+                                                                System.out.println("bindings is null");
+                                                                iter2 = null;
+                                                            }
+                                                            ViewObject vo2 =
+                                                                iter2.getViewObject();
+
+                                                            vo2 =
+iter2.getViewObject();
+                                                            vo2.setWhereClause("ACCOUNT_ID =: accid");
+                                                            vo2.defineNamedWhereClauseParam("accid",
+                                                                                            AccountID,
+                                                                                            null);
+
+
+                                                            vo2.executeQuery();
+                                                            System.out.println("row count from cardgroup vo" +
+                                                                               vo2.getEstimatedRowCount());
+
+                                                            if (vo2.getEstimatedRowCount() !=
+                                                                0) {
+
+                                                                //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+
+                                                                while (vo2.hasNext()) {
+
+
+                                                                    cardgrp =
+                                                                            new CardGroupInfo();
+                                                                    cardlist =
+                                                                            new ArrayList<CardInfo>();
+                                                                    PrtCardgroupVORowImpl currRowcardgrp =
+                                                                        (PrtCardgroupVORowImpl)vo2.next();
+
+                                                                    if (currRowcardgrp !=
+                                                                        null) {
+                                                                        System.out.println(" row != null");
+
+                                                                        if (currRowcardgrp.getCardgroupSeq() !=
+                                                                            null) {
+                                                                            System.out.println("Cardgroup id is " +
+                                                                                               currRowcardgrp.getCardgroupSeq());
+                                                                            cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                                                            cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
+                                                                            cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
+                                                                            cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                                                            cardgrp.setCardGroupOverview(true);
+
+                                                                        }
+
+                                                                        addflagcardgroup =
+                                                                                false;
+                                                                        for (int k =
+                                                                             0;
+                                                                             k <
+                                                                             cardgrouplist.size();
+                                                                             k++) {
+                                                                            System.out.println("cardgroup id value in cardgroup list " +
+                                                                                               cardgrouplist.get(k).getCardGroupID());
+                                                                            System.out.println("New cardgroup id value to compare" +
+                                                                                               cardgrp.getCardGroupID());
+
+
+                                                                            if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
+                                                                                System.out.println("cardgroup id already exists in cardgroup list");
+                                                                                addflagcardgroup =
+                                                                                        true;
+                                                                                break;
+                                                                            }
+                                                                        }
+
+
+                                                                    }
                                                                     if (!addflagcardgroup)
                                                                     //add cardlist in cardgroup
 
                                                                     {
 
-                                                                String CardgroupMainType =
-                                                                    cardgrp.getCardGroupMainType().toString();
-                                                                String CardgroupSubType =
-                                                                    cardgrp.getCardGroupSubType().toString();
-                                                                String CardgroupSeq =
-                                                                    cardgrp.getCardGroupSeq().toString();
-                                                                bindings =
-                                                                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                                DCIteratorBinding iter3;
-                                                                if (bindings !=
-                                                                    null) {
-                                                                    iter3 =
-                                                                            bindings.findIteratorBinding("PrtCardVO1Iterator");
-                                                                    System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
-                                                                } else {
-                                                                    System.out.println("bindings is null");
-                                                                    iter3 =
-                                                                            null;
-                                                                }
-                                                                ViewObject vo3 =
-                                                                    iter3.getViewObject();
-
-                                                                vo3 =
-iter3.getViewObject();
-                                                                
-                                                                if("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
-                                                                                                           System.out.println("Remove query executed");
-                                                                                                           vo3.removeNamedWhereClauseParam("cgid");
-                                                                                                               vo3.removeNamedWhereClauseParam("cc");
-                                                                                                           vo3.removeNamedWhereClauseParam("cgmain");
-                                                                                                           vo3.removeNamedWhereClauseParam("cgsub");
-                                                                                                           vo3.setWhereClause("");
-                                                                                                           vo3.executeQuery();   
-                                                                                                       }
-                                                                
-                                                                if("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-                                                                                                           System.out.println("Remove query executed");
-                                                                                                           vo3.removeNamedWhereClauseParam("cardid");
-                                                                                                           vo3.removeNamedWhereClauseParam("cc");
-                                                                                                           vo3.setWhereClause("");
-                                                                                                           vo3.executeQuery();   
-                                                                                                       }
-
-                                                                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-
-                                                                vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                CardgroupSeq,
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cc",
-                                                                                                "no_NO",
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                CardgroupMainType,
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                CardgroupSubType,
-                                                                                                null);
-
-
-                                                                vo3.executeQuery();
-                                                                System.out.println("row count from cardgroup vo" +
-                                                                                   vo3.getEstimatedRowCount());
-
-                                                                if (vo3.getEstimatedRowCount() !=
-                                                                    0) {
-
-                                                                    //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
-
-                                                                    while (vo3.hasNext()) {
-
-
-                                                                        card =
-new CardInfo();
-                                                                        PrtCardVORowImpl currRowcard =
-                                                                            (PrtCardVORowImpl)vo3.next();
-
-                                                                        if (currRowcard !=
+                                                                        String CardgroupMainType =
+                                                                            cardgrp.getCardGroupMainType().toString();
+                                                                        String CardgroupSubType =
+                                                                            cardgrp.getCardGroupSubType().toString();
+                                                                        String CardgroupSeq =
+                                                                            cardgrp.getCardGroupSeq().toString();
+                                                                        bindings =
+                                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                                        DCIteratorBinding iter3;
+                                                                        if (bindings !=
                                                                             null) {
-                                                                            System.out.println(" row != null");
+                                                                            iter3 =
+                                                                                    bindings.findIteratorBinding("PrtCardVO1Iterator");
+                                                                            System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
+                                                                        } else {
+                                                                            System.out.println("bindings is null");
+                                                                            iter3 =
+                                                                                    null;
+                                                                        }
+                                                                        ViewObject vo3 =
+                                                                            iter3.getViewObject();
 
-                                                                            if (currRowcard.getPrtCardPk() !=
-                                                                                null) {
-                                                                                System.out.println("Card id is " +
-                                                                                                   currRowcard.getPrtCardPk());
-                                                                                card.setCardID(currRowcard.getPrtCardPk().toString());
-                                                                                
-                                                                                
-                                                                            }
-                                                                            if(currRowcard.getExtCardNum()!=null)
-                                                                                card.setExternalCardID(currRowcard.getExtCardNum().toString());
-                                                                            
-                                                                            
+                                                                        vo3 =
+iter3.getViewObject();
 
-                                                                            addflagcard =
-                                                                                    false;
-                                                                            for (int k =
-                                                                                 0;
-                                                                                 k <
-                                                                                 cardlist.size();
-                                                                                 k++) {
-                                                                                System.out.println("cardgroup id value in cardgroup list " +
-                                                                                                   cardlist.get(k).getCardID());
-                                                                                System.out.println("New cardgroup id value to compare" +
-                                                                                                   card.getCardID());
+                                                                        if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
+                                                                            System.out.println("Remove query executed");
+                                                                            vo3.removeNamedWhereClauseParam("cgid");
+                                                                            vo3.removeNamedWhereClauseParam("cc");
+                                                                            vo3.removeNamedWhereClauseParam("cgmain");
+                                                                            vo3.removeNamedWhereClauseParam("cgsub");
+                                                                            vo3.setWhereClause("");
+                                                                            vo3.executeQuery();
+                                                                        }
+
+                                                                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+                                                                            System.out.println("Remove query executed");
+                                                                            vo3.removeNamedWhereClauseParam("cardid");
+                                                                            vo3.removeNamedWhereClauseParam("cc");
+                                                                            vo3.setWhereClause("");
+                                                                            vo3.executeQuery();
+                                                                        }
+
+                                                                        vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+
+                                                                        vo3.defineNamedWhereClauseParam("cgid",
+                                                                                                        CardgroupSeq,
+                                                                                                        null);
+                                                                        vo3.defineNamedWhereClauseParam("cc",
+                                                                                                        "no_NO",
+                                                                                                        null);
+                                                                        vo3.defineNamedWhereClauseParam("cgmain",
+                                                                                                        CardgroupMainType,
+                                                                                                        null);
+                                                                        vo3.defineNamedWhereClauseParam("cgsub",
+                                                                                                        CardgroupSubType,
+                                                                                                        null);
 
 
-                                                                                if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
-                                                                                    System.out.println("card id already exists in card list");
+                                                                        vo3.executeQuery();
+                                                                        System.out.println("row count from cardgroup vo" +
+                                                                                           vo3.getEstimatedRowCount());
+
+                                                                        if (vo3.getEstimatedRowCount() !=
+                                                                            0) {
+
+                                                                            //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+
+                                                                            while (vo3.hasNext()) {
+
+
+                                                                                card =
+new CardInfo();
+                                                                                PrtCardVORowImpl currRowcard =
+                                                                                    (PrtCardVORowImpl)vo3.next();
+
+                                                                                if (currRowcard !=
+                                                                                    null) {
+                                                                                    System.out.println(" row != null");
+
+                                                                                    if (currRowcard.getPrtCardPk() !=
+                                                                                        null) {
+                                                                                        System.out.println("Card id is " +
+                                                                                                           currRowcard.getPrtCardPk());
+                                                                                        card.setCardID(currRowcard.getPrtCardPk().toString());
+
+
+                                                                                    }
+                                                                                    if (currRowcard.getExtCardNum() !=
+                                                                                        null)
+                                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+
+
                                                                                     addflagcard =
-                                                                                            true;
-                                                                                    break;
+                                                                                            false;
+                                                                                    for (int k =
+                                                                                         0;
+                                                                                         k <
+                                                                                         cardlist.size();
+                                                                                         k++) {
+                                                                                        System.out.println("cardgroup id value in cardgroup list " +
+                                                                                                           cardlist.get(k).getCardID());
+                                                                                        System.out.println("New cardgroup id value to compare" +
+                                                                                                           card.getCardID());
+
+
+                                                                                        if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
+                                                                                            System.out.println("card id already exists in card list");
+                                                                                            addflagcard =
+                                                                                                    true;
+                                                                                            break;
+                                                                                        }
+                                                                                    }
+
+
                                                                                 }
+                                                                                if (!addflagcard)
+                                                                                    cardlist.add(card);
+
+
                                                                             }
 
 
                                                                         }
-                                                                        if (!addflagcard)
-                                                                            cardlist.add(card);
 
+
+                                                                        cardgrp.setCard(cardlist);
+                                                                        cardgrouplist.add(cardgrp);
 
                                                                     }
 
 
                                                                 }
 
-
-                                                                
-                                                                    cardgrp.setCard(cardlist);
-                                                                    cardgrouplist.add(cardgrp);
-
-                                                                }
-
-
                                                             }
 
-                                                        }
 
-                                                       
                                                             acc.setCardGroup(cardgrouplist);
                                                             //AccountInfo accountInterchange = new AccountInfo();
-                                                            
-                                                           for(int z=0;z<accountlist.size();z++)
-                                                            if(accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber()))
-                                                            {
-                                                                //accountInterchange = accountlist.get(z);
-                                                                accountlist.set(z, acc);
-                                                                
-                                                            }
-                                                            if(!accountlist.contains(acc))
-                                                            accountlist.add(acc);
+
+                                                            for (int z = 0;
+                                                                 z < accountlist.size();
+                                                                 z++)
+                                                                if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                    //accountInterchange = accountlist.get(z);
+                                                                    accountlist.set(z,
+                                                                                    acc);
+
+                                                                }
+                                                            if (!accountlist.contains(acc))
+                                                                accountlist.add(acc);
 
                                                             //TODO : Remove from here add it at the end after completing for CG
                                                             part.setAccountList(accountlist);
-                                                     
-                                                        
-                                                        
-                                                        
-                                                    }
+
+
+                                                        }
 
                                                     } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG")) {
-                                                    AccountInfo account_check = new AccountInfo();
-                                                    List<CardGroupInfo> cardgrouplist_check = new ArrayList<CardGroupInfo>();
-                                                    boolean executeCardGroupLogic = false;
-                                                    int cgid_start =
-                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("CG");
-                                                    System.out.println("cgid start index " +
-                                                                       cgid_start);
-                                                    String CardGroupID = user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +2);
-                                                    System.out.println("CardGroupId is " + CardGroupID);
-                                                    int cardgrp_count = 0;
-//                                                    for (int k = 0;
-//                                                         k < accountlist.size();
-//                                                         k++) {
-//                                                        System.out.println("account id value in account list " +
-//                                                                           accountlist.get(k).getAccountNumber());
-//                                                        account_check = accountlist.get(k);
-//                                                        cardgrouplist_check = account_check.getCardGroup();
-//                                                      
-//                                                        
-//                                                        for(cardgrp_count =0;cardgrp_count<cardgrouplist_check.size();cardgrp_count++)
-//                                                        {
-//                                                        if (cardgrouplist_check.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(CardGroupID)) {
-//                                                            System.out.println("cardgroup id exists in cardgroup list of account " + account_check.getAccountNumber());
-//                                                            executeCardGroupLogic =
-//                                                            cardgrouplist_check.get(cardgrp_count).isCardGroupOverview();
-//                                                            break;
-//                                                        }
-//                                                        }
-//                                                    }
-                                                    
-                                                    
-                                                    if(!executeCardGroupLogic)
-                                                        {
+                                                        AccountInfo account_check =
+                                                            new AccountInfo();
+                                                        List<CardGroupInfo> cardgrouplist_check =
+                                                            new ArrayList<CardGroupInfo>();
+                                                        boolean executeCardGroupLogic =
+                                                            false;
+                                                        int cgid_start =
+                                                            user.getRoleList().get(i).getIdString().get(idlist).indexOf("CG");
+                                                        System.out.println("cgid start index " +
+                                                                           cgid_start);
+                                                        String CardGroupID =
+                                                            user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                                                                          2);
+                                                        System.out.println("CardGroupId is " +
+                                                                           CardGroupID);
+                                                        int cardgrp_count = 0;
+                                                        //                                                    for (int k = 0;
+                                                        //                                                         k < accountlist.size();
+                                                        //                                                         k++) {
+                                                        //                                                        System.out.println("account id value in account list " +
+                                                        //                                                                           accountlist.get(k).getAccountNumber());
+                                                        //                                                        account_check = accountlist.get(k);
+                                                        //                                                        cardgrouplist_check = account_check.getCardGroup();
+                                                        //
+                                                        //
+                                                        //                                                        for(cardgrp_count =0;cardgrp_count<cardgrouplist_check.size();cardgrp_count++)
+                                                        //                                                        {
+                                                        //                                                        if (cardgrouplist_check.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(CardGroupID)) {
+                                                        //                                                            System.out.println("cardgroup id exists in cardgroup list of account " + account_check.getAccountNumber());
+                                                        //                                                            executeCardGroupLogic =
+                                                        //                                                            cardgrouplist_check.get(cardgrp_count).isCardGroupOverview();
+                                                        //                                                            break;
+                                                        //                                                        }
+                                                        //                                                        }
+                                                        //                                                    }
+
+
+                                                        //  if(!executeCardGroupLogic)
+                                                        //  {
 
                                                         System.out.println("Card Group B2B Manager");
 
                                                         acc =
 new AccountInfo();
-                                                        cardgrouplist =
-                                                                new ArrayList<CardGroupInfo>();
+                                                        //  cardgrouplist =
+                                                        //      new ArrayList<CardGroupInfo>();
                                                         cardgrp =
                                                                 new CardGroupInfo();
-                                                        cardlist =
-                                                                new ArrayList<CardInfo>();
+                                                          cardlist =
+                                                               new ArrayList<CardInfo>();
                                                         String accountId_cardVO =
                                                             "";
-
-                                                       
 
 
                                                         String CardgroupMainType =
@@ -842,80 +854,177 @@ new CardInfo();
                                                                         System.out.println("Card id is " +
                                                                                            currRowcard.getPrtCardPk());
                                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
-                                                                        
-                                                                        accountId_cardVO =
-                                                                                currRowcard.getAccountId().toString();
+
+//                                                                        accountId_cardVO =
+//                                                                                currRowcard.getAccountId().toString();
                                                                     }
-                                                                    
-                                                                    if(currRowcard.getExtCardNum()!=null)
+                                                                    if (currRowcard.getExtCardNum() !=
+                                                                        null)
                                                                         card.setExternalCardID(currRowcard.getExtCardNum().toString());
 
-                                                                    addflagcard =
-                                                                            false;
-                                                                    for (int k =
-                                                                         0;
-                                                                         k < cardlist.size();
-                                                                         k++) {
-                                                                        System.out.println("cardgroup id value in cardgroup list " +
-                                                                                           cardlist.get(k).getCardID());
-                                                                        System.out.println("New cardgroup id value to compare" +
-                                                                                           card.getCardID());
-
-
-                                                                        if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
-                                                                            System.out.println("card id already exists in card list");
-                                                                            addflagcard =
-                                                                                    true;
-                                                                            break;
-                                                                        }
+                                                                    if (currRowcard.getAccountId() !=
+                                                                        null) {
+                                                                        System.out.println("Account Id is " +
+                                                                                           currRowcard.getAccountId());
+                                                                        acc.setAccountNumber(currRowcard.getAccountId().toString());
                                                                     }
-
-
-                                                                }
-                                                                if (!addflagcard)
+                                                                    
                                                                     cardlist.add(card);
-
-
+                                                                    }
                                                             }
-
-                                                        }
-                                                            if(accountId_cardVO != null && accountId_cardVO != "")
-                                                            {
-                                                        cardgrp.setCard(cardlist);
-                                                        cardgrouplist.add(cardgrp);
-                                                        acc.setCardGroup(cardgrouplist);
-                                                        acc.setAccountNumber(accountId_cardVO);
-                                                        acc.setAccountOverview(true);
+                                                                    
+                                                            }   
+                                                        
                                                        
-                                                        for (int k = 0;
-                                                             k < accountlist.size();
-                                                             k++) {
+                                                        
+                                                        account_check = new AccountInfo();
+                                                        createCardGroupList = true;
+                                                        addflagaccount = false;
+                                                        for (int listsize = 0;
+                                                             listsize <
+                                                             accountlist.size();
+                                                             listsize++) {
                                                             System.out.println("account id value in account list " +
-                                                                               accountlist.get(k).getAccountNumber());
-                                                            System.out.println("New account id value to compare" +
-                                                                               acc.getAccountNumber());
-
-
-                                                            if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                                System.out.println("account id already exists in account list");
-                                                                addflagaccount =
-                                                                        true;
+                                                                               accountlist.get(listsize).getAccountNumber());
+                                                            account_check =
+                                                                    accountlist.get(listsize);
+                                                            //                                                      //cardgrouplist_check = account_check.getCardGroup();
+                                                            //
+                                                            if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                System.out.println("Account ID already exists in partner object");
+                                                                createCardGroupList = false;
+                                                                //                                                        executeEmp = true;
+                                                                if (account_check.isAccountOverview()) {
+                                                                    addflagaccount =
+                                                                            true;
+                                                                    break;
+                                                                }
                                                                 break;
                                                             }
                                                         }
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        if(!addflagaccount && accountlist.size() > 0) {
+                                                            
+                                                            if(createCardGroupList)
+                                                            {
+                                                                cardgrp.setCard(cardlist);
+                                                                cardgrp.setCardGroupOverview(true);
+                                                                cardgrouplist = new ArrayList<CardGroupInfo>();
+                                                                cardgrouplist.add(cardgrp);
+                                                                acc.setCardGroup(cardgrouplist);
+                                                                acc.setAccountOverview(false);
+                                                                accountlist.add(acc);
+                                                                part.setAccountList(accountlist);
+                                                                part.setCompanyOverview(false);
+                                                            }
+                                                            else {
+                                                                //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
+                                                                //the existing one 
+                                                                cardgrouplist = account_check.getCardGroup();
+                                                                cardgrp.setCard(cardlist);
+                                                                cardgrp.setCardGroupOverview(true);
+                                                                
+                                                                
+                                                                addflagcardgroup =
+                                                                        false;
+                                                                for (int k =
+                                                                     0;
+                                                                     k <
+                                                                     cardgrouplist.size();
+                                                                     k++) {
+                                                                    System.out.println("cardgroup id value in cardgroup list " +
+                                                                                       cardgrouplist.get(k).getCardGroupID());
+                                                                    System.out.println("New cardgroup id value to compare" +
+                                                                                       cardgrp.getCardGroupID());
 
 
-                                                        if (!addflagaccount) {
+                                                                    if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
+                                                                        System.out.println("cardgroup id already exists in cardgroup list");
+                                                                        addflagcardgroup =
+                                                                                true;
+                                                                        
+                                                                        
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                
+                                                                
+                                                                
+                                                                if(addflagcardgroup) {
+                                                                    
+                                                                           //Replace the old cardgroup with new one
+                                                                           for (int z = 0;
+                                                                                z < cardgrouplist.size();
+                                                                                z++) {
+                                                                               if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp.getCardGroupMainType()) &&
+                                                                                   cardgrouplist.get(z).getCardGroupSubType().equals(cardgrp.getCardGroupSubType()) &&
+                                                                                   cardgrouplist.get(z).getCardGroupSeq().equals(cardgrp.getCardGroupSeq()) 
+                                                                               ) {
+                                                                                   //accountInterchange = accountlist.get(z);
+                                                                                   cardgrouplist.set(z,
+                                                                                                   cardgrp);
+
+                                                                               }
+                                                                           }
+                                                                           
+                                                                    //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
+                                                                    for (int z = 0;
+                                                                         z < accountlist.size();
+                                                                         z++)
+                                                                        if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                            //accountInterchange = accountlist.get(z);
+                                                                            accountlist.set(z,
+                                                                                            acc);
+
+                                                                        } 
+                                                                           
+                                                                }
+                                                                else {
+                                                                    //Add cardgrp to the cardgrp list and then replacae account
+                                                                    
+                                                                    cardgrouplist.add(cardgrp);
+                                                                    acc.setCardGroup(cardgrouplist);
+                                                                    //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
+                                                                    for (int z = 0;
+                                                                         z < accountlist.size();
+                                                                         z++)
+                                                                        if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                            //accountInterchange = accountlist.get(z);
+                                                                            accountlist.set(z,
+                                                                                            acc);
+                                                                            part.setAccountList(accountlist);
+                                                                            break;
+
+                                                                        } 
+                                                                }
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        if(accountlist.size() == 0)
+                                                            
+                                                        {
+                                                            cardgrp.setCard(cardlist);
+                                                            cardgrp.setCardGroupOverview(true);
+                                                            cardgrouplist = new ArrayList<CardGroupInfo>();
+                                                            cardgrouplist.add(cardgrp);
+                                                            acc.setCardGroup(cardgrouplist);
                                                             acc.setAccountOverview(false);
                                                             accountlist.add(acc);
                                                             part.setAccountList(accountlist);
-                                                        } else
-                                                            System.out.println("Account level access already exists");
+                                                            part.setCompanyOverview(false);
+                                                            
+                                                        
+
                                                         }
+                                                                    
+//                                                                    
 
                                                     }
-
-                                                }
                                                     idlist++;
                                                 } while (idlist <
                                                          user.getRoleList().get(i).getIdString().size());
@@ -942,12 +1051,12 @@ new CardInfo();
                                     }
                                     System.out.println("flag value changed now");
 
-                                }          
-                                
+                                }
+
                                 else if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP))
 
                                 {
-                                    
+
                                     System.out.println("CARD AMIN as user role =======>" +
                                                        user.getRoleList().get(i).getRoleName());
 
@@ -955,26 +1064,28 @@ new CardInfo();
                                     // if(partnerinfo_list.size() == 1 && user.getRoleList().get(0).getIdString().get(0).contains("PP"+ partnerinfo_list.get(0).getPartnerValue()))
                                     //                    {
                                     int idlist = 0;
-                                    CardInfo card_temp = new CardInfo(); // use case : when we get multiple cards belonging to same cardgroup
-                                    List<CardInfo> cardgrplist_temp =    // use case : when we get multiple cards belonging to same cardgroup
+                                    CardInfo card_temp =
+                                        new CardInfo(); // use case : when we get multiple cards belonging to same cardgroup
+                                    List<CardInfo> cardgrplist_temp =
+                                        // use case : when we get multiple cards belonging to same cardgroup
                                         new ArrayList<CardInfo>();
-                                   
+
                                     System.out.println("TEMP ------------->" +
                                                        user.getRoleList().get(i).getIdString().size());
                                     do {
-                                        
+
                                         executeEmp = false;
                                         System.out.println("User is B2B Employee");
-                                    
+
                                         createCardGroupList = false;
                                         acc = new AccountInfo();
                                         cardgrp = new CardGroupInfo();
-                                        
-                                        
+
+
                                         createCardGroupList = false;
                                         createCardList = true;
-                                        
-                                       // cardlist = new ArrayList<CardInfo>();
+
+                                        // cardlist = new ArrayList<CardInfo>();
 
 
                                         int ccid_start =
@@ -1001,15 +1112,15 @@ new CardInfo();
                                         }
                                         ViewObject vo3 = iter3.getViewObject();
 
-                                       if("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
-                                           System.out.println("Remove query executed");
-                                           vo3.removeNamedWhereClauseParam("cgid");
-                                               vo3.removeNamedWhereClauseParam("cc");
-                                           vo3.removeNamedWhereClauseParam("cgmain");
-                                           vo3.removeNamedWhereClauseParam("cgsub");
-                                           vo3.setWhereClause("");
-                                           vo3.executeQuery();   
-                                       }
+                                        if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
+                                            System.out.println("Remove query executed");
+                                            vo3.removeNamedWhereClauseParam("cgid");
+                                            vo3.removeNamedWhereClauseParam("cc");
+                                            vo3.removeNamedWhereClauseParam("cgmain");
+                                            vo3.removeNamedWhereClauseParam("cgsub");
+                                            vo3.setWhereClause("");
+                                            vo3.executeQuery();
+                                        }
 
 
                                         vo3.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
@@ -1061,7 +1172,7 @@ new CardInfo();
                                                         currRowcard.getAccountId() !=
                                                         null &&
                                                         currRowcard.getPartnerId() !=
-                                                        null) {
+                                                        null && currRowcard.getAccountId() != null && currRowcard.getPartnerId() != null) {
                                                         cardgrp.setCardGroupMainType((currRowcard.getCardgroupMainType().toString()));
                                                         cardgrp.setCardGroupSubType((currRowcard.getCardgroupSubType().toString()));
                                                         cardgrp.setCardGroupSeq(currRowcard.getCardgroupSeq().toString());
@@ -1075,123 +1186,139 @@ new CardInfo();
 
 
                                             }
-                                            AccountInfo account_check = new AccountInfo();
-                                            CardGroupInfo cardgrp_check = new CardGroupInfo();
-                                            List<CardGroupInfo> cardgrplist_check = new ArrayList<CardGroupInfo>();
+                                            account_check =
+                                                new AccountInfo();
+                                            cardgrp_check =
+                                                new CardGroupInfo();
+
                                             accountOverView = false;
                                             cardGroupOverview = false;
                                             addflagaccount = true;
-                                            for (int listsize = 0; listsize < accountlist.size();listsize++) {
-                                                
-                                                    System.out.println("account id value in account list " + accountlist.get(listsize).getAccountNumber());
-                                                                                                    account_check = accountlist.get(listsize);
-                                                                                                    //cardgrouplist_check = account_check.getCardGroup();
-                                                                                                    
-                                                                                                    if(account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber()) ) {
-                                                                                                        createCardGroupList = false;
-                                                                                                        cardgrouplist = account_check.getCardGroup();
-                                                                                                        addflagaccount = false;
-                                                                                                        
-                                                                                                        if(account_check.isAccountOverview()) {
-                                                                                                            accountOverView = true;
-                                                                                                            break;
-                                                                                                        }
-                                                                                                        
-                                                                                                        cardgrplist_check = account_check.getCardGroup();
-                                                                                        
+                                            for (int listsize = 0;
+                                                 listsize < accountlist.size();
+                                                 listsize++) {
 
-                                                                                                        //System.out.println("Cardgroup exists in account already present in accountlist");
-                                                                                                        //executeEmp = true;
-                                                                                                        //createCardList = false;
-                                                                                                        for(int cardgrplistsize =0; cardgrplistsize < cardgrplist_check.size(); cardgrplistsize++) {
-                                                                                                            System.out.println("cardgrp id value in account list " + cardgrplist_check.get(cardgrplistsize).getCardGroupMainType());
-                                                                                                            System.out.println("cardgrp id value in account list " + cardgrplist_check.get(cardgrplistsize).getCardGroupSubType());
-                                                                                                            System.out.println("cardgrp id value in account list " + cardgrplist_check.get(cardgrplistsize).getCardGroupSeq());
-                                                                                                            cardgrp_check = cardgrplist_check.get(cardgrplistsize);
-                                                                                                            if(cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) && cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) && cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) 
-                                                                                                            {
-                                                                                                                createCardList = false;
-                                                                                                                
-                                                                                                                
-                                                                                                                if(cardgrp_check.isCardGroupOverview())
-                                                                                                                {cardGroupOverview = true;
-                                                                                                                    break;}
-                                                                                                                else {
-                                                                                                                    //Take out the cardgrp obj from list and modify the same cardgrp object to add card in cardgrp's object list
-                                                                                                                    
-                                                                                                                    cardlist = cardgrp_check.getCard();
-                                                                                                                    
-                                                                                                                    if(!cardlist.contains(card))
-                                                                                                                    cardlist.add(card);
-                                                                                                                    
-                                                                                                                    cardgrp_check.setCard(cardlist);
-                                                                                                                    cardgrp_check.setCardGroupOverview(false);
-                                                                                                                        
-                                                                                                                    
-                                                                                                                }
-                                                                                                                
-                                                                                                                //Replace the old cardgrp obj in list with new one cardgrp_check
-                                                                                                                for(int z=0;z<cardgrouplist.size();z++)
-                                                                                                                {  if(cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) && cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) && cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()))
-                                                                                                                 {
-                                                                                                                     //accountInterchange = accountlist.get(z);
-                                                                                                                     accountlist.set(z, acc);
-                                                                                                                     
-                                                                                                                 }}
-                                                                                                                
-                                                                                                                
-                                                                                                               
-                                                                                                                
-                                                                                                                
-                                                                                                            }
-                                                                                                            
-                                                                                                            
-                                                                                                            
-                                                                                                         
-                                                                                                            
-                                                                                                        }
-                                                                                                        if(createCardList == true)
-                                                                                                            //Cardgrp doesnot exists
-                                                                                                            cardlist = new ArrayList<CardInfo>();
-                                                                                                            cardlist.add(card);
-                                                                                                            cardgrp.setCard(cardlist);
-                                                                                                            cardgrp.setCardGroupOverview(false);
-                                                                                                           // cardgrouplist = cardgrplist_check;
-                                                                                                            cardgrouplist.add(cardgrp);
-                                                                                                           
-                                                                                                        
-                                                                                                        
-                                                                                                       
-                                                                                                            
-                                                                                                    
-                                                                                                        
-                                                                                                        
-                                                                                                        
-                                                                                                        if(cardGroupOverview == false)
-                                                                                                        {
-                                                                                                            acc.setCardGroup(cardgrouplist);
-                                                                                                        
-                                                                                                        //Replace the old account with the new one account obj
-                                                                                                                for(int z=0;z<accountlist.size();z++)
-                                                                                                                 if(accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber()))
-                                                                                                                 {
-                                                                                                                     //accountInterchange = accountlist.get(z);
-                                                                                                                     accountlist.set(z, acc);
-                                                                                                                     
-                                                                                                                 }
-                                                                                                                part.setAccountList(accountlist);
-                                                                                                            }
-                                                                                                        
-                                                                                                    }
-                                                                                                    }
-                                            
-                                            
-                                            
-                                            if(addflagaccount == true) {
+                                                System.out.println("account id value in account list " +
+                                                                   accountlist.get(listsize).getAccountNumber());
+                                                account_check =
+                                                        accountlist.get(listsize);
+                                                //cardgrouplist_check = account_check.getCardGroup();
+
+                                                if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                    createCardGroupList =
+                                                            false;
+                                                    cardgrouplist =
+                                                            account_check.getCardGroup();
+                                                    addflagaccount = false;
+
+                                                    if (account_check.isAccountOverview()) {
+                                                        accountOverView = true;
+                                                        break;
+                                                    }
+
+                                                    cardgrplist_check =
+                                                            account_check.getCardGroup();
+
+
+                                                    //System.out.println("Cardgroup exists in account already present in accountlist");
+                                                    //executeEmp = true;
+                                                    //createCardList = false;
+                                                    for (int cardgrplistsize =
+                                                         0;
+                                                         cardgrplistsize < cardgrplist_check.size();
+                                                         cardgrplistsize++) {
+                                                        System.out.println("cardgrp id value in account list " +
+                                                                           cardgrplist_check.get(cardgrplistsize).getCardGroupMainType());
+                                                        System.out.println("cardgrp id value in account list " +
+                                                                           cardgrplist_check.get(cardgrplistsize).getCardGroupSubType());
+                                                        System.out.println("cardgrp id value in account list " +
+                                                                           cardgrplist_check.get(cardgrplistsize).getCardGroupSeq());
+                                                        cardgrp_check =
+                                                                cardgrplist_check.get(cardgrplistsize);
+                                                        if (cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
+                                                            cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
+                                                            cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
+                                                            createCardList =
+                                                                    false;
+
+
+                                                            if (cardgrp_check.isCardGroupOverview()) {
+                                                                cardGroupOverview =
+                                                                        true;
+                                                                break;
+                                                            } else {
+                                                                //Take out the cardgrp obj from list and modify the same cardgrp object to add card in cardgrp's object list
+
+                                                                cardlist =
+                                                                        cardgrp_check.getCard();
+
+                                                                if (!cardlist.contains(card))
+                                                                    cardlist.add(card);
+
+                                                                cardgrp_check.setCard(cardlist);
+                                                                cardgrp_check.setCardGroupOverview(false);
+
+
+                                                            }
+
+                                                            //Replace the old cardgrp obj in list with new one cardgrp_check
+                                                            for (int z = 0;
+                                                                 z < cardgrouplist.size();
+                                                                 z++) {
+                                                                if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
+                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
+                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType())) {
+                                                                    //accountInterchange = accountlist.get(z);
+                                                                    cardgrouplist.set(z,
+                                                                                    cardgrp_check);
+
+                                                                }
+                                                            }
+
+
+                                                        }
+
+
+                                                    }
+                                                    if (createCardList == true)
+                                                        //Cardgrp doesnot exists
+                                                        cardlist =
+                                                                new ArrayList<CardInfo>();
+                                                    cardlist.add(card);
+                                                    cardgrp.setCard(cardlist);
+                                                    cardgrp.setCardGroupOverview(false);
+                                                    // cardgrouplist = cardgrplist_check;
+                                                    cardgrouplist.add(cardgrp);
+
+
+                                                    if (cardGroupOverview ==
+                                                        false) {
+                                                        acc.setCardGroup(cardgrouplist);
+
+                                                        //Replace the old account with the new one account obj
+                                                        for (int z = 0;
+                                                             z < accountlist.size();
+                                                             z++)
+                                                            if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                //accountInterchange = accountlist.get(z);
+                                                                accountlist.set(z,
+                                                                                acc);
+
+                                                            }
+                                                        part.setAccountList(accountlist);
+                                                    }
+
+                                                }
+                                            }
+
+
+                                            if (addflagaccount == true) {
                                                 //that means either account list is 0 or account doesnot exists in accountlist
-                                                
-                                                cardgrouplist = new ArrayList<CardGroupInfo>();
-                                                cardlist = new ArrayList<CardInfo>();
+
+                                                cardgrouplist =
+                                                        new ArrayList<CardGroupInfo>();
+                                                cardlist =
+                                                        new ArrayList<CardInfo>();
                                                 cardlist.add(card);
                                                 cardgrp.setCard(cardlist);
                                                 cardgrp.setCardGroupOverview(false);
@@ -1200,120 +1327,116 @@ new CardInfo();
                                                 acc.setAccountOverview(false);
                                                 accountlist.add(acc);
                                                 part.setAccountList(accountlist);
-                                                
-                                                
+
+
                                             }
-//                                                                                                if(createCardGroupList) {
-//                                                                                                    
-//                                                                                                    if(executeEmp)
-//                                                                                                    {
-//                                                                                                    System.out.println("Same account with different cardgroup");
-//                                                                                                    }
-//                                                                                                    else
-//                                                                                                    { 
-//                                                                                                        System.out.println("same account with new cardgrouplist");
-//                                                                                                       
-//                                                                                                    }
-//                                                                                                }
-//                                                                                                else
-//                                                                                                        cardgrouplist = new ArrayList<CardGroupInfo>();    
-                                            
-                                            
-                                            
-                                            
+                                            //                                                                                                if(createCardGroupList) {
+                                            //
+                                            //                                                                                                    if(executeEmp)
+                                            //                                                                                                    {
+                                            //                                                                                                    System.out.println("Same account with different cardgroup");
+                                            //                                                                                                    }
+                                            //                                                                                                    else
+                                            //                                                                                                    {
+                                            //                                                                                                        System.out.println("same account with new cardgrouplist");
+                                            //
+                                            //                                                                                                    }
+                                            //                                                                                                }
+                                            //                                                                                                else
+                                            //                                                                                                        cardgrouplist = new ArrayList<CardGroupInfo>();
 
 
                                         }
 
                                         //add in cardlist after checking
-//                                        System.out.println("Execute employee flag "+ executeEmp);
-//                                        if(!executeEmp)
-//                                        {
-//                                        addflagcard = false;
-//                                        
-//                                        for (int k = 0; k < cardlist.size();
-//                                             k++) {
-//                                            System.out.println("cardgroup id value in cardgroup list " +
-//                                                               cardlist.get(k).getCardID());
-//                                            System.out.println("New cardgroup id value to compare" +
-//                                                               card.getCardID());
-//
-//
-//                                            if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
-//                                                System.out.println("card id already exists in card list");
-//                                                addflagcard = true;
-//                                                break;
-//                                            }
-//                                        }
+                                        //                                        System.out.println("Execute employee flag "+ executeEmp);
+                                        //                                        if(!executeEmp)
+                                        //                                        {
+                                        //                                        addflagcard = false;
+                                        //
+                                        //                                        for (int k = 0; k < cardlist.size();
+                                        //                                             k++) {
+                                        //                                            System.out.println("cardgroup id value in cardgroup list " +
+                                        //                                                               cardlist.get(k).getCardID());
+                                        //                                            System.out.println("New cardgroup id value to compare" +
+                                        //                                                               card.getCardID());
+                                        //
+                                        //
+                                        //                                            if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
+                                        //                                                System.out.println("card id already exists in card list");
+                                        //                                                addflagcard = true;
+                                        //                                                break;
+                                        //                                            }
+                                        //                                        }
 
-//                                        if (!addflagcard)
-//                                            cardlist.add(card);
-//
-//
-//                                        addflagcardgroup = false;
-//                                        for (int k = 0;
-//                                             k < cardgrouplist.size(); k++) {
-//                                            System.out.println("cardgroup id value in cardgroup list " +
-//                                                               cardgrouplist.get(k).getCardGroupID());
-//                                            System.out.println("New cardgroup id value to compare" +
-//                                                               cardgrp.getCardGroupID());
-//
-//
-//                                            if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
-//                                                System.out.println("cardgroup id already exists in cardgroup list");
-//                                                cardgrp = cardgrouplist.get(k);
-//                                                addflagcardgroup = true;
-//                                                break;
-//                                            }
-//                                        }
+                                        //                                        if (!addflagcard)
+                                        //                                            cardlist.add(card);
+                                        //
+                                        //
+                                        //                                        addflagcardgroup = false;
+                                        //                                        for (int k = 0;
+                                        //                                             k < cardgrouplist.size(); k++) {
+                                        //                                            System.out.println("cardgroup id value in cardgroup list " +
+                                        //                                                               cardgrouplist.get(k).getCardGroupID());
+                                        //                                            System.out.println("New cardgroup id value to compare" +
+                                        //                                                               cardgrp.getCardGroupID());
+                                        //
+                                        //
+                                        //                                            if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
+                                        //                                                System.out.println("cardgroup id already exists in cardgroup list");
+                                        //                                                cardgrp = cardgrouplist.get(k);
+                                        //                                                addflagcardgroup = true;
+                                        //                                                break;
+                                        //                                            }
+                                        //                                        }
 
-//                                        if (!addflagcardgroup)
-//                                        //add cardlist in cardgroup
-//
-//                                        {
-//                                            cardgrp.setCard(cardlist);
-//                                            cardgrp.setCardGroupOverview(false);
-//                                            cardgrouplist.add(cardgrp);
-//                                            acc.setCardGroup(cardgrouplist);
-//
-//                                        }
-//                                        else {
-//                                            //merge new created cardlist to the existing cardlist & add it to existing cardgrp object
-//                                            card_temp = cardlist.get(0);
-//                                            cardgrplist_temp = cardgrp.getCard();
-//                                            cardgrplist_temp.add(card_temp);
-//                                            cardgrp.setCard(cardgrplist_temp);
-//                                            System.out.println("New card added to existing cardgroup object");
-//                                        }
-
-
-//                                        addflagaccount = false;
-
-//                                        for (int k = 0; k < accountlist.size();
-//                                             k++) {
-//                                            System.out.println("account id value in account list " +
-//                                                               accountlist.get(k).getAccountNumber());
-//                                            System.out.println("New account id value to compare" +
-//                                                               acc.getAccountNumber());
-//
-//
-//                                            if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-//                                                System.out.println("account id already exists in account list");
-//                                                addflagaccount = true;
-//                                                break;
-//                                            }
-//                                        }
+                                        //                                        if (!addflagcardgroup)
+                                        //                                        //add cardlist in cardgroup
+                                        //
+                                        //                                        {
+                                        //                                            cardgrp.setCard(cardlist);
+                                        //                                            cardgrp.setCardGroupOverview(false);
+                                        //                                            cardgrouplist.add(cardgrp);
+                                        //                                            acc.setCardGroup(cardgrouplist);
+                                        //
+                                        //                                        }
+                                        //                                        else {
+                                        //                                            //merge new created cardlist to the existing cardlist & add it to existing cardgrp object
+                                        //                                            card_temp = cardlist.get(0);
+                                        //                                            cardgrplist_temp = cardgrp.getCard();
+                                        //                                            cardgrplist_temp.add(card_temp);
+                                        //                                            cardgrp.setCard(cardgrplist_temp);
+                                        //                                            System.out.println("New card added to existing cardgroup object");
+                                        //                                        }
 
 
-//                                        if (!addflagaccount) {
-//                                            acc.setAccountOverview(false);
-//                                            
-//                                            accountlist.add(acc);
-//                                            part.setAccountList(accountlist);
-//                                            part.setCompanyOverview(false);
-//                                        }
-                                        
-//                                    }
+                                        //                                        addflagaccount = false;
+
+                                        //                                        for (int k = 0; k < accountlist.size();
+                                        //                                             k++) {
+                                        //                                            System.out.println("account id value in account list " +
+                                        //                                                               accountlist.get(k).getAccountNumber());
+                                        //                                            System.out.println("New account id value to compare" +
+                                        //                                                               acc.getAccountNumber());
+                                        //
+                                        //
+                                        //                                            if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                        //                                                System.out.println("account id already exists in account list");
+                                        //                                                addflagaccount = true;
+                                        //                                                break;
+                                        //                                            }
+                                        //                                        }
+
+
+                                        //                                        if (!addflagaccount) {
+                                        //                                            acc.setAccountOverview(false);
+                                        //
+                                        //                                            accountlist.add(acc);
+                                        //                                            part.setAccountList(accountlist);
+                                        //                                            part.setCompanyOverview(false);
+                                        //                                        }
+
+                                        //                                    }
 
 
                                         idlist++;
@@ -1322,17 +1445,17 @@ new CardInfo();
 
                                     //cardlist
 
-if(accountOverView != true)
-{          session.setAttribute("Partner_Object_List",
-                                                         part);
-                                    System.out.println("partner list added");
+                                    if (accountOverView != true) {
+                                        session.setAttribute("Partner_Object_List",
+                                                             part);
+                                        System.out.println("partner list added");
 
 
-                                    System.out.println("session not null");
-                                    session.setAttribute("executePartnerObjLogic",
-                                                         "no");
-                                    System.out.println("Session variable added");
-}
+                                        System.out.println("session not null");
+                                        session.setAttribute("executePartnerObjLogic",
+                                                             "no");
+                                        System.out.println("Session variable added");
+                                    }
 
                                 }
 
@@ -1389,9 +1512,10 @@ if(accountOverView != true)
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-//            userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+//                        userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             //TODO : Amit - Users to be fetched from IDM for actual testing.
-            userList = userClient.searchUserWithUserId(securityContext.getUserName());
+            userList =
+                    userClient.searchUserWithUserId(securityContext.getUserName());
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
@@ -1447,7 +1571,7 @@ if(accountOverView != true)
                     System.out.println("RoleList size" +
                                        user.getRoleList().get(0).getRoleName());
                     //System.out.println("Role of admin" +
-                         //              (Constants.ROLE_WCP_CARD_ADMIN));
+                    //              (Constants.ROLE_WCP_CARD_ADMIN));
 
                 }
             } else {
@@ -1535,350 +1659,297 @@ if(accountOverView != true)
     }
 
     //TODO : Amit - Below method to be deleted before moving to Dev or highler envs.
-    
-    
+
+
     private void executeAdmin(User user) {
-      
-                                            part = new PartnerInfo();
-
-                                    
-                                    accountlist = new ArrayList<AccountInfo>();
-                                    cardgrouplist = new ArrayList<CardGroupInfo>();
-                                    cardlist = new ArrayList<CardInfo>();
-                                         
-                                           
-
-
-                                           
-                                            int idlist = 0;
-                                           
-
-                                                String Partnerid =
-                                                    partnerlist.get(0).getPartnerValue();
-                                                //Execute Account VO wrt to partnerinfo_list.get(0).getPartnerValue() and store the account list in session
-
-
-                                                DCBindingContainer bindings =
-                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                //  DCBindingContainer dc1 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-                                                DCIteratorBinding iter1;
-                                                if (bindings != null) {
-                                                    iter1 =
-                                                            bindings.findIteratorBinding("PrtAccountVO1Iterator");
-                                                    System.out.println("DC Iterator bindings for Account found in mypagelistner");
-                                                } else {
-                                                    System.out.println("bindings is null");
-                                                    iter1 = null;
-                                                }
-
-                                                ViewObject vo1 = iter1.getViewObject();
-                                                vo1.setWhereClause("PARTNER_ID =: pid");
-                                                System.out.println("Partner id in query " +
-                                                                   Partnerid);
-                                                part.setPartnerValue(Partnerid);
-                                                part.setCountry(conv.getCustomerCountryCode(user.getLang().toString()));
-                                                part.setCompanyOverview(true);
-                                                vo1.defineNamedWhereClauseParam("pid",
-                                                                                Partnerid,
-                                                                                null);
-                                                vo1.setNamedWhereClauseParam("countryCode",
-                                                                             "no_NO");
-                                                System.out.println(vo1.getQuery());
-                                                vo1.executeQuery();
-                                                System.out.println("row count from account vo " +
-                                                                   vo1.getEstimatedRowCount());
-
-
-                                                if (vo1.getEstimatedRowCount() != 0) {
-
-                                                    System.out.println("RowCount for account VO  " +
-                                                                       vo1.getEstimatedRowCount());
-
-                                                    while (vo1.hasNext()) {
-                                                        acc = new AccountInfo();
-                                                        cardgrouplist =
-                                                                new ArrayList<CardGroupInfo>();
-
-
-                                                        PrtAccountVORowImpl currRow =
-                                                            (PrtAccountVORowImpl)vo1.next();
-
-                                                        if (currRow != null) {
-                                                            System.out.println(" row != null");
-
-                                                            if (currRow.getAccountId() !=
-                                                                null) {
-                                                                System.out.println("Account id is " +
-                                                                                   currRow.getAccountId());
-                                                                acc.setAccountNumber(currRow.getAccountId().toString());
-                                                                acc.setAccountOverview(true);
-                                                            }
-
-                                                            addflagaccount = false;
-                                                            for (int k = 0;
-                                                                 k < accountlist.size();
-                                                                 k++) {
-                                                                System.out.println("account id value in account list " +
-                                                                                   accountlist.get(k).getAccountNumber());
-                                                                System.out.println("New account id value to compare" +
-                                                                                   acc.getAccountNumber());
-
-
-                                                                if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                                    System.out.println("account id already exists in account list");
-                                                                    addflagaccount =
-                                                                            true;
-                                                                    break;
-                                                                }
-                                                            }
-
-
-                                                        }
-
-                                                        String AccountID =
-                                                            acc.getAccountNumber();
-                                                        bindings =
-                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                        DCIteratorBinding iter2;
-                                                        if (bindings != null) {
-                                                            iter2 =
-                                                                    bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
-                                                            System.out.println("DC Iterator bindings for Card group found in mypagelistner");
-                                                        } else {
-                                                            System.out.println("bindings is null");
-                                                            iter2 = null;
-                                                        }
-                                                        ViewObject vo2 =
-                                                            iter2.getViewObject();
-
-                                                        vo2 = iter2.getViewObject();
-                                                        vo2.setWhereClause("ACCOUNT_ID =: accid");
-                                                        vo2.defineNamedWhereClauseParam("accid",
-                                                                                        AccountID,
-                                                                                        null);
-
-
-                                                        vo2.executeQuery();
-                                                        System.out.println("row count from cardgroup vo" +
-                                                                           vo2.getEstimatedRowCount());
-
-                                                        if (vo2.getEstimatedRowCount() !=
-                                                            0) {
-
-                                                            //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
-
-                                                            while (vo2.hasNext()) {
-
-
-                                                                cardgrp =
-                                                                        new CardGroupInfo();
-                                                                cardlist =
-                                                                        new ArrayList<CardInfo>();
-                                                                PrtCardgroupVORowImpl currRowcardgrp =
-                                                                    (PrtCardgroupVORowImpl)vo2.next();
-
-                                                                if (currRowcardgrp !=
-                                                                    null) {
-                                                                    System.out.println(" row != null");
-
-                                                                    if (currRowcardgrp.getCardgroupSeq() !=
-                                                                        null) {
-                                                                        System.out.println("Cardgroup id is " +
-                                                                                           currRowcardgrp.getCardgroupSeq());
-                                                                        cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
-                                                                        cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
-                                                                        cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
-                                                                        cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
-                                                                        cardgrp.setCardGroupOverview(true);
-                                                                    }
-
-                                                                    addflagcardgroup =
-                                                                            false;
-                                                                    for (int k = 0;
-                                                                         k < cardgrouplist.size();
-                                                                         k++) {
-                                                                        System.out.println("cardgroup id value in cardgroup list " +
-                                                                                           cardgrouplist.get(k).getCardGroupID());
-                                                                        System.out.println("New cardgroup id value to compare" +
-                                                                                           cardgrp.getCardGroupID());
-
-
-                                                                        if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
-                                                                            System.out.println("cardgroup id already exists in cardgroup list");
-                                                                            addflagcardgroup =
-                                                                                    true;
-                                                                            break;
-                                                                        }
-                                                                    }
-
-
-                                                                }
-
-
-                                                                String CardgroupMainType =
-                                                                    cardgrp.getCardGroupMainType().toString();
-                                                                String CardgroupSubType =
-                                                                    cardgrp.getCardGroupSubType().toString();
-                                                                String CardgroupSeq =
-                                                                    cardgrp.getCardGroupSeq().toString();
-                                                                bindings =
-                                                                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                                DCIteratorBinding iter3;
-                                                                if (bindings != null) {
-                                                                    iter3 =
-                                                                            bindings.findIteratorBinding("PrtCardVO1Iterator");
-                                                                    System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
-                                                                } else {
-                                                                    System.out.println("bindings is null");
-                                                                    iter3 = null;
-                                                                }
-                                                                ViewObject vo3 =
-                                                                    iter3.getViewObject();
-                                                                
-                                                                if("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-                                                                    System.out.println("Remove query executed");
-                                                                    vo3.removeNamedWhereClauseParam("cardid");
-                                                                        vo3.removeNamedWhereClauseParam("cc");
-                                                                        vo3.setWhereClause("");
-                                                                    vo3.executeQuery();   
-                                                                }
-
-                                                                
-                                                                
-                                                                
-                                                                //TODO : Change hard coded contry code
-                                                                vo3 =
-        iter3.getViewObject();
-                                                                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-
-                                                                vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                CardgroupSeq,
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cc",
-                                                                                                "no_NO",
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                CardgroupMainType,
-                                                                                                null);
-                                                                vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                CardgroupSubType,
-                                                                                                null);
-
-
-                                                                vo3.executeQuery();
-                                                                System.out.println("row count from cardgroup vo" +
-                                                                                   vo3.getEstimatedRowCount());
-
-                                                                if (vo3.getEstimatedRowCount() !=
-                                                                    0) {
-
-                                                                    //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
-
-                                                                    while (vo3.hasNext()) {
-
-
-                                                                        card =
-        new CardInfo();
-                                                                        PrtCardVORowImpl currRowcard =
-                                                                            (PrtCardVORowImpl)vo3.next();
-
-                                                                        if (currRowcard !=
-                                                                            null) {
-                                                                            System.out.println(" row != null");
-
-                                                                            if (currRowcard.getPrtCardPk() !=
-                                                                                null) {
-                                                                                System.out.println("Card id is " +
-                                                                                                   currRowcard.getPrtCardPk());
-                                                                                card.setCardID(currRowcard.getPrtCardPk().toString());
-                                                                                
-                                                                                card.setCardOverview(true);
-                                                                            }
-                                                                            
-                                                                            if(currRowcard.getExtCardNum()!= null)
-                                                                                card.setExternalCardID(currRowcard.getExtCardNum().toString());
-
-                                                                            addflagcard =
-                                                                                    false;
-                                                                            for (int k =
-                                                                                 0;
-                                                                                 k < cardlist.size();
-                                                                                 k++) {
-                                                                                System.out.println("cardgroup id value in cardgroup list " +
-                                                                                                   cardlist.get(k).getCardID());
-                                                                                System.out.println("New cardgroup id value to compare" +
-                                                                                                   card.getCardID());
-
-
-                                                                                if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
-                                                                                    System.out.println("card id already exists in card list");
-                                                                                    addflagcard =
-                                                                                            true;
-                                                                                    break;
-                                                                                }
-                                                                            }
-
-
-                                                                        }
-                                                                        if (!addflagcard)
-                                                                            cardlist.add(card);
-
-
-                                                                    }
-
-
-                                                                }
-
-
-                                                                if (!addflagcardgroup)
-                                                                //add cardlist in cardgroup
-
-                                                                {
-                                                                    cardgrp.setCard(cardlist);
-                                                                    cardgrouplist.add(cardgrp);
-
-                                                                }
-
-
-                                                            }
-
-                                                        }
-
-                                                        if (!addflagaccount) {
-                                                            acc.setCardGroup(cardgrouplist);
-                                                            accountlist.add(acc);
-                                                            part.setAccountList(accountlist);
-
-                                                        }
-
-                                                    }
-
-                                                }
+
+        part = new PartnerInfo();
+
+
+        accountlist = new ArrayList<AccountInfo>();
+        cardgrouplist = new ArrayList<CardGroupInfo>();
+        cardlist = new ArrayList<CardInfo>();
+
+
+        int idlist = 0;
+
+
+        String Partnerid = partnerlist.get(0).getPartnerValue();
+        //Execute Account VO wrt to partnerinfo_list.get(0).getPartnerValue() and store the account list in session
+
+
+        DCBindingContainer bindings =
+            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        //  DCBindingContainer dc1 = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+        DCIteratorBinding iter1;
+        if (bindings != null) {
+            iter1 = bindings.findIteratorBinding("PrtAccountVO1Iterator");
+            System.out.println("DC Iterator bindings for Account found in mypagelistner");
+        } else {
+            System.out.println("bindings is null");
+            iter1 = null;
+        }
+
+        ViewObject vo1 = iter1.getViewObject();
+        vo1.setWhereClause("PARTNER_ID =: pid");
+        System.out.println("Partner id in query " + Partnerid);
+        part.setPartnerValue(Partnerid);
+        part.setCountry(conv.getCustomerCountryCode(user.getLang().toString()));
+        part.setCompanyOverview(true);
+        vo1.defineNamedWhereClauseParam("pid", Partnerid, null);
+        vo1.setNamedWhereClauseParam("countryCode", "no_NO");
+        System.out.println(vo1.getQuery());
+        vo1.executeQuery();
+        System.out.println("row count from account vo " +
+                           vo1.getEstimatedRowCount());
+
+
+        if (vo1.getEstimatedRowCount() != 0) {
+
+            System.out.println("RowCount for account VO  " +
+                               vo1.getEstimatedRowCount());
+
+            while (vo1.hasNext()) {
+                acc = new AccountInfo();
+                cardgrouplist = new ArrayList<CardGroupInfo>();
+
+
+                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo1.next();
+
+                if (currRow != null) {
+                    System.out.println(" row != null");
+
+                    if (currRow.getAccountId() != null) {
+                        System.out.println("Account id is " +
+                                           currRow.getAccountId());
+                        acc.setAccountNumber(currRow.getAccountId().toString());
+                        acc.setAccountOverview(true);
+                    }
+
+                    addflagaccount = false;
+                    for (int k = 0; k < accountlist.size(); k++) {
+                        System.out.println("account id value in account list " +
+                                           accountlist.get(k).getAccountNumber());
+                        System.out.println("New account id value to compare" +
+                                           acc.getAccountNumber());
+
+
+                        if (accountlist.get(k).getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                            System.out.println("account id already exists in account list");
+                            addflagaccount = true;
+                            break;
+                        }
+                    }
+
+
+                }
+
+                String AccountID = acc.getAccountNumber();
+                bindings =
+                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                DCIteratorBinding iter2;
+                if (bindings != null) {
+                    iter2 =
+                            bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
+                    System.out.println("DC Iterator bindings for Card group found in mypagelistner");
+                } else {
+                    System.out.println("bindings is null");
+                    iter2 = null;
+                }
+                ViewObject vo2 = iter2.getViewObject();
+
+                vo2 = iter2.getViewObject();
+                vo2.setWhereClause("ACCOUNT_ID =: accid");
+                vo2.defineNamedWhereClauseParam("accid", AccountID, null);
+
+
+                vo2.executeQuery();
+                System.out.println("row count from cardgroup vo" +
+                                   vo2.getEstimatedRowCount());
+
+                if (vo2.getEstimatedRowCount() != 0) {
+
+                    //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+
+                    while (vo2.hasNext()) {
+
+
+                        cardgrp = new CardGroupInfo();
+                        cardlist = new ArrayList<CardInfo>();
+                        PrtCardgroupVORowImpl currRowcardgrp =
+                            (PrtCardgroupVORowImpl)vo2.next();
+
+                        if (currRowcardgrp != null) {
+                            System.out.println(" row != null");
+
+                            if (currRowcardgrp.getCardgroupSeq() != null) {
+                                System.out.println("Cardgroup id is " +
+                                                   currRowcardgrp.getCardgroupSeq());
+                                cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
+                                cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
+                                cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                cardgrp.setCardGroupOverview(true);
+                            }
+
+                            addflagcardgroup = false;
+                            for (int k = 0; k < cardgrouplist.size(); k++) {
+                                System.out.println("cardgroup id value in cardgroup list " +
+                                                   cardgrouplist.get(k).getCardGroupID());
+                                System.out.println("New cardgroup id value to compare" +
+                                                   cardgrp.getCardGroupID());
+
+
+                                if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
+                                    System.out.println("cardgroup id already exists in cardgroup list");
+                                    addflagcardgroup = true;
+                                    break;
+                                }
+                            }
+
+
+                        }
+
+
+                        String CardgroupMainType =
+                            cardgrp.getCardGroupMainType().toString();
+                        String CardgroupSubType =
+                            cardgrp.getCardGroupSubType().toString();
+                        String CardgroupSeq =
+                            cardgrp.getCardGroupSeq().toString();
+                        bindings =
+                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                        DCIteratorBinding iter3;
+                        if (bindings != null) {
+                            iter3 =
+                                    bindings.findIteratorBinding("PrtCardVO1Iterator");
+                            System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
+                        } else {
+                            System.out.println("bindings is null");
+                            iter3 = null;
+                        }
+                        ViewObject vo3 = iter3.getViewObject();
+
+                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+                            System.out.println("Remove query executed");
+                            vo3.removeNamedWhereClauseParam("cardid");
+                            vo3.removeNamedWhereClauseParam("cc");
+                            vo3.setWhereClause("");
+                            vo3.executeQuery();
+                        }
+
+
+                        //TODO : Change hard coded contry code
+                        vo3 = iter3.getViewObject();
+                        vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+
+                        vo3.defineNamedWhereClauseParam("cgid", CardgroupSeq,
+                                                        null);
+                        vo3.defineNamedWhereClauseParam("cc", "no_NO", null);
+                        vo3.defineNamedWhereClauseParam("cgmain",
+                                                        CardgroupMainType,
+                                                        null);
+                        vo3.defineNamedWhereClauseParam("cgsub",
+                                                        CardgroupSubType,
+                                                        null);
+
+
+                        vo3.executeQuery();
+                        System.out.println("row count from cardgroup vo" +
+                                           vo3.getEstimatedRowCount());
+
+                        if (vo3.getEstimatedRowCount() != 0) {
+
+                            //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+
+                            while (vo3.hasNext()) {
+
+
+                                card = new CardInfo();
+                                PrtCardVORowImpl currRowcard =
+                                    (PrtCardVORowImpl)vo3.next();
+
+                                if (currRowcard != null) {
+                                    System.out.println(" row != null");
+
+                                    if (currRowcard.getPrtCardPk() != null) {
+                                        System.out.println("Card id is " +
+                                                           currRowcard.getPrtCardPk());
+                                        card.setCardID(currRowcard.getPrtCardPk().toString());
+
+                                        card.setCardOverview(true);
+                                    }
+
+                                    if (currRowcard.getExtCardNum() != null)
+                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+
+                                    addflagcard = false;
+                                    for (int k = 0; k < cardlist.size(); k++) {
+                                        System.out.println("cardgroup id value in cardgroup list " +
+                                                           cardlist.get(k).getCardID());
+                                        System.out.println("New cardgroup id value to compare" +
+                                                           card.getCardID());
+
+
+                                        if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
+                                            System.out.println("card id already exists in card list");
+                                            addflagcard = true;
+                                            break;
+                                        }
+                                    }
+
+
+                                }
+                                if (!addflagcard)
+                                    cardlist.add(card);
+
+
+                            }
+
+
+                        }
+
+
+                        if (!addflagcardgroup)
+                        //add cardlist in cardgroup
+
+                        {
+                            cardgrp.setCard(cardlist);
+                            cardgrouplist.add(cardgrp);
+
+                        }
+
+
+                    }
+
+                }
+
+                if (!addflagaccount) {
+                    acc.setCardGroup(cardgrouplist);
+                    accountlist.add(acc);
+                    part.setAccountList(accountlist);
+
+                }
+
+            }
+
+        }
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-                                                if (session != null)
-                                                    if (session.getAttribute("executePartnerObjLogic") ==
-                                                        null) {
-                                                session.setAttribute("Partner_Object_List",
-                                                                     part);
-                                                System.out.println("partner list added");
+        if (session != null)
+            if (session.getAttribute("executePartnerObjLogic") == null) {
+                session.setAttribute("Partner_Object_List", part);
+                System.out.println("partner list added");
 
 
-                                                System.out.println("session not null");
-                                                session.setAttribute("executePartnerObjLogic",
-                                                                     "no");
-                                                System.out.println("Session variable added");
+                System.out.println("session not null");
+                session.setAttribute("executePartnerObjLogic", "no");
+                System.out.println("Session variable added");
 
-                                            } 
+            }
     }
 
-
-                                            
-
-                                        
-        
-    
 
     private User populateUser(String role) {
         User user = new User();
@@ -1895,57 +1966,50 @@ if(accountOverView != true)
         List<Roles> listrole = new ArrayList<Roles>();
         Roles rr = new Roles();
         List<String> idString = new ArrayList<String>();
-        
-       
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-//        idString = new ArrayList<String>();
-        idString.add("NOPP26773218CC0058973603");
-        
-        idString.add("NOPP26773218CC0058589248");
-        idString.add("NOPP26773218CC0058589003");
-        rr.setIdString(idString);
-        listrole.add(rr);
-        
-//        rr= new Roles();
-        
-        
-        
 
-        
-//        rr= new Roles();
-//        idString = new ArrayList<String>();
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-//        idString.add("NOPP26773218");
+
+//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+        //        idString = new ArrayList<String>();
+//        idString.add("NOPP26773218CC0058973603");
+
+//        idString.add("NOPP26773218CC0058589248");
+//        idString.add("NOPP26773218CC0058589003");
 //        rr.setIdString(idString);
 //        listrole.add(rr);
-        
-                rr= new Roles();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-                idString = new ArrayList<String>();
-        idString.add("NOPP26773218AC0022883797");
-        idString.add("NOPP26773218AC0022883898");
-        idString.add("NOPP26773218AC0022883797");
-        rr.setIdString(idString);
-        listrole.add(rr);
-        
-        
+
+        //        rr= new Roles();
+
+
+        //        rr= new Roles();
+        //        idString = new ArrayList<String>();
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                idString.add("NOPP26773218");
+                rr.setIdString(idString);
+                listrole.add(rr);
+
+//        rr = new Roles();
 //        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-//        //                idString = new ArrayList<String>();
-//        idString.add("NOPP26773218CGSLUTRX00001");
-//        idString.add("NOPP26773218CGSLUTRX00007");
-//        idString.add("NOPP26773218CGSLUTRX00002");
+//        idString = new ArrayList<String>();
+//        idString.add("NOPP26773218AC0022883797");
+//        idString.add("NOPP26773218AC0022883898");
+//        idString.add("NOPP26773218AC0022883797");
 //        rr.setIdString(idString);
 //        listrole.add(rr);
-               
-               
-       
-        
-        
-        
+
+
+//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+        //        //                idString = new ArrayList<String>();
+//                idString.add("NOPP26773218CGSLUTRX00001");
+                
+//                idString.add("NOPP26773218CGSLUTRX00002");
+//        idString.add("NOPP26773218CGSLUTRX00006");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
+
 
         user.setRoleList(listrole);
-//                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
-//                               Constants.ROLE_WCP_CARD_B2B_EMP);
+        //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
+        //                               Constants.ROLE_WCP_CARD_B2B_EMP);
         user.setRolelist(Constants.ROLE_WCP_CARD_B2B_EMP);
         user.setUserID("B2BMgr1@test.com");
 
