@@ -323,6 +323,13 @@
                    <af:outputText value="#{sfr.VEHICLEINFO_ENDDATE}" id="Acctid282"/>
           <af:outputText value=":" id="colonpop292"/>
           <af:spacer width="15" height="10" id="s21292"/>
+             <af:inputDate value="#{bindings.EndDate.inputValue}"
+                              shortDesc="#{bindings.EndDate.hints.tooltip}"
+                              id="id4"
+                                contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.EndDate.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
+                </af:inputDate>
                   <af:outputText value="#{sfr.VEHICLEINFO_MAXFUEL}" id="Acctid220"/>
           <af:outputText value=":" id="colonpop220"/>
           <af:spacer width="15" height="10" id="s21202"/>
