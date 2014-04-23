@@ -330,7 +330,8 @@
             <af:outputText value="#{row.Ksid}" id="ot35"/>
           </af:column>
           <af:column headerText="#{sfr.VEHICLE_NUMBER}"
-                     id="c14" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+                     id="c14" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                     width="80">
             <af:outputText value="#{row.VehicleNumber}" id="ot36"/>
           </af:column>
           <af:column headerText="#{sfr.DRIVER_NAME}"
@@ -370,7 +371,7 @@
           </af:column>
           <af:column sortProperty="Quantity" sortable="false"
                      headerText="#{sfr.ENGAGE_QUANTITY}"
-                     id="c3">
+                     id="c3" width="80">
             <af:panelGroupLayout id="pgl19">
               <af:spacer width="2" height="1" id="spacer14"/>
               <af:outputText value="#{row.bindings.Quantity.inputValue}"
@@ -407,7 +408,7 @@
           </af:column>
           <af:column sortProperty="RecieptNo" sortable="false"
                      headerText="#{sfr.ENGAGE_RECEIPT_NO}"
-                     id="c7">
+                     id="c7" width="70">
             <af:panelGroupLayout id="pgl21">
               <af:spacer width="2" height="1" id="spacer16"/>
               <af:outputText value="#{row.bindings.RecieptNo.inputValue}"
@@ -418,7 +419,7 @@
         
         <af:column sortProperty="InvoiceNumberCollective" sortable="false"
                    headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
-                   id="c9">
+                   id="c9" width="80">
             <af:panelGroupLayout id="pgl22">
               <af:spacer width="2" height="1" id="spacer17"/>
               <af:outputText value="#{row.bindings.InvoiceNumberCollective.inputValue eq null ? row.bindings.InvoiceNumberNonCollective.inputValue: row.bindings.InvoiceNumberCollective.inputValue} "
@@ -428,7 +429,7 @@
           </af:column>
           <!--odometer to be localised!-->
           <af:column headerText="Odometer"
-                     id="c6" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+                     id="c6" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.OdometerPortal}" id="ot30" visible="#{row.OdometerPortal ne null ? true : false}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>                                
@@ -443,21 +444,21 @@
             </af:outputText>
           </af:column>-->
           <af:column headerText="#{sfr.ENGAGE_KM_TOTAL}"
-                     id="c12" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+                     id="c12" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.kmTotal}" id="ot34">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmTotal.format}"/>
             </af:outputText>
           </af:column>
           <af:column headerText="#{sfr.ENGAGE_KM_PER_LT}"
-                     id="c10" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+                     id="c10" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.kmPerLt}" id="ot31">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmPerLt.format}"/>
             </af:outputText>
           </af:column>
           <af:column headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
-                     id="c11" width="35" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
+                     id="c11" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
             <af:outputText value="#{row.ltPerHundred}" id="ot32">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.ltPerHundred.format}"/>
