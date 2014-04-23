@@ -140,12 +140,37 @@
                                binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}">
               <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si10"/>
               <af:selectItem label="#{sfr.CARD}" value="Card" id="si13"/>
+              <!--<af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
+                             id="si11"/>-->
+              <!--<af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si12"/>-->
+              <!--<f:selectItems value="#{pageFlowScope.ledgerBean.searchItemCriteriaLOV}"
+                             id="si1"/>-->
+            </af:selectOneRadio>
+            
+            
+           <!--start:Code added here for grid-->
+            <af:spacer width="10" height="10" id="s16"/>
+              <af:spacer width="10" height="10" id="s18"/>
+            <!--<af:outputText value="*" id="ot4gfg1"/>-->          
+            <!--<af:outputText value="Please Select" id="otfgfg38"/>-->
+           <af:spacer width="5" height="15" id="s4fgfg"/>
+                    <!--<af:outputText value=":" id="otfgf42"/>-->
+            <af:spacer width="10" height="10" id="s41"/>
+            <af:spacer width="10" height="15" id="s1fgf5"/>
+            <af:selectOneRadio id="sofdr1" autoSubmit="true" layout="horizontal"
+                               valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
+                               binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}">
+              <!--<af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="sifgf10"/>-->
+              <!--<af:selectItem label="#{sfr.CARD}" value="Card" id="sifg13"/>-->
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
                              id="si11"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si12"/>
               <!--<f:selectItems value="#{pageFlowScope.ledgerBean.searchItemCriteriaLOV}"
                              id="si1"/>-->
             </af:selectOneRadio>
+            
+             <!--end:Code added here for grid-->
+            
             </h:panelGrid>
            <af:spacer width="10" height="10" id="spacer7"/>
             <af:panelGroupLayout id="pgl27" layout="horizontal">
