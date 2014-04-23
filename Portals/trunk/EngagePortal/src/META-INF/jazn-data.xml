@@ -19,7 +19,7 @@
                         <members>
                             <member>
                                 <class>weblogic.security.principal.WLSGroupImpl</class>
-                                <name>Administrators</name>
+                                <name>WCP_Administrators</name>
                             </member>
                         </members>
                     </app-role>
