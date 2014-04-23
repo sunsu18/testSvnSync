@@ -172,7 +172,7 @@
                     styleClass="heading"/>    
     <af:panelGroupLayout id="pgl24" layout="vertical"
                                halign="right"
-                               inlineStyle="width:640.0px; height:15.0px;">    
+                               inlineStyle="width:680.0px; height:15.0px;">    
      <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CurrencyCode.inputValue}" id="ot22" styleClass="popupoutputText"/>      
     </af:panelGroupLayout>
     </af:panelGroupLayout>
@@ -254,7 +254,8 @@
      <af:panelStretchLayout id="pssl6" dimensionsFrom="children">     
       <f:facet name="center">
        <af:panelGroupLayout id="invoiceDetails_scroll"
-                            styleClass="WCPanelMargin">
+                            styleClass="WCPanelMargin"
+                            inlineStyle="margin:5px;">
         <af:panelGroupLayout id="pgl0" layout="horizontal">
          <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_1}:" id="ot14"
                         styleClass="subheading"/>
@@ -271,7 +272,7 @@
           <h:panelGrid columns="5" id="pg2">
            <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}" id="ot20"/>
            <af:outputText value=":" id="ot21"/>
-           <af:spacer width="15" height="10" id="s15"/>            
+           <af:spacer width="15" height="30" id="s15"/>            
              <af:outputText value="#{bindings.Net1.inputValue}" id="ot43">
               <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
@@ -281,14 +282,14 @@
              <af:spacer width="0" height="10" id="s146"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}" id="ot29"/>
            <af:outputText value=":" id="ot30"/>
-           <af:spacer width="15" height="10" id="s16"/>
+           <af:spacer width="15" height="30" id="s16"/>
             <af:outputText value="#{bindings.Vat1.inputValue}" id="ot44">           
              <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
                                 minFractionDigits="2"/>  
             </af:outputText>
-           <af:spacer width="0" height="10" id="s116"/>
+           <af:spacer width="0" height="30" id="s116"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="ot31"/>
            <af:outputText value=":" id="ot32"/>
            <af:spacer width="15" height="10" id="s17"/>
@@ -299,7 +300,7 @@
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
                                 minFractionDigits="2"/>  
          </af:outputText>
-           <af:spacer width="0" height="10" id="s176"/>
+           <af:spacer width="0" height="30" id="s176"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE}" id="ot35"/>
            <af:outputText value=":" id="ot36"/>
            <af:spacer width="15" height="10" id="s20"/>
@@ -326,14 +327,18 @@
           </h:panelGrid>
        </af:panelGroupLayout>  -->
         </af:panelGroupLayout>
+        <af:spacer width="10" height="20" id="s22"/>
         <af:panelGroupLayout id="pgl19">
-         <af:separator id="s21"/>
-         <af:panelGroupLayout id="pgl126" layout="horizontal">
+         <af:panelGroupLayout id="pgl22"/>
+         <af:separator id="s21" inlineStyle="width:852.0px;"/>
+         </af:panelGroupLayout>
+        <af:spacer width="10" height="20" id="s23"/>
+        <af:panelGroupLayout id="pgl126" layout="horizontal">
         <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
                         styleClass="subheading"/>
          <af:panelGroupLayout id="pgl26" layout="vertical"
                                halign="right"
-                               inlineStyle="width:640.0px; height:15.0px;">    
+                               inlineStyle="width:712.0px; height:15.0px;">    
         <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CurrencyCode1.inputValue}"
                        id="ot27" styleClass="popupoutputText"/>      
          </af:panelGroupLayout>
@@ -344,7 +349,8 @@
                    rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
                    emptyText="#{bindings.PrtCardTransactionInvoiceRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                    fetchSize="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
-                   rowBandingInterval="0" id="t3" varStatus="vs">
+                   rowBandingInterval="0" id="t3" varStatus="vs"
+                   columnResizing="disabled" disableColumnReordering="true">
             <af:column headerText="#{sfr.INVOICE_LINENO}"
                      id="c114">
            <af:outputText value="#{vs.index+1}" id="ot42"/>
@@ -400,7 +406,7 @@
                             action="#{pageFlowScope.InvoiceOverviewBean.invoiceDetailsCancel}"></af:commandButton>
          </af:panelGroupLayout>
         </af:panelGroupLayout>
-       </af:panelGroupLayout>
+      
       </f:facet>
      </af:panelStretchLayout>
     </af:dialog>
