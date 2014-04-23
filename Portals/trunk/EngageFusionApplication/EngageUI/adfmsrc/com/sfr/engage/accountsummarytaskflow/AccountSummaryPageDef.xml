@@ -122,5 +122,35 @@
         <Item Value="CardgroupSubType"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardRemarks">
+      <AttrNames>
+        <Item Value="CardRemarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerAddr1">
+      <AttrNames>
+        <Item Value="PartnerAddr1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerAddr2">
+      <AttrNames>
+        <Item Value="PartnerAddr2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerPostalCode">
+      <AttrNames>
+        <Item Value="PartnerPostalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerCity">
+      <AttrNames>
+        <Item Value="PartnerCity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerCountry">
+      <AttrNames>
+        <Item Value="PartnerCountry"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

@@ -61,7 +61,7 @@
                           
                           
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
-                 selectionListener="#{pageFlowScope.AccountSummaryBean.Tree_Listner}"
+                 selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}"
                  rowSelection="single" id="t1" summary="Partner_Tree">
                     <f:facet name="nodeStamp">
            <af:switcher id="s1" 
@@ -119,7 +119,7 @@
       <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:480px;">
 
   <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
-                       binding="#{pageFlowScope.AccountSummaryBean.companyOverview}">             
+                       binding="#{pageFlowScope.AccountSummaryBean.bindings.companyOverview}">             
      <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal" >
      <af:spacer width="10" id="s327"/>
       <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading"/>
@@ -233,11 +233,15 @@
           <af:outputText value=":" id="ot69"/>
           <af:spacer width="15" height="10" id="s55"/>
               
-               <af:inputText value="ENKELKORT"
+               <af:inputText value="#{bindings.PartnerAddr1.inputValue}"
                             id="it33"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
-                             readOnly="true">
+                             readOnly="true"
+                            
+                             maximumLength="#{bindings.PartnerAddr1.hints.precision}">
+              
               </af:inputText>
+              
                <af:spacer width="25" height="10" id="s58"/>
                <af:outputText value="#{sfr.COMPANY_LANGUAGE}" id="ot68"/>
           <af:outputText value=":" id="ot71"/>
@@ -262,12 +266,23 @@
                <af:outputText value="#{sfr.COMPANY_ADDRESS_2}" id="ot74"/>
           <af:outputText value=":" id="ot73"/>
           <af:spacer width="15" height="10" id="s62"/>
-              <af:inputText value="FAKTURA ENHET 0038"
+              <af:inputText value="#{bindings.PartnerAddr2.inputValue}" 
                             id="it36"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            maximumLength="#{bindings.PartnerAddr2.hints.precision}"
                             readOnly="true">
+                        
               </af:inputText>
-                  <af:spacer width="25" height="10" id="s61"/>             
+              <!--<af:inputText value="#{bindings.PartnerAddr2.inputValue}"
+                            simple="true"
+                            required="#{bindings.PartnerAddr2.hints.mandatory}"
+                            columns="#{bindings.PartnerAddr2.hints.displayWidth}"
+                            maximumLength="#{bindings.PartnerAddr2.hints.precision}"
+                            shortDesc="#{bindings.PartnerAddr2.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.PartnerAddr2.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" id="s61"/>             
               <af:outputText value="#{sfr.COMPANY_CURRENCY}" id="ot75"/>
           <af:outputText value=":" id="ot77"/>
           <af:spacer width="15" height="10" id="s59"/>
@@ -291,12 +306,22 @@
           <af:outputText value=":" id="ot76"/>
           <af:spacer width="15" height="10" id="s65"/>
           
-           <af:inputText value="151 87"
+           <af:inputText value="#{bindings.PartnerPostalCode.inputValue}"
                             id="it39"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            maximumLength="#{bindings.PartnerPostalCode.hints.precision}"
                          readOnly="true">
               </af:inputText>
-               <af:spacer width="25" height="10" id="s66"/>
+              <!--<af:inputText value="#{bindings.PartnerPostalCode.inputValue}"
+                            simple="true"
+                            required="#{bindings.PartnerPostalCode.hints.mandatory}"
+                            columns="#{bindings.PartnerPostalCode.hints.displayWidth}"
+                            maximumLength="#{bindings.PartnerPostalCode.hints.precision}"
+                            shortDesc="#{bindings.PartnerPostalCode.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.PartnerPostalCode.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" id="s66"/>
                
                 <af:outputText value="#{sfr.COMPANY_PHONE}" id="ot79"/>
           <af:outputText value=":" id="ot83"/>
@@ -326,12 +351,22 @@
           <af:outputText value=":" id="ot84"/>
           <af:spacer width="15" height="10" id="s69"/>
           
-           <af:inputText value="SÃ–DERTÃ„LJE"
+           <af:inputText value="#{bindings.PartnerCity.inputValue}"
                             id="it41"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            maximumLength="#{bindings.PartnerCity.hints.precision}"
                          readOnly="true">
               </af:inputText>
-               <af:spacer width="25" height="10" id="s71"/>
+              <!--<af:inputText value="#{bindings.PartnerCity.inputValue}"
+                            simple="true"
+                            required="#{bindings.PartnerCity.hints.mandatory}"
+                            columns="#{bindings.PartnerCity.hints.displayWidth}"
+                            maximumLength="#{bindings.PartnerCity.hints.precision}"
+                            shortDesc="#{bindings.PartnerCity.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.PartnerCity.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" id="s71"/>
                <af:outputText value="#{sfr.COMPANY_MOBILE}" id="ot85"/>
           <af:outputText value=":" id="ot86"/>
           <af:spacer width="15" height="10" id="s70"/>
@@ -360,13 +395,22 @@
           <af:outputText value=":" id="ot80"/>
           <af:spacer width="15" height="10" id="s64"/>
               
-               <af:inputText value="Sweden"
+               <af:inputText value="#{bindings.PartnerCountry.inputValue}"
                             id="it38"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             maximumLength="#{bindings.PartnerCountry.hints.precision}"
                              readOnly="true">
               </af:inputText>
-              
-            <af:spacer width="25" height="10" id="s101"/>
+              <!--<af:inputText value="#{bindings.PartnerCountry.inputValue}"
+                            simple="true"
+                            required="#{bindings.PartnerCountry.hints.mandatory}"
+                            columns="#{bindings.PartnerCountry.hints.displayWidth}"
+                            maximumLength="#{bindings.PartnerCountry.hints.precision}"
+                            shortDesc="#{bindings.PartnerCountry.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.PartnerCountry.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" id="s101"/>
                <af:outputText value="#{sfr.COMPANY_ALIAS}" id="ot116"/>
           <af:outputText value=":" id="ot118"/>
           <af:spacer width="15" height="10" id="s102"/>
@@ -422,7 +466,7 @@
  
  
   <af:panelGroupLayout id="AccountOverview" layout="vertical" visible="false"
-                       binding="#{pageFlowScope.AccountSummaryBean.accountOverview}">
+                       binding="#{pageFlowScope.AccountSummaryBean.bindings.accountOverview}">
  
      <af:panelGroupLayout id="pgl12" layout="horizontal">
      <af:spacer width="10" id="s332"/>
@@ -638,7 +682,7 @@
  </af:panelGroupLayout>
  
  <af:panelGroupLayout id="CardGroupOverview" layout="vertical" visible="false"
-                      binding="#{pageFlowScope.AccountSummaryBean.cardGroupOverview}">        
+                      binding="#{pageFlowScope.AccountSummaryBean.bindings.cardGroupOverview}">        
      <af:panelGroupLayout id="CardGroupOverviewText" layout="horizontal">
      <af:spacer width="10" id="s333"/>
       <af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"/>
@@ -900,7 +944,7 @@
  </af:panelGroupLayout>
  
    <af:panelGroupLayout id="CardOverview" layout="vertical" visible="false"
-                        binding="#{pageFlowScope.AccountSummaryBean.cardOverview}">        
+                        binding="#{pageFlowScope.AccountSummaryBean.bindings.cardOverview}">        
                  <af:panelGroupLayout id="CardOverviewText" layout="horizontal">
                  <af:spacer width="10" id="s334"/>
       <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"/>
@@ -1057,13 +1101,22 @@
                <af:outputText value="#{sfr.CARD_REMARKS}" id="ot16"/>
           <af:outputText value=":" id="ot17"/>
           <af:spacer width="15" height="10" id="s17"/>
-              <af:inputText value="This is sample card for Engage."
+              <af:inputText value="#{bindings.CardRemarks.inputValue}"
                             id="it18"
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            maximumLength="#{bindings.CardRemarks.hints.precision}"
                             readOnly="true">
               </af:inputText>
-              
-               <af:spacer width="25" height="10" id="s300"/>
+              <!--<af:inputText value="#{bindings.CardRemarks.inputValue}"
+                            simple="true"
+                            required="#{bindings.CardRemarks.hints.mandatory}"
+                            columns="#{bindings.CardRemarks.hints.displayWidth}"
+                            
+                            shortDesc="#{bindings.CardRemarks.hints.tooltip}"
+                            id="it5">
+                <f:validator binding="#{bindings.CardRemarks.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" id="s300"/>
               <af:spacer width="25" height="10" id="s307"/>
               <af:spacer width="25" height="10" id="s308"/>
               <af:spacer width="25" height="10" id="s309"/>
@@ -1149,7 +1202,7 @@
 
  </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl14" layout="vertical"
-                             binding="#{pageFlowScope.AccountSummaryBean.restrictedAccess}"
+                             binding="#{pageFlowScope.AccountSummaryBean.bindings.restrictedAccess}"
                              visible="false">
                               <af:panelGroupLayout id="pgl15" layout="horizontal">
       <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>
