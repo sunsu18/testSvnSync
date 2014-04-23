@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 
+import java.sql.Timestamp;
+
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -26,6 +29,8 @@ import java.util.List;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -94,10 +99,12 @@ public class TransactionOverviewBean implements Serializable{
     private Locale locale;
     private String partnerCountry=null;
     Conversion conversionUtility;
+    private String lang;
     
 
 
     public TransactionOverviewBean() {
+        conversionUtility = new Conversion(); 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -149,6 +156,8 @@ public class TransactionOverviewBean implements Serializable{
         typeValue.add("PRI");
         typeValue.add("PR");
         typeValue.add("INV");
+        lang="no_NO";
+        locale=conversionUtility.getLocaleFromCountryCode("SE");
     }
     
     /**
@@ -823,6 +832,21 @@ public class TransactionOverviewBean implements Serializable{
         return val;
     }
               
+    public String formatConversion(Float passedValue,Locale countryLocale) {
+        String val="";
+        
+        NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
+        val = numberFormat.format(passedValue);        
+        return val;
+    }
+    
+    public String getTimeHour(Timestamp timeStamp) {
+        String val="";        
+        java.util.Date date = new Date(timeStamp.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+        val=format.format(date);  
+        return val;
+    }
 
     public void exportToExcelListener(FacesContext facesContext,
                                       OutputStream outputStream) throws IOException {
@@ -948,8 +972,12 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C=XLS_SH_R.createCell(0);
                     XLS_SH_R_C.setCellStyle(csData);
                     if(row.getTransactionDt()!=null)
-                    {
-                    XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime())));
+                    {       
+                        String time="";
+                        if(row.getTransactionTime()!=null) {
+                            time=getTimeHour(row.getTransactionTime());
+                        }
+                    XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+time);
                     }
                     XLS_SH_R_C=XLS_SH_R.createCell(1);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -973,13 +1001,15 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                     if(row.getQuantity()!=null)
                     {
-                    XLS_SH_R_C.setCellValue(row.getQuantity().toString());
+                    
+                    XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                     }
                     XLS_SH_R_C=XLS_SH_R.createCell(5);                    
                     XLS_SH_R_C.setCellStyle(csRight);
                     if(row.getInvoicedGrossAmount()!=null)
                     {
-                    XLS_SH_R_C.setCellValue(row.getInvoicedGrossAmount().toString());
+                        //System.out.println("Locale ="+formatConversion(row.getInvoicedGrossAmount(),locale));                        
+                    XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                     }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1013,7 +1043,7 @@ public class TransactionOverviewBean implements Serializable{
                 XLS_SH_R_C.setCellStyle(csTotalAmt);  
                 if(sum!=null)
                 {
-                XLS_SH_R_C.setCellValue(sum);
+                XLS_SH_R_C.setCellValue(formatConversion(sum,locale));
                 }
                  iterator.closeRowSetIterator();   
                 
@@ -1048,7 +1078,11 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csData);
                          if(row.getTransactionDt()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime())));
+                             String time="";
+                             if(row.getTransactionTime()!=null) {
+                                 time=getTimeHour(row.getTransactionTime());
+                             }
+                             XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+time);
                          }
                     XLS_SH_R_C=XLS_SH_R.createCell(1);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1078,13 +1112,13 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                          if(row.getQuantity()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(row.getQuantity().toString());
+                             XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                          }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
                     XLS_SH_R_C.setCellStyle(csRight);
                          if(row.getInvoicedGrossAmount()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(row.getInvoicedGrossAmount().toString());
+                             XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                          }
                     XLS_SH_R_C=XLS_SH_R.createCell(7);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1118,7 +1152,7 @@ public class TransactionOverviewBean implements Serializable{
                 XLS_SH_R_C.setCellStyle(csTotalAmt);  
                 if(sum!=null)
                 {
-                XLS_SH_R_C.setCellValue(sum);
+                    XLS_SH_R_C.setCellValue(formatConversion(sum,locale));
                 }
                  iterator.closeRowSetIterator();   
                 
@@ -1152,7 +1186,11 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csData);
                       if(row.getTransactionDt()!=null)
                       {
-                    XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime())));
+                          String time="";
+                          if(row.getTransactionTime()!=null) {
+                              time=getTimeHour(row.getTransactionTime());
+                          }
+                          XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+time);
                       }
                     XLS_SH_R_C=XLS_SH_R.createCell(1);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1182,13 +1220,13 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                       if(row.getQuantity()!=null)
                       {
-                    XLS_SH_R_C.setCellValue(row.getQuantity().toString());
+                          XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                       }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
                     XLS_SH_R_C.setCellStyle(csRight);
                       if(row.getInvoicedGrossAmount()!=null)
                       {
-                    XLS_SH_R_C.setCellValue(row.getInvoicedGrossAmount().toString());
+                          XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                       }
                     XLS_SH_R_C=XLS_SH_R.createCell(7);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1253,7 +1291,7 @@ public class TransactionOverviewBean implements Serializable{
                 XLS_SH_R_C.setCellStyle(csTotalAmt);  
                 if(sum!=null)
                 {
-                XLS_SH_R_C.setCellValue(sum);
+                    XLS_SH_R_C.setCellValue(formatConversion(sum,locale));
                 }
                  iterator.closeRowSetIterator();   
             }else {
@@ -1287,7 +1325,11 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csData);
                          if(row.getTransactionDt()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime())));
+                             String time="";
+                             if(row.getTransactionTime()!=null) {
+                                 time=getTimeHour(row.getTransactionTime());
+                             }
+                             XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+time);
                          }
                          XLS_SH_R_C=XLS_SH_R.createCell(1);
                          XLS_SH_R_C.setCellStyle(csData);
@@ -1317,13 +1359,13 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                          if(row.getQuantity()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(row.getQuantity().toString());
+                             XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                          }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
                     XLS_SH_R_C.setCellStyle(csRight);
                          if(row.getInvoicedGrossAmount()!=null)
                          {
-                    XLS_SH_R_C.setCellValue(row.getInvoicedGrossAmount().toString());
+                             XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                          }
                     XLS_SH_R_C=XLS_SH_R.createCell(7);
                     XLS_SH_R_C.setCellStyle(csData);
@@ -1357,7 +1399,7 @@ public class TransactionOverviewBean implements Serializable{
                 XLS_SH_R_C.setCellStyle(csTotalAmt);  
                 if(sum!=null)
                 {
-                XLS_SH_R_C.setCellValue(sum);
+                    XLS_SH_R_C.setCellValue(formatConversion(sum,locale));
                 }
                  iterator.closeRowSetIterator(); 
                 
@@ -1369,6 +1411,14 @@ public class TransactionOverviewBean implements Serializable{
         XLS.write(outputStream);  
         outputStream.close();        
         
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public String getLang() {
+        return lang;
     }
 
     public class Bindings {
