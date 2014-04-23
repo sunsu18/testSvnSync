@@ -59,9 +59,9 @@
        <h:panelGrid columns="6" id="pg3">
         <af:outputText value="" id="ot9"/>
         <af:outputText value="#{sfr.ENGAGE_CARD_GROUP}" id="ot39" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
-         <af:spacer width="10" height="15" id="s18" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
+         <af:spacer width="30" height="15" id="s18" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
         <af:outputText value=":" id="ot10" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
-        <af:spacer width="10" height="15" id="s12" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
+        <af:spacer width="11" height="15" id="s12" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
         <af:selectManyChoice id="smc2" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"
                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGroup}"
                              value="#{pageFlowScope.InvoiceOverviewBean.cardGroupValue}"
@@ -75,9 +75,9 @@
         
          <af:outputText value="" id="ot12"/>
         <af:outputText value="#{sfr.ENGAGE_CARD}" id="ot11" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
-        <af:spacer width="10" height="15" id="s31" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
+        <af:spacer width="68" height="15" id="s31" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
         <af:outputText value=":" id="ot41" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
-        <af:spacer width="10" height="15" id="s13" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
+        <af:spacer width="11" height="15" id="s13" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
         <af:selectManyChoice id="soc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"
                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.card}"
                              value="#{pageFlowScope.InvoiceOverviewBean.cardValue}"
