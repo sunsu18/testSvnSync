@@ -2018,36 +2018,54 @@ new CardInfo();
 //                rr.setIdString(idString);
 //                listrole.add(rr);
                 
+//        
+        
 //        rr = new Roles();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
 //                        idString = new ArrayList<String>();
-        
-
-        idString.add("NOPP26773218CC0058589248");
-        idString.add("NOPP26773218CC0058973603");
-        idString.add("NOPP26773218CC0058589003");
-        rr.setIdString(idString);
-        listrole.add(rr);
-        
-        rr = new Roles();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-                        idString = new ArrayList<String>();
         //                idString.add("NOPP26773218CGSLUTRX00001");
         //                
         //                idString.add("NOPP26773218CGSLUTRX00002");
         //        idString.add("NOPP26773218AC0022883797");
-                idString.add("NOPP26773218CGSLUTRX00006");
-                        rr.setIdString(idString);
-                        listrole.add(rr);
-                
+//                idString.add("NOPP26773218CGSLUTRX00006");
+//                        rr.setIdString(idString);
+//                        listrole.add(rr);
+        
 //                rr = new Roles();
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-//                idString = new ArrayList<String>();
-//                idString.add("NOPP26773218AC0022883797");
-        ////        idString.add("NOPP26773218AC0022883898");
+                                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+//                                idString = new ArrayList<String>();
+                                idString.add("NOPP26773218CGSLUTRX00001");
+                //                
+                                idString.add("NOPP26773218CGSLUTRX00002");
+                //        idString.add("NOPP26773218AC0022883797");
+        //                idString.add("NOPP26773218CGSLUTRX00006");
+                                rr.setIdString(idString);
+                                listrole.add(rr);
+                
+                rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                idString = new ArrayList<String>();
+                idString.add("NOPP26773218AC0022883797");
+//                idString.add("NOPP26773218AC0022883898");
         ////        idString.add("NOPP26773218AC0022883797");
-//                rr.setIdString(idString);
-//                listrole.add(rr);
+                rr.setIdString(idString);
+                listrole.add(rr);
+                
+        rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+                                idString = new ArrayList<String>();
+                
+        //                idString.add("NOPP26773218CC0058973603");
+                idString.add("NOPP26773218CC0058589248");
+                
+                idString.add("NOPP26773218CC0058589003");
+                rr.setIdString(idString);
+                listrole.add(rr);
+                
+                
+        
+                
+        
 
 
         user.setRoleList(listrole);

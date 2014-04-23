@@ -164,7 +164,7 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"INVOICE_RECEIPT_NO",""},{"INVOICE_CARD",""},
         {"INVOICE_NET",""},{"INVOICE_GROSS_AMOUNT",""},
         {"ENGAGE_NO_ACCOUNT_CHECK",""},{"ENGAGE_STATION_NAME",""},
-        {"ENGAGE_NO_DRIVER",""},{"ENGAGE_NO_VEHICLE",""}};
+                                      {"ENGAGE_NO_DRIVER",""},{"ENGAGE_NO_VEHICLE",""},{"RESTRICTED_ACCESS",""}};
 
 
     /**

@@ -76,8 +76,9 @@ public class AccountSummary {
     private HttpSession session;
     private boolean displayAccountOverview = false;
     private boolean displayCardGroupOverview = false;
-    
-   
+    private RichPanelGroupLayout restrictedAccess;
+
+
     public AccountSummary() {
     }
 
@@ -157,6 +158,8 @@ public class AccountSummary {
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
             cardGroupOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            restrictedAccess.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
             
             for (int k = 0;
                  k < AccountList.size();
@@ -213,11 +216,34 @@ public class AccountSummary {
            
         
             
-        }  
+        } else {
+                   accountOverview.setVisible(false);
+                   AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+                   companyOverview.setVisible(false);
+                   AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+                   cardOverview.setVisible(false);
+                   AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+                   cardGroupOverview.setVisible(false);
+                   AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+                   restrictedAccess.setVisible(true);
+                   System.out.println("restricted access visible");
+                   AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
+               }
            
 
         }else if(rowType.contains("CardGroupInfo")) {
             System.out.println("cardgroup node clicked");
+            
+            accountOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+            companyOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+            cardOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+            cardGroupOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            restrictedAccess.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
             
             
             for (int k = 0;
@@ -243,8 +269,7 @@ public class AccountSummary {
             if(displayCardGroupOverview)
             {
             
-            companyOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+           
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
      
@@ -341,10 +366,7 @@ public class AccountSummary {
             
             cardGroupOverview.setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
-            accountOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
-            cardOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+           
            
             partnerId=dropNodeParent.getParent().toString();
             cardGroupId=id;
@@ -354,12 +376,35 @@ public class AccountSummary {
         
             
         }
+            else {
+                
+                accountOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+                companyOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+                cardOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+                cardGroupOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+                restrictedAccess.setVisible(true);
+                System.out.println("restricted access visible");
+                AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
+            }
             
 
         }else if(rowType.contains("CardInfo")) {
             System.out.println("card node clicked");
+            
+            accountOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
             companyOverview.setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+            cardOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+            cardGroupOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            restrictedAccess.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
             
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
@@ -406,11 +451,7 @@ public class AccountSummary {
             
             cardOverview.setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
-            accountOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
-            cardGroupOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
-            
+           
             
             cardId=id;
       
@@ -425,6 +466,17 @@ public class AccountSummary {
         }
         else {
             System.out.println("partner node clicked");
+            
+            accountOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+            companyOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+            cardOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+            cardGroupOverview.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            restrictedAccess.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
             
 //            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
 //            DCIteratorBinding iter1;
@@ -465,13 +517,20 @@ public class AccountSummary {
             {
             companyOverview.setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+            }else {
+                accountOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
+                companyOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(companyOverview);
+                cardOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
+                cardGroupOverview.setVisible(false);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+                restrictedAccess.setVisible(true);
+                System.out.println("restricted access visible");
+                AdfFacesContext.getCurrentInstance().addPartialTarget(restrictedAccess);
             }
-            cardOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardOverview);
-            accountOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(accountOverview);
-            cardGroupOverview.setVisible(false);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(cardGroupOverview);
+            
             
    
         }
@@ -623,5 +682,13 @@ public class AccountSummary {
 
     public boolean isDisplayCardGroupOverview() {
         return displayCardGroupOverview;
+    }
+
+    public void setRestrictedAccess(RichPanelGroupLayout restrictedAccess) {
+        this.restrictedAccess = restrictedAccess;
+    }
+
+    public RichPanelGroupLayout getRestrictedAccess() {
+        return restrictedAccess;
     }
 }
