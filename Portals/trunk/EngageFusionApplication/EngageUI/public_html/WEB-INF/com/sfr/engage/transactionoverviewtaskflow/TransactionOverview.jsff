@@ -128,10 +128,13 @@
             </h:panelGrid>
             
            <af:spacer width="10" height="10" id="spacer4"/>
-            <h:panelGrid columns="3" id="pg4">
+            <h:panelGrid columns="6" id="pg4">
             <!--<af:spacer height="10" id="s18"/>-->
-                <af:outputText value="Please Select:" id="ot38"/>
-            <af:spacer height="10" id="s18"/>
+              <af:outputText value="*" id="ot41"/>
+                <af:outputText value="Please Select" id="ot38"/>
+           <af:spacer width="5" height="15" id="s4"/>
+                    <af:outputText value=":" id="ot42"/>
+                      <af:spacer width="10" height="15" id="s15"/>
             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
                                binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}">
@@ -272,7 +275,7 @@
           <af:panelGroupLayout id="pgl73" inlineStyle="width:300.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
-                           styleClass="heading1"/>
+                           styleClass="heading"/>
           </af:panelGroupLayout>
          
           <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
