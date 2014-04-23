@@ -350,7 +350,7 @@
           </af:column>
           <af:column sortProperty="PalsCountryCode" sortable="false"
                      headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
-                     id="c1" width="50">
+                     id="c1" width="55">
             <af:panelGroupLayout id="pgl17">
               <af:spacer width="2" height="1" id="spacer12"/>
             <af:outputText value="#{row.PurchaseCountryCode}" id="ot40"/>
