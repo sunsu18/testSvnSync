@@ -155,13 +155,13 @@ public class AccountSummary implements Serializable {
     public void treeListner(SelectionEvent selectionEvent) {
 
         if (session != null) {
-            System.out.println("partner list from session");
+            //System.out.println("partner list from session");
             partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
             AccountList = partner.getAccountList();
 
 
-            System.out.println("partner value from session in string " +
-                               partner.getPartnerValue().toString());
+            //System.out.println("partner value from session in string " +
+                           //    partner.getPartnerValue().toString());
             System.out.println("partner value from session " +
                                partner.getPartnerValue());
 
@@ -195,13 +195,11 @@ public class AccountSummary implements Serializable {
 
 
             rksImpl.add(key1);
-            //System.out.println(" rksImpl-------->" +  rksImpl);
-            //the first key to add is the node that received the drop
-            //operation (departments).
+            
           rootNode = treeBinding.getRootNodeBinding();
-            //System.out.println("root node--------->" + rootNode);
+           
            dropNodeParent = nodeBinding1.getParent();
-            ///System.out.println("dropNodeParent--------->" + dropNodeParent);
+
 
 
             for (Object o : nodeBinding1.getAttributeValues()) {
@@ -214,7 +212,7 @@ public class AccountSummary implements Serializable {
 
             rw = nodeBinding1.getRow();
             rowType = rw.getStructureDef().getDefName();
-            //System.out.println("treeSelectionListener : " + ".............." + rowType);
+            
         }
 
         if (rowType.contains("AccountInfo")) {
@@ -347,14 +345,9 @@ public class AccountSummary implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
         for (int k = 0; k < AccountList.size(); k++) {
-            //            System.out.println("account id value in account list " +
-            //                               AccountList.get(k).getAccountNumber());
-            //            System.out.println("New account id value to compare" +
-            //                               id);
-
 
             if (AccountList.get(k).getAccountNumber().equalsIgnoreCase(id)) {
-                //                System.out.println("account id exists in account list");
+
                 displayAccountOverview =
                         AccountList.get(k).isAccountOverview();
                 break;
@@ -374,12 +367,12 @@ public class AccountSummary implements Serializable {
 
             if (bindings != null) {
                 iter1 = bindings.findIteratorBinding("PrtAccountVO2Iterator");
-                //            System.out.println("DC Iterator bindings for Account found in mypagelistner");
+
             } else {
                 System.out.println("account bindings inside account Overview is null");
                 iter1 = null;
             }
-            //
+
             if (iter1 != null) {
 
                 ViewObject vo_acc = iter1.getViewObject();
@@ -399,7 +392,7 @@ public class AccountSummary implements Serializable {
             System.out.println("Account node clicked But Account Overview is false in partner object & Accountid " +
                                accountId);
             getBindings().getRestrictedAccess().setVisible(true);
-            //               System.out.println("restricted access visible");
+
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
         System.out.println("Exiting AccountOverview function");
@@ -414,15 +407,13 @@ public class AccountSummary implements Serializable {
 
 
         for (int k = 0; k < AccountList.size(); k++) {
-            //            System.out.println("account id value in account list " +
-            //                               AccountList.get(k).getAccountNumber());
             account = AccountList.get(k);
             cardgrouplist = account.getCardGroup();
 
             for (int cardgrp_count = 0; cardgrp_count < cardgrouplist.size();
                  cardgrp_count++) {
                 if (cardgrouplist.get(cardgrp_count).getCardGroupID().equalsIgnoreCase(id)) {
-                    //                System.out.println("cardgroup id exists in cardgroup list of account " + account.getAccountNumber());
+
                     displayCardGroupOverview =
                             cardgrouplist.get(cardgrp_count).isCardGroupOverview();
                     break;
@@ -443,7 +434,7 @@ public class AccountSummary implements Serializable {
             if (bindings != null) {
                 iter1 =
                         bindings.findIteratorBinding("PrtCardgroupVO3Iterator");
-                //            System.out.println("DC Iterator bindings for CardGroup found in mypagelistner");
+                
             } else {
                 System.out.println("card group bindings inside cardGroup Overview is null");
                 iter1 = null;
@@ -453,11 +444,11 @@ public class AccountSummary implements Serializable {
 
                 ViewObject vo_cg = iter1.getViewObject();
                 String maintype = id.substring(0, 3);
-                //        System.out.println("Main type "+maintype);
+                
                 String subtype = id.substring(3, 6);
-                //        System.out.println("Sub type "+ subtype);
+                
                 String cardgroupseq = id.substring(6);
-                //        System.out.println("card seq " + cardgroupseq);
+                
 
                 vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
 
@@ -468,16 +459,16 @@ public class AccountSummary implements Serializable {
                 vo_cg.defineNamedWhereClauseParam("cgmain", maintype, null);
                 vo_cg.defineNamedWhereClauseParam("cgsub", subtype, null);
 
-                //        System.out.println(vo_cg.getQuery());
+                
                 vo_cg.executeQuery();
-                //        System.out.println("rows " + vo_cg.getEstimatedRowCount());
+                
 
                 bindings =
                         (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                 DCIteratorBinding iter3;
                 if (bindings != null) {
                     iter3 = bindings.findIteratorBinding("PrtCardVO4Iterator");
-                    //                System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
+                
                 } else {
                     System.out.println("card bindings inside cardGroup Overview is null");
                     iter3 = null;
@@ -486,7 +477,7 @@ public class AccountSummary implements Serializable {
                 ViewObject vo3 = iter3.getViewObject();
 
                 if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-                    //                System.out.println("Remove query2 executed");
+                    
                     vo3.removeNamedWhereClauseParam("cardid");
                     vo3.removeNamedWhereClauseParam("cc");
                     vo3.setWhereClause("");
@@ -504,7 +495,7 @@ public class AccountSummary implements Serializable {
 
 
                 vo3.executeQuery();
-                //            System.out.println("vo3 estimated rows " + vo3.getEstimatedRowCount());
+                
                 if (vo3.getEstimatedRowCount() != 0) {
                     cardTypeList = new ArrayList<SelectItem>();
                     while (vo3.hasNext()) {
@@ -519,10 +510,10 @@ public class AccountSummary implements Serializable {
                         }
                     }
 
-                    //                System.out.println("Cardtypelist " + cardTypeList.size());
+                    
 
                 }
-                //            System.out.println("vo3 getWhereClause" + vo3.getWhereClause());
+                
 
 
             }
@@ -542,7 +533,7 @@ public class AccountSummary implements Serializable {
             System.out.println("cardGroup node clicked But cardGroup Overview is false in partner object & cardGroupId " +
                                id);
             getBindings().getRestrictedAccess().setVisible(true);
-            //            System.out.println("restricted access visible");
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
 
@@ -567,18 +558,18 @@ public class AccountSummary implements Serializable {
 
         if (bindings != null) {
             iter1 = bindings.findIteratorBinding("PrtCardVO4Iterator");
-            //            System.out.println("DC Iterator bindings for Card found in Account Summary");
+            
         } else {
             System.out.println("card bindings inside card Overviewis null");
             iter1 = null;
         }
-        //
+        
         if (iter1 != null) {
 
             ViewObject vo_card = iter1.getViewObject();
 
             if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo_card.getWhereClause())) {
-                //                System.out.println("Remove query executed");
+                
                 vo_card.removeNamedWhereClauseParam("cgid");
                 vo_card.removeNamedWhereClauseParam("cc");
                 vo_card.removeNamedWhereClauseParam("cgmain");
@@ -593,7 +584,7 @@ public class AccountSummary implements Serializable {
 
             vo_card.defineNamedWhereClauseParam("cc", "no_NO", null);
 
-            //        System.out.println(vo_card.getQuery());
+            
             vo_card.executeQuery();
 
 
@@ -648,10 +639,10 @@ public class AccountSummary implements Serializable {
 
 
         if (session != null) {
-            //        System.out.println("partner list from session");
+            
             partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
 
-            //        System.out.println("partner value from session in string " + partner.getPartnerValue().toString());
+            
             System.out.println("partner value from session " +
                                partner.getPartnerValue());
 
