@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+
+        <appender name="debug-out" class="org.apache.log4j.RollingFileAppender"> 
+                 <param name="File" value="/u01/SOA_DEV/SOAFilestore/HOME/SHAP/SOASchedulerLOGS/DebugLog.log"/>
+                <param name="maxFileSize" value="5MB"/>
+                <param name="maxBackupIndex" value="10"/>
+                <layout class="org.apache.log4j.PatternLayout"> 
+                        <param name="ConversionPattern" value="%d [%t] %-5p %c %x - %m%n"/> 
+                </layout> 
+               <filter class="org.apache.log4j.varia.LevelMatchFilter">
+                        <param name="LevelToMatch" value="debug" />
+                        <param name="AcceptOnMatch" value="true"/>
+                </filter>
+                <filter class="org.apache.log4j.varia.DenyAllFilter" />
+        </appender> 
+
+        <appender name="info-out" class="org.apache.log4j.RollingFileAppender">                 
+                 <param name="File" value="/u01/SOA_DEV/SOAFilestore/HOME/SHAP/SOASchedulerLOGS/InfoLog.log"/>
+                <param name="maxFileSize" value="5MB"/>
+                <param name="maxBackupIndex" value="10"/>
+                <layout class="org.apache.log4j.PatternLayout"> 
+                        <param name="ConversionPattern" value="%d [%t] %-5p %c %x - %m%n"/> 
+                </layout> 
+               <filter class="org.apache.log4j.varia.LevelMatchFilter">
+                        <param name="LevelToMatch" value="info" />
+                        <param name="AcceptOnMatch" value="true"/>
+                </filter>
+                <filter class="org.apache.log4j.varia.DenyAllFilter" />
+        </appender> 
+
+        <appender name="error-out" class="org.apache.log4j.RollingFileAppender">                
+                <param name="File" value="/u01/SOA_DEV/SOAFilestore/HOME/SHAP/SOASchedulerLOGS/ErrorLog.log"/>
+                <param name="maxFileSize" value="5MB"/>
+                <param name="maxBackupIndex" value="10"/>
+                <param name="threshold" value="warn"/>
+                
+                <layout class="org.apache.log4j.PatternLayout"> 
+                        <param name="ConversionPattern" value="%d [%t] %-5p %c %x - %m%n"/> 
+                </layout> 
+        </appender> 
+        
+        <logger name="com.SOAScheduler.SOASchedulerClient">
+                <appender-ref ref="debug-out" />
+        </logger>
+        <logger name="com.SOAScheduler.StatefulJob">
+                <appender-ref ref="debug-out" />
+        </logger>
+        <logger name="com.SOAScheduler.StatelessJob">
+                <appender-ref ref="debug-out" />
+        </logger>
+        <logger name="com.SOAScheduler.EndpointInvoke">
+                <appender-ref ref="debug-out" />
+        </logger>
+        <logger name="com.SOAScheduler.ErrorMonitor">
+                <appender-ref ref="debug-out" />
+        </logger>
+        <root> 
+                <level value="debug"/>
+                <appender-ref ref="info-out" /> 
+                <appender-ref ref="error-out" />
+        </root> 
+</log4j:configuration>
