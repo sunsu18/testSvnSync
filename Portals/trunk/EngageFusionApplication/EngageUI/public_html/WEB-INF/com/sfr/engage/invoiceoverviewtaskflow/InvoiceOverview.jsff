@@ -37,8 +37,8 @@
                         id="select_item"/>
         </af:forEach>
        </af:selectOneChoice>
-        <af:outputText value="" id="ot33"/>
-      <af:outputText value="Please Select" id="ot34"/>
+        <af:outputText value="*" id="ot33"/>
+      <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot34"/>
       <af:spacer width="10" height="15" id="s29"/>
        <af:outputText value=":" id="ot38"/>
        <af:spacer width="10" height="35" id="s28"/>
