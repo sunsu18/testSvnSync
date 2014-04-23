@@ -61,7 +61,7 @@
          <af:showPopupBehavior triggerType="click" popupId="new_driver"/>                 
          </af:commandButton>                 
         <af:spacer width="12" height="10" id="s23"/>
-            <af:commandButton text="#{sfr.CANCEL}" id="cb2"
+            <af:commandButton text="#{sfr.ENGAGE_CLEAR}" id="cb2"
                        actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}">
                        </af:commandButton> 
                        <af:spacer width="10" height="10" id="s35"/>

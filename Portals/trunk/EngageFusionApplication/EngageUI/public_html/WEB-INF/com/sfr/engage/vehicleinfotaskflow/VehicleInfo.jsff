@@ -61,7 +61,7 @@
           <af:showPopupBehavior triggerType="click" popupId="new_vehicle"/>
         </af:commandButton>
         <af:spacer width="12" height="10" id="s33"/>
-          <af:commandButton text="#{sfr.CANCEL}" id="cb2"
+          <af:commandButton text="#{sfr.ENGAGE_CLEAR}" id="cb2"
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"></af:commandButton>
                             <af:spacer width="7" height="10" id="s24"/>
         </af:panelGroupLayout>
