@@ -165,7 +165,10 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"INVOICE_NET",""},{"INVOICE_GROSS_AMOUNT",""},
         {"ENGAGE_NO_ACCOUNT_CHECK",""},{"ENGAGE_STATION_NAME",""},
                                       {"ENGAGE_NO_DRIVER",""},{"ENGAGE_NO_VEHICLE",""},{"RESTRICTED_ACCESS",""},{"PLEASE_SELECT",""},
-                                      {"ENGAGE_CLEAR",""}};
+                                      {"ENGAGE_CLEAR",""}, 
+    {"STATOIL_COMPANY_CARD_LEARN_MORE",""},{"STATOIL_TRUCK_CARD_LEARN_MORE",""},{"STATOIL_EUROPE_CARD_LEARN_MORE",""},{"STATOIL_MASTER_CARD_LEARN_MORE",""},
+    {"STATOIL_TRUCK_CARD_APPLY_NOW",""},{"STATOIL_COMPANY_CARD_APPLY_NOW",""},{"STATOIL_MASTER_CARD_APPLY_NOW",""},{"STATOIL_EUROPE_CARD_APPLY_NOW",""}                             
+                                      };
 
 
     /**
