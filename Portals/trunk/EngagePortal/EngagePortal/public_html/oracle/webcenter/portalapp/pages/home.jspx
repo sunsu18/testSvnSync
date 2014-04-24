@@ -290,9 +290,11 @@
                                                  inlineStyle="width:280px;">
                               <af:panelGroupLayout id="pgl16"
                                                    layout="horizontal">
-                                <af:commandImageLink id="gl2"
+                                <af:goImageLink id="gl2"
                                                      text="#{sfr.LEARN_MORE}"
-                                                     styleClass="greylinks"/>
+                                                     styleClass="greylinks"
+                                                     destination="#{homeCarousalBean.card1_learn_more}"
+                                                targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="s10"/>
                                 <af:panelGroupLayout id="pgl22"
                                                      styleClass="arrow_learn_more"
@@ -303,9 +305,11 @@
                               <af:panelGroupLayout id="pgl23"
                                                    layout="horizontal"
                                                    halign="start">
-                              <af:commandImageLink text="#{sfr.APPLY_NOW}"
+                              <af:goImageLink text="#{sfr.APPLY_NOW}"
                                                      id="goLink1"
-                                                     styleClass="greylinks"/>
+                                                     styleClass="greylinks"
+                                                     destination="#{homeCarousalBean.card1_apply_now}"
+                                                targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="s26"/>
                                 <af:panelGroupLayout id="pgl27"
                                                      styleClass="arrow_learn_more"
@@ -340,9 +344,11 @@
                                                  inlineStyle="width:280px;">
                               <af:panelGroupLayout id="panelGroupLayout4"
                                                    layout="horizontal">
-                                <af:commandImageLink id="commandImageLink1"
+                                <af:goImageLink id="commandImageLink1"
                                                      text="#{sfr.LEARN_MORE}"
-                                                     styleClass="greylinks"/>
+                                                     styleClass="greylinks"
+                                                     destination="#{homeCarousalBean.card2_learn_more}"
+                                                targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="spacer2"/>
                                 <af:panelGroupLayout id="panelGroupLayout6"
                                                      styleClass="arrow_learn_more"
@@ -352,9 +358,11 @@
                               <af:panelGroupLayout id="panelGroupLayout7"
                                                    layout="horizontal"
                                                    halign="start">
-                                <af:commandImageLink text="#{sfr.APPLY_NOW}"
+                                <af:goImageLink text="#{sfr.APPLY_NOW}"
                                                      id="commandImageLink2"
-                                                     styleClass="greylinks"/>
+                                                     styleClass="greylinks"
+                                                     destination="#{homeCarousalBean.card2_apply_now}"
+                                                targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="spacer5"/>
                                 <af:panelGroupLayout id="panelGroupLayout8"
                                                      styleClass="arrow_learn_more"

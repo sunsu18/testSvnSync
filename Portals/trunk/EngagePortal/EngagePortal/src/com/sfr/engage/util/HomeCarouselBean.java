@@ -27,6 +27,10 @@ public class HomeCarouselBean {
     String card_name2;
     String card_desc1;
     String card_desc2;
+    String card1_learn_more;
+    String card2_learn_more;
+    String card1_apply_now;
+    String card2_apply_now;
     ResourceBundle resourceBundle;
     
     public HomeCarouselBean() {
@@ -346,7 +350,7 @@ public class HomeCarouselBean {
                 card_desc2 =(String)resourceBundle.getObject("STATOIL_COMPANY_CARD_DESC");
             }
         }
-        else if(card1.equalsIgnoreCase("Truck-Card")){
+        else if(card2.equalsIgnoreCase("Truck-Card")){
             if (resourceBundle.containsKey("STATOIL_TRUCK_CARD_DESC")) {
                 card_desc2 =(String)resourceBundle.getObject("STATOIL_TRUCK_CARD_DESC");
             }
@@ -363,5 +367,121 @@ public class HomeCarouselBean {
         }
         return card_desc2;
     }
-  
+
+
+    public void setCard1_learn_more(String card1_learn_more) {
+        this.card1_learn_more = card1_learn_more;
+    }
+
+    public String getCard1_learn_more() {
+        
+        if(card1.equalsIgnoreCase("Company-Card")){
+            if (resourceBundle.containsKey("STATOIL_COMPANY_CARD_LEARN_MORE")) {
+                card1_learn_more =(String)resourceBundle.getObject("STATOIL_COMPANY_CARD_LEARN_MORE");
+            }
+        }
+        else if(card1.equalsIgnoreCase("Truck-Card")){
+            if (resourceBundle.containsKey("STATOIL_TRUCK_CARD_LEARN_MORE")) {
+                card1_learn_more =(String)resourceBundle.getObject("STATOIL_TRUCK_CARD_LEARN_MORE");
+            }
+        }
+        else if(card1.equalsIgnoreCase("Europe-Card")){
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LEARN_MORE")) {
+                card1_learn_more =(String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LEARN_MORE");               
+            }
+        }
+        else if(card1.equalsIgnoreCase("Master-Card")){
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LEARN_MORE")) {
+                card1_learn_more =(String)resourceBundle.getObject("STATOIL_MASTER_CARD_LEARN_MORE");
+            }
+        }
+        
+        
+        return card1_learn_more;
+    }
+
+    public void setCard2_learn_more(String card2_learn_more) {
+        this.card2_learn_more = card2_learn_more;
+    }
+
+    public String getCard2_learn_more() {
+        if(card2.equalsIgnoreCase("Company-Card")){
+            if (resourceBundle.containsKey("STATOIL_COMPANY_CARD_LEARN_MORE")) {
+                card2_learn_more =(String)resourceBundle.getObject("STATOIL_COMPANY_CARD_LEARN_MORE");
+            }
+        }
+        else if(card2.equalsIgnoreCase("Truck-Card")){
+            if (resourceBundle.containsKey("STATOIL_TRUCK_CARD_LEARN_MORE")) {
+                card2_learn_more =(String)resourceBundle.getObject("STATOIL_TRUCK_CARD_LEARN_MORE");
+            }
+        }
+        else if(card2.equalsIgnoreCase("Europe-Card")){
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LEARN_MORE")) {
+                card2_learn_more =(String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LEARN_MORE");              
+            }
+        }
+        else if(card2.equalsIgnoreCase("Master-Card")){
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LEARN_MORE")) {
+                card2_learn_more =(String)resourceBundle.getObject("STATOIL_MASTER_CARD_LEARN_MORE");              
+            }
+        }
+        return card2_learn_more;
+    }
+
+
+    public void setCard2_apply_now(String card2_apply_now) {
+        this.card2_apply_now = card2_apply_now;
+    }
+
+    public String getCard2_apply_now() {
+        if(card2.equalsIgnoreCase("Company-Card")){
+            if (resourceBundle.containsKey("STATOIL_COMPANY_CARD_APPLY_NOW")) {
+                card2_apply_now =(String)resourceBundle.getObject("STATOIL_COMPANY_CARD_APPLY_NOW");
+            }
+        }
+        else if(card2.equalsIgnoreCase("Truck-Card")){
+            if (resourceBundle.containsKey("STATOIL_TRUCK_CARD_LEARN_MORE")) {
+                card2_apply_now =(String)resourceBundle.getObject("STATOIL_TRUCK_CARD_APPLY_NOW");
+            }
+        }
+        else if(card2.equalsIgnoreCase("Europe-Card")){
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LEARN_MORE")) {
+                card2_apply_now =(String)resourceBundle.getObject("STATOIL_EUROPE_CARD_APPLY_NOW");              
+            }
+        }
+        else if(card2.equalsIgnoreCase("Master-Card")){
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LEARN_MORE")) {
+                card2_apply_now =(String)resourceBundle.getObject("STATOIL_MASTER_CARD_APPLY_NOW");
+            }
+        }
+        return card2_apply_now;
+    }
+
+    public void setCard1_apply_now(String card1_apply_now) {
+              this.card1_apply_now = card1_apply_now;
+    }
+
+    public String getCard1_apply_now() {
+        if(card1.equalsIgnoreCase("Company-Card")){
+            if (resourceBundle.containsKey("STATOIL_COMPANY_CARD_LEARN_MORE")) {
+                card1_apply_now =(String)resourceBundle.getObject("STATOIL_COMPANY_CARD_APPLY_NOW");
+            }
+        }
+        else if(card1.equalsIgnoreCase("Truck-Card")){
+            if (resourceBundle.containsKey("STATOIL_TRUCK_CARD_LEARN_MORE")) {
+                card1_apply_now =(String)resourceBundle.getObject("STATOIL_TRUCK_CARD_APPLY_NOW");
+            }
+        }
+        else if(card1.equalsIgnoreCase("Europe-Card")){
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LEARN_MORE")) {
+                card1_apply_now =(String)resourceBundle.getObject("STATOIL_EUROPE_CARD_APPLY_NOW");              
+            }
+        }
+        else if(card1.equalsIgnoreCase("Master-Card")){
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LEARN_MORE")) {
+                card1_apply_now =(String)resourceBundle.getObject("STATOIL_MASTER_CARD_APPLY_NOW");               
+            }
+        }
+        return card1_apply_now;
+    }
 }
