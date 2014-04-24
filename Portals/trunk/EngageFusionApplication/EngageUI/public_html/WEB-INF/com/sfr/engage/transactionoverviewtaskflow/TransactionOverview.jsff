@@ -485,6 +485,10 @@
                                          filename="Transaction_Report.xls"
                                         method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
         </af:commandButton>
+         <af:spacer width="10" height="10" id="spac8"/>
+        <af:commandButton text="ExportToExcelColumns" id="cb4"
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}">
+        </af:commandButton>
       </af:panelGroupLayout>
        <af:popup id="pp1" contentDelivery="immediate"
               autoCancel="disabled">
@@ -650,5 +654,78 @@
         </af:panelStretchLayout>
         </af:dialog>
       </af:popup>
+    
+    <af:popup id="show_columns" contentDelivery="immediate"
+              binding="#{pageFlowScope.TransactionOverviewBean.bindings.specificColumns}"
+              autoCancel="disabled">
+      <af:dialog id="specificColumns" title="#{sfr.TRANSACTION_SPECIFIC}" type="none"
+                 closeIconVisible="true">
+        <af:panelStretchLayout id="psl1"
+                               dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="specific_columns_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="specific_columns_footer_panel" layout="horizontal">
+              <af:spacer width="4" height="10" id="s16"/>               
+                <af:commandButton text="ExportToExcel" id="exportall"
+                                  actionListener="#{pageFlowScope.TransactionOverviewBean.getValuesForExcel}">
+                     <af:clientListener method="exitFromPopup" type="action"/>
+                </af:commandButton>              
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="deleteAllDriver_scroll"
+                                 styleClass="WCPanelMargin">
+               <af:separator id="s18"
+                              inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+              <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.shuttleExcel}"
+                                    value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}">
+                  <af:forEach items="#{pageFlowScope.TransactionOverviewBean.shuttleList}"
+                    var="listItem">
+                <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                    id="si1"/>
+            </af:forEach>               
+              </af:selectManyShuttle>     
+              <af:spacer width="4" height="10" id="s41"/>               
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    <af:popup id="confirmation_columns" contentDelivery="immediate"
+              binding="#{pageFlowScope.TransactionOverviewBean.bindings.confirmationExcel}"
+              autoCancel="disabled">
+      <af:dialog id="confirmationColumns" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="psl2"
+                               dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="t3"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="pgl5" layout="horizontal">
+              <af:spacer width="4" height="10" id="s42"/>               
+                <af:commandButton text="Yes" id="cb6"
+                                  action="#{pageFlowScope.TransactionOverviewBean.excelDownLoad}">
+                  <af:clientListener method="exitFromPopupConfirmation" type="action"/>
+                  <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
+                                         filename="Transaction_Report.xls"
+                                        method="#{pageFlowScope.TransactionOverviewBean.specificExportExcelListener}"/>
+                </af:commandButton> 
+                 <af:spacer width="10" height="10" id="s43"/>    
+                <af:commandButton text="No" id="cb7"
+                                 action="#{pageFlowScope.TransactionOverviewBean.confirmationCancelAction}"/> 
+                </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">           
+              <af:panelGroupLayout id="pgl28" layout="vertical">
+              <af:outputText value="Are you sure you want to download the excel for specific columns?" id="ot43"/>                           
+             <af:spacer width="10" height="10" id="s44"/>  
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>    
     </af:panelGroupLayout>
 </jsp:root>
