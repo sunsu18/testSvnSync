@@ -21,8 +21,9 @@
       <af:panelGroupLayout id="pgl3" layout="vertical"
                            inlineStyle="width:331.0px;">
         <af:panelGroupLayout id="pgl10">
-          <h:panelGrid columns="4" id="pg1">
-            <af:outputText value="*#{sfr.LINKED_ACCOUNT}" id="colon"/>
+          <h:panelGrid columns="5" id="pg1">
+            <af:outputText value="*" id="gff"/>
+            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
             <af:outputText value=":" id="col"/>
             <af:spacer width="15" height="10" id="s18"/>
             <af:selectManyChoice id="smc1"
@@ -38,6 +39,8 @@
             <af:spacer height="10" id="s20"/>
             <af:spacer height="10" id="s21"/>
             <af:spacer height="10" id="s22"/>
+             <af:spacer height="10" id="s2ewe2"/>
+              <af:spacer height="10" id="s2fg2"/>
             <af:outputText value="#{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
             <af:outputText value=":" id="coll3"/>
             <af:spacer width="15" height="10" id="s19"/>
@@ -161,7 +164,7 @@
     <af:popup id="new_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="800"
+      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="700"
                  closeIconVisible="false">
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -374,7 +377,7 @@
               binding="#{pageFlowScope.DriverInfoBean.bindings.editDriver}"
               autoCancel="disabled">
       <af:dialog id="editDriver" title="#{sfr.EDIT_DRIVER}" type="none"
-                 contentWidth="710"
+                 contentWidth="700"
                 closeIconVisible="false">
                   <af:separator id="s28"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>

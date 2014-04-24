@@ -21,8 +21,9 @@
                            binding="#{pageFlowScope.VehicleInfoBean.bindings.searchPanelGroupLayout}"
                            layout="vertical" inlineStyle="width:355.0px;">
         <af:panelGroupLayout id="pgl9" halign="right">
-          <h:panelGrid columns="4" id="pg1">
-            <af:outputText value="*#{sfr.LINKED_ACCOUNT}" id="colon"/>
+          <h:panelGrid columns="5" id="pg1">
+            <af:outputText value="*" id="str"/>
+            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
             <af:outputText value=":" id="coll"/>
             <af:spacer width="15" height="10" id="s18"/>
             <af:selectManyChoice id="smc1"
@@ -38,6 +39,9 @@
             <af:spacer height="10" id="s21"/>
             <af:spacer height="10" id="s22"/>
             <af:spacer height="10" id="s23"/>
+            <af:spacer height="10" id="sdf23"/>
+          <af:spacer height="10" id="dfdsdf23"/>
+        
             <af:outputText value="#{sfr.FILTER_REGISTRATION_NUMBER}"
                            id="colon1"/>
             <af:outputText value=":" id="coll2"/>
@@ -176,8 +180,8 @@
     <af:popup id="new_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.newVehicle}"
               autoCancel="disabled">
-      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="800"
-                 type="none" closeIconVisible="false">
+      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="700"
+                 type="none" closeIconVisible="false" >
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
@@ -307,7 +311,7 @@
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                 </af:inputDate>
                
-                     <af:outputText value="*#{sfr.VEHICLEINFO_FUELTYPE}" id="Acctid229"/>
+                     <af:outputText value="#{sfr.VEHICLEINFO_FUELTYPE}" id="Acctid229"/>
           <af:outputText value=":" id="colonpop282"/>
           <af:spacer width="15" height="10" id="s21822"/>
              
@@ -378,7 +382,7 @@
     <af:popup id="edit_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicle}"
               autoCancel="disabled">
-      <af:dialog id="editVehicle" title="#{sfr.VEHICLEINFO_EDITVEHICLE}" contentWidth="800"
+      <af:dialog id="editVehicle" title="#{sfr.VEHICLEINFO_EDITVEHICLE}" contentWidth="700"
                  type="none" closeIconVisible="false">
          <af:separator id="s28"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -493,7 +497,7 @@
                                     pattern="#{bindings.Year.format}"/>
                 </af:inputText>
                   <af:spacer width="25" height="10" id="colnSpace51"/>
-                 <af:outputText value="*#{sfr.VEHICLEINFO_REGISTRATIONDATE}" id="Acctid278"/>
+                 <af:outputText value="#{sfr.VEHICLEINFO_REGISTRATIONDATE}" id="Acctid278"/>
           <af:outputText value=":" id="bnbn"/>
           <af:spacer width="15" height="10" id="s2128"/>
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"

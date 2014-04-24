@@ -101,7 +101,7 @@
      <af:separator id="s30" styleClass="vertical_seprator"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl29">
-     <af:spacer width="50" height="10" id="s27"/>
+     <af:spacer width="40" height="10" id="s27"/>
      </af:panelGroupLayout>
   
     <af:panelGroupLayout id="pgl10" layout="horizontal">
@@ -162,7 +162,7 @@
   <af:separator id="s8"
                   inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
 </af:panelGroupLayout>
-                  
+   <af:spacer width="10" height="10" id="s33"/>
    <af:panelGroupLayout id="pgl8"
                         binding="#{pageFlowScope.InvoiceOverviewBean.bindings.searchResults}"
                         visible="#{pageFlowScope.InvoiceOverviewBean.searchResults}">
