@@ -689,7 +689,7 @@
             <af:toolbar id="specific_columns_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="specific_columns_footer_panel" layout="horizontal">
-              <af:spacer width="4" height="10" id="s16"/>               
+              <af:spacer width="4" height="10" id="s1sdf6"/>               
                 <af:commandButton text="ExportToExcel" id="exportall"
                                   actionListener="#{pageFlowScope.TransactionOverviewBean.getValuesForExcel}">
                      <af:clientListener method="exitFromPopup" type="action"/>
