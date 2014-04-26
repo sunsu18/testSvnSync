@@ -182,7 +182,7 @@
                rows="#{bindings.PrtInvoiceVO1.rangeSize}" width="962px"
                emptyText="#{bindings.PrtInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                fetchSize="#{bindings.PrtInvoiceVO1.rangeSize}"
-               rowBandingInterval="0" id="t1" rowSelection="single"
+               rowBandingInterval="1" id="t1" rowSelection="single" disableColumnReordering="true" columnResizing="disabled"
                selectionListener="#{bindings.PrtInvoiceVO1.collectionModel.makeCurrent}">
       <af:column headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" id="c5">
        <af:commandLink text="#{row.InvoiceNumber}" id="cl1"
