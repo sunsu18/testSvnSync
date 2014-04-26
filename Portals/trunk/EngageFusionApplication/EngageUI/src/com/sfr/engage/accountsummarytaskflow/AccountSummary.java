@@ -155,13 +155,12 @@ public class AccountSummary implements Serializable {
     public void treeListner(SelectionEvent selectionEvent) {
 
         if (session != null) {
-            //System.out.println("partner list from session");
+            
             partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
             AccountList = partner.getAccountList();
 
 
-            //System.out.println("partner value from session in string " +
-                           //    partner.getPartnerValue().toString());
+            
             System.out.println("partner value from session " +
                                partner.getPartnerValue());
 
@@ -439,7 +438,7 @@ public class AccountSummary implements Serializable {
                 System.out.println("card group bindings inside cardGroup Overview is null");
                 iter1 = null;
             }
-            //
+            
             if (iter1 != null) {
 
                 ViewObject vo_cg = iter1.getViewObject();

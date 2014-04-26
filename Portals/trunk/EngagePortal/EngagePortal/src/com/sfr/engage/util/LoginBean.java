@@ -1,5 +1,6 @@
 package com.sfr.engage.util;
 
+import com.sfr.core.bean.User;
 import com.sfr.services.core.dao.factory.DAOFactory;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
@@ -22,10 +23,12 @@ import oracle.security.jps.JpsContext;
 import oracle.security.jps.JpsContextFactory;
 import oracle.security.jps.service.idstore.IdentityStoreService;
 
+import oracle.webcenter.security.view.login.LoginBackingBean;
+
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
-public class LoginBean {
+public class LoginBean extends LoginBackingBean{
     public LoginBean() {
         super();
     }
@@ -43,10 +46,24 @@ public class LoginBean {
        
         String temp = "/sfrCommon/faces/logout.jspx?lang=" + lang;
 
-        if (request.getServerName().contains("240") || request.getServerName().contains("53")) {
-           temp = request.getContextPath() + "/adfAuthentication?logout=logout&end_url=/faces/card/home";
+        if (request.getServerName().contains("240") || request.getServerName().contains("53") || request.getServerName().contains("localhost")) {
+            HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
+            //delete(request, response);
+            session.setAttribute("executePartnerObjLogic",
+                                 "no");
+           //session.invalidate();
+            
+//            user.setAuthenticated(false);
+//            session.setAttribute("executePartnerObjLogic",
+//                                 "no");
+           
+           temp = request.getContextPath() + "/adfAuthentication?logout=true&end_url=/faces/card/home";
               //temp = "CustomerPortal/faces/card/home.jspx";
         } else {
+            User user = null;
+            System.out.println("It is going inside this");
+            user.setAuthenticated(false);
+            session.invalidate();
             HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
             delete(request, response);
             temp = getLogoutURL("LOGOUT_URL") + "/oam/server/logout?end_url=" + getLogoutURL("PP_LOGOUT_REDIRECT_URL") + "/sfrCommon/faces/logout?lang=" + lang;
