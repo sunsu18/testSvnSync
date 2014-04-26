@@ -9,6 +9,7 @@ import com.sfr.engage.model.resources.EngageResourceBundle;
 
 import com.sfr.util.ADFUtils;
 
+import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
@@ -104,6 +105,7 @@ public class TransactionOverviewBean implements Serializable{
     private String partnerCountry=null;
     Conversion conversionUtility;
     private String lang;
+    private String currencyCode;
     private String strCardGroup="Date,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
     private String strCard="Date,Card,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
     private String strVehicle="Date,Vehicle No,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No,Odometer,TotalKM,KM/L,L/100KM";
@@ -164,8 +166,20 @@ public class TransactionOverviewBean implements Serializable{
         typeValue.add("PRI");
         typeValue.add("PR");
         typeValue.add("INV");
+        
+        //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
+        
         lang="no_NO";
-        locale=conversionUtility.getLocaleFromCountryCode("SE");
+        
+        
+        if(lang=="no_NO")
+        {
+        currencyCode=conversionUtility.getCurrencyCode("NO");
+        locale=conversionUtility.getLocaleFromCountryCode("NO");
+        }else if(lang=="se_SE") {
+            currencyCode=conversionUtility.getCurrencyCode("SE");
+            locale=conversionUtility.getLocaleFromCountryCode("SE");
+        }
     }
     
     /**
@@ -1543,13 +1557,19 @@ public class TransactionOverviewBean implements Serializable{
             XLS_SH_R= XLS_SH.createRow(row);            
         }                  
         
+        String[] headerValues=passedString.split(",");
         
         XLS_SH_R= XLS_SH.createRow(8);       
         XLS_SH_R_C=XLS_SH_R.createCell(5);
         XLS_SH_R_C.setCellStyle(cs);  
-        XLS_SH_R_C.setCellValue("*Note : All prices below are in "+"NOK");
+        for(int i=0;i<headerValues.length;i++)
+        {
+        if("Total Amount".equalsIgnoreCase(headerValues[i].toString().trim())) {
+        XLS_SH_R_C.setCellValue("*Note : All prices below are in "+currencyCode);
+        }
+        }
         
-        String[] headerValues=passedString.split(",");
+        
         
         HSSFCellStyle css = XLS.createCellStyle();
         HSSFFont fcss =XLS.createFont();
@@ -1810,6 +1830,14 @@ public class TransactionOverviewBean implements Serializable{
     public String excelDownLoad() {
         
         return null;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
     }
 
 

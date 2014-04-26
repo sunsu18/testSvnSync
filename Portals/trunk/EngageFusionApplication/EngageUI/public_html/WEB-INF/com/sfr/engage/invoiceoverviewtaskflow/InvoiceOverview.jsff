@@ -173,7 +173,7 @@
     <af:panelGroupLayout id="pgl24" layout="vertical"
                                halign="right"
                                inlineStyle="width:680.0px; height:15.0px;">    
-     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.CurrencyCode.inputValue}" id="ot22" styleClass="popupoutputText"/>      
+     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}" id="ot22" styleClass="popupoutputText"/>      
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">

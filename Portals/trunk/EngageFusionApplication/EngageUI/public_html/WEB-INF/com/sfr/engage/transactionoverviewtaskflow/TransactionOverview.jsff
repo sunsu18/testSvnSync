@@ -282,7 +282,7 @@
                                halign="right"
                                inlineStyle="width:640.0px; height:15.0px;">
             
-            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} (#{bindings.PalsCountryCode.inputValue})"
+            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"
                            id="ot59" styleClass="popupoutputText"/>           
           </af:panelGroupLayout>
         </af:panelGroupLayout>

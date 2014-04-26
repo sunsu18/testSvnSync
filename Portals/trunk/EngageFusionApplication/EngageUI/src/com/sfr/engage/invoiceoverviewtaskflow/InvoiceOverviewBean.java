@@ -89,6 +89,8 @@ public class InvoiceOverviewBean implements Serializable {
     private Conversion conversionUtility;
     private Locale locale;
     private String partnerId;
+    private String currencyCode;
+    private String lang;
     private String invoiceNumberPdfValue;
     Map<String,String> ucmInvoiceContentList = new HashMap<String,String>();
     
@@ -119,8 +121,17 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
         }
-        countryCode="no_NO";
-        locale = conversionUtility.getLocaleFromCountryCode("SE");
+        //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
+        
+        lang="no_NO";
+        
+        if(lang=="no_NO")
+        {
+        currencyCode=conversionUtility.getCurrencyCode("NO");
+        locale=conversionUtility.getLocaleFromCountryCode("NO");
+        }else if(lang=="se_SE") {
+            currencyCode=conversionUtility.getCurrencyCode("SE");
+        }
     }
     
     public ArrayList<SelectItem> getAccountList() {
@@ -312,7 +323,7 @@ public class InvoiceOverviewBean implements Serializable {
                 }
                 invoiceVO.setWhereClause("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')");
                invoiceVO.defineNamedWhereClauseParam("accountId",getBindings().getAccount().getValue(),null);
-                invoiceVO.defineNamedWhereClauseParam("countryCode",countryCode,null);
+                invoiceVO.defineNamedWhereClauseParam("countryCode",lang,null);
                 invoiceVO.defineNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString(),null);
                 invoiceVO.defineNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString(),null);
                 if(getBindings().getInvoiceType().getValue()!=null) {
@@ -772,6 +783,22 @@ public class InvoiceOverviewBean implements Serializable {
 
     public boolean isCGCardVisible() {
         return cGCardVisible;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public String getLang() {
+        return lang;
     }
 
 
