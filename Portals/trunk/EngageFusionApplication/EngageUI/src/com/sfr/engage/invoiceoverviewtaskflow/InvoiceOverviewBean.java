@@ -724,10 +724,10 @@ public class InvoiceOverviewBean implements Serializable {
                     if (uCMCustomWeb != null) {
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO); 
                         ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
-                        System.out.println("Content id="+ucmContentId);
+                        System.out.println("Content id="+ucmContentId);                        
+                        if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber,ucmContentId);
                         session.setAttribute("ucmInvoiceContentList", ucmInvoiceContentList);
-                        if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         System.out.println("get file from ucm");
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
                                                                 ucmContentId); 
