@@ -665,6 +665,7 @@ public class InvoiceOverviewBean implements Serializable {
         }
         //retrieve error pdf in case of error
         if (isError) {             
+            System.out.println("Errpr PDF ="+DAOFactory.getPropertyValue("ERROR_PDF_CID"));
             System.out.println("Error PDF");
                 responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),                                                                
                                                                                DAOFactory.getPropertyValue("ERROR_PDF_CID"));
@@ -690,15 +691,15 @@ public class InvoiceOverviewBean implements Serializable {
         
         Property invoiceNo = new Property();
         invoiceNo.setName("xInvoiceNo");
-        invoiceNo.setValue("141291");
+        invoiceNo.setValue("29091991");
         
         Property partnerId = new Property();
         partnerId.setName("xPartnerId");
-        partnerId.setValue("BA201091");
+        partnerId.setValue("RON04031991");
         
         Property docType = new Property();
         docType.setName("xDocumentType");
-        docType.setValue("CSV");
+        docType.setValue("PDF");
         
         Property contentType = new Property(); 
         contentType.setName("xContentType");

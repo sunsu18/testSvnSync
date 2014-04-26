@@ -304,11 +304,13 @@
                    headerText="#{sfr.TRANSACTION_DATE}"
                    id="c15">
           <f:facet name="filter">
-            <af:inputDate value="#{vs.filterCriteria.TransactionDt}" id="id4"/>
+            <af:inputDate value="#{vs.filterCriteria.TransactionDt}" id="id4">
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
+            </af:inputDate>
           </f:facet>
          <af:panelGroupLayout id="pgl14" layout="horizontal">
            <af:outputText value="#{row.TransactionDt}" id="ot46">           
-            <af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.TransactionDt.format}"/>
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
           </af:outputText>
            <af:spacer width="2" height="1" id="s29"/>
           <af:outputText value="#{row.bindings.TransactionTime.inputValue}"
@@ -757,7 +759,7 @@
           </f:facet>
           <f:facet name="center">           
               <af:panelGroupLayout id="pgl28" layout="vertical">
-              <af:outputText value="Are you sure you want to download the excel for specific columns?" id="ot43"/>                           
+              <af:outputText value="#{sfr.TRANSACTION_SPECIFIC_CONFIRMATION}?" id="ot43"/>                           
              <af:spacer width="10" height="10" id="s44"/>  
             </af:panelGroupLayout>
           </f:facet>
