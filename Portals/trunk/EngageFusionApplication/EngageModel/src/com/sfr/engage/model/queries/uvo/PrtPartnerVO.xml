@@ -56,7 +56,12 @@
        PrtPartnerEO.CUSTOMER_LIMIT_AMOUNT, 
        PrtPartnerEO.CREDIT_EXPOSURE_CODE, 
        PrtPartnerEO.MODIFIED_BY, 
-       PrtPartnerEO.MODIFIED_DATE"
+       PrtPartnerEO.MODIFIED_DATE, 
+       PrtPartnerEO.PARTNER_ADDR1, 
+       PrtPartnerEO.PARTNER_ADDR2, 
+       PrtPartnerEO.PARTNER_POSTAL_CODE, 
+       PrtPartnerEO.PARTNER_CITY, 
+       PrtPartnerEO.PARTNER_COUNTRY"
   FromList="PRT_PARTNER PrtPartnerEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -379,6 +384,36 @@
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtPartnerEO"
     AliasName="MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="PartnerAddr1"
+    PrecisionRule="true"
+    EntityAttrName="PartnerAddr1"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_ADDR1"/>
+  <ViewAttribute
+    Name="PartnerAddr2"
+    PrecisionRule="true"
+    EntityAttrName="PartnerAddr2"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_ADDR2"/>
+  <ViewAttribute
+    Name="PartnerPostalCode"
+    PrecisionRule="true"
+    EntityAttrName="PartnerPostalCode"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_POSTAL_CODE"/>
+  <ViewAttribute
+    Name="PartnerCity"
+    PrecisionRule="true"
+    EntityAttrName="PartnerCity"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_CITY"/>
+  <ViewAttribute
+    Name="PartnerCountry"
+    PrecisionRule="true"
+    EntityAttrName="PartnerCountry"
+    EntityUsage="PrtPartnerEO"
+    AliasName="PARTNER_COUNTRY"/>
   <ViewLinkAccessor
     Name="PrtCardgroupVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"

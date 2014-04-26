@@ -530,6 +530,56 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PartnerAddr1 {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerAddr1();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerAddr1((String)value);
+            }
+        }
+        ,
+        PartnerAddr2 {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerAddr2();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerAddr2((String)value);
+            }
+        }
+        ,
+        PartnerPostalCode {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerPostalCode();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerPostalCode((String)value);
+            }
+        }
+        ,
+        PartnerCity {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerCity();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerCity((String)value);
+            }
+        }
+        ,
+        PartnerCountry {
+            public Object get(PrtPartnerVORowImpl obj) {
+                return obj.getPartnerCountry();
+            }
+
+            public void put(PrtPartnerVORowImpl obj, Object value) {
+                obj.setPartnerCountry((String)value);
+            }
+        }
+        ,
         PrtCardgroupVO {
             public Object get(PrtPartnerVORowImpl obj) {
                 return obj.getPrtCardgroupVO();
@@ -576,6 +626,7 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int LASTNAME1 = AttributesEnum.Lastname1.index();
@@ -627,6 +678,11 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
     public static final int CREDITEXPOSURECODE = AttributesEnum.CreditExposureCode.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int PARTNERADDR1 = AttributesEnum.PartnerAddr1.index();
+    public static final int PARTNERADDR2 = AttributesEnum.PartnerAddr2.index();
+    public static final int PARTNERPOSTALCODE = AttributesEnum.PartnerPostalCode.index();
+    public static final int PARTNERCITY = AttributesEnum.PartnerCity.index();
+    public static final int PARTNERCOUNTRY = AttributesEnum.PartnerCountry.index();
     public static final int PRTCARDGROUPVO = AttributesEnum.PrtCardgroupVO.index();
     public static final int PRTCARDVO = AttributesEnum.PrtCardVO.index();
 
@@ -1458,6 +1514,86 @@ public class PrtPartnerVORowImpl extends ViewRowImpl {
      */
     public void setModifiedDate(Timestamp value) {
         setAttributeInternal(MODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_ADDR1 using the alias name PartnerAddr1.
+     * @return the PARTNER_ADDR1
+     */
+    public String getPartnerAddr1() {
+        return (String) getAttributeInternal(PARTNERADDR1);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_ADDR1 using the alias name PartnerAddr1.
+     * @param value value to set the PARTNER_ADDR1
+     */
+    public void setPartnerAddr1(String value) {
+        setAttributeInternal(PARTNERADDR1, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_ADDR2 using the alias name PartnerAddr2.
+     * @return the PARTNER_ADDR2
+     */
+    public String getPartnerAddr2() {
+        return (String) getAttributeInternal(PARTNERADDR2);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_ADDR2 using the alias name PartnerAddr2.
+     * @param value value to set the PARTNER_ADDR2
+     */
+    public void setPartnerAddr2(String value) {
+        setAttributeInternal(PARTNERADDR2, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_POSTAL_CODE using the alias name PartnerPostalCode.
+     * @return the PARTNER_POSTAL_CODE
+     */
+    public String getPartnerPostalCode() {
+        return (String) getAttributeInternal(PARTNERPOSTALCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_POSTAL_CODE using the alias name PartnerPostalCode.
+     * @param value value to set the PARTNER_POSTAL_CODE
+     */
+    public void setPartnerPostalCode(String value) {
+        setAttributeInternal(PARTNERPOSTALCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_CITY using the alias name PartnerCity.
+     * @return the PARTNER_CITY
+     */
+    public String getPartnerCity() {
+        return (String) getAttributeInternal(PARTNERCITY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_CITY using the alias name PartnerCity.
+     * @param value value to set the PARTNER_CITY
+     */
+    public void setPartnerCity(String value) {
+        setAttributeInternal(PARTNERCITY, value);
+    }
+
+    /**
+     * Gets the attribute value for PARTNER_COUNTRY using the alias name PartnerCountry.
+     * @return the PARTNER_COUNTRY
+     */
+    public String getPartnerCountry() {
+        return (String) getAttributeInternal(PARTNERCOUNTRY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PARTNER_COUNTRY using the alias name PartnerCountry.
+     * @param value value to set the PARTNER_COUNTRY
+     */
+    public void setPartnerCountry(String value) {
+        setAttributeInternal(PARTNERCOUNTRY, value);
     }
 
     /**

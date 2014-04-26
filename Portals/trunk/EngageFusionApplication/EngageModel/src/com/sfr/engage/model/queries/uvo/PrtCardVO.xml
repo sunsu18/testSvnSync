@@ -50,7 +50,8 @@
        PrtCardEO.DELETION_CODE, 
        PrtCardEO.SPERREBEH_KD, 
        PrtCardEO.SPERRELISTE_DT, 
-       PrtCardEO.SPESIALBEST_JN"
+       PrtCardEO.SPESIALBEST_JN, 
+       PrtCardEO.CARD_REMARKS"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -342,4 +343,10 @@
     EntityAttrName="SpesialbestJn"
     EntityUsage="PrtCardEO"
     AliasName="SPESIALBEST_JN"/>
+  <ViewAttribute
+    Name="CardRemarks"
+    PrecisionRule="true"
+    EntityAttrName="CardRemarks"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_REMARKS"/>
 </ViewObject>

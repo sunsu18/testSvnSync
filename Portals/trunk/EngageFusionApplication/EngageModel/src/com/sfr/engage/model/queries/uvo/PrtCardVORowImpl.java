@@ -468,6 +468,16 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 obj.setSpesialbestJn((String)value);
             }
         }
+        ,
+        CardRemarks {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getCardRemarks();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setCardRemarks((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -495,6 +505,7 @@ public class PrtCardVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
@@ -540,6 +551,7 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int SPERREBEHKD = AttributesEnum.SperrebehKd.index();
     public static final int SPERRELISTEDT = AttributesEnum.SperrelisteDt.index();
     public static final int SPESIALBESTJN = AttributesEnum.SpesialbestJn.index();
+    public static final int CARDREMARKS = AttributesEnum.CardRemarks.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1273,6 +1285,22 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public void setSpesialbestJn(String value) {
         setAttributeInternal(SPESIALBESTJN, value);
+    }
+
+    /**
+     * Gets the attribute value for CARD_REMARKS using the alias name CardRemarks.
+     * @return the CARD_REMARKS
+     */
+    public String getCardRemarks() {
+        return (String) getAttributeInternal(CARDREMARKS);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CARD_REMARKS using the alias name CardRemarks.
+     * @param value value to set the CARD_REMARKS
+     */
+    public void setCardRemarks(String value) {
+        setAttributeInternal(CARDREMARKS, value);
     }
 
     /**
