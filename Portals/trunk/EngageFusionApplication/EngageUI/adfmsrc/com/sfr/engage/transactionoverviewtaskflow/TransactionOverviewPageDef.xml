@@ -13,6 +13,9 @@
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <searchRegion Binds="PrtCardTransactionOverviewRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtCardTransactionOverviewRVO12Query"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
@@ -40,6 +43,7 @@
           <Item Value="DriverName"/>
           <Item Value="Odometer"/>
           <Item Value="PurchaseCountryCode"/>
+          <Item Value="ProductName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -136,5 +140,32 @@
         <Item Value="PalsCountryCode"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO12">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO120">
+        <AttrNames>
+          <Item Value="PurchaseCountryCode"/>
+          <Item Value="Card1Id"/>
+          <Item Value="Odometer"/>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="Quantity"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="DriverName"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="kmTotal"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="ProductName"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="UnitOfMeasure"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

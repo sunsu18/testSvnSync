@@ -638,8 +638,10 @@ public class InvoiceOverviewBean implements Serializable {
                             byte[] result=searchGetFile(invoiceNumberValuePdf);
                             if(result!=null && result.length!=0) {
                                outputStream.write(result);                            
-                            }
+                            }else
+                            {
                             isError = true;
+                            }
                             
                         }
                         
@@ -652,12 +654,10 @@ public class InvoiceOverviewBean implements Serializable {
 
         }
         else{
-           System.out.println("session is null");
-            isError = true;
+           System.out.println("session is null");       
             byte[] result=searchGetFile(invoiceNumberValuePdf);
            if(result!=null && result.length!=0) {
-               outputStream.write(result);
-               isError = true;
+               outputStream.write(result);             
            }else {
                isError = true;
            }

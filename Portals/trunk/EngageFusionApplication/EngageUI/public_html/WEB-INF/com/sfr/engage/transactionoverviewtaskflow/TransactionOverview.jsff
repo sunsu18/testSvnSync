@@ -287,31 +287,37 @@
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="15" id="spacer2"/>
-      <af:table value="#{bindings.PrtCardTransactionOverviewRVO1.collectionModel}"
-                var="row"
-                rows="#{bindings.PrtCardTransactionOverviewRVO1.rangeSize}"
-                emptyText="#{bindings.PrtCardTransactionOverviewRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                fetchSize="#{bindings.PrtCardTransactionOverviewRVO1.estimatedRowCount}"
-                rowBandingInterval="0" id="t1" width="950" disableColumnReordering="true" columnResizing="disabled"
-                autoHeightRows="0"  contentDelivery="immediate" inlineStyle="height:auto;">
-        <af:column sortProperty="TransactionDt" sortable="false"
+      <af:table value="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel}"
+                var="row" width="950" disableColumnReordering="true" columnResizing="disabled"
+                rows="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
+                emptyText="#{bindings.PrtCardTransactionOverviewRVO12.viewable ? 'No data to display.' : 'Access Denied.'}"
+                fetchSize="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
+                rowBandingInterval="1"
+                filterModel="#{bindings.PrtCardTransactionOverviewRVO12Query.queryDescriptor}"
+                queryListener="#{bindings.PrtCardTransactionOverviewRVO12Query.processQuery}"
+                filterVisible="true" varStatus="vs"
+                selectedRowKeys="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel.selectedRow}"
+                selectionListener="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel.makeCurrent}"
+                rowSelection="single" id="t1">
+         <af:column sortProperty="TransactionDt" filterable="true"
+                   sortable="false" width="120"
                    headerText="#{sfr.TRANSACTION_DATE}"
-                   id="c5" width="120">
-            <af:panelGroupLayout id="pgl14">
-              <af:spacer width="2" height="1" id="s29"/>
-              <af:outputText value="#{row.bindings.TransactionDt.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.TransactionDt.tooltip}"
-                             id="id4">
-                <af:convertDateTime pattern="dd.MM.yyyy"/>
-              </af:outputText>
-              <af:spacer width="2" height="1" id="s31"/>
-               <af:outputText value="#{row.bindings.TransactionTime.inputValue}"
+                   id="c15">
+          <f:facet name="filter">
+            <af:inputDate value="#{vs.filterCriteria.TransactionDt}" id="id4"/>
+          </f:facet>
+         <af:panelGroupLayout id="pgl14" layout="horizontal">
+           <af:outputText value="#{row.TransactionDt}" id="ot46">           
+            <af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.TransactionDt.format}"/>
+          </af:outputText>
+           <af:spacer width="2" height="1" id="s29"/>
+          <af:outputText value="#{row.bindings.TransactionTime.inputValue}"
                              shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.TransactionTime.tooltip}"
                              id="ot28">
                 <af:convertDateTime pattern="hh.mm"/>
               </af:outputText>
-            </af:panelGroupLayout>
-             <f:facet name="footer">
+        </af:panelGroupLayout>              
+         <f:facet name="footer">
             <af:panelGroupLayout id="pgl37" layout="horizontal" halign="center"
                                  >
              <af:spacer width="0" height="0" id="s38"/>
@@ -324,71 +330,76 @@
             
               </af:panelGroupLayout>
             </f:facet>
-          </af:column>
-          <af:column headerText="#{sfr.CARD}"
-                     id="c13" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}">
-            <af:outputText value="#{row.Ksid}" id="ot35"/>
-          </af:column>
-          <af:column headerText="#{sfr.VEHICLE_NUMBER}"
-
-                     id="c14" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
-                     width="80">
-            <af:outputText value="#{row.VehicleNumber}" id="ot36"/>
-          </af:column>
-          <af:column headerText="#{sfr.DRIVER_NAME}"
-                     id="c15" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}">
-            <af:outputText value="#{row.DriverName}" id="ot37"/>
-          </af:column>
-          <af:column sortProperty="StationName" sortable="false"
+        </af:column>
+        <af:column sortProperty="Card1Id" filterable="true" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}"
+                   headerText="#{sfr.CARD}"
+                   id="c2">
+          <af:outputText value="#{row.Card1Id}" id="ot37"/>
+        </af:column>
+        
+        <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                   sortable="false" width="80"
+                   headerText="#{sfr.VEHICLE_NUMBER}"
+                   id="c16">
+          <af:outputText value="#{row.VehicleNumber}" id="ot40"/>
+        </af:column>
+        
+        <af:column sortProperty="DriverName" filterable="true" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}"
+                   headerText="#{sfr.DRIVER_NAME}"
+                   id="c4">
+          <af:outputText value="#{row.DriverName}" id="ot36"/>
+        </af:column>
+        
+        <af:column sortProperty="StationName" filterable="true" sortable="false"
                    headerText="#{sfr.ENGAGE_STATION_NAME}"
-                   id="c2" >
-            <af:panelGroupLayout id="pgl15">
+                   id="c9">
+        <af:panelGroupLayout id="pgl15">
               <af:spacer width="2" height="1" id="spacer11"/>
-              <af:outputText value="#{row.bindings.StationName.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.StationName.tooltip}"
-                             id="it1"/>
-            </af:panelGroupLayout>
-          </af:column>
-          <af:column sortProperty="PalsCountryCode" sortable="false"
-                     headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
-
-                     id="c1" width="55">
-            <af:panelGroupLayout id="pgl17">
+          <af:outputText value="#{row.StationName}" id="ot35"/>
+          </af:panelGroupLayout>
+        </af:column>
+        
+        <af:column sortProperty="PurchaseCountryCode" filterable="true"
+                   sortable="false" width="55"
+                   headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
+                   id="c3">
+         <af:panelGroupLayout id="pgl17">
               <af:spacer width="2" height="1" id="spacer12"/>
-            <af:outputText value="#{row.PurchaseCountryCode}" id="ot40"/>
-            <!--<af:outputText value="#{row.bindings.PalsCountryCode.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.PalsCountryCode.tooltip}"
-                             id="it5"/>-->
-            </af:panelGroupLayout>
-          </af:column>
-          <af:column sortProperty="ProductName" sortable="false"
+          <af:outputText value="#{row.PurchaseCountryCode}" id="ot34"/>
+          </af:panelGroupLayout>
+        </af:column>
+        
+         <af:column sortProperty="ProductName" sortable="false" filterable="true"
                      headerText="#{sfr.ENGAGE_PRODUCT}"
                      id="c8">
             <af:panelGroupLayout id="pgl18">
               <af:spacer width="2" height="1" id="spacer13"/>
-              <af:outputText value="#{row.bindings.ProductName.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.ProductName.tooltip}"
-                             id="it2"/>
-            </af:panelGroupLayout>
+            <af:outputText value="#{row.ProductName}" id="ot50"/>
+          </af:panelGroupLayout>
           </af:column>
-          <af:column sortProperty="Quantity" sortable="false"
-                     headerText="#{sfr.ENGAGE_QUANTITY}"
-
-                     id="c3" width="80">
-            <af:panelGroupLayout id="pgl19">
+          
+          <af:column sortProperty="Quantity" filterable="true" sortable="false" width="80"
+                   headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
+                   id="c1">
+                    <af:panelGroupLayout id="pgl19">
               <af:spacer width="2" height="1" id="spacer14"/>
-              <af:outputText value="#{row.bindings.Quantity.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.Quantity.tooltip}"
-                             id="it4"/>
-            </af:panelGroupLayout>
-          </af:column>
-          <af:column sortProperty="InvoicedGrossAmount"
-                     headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
-                     id="c4" align="right" >
-            <af:panelGroupLayout id="pgl20">
+          <af:outputText value="#{row.Quantity}" id="ot47">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.Quantity.format}"/>
+          </af:outputText>
+           <af:spacer width="2" height="1" id="s229"/>
+            <af:outputText value="#{row.UnitOfMeasure}" id="ot31"/>
+          </af:panelGroupLayout>
+        </af:column>
+        
+          <af:column sortProperty="InvoicedGrossAmount" filterable="true"
+                   sortable="false" align="right"
+                   headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                   id="c10">
+           <af:panelGroupLayout id="pgl20">
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoicedGrossAmount.tooltip}"
                               id="it3"
-                              text="#{row.bindings.InvoicedGrossAmount.inputValue}">
+                              text="#{row.InvoicedGrossAmount}">
                                
                 <af:showPopupBehavior triggerType="click" popupId="::pp1"/>
                 
@@ -397,7 +408,7 @@
             </af:panelGroupLayout>
             <f:facet name="footer">
             <af:panelGroupLayout id="pgl42" halign="right" layout="horizontal">
-  <af:panelGroupLayout id="pgl44" layout="horizontal" halign="right" >
+                 <af:panelGroupLayout id="pgl44" layout="horizontal" halign="right" >
                   <af:outputText value="#{pageFlowScope.TransactionOverviewBean.sum}" id="ot33">
                     <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
@@ -406,81 +417,84 @@
                   </af:outputText>
                   <af:spacer width="2" height="1" id="s39"/>
                 </af:panelGroupLayout> 
-</af:panelGroupLayout>
+            </af:panelGroupLayout>
             </f:facet>
-          </af:column>
-          <af:column sortProperty="RecieptNo" sortable="false"
-                     headerText="#{sfr.ENGAGE_RECEIPT_NO}"
-
-                     id="c7" width="80">
+        </af:column>
+        
+         <af:column sortProperty="RecieptNo" filterable="true" sortable="false"
+                   headerText="#{sfr.ENGAGE_RECEIPT_NO}" width="80"
+                   id="c13">
             <af:panelGroupLayout id="pgl21">
               <af:spacer width="2" height="1" id="spacer16"/>
-              <af:outputText value="#{row.bindings.RecieptNo.inputValue}"
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.RecieptNo.tooltip}"
-                             id="it7"/>
-            </af:panelGroupLayout>
-          </af:column>
-        
-        <af:column sortProperty="InvoiceNumberCollective" sortable="false"
-                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
-
-                   id="c9" width="80">
-            <af:panelGroupLayout id="pgl22">
-              <af:spacer width="2" height="1" id="spacer17"/>
-              <af:outputText value="#{row.bindings.InvoiceNumberCollective.inputValue eq null ? row.bindings.InvoiceNumberNonCollective.inputValue: row.bindings.InvoiceNumberCollective.inputValue} "
-                             shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoiceNumberCollective.tooltip}"
-                             id="it8"/>
-            </af:panelGroupLayout>
-          </af:column>
-          <!--odometer to be localised!-->
-          <af:column headerText="Odometer"
-
-                     id="c6" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
-            <af:outputText value="#{row.OdometerPortal}" id="ot30" visible="#{row.OdometerPortal ne null ? true : false}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>                                
-            </af:outputText>
-          <af:outputText value="#{row.Odometer}" id="ot39" visible="#{row.OdometerPortal eq null ? true : false}"/>
+             <af:outputText value="#{row.RecieptNo}" id="ot48"/>
+          </af:panelGroupLayout>
         </af:column>
-          <!-- <af:column headerText="Odometer"
-                     id="c16" width="35">
-            <af:outputText value="#{row.OdometerPortal}" id="ot40"  visible="#{row.OdometerPortal ne null ? true : false}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.OdometerPortal.format}"/>
-            </af:outputText>
-          </af:column>-->
-          <af:column headerText="#{sfr.ENGAGE_KM_TOTAL}"
-
-                     id="c12" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
-            <af:outputText value="#{row.kmTotal}" id="ot34">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmTotal.format}"/>
-            </af:outputText>
-          </af:column>
-          <af:column headerText="#{sfr.ENGAGE_KM_PER_LT}"
-
-                     id="c10" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
-            <af:outputText value="#{row.kmPerLt}" id="ot31">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.kmPerLt.format}"/>
-            </af:outputText>
-          </af:column>
-          <af:column headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
-
-                     id="c11" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}">
-            <af:outputText value="#{row.ltPerHundred}" id="ot32">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO1.hints.ltPerHundred.format}"/>
-            </af:outputText>
-          </af:column>          
-        </af:table>
-        <af:spacer width="10" height="10" id="s9"/>
-        <af:commandButton text="ExportToExcel" id="cb1">
+        
+          <af:column sortProperty="InvoiceNumberCollective"
+                   sortable="false" width="80" 
+                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                   id="c5">
+             <af:panelGroupLayout id="pgl22">
+              <af:spacer width="2" height="1" id="spacer17"/>
+          <af:outputText value="#{row.InvoiceNumberCollective eq null ? row.InvoiceNumberNonCollective : row.InvoiceNumberCollective}" id="ot30"/>
+          </af:panelGroupLayout>
+        </af:column>
+        
+        
+       <!-- <af:column sortProperty="InvoiceNumberNonCollective" filterable="true"
+                   sortable="false" width="80" 
+                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                   id="c6">
+             <af:panelGroupLayout id="pgl29">
+              <af:spacer width="2" height="1" id="s21"/>
+          <af:outputText value="#{row.InvoiceNumberNonCollective}"
+                         id="ot31"/>
+          </af:panelGroupLayout>
+        </af:column>-->
+        
+        <af:column sortProperty="Odometer" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                   headerText="#{sfr.ODOMETER}"
+                   id="c7">
+          <af:outputText value="#{row.OdometerPortal}" id="ot49" visible="#{row.OdometerPortal ne null ? true : false}"/>
+          <af:outputText value="#{row.Odometer}" id="ot32" visible="#{row.OdometerPortal eq null ? true : false}"/>
+        </af:column>
+        
+         <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                   headerText="#{sfr.ENGAGE_KM_TOTAL}"
+                   id="c12">
+          <af:outputText value="#{row.kmTotal}" id="ot51">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.kmTotal.format}"/>
+          </af:outputText>
+        </af:column>
+        
+        <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                   headerText="#{sfr.ENGAGE_KM_PER_LT}"
+                   id="c14">
+          <af:outputText value="#{row.kmPerLt}" id="ot45">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.kmPerLt.format}"/>
+          </af:outputText>
+        </af:column>
+        
+         <af:column sortProperty="ltPerHundred" filterable="true" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+                   sortable="false"
+                   headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
+                   id="c11">
+          <af:outputText value="#{row.ltPerHundred}" id="ot39">
+            <af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.ltPerHundred.format}"/>
+          </af:outputText>
+        </af:column>
+       
+      </af:table>
+      <af:spacer width="10" height="10" id="s9"/>
+        <!--<af:commandButton text="ExportToExcel" id="cb1">
          <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
                                          filename="Transaction_Report.xls"
                                         method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
         </af:commandButton>
-         <af:spacer width="10" height="10" id="spac8"/>
+         <af:spacer width="10" height="10" id="spac8"/>-->
         <af:commandButton text="ExportToExcelColumns" id="cb4"
                           actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}">
         </af:commandButton>
@@ -728,7 +742,7 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="pgl5" layout="horizontal">
               <af:spacer width="4" height="10" id="s42"/>               
-                <af:commandButton text="Yes" id="cb6"
+                <af:commandButton text="#{sfr.YES}" id="cb6"
                                   action="#{pageFlowScope.TransactionOverviewBean.excelDownLoad}">
                   <af:clientListener method="exitFromPopupConfirmation" type="action"/>
                   <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
@@ -736,7 +750,7 @@
                                         method="#{pageFlowScope.TransactionOverviewBean.specificExportExcelListener}"/>
                 </af:commandButton> 
                  <af:spacer width="10" height="10" id="s43"/>    
-                <af:commandButton text="No" id="cb7"
+                <af:commandButton text="#{sfr.NO}" id="cb7"
                                  action="#{pageFlowScope.TransactionOverviewBean.confirmationCancelAction}"/> 
                 </af:panelGroupLayout>
             </af:toolbar>

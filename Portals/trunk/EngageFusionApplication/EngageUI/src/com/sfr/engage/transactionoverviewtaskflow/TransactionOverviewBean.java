@@ -1590,7 +1590,7 @@ public class TransactionOverviewBean implements Serializable{
                             if(row.getTransactionTime()!=null) {
                                 time=getTimeHour(row.getTransactionTime());
                             }
-                        XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+time);
+                        XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().getTime()))+ "  "+time);
                         }
                     }else if("Station".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                         if(row.getStationName()!=null)
@@ -1618,7 +1618,7 @@ public class TransactionOverviewBean implements Serializable{
                         {
                             XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
                             XLS_SH_R_C.setCellStyle(csRight);
-                        XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
+                        XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale) + " "+row.getUnitOfMeasure());
                         }
                     }else if("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                         if(row.getInvoicedGrossAmount()!=null)
@@ -1792,10 +1792,12 @@ public class TransactionOverviewBean implements Serializable{
         {
         getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
         }else {            
-         FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,"Please select the columns which you want for report",
-                                     "");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),"");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }            
             
         }
     }
