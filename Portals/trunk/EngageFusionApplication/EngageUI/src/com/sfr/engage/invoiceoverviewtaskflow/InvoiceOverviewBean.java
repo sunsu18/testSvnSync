@@ -393,6 +393,7 @@ public class InvoiceOverviewBean implements Serializable {
     public void clearSearchListener(ActionEvent actionEvent) {
         // Add event code here...
         getBindings().getAccount().setValue(null);
+        this.accountValue=null;
         getBindings().getCardGpCardList().setValue(null);
         this.invoiceTypeValue=null;
         getBindings().getFromDate().setValue(null);
