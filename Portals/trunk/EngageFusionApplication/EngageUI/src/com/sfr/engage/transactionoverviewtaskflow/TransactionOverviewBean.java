@@ -44,14 +44,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
+
+import oracle.adf.view.rich.util.ResetUtils;
+
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
 
 import oracle.jbo.Row;
 import oracle.jbo.RowSetIterator;
@@ -110,6 +117,10 @@ public class TransactionOverviewBean implements Serializable{
     private String strCard="Date,Card,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
     private String strVehicle="Date,Vehicle No,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No,Odometer,TotalKM,KM/L,L/100KM";
     private String strDriver="Date,Driver Name,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
+    private String vehicleNumberOdometer = null;
+    private String odometerPortal = null;
+    private String urefTransactionId = null;
+    private String palsCountryCode = null;
     
 
 
@@ -454,7 +465,7 @@ public class TransactionOverviewBean implements Serializable{
         }
     }
     
-    public String searchTransactionAction_event(ActionEvent actionEvent) {
+    public String searchResults() {
         sum=0.0f;
         String terminalPassingValues  = null;
         String transTypePassingValues = null;
@@ -632,6 +643,11 @@ public class TransactionOverviewBean implements Serializable{
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
             return null;
         }
+        return null;
+    }
+    
+    public String searchTransactionAction_event(ActionEvent actionEvent) {
+        searchResults();
         return null;
     }
     
@@ -1840,6 +1856,77 @@ public class TransactionOverviewBean implements Serializable{
         return currencyCode;
     }
 
+    public String odometerEditAction() {
+        
+            vehicleNumberOdometer = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey").toString().trim();
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey") !=null){
+                odometerPortal = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey").toString().trim();
+            }else{
+                odometerPortal = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
+            }
+            System.out.println("uref id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
+            System.out.println("pals country id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
+            urefTransactionId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
+            palsCountryCode = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
+            getBindings().getEditOdometerPopup().show(new RichPopup.PopupHints());
+            
+            return null;
+        }
+    
+    public String editOdometerSave() {
+        
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("updateOdometerPortal");
+        operationBinding.getParamsMap().put("urefTransactionId",urefTransactionId);
+        operationBinding.getParamsMap().put("palsCountryCode", palsCountryCode);
+        System.out.println("odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
+        operationBinding.getParamsMap().put("odoMeterPortalValue", getBindings().getOdometerPortalValue().getValue());
+        Object result = operationBinding.execute();
+        if (operationBinding.getErrors().isEmpty()) {
+            getBindings().getEditOdometerPopup().hide();
+            searchResults();
+        }
+        return null;
+    }
+    
+    public String editDriverCancel() {
+        ResetUtils.reset(getBindings().getEditOdometerPopup());
+        getBindings().getEditOdometerPopup().hide();
+        return null;
+        
+    }
+
+    public void setVehicleNumberOdometer(String vehicleNumberOdometer) {
+        this.vehicleNumberOdometer = vehicleNumberOdometer;
+    }
+
+    public String getVehicleNumberOdometer() {
+        return vehicleNumberOdometer;
+    }
+
+    public void setOdometerPortal(String odometerPortal) {
+        this.odometerPortal = odometerPortal;
+    }
+
+    public String getOdometerPortal() {
+        return odometerPortal;
+    }
+
+    public void setUrefTransactionId(String urefTransactionId) {
+        this.urefTransactionId = urefTransactionId;
+    }
+
+    public String getUrefTransactionId() {
+        return urefTransactionId;
+    }
+
+    public void setPalsCountryCode(String palsCountryCode) {
+        this.palsCountryCode = palsCountryCode;
+    }
+
+    public String getPalsCountryCode() {
+        return palsCountryCode;
+    }
 
     public class Bindings {
         private RichSelectOneChoice account;
@@ -1861,6 +1948,8 @@ public class TransactionOverviewBean implements Serializable{
         private RichPopup confirmationExcel;
         private RichSelectManyShuttle shuttleExcel;
         private RichPanelGroupLayout selectedPGL;
+        private RichPopup editOdometerPopup;
+        private RichInputText odometerPortalValue;
         
 
         public void setAccount(RichSelectOneChoice account) {
@@ -2013,6 +2102,22 @@ public class TransactionOverviewBean implements Serializable{
 
         public RichPanelGroupLayout getSelectedPGL() {
             return selectedPGL;
+        }
+
+        public void setEditOdometerPopup(RichPopup editOdometerPopup) {
+            this.editOdometerPopup = editOdometerPopup;
+        }
+
+        public RichPopup getEditOdometerPopup() {
+            return editOdometerPopup;
+        }
+        
+        public void setOdometerPortalValue(RichInputText odometerPortalValue) {
+            this.odometerPortalValue = odometerPortalValue;
+        }
+
+        public RichInputText getOdometerPortalValue() {
+            return odometerPortalValue;
         }
     }
 }

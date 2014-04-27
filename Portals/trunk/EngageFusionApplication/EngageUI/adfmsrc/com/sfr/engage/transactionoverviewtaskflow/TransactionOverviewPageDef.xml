@@ -164,8 +164,27 @@
           <Item Value="ProductName"/>
           <Item Value="OdometerPortal"/>
           <Item Value="UnitOfMeasure"/>
+          <Item Value="UrefTransactionId"/>
+          <Item Value="PalsCountryCode"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+            DataControl="EngageAppModuleDataControl"/>
+    <action id="Rollback" RequiresUpdateModel="false"
+            Action="rollbackTransaction"
+            DataControl="EngageAppModuleDataControl"/>
+    <methodAction id="updateOdometerPortal"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateOdometerPortal" IsViewObjectMethod="false">
+      <NamedData NDName="urefTransactionId" NDType="java.lang.String"/>
+      <NamedData NDName="palsCountryCode" NDType="java.lang.String"/>
+      <NamedData NDName="odoMeterPortalValue" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

@@ -123,6 +123,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public ViewObjectImpl getPrtGenHelpRVO1() {
         return (ViewObjectImpl)findViewObject("PrtGenHelpRVO1");
     }
+    
 /**
      * @param accountId
      * @param type
@@ -173,7 +174,36 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                     }
                 }
     }
-
+    
+    public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue){
+        System.out.println("transaction id in Application module===>"+urefTransactionId);
+        System.out.println("countryCd in application module=====>"+palsCountryCode);
+        System.out.println("odometer value in apppilcation module====>"+odoMeterPortalValue);
+        
+        Connection con=null;
+        PreparedStatement pStmt = null;
+        String statement = null;
+                try {
+                    Statement stmt = getDBTransaction().createStatement(0);
+                    con = stmt.getConnection();
+                    
+                        System.out.println("Inside this block of driver in application moule");
+                        statement = "UPDATE PRT_CARD_TRANSACTION_HEADER SET ODOMETER_PORTAL = '"+odoMeterPortalValue+"' where UREF_TRANSACTION_ID = '"+urefTransactionId+"' and PALS_COUNTRY_CODE ='"+palsCountryCode+"'";
+                                          
+                   
+                    pStmt = con.prepareStatement(statement);   
+                    pStmt.executeUpdate();
+                    con.commit();
+                } catch (SQLException sqle) {
+                    sqle.getMessage();
+                } finally {
+                    try {
+                        pStmt.close();
+                    } catch (SQLException sqle) {
+                        sqle.getMessage();
+                    }
+                }
+    }
 
 
     public String getWebServiceErrorMessage(String errorMessage, String countryCode) {
