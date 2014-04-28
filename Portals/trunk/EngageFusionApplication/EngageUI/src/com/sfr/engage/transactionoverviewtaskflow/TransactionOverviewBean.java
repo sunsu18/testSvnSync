@@ -34,6 +34,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -1928,6 +1929,22 @@ public class TransactionOverviewBean implements Serializable{
         return palsCountryCode;
     }
 
+    public void  odometerLink_Action(ActionEvent event) {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//           UIComponent source = (UIComponent)event.getSource();
+//           String alignId = source.getClientId(context);
+//           RichPopup.PopupHints hints = new RichPopup.PopupHints();
+//              hints.add(RichPopup.PopupHints.HintTypes.HINT_ALIGN_ID,source)
+//              .add(RichPopup.PopupHints.HintTypes.HINT_LAUNCH_ID,source)
+//              .add(RichPopup.PopupHints.HintTypes.HINT_ALIGN,
+//              RichPopup.PopupHints.AlignTypes.ALIGN_AFTER_END);
+          
+        getBindings().getOdometer_PopUp().show(new RichPopup.PopupHints());
+       
+    }
+
+   
+
     public class Bindings {
         private RichSelectOneChoice account;
         private RichInputDate fromDate;
@@ -1950,8 +1967,17 @@ public class TransactionOverviewBean implements Serializable{
         private RichPanelGroupLayout selectedPGL;
         private RichPopup editOdometerPopup;
         private RichInputText odometerPortalValue;
+        private RichPopup odometer_PopUp;
         
+        public void setOdometer_PopUp(RichPopup odometer_PopUp) {
+            this.odometer_PopUp = odometer_PopUp;
+        }
 
+        public RichPopup getOdometer_PopUp() {
+            return odometer_PopUp;
+        }
+        
+        
         public void setAccount(RichSelectOneChoice account) {
             this.account = account;
         }

@@ -16,6 +16,9 @@
     <searchRegion Binds="PrtCardTransactionOverviewRVO1Iterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="PrtCardTransactionOverviewRVO12Query"/>
+    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardTransactionInvoiceRVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
@@ -186,5 +189,29 @@
       <NamedData NDName="palsCountryCode" NDType="java.lang.String"/>
       <NamedData NDName="odoMeterPortalValue" NDType="java.lang.String"/>
     </methodAction>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="ModifiedBy">
+      <AttrNames>
+        <Item Value="ModifiedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="LastModifiedDate">
+      <AttrNames>
+        <Item Value="LastModifiedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
+                     id="PurchaseCurrency">
+      <AttrNames>
+        <Item Value="PurchaseCurrency"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="PurchaseCurrency1">
+      <AttrNames>
+        <Item Value="PurchaseCurrency"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

@@ -5,7 +5,7 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:h="http://java.sun.com/jsf/html"
          xmlns:c="http://java.sun.com/jsp/jstl/core">
-          <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
+          <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
 <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
     <af:panelGroupLayout id="pgl2">
     <af:spacer width="10" height="20" id="s9ghghg"/>
@@ -471,7 +471,10 @@
           <h:panelGrid id="pg4" columns="3">
           <af:outputText value="#{row.Odometer}" id="ot32" visible="#{row.OdometerPortal eq null ? true : false}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
-                          id="cl1"/>
+                          id="cl1"
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
+                          <!--<af:showPopupBehavior triggerType="click" popupId="::p1"/>-->
+                          </af:commandLink>
           <af:commandImageLink id="cil1" 
                             action="#{pageFlowScope.TransactionOverviewBean.odometerEditAction}"
                             icon="/images/edit.png">
@@ -543,7 +546,7 @@
                      <af:panelGroupLayout id="dfdf" layout="vertical"
                      inlineStyle="width:230px; height:40px;"
                      valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY}" styleClass="subheading"
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{pageFlowScope.TransactionOverviewBean.currencyCode}" styleClass="subheading"
                                    id="plam3"/>  
                                  
                                    <!--<af:panelGroupLayout id="pgl14" layout="horizontal" inlineStyle="width:50px;">
@@ -563,7 +566,8 @@
                   <h:panelGrid columns="5">
           <af:outputText value="#{sfr.ENGAGE_PRICE}"
                                    id="ot23"/>
-            <af:spacer width="10" height="1" id="s30"/> 
+                
+                  <af:spacer width="10" height="1" id="s30"/> 
              <af:outputText value=":" id="ot231"/>
              <af:spacer width="10" height="1" id="s301"/>  
            <af:outputText value="#{bindings.CurrencyUnitPrice.inputValue}"
@@ -629,10 +633,10 @@
 <af:panelGroupLayout id="tnjw" layout="vertical"
                      inlineStyle="width:230px; height:40px;"
                      valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN}" styleClass="subheading"
-                                   id="ot24"/>  
-                                 
-                                   <!--<af:panelGroupLayout id="pgl15" layout="horizontal" inlineStyle="width:50px;">
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
+                                   id="ot24"/>
+                 
+                  <!--<af:panelGroupLayout id="pgl15" layout="horizontal" inlineStyle="width:50px;">
                 <af:spacer width="2" height="1" id="s32"/>
                 <af:separator id="s31" />
               </af:panelGroupLayout>-->
@@ -808,8 +812,8 @@
             <af:toolbar id="edit_odometer_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="edit_footer_panel" layout="vertical"
-                                   inlineStyle="width:662.0px;" halign="right">
-              <af:spacer width="500" height="10" id="ss5"/> 
+                                   inlineStyle="width:299.0px;" halign="right">
+              <af:spacer width="200" height="10" id="ss5"/> 
               <af:panelGroupLayout id="pgl29" halign="right"
                                    layout="horizontal">
                   <af:commandButton text="#{sfr.SAVE}" id="editsave"
@@ -863,4 +867,23 @@
       </af:dialog>
     </af:popup>
     </af:panelGroupLayout>
+    <af:popup contentDelivery="immediate" autoCancel="disabled"
+              binding="#{pageFlowScope.TransactionOverviewBean.bindings.odometer_PopUp}"
+              id="p1">
+    <af:dialog closeIconVisible="true" type="none">
+      <af:panelGroupLayout id="pgl33" layout="vertical" inlineStyle="width:300px;">
+      <h:panelGrid columns="2" width="200">
+      <af:outputText value="Modified By:" id="ot64"/>
+          <af:outputText value="#{bindings.ModifiedBy.inputValue}" id="ot62"/>
+          
+           <af:outputText value="Last modified date:"/>
+           <af:outputText value="#{bindings.LastModifiedDate.inputValue}"
+                         id="ot63">
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
+          </af:outputText>
+        </h:panelGrid>
+      </af:panelGroupLayout>
+    </af:dialog>
+    </af:popup>
+    
 </jsp:root>
