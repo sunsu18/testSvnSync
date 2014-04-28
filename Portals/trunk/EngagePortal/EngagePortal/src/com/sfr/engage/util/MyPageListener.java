@@ -146,6 +146,7 @@ public class MyPageListener implements PagePhaseListener {
                 else 
                 {   System.out.println("Session is not null so take the previous");
                 session = request.getSession(false);
+                session.setAttribute(Constants.SESSION_PORTAL_NAME, Constants.EN_PORTAL);
                     
                 }
                 

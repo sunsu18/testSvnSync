@@ -9,6 +9,8 @@ import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
 
 
+import com.sfr.util.AccessDataControl;
+
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
@@ -78,12 +81,17 @@ public class AccountSummary implements Serializable {
     private transient Bindings bindings;
     JUCtrlHierNodeBinding dropNodeParent;
     JUCtrlHierNodeBinding rootNode;
+    AccessDataControl accessDC = new AccessDataControl();
+    
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+//    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
     
 
 
     public AccountSummary() {
         
         System.out.println("Inside Constructor of Account Summary");
+        log.fine(accessDC.getDisplayRecord() + "Inside Constructor of Account Summary");
         RichTree tree = getBindings().getAdfTree();
         if(tree!=null)
         {
@@ -99,6 +107,7 @@ public class AccountSummary implements Serializable {
         else
         {
             System.out.println("Adf tree bindings is null");
+            log.warning(accessDC.getDisplayRecord() +"Adf tree bindings is null");
             
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
@@ -106,6 +115,7 @@ public class AccountSummary implements Serializable {
             
             if (session != null) {
                 System.out.println("session not null getting adfTree from session");
+                    log.info(accessDC.getDisplayRecord() + "session not null getting adfTree from session");
                 if(session.getAttribute("adfTree")!= null)
                 {   tree = (RichTree)session.getAttribute("adfTree");
                     RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();  
@@ -115,10 +125,12 @@ public class AccountSummary implements Serializable {
                     }
                     else
                     System.out.println("No key to disclose");
+                    log.info(accessDC.getDisplayRecord() + "No key to disclose");
                     tree.setDisclosedRowKeys(_disclosedRowKeys);
                 }
                 else
                     System.out.println("Session is not null but still adf tree is null");
+                log.info(accessDC.getDisplayRecord() + "Session is not null but still adf tree is null");
                 }
             
         }    
@@ -231,6 +243,7 @@ public class AccountSummary implements Serializable {
         // Add event code here...
 
         System.out.println("Inside tree listner");
+        log.info(accessDC.getDisplayRecord() + "Inside tree listner");
         JUCtrlHierNodeBinding nodeBinding1 = null;
         Row rw = null;
         String rowType = "";

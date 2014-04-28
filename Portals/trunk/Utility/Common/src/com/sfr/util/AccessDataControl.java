@@ -530,7 +530,7 @@ public class AccessDataControl extends ThreadSerialization {
                 }
             }
         }
-        String result = "[" + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + " : " + portal+" : "+ emailId + " : "+sessionId+  "]";
+        String result = "[" + portal+" : "+ emailId + " : "+sessionId+  "]";
         return result;
     }
     
@@ -558,8 +558,8 @@ public class AccessDataControl extends ThreadSerialization {
         if(portal==null){
             portal=Constants.WS_PORTAL;
         }
-        if(portal.equals(Constants.WS_PORTAL)){
-            logger=ADFLogger.createADFLogger(ConfigurationUtility.getPropertyValue("LOGGER_WEBSHOP"));
+        if(portal.equals(Constants.EN_PORTAL)){
+            logger=ADFLogger.createADFLogger(ConfigurationUtility.getPropertyValue("LOGGER_ENGAGE"));
         }else if(portal.equals(Constants.PP_PORTAL)){
             logger=ADFLogger.createADFLogger(ConfigurationUtility.getPropertyValue("LOGGER_PARTNER"));
         }else if(portal.equals(Constants.PCM_PORTAL)){
