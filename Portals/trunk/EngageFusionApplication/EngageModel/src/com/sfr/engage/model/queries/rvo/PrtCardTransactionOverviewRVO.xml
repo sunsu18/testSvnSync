@@ -551,6 +551,50 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="ModifiedBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MODIFIED_BY"
+    Expression="MODIFIED_BY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastModifiedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="LAST_MODIFIED_DATE"
+    Expression="LAST_MODIFIED_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PreviousOdometer"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="7"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PREVIOUS_ODOMETER"
+    Expression="PREVIOUS_ODOMETER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="DeltaTimestamp1"
     IsUpdateable="false"
     IsPersistent="false"
@@ -570,7 +614,7 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsPersistent="false"
     IsNotNull="true"
     PrecisionRule="true"
-    Precision="10"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="UREF_TRANSACTION_ID"
@@ -586,12 +630,12 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsPersistent="false"
     IsNotNull="true"
     PrecisionRule="true"
-    Precision="8"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PALS_COUNTRY_CODE"
-    Expression="PALS_COUNTRY_CODE"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="PALS_COUNTRY_CODE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
@@ -1083,9 +1127,9 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="10"
+    Precision="255"
     Type="java.lang.String"
-    ColumnType="CHAR"
+    ColumnType="VARCHAR2"
     AliasName="ACCOUNT_ID"
     SQLType="VARCHAR"
     Expression="ACCOUNT_ID">
@@ -1269,16 +1313,16 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="ModifiedBy"
+    Name="ModifiedBy1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="20"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="MODIFIED_BY"
-    Expression="MODIFIED_BY"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="MODIFIED_BY">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -1347,7 +1391,7 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="20"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARD_NUMBER"
@@ -1507,19 +1551,18 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="20"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="REMARKS"
-    Expression="REMARKS"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="REMARKS">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
-
   <ViewAttribute
-    Name="ModifiedBy1"
+    Name="ModifiedBy2"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -1527,8 +1570,8 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="MODIFIED_BY"
-    SQLType="VARCHAR"
-    Expression="MODIFIED_BY">
+    Expression="MODIFIED_BY"
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -1552,7 +1595,7 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="8"
+    Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="COUNTRY_CODE"

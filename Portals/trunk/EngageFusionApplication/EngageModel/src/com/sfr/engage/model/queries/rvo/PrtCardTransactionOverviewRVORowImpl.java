@@ -394,6 +394,39 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        ModifiedBy {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getModifiedBy();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setModifiedBy((String)value);
+            }
+        }
+        ,
+        LastModifiedDate {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getLastModifiedDate();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setLastModifiedDate((Date)value);
+            }
+        }
+        ,
+        PreviousOdometer {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPreviousOdometer();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPreviousOdometer((String)value);
+            }
+        }
+        ,
         DeltaTimestamp1 {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
                 return obj.getDeltaTimestamp1();
@@ -911,14 +944,14 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        ModifiedBy {
+        ModifiedBy1 {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedBy();
+                return obj.getModifiedBy1();
             }
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setModifiedBy((String)value);
+                obj.setModifiedBy1((String)value);
             }
         }
         ,
@@ -1098,14 +1131,14 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        ModifiedBy1 {
+        ModifiedBy2 {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedBy1();
+                return obj.getModifiedBy2();
             }
 
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
-                obj.setModifiedBy1((String)value);
+                obj.setModifiedBy2((String)value);
             }
         }
         ,
@@ -1238,6 +1271,9 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
     public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
     public static final int TERMINAL = AttributesEnum.Terminal.index();
+    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
+    public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
+    public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
     public static final int DELTATIMESTAMP1 = AttributesEnum.DeltaTimestamp1.index();
     public static final int UREFTRANSACTIONID1 = AttributesEnum.UrefTransactionId1.index();
     public static final int PALSCOUNTRYCODE1 = AttributesEnum.PalsCountryCode1.index();
@@ -1285,7 +1321,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int LICENSEEXPIRY = AttributesEnum.LicenseExpiry.index();
     public static final int EMPLOYSTART = AttributesEnum.EmployStart.index();
     public static final int EMPLOYEND = AttributesEnum.EmployEnd.index();
-    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
+    public static final int MODIFIEDBY1 = AttributesEnum.ModifiedBy1.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
@@ -1302,7 +1338,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int MAXFUEL = AttributesEnum.MaxFuel.index();
     public static final int ODOMETER1 = AttributesEnum.Odometer1.index();
     public static final int REMARKS1 = AttributesEnum.Remarks1.index();
-    public static final int MODIFIEDBY1 = AttributesEnum.ModifiedBy1.index();
+    public static final int MODIFIEDBY2 = AttributesEnum.ModifiedBy2.index();
     public static final int MODIFIEDDATE1 = AttributesEnum.ModifiedDate1.index();
     public static final int COUNTRYCODE1 = AttributesEnum.CountryCode1.index();
     public static final int KMTOTAL = AttributesEnum.kmTotal.index();
@@ -2696,6 +2732,38 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute LastModifiedDate.
+     * @return the LastModifiedDate
+     */
+    public Date getLastModifiedDate() {
+        return (Date) getAttributeInternal(LASTMODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LastModifiedDate.
+     * @param value value to set the  LastModifiedDate
+     */
+    public void setLastModifiedDate(Date value) {
+        setAttributeInternal(LASTMODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PreviousOdometer.
+     * @return the PreviousOdometer
+     */
+    public String getPreviousOdometer() {
+        return (String) getAttributeInternal(PREVIOUSODOMETER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PreviousOdometer.
+     * @param value value to set the  PreviousOdometer
+     */
+    public void setPreviousOdometer(String value) {
+        setAttributeInternal(PREVIOUSODOMETER, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute ModifiedDate.
      * @return the ModifiedDate
      */
@@ -2950,6 +3018,22 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setRemarks1(String value) {
         setAttributeInternal(REMARKS1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ModifiedBy2.
+     * @return the ModifiedBy2
+     */
+    public String getModifiedBy2() {
+        return (String) getAttributeInternal(MODIFIEDBY2);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedBy2.
+     * @param value value to set the  ModifiedBy2
+     */
+    public void setModifiedBy2(String value) {
+        setAttributeInternal(MODIFIEDBY2, value);
     }
 
     /**
