@@ -1902,7 +1902,26 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the kmTotal
      */
     public Number getkmTotal() {
-        return (Number) getAttributeInternal(KMTOTAL);
+        Integer val;
+        Number actualValue;
+        Integer temp1;
+        Integer temp2;
+        if(getOdometerPortal() != null) {
+        
+        temp1=Integer.parseInt(getOdometerPortal());
+        temp2=Integer.parseInt(getPreviousOdometer());
+        val=temp1 - temp2;
+            actualValue=new Number(val.intValue()); 
+            
+        }else {
+            temp1=Integer.parseInt(getOdometer());
+            temp2=Integer.parseInt(getPreviousOdometer());
+            val=temp1 - temp2;
+                actualValue=new Number(val.intValue()); 
+        }
+        System.out.println("KMTotal Value ="+actualValue);
+                return actualValue;
+        //return (Number) getAttributeInternal(KMTOTAL);
     }
 
     /**
@@ -1918,7 +1937,19 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the kmPerLt
      */
     public Number getkmPerLt() {
-        return (Number) getAttributeInternal(KMPERLT);
+        System.out.println("KM value ="+getkmTotal());
+        Integer val;
+        Number result;
+        Number actualValue1=getkmTotal();
+        Number actualValue2=getQuantity();
+        Integer temp1;
+        Integer temp2;
+        temp1=actualValue1.intValue();
+        temp2=actualValue2.intValue();
+        val=temp1/temp2;
+        result=new Number(val.intValue()); 
+        return result;
+        //return (Number) getAttributeInternal(KMPERLT);
     }
 
     /**
@@ -1934,7 +1965,24 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the ltPerHundred
      */
     public Number getltPerHundred() {
-        return (Number) getAttributeInternal(LTPERHUNDRED);
+        System.out.println("Get Per Hundered ="+getkmPerLt());
+        
+        float val;
+        Number result;
+        Number actualValue1=getkmPerLt();    
+        Integer temp1;
+        temp1=actualValue1.intValue();
+        
+        val=(float)1/temp1;
+        System.out.println("Float ="+val);
+        val=val*100;
+        System.out.println("Actual Value ="+val);
+        result=new Number(val); 
+        System.out.println("Get Lt per Houndered ="+result);
+        return result;
+        
+        
+       // return (Number) getAttributeInternal(LTPERHUNDRED);
     }
 
     /**
