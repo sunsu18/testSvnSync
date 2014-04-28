@@ -1411,10 +1411,11 @@ new CardInfo();
             if (request.getServerName().contains("101") || request.getServerName().contains("localhost")) {
                 //TODO : Amit - Users to be fetched from IDM for actual testing.
                 userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
-            }
-//                                  
+            }else
+          {                        
             userList =
                     userClient.searchUserWithUserId(securityContext.getUserName());
+        }
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
