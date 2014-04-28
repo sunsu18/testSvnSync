@@ -337,6 +337,9 @@ public class TransactionOverviewBean implements Serializable{
        }
       
        public List getShuttleValue() {        
+         if (shuttleValue == null) {
+           shuttleValue = new ArrayList<javax.faces.model.SelectItem>();
+         }
          return shuttleValue;   
        }
       
