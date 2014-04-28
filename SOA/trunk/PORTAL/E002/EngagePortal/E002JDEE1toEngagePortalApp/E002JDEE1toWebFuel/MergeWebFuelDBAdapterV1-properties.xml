@@ -1,0 +1,57 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">PRT_LIST_PRICES</entry>
+   <entry key="PRT_LIST_PRICES:db_column_10">PRICING_UOM</entry>
+   <entry key="PRT_LIST_PRICES.CURRENCY_CODE:db_column_size">8</entry>
+   <entry key="PRT_LIST_PRICES.PRICING_UOM:db_column_type">VARCHAR2</entry>
+   <entry key="PRT_LIST_PRICES:db_table_type">TABLE</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_PRICE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.EFFECTIVE_DATE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_PRICE:db_column_precision">15</entry>
+   <entry key="PRT_LIST_PRICES.MODIFIED_DATE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.EFFECTIVE_DATE:db_column_type">DATE</entry>
+   <entry key="PRT_LIST_PRICES.PRICE_TYPE:db_column_type">VARCHAR2</entry>
+   <entry key="PRT_LIST_PRICES.PRICING_UOM:db_column_size">10</entry>
+   <entry key="PRT_LIST_PRICES.PRT_LIST_PRICE_PK:db_column_precision">0</entry>
+   <entry key="PRT_LIST_PRICES.ITEM_NUM:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.ITEM_NUM:db_column_scale">0</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_PRICE:db_column_type">NUMBER</entry>
+   <entry key="PRT_LIST_PRICES.MODIFIED_DATE:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_QTY:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.END_DATE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.PRICE_TYPE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.DESC_LINE1:db_column_not_null">false</entry>
+   <entry key="PRT_LIST_PRICES.PRICE_TYPE:db_column_size">10</entry>
+   <entry key="PRT_LIST_PRICES.ITEM_NUM:db_column_type">NUMBER</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_PRICE:db_column_scale">4</entry>
+   <entry key="PRT_LIST_PRICES:db_column_9">UNIT_QTY</entry>
+   <entry key="PRT_LIST_PRICES:db_column_8">COUNTRY_CODE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_7">CURRENCY_CODE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_6">UNIT_PRICE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_5">END_DATE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_4">EFFECTIVE_DATE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_3">DESC_LINE1</entry>
+   <entry key="PRT_LIST_PRICES:db_column_2">ITEM_NUM</entry>
+   <entry key="PRT_LIST_PRICES.ITEM_NUM:db_column_precision">8</entry>
+   <entry key="PRT_LIST_PRICES.MODIFIED_BY:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES:db_column_1">PRICE_TYPE</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_QTY:db_column_type">NUMBER</entry>
+   <entry key="PRT_LIST_PRICES:db_column_0">PRT_LIST_PRICE_PK</entry>
+   <entry key="PRT_LIST_PRICES.PRICING_UOM:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.CURRENCY_CODE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="PRT_LIST_PRICES.END_DATE:db_column_type">DATE</entry>
+   <entry key="PRT_LIST_PRICES.MODIFIED_BY:db_column_type">VARCHAR2</entry>
+   <entry key="PRT_LIST_PRICES.PRT_LIST_PRICE_PK:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.DESC_LINE1:db_column_type">NCHAR</entry>
+   <entry key="PRT_LIST_PRICES.PRT_LIST_PRICE_PK:db_column_type">NUMBER</entry>
+   <entry key="PRT_LIST_PRICES.COUNTRY_CODE:db_column_size">8</entry>
+   <entry key="PRT_LIST_PRICES.UNIT_QTY:db_column_precision">0</entry>
+   <entry key="PRT_LIST_PRICES.MODIFIED_BY:db_column_size">20</entry>
+   <entry key="PRT_LIST_PRICES.CURRENCY_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="PRT_LIST_PRICES.COUNTRY_CODE:db_column_not_null">true</entry>
+   <entry key="PRT_LIST_PRICES.DESC_LINE1:db_column_size">30</entry>
+   <entry key="PRT_LIST_PRICES:db_column_12">MODIFIED_DATE</entry>
+   <entry key="PRT_LIST_PRICES:db_column_11">MODIFIED_BY</entry>
+</properties>

@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeWebFuelDBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeWebFuelDBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PrtListPricesCollection" type="PrtListPricesCollection"/>
+   <xs:complexType name="PrtListPricesCollection">
+      <xs:sequence>
+         <xs:element name="PrtListPrices" type="PrtListPrices" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PrtListPrices">
+      <xs:sequence>
+         <xs:element name="prtListPricePk" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="priceType">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="itemNum" type="xs:int"/>
+         <xs:element name="descLine1" type="xs:string" minOccurs="0" nillable="true"/>
+         <xs:element name="effectiveDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="endDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="unitPrice" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="currencyCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="8"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="countryCode" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="8"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="unitQty" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="pricingUom" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="modifiedBy" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
