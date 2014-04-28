@@ -40,6 +40,9 @@ import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 
+import org.apache.myfaces.trinidad.component.UIXTree;
+import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
@@ -75,10 +78,50 @@ public class AccountSummary implements Serializable {
     private transient Bindings bindings;
     JUCtrlHierNodeBinding dropNodeParent;
     JUCtrlHierNodeBinding rootNode;
+    
 
 
     public AccountSummary() {
-
+        
+        System.out.println("Inside Constructor of Account Summary");
+        RichTree tree = getBindings().getAdfTree();
+        if(tree!=null)
+        {
+            RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();  
+            
+            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {  
+            _disclosedRowKeys.clear();  
+          }
+            else
+                System.out.println("No key to disclose");
+          tree.setDisclosedRowKeys(_disclosedRowKeys);
+        }
+        else
+        {
+            System.out.println("Adf tree bindings is null");
+            
+            ectx = FacesContext.getCurrentInstance().getExternalContext();
+            request = (HttpServletRequest)ectx.getRequest();
+            session = request.getSession(false);
+            
+            if (session != null) {
+                System.out.println("session not null getting adfTree from session");
+                if(session.getAttribute("adfTree")!= null)
+                {   tree = (RichTree)session.getAttribute("adfTree");
+                    RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();  
+                    
+                    if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {  
+                    _disclosedRowKeys.clear();  
+                    }
+                    else
+                    System.out.println("No key to disclose");
+                    tree.setDisclosedRowKeys(_disclosedRowKeys);
+                }
+                else
+                    System.out.println("Session is not null but still adf tree is null");
+                }
+            
+        }    
     }
 
     public void setPartner(PartnerInfo partner) {
@@ -97,12 +140,17 @@ public class AccountSummary implements Serializable {
         return account;
     }
 
+    
+
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
         private RichPanelGroupLayout cardGroupOverview;
         private RichPanelGroupLayout cardOverview;
         private RichPanelGroupLayout companyOverview;
         private RichPanelGroupLayout restrictedAccess;
+        private RichTree adfTree;
+        
+        
 
 
         public void setAccountOverview(RichPanelGroupLayout accountOverview) {
@@ -149,7 +197,16 @@ public class AccountSummary implements Serializable {
         }
 
 
-       
+        public void setAdfTree(RichTree adfTree) {
+            this.adfTree = adfTree;
+        }
+
+        public RichTree getAdfTree() {
+            if(adfTree !=null) {
+                System.out.println("Entering..");
+            }
+            return adfTree;
+        }
     }
 
     public void treeListner(SelectionEvent selectionEvent) {
@@ -178,6 +235,23 @@ public class AccountSummary implements Serializable {
         Row rw = null;
         String rowType = "";
         RichTree tree1 = (RichTree)selectionEvent.getSource();
+        if(tree1 != null)
+        {
+            System.out.println("Tree is not null in selection listner");
+            if (session != null) {
+                session.setAttribute("adfTree", tree1);
+                System.out.println("adftree stored in session");
+                
+                
+            }
+            else
+                System.out.println("Session null and adf tree not stored in session");
+            
+            
+        }
+        else
+        System.out.println("Tree is null in selection listner also");
+        
         RowKeySet rowKeySet1 = selectionEvent.getAddedSet();
 
         Iterator rksIterator = rowKeySet1.iterator();
@@ -237,6 +311,112 @@ public class AccountSummary implements Serializable {
         }
 
 
+    }
+    
+    
+//    public void toggle(RowDisclosureEvent event) {
+//            System.out.println("Disclose Listner called");
+//            if (session != null) {
+//                
+//                partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
+//                AccountList = partner.getAccountList();
+//
+//
+//                
+//                System.out.println("partner value from session " +
+//                                   partner.getPartnerValue());
+//
+//            }
+//
+//            ectx = FacesContext.getCurrentInstance().getExternalContext();
+//            request = (HttpServletRequest)ectx.getRequest();
+//            session = request.getSession(false);
+//
+//
+//            // Add event code here...
+//
+//            System.out.println("Inside tree listner");
+//            JUCtrlHierNodeBinding nodeBinding1 = null;
+//            Row rw = null;
+//            String rowType = "";
+//            RichTree tree1 = (RichTree)event.getSource();
+//            if(tree1 != null)
+//            {
+//                System.out.println("Tree is not null in selection listner");
+//                if (session != null) {
+//                    session.setAttribute("adfTree", tree1);
+//                    System.out.println("adftree stored in session");
+//                    
+//                    
+//                }
+//                else
+//                    System.out.println("Session null and adf tree not stored in session");
+//                
+//                
+//            }
+//            else
+//            System.out.println("Tree is null in selection listner also");
+//            
+//            RowKeySet rowKeySet1 = event.getAddedSet();
+//
+//            Iterator rksIterator = rowKeySet1.iterator();
+//            while (rksIterator.hasNext()) {
+//                List key1 = (List)rksIterator.next();
+//                JUCtrlHierBinding treeBinding = null;
+//                JUCtrlHierBinding treeBinding2 = null;
+//                CollectionModel collectionModel =
+//                    (CollectionModel)tree1.getValue();
+//                treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
+//                treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
+//                rksImpl = new RowKeySetImpl();
+//                nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
+//
+//
+//                rksImpl.add(key1);
+//                
+//              rootNode = treeBinding.getRootNodeBinding();
+//               
+//               dropNodeParent = nodeBinding1.getParent();
+//
+//
+//
+//                for (Object o : nodeBinding1.getAttributeValues()) {
+//
+//                    id = o.toString();
+//
+//
+//                }
+//
+//
+//                rw = nodeBinding1.getRow();
+//                rowType = rw.getStructureDef().getDefName();
+//                
+//            }
+//
+//            if (rowType.contains("AccountInfo")) {
+//
+//                //clicked node belongs to account so execute Account overview
+//                accountOverview();
+//
+//
+//            } else if (rowType.contains("CardGroupInfo")) {
+//
+//                //clicked node belongs to cardGroup so execute cardGroup overview
+//                cardGroupOverview();
+//
+//            } else if (rowType.contains("CardInfo")) {
+//                //clicked node belongs to card so execute card overview
+//                cardOverview();
+//
+//            } else {
+//
+//                //clicked node belongs to partner so execute partner overview
+//                companyOverview();
+//
+//            }
+//        }
+    public void processAttributeChange(AttributeChangeEvent event) {
+        System.out.println("Attribute Listner called");
     }
 
 
@@ -355,8 +535,8 @@ public class AccountSummary implements Serializable {
 
 
         if (displayAccountOverview) {
-            System.out.println("Account node clicked, Account Overview is true in partner object & Accountid" +
-                               accountId);
+            System.out.println("Account node clicked, Account Overview is true in partner object & Accountid " +
+                               id);
             partnerId = dropNodeParent.toString();
             accountId = id;
 
@@ -378,7 +558,7 @@ public class AccountSummary implements Serializable {
                 vo_acc.setWhereClause("ACCOUNT_ID =: accid");
                 vo_acc.defineNamedWhereClauseParam("accid", id, null);
                 vo_acc.setNamedWhereClauseParam("countryCode", "no_NO");
-                System.out.println(vo_acc.getQuery());
+                //System.out.println(vo_acc.getQuery());
                 vo_acc.executeQuery();
 
             }
@@ -389,7 +569,7 @@ public class AccountSummary implements Serializable {
         } else {
             hideAll();
             System.out.println("Account node clicked But Account Overview is false in partner object & Accountid " +
-                               accountId);
+                               id);
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());

@@ -93,7 +93,7 @@ public class MyPageListener implements PagePhaseListener {
     }
 
     public void beforePhase(PagePhaseEvent pagePhaseEvent) {
-        System.out.println("Before phase");
+        //System.out.println("Before phase");
         
         //TODO : Amit - We need to check, how many times beforePhase gets/should be called for respective page,
         //as it could improve or degrade render time. Presently for Home page alone, it shows 5-7 beforePhase calls.
@@ -1906,10 +1906,10 @@ new CardInfo();
 
 //                rr= new Roles();
 //                idString = new ArrayList<String>();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-                idString.add("NOPP26773218");
-                rr.setIdString(idString);
-                listrole.add(rr);
+                       // rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                //idString.add("NOPP26773218");
+                //rr.setIdString(idString);
+                //listrole.add(rr);
 
 
 
@@ -1927,15 +1927,15 @@ new CardInfo();
 //        
         
 //        rr = new Roles();
-//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
 //                        idString = new ArrayList<String>();
-        //                idString.add("NOPP26773218CGSLUTRX00001");
+                        idString.add("NOPP26773218CGSLUTRX00001");
         //                
-        //                idString.add("NOPP26773218CGSLUTRX00002");
+//                        idString.add("NOPP26773218CGSLUTRX00002");
         //        idString.add("NOPP26773218AC0022883797");
 //                idString.add("NOPP26773218CGSLUTRX00006");
-//                        rr.setIdString(idString);
-//                        listrole.add(rr);
+                        rr.setIdString(idString);
+                        listrole.add(rr);
         
 //                rr = new Roles();
 //                                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
@@ -1957,16 +1957,16 @@ new CardInfo();
 //                rr.setIdString(idString);
 //                listrole.add(rr);
 //                
-//        rr = new Roles();
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-//                                idString = new ArrayList<String>();
+        rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+                                idString = new ArrayList<String>();
 //                
-//        //                idString.add("NOPP26773218CC0058973603");
-//                idString.add("NOPP26773218CC0058589248");
+                        idString.add("NOPP26773218CC0058973603");
+                idString.add("NOPP26773218CC0058589248");
 //                
 //                idString.add("NOPP26773218CC0058589003");
-//                rr.setIdString(idString);
-//                listrole.add(rr);
+                rr.setIdString(idString);
+                listrole.add(rr);
                 
                 
         

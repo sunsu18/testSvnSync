@@ -62,7 +62,10 @@
                           
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}"
-                 rowSelection="single" id="t1" summary="Partner_Tree">
+                 rowSelection="single" id="t1" summary="Partner_Tree" binding="#{pageFlowScope.AccountSummaryBean.bindings.adfTree}"
+                 contentDelivery="immediate" immediate="true"
+                 
+                 contextMenuSelect="false">
                     <f:facet name="nodeStamp">
            <af:switcher id="s1" 
                  facetName="#{node.hierTypeBinding.viewDefName}">
