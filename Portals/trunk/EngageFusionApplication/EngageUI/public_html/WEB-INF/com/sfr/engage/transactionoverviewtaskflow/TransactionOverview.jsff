@@ -292,9 +292,9 @@
                 rows="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
                 emptyText="#{bindings.PrtCardTransactionOverviewRVO12.viewable ? 'No data to display.' : 'Access Denied.'}"
                 fetchSize="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
-                rowBandingInterval="1"
+                rowBandingInterval="1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.searchTable}"
                 filterModel="#{bindings.PrtCardTransactionOverviewRVO12Query.queryDescriptor}"
-                queryListener="#{bindings.PrtCardTransactionOverviewRVO12Query.processQuery}"
+                queryListener="#{pageFlowScope.TransactionOverviewBean.queryListener}"
                 filterVisible="true" varStatus="vs"
                 selectedRowKeys="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel.selectedRow}"
                 selectionListener="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel.makeCurrent}"
@@ -528,7 +528,7 @@
                                         method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
         </af:commandButton>
          <af:spacer width="10" height="10" id="spac8"/>-->
-        <af:commandButton text="ExportToExcelColumns" id="cb4"
+        <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
                           actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}">
         </af:commandButton>
       </af:panelGroupLayout>
@@ -738,7 +738,7 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="specific_columns_footer_panel" layout="horizontal">
               <af:spacer width="4" height="10" id="s1sdf6"/>               
-                <af:commandButton text="ExportToExcel" id="exportall"
+                <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}" id="exportall"
                                   actionListener="#{pageFlowScope.TransactionOverviewBean.getValuesForExcel}">
                      <af:clientListener method="exitFromPopup" type="action"/>
                 </af:commandButton>              

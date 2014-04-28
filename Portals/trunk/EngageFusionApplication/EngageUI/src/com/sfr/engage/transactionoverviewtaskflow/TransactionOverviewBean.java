@@ -6,10 +6,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
-
 import com.sfr.util.ADFUtils;
-
-import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
@@ -20,21 +17,19 @@ import java.sql.Timestamp;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import java.util.concurrent.TimeUnit;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -42,11 +37,11 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
@@ -55,7 +50,7 @@ import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
-
+import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.util.ResetUtils;
 
 import oracle.binding.BindingContainer;
@@ -114,7 +109,7 @@ public class TransactionOverviewBean implements Serializable{
     Conversion conversionUtility;
     private String lang;
     private String currencyCode;
-    private String strCardGroup="Date,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
+    private String strCardGroup="Date,CardGroup,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
     private String strCard="Date,Card,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
     private String strVehicle="Date,Vehicle No,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No,Odometer,TotalKM,KM/L,L/100KM";
     private String strDriver="Date,Driver Name,Station,Country,Product,Vol,Total Amount,Receipt No,Invoice No";
@@ -341,10 +336,7 @@ public class TransactionOverviewBean implements Serializable{
          return shuttleList;
        }
       
-       public List getShuttleValue() {
-         if (shuttleValue == null) {
-           shuttleValue = new ArrayList<javax.faces.model.SelectItem>();
-         }
+       public List getShuttleValue() {        
          return shuttleValue;   
        }
       
@@ -619,11 +611,12 @@ public class TransactionOverviewBean implements Serializable{
             isTableVisible = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
             System.out.println("where clause of view object=====>"+vo.getWhereClause());
+            sum=0.0f;
             if (vo.getEstimatedRowCount() != 0) {
                 System.out.println("Inside Estimated row count" + vo.getEstimatedRowCount());
                 for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
                     Row rw = vo.getRowAtRangeIndex(i);
-                        if(rw != null){               
+                        if(rw != null){                             
                             Float temp = (Float)rw.getAttribute("InvoicedGrossAmount");
                             sum = sum + temp;
                         }
@@ -1644,11 +1637,11 @@ public class TransactionOverviewBean implements Serializable{
                         XLS_SH_R_C.setCellValue(row.getPurchaseCountryCode().toString());
                         }
                     }else if("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getPurchaseCountryCode()!=null)
+                        if(row.getProductName()!=null)
                         {
                             XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
                             XLS_SH_R_C.setCellStyle(csData);
-                        XLS_SH_R_C.setCellValue(row.getPurchaseCountryCode().toString());
+                        XLS_SH_R_C.setCellValue(row.getProductName().toString());
                         }
                     }else if("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                         if(row.getQuantity()!=null)
@@ -1728,7 +1721,15 @@ public class TransactionOverviewBean implements Serializable{
                                 XLS_SH_R_C.setCellStyle(csRight);
                             XLS_SH_R_C.setCellValue(row.getltPerHundred().toString());
                             }
-                    }else {
+                    }else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardgroupMainType()!=null)
+                            {
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                            XLS_SH_R_C.setCellValue(row.getCardgroupMainType().toString() + row.getCardgroupSubType() + row.getCardgroupSeq());
+                            }
+                    } 
+                    else {
                         if("Driver Name".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if(row.getDriverName()!=null)
                              {
@@ -1779,6 +1780,15 @@ public class TransactionOverviewBean implements Serializable{
                 selectItem.setLabel(strHead[col].toString());
                 selectItem.setValue(strHead[col].toString());
                 shuttleList.add(selectItem);
+            }
+            
+            shuttleValue=new ArrayList<SelectItem>();
+            for (int col = 0; col < strHead.length; col++)
+            {
+                SelectItem selectItem = new SelectItem();
+                selectItem.setLabel(strHead[col].toString());
+                selectItem.setValue(col);
+                shuttleValue.add(selectItem);
             }
             
         }else if("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
@@ -1929,7 +1939,7 @@ public class TransactionOverviewBean implements Serializable{
         return palsCountryCode;
     }
 
-    public void  odometerLink_Action(ActionEvent event) {
+ public void  odometerLink_Action(ActionEvent event) {
 //        FacesContext context = FacesContext.getCurrentInstance();
 //           UIComponent source = (UIComponent)event.getSource();
 //           String alignId = source.getClientId(context);
@@ -1942,9 +1952,30 @@ public class TransactionOverviewBean implements Serializable{
         getBindings().getOdometer_PopUp().show(new RichPopup.PopupHints());
        
     }
+ public static Object invokeEL(String el, Class[] paramTypes, Object[] params) {
+           FacesContext facesContext = FacesContext.getCurrentInstance();
+           ELContext elContext = facesContext.getELContext();
+           ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+           MethodExpression exp = expressionFactory.createMethodExpression(elContext, el, Object.class, paramTypes);
 
-   
+           return exp.invoke(elContext, params);
+       }
 
+    public void queryListener(QueryEvent queryEvent) {
+        // Add event code here...
+        invokeEL("#{bindings.PrtCardTransactionOverviewRVO12Query.processQuery}", new Class[] { QueryEvent.class }, new Object[] { queryEvent });
+        ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
+        RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);                      
+        iterator.reset();
+        System.out.println("Estimated Row Count ="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
+        sum=0.0f;
+        while (iterator.hasNext()) {                       
+        PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();           
+            Float temp = row.getInvoicedGrossAmount();
+            sum = sum + temp;
+        }  
+    }
+    
     public class Bindings {
         private RichSelectOneChoice account;
         private RichInputDate fromDate;
@@ -1968,6 +1999,7 @@ public class TransactionOverviewBean implements Serializable{
         private RichPopup editOdometerPopup;
         private RichInputText odometerPortalValue;
         private RichPopup odometer_PopUp;
+        private RichTable searchTable;
         
         public void setOdometer_PopUp(RichPopup odometer_PopUp) {
             this.odometer_PopUp = odometer_PopUp;
@@ -2144,6 +2176,14 @@ public class TransactionOverviewBean implements Serializable{
 
         public RichInputText getOdometerPortalValue() {
             return odometerPortalValue;
+        }
+
+        public void setSearchTable(RichTable searchTable) {
+            this.searchTable = searchTable;
+        }
+
+        public RichTable getSearchTable() {
+            return searchTable;
         }
     }
 }
