@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Application xmlns="http://xmlns.oracle.com/adfm/application"
              version="11.1.1.61.92" id="DataBindings" SeparateXMLFiles="false"
-             Package="com.sfr.engage.view" ClientType="Generic">
+             Package="com.sfr.engage.view" ClientType="Generic"
+             ErrorHandlerClass="com.sfr.engage.model.exception.CustomErrorHandler">
 
   <definitionFactories>
     <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding" className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
