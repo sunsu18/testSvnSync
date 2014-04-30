@@ -148,8 +148,9 @@
       
   
      <af:spacer width="10" height="15" id="s24"/>
-     <af:panelGroupLayout id="pgl7" layout="horizontal" halign="end">     
-      <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+     <af:panelGroupLayout id="pgl7" layout="horizontal" halign="end">
+       <af:spacer width="170" height="10" id="s34"/>
+       <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.searchResultsListener}"/>
       <af:spacer width="10" height="10" id="s11"/>
       <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb2"
