@@ -140,7 +140,7 @@ public class TransactionOverviewBean implements Serializable{
         }
         
             if(partnerInfo != null){
-                log.fine(accessDC.getDisplayRecord() + "Inside partner info object");            
+                log.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
             if(partnerInfo.getPartnerValue() != null){
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside partner info object value====>\"+partnerInfo.getPartnerValue()");                
                partnerId = partnerInfo.getPartnerValue().toString(); 
