@@ -33,9 +33,10 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
 
     public void updateOdometerPortal(String urefTransactionId,
                                      String palsCountryCode,
-                                     String odoMeterPortalValue) {
+                                     String odoMeterPortalValue,
+                                     String modifiedBy) {
         Object _ret =
-            this.riInvokeExportedMethod(this,"updateOdometerPortal",new String [] {"java.lang.String","java.lang.String","java.lang.String"},new Object[] {urefTransactionId, palsCountryCode, odoMeterPortalValue});
+            this.riInvokeExportedMethod(this,"updateOdometerPortal",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {urefTransactionId, palsCountryCode, odoMeterPortalValue, modifiedBy});
         return;
     }
 }

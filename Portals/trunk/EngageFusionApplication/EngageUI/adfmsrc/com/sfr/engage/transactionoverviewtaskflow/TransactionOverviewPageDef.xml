@@ -188,6 +188,7 @@
       <NamedData NDName="urefTransactionId" NDType="java.lang.String"/>
       <NamedData NDName="palsCountryCode" NDType="java.lang.String"/>
       <NamedData NDName="odoMeterPortalValue" NDType="java.lang.String"/>
+      <NamedData NDName="modifiedBy" NDType="java.lang.String"/>
     </methodAction>
     <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
                      id="ModifiedBy">

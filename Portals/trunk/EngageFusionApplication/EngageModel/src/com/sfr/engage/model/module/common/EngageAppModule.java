@@ -12,5 +12,5 @@ public interface EngageAppModule extends ApplicationModule {
     String getWebServiceErrorMessage(String errorMessage, String countryCode);
 
     void updateOdometerPortal(String urefTransactionId, String palsCountryCode,
-                              String odoMeterPortalValue);
+                              String odoMeterPortalValue, String modifiedBy);
 }

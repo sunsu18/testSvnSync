@@ -1,6 +1,7 @@
 package com.sfr.engage.transactionoverviewtaskflow;
 
 
+import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
@@ -8,6 +9,7 @@ import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
+import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
@@ -121,8 +123,6 @@ public class TransactionOverviewBean implements Serializable{
     private String palsCountryCode = null;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
-
-
     public TransactionOverviewBean() {
         conversionUtility = new Conversion(); 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -759,6 +759,14 @@ public class TransactionOverviewBean implements Serializable{
         // Add event code here...
         if(valueChangeEvent.getNewValue()!=null) {
             getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+            cardGPGL   = false;
+            cardIdPGL  = false;
+            dNamePGL   = false;
+            vNumberPGL = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardCardGrpDrVhOneRadio());  
         }
     }
@@ -1899,12 +1907,17 @@ public class TransactionOverviewBean implements Serializable{
         }
     
     public String editOdometerSave() {
-        
+        User user = null;
+        String modifiedBy = null;
+        user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
+                
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
         OperationBinding operationBinding = bindings.getOperationBinding("updateOdometerPortal");
         operationBinding.getParamsMap().put("urefTransactionId",urefTransactionId);
         operationBinding.getParamsMap().put("palsCountryCode", palsCountryCode);
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
+        operationBinding.getParamsMap().put("modifiedBy", modifiedBy);        
         operationBinding.getParamsMap().put("odoMeterPortalValue", getBindings().getOdometerPortalValue().getValue());
         Object result = operationBinding.execute();
         if (operationBinding.getErrors().isEmpty()) {

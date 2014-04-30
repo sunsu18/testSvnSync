@@ -11,6 +11,8 @@ import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
@@ -23,9 +25,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.text.SimpleDateFormat;
+
+import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.TreeMap;
+
+import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
+import oracle.jbo.ViewObject;
+import oracle.jbo.domain.Date;
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
@@ -37,6 +48,7 @@ import oracle.jbo.server.ViewObjectImpl;
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
 public class EngageAppModuleImpl extends ApplicationModuleImpl implements EngageAppModule {
+    private Date sysDate;
     /**
      * This is the default constructor (do not remove).
      */
@@ -175,34 +187,37 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                 }
     }
     
-    public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue){
+    public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
         System.out.println("transaction id in Application module===>"+urefTransactionId);
         System.out.println("countryCd in application module=====>"+palsCountryCode);
         System.out.println("odometer value in apppilcation module====>"+odoMeterPortalValue);
         
-        Connection con=null;
-        PreparedStatement pStmt = null;
-        String statement = null;
-                try {
-                    Statement stmt = getDBTransaction().createStatement(0);
-                    con = stmt.getConnection();
-                    
-                        System.out.println("Inside this block of driver in application moule");
-                        statement = "UPDATE PRT_CARD_TRANSACTION_HEADER SET ODOMETER_PORTAL = '"+odoMeterPortalValue+"' where UREF_TRANSACTION_ID = '"+urefTransactionId+"' and PALS_COUNTRY_CODE ='"+palsCountryCode+"'";
-                                          
-                   
-                    pStmt = con.prepareStatement(statement);   
-                    pStmt.executeUpdate();
-                    con.commit();
-                } catch (SQLException sqle) {
-                    sqle.getMessage();
-                } finally {
-                    try {
-                        pStmt.close();
-                    } catch (SQLException sqle) {
-                        sqle.getMessage();
-                    }
+        try {
+            ViewObject rvo = getPrtCardTransactionHeaderVO1();
+            ViewCriteria vc = rvo.createViewCriteria();
+            ViewCriteriaRow vcr = vc.createViewCriteriaRow();
+            vcr.setAttribute("UrefTransactionId", urefTransactionId);
+            vcr.setAttribute("PalsCountryCode", palsCountryCode);
+            vc.add(vcr);
+            rvo.applyViewCriteria(vc);
+            rvo.executeQuery();
+
+            while (rvo.hasNext()) {
+                PrtCardTransactionHeaderVORowImpl currRow =
+                    (PrtCardTransactionHeaderVORowImpl)rvo.next();
+                if (currRow != null) {
+                    currRow.setAttribute("OdometerPortal",odoMeterPortalValue);
+                    currRow.setAttribute("ModifiedBy", modifiedBy);
+                    currRow.setAttribute("LastModifiedDate",getSysDate());
                 }
+            }
+            getDBTransaction().commit();
+        }catch (JboException jbe) {
+            jbe.getMessage();
+        } 
+        catch (Exception e) {
+            e.getMessage();
+        }
     }
 
 
@@ -386,5 +401,27 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtCardTransactionInvoiceRVOImpl getPrtCardTransactionInvoiceRVO1() {
         return (PrtCardTransactionInvoiceRVOImpl)findViewObject("PrtCardTransactionInvoiceRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardTransactionHeaderVO1.
+     * @return PrtCardTransactionHeaderVO1
+     */
+    public ViewObjectImpl getPrtCardTransactionHeaderVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardTransactionHeaderVO1");
+    }
+
+    public void setSysDate(Date sysDate) {
+        this.sysDate = sysDate;
+    }
+
+    public Date getSysDate() {
+        java.util.Date currDate=GregorianCalendar.getInstance().getTime();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String sqlDateString=sdf.format(currDate);
+        java.sql.Date sqlDate=java.sql.Date.valueOf(sqlDateString);
+        Date newJboDate=new Date(sqlDate);
+        this.setSysDate(newJboDate);
+        return newJboDate;
     }
 }
