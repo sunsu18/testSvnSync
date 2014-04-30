@@ -339,23 +339,7 @@ public class TransactionOverviewBean implements Serializable{
          return shuttleList;
        }
       
-       public List getShuttleValue() { 
-           log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getShuttleValues");
-           if(getBindings().getCardCardGrpDrVhOneRadio().getValue() !=null)
-           {
-           if("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
-               String[] strHead=strCardGroup.split(","); 
-           shuttleValue=new ArrayList<SelectItem>();
-           for (int col = 0; col < strHead.length; col++)
-           {
-               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Shuttle value ="+strHead[col].toString());
-               SelectItem selectItem = new SelectItem();
-               selectItem.setLabel(strHead[col].toString());
-               selectItem.setValue(col);
-               shuttleValue.add(selectItem);
-           }
-           }
-           }
+       public List getShuttleValue() {            
          return shuttleValue;   
        }
       
