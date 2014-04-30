@@ -529,7 +529,8 @@
         </af:commandButton>
          <af:spacer width="10" height="10" id="spac8"/>-->
         <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
-                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}">
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
+                          partialSubmit="true">
         </af:commandButton>
       </af:panelGroupLayout>
        <af:popup id="pp1" contentDelivery="immediate"
@@ -751,7 +752,8 @@
                <af:separator id="s18"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.shuttleExcel}"
-                                    value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}">
+                                    value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}"
+                                    partialTriggers="cb4">
                   <af:forEach items="#{pageFlowScope.TransactionOverviewBean.shuttleList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
