@@ -46,6 +46,7 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
@@ -93,6 +94,8 @@ public class InvoiceOverviewBean implements Serializable {
     private String lang;
     private String invoiceNumberPdfValue;
     Map<String,String> ucmInvoiceContentList = new HashMap<String,String>();
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     
     public InvoiceOverviewBean() {
         super();
@@ -111,9 +114,9 @@ public class InvoiceOverviewBean implements Serializable {
             }
          
             if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
                 for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                    System.out.println("value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " " +"value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                     SelectItem selectItem = new SelectItem();
                     selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                     selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
@@ -230,7 +233,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
     
     public void populateCardGroupValues(String cardGrpVar){
-        System.out.println("PassedcardGrpVar ="+cardGrpVar);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PassedcardGrpVar ="+cardGrpVar);
            String[] cardGroupvalues;
            int cardGroupCount = 0;         
            
@@ -260,9 +263,9 @@ public class InvoiceOverviewBean implements Serializable {
                    cardGroupSeq=cardGroupSeq+",";  
                }
                
-               System.out.println("CardGroupMainType ="+cardGroupMaintype);
-               System.out.println("cardGroupSubtype ="+cardGroupSubtype);
-               System.out.println("cardGroupSeq ="+cardGroupSeq);                   
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "CardGroupMainType ="+cardGroupMaintype);
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardGroupSubtype ="+cardGroupSubtype);
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardGroupSeq ="+cardGroupSeq);                   
                   
                  cardGroupMaintypePassValue = cardGroupMaintype.trim().substring(0, cardGroupMaintype.length()-1);
                  cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
@@ -294,8 +297,8 @@ public class InvoiceOverviewBean implements Serializable {
             //                }            
             
             else {
-                System.out.println("AccountValue="+getBindings().getAccount().getValue());
-                System.out.println("FromDate ="+getBindings().getFromDate().getValue());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "AccountValue="+getBindings().getAccount().getValue());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+getBindings().getFromDate().getValue());
                 ViewObject invoiceVO =
                     ADFUtils.getViewObject("PrtInvoiceVO1Iterator"); 
                 if ("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardPK,PRT_CARD_PK)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
@@ -335,29 +338,29 @@ public class InvoiceOverviewBean implements Serializable {
                 
                 if(getBindings().getCardGpCardList().getValue()!=null) {
                     if("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
-                        System.out.println("Inside card");             
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside card");             
                          invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardPK,PRT_CARD_PK)<>0");
                          String cardValuesList=populateStringValues(getBindings().getCard().getValue().toString());
                           invoiceVO.defineNamedWhereClauseParam("cardPK",cardValuesList,null);
                     }else {
-                        System.out.println("Inside cardgroup");                
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside cardgroup");                
                             invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0");                    
                             populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString()));                            
-                        System.out.println("card group main type======>"+cardGroupMaintypePassValue);
-                        System.out.println("card group sub type===>"+cardGroupSubtypePassValues);
-                        System.out.println("card group sequence value====>"+cardGroupSeqPassValues);
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group main type======>"+cardGroupMaintypePassValue);
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sequence value====>"+cardGroupSeqPassValues);
                             invoiceVO.defineNamedWhereClauseParam("cardGroupMainType",cardGroupMaintypePassValue,null);
                             invoiceVO.defineNamedWhereClauseParam("cardGroupSubType",cardGroupSubtypePassValues,null);
                             invoiceVO.defineNamedWhereClauseParam("cardGroupSeqType",cardGroupSeqPassValues,null);                            
                     }
                     
                 } 
-                System.out.println("Query Formed is="+invoiceVO.getQuery());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed is="+invoiceVO.getQuery());
                 invoiceVO.executeQuery();
-                System.out.println("Estimated Row count=="+invoiceVO.getEstimatedRowCount());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count=="+invoiceVO.getEstimatedRowCount());
                 searchResults=true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-                System.out.println("Where condition:"+invoiceVO.getWhereClause());              
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Where condition:"+invoiceVO.getWhereClause());              
                 
             }
             
@@ -461,8 +464,8 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
         }
-        System.out.println("InvoiceNumber ="+invoiceNumberValue);
-        System.out.println("InvoiceGroupingValue ="+invoiceGroupingValue);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "InvoiceNumber ="+invoiceNumberValue);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "InvoiceGroupingValue ="+invoiceGroupingValue);
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");  
         if(invoiceGroupingValue!=null) {
@@ -475,9 +478,9 @@ public class InvoiceOverviewBean implements Serializable {
                     cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",invoiceNumberValue,null);
                 }
             }
-            System.out.println("cardTransaction Query="+cardTransactionVO.getQuery());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransaction Query="+cardTransactionVO.getQuery());
             cardTransactionVO.executeQuery();
-            System.out.println("cardTransactionVO estimatedRow:"+cardTransactionVO.getEstimatedRowCount());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransactionVO estimatedRow:"+cardTransactionVO.getEstimatedRowCount());
         }
         
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
@@ -489,7 +492,7 @@ public class InvoiceOverviewBean implements Serializable {
         if(getBindings().getAccount().getValue()!=null)
         {
         if(valueChangeEvent.getNewValue()!=null) {
-            System.out.println("Value ="+valueChangeEvent.getNewValue());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Value ="+valueChangeEvent.getNewValue());
             if(valueChangeEvent.getNewValue().equals("CardGroup")) {
             populateValue(valueChangeEvent.getNewValue().toString());
                 cGCardVisible=true;
@@ -530,11 +533,11 @@ public class InvoiceOverviewBean implements Serializable {
                 cardGroupValue  = new ArrayList<String>();
                 if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
                     for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                        System.out.println("Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
                         if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
                             if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
                                 for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                    System.out.println("Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
@@ -622,19 +625,19 @@ public class InvoiceOverviewBean implements Serializable {
             ADFUtils.getViewObject("PrtInvoiceVO1Iterator");     
         PrtInvoiceVORowImpl row=(PrtInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getInvoiceNumber(); 
-        System.out.println("invoice number"+invoiceNumberValuePdf);        
-        System.out.println("PartnerId "+partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "invoice number"+invoiceNumberValuePdf);        
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PartnerId "+partnerId);
         byte[] responseByteArr = null;
         Boolean isError=false;        
         UCMCustomWeb uCMCustomWeb = null;
         
        if(session.getAttribute("ucmInvoiceContentList")!=null){    
-       System.out.println("session is available");
+       log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is available");
                     try {
                         ucmInvoiceContentList = (HashMap<String,String>)session.getAttribute("ucmInvoiceContentList");
                         String UCMInvoiceContentId = ucmInvoiceContentList.get(invoiceNumberValuePdf);
                         if (UCMInvoiceContentId != null && UCMInvoiceContentId.trim().length() > 0) {
-                            System.out.println("ContentId is available from session");
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ContentId is available from session");
                             uCMCustomWeb = new DAOFactory().getUCMService();                            
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.UCM_USERNAME), DAOFactory.getPropertyValue(Constants.UCM_PASSWORD),
                                                                 UCMInvoiceContentId);
@@ -660,13 +663,13 @@ public class InvoiceOverviewBean implements Serializable {
                         
                     } catch (Exception e) {
                         isError = true;
-                        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
+                        log.severe(accessDC.getDisplayRecord() + this.getClass()  + " " + ".fileDownload : " + "Exception");
                         e.printStackTrace();
                     }
 
         }
         else{
-           System.out.println("session is null");       
+           log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is null");       
             byte[] result=searchGetFile(invoiceNumberValuePdf);
            if(result!=null && result.length!=0) {
                outputStream.write(result);             
@@ -678,11 +681,11 @@ public class InvoiceOverviewBean implements Serializable {
         //retrieve error pdf in case of error
         if (isError) {                         
             uCMCustomWeb = new DAOFactory().getUCMService();              
-                System.out.println("Error PDF ="+DAOFactory.getPropertyValue("ERROR_PDF_CID"));
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Error PDF ="+DAOFactory.getPropertyValue("ERROR_PDF_CID"));
                 responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),                                                                
                                                                                DAOFactory.getPropertyValue("ERROR_PDF_CID"));
                                               outputStream.write(responseByteArr);
-             System.out.println("Error while downloading PDF");
+             log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Error while downloading PDF");
 
             }
     }
@@ -695,8 +698,8 @@ public class InvoiceOverviewBean implements Serializable {
         UCMCustomWeb uCMCustomWeb = null;
         
         SearchInputVO searchInputVO = new SearchInputVO();
-        System.out.println("UserName ="+getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
-        System.out.println("Password ="+getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "UserName ="+getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Password ="+getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setUsername(getPropertyValue(Constants.ENGAGE_UCM_USERNAME));
         searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setSourceSystem("WebPortal");
@@ -721,7 +724,7 @@ public class InvoiceOverviewBean implements Serializable {
         subType.setName("xSubType");
         subType.setValue("Self_Billing_Print_Reports");
         
-        System.out.println("ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
         
         searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
         searchInputVO.getSearchInputQueryProperty().add(partnerId);
@@ -737,17 +740,17 @@ public class InvoiceOverviewBean implements Serializable {
                     if (uCMCustomWeb != null) {
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO); 
                         ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
-                        System.out.println("Content id="+ucmContentId);                        
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Content id="+ucmContentId);                        
                         if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber,ucmContentId);
                         session.setAttribute("ucmInvoiceContentList", ucmInvoiceContentList);
-                        System.out.println("get file from ucm");
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "get file from ucm");
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
                                                                 ucmContentId); 
                         }                       
                     }
                 } catch (Exception e) {                        
-                    System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".fileDownload : " + "Exception");
+                    log.severe(accessDC.getDisplayRecord() + this.getClass()  + " " + ".fileDownload : " + "Exception");
                     e.printStackTrace();
                 }
                 return responseByteArr;

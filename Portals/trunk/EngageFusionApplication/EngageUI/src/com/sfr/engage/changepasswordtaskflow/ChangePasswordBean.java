@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 
 import oracle.adf.view.rich.context.AdfFacesContext;
@@ -37,7 +38,8 @@ public class ChangePasswordBean implements Serializable {
     private transient Bindings bindings;
     private ResourceBundle resourceBundle;
     private String lang;
-
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     /**
      * @return bindings Object
      */

@@ -10,6 +10,8 @@ import com.sfr.util.ADFUtils;
 
 import com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean;
 
+import com.sfr.util.AccessDataControl;
+
 import java.io.Serializable;
 
 import java.text.DateFormat;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
@@ -33,6 +36,8 @@ public class AuthenticatedHomeBean implements Serializable {
     private List<Messages> messages;
     private boolean infoPanelVisible;
     private String customerTypeValue;
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
 
     /**
@@ -45,12 +50,9 @@ public class AuthenticatedHomeBean implements Serializable {
         return bindings;
     }
 
-    public AuthenticatedHomeBean() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
+    public AuthenticatedHomeBean() {        
+        Date date = new Date();        
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
-
         ViewObject prtCustomerCardMapVO =
             ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
         prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", "FA1");
@@ -78,15 +80,14 @@ public class AuthenticatedHomeBean implements Serializable {
             prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate,
                                                       null);
             prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
-                                                      null);
-            System.out.println("Query =" + prtPCMFeedsVO.getQuery());
+                                                      null);            
             prtPCMFeedsVO.executeQuery();
-            System.out.println("Information Row Count " +
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Information Row Count " +
                                prtPCMFeedsVO.getEstimatedRowCount());
 
             if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                 infoPanelVisible = true;
-                System.out.println("coming inside INFORMATION block");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "coming inside INFORMATION block");
                 while (prtPCMFeedsVO.hasNext()) {
                     PrtPcmFeedsRVORowImpl currRow =
                         (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
@@ -118,11 +119,11 @@ public class AuthenticatedHomeBean implements Serializable {
             prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
                                                       null);
             prtPCMFeedsVO.executeQuery();
-            System.out.println("Messages Row Count " +
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Messages Row Count " +
                                prtPCMFeedsVO.getEstimatedRowCount());
             if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                 messages = new ArrayList<Messages>();
-                System.out.println("coming inside MESSAGE block");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "coming inside MESSAGE block");
                 while (prtPCMFeedsVO.hasNext()) {
                     PrtPcmFeedsRVORowImpl currRow =
                         (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();

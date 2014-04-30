@@ -7,6 +7,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
+import com.sfr.util.AccessDataControl;
 import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
@@ -117,7 +119,8 @@ public class TransactionOverviewBean implements Serializable{
     private String odometerPortal = null;
     private String urefTransactionId = null;
     private String palsCountryCode = null;
-    
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
 
     public TransactionOverviewBean() {
@@ -137,11 +140,11 @@ public class TransactionOverviewBean implements Serializable{
         }
         
             if(partnerInfo != null){
-            System.out.println("Inside partner info object");
+                log.fine(accessDC.getDisplayRecord() + "Inside partner info object");            
             if(partnerInfo.getPartnerValue() != null){
-                System.out.println("Inside partner info object value====>"+partnerInfo.getPartnerValue());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside partner info object value====>\"+partnerInfo.getPartnerValue()");                
                partnerId = partnerInfo.getPartnerValue().toString(); 
-               System.out.println("value of partner number========>"+partnerId);
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of partner number========>"+partnerId);
                
                if(partnerInfo.getCountry() !=null){
                
@@ -155,9 +158,9 @@ public class TransactionOverviewBean implements Serializable{
             
          
                     if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                        System.out.println("List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
                         for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                            System.out.println("value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                             SelectItem selectItem = new SelectItem();
                             selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                             selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
@@ -236,7 +239,7 @@ public class TransactionOverviewBean implements Serializable{
         if(getBindings().getAccount().getValue()!=null)
         {
             if(valueChangeEvent.getNewValue() != null){
-                System.out.println("value of radioButon value change event======>"+valueChangeEvent.getNewValue());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of radioButon value change event======>"+valueChangeEvent.getNewValue());
                 if(valueChangeEvent.getNewValue().equals("CardGroup")){
                     
                     cardGPGL   = true;
@@ -336,14 +339,27 @@ public class TransactionOverviewBean implements Serializable{
          return shuttleList;
        }
       
-       public List getShuttleValue() {        
-         if (shuttleValue == null) {
-           shuttleValue = new ArrayList<javax.faces.model.SelectItem>();
-         }
+       public List getShuttleValue() { 
+           log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getShuttleValues");
+           if(getBindings().getCardCardGrpDrVhOneRadio().getValue() !=null)
+           {
+           if("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+               String[] strHead=strCardGroup.split(","); 
+           shuttleValue=new ArrayList<SelectItem>();
+           for (int col = 0; col < strHead.length; col++)
+           {
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Shuttle value ="+strHead[col].toString());
+               SelectItem selectItem = new SelectItem();
+               selectItem.setLabel(strHead[col].toString());
+               selectItem.setValue(col);
+               shuttleValue.add(selectItem);
+           }
+           }
+           }
          return shuttleValue;   
        }
       
-       public void setShuttleValue(List shuttleValue) {
+       public void setShuttleValue(List shuttleValue) {           
            this.shuttleValue = shuttleValue;
        }
 
@@ -373,11 +389,11 @@ public class TransactionOverviewBean implements Serializable{
                 cardGroupValue  = new ArrayList<String>();
                 if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
                     for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                        System.out.println("Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
                         if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().account.getValue())){
                             if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
                                 for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                    System.out.println("Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
@@ -471,7 +487,7 @@ public class TransactionOverviewBean implements Serializable{
         String  newToDate = null;
         if(getBindings().getAccount().getValue() != null && getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
             if(getBindings().getTerminalType().getValue() != null){
-            System.out.println("value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
                terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TERMINAL_TYPE");
@@ -479,7 +495,7 @@ public class TransactionOverviewBean implements Serializable{
             }
             
             if(getBindings().getTransationType().getValue() != null){
-            System.out.println("value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
                 transTypePassingValues =  populateStringValues(getBindings().getTransationType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TRANSACTION_TYPE");
@@ -494,7 +510,7 @@ public class TransactionOverviewBean implements Serializable{
                 newToDate   = sdf.format(effectiveToDate1);
                 
                 if (effectiveToDate1.before(effectiveFromDate)) {
-                System.out.println("value of new from date ================>"+newFromDate);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of new from date ================>"+newFromDate);
                     showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
                     return null;
                 }
@@ -502,7 +518,7 @@ public class TransactionOverviewBean implements Serializable{
         
             if(cardGPGL){
                 if(getBindings().getCardGroup().getValue() != null){
-                System.out.println("value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
                     cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
                     populateCardGroupValues(cardGroupPassingValues);
                 }
@@ -512,11 +528,11 @@ public class TransactionOverviewBean implements Serializable{
                 }
             }
             
-            System.out.println("bollean value of vehicle====>"+vNumberPGL+dNamePGL);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "bollean value of vehicle====>"+vNumberPGL+dNamePGL);
             
             if(cardIdPGL ){
                 if(getBindings().getCard().getValue() != null){
-                System.out.println("value of card  for card Id================>"+getBindings().getCard().getValue().toString().trim());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for card Id================>"+getBindings().getCard().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_CARD");
@@ -526,10 +542,10 @@ public class TransactionOverviewBean implements Serializable{
             
             if(vNumberPGL){
                 if(getBindings().getVehicleNumber().getValue() != null){
-                System.out.println("value of card  for vehicle ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for vehicle ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getVehicleNumber().getValue().toString());
                 }else{
-                    System.out.println("Is it coming inside vehicle else number block");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Is it coming inside vehicle else number block");
                     showErrorMessage("ENGAGE_NO_VEHICLE");
                     return null;
                 }
@@ -537,7 +553,7 @@ public class TransactionOverviewBean implements Serializable{
             
             if(dNamePGL){
                 if(getBindings().getDriverName().getValue() != null){
-                System.out.println("value of card driver================>"+getBindings().getDriverName().getValue().toString().trim());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card driver================>"+getBindings().getDriverName().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getDriverName().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_DRIVER");
@@ -553,9 +569,9 @@ public class TransactionOverviewBean implements Serializable{
 //            if(getBindings().getToDate().getValue() == null){
 //                showErrorMessage("ENGAGE_NO_TO_DATE");
 //            }
-        System.out.println("value of terminal pass ================>"+terminalPassingValues);
-        System.out.println("value of trans type ================>"+transTypePassingValues);
-        System.out.println("value of card111111 ================>"+cardNumberPasingValues);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal pass ================>"+terminalPassingValues);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of trans type ================>"+transTypePassingValues);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card111111 ================>"+cardNumberPasingValues);
         
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
@@ -563,7 +579,7 @@ public class TransactionOverviewBean implements Serializable{
         vo.setNamedWhereClauseParam("countryCd", "no_NO");
         
             if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
-            System.out.println("inside  card where removal class");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card where removal class");
                 vo.removeNamedWhereClauseParam("card");
                 vo.removeNamedWhereClauseParam("terminal");
                 vo.removeNamedWhereClauseParam("type");
@@ -573,10 +589,10 @@ public class TransactionOverviewBean implements Serializable{
                 //vo.removeNamedWhereClauseParam("accountId");
                 vo.setWhereClause("");
                 vo.executeQuery();
-                System.out.println("count of vo=====>"+vo.getEstimatedRowCount());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo=====>"+vo.getEstimatedRowCount());
             }else{
                 if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
-                    System.out.println("inside  card group where removal class");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card group where removal class");
                     vo.removeNamedWhereClauseParam("cardGrpMainType");
                     vo.removeNamedWhereClauseParam("cardgrpSubType");
                     vo.removeNamedWhereClauseParam("cardGrpSeq");
@@ -588,16 +604,16 @@ public class TransactionOverviewBean implements Serializable{
                     //vo.removeNamedWhereClauseParam("accountId");
                     vo.setWhereClause("");
                     vo.executeQuery();
-                    System.out.println("count of vo1111111=====>"+vo.getEstimatedRowCount());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo1111111=====>"+vo.getEstimatedRowCount());
                 }
             }
         
         if (cardIdPGL || vNumberPGL || dNamePGL) {
-            System.out.println("Inside block for card");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside block for card");
             vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
         }else{
-            System.out.println("Coming inside card group block");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Coming inside card group block");
             vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("cardGrpMainType", cardGroupMaintypePassValue, null);
             vo.defineNamedWhereClauseParam("cardgrpSubType", cardGroupSubtypePassValues, null);
@@ -613,10 +629,10 @@ public class TransactionOverviewBean implements Serializable{
             vo.executeQuery();
             isTableVisible = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
-            System.out.println("where clause of view object=====>"+vo.getWhereClause());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "where clause of view object=====>"+vo.getWhereClause());
             sum=0.0f;
             if (vo.getEstimatedRowCount() != 0) {
-                System.out.println("Inside Estimated row count" + vo.getEstimatedRowCount());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
                 for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
                     Row rw = vo.getRowAtRangeIndex(i);
                         if(rw != null){                             
@@ -733,9 +749,9 @@ public class TransactionOverviewBean implements Serializable{
                 cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
                 cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
               
-              System.out.println("card group main type======>"+cardGroupMaintypePassValue);
-              System.out.println("card group sub type===>"+cardGroupSubtypePassValues);
-              System.out.println("card group sequence value====>"+cardGroupSeqPassValues);
+              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group main type======>"+cardGroupMaintypePassValue);
+              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
+              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sequence value====>"+cardGroupSeqPassValues);
         }
     }
     
@@ -1057,7 +1073,7 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                     if(row.getInvoicedGrossAmount()!=null)
                     {
-                        //System.out.println("Locale ="+formatConversion(row.getInvoicedGrossAmount(),locale));                        
+                        //log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Locale ="+formatConversion(row.getInvoicedGrossAmount(),locale));                        
                     XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                     }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
@@ -1469,17 +1485,17 @@ public class TransactionOverviewBean implements Serializable{
 
     public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException {
-        System.out.println("Entering getValues..");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getValues..");
         String selectedValues="";
         List l = this.getShuttleValue();
-        System.out.println("Size =="+l.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
         //StringBuilder text = new StringBuilder("Size = ").append(getSelectedEmployees().size()).append(", Items added are: ");
                for (int i = 0; i <l.size(); i++ ) {
                    //text.append("Item ").append(i).append(" = ").append(l.get(i)).append(", ");
-                   System.out.println("Item ="+i+" value== "+l.get(i));
+                   log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Item ="+i+" value== "+l.get(i));
                    selectedValues=selectedValues+l.get(i).toString().trim()+",";                   
                }  
-               System.out.println("Formed String ="+selectedValues);
+               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Formed String ="+selectedValues);
                String passedString=selectedValues.substring(0, selectedValues.length()-1);
                
                 
@@ -1783,16 +1799,10 @@ public class TransactionOverviewBean implements Serializable{
                 selectItem.setLabel(strHead[col].toString());
                 selectItem.setValue(strHead[col].toString());
                 shuttleList.add(selectItem);
-            }
+            }   
             
-            shuttleValue=new ArrayList<SelectItem>();
-            for (int col = 0; col < strHead.length; col++)
-            {
-                SelectItem selectItem = new SelectItem();
-                selectItem.setLabel(strHead[col].toString());
-                selectItem.setValue(col);
-                shuttleValue.add(selectItem);
-            }
+            
+            
             
         }else if("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             String[] strHead=strCard.split(",");     
@@ -1825,6 +1835,7 @@ public class TransactionOverviewBean implements Serializable{
                 shuttleList.add(selectItem);
             }
         } 
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
         getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
     }
 
@@ -1837,7 +1848,7 @@ public class TransactionOverviewBean implements Serializable{
 
     public void getValuesForExcel(ActionEvent actionEvent) {    
         List l = this.getShuttleValue();
-        System.out.println("Size =="+l.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
         if(l.size()>0)
         {
         getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
@@ -1878,8 +1889,8 @@ public class TransactionOverviewBean implements Serializable{
             }else{
                 odometerPortal = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
             }
-            System.out.println("uref id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
-            System.out.println("pals country id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "uref id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "pals country id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
             urefTransactionId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
             palsCountryCode = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
             getBindings().getEditOdometerPopup().show(new RichPopup.PopupHints());
@@ -1893,7 +1904,7 @@ public class TransactionOverviewBean implements Serializable{
         OperationBinding operationBinding = bindings.getOperationBinding("updateOdometerPortal");
         operationBinding.getParamsMap().put("urefTransactionId",urefTransactionId);
         operationBinding.getParamsMap().put("palsCountryCode", palsCountryCode);
-        System.out.println("odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
         operationBinding.getParamsMap().put("odoMeterPortalValue", getBindings().getOdometerPortalValue().getValue());
         Object result = operationBinding.execute();
         if (operationBinding.getErrors().isEmpty()) {
@@ -1970,7 +1981,7 @@ public class TransactionOverviewBean implements Serializable{
         ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
         RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);                      
         iterator.reset();
-        System.out.println("Estimated Row Count ="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row Count ="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
         sum=0.0f;
         while (iterator.hasNext()) {                       
         PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();           
