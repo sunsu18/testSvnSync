@@ -33,6 +33,7 @@ public class AuthenticatedHomeBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
     private String infoValue = "";
+     //TODO : Message class in EngageCore is not seriliazed.Make it serilizable class
     private List<Messages> messages;
     private boolean infoPanelVisible;
     private String customerTypeValue;
@@ -49,7 +50,8 @@ public class AuthenticatedHomeBean implements Serializable {
         }
         return bindings;
     }
-
+    
+    //TODO : Add java docs for all methods.
     public AuthenticatedHomeBean() {        
         Date date = new Date();        
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
@@ -66,7 +68,8 @@ public class AuthenticatedHomeBean implements Serializable {
                 }
             }
         }
-
+        //TODO : This block could be surrounded by try catch block.
+        //TODO : Check if the below queries can be merged and make it one, otherwise okay.
         if (customerTypeValue != null) {
             ViewObject prtPCMFeedsVO =
                 ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
