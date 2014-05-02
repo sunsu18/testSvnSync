@@ -7,28 +7,42 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import java.io.Serializable;
-
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import oracle.jdbc.OracleDriver;
 
+/**
+ * TODO : ASHTHA - 02, May, 2014 :
+ *  1. ADD Class level and complete method level JAVA DOC
+ *  2. Override toString() method
+ *  3. Class name first letter to be capitalized
+ */
 public class imageservlet extends HttpServlet {
+
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+
+    /**
+     */
     public imageservlet() {
         super();
     }
-    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-    private static final long serialVersionUID = 1L;
 
-    
+    /**
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType(CONTENT_TYPE);
         System.out.println("Request -----------------------> " + request.getParameter("id"));
@@ -45,14 +59,14 @@ public class imageservlet extends HttpServlet {
         }
 
         if (imageId != null && !imageId.equals("")) {
-            image_id = Integer.parseInt(imageId);
+            image_id = Integer.parseInt(imageId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.imageID & imageIdAsString is better
         }
         if (categId != null && !categId.trim().equals("")) {
-            categ_id = Integer.parseInt(categId);
+            categ_id = Integer.parseInt(categId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.categID & categIdAsString is better
         }
         OutputStream os = response.getOutputStream();
-        Connection Connection1 = null;
-        Connection Connection2 = null;
+        Connection Connection1 = null; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
+        Connection Connection2 = null; // TODO : ASHTHA - 02, May, 2014 : why do we need 2 Connections? variable name with first letter lowercase.
 
         try {
             if (image_id > 0) {
@@ -76,7 +90,7 @@ public class imageservlet extends HttpServlet {
                     if (categ_id != 99) {
                         statementDefault.setInt(1, categ_id);
                     } else {
-                        statementDefault.setInt(1, 99999);
+                        statementDefault.setInt(1, 99999); // TODO : ASHTHA - 02, May, 2014 : initialize categ_id to 99999 instead of 99 if that is the default
                     }
                     //statement.setInt(1, new Integer(imageId));
                     ResultSet rsDefault = statementDefault.executeQuery();
@@ -89,7 +103,7 @@ public class imageservlet extends HttpServlet {
                             os.write(buffer, 0, b);
                         }
                         os.close();
-                    } else {
+                    } else { // TODO : ASHTHA - 02, May, 2014 : why is this needed?
                         PreparedStatement statementDefault1 = Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                         statementDefault1.setInt(1, 99999);
                         //statement.setInt(1, new Integer(imageId));
@@ -140,4 +154,5 @@ public class imageservlet extends HttpServlet {
             }
         }
 
-}}
+    }
+}

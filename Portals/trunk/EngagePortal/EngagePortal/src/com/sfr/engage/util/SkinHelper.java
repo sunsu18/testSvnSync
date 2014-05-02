@@ -10,8 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
+/**
+ * TODO : ASHTHA - 02, May, 2014 :
+ *  1. ADD Class level and complete method level JAVA DOC
+ *  2. Override toString() method
+ */
 public class SkinHelper extends ThreadSerialization {
-    @SuppressWarnings("compatibility:-8414258424579585737")
+    @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
 
     String portal;
@@ -22,36 +27,36 @@ public class SkinHelper extends ThreadSerialization {
     String skinStylePetro = "sfrPetro";
     String profile;
 
-    //request.getSession(true);
+    //request.getSession(true); // TODO : ASHTHA - 02, May, 2014 : Remove if not needed
     private String currentSkin;
 
+    /**
+     */
     public SkinHelper() {
         super();
     }
 
+    /**
+     * @param currentSkin
+     */
     public void setCurrentSkin(String currentSkin) {
         this.currentSkin = currentSkin;
     }
 
+    /**
+     * @return
+     */
     public String getCurrentSkin() {
-        System.out.println("inside getCurrentSkin");
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession();
-        System.out.println("request ---" + request.getParameter("portal"));
-        
-        
-        
-        if (request != null && request.getParameter("profile") != null)
-        {
-profile=request.getParameter("profile");
+        HttpSession session = (HttpSession)request.getSession(); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+
+        if (request != null && request.getParameter("profile") != null) {
+            profile = request.getParameter("profile");
+        } else {
+            profile = "private";
         }
-        else {
-            profile="private";
-        }
-            
-        
-        
+
         if (request.getParameter("portal") != null &&
             (request.getParameter("portal").toString().equalsIgnoreCase("card") || request.getParameter("portal").toString().equalsIgnoreCase("jet") ||
              request.getParameter("portal").toString().equalsIgnoreCase("petro"))) {
@@ -63,37 +68,37 @@ profile=request.getParameter("profile");
             session.setAttribute("portal", default_profile);
         }
 
-
         portal = (String)session.getAttribute("portal");
-        System.out.println("from session" + (String)session.getAttribute("portal"));
+        System.out.println("from session" + (String)session.getAttribute("portal")); // TODO : ASHTHA - 02, May, 2014 : Use logger
 
         if (portal == null) {
             currentSkin = skinStyleCardPrivate;
-            System.out.println("skinStyleCard --------------------------------------");
-        } else if (portal.equals("card")) {
-            System.out.println("skinStyleCard");
-            if(profile.equalsIgnoreCase("private")) {
+        } else if ("card".equalsIgnoreCase(portal)) {
+            if (profile.equalsIgnoreCase("private")) {
                 currentSkin = skinStyleCardPrivate;
-            }
-            else {
+            } else {
                 currentSkin = skinStyleCardBusiness;
             }
-                
-       
-        } else if (portal.equals("jet")) {
-            System.out.println("skinStyleJet");
+
+
+        } else if ("jet".equalsIgnoreCase(portal)) {
             currentSkin = skinStyleJet;
         } else {
-            System.out.println("skinStylePetro");
             currentSkin = skinStylePetro;
         }
         return currentSkin;
     }
 
+    /**
+     * @param profile
+     */
     public void setProfile(String profile) {
         this.profile = profile;
     }
 
+    /**
+     * @return
+     */
     public String getProfile() {
         return profile;
     }

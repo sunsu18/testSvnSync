@@ -1,8 +1,7 @@
 package com.sfr.engage.util;
 
-import com.sfr.core.bean.User;
+
 import com.sfr.services.core.dao.factory.DAOFactory;
-import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
 import java.security.Principal;
@@ -28,48 +27,46 @@ import oracle.webcenter.security.view.login.LoginBackingBean;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
-public class LoginBean extends LoginBackingBean{
+
+/**
+ * TODO : ASHTHA - 02, May, 2014 :
+ *  1. ADD Class level and complete method level JAVA DOC
+ *  2. Override toString() method
+ */
+public class LoginBean extends LoginBackingBean {
+    @SuppressWarnings("compatibility")
+    private static final long serialVersionUID = 1L;
+
+    /**
+     */
     public LoginBean() {
         super();
     }
-    
+
+    /**
+     * @return
+     */
     public String sfrLogout() {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession(false);
 
-        String lang = DAOFactory.getDefaultLanguage(); 
+        String lang = DAOFactory.getDefaultLanguage();// TODO : ASHTHA - 02, May, 2014 : Use from sesion
         if (session.getAttribute(Constants.SESSION_LANGUAGE) != null) {
             lang = (String)session.getAttribute(Constants.SESSION_LANGUAGE);
         }
 
-       
         String temp = "/sfrCommon/faces/logout.jspx?lang=" + lang;
 
         if (request.getServerName().contains("240") || request.getServerName().contains("53") || request.getServerName().contains("localhost")) {
-            HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
-            //delete(request, response);
-            session.setAttribute("executePartnerObjLogic",
-                                 "no");
-           //session.invalidate();
-            
-//            user.setAuthenticated(false);
-//            session.setAttribute("executePartnerObjLogic",
-//                                 "no");
-           
-           temp = request.getContextPath() + "/adfAuthentication?logout=true&end_url=/faces/card/home";
-              //temp = "CustomerPortal/faces/card/home.jspx";
+            temp = request.getContextPath() + "/adfAuthentication?logout=true&end_url=/faces/card/home";
         } else {
-            User user = null;
-            System.out.println("It is going inside this");
-            user.setAuthenticated(false);
-            session.invalidate();
             HttpServletResponse response = (HttpServletResponse)ectx.getResponse();
             delete(request, response);
+            // TODO : ASHTHA - 02, May, 2014 : Use CP_LOGOUT_REDIRECT_URL instead of PP_LOGOUT_REDIRECT_URL
             temp = getLogoutURL("LOGOUT_URL") + "/oam/server/logout?end_url=" + getLogoutURL("PP_LOGOUT_REDIRECT_URL") + "/sfrCommon/faces/logout?lang=" + lang;
         }
-        
-        try {    
+        try {
             ectx.redirect(temp);
         } catch (Exception ex) {
             ex.getMessage();
@@ -77,6 +74,10 @@ public class LoginBean extends LoginBackingBean{
         return null;
     }
 
+    /**
+     * @param req
+     * @param res
+     */
     public void delete(HttpServletRequest req, HttpServletResponse res) {
         Cookie[] cookies = req.getCookies();
 
@@ -92,6 +93,10 @@ public class LoginBean extends LoginBackingBean{
         }
     }
 
+    /**
+     * @param c_name
+     * @param value
+     */
     public void eraseCookie(String c_name, String value) {
         FacesContext fctx = null;
         ExtendedRenderKitService erks = null;
@@ -109,13 +114,17 @@ public class LoginBean extends LoginBackingBean{
             sb1.append("\"+ \"=\" +\'");
             sb1.append(value);
             sb1.append("\'+ expires + \"; path=/\";");
-            
+
             erks.addScript(fctx, sb1.toString());
         } catch (Exception e) {
             e.getMessage();
         }
     }
 
+    /**
+     * @param c_name
+     * @return
+     */
     public String getCookieVal(String c_name) {
         String val = null;
         Cookie dum = null;
@@ -126,13 +135,17 @@ public class LoginBean extends LoginBackingBean{
                 val = dum.getValue();
             }
         } catch (Exception e) {
-             e.getMessage();
+            e.getMessage();
         }
 
         return val;
     }
 
 
+    /**
+     * @param cookieName
+     * @return
+     */
     public Cookie getCookie(String cookieName) {
         HttpServletRequest httpServletRequest = null;
         Cookie[] cookies = null;
@@ -155,6 +168,11 @@ public class LoginBean extends LoginBackingBean{
         return null;
     }
 
+    /**
+     * @param username
+     * @param password
+     * @return
+     */
     public boolean createUser(String username, String password) {
         try {
             JpsContextFactory jps = JpsContextFactory.getContextFactory();
@@ -172,12 +190,15 @@ public class LoginBean extends LoginBackingBean{
             return false;
         }
     }
-    
+
+    /**
+     * @param param
+     * @return
+     */
     public String getLogoutURL(String param) {
-        
+
         String logoutURL = DAOFactory.getPropertyValue(param);
-        if(logoutURL.equalsIgnoreCase("blank"))
-        {
+        if (logoutURL.equalsIgnoreCase("blank")) {
             return "";
         }
         return logoutURL;
