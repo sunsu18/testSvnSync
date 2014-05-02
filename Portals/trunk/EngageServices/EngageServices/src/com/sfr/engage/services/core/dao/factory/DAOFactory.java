@@ -1,7 +1,7 @@
 package com.sfr.engage.services.core.dao.factory;
 
-import com.sfr.engage.services.client.ucm.UCMCustomWeb;
 
+import com.sfr.engage.services.client.ucm.UCMCustomWeb;
 import com.sfr.services.core.dao.factory.WebServiceProxy;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.ConfigurationUtility;
@@ -24,22 +24,38 @@ import javax.xml.ws.BindingProvider;
 
 import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
-public class DAOFactory implements Serializable{
+
+/**
+ * TODO : ASHTHA - 30, Apr, 2014 :
+ *  1. ADD Class level and complete method level JAVA DOC
+ *  2. Override toString() method
+ *  3. Why is DAOFactory serializable?
+ */
+public class DAOFactory implements Serializable {
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
-    
+
+    /**
+     */
     public DAOFactory() {
         super();
     }
-    
-    
+
+
+    /**
+     * @param PName
+     * @return
+     */
     public static String getPropertyValue(String PName) {
+        // TODO : ASHTHA - 30, Apr, 2014 : Parameter name first letter should be lower case. Change PName to propName or propKey
         return ConfigurationUtility.getPropertyValue(PName);
     }
-    
-    public UCMCustomWeb getUCMService()
-    {
+
+    /**
+     * @return
+     */
+    public UCMCustomWeb getUCMService() {
         Class<UCMCustomWeb> serviceEndPoint = UCMCustomWeb.class;
         String wsdlUrl = getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL);
         String targetNamespace = "http://ws.wcc.lnt.com/";
@@ -54,17 +70,17 @@ public class DAOFactory implements Serializable{
             uCMCustomWeb = client.getServicePortWithFeatures(portName, serviceEndPoint, securityFeatures);
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, ucmUsername);
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
-           
+
         } catch (Exception e) {
-            System.out.println(AccessDataControl.getDisplayRecord() +this.getClass() + ".getUCMService : " +"Exception");
+            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
             e.printStackTrace();
 
         }
-         return uCMCustomWeb;
+        return uCMCustomWeb;
     }
 
     /**
-     * This method is used to get JNDI connection for processing business logic
+     * This method is used to get JNDI connection for processing business logic.
      * @return
      * @throws SQLException
      * @throws NamingException
@@ -74,6 +90,7 @@ public class DAOFactory implements Serializable{
         Connection connection = null;
         InitialContext objinitialContext = null;
         DataSource datasource = null;
+        // TODO : ASHTHA - 02, May, 2014 : Remove unwanted comment blocks
 
         //              The WLInitialContextFactory creates initial contexts for accessing
         //              the WebLogic naming service. It can also be used to
@@ -97,20 +114,22 @@ public class DAOFactory implements Serializable{
 
             // use datasource for connection to physical data source.
             // Give JNDI name under lookup.
+            // TODO : ASHTHA - 02, May, 2014 : Datasource name should be fetched from property files. Remove unwanted comment blocks
             datasource = (DataSource)objinitialContext.lookup("jdbc/engagecustom");
 
             if (datasource != null) {
                 connection = datasource.getConnection();
+                // TODO : ASHTHA - 02, May, 2014 : SOP Format not followed
                 System.out.println("datasource found");
             } else
-                System.out.println("No data source");
+                System.out.println("No data source"); // TODO : ASHTHA - 02, May, 2014 : SOP Format not followed
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             throw sqle;
         } catch (NamingException ne) {
             ne.printStackTrace();
-            throw ne;
+            throw ne; // TODO : ASHTHA - 02, May, 2014 : Catching and throwing NE again?
         } finally {
             try {
 
@@ -119,7 +138,7 @@ public class DAOFactory implements Serializable{
                 }
             } catch (NamingException ne) {
                 ne.printStackTrace();
-                throw ne;
+                throw ne; // TODO : ASHTHA - 02, May, 2014 : Catching and throwing NE again?
             }
         }
         return connection;
