@@ -2,15 +2,19 @@ package com.sfr.engage.authenticatedhometaskflow;
 
 
 import com.sfr.engage.core.Messages;
+import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
+import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 
 import com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean;
 
 import com.sfr.util.AccessDataControl;
+
+import com.sfr.util.validations.Conversion;
 
 import java.io.Serializable;
 
@@ -22,10 +26,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpSession;
+
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
+import oracle.adf.view.rich.component.rich.output.RichSpacer;
+
+import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
 public class AuthenticatedHomeBean implements Serializable {
@@ -39,6 +54,11 @@ public class AuthenticatedHomeBean implements Serializable {
     private String customerTypeValue;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
+    private PartnerInfo partnerInfo;
+    private ArrayList<String> cards=new ArrayList<String>();
+    private HttpSession session;
+    private ExternalContext ectx;
+    private HttpServletRequest request;
 
 
     /**
@@ -166,15 +186,104 @@ public class AuthenticatedHomeBean implements Serializable {
                     prtPCMFeedsVO.setWhereClause("");
                     prtPCMFeedsVO.executeQuery();
                 }
+                
+                ectx = FacesContext.getCurrentInstance().getExternalContext();
+                request = (HttpServletRequest)ectx.getRequest();
+                session = request.getSession(false);
+                
+                if(session.getAttribute("Partner_Object_List") != null){
+                    partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
+                }
+                
+                    if(partnerInfo != null){
+                        log.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
+                   
+                
+                
+                
+                if (partnerInfo.getAccountList() != null &&
+                    partnerInfo.getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfo.getAccountList().size(); i++) {
+                        if (partnerInfo.getAccountList().get(i) != null) {
+                            if (partnerInfo.getAccountList().get(i).getCardGroup() !=
+                                null &&
+                                partnerInfo.getAccountList().get(i).getCardGroup().size() >
+                                0) {
+                                for (int k = 0;
+                                     k < partnerInfo.getAccountList().get(i).getCardGroup().size();
+                                     k++) {
+                                    if (partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() !=
+                                        null &&
+                                        partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size() >
+                                        0) {
+                                        for (int m = 0;
+                                             m < partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size();
+                                             m++) {
+                                            cards.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
+                                            System.out.println("CardList--->"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
+
+
+                                        }
+                                    }
+                                }
+
+
+                            }
+                        }
+                    }
+                }
+                //        for(int i=0; i<cards.size(); i++){
+                //            System.out.println("cards List"+cards.get(i).toString());
+                //        }
+                
+                String idList = cards.toString();
+                System.out.println("arraylist to string " + idList);
+                String cardId = idList.substring(1, idList.length() - 1).replace("","");
+
+                            ViewObject vo = ADFUtils.getViewObject("PrtInvoiceVO1Iterator");
+                vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
+                vo.defineNamedWhereClauseParam("countrycode", "no_NO", null);
+                vo.defineNamedWhereClauseParam("cards", cardId, null);
+                vo.setOrderByClause("INVOICE_DATE");
+                vo.executeQuery();
+                            if (vo.getEstimatedRowCount() != 0) {
+                                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
+                    vo.removeNamedWhereClauseParam("countrycode");
+                    vo.removeNamedWhereClauseParam("cards");
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                }
+                   
+                    }
 
             }
         } catch (Exception e) {
            
             e.printStackTrace();
         }
+    
+    
+        
+        }
+        
 
+       
+       
+  
+    
+    
+    public String populateStringValues(String var){
+        String passingValues = null;
+        if(var != null){
+            String lovValues = var.trim();
+            String selectedValues = lovValues.substring(1, lovValues.length() - 1);
+            passingValues = selectedValues.trim();
+                
+        }
+        return passingValues;
     }
-
+    
+    
     /**
      * @param messages
      */
@@ -214,10 +323,13 @@ public class AuthenticatedHomeBean implements Serializable {
     }
 
 
+
+
     public class Bindings {
         private RichOutputText infoText;
         private RichPanelGroupLayout infoPanel;
-
+        private RichSpacer bindingSpacer;
+        
         public void setInfoText(RichOutputText infoText) {
             this.infoText = infoText;
         }
@@ -233,6 +345,7 @@ public class AuthenticatedHomeBean implements Serializable {
         public RichPanelGroupLayout getInfoPanel() {
             return infoPanel;
         }
+        
     }
 }
 

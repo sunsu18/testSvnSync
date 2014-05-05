@@ -67,7 +67,7 @@
 </af:panelGroupLayout>
 </af:panelGroupLayout>
       <af:spacer width="20" height="10" id="s20"/>
-      <af:panelGroupLayout id="pgl23" layout="vertical" visible="false">
+      <af:panelGroupLayout id="pgl23" layout="vertical" visible="true">
       <af:panelGroupLayout id="pgl11" layout="vertical">
       <af:outputText value="test panel 1" id="ot5" styleClass="heading1"/>
       <af:spacer width="10" height="10" id="s10"/>
@@ -84,7 +84,31 @@
      <af:spacer width="7" height="20" id="s12"/>
       <af:panelGroupLayout id="pgl14"
                            layout="horizontal"
-                          />
+                          >
+              <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}"
+                        var="row" rows="#{bindings.PrtInvoiceVO1.rangeSize}"
+                        emptyText="#{bindings.PrtInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.PrtInvoiceVO1.rangeSize}"
+                        rowBandingInterval="0" id="t1">
+                <af:column sortProperty="InvoiceNumber" sortable="false"
+                           headerText="#{bindings.PrtInvoiceVO1.hints.InvoiceNumber.label}"
+                           id="c3">
+                  <af:outputText value="#{row.InvoiceNumber}" id="ot11"/>
+                </af:column>
+                <af:column sortProperty="InvoiceDueDate" sortable="false"
+                           headerText="#{bindings.PrtInvoiceVO1.hints.InvoiceDueDate.label}"
+                           id="c2">
+                  <af:outputText value="#{row.InvoiceDueDate}" id="ot9">
+                    <af:convertDateTime pattern="#{bindings.PrtInvoiceVO1.hints.InvoiceDueDate.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column sortProperty="TotalAmount" sortable="false"
+                           headerText="#{bindings.PrtInvoiceVO1.hints.TotalAmount.label}"
+                           id="c1">
+                  <af:outputText value="#{row.TotalAmount}" id="ot10"/>
+                </af:column>
+              </af:table>
+            </af:panelGroupLayout>
                           <af:spacer width="7" height="30" id="s13"/>
           <af:panelGroupLayout id="pgl15"
                                inlineStyle="width:200px; height:100.0px;" halign="start">
