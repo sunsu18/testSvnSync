@@ -66,18 +66,14 @@ padding: 20px 5px 2px 3px;
 }
 
 .af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style{
-    background-image: url(/images/Sprite/down.png) !important;
-    /*background: url("/images/Sprite/sprites.png") no-repeat;*/
-    height: 9px;
-    padding-right: 9px;
+   
+    padding-right: 1px;
     margin-bottom: 5px;
 }
 
 .af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style{
-    background-image: url(/images/Sprite/right.png) !important;
-    /*background: url("/images/Sprite/sprites.png") no-repeat;*/
-    height: 9px;
-    padding-right: 9px;
+   
+    padding-right: 1px;
     margin-bottom: 5px;
 }
 
@@ -1205,111 +1201,103 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue,.cart{
+
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed, .open{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .sign_in{
-	background-position: -64px -4px ;
+	background-position: -5px -57px ;
 	width: 20px;
 	height: 20px;
 }
 
 .card_back{
-	background-position: -35px -4px ;
+	background-position: -5px -31px ;
 	width: 20px;
 	height: 20px;
 }
 
 .arrow_learn_more{
-	background-position: -155px -7px ;
+	background-position: -10px -109px ;
 	width: 8px;
 	height: 8px;
 }
 
 .arrow_learn_more_white{
-	background-position: -116px 0;
+	background-position: -43px -232px ;
 	width: 8px;
 	height: 8px;
 }
 
 .card_icon_ws{
-	background-position: -114px -4px ;
+	background-position: -9px -151px ;
 	width: 35px;
 	height: 20px;
 }
 
 .category_icon{
-	background-position: -106px -37px ;
+	background-position: -10px -124px ;
 	width: 15px;
 	height: 20px;
 }
 
 .mail_icon{
-	background-position: -37px -37px ;
+	background-position: -6px -203px ;
 	width: 20px;
 	height: 20px;
 }
 
 .message_bell{
-	background-position: -67px -37px ;
+	background-position: -30px -204px ;
 	width: 30px;
 	height: 20px;
 }
 
 .pdf_icon{
-	background-position: -7px -36px ;
+	background-position: -4px -179px ;
 	width: 20px;
 	height: 20px;
 }
 
 .shop_categories{
-	background-position: -90px -3px ;
+	background-position: -5px -82px ;
 	width: 20px;
 	height: 20px;
 }
 
 .arrow_grey{
-	background-position: -186px -6px ;
+	background-position: -32px -230px ;
 	width: 8px;
 	height: 8px;
-}
-
-.card_back_blue{
-	background-position: -340px -3px ;
-	width: 20px;
-	height: 20px;
-}
-
-.sign_in_blue{
-	background-position: -366px -3px ;
-	width: 20px;
-	height: 20px;
-}
-
-.shop_categories_blue{
-	background-position: -390px -3px ;
-	width: 20px;
-	height: 20px;
-}
-
-.arrow_learn_more_blue{
-	background-position: -416px -9px ;
-	width: 8px;
-	height: 8px;
-}
-
-.category_icon_blue{
-	background-position: -431px -4px ;
-	width: 15px;
-	height: 20px;
 }
 
 .cart{
-	background-position: -6px -3px ;
+	background-position: -4px -4px ;
 	width: 20px;
 	height: 20px;
 }
+
+.calendar{
+	background-position: -33px -182px ;
+	width: 16px;
+	height: 16px;
+}
+
+.closed,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style{
+	background-position: -22px -230px ;
+	width: 6px;
+	height: 10px;
+       
+}
+
+.open,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style{
+	background-position: -6px -231px ;
+	width: 11px;
+	height: 6px;
+}
+
+
 
 
 
