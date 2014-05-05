@@ -121,19 +121,21 @@
       </af:panelGroupLayout>
       <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:480px;">
 
-  <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
+   <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
                        binding="#{pageFlowScope.AccountSummaryBean.bindings.companyOverview}">             
      <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal" >
      <af:spacer width="10" id="s327"/>
       <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading"/>
   </af:panelGroupLayout>
-         
-          <af:spacer width="10" height="20" id="s95"/>
-           <af:panelGroupLayout id="pgl16">
+         <af:panelGroupLayout id="pgl8" inlineStyle="width:750px;">
+		
+          <af:spacer width="10" height="5" id="s95"/>
+           <af:panelGroupLayout id="pgl16" layout="horizontal">
            <af:spacer width="15" height="5" id="s336"/>
           <af:separator id="s335" inlineStyle="width:750px;"/>
           </af:panelGroupLayout>
-            <af:spacer width="10" height="20" id="s329"/>
+          </af:panelGroupLayout> 
+            <!--<af:spacer width="10" height="20" id="s329"/>-->
    <af:panelFormLayout id="pfl3" rows="9" maxColumns="2">
         <h:panelGrid columns="9" id="pg3">
         
@@ -481,23 +483,30 @@
       <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
     </af:panelGroupLayout>
     
-   <af:panelGroupLayout id="pgl8" inlineStyle="width:750px;">
+   <af:panelGroupLayout id="pgl26" inlineStyle="width:750px;">
   
-   <af:spacer width="10" height="20" id="s94"/>
+   <af:spacer width="10" height="5" id="s94"/>
      <af:panelGroupLayout id="pgl17" layout="horizontal">
       <af:spacer width="15" height="5" id="s338"/>
           <af:separator id="s337" inlineStyle="width:750px;"/>
           </af:panelGroupLayout>
 
        
-            <af:panelGroupLayout id="pgl21" valign="middle" layout="horizontal" inlineStyle="width:750px;">
-            <af:breadCrumbs id="bc3">
+            <af:panelGroupLayout id="pgl21" valign="middle" layout="horizontal"
+                                 inlineStyle="width:750px;margin-top: -4px;"
+                                 styleClass="breadCrumb">
+                                 <af:spacer width="3" height="10" id="s331"/>
+            <af:panelGroupLayout id="pgl0" layout="vertical">
+  <af:spacer width="3" height="5" id="s344"/>
+<af:breadCrumbs id="bc3">
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
                                       disabled="true"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
                                      disabled="true"/>
         </af:breadCrumbs> 
-      </af:panelGroupLayout></af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
     <af:panelFormLayout id="pfl4" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg4">
         
@@ -705,12 +714,17 @@
     </af:panelGroupLayout>
     
       <af:panelGroupLayout id="pgl10" inlineStyle="width:750px;">
-    <af:spacer width="10" height="20" id="s92"/>
+    <af:spacer width="10" height="5" id="s92"/>
        <af:panelGroupLayout id="pgl18" layout="horizontal"> <af:spacer width="15" height="5" id="s330"/>
           <af:separator id="s339" inlineStyle="width:750px;"/>
           </af:panelGroupLayout>
 
-    <af:panelGroupLayout id="pgl22" valign="middle" layout="horizontal" inlineStyle="width:750px;">
+    <af:panelGroupLayout id="pgl22" valign="middle" layout="horizontal"
+                         inlineStyle="width:750px;margin-top: -4px;"
+                         styleClass="breadCrumb">
+                         <af:spacer width="3" height="10" id="s340"/>
+                         <af:panelGroupLayout id="pgl24" layout="vertical">
+  <af:spacer width="3" height="5" id="s345"/>
         <af:breadCrumbs id="bc2" >
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
                                       disabled="true"/>
@@ -719,7 +733,9 @@
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"
                                       disabled="true"/>
         </af:breadCrumbs>
-      </af:panelGroupLayout></af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
     <af:panelFormLayout id="pfl2" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg2">
         
@@ -972,14 +988,19 @@
       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl9" inlineStyle="width:750px;">
-    <af:spacer width="10" height="20" id="s93"/>
+    <af:spacer width="10" height="5" id="s93"/>
       <af:panelGroupLayout id="pgl19" layout="horizontal"> <af:spacer width="15" height="5"
                                                   id="s343"/>
           <af:separator id="s341" inlineStyle="width:750px;"/>
           </af:panelGroupLayout>
     
-         <af:panelGroupLayout id="pgl23" valign="middle" layout="horizontal" inlineStyle="width:750px;">
-       <af:breadCrumbs id="bc1">
+         <af:panelGroupLayout id="pgl23" valign="middle" layout="horizontal"
+                              inlineStyle="width:750px;margin-top: -4px;"
+                              styleClass="breadCrumb">
+                              <af:spacer width="3" height="10" id="s342"/>
+             <af:panelGroupLayout id="pgl25" layout="vertical">
+  <af:spacer width="3" height="5" id="s346"/>
+              <af:breadCrumbs id="bc1">
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
                                       disabled="true" id="cni4"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
@@ -989,7 +1010,10 @@
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardId}"
                                       disabled="true" id="cni1"/>
         </af:breadCrumbs>
-      </af:panelGroupLayout></af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      
       <af:panelFormLayout id="pfl1" rows="7" maxColumns="2">
         <h:panelGrid columns="9" id="pg1">
         
