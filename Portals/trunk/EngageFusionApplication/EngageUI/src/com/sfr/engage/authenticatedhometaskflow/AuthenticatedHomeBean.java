@@ -70,101 +70,121 @@ public class AuthenticatedHomeBean implements Serializable {
         }
         //TODO : This block could be surrounded by try catch block.
         //TODO : Check if the below queries can be merged and make it one, otherwise okay.
-        if (customerTypeValue != null) {
-            ViewObject prtPCMFeedsVO =
-                ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
-            prtPCMFeedsVO.setWhereClause("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
-            prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                      customerTypeValue, null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
-                                                      "INFO_STATOIL", null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE",
-                                                      null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate,
-                                                      null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
-                                                      null);            
-            prtPCMFeedsVO.executeQuery();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Information Row Count " +
-                               prtPCMFeedsVO.getEstimatedRowCount());
+     
+        try {
+            if (customerTypeValue != null) {
+                ViewObject prtPCMFeedsVO =
+                    ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+                prtPCMFeedsVO.setWhereClause("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
+                prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                          customerTypeValue,
+                                                          null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
+                                                          "INFO_STATOIL",
+                                                          null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
+                                                          "se_SE", null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
+                                                          passedDate, null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
+                                                          null);
+                prtPCMFeedsVO.executeQuery();
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Information Row Count " +
+                         prtPCMFeedsVO.getEstimatedRowCount());
 
-            if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
-                infoPanelVisible = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "coming inside INFORMATION block");
-                while (prtPCMFeedsVO.hasNext()) {
-                    PrtPcmFeedsRVORowImpl currRow =
-                        (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
+                if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
+                    infoPanelVisible = true;
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "coming inside INFORMATION block");
+                    while (prtPCMFeedsVO.hasNext()) {
+                        PrtPcmFeedsRVORowImpl currRow =
+                            (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
-                    if (currRow != null) {
-                        if (currRow.getMessageLang() != null) {
-                            infoValue = infoValue + currRow.getMessageLang();
-                        } else {
-                            if (currRow.getMessageEnglish() != null) {
+                        if (currRow != null) {
+                            if (currRow.getMessageLang() != null) {
                                 infoValue =
                                         infoValue + currRow.getMessageLang();
+                            } else {
+                                if (currRow.getMessageEnglish() != null) {
+                                    infoValue =
+                                            infoValue + currRow.getMessageLang();
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (infoValue == null) {
-                infoPanelVisible = false;
-            }
-
-            prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
-                                                      customerTypeValue, null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("infoType", "MESSAGES",
-                                                      null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode", "se_SE",
-                                                      null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate", passedDate,
-                                                      null);
-            prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
-                                                      null);
-            prtPCMFeedsVO.executeQuery();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Messages Row Count " +
-                               prtPCMFeedsVO.getEstimatedRowCount());
-            if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
-                messages = new ArrayList<Messages>();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "coming inside MESSAGE block");
-                while (prtPCMFeedsVO.hasNext()) {
-                    PrtPcmFeedsRVORowImpl currRow =
-                        (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
-
-                    if (currRow != null) {
-                        Messages message = new Messages();
-                        if (currRow.getMessageLang() != null) {
-                            message.setMessage(currRow.getMessageLang());
-                        } else {
-                            if (currRow.getMessageEnglish() != null) {
-                                message.setMessage(currRow.getMessageEnglish());
-                            }
-                        }
-                        if (message.getMessage() != null) {
-                            messages.add(message);
-                        }
-                    }
+                if (infoValue == null) {
+                    infoPanelVisible = false;
                 }
-            }
 
-            if ("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
-                prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
-                prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
-                prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
-                prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
-                prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
-                prtPCMFeedsVO.setWhereClause("");
+                prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
+                                                          customerTypeValue,
+                                                          null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
+                                                          "MESSAGES", null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
+                                                          "se_SE", null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
+                                                          passedDate, null);
+                prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
+                                                          null);
                 prtPCMFeedsVO.executeQuery();
-            }
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Messages Row Count " +
+                         prtPCMFeedsVO.getEstimatedRowCount());
+                if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
+                    messages = new ArrayList<Messages>();
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "coming inside MESSAGE block");
+                    while (prtPCMFeedsVO.hasNext()) {
+                        PrtPcmFeedsRVORowImpl currRow =
+                            (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
+                        if (currRow != null) {
+                            Messages message = new Messages();
+                            if (currRow.getMessageLang() != null) {
+                                message.setMessage(currRow.getMessageLang());
+                            } else {
+                                if (currRow.getMessageEnglish() != null) {
+                                    message.setMessage(currRow.getMessageEnglish());
+                                }
+                            }
+                            if (message.getMessage() != null) {
+                                messages.add(message);
+                            }
+                        }
+                    }
+                }
+
+                if ("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
+                    prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+                    prtPCMFeedsVO.setWhereClause("");
+                    prtPCMFeedsVO.executeQuery();
+                }
+
+            }
+        } catch (Exception e) {
+           
+            e.printStackTrace();
         }
 
     }
 
+    /**
+     * @param messages
+     */
     public void setMessages(List<Messages> messages) {
         this.messages = messages;
     }
 
+    /**
+     * @return
+     */
     public List<Messages> getMessages() {
         return messages;
     }
