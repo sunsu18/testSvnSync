@@ -252,16 +252,16 @@ public class AuthenticatedHomeBean implements Serializable {
                 
                 
                 String idList = cards.toString();
-                System.out.println("arraylist to string " + idList);
+               // System.out.println("arraylist to string " + idList);
                 String cardId = idList.substring(1, idList.length() - 1).replace(" ","");
+                
+                System.out.println("arraylist after conversion is " + cardId);
 
                             ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
                 vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
                 vo.defineNamedWhereClauseParam("countrycode", country, null);
                 vo.defineNamedWhereClauseParam("cards", cardId, null);
-//                vo.setOrderByClause("INVOICE_DATE DESC");
                 vo.executeQuery();
-                
                             if (vo.getEstimatedRowCount() != 0) {
                                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
                                 vo.removeNamedWhereClauseParam("countrycode");
@@ -274,8 +274,16 @@ public class AuthenticatedHomeBean implements Serializable {
                                 vo.removeNamedWhereClauseParam("cards");
                                 vo.setWhereClause("");
                                 vo.executeQuery();
-                                getBindings().getInvoiceTable().setEmptyText("NO DATA FOR LATEST INVOICES");
+                                //getBindings().getInvoiceTable().setEmptyText("NO DATA FOR LATEST INVOICES");
                             }
+                   
+                        ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
+                        latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
+                        latestTransactionVO.setNamedWhereClauseParam("countryCode", "no_NO");
+                        latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
+                        
+                        latestTransactionVO.executeQuery();
+                        
                    
                     }
 

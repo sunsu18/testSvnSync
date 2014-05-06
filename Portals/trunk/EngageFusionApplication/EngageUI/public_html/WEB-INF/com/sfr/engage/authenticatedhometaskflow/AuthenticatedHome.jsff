@@ -136,39 +136,111 @@
         </af:panelGroupLayout>
     
     <af:panelGroupLayout id="pgl30" layout="vertical"
-                       inlineStyle="height:314px; width:315px;"
+                       inlineStyle="height:314px; width:470px;"
                        styleClass="box-shadow panelbackground">
       
       <af:spacer width="7" height="5" id="s13"/>
     
  
-    <af:panelGroupLayout id="pgl26" layout="horizontal" valign="top">
+       <af:panelGroupLayout id="pgl26" layout="horizontal" valign="top">
       <af:panelGroupLayout id="pgl27"
-                           layout="horizontal"
+                           layout="vertical"
                           >
-              <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}"
-                         var="row" rows="5"
-                        emptyText="#{bindings.PrtInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                        fetchSize="5"
-                        rowBandingInterval="0" id="t2">
-                <af:column sortProperty="InvoiceNumber" sortable="false"
-                           headerText="Invoice No"
-                           id="c5" width="80">
-                  <af:outputText value="#{row.InvoiceNumber}" id="ot12"/>
-                </af:column>
-                <af:column sortProperty="InvoiceDueDate" sortable="false"
-                           headerText="DueDate"
-                           id="c6" width="80">
-                  <af:outputText value="#{row.InvoiceDueDate}" id="ot13">
-                    <af:convertDateTime pattern="#{bindings.PrtInvoiceVO1.hints.InvoiceDueDate.format}"/>
+              <af:table value="#{bindings.PrtHomeTransactionsRVO1.collectionModel}"
+                        var="row"
+                        rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
+                        emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
+                        rowBandingInterval="0" id="t2" width="467"
+                        inlineStyle="height:280.0px;overflow:hidden;"
+                        summary="Latest Transactions">
+                <af:column sortProperty="TransactionDt" sortable="false"
+                           headerText="Date"
+                           id="c8" width="65">
+                  <af:outputText value="#{row.TransactionDt}" id="ot6">
+                    <af:convertDateTime pattern="#{bindings.PrtHomeTransactionsRVO1.hints.TransactionDt.format}"/>
                   </af:outputText>
                 </af:column>
-                <af:column sortProperty="TotalAmount" sortable="false"
-                           headerText="Total Amount"
-                           id="c4" width="80">
-                  <af:outputText value="#{row.TotalAmount}" id="ot6"/>
+                <af:column sortProperty="Card1Id" sortable="false"
+                           headerText="Card"
+                           id="c5" width="150">
+                  <af:outputText value="#{row.Card1Id}" id="ot16"/>
                 </af:column>
+                <af:column sortProperty="StationName" sortable="false"
+                           headerText="Station Name"
+                           id="c9" width="60">
+                  <af:outputText value="#{row.StationName}" id="ot12"/>
+                </af:column>
+                <af:column sortProperty="ProductName" sortable="false"
+                           headerText="Product Name"
+                           id="c4" width="95">
+                  <af:outputText value="#{row.ProductName}" id="ot15"/>
+                </af:column>
+                <af:column sortProperty="Quantity" sortable="false"
+                           headerText="Quantity"
+                           id="c6" width="65">
+                            <af:panelGroupLayout id="pgl31" layout="horizontal"
+                                       halign="left">
+                  <af:outputText value="#{row.Quantity}" id="ot17">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
+                  </af:outputText>
+                  <af:spacer width="4" id="s24"/>
+                   <af:outputText value="#{row.UnitOfMeasure}" id="ot13"/>
+                  </af:panelGroupLayout>
+                </af:column>
+               
+                
               </af:table>
+              <!--<af:table value="#{bindings.PrtLatestCardTransactionsRVO1.collectionModel}"
+                        var="row"
+                        rows="#{bindings.PrtLatestCardTransactionsRVO1.rangeSize}"
+                        emptyText="#{bindings.PrtLatestCardTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.PrtLatestCardTransactionsRVO1.rangeSize}"
+                        rowBandingInterval="1" id="t2" width="467"
+                        inlineStyle="height:280.0px;overflow:hidden;"
+                        summary="Latest Transactions">
+                        <af:column sortProperty="TransactionDt" sortable="false"
+                           headerText="Date"
+                           id="c9" width="65">
+                  <af:outputText value="#{row.TransactionDt}" id="ot13">
+                    <af:convertDateTime pattern="#{bindings.PrtLatestCardTransactionsRVO1.hints.TransactionDt.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column sortProperty="Card1Id" sortable="false"
+                           headerText="Card"
+                           id="c7" width="150">
+                  <af:outputText value="#{row.Card1Id}" id="ot12"/>
+                </af:column>
+                
+                <af:column sortProperty="StationName" sortable="false"
+                           headerText="Station Name"
+                           id="c5" width="60">
+                  <af:outputText value="#{row.StationName}" id="ot15"/>
+                </af:column>
+                <af:column sortProperty="ProductName" sortable="false"
+                           headerText="Product Name"
+                           id="c6" width="95">
+                  <af:outputText value="#{row.ProductName}" id="ot6"/>
+                </af:column>
+                <af:column sortProperty="Quantity" sortable="false"
+                           headerText="Quantity"
+                           id="c4" width="65">
+                           <af:panelGroupLayout id="pgl31" layout="horizontal"
+                                       halign="left">
+                  <af:outputText value="#{row.Quantity}" id="ot17">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.PrtLatestCardTransactionsRVO1.hints.Quantity.format}"/>
+                  </af:outputText>
+                  <af:spacer width="4" id="s24"/>
+                   <af:outputText value="#{row.UnitOfMeasure}" id="ot16"/>
+                  </af:panelGroupLayout>
+                </af:column>
+               
+                 
+           
+              </af:table>-->
+              
             </af:panelGroupLayout>
                           <!--<af:spacer width="7" height="30" id="s13"/>-->
           <!--<af:panelGroupLayout id="pgl15"
@@ -184,7 +256,7 @@
                                styleClass="AFStretchWidth">
             <af:spacer width="20" id="s12"/>
             <af:goLink id="gl1" inlineStyle="color:#F89518;" text="View All"
-                       destination="#{navigationContext.currentNavigationModel.node['engage/My_Transactions'].goLinkPrettyUrl}&quot;/>"/>
+                       destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
     </af:panelGroupLayout>
