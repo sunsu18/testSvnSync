@@ -169,7 +169,14 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"STATOIL_EUROPE_CARD_LEARN_MORE",""},{"STATOIL_MASTER_CARD_LEARN_MORE",""},{"STATOIL_TRUCK_CARD_APPLY_NOW",""},
         {"STATOIL_COMPANY_CARD_APPLY_NOW",""},{"STATOIL_MASTER_CARD_APPLY_NOW",""},{"STATOIL_EUROPE_CARD_APPLY_NOW",""},                             
         {"ENGAGE_DISCOUNTED_PRICE",""},{"TRANSACTION_SPECIFIC",""},{"TRANSACTION_SPECIFIC_CONFIRMATION",""}, 
-        {"TRANSACTION_SPECIFIC_ERROR",""},{"ENGAGE_ODOMETER_WARNING",""},{"EDIT_ODOMETER",""}};
+        {"TRANSACTION_SPECIFIC_ERROR",""},{"ENGAGE_ODOMETER_WARNING",""},{"EDIT_ODOMETER",""},
+        {"HOME",""},{"ACCOUNT",""},{"VEHICLES",""},{"DRIVERS",""},
+        {"MESSAGES",""},{"TRANSACTIONS",""},{"INVOICE_OVERVIEW",""},{"AR_OVERVIEW",""},
+        {"CARD_SERVICES",""},{"VIEW_CARDS",""},{"NEW_CARD",""},{"PROFILES",""},
+        {"PRICING",""},{"AGREEMENTS",""},{"LIST_PRICES",""},{"SETUP",""},
+        {"WEB_PROFILES",""},{"REPORT_SETUP",""},{"ALERTS",""},{"MANAGE_USERS",""},
+        {"WEB_ASSIST",""},{"SUPPORT",""},{"CHANGE_ACCOUNT",""},{"CONTACT",""},
+        {"SELECT_ACCOUNT",""},{"CUSTOMER_VIEW",""},{"LOGOUT",""}};
 
 
     /**

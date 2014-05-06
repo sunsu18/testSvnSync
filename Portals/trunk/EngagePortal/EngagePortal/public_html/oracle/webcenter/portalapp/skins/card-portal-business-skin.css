@@ -562,8 +562,7 @@ overflow-x: hidden;
 overflow-y: auto;
 }
 
-.af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style,.af_selectOneChoice_content
-{
+.af_selectManyChoice_dropdown, .af_inputComboboxListOfValues_dropdown-icon-style{
 /*padding-right: 16px;
 background-repeat: no-repeat;
 vertical-align: text-bottom;
@@ -611,6 +610,9 @@ background-color: transparent;
 height:21px;
 }
 
+.af_inputDate_launch-icon-style, .af_panelList .af_inputDate_launch-icon-style{
+  background-image: url("/faces/images/calendar.png") !important;
+}
 
 .portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell{
     background-color: #C9C9C9 !important;
@@ -1409,10 +1411,10 @@ font-family:Arial, Helvetica, sans-serif;
 color: #524e4f;
 border-style: solid;
 border-width: 1px;
-border-top-color: #267AF8;
+/*border-top-color: #267AF8;
 border-left-color: #176AE6;
 border-bottom-color: #2977FA;
-border-right-color: #2B78FA;
+border-right-color: #2B78FA;*/
 font-family : Lucida Sans,Georgia,Serif !important;
 font-weight: normal;
 font-size: 13px;

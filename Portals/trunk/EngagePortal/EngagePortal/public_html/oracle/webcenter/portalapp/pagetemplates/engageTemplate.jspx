@@ -6,6 +6,7 @@
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
  <f:loadBundle basename="com.sfr.engage.model.resources.EngageResourceBundle" var="sfr"/> 
+ 
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
      
  <af:resource type="javascript">
@@ -109,7 +110,7 @@
                             inlineStyle="background-image: none; background-color: #F3F3F3;display: inline;">
                             <af:commandMenuItem id="pt_logoutcb" visible="#{true}"
                                action="#{LoginBean.sfrLogout}"
-                               text="Logout"/>
+                               text="#{sfr.LOGOUT}"/>
                                 </af:menu>
                               </f:facet>
                               </af:commandToolbarButton>

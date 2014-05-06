@@ -3,7 +3,7 @@
                id="default-navigation-model"
                name="Default Navigation"
                xmlns="http://xmlns.oracle.com/adf/rcs/catalog" visible="#{true}">
-  <contents>
+<contents>
     <url visible="#{true}" id="card"
          factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
          url="page://oracle/webcenter/portalapp/pages/home.jspx">
@@ -15,14 +15,16 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/pages/home.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Home"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuHome}"/>
           </attributes>
         </url>
         <url visible="#{true}" id="account"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/accounts.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Account"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuAccount}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -30,7 +32,7 @@
                  id="accountsummary"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx">
               <attributes>
-                <attribute value="Account Summary" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuAccountSummary}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -39,7 +41,7 @@
                  id="vehicles"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx">
               <attributes>
-                <attribute value="Vehicles" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuVehicles}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -48,7 +50,7 @@
                  id="drivers"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx">
               <attributes>
-                <attribute value="Drivers" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuDrivers}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -57,7 +59,7 @@
                  id="messages"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/messages.jspx">
               <attributes>
-                <attribute value="Messages" isKey="false" attributeId="Title"/>
+                <attribute value="#{MenuVisibleHelperBean.menuMessages}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
           </contents>
@@ -66,7 +68,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/transactions.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Transactions"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuTransaction}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -74,7 +77,7 @@
                  id="transactions"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/transactions.jspx">
               <attributes>
-                <attribute value="Transaction Overview" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuTransactionOverview}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -83,7 +86,7 @@
                  id="invoiceoverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx">
               <attributes>
-                <attribute value="Invoice Overview" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuInvoiceOverview}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -92,7 +95,7 @@
                  id="aroverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/aroverview.jspx">
               <attributes>
-                <attribute value="AR Overview" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuArOverview}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -102,7 +105,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Card Services"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuCardServices}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -110,7 +114,7 @@
                  id="viewcard"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx">
               <attributes>
-                <attribute value="View Cards" isKey="false" attributeId="Title"/>
+                <attribute value="#{MenuVisibleHelperBean.menuViewCards}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -118,7 +122,7 @@
                  id="newcard"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/ordernewcard.jspx">
               <attributes>
-                <attribute value="New Card" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuNewCard}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -127,7 +131,7 @@
                  id="profiles"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/cardprofile.jspx">
               <attributes>
-                <attribute value="Profiles" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuProfiles}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -137,7 +141,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/pricing.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Pricing"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuPricing}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -145,7 +150,7 @@
                  id="agreements"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/agreements.jspx">
               <attributes>
-                <attribute value="Agreements" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuAgreements}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -154,7 +159,7 @@
                  id="listprices"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx">
               <attributes>
-                <attribute value="List Prices" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuListPrices}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -164,7 +169,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/setup.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Setup"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuSetup}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -172,7 +178,7 @@
                  id="webprofile"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/webprofile.jspx">
               <attributes>
-                <attribute value="Web Profile" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuWebProfiles}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -181,7 +187,7 @@
                  id="reportsetup"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/reportsetup.jspx">
               <attributes>
-                <attribute value="Report Setup" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuReportSetup}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -190,7 +196,7 @@
                  id="alerts"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/alerts.jspx">
               <attributes>
-                <attribute value="Alerts" isKey="false" attributeId="Title"/>
+                <attribute value="#{MenuVisibleHelperBean.menuAlerts}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -198,7 +204,7 @@
                  id="manageusers"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx">
               <attributes>
-                <attribute value="Manage Users" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuManageUsers}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -208,7 +214,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/webassist.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Web Assist"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuWebAssist}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -216,7 +223,7 @@
                  id="customerview"
                  url="page://oracle/webcenter/portalapp/engagepages/webassist/customerview.jspx">
               <attributes>
-                <attribute value="Customer View" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuCustomerView}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -226,7 +233,8 @@
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/support.jspx">
           <attributes>
-            <attribute attributeId="Title" isKey="false" value="Support"/>
+            <attribute attributeId="Title" isKey="false"
+                       value="#{MenuVisibleHelperBean.menuSupport}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -234,7 +242,7 @@
                  id="contact"
                  url="page://oracle/webcenter/portalapp/engagepages/support/contact.jspx">
               <attributes>
-                <attribute value="Contact" isKey="false" attributeId="Title"/>
+                <attribute value="#{MenuVisibleHelperBean.menuContact}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
             <url visible="#{true}"
@@ -242,7 +250,7 @@
                  id="faq"
                  url="page://oracle/webcenter/portalapp/engagepages/support/faq.jspx">
               <attributes>
-                <attribute value="FAQ" isKey="false" attributeId="Title"/>
+                <attribute value="#{MenuVisibleHelperBean.menuFAQ}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
           </contents>
@@ -251,14 +259,16 @@
              id="changeaccount" visible="#{true}"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory">
           <attributes>
-            <attribute isKey="false" value="Change Account" attributeId="Title"/>
+            <attribute isKey="false"
+                       value="#{MenuVisibleHelperBean.menuChangeAccount}" attributeId="Title"/>
           </attributes>
           <contents>
             <url url="page://oracle/webcenter/portalapp/engagepages/changeaccount/selectaccount.jspx"
                  id="selectaccount" visible="#{true}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory">
               <attributes>
-                <attribute isKey="false" value="Select Account"
+                <attribute isKey="false"
+                           value="#{MenuVisibleHelperBean.menuSelectAccount}"
                            attributeId="Title"/>
               </attributes>
             </url>
@@ -267,7 +277,8 @@
                  visible="#{true}"
                  url="page://oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx">
               <attributes>
-                <attribute attributeId="Title" value="Change Password"
+                <attribute attributeId="Title"
+                           value="#{MenuVisibleHelperBean.menuChangePassword}"
                            isKey="false"/>
               </attributes>
             </url>
