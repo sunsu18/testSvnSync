@@ -13,11 +13,34 @@
     <iterator Binds="PrtInvoiceVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtInvoiceVO1Iterator"/>
+    <iterator Binds="PrtHomeInvoiceRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtHomeInvoiceRVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
       <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceVO"
                       Name="PrtInvoiceVO10">
+        <AttrNames>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceDueDate"/>
+          <Item Value="TotalAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtHomeInvoiceRVO1Iterator" id="PrtHomeInvoiceRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"
+                      Name="PrtHomeInvoiceRVO10">
+        <AttrNames>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="InvoiceDueDate"/>
+          <Item Value="TotalAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtHomeInvoiceRVO1Iterator" id="PrtHomeInvoiceRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"
+                      Name="PrtHomeInvoiceRVO110">
         <AttrNames>
           <Item Value="InvoiceNumber"/>
           <Item Value="InvoiceDueDate"/>

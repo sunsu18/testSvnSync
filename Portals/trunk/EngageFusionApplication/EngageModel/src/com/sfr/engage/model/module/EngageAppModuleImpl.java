@@ -424,4 +424,20 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         this.setSysDate(newJboDate);
         return newJboDate;
     }
+
+    /**
+     * Container's getter for PrtHomeInvoiceRVO1.
+     * @return PrtHomeInvoiceRVO1
+     */
+    public ViewObjectImpl getPrtHomeInvoiceRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO1");
+    }
+
+    /**
+     * Container's getter for PrtHomeInvoiceRVO2.
+     * @return PrtHomeInvoiceRVO2
+     */
+    public ViewObjectImpl getPrtHomeInvoiceRVO2() {
+        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO2");
+    }
 }

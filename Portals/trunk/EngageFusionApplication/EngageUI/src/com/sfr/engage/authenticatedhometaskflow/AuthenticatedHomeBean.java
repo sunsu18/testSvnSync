@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.util.Locale;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -35,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.share.logging.ADFLogger;
+import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
@@ -59,6 +62,10 @@ public class AuthenticatedHomeBean implements Serializable {
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
+    private String country=null;
+    private Locale locale;
+    Conversion conversionUtility;
+    
 
 
     /**
@@ -72,7 +79,12 @@ public class AuthenticatedHomeBean implements Serializable {
     }
     
     //TODO : Add java docs for all methods.
-    public AuthenticatedHomeBean() {        
+    public AuthenticatedHomeBean() {   
+        conversionUtility = new Conversion();
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        
         Date date = new Date();        
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
         ViewObject prtCustomerCardMapVO =
@@ -187,9 +199,6 @@ public class AuthenticatedHomeBean implements Serializable {
                     prtPCMFeedsVO.executeQuery();
                 }
                 
-                ectx = FacesContext.getCurrentInstance().getExternalContext();
-                request = (HttpServletRequest)ectx.getRequest();
-                session = request.getSession(false);
                 
                 if(session.getAttribute("Partner_Object_List") != null){
                     partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
@@ -198,7 +207,15 @@ public class AuthenticatedHomeBean implements Serializable {
                     if(partnerInfo != null){
                         log.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
                    
-                
+                        if(partnerInfo.getCountry() !=null){
+                        
+                                    country=partnerInfo.getCountry().toString().substring(3);
+                                     
+                         
+                         }else{
+                                 country="SE";
+                             }
+                                 locale = conversionUtility.getLocaleFromCountryCode(country);
                 
                 
                 if (partnerInfo.getAccountList() != null &&
@@ -232,27 +249,33 @@ public class AuthenticatedHomeBean implements Serializable {
                         }
                     }
                 }
-                //        for(int i=0; i<cards.size(); i++){
-                //            System.out.println("cards List"+cards.get(i).toString());
-                //        }
+                
                 
                 String idList = cards.toString();
                 System.out.println("arraylist to string " + idList);
-                String cardId = idList.substring(1, idList.length() - 1).replace("","");
+                String cardId = idList.substring(1, idList.length() - 1).replace(" ","");
 
-                            ViewObject vo = ADFUtils.getViewObject("PrtInvoiceVO1Iterator");
+                            ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
                 vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
-                vo.defineNamedWhereClauseParam("countrycode", "no_NO", null);
+                vo.defineNamedWhereClauseParam("countrycode", country, null);
                 vo.defineNamedWhereClauseParam("cards", cardId, null);
-                vo.setOrderByClause("INVOICE_DATE");
+//                vo.setOrderByClause("INVOICE_DATE DESC");
                 vo.executeQuery();
+                
                             if (vo.getEstimatedRowCount() != 0) {
                                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
-                    vo.removeNamedWhereClauseParam("countrycode");
-                    vo.removeNamedWhereClauseParam("cards");
-                    vo.setWhereClause("");
-                    vo.executeQuery();
-                }
+                                vo.removeNamedWhereClauseParam("countrycode");
+                                vo.removeNamedWhereClauseParam("cards");
+                                vo.setWhereClause("");
+                                vo.executeQuery();
+                                }
+                            else{
+                                vo.removeNamedWhereClauseParam("countrycode");
+                                vo.removeNamedWhereClauseParam("cards");
+                                vo.setWhereClause("");
+                                vo.executeQuery();
+                                getBindings().getInvoiceTable().setEmptyText("NO DATA FOR LATEST INVOICES");
+                            }
                    
                     }
 
@@ -322,14 +345,14 @@ public class AuthenticatedHomeBean implements Serializable {
         return customerTypeValue;
     }
 
-
+    
 
 
     public class Bindings {
         private RichOutputText infoText;
         private RichPanelGroupLayout infoPanel;
         private RichSpacer bindingSpacer;
-        
+        private RichTable invoiceTable;
         public void setInfoText(RichOutputText infoText) {
             this.infoText = infoText;
         }
@@ -344,6 +367,13 @@ public class AuthenticatedHomeBean implements Serializable {
 
         public RichPanelGroupLayout getInfoPanel() {
             return infoPanel;
+        }
+        public void setInvoiceTable(RichTable invoiceTable) {
+            this.invoiceTable = invoiceTable;
+        }
+
+        public RichTable getInvoiceTable() {
+            return invoiceTable;
         }
         
     }
