@@ -69,7 +69,7 @@
              url="page://oracle/webcenter/portalapp/engagepages/menus/transactions.jspx">
           <attributes>
             <attribute attributeId="Title" isKey="false"
-                       value="#{MenuVisibleHelperBean.menuTransaction}"/>
+                       value="#{MenuVisibleHelperBean.menuTransactions}"/>
           </attributes>
           <contents>
             <url visible="#{true}"
@@ -95,7 +95,7 @@
                  id="aroverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/aroverview.jspx">
               <attributes>
-                <attribute value="#{MenuVisibleHelperBean.menuArOverview}" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuAROverview}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
