@@ -159,7 +159,7 @@
                  id="listprices"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx">
               <attributes>
-                <attribute value="#{MenuVisibleHelperBean.menuListPrices}" isKey="false"
+                <attribute value="#{MenuVisibleHelperBean.menuListPrice}" isKey="false"
                            attributeId="Title"/>
               </attributes>
             </url>
