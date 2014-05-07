@@ -26,7 +26,8 @@
          value="${facesContext.externalContext.requestContextPath}"
          scope="session"/>
   <af:pageTemplateDef var="attrs">
-    <af:panelGroupLayout id="pt_pgl11" layout="scroll"
+ <!-- add scroll to pgl11-->
+    <af:panelGroupLayout id="pt_pgl11"
                          inlineStyle="height:auto;overflow-x:hidden;">
       <af:panelGroupLayout id="pt_pgl4"
                            styleClass="marginIE AFStretchWidth headerBGColor secondaryMenu"
