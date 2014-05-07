@@ -619,17 +619,18 @@ background-color: #f2ad00;
     background-repeat: no-repeat !important;
     background-size: 7px auto !important;
     padding:0px !important;
-background-image: url("/faces/images/arrow_orange_down.jpg") !important;
+
 /*background-color: #f2ad00;*/
 }
+
 
 .af_selectManyChoice_content,.af_selectOneChoice_content {
 font-family : Lucida Sans,Georgia,Serif !important;
 font-weight: normal;
 font-size: 14px !important;
 border: 0px;
-width: 155px;
-padding: 0px 2px 0px 3px;
+
+/*padding: 0px 2px 0px 3px;*/
 margin: 0px;
 color: #524e4f;
 background-color: transparent;
@@ -1020,6 +1021,13 @@ font-style:normal;
     margin-bottom: 50px;
 }
 
+.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style{
+        background-image: url("/faces/images/moz_drop.png") !important;
+	width: 18px;
+	height: 21px;
+        padding: 4.5px 16px 5px 1px !important;
+}
+
 
 }
 /*chrome*/
@@ -1042,6 +1050,20 @@ font-style:normal;
    
     padding-right: 1px;
     margin-bottom: 5px;
+}
+
+.moz_drop,.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style{
+    background-image: url("/faces/images/moz_drop.png") !important;
+    height: 19px;
+    width: 18px;
+}
+
+.af_selectManyChoice_content{
+    height: 15px;
+}
+
+.af_selectManyChoice_control{
+    padding:0px;
 }
 
 }
@@ -1077,8 +1099,37 @@ font-style:normal;
     margin-bottom: 50px;
 }
 
+.af_inputComboboxListOfValues_dropdown-icon-style:hover, .af_selectManyChoice_dropdown-icon-style:hover,.ie_drop,.af_selectManyChoice_dropdown-icon-style, .af_inputComboboxListOfValues_dropdown-icon-style{
+    background-image: url("/faces/images/ie_drop.png") !important;
+    height: 19px;
+    width: 18px;
+    margin-top:-10px;
+    margin-bottom:-8px;
+    margin-left:-14px;
+    padding:1px 0px 3px 1px;
+}
+
+.AFContentCell .af_selectManyChoice_control{
+    padding-bottom:4px;
+    margin-left:-1px;
+}
+
+
+.af_selectManyChoice_content{
+   padding:0px 16px 0px 3px;
+}
+
+
 
  }
+ 
+ 
+ .af_selectManyChoice_control,.af_inputDate_content, .af_inputListOfValues_content{
+     background-image:none !important;
+     border-color: #AFAFAF;
+ }
+ 
+ 
  
 .af_commandButton.p_AFTextOnly,.af_dialog_footer-button
 {
@@ -1261,7 +1312,7 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed, .open{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed,.open{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1362,7 +1413,11 @@ font-weight:bold;
 
 
 
+
 /* Menu Popup */
+
+
+
 
 .AFPopupMenuPopup{
      background-image: none;

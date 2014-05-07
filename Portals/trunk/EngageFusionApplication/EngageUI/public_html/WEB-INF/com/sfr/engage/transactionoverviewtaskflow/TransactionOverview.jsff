@@ -73,7 +73,7 @@
                                 unselectedLabel="&lt;Please Select>"
                                 value="#{pageFlowScope.TransactionOverviewBean.accountIdValue}"
                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.account}"
-                                autoSubmit="true" contentStyle="width: 168px;"
+                                autoSubmit="true" contentStyle="width: 175px;"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.accountValueChangeListener}">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.accountIdList}"
                     var="listItem">
