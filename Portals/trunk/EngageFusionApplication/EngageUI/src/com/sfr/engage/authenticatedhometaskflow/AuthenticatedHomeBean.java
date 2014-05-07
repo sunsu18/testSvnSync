@@ -30,6 +30,8 @@ import java.util.List;
 
 import java.util.Locale;
 
+import java.util.ResourceBundle;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -69,10 +71,13 @@ public class AuthenticatedHomeBean implements Serializable {
     private String country=null;
     private Locale locale;
     Conversion conversionUtility;
+    private String emptyText=null;
     private User user = null;
     private boolean roleCsr = false;
     private RichPanelGroupLayout authenticatedPanel;
-
+    ResourceBundle resourceBundle;
+    private boolean authenticatedPanelVisible =false;
+    private boolean invoicesPanel = false; 
 
     /**
      * @return bindings Object
@@ -85,13 +90,13 @@ public class AuthenticatedHomeBean implements Serializable {
     }
     
     //TODO : Add java docs for all methods.
-    public AuthenticatedHomeBean() {   
+    public AuthenticatedHomeBean() {
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        
-        Date date = new Date();        
+        resourceBundle = new EngageResourceBundle();
+        Date date = new Date();
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
         ViewObject prtCustomerCardMapVO =
             ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
@@ -108,7 +113,7 @@ public class AuthenticatedHomeBean implements Serializable {
         }
         //TODO : This block could be surrounded by try catch block.
         //TODO : Check if the below queries can be merged and make it one, otherwise okay.
-     
+
         try {
             if (customerTypeValue != null) {
                 ViewObject prtPCMFeedsVO =
@@ -162,7 +167,7 @@ public class AuthenticatedHomeBean implements Serializable {
                 prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
                                                           "MESSAGES", null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                          "se_SE", null);
+                                                          "no_NO", null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
                                                           passedDate, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
@@ -204,29 +209,32 @@ public class AuthenticatedHomeBean implements Serializable {
                     prtPCMFeedsVO.setWhereClause("");
                     prtPCMFeedsVO.executeQuery();
                 }
-                
-                
-                if(session.getAttribute("Partner_Object_List") != null){
-                    partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
+
+            }
+            if (session.getAttribute("Partner_Object_List") != null) {
+                partnerInfo =
+                        (PartnerInfo)session.getAttribute("Partner_Object_List");
+            }
+
+            if (partnerInfo != null) {
+                log.fine(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Inside partner info object");
+
+                if (partnerInfo.getCountry() != null) {
+
+                    country = partnerInfo.getCountry().toString();
+
+
+                } else {
+                    country = "se_SE";
                 }
-                
-                    if(partnerInfo != null){
-                        log.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
-                   
-                        if(partnerInfo.getCountry() !=null){
-                        
-                                    country=partnerInfo.getCountry().toString().substring(3);
-                                     
-                         
-                         }else{
-                                 country="SE";
-                             }
-                                 locale = conversionUtility.getLocaleFromCountryCode(country);
-                
-                
+                locale = conversionUtility.getLocaleFromCountryCode(country);
+
+
                 if (partnerInfo.getAccountList() != null &&
                     partnerInfo.getAccountList().size() > 0) {
-                    for (int i = 0; i < partnerInfo.getAccountList().size(); i++) {
+                    for (int i = 0; i < partnerInfo.getAccountList().size();
+                         i++) {
                         if (partnerInfo.getAccountList().get(i) != null) {
                             if (partnerInfo.getAccountList().get(i).getCardGroup() !=
                                 null &&
@@ -243,7 +251,8 @@ public class AuthenticatedHomeBean implements Serializable {
                                              m < partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size();
                                              m++) {
                                             cards.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
-                                            System.out.println("CardList--->"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
+                                            System.out.println("CardList--->" +
+                                                               partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
 
 
                                         }
@@ -255,80 +264,58 @@ public class AuthenticatedHomeBean implements Serializable {
                         }
                     }
                 }
-                        String idList = cards.toString();
-                        // System.out.println("arraylist to string " + idList);
-                        String cardId = idList.substring(1, idList.length() - 1).replace(" ","");
-                        
-                        System.out.println("arraylist after conversion is " + cardId);
-                        
-                        if (session != null) {
-                       user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                            roleCsr = false;
-                        for (int i = 0; i < user.getRoleList().size();
-                             i++) {
+                String idList = cards.toString();
+                String cardId =
+                    idList.substring(1, idList.length() - 1).replace(" ", "");
 
-                            if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_CSR))
-                                roleCsr = true;
-                             }
-                        
-                        
-                        if(roleCsr) {
-                            authenticatedPanel.setVisible(false);
-                            AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
-                            System.out.println("Authenticated Panel should not be visible");
-                        
-                        
-                            
-                        }
-                        else {
-                            System.out.println("Authenticated Panel should  be visible");
-                            //authenticatedPanel.setVisible(true);
-                            //AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
-                            ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
-                            vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
-                            vo.defineNamedWhereClauseParam("countrycode", country, null);
-                            vo.defineNamedWhereClauseParam("cards", cardId, null);
-                            vo.executeQuery();
-                            if (vo.getEstimatedRowCount() != 0) {
-                                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
-                                vo.removeNamedWhereClauseParam("countrycode");
-                                vo.removeNamedWhereClauseParam("cards");
-                                vo.setWhereClause("");
-                                vo.executeQuery();
-                                }
-                            else{
-                                vo.removeNamedWhereClauseParam("countrycode");
-                                vo.removeNamedWhereClauseParam("cards");
-                                vo.setWhereClause("");
-                                vo.executeQuery();
-                                //getBindings().getInvoiceTable().setEmptyText("NO DATA FOR LATEST INVOICES");
-                            }
-                            
-                            ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
-                            latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
-                            latestTransactionVO.setNamedWhereClauseParam("countryCode", "no_NO");
-                            latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
-                            
-                            latestTransactionVO.executeQuery();
-                        }
-                
-                        }
+                System.out.println("arraylist after conversion is " + cardId);
+
+                if (session != null) {
+                user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                roleCsr = false;
+                if (user.getRolelist().contains(Constants.ROLE_WCP_B2C) || user.getRolelist().contains(Constants.ROLE_WCP_B2BM) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
+                { 
+                authenticatedPanelVisible = true;
+                  
+            
+                }
+                else if(user.getRolelist().contains(Constants.ROLE_WCP_B2BEMP)) {
+                authenticatedPanelVisible = true;
+                invoicesPanel = false;
+
+                }else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
+                authenticatedPanelVisible = false;
+                }
+
+                    if(!authenticatedPanelVisible) {
+
+                    //authenticatedPanel.setVisible(false);
+                    //AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
+                    System.out.println("Authenticated Panel should not be visible");
+                    //authenticatedPanelVisible = false;
 
 
 
-                        
-                   
+                    } 
+                    else{
+                     System.out.println("Authenticated Panel should be visible"); 
+
+                    searchInvoices(cardId, country);
+                    searchTransactions(cardId, country);
+
                     }
 
+                }
             }
+
+
         } catch (Exception e) {
-           
+
             e.printStackTrace();
         }
-    
-    
-        
-        }
+
+
+    }
         
 
        
@@ -386,6 +373,50 @@ public class AuthenticatedHomeBean implements Serializable {
         return customerTypeValue;
     }
 
+    private void searchInvoices(String cardId, String country) {
+        ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
+        if("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode".equalsIgnoreCase(vo.getWhereClause())){
+        vo.removeNamedWhereClauseParam("countrycode");
+        vo.removeNamedWhereClauseParam("cards");
+        vo.setWhereClause("");
+        vo.executeQuery();
+        }
+        
+         vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
+         vo.defineNamedWhereClauseParam("countrycode", country, null);
+         vo.defineNamedWhereClauseParam("cards", cardId, null);
+        //                vo.setOrderByClause("INVOICE_DATE DESC");
+         vo.executeQuery();
+         
+                     if (vo.getEstimatedRowCount() != 0) {
+                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
+                         
+                         }
+                     else{
+                        
+                         emptyText = (String)resourceBundle.getObject("NO_INVOICES_TO_DISPLAY");
+                     }
+        
+        
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setEmptyText(String emptyText) {
+        this.emptyText = emptyText;
+    }
+
+    public String getEmptyText() {
+        return emptyText;
+    }
+
+
     public void setRoleCsr(boolean roleCsr) {
         this.roleCsr = roleCsr;
     }
@@ -400,6 +431,50 @@ public class AuthenticatedHomeBean implements Serializable {
 
     public RichPanelGroupLayout getAuthenticatedPanel() {
         return authenticatedPanel;
+    }
+
+    public void setAuthenticatedPanelVisible(boolean authenticatedPanelVisible) {
+        this.authenticatedPanelVisible = authenticatedPanelVisible;
+    }
+
+    public boolean isAuthenticatedPanelVisible() {
+        return authenticatedPanelVisible;
+    }
+
+    public void setInvoicesPanel(boolean invoicesPanel) {
+        this.invoicesPanel = invoicesPanel;
+    }
+
+    public boolean isInvoicesPanel() {
+        return invoicesPanel;
+    }
+
+    private void searchTransactions(String cardId, String country) {
+        ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
+        if("INSTR(:cards,KSID)<>0".equalsIgnoreCase(latestTransactionVO.getWhereClause())){
+        latestTransactionVO.removeNamedWhereClauseParam("countrycode");
+        latestTransactionVO.removeNamedWhereClauseParam("cards");
+        latestTransactionVO.setWhereClause("");
+        latestTransactionVO.executeQuery();
+        System.out.println("removing where clause");
+        }
+        
+        
+        
+        latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
+        latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
+        latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
+        
+        latestTransactionVO.executeQuery();
+        if (latestTransactionVO.getEstimatedRowCount() != 0) {
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + latestTransactionVO.getEstimatedRowCount());
+            
+            }
+        else{
+           
+            emptyText = (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS");
+        }
+        
     }
 
 

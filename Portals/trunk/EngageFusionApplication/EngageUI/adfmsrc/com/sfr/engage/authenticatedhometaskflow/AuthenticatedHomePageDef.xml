@@ -18,7 +18,7 @@
               ascending="false"/>
               </sortCriteria>-->
               </iterator>
-    <iterator Binds="PrtHomeInvoiceRVO1" RangeSize="25"
+    <iterator Binds="PrtHomeInvoiceRVO1" RangeSize="5"
               DataControl="EngageAppModuleDataControl"
               id="PrtHomeInvoiceRVO1Iterator"/>
     <iterator Binds="PrtHomeTransactionsRVO1" RangeSize="25"
@@ -42,18 +42,9 @@
                       Name="PrtHomeInvoiceRVO10">
         <AttrNames>
           <Item Value="InvoiceNumber"/>
-          <Item Value="InvoiceDueDate"/>
+          <Item Value="InvoiceDate"/>
           <Item Value="TotalAmount"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
-    <tree IterBinding="PrtHomeInvoiceRVO1Iterator" id="PrtHomeInvoiceRVO11">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"
-                      Name="PrtHomeInvoiceRVO110">
-        <AttrNames>
-          <Item Value="InvoiceNumber"/>
           <Item Value="InvoiceDueDate"/>
-          <Item Value="TotalAmount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

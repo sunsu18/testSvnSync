@@ -32,168 +32,113 @@
   </af:panelGroupLayout>
   </af:panelGroupLayout>
   <af:spacer width="10" height="15" id="s3"/>
-    <af:panelGroupLayout id="pgl16" layout="horizontal" halign="left"
-                         inlineStyle="width:962.0px;"
-                         binding="#{pageFlowScope.AuthenticatedHomeBean.authenticatedPanel}">
-      <af:panelGroupLayout id="pgl22" layout="vertical">
-      <af:panelGroupLayout id="pgl6" layout="vertical">
-      <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4" styleClass="heading1"/>
-      <af:spacer width="10" height="10" id="s4"/>
-    </af:panelGroupLayout>
-    
-    <af:panelGroupLayout id="pgl3" layout="scroll"
-                       inlineStyle="height:314px; width:300px;margin-left:10px;"
-                       styleClass="box-shadow panelbackground">
-      
-      <af:spacer width="7" height="5" id="s6"/>
-    
-    <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
-                    var="var">
-                    
-    <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top">
-     <af:spacer width="7" height="20" id="s9"/>
-      <af:panelGroupLayout id="pgl5"
-                           layout="horizontal" styleClass="message_bell"
-                          />
-                          <af:spacer width="7" height="30" id="s5"/>
-          <af:panelGroupLayout id="pgl9"
-                               inlineStyle="width:200px; height:100.0px;" halign="start">
-          <af:outputText value="#{var.message}" id="ot3" styleClass="contenttext"
-                    inlineStyle="padding-right:5px;"/>
-                       <af:spacer width="7" height="30" id="s7"/>
-                     </af:panelGroupLayout>
-        </af:panelGroupLayout>
-       
-    </af:forEach>
-</af:panelGroupLayout>
-</af:panelGroupLayout>
-      <af:spacer width="20" height="10" id="s20"/>
-      <af:panelGroupLayout id="pgl23" layout="vertical" visible="true">
-      <af:panelGroupLayout id="pgl11" layout="vertical">
-      <af:outputText value="Latest Invoices" id="ot5" styleClass="heading1"/>
-      <af:spacer width="10" height="10" id="s10"/>
-        </af:panelGroupLayout>
-    
-    <af:panelGroupLayout id="pgl12" layout="vertical"
-                       inlineStyle="height:314px; width:275px;"
-                       styleClass="box-shadow panelbackground">
-      
-      <af:spacer width="7" height="5" id="s11"/>
-    
- 
-    <af:panelGroupLayout id="pgl13" layout="horizontal" valign="top">
-      <af:panelGroupLayout id="pgl14"
-                           layout="vertical"
-                          inlineStyle="width:275.0px;">
-                        
-              <af:table value="#{bindings.PrtHomeInvoiceRVO11.collectionModel}"
-                        var="row" 
-                        rows="#{bindings.PrtHomeInvoiceRVO11.rangeSize}"
-                        emptyText="#{bindings.PrtHomeInvoiceRVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
-                        fetchSize="#{bindings.PrtHomeInvoiceRVO11.rangeSize}"
-                        rowBandingInterval="0" id="t1" width="275px" contentDelivery="immediate"
-                        inlineStyle="height:auto;">
-                <af:column sortProperty="Invoice No." sortable="false"
-                           headerText="#{bindings.PrtHomeInvoiceRVO11.hints.InvoiceNumber.label}"
-                           id="c2" width="100">
-                  <af:outputText value="#{row.InvoiceNumber}" id="ot9"/>
-                </af:column>
-                <af:column sortProperty="Invoice Due Date" sortable="false"
-                           headerText="#{bindings.PrtHomeInvoiceRVO11.hints.InvoiceDueDate.label}"
-                           id="c3" width="70">
-                  <af:outputText value="#{row.InvoiceDueDate}" id="ot11">
-                    <af:convertDateTime pattern="dd.MM.yyyy"/>
-                  </af:outputText>
-                </af:column>
-                <af:column sortProperty="TotalAmount" sortable="false" width="80"
-                           headerText="#{bindings.PrtHomeInvoiceRVO11.hints.TotalAmount.label}"
-                           id="c1">
-                  <af:outputText value="#{row.TotalAmount}" id="ot10">
-                    <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.PrtHomeInvoiceRVO11.hints.TotalAmount.format}"/>
-                  </af:outputText>
-                </af:column>
-              </af:table>
-                <af:spacer width="10" height="10" id="s23"/>
-                <af:panelGroupLayout id="pgl25" halign="right" layout="horizontal"
-                               valign="top"
-                               inlineStyle="height:15px; width:300px; background-image:none; padding:0px;"
-                               styleClass="AFStretchWidth">
-            <af:spacer width="20" id="s22"/>
-            <af:goLink id="gl2" inlineStyle="color:#F89518;" text="View All"
-                       destination="#{navigationContext.currentNavigationModel.node['card/My_Transactions'].goLinkPrettyUrl}&quot;/>"/>
+    <af:panelGroupLayout id="pgl16" layout="vertical" halign="left"
+                         inlineStyle="width:962.0px;" visible="#{pageFlowScope.AuthenticatedHomeBean.authenticatedPanelVisible}"
+                         valign="top">
+      <af:panelGroupLayout id="pgl32" layout="horizontal"
+                           inlineStyle="height:628.0px;" valign="top">
+        <af:panelGroupLayout id="panelGroupLayout1" layout="vertical"
+                             inlineStyle="width:300px; height:628.0px;" valign="top">
+          <af:panelGroupLayout id="panelGroupLayout2" layout="vertical"
+                               inlineStyle="width:300.0px;">
+            <af:outputText value="Account Summary" id="outputText1"
+                           styleClass="heading1"/>
+            <af:spacer width="10" height="10" id="spacer1"/>
+          </af:panelGroupLayout>
+          <af:panelGroupLayout id="panelGroupLayout3" layout="scroll"
+                               inlineStyle="height:628px; width:300px;margin-left:10px;"
+                               styleClass="box-shadow panelbackground">
+            <af:spacer width="7" height="5" id="spacer2"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
+        <af:spacer width="50" height="10" id="s14"/>
+        <af:panelGroupLayout id="pgl33" layout="vertical">
+          <af:panelGroupLayout id="pgl22" layout="vertical"
+                               inlineStyle="width:600.0px;">
+            <af:panelGroupLayout id="pgl6" layout="vertical"
+                                 inlineStyle="width:300.0px;">
+              <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4"
+                             styleClass="heading1"/>
+              <af:spacer width="10" height="10" id="s4"/>
             </af:panelGroupLayout>
-                         
-        </af:panelGroupLayout>
-       
-    </af:panelGroupLayout>
-      <af:spacer width="20" height="10" id="s21"/>
-      <af:panelGroupLayout id="pgl28" layout="vertical" visible="true">
-      <af:panelGroupLayout id="pgl29" layout="vertical">
-      <af:outputText value="Latest Transactions" id="ot14" styleClass="heading1"/>
-      <af:spacer width="10" height="10" id="s14"/>
-        </af:panelGroupLayout>
-    
-    <af:panelGroupLayout id="pgl30" layout="vertical"
-                       inlineStyle="height:314px; width:470px;"
-                       styleClass="box-shadow panelbackground">
-      
-      <af:spacer width="7" height="5" id="s13"/>
-    
- 
-       <af:panelGroupLayout id="pgl26" layout="horizontal" valign="top">
-      <af:panelGroupLayout id="pgl27"
-                           layout="vertical"
-                          >
-              <af:table value="#{bindings.PrtHomeTransactionsRVO1.collectionModel}"
-                        var="row"
-                        rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
-                        emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                        fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
-                        rowBandingInterval="0" id="t2" width="467"
-                        inlineStyle="height:280.0px;overflow:hidden;"
-                        summary="Latest Transactions">
-                <af:column sortProperty="TransactionDt" sortable="false"
-                           headerText="Date"
-                           id="c8" width="65">
-                  <af:outputText value="#{row.TransactionDt}" id="ot6">
-                    <af:convertDateTime pattern="#{bindings.PrtHomeTransactionsRVO1.hints.TransactionDt.format}"/>
-                  </af:outputText>
-                </af:column>
-                <af:column sortProperty="Card1Id" sortable="false"
-                           headerText="Card"
-                           id="c5" width="150">
-                  <af:outputText value="#{row.Card1Id}" id="ot16"/>
-                </af:column>
-                <af:column sortProperty="StationName" sortable="false"
-                           headerText="Station Name"
-                           id="c9" width="60">
-                  <af:outputText value="#{row.StationName}" id="ot12"/>
-                </af:column>
-                <af:column sortProperty="ProductName" sortable="false"
-                           headerText="Product Name"
-                           id="c4" width="95">
-                  <af:outputText value="#{row.ProductName}" id="ot15"/>
-                </af:column>
-                <af:column sortProperty="Quantity" sortable="false"
-                           headerText="Quantity"
-                           id="c6" width="65">
-                            <af:panelGroupLayout id="pgl31" layout="horizontal"
-                                       halign="left">
-                  <af:outputText value="#{row.Quantity}" id="ot17">
-                    <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
-                  </af:outputText>
-                  <af:spacer width="4" id="s24"/>
-                   <af:outputText value="#{row.UnitOfMeasure}" id="ot13"/>
+            <af:panelGroupLayout id="pgl3" layout="scroll"
+                                 inlineStyle="height:314px; width:600px;margin-left:10px;"
+                                 styleClass="box-shadow panelbackground">
+              <af:spacer width="7" height="5" id="s6"/>
+              <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
+                          var="var">
+                <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top">
+                  <af:spacer width="7" height="20" id="s9"/>
+                  <af:panelGroupLayout id="pgl5" layout="horizontal"
+                                       styleClass="message_bell"/>
+                  <af:spacer width="7" height="30" id="s5"/>
+                  <af:panelGroupLayout id="pgl9"
+                                       inlineStyle="width:200px; height:100.0px;"
+                                       halign="start">
+                    <af:outputText value="#{var.message}" id="ot3"
+                                   styleClass="contenttext"
+                                   inlineStyle="padding-right:5px;"/>
+                    <af:spacer width="7" height="30" id="s7"/>
                   </af:panelGroupLayout>
-                </af:column>
-               
-                
-              </af:table>
-              <!--<af:table value="#{bindings.PrtLatestCardTransactionsRVO1.collectionModel}"
+                </af:panelGroupLayout>
+              </af:forEach>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+          <af:spacer width="10" height="10" id="s11"/>
+          <af:panelGroupLayout id="pgl28" layout="vertical" visible="true">
+            <af:panelGroupLayout id="pgl29" layout="vertical">
+              <af:outputText value="Latest Transactions" id="ot14"
+                             styleClass="heading1"/>
+              <!--<af:spacer width="10" height="10" id="s14"/>-->
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl30" layout="vertical"
+                                 inlineStyle="height:280px; width:470px;"
+                                 styleClass="box-shadow panelbackground">
+              <af:spacer width="7" height="5" id="s13"/>
+              <af:panelGroupLayout id="pgl26" layout="vertical" valign="top">
+                <af:panelGroupLayout id="pgl27" layout="vertical">
+                  <af:table value="#{bindings.PrtHomeTransactionsRVO1.collectionModel}"
+                            var="row"
+                            rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
+                            emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                            fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
+                            rowBandingInterval="1" id="t2" width="467"
+                            inlineStyle="height:280.0px;overflow:hidden;"
+                            summary="Latest Transactions"
+                            columnResizing="disabled"
+                            disableColumnReordering="true">
+                    <af:column sortProperty="TransactionDt" sortable="false"
+                               headerText="Date" id="c8" width="65">
+                      <af:outputText value="#{row.TransactionDt}" id="ot11">
+                        <af:convertDateTime pattern="#{bindings.PrtHomeTransactionsRVO1.hints.TransactionDt.format}"/>
+                      </af:outputText>
+                    </af:column>
+                    <af:column sortProperty="Card1Id" sortable="false"
+                               headerText="Card" id="c5" width="150">
+                      <af:outputText value="#{row.Card1Id}" id="ot16"/>
+                    </af:column>
+                    <af:column sortProperty="StationName" sortable="false"
+                               headerText="Station Name" id="c9" width="60">
+                      <af:outputText value="#{row.StationName}" id="ot12"/>
+                    </af:column>
+                    <af:column sortProperty="ProductName" sortable="false"
+                               headerText="Product Name" id="c4" width="95">
+                      <af:outputText value="#{row.ProductName}" id="ot15"/>
+                    </af:column>
+                    <af:column sortProperty="Quantity" sortable="false"
+                               headerText="Quantity" id="c6" width="65">
+                      <af:panelGroupLayout id="pgl31" layout="horizontal"
+                                           halign="left">
+                        <af:outputText value="#{row.Quantity}" id="ot17">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
+                        </af:outputText>
+                        <af:spacer width="4" id="s24"/>
+                        <af:outputText value="#{row.UnitOfMeasure}" id="ot13"/>
+                      </af:panelGroupLayout>
+                    </af:column>
+                  </af:table>
+                  <!--<af:table value="#{bindings.PrtLatestCardTransactionsRVO1.collectionModel}"
                         var="row"
                         rows="#{bindings.PrtLatestCardTransactionsRVO1.rangeSize}"
                         emptyText="#{bindings.PrtLatestCardTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
@@ -241,55 +186,118 @@
                  
            
               </af:table>-->
-              
+                </af:panelGroupLayout>
+                <af:panelGroupLayout id="panelGroupLayout4" halign="left"
+                                     layout="horizontal" valign="top"
+                                     inlineStyle="height:15px;background-image:none; padding:0px;">
+                  <af:spacer width="350" id="spacer3"/>
+                  <af:goLink id="goLink1" inlineStyle="color:#F89518;"
+                             text="View All"
+                             destination="#{navigationContext.currentNavigationModel.node['card/transaction/invoiceoverview'].goLinkPrettyUrl}&quot;/>"/>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
             </af:panelGroupLayout>
-                          <!--<af:spacer width="7" height="30" id="s13"/>-->
-          <!--<af:panelGroupLayout id="pgl15"
-                               inlineStyle="width:200px; height:100.0px;" halign="start">
-          <af:outputText value="" id="ot6" styleClass="contenttext"
-                    inlineStyle="padding-right:5px;"/>
-                       <af:spacer width="7" height="30" id="s14"/>
-                     </af:panelGroupLayout>-->
-        </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl15" halign="right" layout="horizontal"
-                               valign="top"
-                               inlineStyle="height:15px; width:300px; background-image:none; padding:0px;"
-                               styleClass="AFStretchWidth">
-            <af:spacer width="20" id="s12"/>
-            <af:goLink id="gl1" inlineStyle="color:#F89518;" text="View All"
-                       destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
-    </af:panelGroupLayout>
-      <af:panelGroupLayout id="pgl24" layout="vertical" visible="false">
-      <af:panelGroupLayout id="pgl17" layout="vertical">
-      <af:outputText value="test panel 2" id="ot7" styleClass="heading1"/>
-      <af:spacer width="10" height="10" id="s15"/>
-    </af:panelGroupLayout>
-    
-    <af:panelGroupLayout id="pgl18" layout="scroll"
-                       inlineStyle="height:314px; width:300px;"
-                       styleClass="box-shadow panelbackground">
-      
-      <af:spacer width="7" height="5" id="s16"/>
-    
- 
-    <af:panelGroupLayout id="pgl19" layout="horizontal" valign="top">
-     <af:spacer width="7" height="20" id="s17"/>
-      <af:panelGroupLayout id="pgl20"
-                           layout="horizontal"
-                          />
-                          <af:spacer width="7" height="30" id="s18"/>
-          <af:panelGroupLayout id="pgl21"
-                               inlineStyle="width:200px; height:100.0px;" halign="start">
-          <af:outputText value="" id="ot8" styleClass="contenttext"
-                    inlineStyle="padding-right:5px;"/>
-                       <af:spacer width="7" height="30" id="s19"/>
-                     </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <af:spacer width="10" height="10" id="s20"/>
+      <af:panelGroupLayout id="pgl34" layout="horizontal">
+        <af:panelGroupLayout id="pgl23" layout="vertical"
+                             visible="#{pageFlowScope.AuthenticatedHomeBean.invoicesPanel}"
+                             inlineStyle="width:314.0px;padding-left:6px;">
+          <af:panelGroupLayout id="pgl11" layout="vertical">
+            <af:outputText value="Latest Invoices" id="ot5"
+                           styleClass="heading1"/>
+            <af:spacer width="10" height="10" id="s10"/>
+          </af:panelGroupLayout>
+          <af:spacer width="10" id="spacer4"/>
+          <af:panelGroupLayout id="pgl12" layout="vertical"
+                               inlineStyle="height:314px; width:300.0px;"
+                               styleClass="box-shadow panelbackground">
+            <!--<af:spacer width="7" height="5" id="s11"/>-->
+            <af:panelGroupLayout id="pgl13" layout="horizontal" valign="top">
+              <af:panelGroupLayout id="pgl14" layout="vertical"
+                                   inlineStyle="width:275.0px;">
+                <af:table value="#{bindings.PrtHomeInvoiceRVO1.collectionModel}"
+                          var="row"
+                          emptyText="#{pageFlowScope.AuthenticatedHomeBean.emptyText}"
+                          rows="#{bindings.PrtHomeInvoiceRVO1.rangeSize}"
+                          autoHeightRows="5"
+                          fetchSize="#{bindings.PrtHomeInvoiceRVO1.rangeSize}"
+                          rowBandingInterval="1" width="290px"
+                          contentDelivery="immediate" inlineStyle="height:auto;"
+                          disableColumnReordering="true"
+                          binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.invoiceTable}"
+                          id="t1" columnResizing="disabled">
+                  <af:column sortProperty="InvoiceNumber" sortable="false"
+                             id="c3"
+                             headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                             width="85">
+                    <af:outputText value="#{row.InvoiceNumber}" id="ot6"/>
+                  </af:column>
+                  <af:column sortProperty="InvoiceDate" sortable="false"
+                             headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
+                             width="90" id="c2">
+                    <af:outputText value="#{row.InvoiceDueDate}" id="ot10">
+                      <af:convertDateTime pattern="dd.MM.yyyy"/>
+                    </af:outputText>
+                  </af:column>
+                  <!--<af:column headerText="#{bindings.PrtHomeInvoiceRVO1.hints.InvoiceDueDate.label}"
+                             id="c7">
+                    <af:outputText value="#{row.InvoiceDueDate}" id="ot18">
+                      <af:convertDateTime pattern="#{bindings.PrtHomeInvoiceRVO1.hints.InvoiceDueDate.format}"/>
+                    </af:outputText>
+                  </af:column>-->
+                  <af:column sortProperty="TotalAmount" sortable="false"
+                             width="80"
+                             headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                             id="c1">
+                    <af:outputText value="#{row.TotalAmount}" id="ot9">
+                      <af:convertNumber groupingUsed="true" pattern="##.##"
+                                        locale="#{pageFlowScope.AuthenticatedHomeBean.locale}"
+                                        minFractionDigits="2"/>
+                    </af:outputText>
+                  </af:column>
+                </af:table>
+                <af:spacer width="10" height="10" id="s23"/>
+                <af:panelGroupLayout id="pgl25" halign="left"
+                                     layout="horizontal" valign="top"
+                                     inlineStyle="height:15px;background-image:none; padding:0px;">
+                  <af:spacer width="225" id="s22"/>
+                  <af:goLink id="gl2" inlineStyle="color:#F89518;"
+                             text="View All"
+                             destination="#{navigationContext.currentNavigationModel.node['card/transaction/invoiceoverview'].goLinkPrettyUrl}&quot;/>"/>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
         </af:panelGroupLayout>
-
-</af:panelGroupLayout> 
+        <af:spacer width="10" height="10" id="s12"/>
+        <af:panelGroupLayout id="pgl24" layout="vertical" visible="true"
+                             inlineStyle="width:600.0px;">
+          <af:panelGroupLayout id="pgl17" layout="vertical">
+            <af:outputText value="Webshop Pannel" id="ot7" styleClass="heading1"/>
+            <af:spacer width="10" height="10" id="s15"/>
+          </af:panelGroupLayout>
+          <af:panelGroupLayout id="pgl18" layout="scroll"
+                               inlineStyle="height:314px; width:300px;"
+                               styleClass="box-shadow panelbackground">
+            <af:spacer width="7" height="5" id="s16"/>
+            <af:panelGroupLayout id="pgl19" layout="horizontal" valign="top">
+              <af:spacer width="7" height="20" id="s17"/>
+              <af:panelGroupLayout id="pgl20" layout="horizontal"/>
+              <af:spacer width="7" height="30" id="s18"/>
+              <af:panelGroupLayout id="pgl21"
+                                   inlineStyle="width:200px; height:100.0px;"
+                                   halign="start">
+                <af:outputText value="" id="ot8" styleClass="contenttext"
+                               inlineStyle="padding-right:5px;"/>
+                <af:spacer width="7" height="30" id="s19"/>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
     </af:panelGroupLayout>
-  </af:panelGroupLayout>
 </af:panelGroupLayout>
 </jsp:root>
