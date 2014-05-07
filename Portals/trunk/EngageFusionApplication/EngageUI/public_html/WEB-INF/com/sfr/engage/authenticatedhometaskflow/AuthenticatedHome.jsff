@@ -33,7 +33,8 @@
   </af:panelGroupLayout>
   <af:spacer width="10" height="15" id="s3"/>
     <af:panelGroupLayout id="pgl16" layout="horizontal" halign="left"
-                         inlineStyle="width:962.0px;">
+                         inlineStyle="width:962.0px;"
+                         binding="#{pageFlowScope.AuthenticatedHomeBean.authenticatedPanel}">
       <af:panelGroupLayout id="pgl22" layout="vertical">
       <af:panelGroupLayout id="pgl6" layout="vertical">
       <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4" styleClass="heading1"/>

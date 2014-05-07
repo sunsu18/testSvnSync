@@ -21,9 +21,6 @@
     <iterator Binds="PrtHomeInvoiceRVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtHomeInvoiceRVO1Iterator"/>
-    <iterator Binds="PrtHomeTransactionsRVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtHomeTransactions1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -54,19 +51,6 @@
           <Item Value="InvoiceNumber"/>
           <Item Value="InvoiceDueDate"/>
           <Item Value="TotalAmount"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
-    <tree IterBinding="PrtHomeTransactions1Iterator" id="PrtHomeTransactionsRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"
-                      Name="PrtHomeTransactions10">
-        <AttrNames>
-          <Item Value="TransactionDt"/>
-          <Item Value="Card1Id"/>
-          <Item Value="StationName"/>
-          <Item Value="ProductName"/>
-          <Item Value="Quantity"/>
-          <Item Value="UnitOfMeasure"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

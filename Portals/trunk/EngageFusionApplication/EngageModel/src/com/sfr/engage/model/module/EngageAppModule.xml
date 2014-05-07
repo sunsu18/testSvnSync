@@ -101,9 +101,6 @@
   <ViewUsage
     Name="PrtHomeInvoiceRVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"/>
-  <ViewUsage
-    Name="PrtHomeTransactionsRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"/>
   <ViewLinkUsage
     Name="PrtCardgroupPrtPartnerFk1Link1"
     ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"

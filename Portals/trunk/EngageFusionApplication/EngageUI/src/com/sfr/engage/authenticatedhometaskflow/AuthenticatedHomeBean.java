@@ -1,6 +1,7 @@
 package com.sfr.engage.authenticatedhometaskflow;
 
 
+import com.sfr.core.bean.User;
 import com.sfr.engage.core.Messages;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
@@ -14,6 +15,7 @@ import com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean;
 
 import com.sfr.util.AccessDataControl;
 
+import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.io.Serializable;
@@ -43,6 +45,8 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
 
+import oracle.adf.view.rich.context.AdfFacesContext;
+
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
@@ -65,7 +69,9 @@ public class AuthenticatedHomeBean implements Serializable {
     private String country=null;
     private Locale locale;
     Conversion conversionUtility;
-    
+    private User user = null;
+    private boolean roleCsr = false;
+    private RichPanelGroupLayout authenticatedPanel;
 
 
     /**
@@ -249,19 +255,40 @@ public class AuthenticatedHomeBean implements Serializable {
                         }
                     }
                 }
-                
-                
-                String idList = cards.toString();
-               // System.out.println("arraylist to string " + idList);
-                String cardId = idList.substring(1, idList.length() - 1).replace(" ","");
-                
-                System.out.println("arraylist after conversion is " + cardId);
+                        String idList = cards.toString();
+                        // System.out.println("arraylist to string " + idList);
+                        String cardId = idList.substring(1, idList.length() - 1).replace(" ","");
+                        
+                        System.out.println("arraylist after conversion is " + cardId);
+                        
+                        if (session != null) {
+                       user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                            roleCsr = false;
+                        for (int i = 0; i < user.getRoleList().size();
+                             i++) {
 
+                            if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_CSR))
+                                roleCsr = true;
+                             }
+                        
+                        
+                        if(roleCsr) {
+                            authenticatedPanel.setVisible(false);
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
+                            System.out.println("Authenticated Panel should not be visible");
+                        
+                        
+                            
+                        }
+                        else {
+                            System.out.println("Authenticated Panel should  be visible");
+                            //authenticatedPanel.setVisible(true);
+                            //AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
                             ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
-                vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
-                vo.defineNamedWhereClauseParam("countrycode", country, null);
-                vo.defineNamedWhereClauseParam("cards", cardId, null);
-                vo.executeQuery();
+                            vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
+                            vo.defineNamedWhereClauseParam("countrycode", country, null);
+                            vo.defineNamedWhereClauseParam("cards", cardId, null);
+                            vo.executeQuery();
                             if (vo.getEstimatedRowCount() != 0) {
                                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
                                 vo.removeNamedWhereClauseParam("countrycode");
@@ -276,13 +303,19 @@ public class AuthenticatedHomeBean implements Serializable {
                                 vo.executeQuery();
                                 //getBindings().getInvoiceTable().setEmptyText("NO DATA FOR LATEST INVOICES");
                             }
-                   
-                        ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
-                        latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
-                        latestTransactionVO.setNamedWhereClauseParam("countryCode", "no_NO");
-                        latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
-                        
-                        latestTransactionVO.executeQuery();
+                            
+                            ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
+                            latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
+                            latestTransactionVO.setNamedWhereClauseParam("countryCode", "no_NO");
+                            latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
+                            
+                            latestTransactionVO.executeQuery();
+                        }
+                
+                        }
+
+
+
                         
                    
                     }
@@ -353,7 +386,21 @@ public class AuthenticatedHomeBean implements Serializable {
         return customerTypeValue;
     }
 
-    
+    public void setRoleCsr(boolean roleCsr) {
+        this.roleCsr = roleCsr;
+    }
+
+    public boolean isRoleCsr() {
+        return roleCsr;
+    }
+
+    public void setAuthenticatedPanel(RichPanelGroupLayout authenticatedPanel) {
+        this.authenticatedPanel = authenticatedPanel;
+    }
+
+    public RichPanelGroupLayout getAuthenticatedPanel() {
+        return authenticatedPanel;
+    }
 
 
     public class Bindings {
