@@ -31,7 +31,9 @@ public class CustomErrorHandler extends DCErrorHandlerImpl {
             }
             error_msg = getDisplayMessage(ctx, ex);
         } else
-            error_msg = getDisplayMessage(ctx, ex);
+            //error_msg = getDisplayMessage(ctx, ex);
+        { System.out.println("Exception ----->");
+            ex.printStackTrace();}
         return error_msg;
     }
 
@@ -42,7 +44,7 @@ public class CustomErrorHandler extends DCErrorHandlerImpl {
 //        if (ex instanceof DMLConstraintException) {
 //            System.out.println("DML Exception");
 //            return false;
-//            //don’t show details of SQL exception
+//            //donï¿½t show details of SQL exception
 //        } else if (ex instanceof SQLException) {
 //        System.out.println("SQL Exception");
 //            return true;
