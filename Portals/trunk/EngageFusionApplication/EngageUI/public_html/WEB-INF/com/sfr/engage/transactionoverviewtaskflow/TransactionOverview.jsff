@@ -313,13 +313,13 @@
             </af:inputDate>
           </f:facet>
          <af:panelGroupLayout id="pgl14" layout="horizontal">
-           <af:outputText value="#{row.TransactionDt}" id="ot46">           
+           <af:outputText value="#{row.TransactionDt}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">           
             <af:convertDateTime pattern="dd.MM.yyyy"/>
           </af:outputText>
            <af:spacer width="2" height="1" id="s29"/>
           <af:outputText value="#{row.bindings.TransactionTime.inputValue}"
                              shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.TransactionTime.tooltip}"
-                             id="ot28">
+                             id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                 <af:convertDateTime pattern="hh.mm"/>
               </af:outputText>
         </af:panelGroupLayout>              
@@ -329,7 +329,7 @@
              <af:spacer width="0" height="0" id="s38"/>
               <af:outputText value="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="outpt2"
                              inlineStyle="font-weight:bold;"
-                             styleClass="outputText">
+                             styleClass="outputText #{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
               
               </af:outputText>
                <af:spacer width="0" height="0" id="s37"/>
@@ -340,16 +340,16 @@
         <af:column sortProperty="Card1Id" filterable="true" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}"
                    headerText="#{sfr.CARD}"
                    id="c2">
-          <af:outputText value="#{row.Card1Id}" id="ot37"/>
+          <af:outputText value="#{row.Card1Id}" id="ot37" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
         </af:column>
         
         <af:column sortProperty="CardgroupMainType" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL}"
                    headerText="#{sfr.CARDGROUP}"
                    id="c6">
           <af:panelGroupLayout id="pgl32" layout="horizontal">
-          <af:outputText value="#{row.CardgroupMainType}" id="ot58"/>
-          <af:outputText value="#{row.CardgroupSubType}" id="ot60"/>
-          <af:outputText value="#{row.CardgroupSeq}" id="ot61"/>
+          <af:outputText value="#{row.CardgroupMainType}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+          <af:outputText value="#{row.CardgroupSubType}" id="ot60" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+          <af:outputText value="#{row.CardgroupSeq}" id="ot61" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
        </af:column>
         
@@ -357,13 +357,13 @@
                    sortable="false" width="80"
                    headerText="#{sfr.VEHICLE_NUMBER}"
                    id="c16">
-          <af:outputText value="#{row.VehicleNumber}" id="ot40"/>
+          <af:outputText value="#{row.VehicleNumber}" id="ot40" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
         </af:column>
         
         <af:column sortProperty="DriverName" filterable="true" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}"
                    headerText="#{sfr.DRIVER_NAME}"
                    id="c4">
-          <af:outputText value="#{row.DriverName}" id="ot36"/>
+          <af:outputText value="#{row.DriverName}" id="ot36" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
         </af:column>
         
         <af:column sortProperty="StationName" filterable="true" sortable="false"
@@ -371,7 +371,9 @@
                    id="c9">
         <af:panelGroupLayout id="pgl15">
               <af:spacer width="2" height="1" id="spacer11"/>
-          <af:outputText value="#{row.StationName}" id="ot35"/>
+            <!--<af:outputText value="#{row.TransactionType}" id="ot35"/>-->
+            <af:outputText value="#{row.StationName}" id="ot35"
+                         styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
         </af:column>
         
@@ -381,7 +383,7 @@
                    id="c3">
          <af:panelGroupLayout id="pgl17">
               <af:spacer width="2" height="1" id="spacer12"/>
-          <af:outputText value="#{row.PurchaseCountryCode}" id="ot34"/>
+          <af:outputText value="#{row.PurchaseCountryCode}" id="ot34" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
         </af:column>
         
@@ -390,7 +392,7 @@
                      id="c8">
             <af:panelGroupLayout id="pgl18">
               <af:spacer width="2" height="1" id="spacer13"/>
-            <af:outputText value="#{row.ProductName}" id="ot50"/>
+            <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
           </af:column>
           
@@ -399,12 +401,12 @@
                    id="c1">
                     <af:panelGroupLayout id="pgl19">
               <af:spacer width="2" height="1" id="spacer14"/>
-          <af:outputText value="#{row.Quantity}" id="ot47">
+          <af:outputText value="#{row.Quantity}" id="ot47" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
             <af:convertNumber groupingUsed="false"
                               pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.Quantity.format}"/>
           </af:outputText>
            <af:spacer width="2" height="1" id="s229"/>
-            <af:outputText value="#{row.UnitOfMeasure}" id="ot31"/>
+            <af:outputText value="#{row.UnitOfMeasure}" id="ot31" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
         </af:column>
         
@@ -415,7 +417,7 @@
            <af:panelGroupLayout id="pgl20">
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO1.hints.InvoicedGrossAmount.tooltip}"
                               id="it3"
-                              text="#{row.InvoicedGrossAmount}">
+                              text="#{row.InvoicedGrossAmount}" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                                
                 <af:showPopupBehavior triggerType="click" popupId="::pp1"/>
                 
@@ -442,7 +444,7 @@
                    id="c13">
             <af:panelGroupLayout id="pgl21">
               <af:spacer width="2" height="1" id="spacer16"/>
-             <af:outputText value="#{row.RecieptNo}" id="ot48"/>
+             <af:outputText value="#{row.RecieptNo}" id="ot48" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:panelGroupLayout>
         </af:column>
         
@@ -452,7 +454,7 @@
                    id="c5">
              <af:panelGroupLayout id="pgl22">
               <af:spacer width="2" height="1" id="spacer17"/>
-          <af:outputText value="#{row.InvoiceNumberCollective eq null ? row.InvoiceNumberNonCollective : row.InvoiceNumberCollective}" id="ot30"/>
+          <af:outputText styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}" value="#{row.InvoiceNumberCollective eq null ? row.InvoiceNumberNonCollective : row.InvoiceNumberCollective}" id="ot30"/>
           </af:panelGroupLayout>
         </af:column>
         
@@ -473,7 +475,7 @@
                    id="c7">
           <!--<af:outputText value="#{row.OdometerPortal}" id="ot49" visible="#{row.OdometerPortal ne null ? true : false}"/>-->
           <h:panelGrid id="pg4" columns="3">
-          <af:outputText value="#{row.Odometer}" id="ot32" visible="#{row.OdometerPortal eq null ? true : false}"/>
+          <af:outputText value="#{row.Odometer}" id="ot32" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
                           id="cl1"
                           actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
@@ -499,7 +501,7 @@
          <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_TOTAL}"
                    id="c12">
-          <af:outputText value="#{row.kmTotal}" id="ot51">
+          <af:outputText value="#{row.kmTotal}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
             <af:convertNumber groupingUsed="false"
                               pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.kmTotal.format}"/>
           </af:outputText>
@@ -508,7 +510,7 @@
         <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_PER_LT}"
                    id="c14">
-          <af:outputText value="#{row.kmPerLt}" id="ot45">
+          <af:outputText value="#{row.kmPerLt}" id="ot45" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
             <af:convertNumber groupingUsed="false"
                               pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.kmPerLt.format}"/>
           </af:outputText>
@@ -518,7 +520,7 @@
                    sortable="false"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                    id="c11">
-          <af:outputText value="#{row.ltPerHundred}" id="ot39">
+          <af:outputText value="#{row.ltPerHundred}" id="ot39" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
             <af:convertNumber groupingUsed="false"
                               pattern="#{bindings.PrtCardTransactionOverviewRVO12.hints.ltPerHundred.format}"/>
           </af:outputText>
