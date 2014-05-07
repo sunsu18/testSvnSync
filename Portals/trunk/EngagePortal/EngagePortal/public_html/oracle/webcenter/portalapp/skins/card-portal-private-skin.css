@@ -99,13 +99,13 @@ font-weight: bold !important;
 
 
 
-.af_table_data-body
+/*.af_table_data-body
 {
     height:400px !important;
     width:200px !important;
     
     
-}
+}*/
 .af_tree_data-row.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFFocused .af_tree_node-stamp-text
 .af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text,.af_tree_data-row.p_AFSelected .af_tree_node-stamp-text,
 .af_tree_data-row.p_AFSelected.p_AFInactive .af_tree_node-stamp-text, .af_tree_data-row.p_AFSelected.p_AFInactive .af_selectBooleanCheckbox_item-text,
