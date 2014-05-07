@@ -102,9 +102,6 @@
     Name="PrtHomeInvoiceRVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"/>
   <ViewUsage
-    Name="PrtLatestCardTransactionsRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtLatestCardTransactionsRVO"/>
-  <ViewUsage
     Name="PrtHomeTransactionsRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"/>
   <ViewLinkUsage

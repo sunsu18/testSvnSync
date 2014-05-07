@@ -20,6 +20,7 @@ public class CustomErrorHandler extends DCErrorHandlerImpl {
 
 
         String error_msg;
+        error_msg = "";
 
         if (ex instanceof oracle.jbo.ValidationException) {
 
