@@ -276,13 +276,26 @@
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:300.0px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:240.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
+        <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
+            <af:commandImageLink  id="cil2" icon="/images/blue_info.png"
+                                 iconPosition="leading">
+            <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
+            </af:commandImageLink>
+   <!--       </af:commandLink> -->
+        </af:panelGroupLayout>
+        <af:popup id="p2">
+          <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
+            <af:panelGroupLayout id="pgl34" layout="vertical">
+            <af:outputText value="#{sfr.TRANSACTION_PRELIMINARY}" id="ot65" styleClass="outputText3"/>
+             <af:outputText value="#{sfr.TRANSACTION_NON_PRELIMINARY}" id="ot66" styleClass="outputText3"/>
           </af:panelGroupLayout>
-         
-          <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
+          </af:noteWindow>
+        </af:popup>
+        <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
                                halign="right"
                                inlineStyle="width:640.0px; height:15.0px;">
             
