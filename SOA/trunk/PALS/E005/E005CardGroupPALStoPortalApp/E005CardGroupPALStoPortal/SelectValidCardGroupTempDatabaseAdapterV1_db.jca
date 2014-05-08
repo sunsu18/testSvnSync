@@ -1,0 +1,13 @@
+<adapter-config name="SelectValidCardGroupTempDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectValidCardGroupTempDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="PortalQAT" adapterRef=""/>
+  <endpoint-interaction portType="SelectValidCardGroupTempDatabaseAdapterV1_ptt" operation="SelectValidCardGroupTempDatabaseAdapterV1">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT t1.COUNTRY_CODE, t1.ACCOUNT_ID, t1.PARTNER_ID, t1.CARDGROUP_MAIN_TYPE,t1.CARDGROUP_SUB_TYPE,t1.CARDGROUP_SEQ,t1.CARDGROUP_DESCRIPTION, t1.MODIFIED_BY,t1.MODIFIED_DATE,t1.DELTA_TS FROM SOA_CARDGROUP_TEMP t1 where T1.ACCOUNT_ID IN ( select t2.ACCOUNT_ID from PRT_ACCOUNT t2) AND T1.COUNTRY_CODE IN ( select t2.COUNTRY_CODE from PRT_ACCOUNT t2)"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

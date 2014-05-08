@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/E005/E005InvocationReqMsg"
+            targetNamespace="http://www.statoilfuelretail.com/integration/E005/E005InvocationReqMsg"
+            elementFormDefault="qualified">
+  <xsd:element name="invocationMsg">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="SenderSystem" type="xsd:string"/>
+        <xsd:element name="ReceiverSystem" type="xsd:string"/>
+        <xsd:element name="CountryCode" type="xsd:string"/>
+        <xsd:element name="BatchSize" type="xsd:integer"/>
+        <xsd:element name="DatabaseJNDI" type="xsd:string"/>
+        <xsd:element name="InterfaceID" type="xsd:string"/>
+        <xsd:element name="UserName" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

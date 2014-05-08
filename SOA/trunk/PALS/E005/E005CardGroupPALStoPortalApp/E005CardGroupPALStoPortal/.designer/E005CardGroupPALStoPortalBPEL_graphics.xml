@@ -1,0 +1,45 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<graphics>
+   <diagram optimizeLayout="false" popupEditor="true" fixedWidthSwimlanes="true" roundedPartnerlinks="true" centerZoom="true" validateOnLoad="true" confirmBeforeDelete="true" selectedPartnerLinkColor="0,0,153" swimlaneBackground="240,240,240" swimlaneDividerBackground="218,218,218" graphBackground="255,255,255" selectedBorderBackground="49,105,198" connectedPartnerLinkColor="204,204,255" connectablePartnerLinkColor="0,0,255" unconnectedPartnerLinkColor="192,192,192"/>
+   <annotationfile/>
+   <iconize/>
+   <partnerlink_locations>
+      <partnerlink name="E005CardGroupPALStoPortalClient" x="0" y="90" side="left"/>
+      <partnerlink name="MergeCardGroupErrorLogDatabaseAdapterV1" x="0" y="2864" side="left"/>
+      <partnerlink name="SelectPALSDB2DBAdaptorV1" x="1248" y="1993" side="right"/>
+      <partnerlink name="SelectDeltaTSDBAdapterV1" x="1248" y="933" side="right"/>
+      <partnerlink name="MergeDeltaTSDatabaseAdapterV1" x="1248" y="3957" side="right"/>
+      <partnerlink name="GetCountPALSDB2DBAdapter" x="1248" y="992" side="right"/>
+      <partnerlink name="MergeCardGroupPortalDatabaseAdaptorV1" x="1248" y="3157" side="right"/>
+      <partnerlink name="SelectSOACardGroupTempDatabaseAdapterV1" x="1248" y="3079" side="right"/>
+      <partnerlink name="MergeCardGroupTempDatabaseAdapterV1" x="1248" y="2985" side="right"/>
+      <partnerlink name="SelectValidCardGroupTempDatabaseAdapterV1" x="1248" y="3356" side="right"/>
+      <partnerlink name="TruncSOACardGroupDatabaseAdapterV1" x="1248" y="3633" side="right"/>
+   </partnerlink_locations>
+   <graph_layout viewport="0,0,541,494" show_swimlanes="true">
+      <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/scope/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while" type="while"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[1]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[1]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[1]/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[1]/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[2]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[2]/faultHandlers/catch" type="catch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[2]/faultHandlers/catch/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[2]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[3]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[3]/faultHandlers/catch" type="catch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[3]/faultHandlers/catch/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
+   </graph_layout>
+   <bookmarks/>
+</graphics>

@@ -1,0 +1,25 @@
+<?binding.jca SelectPALSDB2DBAdaptorV1_db.jca?>
+<wsdl:definitions name="SelectPALSDB2DBAdaptorV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdaptorV1">
+    <plt:partnerLinkType name="SelectPALSDB2DBAdaptorV1_plt">
+        <plt:role name="SelectPALSDB2DBAdaptorV1_role">
+            <plt:portType name="tns:SelectPALSDB2DBAdaptorV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdaptorV1" schemaLocation="xsd/SelectPALSDB2DBAdaptorV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectPALSDB2DBAdaptorV1Select_inputParameters">
+        <wsdl:part name="SelectPALSDB2DBAdaptorV1Select_inputParameters" element="top:SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSizeInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="Cc072Vs1CssffoDtaCollection_msg">
+        <wsdl:part name="Cc072Vs1CssffoDtaCollection" element="top:Cc072Vs1CssffoDtaCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectPALSDB2DBAdaptorV1_ptt">
+        <wsdl:operation name="SelectPALSDB2DBAdaptorV1Select">
+            <wsdl:input message="tns:SelectPALSDB2DBAdaptorV1Select_inputParameters"/>
+            <wsdl:output message="tns:Cc072Vs1CssffoDtaCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

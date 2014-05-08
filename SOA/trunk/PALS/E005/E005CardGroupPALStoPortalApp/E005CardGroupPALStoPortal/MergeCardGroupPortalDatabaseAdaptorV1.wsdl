@@ -1,0 +1,35 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<?binding.jca MergeCardGroupPortalDatabaseAdaptorV1_db.jca?>
+<wsdl:definitions
+     name="MergeCardGroupPortalDatabaseAdaptorV1"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupPortalDatabaseAdaptorV1"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/E005/MergeCardGroupValidate"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupPortalDatabaseAdaptorV1"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupPortalDatabaseAdaptorV1"
+    >
+    <plt:partnerLinkType name="MergeCardGroupPortalDatabaseAdaptorV1_plt">
+        <plt:role name="MergeCardGroupPortalDatabaseAdaptorV1_role">
+            <plt:portType name="tns:MergeCardGroupPortalDatabaseAdaptorV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupPortalDatabaseAdaptorV1"
+                 schemaLocation="xsd/MergeCardGroupPortalDatabaseAdaptorV1_table.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/E005/MergeCardGroupValidate"
+                 schemaLocation="xsd/MergeCardGroupValidate.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="PrtCardgroupCollection_msg">
+        <wsdl:part name="PrtCardgroupCollection" element="top:PrtCardgroupCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="MergeCardGroupPortalDatabaseAdaptorV1_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:PrtCardgroupCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

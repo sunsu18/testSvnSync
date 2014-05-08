@@ -1,0 +1,25 @@
+<?binding.jca GetCountPALSDB2DBAdapter_db.jca?>
+<wsdl:definitions name="GetCountPALSDB2DBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/GetCountPALSDB2DBAdapter" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/GetCountPALSDB2DBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/GetCountPALSDB2DBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="GetCountPALSDB2DBAdapter_plt">
+        <plt:role name="GetCountPALSDB2DBAdapter_role">
+            <plt:portType name="tns:GetCountPALSDB2DBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/GetCountPALSDB2DBAdapter" schemaLocation="xsd/GetCountPALSDB2DBAdapter.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="GetCountPALSDB2DBAdapterInput_msg">
+        <wsdl:part name="GetCountPALSDB2DBAdapterInput_msg" element="db:GetCountPALSDB2DBAdapterInput"/>
+    </wsdl:message>
+    <wsdl:message name="GetCountPALSDB2DBAdapterOutput_msg">
+        <wsdl:part name="GetCountPALSDB2DBAdapterOutput" element="db:GetCountPALSDB2DBAdapterOutput"/>
+    </wsdl:message>
+    <wsdl:portType name="GetCountPALSDB2DBAdapter_ptt">
+        <wsdl:operation name="GetCountPALSDB2DBAdapter">
+            <wsdl:input message="tns:GetCountPALSDB2DBAdapterInput_msg"/>
+            <wsdl:output message="tns:GetCountPALSDB2DBAdapterOutput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

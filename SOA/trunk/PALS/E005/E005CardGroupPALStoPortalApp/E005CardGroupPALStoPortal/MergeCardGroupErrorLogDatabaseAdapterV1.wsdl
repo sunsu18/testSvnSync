@@ -1,0 +1,21 @@
+<?binding.jca MergeCardGroupErrorLogDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="MergeCardGroupErrorLogDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupErrorLogDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupErrorLogDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupErrorLogDatabaseAdapterV1">
+    <plt:partnerLinkType name="MergeCardGroupErrorLogDatabaseAdapterV1_plt">
+        <plt:role name="MergeCardGroupErrorLogDatabaseAdapterV1_role">
+            <plt:portType name="tns:MergeCardGroupErrorLogDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupErrorLogDatabaseAdapterV1" schemaLocation="xsd/MergeCardGroupErrorLogDatabaseAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaCardgroupErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaCardgroupErrorlogCollection" element="top:EngageSoaCardgroupErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="MergeCardGroupErrorLogDatabaseAdapterV1_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:EngageSoaCardgroupErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

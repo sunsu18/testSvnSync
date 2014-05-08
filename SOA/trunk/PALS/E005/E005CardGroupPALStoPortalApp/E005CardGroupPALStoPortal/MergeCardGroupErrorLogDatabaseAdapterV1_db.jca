@@ -1,0 +1,15 @@
+<adapter-config name="MergeCardGroupErrorLogDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="MergeCardGroupErrorLogDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="MergeCardGroupErrorLogDatabaseAdapterV1_ptt" operation="merge">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="MergeCardGroupErrorLogDatabaseAdapterV1.EngageSoaCardgroupErrorlog"/>
+      <property name="DmlType" value="merge"/>
+      <property name="MappingsMetaDataURL" value="MergeCardGroupErrorLogDatabaseAdapterV1-or-mappings.xml"/>
+      <property name="OptimizeMerge" value="true"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

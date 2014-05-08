@@ -1,0 +1,26 @@
+May 8, 2014 5:40:44 PM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+May 8, 2014 5:40:44 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+May 8, 2014 5:40:45 PM com.collaxa.cube.CubeLogger info
+INFO: validating "E005CardGroupPALStoPortalBPEL.bpel" ...
+May 8, 2014 5:40:45 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+May 8, 2014 5:40:45 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSwitchBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
+May 8, 2014 5:40:45 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E005CardGroupPALStoPortalBPEL" in 41.0 milliseconds [nodes 80=0+80, 1,949.5 nodes/sec]
+May 8, 2014 5:40:46 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E005CardGroupPALStoPortalBPEL" in 1.132 seconds
+May 8, 2014 5:40:46 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 0.4 milliseconds
+
+May 8, 2014 5:40:46 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E005CardGroupPALStoPortalBPEL" in 6.6 milliseconds
+

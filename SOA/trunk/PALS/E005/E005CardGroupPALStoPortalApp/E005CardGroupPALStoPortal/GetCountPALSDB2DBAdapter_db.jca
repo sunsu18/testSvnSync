@@ -1,0 +1,13 @@
+<adapter-config name="GetCountPALSDB2DBAdapter" adapter="Database Adapter" wsdlLocation="GetCountPALSDB2DBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/PALSDB2DNXADS" UIConnectionName="PALS_DB_DEV" adapterRef=""/>
+  <endpoint-interaction portType="GetCountPALSDB2DBAdapter_ptt" operation="GetCountPALSDB2DBAdapter">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="select count(*) from CC072VS1_CSSFFO_DTA where DELTA_TS > #DeltaTS"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

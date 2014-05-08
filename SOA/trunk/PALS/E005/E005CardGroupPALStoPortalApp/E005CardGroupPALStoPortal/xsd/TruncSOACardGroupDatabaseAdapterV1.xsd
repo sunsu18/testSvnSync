@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/TruncSOACardGroupDatabaseAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/TruncSOACardGroupDatabaseAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="TruncSOACardGroupDatabaseAdapterV1Input" type="TruncSOACardGroupDatabaseAdapterV1Input"/>
+   <xs:complexType name="TruncSOACardGroupDatabaseAdapterV1Input">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>

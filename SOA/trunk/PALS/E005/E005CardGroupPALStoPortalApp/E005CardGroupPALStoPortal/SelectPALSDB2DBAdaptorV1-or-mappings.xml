@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>SelectPALSDB2DBAdaptorV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SelectPALSDB2DBAdaptorV1.Cc072Vs1CssffoDta</class>
+         <alias>.CC072VS1_CSSFFO_DTA</alias>
+         <primary-key>
+            <field table="CC072VS1_CSSFFO_DTA" name="DELTA_TS" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="PARTNER_ID" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_TX" xsi:type="column"/>
+            <field table="CC072VS1_CSSFFO_DTA" name="KONTO_ID" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SelectPALSDB2DBAdaptorV1Select" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTS">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX FROM 
+(SELECT  DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX,ROW_NUMBER() OVER() as rownumber from CC072VS1_CSSFFO_DTA WHERE DELTA_TS >#DeltaTS  order by DELTA_TS asc ) CardGroup WHERE (DELTA_TS > #DeltaTS AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>SelectPALSDB2DBAdaptorV1.Cc072Vs1CssffoDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdHtp</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdUtp</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdLnr</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kontoId</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="KONTO_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdTx</attribute-name>
+               <field table="CC072VS1_CSSFFO_DTA" name="F_FORHOLD_TX" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CC072VS1_CSSFFO_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

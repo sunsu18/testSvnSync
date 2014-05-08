@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdaptorV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdaptorV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="Cc072Vs1CssffoDtaCollection" type="Cc072Vs1CssffoDtaCollection"/>
+   <xs:complexType name="Cc072Vs1CssffoDtaCollection">
+      <xs:sequence>
+         <xs:element name="Cc072Vs1CssffoDta" type="Cc072Vs1CssffoDta" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Cc072Vs1CssffoDta">
+      <xs:sequence>
+         <xs:element name="deltaTs" type="xs:dateTime" nillable="true"/>
+         <xs:element name="partnerId" type="xs:string" nillable="true"/>
+         <xs:element name="fForholdHtp" type="xs:string" nillable="true"/>
+         <xs:element name="fForholdUtp" type="xs:string" nillable="true"/>
+         <xs:element name="fForholdLnr" type="xs:string" nillable="true"/>
+         <xs:element name="kontoId" type="xs:string" nillable="true"/>
+         <xs:element name="fForholdTx" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSizeInputParameters" type="SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSize"/>
+   <xs:complexType name="SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSize">
+      <xs:sequence>
+         <xs:element name="DeltaTS" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

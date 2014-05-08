@@ -1,0 +1,21 @@
+<?binding.jca TruncSOACardGroupDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="TruncSOACardGroupDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/TruncSOACardGroupDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="TruncSOACardGroupDatabaseAdapterV1_plt">
+        <plt:role name="TruncSOACardGroupDatabaseAdapterV1_role">
+            <plt:portType name="tns:TruncSOACardGroupDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/TruncSOACardGroupDatabaseAdapterV1" schemaLocation="xsd/TruncSOACardGroupDatabaseAdapterV1.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="TruncSOACardGroupDatabaseAdapterV1Input_msg">
+        <wsdl:part name="TruncSOACardGroupDatabaseAdapterV1Input_msg" element="db:TruncSOACardGroupDatabaseAdapterV1Input"/>
+    </wsdl:message>
+    <wsdl:portType name="TruncSOACardGroupDatabaseAdapterV1_ptt">
+        <wsdl:operation name="TruncSOACardGroupDatabaseAdapterV1">
+            <wsdl:input message="tns:TruncSOACardGroupDatabaseAdapterV1Input_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

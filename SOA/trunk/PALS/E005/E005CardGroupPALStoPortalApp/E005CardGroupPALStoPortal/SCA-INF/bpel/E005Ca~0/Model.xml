@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="E005CardGroupPALStoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectPALSDB2DBAdaptorV1" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectDeltaTSDBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeDeltaTSDatabaseAdapterV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://www.statoilfuelretail.com/integration/E005/E005InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/GetCountPALSDB2DBAdapter" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/GetCountPALSDB2DBAdapter" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdaptorV1" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupPortalDatabaseAdaptorV1" xmlns:ns12="http://www.statoilfuelretail.com/integration/E005/MergeCardGroupValidate" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupErrorLogDatabaseAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergreCardGroupTempDatabaseAdapterV1" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectSOACardGroupTempDatabaseAdapterV1" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/MergeCardGroupTempDatabaseAdapterV1" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectValidCardGroupTempDatabaseAdapterV1" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="E005CardGroupPALStoPortalClient" partnerLinkType="ns1:E005CardGroupPALStoPortalClient" myRole="execute_ptt"/>
+    <partnerLink name="SelectPALSDB2DBAdaptorV1" partnerLinkType="ns2:SelectPALSDB2DBAdaptorV1_plt" partnerRole="SelectPALSDB2DBAdaptorV1_role"/>
+    <partnerLink name="SelectDeltaTSDBAdapterV1" partnerLinkType="ns3:SelectDeltaTSDBAdapterV1_plt" partnerRole="SelectDeltaTSDBAdapterV1_role"/>
+    <partnerLink name="MergeDeltaTSDatabaseAdapterV1" partnerLinkType="ns4:MergeDeltaTSDatabaseAdapterV1_plt" partnerRole="MergeDeltaTSDatabaseAdapterV1_role"/>
+    <partnerLink name="GetCountPALSDB2DBAdapter" partnerLinkType="ns7:GetCountPALSDB2DBAdapter_plt" partnerRole="GetCountPALSDB2DBAdapter_role"/>
+    <partnerLink name="MergeCardGroupPortalDatabaseAdaptorV1" partnerLinkType="ns11:MergeCardGroupPortalDatabaseAdaptorV1_plt" partnerRole="MergeCardGroupPortalDatabaseAdaptorV1_role"/>
+    <partnerLink name="MergeCardGroupErrorLogDatabaseAdapterV1" partnerLinkType="ns13:MergeCardGroupErrorLogDatabaseAdapterV1_plt" partnerRole="MergeCardGroupErrorLogDatabaseAdapterV1_role"/>
+    <partnerLink name="SelectSOACardGroupTempDatabaseAdapterV1" partnerLinkType="ns15:SelectSOACardGroupTempDatabaseAdapterV1_plt" partnerRole="SelectSOACardGroupTempDatabaseAdapterV1_role"/>
+    <partnerLink name="MergeCardGroupTempDatabaseAdapterV1" partnerLinkType="ns16:MergeCardGroupTempDatabaseAdapterV1_plt" partnerRole="MergeCardGroupTempDatabaseAdapterV1_role"/>
+    <partnerLink name="SelectValidCardGroupTempDatabaseAdapterV1" partnerLinkType="ns17:SelectValidCardGroupTempDatabaseAdapterV1_plt" partnerRole="SelectValidCardGroupTempDatabaseAdapterV1_role"/>
+    <partnerLink name="TruncSOACardGroupDatabaseAdapterV1" partnerLinkType="ns18:TruncSOACardGroupDatabaseAdapterV1_plt" partnerRole="TruncSOACardGroupDatabaseAdapterV1_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveInvocationMsg_IV" messageType="ns1:requestMessage"/>
+    <variable name="BatchSize" type="xsd:integer"/>
+    <variable name="InvokeSelectSOADeltaTS_IV" messageType="ns3:SelectDeltaTSDBAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectSOADeltaTS_OV" messageType="ns3:EngageSoaDeltatableCollection_msg"/>
+    <variable name="DeltaTS" type="xsd:string"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapterIV" messageType="ns7:GetCountPALSDB2DBAdapterInput_msg"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapterOV" messageType="ns7:GetCountPALSDB2DBAdapterOutput_msg"/>
+    <variable name="BatchCount" type="xsd:int"/>
+    <variable name="InvokeSelectPALSDB2Adapter_IV" messageType="ns2:SelectPALSDB2DBAdaptorV1Select_inputParameters"/>
+    <variable name="InvokeSelectPALSDB2Adapter_OV" messageType="ns2:Cc072Vs1CssffoDtaCollection_msg"/>
+    <variable name="DataCount" type="xsd:integer"/>
+    <variable name="InvokeMergeDeltaTSDDBAdapter_IV" messageType="ns4:EngageSoaDeltatableCollection_msg"/>
+    <variable name="UserName" type="xsd:string"/>
+    <variable name="CountryCode" type="xsd:string"/>
+    <variable name="InvokeMergeCardGroupDBAdaptorV1_IV" messageType="ns11:PrtCardgroupCollection_msg"/>
+    <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
+    <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
+    <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
+    <variable name="InvokeMergeCardErrorLogDBAdapterIV" messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
+    <variable name="InvokeSOACardGroupTempDBAdapterV1_OtV" messageType="ns15:SelectSOACardGroupTempDatabaseAdapterV1OutputCollection_msg"/>
+    <variable name="InvokeMergeCardGroupErrorLogDBAdapterV2_IV" messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
+    <variable name="InvokeMergeCardGroupTempDBAdapter_IV" messageType="ns16:SoaCardgroupTempCollection_msg"/>
+    <variable name="InvokeSelectValidcardGroupTempDBAdapterV1_OV" messageType="ns17:SelectValidCardGroupTempDatabaseAdapterV1OutputCollection_msg"/>
+    <variable name="InvokeMergeCardGroupDatabaseAdapterV2_IV" messageType="ns11:PrtCardgroupCollection_msg"/>
+    <variable name="InvokeTruncSOACardGroupTemp_IV" messageType="ns18:TruncSOACardGroupDatabaseAdapterV1Input_msg"/>
+    <variable name="InvokeSOACardGroupTempDBAdapterV1_IV" messageType="ns15:SelectSOACardGroupTempDatabaseAdapterV1Input_msg"/>
+    <variable name="InvokeSelectValidcardGroupTempDBAdapterV1_IV" messageType="ns17:SelectValidCardGroupTempDatabaseAdapterV1Input_msg"/>
+    <variable name="CardGroupValidate" element="ns12:CardGroup"/>
+  </variables>
+  <sequence name="main" id="BpSeq0">
+    <receive name="ReceiveCardGroupInvocationMsg" createInstance="yes" variable="ReceiveInvocationMsg_IV" partnerLink="E005CardGroupPALStoPortalClient" portType="ns1:execute_ptt" operation="execute" id="BpRcv0"/>
+    <assign name="AssignInitialValues" id="BpAss0">
+      <copy>
+        <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:BatchSize"/>
+        <to variable="BatchSize"/>
+      </copy>
+    </assign>
+    <scope name="GetDeltaTSScope" variableAccessSerializable="no" id="BpScp0">
+      <sequence name="GetDeltaTSSequence" id="BpSeq1">
+        <assign name="AssignSelectDeltaTSInputvalues" id="BpAss1">
+          <copy>
+            <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:CountryCode"/>
+            <to variable="InvokeSelectSOADeltaTS_IV" part="SelectDeltaTSDBAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDBAdapterV1Select_countrycode_interfaceidInputParameters/ns6:countrycode"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:InterfaceID"/>
+            <to variable="InvokeSelectSOADeltaTS_IV" part="SelectDeltaTSDBAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDBAdapterV1Select_countrycode_interfaceidInputParameters/ns6:interfaceid"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectSOADeltaTS" inputVariable="InvokeSelectSOADeltaTS_IV" outputVariable="InvokeSelectSOADeltaTS_OV" partnerLink="SelectDeltaTSDBAdapterV1" portType="ns3:SelectDeltaTSDBAdapterV1_ptt" operation="SelectDeltaTSDBAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv0"/>
+        <switch name="TimeStampSwitch" id="BpSwt0">
+          <case condition="count(bpws:getVariableData('InvokeSelectSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable')) >0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">DELTA_TS Exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence name="Sequence2" id="BpSeq2">
+              <assign name="AssignDeltaTS" id="BpAss2">
+                <copy>
+                  <from variable="InvokeSelectSOADeltaTS_OV" part="EngageSoaDeltatableCollection" query="/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable/ns6:palsDeltaTimestamp"/>
+                  <to variable="DeltaTS"/>
+                </copy>
+              </assign>
+              <assign name="ConvertDateTime" id="BpAss3">
+                <copy>
+                  <from expression="substring-before(bpws:getVariableData('DeltaTS'),'+')"/>
+                  <to variable="DeltaTS"/>
+                </copy>
+                <copy>
+                  <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                  <to variable="DeltaTS"/>
+                </copy>
+              </assign>
+            </sequence>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultDeltaTS" id="BpAss4">
+              <copy>
+                <from expression="'0001-01-01 00:00:00.000000'"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+        <scope name="GetCountFromPALSScope" variableAccessSerializable="no" id="BpScp1">
+          <sequence name="GetCountFromPALSSequence" id="BpSeq3">
+            <assign name="AssignDeltaTSValue" id="BpAss5">
+              <copy>
+                <from variable="DeltaTS"/>
+                <to variable="InvokeGetPALSDB2CountDBAdapterIV" part="GetCountPALSDB2DBAdapterInput_msg" query="/ns8:GetCountPALSDB2DBAdapterInput/ns8:DeltaTS"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeGetPALSDB2CountDBAdapter" inputVariable="InvokeGetPALSDB2CountDBAdapterIV" outputVariable="InvokeGetPALSDB2CountDBAdapterOV" partnerLink="GetCountPALSDB2DBAdapter" portType="ns7:GetCountPALSDB2DBAdapter_ptt" operation="GetCountPALSDB2DBAdapter" bpelx:invokeAsDetail="no" id="BpInv1"/>
+            <assign name="CalculateBatchCount" id="BpAss6">
+              <copy>
+                <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapterOV','GetCountPALSDB2DBAdapterOutput','/ns8:GetCountPALSDB2DBAdapterOutput/ns8:count')div bpws:getVariableData('BatchSize'))"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+        <while name="WhileEachBatch" condition="bpws:getVariableData('BatchCount') != 0" id="BpWhl0">
+          <sequence name="Sequence1" id="BpSeq4">
+            <scope name="GetPALSDataScope" variableAccessSerializable="no" id="BpScp2">
+              <sequence name="GetPALSDataSequence" id="BpSeq5">
+                <assign name="AssignLatestDeltaTS" id="BpAss7">
+                  <copy>
+                    <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:InterfaceID"/>
+                    <to variable="InvokeSelectSOADeltaTS_IV" part="SelectDeltaTSDBAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDBAdapterV1Select_countrycode_interfaceidInputParameters/ns6:interfaceid"/>
+                  </copy>
+                  <copy>
+                    <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:CountryCode"/>
+                    <to variable="InvokeSelectSOADeltaTS_IV" part="SelectDeltaTSDBAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDBAdapterV1Select_countrycode_interfaceidInputParameters/ns6:countrycode"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeSOADeltaTS" inputVariable="InvokeSelectSOADeltaTS_IV" outputVariable="InvokeSelectSOADeltaTS_OV" partnerLink="SelectDeltaTSDBAdapterV1" portType="ns3:SelectDeltaTSDBAdapterV1_ptt" operation="SelectDeltaTSDBAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv2"/>
+                <switch name="TimeStampSwitch2" id="BpSwt1">
+                  <case condition="count(bpws:getVariableData('InvokeSelectSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable')) > 0">
+                    <bpelx:annotation>
+                      <bpelx:general>
+                        <bpelx:property name="userLabel">DELTA_TS Exists</bpelx:property>
+                      </bpelx:general>
+                    </bpelx:annotation>
+                    <sequence name="Sequence3" id="BpSeq6">
+                      <assign name="AssignDeltaTS" id="BpAss8">
+                        <copy>
+                          <from variable="InvokeSelectSOADeltaTS_OV" part="EngageSoaDeltatableCollection" query="/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable/ns6:palsDeltaTimestamp"/>
+                          <to variable="DeltaTS"/>
+                        </copy>
+                      </assign>
+                      <assign name="ConvertDateTime" id="BpAss9">
+                        <copy>
+                          <from expression="substring-before(bpws:getVariableData('DeltaTS'),'+')"/>
+                          <to variable="DeltaTS"/>
+                        </copy>
+                        <copy>
+                          <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                          <to variable="DeltaTS"/>
+                        </copy>
+                      </assign>
+                    </sequence>
+                  </case>
+                  <otherwise>
+                    <assign name="AssignDefaultDeltaTS" id="BpAss10">
+                      <copy>
+                        <from expression="'0001-01-01 00:00:00.000000'"/>
+                        <to variable="DeltaTS"/>
+                      </copy>
+                    </assign>
+                  </otherwise>
+                </switch>
+                <assign name="AssignSelectPALSDB2IV" id="BpAss11">
+                  <copy>
+                    <from variable="DeltaTS"/>
+                    <to variable="InvokeSelectPALSDB2Adapter_IV" part="SelectPALSDB2DBAdaptorV1Select_inputParameters" query="/ns9:SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSizeInputParameters/ns9:DeltaTS"/>
+                  </copy>
+                  <copy>
+                    <from variable="BatchSize"/>
+                    <to variable="InvokeSelectPALSDB2Adapter_IV" part="SelectPALSDB2DBAdaptorV1Select_inputParameters" query="/ns9:SelectPALSDB2DBAdaptorV1Select_DeltaTS_BatchSizeInputParameters/ns9:BatchSize"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeSelectPALSDB2Adapter" inputVariable="InvokeSelectPALSDB2Adapter_IV" outputVariable="InvokeSelectPALSDB2Adapter_OV" partnerLink="SelectPALSDB2DBAdaptorV1" portType="ns2:SelectPALSDB2DBAdaptorV1_ptt" operation="SelectPALSDB2DBAdaptorV1Select" bpelx:invokeAsDetail="no" id="BpInv3"/>
+                <assign name="GetDataCount" id="BpAss12">
+                  <copy>
+                    <from expression="count(bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta'))"/>
+                    <to variable="DataCount"/>
+                  </copy>
+                </assign>
+              </sequence>
+            </scope>
+            <scope name="ValidateSelectDB2Scope" variableAccessSerializable="no" id="BpScp3">
+              <faultHandlers id="BpFhs0">
+                <catch faultName="bpelx:invalidVariables" id="BpCFt0">
+                  <sequence name="PALSDB2ErrorSequence" id="BpSeq7">
+                    <assign name="xformCarrdGroupValidatetoCardGroupError" id="BpAss13">
+                      <bpelx:annotation>
+                        <bpelx:pattern>transformation</bpelx:pattern>
+                      </bpelx:annotation>
+                      <copy>
+                        <from expression="ora:doXSLTransformForDoc('xsl/CardGroupValidate_to_MergeCardGroupErrorLog.xsl', $CardGroupValidate)"/>
+                        <to variable="InvokeMergeCardErrorLogDBAdapterIV" part="EngageSoaCardgroupErrorlogCollection"/>
+                      </copy>
+                    </assign>
+                    <invoke name="InvokeMergeCardErrorLogDBAdapter" inputVariable="InvokeMergeCardErrorLogDBAdapterIV" partnerLink="MergeCardGroupErrorLogDatabaseAdapterV1" portType="ns13:MergeCardGroupErrorLogDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv4"/>
+                  </sequence>
+                </catch>
+              </faultHandlers>
+              <sequence name="SelectDB2ValidateSequence" id="BpSeq8">
+                <assign name="xformPALSDB2toCardGroupValidate" id="BpAss14">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/SelectPALSDB2_to_CardGroupValidate.xsl', $InvokeSelectPALSDB2Adapter_OV.Cc072Vs1CssffoDtaCollection)"/>
+                    <to variable="CardGroupValidate"/>
+                  </copy>
+                </assign>
+                <bpelx:validate name="ValidateCardGroupValidate" variables="CardGroupValidate" id="BpVal0"/>
+              </sequence>
+            </scope>
+            <scope name="MergeCardGroupScope" variableAccessSerializable="no" id="BpScp4">
+              <faultHandlers id="BpFhs1">
+                <catch faultName="bpelx:bindingFault" id="BpCFt1">
+                  <switch name="BindingFaultSwitch" id="BpSwt2">
+                    <case condition="contains(ora:getFaultAsString(),'integrity constraint')">
+                      <bpelx:annotation>
+                        <bpelx:general>
+                          <bpelx:property name="userLabel">If ForiegnKey Constraint is violated</bpelx:property>
+                        </bpelx:general>
+                      </bpelx:annotation>
+                      <sequence name="Sequence4" id="BpSeq9">
+                        <assign name="xformMergeCardGrouptoMergeCardGroupTemp" id="BpAss15">
+                          <bpelx:annotation>
+                            <bpelx:pattern>transformation</bpelx:pattern>
+                          </bpelx:annotation>
+                          <copy>
+                            <from expression="ora:doXSLTransformForDoc('xsl/SelectPALSDB2_to_MergeCardgroupTemp.xsl', $InvokeSelectPALSDB2Adapter_OV.Cc072Vs1CssffoDtaCollection, 'ReceiveInvocationMsg_IV.part1', $ReceiveInvocationMsg_IV.part1)"/>
+                            <to part="SoaCardgroupTempCollection" variable="InvokeMergeCardGroupTempDBAdapter_IV"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeMergeCardGroupTempDBAdapter" inputVariable="InvokeMergeCardGroupTempDBAdapter_IV" partnerLink="MergeCardGroupTempDatabaseAdapterV1" portType="ns16:MergeCardGroupTempDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv5"/>
+                        <invoke name="InvokeSOACardGroupTempDBAdapterV1" outputVariable="InvokeSOACardGroupTempDBAdapterV1_OtV" partnerLink="SelectSOACardGroupTempDatabaseAdapterV1" portType="ns15:SelectSOACardGroupTempDatabaseAdapterV1_ptt" operation="SelectSOACardGroupTempDatabaseAdapterV1" inputVariable="InvokeSOACardGroupTempDBAdapterV1_IV" bpelx:invokeAsDetail="no" id="BpInv6"/>
+                        <assign name="xformCardGroupTemptoCardGroupError" id="BpAss16">
+                          <bpelx:annotation>
+                            <bpelx:pattern>transformation</bpelx:pattern>
+                          </bpelx:annotation>
+                          <copy>
+                            <from expression="ora:doXSLTransformForDoc('xsl/CardGroupTemp_to_CardGroupError.xsl', $InvokeSOACardGroupTempDBAdapterV1_OtV.SelectSOACardGroupTempDatabaseAdapterV1OutputCollection)"/>
+                            <to variable="InvokeMergeCardGroupErrorLogDBAdapterV2_IV" part="EngageSoaCardgroupErrorlogCollection"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeMergeCardGroupErrorLogDBAdapterV2" inputVariable="InvokeMergeCardGroupErrorLogDBAdapterV2_IV" partnerLink="MergeCardGroupErrorLogDatabaseAdapterV1" portType="ns13:MergeCardGroupErrorLogDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
+                        <invoke name="InvokeSelectValidcardGroupTempDBAdapterV1" outputVariable="InvokeSelectValidcardGroupTempDBAdapterV1_OV" partnerLink="SelectValidCardGroupTempDatabaseAdapterV1" portType="ns17:SelectValidCardGroupTempDatabaseAdapterV1_ptt" operation="SelectValidCardGroupTempDatabaseAdapterV1" inputVariable="InvokeSelectValidcardGroupTempDBAdapterV1_IV" bpelx:invokeAsDetail="no" id="BpInv8"/>
+                        <assign name="xformValidcardGroupTemptoCardGroup" id="BpAss17">
+                          <bpelx:annotation>
+                            <bpelx:pattern>transformation</bpelx:pattern>
+                          </bpelx:annotation>
+                          <copy>
+                            <from expression="ora:doXSLTransformForDoc('xsl/validCardGroup_to_MergeCardGroup.xsl', $InvokeSelectValidcardGroupTempDBAdapterV1_OV.SelectValidCardGroupTempDatabaseAdapterV1OutputCollection)"/>
+                            <to variable="InvokeMergeCardGroupDatabaseAdapterV2_IV" part="PrtCardgroupCollection"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeMergeCardGroupDatabaseAdapterV2" inputVariable="InvokeMergeCardGroupDatabaseAdapterV2_IV" partnerLink="MergeCardGroupPortalDatabaseAdaptorV1" portType="ns11:MergeCardGroupPortalDatabaseAdaptorV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv9"/>
+                        <invoke name="InvokeTruncSOACardGroupTemp" inputVariable="InvokeTruncSOACardGroupTemp_IV" partnerLink="TruncSOACardGroupDatabaseAdapterV1" portType="ns18:TruncSOACardGroupDatabaseAdapterV1_ptt" operation="TruncSOACardGroupDatabaseAdapterV1" bpelx:invokeAsDetail="no" id="BpInv10"/>
+                      </sequence>
+                    </case>
+                    <otherwise>
+                      <empty name="Empty1" id="BpEmp0"/>
+                    </otherwise>
+                  </switch>
+                </catch>
+              </faultHandlers>
+              <sequence name="MergeCardGroupSequence" id="BpSeq10">
+                <assign name="xformSelectPALSDB2MergeCardGroup" id="BpAss18">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/SelectPALSDB2OV_to_MergeCardGroupIV.xsl', $ReceiveInvocationMsg_IV.part1, 'InvokeSelectPALSDB2Adapter_OV.Cc072Vs1CssffoDtaCollection', $InvokeSelectPALSDB2Adapter_OV.Cc072Vs1CssffoDtaCollection)"/>
+                    <to variable="InvokeMergeCardGroupDBAdaptorV1_IV" part="PrtCardgroupCollection"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeMergeCardGroupDBAdaptorV1" inputVariable="InvokeMergeCardGroupDBAdaptorV1_IV" partnerLink="MergeCardGroupPortalDatabaseAdaptorV1" portType="ns11:MergeCardGroupPortalDatabaseAdaptorV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv11"/>
+              </sequence>
+            </scope>
+            <assign name="AssignInvokeMergeDeltaTSIV" id="BpAss19">
+              <copy>
+                <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:InterfaceID"/>
+                <to variable="InvokeMergeDeltaTSDDBAdapter_IV" part="EngageSoaDeltatableCollection" query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:interfaceid"/>
+              </copy>
+              <copy>
+                <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:CountryCode"/>
+                <to variable="InvokeMergeDeltaTSDDBAdapter_IV" part="EngageSoaDeltatableCollection" query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:countrycode"/>
+              </copy>
+              <copy>
+                <from variable="ReceiveInvocationMsg_IV" part="part1" query="/ns5:invocationMsg/ns5:UserName"/>
+                <to variable="InvokeMergeDeltaTSDDBAdapter_IV" part="EngageSoaDeltatableCollection" query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:updatedby"/>
+              </copy>
+              <copy>
+                <from expression="xp20:current-dateTime()"/>
+                <to variable="InvokeMergeDeltaTSDDBAdapter_IV" part="EngageSoaDeltatableCollection" query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:modifiedbytimestamp"/>
+              </copy>
+              <copy>
+                <from expression="bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta[$DataCount]/ns9:deltaTs')"/>
+                <to variable="InvokeMergeDeltaTSDDBAdapter_IV" part="EngageSoaDeltatableCollection" query="/ns10:EngageSoaDeltatableCollection/ns10:EngageSoaDeltatable/ns10:palsDeltaTimestamp"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeMergeDeltaTSDDBAdapter" partnerLink="MergeDeltaTSDatabaseAdapterV1" portType="ns4:MergeDeltaTSDatabaseAdapterV1_ptt" operation="merge" inputVariable="InvokeMergeDeltaTSDDBAdapter_IV" bpelx:invokeAsDetail="no" id="BpInv12"/>
+            <assign name="DecrementBatchCount" id="BpAss20">
+              <copy>
+                <from expression="bpws:getVariableData('BatchCount')-1"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </sequence>
+        </while>
+      </sequence>
+    </scope>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue May 06 16:02:02 IST 2014
+  Author:  10608609
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
