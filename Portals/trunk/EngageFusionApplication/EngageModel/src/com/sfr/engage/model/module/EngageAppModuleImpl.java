@@ -435,14 +435,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
 
 
     /**
-     * Container's getter for PrtHomeTransactionsRVO1.
-     * @return PrtHomeTransactionsRVO1
-     */
-    public ViewObjectImpl getPrtHomeTransactionsRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtHomeTransactionsRVO1");
-    }
-
-    /**
      * Container's getter for PrtHomeInvoiceRVO1.
      * @return PrtHomeInvoiceRVO1
      */
@@ -456,5 +448,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtHomeInvoiceRVO2() {
         return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO2");
+    }
+
+    /**
+     * Container's getter for PrtHomeTransactionsRVO1.
+     * @return PrtHomeTransactionsRVO1
+     */
+    public ViewObjectImpl getPrtHomeTransactionsRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtHomeTransactionsRVO1");
     }
 }

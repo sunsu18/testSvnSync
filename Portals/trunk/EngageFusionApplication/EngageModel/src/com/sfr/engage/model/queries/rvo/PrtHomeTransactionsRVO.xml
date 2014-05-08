@@ -29,7 +29,7 @@
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[select * from
-(SELECT * FROM PRT_CARD_TRANSACTION_DETAIL
+(SELECT PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT,PRT_CARD_TRANSACTION_HEADER.transaction_type,PRT_CARD_TRANSACTION_HEADER.card_1_id,PRT_CARD_TRANSACTION_HEADER.station_name,PRT_CARD_TRANSACTION_DETAIL.PRODUCT_NAME,PRT_CARD_TRANSACTION_DETAIL.Quantity,PRT_CARD_TRANSACTION_DETAIL.UNIT_OF_MEASURE FROM PRT_CARD_TRANSACTION_DETAIL
 inner join PRT_CARD_TRANSACTION_HEADER
 ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
 and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
@@ -39,110 +39,62 @@ ORDER by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT DESC)
 where ROWNUM <=5]]>
   </SQLQuery>
   <ViewAttribute
-    Name="DeltaTimestamp"
+    Name="TransactionDt"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="DELTA_TIMESTAMP"
-    SQLType="TIMESTAMP"
-    Expression="DELTA_TIMESTAMP">
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="TRANSACTION_DT"
+    SQLType="DATE"
+    Expression="TRANSACTION_DT">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
+      <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="UrefTransactionId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="UREF_TRANSACTION_ID"
-    SQLType="VARCHAR"
-    Expression="UREF_TRANSACTION_ID">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsCountryCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PALS_COUNTRY_CODE"
-    SQLType="VARCHAR"
-    Expression="PALS_COUNTRY_CODE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="DetailNo"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="5"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="DETAIL_NO"
-    SQLType="VARCHAR"
-    Expression="DETAIL_NO">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsPGroupId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="2"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PALS_P_GROUP_ID"
-    SQLType="VARCHAR"
-    Expression="PALS_P_GROUP_ID">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="2"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsPGroupSubgroupId"
+    Name="TransactionType"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
     Precision="3"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="PALS_P_GROUP_SUBGROUP_ID"
+    AliasName="TRANSACTION_TYPE"
     SQLType="VARCHAR"
-    Expression="PALS_P_GROUP_SUBGROUP_ID">
+    Expression="TRANSACTION_TYPE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="FuelYn"
+    Name="Card1Id"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="1"
+    Precision="20"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="FUEL_YN"
+    AliasName="CARD_1_ID"
     SQLType="VARCHAR"
-    Expression="FUEL_YN">
+    Expression="CARD_1_ID">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StationName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATION_NAME"
+    SQLType="VARCHAR"
+    Expression="STATION_NAME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -175,349 +127,6 @@ where ROWNUM <=5]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="VatRate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="VAT_RATE"
-    SQLType="NUMERIC"
-    Expression="VAT_RATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyVat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_VAT"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_VAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedVat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_VAT"
-    SQLType="NUMERIC"
-    Expression="INVOICED_VAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyUnitPrice"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_UNIT_PRICE"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_UNIT_PRICE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedUnitPrice"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_UNIT_PRICE"
-    SQLType="NUMERIC"
-    Expression="INVOICED_UNIT_PRICE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyGrossAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_GROSS_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_GROSS_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedGrossAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_GROSS_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="INVOICED_GROSS_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyNetAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_NET_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_NET_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedNetAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_NET_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="INVOICED_NET_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyDiscountAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_DISCOUNT_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_DISCOUNT_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceDiscountAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICE_DISCOUNT_AMOUNT"
-    SQLType="NUMERIC"
-    Expression="INVOICE_DISCOUNT_AMOUNT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="VatRefundableYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="VAT_REFUNDABLE_YN"
-    SQLType="VARCHAR"
-    Expression="VAT_REFUNDABLE_YN">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="SurchargeYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="SURCHARGE_YN"
-    SQLType="VARCHAR"
-    Expression="SURCHARGE_YN">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AtIabf538aPrpslKd"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="AT_IABF538A_PRPSL_KD"
-    SQLType="VARCHAR"
-    Expression="AT_IABF538A_PRPSL_KD">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AsIabf538aPrpslsats"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="AS_IABF538A_PRPSLSATS"
-    SQLType="NUMERIC"
-    Expression="AS_IABF538A_PRPSLSATS">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyVatRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_VAT_REBATED"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_VAT_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoivedVatRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOIVED_VAT_REBATED"
-    SQLType="NUMERIC"
-    Expression="INVOIVED_VAT_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyUnitPriceRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_UNIT_PRICE_REBATED"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_UNIT_PRICE_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedUnitPriceRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_UNIT_PRICE_REBATED"
-    SQLType="NUMERIC"
-    Expression="INVOICED_UNIT_PRICE_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyGrossAmountRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_GROSS_AMOUNT_REBATED"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_GROSS_AMOUNT_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedGrossAmountRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_GROSS_AMOUNT_REBATED"
-    SQLType="NUMERIC"
-    Expression="INVOICED_GROSS_AMOUNT_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyNetAmountRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="CURRENCY_NET_AMOUNT_REBATED"
-    SQLType="NUMERIC"
-    Expression="CURRENCY_NET_AMOUNT_REBATED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedNetAmountRabeted"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICED_NET_AMOUNT_RABETED"
-    SQLType="NUMERIC"
-    Expression="INVOICED_NET_AMOUNT_RABETED">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="22"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="UnitOfMeasure"
     IsUpdateable="false"
     IsPersistent="false"
@@ -533,7 +142,427 @@ where ROWNUM <=5]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="DeltaTimestamp1_1_1"
+    Name="DeltaTimestamp"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="DELTA_TIMESTAMP"
+    SQLType="TIMESTAMP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UrefTransactionId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UREF_TRANSACTION_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PalsCountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PALS_COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DetailNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DETAIL_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PalsPGroupId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="2"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PALS_P_GROUP_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PalsPGroupSubgroupId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PALS_P_GROUP_SUBGROUP_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="FuelYn"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FUEL_YN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VatRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VAT_RATE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyVat"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_VAT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedVat"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_VAT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyUnitPrice"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_UNIT_PRICE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedUnitPrice"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_UNIT_PRICE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyGrossAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_GROSS_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedGrossAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_GROSS_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyNetAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_NET_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedNetAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_NET_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyDiscountAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_DISCOUNT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceDiscountAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_DISCOUNT_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VatRefundableYn"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VAT_REFUNDABLE_YN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SurchargeYn"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SURCHARGE_YN"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AtIabf538aPrpslKd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="AT_IABF538A_PRPSL_KD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AsIabf538aPrpslsats"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="AS_IABF538A_PRPSLSATS"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyVatRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_VAT_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoivedVatRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOIVED_VAT_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyUnitPriceRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_UNIT_PRICE_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedUnitPriceRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_UNIT_PRICE_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyGrossAmountRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_GROSS_AMOUNT_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedGrossAmountRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_GROSS_AMOUNT_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyNetAmountRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CURRENCY_NET_AMOUNT_REBATED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedNetAmountRabeted"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="INVOICED_NET_AMOUNT_RABETED"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DeltaTimestamp1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -553,14 +582,13 @@ where ROWNUM <=5]]>
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="LAST_UPDATED"
-    SQLType="DATE"
-    Expression="LAST_UPDATED">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="UrefTransactionId1_1_1"
+    Name="UrefTransactionId1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     IsNotNull="true"
@@ -575,7 +603,7 @@ where ROWNUM <=5]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="PalsCountryCode1_1_1"
+    Name="PalsCountryCode1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     IsNotNull="true"
@@ -598,8 +626,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PURCHASE_COUNTRY_CODE"
-    SQLType="VARCHAR"
-    Expression="PURCHASE_COUNTRY_CODE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
@@ -613,8 +640,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ORDER_ID"
-    SQLType="VARCHAR"
-    Expression="ORDER_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -628,25 +654,9 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRELIM_ID"
-    SQLType="VARCHAR"
-    Expression="PRELIM_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Card1Id"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_1_ID"
-    SQLType="VARCHAR"
-    Expression="CARD_1_ID">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -658,8 +668,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARD_2_ID"
-    SQLType="VARCHAR"
-    Expression="CARD_2_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -673,8 +682,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARD_ID_2_INFO"
-    SQLType="VARCHAR"
-    Expression="CARD_ID_2_INFO">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
@@ -688,8 +696,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ODOMETER_PORTAL"
-    SQLType="VARCHAR"
-    Expression="ODOMETER_PORTAL">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -703,22 +710,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ODOMETER"
-    SQLType="VARCHAR"
-    Expression="ODOMETER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="TransactionDt"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Date"
-    ColumnType="DATE"
-    AliasName="TRANSACTION_DT"
-    SQLType="DATE"
-    Expression="TRANSACTION_DT">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -731,25 +723,9 @@ where ROWNUM <=5]]>
     Type="oracle.jbo.domain.Timestamp"
     ColumnType="TIMESTAMP"
     AliasName="TRANSACTION_TIME"
-    SQLType="TIMESTAMP"
-    Expression="TRANSACTION_TIME">
+    SQLType="TIMESTAMP">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="StationName"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="30"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="STATION_NAME"
-    SQLType="VARCHAR"
-    Expression="STATION_NAME">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -761,8 +737,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="STATION_GROUP_ID"
-    SQLType="VARCHAR"
-    Expression="STATION_GROUP_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -776,8 +751,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="STATION_GROUP_NAME"
-    SQLType="VARCHAR"
-    Expression="STATION_GROUP_NAME">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
@@ -791,8 +765,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ICC_INVOICE_NUMBER"
-    SQLType="VARCHAR"
-    Expression="ICC_INVOICE_NUMBER">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -806,8 +779,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="INVOICE_NUMBER_NON_COLLECTIVE"
-    SQLType="VARCHAR"
-    Expression="INVOICE_NUMBER_NON_COLLECTIVE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="9"/>
     </DesignTime>
@@ -820,8 +792,7 @@ where ROWNUM <=5]]>
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="INVOICING_DATE"
-    SQLType="DATE"
-    Expression="INVOICING_DATE">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -835,8 +806,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="RECIEPT_NO"
-    SQLType="VARCHAR"
-    Expression="RECIEPT_NO">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
@@ -850,8 +820,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PURCHASE_CURRENCY"
-    SQLType="VARCHAR"
-    Expression="PURCHASE_CURRENCY">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -866,8 +835,7 @@ where ROWNUM <=5]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="EXCHANGE_RATE"
-    SQLType="NUMERIC"
-    Expression="EXCHANGE_RATE">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="22"/>
     </DesignTime>
@@ -881,25 +849,9 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ICC_YN"
-    SQLType="VARCHAR"
-    Expression="ICC_YN">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="TransactionType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="TRANSACTION_TYPE"
-    SQLType="VARCHAR"
-    Expression="TRANSACTION_TYPE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -911,8 +863,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRELIM_STATUS_CODE"
-    SQLType="VARCHAR"
-    Expression="PRELIM_STATUS_CODE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -926,8 +877,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="INVOICE_NUMBER_COLLECTIVE"
-    SQLType="VARCHAR"
-    Expression="INVOICE_NUMBER_COLLECTIVE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="9"/>
     </DesignTime>
@@ -941,8 +891,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="KSID"
-    SQLType="VARCHAR"
-    Expression="KSID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -956,8 +905,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PARTNER_ID"
-    SQLType="VARCHAR"
-    Expression="PARTNER_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
@@ -971,8 +919,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="ACCOUNT_ID"
-    SQLType="VARCHAR"
-    Expression="ACCOUNT_ID">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -986,8 +933,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_MAIN_TYPE"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_MAIN_TYPE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -1001,8 +947,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_SUB_TYPE"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_SUB_TYPE">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -1016,8 +961,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_SEQ"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_SEQ">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="5"/>
     </DesignTime>
@@ -1031,8 +975,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="TERMINAL"
-    SQLType="VARCHAR"
-    Expression="TERMINAL">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -1046,8 +989,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="MODIFIED_BY"
-    SQLType="VARCHAR"
-    Expression="MODIFIED_BY">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -1060,8 +1002,7 @@ where ROWNUM <=5]]>
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="LAST_MODIFIED_DATE"
-    SQLType="DATE"
-    Expression="LAST_MODIFIED_DATE">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -1075,8 +1016,7 @@ where ROWNUM <=5]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PREVIOUS_ODOMETER"
-    SQLType="VARCHAR"
-    Expression="PREVIOUS_ODOMETER">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>

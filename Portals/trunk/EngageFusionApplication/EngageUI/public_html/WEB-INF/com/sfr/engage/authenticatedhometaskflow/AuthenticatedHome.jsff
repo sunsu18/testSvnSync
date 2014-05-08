@@ -189,7 +189,7 @@
                             rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
                             emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                             fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
-                            rowBandingInterval="1" id="t2" width="590"
+                            rowBandingInterval="1" id="t2" width="622"
                             summary="Latest Transactions"
                             columnResizing="disabled"
                             disableColumnReordering="true"
@@ -284,7 +284,7 @@
                   <!--<af:spacer width="550" id="spacer3"/>-->
                   <af:goLink id="goLink1" styleClass="greylinks"
                              text="View All"
-                             destination="#{navigationContext.currentNavigationModel.node['card/transaction/invoiceoverview'].goLinkPrettyUrl}&quot;/>"
+                             destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"
                              inlineStyle="padding-left: 540px;"/>
                 </af:panelGroupLayout>
               </af:panelGroupLayout>
