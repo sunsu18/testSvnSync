@@ -20,1196 +20,1088 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
-        DeltaTimestamp {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getDeltaTimestamp();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setDeltaTimestamp((Timestamp)value);
-            }
-        }
-        ,
-        LastUpdated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getLastUpdated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setLastUpdated((Date)value);
-            }
-        }
-        ,
-        UrefTransactionId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getUrefTransactionId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setUrefTransactionId((String)value);
-            }
-        }
-        ,
-        PalsCountryCode {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPalsCountryCode();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPalsCountryCode((String)value);
-            }
-        }
-        ,
-        PurchaseCountryCode {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPurchaseCountryCode();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPurchaseCountryCode((String)value);
-            }
-        }
-        ,
-        OrderId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getOrderId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setOrderId((String)value);
-            }
-        }
-        ,
-        PrelimId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPrelimId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPrelimId((String)value);
-            }
-        }
-        ,
-        Card1Id {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCard1Id();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCard1Id((String)value);
-            }
-        }
-        ,
-        Card2Id {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCard2Id();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCard2Id((String)value);
-            }
-        }
-        ,
-        CardId2Info {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardId2Info();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardId2Info((String)value);
-            }
-        }
-        ,
-        OdometerPortal {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getOdometerPortal();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setOdometerPortal((String)value);
-            }
-        }
-        ,
-        Odometer {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getOdometer();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setOdometer((String)value);
-            }
-        }
-        ,
-        TransactionDt {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getTransactionDt();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setTransactionDt((Date)value);
-            }
-        }
-        ,
-        TransactionTime {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getTransactionTime();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setTransactionTime((Timestamp)value);
-            }
-        }
-        ,
-        StationName {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getStationName();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setStationName((String)value);
-            }
-        }
-        ,
-        StationGroupId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getStationGroupId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setStationGroupId((String)value);
-            }
-        }
-        ,
-        StationGroupName {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getStationGroupName();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setStationGroupName((String)value);
-            }
-        }
-        ,
-        IccInvoiceNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getIccInvoiceNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setIccInvoiceNumber((String)value);
-            }
-        }
-        ,
-        InvoiceNumberNonCollective {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoiceNumberNonCollective();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoiceNumberNonCollective((String)value);
-            }
-        }
-        ,
-        InvoicingDate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicingDate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicingDate((Date)value);
-            }
-        }
-        ,
-        RecieptNo {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getRecieptNo();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setRecieptNo((String)value);
-            }
-        }
-        ,
-        PurchaseCurrency {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPurchaseCurrency();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPurchaseCurrency((String)value);
-            }
-        }
-        ,
-        ExchangeRate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getExchangeRate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setExchangeRate((Number)value);
-            }
-        }
-        ,
-        IccYn {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getIccYn();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setIccYn((String)value);
-            }
-        }
-        ,
-        TransactionType {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getTransactionType();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setTransactionType((String)value);
-            }
-        }
-        ,
-        PrelimStatusCode {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPrelimStatusCode();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPrelimStatusCode((String)value);
-            }
-        }
-        ,
-        InvoiceNumberCollective {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoiceNumberCollective();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoiceNumberCollective((String)value);
-            }
-        }
-        ,
-        Ksid {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getKsid();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setKsid((String)value);
-            }
-        }
-        ,
-        PartnerId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPartnerId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPartnerId((String)value);
-            }
-        }
-        ,
-        AccountId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getAccountId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setAccountId((String)value);
-            }
-        }
-        ,
-        CardgroupMainType {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardgroupMainType();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupMainType((String)value);
-            }
-        }
-        ,
-        CardgroupSubType {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardgroupSubType();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupSubType((String)value);
-            }
-        }
-        ,
-        CardgroupSeq {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardgroupSeq();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupSeq((String)value);
-            }
-        }
-        ,
-        Terminal {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getTerminal();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setTerminal((String)value);
-            }
-        }
-        ,
-        ModifiedBy {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedBy();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setModifiedBy((String)value);
-            }
-        }
-        ,
-        LastModifiedDate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getLastModifiedDate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setLastModifiedDate((Date)value);
-            }
-        }
-        ,
-        PreviousOdometer {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPreviousOdometer();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPreviousOdometer((String)value);
-            }
-        }
-        ,
-        DeltaTimestamp1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getDeltaTimestamp1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setDeltaTimestamp1((Timestamp)value);
-            }
-        }
-        ,
-        UrefTransactionId1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getUrefTransactionId1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setUrefTransactionId1((String)value);
-            }
-        }
-        ,
-        PalsCountryCode1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPalsCountryCode1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPalsCountryCode1((String)value);
-            }
-        }
-        ,
-        DetailNo {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getDetailNo();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setDetailNo((String)value);
-            }
-        }
-        ,
-        PalsPGroupId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPalsPGroupId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPalsPGroupId((String)value);
-            }
-        }
-        ,
-        PalsPGroupSubgroupId {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPalsPGroupSubgroupId();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPalsPGroupSubgroupId((String)value);
-            }
-        }
-        ,
-        FuelYn {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getFuelYn();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setFuelYn((String)value);
-            }
-        }
-        ,
-        ProductName {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getProductName();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setProductName((String)value);
-            }
-        }
-        ,
-        Quantity {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getQuantity();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setQuantity((Number)value);
-            }
-        }
-        ,
-        VatRate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getVatRate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setVatRate((Number)value);
-            }
-        }
-        ,
-        CurrencyVat {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyVat();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyVat((Float)value);
-            }
-        }
-        ,
-        InvoicedVat {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedVat();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedVat((Float)value);
-            }
-        }
-        ,
-        CurrencyUnitPrice {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyUnitPrice();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyUnitPrice((Float)value);
-            }
-        }
-        ,
-        InvoicedUnitPrice {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedUnitPrice();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedUnitPrice((Float)value);
-            }
-        }
-        ,
-        CurrencyGrossAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyGrossAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyGrossAmount((Float)value);
-            }
-        }
-        ,
-        InvoicedGrossAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedGrossAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedGrossAmount((Float)value);
-            }
-        }
-        ,
-        CurrencyNetAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyNetAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyNetAmount((Float)value);
-            }
-        }
-        ,
-        InvoicedNetAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedNetAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedNetAmount((Float)value);
-            }
-        }
-        ,
-        CurrencyDiscountAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyDiscountAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyDiscountAmount((Float)value);
-            }
-        }
-        ,
-        InvoiceDiscountAmount {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoiceDiscountAmount();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoiceDiscountAmount((Float)value);
-            }
-        }
-        ,
-        VatRefundableYn {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getVatRefundableYn();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setVatRefundableYn((String)value);
-            }
-        }
-        ,
-        SurchargeYn {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getSurchargeYn();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setSurchargeYn((String)value);
-            }
-        }
-        ,
-        AtIabf538aPrpslKd {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getAtIabf538aPrpslKd();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setAtIabf538aPrpslKd((String)value);
-            }
-        }
-        ,
-        AsIabf538aPrpslsats {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getAsIabf538aPrpslsats();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setAsIabf538aPrpslsats((Number)value);
-            }
-        }
-        ,
-        CurrencyVatRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyVatRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyVatRebated((Float)value);
-            }
-        }
-        ,
-        InvoivedVatRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoivedVatRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoivedVatRebated((Float)value);
-            }
-        }
-        ,
-        CurrencyUnitPriceRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyUnitPriceRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyUnitPriceRebated((Float)value);
-            }
-        }
-        ,
-        InvoicedUnitPriceRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedUnitPriceRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedUnitPriceRebated((Float)value);
-            }
-        }
-        ,
-        CurrencyGrossAmountRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyGrossAmountRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyGrossAmountRebated((Float)value);
-            }
-        }
-        ,
-        InvoicedGrossAmountRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedGrossAmountRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedGrossAmountRebated((Float)value);
-            }
-        }
-        ,
-        CurrencyNetAmountRebated {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCurrencyNetAmountRebated();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCurrencyNetAmountRebated((Float)value);
-            }
-        }
-        ,
-        InvoicedNetAmountRabeted {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInvoicedNetAmountRabeted();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInvoicedNetAmountRabeted((Float)value);
-            }
-        }
-        ,
-        UnitOfMeasure {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getUnitOfMeasure();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setUnitOfMeasure((String)value);
-            }
-        }
-        ,
-        PrtDriverInformationPk {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPrtDriverInformationPk();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPrtDriverInformationPk((String)value);
-            }
-        }
-        ,
-        AccountId1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getAccountId1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setAccountId1((String)value);
-            }
-        }
-        ,
-        CardNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardNumber((String)value);
-            }
-        }
-        ,
-        DriverNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getDriverNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setDriverNumber((String)value);
-            }
-        }
-        ,
-        DriverName {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getDriverName();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setDriverName((String)value);
-            }
-        }
-        ,
-        Nationality {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getNationality();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setNationality((String)value);
-            }
-        }
-        ,
-        MobileNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getMobileNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setMobileNumber((Number)value);
-            }
-        }
-        ,
-        Remarks {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getRemarks();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setRemarks((String)value);
-            }
-        }
-        ,
-        PassportNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPassportNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPassportNumber((String)value);
-            }
-        }
-        ,
-        PassportExpiry {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPassportExpiry();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPassportExpiry((Date)value);
-            }
-        }
-        ,
-        LicenseNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getLicenseNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setLicenseNumber((String)value);
-            }
-        }
-        ,
-        LicenseExpiry {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getLicenseExpiry();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setLicenseExpiry((Date)value);
-            }
-        }
-        ,
-        EmployStart {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getEmployStart();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setEmployStart((Date)value);
-            }
-        }
-        ,
-        EmployEnd {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getEmployEnd();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setEmployEnd((Date)value);
-            }
-        }
-        ,
-        ModifiedBy1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedBy1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setModifiedBy1((String)value);
-            }
-        }
-        ,
-        ModifiedDate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedDate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setModifiedDate((Timestamp)value);
-            }
-        }
-        ,
-        CountryCode {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCountryCode();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCountryCode((String)value);
-            }
-        }
-        ,
-        PrtTruckInformationPk {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getPrtTruckInformationPk();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setPrtTruckInformationPk((String)value);
-            }
-        }
-        ,
-        AccountNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getAccountNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setAccountNumber((String)value);
-            }
-        }
-        ,
-        CardNumber1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCardNumber1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCardNumber1((String)value);
-            }
-        }
-        ,
-        VehicleNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getVehicleNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setVehicleNumber((String)value);
-            }
-        }
-        ,
-        InternalName {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getInternalName();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setInternalName((String)value);
-            }
-        }
-        ,
-        RegistrationNumber {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getRegistrationNumber();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setRegistrationNumber((String)value);
-            }
-        }
-        ,
-        Brand {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getBrand();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setBrand((String)value);
-            }
-        }
-        ,
-        Year {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getYear();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setYear((Number)value);
-            }
-        }
-        ,
-        RegistrationDate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getRegistrationDate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setRegistrationDate((Date)value);
-            }
-        }
-        ,
-        EndDate {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getEndDate();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setEndDate((Date)value);
-            }
-        }
-        ,
-        FuelType {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getFuelType();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setFuelType((String)value);
-            }
-        }
-        ,
-        MaxFuel {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getMaxFuel();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setMaxFuel((Number)value);
-            }
-        }
-        ,
-        Odometer1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getOdometer1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setOdometer1((Number)value);
-            }
-        }
-        ,
-        Remarks1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getRemarks1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setRemarks1((String)value);
-            }
-        }
-        ,
-        ModifiedBy2 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedBy2();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setModifiedBy2((String)value);
-            }
-        }
-        ,
-        ModifiedDate1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getModifiedDate1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setModifiedDate1((Timestamp)value);
-            }
-        }
-        ,
-        CountryCode1 {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getCountryCode1();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setCountryCode1((String)value);
-            }
-        }
-        ,
-        kmTotal {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getkmTotal();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setkmTotal((Number)value);
-            }
-        }
-        ,
-        kmPerLt {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getkmPerLt();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setkmPerLt((Number)value);
-            }
-        }
-        ,
-        ltPerHundred {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getltPerHundred();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setltPerHundred((Number)value);
-            }
-        }
-        ,
-        grandTotal {
-            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
-                return obj.getgrandTotal();
-            }
-
-            public void put(PrtCardTransactionOverviewRVORowImpl obj,
-                            Object value) {
-                obj.setgrandTotal((Integer)value);
-            }
-        }
-        ;
-        private static AttributesEnum[] vals = null;
-        private static int firstIndex = 0;
+    DeltaTimestamp {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getDeltaTimestamp();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setDeltaTimestamp((Timestamp)value);
+      }
+    }
+    ,
+    LastUpdated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getLastUpdated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setLastUpdated((Date)value);
+      }
+    }
+    ,
+    UrefTransactionId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getUrefTransactionId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setUrefTransactionId((String)value);
+      }
+    }
+    ,
+    PalsCountryCode {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPalsCountryCode();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPalsCountryCode((String)value);
+      }
+    }
+    ,
+    PurchaseCountryCode {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPurchaseCountryCode();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPurchaseCountryCode((String)value);
+      }
+    }
+    ,
+    OrderId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getOrderId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setOrderId((String)value);
+      }
+    }
+    ,
+    PrelimId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPrelimId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPrelimId((String)value);
+      }
+    }
+    ,
+    Card1Id {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCard1Id();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCard1Id((String)value);
+      }
+    }
+    ,
+    Card2Id {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCard2Id();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCard2Id((String)value);
+      }
+    }
+    ,
+    CardId2Info {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardId2Info();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardId2Info((String)value);
+      }
+    }
+    ,
+    OdometerPortal {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getOdometerPortal();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setOdometerPortal((String)value);
+      }
+    }
+    ,
+    Odometer {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getOdometer();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setOdometer((String)value);
+      }
+    }
+    ,
+    TransactionDt {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getTransactionDt();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setTransactionDt((Date)value);
+      }
+    }
+    ,
+    TransactionTime {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getTransactionTime();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setTransactionTime((Timestamp)value);
+      }
+    }
+    ,
+    StationName {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getStationName();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setStationName((String)value);
+      }
+    }
+    ,
+    StationGroupId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getStationGroupId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setStationGroupId((String)value);
+      }
+    }
+    ,
+    StationGroupName {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getStationGroupName();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setStationGroupName((String)value);
+      }
+    }
+    ,
+    IccInvoiceNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getIccInvoiceNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setIccInvoiceNumber((String)value);
+      }
+    }
+    ,
+    InvoiceNumberNonCollective {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoiceNumberNonCollective();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoiceNumberNonCollective((String)value);
+      }
+    }
+    ,
+    InvoicingDate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicingDate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicingDate((Date)value);
+      }
+    }
+    ,
+    RecieptNo {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getRecieptNo();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setRecieptNo((String)value);
+      }
+    }
+    ,
+    PurchaseCurrency {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPurchaseCurrency();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPurchaseCurrency((String)value);
+      }
+    }
+    ,
+    ExchangeRate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getExchangeRate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setExchangeRate((Number)value);
+      }
+    }
+    ,
+    IccYn {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getIccYn();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setIccYn((String)value);
+      }
+    }
+    ,
+    TransactionType {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getTransactionType();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setTransactionType((String)value);
+      }
+    }
+    ,
+    PrelimStatusCode {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPrelimStatusCode();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPrelimStatusCode((String)value);
+      }
+    }
+    ,
+    InvoiceNumberCollective {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoiceNumberCollective();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoiceNumberCollective((String)value);
+      }
+    }
+    ,
+    Ksid {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getKsid();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setKsid((String)value);
+      }
+    }
+    ,
+    PartnerId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPartnerId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPartnerId((String)value);
+      }
+    }
+    ,
+    AccountId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getAccountId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setAccountId((String)value);
+      }
+    }
+    ,
+    CardgroupMainType {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardgroupMainType();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardgroupMainType((String)value);
+      }
+    }
+    ,
+    CardgroupSubType {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardgroupSubType();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardgroupSubType((String)value);
+      }
+    }
+    ,
+    CardgroupSeq {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardgroupSeq();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardgroupSeq((String)value);
+      }
+    }
+    ,
+    Terminal {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getTerminal();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setTerminal((String)value);
+      }
+    }
+    ,
+    ModifiedBy {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getModifiedBy();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setModifiedBy((String)value);
+      }
+    }
+    ,
+    LastModifiedDate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getLastModifiedDate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setLastModifiedDate((Date)value);
+      }
+    }
+    ,
+    PreviousOdometer {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPreviousOdometer();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPreviousOdometer((String)value);
+      }
+    }
+    ,
+    DeltaTimestamp1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getDeltaTimestamp1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setDeltaTimestamp1((Timestamp)value);
+      }
+    }
+    ,
+    UrefTransactionId1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getUrefTransactionId1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setUrefTransactionId1((String)value);
+      }
+    }
+    ,
+    PalsCountryCode1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPalsCountryCode1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPalsCountryCode1((String)value);
+      }
+    }
+    ,
+    DetailNo {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getDetailNo();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setDetailNo((String)value);
+      }
+    }
+    ,
+    PalsPGroupId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPalsPGroupId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPalsPGroupId((String)value);
+      }
+    }
+    ,
+    PalsPGroupSubgroupId {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPalsPGroupSubgroupId();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPalsPGroupSubgroupId((String)value);
+      }
+    }
+    ,
+    FuelYn {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getFuelYn();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setFuelYn((String)value);
+      }
+    }
+    ,
+    ProductName {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getProductName();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setProductName((String)value);
+      }
+    }
+    ,
+    Quantity {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getQuantity();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setQuantity((Number)value);
+      }
+    }
+    ,
+    VatRate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getVatRate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setVatRate((Number)value);
+      }
+    }
+    ,
+    CurrencyVat {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyVat();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyVat((Float)value);
+      }
+    }
+    ,
+    InvoicedVat {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedVat();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedVat((Float)value);
+      }
+    }
+    ,
+    CurrencyUnitPrice {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyUnitPrice();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyUnitPrice((Float)value);
+      }
+    }
+    ,
+    InvoicedUnitPrice {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedUnitPrice();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedUnitPrice((Float)value);
+      }
+    }
+    ,
+    CurrencyGrossAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyGrossAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyGrossAmount((Float)value);
+      }
+    }
+    ,
+    InvoicedGrossAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedGrossAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedGrossAmount((Float)value);
+      }
+    }
+    ,
+    CurrencyNetAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyNetAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyNetAmount((Float)value);
+      }
+    }
+    ,
+    InvoicedNetAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedNetAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedNetAmount((Float)value);
+      }
+    }
+    ,
+    CurrencyDiscountAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyDiscountAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyDiscountAmount((Float)value);
+      }
+    }
+    ,
+    InvoiceDiscountAmount {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoiceDiscountAmount();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoiceDiscountAmount((Float)value);
+      }
+    }
+    ,
+    VatRefundableYn {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getVatRefundableYn();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setVatRefundableYn((String)value);
+      }
+    }
+    ,
+    SurchargeYn {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getSurchargeYn();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setSurchargeYn((String)value);
+      }
+    }
+    ,
+    AtIabf538aPrpslKd {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getAtIabf538aPrpslKd();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setAtIabf538aPrpslKd((String)value);
+      }
+    }
+    ,
+    AsIabf538aPrpslsats {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getAsIabf538aPrpslsats();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setAsIabf538aPrpslsats((Number)value);
+      }
+    }
+    ,
+    CurrencyVatRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyVatRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyVatRebated((Float)value);
+      }
+    }
+    ,
+    InvoivedVatRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoivedVatRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoivedVatRebated((Float)value);
+      }
+    }
+    ,
+    CurrencyUnitPriceRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyUnitPriceRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyUnitPriceRebated((Float)value);
+      }
+    }
+    ,
+    InvoicedUnitPriceRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedUnitPriceRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedUnitPriceRebated((Float)value);
+      }
+    }
+    ,
+    CurrencyGrossAmountRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyGrossAmountRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyGrossAmountRebated((Float)value);
+      }
+    }
+    ,
+    InvoicedGrossAmountRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedGrossAmountRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedGrossAmountRebated((Float)value);
+      }
+    }
+    ,
+    CurrencyNetAmountRebated {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCurrencyNetAmountRebated();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCurrencyNetAmountRebated((Float)value);
+      }
+    }
+    ,
+    InvoicedNetAmountRabeted {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInvoicedNetAmountRabeted();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInvoicedNetAmountRabeted((Float)value);
+      }
+    }
+    ,
+    UnitOfMeasure {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getUnitOfMeasure();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setUnitOfMeasure((String)value);
+      }
+    }
+    ,
+    PrtDriverInformationPk {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPrtDriverInformationPk();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPrtDriverInformationPk((String)value);
+      }
+    }
+    ,
+    CountryCode {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCountryCode();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCountryCode((String)value);
+      }
+    }
+    ,
+    AccountNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getAccountNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setAccountNumber((String)value);
+      }
+    }
+    ,
+    CardNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardNumber((String)value);
+      }
+    }
+    ,
+    DriverNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getDriverNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setDriverNumber((String)value);
+      }
+    }
+    ,
+    DriverName {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getDriverName();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setDriverName((String)value);
+      }
+    }
+    ,
+    Nationality {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getNationality();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setNationality((String)value);
+      }
+    }
+    ,
+    MobileNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getMobileNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setMobileNumber((Number)value);
+      }
+    }
+    ,
+    Remarks {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getRemarks();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setRemarks((String)value);
+      }
+    }
+    ,
+    PassportNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPassportNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPassportNumber((String)value);
+      }
+    }
+    ,
+    PassportExpiry {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPassportExpiry();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPassportExpiry((Date)value);
+      }
+    }
+    ,
+    LicenseNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getLicenseNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setLicenseNumber((String)value);
+      }
+    }
+    ,
+    LicenseExpiry {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getLicenseExpiry();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setLicenseExpiry((Date)value);
+      }
+    }
+    ,
+    EmployStart {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getEmployStart();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setEmployStart((Date)value);
+      }
+    }
+    ,
+    EmployEnd {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getEmployEnd();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setEmployEnd((Date)value);
+      }
+    }
+    ,
+    ModifiedBy1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getModifiedBy1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setModifiedBy1((String)value);
+      }
+    }
+    ,
+    ModifiedDate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getModifiedDate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setModifiedDate((Timestamp)value);
+      }
+    }
+    ,
+    PrtTruckInformationPk {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getPrtTruckInformationPk();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setPrtTruckInformationPk((String)value);
+      }
+    }
+    ,
+    CountryCode1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCountryCode1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCountryCode1((String)value);
+      }
+    }
+    ,
+    AccountNumber1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getAccountNumber1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setAccountNumber1((String)value);
+      }
+    }
+    ,
+    CardNumber1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getCardNumber1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setCardNumber1((String)value);
+      }
+    }
+    ,
+    VehicleNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getVehicleNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setVehicleNumber((String)value);
+      }
+    }
+    ,
+    InternalName {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getInternalName();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setInternalName((String)value);
+      }
+    }
+    ,
+    RegistrationNumber {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getRegistrationNumber();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setRegistrationNumber((String)value);
+      }
+    }
+    ,
+    Brand {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getBrand();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setBrand((String)value);
+      }
+    }
+    ,
+    Year {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getYear();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setYear((Number)value);
+      }
+    }
+    ,
+    RegistrationDate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getRegistrationDate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setRegistrationDate((Date)value);
+      }
+    }
+    ,
+    EndDate {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getEndDate();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setEndDate((Date)value);
+      }
+    }
+    ,
+    FuelType {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getFuelType();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setFuelType((String)value);
+      }
+    }
+    ,
+    MaxFuel {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getMaxFuel();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setMaxFuel((Number)value);
+      }
+    }
+    ,
+    Odometer1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getOdometer1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setOdometer1((Number)value);
+      }
+    }
+    ,
+    Remarks1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getRemarks1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setRemarks1((String)value);
+      }
+    }
+    ,
+    ModifiedBy2 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getModifiedBy2();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setModifiedBy2((String)value);
+      }
+    }
+    ,
+    ModifiedDate1 {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getModifiedDate1();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setModifiedDate1((Timestamp)value);
+      }
+    }
+    ,
+    kmTotal {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getkmTotal();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setkmTotal((Number)value);
+      }
+    }
+    ,
+    kmPerLt {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getkmPerLt();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setkmPerLt((Number)value);
+      }
+    }
+    ,
+    ltPerHundred {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getltPerHundred();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setltPerHundred((Number)value);
+      }
+    }
+    ,
+    grandTotal {
+      public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+        return obj.getgrandTotal();
+      }
+
+      public void put(PrtCardTransactionOverviewRVORowImpl obj, Object value) {
+        obj.setgrandTotal((Integer)value);
+      }
+    }
+    ;
+    private static AttributesEnum[] vals = null;
+    private static int firstIndex = 0;
 
         public abstract Object get(PrtCardTransactionOverviewRVORowImpl object);
 
@@ -1237,118 +1129,121 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     }
 
 
-    public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
-    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
-    public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
-    public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
-    public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
-    public static final int ORDERID = AttributesEnum.OrderId.index();
-    public static final int PRELIMID = AttributesEnum.PrelimId.index();
-    public static final int CARD1ID = AttributesEnum.Card1Id.index();
-    public static final int CARD2ID = AttributesEnum.Card2Id.index();
-    public static final int CARDID2INFO = AttributesEnum.CardId2Info.index();
-    public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
-    public static final int ODOMETER = AttributesEnum.Odometer.index();
-    public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
-    public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
-    public static final int STATIONNAME = AttributesEnum.StationName.index();
-    public static final int STATIONGROUPID = AttributesEnum.StationGroupId.index();
-    public static final int STATIONGROUPNAME = AttributesEnum.StationGroupName.index();
-    public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
-    public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
-    public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
-    public static final int RECIEPTNO = AttributesEnum.RecieptNo.index();
-    public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
-    public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
-    public static final int ICCYN = AttributesEnum.IccYn.index();
-    public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
-    public static final int PRELIMSTATUSCODE = AttributesEnum.PrelimStatusCode.index();
-    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
-    public static final int KSID = AttributesEnum.Ksid.index();
-    public static final int PARTNERID = AttributesEnum.PartnerId.index();
-    public static final int ACCOUNTID = AttributesEnum.AccountId.index();
-    public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
-    public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
-    public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
-    public static final int TERMINAL = AttributesEnum.Terminal.index();
-    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
-    public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
-    public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
-    public static final int DELTATIMESTAMP1 = AttributesEnum.DeltaTimestamp1.index();
-    public static final int UREFTRANSACTIONID1 = AttributesEnum.UrefTransactionId1.index();
-    public static final int PALSCOUNTRYCODE1 = AttributesEnum.PalsCountryCode1.index();
-    public static final int DETAILNO = AttributesEnum.DetailNo.index();
-    public static final int PALSPGROUPID = AttributesEnum.PalsPGroupId.index();
-    public static final int PALSPGROUPSUBGROUPID = AttributesEnum.PalsPGroupSubgroupId.index();
-    public static final int FUELYN = AttributesEnum.FuelYn.index();
-    public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
-    public static final int QUANTITY = AttributesEnum.Quantity.index();
-    public static final int VATRATE = AttributesEnum.VatRate.index();
-    public static final int CURRENCYVAT = AttributesEnum.CurrencyVat.index();
-    public static final int INVOICEDVAT = AttributesEnum.InvoicedVat.index();
-    public static final int CURRENCYUNITPRICE = AttributesEnum.CurrencyUnitPrice.index();
-    public static final int INVOICEDUNITPRICE = AttributesEnum.InvoicedUnitPrice.index();
-    public static final int CURRENCYGROSSAMOUNT = AttributesEnum.CurrencyGrossAmount.index();
-    public static final int INVOICEDGROSSAMOUNT = AttributesEnum.InvoicedGrossAmount.index();
-    public static final int CURRENCYNETAMOUNT = AttributesEnum.CurrencyNetAmount.index();
-    public static final int INVOICEDNETAMOUNT = AttributesEnum.InvoicedNetAmount.index();
-    public static final int CURRENCYDISCOUNTAMOUNT = AttributesEnum.CurrencyDiscountAmount.index();
-    public static final int INVOICEDISCOUNTAMOUNT = AttributesEnum.InvoiceDiscountAmount.index();
-    public static final int VATREFUNDABLEYN = AttributesEnum.VatRefundableYn.index();
-    public static final int SURCHARGEYN = AttributesEnum.SurchargeYn.index();
-    public static final int ATIABF538APRPSLKD = AttributesEnum.AtIabf538aPrpslKd.index();
-    public static final int ASIABF538APRPSLSATS = AttributesEnum.AsIabf538aPrpslsats.index();
-    public static final int CURRENCYVATREBATED = AttributesEnum.CurrencyVatRebated.index();
-    public static final int INVOIVEDVATREBATED = AttributesEnum.InvoivedVatRebated.index();
-    public static final int CURRENCYUNITPRICEREBATED = AttributesEnum.CurrencyUnitPriceRebated.index();
-    public static final int INVOICEDUNITPRICEREBATED = AttributesEnum.InvoicedUnitPriceRebated.index();
-    public static final int CURRENCYGROSSAMOUNTREBATED = AttributesEnum.CurrencyGrossAmountRebated.index();
-    public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
-    public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
-    public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
-    public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
-    public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
-    public static final int ACCOUNTID1 = AttributesEnum.AccountId1.index();
-    public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
-    public static final int DRIVERNUMBER = AttributesEnum.DriverNumber.index();
-    public static final int DRIVERNAME = AttributesEnum.DriverName.index();
-    public static final int NATIONALITY = AttributesEnum.Nationality.index();
-    public static final int MOBILENUMBER = AttributesEnum.MobileNumber.index();
-    public static final int REMARKS = AttributesEnum.Remarks.index();
-    public static final int PASSPORTNUMBER = AttributesEnum.PassportNumber.index();
-    public static final int PASSPORTEXPIRY = AttributesEnum.PassportExpiry.index();
-    public static final int LICENSENUMBER = AttributesEnum.LicenseNumber.index();
-    public static final int LICENSEEXPIRY = AttributesEnum.LicenseExpiry.index();
-    public static final int EMPLOYSTART = AttributesEnum.EmployStart.index();
-    public static final int EMPLOYEND = AttributesEnum.EmployEnd.index();
-    public static final int MODIFIEDBY1 = AttributesEnum.ModifiedBy1.index();
-    public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
-    public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
-    public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
-    public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
-    public static final int CARDNUMBER1 = AttributesEnum.CardNumber1.index();
-    public static final int VEHICLENUMBER = AttributesEnum.VehicleNumber.index();
-    public static final int INTERNALNAME = AttributesEnum.InternalName.index();
-    public static final int REGISTRATIONNUMBER = AttributesEnum.RegistrationNumber.index();
-    public static final int BRAND = AttributesEnum.Brand.index();
-    public static final int YEAR = AttributesEnum.Year.index();
-    public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
-    public static final int ENDDATE = AttributesEnum.EndDate.index();
-    public static final int FUELTYPE = AttributesEnum.FuelType.index();
-    public static final int MAXFUEL = AttributesEnum.MaxFuel.index();
-    public static final int ODOMETER1 = AttributesEnum.Odometer1.index();
-    public static final int REMARKS1 = AttributesEnum.Remarks1.index();
-    public static final int MODIFIEDBY2 = AttributesEnum.ModifiedBy2.index();
-    public static final int MODIFIEDDATE1 = AttributesEnum.ModifiedDate1.index();
-    public static final int COUNTRYCODE1 = AttributesEnum.CountryCode1.index();
-    public static final int KMTOTAL = AttributesEnum.kmTotal.index();
-    public static final int KMPERLT = AttributesEnum.kmPerLt.index();
-    public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
-    public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
+  
 
-    /**
-     * This is the default constructor (do not remove).
-     */
+
+  public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
+  public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
+  public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
+  public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
+  public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
+  public static final int ORDERID = AttributesEnum.OrderId.index();
+  public static final int PRELIMID = AttributesEnum.PrelimId.index();
+  public static final int CARD1ID = AttributesEnum.Card1Id.index();
+  public static final int CARD2ID = AttributesEnum.Card2Id.index();
+  public static final int CARDID2INFO = AttributesEnum.CardId2Info.index();
+  public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
+  public static final int ODOMETER = AttributesEnum.Odometer.index();
+  public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
+  public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
+  public static final int STATIONNAME = AttributesEnum.StationName.index();
+  public static final int STATIONGROUPID = AttributesEnum.StationGroupId.index();
+  public static final int STATIONGROUPNAME = AttributesEnum.StationGroupName.index();
+  public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
+  public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
+  public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
+  public static final int RECIEPTNO = AttributesEnum.RecieptNo.index();
+  public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
+  public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
+  public static final int ICCYN = AttributesEnum.IccYn.index();
+  public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
+  public static final int PRELIMSTATUSCODE = AttributesEnum.PrelimStatusCode.index();
+  public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
+  public static final int KSID = AttributesEnum.Ksid.index();
+  public static final int PARTNERID = AttributesEnum.PartnerId.index();
+  public static final int ACCOUNTID = AttributesEnum.AccountId.index();
+  public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
+  public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
+  public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
+  public static final int TERMINAL = AttributesEnum.Terminal.index();
+  public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
+  public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
+  public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
+  public static final int DELTATIMESTAMP1 = AttributesEnum.DeltaTimestamp1.index();
+  public static final int UREFTRANSACTIONID1 = AttributesEnum.UrefTransactionId1.index();
+  public static final int PALSCOUNTRYCODE1 = AttributesEnum.PalsCountryCode1.index();
+  public static final int DETAILNO = AttributesEnum.DetailNo.index();
+  public static final int PALSPGROUPID = AttributesEnum.PalsPGroupId.index();
+  public static final int PALSPGROUPSUBGROUPID = AttributesEnum.PalsPGroupSubgroupId.index();
+  public static final int FUELYN = AttributesEnum.FuelYn.index();
+  public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
+  public static final int QUANTITY = AttributesEnum.Quantity.index();
+  public static final int VATRATE = AttributesEnum.VatRate.index();
+  public static final int CURRENCYVAT = AttributesEnum.CurrencyVat.index();
+  public static final int INVOICEDVAT = AttributesEnum.InvoicedVat.index();
+  public static final int CURRENCYUNITPRICE = AttributesEnum.CurrencyUnitPrice.index();
+  public static final int INVOICEDUNITPRICE = AttributesEnum.InvoicedUnitPrice.index();
+  public static final int CURRENCYGROSSAMOUNT = AttributesEnum.CurrencyGrossAmount.index();
+  public static final int INVOICEDGROSSAMOUNT = AttributesEnum.InvoicedGrossAmount.index();
+  public static final int CURRENCYNETAMOUNT = AttributesEnum.CurrencyNetAmount.index();
+  public static final int INVOICEDNETAMOUNT = AttributesEnum.InvoicedNetAmount.index();
+  public static final int CURRENCYDISCOUNTAMOUNT = AttributesEnum.CurrencyDiscountAmount.index();
+  public static final int INVOICEDISCOUNTAMOUNT = AttributesEnum.InvoiceDiscountAmount.index();
+  public static final int VATREFUNDABLEYN = AttributesEnum.VatRefundableYn.index();
+  public static final int SURCHARGEYN = AttributesEnum.SurchargeYn.index();
+  public static final int ATIABF538APRPSLKD = AttributesEnum.AtIabf538aPrpslKd.index();
+  public static final int ASIABF538APRPSLSATS = AttributesEnum.AsIabf538aPrpslsats.index();
+  public static final int CURRENCYVATREBATED = AttributesEnum.CurrencyVatRebated.index();
+  public static final int INVOIVEDVATREBATED = AttributesEnum.InvoivedVatRebated.index();
+  public static final int CURRENCYUNITPRICEREBATED = AttributesEnum.CurrencyUnitPriceRebated.index();
+  public static final int INVOICEDUNITPRICEREBATED = AttributesEnum.InvoicedUnitPriceRebated.index();
+  public static final int CURRENCYGROSSAMOUNTREBATED = AttributesEnum.CurrencyGrossAmountRebated.index();
+  public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
+  public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
+  public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
+  public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
+  public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
+  public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+  public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
+  public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
+  public static final int DRIVERNUMBER = AttributesEnum.DriverNumber.index();
+  public static final int DRIVERNAME = AttributesEnum.DriverName.index();
+  public static final int NATIONALITY = AttributesEnum.Nationality.index();
+  public static final int MOBILENUMBER = AttributesEnum.MobileNumber.index();
+  public static final int REMARKS = AttributesEnum.Remarks.index();
+  public static final int PASSPORTNUMBER = AttributesEnum.PassportNumber.index();
+  public static final int PASSPORTEXPIRY = AttributesEnum.PassportExpiry.index();
+  public static final int LICENSENUMBER = AttributesEnum.LicenseNumber.index();
+  public static final int LICENSEEXPIRY = AttributesEnum.LicenseExpiry.index();
+  public static final int EMPLOYSTART = AttributesEnum.EmployStart.index();
+  public static final int EMPLOYEND = AttributesEnum.EmployEnd.index();
+  public static final int MODIFIEDBY1 = AttributesEnum.ModifiedBy1.index();
+  public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+  public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
+  public static final int COUNTRYCODE1 = AttributesEnum.CountryCode1.index();
+  public static final int ACCOUNTNUMBER1 = AttributesEnum.AccountNumber1.index();
+  public static final int CARDNUMBER1 = AttributesEnum.CardNumber1.index();
+  public static final int VEHICLENUMBER = AttributesEnum.VehicleNumber.index();
+  public static final int INTERNALNAME = AttributesEnum.InternalName.index();
+  public static final int REGISTRATIONNUMBER = AttributesEnum.RegistrationNumber.index();
+  public static final int BRAND = AttributesEnum.Brand.index();
+  public static final int YEAR = AttributesEnum.Year.index();
+  public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
+  public static final int ENDDATE = AttributesEnum.EndDate.index();
+  public static final int FUELTYPE = AttributesEnum.FuelType.index();
+  public static final int MAXFUEL = AttributesEnum.MaxFuel.index();
+  public static final int ODOMETER1 = AttributesEnum.Odometer1.index();
+  public static final int REMARKS1 = AttributesEnum.Remarks1.index();
+  public static final int MODIFIEDBY2 = AttributesEnum.ModifiedBy2.index();
+  public static final int MODIFIEDDATE1 = AttributesEnum.ModifiedDate1.index();
+  public static final int KMTOTAL = AttributesEnum.kmTotal.index();
+  public static final int KMPERLT = AttributesEnum.kmPerLt.index();
+  public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
+  public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
+
+  /**
+   * This is the default constructor (do not remove).
+   */
     public PrtCardTransactionOverviewRVORowImpl() {
     }
 
@@ -2555,23 +2450,6 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the attribute value for the calculated attribute AccountId1.
-     * @return the AccountId1
-     */
-    public String getAccountId1() {
-        return (String) getAttributeInternal(ACCOUNTID1);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute AccountId1.
-     * @param value value to set the  AccountId1
-     */
-    public void setAccountId1(String value) {
-        setAttributeInternal(ACCOUNTID1, value);
-    }
-
-
-    /**
      * Gets the attribute value for the calculated attribute CardNumber.
      * @return the CardNumber
      */
@@ -3116,10 +2994,11 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         setAttributeInternal(MODIFIEDDATE1, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute CountryCode1.
-     * @return the CountryCode1
-     */
+
+  /**
+   * Gets the attribute value for the calculated attribute CountryCode1.
+   * @return the CountryCode1
+   */
     public String getCountryCode1() {
         return (String) getAttributeInternal(COUNTRYCODE1);
     }
@@ -3133,21 +3012,37 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     }
 
 
-    /**
-     * getAttrInvokeAccessor: generated method. Do not modify.
-     * @param index the index identifying the attribute
-     * @param attrDef the attribute
+  /**
+   * Gets the attribute value for the calculated attribute AccountNumber1.
+   * @return the AccountNumber1
+   */
+  public String getAccountNumber1() {
+    return (String) getAttributeInternal(ACCOUNTNUMBER1);
+  }
 
-     * @return the attribute value
-     * @throws Exception
-     */
+  /**
+   * Sets <code>value</code> as the attribute value for the calculated attribute AccountNumber1.
+   * @param value value to set the  AccountNumber1
+   */
+  public void setAccountNumber1(String value) {
+    setAttributeInternal(ACCOUNTNUMBER1, value);
+  }
+
+  /**
+   * getAttrInvokeAccessor: generated method. Do not modify.
+   * @param index the index identifying the attribute
+   * @param attrDef the attribute
+
+   * @return the attribute value
+   * @throws Exception
+   */
     protected Object getAttrInvokeAccessor(int index,
                                            AttributeDefImpl attrDef) throws Exception {
-        if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
-            return AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].get(this);
-        }
-        return super.getAttrInvokeAccessor(index, attrDef);
+    if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
+      return AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].get(this);
     }
+    return super.getAttrInvokeAccessor(index, attrDef);
+  }
 
     /**
      * setAttrInvokeAccessor: generated method. Do not modify.
@@ -3159,10 +3054,10 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     protected void setAttrInvokeAccessor(int index, Object value,
                                          AttributeDefImpl attrDef) throws Exception {
-        if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
-            AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].put(this, value);
-            return;
-        }
-        super.setAttrInvokeAccessor(index, value, attrDef);
+    if ((index >= AttributesEnum.firstIndex()) && (index < AttributesEnum.count())) {
+      AttributesEnum.staticValues()[index - AttributesEnum.firstIndex()].put(this, value);
+      return;
     }
+    super.setAttrInvokeAccessor(index, value, attrDef);
+  }
 }
