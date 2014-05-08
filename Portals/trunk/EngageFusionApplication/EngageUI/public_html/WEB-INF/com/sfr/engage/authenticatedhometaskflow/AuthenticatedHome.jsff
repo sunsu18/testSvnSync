@@ -148,7 +148,7 @@
               <af:spacer width="10" height="10" id="s4"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl3" layout="scroll"
-                                 inlineStyle="height:200px; width:600px;margin-left:10px;"
+                                 inlineStyle="height:200px; width:632px;margin-left:10px;"
                                  styleClass="box-shadow panelbackground">
               <af:spacer width="7" height="5" id="s6"/>
               <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
@@ -179,7 +179,7 @@
               <!--<af:spacer width="10" height="10" id="s14"/>-->
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl30" layout="vertical"
-                                 inlineStyle="height:270px; width:600px;margin-left:10px;"
+                                 inlineStyle="height:270px; width:632px;margin-left:10px;"
                                  styleClass="box-shadow panelbackground">
               <!--<af:spacer width="7" height="5" id="s13"/>-->
               <af:panelGroupLayout id="pgl26" layout="vertical" valign="top">
@@ -195,7 +195,7 @@
                             disableColumnReordering="true"
                             inlineStyle="height:250px;">
                     <af:column sortProperty="TransactionDt" sortable="false"
-                               headerText="Date" id="c8" width="100">
+                               headerText="Date" id="c8" width="106">
                       <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                       
                         <af:convertDateTime pattern="dd.MM.yyyy"/>
@@ -205,19 +205,19 @@
                       <!--<af:outputText value="#{row.TransactionType}" id="ot20"/>-->
                     </af:column>
                     <af:column sortProperty="Card1Id" sortable="false"
-                               headerText="Card" id="c5" width="170">
+                               headerText="Card" id="c5" width="177">
                       <af:outputText value="#{row.Card1Id}" id="ot16" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
                     </af:column>
                     <af:column sortProperty="StationName" sortable="false"
-                               headerText="Station Name" id="c9" width="100">
+                               headerText="Station Name" id="c9" width="106">
                       <af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
                     </af:column>
                     <af:column sortProperty="ProductName" sortable="false"
-                               headerText="Product Name" id="c4" width="100">
+                               headerText="Product Name" id="c4" width="106">
                       <af:outputText value="#{row.ProductName}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
                     </af:column>
                     <af:column sortProperty="Quantity" sortable="false"
-                               headerText="Quantity" id="c6" width="92">
+                               headerText="Quantity" id="c6" width="98">
                       <af:panelGroupLayout id="pgl31" layout="horizontal"
                                            halign="left">
                         <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -372,7 +372,7 @@
             <af:spacer width="10" height="10" id="s15"/>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl18" layout="horizontal"
-                               inlineStyle="height:280px; width:600px;margin-left:10px;"
+                               inlineStyle="height:280px; width:632px;margin-left:10px;"
                                styleClass="box-shadow panelbackground">
             <af:spacer width="7" height="5" id="s16"/>
           </af:panelGroupLayout>
