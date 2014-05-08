@@ -42,6 +42,7 @@ import javax.servlet.http.HttpSession;
 
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
@@ -78,6 +79,8 @@ public class AuthenticatedHomeBean implements Serializable {
     ResourceBundle resourceBundle;
     private boolean authenticatedPanelVisible =false;
     private boolean invoicesPanel = false; 
+    private boolean webshopPanel = false;
+    private RichTree adfTree;
 
     /**
      * @return bindings Object
@@ -273,18 +276,26 @@ public class AuthenticatedHomeBean implements Serializable {
                 if (session != null) {
                 user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                 roleCsr = false;
-                if (user.getRolelist().contains(Constants.ROLE_WCP_B2C) || user.getRolelist().contains(Constants.ROLE_WCP_B2BM) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
+                if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
                 { 
                 authenticatedPanelVisible = true;
-                  
+                invoicesPanel = true;
+                 System.out.println("Higher roles found"); 
             
                 }
-                else if(user.getRolelist().contains(Constants.ROLE_WCP_B2BEMP)) {
+                else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)) {
                 authenticatedPanelVisible = true;
                 invoicesPanel = false;
+                System.out.println("B2B Employee role found");
 
                 }else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 authenticatedPanelVisible = false;
+                invoicesPanel = false;
+                System.out.println("CSR role found");
+                }else if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET)|| user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO)){
+                    authenticatedPanelVisible = true;
+                    invoicesPanel = true;
+                    webshopPanel = false;
                 }
 
                     if(!authenticatedPanelVisible) {
@@ -475,6 +486,22 @@ public class AuthenticatedHomeBean implements Serializable {
             emptyText = (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS");
         }
         
+    }
+
+    public void setWebshopPanel(boolean webshopPanel) {
+        this.webshopPanel = webshopPanel;
+    }
+
+    public boolean isWebshopPanel() {
+        return webshopPanel;
+    }
+
+    public void setAdfTree(RichTree adfTree) {
+        this.adfTree = adfTree;
+    }
+
+    public RichTree getAdfTree() {
+        return adfTree;
     }
 
 

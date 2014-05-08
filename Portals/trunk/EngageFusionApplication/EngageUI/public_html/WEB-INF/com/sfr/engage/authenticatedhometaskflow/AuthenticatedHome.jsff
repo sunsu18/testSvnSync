@@ -1,11 +1,45 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
-          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+                          <af:resource type="javascript">
+      function expandNode(event)
+      { 
+      //alert();
+        var _tree = event.getSource(); 
+        rwKeySet = _tree.getSelectedRowKeys(); 
+        
+        var firstRowKey; 
+
+            for(rowKey in rwKeySet)
+            { 
+            firstRowKey = rowKey; 
+            // we are interested in the first hit, 
+            //so break out here 
+          //  alert(firstRowKey);
+            break; 
+            }
+            
+            if (_tree.isPathExpanded(firstRowKey))
+            { 
+                _tree.setDisclosedRowKey(firstRowKey,false); 
+            }
+            else
+            { 
+            _tree.setDisclosedRowKey(firstRowKey,true); 
+            
+            }
+            
+      }
+      </af:resource>
+      
   <af:panelGroupLayout id="pgl2" >
     <af:panelGroupLayout id="pgl7" layout="vertical" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoPanel}"
                          visible="#{pageFlowScope.AuthenticatedHomeBean.infoPanelVisible}">
     <af:panelGroupLayout id="pgl0" layout="vertical">
-     <af:spacer width="10" height="10" id="s1"/>
+     <af:spacer width="10" height="10" id="s1">
+          `
+        </af:spacer>
    <af:outputText value="#{sfr.STATOIL_INFO}" id="ot2"
                  styleClass="heading1"/>
                  
@@ -45,10 +79,62 @@
                            styleClass="heading1"/>
             <af:spacer width="10" height="10" id="spacer1"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="panelGroupLayout3" layout="scroll"
+          <af:panelGroupLayout id="Tree" layout="vertical"
                                inlineStyle="height:628px; width:300px;margin-left:10px;"
                                styleClass="box-shadow panelbackground">
             <af:spacer width="7" height="5" id="spacer2"/>
+            <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
+                     selectionListener="#{bindings.partnerlist.treeModel.makeCurrent}"
+                     rowSelection="single" id="t3" contentDelivery="immediate" immediate="true"
+                    contextMenuSelect="false"
+                     binding="#{pageFlowScope.AuthenticatedHomeBean.adfTree}"
+                     initiallyExpanded="true">
+              <f:facet name="nodeStamp">
+            <af:switcher id="s17" 
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+     
+     
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g2">
+     <af:image id="i5" source="/images/partner.png"/>
+    <af:spacer width="4"  id="s328"/>
+        <af:outputText value="#{node.partnerValue}" id="ot109"/>
+        </af:group>
+      </f:facet>
+      
+      
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g3">
+      <af:image id="i1" source="/images/account.png"/>
+       <af:spacer width="4"  id="s47"/>  
+      <af:outputText value="#{node.accountNumber}" id="ot4"/>
+      </af:group>
+      </f:facet>
+      
+      
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g1">
+        <af:image id="i2" source="/images/cardgroup.png"/>
+        <af:spacer width="4"  id="s325"/>
+         <af:outputText value="#{node.cardGroupID}" id="ot8"/>
+        </af:group>
+      </f:facet>
+      
+      
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g4">
+      <af:image id="i4" source="/images/card.png"/>
+       <af:spacer width="4"  id="s326"/>
+       <af:outputText value="#{node.cardID}" id="ot3">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+      
+      
+   </af:switcher>
+              </f:facet>
+               <af:clientListener method="expandNode" type="click"/> 
+            </af:tree>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="50" height="10" id="s14"/>
@@ -57,7 +143,7 @@
                                inlineStyle="width:600.0px;">
             <af:panelGroupLayout id="pgl6" layout="vertical"
                                  inlineStyle="width:300.0px;">
-              <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot4"
+              <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot18"
                              styleClass="heading1"/>
               <af:spacer width="10" height="10" id="s4"/>
             </af:panelGroupLayout>
@@ -75,7 +161,7 @@
                   <af:panelGroupLayout id="pgl9"
                                        inlineStyle="width:200px; height:100.0px;"
                                        halign="start">
-                    <af:outputText value="#{var.message}" id="ot3"
+                    <af:outputText value="#{var.message}" id="ot19"
                                    styleClass="contenttext"
                                    inlineStyle="padding-right:5px;"/>
                     <af:spacer width="7" height="30" id="s7"/>

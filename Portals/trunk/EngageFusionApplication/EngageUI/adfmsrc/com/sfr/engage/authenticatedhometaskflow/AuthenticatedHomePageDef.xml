@@ -24,6 +24,13 @@
     <iterator Binds="PrtHomeTransactionsRVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtHomeTransactions1Iterator"/>
+    <iterator Binds="root" RangeSize="25" DataControl="PartnerInfoListClient"
+              id="PartnerInfoListClientIterator"/>
+    <accessorIterator MasterBinding="PartnerInfoListClientIterator"
+                      Binds="partnerlist" RangeSize="25"
+                      DataControl="PartnerInfoListClient"
+                      BeanClass="com.sfr.engage.core.PartnerInfo"
+                      id="partnerlistIterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -58,6 +65,41 @@
           <Item Value="ProductName"/>
           <Item Value="Quantity"/>
           <Item Value="UnitOfMeasure"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo"
+                      Name="partnerlist0">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo"
+                      Name="partnerlist1">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo"
+                      Name="partnerlist2">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="card"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo"
+                      Name="partnerlist3">
+        <AttrNames>
+          <Item Value="cardID"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
