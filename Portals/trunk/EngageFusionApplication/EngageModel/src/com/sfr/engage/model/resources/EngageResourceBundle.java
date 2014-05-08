@@ -174,8 +174,8 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"MESSAGES",""},{"TRANSACTIONS",""},{"INVOICE_OVERVIEW",""},{"AR_OVERVIEW",""},
         {"CARD_SERVICES",""},{"VIEW_CARDS",""},{"NEW_CARD",""},{"PROFILES",""},
         {"PRICING",""},{"AGREEMENTS",""},{"LIST_PRICES",""},{"SETUP",""},
-        {"WEB_PROFILES",""},{"REPORT_SETUP",""},{"ALERTS",""},{"MANAGE_USERS",""},
-        {"WEB_ASSIST",""},{"SUPPORT",""},{"CHANGE_ACCOUNT",""},{"CONTACT",""},
+        {"WEB_PROFILES",""},{"REPORT_SETUP",""},{"ALERTS",""},{"MANAGE_USERS",""},{"TRANSACTION_SPECIFIC_ERROR_SELECTION",""},
+        {"WEB_ASSIST",""},{"SUPPORT",""},{"CHANGE_ACCOUNT",""},{"CONTACT",""},{"EXPORT_TO_SPECIFIC",""},
         {"SELECT_ACCOUNT",""},{"CUSTOMER_VIEW",""},{"LOGOUT",""},{"NO_INVOICES_TO_DISPLAY",""},{"TRANSACTION_PRELIMINARY",""},{"TRANSACTION_NON_PRELIMINARY",""}};
 
 

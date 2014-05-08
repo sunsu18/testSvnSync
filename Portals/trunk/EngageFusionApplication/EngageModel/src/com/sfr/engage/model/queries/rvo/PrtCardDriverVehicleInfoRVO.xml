@@ -45,10 +45,10 @@
       ,PC.PRT_CARD_PK
 FROM PRT_CARD PC
     ,PRT_DRIVER_INFORMATION PDI
-WHERE PC.ACCOUNT_ID          = trim(PDI.ACCOUNT_ID)
+WHERE PC.ACCOUNT_ID          = trim(PDI.ACCOUNT_NUMBER)
 AND   PC.COUNTRY_CODE        = PDI.COUNTRY_CODE
 AND   PC.EXT_CARD_NUM        = PDI.CARD_NUMBER
-AND   trim(PDI.ACCOUNT_ID)   = :accountValue
+AND   trim(PDI.ACCOUNT_NUMBER)   = :accountValue
 AND   PDI.COUNTRY_CODE       = :countryCd
 AND   PC.PARTNER_ID          = :partnerValue
 AND   'Driver'               = :paramValue

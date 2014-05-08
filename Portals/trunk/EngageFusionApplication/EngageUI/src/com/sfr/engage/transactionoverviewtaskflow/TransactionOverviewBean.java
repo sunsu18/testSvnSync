@@ -14,6 +14,7 @@ import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 import java.sql.Timestamp;
@@ -108,6 +109,8 @@ public class TransactionOverviewBean implements Serializable{
     private String cardGroupMaintypePassValue;
     private String cardGroupSeqPassValues;
     private String partnerId;
+    private String contentType;
+    private String fileName;
     private Locale locale;
     private String partnerCountry=null;
     Conversion conversionUtility;
@@ -121,7 +124,7 @@ public class TransactionOverviewBean implements Serializable{
     private String odometerPortal = null;
     private String urefTransactionId = null;
     private String palsCountryCode = null;
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
     public TransactionOverviewBean() {
         conversionUtility = new Conversion(); 
@@ -140,11 +143,11 @@ public class TransactionOverviewBean implements Serializable{
         }
         
             if(partnerInfo != null){
-                log.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
+                _logger.fine(accessDC.getDisplayRecord()+ this.getClass()+ " " + "Inside partner info object");            
             if(partnerInfo.getPartnerValue() != null){
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside partner info object value====>\"+partnerInfo.getPartnerValue()");                
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside partner info object value====>\"+partnerInfo.getPartnerValue()");                
                partnerId = partnerInfo.getPartnerValue().toString(); 
-               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of partner number========>"+partnerId);
+               _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of partner number========>"+partnerId);
                
                if(partnerInfo.getCountry() !=null){
                
@@ -158,9 +161,9 @@ public class TransactionOverviewBean implements Serializable{
             
          
                     if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
                         for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                             SelectItem selectItem = new SelectItem();
                             selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
                             selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
@@ -239,7 +242,7 @@ public class TransactionOverviewBean implements Serializable{
         if(getBindings().getAccount().getValue()!=null)
         {
             if(valueChangeEvent.getNewValue() != null){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of radioButon value change event======>"+valueChangeEvent.getNewValue());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of radioButon value change event======>"+valueChangeEvent.getNewValue());
                 if(valueChangeEvent.getNewValue().equals("CardGroup")){
                     
                     cardGPGL   = true;
@@ -373,11 +376,11 @@ public class TransactionOverviewBean implements Serializable{
                 cardGroupValue  = new ArrayList<String>();
                 if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
                     for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
                         if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().account.getValue())){
                             if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
                                 for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
@@ -471,7 +474,7 @@ public class TransactionOverviewBean implements Serializable{
         String  newToDate = null;
         if(getBindings().getAccount().getValue() != null && getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
             if(getBindings().getTerminalType().getValue() != null){
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
                terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TERMINAL_TYPE");
@@ -479,7 +482,7 @@ public class TransactionOverviewBean implements Serializable{
             }
             
             if(getBindings().getTransationType().getValue() != null){
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of transaction type================>"+getBindings().getTransationType().getValue().toString().trim());
                 transTypePassingValues =  populateStringValues(getBindings().getTransationType().getValue().toString());
             }else{
                 showErrorMessage("ENGAGE_NO_TRANSACTION_TYPE");
@@ -494,7 +497,7 @@ public class TransactionOverviewBean implements Serializable{
                 newToDate   = sdf.format(effectiveToDate1);
                 
                 if (effectiveToDate1.before(effectiveFromDate)) {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of new from date ================>"+newFromDate);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of new from date ================>"+newFromDate);
                     showErrorMessage("ENGAGE_VALID_FROM_TO_DATE");
                     return null;
                 }
@@ -502,7 +505,7 @@ public class TransactionOverviewBean implements Serializable{
         
             if(cardGPGL){
                 if(getBindings().getCardGroup().getValue() != null){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card group================>"+getBindings().getCardGroup().getValue().toString().trim());
                     cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
                     populateCardGroupValues(cardGroupPassingValues);
                 }
@@ -512,11 +515,11 @@ public class TransactionOverviewBean implements Serializable{
                 }
             }
             
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "bollean value of vehicle====>"+vNumberPGL+dNamePGL);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "bollean value of vehicle====>"+vNumberPGL+dNamePGL);
             
             if(cardIdPGL ){
                 if(getBindings().getCard().getValue() != null){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for card Id================>"+getBindings().getCard().getValue().toString().trim());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for card Id================>"+getBindings().getCard().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getCard().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_CARD");
@@ -526,10 +529,10 @@ public class TransactionOverviewBean implements Serializable{
             
             if(vNumberPGL){
                 if(getBindings().getVehicleNumber().getValue() != null){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for vehicle ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card  for vehicle ================>"+getBindings().getVehicleNumber().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getVehicleNumber().getValue().toString());
                 }else{
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Is it coming inside vehicle else number block");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Is it coming inside vehicle else number block");
                     showErrorMessage("ENGAGE_NO_VEHICLE");
                     return null;
                 }
@@ -537,7 +540,7 @@ public class TransactionOverviewBean implements Serializable{
             
             if(dNamePGL){
                 if(getBindings().getDriverName().getValue() != null){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card driver================>"+getBindings().getDriverName().getValue().toString().trim());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card driver================>"+getBindings().getDriverName().getValue().toString().trim());
                     cardNumberPasingValues =  populateStringValues(getBindings().getDriverName().getValue().toString());
                 }else{
                     showErrorMessage("ENGAGE_NO_DRIVER");
@@ -553,9 +556,9 @@ public class TransactionOverviewBean implements Serializable{
 //            if(getBindings().getToDate().getValue() == null){
 //                showErrorMessage("ENGAGE_NO_TO_DATE");
 //            }
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal pass ================>"+terminalPassingValues);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of trans type ================>"+transTypePassingValues);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card111111 ================>"+cardNumberPasingValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal pass ================>"+terminalPassingValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of trans type ================>"+transTypePassingValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card111111 ================>"+cardNumberPasingValues);
         
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
@@ -563,7 +566,7 @@ public class TransactionOverviewBean implements Serializable{
         vo.setNamedWhereClauseParam("countryCd", "no_NO");
         
             if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card where removal class");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card where removal class");
                 vo.removeNamedWhereClauseParam("card");
                 vo.removeNamedWhereClauseParam("terminal");
                 vo.removeNamedWhereClauseParam("type");
@@ -573,10 +576,10 @@ public class TransactionOverviewBean implements Serializable{
                 //vo.removeNamedWhereClauseParam("accountId");
                 vo.setWhereClause("");
                 vo.executeQuery();
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo=====>"+vo.getEstimatedRowCount());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo=====>"+vo.getEstimatedRowCount());
             }else{
                 if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card group where removal class");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card group where removal class");
                     vo.removeNamedWhereClauseParam("cardGrpMainType");
                     vo.removeNamedWhereClauseParam("cardgrpSubType");
                     vo.removeNamedWhereClauseParam("cardGrpSeq");
@@ -588,16 +591,16 @@ public class TransactionOverviewBean implements Serializable{
                     //vo.removeNamedWhereClauseParam("accountId");
                     vo.setWhereClause("");
                     vo.executeQuery();
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo1111111=====>"+vo.getEstimatedRowCount());
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "count of vo1111111=====>"+vo.getEstimatedRowCount());
                 }
             }
         
         if (cardIdPGL || vNumberPGL || dNamePGL) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside block for card");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside block for card");
             vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("card", cardNumberPasingValues, null);
         }else{
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Coming inside card group block");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Coming inside card group block");
             vo.setWhereClause("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
             vo.defineNamedWhereClauseParam("cardGrpMainType", cardGroupMaintypePassValue, null);
             vo.defineNamedWhereClauseParam("cardgrpSubType", cardGroupSubtypePassValues, null);
@@ -613,10 +616,10 @@ public class TransactionOverviewBean implements Serializable{
             vo.executeQuery();
             isTableVisible = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "where clause of view object=====>"+vo.getWhereClause());
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "where clause of view object=====>"+vo.getWhereClause());
             sum=0.0f;
             if (vo.getEstimatedRowCount() != 0) {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
                 for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
                     Row rw = vo.getRowAtRangeIndex(i);
                         if(rw != null){                             
@@ -733,9 +736,9 @@ public class TransactionOverviewBean implements Serializable{
                 cardGroupSubtypePassValues = cardGroupSubtype.trim().substring(0, cardGroupSubtype.length()-1);
                 cardGroupSeqPassValues     = cardGroupSeq.trim().substring(0, cardGroupSeq.length()-1);
               
-              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group main type======>"+cardGroupMaintypePassValue);
-              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
-              log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sequence value====>"+cardGroupSeqPassValues);
+              _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group main type======>"+cardGroupMaintypePassValue);
+              _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
+              _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sequence value====>"+cardGroupSeqPassValues);
         }
     }
     
@@ -1065,7 +1068,7 @@ public class TransactionOverviewBean implements Serializable{
                     XLS_SH_R_C.setCellStyle(csRight);
                     if(row.getInvoicedGrossAmount()!=null)
                     {
-                        //log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Locale ="+formatConversion(row.getInvoicedGrossAmount(),locale));                        
+                        //_logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Locale ="+formatConversion(row.getInvoicedGrossAmount(),locale));                        
                     XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmount(),locale));
                     }
                     XLS_SH_R_C=XLS_SH_R.createCell(6);
@@ -1477,17 +1480,17 @@ public class TransactionOverviewBean implements Serializable{
 
     public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException {
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getValues..");
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getValues..");
         String selectedValues="";
         List l = this.getShuttleValue();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
         //StringBuilder text = new StringBuilder("Size = ").append(getSelectedEmployees().size()).append(", Items added are: ");
                for (int i = 0; i <l.size(); i++ ) {
                    //text.append("Item ").append(i).append(" = ").append(l.get(i)).append(", ");
-                   log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Item ="+i+" value== "+l.get(i));
+                   _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Item ="+i+" value== "+l.get(i));
                    selectedValues=selectedValues+l.get(i).toString().trim()+",";                   
                }  
-               log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Formed String ="+selectedValues);
+               _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Formed String ="+selectedValues);
                String passedString=selectedValues.substring(0, selectedValues.length()-1);
                
                 
@@ -1504,7 +1507,10 @@ public class TransactionOverviewBean implements Serializable{
                 partnerCompanyName=row.getFirstLastName();
             }
         }        
-       
+        
+        if("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+        {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Report in Excel Format");
         HSSFWorkbook XLS = new HSSFWorkbook();
         HSSFRow XLS_SH_R=null;
         HSSFCell XLS_SH_R_C=null;
@@ -1554,7 +1560,7 @@ public class TransactionOverviewBean implements Serializable{
         XLS_SH_R= XLS_SH.createRow(1);
         XLS_SH_R_C=XLS_SH_R.createCell(0);
         XLS_SH_R_C.setCellStyle(cs);        
-        XLS_SH_R_C.setCellValue("Account: "+getBindings().getAccount().getValue().toString()+partnerCompanyName);  
+        XLS_SH_R_C.setCellValue("Account: "+getBindings().getAccount().getValue().toString());  
         
         
         
@@ -1778,7 +1784,401 @@ public class TransactionOverviewBean implements Serializable{
                 
            
         XLS.write(outputStream);  
-        outputStream.close();  
+        outputStream.close(); 
+        }
+        else if("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Report in CSV Format");
+            PrintWriter out=new PrintWriter(outputStream);            
+            String[] headerValues=passedString.split(",");
+            for (int col = 0; col < headerValues.length; col++)
+            {            
+            out.print(headerValues[col].toString());
+            if(col<headerValues.length-1)
+            {
+            out.print(";");
+            }
+            }
+            out.println();           
+            ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
+            RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);                      
+            iterator.reset();
+            while (iterator.hasNext()) {                       
+            PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();           
+            if(row!=null) {
+            
+            for (int cellValue = 0; cellValue < headerValues.length; cellValue++)
+            {
+            
+                            
+                        if("Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getTransactionDt()!=null)
+                            {      
+                                
+                                String time="";
+                                if(row.getTransactionTime()!=null) {
+                                    time=getTimeHour(row.getTransactionTime());
+                                }
+                            out.print(formatConversion(new Date(row.getTransactionDt().getTime()))+ " "+time);
+                                 if(cellValue != headerValues.length-1)
+                                 {
+                                out.print(";");
+                                    }
+                            }
+                        }else if("Station".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getStationName()!=null)
+                            {                               
+                            out.print(row.getStationName().toString());                                
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        } else if("Country".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getPurchaseCountryCode()!=null)
+                            {
+                               out.print(row.getPurchaseCountryCode().toString());                               
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getProductName()!=null)
+                            {
+                               out.print(row.getProductName().toString());
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getQuantity()!=null)
+                            {
+                                out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale) + " "+row.getUnitOfMeasure());
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getInvoicedGrossAmount()!=null)
+                            {                                                          
+                               out.print(formatConversion(row.getInvoicedGrossAmount(),locale));
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Receipt No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getRecieptNo()!=null)
+                            {
+                               out.print(row.getRecieptNo().toString());
+                            }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                                    
+                                if(row.getInvoiceNumberCollective()!=null) {
+                                 out.print(row.getInvoiceNumberCollective().toString());
+                                 }else {
+                                    if(row.getInvoiceNumberNonCollective()!=null) {
+                                    out.print(row.getInvoiceNumberNonCollective().toString());
+                                         }
+                                     }   
+                                
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getKsid()!=null)
+                                {
+                                    out.print(row.getKsid().toString());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Vehicle No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getVehicleNumber()!=null)
+                                {
+                                    out.print(row.getVehicleNumber().toString());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("Odometer".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                            
+                            if(row.getOdometerPortal()!=null) {
+                                out.print(row.getOdometerPortal().toString());
+                            }else {                        
+                                if(row.getOdometer()!=null) {
+                                out.print(row.getOdometer().toString());
+                                     }                        
+                            }
+                            
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getkmTotal()!=null)
+                                {
+                                    out.print(row.getkmTotal().toString());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getkmPerLt()!=null)
+                                {
+                                    out.println(row.getkmPerLt().toString());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getltPerHundred()!=null)
+                                {
+                                   out.print(row.getltPerHundred().toString());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        }else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardgroupMainType()!=null)
+                                {
+                                   out.print(row.getCardgroupMainType().toString() + row.getCardgroupSubType() + row.getCardgroupSeq());
+                                }
+                            if(cellValue != headerValues.length-1)
+                            {
+                            out.print(";");
+                               }
+                        } 
+                        else {
+                            if("Driver Name".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getDriverName()!=null)
+                                 {
+                                 out.print(row.getDriverName().toString());
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print(";");
+                                   }
+                            }
+                        }
+                }
+            out.println();
+             }
+            }
+            
+            out.println();            
+            iterator.closeRowSetIterator();
+            
+            out.close();
+            
+        }else {
+            if("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {                
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Report in CSV2 Format");
+                PrintWriter out=new PrintWriter(outputStream);               
+                String[] headerValues=passedString.split(",");                
+                for (int col = 0; col < headerValues.length; col++)
+                {            
+                out.print(headerValues[col].toString());
+                if(col<headerValues.length-1)
+                {
+                out.print("|");
+                }
+                }
+                out.println();               
+                ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
+                RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);                      
+                iterator.reset();
+                while (iterator.hasNext()) {                       
+                PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();           
+                if(row!=null) {
+                
+                for (int cellValue = 0; cellValue < headerValues.length; cellValue++)
+                {
+                
+                                
+                            if("Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getTransactionDt()!=null)
+                                {      
+                                    
+                                    String time="";
+                                    if(row.getTransactionTime()!=null) {
+                                        time=getTimeHour(row.getTransactionTime());
+                                    }
+                                out.print(formatConversion(new Date(row.getTransactionDt().getTime()))+ " "+time);
+                                     if(cellValue != headerValues.length-1)
+                                     {
+                                    out.print("|");
+                                        }
+                                }
+                            }else if("Station".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getStationName()!=null)
+                                {                               
+                                out.print(row.getStationName().toString());                                
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            } else if("Country".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getPurchaseCountryCode()!=null)
+                                {
+                                   out.print(row.getPurchaseCountryCode().toString());                               
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getProductName()!=null)
+                                {
+                                   out.print(row.getProductName().toString());
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getQuantity()!=null)
+                                {
+                                    out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale) + " "+row.getUnitOfMeasure());
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getInvoicedGrossAmount()!=null)
+                                {                                                             
+                                   out.print(formatConversion(row.getInvoicedGrossAmount(),locale));
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Receipt No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getRecieptNo()!=null)
+                                {
+                                   out.print(row.getRecieptNo().toString());
+                                }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                                    
+                                    if(row.getInvoiceNumberCollective()!=null) {
+                                     out.print(row.getInvoiceNumberCollective().toString());
+                                     }else {
+                                        if(row.getInvoiceNumberNonCollective()!=null) {
+                                        out.print(row.getInvoiceNumberNonCollective().toString());
+                                             }
+                                         }   
+                                    
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getKsid()!=null)
+                                    {
+                                        out.print(row.getKsid().toString());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Vehicle No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getVehicleNumber()!=null)
+                                    {
+                                        out.print(row.getVehicleNumber().toString());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("Odometer".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                            
+                                if(row.getOdometerPortal()!=null) {
+                                    out.print(row.getOdometerPortal().toString());
+                                }else {                        
+                                    if(row.getOdometer()!=null) {
+                                    out.print(row.getOdometer().toString());
+                                         }                        
+                                }
+                                
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getkmTotal()!=null)
+                                    {
+                                        out.print(row.getkmTotal().toString());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getkmPerLt()!=null)
+                                    {
+                                        out.println(row.getkmPerLt().toString());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getltPerHundred()!=null)
+                                    {
+                                       out.print(row.getltPerHundred().toString());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            }else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getCardgroupMainType()!=null)
+                                    {
+                                       out.print(row.getCardgroupMainType().toString() + row.getCardgroupSubType() + row.getCardgroupSeq());
+                                    }
+                                if(cellValue != headerValues.length-1)
+                                {
+                                out.print("|");
+                                   }
+                            } 
+                            else {
+                                if("Driver Name".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if(row.getDriverName()!=null)
+                                     {
+                                     out.print(row.getDriverName().toString());
+                                    }
+                                    if(cellValue != headerValues.length-1)
+                                    {
+                                    out.print("|");
+                                       }
+                                }
+                            }
+                    }
+                out.println();
+                 }
+                }
+                
+                out.println();               
+                iterator.closeRowSetIterator();
+                
+                out.close();
+                
+            }
+        }
     }
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {        
@@ -1840,17 +2240,28 @@ public class TransactionOverviewBean implements Serializable{
 
     public void getValuesForExcel(ActionEvent actionEvent) {    
         List l = this.getShuttleValue();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
-        if(l.size()>0)
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
+        if(l.size()>0 && getBindings().getSelectionExportOneRadio().getValue()!= null)
         {
         getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
-        }else {            
+        }else {      
+            if(l.size()<0)
+            {
             if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),"");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-            }            
+            }   
+            }else {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }  
+            }
+            
             
         }
     }
@@ -1881,8 +2292,8 @@ public class TransactionOverviewBean implements Serializable{
             }else{
                 odometerPortal = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
             }
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "uref id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "pals country id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "uref id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "pals country id=================>"+AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
             urefTransactionId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
             palsCountryCode = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
             getBindings().getEditOdometerPopup().show(new RichPopup.PopupHints());
@@ -1900,7 +2311,7 @@ public class TransactionOverviewBean implements Serializable{
         OperationBinding operationBinding = bindings.getOperationBinding("updateOdometerPortal");
         operationBinding.getParamsMap().put("urefTransactionId",urefTransactionId);
         operationBinding.getParamsMap().put("palsCountryCode", palsCountryCode);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "odometer portal popup value=======>"+getBindings().getOdometerPortalValue().getValue());
         operationBinding.getParamsMap().put("modifiedBy", modifiedBy);        
         operationBinding.getParamsMap().put("odoMeterPortalValue", getBindings().getOdometerPortalValue().getValue());
         Object result = operationBinding.execute();
@@ -1978,7 +2389,7 @@ public class TransactionOverviewBean implements Serializable{
         ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
         RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);                      
         iterator.reset();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row Count ="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row Count ="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
         sum=0.0f;
         while (iterator.hasNext()) {                       
         PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();           
@@ -1986,7 +2397,52 @@ public class TransactionOverviewBean implements Serializable{
             sum = sum + temp;
         }  
     }
-    
+
+    public void selectionExport(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        if("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+        {            
+            contentType="application/vnd.ms-excel";
+        }else if("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+        {
+            contentType="text/plain";
+        }else {
+            if("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+                    {
+                        contentType="text/plain";
+                    }
+        }
+        return contentType;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        
+        if("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+        {           
+            fileName="Transaction_Report.xls";           
+        }else if("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+        {
+            fileName="Transaction_Report.csv";
+        }else {
+            if("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
+                    {
+                        fileName="Transaction_Report.csv";
+                    }
+        }
+        return fileName;
+    }
+
     public class Bindings {
         private RichSelectOneChoice account;
         private RichInputDate fromDate;
@@ -2002,6 +2458,7 @@ public class TransactionOverviewBean implements Serializable{
         private RichPanelGroupLayout cardGroupPGL;
         private RichPanelGroupLayout cardNoPGL;
         private RichSelectOneRadio cardCardGrpDrVhOneRadio;
+        private RichSelectOneRadio selectionExportOneRadio;
         private RichPanelGroupLayout showSearchResultPG;
         private RichPopup specificColumns;
         private RichPopup confirmationExcel;
@@ -2195,6 +2652,14 @@ public class TransactionOverviewBean implements Serializable{
 
         public RichTable getSearchTable() {
             return searchTable;
+        }
+
+        public void setSelectionExportOneRadio(RichSelectOneRadio selectionExportOneRadio) {
+            this.selectionExportOneRadio = selectionExportOneRadio;
+        }
+
+        public RichSelectOneRadio getSelectionExportOneRadio() {
+            return selectionExportOneRadio;
         }
     }
 }

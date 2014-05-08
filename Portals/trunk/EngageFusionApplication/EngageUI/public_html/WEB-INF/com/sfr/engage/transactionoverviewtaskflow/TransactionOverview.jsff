@@ -276,7 +276,7 @@
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:240.0px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:340.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
@@ -286,6 +286,11 @@
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
             </af:commandImageLink>
    <!--       </af:commandLink> -->
+          <af:spacer width="10" height="10" id="s53"/>
+          <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
+                          partialSubmit="true">
+        </af:commandButton>
         </af:panelGroupLayout>
         <af:popup id="p2">
           <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
@@ -297,7 +302,7 @@
         </af:popup>
         <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
                                halign="right"
-                               inlineStyle="width:640.0px; height:15.0px;">
+                               inlineStyle="width:600.0px; height:15.0px;">
             
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"
                            id="ot59" styleClass="popupoutputText"/>           
@@ -547,10 +552,7 @@
                                         method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
         </af:commandButton>
          <af:spacer width="10" height="10" id="spac8"/>-->
-        <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
-                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
-                          partialSubmit="true">
-        </af:commandButton>
+        
       </af:panelGroupLayout>
        <af:popup id="pp1" contentDelivery="immediate"
               autoCancel="disabled">
@@ -779,7 +781,22 @@
                     id="si1"/>
             </af:forEach>               
               </af:selectManyShuttle>     
-              <af:spacer width="4" height="10" id="s41"/>               
+              <af:spacer width="4" height="10" id="s41"/>
+              <h:panelGrid columns="6">
+               <af:outputText value="*" id="ot68"/>
+                <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot69"/>
+           <af:spacer width="10" height="15" id="s50"/>
+                    <af:outputText value=":" id="ot67"/>
+                      <af:spacer width="10" height="15" id="s51"/>
+              <af:selectOneRadio id="sor2" autoSubmit="true" binding="#{pageFlowScope.TransactionOverviewBean.bindings.selectionExportOneRadio}"
+                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.selectionExport}"
+                                 layout="horizontal">
+                <af:selectItem label="xls" value="xls" id="si4"/>
+                <af:selectItem label="csv" value="csv" id="si3"/>
+                <af:selectItem label="csv2" value="csv2" id="si2"/>
+              </af:selectOneRadio>
+              </h:panelGrid>
+              <af:spacer width="10" height="15" id="s52"/>                                                            
             </af:panelGroupLayout>
           </f:facet>
         </af:panelStretchLayout>
@@ -800,8 +817,8 @@
                 <af:commandButton text="#{sfr.YES}" id="cb6"
                                   action="#{pageFlowScope.TransactionOverviewBean.excelDownLoad}">
                   <af:clientListener method="exitFromPopupConfirmation" type="action"/>
-                  <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
-                                         filename="Transaction_Report.xls"
+                  <af:fileDownloadActionListener contentType="#{pageFlowScope.TransactionOverviewBean.contentType}"
+                                         filename="#{pageFlowScope.TransactionOverviewBean.fileName}"
                                         method="#{pageFlowScope.TransactionOverviewBean.specificExportExcelListener}"/>
                 </af:commandButton> 
                  <af:spacer width="10" height="10" id="s43"/>    
