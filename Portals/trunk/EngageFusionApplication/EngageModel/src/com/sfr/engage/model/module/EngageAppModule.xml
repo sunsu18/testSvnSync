@@ -96,14 +96,14 @@
     Name="PrtCardTransactionHeaderVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVO"/>
   <ViewUsage
+    Name="PrtHomeTransactionsRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"/>
+  <ViewUsage
     Name="PrtHomeInvoiceRVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"/>
   <ViewUsage
     Name="PrtHomeInvoiceRVO2"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"/>
-  <ViewUsage
-    Name="PrtHomeTransactionsRVO1"
-    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO"/>
   <ViewLinkUsage
     Name="PrtCardgroupPrtPartnerFk1Link1"
     ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"
@@ -122,6 +122,53 @@
     SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtPartnerVO1"
     DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardVO3"
     Reversed="false"/>
+  <ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="getWebServiceErrorMessage">
+      <Return
+        Type="java.lang.String"/>
+      <Parameter
+        Name="errorMessage"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCode"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="updateOdometerPortal">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="urefTransactionId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="palsCountryCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="odoMeterPortalValue"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="modifiedBy"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">

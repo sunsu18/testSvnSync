@@ -386,18 +386,10 @@ public class AuthenticatedHomeBean implements Serializable {
 
     private void searchInvoices(String cardId, String country) {
         ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
-        if("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode".equalsIgnoreCase(vo.getWhereClause())){
-        vo.removeNamedWhereClauseParam("countrycode");
-        vo.removeNamedWhereClauseParam("cards");
-        vo.setWhereClause("");
-        vo.executeQuery();
-        }
         
-         vo.setWhereClause("INSTR(:cards,PRT_CARD_PK)<>0 AND COUNTRY_CODE =: countrycode");
-         vo.defineNamedWhereClauseParam("countrycode", country, null);
-         vo.defineNamedWhereClauseParam("cards", cardId, null);
-        //                vo.setOrderByClause("INVOICE_DATE DESC");
-         vo.executeQuery();
+        vo.setNamedWhereClauseParam("countryCode", country);
+        vo.setNamedWhereClauseParam("cards", cardId);
+        vo.executeQuery();
          
                      if (vo.getEstimatedRowCount() != 0) {
                          log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
@@ -462,23 +454,19 @@ public class AuthenticatedHomeBean implements Serializable {
 
     private void searchTransactions(String cardId, String country) {
         ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
-        if("INSTR(:cards,KSID)<>0".equalsIgnoreCase(latestTransactionVO.getWhereClause())){
-        latestTransactionVO.removeNamedWhereClauseParam("countrycode");
-        latestTransactionVO.removeNamedWhereClauseParam("cards");
-        latestTransactionVO.setWhereClause("");
-        latestTransactionVO.executeQuery();
-        System.out.println("removing where clause");
-        }
+        System.out.println("Country code in Transaction VO" + country);
+        System.out.println("Arraylist in Transaction VO " + cardId);
         
-        
-        
-        latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
+        //latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
         latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
-        latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
+        latestTransactionVO.setNamedWhereClauseParam("cards", cardId);
+        //latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
+        
+        System.out.println(latestTransactionVO.getQuery());
         
         latestTransactionVO.executeQuery();
         if (latestTransactionVO.getEstimatedRowCount() != 0) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + latestTransactionVO.getEstimatedRowCount());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count latestTransactionVO" + latestTransactionVO.getEstimatedRowCount());
             
             }
         else{

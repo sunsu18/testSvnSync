@@ -19,8 +19,17 @@
         ResId="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="cards"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT * from PRT_INVOICE WHERE ROWNUM <=5 order by INVOICE_DATE DESC]]>
+    <![CDATA[SELECT * from (SELECT * from PRT_INVOICE where PRT_INVOICE.country_code =: countryCode
+and INSTR(:cards,PRT_CARD_PK)<>0 order by INVOICE_DATE DESC) WHERE ROWNUM <=5]]>
   </SQLQuery>
   <ViewAttribute
     Name="InvoiceNumber"
@@ -80,7 +89,7 @@
     ColumnType="DATE"
     AliasName="INVOICE_DATE"
     Expression="INVOICE_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -127,7 +136,7 @@
     ColumnType="DATE"
     AliasName="INVOICE_DUE_DATE"
     Expression="INVOICE_DUE_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>

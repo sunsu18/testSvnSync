@@ -65,7 +65,6 @@
           <Item Value="ProductName"/>
           <Item Value="Quantity"/>
           <Item Value="UnitOfMeasure"/>
-          <Item Value="TransactionType"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

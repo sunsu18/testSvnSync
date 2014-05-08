@@ -198,7 +198,7 @@
                                headerText="Date" id="c8" width="100">
                       <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                       
-                        <af:convertDateTime pattern="#{bindings.PrtHomeTransactionsRVO1.hints.TransactionDt.format}"/>
+                        <af:convertDateTime pattern="dd.MM.yyyy"/>
                         
                         
                       </af:outputText>
