@@ -18,7 +18,15 @@ height: 24px;
 margin-top: -3px;
 
 }
+/*------------------------------ADF tree---------------------------*/
 
+.home_tree{
+
+background-color: rgba(253, 253, 250, 0);
+padding-left: 4px;
+padding-top: 2px;
+
+}
 /*------------------------------ADF tree---------------------------*/
 .af_tree_node-stamp-text{
     border-style: none ;
