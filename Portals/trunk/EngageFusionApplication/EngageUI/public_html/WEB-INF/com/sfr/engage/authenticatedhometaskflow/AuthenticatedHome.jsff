@@ -368,7 +368,7 @@
         <af:panelGroupLayout id="pgl24" layout="vertical" visible="true"
                              inlineStyle="width:600.0px;">
           <af:panelGroupLayout id="pgl17" layout="vertical">
-            <af:outputText value="Webshop Pannel" id="ot7" styleClass="heading1"/>
+            <af:outputText value="Webshop Panel" id="ot7" styleClass="heading1"/>
             <af:spacer width="10" height="10" id="s15"/>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl18" layout="horizontal"
