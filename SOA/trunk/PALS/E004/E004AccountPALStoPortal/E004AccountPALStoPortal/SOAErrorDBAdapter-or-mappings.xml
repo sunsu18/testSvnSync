@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.1.3.v20110304-r9073">
+   <name>SOAErrorDBAdapter-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SOAErrorDBAdapter.EngagePalsAccDtaErrorlog</class>
+         <alias>ENGAGE_PALS_ACC_DTA_ERRORLOG</alias>
+         <primary-key>
+            <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="DELTA_TS" xsi:type="column"/>
+            <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="SOA_ERROR_CODE" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SOAErrorDBAdapterSelect" xsi:type="read-all-query">
+                  <reference-class>SOAErrorDBAdapter.EngagePalsAccDtaErrorlog</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountId</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="ACCOUNT_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountCustomerGroup</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="ACCOUNT_CUSTOMER_GROUP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaErrorCode</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="SOA_ERROR_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaErrorDesc</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="SOA_ERROR_DESC" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>updatedBy</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="UPDATED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>updatedTimestamp</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="UPDATED_TIMESTAMP" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>emailFlag</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="EMAIL_FLAG" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaReciptFlag</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="DELTA_RECIPT_FLAG" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>countryCode</attribute-name>
+               <field table="ENGAGE_PALS_ACC_DTA_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="ENGAGE_PALS_ACC_DTA_ERRORLOG"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <user-name></user-name>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

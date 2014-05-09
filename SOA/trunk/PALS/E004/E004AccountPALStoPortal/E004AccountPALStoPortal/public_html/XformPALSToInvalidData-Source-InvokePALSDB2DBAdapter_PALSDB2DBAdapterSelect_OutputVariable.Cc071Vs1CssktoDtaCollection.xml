@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Cc071Vs1CssktoDtaCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter">
+   <Cc071Vs1CssktoDta>
+      <deltaTs></deltaTs>
+      <kontoId>string65</kontoId>
+      <partnerId>string67</partnerId>
+      <kundeGrp>st</kundeGrp>
+   </Cc071Vs1CssktoDta>
+   <Cc071Vs1CssktoDta>
+      <deltaTs>2014-05-07T17:19:28.986</deltaTs>
+      <kontoId></kontoId>
+      <partnerId>string73</partnerId>
+      <kundeGrp>st</kundeGrp>
+   </Cc071Vs1CssktoDta>
+   <Cc071Vs1CssktoDta>
+      <deltaTs>2014-05-07T17:19:28.986</deltaTs>
+      <kontoId>string7711</kontoId>
+      <partnerId>string79</partnerId>
+      <kundeGrp>st</kundeGrp>
+   </Cc071Vs1CssktoDta>
+</Cc071Vs1CssktoDtaCollection>

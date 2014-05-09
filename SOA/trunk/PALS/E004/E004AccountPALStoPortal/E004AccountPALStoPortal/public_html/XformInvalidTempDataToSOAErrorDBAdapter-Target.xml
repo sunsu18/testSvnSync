@@ -1,0 +1,42 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<top:EngagePalsAccDtaErrorlogCollection xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter">
+   <top:EngagePalsAccDtaErrorlog>
+      <top:deltaTs>DELTA_TS6</top:deltaTs>
+      <top:accountId>ACCOUNT_ID2</top:accountId>
+      <top:partnerId>PARTNER_ID3</top:partnerId>
+      <top:accountCustomerGroup>CUSTOMER_GROUP4</top:accountCustomerGroup>
+      <top:soaErrorCode>'E004'</top:soaErrorCode>
+      <top:soaErrorDesc>'Binding Error'</top:soaErrorDesc>
+      <top:updatedBy>MODIFIED_BY5</top:updatedBy>
+      <top:updatedTimestamp>2014-05-09T15:07:16.048</top:updatedTimestamp>
+      <top:emailFlag>0</top:emailFlag>
+      <top:deltaReciptFlag>0</top:deltaReciptFlag>
+      <top:countryCode>COUNTRY_CODE1</top:countryCode>
+   </top:EngagePalsAccDtaErrorlog>
+   <top:EngagePalsAccDtaErrorlog>
+      <top:deltaTs>DELTA_TS12</top:deltaTs>
+      <top:accountId>ACCOUNT_ID8</top:accountId>
+      <top:partnerId>PARTNER_ID9</top:partnerId>
+      <top:accountCustomerGroup>CUSTOMER_GROUP10</top:accountCustomerGroup>
+      <top:soaErrorCode>'E004'</top:soaErrorCode>
+      <top:soaErrorDesc>'Binding Error'</top:soaErrorDesc>
+      <top:updatedBy>MODIFIED_BY11</top:updatedBy>
+      <top:updatedTimestamp>2014-05-09T15:07:16.048</top:updatedTimestamp>
+      <top:emailFlag>0</top:emailFlag>
+      <top:deltaReciptFlag>0</top:deltaReciptFlag>
+      <top:countryCode>COUNTRY_CODE7</top:countryCode>
+   </top:EngagePalsAccDtaErrorlog>
+   <top:EngagePalsAccDtaErrorlog>
+      <top:deltaTs>DELTA_TS18</top:deltaTs>
+      <top:accountId>ACCOUNT_ID14</top:accountId>
+      <top:partnerId>PARTNER_ID15</top:partnerId>
+      <top:accountCustomerGroup>CUSTOMER_GROUP16</top:accountCustomerGroup>
+      <top:soaErrorCode>'E004'</top:soaErrorCode>
+      <top:soaErrorDesc>'Binding Error'</top:soaErrorDesc>
+      <top:updatedBy>MODIFIED_BY17</top:updatedBy>
+      <top:updatedTimestamp>2014-05-09T15:07:16.048</top:updatedTimestamp>
+      <top:emailFlag>0</top:emailFlag>
+      <top:deltaReciptFlag>0</top:deltaReciptFlag>
+      <top:countryCode>COUNTRY_CODE13</top:countryCode>
+   </top:EngagePalsAccDtaErrorlog>
+</top:EngagePalsAccDtaErrorlogCollection>

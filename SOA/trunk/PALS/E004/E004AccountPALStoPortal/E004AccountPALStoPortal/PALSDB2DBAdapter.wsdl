@@ -1,0 +1,25 @@
+<?binding.jca PALSDB2DBAdapter_db.jca?>
+<wsdl:definitions name="PALSDB2DBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter">
+    <plt:partnerLinkType name="PALSDB2DBAdapter_plt">
+        <plt:role name="PALSDB2DBAdapter_role">
+            <plt:portType name="tns:PALSDB2DBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" schemaLocation="xsd/PALSDB2DBAdapter_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="PALSDB2DBAdapterSelect_inputParameters">
+        <wsdl:part name="PALSDB2DBAdapterSelect_inputParameters" element="top:PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStampInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="Cc071Vs1CssktoDtaCollection_msg">
+        <wsdl:part name="Cc071Vs1CssktoDtaCollection" element="top:Cc071Vs1CssktoDtaCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="PALSDB2DBAdapter_ptt">
+        <wsdl:operation name="PALSDB2DBAdapterSelect">
+            <wsdl:input message="tns:PALSDB2DBAdapterSelect_inputParameters"/>
+            <wsdl:output message="tns:Cc071Vs1CssktoDtaCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

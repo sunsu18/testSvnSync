@@ -1,0 +1,36 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="E004AccountPALStoPortal"
+     targetNamespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="E004AccountPALStoPortal">
+        <plnk:role name="E004AccountPALStoPortalProvider">
+            <plnk:portType name="client:E004AccountPALStoPortal"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal"
+                 schemaLocation="xsd/E004AccountPALStoPortal.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/engage" schemaLocation="xsd/AccountPortalDBfields.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="E004AccountPALStoPortalRequestMessage">
+        <wsdl:part name="payload" element="client:invocationMsg"/>
+    </wsdl:message>
+    <wsdl:portType name="E004AccountPALStoPortal">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:E004AccountPALStoPortalRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

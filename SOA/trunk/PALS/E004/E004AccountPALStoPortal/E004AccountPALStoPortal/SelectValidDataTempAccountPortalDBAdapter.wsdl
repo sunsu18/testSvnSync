@@ -1,0 +1,25 @@
+<?binding.jca SelectValidDataTempAccountPortalDBAdapter_db.jca?>
+<wsdl:definitions name="SelectValidDataTempAccountPortalDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempAccountPortalDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectValidDataTempAccountPortalDBAdapter_plt">
+        <plt:role name="SelectValidDataTempAccountPortalDBAdapter_role">
+            <plt:portType name="tns:SelectValidDataTempAccountPortalDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempAccountPortalDBAdapter" schemaLocation="xsd/SelectValidDataTempAccountPortalDBAdapter.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectValidDataTempAccountPortalDBAdapterInput_msg">
+        <wsdl:part name="SelectValidDataTempAccountPortalDBAdapterInput_msg" element="db:SelectValidDataTempAccountPortalDBAdapterInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectValidDataTempAccountPortalDBAdapterOutputCollection_msg">
+        <wsdl:part name="SelectValidDataTempAccountPortalDBAdapterOutputCollection" element="db:SelectValidDataTempAccountPortalDBAdapterOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectValidDataTempAccountPortalDBAdapter_ptt">
+        <wsdl:operation name="SelectValidDataTempAccountPortalDBAdapter">
+            <wsdl:input message="tns:SelectValidDataTempAccountPortalDBAdapterInput_msg"/>
+            <wsdl:output message="tns:SelectValidDataTempAccountPortalDBAdapterOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

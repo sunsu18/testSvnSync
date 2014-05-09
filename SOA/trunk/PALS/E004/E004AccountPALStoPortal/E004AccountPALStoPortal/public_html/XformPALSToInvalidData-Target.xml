@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ns2:EngagePalsAccDtaErrorlogCollection xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter">
+   <ns2:EngagePalsAccDtaErrorlog>
+      <ns2:deltaTs/>
+      <ns2:accountId>string65</ns2:accountId>
+      <ns2:partnerId>string67</ns2:partnerId>
+      <ns2:accountCustomerGroup>st</ns2:accountCustomerGroup>
+      <ns2:soaErrorCode>BE004</ns2:soaErrorCode>
+      <ns2:updatedBy>UserName64</ns2:updatedBy>
+      <ns2:countryCode>CountryCode60</ns2:countryCode>
+   </ns2:EngagePalsAccDtaErrorlog>
+   <ns2:EngagePalsAccDtaErrorlog>
+      <ns2:deltaTs>2014-05-07T17:19:28.986</ns2:deltaTs>
+      <ns2:accountId/>
+      <ns2:partnerId>string73</ns2:partnerId>
+      <ns2:accountCustomerGroup>st</ns2:accountCustomerGroup>
+      <ns2:soaErrorCode>BE004</ns2:soaErrorCode>
+      <ns2:updatedBy>UserName64</ns2:updatedBy>
+      <ns2:countryCode>CountryCode60</ns2:countryCode>
+   </ns2:EngagePalsAccDtaErrorlog>
+</ns2:EngagePalsAccDtaErrorlogCollection>
