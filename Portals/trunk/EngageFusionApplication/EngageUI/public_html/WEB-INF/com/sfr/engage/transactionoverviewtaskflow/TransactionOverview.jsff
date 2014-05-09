@@ -309,8 +309,9 @@
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="15" id="spacer2"/>
+      <af:panelGroupLayout id="pgl36" layout="scroll">
       <af:table value="#{bindings.PrtCardTransactionOverviewRVO12.collectionModel}"
-                var="row" width="950" disableColumnReordering="true" columnResizing="disabled"
+                var="row" width="875" disableColumnReordering="true" columnResizing="disabled"
                 rows="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
                 emptyText="#{bindings.PrtCardTransactionOverviewRVO12.viewable ? 'No data to display.' : 'Access Denied.'}"
                 fetchSize="#{bindings.PrtCardTransactionOverviewRVO12.rangeSize}"
@@ -372,7 +373,7 @@
        </af:column>
         
         <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
-                   sortable="false" width="80"
+                   sortable="false" width="85"
                    headerText="#{sfr.VEHICLE_NUMBER}"
                    id="c16">
           <af:outputText value="#{row.VehicleNumber}" id="ot40" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
@@ -467,7 +468,7 @@
         </af:column>
         
           <af:column sortProperty="InvoiceNumberCollective"
-                   sortable="false" width="80" 
+                   sortable="false" width="88" 
                    headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                    id="c5">
              <af:panelGroupLayout id="pgl22">
@@ -488,7 +489,7 @@
           </af:panelGroupLayout>
         </af:column>-->
         
-        <af:column sortProperty="Odometer" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+        <af:column sortProperty="Odometer" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ODOMETER}"
                    id="c7">
           <!--<af:outputText value="#{row.OdometerPortal}" id="ot49" visible="#{row.OdometerPortal ne null ? true : false}"/>-->
@@ -516,7 +517,7 @@
             </h:panelGrid>
         </af:column>
         
-         <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+         <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_TOTAL}"
                    id="c12">
           <af:outputText value="#{row.kmTotal}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -525,7 +526,7 @@
           </af:outputText>
         </af:column>
         
-        <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+        <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_PER_LT}"
                    id="c14">
           <af:outputText value="#{row.kmPerLt}" id="ot45" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -534,7 +535,7 @@
           </af:outputText>
         </af:column>
         
-         <af:column sortProperty="ltPerHundred" filterable="true" width="50" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+         <af:column sortProperty="ltPerHundred" filterable="true" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    sortable="false"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                    id="c11">
@@ -545,6 +546,7 @@
         </af:column>
        
       </af:table>
+      </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s9"/>
         <!--<af:commandButton text="ExportToExcel" id="cb1">
          <af:fileDownloadActionListener contentType="application/vnd.ms-excel"

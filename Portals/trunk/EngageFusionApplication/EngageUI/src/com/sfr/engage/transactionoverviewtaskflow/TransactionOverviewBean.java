@@ -81,7 +81,7 @@ public class TransactionOverviewBean implements Serializable{
     private ArrayList<SelectItem> accountIdList; 
     private String accountIdValue;
     private ArrayList<SelectItem> termianlList;    
-    private List shuttleList;
+    private List shuttleList = new ArrayList();
     private List shuttleValue;    
     private List<String> terminalValue;
     private ArrayList<SelectItem> typeList;
@@ -180,18 +180,20 @@ public class TransactionOverviewBean implements Serializable{
         typeValue.add("PR");
         typeValue.add("INV");
         
-        //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
+        //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);        
         
-        lang="NO";
-        
+        if(session!= null) {
+        lang = (String)session.getAttribute(Constants.userLang);            
+        }
+
         
         if(lang=="NO")
         {
-        currencyCode=conversionUtility.getCurrencyCode("NO");
-        locale=conversionUtility.getLocaleFromCountryCode("NO");
+        currencyCode=conversionUtility.getCurrencyCode(lang);
+        locale=conversionUtility.getLocaleFromCountryCode(lang);
         }else if(lang=="SE") {
-            currencyCode=conversionUtility.getCurrencyCode("SE");
-            locale=conversionUtility.getLocaleFromCountryCode("SE");
+            currencyCode=conversionUtility.getCurrencyCode(lang);
+            locale=conversionUtility.getLocaleFromCountryCode(lang);
         }
     }
     
@@ -338,11 +340,50 @@ public class TransactionOverviewBean implements Serializable{
         return termianlList;
     }
 
-    public List getShuttleList() {        
+    public List getShuttleList() {  
+//           shuttleList.add(new javax.faces.model.SelectItem("Value1"));
+//                   shuttleList.add(new javax.faces.model.SelectItem("Value2"));
+//                   shuttleList.add(new javax.faces.model.SelectItem("Value3"));
+//                   shuttleList.add(new javax.faces.model.SelectItem("Option1"));
+//                   shuttleList.add(new javax.faces.model.SelectItem("Option2"));
+//                   shuttleList.add(new javax.faces.model.SelectItem("Option3"));
          return shuttleList;
        }
       
-       public List getShuttleValue() {            
+       public List getShuttleValue() {           
+           if(getBindings().getCardCardGrpDrVhOneRadio().getValue() != null)
+           {
+           if("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {  
+               shuttleValue= new ArrayList();
+               String[] strHead=strCardGroup.split(",");              
+               for (int col = 0; col < strHead.length; col++)
+               {                
+                   shuttleValue.add(strHead[col].toString());
+               }   
+           }else if("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                shuttleValue= new ArrayList();
+                String[] strHead=strCard.split(","); 
+                for (int col = 0; col < strHead.length; col++)
+                {
+                shuttleValue.add(strHead[col].toString());
+                }
+            }else if("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
+                shuttleValue= new ArrayList();
+                 String[] strHead=strVehicle.split(","); 
+                 for (int col = 0; col < strHead.length; col++)
+                 {
+                 shuttleValue.add(strHead[col].toString());
+                 }
+            }else {
+                shuttleValue= new ArrayList();
+                String[] strHead=strDriver.split(","); 
+                for (int col = 0; col < strHead.length; col++)
+                {
+                shuttleValue.add(strHead[col].toString());
+                 }
+            } 
+           
+           }
          return shuttleValue;   
        }
       
@@ -432,7 +473,7 @@ public class TransactionOverviewBean implements Serializable{
                         if(getBindings().account.getValue() != null){
                         vo.setNamedWhereClauseParam("accountValue",getBindings().account.getValue());
                         }
-                        vo.setNamedWhereClauseParam("countryCd", "NO");
+                        vo.setNamedWhereClauseParam("countryCd", lang);
                         vo.setNamedWhereClauseParam("partnerValue", partnerId);
                         vo.setNamedWhereClauseParam("paramValue", paramType);
                         vo.executeQuery();
@@ -563,7 +604,7 @@ public class TransactionOverviewBean implements Serializable{
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         vo.setNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim());
-        vo.setNamedWhereClauseParam("countryCd", "NO");
+        vo.setNamedWhereClauseParam("countryCd", lang);
         
             if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card where removal class");
@@ -610,7 +651,7 @@ public class TransactionOverviewBean implements Serializable{
             vo.defineNamedWhereClauseParam("type", transTypePassingValues, null);
             vo.defineNamedWhereClauseParam("fromDate", newFromDate , null);
             vo.defineNamedWhereClauseParam("toDate", newToDate, null);
-            //vo.defineNamedWhereClauseParam("countryCd", "NO", null);
+            //vo.defineNamedWhereClauseParam("countryCd", lang, null);
             vo.defineNamedWhereClauseParam("partnerNumber", partnerId, null);
             //vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
             vo.executeQuery();
@@ -1481,14 +1522,13 @@ public class TransactionOverviewBean implements Serializable{
     public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Entering getValues..");
-        String selectedValues="";
-        List l = this.getShuttleValue();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
+        String selectedValues="";        
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+shuttleValue.size());
         //StringBuilder text = new StringBuilder("Size = ").append(getSelectedEmployees().size()).append(", Items added are: ");
-               for (int i = 0; i <l.size(); i++ ) {
+               for (int i = 0; i <shuttleValue.size(); i++ ) {
                    //text.append("Item ").append(i).append(" = ").append(l.get(i)).append(", ");
-                   _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Item ="+i+" value== "+l.get(i));
-                   selectedValues=selectedValues+l.get(i).toString().trim()+",";                   
+                   _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Item ="+i+" value== "+shuttleValue.get(i));
+                   selectedValues=selectedValues+shuttleValue.get(i).toString().trim()+",";                   
                }  
                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Formed String ="+selectedValues);
                String passedString=selectedValues.substring(0, selectedValues.length()-1);
@@ -1934,7 +1974,7 @@ public class TransactionOverviewBean implements Serializable{
                         }else if("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if(row.getkmPerLt()!=null)
                                 {
-                                    out.println(row.getkmPerLt().toString());
+                                    out.print(row.getkmPerLt().toString());
                                 }
                             if(cellValue != headerValues.length-1)
                             {
@@ -2130,7 +2170,7 @@ public class TransactionOverviewBean implements Serializable{
                             }else if("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                     if(row.getkmPerLt()!=null)
                                     {
-                                        out.println(row.getkmPerLt().toString());
+                                        out.print(row.getkmPerLt().toString());
                                     }
                                 if(cellValue != headerValues.length-1)
                                 {
@@ -2238,14 +2278,13 @@ public class TransactionOverviewBean implements Serializable{
         
     }
 
-    public void getValuesForExcel(ActionEvent actionEvent) {    
-        List l = this.getShuttleValue();
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+l.size());
-        if(l.size()>0 && getBindings().getSelectionExportOneRadio().getValue()!= null)
+    public void getValuesForExcel(ActionEvent actionEvent) {  
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+shuttleValue.size());
+        if(shuttleValue.size()>0 && getBindings().getSelectionExportOneRadio().getValue()!= null)
         {
         getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
         }else {      
-            if(l.size()<0)
+            if(shuttleValue.size()<0)
             {
             if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
                 FacesMessage msg =
