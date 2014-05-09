@@ -24,8 +24,6 @@
        PrtCardgroupEO.ARCHIVE_REF, 
        PrtCardgroupEO.NOT_AVG_FROM, 
        PrtCardgroupEO.NOT_AVG_TO, 
-       PrtCardgroupEO.VERSION_NUMBER, 
-       PrtCardgroupEO.CARD_TYPE, 
        PrtCardgroupEO.PAY_DOC_LEVEL, 
        PrtCardgroupEO.BUSI_RELATION_NACE, 
        PrtCardgroupEO.DEBIT_BANK_ACCOUNT, 
@@ -167,12 +165,14 @@
     AliasName="NOT_AVG_TO"/>
   <ViewAttribute
     Name="VersionNumber"
+    IsPersistent="false"
     PrecisionRule="true"
     EntityAttrName="VersionNumber"
     EntityUsage="PrtCardgroupEO"
     AliasName="VERSION_NUMBER"/>
   <ViewAttribute
     Name="CardType"
+    IsPersistent="false"
     PrecisionRule="true"
     EntityAttrName="CardType"
     EntityUsage="PrtCardgroupEO"

@@ -403,7 +403,7 @@ public class MyPageListener implements PagePhaseListener {
 
 
                                                 part.setPartnerValue(pid);
-                                                part.setCountry(conv.getCustomerCountryCode(user.getLang().toString()));
+                                                part.setCountry((user.getLang().toString()));
                                                 part.setCompanyOverview(false);
 
                                                 do {
@@ -600,7 +600,7 @@ iter3.getViewObject();
                                                                                                         CardgroupSeq,
                                                                                                         null);
                                                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                                                        "no_NO",
+                                                                                                        "NO",
                                                                                                         null);
                                                                         vo3.defineNamedWhereClauseParam("cgmain",
                                                                                                         CardgroupMainType,
@@ -639,9 +639,9 @@ new CardInfo();
 
 
                                                                                     }
-                                                                                    if (currRowcard.getExtCardNum() !=
+                                                                                    if (currRowcard.getCardEmbossNum() !=
                                                                                         null)
-                                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                                                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
 
 
                                                                                     addflagcard =
@@ -801,7 +801,7 @@ iter3.getViewObject();
                                                                                         CardgroupSeq,
                                                                                         null);
                                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                                        "no_NO",
+                                                                                        "NO",
                                                                                         null);
                                                         vo3.defineNamedWhereClauseParam("cgmain",
                                                                                         CardgroupMainType,
@@ -841,9 +841,9 @@ new CardInfo();
 //                                                                        accountId_cardVO =
 //                                                                                currRowcard.getAccountId().toString();
                                                                     }
-                                                                    if (currRowcard.getExtCardNum() !=
+                                                                    if (currRowcard.getCardEmbossNum() !=
                                                                         null)
-                                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
 
                                                                     if (currRowcard.getAccountId() !=
                                                                         null) {
@@ -1120,7 +1120,7 @@ new CardInfo();
                                                                         null);
 
                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                        "no_NO",
+                                                                        "NO",
                                                                         null);
 
                                         System.out.println(vo3.getQuery());
@@ -1148,7 +1148,7 @@ new CardInfo();
                                                         System.out.println("Card id is " +
                                                                            currRowcard.getPrtCardPk());
                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
-                                                        card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
 
 
                                                     }
@@ -1604,11 +1604,11 @@ new CardInfo();
         vo1.setWhereClause("PARTNER_ID =: pid");
         System.out.println("Partner id passed in Account VO is " + Partnerid);
         part.setPartnerValue(Partnerid);
-        part.setCountry(conv.getCustomerCountryCode(user.getLang().toString()));
+        part.setCountry((user.getLang().toString()));
         part.setCompanyOverview(true);
         vo1.defineNamedWhereClauseParam("pid", Partnerid, null);
         //TODO : Take country from user's session object / from Partner's string
-        vo1.setNamedWhereClauseParam("countryCode", "no_NO");
+        vo1.setNamedWhereClauseParam("countryCode", "NO");
         System.out.println(vo1.getQuery());
         vo1.executeQuery();
         System.out.println("RowCount for Account VO  " +
@@ -1761,7 +1761,7 @@ new CardInfo();
                         System.out.println("CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
                         vo3.defineNamedWhereClauseParam("cgid", CardgroupSeq,
                                                         null);
-                        vo3.defineNamedWhereClauseParam("cc", "no_NO", null);
+                        vo3.defineNamedWhereClauseParam("cc", "NO", null);
                         vo3.defineNamedWhereClauseParam("cgmain",
                                                         CardgroupMainType,
                                                         null);
@@ -1853,8 +1853,8 @@ new CardInfo();
                     card.setCardOverview(true);
                 }
 
-                if (currRowcard.getExtCardNum() != null)
-                    card.setExternalCardID(currRowcard.getExtCardNum().toString());
+                if (currRowcard.getCardEmbossNum() != null)
+                    card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
 
                 addflagcard = false;
                 //Below logic is just to find out that card id is already present in cardgrouplist
@@ -1907,10 +1907,10 @@ new CardInfo();
 
 //                rr= new Roles();
 //                idString = new ArrayList<String>();
-                       // rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-                //idString.add("NOPP26773218");
-                //rr.setIdString(idString);
-                //listrole.add(rr);
+                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                idString.add("NOPP26773218");
+                rr.setIdString(idString);
+                listrole.add(rr);
 
 
 
@@ -1928,15 +1928,15 @@ new CardInfo();
 //        
         
 //        rr = new Roles();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+//                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
 //                        idString = new ArrayList<String>();
-                        idString.add("NOPP26773218CGSLUTRX00001");
+//                        idString.add("NOPP26773218CGSLUTRX00001");
         //                
 //                        idString.add("NOPP26773218CGSLUTRX00002");
         //        idString.add("NOPP26773218AC0022883797");
 //                idString.add("NOPP26773218CGSLUTRX00006");
-                        rr.setIdString(idString);
-                        listrole.add(rr);
+//                        rr.setIdString(idString);
+//                        listrole.add(rr);
         
 //                rr = new Roles();
 //                                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
@@ -1969,6 +1969,17 @@ new CardInfo();
                 rr.setIdString(idString);
                 listrole.add(rr);
                 
+        rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
+                                idString = new ArrayList<String>();
+        //
+                        idString.add("101");
+//                idString.add("NOPP26773218CC0058589248");
+        //
+        //                idString.add("NOPP26773218CC0058589003");
+                rr.setIdString(idString);
+                listrole.add(rr);
+                
                 
         
                 
@@ -1978,7 +1989,8 @@ new CardInfo();
         user.setRoleList(listrole);
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_EMP);
+        
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR + "|"+ Constants.ROLE_WCP_CARD_CSR);
         user.setUserID("B2BMgr1@test.com");
 
         return user;

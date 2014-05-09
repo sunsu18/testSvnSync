@@ -236,54 +236,7 @@
                       </af:panelGroupLayout>
                     </af:column>
                   </af:table>
-                  <!--<af:table value="#{bindings.PrtLatestCardTransactionsRVO1.collectionModel}"
-                        var="row"
-                        rows="#{bindings.PrtLatestCardTransactionsRVO1.rangeSize}"
-                        emptyText="#{bindings.PrtLatestCardTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                        fetchSize="#{bindings.PrtLatestCardTransactionsRVO1.rangeSize}"
-                        rowBandingInterval="1" id="t2" width="467"
-                        inlineStyle="height:280.0px;overflow:hidden;"
-                        summary="Latest Transactions">
-                        <af:column sortProperty="TransactionDt" sortable="false"
-                           headerText="Date"
-                           id="c9" width="65">
-                  <af:outputText value="#{row.TransactionDt}" id="ot13">
-                    <af:convertDateTime pattern="#{bindings.PrtLatestCardTransactionsRVO1.hints.TransactionDt.format}"/>
-                  </af:outputText>
-                </af:column>
-                <af:column sortProperty="Card1Id" sortable="false"
-                           headerText="Card"
-                           id="c7" width="150">
-                  <af:outputText value="#{row.Card1Id}" id="ot12"/>
-                </af:column>
-                
-                <af:column sortProperty="StationName" sortable="false"
-                           headerText="Station Name"
-                           id="c5" width="60">
-                  <af:outputText value="#{row.StationName}" id="ot15"/>
-                </af:column>
-                <af:column sortProperty="ProductName" sortable="false"
-                           headerText="Product Name"
-                           id="c6" width="95">
-                  <af:outputText value="#{row.ProductName}" id="ot6"/>
-                </af:column>
-                <af:column sortProperty="Quantity" sortable="false"
-                           headerText="Quantity"
-                           id="c4" width="65">
-                           <af:panelGroupLayout id="pgl31" layout="horizontal"
-                                       halign="left">
-                  <af:outputText value="#{row.Quantity}" id="ot17">
-                    <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.PrtLatestCardTransactionsRVO1.hints.Quantity.format}"/>
-                  </af:outputText>
-                  <af:spacer width="4" id="s24"/>
-                   <af:outputText value="#{row.UnitOfMeasure}" id="ot16"/>
-                  </af:panelGroupLayout>
-                </af:column>
-               
                  
-           
-              </af:table>-->
                 </af:panelGroupLayout>
                 <af:panelGroupLayout id="panelGroupLayout4" halign="left"
                                      layout="horizontal" valign="top"

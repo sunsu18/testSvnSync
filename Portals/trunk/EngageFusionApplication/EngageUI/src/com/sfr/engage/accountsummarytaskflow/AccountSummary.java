@@ -570,7 +570,7 @@ public class AccountSummary implements Serializable {
                 ViewObject vo_acc = iter1.getViewObject();
                 vo_acc.setWhereClause("ACCOUNT_ID =: accid");
                 vo_acc.defineNamedWhereClauseParam("accid", id, null);
-                vo_acc.setNamedWhereClauseParam("countryCode", "no_NO");
+                vo_acc.setNamedWhereClauseParam("countryCode", "NO");
                 //System.out.println(vo_acc.getQuery());
                 vo_acc.executeQuery();
 
@@ -647,7 +647,7 @@ public class AccountSummary implements Serializable {
 
                 vo_cg.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                vo_cg.defineNamedWhereClauseParam("cc", "no_NO", null);
+                vo_cg.defineNamedWhereClauseParam("cc", "NO", null);
                 vo_cg.defineNamedWhereClauseParam("cgmain", maintype, null);
                 vo_cg.defineNamedWhereClauseParam("cgsub", subtype, null);
 
@@ -681,7 +681,7 @@ public class AccountSummary implements Serializable {
                 vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
                 vo3.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                vo3.defineNamedWhereClauseParam("cc", "no_NO", null);
+                vo3.defineNamedWhereClauseParam("cc", "NO", null);
                 vo3.defineNamedWhereClauseParam("cgmain", maintype, null);
                 vo3.defineNamedWhereClauseParam("cgsub", subtype, null);
 
@@ -774,7 +774,7 @@ public class AccountSummary implements Serializable {
 
             vo_card.defineNamedWhereClauseParam("cardid", id, null);
 
-            vo_card.defineNamedWhereClauseParam("cc", "no_NO", null);
+            vo_card.defineNamedWhereClauseParam("cc", "NO", null);
 
             
             vo_card.executeQuery();
@@ -822,7 +822,7 @@ public class AccountSummary implements Serializable {
         //            vo_part.setWhereClause("PARTNER_ID =: partid");
         //            vo_part.defineNamedWhereClauseParam("partid",id,null);
         //            vo_part.setWhereClause("COUNTRY_CODE =: cc");
-        //            vo_part.defineNamedWhereClauseParam("cc","no_NO",null);
+        //            vo_part.defineNamedWhereClauseParam("cc","NO",null);
         //
         //            System.out.println(vo_part.getQuery());
         //            vo_part.executeQuery();

@@ -12,12 +12,12 @@
                       DataControl="PartnerInfoListClient"
                       BeanClass="com.sfr.engage.core.PartnerInfo"
                       id="partnerlistIterator"/>
-    <iterator Binds="PrtAccountVO2" RangeSize="25"
+    <iterator Binds="PrtAccountVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtAccountVO2Iterator"/>
-    <iterator Binds="PrtCardVO4" RangeSize="25"
+    <iterator Binds="PrtCardVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl" id="PrtCardVO4Iterator"/>
-    <iterator Binds="PrtCardgroupVO3" RangeSize="25"
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardgroupVO3Iterator"/>
     <iterator Binds="PrtPartnerVO1" RangeSize="25"

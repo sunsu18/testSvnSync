@@ -263,6 +263,16 @@ public class PrtAccountEOImpl extends EntityImpl {
             }
         }
         ,
+        CustomerGroup {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getCustomerGroup();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setCustomerGroup((String)value);
+            }
+        }
+        ,
         PrtDriverInformationEO {
             public Object get(PrtAccountEOImpl obj) {
                 return obj.getPrtDriverInformationEO();
@@ -279,7 +289,7 @@ public class PrtAccountEOImpl extends EntityImpl {
             }
 
             public void put(PrtAccountEOImpl obj, Object value) {
-                obj.setPrtPartnerEO((EntityImpl)value);
+                obj.setAttributeInternal(index(), value);
             }
         }
         ,
@@ -306,6 +316,46 @@ public class PrtAccountEOImpl extends EntityImpl {
         PrtCardgroupEO {
             public Object get(PrtAccountEOImpl obj) {
                 return obj.getPrtCardgroupEO();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtPartnerEO1 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtPartnerEO1();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setPrtPartnerEO1((EntityImpl)value);
+            }
+        }
+        ,
+        PrtCardEO1 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtCardEO1();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtDriverInformationEO2 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtDriverInformationEO2();
+            }
+
+            public void put(PrtAccountEOImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtCardgroupEO1 {
+            public Object get(PrtAccountEOImpl obj) {
+                return obj.getPrtCardgroupEO1();
             }
 
             public void put(PrtAccountEOImpl obj, Object value) {
@@ -365,11 +415,16 @@ public class PrtAccountEOImpl extends EntityImpl {
     public static final int GIRONUMBER = AttributesEnum.GiroNumber.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int CUSTOMERGROUP = AttributesEnum.CustomerGroup.index();
     public static final int PRTDRIVERINFORMATIONEO = AttributesEnum.PrtDriverInformationEO.index();
     public static final int PRTPARTNEREO = AttributesEnum.PrtPartnerEO.index();
     public static final int PRTCARDEO = AttributesEnum.PrtCardEO.index();
     public static final int PRTDRIVERINFORMATIONEO1 = AttributesEnum.PrtDriverInformationEO1.index();
     public static final int PRTCARDGROUPEO = AttributesEnum.PrtCardgroupEO.index();
+    public static final int PRTPARTNEREO1 = AttributesEnum.PrtPartnerEO1.index();
+    public static final int PRTCARDEO1 = AttributesEnum.PrtCardEO1.index();
+    public static final int PRTDRIVERINFORMATIONEO2 = AttributesEnum.PrtDriverInformationEO2.index();
+    public static final int PRTCARDGROUPEO1 = AttributesEnum.PrtCardgroupEO1.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -773,6 +828,22 @@ public class PrtAccountEOImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for CustomerGroup, using the alias name CustomerGroup.
+     * @return the CustomerGroup
+     */
+    public String getCustomerGroup() {
+        return (String)getAttributeInternal(CUSTOMERGROUP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for CustomerGroup.
+     * @param value value to set the CustomerGroup
+     */
+    public void setCustomerGroup(String value) {
+        setAttributeInternal(CUSTOMERGROUP, value);
+    }
+
+    /**
      * getAttrInvokeAccessor: generated method. Do not modify.
      * @param index the index identifying the attribute
      * @param attrDef the attribute
@@ -815,6 +886,51 @@ public class PrtAccountEOImpl extends EntityImpl {
     /**
      * @return the associated entity oracle.jbo.server.EntityImpl.
      */
+    public EntityImpl getPrtPartnerEO1() {
+        return (EntityImpl)getAttributeInternal(PRTPARTNEREO1);
+    }
+
+    /**
+     * Sets <code>value</code> as the associated entity oracle.jbo.server.EntityImpl.
+     */
+    public void setPrtPartnerEO1(EntityImpl value) {
+        setAttributeInternal(PRTPARTNEREO1, value);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtCardEO1() {
+        return (RowIterator)getAttributeInternal(PRTCARDEO1);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtDriverInformationEO2() {
+        return (RowIterator)getAttributeInternal(PRTDRIVERINFORMATIONEO2);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getPrtCardgroupEO1() {
+        return (RowIterator)getAttributeInternal(PRTCARDGROUPEO1);
+    }
+
+    /**
+     * @param countryCode key constituent
+     * @param accountId key constituent
+
+     * @return a Key object based on given key constituents.
+     */
+    public static Key createPrimaryKey(String countryCode, String accountId) {
+        return new Key(new Object[]{countryCode, accountId});
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.server.EntityImpl.
+     */
     public EntityImpl getPrtPartnerEO() {
         return (EntityImpl)getAttributeInternal(PRTPARTNEREO);
     }
@@ -845,16 +961,6 @@ public class PrtAccountEOImpl extends EntityImpl {
      */
     public RowIterator getPrtCardgroupEO() {
         return (RowIterator)getAttributeInternal(PRTCARDGROUPEO);
-    }
-
-    /**
-     * @param countryCode key constituent
-     * @param accountId key constituent
-
-     * @return a Key object based on given key constituents.
-     */
-    public static Key createPrimaryKey(String countryCode, String accountId) {
-        return new Key(new Object[]{countryCode, accountId});
     }
 
 

@@ -18,7 +18,7 @@
   <Attribute
     Name="CountryCode"
     IsNotNull="true"
-    Precision="8"
+    Precision="2"
     ColumnName="COUNTRY_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -44,6 +44,7 @@
   </Attribute>
   <Attribute
     Name="AccountId"
+    IsNotNull="true"
     Precision="10"
     ColumnName="ACCOUNT_ID"
     SQLType="VARCHAR"
@@ -180,7 +181,8 @@
   </Attribute>
   <Attribute
     Name="ModifiedBy"
-    Precision="20"
+    IsNotNull="true"
+    Precision="25"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -192,6 +194,7 @@
   </Attribute>
   <Attribute
     Name="ModifiedDate"
+    IsNotNull="true"
     ColumnName="MODIFIED_DATE"
     SQLType="TIMESTAMP"
     Type="java.sql.Timestamp"
@@ -203,6 +206,7 @@
   </Attribute>
   <Attribute
     Name="CardType"
+    IsNotNull="true"
     Precision="3"
     ColumnName="CARD_TYPE"
     SQLType="VARCHAR"
@@ -345,7 +349,6 @@
   </Attribute>
   <Attribute
     Name="ExtCardNum"
-    IsNotNull="true"
     Precision="20"
     ColumnName="EXT_CARD_NUM"
     SQLType="VARCHAR"
@@ -369,6 +372,7 @@
   </Attribute>
   <Attribute
     Name="CardEmbossNum"
+    IsNotNull="true"
     Precision="20"
     ColumnName="CARD_EMBOSS_NUM"
     SQLType="VARCHAR"
@@ -560,49 +564,235 @@
   </Attribute>
   <Attribute
     Name="CardRemarks"
+    IsPersistent="false"
     Precision="255"
-    ColumnName="CARD_REMARKS"
+    ColumnName='"Synchronize:Fix_SQL"'
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardIdentifier"
+    Precision="3"
+    ColumnName="CARD_IDENTIFIER"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     TableName="PRT_CARD">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="255"/>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceInformation"
+    Precision="90"
+    ColumnName="INVOICE_INFORMATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="90"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockType"
+    Precision="3"
+    ColumnName="BLOCK_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockAction"
+    Precision="1"
+    ColumnName="BLOCK_ACTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockLevel"
+    Precision="3"
+    ColumnName="BLOCK_LEVEL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ManufacturedDate"
+    ColumnName="MANUFACTURED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RoutexCustomerNumber"
+    Precision="6"
+    ColumnName="ROUTEX_CUSTOMER_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddr1"
+    Precision="60"
+    ColumnName="INVOICE_ADDR1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddr2"
+    Precision="60"
+    ColumnName="INVOICE_ADDR2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoicePostalCode"
+    Precision="10"
+    ColumnName="INVOICE_POSTAL_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceCity"
+    Precision="60"
+    ColumnName="INVOICE_CITY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AddrSeq"
+    Precision="5"
+    ColumnName="ADDR_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceCountry"
+    Precision="2"
+    ColumnName="INVOICE_COUNTRY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddrLevel"
+    Precision="3"
+    ColumnName="INVOICE_ADDR_LEVEL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddrType"
+    Precision="3"
+    ColumnName="INVOICE_ADDR_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </Attribute>
   <AccessorAttribute
-    Name="PrtCardgroupEO"
-    Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO"
-    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardEO"
-    Type="oracle.jbo.server.EntityImpl"
-    IsUpdateable="true"/>
-  <AccessorAttribute
-    Name="PrtPartnerEO"
-    Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO"
-    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO"
-    Type="oracle.jbo.server.EntityImpl"
-    IsUpdateable="true"/>
-  <AccessorAttribute
     Name="PrtPartnerEO1"
-    Association="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO1"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtPartnerFk1Assoc.PrtCardEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO2"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
   <AccessorAttribute
     Name="PrtAccountEO"
-    Association="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtCardEO"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO1"
     Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
     IsUpdateable="true"/>
   <AccessorAttribute
     Name="PrtCardgroupEO1"
-    Association="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO1"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtCardgroupFk1Assoc.PrtCardEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtPartnerEO2"
+    Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtAccountEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO1"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO2"
+    Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardEO2"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
   <Key
@@ -617,9 +807,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054526">
+    Name="SysC0055906">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054526"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055906"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -628,9 +818,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054527">
+    Name="SysC0055907">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054527"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055907"/>
       <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -639,9 +829,20 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054528">
+    Name="SysC0055908">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054528"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055908"/>
+      <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055909">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055909"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_MAIN_TYPE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -650,9 +851,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054529">
+    Name="SysC0055910">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054529"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055910"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_SUB_TYPE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -661,9 +862,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054530">
+    Name="SysC0055911">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054530"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055911"/>
       <Attr Name="_checkCondition" Value='"CARDGROUP_SEQ" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -672,9 +873,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054531">
+    Name="SysC0055912">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054531"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055912"/>
       <Attr Name="_checkCondition" Value='"PRT_CARD_PK" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -683,14 +884,47 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054532">
+    Name="SysC0055913">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054532"/>
-      <Attr Name="_checkCondition" Value='"EXT_CARD_NUM" IS NOT NULL'/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055913"/>
+      <Attr Name="_checkCondition" Value='"CARD_TYPE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="com.sfr.engage.model.entities.PrtCardEO.ExtCardNum"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055914">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055914"/>
+      <Attr Name="_checkCondition" Value='"CARD_EMBOSS_NUM" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardEmbossNum"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055915">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055915"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055916">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055916"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.ModifiedDate"/>
     </AttrArray>
   </Key>
   <Key

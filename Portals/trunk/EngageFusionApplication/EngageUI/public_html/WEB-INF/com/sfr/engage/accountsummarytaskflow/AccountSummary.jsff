@@ -73,7 +73,7 @@
      
      <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
-     <af:image id="i5" source="/images/partner.png"/>
+     <af:image id="i5" source="/images/partner.png" shortDesc="Partner image"/>
     <af:spacer width="4"  id="s328"/>
         <af:outputText value="#{node.partnerValue}" id="ot109"/>
         </af:group>
@@ -82,7 +82,7 @@
       
       <f:facet name="com.sfr.engage.core.AccountInfo">
       <af:group id="g3">
-      <af:image id="i1" source="/images/account.png"/>
+      <af:image id="i1" source="/images/account.png" shortDesc="Account Image"/>
        <af:spacer width="4"  id="s47"/>  
       <af:outputText value="#{node.accountNumber}" id="ot4"/>
       </af:group>
@@ -91,7 +91,8 @@
       
       <f:facet name="com.sfr.engage.core.CardGroupInfo">
         <af:group id="g1">
-        <af:image id="i2" source="/images/cardgroup.png"/>
+        <af:image id="i2" source="/images/cardgroup.png"
+                  shortDesc="CardGroup Image"/>
         <af:spacer width="4"  id="s325"/>
          <af:outputText value="#{node.cardGroupID}" id="ot2"/>
         </af:group>
@@ -100,7 +101,7 @@
       
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
-      <af:image id="i4" source="/images/card.png"/>
+      <af:image id="i4" source="/images/card.png" shortDesc="Card Image"/>
        <af:spacer width="4"  id="s326"/>
        <af:outputText value="#{node.cardID}" id="ot3">
        </af:outputText>
@@ -500,9 +501,9 @@
   <af:spacer width="3" height="5" id="s344"/>
 <af:breadCrumbs id="bc3">
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
-                                      disabled="true"/>
+                                      disabled="true" id="cni5"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
-                                     disabled="true"/>
+                                     disabled="true" id="cni6"/>
         </af:breadCrumbs> 
       </af:panelGroupLayout>
       </af:panelGroupLayout>
@@ -727,11 +728,11 @@
   <af:spacer width="3" height="5" id="s345"/>
         <af:breadCrumbs id="bc2" >
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.partnerId}"
-                                      disabled="true"/>
+                                      disabled="true" id="cni7"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.accountId}"
-                                      disabled="true"/>
+                                      disabled="true" id="cni8"/>
             <af:commandNavigationItem text="#{pageFlowScope.AccountSummaryBean.cardGroupId}"
-                                      disabled="true"/>
+                                      disabled="true" id="cni9"/>
         </af:breadCrumbs>
       </af:panelGroupLayout>
       </af:panelGroupLayout>
@@ -1256,8 +1257,8 @@
                              binding="#{pageFlowScope.AccountSummaryBean.bindings.restrictedAccess}"
                              visible="false">
                               <af:panelGroupLayout id="pgl15" layout="horizontal">
-      <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>
-       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
+      <!--<af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>-->
+       <af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>
     </af:panelGroupLayout>
         </af:panelGroupLayout>
       </af:panelGroupLayout>

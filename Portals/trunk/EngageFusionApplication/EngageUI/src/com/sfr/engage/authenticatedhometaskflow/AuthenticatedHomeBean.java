@@ -229,9 +229,9 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
                 } else {
-                    country = "se_SE";
+                    country = "SE";
                 }
-                locale = conversionUtility.getLocaleFromCountryCode(country.substring(3));
+                locale = conversionUtility.getLocaleFromCountryCode(country);
 
 
                 if (partnerInfo.getAccountList() != null &&

@@ -151,7 +151,7 @@ public class TransactionOverviewBean implements Serializable{
                
                if(partnerInfo.getCountry() !=null){
                
-                            partnerCountry=partnerInfo.getCountry().toString().substring(3);
+                            partnerCountry=partnerInfo.getCountry().toString();
                             
                 
                 }else{

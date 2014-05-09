@@ -215,7 +215,17 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
             }
 
             public void put(PrtDriverInformationEOImpl obj, Object value) {
-                obj.setPrtAccountEO1((PrtAccountEOImpl)value);
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        PrtAccountEO2 {
+            public Object get(PrtDriverInformationEOImpl obj) {
+                return obj.getPrtAccountEO2();
+            }
+
+            public void put(PrtDriverInformationEOImpl obj, Object value) {
+                obj.setPrtAccountEO2((PrtAccountEOImpl)value);
             }
         }
         ;
@@ -267,6 +277,7 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PRTACCOUNTEO = AttributesEnum.PrtAccountEO.index();
     public static final int PRTACCOUNTEO1 = AttributesEnum.PrtAccountEO1.index();
+    public static final int PRTACCOUNTEO2 = AttributesEnum.PrtAccountEO2.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -600,6 +611,29 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
     /**
      * @return the associated entity PrtAccountEOImpl.
      */
+    public PrtAccountEOImpl getPrtAccountEO2() {
+        return (PrtAccountEOImpl)getAttributeInternal(PRTACCOUNTEO2);
+    }
+
+    /**
+     * Sets <code>value</code> as the associated entity PrtAccountEOImpl.
+     */
+    public void setPrtAccountEO2(PrtAccountEOImpl value) {
+        setAttributeInternal(PRTACCOUNTEO2, value);
+    }
+
+    /**
+     * @param prtDriverInformationPk key constituent
+
+     * @return a Key object based on given key constituents.
+     */
+    public static Key createPrimaryKey(DBSequence prtDriverInformationPk) {
+        return new Key(new Object[]{prtDriverInformationPk});
+    }
+
+    /**
+     * @return the associated entity PrtAccountEOImpl.
+     */
     public PrtAccountEOImpl getPrtAccountEO1() {
         return (PrtAccountEOImpl)getAttributeInternal(PRTACCOUNTEO1);
     }
@@ -611,15 +645,6 @@ public class PrtDriverInformationEOImpl extends EntityImpl {
         setAttributeInternal(PRTACCOUNTEO1, value);
     }
 
-
-    /**
-     * @param prtDriverInformationPk key constituent
-
-     * @return a Key object based on given key constituents.
-     */
-    public static Key createPrimaryKey(DBSequence prtDriverInformationPk) {
-        return new Key(new Object[]{prtDriverInformationPk});
-    }
 
     /**
      * Add attribute defaulting logic in this method.

@@ -20,7 +20,7 @@
   <Attribute
     Name="CountryCode"
     IsNotNull="true"
-    Precision="8"
+    Precision="2"
     ColumnName="COUNTRY_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -49,6 +49,7 @@
   </Attribute>
   <Attribute
     Name="PartnerId"
+    IsNotNull="true"
     Precision="8"
     ColumnName="PARTNER_ID"
     SQLType="VARCHAR"
@@ -311,7 +312,7 @@
   <Attribute
     Name="ModifiedBy"
     IsNotNull="true"
-    Precision="20"
+    Precision="50"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -333,6 +334,19 @@
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CustomerGroup"
+    IsNotNull="true"
+    Precision="2"
+    ColumnName="CUSTOMER_GROUP"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_ACCOUNT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtDriverInformationEO"
     Association="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc"
@@ -342,16 +356,16 @@
     IsUpdateable="false"/>
   <AccessorAttribute
     Name="PrtPartnerEO"
-    Association="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtPartnerEO"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtAccountPrtPartnerFk1Assoc.PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc.PrtPartnerEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
   <AccessorAttribute
     Name="PrtCardEO"
-    Association="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtCardEO"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <AccessorAttribute
@@ -363,9 +377,37 @@
     IsUpdateable="false"/>
   <AccessorAttribute
     Name="PrtCardgroupEO"
-    Association="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc.PrtCardgroupEO"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtCardgroupPrtAccountFk1Assoc.PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc.PrtCardgroupEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc.PrtAccountEO"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtPartnerEO1"
+    Association="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc.PrtPartnerEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtAccountPrtPartnerFk1Assoc.PrtAccountEO1"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO1"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtDriverInformationEO2"
+    Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO2"
+    AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO2"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO1"
+    Association="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc.PrtCardgroupEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc.PrtAccountEO1"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <Key
@@ -380,9 +422,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054509">
+    Name="SysC0055887">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054509"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055887"/>
       <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -391,9 +433,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054510">
+    Name="SysC0055888">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054510"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055888"/>
       <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -402,9 +444,31 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054511">
+    Name="SysC0055889">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054511"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055889"/>
+      <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.PartnerId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055890">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055890"/>
+      <Attr Name="_checkCondition" Value='"CUSTOMER_GROUP" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.CustomerGroup"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055891">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055891"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -413,9 +477,9 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054512">
+    Name="SysC0055892">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054512"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055892"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>

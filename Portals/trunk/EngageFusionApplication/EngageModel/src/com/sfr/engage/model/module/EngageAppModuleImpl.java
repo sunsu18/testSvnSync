@@ -266,110 +266,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (ViewObjectImpl)findViewObject("PrtInvoiceVO1");
     }
 
-    /**
-     * Container's getter for PrtCardVO1.
-     * @return PrtCardVO1
-     */
-    public ViewObjectImpl getPrtCardVO1() {
-        return (ViewObjectImpl)findViewObject("PrtCardVO1");
-    }
-
-    /**
-     * Container's getter for PrtCardgroupVO1.
-     * @return PrtCardgroupVO1
-     */
-    public ViewObjectImpl getPrtCardgroupVO1() {
-        return (ViewObjectImpl)findViewObject("PrtCardgroupVO1");
-    }
-
-    /**
-     * Container's getter for PrtPartnerVO1.
-     * @return PrtPartnerVO1
-     */
-    public ViewObjectImpl getPrtPartnerVO1() {
-        return (ViewObjectImpl)findViewObject("PrtPartnerVO1");
-    }
-
-    /**
-     * Container's getter for PrtCardgroupVO2.
-     * @return PrtCardgroupVO2
-     */
-    public ViewObjectImpl getPrtCardgroupVO2() {
-        return (ViewObjectImpl)findViewObject("PrtCardgroupVO2");
-    }
-
-    /**
-     * Container's getter for PrtCardVO2.
-     * @return PrtCardVO2
-     */
-    public ViewObjectImpl getPrtCardVO2() {
-        return (ViewObjectImpl)findViewObject("PrtCardVO2");
-    }
-
-    /**
-     * Container's getter for PrtCardVO3.
-     * @return PrtCardVO3
-     */
-    public ViewObjectImpl getPrtCardVO3() {
-        return (ViewObjectImpl)findViewObject("PrtCardVO3");
-    }
-
-    /**
-     * Container's getter for PrtCardgroupPrtPartnerFk1Link1.
-     * @return PrtCardgroupPrtPartnerFk1Link1
-     */
-    public ViewLinkImpl getPrtCardgroupPrtPartnerFk1Link1() {
-        return (ViewLinkImpl)findViewLink("PrtCardgroupPrtPartnerFk1Link1");
-    }
-
-    /**
-     * Container's getter for PrtCardPrtCardgroupFk1Link1.
-     * @return PrtCardPrtCardgroupFk1Link1
-     */
-    public ViewLinkImpl getPrtCardPrtCardgroupFk1Link1() {
-        return (ViewLinkImpl)findViewLink("PrtCardPrtCardgroupFk1Link1");
-    }
-
-    /**
-     * Container's getter for PrtCardPrtPartnerFk1Link1.
-     * @return PrtCardPrtPartnerFk1Link1
-     */
-    public ViewLinkImpl getPrtCardPrtPartnerFk1Link1() {
-        return (ViewLinkImpl)findViewLink("PrtCardPrtPartnerFk1Link1");
-    }
-
-    /**
-     * Container's getter for PrtAccountVO1.
-     * @return PrtAccountVO1
-     */
-    public PrtAccountVOImpl getPrtAccountVO1() {
-        return (PrtAccountVOImpl)findViewObject("PrtAccountVO1");
-    }
-
-
-    /**
-     * Container's getter for PrtAccountVO2.
-     * @return PrtAccountVO2
-     */
-    public PrtAccountVOImpl getPrtAccountVO2() {
-        return (PrtAccountVOImpl)findViewObject("PrtAccountVO2");
-    }
-
-    /**
-     * Container's getter for PrtCardgroupVO3.
-     * @return PrtCardgroupVO3
-     */
-    public PrtCardgroupVOImpl getPrtCardgroupVO3() {
-        return (PrtCardgroupVOImpl)findViewObject("PrtCardgroupVO3");
-    }
-
-    /**
-     * Container's getter for PrtCardVO4.
-     * @return PrtCardVO4
-     */
-    public PrtCardVOImpl getPrtCardVO4() {
-        return (PrtCardVOImpl)findViewObject("PrtCardVO4");
-    }
 
     /**
      * Container's getter for PrtCardDriverVehicleInfoRVO1.
@@ -456,5 +352,37 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtHomeTransactionsRVO1() {
         return (ViewObjectImpl)findViewObject("PrtHomeTransactionsRVO1");
+    }
+
+    /**
+     * Container's getter for PrtPartnerVO1.
+     * @return PrtPartnerVO1
+     */
+    public PrtPartnerVOImpl getPrtPartnerVO1() {
+        return (PrtPartnerVOImpl)findViewObject("PrtPartnerVO1");
+    }
+
+    /**
+     * Container's getter for PrtAccountVO1.
+     * @return PrtAccountVO1
+     */
+    public PrtAccountVOImpl getPrtAccountVO1() {
+        return (PrtAccountVOImpl)findViewObject("PrtAccountVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardgroupVO1.
+     * @return PrtCardgroupVO1
+     */
+    public PrtCardgroupVOImpl getPrtCardgroupVO1() {
+        return (PrtCardgroupVOImpl)findViewObject("PrtCardgroupVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardVO1.
+     * @return PrtCardVO1
+     */
+    public PrtCardVOImpl getPrtCardVO1() {
+        return (PrtCardVOImpl)findViewObject("PrtCardVO1");
     }
 }
