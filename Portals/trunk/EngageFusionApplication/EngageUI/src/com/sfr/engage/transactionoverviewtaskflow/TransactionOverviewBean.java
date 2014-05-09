@@ -182,14 +182,14 @@ public class TransactionOverviewBean implements Serializable{
         
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
         
-        lang="no_NO";
+        lang="NO";
         
         
-        if(lang=="no_NO")
+        if(lang=="NO")
         {
         currencyCode=conversionUtility.getCurrencyCode("NO");
         locale=conversionUtility.getLocaleFromCountryCode("NO");
-        }else if(lang=="se_SE") {
+        }else if(lang=="SE") {
             currencyCode=conversionUtility.getCurrencyCode("SE");
             locale=conversionUtility.getLocaleFromCountryCode("SE");
         }
@@ -432,7 +432,7 @@ public class TransactionOverviewBean implements Serializable{
                         if(getBindings().account.getValue() != null){
                         vo.setNamedWhereClauseParam("accountValue",getBindings().account.getValue());
                         }
-                        vo.setNamedWhereClauseParam("countryCd", "no_NO");
+                        vo.setNamedWhereClauseParam("countryCd", "NO");
                         vo.setNamedWhereClauseParam("partnerValue", partnerId);
                         vo.setNamedWhereClauseParam("paramValue", paramType);
                         vo.executeQuery();
@@ -563,7 +563,7 @@ public class TransactionOverviewBean implements Serializable{
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         vo.setNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim());
-        vo.setNamedWhereClauseParam("countryCd", "no_NO");
+        vo.setNamedWhereClauseParam("countryCd", "NO");
         
             if("INSTR(:terminal,TERMINAL)<>0 AND  INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND PARTNER_ID = :partnerNumber AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "inside  card where removal class");
@@ -610,7 +610,7 @@ public class TransactionOverviewBean implements Serializable{
             vo.defineNamedWhereClauseParam("type", transTypePassingValues, null);
             vo.defineNamedWhereClauseParam("fromDate", newFromDate , null);
             vo.defineNamedWhereClauseParam("toDate", newToDate, null);
-            //vo.defineNamedWhereClauseParam("countryCd", "no_NO", null);
+            //vo.defineNamedWhereClauseParam("countryCd", "NO", null);
             vo.defineNamedWhereClauseParam("partnerNumber", partnerId, null);
             //vo.defineNamedWhereClauseParam("accountId", getBindings().getAccount().getValue().toString().trim(), null);
             vo.executeQuery();

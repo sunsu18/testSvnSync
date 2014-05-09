@@ -126,13 +126,13 @@ public class InvoiceOverviewBean implements Serializable {
         }
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
         
-        lang="no_NO";
+        lang="NO";
         
-        if(lang=="no_NO")
+        if(lang=="NO")
         {
         currencyCode=conversionUtility.getCurrencyCode("NO");
         locale=conversionUtility.getLocaleFromCountryCode("NO");
-        }else if(lang=="se_SE") {
+        }else if(lang=="SE") {
             currencyCode=conversionUtility.getCurrencyCode("SE");
         }
     }
