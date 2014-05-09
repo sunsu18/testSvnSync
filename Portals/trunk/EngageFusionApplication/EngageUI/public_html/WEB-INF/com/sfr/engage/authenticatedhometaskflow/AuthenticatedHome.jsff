@@ -226,14 +226,16 @@
                     </af:column>
                     <af:column sortProperty="Quantity" sortable="false"
                                headerText="#{sfr.ENGAGE_QUANTITY}" id="c6" width="98">
-                                           halign="left">
+                                           <af:panelGroupLayout halign="left"
+                                                                id="pgl15">
+                                        
                         <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                           <af:convertNumber groupingUsed="false"
                                             pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
                         </af:outputText>
                         <af:spacer width="4" id="s24"/>
                         <af:outputText value="#{row.UnitOfMeasure}" id="ot13" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
-                      
+                      </af:panelGroupLayout>
                     </af:column>
                   </af:table>
                  </af:panelGroupLayout>
