@@ -1,6 +1,7 @@
 package com.sfr.engage.pricelisttaskflow;
 
 import com.sfr.util.AccessDataControl;
+import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.util.Locale;
@@ -38,8 +39,9 @@ public class PriceListInfoBean {
         HttpSession session = (HttpSession)request.getSession();
         if(session != null)
         {
-        country = "NO";
-       // country = (String)session.getAttribute("lang");
+        
+        
+        country = (String)session.getAttribute(Constants.userLang);
         log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session not null and lang of user is " + country);
         locale = conversionUtility.getLocaleFromCountryCode(country);
         log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session not null and locale of user is " + locale);
@@ -74,6 +76,10 @@ public class PriceListInfoBean {
         vo.setNamedWhereClauseParam("currencycode", currency_code );
         vo.setNamedWhereClauseParam("pricinguom", "LT" );
         vo.executeQuery();
+        if(vo.getEstimatedRowCount() != 0)
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Number of items fetched from database table for price list is " + vo.getEstimatedRowCount());    
+        
+        
         log.fine(accessDC.getDisplayRecord()+ this.getClass() + "Exiting from Constructor of PriceListInfoBean");
     }
 

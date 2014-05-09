@@ -51,7 +51,7 @@ public class ImageMapServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OutputStream os = response.getOutputStream();
-        Connection Connection1 = null; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
+        Connection connection1 = null; 
         response.setContentType(CONTENT_TYPE);
 
         // TODO : ASHTHA - 02, May, 2014 : SOP format should always be followed
@@ -61,29 +61,30 @@ public class ImageMapServlet extends HttpServlet {
         System.out.println("Request4 -----------------------> " + request.getParameter("param4"));
         System.out.println("Request5 -----------------------> " + request.getParameter("param5"));
 
-        String Feature_Name = request.getParameter("param1"); // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        String Feature_Value = request.getParameter("param2"); // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        String Control_Attr = request.getParameter("param3"); // TODO : ASHTHA - 02, May, 2014 : This variable is not used ? remove if not needed.
-        String Attr_Value = request.getParameter("param4"); // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        String Control_Attr_Value; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        if (Feature_Name.equalsIgnoreCase("LISTPRICE")) { // TODO : ASHTHA - 02, May, 2014 : Avoid hardcoding
-            Control_Attr_Value = "41S5" + Attr_Value;
-            System.out.println("Control_Attr_Value" + Control_Attr_Value); // TODO : ASHTHA - 02, May, 2014 : sop format
+        String featureName = request.getParameter("param1"); 
+        String featureValue = request.getParameter("param2"); 
+        String controlAttr = request.getParameter("param3"); 
+        String attrValue = request.getParameter("param4"); 
+        String controlAttrValue; 
+        if (featureName.equalsIgnoreCase("LISTPRICE")) { // TODO : ASHTHA - 02, May, 2014 : Avoid hardcoding
+            controlAttrValue = "41S5" + attrValue;
+            System.out.println("Control_Attr_Value" + controlAttrValue); 
         } else {
-            Control_Attr_Value = null;
+            controlAttrValue = null;
         }
 
         String lang = request.getParameter("param5"); // TODO : ASHTHA - 02, May, 2014 : This variable is not used ? remove if not needed.
+                                                      //TODO : Hiten - 09, May, 2014 : This is kept for future use.              
 
         try {
-            if (Feature_Name != null && Feature_Value != null && Control_Attr_Value != null) {
-                Connection1 = DAOFactory.getJNDIConnection();
+            if (featureName != null && featureValue != null && controlAttrValue != null) {
+                connection1 = DAOFactory.getJNDIConnection();
                 PreparedStatement statement =
-                    Connection1.prepareStatement("SELECT imageid from PRT_GEN_IMAGE_MAP where feature_name=? and feature_value=? and control_attr_value=?");
-                statement.setString(1, Feature_Name);
-                statement.setString(2, Feature_Value);
+                    connection1.prepareStatement("SELECT imageid from PRT_GEN_IMAGE_MAP where feature_name=? and feature_value=? and control_attr_value=?");
+                statement.setString(1, featureName);
+                statement.setString(2, featureValue);
                 // statement.setString(3, Control_Attr);
-                statement.setString(3, Control_Attr_Value);
+                statement.setString(3, controlAttrValue);
                 //statement.setString(5, lang);
 
                 //statement.setInt(1, new Integer(imageId));
@@ -98,7 +99,7 @@ public class ImageMapServlet extends HttpServlet {
                             System.out.println("image id not null " + image_id); // TODO : ASHTHA - 02, May, 2014 : Use logger
                             int img_id = Integer.parseInt(image_id);
                             System.out.println("image converted to integer"); // TODO : ASHTHA - 02, May, 2014 : Use logger
-                            PreparedStatement statement2 = Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                            PreparedStatement statement2 = connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                             statement2.setInt(1, img_id);
 
                             //statement.setInt(1, new Integer(imageId));
@@ -113,7 +114,7 @@ public class ImageMapServlet extends HttpServlet {
                                     os.write(buffer, 0, b);
                                 }
                                 os.close(); // TODO : ASHTHA - 02, May, 2014 : Move to Finally block
-                                Connection1.close(); // TODO : ASHTHA - 02, May, 2014 : Connection SHOULD ALWAYS be closed in Finally block
+                                connection1.close(); // TODO : ASHTHA - 02, May, 2014 : Connection SHOULD ALWAYS be closed in Finally block
                             }
 
                         } // TODO : ASHTHA - 02, May, 2014 : if imageId is null, shouldn't this case be handled witha default imageId?
@@ -121,10 +122,13 @@ public class ImageMapServlet extends HttpServlet {
                         System.out.println("internal query error"); // TODO : ASHTHA - 02, May, 2014 : Use logger
                     }
 
-                    Connection1.close(); // TODO : ASHTHA - 02, May, 2014 : Connection SHOULD ALWAYS be closed in Finally block
+                    connection1.close(); // TODO : ASHTHA - 02, May, 2014 : Connection SHOULD ALWAYS be closed in Finally block
                     //os.close();
                 } else
+                {
                     System.out.println("No record found in image map table"); // TODO : ASHTHA - 02, May, 2014 : Use logger
+                    
+                }
 
             }
         } catch (Exception e) {

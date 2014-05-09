@@ -1457,6 +1457,7 @@ new CardInfo();
             setUser(userList.get(0));
             if (getUser() != null) {
                 session.setAttribute(Constants.SESSION_USER_INFO, user);
+                session.setAttribute(Constants.userLang, user.getLang());
                 System.out.println(AccessDataControl.getDisplayRecord() +
                                    this.getClass() +
                                    ".setUserInfoInSession : " +
