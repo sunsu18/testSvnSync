@@ -40,6 +40,8 @@
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1"
           location="TruncSOACardGroupDatabaseAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAErrorHandlerJMSQAdapterV1"
+          location="SOAErrorHandlerJMSQAdapterV1.wsdl" importType="wsdl"/>
   <service name="E005CardGroupPALStoPortalClient"
            ui:wsdlLocation="E005CardGroupPALStoPortalClient.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient#wsdl.interface(execute_ptt)"/>
@@ -174,6 +176,11 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="SOAErrorHandlerJMSQAdapterV1"
+             ui:wsdlLocation="SOAErrorHandlerJMSQAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAErrorHandlerJMSQAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAErrorHandlerJMSQAdapterV1_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E005CardGroupPALStoPortalClient</source.uri>
     <target.uri>E005CardGroupPALStoPortalBPEL/E005CardGroupPALStoPortalClient</target.uri>
@@ -217,5 +224,9 @@
   <wire>
     <source.uri>E005CardGroupPALStoPortalBPEL/TruncSOACardGroupDatabaseAdapterV1</source.uri>
     <target.uri>TruncSOACardGroupDatabaseAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E005CardGroupPALStoPortalBPEL/SOAErrorHandlerJMSQAdapterV1</source.uri>
+    <target.uri>SOAErrorHandlerJMSQAdapterV1</target.uri>
   </wire>
 </composite>

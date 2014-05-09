@@ -3,7 +3,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>304</line>
+      <line>551</line>
       <col/>
       <file>E005CardGroupPALStoPortalBPEL.bpel</file>
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>
@@ -13,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>473</line>
+      <line>810</line>
       <col/>
       <file>E005CardGroupPALStoPortalBPEL.bpel</file>
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>
@@ -23,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>473</line>
+      <line>810</line>
       <col/>
       <file>E005CardGroupPALStoPortalBPEL.bpel</file>
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>
@@ -33,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>473</line>
+      <line>810</line>
       <col/>
       <file>E005CardGroupPALStoPortalBPEL.bpel</file>
       <name>E005CardGroupPALStoPortalBPEL.bpel</name>

@@ -48,4 +48,8 @@
              ui:wsdlLocation="TruncSOACardGroupDatabaseAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1#wsdl.interface(TruncSOACardGroupDatabaseAdapterV1_ptt)"/>
   </reference>
+  <reference name="SOAErrorHandlerJMSQAdapterV1"
+             ui:wsdlLocation="SOAErrorHandlerJMSQAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAErrorHandlerJMSQAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>
