@@ -1605,3 +1605,12 @@ color: #524e4f;
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
 }
+
+.transaction_italic{
+  font-style:italic;
+}
+
+.transaction_regular
+{
+ font-style:normal; 
+}

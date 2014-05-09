@@ -172,6 +172,7 @@
           <Item Value="CardgroupMainType"/>
           <Item Value="CardgroupSubType"/>
           <Item Value="CardgroupSeq"/>
+          <Item Value="TransactionType"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

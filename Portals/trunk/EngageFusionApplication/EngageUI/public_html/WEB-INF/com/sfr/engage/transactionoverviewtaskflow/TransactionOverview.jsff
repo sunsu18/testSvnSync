@@ -281,10 +281,10 @@
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
         <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
-            <af:commandImageLink  id="cil2" icon="/images/blue_info.png"
-                                 iconPosition="leading">
+           <af:panelGroupLayout id="pgl35" styleClass="info"
+                             layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
-            </af:commandImageLink>
+            </af:panelGroupLayout>
    <!--       </af:commandLink> -->
           <af:spacer width="10" height="10" id="s53"/>
           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"

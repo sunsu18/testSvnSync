@@ -1790,3 +1790,11 @@ border: 1px solid  #979796;
     vertical-align: 10%;
 }
 
+.transaction_italic{
+  font-style:italic;
+}
+
+.transaction_regular
+{
+ font-style:normal; 
+}
