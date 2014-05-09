@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PrtPartnerCollection" type="PrtPartnerCollection"/>
+   <xs:complexType name="PrtPartnerCollection">
+      <xs:sequence>
+         <xs:element name="PrtPartner" type="PrtPartner" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PrtPartner">
+      <xs:sequence>
+         <xs:element name="countryCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="partnerId">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="8"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="PartnerPortalDBAdapterSelect_PartnerID_CountryCodeInputParameters" type="PartnerPortalDBAdapterSelect_PartnerID_CountryCode"/>
+   <xs:complexType name="PartnerPortalDBAdapterSelect_PartnerID_CountryCode">
+      <xs:sequence>
+         <xs:element name="PartnerID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="CountryCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

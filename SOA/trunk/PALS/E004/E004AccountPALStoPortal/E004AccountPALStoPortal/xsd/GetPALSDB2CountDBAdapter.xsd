@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="GetPALSDB2CountDBAdapterInput" type="GetPALSDB2CountDBAdapterInput"/>
+   <xs:complexType name="GetPALSDB2CountDBAdapterInput">
+      <xs:sequence>
+         <xs:element name="DeltaTS" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="GetPALSDB2CountDBAdapterOutputCollection" type="GetPALSDB2CountDBAdapterOutputCollection"/>
+   <xs:complexType name="GetPALSDB2CountDBAdapterOutputCollection">
+      <xs:sequence>
+         <xs:element name="GetPALSDB2CountDBAdapterOutput" type="GetPALSDB2CountDBAdapterOutput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="GetPALSDB2CountDBAdapterOutput">
+      <xs:sequence>
+         <xs:element name="count" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ns1:Account xmlns:ns1="http://www.statoilfuelretail.com/integration/engage">
+   <ns1:FieldsDetails>
+      <ns1:COUNTRY_CODE>CountryCode53</ns1:COUNTRY_CODE>
+      <ns1:ACCOUNT_ID>string33</ns1:ACCOUNT_ID>
+      <ns1:PARTNER_ID>string35</ns1:PARTNER_ID>
+      <ns1:CUSTOMER_GROUP>st</ns1:CUSTOMER_GROUP>
+      <ns1:MDOFIED_BY>UserName57</ns1:MDOFIED_BY>
+      <ns1:MODIFIED_DATE>2014-05-07T15:56:09.682+05:30</ns1:MODIFIED_DATE>
+   </ns1:FieldsDetails>
+   <ns1:FieldsDetails>
+      <ns1:COUNTRY_CODE>CountryCode53</ns1:COUNTRY_CODE>
+      <ns1:ACCOUNT_ID>string39</ns1:ACCOUNT_ID>
+      <ns1:PARTNER_ID>string41</ns1:PARTNER_ID>
+      <ns1:CUSTOMER_GROUP>st</ns1:CUSTOMER_GROUP>
+      <ns1:MDOFIED_BY>UserName57</ns1:MDOFIED_BY>
+      <ns1:MODIFIED_DATE>2014-05-07T15:56:09.682+05:30</ns1:MODIFIED_DATE>
+   </ns1:FieldsDetails>
+   <ns1:FieldsDetails>
+      <ns1:COUNTRY_CODE>CountryCode53</ns1:COUNTRY_CODE>
+      <ns1:ACCOUNT_ID>string45</ns1:ACCOUNT_ID>
+      <ns1:PARTNER_ID>string47</ns1:PARTNER_ID>
+      <ns1:CUSTOMER_GROUP>st</ns1:CUSTOMER_GROUP>
+      <ns1:MDOFIED_BY>UserName57</ns1:MDOFIED_BY>
+      <ns1:MODIFIED_DATE>2014-05-07T15:56:09.682+05:30</ns1:MODIFIED_DATE>
+   </ns1:FieldsDetails>
+</ns1:Account>

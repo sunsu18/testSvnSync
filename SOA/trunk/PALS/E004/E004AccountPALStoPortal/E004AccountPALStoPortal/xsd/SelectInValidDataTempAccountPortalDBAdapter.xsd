@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempAccountPortalDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempAccountPortalDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectInValidDataTempAccountPortalDBAdapterInput" type="SelectInValidDataTempAccountPortalDBAdapterInput"/>
+   <xs:complexType name="SelectInValidDataTempAccountPortalDBAdapterInput">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="SelectInValidDataTempAccountPortalDBAdapterOutputCollection" type="SelectInValidDataTempAccountPortalDBAdapterOutputCollection"/>
+   <xs:complexType name="SelectInValidDataTempAccountPortalDBAdapterOutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectInValidDataTempAccountPortalDBAdapterOutput" type="SelectInValidDataTempAccountPortalDBAdapterOutput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectInValidDataTempAccountPortalDBAdapterOutput">
+      <xs:sequence>
+         <xs:element name="COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="ACCOUNT_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="CUSTOMER_GROUP" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_BY" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_DATE" type="xs:dateTime" nillable="true"/>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,27 @@
+May 9, 2014 7:22:35 PM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+May 9, 2014 7:22:35 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+May 9, 2014 7:22:35 PM com.collaxa.cube.CubeLogger info
+INFO: validating "E004AccountPALStoPortal.bpel" ...
+May 9, 2014 7:22:35 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+May 9, 2014 7:22:35 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSwitchBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
+May 9, 2014 7:22:36 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E004AccountPALStoPortal" in 49.9 milliseconds [nodes 90=0+90, 1,803.7 nodes/sec]
+May 9, 2014 7:22:37 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E004AccountPALStoPortal" in 1.811 seconds
+May 9, 2014 7:22:37 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 0.7 milliseconds
+
+May 9, 2014 7:22:37 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E004AccountPALStoPortal" in 8.5 milliseconds
+

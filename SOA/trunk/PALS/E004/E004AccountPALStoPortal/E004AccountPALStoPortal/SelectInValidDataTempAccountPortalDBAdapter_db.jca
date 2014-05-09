@@ -1,0 +1,13 @@
+<adapter-config name="SelectInValidDataTempAccountPortalDBAdapter" adapter="Database Adapter" wsdlLocation="SelectInValidDataTempAccountPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <endpoint-interaction portType="SelectInValidDataTempAccountPortalDBAdapter_ptt" operation="SelectInValidDataTempAccountPortalDBAdapter">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT T1.COUNTRY_CODE, T1.ACCOUNT_ID, T1.PARTNER_ID, T1.CUSTOMER_GROUP, T1.MODIFIED_BY, T1.MODIFIED_DATE, T1.DELTA_TS FROM SOA_ACCOUNT_TEMP T1 where T1.PARTNER_ID NOT IN ( select T2.PARTNER_ID from PRT_PARTNER T2) AND T1.COUNTRY_CODE NOT IN ( select T2.COUNTRY_CODE from PRT_PARTNER T2)"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>
