@@ -21,12 +21,13 @@ import oracle.jbo.ViewObject;
 
 public class PriceListInfoBean {
     private RichTable pricelistinfotable;
-    private Locale locale = new Locale("sv", "SE");
+    private Locale locale;
     private String country;
     private String currency_code;
     AccessDataControl accessDC = new AccessDataControl();
     
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
+   Conversion conversionUtility = new Conversion();
     
     
 
@@ -35,12 +36,31 @@ public class PriceListInfoBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
-        // if(session != null)
-        //Lang = (String)session.getAttribute("lang");
-        
+        if(session != null)
+        {
         country = "NO";
-        Conversion convert = new Conversion();
-        currency_code = convert.getCurrencyCode(country);
+       // country = (String)session.getAttribute("lang");
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session not null and lang of user is " + country);
+        locale = conversionUtility.getLocaleFromCountryCode(country);
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session not null and locale of user is " + locale);
+        currency_code = conversionUtility.getCurrencyCode(country);
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session not null and Currency code is " + currency_code); 
+        }
+        else
+        {
+        country = "NO";
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session null hence lang set as " + country);   
+        locale = new Locale("sv", "SE");
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session null and locale of user is " + locale);
+        currency_code = conversionUtility.getCurrencyCode(country);
+        log.info(accessDC.getDisplayRecord()+ this.getClass() + "Session null and Currency code is " + currency_code);    
+        }
+        
+        
+        //Conversion convert = new Conversion();
+
+        
+        
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
         if (bindings != null) {

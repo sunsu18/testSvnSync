@@ -1257,8 +1257,8 @@
                              binding="#{pageFlowScope.AccountSummaryBean.bindings.restrictedAccess}"
                              visible="false">
                               <af:panelGroupLayout id="pgl15" layout="horizontal">
-      <!--<af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>-->
-       <af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>
+      <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>
+       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
         </af:panelGroupLayout>
       </af:panelGroupLayout>
