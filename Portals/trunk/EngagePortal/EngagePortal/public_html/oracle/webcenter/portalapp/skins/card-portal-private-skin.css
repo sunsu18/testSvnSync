@@ -1333,7 +1333,7 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed,.open{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed,.open,.info_legend{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1429,7 +1429,11 @@ font-weight:bold;
 }
 
 
-
+.info_legend{
+	background-position: -5px -370px ;
+	width: 16px;
+	height: 16px;
+}
 
 
 

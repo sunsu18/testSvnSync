@@ -1118,7 +1118,7 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1212,6 +1212,12 @@ font-weight:bold;
 	background-position: -6px -231px ;
 	width: 11px;
 	height: 6px;
+}
+
+.info_legend{
+	background-position: -29px -371px ;
+	width: 16px;
+	height: 16px;
 }
 
 
