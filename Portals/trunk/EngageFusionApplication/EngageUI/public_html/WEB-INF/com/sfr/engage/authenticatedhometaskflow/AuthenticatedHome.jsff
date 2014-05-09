@@ -233,10 +233,10 @@
                         </af:outputText>
                         <af:spacer width="4" id="s24"/>
                         <af:outputText value="#{row.UnitOfMeasure}" id="ot13" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
-                      </af:panelGroupLayout>
+                      
                     </af:column>
                   </af:table>
-                 
+                 </af:panelGroupLayout>
                 </af:panelGroupLayout>
                 <af:panelGroupLayout id="panelGroupLayout4" halign="left"
                                      layout="horizontal" valign="top"
@@ -251,7 +251,6 @@
             </af:panelGroupLayout>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
-      </af:panelGroupLayout>
       <af:spacer width="10" height="20" id="s20"/>
       <af:panelGroupLayout id="pgl34" layout="horizontal">
         <af:panelGroupLayout id="pgl23" layout="vertical"
