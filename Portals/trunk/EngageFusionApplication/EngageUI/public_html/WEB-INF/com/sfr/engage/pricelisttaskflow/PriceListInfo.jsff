@@ -74,6 +74,7 @@
               <af:outputText value="#{row.CurrencyCode}" id="ot5"/>
               <af:outputText value="./" id="ot7"/>
                <af:outputText value="#{row.Uom}" id="ot3"/>
+               <af:spacer width="10" height="1" id="s11"/>
             </af:panelGroupLayout>
           </af:column>
          
