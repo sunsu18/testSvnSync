@@ -769,10 +769,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', end
 }
 /*Text Header On Panel*/
 .headertexthome{
-font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-family :Arial, Helvetica, sans-serif !important;
+font-size: 13px;
 color: #ffffff;
-font-weight: bolder !important;
+font-weight: bold !important;
 font-style:normal;
 background-position:center top;
 padding-top:2px;
@@ -1122,7 +1122,7 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.bell, .acc_summary, .cart, .info_statoil,.invoice, .messages,.transaction, .info,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1145,9 +1145,9 @@ font-weight:bold;
 }
 
 .message_bell{
-	background-position: -30px -204px ;
-	width: 30px;
-	height: 20px;
+	background-position: -32px -204px ;
+	width: 17px;
+	height: 21px;
 }
 
 .pdf_icon{
@@ -1193,9 +1193,9 @@ font-weight:bold;
 }
 
 .cart{
-	background-position: -32px -4px ;
-	width: 20px;
-	height: 20px;
+	background-position: -30px -4px ;
+	width: 22px;
+	height: 22px;
 }
 
 
@@ -1218,9 +1218,47 @@ font-weight:bold;
 	height: 6px;
 }
 
+.arrow{
+	background-position: -31px -106px ;
+	width: 12px;
+	height: 13px;
+}
 
+.info{
+	background-position: -29px -371px ;
+	width: 16px;
+	height: 16px;
+}
 
+.transaction{
+	background-position: -28px -351px ;
+	width: 22px;
+	height: 14px;
+}
 
+.messages{
+	background-position: -29px -323px ;
+	width: 22px;
+	height: 22px;
+}
+
+.invoice{
+	background-position: -3px -297px ;
+	width: 22px;
+	height: 22px;
+}
+
+.info_statoil{
+	background-position: -30px -271px ;
+	width: 22px;
+	height: 23px;
+}
+
+.acc_summary{
+	background-position: -29px -246px ;
+	width: 24px;
+	height: 20px;
+}
 
 
 

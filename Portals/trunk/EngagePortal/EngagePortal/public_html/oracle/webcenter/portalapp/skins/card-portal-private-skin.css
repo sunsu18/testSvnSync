@@ -953,10 +953,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', end
 }
 /*Text Header On Panel*/
 .headertexthome{
-font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-family :Arial, Helvetica, sans-serif !important;
+font-size: 13px;
 color: #ffffff;
-font-weight: bolder !important;
+font-weight: bold !important;
 font-style:normal;
 background-position:center top;
 padding-top:2px;
@@ -1340,7 +1340,7 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed,.open{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue,.calendar, .closed,.open,.bell, .acc_summary, .cart, .info_statoil,.invoice, .messages,.transaction, .info,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1387,9 +1387,9 @@ font-weight:bold;
 }
 
 .message_bell{
-	background-position: -30px -204px ;
-	width: 30px;
-	height: 20px;
+	background-position: -32px -204px ;
+	width: 17px;
+	height: 21px;
 }
 
 .pdf_icon{
@@ -1410,12 +1410,12 @@ font-weight:bold;
 	height: 8px;
 }
 
-.cart{
-	background-position: -4px -4px ;
-	width: 20px;
-	height: 20px;
-}
 
+.cart{
+	background-position: -2px -4px ;
+	width: 22px;
+	height: 22px;
+}
 .calendar{
 	background-position: -33px -182px ;
 	width: 16px;
@@ -1433,6 +1433,48 @@ font-weight:bold;
 	background-position: -6px -231px ;
 	width: 11px;
 	height: 6px;
+}
+
+.acc_summary{
+	background-position: -2px -246px ;
+	width: 24px;
+	height: 20px;
+}
+
+.info_statoil{
+	background-position: -3px -271px ;
+	width: 22px;
+	height: 23px;
+}
+
+.invoice{
+	background-position: -28px -297px ;
+	width: 22px;
+	height: 22px;
+}
+
+.messages{
+	background-position: -4px -323px ;
+	width: 22px;
+	height: 22px;
+}
+
+.transaction{
+	background-position: -1px -350px ;
+	width: 22px;
+	height: 14px;
+}
+
+.info{
+	background-position: -5px -370px ;
+	width: 16px;
+	height: 16px;
+}
+
+.arrow{
+	background-position: -15px -105px ;
+	width: 12px;
+	height: 13px;
 }
 
 
