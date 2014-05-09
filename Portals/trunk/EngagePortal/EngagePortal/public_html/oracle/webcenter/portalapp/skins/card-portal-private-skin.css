@@ -1439,6 +1439,7 @@ font-weight:bold;
 	background-position: -2px -246px ;
 	width: 24px;
 	height: 20px;
+        margin-top: -4px;
 }
 
 .info_statoil{
@@ -1596,7 +1597,7 @@ font-weight:bold;
 
 #top a {
     color: #524E4F !important;;
-    display: block;
+    display: inline;
     font: bold 12px Georgia;
     margin-right: 10px;
     margin-top: -2px;
