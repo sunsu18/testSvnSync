@@ -20,25 +20,19 @@ margin-top: -3px;
 }
 /*------------------------------ADF tree---------------------------*/
 
-/*.home_tree{
+.home_tree{
 
 background-color: rgba(253, 253, 250, 0);
 padding-left: 4px;
 padding-top: 2px;
 
-}*/
+}
 
 .home .af_table_data-table-VH-lines .af_column_data-cell, .home .af_table_data-table-VH-lines .af_column_banded-data-cell{
     height: 30px;
     font-weight: bold;
     
 }
-
-
-/*.home.af_table_data-table-VH-lines .af_column_banded-data-cell, .af_table_data-table-VH-lines .af_column_data-cell{
-    height: 22px;
-}*/
-
 /*------------------------------ADF tree---------------------------*/
 .af_tree_node-stamp-text{
     border-style: none ;
@@ -933,8 +927,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', end
 
 .panel_header_authenticated{
     padding-left: 5px;
-}
-/**************************************************************/
+}/**************************************************************/
 .printButton {
     /*background-color: rgb(244, 189, 46)!important;*/
     /*background-image: none !important;*/
@@ -1340,7 +1333,7 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue,.calendar, .closed,.open,.bell, .acc_summary, .cart, .info_statoil,.invoice, .messages,.transaction, .info,.arrow{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.sign_in, .card_back, .arrow_learn_more, .arrow_learn_more_white, .card_icon_ws, .category_icon, .mail_icon, .message_bell, .pdf_icon, .shop_categories, .arrow_grey, .card_back_blue, .sign_in_blue, .shop_categories_blue, .arrow_learn_more_blue, .category_icon_blue, .cart,.calendar, .closed,.open{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1387,9 +1380,9 @@ font-weight:bold;
 }
 
 .message_bell{
-	background-position: -32px -204px ;
-	width: 17px;
-	height: 21px;
+	background-position: -30px -204px ;
+	width: 30px;
+	height: 20px;
 }
 
 .pdf_icon{
@@ -1410,12 +1403,12 @@ font-weight:bold;
 	height: 8px;
 }
 
-
 .cart{
-	background-position: -2px -4px ;
-	width: 22px;
-	height: 22px;
+	background-position: -4px -4px ;
+	width: 20px;
+	height: 20px;
 }
+
 .calendar{
 	background-position: -33px -182px ;
 	width: 16px;
@@ -1433,49 +1426,6 @@ font-weight:bold;
 	background-position: -6px -231px ;
 	width: 11px;
 	height: 6px;
-}
-
-.acc_summary{
-	background-position: -2px -246px ;
-	width: 24px;
-	height: 20px;
-        margin-top: -4px;
-}
-
-.info_statoil{
-	background-position: -3px -271px ;
-	width: 22px;
-	height: 23px;
-}
-
-.invoice{
-	background-position: -28px -297px ;
-	width: 22px;
-	height: 22px;
-}
-
-.messages{
-	background-position: -4px -323px ;
-	width: 22px;
-	height: 22px;
-}
-
-.transaction{
-	background-position: -1px -350px ;
-	width: 22px;
-	height: 14px;
-}
-
-.info{
-	background-position: -5px -370px ;
-	width: 16px;
-	height: 16px;
-}
-
-.arrow{
-	background-position: -15px -105px ;
-	width: 12px;
-	height: 13px;
 }
 
 
@@ -1597,7 +1547,7 @@ font-weight:bold;
 
 #top a {
     color: #524E4F !important;;
-    display: inline;
+    display: block;
     font: bold 12px Georgia;
     margin-right: 10px;
     margin-top: -2px;
@@ -1789,7 +1739,6 @@ border: 1px solid  #979796;
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
 }
-
 .transaction_italic{
   font-style:italic;
 }
