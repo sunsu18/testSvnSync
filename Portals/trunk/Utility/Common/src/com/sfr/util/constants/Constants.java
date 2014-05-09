@@ -245,6 +245,7 @@ public class Constants {
     public static final String productCode = "productCode";
     public static final String userDefinedCodes = "userDefinedCodes";
     public static final String userDefinedCode = "userDefinedCode";
+    public static final String userLang = "userLang";
     public static final String UserReservedReference4 = "UserReservedReference4";
     public static final String ItemName = "ItemName";
     public static final String ItemNumber = "ItemNumber";
