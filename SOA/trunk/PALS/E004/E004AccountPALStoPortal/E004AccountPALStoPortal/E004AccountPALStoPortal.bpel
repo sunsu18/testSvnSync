@@ -83,9 +83,6 @@
     <partnerLink name="SOAErrorDBAdapter"
                  partnerLinkType="ns11:SOAErrorDBAdapter_plt"
                  partnerRole="SOAErrorDBAdapter_role"/>
-    <partnerLink name="PartnerPortalDBAdapter"
-                 partnerLinkType="ns12:PartnerPortalDBAdapter_plt"
-                 partnerRole="PartnerPortalDBAdapter_role"/>
     <partnerLink name="MergeAccountPortalDBAdapter"
                  partnerLinkType="ns13:MergeAccountPortalDBAdapter_plt"
                  partnerRole="MergeAccountPortalDBAdapter_role"/>
@@ -138,10 +135,6 @@
     <variable name="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
               messageType="ns11:EngagePalsAccDtaErrorlogCollection_msg"/>
     <variable name="RowCount" type="xsd:integer"/>
-    <variable name="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_InputVariable"
-              messageType="ns12:PartnerPortalDBAdapterSelect_inputParameters"/>
-    <variable name="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_OutputVariable"
-              messageType="ns12:PrtPartnerCollection_msg"/>
     <variable name="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
               messageType="ns13:PrtAccountCollection_msg"/>
     <variable name="InvokeMergeAccountPortalDBAdapter_merge_InputVariable"
@@ -167,6 +160,8 @@
               messageType="ns23:EngagePalsAccDtaErrorlogCollection_msg"/>
     <variable name="InvokeUpdateSOAErrorDBAdapter_update_InputVariable"
               messageType="ns25:EngagePalsAccDtaErrorlogCollection_msg"/>
+    <variable name="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable"
+              messageType="ns17:SoaAccountTempCollection_msg"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault">
@@ -717,11 +712,10 @@
                       </copy>
                     </assign>
                     <invoke name="InvokeInsertPALSDataToTempAccountPortal"
-                            bpelx:invokeAsDetail="no"
                             inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable"
                             partnerLink="InsertPALSDataToTempAccountPortalDBAdapter"
                             portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt"
-                            operation="insert"/>
+                            operation="insert" bpelx:invokeAsDetail="no"/>
                     <invoke name="InvokeSelectValidDataTempAccountPortal"
                             bpelx:invokeAsDetail="no"
                             inputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable"
@@ -875,182 +869,7 @@
             </catch>
           </faultHandlers>
           <sequence name="InsertPALSDataInPortalDBSequence">
-<!--
-            <assign name="XformPALSDataToValidData">
-              <bpelx:annotation>
-                <bpelx:pattern>transformation</bpelx:pattern>
-              </bpelx:annotation>
-              <copy>
-                <from expression="ora:doXSLTransformForDoc('xsl/XformPALSDataToValidData.xsl', $AccountSummaryReqMsg.payload, 'InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc071Vs1CssktoDtaCollection', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc071Vs1CssktoDtaCollection)"/>
-                <to variable="ValidData"/>
-              </copy>
-            </assign>
-            <while name="WhileDataCount"
-                   condition="bpws:getVariableData('RowCount')   &lt;=  bpws:getVariableData('DataCount')">
-              <sequence name="AccountExistsInPartnerTableCheckSequence">
-                <assign name="AssignRowData">
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:PARTNER_ID')"/>
-                    <to variable="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_InputVariable"
-                        part="PartnerPortalDBAdapterSelect_inputParameters"
-                        query="/ns14:PartnerPortalDBAdapterSelect_PartnerID_CountryCodeInputParameters/ns14:PartnerID"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:COUNTRY_CODE')"/>
-                    <to variable="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_InputVariable"
-                        part="PartnerPortalDBAdapterSelect_inputParameters"
-                        query="/ns14:PartnerPortalDBAdapterSelect_PartnerID_CountryCodeInputParameters/ns14:CountryCode"/>
-                  </copy>
-                </assign>
-                <invoke name="InvokePartnerPortalDBAdapter"
-                        bpelx:invokeAsDetail="no"
-                        inputVariable="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_InputVariable"
-                        outputVariable="InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_OutputVariable"
-                        partnerLink="PartnerPortalDBAdapter"
-                        portType="ns12:PartnerPortalDBAdapter_ptt"
-                        operation="PartnerPortalDBAdapterSelect"/>
-                <switch name="SwitchAccountExists">
-                  <case condition="count(bpws:getVariableData('InvokePartnerPortalDBAdapter_PartnerPortalDBAdapterSelect_OutputVariable','PrtPartnerCollection','/ns14:PrtPartnerCollection/ns14:PrtPartner/ns14:partnerId')) > 0">
-                    <bpelx:annotation>
-                      <bpelx:general>
-                        <bpelx:property name="userLabel">AccountExistsInPartnerTable</bpelx:property>
-                      </bpelx:general>
-                    </bpelx:annotation>
-                    <sequence name="InsertDataInPortalDBSequence">
-                      <assign name="AssignValidRowData">
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:COUNTRY_CODE')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:countryCode"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:ACCOUNT_ID')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:accountId"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:PARTNER_ID')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:partnerId"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:CUSTOMER_GROUP')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:customerGroup"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:MDOFIED_BY')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:modifiedBy"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:MODIFIED_DATE')"/>
-                          <to variable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              part="PrtAccountCollection"
-                              query="/ns15:PrtAccountCollection/ns15:PrtAccount/ns15:modifiedDate"/>
-                        </copy>
-                      </assign>
-                      <invoke name="InvokeMergeAccountPortalDBAdapter"
-                              inputVariable="InvokeMergeAccountPortalDBAdapter_insert_InputVariable"
-                              partnerLink="MergeAccountPortalDBAdapter"
-                              portType="ns13:MergeAccountPortalDBAdapter_ptt"
-                              operation="merge" bpelx:invokeAsDetail="no"/>
-                    </sequence>
-                  </case>
-                  <otherwise>
-                    <sequence name="InsertErrorDataInSOAErrorTableSequence">
-                      <assign name="AssignErrorRowData">
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:Delta_TS')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:deltaTs"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:ACCOUNT_ID')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:accountId"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:PARTNER_ID')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:partnerId"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:CUSTOMER_GROUP')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:accountCustomerGroup"/>
-                        </copy>
-                        <copy>
-                          <from expression="'BE005'"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:soaErrorCode"/>
-                        </copy>
-                        <copy>
-                          <from expression="'Integrity Constraint Failure'"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:soaErrorDesc"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:MDOFIED_BY')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:updatedBy"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:MODIFIED_DATE')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:updatedTimestamp"/>
-                        </copy>
-                        <copy>
-                          <from expression="bpws:getVariableData('ValidData','/ns10:Account/ns10:FieldsDetails[$RowCount]/ns10:COUNTRY_CODE')"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:countryCode"/>
-                        </copy>
-                        <copy>
-                          <from expression="0"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:emailFlag"/>
-                        </copy>
-                        <copy>
-                          <from expression="0"/>
-                          <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              part="EngagePalsAccDtaErrorlogCollection"
-                              query="/ns16:EngagePalsAccDtaErrorlogCollection/ns16:EngagePalsAccDtaErrorlog/ns16:deltaReciptFlag"/>
-                        </copy>
-                      </assign>
-                      <invoke name="InvokeSOAErrorDBAdapter"
-                              bpelx:invokeAsDetail="no"
-                              inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable"
-                              partnerLink="SOAErrorDBAdapter"
-                              portType="ns11:SOAErrorDBAdapter_ptt"
-                              operation="insert"/>
-                    </sequence>
-                  </otherwise>
-                </switch>
-                <assign name="CountNextRow">
-                  <copy>
-                    <from expression="bpws:getVariableData('RowCount') + 1"/>
-                    <to variable="RowCount"/>
-                  </copy>
-                </assign>
-              </sequence>
-            </while>
-          -->
-            <assign name="XformPALSValidDataToMergeAccountPortal">
+          <assign name="XformPALSValidDataToMergeAccountPortal">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>

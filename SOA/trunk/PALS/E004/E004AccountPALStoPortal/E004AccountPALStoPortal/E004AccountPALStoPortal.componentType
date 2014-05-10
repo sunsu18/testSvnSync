@@ -26,10 +26,6 @@
   <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
   </reference>
-  <reference name="PartnerPortalDBAdapter"
-             ui:wsdlLocation="PartnerPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter#wsdl.interface(PartnerPortalDBAdapter_ptt)"/>
-  </reference>
   <reference name="MergeAccountPortalDBAdapter"
              ui:wsdlLocation="MergeAccountPortalDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter#wsdl.interface(MergeAccountPortalDBAdapter_ptt)"/>

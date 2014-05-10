@@ -22,8 +22,6 @@
           location="PALSDB2DBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter"
           location="SOAErrorDBAdapter.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter"
-          location="PartnerPortalDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter"
           location="MergeAccountPortalDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter"
@@ -103,18 +101,6 @@
   <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
     <binding.jca config="SOAErrorDBAdapter_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
-  <reference name="PartnerPortalDBAdapter"
-             ui:wsdlLocation="PartnerPortalDBAdapter.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter#wsdl.interface(PartnerPortalDBAdapter_ptt)"/>
-    <binding.jca config="PartnerPortalDBAdapter_db.jca"/>
     <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
     <property name="jca.retry.interval" type="xs:int" many="false"
               override="may">1</property>
@@ -235,10 +221,6 @@
   <wire>
     <source.uri>E004AccountPALStoPortal/SOAErrorDBAdapter</source.uri>
     <target.uri>SOAErrorDBAdapter</target.uri>
-  </wire>
-  <wire>
-    <source.uri>E004AccountPALStoPortal/PartnerPortalDBAdapter</source.uri>
-    <target.uri>PartnerPortalDBAdapter</target.uri>
   </wire>
   <wire>
     <source.uri>E004AccountPALStoPortal/MergeAccountPortalDBAdapter</source.uri>
