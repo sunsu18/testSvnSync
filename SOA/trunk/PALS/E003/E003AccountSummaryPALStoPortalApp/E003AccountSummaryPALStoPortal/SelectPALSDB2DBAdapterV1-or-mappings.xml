@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>SelectPALSDB2DBAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SelectPALSDB2DBAdapterV1.Cc070Vs1CssparDta</class>
+         <alias>CC070VS1_CSSPAR_DTA</alias>
+         <primary-key>
+            <field table="CC070VS1_CSSPAR_DTA" name="DELTA_TS" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SelectPALSDB2DBAdapterV1Select" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>Select DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLOPE_NR, PRIADRLAND_KD, PRIADRNIVA_KD, PRIADRESSE_TP from ( SELECT DELTA_TS, PARTNER_ID, PARTNER_TP, REDIGERT_NV, FODSEL_DT, PERSON_NR, ORGANISASJON_NR, KJONN, MVAREG_NR, PRIADRESSE_1, PRIADRESSE_2, PRIADRPOST_NR, PRIADRPOSTSTED, PRIADRLOPE_NR, PRIADRLAND_KD, PRIADRNIVA_KD, PRIADRESSE_TP, ROW_NUMBER() OVER() as rownumber FROM CC070VS1_CSSPAR_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Partner WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>SelectPALSDB2DBAdapterV1.Cc070Vs1CssparDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerTp</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PARTNER_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>redigertNv</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="REDIGERT_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fodselDt</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="FODSEL_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>personNr</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PERSON_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>organisasjonNr</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="ORGANISASJON_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kjonn</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="KJONN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>mvaregNr</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="MVAREG_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadresse1</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRESSE_1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadresse2</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRESSE_2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadrpostNr</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRPOST_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadrpoststed</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRPOSTSTED" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadrlopeNr</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRLOPE_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadrlandKd</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRLAND_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadrnivaKd</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRNIVA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priadresseTp</attribute-name>
+               <field table="CC070VS1_CSSPAR_DTA" name="PRIADRESSE_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CC070VS1_CSSPAR_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

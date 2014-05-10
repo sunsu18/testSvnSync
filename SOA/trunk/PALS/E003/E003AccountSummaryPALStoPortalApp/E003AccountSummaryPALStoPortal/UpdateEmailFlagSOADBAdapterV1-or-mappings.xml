@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>UpdateEmailFlagSOADBAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>UpdateEmailFlagSOADBAdapterV1.EngageSoaPartnerErrorlog</class>
+         <alias>ENGAGE_SOA_PARTNER_ERRORLOG</alias>
+         <primary-key>
+            <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
+            <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="DELTA_TS" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="UpdateEmailFlagSOADBAdapterV1Select" xsi:type="read-all-query">
+                  <reference-class>UpdateEmailFlagSOADBAdapterV1.EngageSoaPartnerErrorlog</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>companyType</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="COMPANY_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>companyName</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="COMPANY_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>dob</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="DOB" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>personNumber</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PERSON_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orgId</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="ORG_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>gender</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="GENDER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>vatRegNumber</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="VAT_REG_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerAddr1</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ADDR1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerAddr2</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ADDR2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerPostalCode</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_POSTAL_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerCity</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_CITY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerAddrSeq</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ADDR_SEQ" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerCountry</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_COUNTRY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerAddrLevel</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ADDR_LEVEL" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerAddrType</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="PARTNER_ADDR_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaErrorCode</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="SOA_ERROR_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaErrorDesc</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="SOA_ERROR_DESC" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>updatedBy</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="UPDATED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>updatedTimestamp</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="UPDATED_TIMESTAMP" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>emailFlag</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="EMAIL_FLAG" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaReciptFlag</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="DELTA_RECIPT_FLAG" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>countryCode</attribute-name>
+               <field table="ENGAGE_SOA_PARTNER_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="ENGAGE_SOA_PARTNER_ERRORLOG"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

@@ -1,0 +1,25 @@
+<?binding.jca SelectDeltaTSDBAdapterV1_db.jca?>
+<wsdl:definitions name="SelectDeltaTSDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectDeltaTSDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectDeltaTSDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1">
+    <plt:partnerLinkType name="SelectDeltaTSDBAdapterV1_plt">
+        <plt:role name="SelectDeltaTSDBAdapterV1_role">
+            <plt:portType name="tns:SelectDeltaTSDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1" schemaLocation="xsd/SelectDeltaTSDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectDeltaTSDBAdapterV1Select_inputParameters">
+        <wsdl:part name="SelectDeltaTSDBAdapterV1Select_inputParameters" element="top:SelectDeltaTSDBAdapterV1Select_Interface_ID_Country_CodeInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="EngageSoaDeltatableCollection_msg">
+        <wsdl:part name="EngageSoaDeltatableCollection" element="top:EngageSoaDeltatableCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectDeltaTSDBAdapterV1_ptt">
+        <wsdl:operation name="SelectDeltaTSDBAdapterV1Select">
+            <wsdl:input message="tns:SelectDeltaTSDBAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:EngageSoaDeltatableCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

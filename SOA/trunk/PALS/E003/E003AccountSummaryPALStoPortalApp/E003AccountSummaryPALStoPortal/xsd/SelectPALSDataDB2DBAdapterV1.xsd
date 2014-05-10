@@ -1,0 +1,37 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectPALSDataDB2DBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectPALSDataDB2DBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectPALSDataDB2DBAdapterV1Input" type="SelectPALSDataDB2DBAdapterV1Input"/>
+   <xs:complexType name="SelectPALSDataDB2DBAdapterV1Input">
+      <xs:sequence>
+         <xs:element name="DeltaTimeStamp" type="xs:string" nillable="true"/>
+         <xs:element name="BatchSize" type="xs:integer" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="SelectPALSDataDB2DBAdapterV1OutputCollection" type="SelectPALSDataDB2DBAdapterV1OutputCollection"/>
+   <xs:complexType name="SelectPALSDataDB2DBAdapterV1OutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectPALSDataDB2DBAdapterV1Output" type="SelectPALSDataDB2DBAdapterV1Output" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectPALSDataDB2DBAdapterV1Output">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_TP" type="xs:string" nillable="true"/>
+         <xs:element name="REDIGERT_NV" type="xs:string" nillable="true"/>
+         <xs:element name="FODSEL_DT" type="xs:string" nillable="true"/>
+         <xs:element name="PERSON_NR" type="xs:string" nillable="true"/>
+         <xs:element name="ORGANISASJON_NR" type="xs:string" nillable="true"/>
+         <xs:element name="KJONN" type="xs:string" nillable="true"/>
+         <xs:element name="MVAREG_NR" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRESSE_1" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRESSE_2" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRPOST_NR" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRPOSTSTED" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRLOPE_NR" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRLAND_KD" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRNIVA_KD" type="xs:string" nillable="true"/>
+         <xs:element name="PRIADRESSE_TP" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

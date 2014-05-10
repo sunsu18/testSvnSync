@@ -1,0 +1,13 @@
+<adapter-config name="GetErrorRecordsSOADBAdapterV1" adapter="Database Adapter" wsdlLocation="GetErrorRecordsSOADBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="GetErrorRecordsSOADBAdapterV1_ptt" operation="GetErrorRecordsSOADBAdapterV1">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="select DELTA_TS, PARTNER_ID, COUNTRY_CODE, SOA_ERROR_DESC from ENGAGE_SOA_PARTNER_ERRORLOG where EMAIL_FLAG = 0 and DELTA_RECIPT_FLAG = 0"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

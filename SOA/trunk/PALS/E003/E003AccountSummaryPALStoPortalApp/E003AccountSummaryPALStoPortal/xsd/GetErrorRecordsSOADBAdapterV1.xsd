@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/GetErrorRecordsSOADBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/GetErrorRecordsSOADBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="GetErrorRecordsSOADBAdapterV1Input" type="GetErrorRecordsSOADBAdapterV1Input"/>
+   <xs:complexType name="GetErrorRecordsSOADBAdapterV1Input">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="GetErrorRecordsSOADBAdapterV1OutputCollection" type="GetErrorRecordsSOADBAdapterV1OutputCollection"/>
+   <xs:complexType name="GetErrorRecordsSOADBAdapterV1OutputCollection">
+      <xs:sequence>
+         <xs:element name="GetErrorRecordsSOADBAdapterV1Output" type="GetErrorRecordsSOADBAdapterV1Output" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="GetErrorRecordsSOADBAdapterV1Output">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:dateTime" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="SOA_ERROR_DESC" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

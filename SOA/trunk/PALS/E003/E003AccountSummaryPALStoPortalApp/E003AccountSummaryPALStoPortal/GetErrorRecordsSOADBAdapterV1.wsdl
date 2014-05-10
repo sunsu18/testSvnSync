@@ -1,0 +1,25 @@
+<?binding.jca GetErrorRecordsSOADBAdapterV1_db.jca?>
+<wsdl:definitions name="GetErrorRecordsSOADBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetErrorRecordsSOADBAdapterV1" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/GetErrorRecordsSOADBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetErrorRecordsSOADBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="GetErrorRecordsSOADBAdapterV1_plt">
+        <plt:role name="GetErrorRecordsSOADBAdapterV1_role">
+            <plt:portType name="tns:GetErrorRecordsSOADBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/GetErrorRecordsSOADBAdapterV1" schemaLocation="xsd/GetErrorRecordsSOADBAdapterV1.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="GetErrorRecordsSOADBAdapterV1Input_msg">
+        <wsdl:part name="GetErrorRecordsSOADBAdapterV1Input_msg" element="db:GetErrorRecordsSOADBAdapterV1Input"/>
+    </wsdl:message>
+    <wsdl:message name="GetErrorRecordsSOADBAdapterV1OutputCollection_msg">
+        <wsdl:part name="GetErrorRecordsSOADBAdapterV1OutputCollection" element="db:GetErrorRecordsSOADBAdapterV1OutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="GetErrorRecordsSOADBAdapterV1_ptt">
+        <wsdl:operation name="GetErrorRecordsSOADBAdapterV1">
+            <wsdl:input message="tns:GetErrorRecordsSOADBAdapterV1Input_msg"/>
+            <wsdl:output message="tns:GetErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

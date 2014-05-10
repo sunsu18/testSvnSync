@@ -1,0 +1,21 @@
+<?binding.jca InsertSOAPartnerErrorLogDBAdapterV1_db.jca?>
+<wsdl:definitions name="InsertSOAPartnerErrorLogDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertSOAPartnerErrorLogDBAdapterV1">
+    <plt:partnerLinkType name="InsertSOAPartnerErrorLogDBAdapterV1_plt">
+        <plt:role name="InsertSOAPartnerErrorLogDBAdapterV1_role">
+            <plt:portType name="tns:InsertSOAPartnerErrorLogDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertSOAPartnerErrorLogDBAdapterV1" schemaLocation="xsd/InsertSOAPartnerErrorLogDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaPartnerErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaPartnerErrorlogCollection" element="top:EngageSoaPartnerErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="InsertSOAPartnerErrorLogDBAdapterV1_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:EngageSoaPartnerErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
