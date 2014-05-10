@@ -1,0 +1,25 @@
+<?binding.jca SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_plt">
+        <plt:role name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_role">
+            <plt:portType name="tns:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" schemaLocation="xsd/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1Input_msg">
+        <wsdl:part name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1Input_msg" element="db:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1Input"/>
+    </wsdl:message>
+    <wsdl:message name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection_msg">
+        <wsdl:part name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection" element="db:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_ptt">
+        <wsdl:operation name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1">
+            <wsdl:input message="tns:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1Input_msg"/>
+            <wsdl:output message="tns:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">ENGAGE_SOA_CARDGROUP_ERRORLOG</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.KONTO_ID:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_BY:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_DATETIME:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_UTP:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_DESC:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_RECIPT_FLAG:db_column_precision">0</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.KONTO_ID:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_CODE:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.PARTNER_ID:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_LNR:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_TS:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_BY:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_table_type">TABLE</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_HTP:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_DESC:db_column_size">500</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_LNR:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_12">MODIFIED_DATETIME</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_11">MODIFIED_BY</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_10">DELTA_RECIPT_FLAG</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.PARTNER_ID:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_LNR:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_HTP:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_UTP:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.PARTNER_ID:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_TS:db_column_not_null">true</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.EMAILFLAG:db_column_type">NUMBER</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.EMAILFLAG:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.EMAILFLAG:db_column_precision">0</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_RECIPT_FLAG:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_TX:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_HTP:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_DATETIME:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_DESC:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_TX:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.KONTO_ID:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_TX:db_column_size">50</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_9">SOA_ERROR_DESC</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_CODE:db_column_not_null">true</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_8">SOA_ERROR_CODE</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_7">EMAILFLAG</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_6">F_FORHOLD_TX</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_5">KONTO_ID</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_4">F_FORHOLD_LNR</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_3">F_FORHOLD_UTP</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_2">F_FORHOLD_HTP</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_1">PARTNER_ID</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_0">DELTA_TS</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_BY:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_RECIPT_FLAG:db_column_type">NUMBER</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_UTP:db_column_type">VARCHAR2</entry>
+</properties>
