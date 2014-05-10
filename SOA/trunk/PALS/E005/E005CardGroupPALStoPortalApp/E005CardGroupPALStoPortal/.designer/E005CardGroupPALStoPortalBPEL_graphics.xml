@@ -5,19 +5,21 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="E005CardGroupPALStoPortalClient" x="0" y="90" side="left"/>
-      <partnerlink name="MergeCardGroupErrorLogDatabaseAdapterV1" x="0" y="18" side="left"/>
-      <partnerlink name="SelectPALSDB2DBAdaptorV1" x="1015" y="18" side="right"/>
-      <partnerlink name="SelectDeltaTSDBAdapterV1" x="1015" y="75" side="right"/>
-      <partnerlink name="MergeDeltaTSDatabaseAdapterV1" x="1015" y="132" side="right"/>
-      <partnerlink name="GetCountPALSDB2DBAdapter" x="1015" y="189" side="right"/>
-      <partnerlink name="MergeCardGroupPortalDatabaseAdaptorV1" x="1015" y="246" side="right"/>
-      <partnerlink name="SelectSOACardGroupTempDatabaseAdapterV1" x="1015" y="303" side="right"/>
-      <partnerlink name="MergeCardGroupTempDatabaseAdapterV1" x="1015" y="360" side="right"/>
-      <partnerlink name="SelectValidCardGroupTempDatabaseAdapterV1" x="1015" y="417" side="right"/>
-      <partnerlink name="TruncSOACardGroupDatabaseAdapterV1" x="1015" y="474" side="right"/>
-      <partnerlink name="SOAErrorHandlerJMSQAdapterV1" x="1015" y="531" side="right"/>
+      <partnerlink name="MergeCardGroupErrorLogDatabaseAdapterV1" x="0" y="2667" side="left"/>
+      <partnerlink name="SelectPALSDB2DBAdaptorV1" x="1780" y="1751" side="right"/>
+      <partnerlink name="SelectDeltaTSDBAdapterV1" x="1780" y="607" side="right"/>
+      <partnerlink name="MergeDeltaTSDatabaseAdapterV1" x="1780" y="3893" side="right"/>
+      <partnerlink name="GetCountPALSDB2DBAdapter" x="1780" y="750" side="right"/>
+      <partnerlink name="MergeCardGroupPortalDatabaseAdaptorV1" x="1780" y="3004" side="right"/>
+      <partnerlink name="SelectSOACardGroupTempDatabaseAdapterV1" x="1780" y="2926" side="right"/>
+      <partnerlink name="MergeCardGroupTempDatabaseAdapterV1" x="1780" y="2832" side="right"/>
+      <partnerlink name="SelectValidCardGroupTempDatabaseAdapterV1" x="1780" y="3203" side="right"/>
+      <partnerlink name="TruncSOACardGroupDatabaseAdapterV1" x="1780" y="3480" side="right"/>
+      <partnerlink name="SOAErrorHandlerJMSQAdapterV1" x="1780" y="1477" side="right"/>
+      <partnerlink name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" x="1780" y="4283" side="right"/>
+      <partnerlink name="UpdateEmailFlagErrorLogDatabaseAdapterV1" x="1780" y="4738" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,0,587,494" show_swimlanes="true">
+   <graph_layout viewport="178,1500,551,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="true" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -30,24 +32,28 @@
       <layout_item collapsed="false" xpath="/process/sequence/scope[1]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
       <layout_item collapsed="true" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="true" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while" type="while"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]" type="scope" showhandlers="true"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[1]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]/sequence/switch" type="switch"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[1]/sequence/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[2]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/faultHandlers/catch" type="catch"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[2]/faultHandlers/catch/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/faultHandlers/catch/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/sequence" type="sequence"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[3]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch" type="catch"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch" type="switch"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/otherwise/sequence" type="sequence"/>
-      <layout_item collapsed="true" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[3]" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[3]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[3]/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[3]/sequence/switch/case/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>
 </graphics>

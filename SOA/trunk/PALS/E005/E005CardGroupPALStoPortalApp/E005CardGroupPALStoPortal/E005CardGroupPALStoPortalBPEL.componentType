@@ -52,4 +52,12 @@
              ui:wsdlLocation="SOAErrorHandlerJMSQAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAErrorHandlerJMSQAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
+  <reference name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+             ui:wsdlLocation="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1#wsdl.interface(SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_ptt)"/>
+  </reference>
+  <reference name="UpdateEmailFlagErrorLogDatabaseAdapterV1"
+             ui:wsdlLocation="UpdateEmailFlagErrorLogDatabaseAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/UpdateEmailFlagErrorLogDatabaseAdapterV1#wsdl.interface(UpdateEmailFlagErrorLogDatabaseAdapterV1_ptt)"/>
+  </reference>
 </componentType>

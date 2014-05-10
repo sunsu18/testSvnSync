@@ -48,7 +48,11 @@
          xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectValidCardGroupTempDatabaseAdapterV1"
          xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/TruncSOACardGroupDatabaseAdapterV1"
          xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAErrorHandlerJMSQAdapterV1"
-         xmlns:ns20="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd">
+         xmlns:ns20="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
+         xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+         xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/db/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+         xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupErrorLogDatabaseAdapterV1"
+         xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/UpdateEmailFlagErrorLogDatabaseAdapterV1">
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -93,6 +97,12 @@
     <partnerLink name="SOAErrorHandlerJMSQAdapterV1"
                  partnerLinkType="ns19:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
+    <partnerLink name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+                 partnerLinkType="ns21:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_plt"
+                 partnerRole="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_role"/>
+    <partnerLink name="UpdateEmailFlagErrorLogDatabaseAdapterV1"
+                 partnerLinkType="ns24:UpdateEmailFlagErrorLogDatabaseAdapterV1_plt"
+                 partnerRole="UpdateEmailFlagErrorLogDatabaseAdapterV1_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveInvocationMsg_IV" messageType="ns1:requestMessage"/>
@@ -141,7 +151,17 @@
               messageType="ns17:SelectValidCardGroupTempDatabaseAdapterV1Input_msg"/>
     <variable name="InvokeSOAErrorHandlerJMSAdapter_IV"
               messageType="ns19:Produce_Message_msg"/>
+    <variable name="InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_IV"
+              messageType="ns21:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1Input_msg"/>
+    <variable name="InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_OV"
+              messageType="ns21:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection_msg"/>
+    <variable name="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+              messageType="ns19:Produce_Message_msg"/>
+    <variable name="InvokeUpdateEmailFlagErrorLog_IV"
+              messageType="ns24:EngageSoaCardgroupErrorlogCollection_msg"/>
+    <variable name="ErrorFlag" type="xsd:string"/>
     <variable name="CardGroupValidate" element="ns12:CardGroup"/>
+    <variable name="PALSJNDI" type="xsd:string"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault">
@@ -393,6 +413,15 @@
               query="/ns5:invocationMsg/ns5:BatchSize"/>
         <to variable="BatchSize"/>
       </copy>
+      <copy>
+        <from variable="ReceiveInvocationMsg_IV" part="part1"
+              query="/ns5:invocationMsg/ns5:DatabaseJNDI"/>
+        <to variable="PALSJNDI"/>
+      </copy>
+      <copy>
+        <from expression="'NO'"/>
+        <to variable="ErrorFlag"/>
+      </copy>
     </assign>
     <scope name="GetDeltaTSScope" variableAccessSerializable="no">
       <sequence name="GetDeltaTSSequence">
@@ -474,7 +503,9 @@
                     partnerLink="GetCountPALSDB2DBAdapter"
                     portType="ns7:GetCountPALSDB2DBAdapter_ptt"
                     operation="GetCountPALSDB2DBAdapter"
-                    bpelx:invokeAsDetail="no"/>
+                    bpelx:invokeAsDetail="no">
+                    <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
+                    </invoke>
             <assign name="CalculateBatchCount">
               <copy>
                 <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapterOV','GetCountPALSDB2DBAdapterOutput','/ns8:GetCountPALSDB2DBAdapterOutput/ns8:count')div bpws:getVariableData('BatchSize'))"/>
@@ -568,7 +599,9 @@
                         partnerLink="SelectPALSDB2DBAdaptorV1"
                         portType="ns2:SelectPALSDB2DBAdaptorV1_ptt"
                         operation="SelectPALSDB2DBAdaptorV1Select"
-                        bpelx:invokeAsDetail="no"/>
+                        bpelx:invokeAsDetail="no">
+                        <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
+                        </invoke>
                 <assign name="GetDataCount">
                   <copy>
                     <from expression="count(bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta'))"/>
@@ -597,7 +630,13 @@
                             partnerLink="MergeCardGroupErrorLogDatabaseAdapterV1"
                             portType="ns13:MergeCardGroupErrorLogDatabaseAdapterV1_ptt"
                             operation="merge" bpelx:invokeAsDetail="no"/>
-                  </sequence>
+                <assign name="AssignErrorFlag">
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="ErrorFlag"/>
+                  </copy>
+                </assign>
+              </sequence>
                 </catch>
               </faultHandlers>
               <sequence name="SelectDB2ValidateSequence">
@@ -690,7 +729,13 @@
                                 portType="ns18:TruncSOACardGroupDatabaseAdapterV1_ptt"
                                 operation="TruncSOACardGroupDatabaseAdapterV1"
                                 bpelx:invokeAsDetail="no"/>
-                      </sequence>
+                    <assign name="AssignErrorFlag">
+                      <copy>
+                        <from expression="'YES'"/>
+                        <to variable="ErrorFlag"/>
+                      </copy>
+                    </assign>
+                  </sequence>
                     </case>
                     <otherwise>
                       <sequence name="BindingFaultSequence">
@@ -856,5 +901,147 @@
             </assign>
           </sequence>
         </while>
+    <scope name="NoEamilCardGroupErrorLogScope" variableAccessSerializable="no">
+      <variables>
+        <variable name="ErrorDesc"
+                  messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
+      </variables>
+      <sequence name="NoEmailCardGroupErrorLogSequence">
+        <switch name="ErrorCheckSwitch">
+          <case condition="bpws:getVariableData('ErrorFlag')='YES'">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">If error occured</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence>
+              <invoke name="InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1"
+                      inputVariable="InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_IV"
+                      outputVariable="InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_OV"
+                      partnerLink="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+                      portType="ns21:SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_ptt"
+                      operation="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
+                      bpelx:invokeAsDetail="no"/>
+              <assign name="xformSelectNoEmailCardGrouptoErrorDesc">
+                <bpelx:annotation>
+                  <bpelx:pattern>transformation</bpelx:pattern>
+                </bpelx:annotation>
+                <copy>
+                  <from expression="ora:doXSLTransformForDoc('xsl/SelectNoEmail_to_ErrorDesc.xsl', $InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_OV.SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection)"/>
+                  <to variable="ErrorDesc"
+                      part="EngageSoaCardgroupErrorlogCollection"/>
+                </copy>
+              </assign>
+              <assign name="AssignErrorEmailRecords">
+                <copy>
+                  <from expression="ora:getCompositeInstanceId()"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:InstanceID"/>
+                </copy>
+                <copy>
+                  <from expression="ora:getNodeValue(bpws:getVariableData('ErrorDesc','EngageSoaCardgroupErrorlogCollection','/ns23:EngageSoaCardgroupErrorlogCollection'))"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:ErrorDetails/ns20:ErrorDescription"/>
+                </copy>
+                <copy>
+                  <from expression="'E005_BE'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:ErrorNotification/ns20:LookupCriteria"/>
+                </copy>
+                <copy>
+                  <from expression="'Business Error in Interface ID: E005'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:ErrorNotification/ns20:Subject"/>
+                </copy>
+                <copy>
+                  <from expression="ora:getComponentName()"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:ComponentName"/>
+                </copy>
+                <copy>
+                  <from expression="'E005'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:ProjectID"/>
+                </copy>
+                <copy>
+                  <from expression="'E005CardGroupPALStoPortal'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:ProjectName"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:Timestamp"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:SenderSystem"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:Source"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:ReceiverSystem"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:Target"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsg_IV" part="part1"
+                        query="/ns5:invocationMsg/ns5:UserName"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:UserID"/>
+                </copy>
+                <copy>
+                  <from expression="'BE-026'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:ErrorDetails/ns20:ErrorCode"/>
+                </copy>
+                <copy>
+                  <from expression="'Unable to process some recoreds for InterfaceID: E005, records moved to errorlog.'"/>
+                  <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      part="body"
+                      query="/ns20:ErrorInfo/ns20:ErrorDetails/ns20:ErrorSummary"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeSOAErrorHandlerEmailJMSQAdapterV1"
+                      inputVariable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV"
+                      partnerLink="SOAErrorHandlerJMSQAdapterV1"
+                      portType="ns19:Produce_Message_ptt"
+                      operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+              <assign name="xformNoEmailErrorLogtoEmailErrorlog">
+                <bpelx:annotation>
+                  <bpelx:pattern>transformation</bpelx:pattern>
+                </bpelx:annotation>
+                <copy>
+                  <from expression="ora:doXSLTransformForDoc('xsl/SelectNoEmailErrorLog_to_UpdateEmailErrorlog.xsl', $InvokeSelectNoEmailCardGroupErrorLogDBAdapterV1_OV.SelectNoEamilCardGroupErrorLogDatabaseAdapterV1OutputCollection)"/>
+                  <to variable="InvokeUpdateEmailFlagErrorLog_IV"
+                      part="EngageSoaCardgroupErrorlogCollection"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeUpdateEmailFlagErrorLog"
+                      inputVariable="InvokeUpdateEmailFlagErrorLog_IV"
+                      partnerLink="UpdateEmailFlagErrorLogDatabaseAdapterV1"
+                      portType="ns24:UpdateEmailFlagErrorLogDatabaseAdapterV1_ptt"
+                      operation="update" bpelx:invokeAsDetail="no"/>
+            </sequence>
+          </case>
+          <otherwise>
+            <empty name="Empty1"/>
+          </otherwise>
+        </switch>
       </sequence>
+    </scope>
+  </sequence>
 </process>
