@@ -1,6 +1,6 @@
 <adapter-config name="PartnerPortalDBAdapter" adapter="Database Adapter" wsdlLocation="PartnerPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/Engage-PortalQA-XA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
   <endpoint-interaction portType="PartnerPortalDBAdapter_ptt" operation="PartnerPortalDBAdapterSelect">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="PartnerPortalDBAdapter.PrtPartner"/>

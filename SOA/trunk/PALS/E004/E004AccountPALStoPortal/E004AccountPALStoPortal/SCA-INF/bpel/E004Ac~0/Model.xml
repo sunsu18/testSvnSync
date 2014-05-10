@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E004AccountPALStoPortal" targetNamespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectDeltaTSDBAdapter" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/GetPALSDB2CountDBAdapter" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/PALSDB2DBAdapter" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" xmlns:ns10="http://www.statoilfuelretail.com/integration/engage" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeAccountPortalDBAdapter" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectInValidDataTempAccountPortalDBAdapter" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/TruncateTempAccountPortalDBAdapter" xmlns:ns21="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter" id="BpPrc0">
+<process name="E004AccountPALStoPortal" targetNamespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectDeltaTSDBAdapter" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/GetPALSDB2CountDBAdapter" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/PALSDB2DBAdapter" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" xmlns:ns10="http://www.statoilfuelretail.com/integration/engage" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeAccountPortalDBAdapter" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectInValidDataTempAccountPortalDBAdapter" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/TruncateTempAccountPortalDBAdapter" xmlns:ns21="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter" xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter" xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter" xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,6 +26,8 @@
     <partnerLink name="SelectInValidDataTempAccountPortalDBAdapter" partnerLinkType="ns19:SelectInValidDataTempAccountPortalDBAdapter_plt" partnerRole="SelectInValidDataTempAccountPortalDBAdapter_role"/>
     <partnerLink name="TruncateTempAccountPortalDBAdapter" partnerLinkType="ns20:TruncateTempAccountPortalDBAdapter_plt" partnerRole="TruncateTempAccountPortalDBAdapter_role"/>
     <partnerLink name="SOAErrorHandlerJMSAdapter" partnerLinkType="ns22:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+    <partnerLink name="SOAErrorLogDBAdapter" partnerLinkType="ns23:SOAErrorLogDBAdapter_plt" partnerRole="SOAErrorLogDBAdapter_role"/>
+    <partnerLink name="UpdateSOAErrorDBAdapter" partnerLinkType="ns25:UpdateSOAErrorDBAdapter_plt" partnerRole="UpdateSOAErrorDBAdapter_role"/>
   </partnerLinks>
   <variables>
     <variable name="AccountSummaryReqMsg" messageType="client:E004AccountPALStoPortalRequestMessage"/>
@@ -57,6 +59,11 @@
     <variable name="InvokeTruncateTempAccountPortalDBAdapter_TruncateTempAccountPortalDBAdapter_InputVariable" messageType="ns20:TruncateTempAccountPortalDBAdapterInput_msg"/>
     <variable name="StandardErrorData" element="ns21:ErrorInfo"/>
     <variable name="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" messageType="ns22:Produce_Message_msg"/>
+    <variable name="ErrorFlag" type="xsd:string"/>
+    <variable name="JNDI" type="xsd:string"/>
+    <variable name="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_InputVariable" messageType="ns23:SOAErrorLogDBAdapterSelect_inputParameters"/>
+    <variable name="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable" messageType="ns23:EngagePalsAccDtaErrorlogCollection_msg"/>
+    <variable name="InvokeUpdateSOAErrorDBAdapter_update_InputVariable" messageType="ns25:EngagePalsAccDtaErrorlogCollection_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0">
@@ -96,7 +103,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
           </copy>
           <copy>
-            <from expression="'E004_TE'"/>
+            <from expression="'TE-002'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
           </copy>
           <copy>
@@ -104,11 +111,15 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorDescription"/>
           </copy>
           <copy>
+            <from expression="'Remote Fault'"/>
+            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
+          </copy>
+          <copy>
             <from expression="'TE'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:LookupCriteria"/>
           </copy>
           <copy>
-            <from expression="'DEV03:Remote Error For interface E004'"/>
+            <from expression="'DEV03:Remote Error in SOA Composite E004AccountPALStoPortal For interface E004'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
           </copy>
         </assign>
@@ -152,7 +163,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
           </copy>
           <copy>
-            <from expression="'E004_TE'"/>
+            <from expression="'TE-001'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
           </copy>
           <copy>
@@ -160,11 +171,15 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorDescription"/>
           </copy>
           <copy>
+            <from expression="'Binding Fault'"/>
+            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
+          </copy>
+          <copy>
             <from expression="'TE'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:LookupCriteria"/>
           </copy>
           <copy>
-            <from expression="'DEV03:Binding Error For interface E004'"/>
+            <from expression="'DEV03:Binding Error in SOA Composite E004AccountPALStoPortal For interface E004'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
           </copy>
         </assign>
@@ -208,8 +223,12 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
           </copy>
           <copy>
-            <from expression="'E004_TE'"/>
+            <from expression="'TE-003'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Other Technical Fault '"/>
+            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
           </copy>
           <copy>
             <from expression="ora:getFaultAsString()"/>
@@ -220,7 +239,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:LookupCriteria"/>
           </copy>
           <copy>
-            <from expression="'DEV03:Error Invoking  interface E004'"/>
+            <from expression="'DEV03:Error Invoking SOA Composite E004AccountPALStoPortal for  interface E004'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
           </copy>
         </assign>
@@ -250,6 +269,14 @@
       <copy>
         <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:BatchSize"/>
         <to variable="BatchSize"/>
+      </copy>
+      <copy>
+        <from expression="'NO'"/>
+        <to variable="ErrorFlag"/>
+      </copy>
+      <copy>
+        <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:DatabaseJNDI"/>
+        <to variable="JNDI"/>
       </copy>
       <copy>
         <from expression="0"/>
@@ -310,7 +337,9 @@
             <to variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" part="GetPALSDB2CountDBAdapterInput_msg" query="/ns4:GetPALSDB2CountDBAdapterInput/ns4:DeltaTS"/>
           </copy>
         </assign>
-        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable" partnerLink="GetPALSDB2CountDBAdapter" portType="ns3:GetPALSDB2CountDBAdapter_ptt" operation="GetPALSDB2CountDBAdapter" id="BpInv4"/>
+        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable" partnerLink="GetPALSDB2CountDBAdapter" portType="ns3:GetPALSDB2CountDBAdapter_ptt" operation="GetPALSDB2CountDBAdapter" id="BpInv4">
+                <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                </invoke>
         <assign name="CalculateBatchCount" id="BpAss8">
           <copy>
             <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutputCollection','/ns4:GetPALSDB2CountDBAdapterOutputCollection/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')  div  bpws:getVariableData('BatchSize'))"/>
@@ -371,7 +400,9 @@
                 <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" part="PALSDB2DBAdapterSelect_inputParameters" query="/ns9:PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStampInputParameters/ns9:BatchSize"/>
               </copy>
             </assign>
-            <invoke name="InvokePALSDB2DBAdapter" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable" partnerLink="PALSDB2DBAdapter" portType="ns5:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv6"/>
+            <invoke name="InvokePALSDB2DBAdapter" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable" partnerLink="PALSDB2DBAdapter" portType="ns5:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv6">
+                    <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                    </invoke>
             <assign name="GetDataCount" id="BpAss13">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc071Vs1CssktoDtaCollection','/ns9:Cc071Vs1CssktoDtaCollection/ns9:Cc071Vs1CssktoDta/ns9:deltaTs'))"/>
@@ -393,12 +424,18 @@
                     <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" part="EngagePalsAccDtaErrorlogCollection"/>
                   </copy>
                 </assign>
-                <invoke name="InvokeInsertInvalidDataSOAErrorDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="insert" id="BpInv7"/>
+                <invoke name="InvokeMergeInvalidDataSOAErrorDBAdapter" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
+                <assign name="AssignErrorFlag" id="BpAss15">
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="ErrorFlag"/>
+                  </copy>
+                </assign>
               </sequence>
             </catch>
           </faultHandlers>
           <sequence name="ValidatePALSDataSequence" id="BpSeq9">
-            <assign name="XformPALSToValidateAccountData" id="BpAss15">
+            <assign name="XformPALSToValidateAccountData" id="BpAss16">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -421,7 +458,7 @@
                     </bpelx:general>
                   </bpelx:annotation>
                   <sequence name="BindingExceptionHandlingSequence" id="BpSeq10">
-                    <assign name="XformPALSValidDataToTempAccountPortal" id="BpAss16">
+                    <assign name="XformPALSValidDataToTempAccountPortal" id="BpAss17">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -432,7 +469,7 @@
                     </assign>
                     <invoke name="InvokeInsertPALSDataToTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" partnerLink="InsertPALSDataToTempAccountPortalDBAdapter" portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt" operation="insert" id="BpInv8"/>
                     <invoke name="InvokeSelectValidDataTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable" outputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_OutputVariable" partnerLink="SelectValidDataTempAccountPortalDBAdapter" portType="ns18:SelectValidDataTempAccountPortalDBAdapter_ptt" operation="SelectValidDataTempAccountPortalDBAdapter" id="BpInv9"/>
-                    <assign name="XformMergeTempValidDataToAccountPortal" id="BpAss17">
+                    <assign name="XformMergeTempValidDataToAccountPortal" id="BpAss18">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -443,7 +480,7 @@
                     </assign>
                     <invoke name="InvokeMergeTempValidDataToAccountPortalV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeAccountPortalDBAdapter_merge_InputVariable" partnerLink="MergeAccountPortalDBAdapter" portType="ns13:MergeAccountPortalDBAdapter_ptt" operation="merge" id="BpInv10"/>
                     <invoke name="InvokeSelectInValidDataTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeSelectInValidDataTempAccountPortal_SelectInValidDataTempAccountPortalDBAdapter_InputVariable" outputVariable="InvokeSelectInValidDataTempAccountPortal_SelectInValidDataTempAccountPortalDBAdapter_OutputVariable" partnerLink="SelectInValidDataTempAccountPortalDBAdapter" portType="ns19:SelectInValidDataTempAccountPortalDBAdapter_ptt" operation="SelectInValidDataTempAccountPortalDBAdapter" id="BpInv11"/>
-                    <assign name="XformInvalidTempDataToSOAErrorDBAdapter" id="BpAss18">
+                    <assign name="XformInvalidTempDataToSOAErrorDBAdapter" id="BpAss19">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -452,13 +489,19 @@
                         <to variable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" part="EngagePalsAccDtaErrorlogCollection"/>
                       </copy>
                     </assign>
-                    <invoke name="InvokeInsertInvalidTempDataSOAErrorDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="insert" id="BpInv12"/>
+                    <invoke name="InvokeMergeInvalidTempDataSOAErrorDBAdapter" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv12"/>
                     <invoke name="InvokeTruncateTempAccountPortalDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeTruncateTempAccountPortalDBAdapter_TruncateTempAccountPortalDBAdapter_InputVariable" partnerLink="TruncateTempAccountPortalDBAdapter" portType="ns20:TruncateTempAccountPortalDBAdapter_ptt" operation="TruncateTempAccountPortalDBAdapter" id="BpInv13"/>
+                    <assign name="AssignErrorFlag" id="BpAss20">
+                      <copy>
+                        <from expression="'yes'"/>
+                        <to variable="ErrorFlag"/>
+                      </copy>
+                    </assign>
                   </sequence>
                 </case>
                 <otherwise>
                   <sequence name="ErrorLogNotificationSequence" id="BpSeq11">
-                    <assign name="AssignStandardErrorData" id="BpAss19">
+                    <assign name="AssignStandardErrorData" id="BpAss21">
                       <copy>
                         <from expression="ora:getCompositeInstanceId()"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
@@ -492,12 +535,16 @@
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
                       </copy>
                       <copy>
-                        <from expression="'E004_TE'"/>
+                        <from expression="'TE-001'"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
                       </copy>
                       <copy>
                         <from expression="ora:getFaultAsString()"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorDescription"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Binding Fault'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
                       </copy>
                       <copy>
                         <from expression="'TE'"/>
@@ -690,7 +737,7 @@
               </sequence>
             </while>
           -->
-            <assign name="XformPALSValidDataToMergeAccountPortal" id="BpAss20">
+            <assign name="XformPALSValidDataToMergeAccountPortal" id="BpAss22">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -702,7 +749,7 @@
             <invoke name="InvokeMergeAccountPortalDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeAccountPortalDBAdapter_merge_InputVariable" partnerLink="MergeAccountPortalDBAdapter" portType="ns13:MergeAccountPortalDBAdapter_ptt" operation="merge" id="BpInv15"/>
           </sequence>
         </scope>
-        <assign name="AssignInsertDeltaValues" id="BpAss21">
+        <assign name="AssignInsertDeltaValues" id="BpAss23">
           <copy>
             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
             <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:interfaceid"/>
@@ -725,7 +772,7 @@
           </copy>
         </assign>
         <invoke name="InvokeMergeDeltaTSSOADBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" partnerLink="MergeDeltaTSSOADBAdapterV1" portType="ns7:MergeDeltaTSSOADBAdapterV1_ptt" operation="merge" id="BpInv16"/>
-        <assign name="NextBatch" id="BpAss22">
+        <assign name="NextBatch" id="BpAss24">
           <copy>
             <from expression="bpws:getVariableData('Count') + 1"/>
             <to variable="Count"/>
@@ -737,6 +784,97 @@
         </assign>
       </sequence>
     </while>
+    <switch name="RecordsExistsSwitch" id="BpSwt3">
+      <case condition="bpws:getVariableData('ErrorFlag') = 'YES'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">If Error occured</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="ErrorLogForwardingSequence" id="BpSeq13">
+          <invoke name="InvokeSOAErrorLogDBAdapter" inputVariable="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_InputVariable" outputVariable="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable" partnerLink="SOAErrorLogDBAdapter" portType="ns23:SOAErrorLogDBAdapter_ptt" operation="SOAErrorLogDBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv17"/>
+          <assign name="XformSOAErrorLogToDummyVariable" id="BpAss25">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/XformSOAErrorLogToDummyVariable.xsl', $InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable.EngagePalsAccDtaErrorlogCollection)"/>
+              <to variable="ValidData"/>
+            </copy>
+          </assign>
+          
+                    <assign name="AssignStandardErrorData" id="BpAss26">
+            <copy>
+              <from expression="ora:getCompositeInstanceId()"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
+            </copy>
+            <copy>
+              <from expression="ora:getComponentName()"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ComponentName"/>
+            </copy>
+            <copy>
+              <from expression="'E004'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ProjectID"/>
+            </copy>
+            <copy>
+              <from expression="'E004AccountPALStoPortal'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ProjectName"/>
+            </copy>
+            <copy>
+              <from expression="xp20:current-dateTime()"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Timestamp"/>
+            </copy>
+            <copy>
+              <from expression="'PALS'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Source"/>
+            </copy>
+            <copy>
+              <from expression="'Portal'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Target"/>
+            </copy>
+            <copy>
+              <from expression="'SOAUSER'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
+            </copy>
+            <copy>
+              <from expression="'BE-026'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
+            </copy>
+            <copy>
+              <from expression="ora:getNodeValue(bpws:getVariableData('ValidData','/ns10:Account'))"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorDescription"/>
+            </copy>
+            <copy>
+              <from expression="'Unable to process record(s). Record(s) moved to errorlog'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
+            </copy>
+            <copy>
+              <from expression="'BE'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:LookupCriteria"/>
+            </copy>
+            <copy>
+              <from expression="'DEV03: Error Processing Data in SOA composite E004AccountPALStoPortal For interface E004'"/>
+              <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
+            </copy>
+          </assign>
+
+          <invoke name="InvokeSOAErrorHandlerJMSAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" partnerLink="SOAErrorHandlerJMSAdapter" portType="ns22:Produce_Message_ptt" operation="Produce_Message" id="BpInv18"/>
+          <assign name="XformErrorFlagUpdateSOAErrorDBAdapter" id="BpAss27">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/XformErrorFlagUpdateSOAErrorDBAdapter.xsl', $InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable.EngagePalsAccDtaErrorlogCollection)"/>
+              <to variable="InvokeUpdateSOAErrorDBAdapter_update_InputVariable" part="EngagePalsAccDtaErrorlogCollection"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeUpdateSOAErrorDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeUpdateSOAErrorDBAdapter_update_InputVariable" partnerLink="UpdateSOAErrorDBAdapter" portType="ns25:UpdateSOAErrorDBAdapter_ptt" operation="update" id="BpInv19"/>
+        </sequence>
+      </case>
+      <otherwise>
+        <empty name="Empty" id="BpEmp0"/>
+      </otherwise>
+    </switch>
   </sequence>
 </process><!--
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

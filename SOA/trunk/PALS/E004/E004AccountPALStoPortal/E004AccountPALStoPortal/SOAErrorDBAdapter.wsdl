@@ -14,7 +14,7 @@
         <wsdl:part name="EngagePalsAccDtaErrorlogCollection" element="top:EngagePalsAccDtaErrorlogCollection"/>
     </wsdl:message>
     <wsdl:portType name="SOAErrorDBAdapter_ptt">
-        <wsdl:operation name="insert">
+        <wsdl:operation name="merge">
             <wsdl:input message="tns:EngagePalsAccDtaErrorlogCollection_msg"/>
         </wsdl:operation>
     </wsdl:portType>

@@ -39,6 +39,10 @@
           location="TruncateTempAccountPortalDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter"
           location="SOAErrorHandlerJMSAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter"
+          location="SOAErrorLogDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter"
+          location="UpdateSOAErrorDBAdapter.wsdl" importType="wsdl"/>
   <service name="e004accountpalstoportal_client_ep"
            ui:wsdlLocation="E004AccountPALStoPortal.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal#wsdl.interface(E004AccountPALStoPortal)"/>
@@ -184,6 +188,30 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
     <binding.jca config="SOAErrorHandlerJMSAdapter_jms.jca"/>
   </reference>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
+    <binding.jca config="SOAErrorLogDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="UpdateSOAErrorDBAdapter"
+             ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
+    <binding.jca config="UpdateSOAErrorDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>e004accountpalstoportal_client_ep</source.uri>
     <target.uri>E004AccountPALStoPortal/e004accountpalstoportal_client</target.uri>
@@ -235,5 +263,13 @@
   <wire>
     <source.uri>E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter</source.uri>
     <target.uri>SOAErrorHandlerJMSAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E004AccountPALStoPortal/SOAErrorLogDBAdapter</source.uri>
+    <target.uri>SOAErrorLogDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E004AccountPALStoPortal/UpdateSOAErrorDBAdapter</source.uri>
+    <target.uri>UpdateSOAErrorDBAdapter</target.uri>
   </wire>
 </composite>

@@ -1,6 +1,6 @@
 <adapter-config name="InsertPALSDataToTempAccountPortalDBAdapter" adapter="Database Adapter" wsdlLocation="InsertPALSDataToTempAccountPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
   <endpoint-interaction portType="InsertPALSDataToTempAccountPortalDBAdapter_ptt" operation="insert">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="InsertPALSDataToTempAccountPortalDBAdapter.SoaAccountTemp"/>

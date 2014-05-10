@@ -1,8 +1,8 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-   <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.DELTA_RECIPT_FLAG:db_column_type">NUMBER</entry>
    <entry key="root_descriptor_alias">ENGAGE_PALS_ACC_DTA_ERRORLOG</entry>
+   <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.DELTA_RECIPT_FLAG:db_column_type">NUMBER</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.DELTA_TS:db_column_not_null">true</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG:db_column_10">COUNTRY_CODE</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.SOA_ERROR_DESC:db_column_type">VARCHAR2</entry>
@@ -38,8 +38,8 @@
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG:db_table_type">TABLE</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.UPDATED_TIMESTAMP:db_column_type">TIMESTAMP(6)</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.EMAIL_FLAG:db_column_not_null">false</entry>
-   <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.COUNTRY_CODE:db_column_size">2</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.COUNTRY_CODE:db_column_not_null">false</entry>
+   <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.COUNTRY_CODE:db_column_size">2</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.UPDATED_BY:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.ACCOUNT_ID:db_column_not_null">false</entry>
    <entry key="ENGAGE_PALS_ACC_DTA_ERRORLOG.UPDATED_TIMESTAMP:db_column_not_null">false</entry>

@@ -1,6 +1,6 @@
 <adapter-config name="SelectValidDataTempAccountPortalDBAdapter" adapter="Database Adapter" wsdlLocation="SelectValidDataTempAccountPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
   <endpoint-interaction portType="SelectValidDataTempAccountPortalDBAdapter_ptt" operation="SelectValidDataTempAccountPortalDBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
       <property name="SqlString" value="SELECT T1.COUNTRY_CODE, T1.ACCOUNT_ID, T1.PARTNER_ID, T1.CUSTOMER_GROUP, T1.MODIFIED_BY, T1.MODIFIED_DATE, T1.DELTA_TS FROM SOA_ACCOUNT_TEMP T1 where T1.PARTNER_ID IN ( select T2.PARTNER_ID from PRT_PARTNER T2) AND T1.COUNTRY_CODE IN ( select T2.COUNTRY_CODE from PRT_PARTNER T2)"/>
