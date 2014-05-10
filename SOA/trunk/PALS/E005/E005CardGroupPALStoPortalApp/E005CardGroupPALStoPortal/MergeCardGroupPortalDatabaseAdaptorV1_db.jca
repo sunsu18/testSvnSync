@@ -1,6 +1,6 @@
 <adapter-config name="MergeCardGroupPortalDatabaseAdaptorV1" adapter="Database Adapter" wsdlLocation="MergeCardGroupPortalDatabaseAdaptorV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="PortalQAT" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalQAT" adapterRef=""/>
   <endpoint-interaction portType="MergeCardGroupPortalDatabaseAdaptorV1_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeCardGroupPortalDatabaseAdaptorV1.PrtCardgroup"/>

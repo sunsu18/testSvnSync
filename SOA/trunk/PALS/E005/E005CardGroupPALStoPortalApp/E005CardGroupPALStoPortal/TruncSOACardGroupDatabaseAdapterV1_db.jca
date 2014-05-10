@@ -1,6 +1,6 @@
 <adapter-config name="TruncSOACardGroupDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="TruncSOACardGroupDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/Engage-PortalQA-NXA" UIConnectionName="PortalQAT" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalQAT" adapterRef=""/>
   <endpoint-interaction portType="TruncSOACardGroupDatabaseAdapterV1_ptt" operation="TruncSOACardGroupDatabaseAdapterV1">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
       <property name="SqlString" value="delete from SOA_CARDGROUP_TEMP"/>
