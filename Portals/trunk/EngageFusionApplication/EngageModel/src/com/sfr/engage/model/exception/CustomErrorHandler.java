@@ -15,28 +15,28 @@ public class CustomErrorHandler extends DCErrorHandlerImpl {
         super(true);
     }
     
-    @Override
-    public String getDisplayMessage(BindingContext ctx, Exception ex) {
-
-
-        String error_msg;
-        error_msg = "";
-
-        if (ex instanceof oracle.jbo.ValidationException) {
-
-            String msg = ex.getMessage();
-            int i = msg.indexOf("JBO25013"); //When JBO25013 Too many object match primary key exception occur.
-            if (i > 0) {
-                error_msg = "Duplicate Employee Id Found.";
-
-            }
-            error_msg = getDisplayMessage(ctx, ex);
-        } else
-            //error_msg = getDisplayMessage(ctx, ex);
-        { System.out.println("Exception ----->");
-            ex.printStackTrace();}
-        return error_msg;
-    }
+//    @Override
+//    public String getDisplayMessage(BindingContext ctx, Exception ex) {
+//
+//
+//        String error_msg;
+//        error_msg = "";
+//
+//        if (ex instanceof oracle.jbo.ValidationException) {
+//
+//            String msg = ex.getMessage();
+//            int i = msg.indexOf("JBO25013"); //When JBO25013 Too many object match primary key exception occur.
+//            if (i > 0) {
+//                error_msg = "Duplicate Employee Id Found.";
+//
+//            }
+//            error_msg = getDisplayMessage(ctx, ex);
+//        } else
+//            //error_msg = getDisplayMessage(ctx, ex);
+//        { System.out.println("Exception ----->");
+//            ex.printStackTrace();}
+//        return error_msg;
+//    }
 
     //Called by the framework to check if an exception should be ignored
 

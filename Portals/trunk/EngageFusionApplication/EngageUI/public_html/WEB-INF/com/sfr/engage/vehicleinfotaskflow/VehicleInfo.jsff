@@ -59,10 +59,9 @@
                             partialTriggers="it7"></af:commandButton>
           <af:spacer width="12" height="10" id="s38"/>
           <af:commandButton text="#{sfr.ADD}" id="cb3"
-                          actionListener="#{bindings.CreateInsert.execute}"
                           action="#{pageFlowScope.VehicleInfoBean.newVehicleAddAction}"
                           styleClass="buttonback buttontext">
-          <af:showPopupBehavior triggerType="click" popupId="new_vehicle"/>
+          <!--<af:showPopupBehavior triggerType="click" popupId="new_vehicle"/>-->
         </af:commandButton>
         <af:spacer width="12" height="10" id="s33"/>
           <af:commandButton text="#{sfr.ENGAGE_CLEAR}" id="cb2"
@@ -161,6 +160,10 @@
                                      icon="/images/edit.png">
                 <af:setPropertyListener from="#{row.prtTruckInformationPK}" type="action"
                                         to="#{pageFlowScope.primarykey}"/>
+                <af:setPropertyListener from="#{row.accountNumber}" type="action"
+                                        to="#{pageFlowScope.accountnumber}"/>
+                <af:setPropertyListener from="#{row.cardNumber}" type="action"
+                                        to="#{pageFlowScope.cardid}"/>                        
                 </af:commandImageLink>
                 <!--<af:commandButton id="cb4"
                                   action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
@@ -180,7 +183,7 @@
     <af:popup id="new_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.newVehicle}"
               autoCancel="disabled">
-      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="700"
+      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="750"
                  type="none" closeIconVisible="false" >
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -191,11 +194,10 @@
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="vertical"
                                    inlineStyle="width:712.0px;" halign="right">
-                <af:spacer width="479" height="10" id="s5"/>
+                <af:spacer width="300" height="10" id="s5"/>
                 <af:panelGroupLayout id="pgl10"  halign="right"
                                      layout="horizontal">
                 <af:commandButton text="#{sfr.SAVE}" id="save"
-                                  actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.newVehicleSave}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s8"/>
@@ -216,14 +218,29 @@
              
           <af:outputText value=":" id="colonpop22"/>
           <af:spacer width="15" height="10" id="s2122"/>
-                     <af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"                                    
+                     <!--<af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"                                    
                                     shortDesc="#{bindings.AccountNumber.hints.tooltip}"
                                     id="soc1" autoSubmit="true"
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddAccountNumberListener}"
                                     contentStyle="width:164px;height:24.0px;">
                   <f:selectItems value="#{bindings.AccountNumber.items}"
                                  id="si1"/>
+                </af:selectOneChoice>-->
+                
+                <af:selectOneChoice id="soc1" contentStyle="width:165px;height:24.0px;"
+                                    autoSubmit="true" 
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddAccountNumberListener}"
+                                    binding="#{pageFlowScope.VehicleInfoBean.bindings.addAccountId}"
+                                    value="#{pageFlowScope.VehicleInfoBean.addAccountIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                  <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedAccountList}"
+                          var="listItem">
+                <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="select_account_item"/>
+              </af:forEach>
                 </af:selectOneChoice>
+                
+                
                     <af:spacer width="25" height="10" id="sp1"/>
                    
                         <af:outputText value="*#{sfr.VEHICLEINFO_VEHICLENUMBER}" id="Acctid22"/>
@@ -243,14 +260,27 @@
           <af:spacer width="15" height="10" id="s212422"/>
               
               
-                  <af:inputText value="#{bindings.CardNumber.inputValue}"
+                  <!--<af:inputText value="#{bindings.CardNumber.inputValue}"
                               columns="#{bindings.CardNumber.hints.displayWidth}"
                               maximumLength="#{bindings.CardNumber.hints.precision}"
                               shortDesc="#{bindings.CardNumber.hints.tooltip}"
                               id="it12"
                               contentStyle="width:158px;height:16.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.CardNumber.validator}"/>
-                </af:inputText>
+                </af:inputText>-->
+                
+                 <af:selectOneChoice id="soc3" contentStyle="width:165px;height:24.0px;"
+                                    binding="#{pageFlowScope.VehicleInfoBean.bindings.addCardId}"
+                                    value="#{pageFlowScope.VehicleInfoBean.addCardIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                    <af:forEach items="#{pageFlowScope.VehicleInfoBean.cardNumberList}"
+                          var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="select_card_item"/>
+                    </af:forEach>
+                </af:selectOneChoice>
+                
+                
                    <af:spacer width="25" height="10" id="sp12"/>
                   <af:outputText value="*#{sfr.VEHICLEINFO_INTERNALNAME}" id="Acctid232"/>
           <af:outputText value=":" id="colonpop23242"/>
@@ -382,7 +412,7 @@
     <af:popup id="edit_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicle}"
               autoCancel="disabled">
-      <af:dialog id="editVehicle" title="#{sfr.VEHICLEINFO_EDITVEHICLE}" contentWidth="700"
+      <af:dialog id="editVehicle" title="#{sfr.VEHICLEINFO_EDITVEHICLE}" contentWidth="750"
                  type="none" closeIconVisible="false">
          <af:separator id="s28"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -391,19 +421,21 @@
           <f:facet name="bottom">
             <af:toolbar id="edit_vehicle_panel_toolbar"
                         styleClass="WCPanelColor">
-              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal"   inlineStyle="width:712.0px;" halign="right">
-                <af:spacer width="479" height="10" id="ss5"/>
+              <af:panelGroupLayout id="edit_footer_panel" layout="horizontal"   inlineStyle="width:730.0px;" halign="right">
+                <af:spacer width="300" height="10" id="ss5"/>
                 <af:panelGroupLayout id="pgl11" layout="horizontal"
                                      halign="right">
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
-                                  actionListener="#{bindings.Commit.execute}"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
-                                  partialSubmit="true"/>
+                                  partialSubmit="true"
+                                  styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
                 <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb5"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
-                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}"></af:commandButton>
+                                  action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}"
+                                  styleClass="buttonback buttontext">
+                </af:commandButton>
               </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -416,14 +448,26 @@
                     <af:outputText value="*#{sfr.VEHICLEINFO_ACCOUNTNUMBER}" id="Acctid23"/>
           <af:outputText value=":" id="colonpop23"/>
           <af:spacer width="15" height="10" id="s2123"/>
-                <af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"  autoSubmit="true"                                 
+                <!--<af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountNumber.hints.tooltip}"
                                     id="soc2"
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
                                     contentStyle="width:164px;height:24.0px;">
                   <f:selectItems value="#{bindings.AccountNumber.items}"
                                  id="si2"/>
+                </af:selectOneChoice>-->
+                
+                <af:selectOneChoice id="soc2" contentStyle="width:165px;height:24.0px;"
+                                    autoSubmit="true" 
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
+                                    binding="#{pageFlowScope.VehicleInfoBean.bindings.editAccountId}"
+                                    value="#{pageFlowScope.VehicleInfoBean.editAccountIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                    <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedAccountList}" var="listItem">
+                        <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_account_edit_item"/>
+                    </af:forEach>
                 </af:selectOneChoice>
+                
                   <af:spacer width="25" height="10" id="colnSpace21"/>
                    <af:outputText value="*#{sfr.VEHICLEINFO_VEHICLENUMBER}" id="Acctid21"/>
           <af:outputText value=":" id="colonpop21"/>
@@ -436,17 +480,31 @@
                               contentStyle="width:158px;height:16.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.VehicleNumber.validator}"/>
                 </af:inputText>
+                
                 <af:outputText value="#{sfr.VEHICLEINFO_CARDNUMBER}" id="Acctid262"/>
           <af:outputText value=":" id="colonpop226"/>
           <af:spacer width="15" height="10" id="s21226"/>
-                <af:inputText value="#{bindings.CardNumber.inputValue}"   
+               
+                <!--<af:inputText value="#{bindings.CardNumber.inputValue}"   
                               columns="#{bindings.CardNumber.hints.displayWidth}"
                               maximumLength="#{bindings.CardNumber.hints.precision}"
                               shortDesc="#{bindings.CardNumber.hints.tooltip}"
                               id="it14"
                               contentStyle="width:158px;height:16.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.CardNumber.validator}"/>
-                </af:inputText>
+                </af:inputText>-->
+                
+                <af:selectOneChoice id="soc4" contentStyle="width:165px;height:24.0px;"
+                                    autoSubmit="true"
+                                    binding="#{pageFlowScope.VehicleInfoBean.bindings.editCardId}"
+                                    value="#{pageFlowScope.VehicleInfoBean.editCardIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                    <af:forEach items="#{pageFlowScope.VehicleInfoBean.editCardNumberList}"
+                          var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="select_card_edit_item"/>
+                    </af:forEach>
+                </af:selectOneChoice>
               
                   <af:spacer width="25" height="10" id="colnSpace31"/>
                  <af:outputText value="*#{sfr.VEHICLEINFO_INTERNALNAME}" id="Acctid24"/>

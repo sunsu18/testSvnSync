@@ -12,6 +12,11 @@
               id="PrtTruckInformationVO2Iterator"/>
     <iterator id="PrtAccountVO1Iterator" Binds="PrtAccountVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtTruckInformationVO3Iterator" Binds="PrtTruckInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtDriverInformationVO3Iterator"
+              Binds="PrtDriverInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="EngageAppModuleDataControl"
@@ -24,12 +29,12 @@
         <Item Value="VehicleNumber"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+    <!--<attributeValues IterBinding="PrtTruckInformationVO2Iterator"
                      id="CardNumber">
       <AttrNames>
         <Item Value="CardNumber"/>
       </AttrNames>
-    </attributeValues>
+    </attributeValues>-->
     <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
                      id="InternalName">
       <AttrNames>
@@ -87,7 +92,7 @@
             InstanceName="EngageAppModuleDataControl.PrtTruckInformationVO2"
             DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
             Action="createInsertRow"/>
-    <list IterBinding="PrtTruckInformationVO2Iterator" id="AccountNumber"
+    <!--<list IterBinding="PrtTruckInformationVO2Iterator" id="AccountNumber"
           DTSupportsMRU="true" StaticList="false"
           ListIter="PrtAccountVO1Iterator">
       <AttrNames>
@@ -99,7 +104,7 @@
       <ListDisplayAttrNames>
         <Item Value="AccountId"/>
       </ListDisplayAttrNames>
-    </list>
+    </list>-->
     <methodAction id="deleteAllForAccount"
                   InstanceName="EngageAppModuleDataControl.dataProvider"
                   DataControl="EngageAppModuleDataControl"

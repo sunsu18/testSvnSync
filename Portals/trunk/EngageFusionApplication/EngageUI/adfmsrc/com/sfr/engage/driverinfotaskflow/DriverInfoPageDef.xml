@@ -13,9 +13,14 @@
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator id="PrtAccountVO1Iterator" Binds="PrtAccountVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtDriverInformationVO3Iterator"
+              Binds="PrtDriverInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtTruckInformationVO3Iterator" Binds="PrtTruckInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
-  <list IterBinding="PrtDriverInformationVO2Iterator" id="AccountId"
+   <!--<list IterBinding="PrtDriverInformationVO2Iterator" id="AccountId"
           DTSupportsMRU="true" StaticList="false"
           ListIter="PrtAccountVO1Iterator">
       <AttrNames>
@@ -27,13 +32,13 @@
       <ListDisplayAttrNames>
         <Item Value="AccountId"/>
       </ListDisplayAttrNames>
-    </list>
-    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+    </list>-->
+    <!--<attributeValues IterBinding="PrtDriverInformationVO2Iterator"
                      id="CardNumber">
       <AttrNames>
         <Item Value="CardNumber"/>
       </AttrNames>
-    </attributeValues>
+    </attributeValues>-->
     <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
                      id="DriverNumber">
       <AttrNames>
@@ -101,7 +106,7 @@
     </attributeValues>
     <action id="Commit" DataControl="EngageAppModuleDataControl"
             RequiresUpdateModel="true" Action="commitTransaction"/>
-    <action id="Rollback" DataControl="EngageAppModuleDataControl"
+<action id="Rollback" DataControl="EngageAppModuleDataControl"
             RequiresUpdateModel="false" Action="rollbackTransaction"/>
     <action IterBinding="PrtDriverInformationVO2Iterator" id="CreateInsert"
             InstanceName="EngageAppModuleDataControl.PrtDriverInformationVO2"

@@ -3,8 +3,10 @@ package com.sfr.engage.driverinfotaskflow;
 import com.sfr.engage.core.Account;
 
 import com.sfr.engage.core.DriverInfo;
+import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 
@@ -18,17 +20,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import javax.faces.model.SelectItem;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.util.ResetUtils;
@@ -51,12 +58,26 @@ public class DriverInfoBean implements Serializable {
     ResourceBundle resourceBundle;
     private String driverN;
     private String accountsList;
-    private ArrayList<SelectItem> linkedAccountList = null;
+    private ArrayList<SelectItem> linkedAccountList;
     private String addAccountIdVal = null;
     private String editAccountIdVal = null;
     private List<String> linkedAccountLOVValues;
     private String displayAccountNumber;
     private List<Account> myAccountDriver;
+    
+    private HttpSession session;
+    private ExternalContext ectx;
+    private HttpServletRequest request;
+    private PartnerInfo partnerInfo;
+    private ArrayList<SelectItem> cardNumberList;
+    private ArrayList<SelectItem>editCardNumberList;
+    private String addAccountIdDisplayValue = null;
+    private String addCardIdDisplayValue = null;
+    private String editAccountIdDisplayValue = null;
+    private String editCardIdDisplayValue = null;
+    private String countryParam;
+    private ArrayList<String> linkedCardValues;
+    
 
 
     /**
@@ -73,21 +94,60 @@ public class DriverInfoBean implements Serializable {
         super();
         resourceBundle = new EngageResourceBundle();
         linkedAccountLOVValues = new ArrayList<String>();
-        ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
-        vo.setNamedWhereClauseParam("countryCode", "en_US");
+        
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        linkedAccountList =  new ArrayList<SelectItem>();
+        countryParam = null;
+        linkedCardValues = new ArrayList<String>();
+        
+        if(session.getAttribute("Partner_Object_List") != null){
+                    partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
+            countryParam = partnerInfo.getCountry().toString();
+            System.out.println("value of countryParam==============>"+countryParam);
+        }
+                
+        if(partnerInfo != null){
+            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                    SelectItem selectItem = new SelectItem();
+                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    linkedAccountLOVValues.add(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+                    linkedAccountList.add(selectItem);
+                     if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
+                         for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+                             if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){
+                                 for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
+                                     if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID()!= null){
+                                         linkedCardValues.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                     System.out.println("value of cards in constructor=========>"+linkedCardValues);
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                }
+            }
+        }
+        
+        
+        /*ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
+        vo.setNamedWhereClauseParam("countryCode", "no_NO"); //changed to no_NO from en_US
         vo.executeQuery();
         while (vo.hasNext()) {
             PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
             if (currRow.getAccountId() != null) {
                 linkedAccountLOVValues.add(currRow.getAccountId());
             }
-        }
+        }*/
     }
 
     public ArrayList<SelectItem> getLinkedAccountList() {
-        if (linkedAccountList == null) {
+        /*if (linkedAccountList == null) {
             ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
-            vo.setNamedWhereClauseParam("countryCode", "en_US");
+            vo.setNamedWhereClauseParam("countryCode", "no_NO");
             vo.executeQuery();
             linkedAccountList = new ArrayList<SelectItem>();
             while (vo.hasNext()) {
@@ -99,7 +159,7 @@ public class DriverInfoBean implements Serializable {
                     linkedAccountList.add(selectItem);
                 }
             }
-        }
+        }*/
         return linkedAccountList;
     }
 
@@ -242,9 +302,9 @@ public class DriverInfoBean implements Serializable {
             Account acc = new Account();
             acc.setAccountNumber(values[i]);
             List<DriverInfo> myDriverList = new ArrayList<DriverInfo>();
-            ViewObject vo =
-                ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
-            vo.setWhereClause("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')");
+            ViewObject vo =ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
+            vo.setNamedWhereClauseParam("countryCd", countryParam);
+            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')");
             System.out.println("values of i" + values[i]);
             vo.defineNamedWhereClauseParam("accountId", values[i].trim(),
                                            null);
@@ -263,41 +323,47 @@ public class DriverInfoBean implements Serializable {
                         PrtDriverInformationVORowImpl currRow =
                             (PrtDriverInformationVORowImpl)vo.next();
                         if (currRow != null) {
-                            DriverInfo driver = new DriverInfo();
-                            if (currRow.getPrtDriverInformationPk() != null) {
-                                driver.setPrtDriverInformationPK(currRow.getPrtDriverInformationPk().toString());
+                            //currRow.getCardNumber().isEmpty() || editCardNumberList.contains(currRow.getCardNumber())
+                            //if(current Row Card number is blank || or is in the allowed card numbers which is list of cards in session set by MyPageListener Part)
+                            if(currRow.getCardNumber()== null || linkedCardValues.contains(currRow.getCardNumber().toString())){
+                                System.out.println("is it coming inside to get driver details=================>");
+                                DriverInfo driver = new DriverInfo();
+                                if (currRow.getPrtDriverInformationPk() != null) {
+                                    driver.setPrtDriverInformationPK(currRow.getPrtDriverInformationPk().toString());
+                                }
+                                driver.setAccountId(currRow.getAccountNumber());
+                                driver.setCardNumber(currRow.getCardNumber());
+                                driver.setDriverName(currRow.getDriverName());
+                                driver.setDriverNumber(currRow.getDriverNumber());
+                                driver.setNationality(currRow.getNationality());
+                                if (currRow.getMobileNumber() != null) {
+                                    driver.setMobileNumber(Integer.parseInt(currRow.getMobileNumber().toString()));
+                                }
+                                driver.setRemarks(currRow.getRemarks());
+                                driver.setPassportNumber(currRow.getPassportNumber());
+                                if (currRow.getPassportExpiry() != null) {
+                                    driver.setPassportExpiry(currRow.getPassportExpiry().getValue());
+                                }
+                                driver.setLicenseNumber(currRow.getLicenseNumber());
+                                if (currRow.getLicenseExpiry() != null) {
+                                    driver.setLicenseExpiry(currRow.getLicenseExpiry().getValue());
+                                }
+                                if (currRow.getEmployStart() != null) {
+                                    driver.setEmployStart(currRow.getEmployStart().getValue());
+                                }
+                                if (currRow.getEmployEnd() != null) {
+                                    driver.setEmployEnd(currRow.getEmployEnd().getValue());
+                                }
+                                driver.setCountryCd(currRow.getRemarks());
+                                myDriverList.add(driver);
                             }
-                            driver.setAccountId(currRow.getAccountId());
-                            driver.setCardNumber(currRow.getCardNumber());
-                            driver.setDriverName(currRow.getDriverName());
-                            driver.setDriverNumber(currRow.getDriverNumber());
-                            driver.setNationality(currRow.getNationality());
-                            if (currRow.getMobileNumber() != null) {
-                                driver.setMobileNumber(Integer.parseInt(currRow.getMobileNumber().toString()));
-                            }
-                            driver.setRemarks(currRow.getRemarks());
-                            driver.setPassportNumber(currRow.getPassportNumber());
-                            if (currRow.getPassportExpiry() != null) {
-                                driver.setPassportExpiry(currRow.getPassportExpiry().getValue());
-                            }
-                            driver.setLicenseNumber(currRow.getLicenseNumber());
-                            if (currRow.getLicenseExpiry() != null) {
-                                driver.setLicenseExpiry(currRow.getLicenseExpiry().getValue());
-                            }
-                            if (currRow.getEmployStart() != null) {
-                                driver.setEmployStart(currRow.getEmployStart().getValue());
-                            }
-                            if (currRow.getEmployEnd() != null) {
-                                driver.setEmployEnd(currRow.getEmployEnd().getValue());
-                            }
-                            driver.setCountryCd(currRow.getRemarks());
-                            myDriverList.add(driver);
                         }
                     }
                 }
 
             }
             if ("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                System.out.println("Is it coming inside remove where clause");
                 vo.removeNamedWhereClauseParam("accountId");
                 vo.removeNamedWhereClauseParam("driverName");
                 vo.setWhereClause("");
@@ -374,10 +440,94 @@ public class DriverInfoBean implements Serializable {
      */
     public String newDriverSave() {
         // Add event code here...
-        getBindings().getNewDriver().hide();
-        if (addAccountIdVal != null) {
+        System.out.println("is it coming inside the newDriverSave method===============>");
+        
+        if (getBindings().getAddAccountId().getValue() != null) {
+            System.out.println("is it coming inside the newDriverSave method++++++++++===============>");
+            ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+            driverVo.setNamedWhereClauseParam("countryCd", countryParam);
+            driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+            System.out.println("value of add account id=============>"+addAccountIdVal);
+            driverVo.defineNamedWhereClauseParam("accountId",addAccountIdVal, null);
+            if(getBindings().getAddCardId().getValue() != null){
+            System.out.println("value od add card on save method=======>"+getBindings().getAddCardId().getValue().toString());
+             driverVo.defineNamedWhereClauseParam("cardNo",getBindings().getAddCardId().getValue().toString(), null);
+            }else{
+                driverVo.defineNamedWhereClauseParam("cardNo"," ", null);
+            }
+            driverVo.executeQuery();
+            if(driverVo.getEstimatedRowCount() > 0){
+                while (driverVo.hasNext()) {
+                PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
+                     if (currRow != null) {
+                        System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
+                        if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
+                            System.out.println("value of driver name======================"+currRow.getDriverName());
+                            String warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg ,"");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            return null;
+                        }
+                     }
+                }
+            }
+            
+            ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+            truckVo.defineNamedWhereClauseParam("accountId",addAccountIdVal, null);
+            if(getBindings().getAddCardId().getValue() != null){
+            truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getAddCardId().getValue().toString(), null);
+            }else{
+                truckVo.defineNamedWhereClauseParam("cardNo","", null);
+            }
+            truckVo.executeQuery();
+            if(truckVo.getEstimatedRowCount() > 0){
+                while (truckVo.hasNext()) {
+                    PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
+                     if (currRow != null) {  
+                        if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
+                            String warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
+                            FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg, "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            return null;
+                        }
+                     }
+                }
+            }
+        
+        
+            getBindings().getNewDriver().hide();
             System.out.println("save =" + addAccountIdVal);
-
+            BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding driverInfoItr = (DCIteratorBinding)bindings.get("PrtDriverInformationVO2Iterator");
+            Row driverInfoRow = driverInfoItr.getCurrentRow();
+            System.out.println("Before new driver save current row is not null+++++++++++");
+                if(driverInfoRow != null){
+                System.out.println("Inside new driver save current row is not null+++++++++++");
+                System.out.println("value of add account id=====>"+getBindings().getAddAccountId().getValue().toString());
+                driverInfoRow.setAttribute("AccountNumber", getBindings().getAddAccountId().getValue().toString());
+                if(getBindings().getAddCardId().getValue() != null){
+                System.out.println("value of add card    id=====>"+getBindings().getAddCardId().getValue().toString());
+                driverInfoRow.setAttribute("CardNumber",getBindings().getAddCardId().getValue().toString());
+                }else{
+                    driverInfoRow.setAttribute("CardNumber","");
+                }
+                driverInfoRow.setAttribute("CountryCode", countryParam);
+                OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
+                newDriverOpn.execute();
+                if(newDriverOpn.getErrors().isEmpty()){
+                    System.out.println("No failure in the function");
+                }
+            }
+        }else{
+            
+            if (resourceBundle.containsKey("MANDATORY_CHECK")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return null;
+            }
         }
         searchResults(false);
         if (resourceBundle.containsKey("DRIVER_ADD")) {
@@ -403,6 +553,12 @@ public class DriverInfoBean implements Serializable {
      * @return
      */
     public String newDriverAddAction() {
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding createOpn = bindings.getOperationBinding("CreateInsert");
+        createOpn.execute();
+        this.addAccountIdDisplayValue = null;
+        this.addCardIdDisplayValue    =null;
+        getBindings().getNewDriver().show(new RichPopup.PopupHints());
         return null;
     }
 
@@ -411,10 +567,82 @@ public class DriverInfoBean implements Serializable {
      * @return
      */
     public String editDriverSave() {
-        getBindings().getEditDriver().hide();
-        if (editAccountIdVal != null) {
+        
+        if (getBindings().getEditAccountId().getValue() != null) {
+            
+            ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+            driverVo.setNamedWhereClauseParam("countryCd", countryParam);
+            driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+            driverVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
+            if(getBindings().getEditCardId().getValue() != null){
+            driverVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+            }else{
+                driverVo.defineNamedWhereClauseParam("cardNo","", null);  
+            }
+            driverVo.executeQuery();
+            if(driverVo.getEstimatedRowCount() > 0){
+                while (driverVo.hasNext()) {
+                PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
+                     if (currRow != null) {
+                     System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
+                        if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
+                            String warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                            FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            return null;
+                    
+                        }
+                     }
+                }
+            }
+            
+            ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+            truckVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
+            if(getBindings().getEditCardId().getValue() != null){
+            truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+            }else{
+                truckVo.defineNamedWhereClauseParam("cardNo","", null);  
+            }
+            truckVo.executeQuery();
+            if(truckVo.getEstimatedRowCount() > 0){
+                while (truckVo.hasNext()) {
+                    PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
+                     if (currRow != null) {
+                        if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
+                            String warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            return null;
+                        }
+                     }
+                }
+            }
+            
+            getBindings().getEditDriver().hide();
             System.out.println("save =" + editAccountIdVal);
-
+            BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding driverInfoItr = (DCIteratorBinding)bindings.get("PrtDriverInformationVO2Iterator");
+            Row driverInfoRow = driverInfoItr.getCurrentRow();
+            System.out.println("Before edit driver save current row is not null+++++++++++");
+                if(driverInfoRow != null){
+                System.out.println("Inside edit driver save current row is not null+++++++++++");
+                System.out.println("value of edit account id=====>"+getBindings().getEditAccountId().getValue().toString());
+                
+                driverInfoRow.setAttribute("AccountNumber", getBindings().getEditAccountId().getValue().toString());
+                if(getBindings().getEditCardId().getValue() != null){
+                    System.out.println("value of edit card    id=====>"+getBindings().getEditCardId().getValue().toString());
+                driverInfoRow.setAttribute("CardNumber",getBindings().getEditCardId().getValue().toString());
+                }else{
+                    driverInfoRow.setAttribute("CardNumber","");
+                }
+                driverInfoRow.setAttribute("CountryCode", countryParam);
+                OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
+                newDriverOpn.execute();
+                if(newDriverOpn.getErrors().isEmpty()){
+                    System.out.println("No failure in the function");
+                }
+            }
         }
         searchResults(false);
         if (resourceBundle.containsKey("DRIVER_EDIT")) {
@@ -441,15 +669,24 @@ public class DriverInfoBean implements Serializable {
      */
     public String tableEditAction() {
         try {
-            String primaryKey =
-                (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
+            editAccountIdDisplayValue   = null;
+            editCardIdDisplayValue = null;
+            editCardNumberList = new ArrayList<SelectItem>();
+            String primaryKey = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
+            String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
+            String cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             System.out.println("PrimaryKey =" + primaryKey);
-            if (primaryKey != null) {
-                ViewObject vo =
-                    ADFUtils.getViewObject("PrtDriverInformationVO2Iterator");
+            if (primaryKey != null && accountNumber != null) {
+                editAccountIdDisplayValue = accountNumber;
+                editAccountIdVal = editAccountIdDisplayValue;
+                if(editAccountIdDisplayValue != null){
+                    populateCardNumberList(editAccountIdDisplayValue, "editButton");
+                }
+                
+                ViewObject vo = ADFUtils.getViewObject("PrtDriverInformationVO2Iterator");
+                vo.setNamedWhereClauseParam("countryCd", countryParam);
                 vo.setWhereClause("PRT_DRIVER_INFORMATION_PK =: prtDriverInformationPK");
-                vo.defineNamedWhereClauseParam("prtDriverInformationPK",
-                                               primaryKey, null);
+                vo.defineNamedWhereClauseParam("prtDriverInformationPK",primaryKey, null);
                 vo.executeQuery();
                 getBindings().getEditDriver().show(new RichPopup.PopupHints());
             }
@@ -531,8 +768,8 @@ public class DriverInfoBean implements Serializable {
                 String key = (String)iter.next();
                 String vals = driverMap.get(key);
                 System.out.println("key,val: " + key + "," + vals);
-                ViewObject vo =
-                    ADFUtils.getViewObject("PrtDriverInformationVO2Iterator");
+                ViewObject vo =ADFUtils.getViewObject("PrtDriverInformationVO2Iterator");
+                vo.setNamedWhereClauseParam("countryCd", countryParam);
                 vo.setWhereClause("PRT_DRIVER_INFORMATION_PK =: prtDriverInformationPK");
                 vo.defineNamedWhereClauseParam("prtDriverInformationPK", vals,
                                                null);
@@ -599,7 +836,7 @@ public class DriverInfoBean implements Serializable {
             operationBinding.getParamsMap().put("accountId",
                                                 AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
             operationBinding.getParamsMap().put("type", "driver");
-            operationBinding.getParamsMap().put("countryCd", "en_US");
+            operationBinding.getParamsMap().put("countryCd", countryParam);
             if (getBindings().getDriverName().getValue() != null &&
                 getBindings().getDriverName().getValue().toString().length() >
                 0) {
@@ -666,7 +903,7 @@ public class DriverInfoBean implements Serializable {
         try {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
-            if ("trim(ACCOUNT_ID) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+            if ("trim(ACCOUNT_NUMBER) =: accountId AND DRIVER_NAME LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
                 vo.removeNamedWhereClauseParam("accountId");
                 vo.removeNamedWhereClauseParam("driverName");
                 vo.setWhereClause("");
@@ -695,19 +932,56 @@ public class DriverInfoBean implements Serializable {
     public void AddAccountNumberListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
         if (valueChangeEvent.getNewValue() != null) {
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            DCIteratorBinding itr =
-                (DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
-            Row row =
-                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
-            if (row != null) {
-
-                addAccountIdVal = (String)row.getAttribute("AccountId");
-            }
-            System.out.println("addAccountNumber =" + addAccountIdVal);
+//            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+//            DCIteratorBinding itr = (DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
+//            Row row = itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+//            if (row != null) {
+//                    addAccountIdVal = (String)row.getAttribute("AccountId");
+//            }
+             cardNumberList  = new ArrayList<SelectItem>();
+             
+             populateCardNumberList(valueChangeEvent.getNewValue().toString() , "Add");
+             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
+             System.out.println("addAccountNumber =" + addAccountIdVal);
         }
     }
+    
+    public void populateCardNumberList(String accountNo , String type){
+        
+        if(accountNo != null){
+            if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                    if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(accountNo)){
+                        if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){ 
+                            for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+                                if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
+                                for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
+                                        if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID()!= null){
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
+                                            selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                                            if(type.equals("Add")){
+                                              addAccountIdVal = accountNo;
+                                              cardNumberList.add(selectItem);
+                                              System.out.println("addAccountNumber =" + addAccountIdVal);
+                                            }else if(type.equals("Edit")){
+                                                editAccountIdVal = accountNo;
+                                                editCardNumberList.add(selectItem);
+                                            }else{
+                                                 editCardNumberList.add(selectItem); 
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
 
     public void setAddAccountIDVal(String addAccountIdVal) {
         this.addAccountIdVal = addAccountIdVal;
@@ -735,18 +1009,17 @@ public class DriverInfoBean implements Serializable {
 
     public void editAccountNumberChangeListener(ValueChangeEvent valueChangeEvent) {
         if (valueChangeEvent.getNewValue() != null) {
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            DCIteratorBinding itr =
-                (DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
-            Row row =
-                itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
-            if (row != null) {
-                editAccountIdVal = (String)row.getAttribute("AccountId");
-            }
-            System.out.println("editAccountNumber =" + editAccountIdVal);
+//            BindingContainer bindings =BindingContext.getCurrent().getCurrentBindingsEntry();
+//            DCIteratorBinding itr =(DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
+//            Row row =itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
+//            if (row != null) {
+//                editAccountIdVal = (String)row.getAttribute("AccountId");
+//            }
+             editCardNumberList = new ArrayList<SelectItem>();
+             populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit");
+             System.out.println("editAccountNumber =" + editAccountIdVal);
+             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }
-
     }
 
 
@@ -800,6 +1073,75 @@ public class DriverInfoBean implements Serializable {
         return myAccountDriver;
     }
 
+    public void setCardNumberList(ArrayList<SelectItem> cardNumberList) {
+        this.cardNumberList = cardNumberList;
+    }
+
+    public ArrayList<SelectItem> getCardNumberList() {
+        return cardNumberList;
+    }
+
+    public void setAddAccountIdDisplayValue(String addAccountIdDisplayValue) {
+        this.addAccountIdDisplayValue = addAccountIdDisplayValue;
+    }
+
+    public String getAddAccountIdDisplayValue() {
+        return addAccountIdDisplayValue;
+    }
+
+    public void setAddCardIdDisplayValue(String addCardIdDisplayValue) {
+        this.addCardIdDisplayValue = addCardIdDisplayValue;
+    }
+
+    public String getAddCardIdDisplayValue() {
+        return addCardIdDisplayValue;
+    }
+
+    public void setEditAccountIdDisplayValue(String editAccountIdDisplayValue) {
+        this.editAccountIdDisplayValue = editAccountIdDisplayValue;
+    }
+
+    public String getEditAccountIdDisplayValue() {
+        return editAccountIdDisplayValue;
+    }
+
+    public void setEditCardIdDisplayValue(String editCardIdDisplayValue) {
+        this.editCardIdDisplayValue = editCardIdDisplayValue;
+    }
+
+    public String getEditCardIdDisplayValue() {
+//        String cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+//        if(cardId != null){
+//        editCardIdDisplayValue = cardId;
+//        }
+        return editCardIdDisplayValue;
+    }
+
+    public void setEditCardNumberList(ArrayList<SelectItem> editCardNumberList) {
+        this.editCardNumberList = editCardNumberList;
+    }
+
+    public ArrayList<SelectItem> getEditCardNumberList() {
+        return editCardNumberList;
+    }
+
+    public void setCountryParam(String countryParam) {
+        this.countryParam = countryParam;
+    }
+
+    public String getCountryParam() {
+        return countryParam;
+    }
+
+    public void setLinkedCardValues(ArrayList<String> linkedCardValues) {
+        this.linkedCardValues = linkedCardValues;
+    }
+
+    public ArrayList<String> getLinkedCardValues() {
+        return linkedCardValues;
+    }
+
+
     public class Bindings {
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
@@ -809,6 +1151,10 @@ public class DriverInfoBean implements Serializable {
         private RichInputText driverName;
         private RichPopup deleteAllInfoDriver;
         private RichPanelGroupLayout searchPanelGroupLayout;
+        private RichSelectOneChoice addCardId;
+        private RichSelectOneChoice addAccountId;
+        private RichSelectOneChoice editAccountId;
+        private RichSelectOneChoice editCardId;
 
         /**
          * @param linkedAccount
@@ -908,6 +1254,38 @@ public class DriverInfoBean implements Serializable {
 
         public RichPanelGroupLayout getSearchPanelGroupLayout() {
             return searchPanelGroupLayout;
+        }
+        
+        public void setAddCardId(RichSelectOneChoice addCardId) {
+            this.addCardId = addCardId;
+        }
+
+        public RichSelectOneChoice getAddCardId() {
+            return addCardId;
+        }
+        
+        public void setAddAccountId(RichSelectOneChoice addAccountId) {
+            this.addAccountId = addAccountId;
+        }
+
+        public RichSelectOneChoice getAddAccountId() {
+            return addAccountId;
+        }
+        
+        public void setEditAccountId(RichSelectOneChoice editAccountId) {
+            this.editAccountId = editAccountId;
+        }
+
+        public RichSelectOneChoice getEditAccountId() {
+            return editAccountId;
+        }
+
+        public void setEditCardId(RichSelectOneChoice editCardId) {
+            this.editCardId = editCardId;
+        }
+
+        public RichSelectOneChoice getEditCardId() {
+            return editCardId;
         }
     }
 }

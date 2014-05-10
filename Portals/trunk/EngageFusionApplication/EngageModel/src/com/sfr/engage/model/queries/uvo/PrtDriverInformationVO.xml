@@ -7,7 +7,7 @@
   Version="11.1.1.61.92"
   InheritPersonalization="true"
   SelectList="PrtDriverInformationEO.PRT_DRIVER_INFORMATION_PK, 
-       PrtDriverInformationEO.ACCOUNT_ID, 
+       PrtDriverInformationEO.ACCOUNT_NUMBER, 
        PrtDriverInformationEO.CARD_NUMBER, 
        PrtDriverInformationEO.DRIVER_NUMBER, 
        PrtDriverInformationEO.DRIVER_NAME, 
@@ -29,11 +29,16 @@
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl">
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl"
+  Where="PrtDriverInformationEO.COUNTRY_CODE =: countryCd">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
+  <Variable
+    Name="countryCd"
+    Kind="where"
+    Type="java.lang.String"/>
   <EntityUsage
     Name="PrtDriverInformationEO"
     Entity="com.sfr.engage.model.entities.PrtDriverInformationEO"/>
@@ -45,12 +50,12 @@
     EntityUsage="PrtDriverInformationEO"
     AliasName="PRT_DRIVER_INFORMATION_PK"/>
   <ViewAttribute
-    Name="AccountId"
+    Name="AccountNumber"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="AccountId"
+    EntityAttrName="AccountNumber"
     EntityUsage="PrtDriverInformationEO"
-    AliasName="ACCOUNT_ID"/>
+    AliasName="ACCOUNT_NUMBER"/>
   <ViewAttribute
     Name="CardNumber"
     PrecisionRule="true"
@@ -138,7 +143,8 @@
     PrecisionRule="true"
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtDriverInformationEO"
-    AliasName="MODIFIED_DATE"/>
+    AliasName="MODIFIED_DATE"
+    IsUpdateable="false"/>
   <ViewAttribute
     Name="CountryCode"
     IsNotNull="true"

@@ -13,8 +13,8 @@
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.entities.PrtDriverInformationEOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
     <AttrArray Name="_publishEvents"/>
+    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Attribute
@@ -31,16 +31,13 @@
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="AccountId"
-    IsNotNull="true"
+    Name="AccountNumber"
     Precision="10"
-    ColumnName="ACCOUNT_ID"
+    ColumnName="ACCOUNT_NUMBER"
     SQLType="VARCHAR"
     Type="java.lang.String"
-    ColumnType="CHAR"
-    TableName="PRT_DRIVER_INFORMATION"
-    RetrievedOnUpdate="true"
-    RetrievedOnInsert="true">
+    ColumnType="VARCHAR2"
+    TableName="PRT_DRIVER_INFORMATION">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -59,7 +56,6 @@
   </Attribute>
   <Attribute
     Name="DriverNumber"
-    IsNotNull="true"
     Precision="20"
     ColumnName="DRIVER_NUMBER"
     SQLType="VARCHAR"
@@ -72,7 +68,6 @@
   </Attribute>
   <Attribute
     Name="DriverName"
-    IsNotNull="true"
     Precision="30"
     ColumnName="DRIVER_NAME"
     SQLType="VARCHAR"
@@ -188,9 +183,8 @@
   </Attribute>
   <Attribute
     Name="ModifiedBy"
-    IsNotNull="true"
     DefaultValue="Siddharth"
-    Precision="20"
+    Precision="50"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -215,9 +209,7 @@
   </Attribute>
   <Attribute
     Name="CountryCode"
-    IsNotNull="true"
-    DefaultValue="en_US"
-    Precision="8"
+    Precision="2"
     ColumnName="COUNTRY_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -234,24 +226,28 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO"
     Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
     IsUpdateable="true"/>
-  <AccessorAttribute
+  <!--<AccessorAttribute
     Name="PrtAccountEO1"
     Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
     AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO1"
     AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO1"
     Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
-    IsUpdateable="true"/>
-  <AccessorAttribute
-    Name="PrtAccountEO2"
-    Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
-    AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO2"
-    AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO2"
-    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
-    IsUpdateable="true"/>
+    IsUpdateable="true"/>-->
   <Key
-    Name="SysC0025866">
+    Name="PrtDriverInformationPk1"
+    PrimaryKey="true">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025866"/>
+      <Attr Name="_DBObjectName" Value="PRT_DRIVER_INFORMATION_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.PrtDriverInformationPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055832">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055832"/>
       <Attr Name="_checkCondition"
         Value='"PRT_DRIVER_INFORMATION_PK" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
@@ -262,89 +258,60 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0025867">
+    Name="SysC0055833">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025867"/>
-      <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055833"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.AccountId"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025868">
+    Name="SysC0055834">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025868"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055834"/>
+      <Attr Name="_checkCondition" Value='"ACCOUNT_NUMBER" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
+  <Key
+    Name="SysC0055835">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055835"/>
       <Attr Name="_checkCondition" Value='"DRIVER_NUMBER" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.DriverNumber"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025869">
+    Name="SysC0055836">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025869"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055836"/>
       <Attr Name="_checkCondition" Value='"DRIVER_NAME" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.DriverName"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025870">
+    Name="SysC0055837">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025870"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055837"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.ModifiedBy"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025871">
+    Name="SysC0055838">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025871"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055838"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item
         Value="com.sfr.engage.model.entities.PrtDriverInformationEO.ModifiedDate"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="SysC0025923">
-    <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025923"/>
-      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
-      <Attr Name="_isCheck" Value="true"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.CountryCode"/>
-    </AttrArray>
-  </Key>
-  <Key
-    Name="PrtDriverInformationPrFk1">
-    <DesignTime>
-      <Attr Name="_referencedKey" Value="PRT_ACCOUNT_PK"/>
-      <Attr Name="_isForeign" Value="true"/>
-      <Attr Name="_DBObjectName" Value="PRT_DRIVER_INFORMATION_PR_FK1"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.CountryCode"/>
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.AccountId"/>
     </AttrArray>
   </Key>
 </Entity>

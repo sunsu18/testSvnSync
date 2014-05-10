@@ -86,6 +86,12 @@
   <ViewUsage
     Name="PrtCardVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardVO"/>
+  <ViewUsage
+    Name="PrtDriverInformationVO3"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtDriverInformationVO"/>
+  <ViewUsage
+    Name="PrtTruckInformationVO3"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">

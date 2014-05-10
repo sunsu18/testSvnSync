@@ -13,30 +13,26 @@
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.entities.PrtTruckInformationEOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
     <AttrArray Name="_publishEvents"/>
+    <Attr Name="_codeGenFlag2" Value="Init|Access|DML"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Attribute
     Name="PrtTruckInformationPk"
+    Precision="20"
     ColumnName="PRT_TRUCK_INFORMATION_PK"
     SQLType="VARCHAR"
     Type="oracle.jbo.domain.DBSequence"
-    ColumnType="NUMBER"
+    ColumnType="VARCHAR2"
     TableName="PRT_TRUCK_INFORMATION"
-    PrimaryKey="true"
-    IsUpdateable="while_insert"
-    DefaultValue="@0"
-    Domain="oracle.jbo.domain.DBSequence"
-    RetrievedOnInsert="true">
+    PrimaryKey="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
   <Attribute
     Name="AccountNumber"
-    IsNotNull="true"
-    Precision="20"
+    Precision="10"
     ColumnName="ACCOUNT_NUMBER"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -60,7 +56,6 @@
   </Attribute>
   <Attribute
     Name="VehicleNumber"
-    IsNotNull="true"
     Precision="20"
     ColumnName="VEHICLE_NUMBER"
     SQLType="VARCHAR"
@@ -73,7 +68,6 @@
   </Attribute>
   <Attribute
     Name="InternalName"
-    IsNotNull="true"
     Precision="20"
     ColumnName="INTERNAL_NAME"
     SQLType="VARCHAR"
@@ -189,8 +183,7 @@
   </Attribute>
   <Attribute
     Name="ModifiedBy"
-    IsNotNull="true"
-    Precision="20"
+    Precision="50"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -214,6 +207,18 @@
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CountryCode"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_TRUCK_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="PrtTruckInformationPk1"
     PrimaryKey="true">
@@ -226,67 +231,67 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0025856">
+    Name="SysC0055824">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025856"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055824"/>
       <Attr Name="_checkCondition"
         Value='"PRT_TRUCK_INFORMATION_PK" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtTruckInformationEO.PrtTruckInformationPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055825">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055825"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025857">
+    Name="SysC0055826">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025857"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055826"/>
       <Attr Name="_checkCondition" Value='"ACCOUNT_NUMBER" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtTruckInformationEO.AccountNumber"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025858">
+    Name="SysC0055827">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025858"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055827"/>
       <Attr Name="_checkCondition" Value='"VEHICLE_NUMBER" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtTruckInformationEO.VehicleNumber"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025859">
+    Name="SysC0055828">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025859"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055828"/>
       <Attr Name="_checkCondition" Value='"INTERNAL_NAME" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtTruckInformationEO.InternalName"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025860">
+    Name="SysC0055829">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025860"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055829"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item
-        Value="com.sfr.engage.model.entities.PrtTruckInformationEO.ModifiedBy"/>
-    </AttrArray>
+    <AttrArray Name="Attributes"/>
   </Key>
   <Key
-    Name="SysC0025861">
+    Name="SysC0055830">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0025861"/>
+      <Attr Name="_DBObjectName" Value="SYS_C0055830"/>
       <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>

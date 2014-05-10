@@ -21,18 +21,24 @@
        PrtTruckInformationEO.ODOMETER, 
        PrtTruckInformationEO.REMARKS, 
        PrtTruckInformationEO.MODIFIED_BY, 
-       PrtTruckInformationEO.MODIFIED_DATE"
+       PrtTruckInformationEO.MODIFIED_DATE, 
+       PrtTruckInformationEO.COUNTRY_CODE"
   FromList="PRT_TRUCK_INFORMATION PrtTruckInformationEO"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl">
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl"
+  Where="PrtTruckInformationEO.COUNTRY_CODE =: countryCd">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
+  <Variable
+    Name="countryCd"
+    Kind="where"
+    Type="java.lang.String"/>
   <EntityUsage
     Name="PrtTruckInformationEO"
     Entity="com.sfr.engage.model.entities.PrtTruckInformationEO"/>
@@ -42,8 +48,7 @@
     PrecisionRule="true"
     EntityAttrName="PrtTruckInformationPk"
     EntityUsage="PrtTruckInformationEO"
-    AliasName="PRT_TRUCK_INFORMATION_PK"
-    IsUpdateable="while_insert"/>
+    AliasName="PRT_TRUCK_INFORMATION_PK"/>
   <ViewAttribute
     Name="AccountNumber"
     IsNotNull="true"
@@ -140,4 +145,10 @@
     EntityUsage="PrtTruckInformationEO"
     AliasName="MODIFIED_DATE"
     IsUpdateable="false"/>
+  <ViewAttribute
+    Name="CountryCode"
+    PrecisionRule="true"
+    EntityAttrName="CountryCode"
+    EntityUsage="PrtTruckInformationEO"
+    AliasName="COUNTRY_CODE"/>
 </ViewObject>

@@ -368,13 +368,13 @@
     AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
-  <AccessorAttribute
+  <!--<AccessorAttribute
     Name="PrtDriverInformationEO1"
     Association="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc"
     AssociationEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtDriverInformationEO1"
     AssociationOtherEnd="com.sfr.engage.model.entities.PrtDriverInformationPrFk1Assoc.PrtAccountEO1"
     Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
+    IsUpdateable="false"/>-->
   <AccessorAttribute
     Name="PrtCardgroupEO"
     Association="com.sfr.engage.model.associations.PrtCardgroupPrtAccountFk1Assoc"
