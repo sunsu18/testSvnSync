@@ -276,7 +276,7 @@
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:340.0px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:350.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
@@ -373,7 +373,7 @@
        </af:column>
         
         <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
-                   sortable="false" width="85"
+                   sortable="false" width="90"
                    headerText="#{sfr.VEHICLE_NUMBER}"
                    id="c16">
           <af:outputText value="#{row.VehicleNumber}" id="ot40" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
@@ -489,7 +489,7 @@
           </af:panelGroupLayout>
         </af:column>-->
         
-        <af:column sortProperty="Odometer" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+        <af:column sortProperty="Odometer" sortable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ODOMETER}"
                    id="c7">
           <!--<af:outputText value="#{row.OdometerPortal}" id="ot49" visible="#{row.OdometerPortal ne null ? true : false}"/>-->
@@ -517,7 +517,7 @@
             </h:panelGrid>
         </af:column>
         
-         <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+         <af:column sortProperty="kmTotal" filterable="true" sortable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_TOTAL}"
                    id="c12">
           <af:outputText value="#{row.kmTotal}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -526,7 +526,7 @@
           </af:outputText>
         </af:column>
         
-        <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+        <af:column sortProperty="kmPerLt" filterable="true" sortable="false" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    headerText="#{sfr.ENGAGE_KM_PER_LT}"
                    id="c14">
           <af:outputText value="#{row.kmPerLt}" id="ot45" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -535,7 +535,7 @@
           </af:outputText>
         </af:column>
         
-         <af:column sortProperty="ltPerHundred" filterable="true" width="48" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+         <af:column sortProperty="ltPerHundred" filterable="true" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                    sortable="false"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                    id="c11">
