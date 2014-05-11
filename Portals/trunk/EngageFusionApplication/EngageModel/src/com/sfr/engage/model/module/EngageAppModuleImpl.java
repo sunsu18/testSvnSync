@@ -158,10 +158,10 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                     if(type.equals("driver")){
                         if(regDriverValue!= null){
                         System.out.println("Inside this block of driver in application moule");
-                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
+                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
                         }else{
                             System.out.println("Inside else block of driver in application moule");
-                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_ID = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
+                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
                         }
                     }else{
                         if(regDriverValue!= null){

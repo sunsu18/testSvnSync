@@ -76,6 +76,7 @@ public class VehicleInfoBean implements Serializable {
     private String editCardIdDisplayValue = null;
     private String countryParam;
     private ArrayList<String> linkedCardValues;
+    private String cardId = null;
 
 
     /**
@@ -668,7 +669,7 @@ public class VehicleInfoBean implements Serializable {
             editCardNumberList   = new ArrayList<SelectItem>();
             String primaryKey    =(String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
             String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
-            String cardId        = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+            cardId        = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             System.out.println("PrimaryKey =" + primaryKey);
             if (primaryKey != null && accountNumber != null) {
                 editAccountIdDisplayValue = accountNumber;
@@ -957,11 +958,19 @@ public class VehicleInfoBean implements Serializable {
                 editAccountNumberVal = (String)row.getAttribute("AccountId");
             }*/
             editCardNumberList = new ArrayList<SelectItem>();
+            cardId = null;
             populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
             System.out.println("editAccountNumber =" + editAccountNumberVal);
         }
 
+    }
+    
+    public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+            cardId = valueChangeEvent.getNewValue().toString();
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
 
     public String deleteAllRecordsAction() {
@@ -1087,10 +1096,10 @@ public class VehicleInfoBean implements Serializable {
     }
 
     public String getEditCardIdDisplayValue() {
-//        String cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
-//        if(cardId != null){
-//        editCardIdDisplayValue = cardId;
-//        }
+        if(cardId != null){
+            System.out.println("It is coming display value always=========>"+cardId);
+          editCardIdDisplayValue = cardId;
+        }
         return editCardIdDisplayValue;
     }
 
@@ -1108,6 +1117,14 @@ public class VehicleInfoBean implements Serializable {
 
     public ArrayList<String> getLinkedCardValues() {
         return linkedCardValues;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getCardId() {
+        return cardId;
     }
 
 

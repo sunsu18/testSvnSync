@@ -77,6 +77,7 @@ public class DriverInfoBean implements Serializable {
     private String editCardIdDisplayValue = null;
     private String countryParam;
     private ArrayList<String> linkedCardValues;
+    private String cardId = null;
     
 
 
@@ -676,7 +677,7 @@ public class DriverInfoBean implements Serializable {
             editCardNumberList = new ArrayList<SelectItem>();
             String primaryKey = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
             String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
-            String cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+            cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             System.out.println("PrimaryKey =" + primaryKey);
             if (primaryKey != null && accountNumber != null) {
                 editAccountIdDisplayValue = accountNumber;
@@ -942,7 +943,6 @@ public class DriverInfoBean implements Serializable {
 //                    addAccountIdVal = (String)row.getAttribute("AccountId");
 //            }
              cardNumberList  = new ArrayList<SelectItem>();
-             
              populateCardNumberList(valueChangeEvent.getNewValue().toString() , "Add");
              AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
              System.out.println("addAccountNumber =" + addAccountIdVal);
@@ -1019,10 +1019,18 @@ public class DriverInfoBean implements Serializable {
 //                editAccountIdVal = (String)row.getAttribute("AccountId");
 //            }
              editCardNumberList = new ArrayList<SelectItem>();
+             cardId = null;
              populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit");
              System.out.println("editAccountNumber =" + editAccountIdVal);
              AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }
+    }
+    
+    public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+            cardId = valueChangeEvent.getNewValue().toString();
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
 
 
@@ -1113,10 +1121,10 @@ public class DriverInfoBean implements Serializable {
     }
 
     public String getEditCardIdDisplayValue() {
-//        String cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
-//        if(cardId != null){
-//        editCardIdDisplayValue = cardId;
-//        }
+        if(cardId != null){
+            System.out.println("It is coming display value always=========>"+cardId);
+            editCardIdDisplayValue = cardId;
+        }
         return editCardIdDisplayValue;
     }
 
@@ -1142,6 +1150,14 @@ public class DriverInfoBean implements Serializable {
 
     public ArrayList<String> getLinkedCardValues() {
         return linkedCardValues;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getCardId() {
+        return cardId;
     }
 
 

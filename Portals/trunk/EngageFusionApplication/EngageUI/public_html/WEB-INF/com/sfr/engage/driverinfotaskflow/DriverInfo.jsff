@@ -487,7 +487,8 @@
                                     autoSubmit="true"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.DriverInfoBean.editCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.DriverInfoBean.editCardNumberList}"
                           var="listItem">
                     <af:selectItem label="#{listItem.label}"

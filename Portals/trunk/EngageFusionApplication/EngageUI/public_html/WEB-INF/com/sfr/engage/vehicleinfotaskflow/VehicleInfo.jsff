@@ -498,7 +498,8 @@
                                     autoSubmit="true"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                    valueChangeListener="#{pageFlowScope.VehicleInfoBean.editCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.VehicleInfoBean.editCardNumberList}"
                           var="listItem">
                     <af:selectItem label="#{listItem.label}"
