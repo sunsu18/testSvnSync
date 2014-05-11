@@ -73,7 +73,7 @@ public class VehicleInfoBean implements Serializable {
     private String addAccountIdDisplayValue = null;
     private String addCardIdDisplayValue = null;
     private String editAccountIdDisplayValue = null;
-    private String editCardIdDisplayValue;
+    private String editCardIdDisplayValue = null;
     private String countryParam;
     private ArrayList<String> linkedCardValues;
 
@@ -460,6 +460,7 @@ public class VehicleInfoBean implements Serializable {
             }
             
             ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
             truckVo.defineNamedWhereClauseParam("accountId",addAccountNumberVal, null);
             if(getBindings().getAddCardId().getValue() != null){
@@ -584,18 +585,22 @@ public class VehicleInfoBean implements Serializable {
             }
             
             ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
             truckVo.defineNamedWhereClauseParam("accountId",editAccountNumberVal, null);
             if(getBindings().getEditCardId().getValue() != null){
+            System.out.println("For checking truck======>"+getBindings().getEditCardId().getValue());
             truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
             }else{
                 truckVo.defineNamedWhereClauseParam("cardNo","", null);
             }
             truckVo.executeQuery();
             if(truckVo.getEstimatedRowCount() > 0){
+                System.out.println("For checking truck row count======>");
                 while (truckVo.hasNext()) {
                      PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
                       if (currRow != null) {
+                          System.out.println("For checking truck row count======>++++++++++++");
                             if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
                                 String warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
                                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
@@ -831,7 +836,8 @@ public class VehicleInfoBean implements Serializable {
             vo.setWhereClause("");
             vo.executeQuery();
         }
-        getBindings().getLinkedAccount().setValue(null);
+        getBindings().getLinkedAccount().setSubmittedValue(null);
+        getBindings().getLinkedAccount().setValue(linkedAccountLOVValues);
         getBindings().getRegisterNumber().setValue(null);
         searchResultsShow = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());

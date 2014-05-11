@@ -473,6 +473,7 @@ public class DriverInfoBean implements Serializable {
             }
             
             ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
             truckVo.defineNamedWhereClauseParam("accountId",addAccountIdVal, null);
             if(getBindings().getAddCardId().getValue() != null){
@@ -597,6 +598,7 @@ public class DriverInfoBean implements Serializable {
             }
             
             ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
             truckVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
             if(getBindings().getEditCardId().getValue() != null){
@@ -909,7 +911,8 @@ public class DriverInfoBean implements Serializable {
                 vo.setWhereClause("");
                 vo.executeQuery();
             }
-            this.getBindings().getLinkedAccount().setValue(null);
+            this.getBindings().getLinkedAccount().setSubmittedValue(null);
+            this.getBindings().getLinkedAccount().setValue(linkedAccountLOVValues);
             driverN = null;
             searchResultsShow = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
