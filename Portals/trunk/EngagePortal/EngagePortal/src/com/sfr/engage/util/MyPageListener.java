@@ -673,41 +673,58 @@ new CardInfo();
 
                                                                             }
 
+                                                                            cardgrp.setCard(cardlist);
+                                                                            cardgrouplist.add(cardgrp);
 
                                                                         }
 
 
-                                                                        cardgrp.setCard(cardlist);
-                                                                        cardgrouplist.add(cardgrp);
+//                                                                        cardgrp.setCard(cardlist);
+//                                                                        cardgrouplist.add(cardgrp);
 
                                                                     }
 
 
                                                                 }
+                                                                acc.setCardGroup(cardgrouplist);
+                                                                for (int z = 0;
+                                                                     z < accountlist.size();
+                                                                     z++)
+                                                                    if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                        //accountInterchange = accountlist.get(z);
+                                                                        accountlist.set(z,
+                                                                                        acc);
 
+                                                                    }
+                                                                if (!accountlist.contains(acc))
+                                                                    accountlist.add(acc);
+
+                                                               
+                                                              //  part.setAccountList(accountlist);
                                                             }
 
 
-                                                            acc.setCardGroup(cardgrouplist);
+                                                            //acc.setCardGroup(cardgrouplist);
                                                             //AccountInfo accountInterchange = new AccountInfo();
 
-                                                            for (int z = 0;
-                                                                 z < accountlist.size();
-                                                                 z++)
-                                                                if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
-                                                                    //accountInterchange = accountlist.get(z);
-                                                                    accountlist.set(z,
-                                                                                    acc);
-
-                                                                }
-                                                            if (!accountlist.contains(acc))
-                                                                accountlist.add(acc);
-
-                                                            //TODO : Remove from here add it at the end after completing for CG
-                                                            part.setAccountList(accountlist);
+//                                                            for (int z = 0;
+//                                                                 z < accountlist.size();
+//                                                                 z++)
+//                                                                if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+//                                                                    //accountInterchange = accountlist.get(z);
+//                                                                    accountlist.set(z,
+//                                                                                    acc);
+//
+//                                                                }
+//                                                            if (!accountlist.contains(acc))
+//                                                                accountlist.add(acc);
+//
+//                                                            //TODO : Remove from here add it at the end after completing for CG
+//                                                            part.setAccountList(accountlist);
 
 
                                                         }
+                                                        part.setAccountList(accountlist);
 
                                                     } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG")) {
                                                         AccountInfo account_check =
