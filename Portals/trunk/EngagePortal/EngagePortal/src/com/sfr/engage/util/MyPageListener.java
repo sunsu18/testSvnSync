@@ -404,7 +404,7 @@ public class MyPageListener implements PagePhaseListener {
 
 
                                                 part.setPartnerValue(pid);
-                                                part.setCountry((user.getLang().toString()));
+                                                part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
                                                 part.setCompanyOverview(false);
 
                                                 do {
@@ -1478,7 +1478,7 @@ new CardInfo();
             setUser(userList.get(0));
             if (getUser() != null) {
                 session.setAttribute(Constants.SESSION_USER_INFO, user);
-                session.setAttribute(Constants.userLang, user.getLang());
+                session.setAttribute(Constants.userLang, conv.getLangForWERCSURL(user.getLang().toString()));
                 System.out.println(AccessDataControl.getDisplayRecord() +
                                    this.getClass() +
                                    ".setUserInfoInSession : " +
@@ -1633,11 +1633,11 @@ new CardInfo();
         vo1.setWhereClause("PARTNER_ID =: pid");
         System.out.println("Partner id passed in Account VO is " + Partnerid);
         part.setPartnerValue(Partnerid);
-        part.setCountry((user.getLang().toString()));
+        part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
         part.setCompanyOverview(true);
         vo1.defineNamedWhereClauseParam("pid", Partnerid, null);
         //TODO : Take country from user's session object / from Partner's string
-        vo1.setNamedWhereClauseParam("countryCode",(user.getLang().toString()));
+        vo1.setNamedWhereClauseParam("countryCode",(conv.getLangForWERCSURL(user.getLang().toString())));
         System.out.println(vo1.getQuery());
         vo1.executeQuery();
         System.out.println("RowCount for Account VO  " +
@@ -1791,7 +1791,7 @@ new CardInfo();
                         System.out.println("CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
                         vo3.defineNamedWhereClauseParam("cgid", CardgroupSeq,
                                                         null);
-                        vo3.defineNamedWhereClauseParam("cc", (user.getLang().toString()), null);
+                        vo3.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
                         vo3.defineNamedWhereClauseParam("cgmain",
                                                         CardgroupMainType,
                                                         null);
