@@ -267,7 +267,9 @@ public class MyPageListener implements PagePhaseListener {
                                              //                  pid_start);
                                             String pid =
                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                              2);
+                                                                                                              2,
+                                                                                                              pid_start +
+                                                                                                              10);
                                             //System.out.println("partner id " +
                                             //                   pid);
                                             partnerobj.setPartnerValue(pid);
@@ -388,8 +390,9 @@ public class MyPageListener implements PagePhaseListener {
                                                            pid_start);
                                         String pid =
                                             user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                          2
-                                                                                                         );
+                                                                                                          2,
+                                                                                                          pid_start +
+                                                                                                          10);
                                         System.out.println("partner id " +
                                                            pid);
 
