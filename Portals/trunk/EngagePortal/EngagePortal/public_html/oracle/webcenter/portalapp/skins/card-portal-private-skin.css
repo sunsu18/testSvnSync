@@ -1059,7 +1059,10 @@ font-style:normal;
     }
     .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
     vertical-align:15% !important;
+    
+    
 }
+
 
 .af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style{
    
@@ -1086,6 +1089,7 @@ font-style:normal;
 .af_selectManyChoice_control{
     padding:0px;
 }
+
 
 }
 /*ie*/
@@ -1682,10 +1686,10 @@ margin-left: 15px;
 }
 
 .outputText3{
-color:#524e4f; 
-font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
-font-weight: 900;
+color:#524e4f !important; 
+font-size:12px !important;
+font-family:Arial, Helvetica, sans-serif !important;
+font-weight:normal !important;
 }
 
 .outputText1{
