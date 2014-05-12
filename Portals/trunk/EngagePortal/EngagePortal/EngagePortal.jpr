@@ -126,6 +126,73 @@
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
+         <hash n="EngagePortal_application1">
+            <hash n="appletArchives"/>
+            <hash n="appletFiles">
+               <value n="autoInclude" v="true"/>
+               <list n="selectionFilters">
+                  <string v="oracle.jdevimpl.deploy.common.JavaSelectionFilter"/>
+               </list>
+            </hash>
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="false"/>
+            </hash>
+            <url n="earURL" path="deploy/EngagePortal_application1.ear"/>
+            <value n="enterpriseAppName" v="EngagePortal_application1"/>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="5"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Web Files"/>
+                     <hash n="filters">
+                        <list n="rules"/>
+                     </hash>
+                     <value n="internalName" v="web-files"/>
+                     <value n="type" v="1"/>
+                  </hash>
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="2"/>
+                        </hash>
+                        <hash>
+                           <value n="type" v="7"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="WEB-INF/classes"/>
+                     <hash n="filters">
+                        <list n="rules"/>
+                     </hash>
+                     <value n="internalName" v="project-output"/>
+                     <value n="targetWithinJar" v="WEB-INF/classes"/>
+                     <value n="type" v="1"/>
+                  </hash>
+                  <hash>
+                     <value n="displayName" v="WEB-INF/lib"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="libraries"/>
+                     <value n="targetWithinJar" v="WEB-INF/lib"/>
+                     <value n="type" v="3"/>
+                  </hash>
+               </list>
+            </hash>
+            <url n="jarURL" path="deploy/EngagePortal_application1.war"/>
+            <hash n="libraryDependencies">
+               <value n="IncludeLibrariesFromOtherContainers" v="true"/>
+            </hash>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.war.WarProfile"/>
+            <value n="profileName" v="EngagePortal_application1"/>
+         </hash>
          <hash n="EngagePortal_webapp1">
             <hash n="appletArchives"/>
             <hash n="appletFiles">
@@ -367,6 +434,7 @@
          </hash>
       </hash>
       <list n="profileList">
+         <string v="EngagePortal_application1"/>
          <string v="EngagePortal_webapp1"/>
       </list>
    </hash>
@@ -799,6 +867,13 @@
                <value n="id" v="UtilityJAR.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url protocol="jar" path="file:/C:/Oracle/Middleware2013/jdeveloper/webcenter/modules/oracle.portlet.server_11.1.1/composer-decl-comp.jar!/"/>
+               </list>
+               <value n="description" v="Library2"/>
+               <value n="id" v="Library2"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -1142,6 +1217,10 @@
             <value n="id" v="UtilityJAR.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <url n="id" path="ADF_Library_Dependencies.library"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
@@ -1458,6 +1537,17 @@
             <value n="tldURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/dvt-faces.jar!/META-INF/bi.tld"/>
             <value n="URI" v="http://xmlns.oracle.com/dss/adf/faces"/>
             <value n="version" v="1.1"/>
+         </hash>
+         <hash>
+            <value n="jspVersion" v="2.1"/>
+            <value n="libraries" v="ocdecl 1.0 Tag Libraries"/>
+            <value n="name" v="ocdecl"/>
+            <value n="prefix" v="pedc"/>
+            <value n="runInEditor" v="true"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="/C:/Oracle/Middleware2013/jdeveloper/webcenter/modules/oracle.portlet.server_11.1.1/composer-decl-comp.jar!/META-INF/ocdecl.tld"/>
+            <value n="URI" v="http://xmlns.oracle.com/adf/pageeditor/declarativecomp"/>
+            <value n="version" v="1.0"/>
          </hash>
       </list>
    </hash>
