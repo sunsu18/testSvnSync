@@ -177,7 +177,8 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"WEB_PROFILES",""},{"REPORT_SETUP",""},{"ALERTS",""},{"MANAGE_USERS",""},
         {"WEB_ASSIST",""},{"SUPPORT",""},{"CHANGE_ACCOUNT",""},{"CONTACT",""},
         {"SELECT_ACCOUNT",""},{"CUSTOMER_VIEW",""},{"LOGOUT",""},{"NO_INVOICES_TO_DISPLAY",""},
-		{"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""}};
+        {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},
+        {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

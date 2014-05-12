@@ -37,6 +37,7 @@ import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.util.ResetUtils;
 
@@ -78,6 +79,11 @@ public class DriverInfoBean implements Serializable {
     private String countryParam;
     private ArrayList<String> linkedCardValues;
     private String cardId = null;
+    private String warningMsg = null;
+    private boolean showErrorMsgFlag = false;
+    private boolean showErrorMsgEditFlag = false;
+    private ArrayList<String> validateAccountCard;
+    private String previousCardId = null;
     
 
 
@@ -464,9 +470,11 @@ public class DriverInfoBean implements Serializable {
                         System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
                         if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
                             System.out.println("value of driver name======================"+currRow.getDriverName());
-                            String warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
-                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg ,"");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                            showErrorMsgFlag = true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                            //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg ,"");
+                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -488,9 +496,11 @@ public class DriverInfoBean implements Serializable {
                     PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
                      if (currRow != null) {  
                         if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                            String warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
-                            FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg, "");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
+                            showErrorMsgFlag = true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                            //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg, "");
+                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -524,10 +534,11 @@ public class DriverInfoBean implements Serializable {
         }else{
             
             if (resourceBundle.containsKey("MANDATORY_CHECK")) {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"),
-                                     "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+                warningMsg = resourceBundle.getObject("MANDATORY_CHECK").toString();
+                showErrorMsgFlag = true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
+                //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"),"");
+                //FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
         }
@@ -558,6 +569,7 @@ public class DriverInfoBean implements Serializable {
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
         OperationBinding createOpn = bindings.getOperationBinding("CreateInsert");
         createOpn.execute();
+        showErrorMsgFlag = false;
         this.addAccountIdDisplayValue = null;
         this.addCardIdDisplayValue    =null;
         getBindings().getNewDriver().show(new RichPopup.PopupHints());
@@ -571,30 +583,36 @@ public class DriverInfoBean implements Serializable {
     public String editDriverSave() {
         
         if (getBindings().getEditAccountId().getValue() != null) {
+            System.out.println("cardid value inside edit driver save======>"+previousCardId);
+            System.out.println("cardid value inside edit driver save11111======>"+getBindings().getEditCardId().getValue());
             
-            ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
-            driverVo.setNamedWhereClauseParam("countryCd", countryParam);
-            driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-            driverVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
-            if(getBindings().getEditCardId().getValue() != null){
-            driverVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
-            }else{
-                driverVo.defineNamedWhereClauseParam("cardNo","", null);  
-            }
-            driverVo.executeQuery();
-            if(driverVo.getEstimatedRowCount() > 0){
-                while (driverVo.hasNext()) {
-                PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
-                     if (currRow != null) {
-                     System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
-                        if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
-                            String warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
-                            FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
-                            return null;
-                    
-                        }
-                     }
+            if((!previousCardId.equals(getBindings().getEditCardId().getValue().toString())) && getBindings().getEditCardId().getValue() != null){
+                ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+                driverVo.setNamedWhereClauseParam("countryCd", countryParam);
+                driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+                driverVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
+                if(getBindings().getEditCardId().getValue() != null){
+                driverVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+                }else{
+                    driverVo.defineNamedWhereClauseParam("cardNo","", null);  
+                }
+                driverVo.executeQuery();
+                if(driverVo.getEstimatedRowCount() > 0){
+                    while (driverVo.hasNext()) {
+                    PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
+                         if (currRow != null) {
+                         System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
+                            if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
+                                warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                                showErrorMsgEditFlag = true;
+                                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                                //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                                //FacesContext.getCurrentInstance().addMessage(null, msg);
+                                return null;
+                        
+                            }
+                         }
+                    }
                 }
             }
             
@@ -609,13 +627,16 @@ public class DriverInfoBean implements Serializable {
             }
             truckVo.executeQuery();
             if(truckVo.getEstimatedRowCount() > 0){
+                System.out.println("inside edit driver save to test vehicle===========>");
                 while (truckVo.hasNext()) {
                     PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
                      if (currRow != null) {
                         if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                            String warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
-                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                            warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                            showErrorMsgEditFlag = true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                            //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -672,12 +693,14 @@ public class DriverInfoBean implements Serializable {
      */
     public String tableEditAction() {
         try {
+            showErrorMsgEditFlag = false;
             editAccountIdDisplayValue   = null;
             editCardIdDisplayValue = null;
             editCardNumberList = new ArrayList<SelectItem>();
             String primaryKey = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
             String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
             cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+            previousCardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             System.out.println("PrimaryKey =" + primaryKey);
             if (primaryKey != null && accountNumber != null) {
                 editAccountIdDisplayValue = accountNumber;
@@ -713,6 +736,27 @@ public class DriverInfoBean implements Serializable {
      */
     public String driverDeleteAction() {
         if (driverMap.size() != 0) {
+            ArrayList<String> validateCard = new ArrayList<String>();
+            if(partnerInfo != null){
+                if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                     System.out.println("value inside delete check box listener=====>"+partnerInfo.getAccountList().get(i).isAccountOverview());
+                        if(validateAccountCard.contains(partnerInfo.getAccountList().get(i).getAccountNumber().toString()) && partnerInfo.getAccountList().get(i).isAccountOverview() == false){
+                            validateCard.add(partnerInfo.getAccountList().get(i).getAccountNumber().toString());   
+                        }
+                    }
+                }
+            }
+            if(validateCard != null && validateCard.size() >0){
+                if (resourceBundle.containsKey("NO_DELETE_DRIVER")) {
+                    String cardList = validateCard.toString();
+                    String validateCardValues = cardList.substring(1, cardList.length() - 1).replace(" ", "");
+                    String driverErrorMsg = resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(validateCardValues);
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,driverErrorMsg,"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
+                }
+            }
             getBindings().getDeleteDriver().show(new RichPopup.PopupHints());
         } else {
             FacesMessage msg =
@@ -728,11 +772,29 @@ public class DriverInfoBean implements Serializable {
      * @return
      */
     public String deleteAllRecordsAction() {
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") !=
-            null) {
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") != null) {
+            int validateDeleteAccountCount = 0;
+            displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
+            if(partnerInfo != null){
+                if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+                     System.out.println("value inside delete check box listener+++++++++++++++++=====>"+partnerInfo.getAccountList().get(i).isAccountOverview());
+                        if(partnerInfo.getAccountList().get(i).getAccountNumber().toString().equals(displayAccountNumber) && partnerInfo.getAccountList().get(i).isAccountOverview() == false){
+                             validateDeleteAccountCount = 1;
+                         }
+                    }
+                }
+            }
+            
+            if(validateDeleteAccountCount > 0){
+                if (resourceBundle.containsKey("NO_DELETE_DRIVER")) {
+                    String driverErrorMsg = resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(displayAccountNumber);
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,driverErrorMsg,"");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
+                }
+            }
             int count = 0;
-            displayAccountNumber =
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
             if (myAccountDriver.size() > 0) {
                 for (int i = 0; i < myAccountDriver.size(); i++) {
                     if (myAccountDriver.get(i).getAccountNumber().trim().equals(displayAccountNumber)) {
@@ -887,11 +949,14 @@ public class DriverInfoBean implements Serializable {
     public void deleteCheckBoxListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
         if (valueChangeEvent.getNewValue().equals(true)) {
-            System.out.println("Value ==" +
-                               AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
+            validateAccountCard = new ArrayList<String>();
+            validateAccountCard.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNo").toString());
+            System.out.println("Value ==" +AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
             driverMap.put((String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"),
                           (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
         } else {
+            validateAccountCard = new ArrayList<String>();
+            validateAccountCard.remove(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNo").toString());
             if (driverMap.containsKey(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"))) {
                 driverMap.remove(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
             }
@@ -1030,6 +1095,8 @@ public class DriverInfoBean implements Serializable {
         if(valueChangeEvent.getNewValue() != null){
             cardId = valueChangeEvent.getNewValue().toString();
         }
+        this.showErrorMsgEditFlag = false;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
 
@@ -1160,6 +1227,46 @@ public class DriverInfoBean implements Serializable {
         return cardId;
     }
 
+    public void setWarningMsg(String warningMsg) {
+        this.warningMsg = warningMsg;
+    }
+
+    public String getWarningMsg() {
+        return warningMsg;
+    }
+
+    public void setShowErrorMsgFlag(boolean showErrorMsgFlag) {
+        this.showErrorMsgFlag = showErrorMsgFlag;
+    }
+
+    public boolean isShowErrorMsgFlag() {
+        return showErrorMsgFlag;
+    }
+
+    public void setShowErrorMsgEditFlag(boolean showErrorMsgEditFlag) {
+        this.showErrorMsgEditFlag = showErrorMsgEditFlag;
+    }
+
+    public boolean isShowErrorMsgEditFlag() {
+        return showErrorMsgEditFlag;
+    }
+
+    public void setValidateAccountCard(ArrayList<String> validateAccountCard) {
+        this.validateAccountCard = validateAccountCard;
+    }
+
+    public ArrayList<String> getValidateAccountCard() {
+        return validateAccountCard;
+    }
+
+    public void setPreviousCardId(String previousCardId) {
+        this.previousCardId = previousCardId;
+    }
+
+    public String getPreviousCardId() {
+        return previousCardId;
+    }
+
 
     public class Bindings {
         private RichSelectManyChoice linkedAccount;
@@ -1174,6 +1281,8 @@ public class DriverInfoBean implements Serializable {
         private RichSelectOneChoice addAccountId;
         private RichSelectOneChoice editAccountId;
         private RichSelectOneChoice editCardId;
+        private RichOutputText showErrorMsg;
+        private RichOutputText showEditErrorMessage;
 
         /**
          * @param linkedAccount
@@ -1305,6 +1414,22 @@ public class DriverInfoBean implements Serializable {
 
         public RichSelectOneChoice getEditCardId() {
             return editCardId;
+        }
+        
+        public void setShowErrorMsg(RichOutputText showErrorMsg) {
+            this.showErrorMsg = showErrorMsg;
+        }
+
+        public RichOutputText getShowErrorMsg() {
+            return showErrorMsg;
+        }
+        
+        public void setShowEditErrorMessage(RichOutputText showEditErrorMessage) {
+            this.showEditErrorMessage = showEditErrorMessage;
+        }
+
+        public RichOutputText getShowEditErrorMessage() {
+            return showEditErrorMessage;
         }
     }
 }

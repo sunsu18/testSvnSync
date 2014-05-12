@@ -114,6 +114,9 @@
                   <af:setPropertyListener from="#{row.prtDriverInformationPK}"
                                           to="#{pageFlowScope.checkBoxPrimaryKey}"
                                           type="valueChange"/>
+                  <af:setPropertyListener from="#{row.accountId}"
+                                          to="#{pageFlowScope.accountNo}"
+                                          type="valueChange"/>                        
                 </af:selectBooleanCheckbox>
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.DRIVER_NUMBER}" id="c1"
@@ -173,6 +176,11 @@
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
+                       <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot10"
+                       binding="#{pageFlowScope.DriverInfoBean.bindings.showErrorMsg}"
+                       visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
+                       styleClass="errorOutputText"/>
+                       <af:spacer width="10" height="10" id="s36"/>
         <af:panelStretchLayout id="psl6"
                                dimensionsFrom="children">
           <f:facet name="bottom">
@@ -404,6 +412,11 @@
                   <af:separator id="s28"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
         <af:spacer width="10" height="10" id="s30"/>
+        <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot11"
+                       binding="#{pageFlowScope.DriverInfoBean.bindings.showEditErrorMessage}"
+                       visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
+                       styleClass="errorOutputText"/>
+          <af:spacer width="10" height="10" id="s40"/> 
         <af:panelStretchLayout id="pssl6"
                                dimensionsFrom="children">
           <f:facet name="bottom">
@@ -417,7 +430,6 @@
              
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
-                                  partialSubmit="true" 
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
                 <af:commandButton text="#{sfr.CANCEL}" id="cb8"

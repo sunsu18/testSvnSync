@@ -82,8 +82,7 @@
                        styleClass="subheading"/>
         <af:spacer width="690" height="10" id="s7"/>        
         <af:spacer width="10" height="10" id="s15"/>
-        <af:panelGroupLayout id="pgl8" halign="right"
-                            >
+        <af:panelGroupLayout id="pgl8" halign="right">
         <af:commandButton text="#{sfr.DELETE}" id="cb6"
                           action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}"/>
                           </af:panelGroupLayout>
@@ -120,6 +119,9 @@
                   <af:setPropertyListener from="#{row.prtTruckInformationPK}"
                                           to="#{pageFlowScope.checkBoxPrimaryKey}"
                                           type="valueChange"/>
+                  <af:setPropertyListener from="#{row.accountNumber}"
+                                          to="#{pageFlowScope.accountNo}"
+                                          type="valueChange"/>                        
                 </af:selectBooleanCheckbox>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.VEHICLE_NUMBER}"
@@ -188,6 +190,11 @@
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
+        <af:outputText value="#{pageFlowScope.VehicleInfoBean.warningMsg}" id="ot9"
+                       binding="#{pageFlowScope.VehicleInfoBean.bindings.showErrorMsg}"
+                       visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgFlag}"
+                       styleClass="errorOutputText"/>
+        <af:spacer width="10" height="10" id="s39"/>
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="new_vehicle_panel_toolbar"
@@ -417,6 +424,12 @@
          <af:separator id="s28"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
         <af:spacer width="10" height="10" id="s30"/>
+        <af:outputText value="#{pageFlowScope.VehicleInfoBean.warningMsg}"
+                       id="ot10"
+                       binding="#{pageFlowScope.VehicleInfoBean.bindings.showEditErrorMessage}"
+                       visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgEditFlag}"
+                       styleClass="errorOutputText"/>
+          <af:spacer width="10" height="10" id="s40"/>             
         <af:panelStretchLayout id="pssl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="edit_vehicle_panel_toolbar"
@@ -427,7 +440,6 @@
                                      halign="right">
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
-                                  partialSubmit="true"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
                 <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb5"

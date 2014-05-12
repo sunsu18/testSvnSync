@@ -1164,6 +1164,13 @@ font-weight:bold;
 	height: 20px;
 }
 
+.errorOutputText{     
+    color:red;      
+    font-size:10px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important;     
+    }
+
 .sign_in{
 	background-position: -32px -57px ;
 	width: 20px;
