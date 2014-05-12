@@ -120,6 +120,7 @@ public class MyPageListener implements PagePhaseListener {
         try {
 
             String lang = (String)request.getParameter("lang");
+            System.out.println("Before phase lang from url is " + request.getParameter("lang"));
             if (lang == null) {
                 lang = "en_US";
             }
@@ -482,10 +483,13 @@ new AccountInfo();
 
                                                             vo2 =
 iter2.getViewObject();
-                                                            vo2.setWhereClause("ACCOUNT_ID =: accid");
+                                                            vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
                                                             vo2.defineNamedWhereClauseParam("accid",
                                                                                             AccountID,
                                                                                             null);
+                                                            vo2.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                                                            
+                                                            
 
 
                                                             vo2.executeQuery();
@@ -600,7 +604,7 @@ iter3.getViewObject();
                                                                                                         CardgroupSeq,
                                                                                                         null);
                                                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                                                        "NO",
+                                                                                                        (String)session.getAttribute(Constants.userLang),
                                                                                                         null);
                                                                         vo3.defineNamedWhereClauseParam("cgmain",
                                                                                                         CardgroupMainType,
@@ -818,7 +822,7 @@ iter3.getViewObject();
                                                                                         CardgroupSeq,
                                                                                         null);
                                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                                        "NO",
+                                                                                        (String)session.getAttribute(Constants.userLang),
                                                                                         null);
                                                         vo3.defineNamedWhereClauseParam("cgmain",
                                                                                         CardgroupMainType,
@@ -1137,7 +1141,7 @@ new CardInfo();
                                                                         null);
 
                                         vo3.defineNamedWhereClauseParam("cc",
-                                                                        "NO",
+                                                                        (String)session.getAttribute(Constants.userLang),
                                                                         null);
 
                                         System.out.println(vo3.getQuery());
@@ -1589,6 +1593,13 @@ new CardInfo();
         //Prepare CardGroup list from CardGroup VO
         //Prepare Accountlist from Account VO
         
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+        HttpSession session = request.getSession(false);
+        
+        
+        
+        
         System.out.println("Entered in execute Admin function");
 
         part = new PartnerInfo();
@@ -1626,7 +1637,7 @@ new CardInfo();
         part.setCompanyOverview(true);
         vo1.defineNamedWhereClauseParam("pid", Partnerid, null);
         //TODO : Take country from user's session object / from Partner's string
-        vo1.setNamedWhereClauseParam("countryCode", "NO");
+        vo1.setNamedWhereClauseParam("countryCode",(user.getLang().toString()));
         System.out.println(vo1.getQuery());
         vo1.executeQuery();
         System.out.println("RowCount for Account VO  " +
@@ -1690,9 +1701,10 @@ new CardInfo();
                 ViewObject vo2 = iter2.getViewObject();
 
                 vo2 = iter2.getViewObject();
-                vo2.setWhereClause("ACCOUNT_ID =: accid");
+                vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
                 System.out.println("Account id passed in CardGroup VO is " + AccountID);
                 vo2.defineNamedWhereClauseParam("accid", AccountID, null);
+                vo2.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
 
 
                 vo2.executeQuery();
@@ -1779,7 +1791,7 @@ new CardInfo();
                         System.out.println("CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
                         vo3.defineNamedWhereClauseParam("cgid", CardgroupSeq,
                                                         null);
-                        vo3.defineNamedWhereClauseParam("cc", "NO", null);
+                        vo3.defineNamedWhereClauseParam("cc", (user.getLang().toString()), null);
                         vo3.defineNamedWhereClauseParam("cgmain",
                                                         CardgroupMainType,
                                                         null);
@@ -1829,9 +1841,7 @@ new CardInfo();
         
   
         
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+       
         if (session != null){
             if (session.getAttribute("executePartnerObjLogic") == null) {
                 System.out.println("Partner object in session is null");

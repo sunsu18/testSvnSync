@@ -11,6 +11,8 @@ import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
 
 import com.sfr.util.AccessDataControl;
 
+import com.sfr.util.constants.Constants;
+
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -90,8 +92,8 @@ public class AccountSummary implements Serializable {
 
     public AccountSummary() {
         
-        System.out.println("Inside Constructor of Account Summary");
-        log.fine(accessDC.getDisplayRecord() + "Inside Constructor of Account Summary");
+        
+        log.fine(accessDC.getDisplayRecord() + " Inside Constructor of Account Summary");
         RichTree tree = getBindings().getAdfTree();
         if(tree!=null)
         {
@@ -101,21 +103,23 @@ public class AccountSummary implements Serializable {
             _disclosedRowKeys.clear();  
           }
             else
-                System.out.println("No key to disclose");
+			log.info(accessDC.getDisplayRecord() + this.getClass() +" No key to disclose in adf tree");
+                
           tree.setDisclosedRowKeys(_disclosedRowKeys);
         }
         else
         {
-            System.out.println("Adf tree bindings is null");
-            log.warning(accessDC.getDisplayRecord() +"Adf tree bindings is null");
+            
+			
+            //log.warning(accessDC.getDisplayRecord() +"Adf tree bindings is null");
             
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
             session = request.getSession(false);
             
             if (session != null) {
-                System.out.println("session not null getting adfTree from session");
-                    log.info(accessDC.getDisplayRecord() + "session not null getting adfTree from session");
+                
+                    log.info(accessDC.getDisplayRecord() + " session not null getting adfTree from session");
                 if(session.getAttribute("adfTree")!= null)
                 {   tree = (RichTree)session.getAttribute("adfTree");
                     RowKeySet _disclosedRowKeys = tree.getDisclosedRowKeys();  
@@ -124,16 +128,18 @@ public class AccountSummary implements Serializable {
                     _disclosedRowKeys.clear();  
                     }
                     else
-                    System.out.println("No key to disclose");
-                    log.info(accessDC.getDisplayRecord() + "No key to disclose");
+                    
+                    log.info(accessDC.getDisplayRecord() + " No key to disclose in adf tree");
                     tree.setDisclosedRowKeys(_disclosedRowKeys);
                 }
                 else
-                    System.out.println("Session is not null but still adf tree is null");
-                log.info(accessDC.getDisplayRecord() + "Session is not null but still adf tree is null");
+                    
+                log.info(accessDC.getDisplayRecord() + " Session is not null but still adf tree is null it may be due to first hit on Account Summary");
                 }
             
-        }    
+        } 
+
+log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Constructor of Account Summary");		
     }
 
     public void setPartner(PartnerInfo partner) {
@@ -210,28 +216,59 @@ public class AccountSummary implements Serializable {
 
 
         public void setAdfTree(RichTree adfTree) {
+		            if(adfTree !=null) {
+//                
+//                RichTree tree = adfTree; 
+//                //UIComponent tree = adfTree;
+//                if (tree != null) { 
+//                    System.out.println("UIComponent tree not null");
+//                    CollectionModel model =
+//                        (CollectionModel)tree.getValue();
+//                   
+//                    if(model!= null)
+//                    {
+//                    System.out.println("Model not null");
+//                    JUCtrlHierBinding treeBinding = (JUCtrlHierBinding)model.getWrappedData();
+//                    if(treeBinding!=null) {
+//                        System.out.println("Tree binding is not null");
+//                        JUCtrlHierNodeBinding rootNode = 
+//                         treeBinding.getRootNodeBinding();
+//                        if(rootNode != null)
+//                            System.out.println("Root node not null");
+//                        else
+//                            System.out.println("Root node is null");
+//                    }else
+//                        System.out.println("Tree binding is null");
+//                }  
+//
+//                }
+//                else 
+//                    System.out.println("UIComponent tree is null");
+                        
+            }
             this.adfTree = adfTree;
         }
 
         public RichTree getAdfTree() {
             if(adfTree !=null) {
-                System.out.println("Entering..");
+               
             }
             return adfTree;
         }
     }
 
     public void treeListner(SelectionEvent selectionEvent) {
-
+log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner " +
+                           partner.getPartnerValue());
         if (session != null) {
             
             partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
             AccountList = partner.getAccountList();
 
 
-            
-            System.out.println("partner value from session " +
-                               partner.getPartnerValue());
+     
+          //  log.info("partner value from session " +
+           //                    partner.getPartnerValue());
 
         }
 
@@ -242,28 +279,33 @@ public class AccountSummary implements Serializable {
 
         // Add event code here...
 
-        System.out.println("Inside tree listner");
-        log.info(accessDC.getDisplayRecord() + "Inside tree listner");
+        
+		log.info(accessDC.getDisplayRecord() + this.getClass() + " Inside tree listner");
+        
         JUCtrlHierNodeBinding nodeBinding1 = null;
         Row rw = null;
         String rowType = "";
         RichTree tree1 = (RichTree)selectionEvent.getSource();
         if(tree1 != null)
         {
-            System.out.println("Tree is not null in selection listner");
+            
+			log.info(accessDC.getDisplayRecord() + this.getClass() + " Tree is not null in selection listner");
             if (session != null) {
                 session.setAttribute("adfTree", tree1);
-                System.out.println("adftree stored in session");
+                
+				log.info(accessDC.getDisplayRecord() + this.getClass() + " adftree stored in session");
                 
                 
             }
             else
-                System.out.println("Session null and adf tree not stored in session");
+			log.warning(accessDC.getDisplayRecord() + this.getClass() + " Session null and adf tree not stored in session");
+               
             
             
         }
         else
-        System.out.println("Tree is null in selection listner also");
+		 log.warning(accessDC.getDisplayRecord() + this.getClass() + " Tree is null in selection listner also");
+        
         
         RowKeySet rowKeySet1 = selectionEvent.getAddedSet();
 
@@ -323,7 +365,7 @@ public class AccountSummary implements Serializable {
 
         }
 
-
+log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree selection listner ");
     }
     
     
@@ -429,7 +471,7 @@ public class AccountSummary implements Serializable {
 //            }
 //        }
     public void processAttributeChange(AttributeChangeEvent event) {
-        System.out.println("Attribute Listner called");
+        
     }
 
 
@@ -530,9 +572,10 @@ public class AccountSummary implements Serializable {
     }
 
     public void accountOverview() {
+	log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in account overview function ");
 
         hideAll();
-        System.out.println("Inside AccountOverview function");
+        
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
@@ -548,8 +591,7 @@ public class AccountSummary implements Serializable {
 
 
         if (displayAccountOverview) {
-            System.out.println("Account node clicked, Account Overview is true in partner object & Accountid " +
-                               id);
+          log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked, Account Overview is true in partner object & Accountid " + id);
             partnerId = dropNodeParent.toString();
             accountId = id;
 
@@ -561,18 +603,19 @@ public class AccountSummary implements Serializable {
                 iter1 = bindings.findIteratorBinding("PrtAccountVO2Iterator");
 
             } else {
-                System.out.println("account bindings inside account Overview is null");
+			log.severe(accessDC.getDisplayRecord() + this.getClass() + " account bindings inside account Overview is null");
+                
                 iter1 = null;
             }
 
             if (iter1 != null) {
 
-                ViewObject vo_acc = iter1.getViewObject();
-                vo_acc.setWhereClause("ACCOUNT_ID =: accid");
-                vo_acc.defineNamedWhereClauseParam("accid", id, null);
-                vo_acc.setNamedWhereClauseParam("countryCode", "NO");
-                //System.out.println(vo_acc.getQuery());
-                vo_acc.executeQuery();
+                ViewObject accountVO = iter1.getViewObject();
+                accountVO.setWhereClause("ACCOUNT_ID =: accid");
+                accountVO.defineNamedWhereClauseParam("accid", id, null);
+                accountVO.setNamedWhereClauseParam("countryCode", (String)session.getAttribute(Constants.userLang));
+               
+                accountVO.executeQuery();
 
             }
             getBindings().getAccountOverview().setVisible(true);
@@ -581,17 +624,19 @@ public class AccountSummary implements Serializable {
 
         } else {
             hideAll();
-            System.out.println("Account node clicked But Account Overview is false in partner object & Accountid " +
-                               id);
+            
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked But Account Overview is false in partner object & Accountid " + id);
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
-        System.out.println("Exiting AccountOverview function");
+        
+		log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from AccountOverview function ");
     }
 
     public void cardGroupOverview() {
-        System.out.println("Inside cardGroupOverview function");
+        
+            log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in cardGroupOverview function ");
 
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
@@ -616,8 +661,8 @@ public class AccountSummary implements Serializable {
 
         if (displayCardGroupOverview) {
 
-            System.out.println("cardGroup node clicked, cardGroup Overview is true in partner object & cardGroupId " +
-                               id);
+            
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked, cardGroup Overview is true in partner object & cardGroupId " + id);
             DCBindingContainer bindings =
                 (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
@@ -628,13 +673,14 @@ public class AccountSummary implements Serializable {
                         bindings.findIteratorBinding("PrtCardgroupVO3Iterator");
                 
             } else {
-                System.out.println("card group bindings inside cardGroup Overview is null");
-                iter1 = null;
+                
+                log.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside cardGroup Overview is null ");
+				iter1 = null;
             }
             
             if (iter1 != null) {
 
-                ViewObject vo_cg = iter1.getViewObject();
+                ViewObject cardGroupVO = iter1.getViewObject();
                 String maintype = id.substring(0, 3);
                 
                 String subtype = id.substring(3, 6);
@@ -642,17 +688,17 @@ public class AccountSummary implements Serializable {
                 String cardgroupseq = id.substring(6);
                 
 
-                vo_cg.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
 
 
-                vo_cg.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
+                cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                vo_cg.defineNamedWhereClauseParam("cc", "NO", null);
-                vo_cg.defineNamedWhereClauseParam("cgmain", maintype, null);
-                vo_cg.defineNamedWhereClauseParam("cgsub", subtype, null);
+                cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                cardGroupVO.defineNamedWhereClauseParam("cgmain", maintype, null);
+                cardGroupVO.defineNamedWhereClauseParam("cgsub", subtype, null);
 
                 
-                vo_cg.executeQuery();
+                cardGroupVO.executeQuery();
                 
 
                 bindings =
@@ -662,37 +708,38 @@ public class AccountSummary implements Serializable {
                     iter3 = bindings.findIteratorBinding("PrtCardVO4Iterator");
                 
                 } else {
-                    System.out.println("card bindings inside cardGroup Overview is null");
+                    log.severe(accessDC.getDisplayRecord() + this.getClass() + " card bindings in PrtCardVO4Iterator is null");
+                   
                     iter3 = null;
                 }
 
-                ViewObject vo3 = iter3.getViewObject();
+                ViewObject cardVO = iter3.getViewObject();
 
-                if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+                if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(cardVO.getWhereClause())) {
                     
-                    vo3.removeNamedWhereClauseParam("cardid");
-                    vo3.removeNamedWhereClauseParam("cc");
-                    vo3.setWhereClause("");
-                    vo3.executeQuery();
+                    cardVO.removeNamedWhereClauseParam("cardid");
+                    cardVO.removeNamedWhereClauseParam("cc");
+                    cardVO.setWhereClause("");
+                    cardVO.executeQuery();
                 }
 
 
-                vo3 = iter3.getViewObject();
-                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-                vo3.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
+                cardVO = iter3.getViewObject();
+                cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                cardVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                vo3.defineNamedWhereClauseParam("cc", "NO", null);
-                vo3.defineNamedWhereClauseParam("cgmain", maintype, null);
-                vo3.defineNamedWhereClauseParam("cgsub", subtype, null);
+                cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                cardVO.defineNamedWhereClauseParam("cgmain", maintype, null);
+                cardVO.defineNamedWhereClauseParam("cgsub", subtype, null);
 
 
-                vo3.executeQuery();
+                cardVO.executeQuery();
                 
-                if (vo3.getEstimatedRowCount() != 0) {
+                if (cardVO.getEstimatedRowCount() != 0) {
                     cardTypeList = new ArrayList<SelectItem>();
-                    while (vo3.hasNext()) {
+                    while (cardVO.hasNext()) {
                         PrtCardVORowImpl currRow =
-                            (PrtCardVORowImpl)vo3.next();
+                            (PrtCardVORowImpl)cardVO.next();
                         if (currRow.getCardType() != null) {
                             SelectItem selectItem = new SelectItem();
                             selectItem.setLabel(currRow.getCardType());
@@ -705,6 +752,7 @@ public class AccountSummary implements Serializable {
                     
 
                 }
+				log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 
 
 
@@ -722,26 +770,30 @@ public class AccountSummary implements Serializable {
         } else {
 
             hideAll();
-            System.out.println("cardGroup node clicked But cardGroup Overview is false in partner object & cardGroupId " +
+            
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked But cardGroup Overview is false in partner object & cardGroupId " +
                                id);
             getBindings().getRestrictedAccess().setVisible(true);
             
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
 
-        System.out.println("Exiting cardGroupOverview function");
+        
+		 log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardGroupOverview function ");
 
     }
 
     public void cardOverview() {
-        System.out.println("Inside cardOverview function");
+        
+	log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside cardOverview function");
 
 
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
-        System.out.println("card node clicked & cardid " + id);
+        
+		log.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked & cardid " + id);
 
         DCBindingContainer bindings =
             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -752,32 +804,33 @@ public class AccountSummary implements Serializable {
             iter1 = bindings.findIteratorBinding("PrtCardVO4Iterator");
             
         } else {
-            System.out.println("card bindings inside card Overviewis null");
+           
+		   log.warning(accessDC.getDisplayRecord() + this.getClass() + " card bindings inside card Overview is null");
             iter1 = null;
         }
         
         if (iter1 != null) {
 
-            ViewObject vo_card = iter1.getViewObject();
+            ViewObject cardVO = iter1.getViewObject();
 
-            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo_card.getWhereClause())) {
+            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(cardVO.getWhereClause())) {
                 
-                vo_card.removeNamedWhereClauseParam("cgid");
-                vo_card.removeNamedWhereClauseParam("cc");
-                vo_card.removeNamedWhereClauseParam("cgmain");
-                vo_card.removeNamedWhereClauseParam("cgsub");
-                vo_card.setWhereClause("");
-                vo_card.executeQuery();
+                cardVO.removeNamedWhereClauseParam("cgid");
+                cardVO.removeNamedWhereClauseParam("cc");
+                cardVO.removeNamedWhereClauseParam("cgmain");
+                cardVO.removeNamedWhereClauseParam("cgsub");
+                cardVO.setWhereClause("");
+                cardVO.executeQuery();
             }
 
-            vo_card.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
+            cardVO.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
 
-            vo_card.defineNamedWhereClauseParam("cardid", id, null);
+            cardVO.defineNamedWhereClauseParam("cardid", id, null);
 
-            vo_card.defineNamedWhereClauseParam("cc", "NO", null);
+            cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
 
             
-            vo_card.executeQuery();
+            cardVO.executeQuery();
 
 
         }
@@ -794,11 +847,13 @@ public class AccountSummary implements Serializable {
         accountId = dropNodeParent.toString();
         partnerId = dropNodeParent.getParent().toString();
 
-        System.out.println("Exiting cardOverview function");
+        
+		log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardOverview function");
     }
 
     public void companyOverview() {
-        System.out.println("Inside companyOverview function");
+        
+		log.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside companyOverview function");
 
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
@@ -835,25 +890,29 @@ public class AccountSummary implements Serializable {
             partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
 
             
-            System.out.println("partner value from session " +
+
+			  log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " +
                                partner.getPartnerValue());
+
 
         }
         if (partner.isCompanyOverview()) {
-            System.out.println("partner node clicked, company/partner Overview is true in partner object & partnerId " +
+
+			log.info(accessDC.getDisplayRecord() + this.getClass() + " partner node clicked, company/partner Overview is true in partner object & partnerId " +
                                partner.getPartnerValue().toString());
             getBindings().getCompanyOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCompanyOverview());
         } else {
             hideAll();
-            System.out.println("partner node clicked But company/partner Overview is false in partner object & partnerId " +
+        
+			log.info(accessDC.getDisplayRecord() + this.getClass() + " partner node clicked But company/partner Overview is false in partner object & partnerId " +
                                partner.getPartnerValue().toString());
             getBindings().getRestrictedAccess().setVisible(true);
-            System.out.println("restricted access visible");
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
         }
-
-        System.out.println("Exiting commpanyOverview function");
+log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting commpanyOverview function");
+        
     }
 }
 

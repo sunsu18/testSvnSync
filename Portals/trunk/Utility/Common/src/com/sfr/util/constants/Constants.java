@@ -428,6 +428,8 @@ public class Constants {
     public static final String WS_PORTAL = "WS_PORTAL";
     public static final String PP_PORTAL = "PP_PORTAL";
     public static final String EN_PORTAL = "ENGAGE_PORTAL";
+    public static final String ENGAGE = "ENGAGE";
+    public static final String HELPLIST = "HELPLIST";
     public static final String PCM_PORTAL = "PCM_PORTAL";
     //public static final String WS_HELP = "WS_HELP";
     public static final String WS_HELP_FAQ = "WS_HELP_FAQ";
