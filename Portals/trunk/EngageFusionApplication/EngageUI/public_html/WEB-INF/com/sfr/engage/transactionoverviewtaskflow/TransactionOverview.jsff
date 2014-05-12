@@ -281,7 +281,7 @@
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
         <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
-           <af:panelGroupLayout id="pgl35" styleClass="info"
+           <af:panelGroupLayout id="pgl35" styleClass="info_legend"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
             </af:panelGroupLayout>
