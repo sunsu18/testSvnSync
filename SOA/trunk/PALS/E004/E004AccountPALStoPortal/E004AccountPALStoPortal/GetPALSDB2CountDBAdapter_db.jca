@@ -3,7 +3,7 @@
   <connection-factory location="eis/DB/PALSDB2SNXADS" UIConnectionName="AccountSummary" adapterRef=""/>
   <endpoint-interaction portType="GetPALSDB2CountDBAdapter_ptt" operation="GetPALSDB2CountDBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
-      <property name="SqlString" value="select count(*) from DHDTOCSS.CC071VS1_CSSKTO_DTA where DELTA_TS > #DeltaTS"/>
+      <property name="SqlString" value="select count(*) from CC071VS1_CSSKTO_DTA where DELTA_TS > #DeltaTS"/>
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
     <input/>
