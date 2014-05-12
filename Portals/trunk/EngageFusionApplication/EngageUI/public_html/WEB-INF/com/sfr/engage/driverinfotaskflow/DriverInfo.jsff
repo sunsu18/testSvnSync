@@ -415,7 +415,7 @@
         <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot11"
                        binding="#{pageFlowScope.DriverInfoBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
-                       styleClass="errorOutputText"/>
+                       styleClass="errorOutputText" partialTriggers="soc4"/>
           <af:spacer width="10" height="10" id="s40"/> 
         <af:panelStretchLayout id="pssl6"
                                dimensionsFrom="children">

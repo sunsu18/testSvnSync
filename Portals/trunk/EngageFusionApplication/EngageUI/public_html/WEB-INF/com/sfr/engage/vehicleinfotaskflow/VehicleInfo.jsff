@@ -428,7 +428,7 @@
                        id="ot10"
                        binding="#{pageFlowScope.VehicleInfoBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgEditFlag}"
-                       styleClass="errorOutputText"/>
+                       styleClass="errorOutputText" partialTriggers="soc4"/>
           <af:spacer width="10" height="10" id="s40"/>             
         <af:panelStretchLayout id="pssl6" dimensionsFrom="children">
           <f:facet name="bottom">
