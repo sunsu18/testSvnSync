@@ -17,14 +17,11 @@
     <DesignTime>
       <Attr Name="_aggregation" Value="0"/>
       <Attr Name="_finderName" Value="PrtAccountEO"/>
-      <Attr Name="_foreignKey"
-        Value="com.sfr.engage.model.entities.PrtAccountEO.PrtAccountPk"/>
       <Attr Name="_isUpdateable" Value="true"/>
       <Attr Name="_minCardinality" Value="1"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="com.sfr.engage.model.entities.PrtAccountEO.CountryCode"/>
-      <Item Value="com.sfr.engage.model.entities.PrtAccountEO.AccountId"/>
     </AttrArray>
   </AssociationEnd>
   <AssociationEnd
@@ -34,15 +31,11 @@
     <DesignTime>
       <Attr Name="_aggregation" Value="0"/>
       <Attr Name="_finderName" Value="PrtDriverInformationEO"/>
-      <Attr Name="_foreignKey"
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.PrtDriverInformationPrFk1"/>
       <Attr Name="_isUpdateable" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item
         Value="com.sfr.engage.model.entities.PrtDriverInformationEO.CountryCode"/>
-      <Item
-        Value="com.sfr.engage.model.entities.PrtDriverInformationEO.AccountId"/>
     </AttrArray>
   </AssociationEnd>
 </Association>
