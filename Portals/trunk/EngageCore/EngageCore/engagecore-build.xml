@@ -16,6 +16,7 @@
   <target name="all" description="Build the project"
           depends="clean,deploy,compile,copy"/>
   <target name="clean" description="Clean the project">
+   <echo>${engagecore.deploy.outputdir}</echo>
     <delete includeemptydirs="true" quiet="true">
       <fileset dir="${output.dir}" includes="**/*"/>
       <fileset dir="${engagecore.deploy.dir}" includes="**/*"/> 
