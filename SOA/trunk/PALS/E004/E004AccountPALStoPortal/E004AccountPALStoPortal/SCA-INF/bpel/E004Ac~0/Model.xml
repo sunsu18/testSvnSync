@@ -45,7 +45,6 @@
     <variable name="ValidateAccountFields" element="ns10:Account"/>
     <variable name="ValidData" element="ns10:Account"/>
     <variable name="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" messageType="ns11:EngagePalsAccDtaErrorlogCollection_msg"/>
-    <variable name="RowCount" type="xsd:integer"/>
     <variable name="InvokeMergeAccountPortalDBAdapter_insert_InputVariable" messageType="ns13:PrtAccountCollection_msg"/>
     <variable name="InvokeMergeAccountPortalDBAdapter_merge_InputVariable" messageType="ns13:PrtAccountCollection_msg"/>
     <variable name="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable" messageType="ns18:SelectValidDataTempAccountPortalDBAdapterInput_msg"/>
@@ -278,10 +277,6 @@
       <copy>
         <from expression="0"/>
         <to variable="Count"/>
-      </copy>
-      <copy>
-        <from expression="1"/>
-        <to variable="RowCount"/>
       </copy>
     </assign>
     <scope name="GetDeltaTSScope" variableAccessSerializable="no" id="BpScp0">
@@ -598,10 +593,6 @@
           <copy>
             <from expression="bpws:getVariableData('Count') + 1"/>
             <to variable="Count"/>
-          </copy>
-          <copy>
-            <from expression="1"/>
-            <to variable="RowCount"/>
           </copy>
         </assign>
       </sequence>
