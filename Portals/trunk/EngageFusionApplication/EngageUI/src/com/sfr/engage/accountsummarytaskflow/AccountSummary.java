@@ -609,8 +609,20 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
             }
 
             if (iter1 != null) {
+               
 
                 ViewObject accountVO = iter1.getViewObject();
+                
+                if(("PARTNER_ID =: pid").equalsIgnoreCase(accountVO.getWhereClause()))
+                {
+                    
+                    accountVO.removeNamedWhereClauseParam("pid");
+                    
+                    accountVO.setWhereClause("");
+                    accountVO.executeQuery();
+                    
+                    
+                }
                 accountVO.setWhereClause("ACCOUNT_ID =: accid");
                 accountVO.defineNamedWhereClauseParam("accid", id, null);
                 accountVO.setNamedWhereClauseParam("countryCode", (String)session.getAttribute(Constants.userLang));
@@ -681,6 +693,15 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
             if (iter1 != null) {
 
                 ViewObject cardGroupVO = iter1.getViewObject();
+                
+                
+                if(("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc").equalsIgnoreCase(cardGroupVO.getWhereClause())) {
+                    
+                    cardGroupVO.removeNamedWhereClauseParam("accid");
+                    cardGroupVO.removeNamedWhereClauseParam("cc");
+                    cardGroupVO.setWhereClause("");
+                    cardGroupVO.executeQuery();
+                }
                 String maintype = id.substring(0, 3);
                 
                 String subtype = id.substring(3, 6);
