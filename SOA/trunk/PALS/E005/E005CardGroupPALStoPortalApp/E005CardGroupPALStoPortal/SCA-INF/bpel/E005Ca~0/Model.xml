@@ -354,15 +354,15 @@
                         </copy>
                       </assign>
                       <assign name="ConvertDateTime" id="BpAss12">
-                        <copy>
-                          <from expression="substring-before(bpws:getVariableData('DeltaTS'),'+')"/>
-                          <to variable="DeltaTS"/>
-                        </copy>
-                        <copy>
-                          <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
-                          <to variable="DeltaTS"/>
-                        </copy>
-                      </assign>
+                    <copy>
+                      <from expression="substring-before(bpws:getVariableData('DeltaTS'),'+')"/>
+                      <to variable="DeltaTS"/>
+                    </copy>
+                    <copy>
+                      <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                      <to variable="DeltaTS"/>
+                    </copy>
+                  </assign>
                     </sequence>
                   </case>
                   <otherwise>
