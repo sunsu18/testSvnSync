@@ -66,6 +66,7 @@ private boolean passwordChangeRequired;
     List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     List<CardInfo> cardlist = new ArrayList<CardInfo>();
     List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
+    List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
 
     boolean addflagaccount = false;
@@ -332,13 +333,15 @@ private boolean passwordChangeRequired;
                             accountlist = new ArrayList<AccountInfo>();
 
 
-                            if (partnerinfo_list.size() == 1) {
-                                partnerlist.add(partnerinfo_list.get(0));
-
+                            if (partnerinfo_list.size() != 0 ) {
+                               // partnerlist.add(partnerinfo_list.get(0));
+                                partnerlist = partnerinfo_list;
                                 //TODO : To check why Partner value is not setted properly
                                 //   part.setPartnerValue(partnerinfo_list.get(0).toString());
 
                             }
+                            System.out.println("Final Partner list size2 " +
+                                               partnerlist.size());
 
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
@@ -346,8 +349,19 @@ private boolean passwordChangeRequired;
 
                                 if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
                                 {
-                                    System.out.println("Partner List contains Admin role");
-                                    executeAdmin(user);
+                                    System.out.println(" Partner List contains Admin role");
+                                                                        if (user.getRoleList().get(i).getIdString() !=
+                                                                            null) {
+                                                                        int partIndex = 0;
+                                                                        do
+                                                                        {
+                                                                        executeAdmin(user,partIndex);
+                                                                            partIndex++;
+                                                                        }
+                                                                            while(partIndex < user.getRoleList().get(i).getIdString().size());
+                                                                            }
+                                    session.setAttribute("executePartnerObjLogic", "no");
+                                    System.out.println("Session variable added to avoid multiple execution of code on my page listner");
                                     
                                 }
 
@@ -1584,7 +1598,7 @@ new CardInfo();
     //TODO : Amit - Below method to be deleted before moving to Dev or highler envs.
 
 
-    private void executeAdmin(User user) {
+    private void executeAdmin(User user,int partIndex) {
         
         //Since the user logged in has Admin role so not much handling / filtering is required at this point
         //1.Take partner id as request for Account View Object , 2.Execute Account VO, 3.Take the account id from Account View Object result, 4.Pass it to CardGroup View Object,
@@ -1612,8 +1626,8 @@ new CardInfo();
 
         
 
-
-        String Partnerid = partnerlist.get(0).getPartnerValue();
+        System.out.println(" partIndex ----> " + partIndex);
+        String Partnerid = partnerlist.get(partIndex).getPartnerValue();
         
 
 
@@ -1839,13 +1853,15 @@ new CardInfo();
 
         }
         
+        partnerListSession.add(part);
+        
   
         
        
         if (session != null){
             if (session.getAttribute("executePartnerObjLogic") == null) {
                 System.out.println("Partner object in session is null");
-                session.setAttribute("Partner_Object_List", part);
+                session.setAttribute("Partner_Object_List", partnerListSession);
 //                accountlist.clear();
 //                cardgrouplist.clear();
 //                cardlist.clear();
@@ -1854,8 +1870,7 @@ new CardInfo();
 
 
                 //System.out.println("session not null");
-                session.setAttribute("executePartnerObjLogic", "no");
-                System.out.println("Session variable added to avoid multiple execution of code on my page listner");
+                
 
             }}
         
@@ -1937,6 +1952,7 @@ new CardInfo();
 //                idString = new ArrayList<String>();
                         rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
                 idString.add("NOPP26773218");
+                idString.add("NOPP26773219");
                 rr.setIdString(idString);
                 listrole.add(rr);
 

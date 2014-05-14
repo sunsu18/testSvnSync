@@ -92,7 +92,7 @@
                      rowSelection="single" id="t3" contentDelivery="immediate" immediate="true"
                     contextMenuSelect="false"
                      binding="#{pageFlowScope.AuthenticatedHomeBean.adfTree}"
-                     initiallyExpanded="true"
+                     initiallyExpanded="false"
                      inlineStyle="height:475px; width:300.0px;">
               <f:facet name="nodeStamp">
             <af:switcher id="s17" 

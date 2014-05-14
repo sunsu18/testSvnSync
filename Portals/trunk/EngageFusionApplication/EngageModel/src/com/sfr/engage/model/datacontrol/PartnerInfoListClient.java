@@ -60,12 +60,14 @@ public class PartnerInfoListClient {
                
                if(session!= null) {
                     //System.out.println("partner list from session");
-                   partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
+                   partnerlist = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                    
-                   System.out.println("Partner value from session in string " + partner.getPartnerValue().toString());
+                   for(int z=0; z < partnerlist.size();z++)
+                                     {System.out.println("Partner value from session in string " + partnerlist.get(z).getPartnerValue().toString());}
+                   //System.out.println("Partner value from session in string " + partner.getPartnerValue().toString());
                    //System.out.println("partner value from session " + partner.getPartnerValue());
                      
-                   partnerlist.add(partner);
+                   //partnerlist.add(partner);
                    
                }
                else

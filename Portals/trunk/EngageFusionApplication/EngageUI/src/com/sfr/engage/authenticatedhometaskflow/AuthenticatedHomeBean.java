@@ -215,8 +215,10 @@ public class AuthenticatedHomeBean implements Serializable {
 
             }
             if (session.getAttribute("Partner_Object_List") != null) {
-                partnerInfo =
-                        (PartnerInfo)session.getAttribute("Partner_Object_List");
+                
+                List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
+                partnerlist = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                partnerInfo = partnerlist.get(0);
             }
 
             if (partnerInfo != null) {
