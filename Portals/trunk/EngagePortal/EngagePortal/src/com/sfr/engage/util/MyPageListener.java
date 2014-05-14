@@ -128,7 +128,7 @@ private boolean passwordChangeRequired;
             //profile
             String profile = (String)request.getParameter("profile");
             if (profile == null) {
-                profile = "private";
+                profile = "business";
             }
             session.setAttribute("profile", profile);
 
