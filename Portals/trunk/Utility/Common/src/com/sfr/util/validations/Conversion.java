@@ -32,7 +32,7 @@ public class Conversion {
         }else if (country.equalsIgnoreCase("NO"))
         {
             return "NOK";
-        }else if(country.equalsIgnoreCase("DE"))
+        }else if(country.equalsIgnoreCase("DK"))
         {
             return "DKK";
         }
