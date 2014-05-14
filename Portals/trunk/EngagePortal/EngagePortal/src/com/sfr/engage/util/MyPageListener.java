@@ -47,8 +47,8 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
 
 
 public class MyPageListener implements PagePhaseListener {
-    private User user = null;
-    private boolean passwordChangeRequired;
+private User user = null;
+private boolean passwordChangeRequired;
     
     
   
@@ -1603,7 +1603,7 @@ new CardInfo();
         System.out.println("Entered in execute Admin function");
 
         part = new PartnerInfo();
-
+        
 
         accountlist = new ArrayList<AccountInfo>();
         cardgrouplist = new ArrayList<CardGroupInfo>();
@@ -1915,7 +1915,7 @@ new CardInfo();
         User user = new User();
         user.setFirstName("Hanif");
         user.setLastName("Merchant");
-        user.setLang("NO");
+        user.setLang("no_NO");
         //        user.setEmailID("h.m@m.h");
         //  user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN);
         //user.setPosition(Constants.ROLE_WCP_B2BM);
