@@ -1,0 +1,21 @@
+<?binding.jca TruncateTempCardPortalDBAdapter_db.jca?>
+<wsdl:definitions name="TruncateTempCardPortalDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/TruncateTempCardPortalDBAdapter" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/TruncateTempCardPortalDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/TruncateTempCardPortalDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="TruncateTempCardPortalDBAdapter_plt">
+        <plt:role name="TruncateTempCardPortalDBAdapter_role">
+            <plt:portType name="tns:TruncateTempCardPortalDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/TruncateTempCardPortalDBAdapter" schemaLocation="xsd/TruncateTempCardPortalDBAdapter.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="TruncateTempCardPortalDBAdapterInput_msg">
+        <wsdl:part name="TruncateTempCardPortalDBAdapterInput_msg" element="db:TruncateTempCardPortalDBAdapterInput"/>
+    </wsdl:message>
+    <wsdl:portType name="TruncateTempCardPortalDBAdapter_ptt">
+        <wsdl:operation name="TruncateTempCardPortalDBAdapter">
+            <wsdl:input message="tns:TruncateTempCardPortalDBAdapterInput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,25 @@
+<?binding.jca SelectValidDataTempCardPortalDBAdapter_db.jca?>
+<wsdl:definitions name="SelectValidDataTempCardPortalDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempCardPortalDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectValidDataTempCardPortalDBAdapter_plt">
+        <plt:role name="SelectValidDataTempCardPortalDBAdapter_role">
+            <plt:portType name="tns:SelectValidDataTempCardPortalDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempCardPortalDBAdapter" schemaLocation="xsd/SelectValidDataTempCardPortalDBAdapter.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectValidDataTempCardPortalDBAdapterInput_msg">
+        <wsdl:part name="SelectValidDataTempCardPortalDBAdapterInput_msg" element="db:SelectValidDataTempCardPortalDBAdapterInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectValidDataTempCardPortalDBAdapterOutputCollection_msg">
+        <wsdl:part name="SelectValidDataTempCardPortalDBAdapterOutputCollection" element="db:SelectValidDataTempCardPortalDBAdapterOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectValidDataTempCardPortalDBAdapter_ptt">
+        <wsdl:operation name="SelectValidDataTempCardPortalDBAdapter">
+            <wsdl:input message="tns:SelectValidDataTempCardPortalDBAdapterInput_msg"/>
+            <wsdl:output message="tns:SelectValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

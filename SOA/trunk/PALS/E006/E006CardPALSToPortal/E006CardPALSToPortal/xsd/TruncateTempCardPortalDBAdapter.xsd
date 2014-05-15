@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/TruncateTempCardPortalDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/TruncateTempCardPortalDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="TruncateTempCardPortalDBAdapterInput" type="TruncateTempCardPortalDBAdapterInput"/>
+   <xs:complexType name="TruncateTempCardPortalDBAdapterInput">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>

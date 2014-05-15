@@ -1,0 +1,25 @@
+<?binding.jca SelectInValidDataTempCardPortalDBAdapter_db.jca?>
+<wsdl:definitions name="SelectInValidDataTempCardPortalDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempCardPortalDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectInValidDataTempCardPortalDBAdapter_plt">
+        <plt:role name="SelectInValidDataTempCardPortalDBAdapter_role">
+            <plt:portType name="tns:SelectInValidDataTempCardPortalDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempCardPortalDBAdapter" schemaLocation="xsd/SelectInValidDataTempCardPortalDBAdapter.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectInValidDataTempCardPortalDBAdapterInput_msg">
+        <wsdl:part name="SelectInValidDataTempCardPortalDBAdapterInput_msg" element="db:SelectInValidDataTempCardPortalDBAdapterInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectInValidDataTempCardPortalDBAdapterOutputCollection_msg">
+        <wsdl:part name="SelectInValidDataTempCardPortalDBAdapterOutputCollection" element="db:SelectInValidDataTempCardPortalDBAdapterOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectInValidDataTempCardPortalDBAdapter_ptt">
+        <wsdl:operation name="SelectInValidDataTempCardPortalDBAdapter">
+            <wsdl:input message="tns:SelectInValidDataTempCardPortalDBAdapterInput_msg"/>
+            <wsdl:output message="tns:SelectInValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

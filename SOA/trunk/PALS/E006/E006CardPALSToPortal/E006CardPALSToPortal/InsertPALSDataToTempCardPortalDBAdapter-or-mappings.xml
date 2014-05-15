@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>InsertPALSDataToTempCardPortalDBAdapter-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>InsertPALSDataToTempCardPortalDBAdapter.SoaPrtCardTemp</class>
+         <alias>SOA_PRT_CARD_TEMP</alias>
+         <primary-key>
+            <field table="SOA_PRT_CARD_TEMP" name="DELTA_TS" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="COUNTRY_CODE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="PARTNER_ID" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="ACCOUNT_ID" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SEQ" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="PRT_CARD_PK" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARD_TYPE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARD_IDENTIFIER" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="MAGNETIC_CODE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARD_EMBOSS_NUM" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_INFORMATION" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="CARD_EXPIRY" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TYPE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_CODE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_ACTION" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_DATE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TIME" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_LEVEL" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="MANUFACTURED_DATE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR1" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_POSTAL_CODE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR2" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_CITY" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="ADDR_SEQ" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_COUNTRY" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_LEVEL" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_TYPE" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_BY" xsi:type="column"/>
+            <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_DATE" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="InsertPALSDataToTempCardPortalDBAdapterSelect" xsi:type="read-all-query">
+                  <reference-class>InsertPALSDataToTempCardPortalDBAdapter.SoaPrtCardTemp</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>countryCode</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountId</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="ACCOUNT_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardgroupMainType</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardgroupSubType</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardgroupSeq</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SEQ" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>prtCardPk</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="PRT_CARD_PK" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardIdentifier</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARD_IDENTIFIER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardType</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARD_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>magneticCode</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="MAGNETIC_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardEmbossNum</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARD_EMBOSS_NUM" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceInformation</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_INFORMATION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardExpiry</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="CARD_EXPIRY" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockType</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockCode</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockAction</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_ACTION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockDate</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockTime</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TIME" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>blockLevel</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="BLOCK_LEVEL" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>manufacturedDate</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="MANUFACTURED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>routexCustomerNumber</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceAddr1</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceAddr2</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicePostalCode</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_POSTAL_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceCity</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_CITY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>addrSeq</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="ADDR_SEQ" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceCountry</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_COUNTRY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceAddrLevel</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_LEVEL" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceAddrType</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedBy</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedDate</attribute-name>
+               <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="SOA_PRT_CARD_TEMP"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

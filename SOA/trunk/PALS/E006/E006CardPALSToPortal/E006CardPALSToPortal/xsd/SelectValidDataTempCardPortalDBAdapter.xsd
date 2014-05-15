@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempCardPortalDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidDataTempCardPortalDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectValidDataTempCardPortalDBAdapterInput" type="SelectValidDataTempCardPortalDBAdapterInput"/>
+   <xs:complexType name="SelectValidDataTempCardPortalDBAdapterInput">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="SelectValidDataTempCardPortalDBAdapterOutputCollection" type="SelectValidDataTempCardPortalDBAdapterOutputCollection"/>
+   <xs:complexType name="SelectValidDataTempCardPortalDBAdapterOutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectValidDataTempCardPortalDBAdapterOutput" type="SelectValidDataTempCardPortalDBAdapterOutput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectValidDataTempCardPortalDBAdapterOutput">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+         <xs:element name="COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="ACCOUNT_ID" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_MAIN_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SUB_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SEQ" type="xs:string" nillable="true"/>
+         <xs:element name="PRT_CARD_PK" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_IDENTIFIER" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="MAGNETIC_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_EMBOSS_NUM" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_INFORMATION" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_EXPIRY" type="xs:dateTime" nillable="true"/>
+         <xs:element name="BLOCK_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="BLOCK_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="BLOCK_ACTION" type="xs:string" nillable="true"/>
+         <xs:element name="BLOCK_DATE" type="xs:dateTime" nillable="true"/>
+         <xs:element name="BLOCK_TIME" type="xs:dateTime" nillable="true"/>
+         <xs:element name="BLOCK_LEVEL" type="xs:string" nillable="true"/>
+         <xs:element name="MANUFACTURED_DATE" type="xs:dateTime" nillable="true"/>
+         <xs:element name="ROUTEX_CUSTOMER_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_ADDR1" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_ADDR2" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_POSTAL_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_CITY" type="xs:string" nillable="true"/>
+         <xs:element name="ADDR_SEQ" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_COUNTRY" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_ADDR_LEVEL" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_ADDR_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_BY" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_DATE" type="xs:dateTime" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

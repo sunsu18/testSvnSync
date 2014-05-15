@@ -24,6 +24,21 @@
           location="SOAErrorDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1"
           location="MergeDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/InsertPALSDataToTempCardPortalDBAdapter"
+          location="InsertPALSDataToTempCardPortalDBAdapter.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter"
+          location="SelectValidDataTempCardPortalDBAdapter.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter"
+          location="SelectInValidDataTempCardPortalDBAdapter.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/TruncateTempCardPortalDBAdapter"
+          location="TruncateTempCardPortalDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorHandlerJMSAdapter"
+          location="SOAErrorHandlerJMSAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter"
+          location="SOAErrorLogDBAdapter.wsdl" importType="wsdl"/>
   <service name="e006cardpalstoportal_client_ep"
            ui:wsdlLocation="E006CardPALSToPortal.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.interface(E006CardPALSToPortal)"/>
@@ -104,6 +119,71 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="InsertPALSDataToTempCardPortalDBAdapter"
+             ui:wsdlLocation="InsertPALSDataToTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/InsertPALSDataToTempCardPortalDBAdapter#wsdl.interface(InsertPALSDataToTempCardPortalDBAdapter_ptt)"/>
+    <binding.jca config="InsertPALSDataToTempCardPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SelectValidDataTempCardPortalDBAdapter"
+             ui:wsdlLocation="SelectValidDataTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter#wsdl.interface(SelectValidDataTempCardPortalDBAdapter_ptt)"/>
+    <binding.jca config="SelectValidDataTempCardPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SelectInValidDataTempCardPortalDBAdapter"
+             ui:wsdlLocation="SelectInValidDataTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter#wsdl.interface(SelectInValidDataTempCardPortalDBAdapter_ptt)"/>
+    <binding.jca config="SelectInValidDataTempCardPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="TruncateTempCardPortalDBAdapter"
+             ui:wsdlLocation="TruncateTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/TruncateTempCardPortalDBAdapter#wsdl.interface(TruncateTempCardPortalDBAdapter_ptt)"/>
+    <binding.jca config="TruncateTempCardPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SOAErrorHandlerJMSAdapter"
+             ui:wsdlLocation="SOAErrorHandlerJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAErrorHandlerJMSAdapter_jms.jca"/>
+  </reference>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
+    <binding.jca config="SOAErrorLogDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>e006cardpalstoportal_client_ep</source.uri>
     <target.uri>E006CardPALSToPortal/e006cardpalstoportal_client</target.uri>
@@ -131,5 +211,29 @@
   <wire>
     <source.uri>E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1</source.uri>
     <target.uri>MergeDeltaTSSOADBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/InsertPALSDataToTempCardPortalDBAdapter</source.uri>
+    <target.uri>InsertPALSDataToTempCardPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter</source.uri>
+    <target.uri>SelectValidDataTempCardPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter</source.uri>
+    <target.uri>SelectInValidDataTempCardPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/TruncateTempCardPortalDBAdapter</source.uri>
+    <target.uri>TruncateTempCardPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/SOAErrorHandlerJMSAdapter</source.uri>
+    <target.uri>SOAErrorHandlerJMSAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/SOAErrorLogDBAdapter</source.uri>
+    <target.uri>SOAErrorLogDBAdapter</target.uri>
   </wire>
 </composite>

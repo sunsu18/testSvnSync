@@ -30,4 +30,28 @@
              ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
   </reference>
+  <reference name="InsertPALSDataToTempCardPortalDBAdapter"
+             ui:wsdlLocation="InsertPALSDataToTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/InsertPALSDataToTempCardPortalDBAdapter#wsdl.interface(InsertPALSDataToTempCardPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SelectValidDataTempCardPortalDBAdapter"
+             ui:wsdlLocation="SelectValidDataTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectValidDataTempCardPortalDBAdapter#wsdl.interface(SelectValidDataTempCardPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SelectInValidDataTempCardPortalDBAdapter"
+             ui:wsdlLocation="SelectInValidDataTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectInValidDataTempCardPortalDBAdapter#wsdl.interface(SelectInValidDataTempCardPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="TruncateTempCardPortalDBAdapter"
+             ui:wsdlLocation="TruncateTempCardPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/TruncateTempCardPortalDBAdapter#wsdl.interface(TruncateTempCardPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SOAErrorHandlerJMSAdapter"
+             ui:wsdlLocation="SOAErrorHandlerJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
+  </reference>
 </componentType>
