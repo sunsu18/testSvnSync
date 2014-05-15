@@ -1,13 +1,43 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <Faults>
    <Fault>
-      <severity>error</severity>
+      <severity>warning</severity>
       <loc/>
-      <line>355</line>
+      <line>290</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
-      <fix>Remove this assign element</fix>
-      <msg>Assign activity does not have children. Empty assign is not necessary and is not supported in this version of OraBPEL PM</msg>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}integer" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}string"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>381</line>
+      <col/>
+      <file>E006CardPALSToPortal.bpel</file>
+      <name>E006CardPALSToPortal.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}interfaceid anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>381</line>
+      <col/>
+      <file>E006CardPALSToPortal.bpel</file>
+      <name>E006CardPALSToPortal.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}countrycode anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>381</line>
+      <col/>
+      <file>E006CardPALSToPortal.bpel</file>
+      <name>E006CardPALSToPortal.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}updatedby anonymous type"</msg>
    </Fault>
 </Faults>

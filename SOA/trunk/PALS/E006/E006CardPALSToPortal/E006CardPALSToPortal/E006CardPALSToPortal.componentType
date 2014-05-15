@@ -26,4 +26,8 @@
   <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
   </reference>
+  <reference name="MergeDeltaTSSOADBAdapterV1"
+             ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
+  </reference>
 </componentType>

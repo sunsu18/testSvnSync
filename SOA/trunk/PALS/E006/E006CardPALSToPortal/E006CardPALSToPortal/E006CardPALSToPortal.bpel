@@ -37,7 +37,9 @@
          xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter"
          xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeCardPortalDBAdapter"
          xmlns:ns8="http://www.statoilfuelretail.com/integration/engage"
-         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorDBAdapter">
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorDBAdapter"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +69,9 @@
     <partnerLink name="SOAErrorDBAdapter"
                  partnerLinkType="ns9:SOAErrorDBAdapter_plt"
                  partnerRole="SOAErrorDBAdapter_role"/>
+    <partnerLink name="MergeDeltaTSSOADBAdapterV1"
+                 partnerLinkType="ns10:MergeDeltaTSSOADBAdapterV1_plt"
+                 partnerRole="MergeDeltaTSSOADBAdapterV1_role"/>
   </partnerLinks>
   <variables>
     <variable name="DeltaTS" type="xsd:string"/>
@@ -95,6 +100,8 @@
     <variable name="ValidateCardData" element="ns8:Card"/>
     <variable name="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
               messageType="ns9:EngagePalsCardDtaErrorlogCollection_msg"/>
+    <variable name="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+              messageType="ns10:EngageSoaDeltatableCollection_msg"/>
   </variables>
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -357,6 +364,11 @@
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/XformPALSValidDataToMergeCardPortal.xsl', $AccountSummaryCardReqMsg.invocationMsg, 'InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection)"/>
+                <to variable="InvokeMergeCardPortalDBAdapter_merge_InputVariable"
+                    part="PrtCardCollection"/>
+              </copy>
             </assign>
             <invoke name="InvokeMergeCardPortalDBAdapter"
                     bpelx:invokeAsDetail="no"
@@ -366,6 +378,53 @@
                     operation="merge"/>
           </sequence>
         </scope>
+        <assign name="AssignInsertDeltaValues">
+          <copy>
+            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                  query="/client:invocationMsg/client:InterfaceID"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                part="EngageSoaDeltatableCollection"
+                query="/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:interfaceid"/>
+          </copy>
+          <copy>
+            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                  query="/client:invocationMsg/client:CountryCode"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                part="EngageSoaDeltatableCollection"
+                query="/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:countrycode"/>
+          </copy>
+          <copy>
+            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                  query="/client:invocationMsg/client:UserName"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                part="EngageSoaDeltatableCollection"
+                query="/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:updatedby"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                part="EngageSoaDeltatableCollection"
+                query="/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:modifiedbytimestamp"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta[$DataCount]/ns6:deltaTs')"/>
+            <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                part="EngageSoaDeltatableCollection"
+                query="/ns11:EngageSoaDeltatableCollection/ns11:EngageSoaDeltatable/ns11:palsDeltaTimestamp"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeMergeDeltaTSSOADBAdapterV1"
+                bpelx:invokeAsDetail="no"
+                inputVariable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable"
+                partnerLink="MergeDeltaTSSOADBAdapterV1"
+                portType="ns10:MergeDeltaTSSOADBAdapterV1_ptt"
+                operation="merge"/>
+        <assign name="NextBatch">
+          <copy>
+            <from expression="bpws:getVariableData('Count') + 1"/>
+            <to variable="Count"/>
+          </copy>
+        </assign>
       </sequence>
     </while>
   </sequence>

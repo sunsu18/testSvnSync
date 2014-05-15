@@ -22,6 +22,8 @@
           location="MergeCardPortalDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorDBAdapter"
           location="SOAErrorDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1"
+          location="MergeDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
   <service name="e006cardpalstoportal_client_ep"
            ui:wsdlLocation="E006CardPALSToPortal.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.interface(E006CardPALSToPortal)"/>
@@ -90,6 +92,18 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="MergeDeltaTSSOADBAdapterV1"
+             ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
+    <binding.jca config="MergeDeltaTSSOADBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>e006cardpalstoportal_client_ep</source.uri>
     <target.uri>E006CardPALSToPortal/e006cardpalstoportal_client</target.uri>
@@ -113,5 +127,9 @@
   <wire>
     <source.uri>E006CardPALSToPortal/SOAErrorDBAdapter</source.uri>
     <target.uri>SOAErrorDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/MergeDeltaTSSOADBAdapterV1</source.uri>
+    <target.uri>MergeDeltaTSSOADBAdapterV1</target.uri>
   </wire>
 </composite>
