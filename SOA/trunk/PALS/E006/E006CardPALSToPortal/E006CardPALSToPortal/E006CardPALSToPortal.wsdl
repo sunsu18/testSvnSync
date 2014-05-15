@@ -1,0 +1,36 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="E006CardPALSToPortal"
+     targetNamespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="E006CardPALSToPortal">
+        <plnk:role name="E006CardPALSToPortalProvider">
+            <plnk:portType name="client:E006CardPALSToPortal"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+                 schemaLocation="xsd/E006CardPALSToPortal.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/engage" schemaLocation="xsd/CardPortalDBFields.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="E006CardPALSToPortalRequestMessage">
+        <wsdl:part name="invocationMsg" element="client:invocationMsg"/>
+    </wsdl:message>
+    <wsdl:portType name="E006CardPALSToPortal">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:E006CardPALSToPortalRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

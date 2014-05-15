@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/engage"
+            targetNamespace="http://www.statoilfuelretail.com/integration/engage"
+            elementFormDefault="qualified">
+  <xsd:element name="Card">
+<xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="FieldsDetails" maxOccurs="unbounded">
+    <xsd:complexType>
+      <xsd:sequence>
+              <xsd:element name="Delta_TS" type="xsd:string"/>
+              <xsd:element name="countryCode">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="2"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+              <xsd:element name="partnerId">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="8"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="accountId">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="10"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="cardgroupMainType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="cardgroupSubType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="cardgroupSeq">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                   <xsd:maxLength value="5"/>
+                   </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="prtCardPk">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="cardIdentifier">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="cardType">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="magneticCode">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="cardEmbossNum">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="20"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="invoiceInformation" nillable="true">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="90"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="cardExpiry">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:dateTime"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="blockType">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="blockCode">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="blockAction">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="1"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="blockDate" type="xsd:dateTime" nillable="true"/>
+     <xsd:element name="blockTime" type="xsd:dateTime" nillable="true"/>
+     <xsd:element name="blockLevel" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="manufacturedDate" type="xsd:dateTime" nillable="true"/>
+              <xsd:element name="routexCustomerNumber" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="6"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoiceAddr1" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="60"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoiceAddr2" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="60"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoicePostalCode" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="10"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+              <xsd:element name="invoiceCity" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="60"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="addrSeq" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="5"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoiceCountry" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoiceAddrLevel" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="invoiceAddrType" nillable="true">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="modifiedBy">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="25"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+     </xsd:element>
+     <xsd:element name="modifiedDate" type="xsd:dateTime"/>
+            </xsd:sequence>
+    </xsd:complexType>
+    </xsd:element>
+    </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

@@ -1,0 +1,21 @@
+<?binding.jca MergeCardPortalDBAdapter_db.jca?>
+<wsdl:definitions name="MergeCardPortalDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeCardPortalDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeCardPortalDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardPortalDBAdapter">
+    <plt:partnerLinkType name="MergeCardPortalDBAdapter_plt">
+        <plt:role name="MergeCardPortalDBAdapter_role">
+            <plt:portType name="tns:MergeCardPortalDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardPortalDBAdapter" schemaLocation="xsd/MergeCardPortalDBAdapter_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="PrtCardCollection_msg">
+        <wsdl:part name="PrtCardCollection" element="top:PrtCardCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="MergeCardPortalDBAdapter_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:PrtCardCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

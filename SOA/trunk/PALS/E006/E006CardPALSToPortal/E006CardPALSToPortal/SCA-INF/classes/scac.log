@@ -1,0 +1,10 @@
+May 15, 2014 1:48:17 PM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+May 15, 2014 1:48:17 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+May 15, 2014 1:48:17 PM com.collaxa.cube.CubeLogger info
+INFO: validating "E006CardPALSToPortal.bpel" ...
+May 15, 2014 1:48:18 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+May 15, 2014 1:48:18 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.

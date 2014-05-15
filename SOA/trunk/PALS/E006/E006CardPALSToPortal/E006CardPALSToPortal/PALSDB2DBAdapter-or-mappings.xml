@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>PALSDB2DBAdapter-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>PALSDB2DBAdapter.Cc073Vs1CssksiDta</class>
+         <alias>DHDTOCSS.CC073VS1_CSSKSI_DTA</alias>
+         <primary-key>
+            <field table="CC073VS1_CSSKSI_DTA" name="DELTA_TS" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="KJOPSALG_ID" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="PARTNER_ID" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="KJOPSALG_TP" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVIS_TP" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="EKSTERN_ID" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="PREGE_ID" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKTURA_TX" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="GYLDIGTOM_DT" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_TP" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_KD" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERREAKSJON" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_DT" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_TID" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRENIVA_KD" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="PRODUSERT_DT" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="RTXKND_NR" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_1" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_2" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRPOST_NR" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRPOSTSTED" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRLOPE_NR" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRNIVA_KD" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRLAND_KD" xsi:type="column"/>
+            <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_TP" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="PALSDB2DBAdapterSelect" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP FROM ( SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP,  ROW_NUMBER() OVER() as rownumber FROM DHDTOCSS.CC073VS1_CSSKSI_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Account WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>PALSDB2DBAdapter.Cc073Vs1CssksiDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kjopsalgId</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="KJOPSALG_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdHtp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdUtp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdLnr</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kjopsalgTp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="KJOPSALG_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevisTp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVIS_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>eksternId</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="EKSTERN_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>pregeId</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="PREGE_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaTx</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKTURA_TX" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>gyldigtomDt</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="GYLDIGTOM_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperreTp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperreKd</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperreaksjon</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERREAKSJON" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperreDt</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperreTid</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRE_TID" xsi:type="column"/>
+               <attribute-classification>java.sql.Time</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevsperrenivaKd</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="BEVSPERRENIVA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>produsertDt</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="PRODUSERT_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rtxkndNr</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="RTXKND_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadresse1</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadresse2</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadrpostNr</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRPOST_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadrpoststed</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRPOSTSTED" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadrlopeNr</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRLOPE_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadrlandKd</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRLAND_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadrnivaKd</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRNIVA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakadresseTp</attribute-name>
+               <field table="CC073VS1_CSSKSI_DTA" name="FAKADRESSE_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="DHDTOCSS.CC073VS1_CSSKSI_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

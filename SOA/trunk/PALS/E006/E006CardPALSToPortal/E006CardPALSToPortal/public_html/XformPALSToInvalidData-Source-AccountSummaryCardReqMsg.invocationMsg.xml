@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<invocationMsg xmlns="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal">
+   <SenderSystem>SenderSystem284</SenderSystem>
+   <ReceiverSystem>ReceiverSystem285</ReceiverSystem>
+   <CountryCode>CountryCode286</CountryCode>
+   <BatchSize>287</BatchSize>
+   <DatabaseJNDI>DatabaseJNDI288</DatabaseJNDI>
+   <InterfaceID>InterfaceID289</InterfaceID>
+   <UserName>UserName290</UserName>
+</invocationMsg>

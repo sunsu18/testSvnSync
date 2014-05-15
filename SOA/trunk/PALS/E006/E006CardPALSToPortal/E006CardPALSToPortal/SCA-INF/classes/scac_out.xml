@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc/>
+      <line>355</line>
+      <col/>
+      <file>E006CardPALSToPortal.bpel</file>
+      <name>E006CardPALSToPortal.bpel</name>
+      <fix>Remove this assign element</fix>
+      <msg>Assign activity does not have children. Empty assign is not necessary and is not supported in this version of OraBPEL PM</msg>
+   </Fault>
+</Faults>

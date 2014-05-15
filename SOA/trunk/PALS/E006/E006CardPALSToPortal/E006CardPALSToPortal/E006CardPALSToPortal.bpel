@@ -1,0 +1,372 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 14 11:09:16 IST 2014
+  Author:  10602239
+  Type: BPEL 1.1 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="E006CardPALSToPortal"
+               targetNamespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SelectDeltaTSDBAdapter"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/GetPALSDB2CountDBAdapter"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/PALSDB2DBAdapter"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/MergeCardPortalDBAdapter"
+         xmlns:ns8="http://www.statoilfuelretail.com/integration/engage"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorDBAdapter">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="e006cardpalstoportal_client" partnerLinkType="client:E006CardPALSToPortal" myRole="E006CardPALSToPortalProvider"/>
+    <partnerLink name="SelectDeltaTSDBAdapter"
+                 partnerLinkType="ns1:SelectDeltaTSDBAdapter_plt"
+                 partnerRole="SelectDeltaTSDBAdapter_role"/>
+    <partnerLink name="GetPALSDB2CountDBAdapter"
+                 partnerLinkType="ns3:GetPALSDB2CountDBAdapter_plt"
+                 partnerRole="GetPALSDB2CountDBAdapter_role"/>
+    <partnerLink name="PALSDB2DBAdapter"
+                 partnerLinkType="ns5:PALSDB2DBAdapter_plt"
+                 partnerRole="PALSDB2DBAdapter_role"/>
+    <partnerLink name="MergeCardPortalDBAdapter"
+                 partnerLinkType="ns7:MergeCardPortalDBAdapter_plt"
+                 partnerRole="MergeCardPortalDBAdapter_role"/>
+    <partnerLink name="SOAErrorDBAdapter"
+                 partnerLinkType="ns9:SOAErrorDBAdapter_plt"
+                 partnerRole="SOAErrorDBAdapter_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="DeltaTS" type="xsd:string"/>
+    <variable name="BatchSize" type="xsd:integer"/>
+    <variable name="ErrorFlag" type="xsd:string"/>
+    <variable name="JNDI" type="xsd:string"/>
+    <variable name="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+              messageType="ns1:SelectDeltaTSDBAdapterSelect_inputParameters"/>
+    <variable name="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
+              messageType="ns1:EngageSoaDeltatableCollection_msg"/>
+    <variable name="AccountSummaryCardReqMsg"
+              messageType="client:E006CardPALSToPortalRequestMessage"/>
+    <variable name="Count" type="xsd:integer"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
+              messageType="ns3:GetPALSDB2CountDBAdapterInput_msg"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable"
+              messageType="ns3:GetPALSDB2CountDBAdapterOutput_msg"/>
+    <variable name="NumberOfBatches" type="xsd:integer"/>
+    <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable"
+              messageType="ns5:PALSDB2DBAdapterSelect_inputParameters"/>
+    <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable"
+              messageType="ns5:Cc073Vs1CssksiDtaCollection_msg"/>
+    <variable name="DataCount" type="xsd:integer"/>
+    <variable name="InvokeMergeCardPortalDBAdapter_merge_InputVariable"
+              messageType="ns7:PrtCardCollection_msg"/>
+    <variable name="ValidateCardData" element="ns8:Card"/>
+    <variable name="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+              messageType="ns9:EngagePalsCardDtaErrorlogCollection_msg"/>
+  </variables>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in E006CardPALSToPortal.wsdl) -->
+    <receive name="ReceiveAccountSummaryReqMsg" partnerLink="e006cardpalstoportal_client" portType="client:E006CardPALSToPortal" operation="process"
+             variable="AccountSummaryCardReqMsg" createInstance="yes"/>
+             
+    <assign name="AssignInitialValues">
+      <copy>
+        <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+              query="/client:invocationMsg/client:DatabaseJNDI"/>
+        <to variable="JNDI"/>
+      </copy>
+      <copy>
+        <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+              query="/client:invocationMsg/client:BatchSize"/>
+        <to variable="BatchSize"/>
+      </copy>
+      <copy>
+        <from expression="'NO'"/>
+        <to variable="ErrorFlag"/>
+      </copy>
+      <copy>
+        <from expression="0"/>
+        <to variable="Count"/>
+      </copy>
+    </assign>
+    <scope name="GetDeltaTSScope" variableAccessSerializable="no">
+      <sequence name="GetDeltaTSSequence">
+        <assign name="AssignSelectDeltaTSInputValues">
+          <copy>
+            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                  query="/client:invocationMsg/client:InterfaceID"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:InterfaceID"/>
+          </copy>
+          <copy>
+            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                  query="/client:invocationMsg/client:CountryCode"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:CountryCode"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOADeltaTS"
+                inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
+                partnerLink="SelectDeltaTSDBAdapter"
+                portType="ns1:SelectDeltaTSDBAdapter_ptt"
+                operation="SelectDeltaTSDBAdapterSelect"
+                bpelx:invokeAsDetail="no"/>
+        <switch name="Switch">
+          <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp')) > 0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">DeltaTS Exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignDeltaTS">
+              <copy>
+                <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp'),'+')"/>
+                <to variable="DeltaTS"/>
+              </copy>
+              <copy>
+                <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultDeltaTS">
+              <copy>
+                <from expression="'0001-01-01 00:00:00.000000'"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+      </sequence>
+    </scope>
+    <scope name="GetCountFromPALSScope" variableAccessSerializable="no">
+      <bpelx:annotation>
+        <bpelx:general>
+          <bpelx:property name="userLabel">GetCountFromPALSScope</bpelx:property>
+        </bpelx:general>
+      </bpelx:annotation>
+      <sequence name="GetCountFromPALSSequence">
+        <assign name="AssignDeltaTSValue">
+          <copy>
+            <from variable="DeltaTS"/>
+            <to variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
+                part="GetPALSDB2CountDBAdapterInput_msg"
+                query="/ns4:GetPALSDB2CountDBAdapterInput/ns4:DeltaTS"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeGetPALSDB2CountDBAdapter"
+                bpelx:invokeAsDetail="no"
+                inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
+                outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable"
+                partnerLink="GetPALSDB2CountDBAdapter"
+                portType="ns3:GetPALSDB2CountDBAdapter_ptt"
+                operation="GetPALSDB2CountDBAdapter"/>
+        <assign name="CalculateBatchCount">
+          <copy>
+            <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutput','/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')  div bpws:getVariableData('BatchSize'))"/>
+            <to variable="NumberOfBatches"/>
+          </copy>
+        </assign>
+      </sequence>
+    </scope>
+    <while name="WhileEachBatch"
+           condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')">
+      <sequence name="Sequence">
+        <scope name="GetPALSdataScope" variableAccessSerializable="no">
+                  <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">GetPALSdataScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <sequence name="GetPALSdataSequence">
+            <assign name="AssignSelectDeltaTSInputValues">
+              <copy>
+                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                      query="/client:invocationMsg/client:CountryCode"/>
+                <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                    part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                    query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:CountryCode"/>
+              </copy>
+              <copy>
+                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
+                      query="/client:invocationMsg/client:InterfaceID"/>
+                <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                    part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                    query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:InterfaceID"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeSOADeltaTS"
+                    inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
+                    outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
+                    partnerLink="SelectDeltaTSDBAdapter"
+                    portType="ns1:SelectDeltaTSDBAdapter_ptt"
+                    operation="SelectDeltaTSDBAdapterSelect"
+                    bpelx:invokeAsDetail="no"/>
+            <switch name="Switch1">
+              <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp')) > 0">
+                <bpelx:annotation>
+                  <bpelx:general>
+                    <bpelx:property name="userLabel">DeltaTS Exists</bpelx:property>
+                  </bpelx:general>
+                </bpelx:annotation>
+                <assign name="AssignDeltaTS">
+                  <copy>
+                    <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp'),'+')"/>
+                    <to variable="DeltaTS"/>
+                  </copy>
+                  <copy>
+                    <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                    <to variable="DeltaTS"/>
+                  </copy>
+                </assign>
+              </case>
+              <otherwise>
+                <assign name="AssignDefaultDeltaTS">
+                  <copy>
+                    <from expression="'0001-01-01 00:00:00.000000'"/>
+                    <to variable="DeltaTS"/>
+                  </copy>
+                </assign>
+              </otherwise>
+            </switch>
+            <assign name="AssignSelectPALSDB2DataInputValues">
+              <copy>
+                <from variable="DeltaTS"/>
+                <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable"
+                    part="PALSDB2DBAdapterSelect_inputParameters"
+                    query="/ns6:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns6:DeltaTimeStamp"/>
+              </copy>
+              <copy>
+                <from variable="BatchSize"/>
+                <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable"
+                    part="PALSDB2DBAdapterSelect_inputParameters"
+                    query="/ns6:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns6:BatchSize"/>
+              </copy>
+            </assign>
+            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no"
+                    inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable"
+                    outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable"
+                    partnerLink="PALSDB2DBAdapter"
+                    portType="ns5:PALSDB2DBAdapter_ptt"
+                    operation="PALSDB2DBAdapterSelect"/>
+            <assign name="GetDataCount">
+              <copy>
+                <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta/ns6:deltaTs'))"/>
+                <to variable="DataCount"/>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+        <scope name="ValidatePALSDataScope" variableAccessSerializable="no">
+          <faultHandlers>
+            <catch faultName="bpelx:bindingFault">
+              <sequence name="PALSDataErrorHandlingSequence">
+                <assign name="XformPALSToInvalidData">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/XformPALSToInvalidData.xsl', $AccountSummaryCardReqMsg.invocationMsg, 'InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection)"/>
+                    <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                        part="EngagePalsCardDtaErrorlogCollection"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeMergeInvalidDataSOAErrorDBAdapter"
+                        partnerLink="SOAErrorDBAdapter"
+                        portType="ns9:SOAErrorDBAdapter_ptt" operation="merge"
+                        bpelx:invokeAsDetail="no"
+                        inputVariable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"/>
+                <assign name="AssignErrorFlag">
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="ErrorFlag"/>
+                  </copy>
+                </assign>
+              </sequence>
+            </catch>
+          </faultHandlers>
+          <sequence name="ValidatePALSDataSequence">
+            <assign name="XformPALSToValidateCardData">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/XformPALSToValidateCardData.xsl', $AccountSummaryCardReqMsg.invocationMsg, 'InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection)"/>
+                <to variable="ValidateCardData"/>
+              </copy>
+            </assign>
+            <bpelx:validate name="ValidatePALSdata"
+                            variables="ValidateCardData"/>
+          </sequence>
+        </scope>
+        <scope name="InsertPALSDataInPortalDBScope"
+               variableAccessSerializable="no">
+          <sequence name="InsertPALSDataInPortalDBSequence">
+            <assign name="XformPALSValidDataToMergeCardPortal">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+            </assign>
+            <invoke name="InvokeMergeCardPortalDBAdapter"
+                    bpelx:invokeAsDetail="no"
+                    inputVariable="InvokeMergeCardPortalDBAdapter_merge_InputVariable"
+                    partnerLink="MergeCardPortalDBAdapter"
+                    portType="ns7:MergeCardPortalDBAdapter_ptt"
+                    operation="merge"/>
+          </sequence>
+        </scope>
+      </sequence>
+    </while>
+  </sequence>
+</process>
