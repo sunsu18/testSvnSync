@@ -19,7 +19,7 @@
       <partnerlink name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" x="1780" y="4603" side="right"/>
       <partnerlink name="UpdateEmailFlagErrorLogDatabaseAdapterV1" x="1780" y="5058" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="229,2100,510,494" show_swimlanes="true">
+   <graph_layout viewport="288,900,510,484" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="true" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
