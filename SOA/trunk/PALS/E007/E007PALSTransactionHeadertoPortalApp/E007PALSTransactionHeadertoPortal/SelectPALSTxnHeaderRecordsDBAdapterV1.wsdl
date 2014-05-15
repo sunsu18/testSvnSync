@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<?binding.jca SelectPALSTxnHeaderRecordsDBAdapterV1_db.jca?>
+<wsdl:definitions
+     name="SelectPALSTxnHeaderRecordsDBAdapterV1"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1"
+    >
+    <plt:partnerLinkType name="SelectPALSTxnHeaderRecordsDBAdapterV1_plt">
+        <plt:role name="SelectPALSTxnHeaderRecordsDBAdapterV1_role">
+            <plt:portType name="tns:SelectPALSTxnHeaderRecordsDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1"
+                 schemaLocation="xsd/SelectPALSTxnHeaderRecordsDBAdapterV1_table.xsd"/>
+        </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate"
+                 schemaLocation="xsd/TxnHeaderValidationPayload.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="SelectPALSTxnHeaderRecordsDBAdapterV1Select_inputParameters">
+        <wsdl:part name="SelectPALSTxnHeaderRecordsDBAdapterV1Select_inputParameters" element="top:SelectPALSTxnHeaderRecordsDBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="Cc077Vs1CssordDtaCollection_msg">
+        <wsdl:part name="Cc077Vs1CssordDtaCollection" element="top:Cc077Vs1CssordDtaCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectPALSTxnHeaderRecordsDBAdapterV1_ptt">
+        <wsdl:operation name="SelectPALSTxnHeaderRecordsDBAdapterV1Select">
+            <wsdl:input message="tns:SelectPALSTxnHeaderRecordsDBAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:Cc077Vs1CssordDtaCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

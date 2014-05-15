@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>SelectPALSTxnHeaderRecordsDBAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SelectPALSTxnHeaderRecordsDBAdapterV1.Cc077Vs1CssordDta</class>
+         <alias>CC077VS1_CSSORD_DTA</alias>
+         <primary-key>
+            <field table="CC077VS1_CSSORD_DTA" name="DELTA_TS" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SelectPALSTxnHeaderRecordsDBAdapterV1Select" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, SALGSTRANS_ID, ORDRE_ID, PRELIM_ID, ORDRE_HTP, ORDRE_UTP, ORDREFRA_ID, ORDRETIL_ID, ORDREGYL_KD, ORDOPPRETT_KD, UTSTYR_NR, LAND_KD, FAKEKSPKS_ID, LEVERINGKS_ID, EKSTERN_ID, EKSTRAINPUT_KD, EKSTRAINPUT_TX, KMSTAND, ORDRELEV_DT, ORDRELEV_TID, SALGSTED_NV, RTXMVAFAK_NR, FAKSMND_NR, FAKTURA_NR, FAKTURA_DT, TERMINAL_ID, TERMINAL_LNR, VALUTA_KD, VALUTAKURS, ICCORDRE_JN, SLGTRANSSTATUS_KD, PRELIMSTATUS_KD, PARTNER_ID, KONTO_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, ORDVISPAFAK_JN, STASUREF_NR, ENDRET_DT, ENDRET_SGN FROM ( SELECT DELTA_TS, SALGSTRANS_ID, ORDRE_ID, PRELIM_ID, ORDRE_HTP, ORDRE_UTP, ORDREFRA_ID, ORDRETIL_ID, ORDREGYL_KD, ORDOPPRETT_KD, UTSTYR_NR, LAND_KD, FAKEKSPKS_ID, LEVERINGKS_ID, EKSTERN_ID, EKSTRAINPUT_KD, EKSTRAINPUT_TX, KMSTAND, ORDRELEV_DT, ORDRELEV_TID, SALGSTED_NV, RTXMVAFAK_NR, FAKSMND_NR, FAKTURA_NR, FAKTURA_DT, TERMINAL_ID, TERMINAL_LNR, VALUTA_KD, VALUTAKURS, ICCORDRE_JN, SLGTRANSSTATUS_KD, PRELIMSTATUS_KD, PARTNER_ID, KONTO_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, ORDVISPAFAK_JN, STASUREF_NR, ENDRET_DT, ENDRET_SGN, ROW_NUMBER() OVER() as rownumber FROM CC077VS1_CSSORD_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Transaction WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>SelectPALSTxnHeaderRecordsDBAdapterV1.Cc077Vs1CssordDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>salgstransId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="SALGSTRANS_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordreId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRE_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>prelimId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="PRELIM_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordreHtp</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRE_HTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordreUtp</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRE_UTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordrefraId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDREFRA_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordretilId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRETIL_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordregylKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDREGYL_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordopprettKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDOPPRETT_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>utstyrNr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="UTSTYR_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>landKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="LAND_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakekspksId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="FAKEKSPKS_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>leveringksId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="LEVERINGKS_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>eksternId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="EKSTERN_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ekstrainputKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="EKSTRAINPUT_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ekstrainputTx</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="EKSTRAINPUT_TX" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kmstand</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="KMSTAND" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordrelevDt</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRELEV_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordrelevTid</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDRELEV_TID" xsi:type="column"/>
+               <attribute-classification>java.sql.Time</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>salgstedNv</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="SALGSTED_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rtxmvafakNr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="RTXMVAFAK_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faksmndNr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="FAKSMND_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaNr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="FAKTURA_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaDt</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="FAKTURA_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>terminalId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="TERMINAL_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>terminalLnr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="TERMINAL_LNR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>valutaKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="VALUTA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>valutakurs</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="VALUTAKURS" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>iccordreJn</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ICCORDRE_JN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>slgtransstatusKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="SLGTRANSSTATUS_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>prelimstatusKd</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="PRELIMSTATUS_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kontoId</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="KONTO_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdHtp</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdUtp</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdLnr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>ordvispafakJn</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ORDVISPAFAK_JN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>stasurefNr</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="STASUREF_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>endretDt</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ENDRET_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>endretSgn</attribute-name>
+               <field table="CC077VS1_CSSORD_DTA" name="ENDRET_SGN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CC077VS1_CSSORD_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>
