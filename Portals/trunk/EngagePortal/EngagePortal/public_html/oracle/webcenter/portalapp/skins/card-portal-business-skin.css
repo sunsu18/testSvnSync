@@ -1,3 +1,19 @@
+/* Splash screen icon */
+af|document::splash-screen-icon {
+content: url("/images/ajax-loader-new.gif");
+/*width: 48px;
+height: 48px;*/
+vertical-align: middle;
+}
+af|document::splash-screen-message {
+    color:red !important;
+}
+
+
+
+
+
+
 /*#3cb6ce*/
 /*------------------------------ADF tree---------------------------*/
 
@@ -13,6 +29,12 @@ padding-top: 2px;
     height: 30px;
     font-weight: bold;
     
+}
+
+.home .af_column_column-header-cell{
+    background-color: #DBDBDB !important ;
+    border-bottom: 1px solid #BEBDBD !important;
+    color: #4D4C4C !important;
 }
 /*------------------------------ADF tree---------------------------*/
 .af_tree_node-stamp-text{
@@ -633,7 +655,7 @@ height:15px;
 }
 
 .portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell{
-    background-color: #C9C9C9 !important;
+    background-color: #C9C9C9 ;
     border-bottom: 1px solid #888888;
     border-right: 1px solid #F0EEEE;
     border-top: 0 solid #FFFFFF;
@@ -686,6 +708,8 @@ border-right: 1px solid #FFFFFF !important;
     line-height: 1.4em;    
     border: 1px solid #ffffff;
     color: #000000;
+    background-color: rgba(253, 253, 250, 0) ;
+    border: 1px solid rgba(255, 255, 255, 0) ;
 }
 
 /*.table {
@@ -744,9 +768,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', end
     padding-bottom: 6px;
 }
 
-.panel_header_authenticated{
+/*.panel_header_authenticated{
     padding-left: 5px;
-}/**************************************************************/
+}*/
+
+/**************************************************************/
 .printButton {
     /*background-color: rgb(244, 189, 46)!important;*/
     /*background-image: none !important;*/
@@ -1010,6 +1036,22 @@ text-align: justify;
 display:inline-block;
 }
 
+.important_notice{
+    font-weight: bold !important;
+    font-size: 13px !important;
+    padding-left: 5px !important;
+}
+
+
+.home_text{
+    font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px;
+color: #524e4f;
+font-weight: normal;
+line-height: 1.7;
+text-align: justify;
+
+}
 
 /*Top Product Text for Carousel*/
 .topproducttext{
@@ -1126,8 +1168,23 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend{
+.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
+}
+
+.info_statoil{
+	background-position: -31px -333px ;
+	width: 17px;
+	height: 18px;
+}
+
+
+
+
+.invoice{
+	background-position: -30px -312px ;
+	width: 20px;
+	height: 20px;
 }
 
 .arrow_learn_more_white{
@@ -1149,8 +1206,8 @@ font-weight:bold;
 }
 
 .message_bell{
-	background-position: -30px -204px ;
-	width: 30px;
+	background-position: -33px -204px ;
+	width: 16px;
 	height: 20px;
 }
 
@@ -1192,9 +1249,9 @@ font-weight:bold;
 }
 
 .arrow_learn_more{
-	background-position: -36px -109px ;
-	width: 8px;
-	height: 8px;
+background-position: -28px -104px ;
+	width: 12px;
+	height: 13px;
 }
 
 .category_icon{
@@ -1204,9 +1261,10 @@ font-weight:bold;
 }
 
 .cart{
-	background-position: -32px -4px ;
-	width: 20px;
+	background-position: -30px -4px ;
+	width: 21px;
 	height: 20px;
+        margin-left: 5px;
 }
 
 
@@ -1230,13 +1288,40 @@ font-weight:bold;
 }
 
 .info_legend{
-	background-position: -29px -371px ;
-	width: 16px;
+	background-position: -30px -358px ;
+	width: 15px;
+	height: 15px;
+        }
+
+.acc_summary{
+	background-position: -28px -244px ;
+	width: 21px;
+	height: 19px;
+}
+.transaction{
+	background-position: -30px -268px ;
+	width: 23px;
 	height: 16px;
+        margin-left: 5px;
 }
 
+.messages{
+	background-position: -30px -287px ;
+	width: 20px;
+	height: 20px;
+        margin-left: 5px;
+}
 
-
+.view_all{
+	background-position: -4px -383px ;
+	width: 20px;
+	height: 20px;
+}
+/*.arrow{
+	background-position: -31px -106px ;
+	width: 12px;
+	height: 13px;
+}*/
 
 
 
@@ -1492,7 +1577,7 @@ font-size: 15px;
 font-weight:bolder;
 }
 
-/*Image for information from statoil*/
+/*AUTHENTICATED PAGE BACKGROUND IMAGES*/
 .info
 {
 height:20px;
@@ -1502,6 +1587,17 @@ width:30px;
   background-position: right !important;
   background-repeat:no-repeat  !important;
   
+}
+
+
+.message1
+{
+height:20px;
+width:30px;
+background: url("/images/Info/message_back.png") !important;
+  background-position: right !important;
+  background-repeat:no-repeat  !important;
+ 
 }
 
 /*headings for after login page*/
