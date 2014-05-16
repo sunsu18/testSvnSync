@@ -85,6 +85,9 @@ public class AccountSummary implements Serializable {
     JUCtrlHierNodeBinding dropNodeParent;
     JUCtrlHierNodeBinding rootNode;
     AccessDataControl accessDC = new AccessDataControl();
+    private boolean businessProfile = false;
+    private boolean privateProfile = false;
+    private String profile = "private";
     
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
 //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
@@ -117,6 +120,27 @@ public class AccountSummary implements Serializable {
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
             session = request.getSession(false);
+            
+            if(session!=null)
+            { 
+                System.out.println("temp1----------------------> " +  "session not null");
+                if(session.getAttribute("profile")!=null)
+                {   
+                    System.out.println("temp1----------------------> " +  "session getAttribute(profile) not null");
+                    profile = (String)session.getAttribute("profile");
+                    System.out.println("temp1----------------------> " +  "profile from session " + profile);
+                    if (profile.equalsIgnoreCase("business")) {
+                        System.out.println("temp1----------------------> " +  "profile from session is business");
+                        businessProfile = true;
+                        privateProfile = false;
+                    }else if (profile.equalsIgnoreCase("private")) {
+                        System.out.println("temp1----------------------> " +  "profile from session is private");
+                        businessProfile = false;
+                        privateProfile = true;
+                        
+                    }
+                }
+            }
             
             if (session != null) {
                 
@@ -159,7 +183,30 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
         return account;
     }
 
-    
+    public void setBusinessProfile(boolean businessProfile) {
+        this.businessProfile = businessProfile;
+    }
+
+    public boolean isBusinessProfile() {
+        return businessProfile;
+    }
+
+    public void setPrivateProfile(boolean privateProfile) {
+        this.privateProfile = privateProfile;
+    }
+
+    public boolean isPrivateProfile() {
+        return privateProfile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;

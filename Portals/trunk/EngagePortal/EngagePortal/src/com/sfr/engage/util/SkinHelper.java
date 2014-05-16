@@ -76,8 +76,10 @@ public class SkinHelper extends ThreadSerialization {
         } else if ("card".equalsIgnoreCase(portal)) {
             if (profile.equalsIgnoreCase("private")) {
                 currentSkin = skinStyleCardPrivate;
+                session.setAttribute("profile","private");
             } else {
                 currentSkin = skinStyleCardBusiness;
+                session.setAttribute("profile","business");
             }
 
 

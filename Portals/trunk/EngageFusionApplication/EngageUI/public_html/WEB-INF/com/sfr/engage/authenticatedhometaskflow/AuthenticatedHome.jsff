@@ -87,7 +87,7 @@
             <!--<af:spacer width="10" height="10" id="spacer1"/>-->
           </af:panelGroupLayout>
             <af:spacer width="7" height="5" id="spacer2"/>
-            <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
+            <af:tree summary="Account Summary tree" value="#{bindings.partnerlist.treeModel}" var="node"
                      selectionListener="#{bindings.partnerlist.treeModel.makeCurrent}"
                      rowSelection="single" id="t3" contentDelivery="immediate" immediate="true"
                     contextMenuSelect="false"
@@ -101,7 +101,10 @@
      
      <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
-     <af:image id="i5" source="/images/partner.png"/>
+     <af:image shortDesc="" id="i5" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
+     <af:image shortDesc="" id="i3" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
     <af:spacer width="4"  id="s328"/>
         <af:outputText value="#{node.partnerName}" id="ot109" truncateAt="25"/>
         </af:group>
@@ -110,7 +113,8 @@
       
       <f:facet name="com.sfr.engage.core.AccountInfo">
       <af:group id="g3">
-      <af:image id="i1" source="/images/account.png"/>
+      <af:image shortDesc="" id="i1" source="/images/business_account.png"  rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
+      <af:image shortDesc="" id="i6" source="/images/private_account.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
        <af:spacer width="4"  id="s47"/>  
       <af:outputText value="#{node.accountNumber}" id="ot4"/>
       </af:group>
@@ -119,7 +123,8 @@
       
       <f:facet name="com.sfr.engage.core.CardGroupInfo">
         <af:group id="g1">
-        <af:image id="i2" source="/images/cardgroup.png"/>
+        <af:image shortDesc="" id="i2" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
+        <af:image shortDesc="" id="i7" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
         <af:spacer width="4"  id="s325"/>
          <af:outputText value="#{node.cardGroupName}" id="ot8" truncateAt="25"/>
         </af:group>
@@ -128,7 +133,8 @@
       
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
-      <af:image id="i4" source="/images/card.png"/>
+     <af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
+    <af:image shortDesc="" id="i8" source="/images/private_card.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
        <af:spacer width="4"  id="s326"/>
        <af:outputText value="#{node.externalCardID}" id="ot3" truncateAt="25">
        </af:outputText>
@@ -249,7 +255,8 @@
                              text="View All"
                              destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"
                              inlineStyle="padding-left: 540px;"/>
-                </af:panelGroupLayout>
+           
+              </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:panelGroupLayout>
           </af:panelGroupLayout>

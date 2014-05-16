@@ -81,6 +81,10 @@ public class AuthenticatedHomeBean implements Serializable {
     private boolean invoicesPanel = false; 
     private boolean webshopPanel = false;
     private RichTree adfTree;
+    private boolean businessProfile = false;
+    private boolean privateProfile = false;
+    private String profile = "private";
+    
 
     /**
      * @return bindings Object
@@ -98,6 +102,27 @@ public class AuthenticatedHomeBean implements Serializable {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
+        
+        if(session!=null)
+        { 
+            System.out.println("temp1----------------------> " +  "session not null");
+            if(session.getAttribute("profile")!=null)
+            {   
+                System.out.println("temp1----------------------> " +  "session getAttribute(profile) not null");
+                profile = (String)session.getAttribute("profile");
+                System.out.println("temp1----------------------> " +  "profile from session " + profile);
+                if (profile.equalsIgnoreCase("business")) {
+                    System.out.println("temp1----------------------> " +  "profile from session is business");
+                    businessProfile = true;
+                    privateProfile = false;
+                }else if (profile.equalsIgnoreCase("private")) {
+                    System.out.println("temp1----------------------> " +  "profile from session is private");
+                    businessProfile = false;
+                    privateProfile = true;
+                    
+                }
+            }
+        }
         resourceBundle = new EngageResourceBundle();
         Date date = new Date();
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
@@ -492,6 +517,30 @@ public class AuthenticatedHomeBean implements Serializable {
 
     public RichTree getAdfTree() {
         return adfTree;
+    }
+
+    public void setBusinessProfile(boolean businessProfile) {
+        this.businessProfile = businessProfile;
+    }
+
+    public boolean isBusinessProfile() {
+        return businessProfile;
+    }
+
+    public void setPrivateProfile(boolean privateProfile) {
+        this.privateProfile = privateProfile;
+    }
+
+    public boolean isPrivateProfile() {
+        return privateProfile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
     }
 
 
