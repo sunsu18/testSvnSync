@@ -31,6 +31,8 @@
               id="PrtCardgroupVO1Iterator"/>
     <iterator Binds="PrtCardVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">

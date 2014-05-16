@@ -1,33 +1,18 @@
 package com.sfr.engage.model.datacontrol;
 
 import com.sfr.core.bean.User;
-import com.sfr.engage.core.AccountInfo;
-import com.sfr.engage.core.CardGroupInfo;
-import com.sfr.engage.core.CardInfo;
 import com.sfr.engage.core.PartnerInfo;
-
-import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
 import com.sfr.util.AccessDataControl;
-import com.sfr.util.constants.Constants;
-
 import com.sfr.util.validations.Conversion;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import oracle.adf.share.logging.ADFLogger;
 
-import oracle.adf.model.BindingContext;
-import oracle.adf.model.binding.DCBindingContainer;
-import oracle.adf.model.binding.DCIteratorBinding;
 
-import oracle.jbo.ViewObject;
 
 public class PartnerInfoListClient {
     
@@ -36,8 +21,11 @@ public class PartnerInfoListClient {
         private ExternalContext ectx;
         private HttpSession session;
         private User user = null;
-    private static boolean flagexecute = false;
+    
     Conversion conv = new Conversion();
+    AccessDataControl accessDC = new AccessDataControl();
+    
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
         
     public PartnerInfoListClient() {
         super();
@@ -49,9 +37,9 @@ public class PartnerInfoListClient {
 
     public List<PartnerInfo> getPartnerlist() {
         
-        //System.out.println("SOP of client");
+        
                partnerlist=new ArrayList<PartnerInfo>();
-               PartnerInfo partner = new PartnerInfo();
+               
                
                
                ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -63,15 +51,17 @@ public class PartnerInfoListClient {
                    partnerlist = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                    
                    for(int z=0; z < partnerlist.size();z++)
-                                     {System.out.println("Partner value from session in string " + partnerlist.get(z).getPartnerValue().toString());}
-                   //System.out.println("Partner value from session in string " + partner.getPartnerValue().toString());
-                   //System.out.println("partner value from session " + partner.getPartnerValue());
-                     
-                   //partnerlist.add(partner);
+                   {
+                       
+                       log.info(accessDC.getDisplayRecord() +  this.getClass() + " Partner value from session in string " + partnerlist.get(z).getPartnerValue().toString());
+                   }
+                  
                    
                }
                else
-                   System.out.println("Session null in client so tree will not be rendered");
+               {  
+               log.severe(accessDC.getDisplayRecord() +  this.getClass() + " Session null in client so tree will not be rendered");
+               }
         return partnerlist;
     }
 

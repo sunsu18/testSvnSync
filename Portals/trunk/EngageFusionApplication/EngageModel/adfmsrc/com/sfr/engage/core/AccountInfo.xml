@@ -6,6 +6,12 @@
   <AccessorAttribute id="cardGroup" IsCollection="true"
                      BeanClass="com.sfr.engage.core.CardGroupInfo"
                      CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setAccountOverview"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isAccountOverview"
+                  ReturnNodeName="Return"/>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.AccountInfo"
                      BeanClass="com.sfr.engage.core.AccountInfo"
                      id="AccountInfo"/>

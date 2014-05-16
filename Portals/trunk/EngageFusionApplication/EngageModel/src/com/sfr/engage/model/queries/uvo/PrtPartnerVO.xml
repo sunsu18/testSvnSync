@@ -61,14 +61,15 @@
        PrtPartnerEO.PARTNER_ADDR2, 
        PrtPartnerEO.PARTNER_POSTAL_CODE, 
        PrtPartnerEO.PARTNER_CITY, 
-       PrtPartnerEO.PARTNER_COUNTRY"
+       PrtPartnerEO.PARTNER_COUNTRY, 
+       PrtPartnerEO.COMPANY_NAME"
   FromList="PRT_PARTNER PrtPartnerEO"
   BindingStyle="OracleName"
   CustomQuery="false"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -414,6 +415,12 @@
     EntityAttrName="PartnerCountry"
     EntityUsage="PrtPartnerEO"
     AliasName="PARTNER_COUNTRY"/>
+  <ViewAttribute
+    Name="CompanyName"
+    PrecisionRule="true"
+    EntityAttrName="CompanyName"
+    EntityUsage="PrtPartnerEO"
+    AliasName="COMPANY_NAME"/>
   <ViewLinkAccessor
     Name="PrtCardgroupVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardgroupPrtPartnerFk1Link"

@@ -14,6 +14,7 @@ public class CardGroupInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardGroupID;
+    private String cardGroupName;
     private String cardGroupMainType;
     private String cardGroupSubType;
     private String cardGroupSeq;
@@ -109,5 +110,13 @@ public class CardGroupInfo implements Serializable {
      */
     public boolean isCardGroupOverview() {
         return cardGroupOverview;
+    }
+
+    public void setCardGroupName(String cardGroupName) {
+        this.cardGroupName = cardGroupName;
+    }
+
+    public String getCardGroupName() {
+        return cardGroupName;
     }
 }

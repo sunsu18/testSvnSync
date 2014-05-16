@@ -14,6 +14,7 @@ public class PartnerInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String partnerValue;
+    private String partnerName;
     private String country;
     private List<AccountInfo> accountList;
     private boolean companyOverview;
@@ -79,5 +80,19 @@ public class PartnerInfo implements Serializable {
      */
     public boolean isCompanyOverview() {
         return companyOverview;
+    }
+
+    /**
+     * @param partnerName
+     */
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
+    }
+
+    /**
+     * @return
+     */
+    public String getPartnerName() {
+        return partnerName;
     }
 }

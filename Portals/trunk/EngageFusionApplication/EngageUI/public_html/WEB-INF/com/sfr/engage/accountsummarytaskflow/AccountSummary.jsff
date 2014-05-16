@@ -57,7 +57,7 @@
     <af:spacer width="10" height="10" id="s6"/>
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
-                          inlineStyle="width:200px; height:480px">
+                          inlineStyle="width:225px; height:480px">
                           
                           
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
@@ -75,7 +75,7 @@
         <af:group id="g2">
      <af:image id="i5" source="/images/partner.png" shortDesc="Partner image"/>
     <af:spacer width="4"  id="s328"/>
-        <af:outputText value="#{node.partnerValue}" id="ot109"/>
+        <af:outputText value="#{node.partnerName}" id="ot109" truncateAt="8"/>
         </af:group>
       </f:facet>
       
@@ -94,7 +94,7 @@
         <af:image id="i2" source="/images/cardgroup.png"
                   shortDesc="CardGroup Image"/>
         <af:spacer width="4"  id="s325"/>
-         <af:outputText value="#{node.cardGroupID}" id="ot2"/>
+         <af:outputText value="#{node.cardGroupName}" id="ot2" truncateAt="8"/>
         </af:group>
       </f:facet>
       
@@ -103,7 +103,7 @@
       <af:group id="g4">
       <af:image id="i4" source="/images/card.png" shortDesc="Card Image"/>
        <af:spacer width="4"  id="s326"/>
-       <af:outputText value="#{node.cardID}" id="ot3">
+       <af:outputText value="#{node.externalCardID}" id="ot3" truncateAt="8">
        </af:outputText>
        </af:group>
       </f:facet>

@@ -74,6 +74,7 @@ public class AccountSummary implements Serializable {
     private AccountInfo account = new AccountInfo();
 
     private List<AccountInfo> AccountList = new ArrayList<AccountInfo>();
+    private List<PartnerInfo> partnerList = new ArrayList<PartnerInfo>();
     private List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     private HttpServletRequest request;
     private ExternalContext ectx;
@@ -93,7 +94,7 @@ public class AccountSummary implements Serializable {
     public AccountSummary() {
         
         
-        log.fine(accessDC.getDisplayRecord() + " Inside Constructor of Account Summary");
+        log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Inside Constructor of Account Summary");
         RichTree tree = getBindings().getAdfTree();
         if(tree!=null)
         {
@@ -258,20 +259,9 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
     }
 
     public void treeListner(SelectionEvent selectionEvent) {
-log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner " +
-                           partner.getPartnerValue());
-        if (session != null) {
-            
-            partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
-            AccountList = partner.getAccountList();
-
-
-     
-          //  log.info("partner value from session " +
-           //                    partner.getPartnerValue());
-
-        }
-
+log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner ");
+System.out.println("Selection event " + selectionEvent.getSource());
+        
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -280,7 +270,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree sele
         // Add event code here...
 
         
-		log.info(accessDC.getDisplayRecord() + this.getClass() + " Inside tree listner");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " Inside tree listner");
         
         JUCtrlHierNodeBinding nodeBinding1 = null;
         Row rw = null;
@@ -308,7 +298,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree sele
         
         
         RowKeySet rowKeySet1 = selectionEvent.getAddedSet();
-
+    System.out.println("RowKeySet " + rowKeySet1);
         Iterator rksIterator = rowKeySet1.iterator();
         while (rksIterator.hasNext()) {
             List key1 = (List)rksIterator.next();
@@ -320,22 +310,54 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree sele
             treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
             rksImpl = new RowKeySetImpl();
             nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
+            System.out.println("Node Binding 1 " + nodeBinding1);
 
 
             rksImpl.add(key1);
             
           rootNode = treeBinding.getRootNodeBinding();
-           
+           System.out.println("rootNode " + rootNode);
            dropNodeParent = nodeBinding1.getParent();
-
-
-
+            
+            
+            for(Object ob : nodeBinding1.getParent().getAttributeValues()) {
+                if(ob != null)
+                {System.out.println("dropNodeParent after conversion " + ob.toString());}
+                break;
+            }
+            
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 id = o.toString();
+                System.out.println(" id is " + id);
+                break;
 
 
             }
+            if (session != null) {
+                
+                if(session.getAttribute("Partner_Object_List") != null){
+                    
+                    partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                    if(partnerList!=null) {
+                        for(int k=0;k<partnerList.size();k++)
+                        {
+                            if(partnerList.get(k).getPartnerValue().toString().equals(id)) {
+                                partner = partnerList.get(k);
+                                AccountList = partner.getAccountList();
+                            }
+                            
+                        }
+
+                    }
+                }
+                
+               
+                
+
+            }
+
+            
 
 
             rw = nodeBinding1.getRow();
@@ -907,12 +929,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
 
 
         if (session != null) {
-            
-            partner = (PartnerInfo)session.getAttribute("Partner_Object_List");
-
-            
-
-			  log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " +
+            		  log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " +
                                partner.getPartnerValue());
 
 

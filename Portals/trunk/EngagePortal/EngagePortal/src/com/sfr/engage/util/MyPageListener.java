@@ -11,6 +11,8 @@ import com.sfr.engage.model.datacontrol.UserClient;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.services.core.dao.factory.DAOFactory;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
@@ -38,6 +40,10 @@ import oracle.adf.share.security.SecurityContext;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import com.sfr.util.validations.Conversion;
+
+import java.util.logging.Logger;
+
+import oracle.adf.share.logging.ADFLogger;
 
 import oracle.jbo.ViewObject;
 
@@ -79,6 +85,9 @@ private boolean passwordChangeRequired;
     AccountInfo account_check = new AccountInfo();
     CardGroupInfo cardgrp_check =
         new CardGroupInfo();
+    AccessDataControl accessDC = new AccessDataControl();
+    
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
 
 
     public void afterPhase(PagePhaseEvent pagePhaseEvent) {
@@ -86,7 +95,7 @@ private boolean passwordChangeRequired;
             try {
                 SiteStructureContext ctx = SiteStructureContext.getInstance();
                 SiteStructure model = ctx.getDefaultSiteStructure();
-                // model.invalidateCache();
+                model.invalidateCache();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -94,7 +103,7 @@ private boolean passwordChangeRequired;
     }
 
     public void beforePhase(PagePhaseEvent pagePhaseEvent) {
-        //System.out.println("Before phase");
+        //log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Before Phase");
         
         //TODO : Amit - We need to check, how many times beforePhase gets/should be called for respective page,
         //as it could improve or degrade render time. Presently for Home page alone, it shows 5-7 beforePhase calls.
@@ -112,7 +121,7 @@ private boolean passwordChangeRequired;
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession();
-        boolean isChangeInRedirectionRequired = false;
+        
         boolean createCardGroupList = false;
         boolean createCardList = false;
         List<CardGroupInfo> cardgrplist_check =
@@ -226,8 +235,8 @@ private boolean passwordChangeRequired;
 
             if (phase.equals(ADFLifecycle.INIT_CONTEXT_ID)) {
 
-//                    if (!AdfFacesContext.getCurrentInstance().isPostback()) {
-                System.out.println("Entered in Bindings phase");
+
+               
 
                 List<PartnerInfo> partnerinfo_list =
                     new ArrayList<PartnerInfo>();
@@ -239,7 +248,16 @@ private boolean passwordChangeRequired;
                     if (session != null)
                         if (session.getAttribute("executePartnerObjLogic") ==
                             null ) {
+                                //System.out.println("Executing logic to prepare partner object");
+                                log.info(accessDC.getDisplayRecord() +  this.getClass() + " Executing logic to prepare Partner object");
 
+                          
+                            partnerinfo_list = new ArrayList<PartnerInfo>();
+                           
+                            partnerlist = new ArrayList<PartnerInfo>();
+                            partnerListSession = new ArrayList<PartnerInfo>();
+                            
+                            //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
 
@@ -249,53 +267,33 @@ private boolean passwordChangeRequired;
                                      (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP))))
 
                                 {
-                                    //System.out.println("CARD AMIN as user role name=======>" +
-                                     //                  user.getRoleList().get(i).getRoleName());
-
-
+                                   
                                     if (user.getRoleList().get(i).getIdString() !=
                                         null) {
                                         int idlist = 0;
-                                        //System.out.println("TEMP ------------->" +
-                                        //                   user.getRoleList().get(i).getIdString().size());
+                                   System.out.println(" user.getRoleList().get(i).getIdString().size()" + user.getRoleList().get(i).getIdString().size());
                                         do {
                                             partnerobj = new PartnerInfo();
-                                            //System.out.println("Partner id " +
-                                             //                  idlist + " " +
-                                              //                 user.getRoleList().get(i).getIdString().get(idlist));
+                                   
                                             int pid_start =
                                                 user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
-                                            //System.out.println("pid start index " +
-                                             //                  pid_start);
+                                   
                                             String pid =
                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
                                                                                                               2,
                                                                                                               pid_start +
                                                                                                               10);
-                                            //System.out.println("partner id " +
-                                            //                   pid);
                                             partnerobj.setPartnerValue(pid);
 
                                             if (partnerinfo_list.size() > 0) {
-                                                //System.out.println("partner info list size" +
-                                                 //                  partnerinfo_list.size());
-                                                //TODO : Remove unwanted code.
-//                                                for (int k = 0;
-//                                                     k < partnerinfo_list.size();
-//                                                     k++) {
-//                                                    System.out.println("temp for loop pid value in list " +
-//                                                                       partnerinfo_list.get(k).getPartnerValue());
-//                                                }
+                                              
                                                 boolean addflag = false;
                                                 for (int k = 0;
                                                      k < partnerinfo_list.size();
                                                      k++) {
-                                                   // System.out.println("pid value in list " +
-                                                    //partnerinfo_list.get(k).getPartnerValue());
-                                                    //System.out.println("New pid value to compare" +
-                                                     //                  pid);
+                                              
                                                     if (partnerinfo_list.get(k).getPartnerValue().equalsIgnoreCase(pid)) {
-                                                        //System.out.println("pid already exists in partner list");
+                                                  
                                                         addflag = true;
                                                         break;
                                                     }
@@ -306,8 +304,6 @@ private boolean passwordChangeRequired;
                                                     partnerinfo_list.add(partnerobj);
                                             } else {
                                                 partnerinfo_list.add(partnerobj);
-                                                //System.out.println("value setted in partnere info list" +
-                                                 //                  partnerobj.getPartnerValue());
 
                                             }
                                             idlist++;
@@ -323,25 +319,23 @@ private boolean passwordChangeRequired;
                             }
                             
 
-
-                            System.out.println("Final Partner list size " +
-                                               partnerinfo_list.size());
-                            //System.out.println("teetette " +
-                                               //user.getRoleList().get(0).getIdString().get(0));
-                            System.out.println("Partner Id in parner list is  " +
-                                               partnerinfo_list.get(0).getPartnerValue());
+                            log.info(accessDC.getDisplayRecord() +  this.getClass() + " Final Partner list size after going through the entire RoleList " + partnerinfo_list.size());
+                            
                             accountlist = new ArrayList<AccountInfo>();
 
 
                             if (partnerinfo_list.size() != 0 ) {
-                               // partnerlist.add(partnerinfo_list.get(0));
+                             
                                 partnerlist = partnerinfo_list;
-                                //TODO : To check why Partner value is not setted properly
-                                //   part.setPartnerValue(partnerinfo_list.get(0).toString());
+                             //TODO : HITK - Check if this does not works properly then add partnerinfo_list in session and 
+                                //in executeAdmin function read from session 
+                             
 
                             }
-                            System.out.println("Final Partner list size2 " +
-                                               partnerlist.size());
+                            
+                            //TODO : HITK - To remove this after testing
+                            log.info(accessDC.getDisplayRecord() +  this.getClass() + " Final Partner list 2 size after going through the entire RoleList " + partnerlist.size());
+
 
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
@@ -349,19 +343,21 @@ private boolean passwordChangeRequired;
 
                                 if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
                                 {
-                                    System.out.println(" Partner List contains Admin role");
+                                    log.info(accessDC.getDisplayRecord() +  this.getClass() + " User contains Admin role");
+                                    
                                                                         if (user.getRoleList().get(i).getIdString() !=
                                                                             null) {
                                                                         int partIndex = 0;
                                                                         do
                                                                         {
                                                                         executeAdmin(user,partIndex);
-                                                                            partIndex++;
+                                                                        partIndex++;
                                                                         }
                                                                             while(partIndex < user.getRoleList().get(i).getIdString().size());
                                                                             }
                                     session.setAttribute("executePartnerObjLogic", "no");
-                                    System.out.println("Session variable added to avoid multiple execution of code on my page listner");
+                                    log.info((accessDC.getDisplayRecord() +  this.getClass() + " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
+                                    
                                     
                                 }
 
@@ -376,10 +372,22 @@ private boolean passwordChangeRequired;
                             
                                     if (session.getAttribute("executePartnerObjLogic") ==
                                         null) {
+                                        
+                                        
+                        for(int partid = 0; partid < partnerlist.size(); partid++)
+                        { 
+                                String partnerId = partnerlist.get(partid).getPartnerValue().toString();
+                                //This variable is just to compare if partner Id from partner list matches with id's from IDM's getattributes 
+                                
+                                //TODO : HITK - For multipartner add one for loop for partnerlist size
+                                //TODO : Also to check if partner list values are proper or else get it from session
                             
-
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
+                                
+                                
+                                    
+                                    
 
                                 if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR))
 
@@ -411,17 +419,24 @@ private boolean passwordChangeRequired;
                                         System.out.println("partner id " +
                                                            pid);
 
-                                        if (partnerlist.size() > 0)
-                                            if (partnerlist.get(0).getPartnerValue().equals(pid))
-
-                                            {
+                                     
+                                            
 
 
                                                 part.setPartnerValue(pid);
+                                                part.setPartnerName(getPartnerName(pid));
                                                 part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
                                                 part.setCompanyOverview(false);
 
                                                 do {
+                                                    
+                                                    if (partnerId != null )
+                                                    if (partnerId.equals(pid))
+                                                    {
+                                                    
+                                                    
+                                                    
+                                                    
                                                     executeEmp = false;
 
                                                     if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC")) {
@@ -595,7 +610,7 @@ iter2.getViewObject();
 iter3.getViewObject();
 
                                                                         if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
-                                                                            System.out.println("Remove query executed");
+                                                                            
                                                                             vo3.removeNamedWhereClauseParam("cgid");
                                                                             vo3.removeNamedWhereClauseParam("cc");
                                                                             vo3.removeNamedWhereClauseParam("cgmain");
@@ -605,7 +620,7 @@ iter3.getViewObject();
                                                                         }
 
                                                                         if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-                                                                            System.out.println("Remove query executed");
+                                                                            
                                                                             vo3.removeNamedWhereClauseParam("cardid");
                                                                             vo3.removeNamedWhereClauseParam("cc");
                                                                             vo3.setWhereClause("");
@@ -1046,11 +1061,14 @@ new CardInfo();
 //                                                                    
 
                                                     }
+                                                   
+                                                } 
                                                     idlist++;
-                                                } while (idlist <
+                                                }while (idlist <
                                                          user.getRoleList().get(i).getIdString().size());
 
-                                            }
+                                           
+                                       
 
                                         if (session != null) {
                                             session.setAttribute("Partner_Object_List",
@@ -1204,6 +1222,8 @@ new CardInfo();
                                                         cardgrp.setCardGroupID((currRowcard.getCardgroupMainType().toString().concat(currRowcard.getCardgroupSubType().toString())).concat(currRowcard.getCardgroupSeq().toString()));
                                                         acc.setAccountNumber(currRowcard.getAccountId().toString());
                                                         part.setPartnerValue(currRowcard.getPartnerId().toString());
+                                                        part.setPartnerName(getPartnerName(currRowcard.getPartnerId().toString()));
+                                                        
                                                     }
 
 
@@ -1385,7 +1405,7 @@ new CardInfo();
                                     }
 
                                 }
-
+                                 }
 
                             }
                             
@@ -1477,8 +1497,7 @@ new CardInfo();
         session.setAttribute(Constants.SESSION_USER_NAME,
                              securityContext.getUserName());
 
-        //TODO : Amit - Remove such SOPs/conditions when functionality is tested. Try incorporating logs/SOPs within required methods.
-        //Below SOPs end up adding to complexitity of the class
+
 
         if (userList != null)
             System.out.println("userlist size " + userList.size());
@@ -1614,7 +1633,8 @@ new CardInfo();
         
         
         
-        System.out.println("Entered in execute Admin function");
+        
+        log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Entered in execute Admin function");
 
         part = new PartnerInfo();
         
@@ -1625,8 +1645,8 @@ new CardInfo();
 
 
         
-
-        System.out.println(" partIndex ----> " + partIndex);
+        log.info(accessDC.getDisplayRecord() +  this.getClass() + "  partIndex ----> " + partIndex);
+        
         String Partnerid = partnerlist.get(partIndex).getPartnerValue();
         
 
@@ -1639,43 +1659,46 @@ new CardInfo();
             iter1 = bindings.findIteratorBinding("PrtAccountVO1Iterator");
             
         } else {
-            System.out.println("Account Bindings is null in my page listner for Admin role");
+            log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtAccountVO1Iterator Bindings is null in my page listner for Admin role");
+            
             iter1 = null;
         }
 
-        ViewObject vo1 = iter1.getViewObject();
-        vo1.setWhereClause("PARTNER_ID =: pid");
-        System.out.println("Partner id passed in Account VO is " + Partnerid);
+        ViewObject accountVO = iter1.getViewObject();
+        accountVO.setWhereClause("PARTNER_ID =: pid");
+        log.info(accessDC.getDisplayRecord() +  this.getClass() + " Partner id passed in Account VO is " + Partnerid);
+        
         part.setPartnerValue(Partnerid);
+        part.setPartnerName(getPartnerName(Partnerid));
         part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
         part.setCompanyOverview(true);
-        vo1.defineNamedWhereClauseParam("pid", Partnerid, null);
-        //TODO : Take country from user's session object / from Partner's string
-        vo1.setNamedWhereClauseParam("countryCode",(conv.getLangForWERCSURL(user.getLang().toString())));
-        System.out.println(vo1.getQuery());
-        vo1.executeQuery();
-        System.out.println("RowCount for Account VO  " +
-                           vo1.getEstimatedRowCount());
+        accountVO.defineNamedWhereClauseParam("pid", Partnerid, null);
+        accountVO.setNamedWhereClauseParam("countryCode",(conv.getLangForWERCSURL(user.getLang().toString())));
+        System.out.println(accountVO.getQuery());
+        accountVO.executeQuery();
+        log.info(accessDC.getDisplayRecord() +  this.getClass() + " RowCount for Account VO  " + 
+                                   accountVO.getEstimatedRowCount());
+
                            
 
 
-        if (vo1.getEstimatedRowCount() != 0) {
+        if (accountVO.getEstimatedRowCount() != 0) {
 
             
 
-            while (vo1.hasNext()) {
+            while (accountVO.hasNext()) {
                 acc = new AccountInfo();
                 cardgrouplist = new ArrayList<CardGroupInfo>();
 
 
-                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo1.next();
+                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)accountVO.next();
 
                 if (currRow != null) {
-                   // System.out.println(" row != null");
+                   
 
                     if (currRow.getAccountId() != null) {
-                        System.out.println("Result from Account VO : account id is " +
-                                           currRow.getAccountId());
+                        log.info(accessDC.getDisplayRecord() +  this.getClass() + " Result from Execution of Account VO : account id is " +
+                                          currRow.getAccountId());
                         acc.setAccountNumber(currRow.getAccountId().toString());
                         acc.setAccountOverview(true);
                     }
@@ -1707,46 +1730,50 @@ new CardInfo();
                 if (bindings != null) {
                     iter2 =
                             bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
-                    //System.out.println("DC Iterator bindings for Card group found in mypagelistner");
+                   
                 } else {
-                    System.out.println("CardGroup Bindings is null in my page listner for Admin role");
+                    log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtCardgroupVO1Iterator Bindings is null in my page listner for Admin role");
+                   
                     iter2 = null;
                 }
-                ViewObject vo2 = iter2.getViewObject();
+                ViewObject cardGroupVO = iter2.getViewObject();
 
-                vo2 = iter2.getViewObject();
-                vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
-                System.out.println("Account id passed in CardGroup VO is " + AccountID);
-                vo2.defineNamedWhereClauseParam("accid", AccountID, null);
-                vo2.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                cardGroupVO = iter2.getViewObject();
+                cardGroupVO.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
+                log.info(accessDC.getDisplayRecord() +  this.getClass() + " Account id passed in CardGroup VO is " + AccountID);
+                cardGroupVO.defineNamedWhereClauseParam("accid", AccountID, null);
+                cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
 
 
-                vo2.executeQuery();
-                System.out.println("Row count from Cardgroup vo" +
-                                   vo2.getEstimatedRowCount());
+                cardGroupVO.executeQuery();
+                log.info(accessDC.getDisplayRecord() +  this.getClass() + " Row count from Cardgroup vo" + 
+                                                cardGroupVO.getEstimatedRowCount());
 
-                if (vo2.getEstimatedRowCount() != 0) {
 
-                    //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+                if (cardGroupVO.getEstimatedRowCount() != 0) {
 
-                    while (vo2.hasNext()) {
+                    
+
+                    while (cardGroupVO.hasNext()) {
 
 
                         cardgrp = new CardGroupInfo();
                         cardlist = new ArrayList<CardInfo>();
                         PrtCardgroupVORowImpl currRowcardgrp =
-                            (PrtCardgroupVORowImpl)vo2.next();
+                            (PrtCardgroupVORowImpl)cardGroupVO.next();
 
                         if (currRowcardgrp != null) {
-                            System.out.println(" row != null");
+                            
 
                             if (currRowcardgrp.getCardgroupSeq() != null) {
-                                System.out.println("Result from CardGroup VO: Cardgroup id is " +
+                                log.info(accessDC.getDisplayRecord() +  this.getClass() + "Result from Execution of CardGroup VO: Cardgroup id is " +
                                                    (currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                
                                 cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
                                 cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
                                 cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
                                 cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
                                 cardgrp.setCardGroupOverview(true);
                             }
 
@@ -1783,54 +1810,55 @@ new CardInfo();
                         if (bindings != null) {
                             iter3 =
                                     bindings.findIteratorBinding("PrtCardVO1Iterator");
-                            //System.out.println("DC Iterator bindings for Card VO found in mypagelistner");
+                            
                         } else {
-                            System.out.println("Card Bindings is null in my page listner for Admin role");
+                            log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtCardVO1Iterator Bindings is null in my page listner for Admin role");
+                            
                             iter3 = null;
                         }
-                        ViewObject vo3 = iter3.getViewObject();
+                        ViewObject cardVO = iter3.getViewObject();
 
-                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-                            //System.out.println("Remove query executed");
-                            vo3.removeNamedWhereClauseParam("cardid");
-                            vo3.removeNamedWhereClauseParam("cc");
-                            vo3.setWhereClause("");
-                            vo3.executeQuery();
+                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(cardVO.getWhereClause())) {
+                            
+                            cardVO.removeNamedWhereClauseParam("cardid");
+                            cardVO.removeNamedWhereClauseParam("cc");
+                            cardVO.setWhereClause("");
+                            cardVO.executeQuery();
                         }
 
 
-                        //TODO : Change hard coded contry code
-                        vo3 = iter3.getViewObject();
-                        vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-                        System.out.println("CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
-                        vo3.defineNamedWhereClauseParam("cgid", CardgroupSeq,
+                        
+                        cardVO = iter3.getViewObject();
+                        cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                        log.info(accessDC.getDisplayRecord() +  this.getClass() + " CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
+                        
+                        cardVO.defineNamedWhereClauseParam("cgid", CardgroupSeq,
                                                         null);
-                        vo3.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
-                        vo3.defineNamedWhereClauseParam("cgmain",
+                        cardVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+                        cardVO.defineNamedWhereClauseParam("cgmain",
                                                         CardgroupMainType,
                                                         null);
-                        vo3.defineNamedWhereClauseParam("cgsub",
+                        cardVO.defineNamedWhereClauseParam("cgsub",
                                                         CardgroupSubType,
                                                         null);
 
 
-                        vo3.executeQuery();
-                        System.out.println("Row count from Card vo" +
-                                           vo3.getEstimatedRowCount());
+                        cardVO.executeQuery();
+                        log.info(accessDC.getDisplayRecord() +  this.getClass() + " Row count from Card vo" + 
+                                                                   cardVO.getEstimatedRowCount());
+                        
 
-                        if (vo3.getEstimatedRowCount() != 0) {
+                        if (cardVO.getEstimatedRowCount() != 0) {
 
-                            //System.out.println("RowCount in helpinfo "+vo.getEstimatedRowCount());
+                            
 
-                            cardViewObject(vo3);
+                            cardViewObject(cardVO);
 
 
                         }
 
 
                         if (!addflagcardgroup)
-                        //add cardlist in cardgroup
-
                         {
                             cardgrp.setCard(cardlist);
                             cardgrouplist.add(cardgrp);
@@ -1860,24 +1888,19 @@ new CardInfo();
        
         if (session != null){
             if (session.getAttribute("executePartnerObjLogic") == null) {
-                System.out.println("Partner object in session is null");
+                
                 session.setAttribute("Partner_Object_List", partnerListSession);
-//                accountlist.clear();
-//                cardgrouplist.clear();
-//                cardlist.clear();
-//                    partnerlist.clear();
-                System.out.println("Partner object added in session");
-
-
-                //System.out.println("session not null");
+                log.info(accessDC.getDisplayRecord() +  this.getClass() + " Partner object added in session");
+                
                 
 
             }}
+        log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Exit from execute Admin function");
         
-        System.out.println("Exit from execute Admin function");
     }
     
     private void cardViewObject(ViewObject cardVO) {
+        log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Entered in cardViewObject function");
         while (cardVO.hasNext()) {
 
 
@@ -1886,11 +1909,12 @@ new CardInfo();
                 (PrtCardVORowImpl)cardVO.next();
 
             if (currRowcard != null) {
-                //System.out.println(" row != null");
+                
 
                 if (currRowcard.getPrtCardPk() != null) {
-                    System.out.println("Result from Card Vo : Card id is " +
-                                       currRowcard.getPrtCardPk());
+                    log.info(accessDC.getDisplayRecord() +  this.getClass() + " Result from Card Vo : Card id is " + 
+                                                           currRowcard.getPrtCardPk());
+                    
                     card.setCardID(currRowcard.getPrtCardPk().toString());
 
                     card.setCardOverview(true);
@@ -1923,8 +1947,62 @@ new CardInfo();
 
 
         }
+        log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Exit from cardViewObject function");
     }
 
+public String getPartnerName(String partnerid) {
+    String PartnerName = "";
+    
+    DCBindingContainer bindings =
+        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+    
+    DCIteratorBinding iter1;
+    if (bindings != null) {
+        iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
+        
+        
+        ViewObject partnerVO = iter1.getViewObject();
+        partnerVO.setWhereClause("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode");
+        log.info(accessDC.getDisplayRecord() +  this.getClass() + " Partner id passed in Partner VO is " + partnerid);
+        
+        
+        partnerVO.defineNamedWhereClauseParam("pid", partnerid, null);
+        partnerVO.defineNamedWhereClauseParam("countryCode",(conv.getLangForWERCSURL(user.getLang().toString())),null);
+        
+        partnerVO.executeQuery();
+        log.info(accessDC.getDisplayRecord() +  this.getClass() + " RowCount for Partner VO  " + 
+                                   partnerVO.getEstimatedRowCount());
+        
+        
+        if(partnerVO.getEstimatedRowCount() > 0)
+        {   PrtPartnerVORowImpl currRowcard =
+            (PrtPartnerVORowImpl)partnerVO.next();
+
+            if (currRowcard != null) {
+            
+
+            if (currRowcard.getCompanyName() != null) 
+            {
+                PartnerName = currRowcard.getCompanyName().toString();
+                        log.info(accessDC.getDisplayRecord() +  this.getClass() + " PartnerName returned from database for partner id "+ partnerid +" is " + PartnerName);
+                        
+
+                    }
+            
+                                    }
+        }
+        
+    } else {
+        log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtPartnerVO1Iterator Bindings is null in my page listner");
+        
+        iter1 = null;
+    }
+
+   
+return PartnerName;
+      
+    
+}
 
     private User populateUser(String role) {
         User user = new User();

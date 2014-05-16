@@ -4,9 +4,16 @@
           BeanClass="com.sfr.engage.core.PartnerInfo" isJavaBased="true">
   <Attribute Name="partnerValue" Type="java.lang.String"/>
   <Attribute Name="country" Type="java.lang.String"/>
+  <Attribute Name="partnerName" Type="java.lang.String"/>
   <AccessorAttribute id="accountList" IsCollection="true"
                      BeanClass="com.sfr.engage.core.AccountInfo"
                      CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setCompanyOverview"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isCompanyOverview"
+                  ReturnNodeName="Return"/>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.PartnerInfo"
                      BeanClass="com.sfr.engage.core.PartnerInfo"
                      id="PartnerInfo"/>

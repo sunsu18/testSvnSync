@@ -30,6 +30,7 @@
                       Name="partnerlist0">
         <AttrNames>
           <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
         </AttrNames>
         <Accessors>
           <Item Value="accountList"/>
@@ -48,6 +49,7 @@
                       Name="partnerlist2">
         <AttrNames>
           <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
         </AttrNames>
         <Accessors>
           <Item Value="card"/>
@@ -57,6 +59,7 @@
                       Name="partnerlist3">
         <AttrNames>
           <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

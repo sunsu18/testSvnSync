@@ -34,14 +34,15 @@
        PrtCardgroupEO.BLOCK_DATE, 
        PrtCardgroupEO.BLOCK_TIME, 
        PrtCardgroupEO.MODIFIED_BY, 
-       PrtCardgroupEO.MODIFIED_DATE"
+       PrtCardgroupEO.MODIFIED_DATE, 
+       PrtCardgroupEO.CARDGROUP_DESCRIPTION"
   FromList="PRT_CARDGROUP PrtCardgroupEO"
   BindingStyle="OracleName"
   CustomQuery="false"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -245,6 +246,12 @@
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtCardgroupEO"
     AliasName="MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="CardgroupDescription"
+    PrecisionRule="true"
+    EntityAttrName="CardgroupDescription"
+    EntityUsage="PrtCardgroupEO"
+    AliasName="CARDGROUP_DESCRIPTION"/>
   <ViewLinkAccessor
     Name="PrtCardVO"
     ViewLink="com.sfr.engage.model.fklinks.PrtCardPrtCardgroupFk1Link"
