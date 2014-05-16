@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateSOAErrorDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateSOAErrorDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="EngagePalsCardDtaErrorlogCollection" type="EngagePalsCardDtaErrorlogCollection"/>
+   <xs:complexType name="EngagePalsCardDtaErrorlogCollection">
+      <xs:sequence>
+         <xs:element name="EngagePalsCardDtaErrorlog" type="EngagePalsCardDtaErrorlog" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EngagePalsCardDtaErrorlog">
+      <xs:sequence>
+         <xs:element name="deltaTs">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="40"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="soaErrorCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="emailFlag" type="xs:decimal" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

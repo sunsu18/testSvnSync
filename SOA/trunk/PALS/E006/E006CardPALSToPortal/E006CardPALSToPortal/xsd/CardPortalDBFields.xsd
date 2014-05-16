@@ -59,7 +59,7 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="cardIdentifier">
+              <xsd:element name="cardIdentifier" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="3"/>
@@ -73,7 +73,7 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="magneticCode">
+              <xsd:element name="magneticCode" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="3"/>
@@ -94,26 +94,23 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="cardExpiry">
-                <xsd:simpleType>
-                  <xsd:restriction base="xsd:dateTime"/>
-                </xsd:simpleType>
-              </xsd:element>
-              <xsd:element name="blockType">
+              <xsd:element name="cardExpiry" nillable="true"
+                           type="xsd:dateTime"/>
+              <xsd:element name="blockType" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="3"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="blockCode">
+              <xsd:element name="blockCode" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="3"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="blockAction">
+              <xsd:element name="blockAction" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="1"/>
@@ -196,7 +193,7 @@
      <xsd:element name="modifiedBy">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
-         <xsd:maxLength value="25"/>
+         <xsd:maxLength value="50"/>
         </xsd:restriction>
       </xsd:simpleType>
      </xsd:element>

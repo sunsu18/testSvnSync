@@ -54,4 +54,8 @@
              ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
   </reference>
+  <reference name="UpdateSOAErrorDBAdapter"
+             ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
+  </reference>
 </componentType>
