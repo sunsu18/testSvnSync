@@ -19,7 +19,7 @@ public class MenuVisibleHelper {
     String menuInvoiceOverview = "Invoice Overview";
     String menuAROverview = "AR Overview";
     String menuCardServices = "Card Services";
-    String menuViewCard = "View Cards";
+    String menuViewCards = "View Cards";
     String menuNewCard = "New Cards";
     String menuProfiles = "Profiles";
     String menuPricing = "Pricing";
@@ -155,14 +155,14 @@ public class MenuVisibleHelper {
         return menuCardServices;
     }
 
-    public void setMenuViewCard(String menuViewCard) {
-        this.menuViewCard = menuViewCard;
+    public void setMenuViewCards(String menuViewCards) {
+        this.menuViewCards = menuViewCards;
     }
 
-    public String getMenuViewCard() {
+    public String getMenuViewCards() {
         if (sfr.containsKey("VIEW_CARD"))
-            menuViewCard = (String)sfr.getObject("VIEW_CARD");
-        return menuViewCard;
+            menuViewCards = (String)sfr.getObject("VIEW_CARD");
+        return menuViewCards;
     }
 
     public void setMenuNewCard(String menuNewCard) {

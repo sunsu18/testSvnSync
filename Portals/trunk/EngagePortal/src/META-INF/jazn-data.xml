@@ -3494,6 +3494,11 @@
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3706,6 +3711,11 @@
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3889,6 +3899,11 @@
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3945,6 +3960,11 @@
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3985,6 +4005,11 @@
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -4037,6 +4062,11 @@
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummaryTaskFlow.xml#AccountSummaryTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>

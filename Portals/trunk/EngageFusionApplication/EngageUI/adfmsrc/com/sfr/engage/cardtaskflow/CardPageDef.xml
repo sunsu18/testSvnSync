@@ -5,6 +5,42 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
+    <iterator Binds="PrtViewCardsVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewCardsVO1Iterator"/>
+    <searchRegion Binds="PrtViewCardsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtViewCardsVO11Query"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
+                      Name="PrtViewCardsVO10">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="CardType"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="BlockCode"/>
+          <Item Value="DriverName"/>
+          <Item Value="VehicleNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
+                      Name="PrtViewCardsVO110">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="CardType"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="DriverName"/>
+          <Item Value="BlockCode"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="CardIdentifier"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
 </pageDefinition>

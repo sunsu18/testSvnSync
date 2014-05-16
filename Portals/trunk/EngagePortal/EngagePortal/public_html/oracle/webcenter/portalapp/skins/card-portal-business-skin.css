@@ -816,6 +816,14 @@ font-style:normal;
     margin-bottom:3px; 
 }
 
+.vertical_seperator_view_cards{
+    width:1px !important;
+    height:110px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:3px; 
+}
 .vertical_seprator
 {
      width:1px !important;

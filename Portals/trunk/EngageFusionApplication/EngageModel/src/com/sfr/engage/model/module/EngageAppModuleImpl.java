@@ -20,6 +20,8 @@ import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
+import com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -400,5 +402,13 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public PrtTruckInformationVOImpl getPrtTruckInformationVO3() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO3");
+    }
+
+    /**
+     * Container's getter for PrtViewCardsVO1.
+     * @return PrtViewCardsVO1
+     */
+    public PrtViewCardsVOImpl getPrtViewCardsVO1() {
+        return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
     }
 }
