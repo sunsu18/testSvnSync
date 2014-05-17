@@ -1,0 +1,25 @@
+<?binding.jca SelectErrorRecordsSOADBAdapterV1_db.jca?>
+<wsdl:definitions name="SelectErrorRecordsSOADBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectErrorRecordsSOADBAdapterV1_plt">
+        <plt:role name="SelectErrorRecordsSOADBAdapterV1_role">
+            <plt:portType name="tns:SelectErrorRecordsSOADBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" schemaLocation="xsd/SelectErrorRecordsSOADBAdapterV1.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectErrorRecordsSOADBAdapterV1Input_msg">
+        <wsdl:part name="SelectErrorRecordsSOADBAdapterV1Input_msg" element="db:SelectErrorRecordsSOADBAdapterV1Input"/>
+    </wsdl:message>
+    <wsdl:message name="SelectErrorRecordsSOADBAdapterV1OutputCollection_msg">
+        <wsdl:part name="SelectErrorRecordsSOADBAdapterV1OutputCollection" element="db:SelectErrorRecordsSOADBAdapterV1OutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectErrorRecordsSOADBAdapterV1_ptt">
+        <wsdl:operation name="SelectErrorRecordsSOADBAdapterV1">
+            <wsdl:input message="tns:SelectErrorRecordsSOADBAdapterV1Input_msg"/>
+            <wsdl:output message="tns:SelectErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

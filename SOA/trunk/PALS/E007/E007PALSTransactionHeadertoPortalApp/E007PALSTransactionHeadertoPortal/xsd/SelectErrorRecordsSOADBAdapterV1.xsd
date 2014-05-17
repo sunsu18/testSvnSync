@@ -1,0 +1,66 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectErrorRecordsSOADBAdapterV1Input" type="SelectErrorRecordsSOADBAdapterV1Input"/>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1Input">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="SelectErrorRecordsSOADBAdapterV1OutputCollection" type="SelectErrorRecordsSOADBAdapterV1OutputCollection"/>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1OutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectErrorRecordsSOADBAdapterV1Output" type="SelectErrorRecordsSOADBAdapterV1Output" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1Output">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="UREF_TRANSACTION_ID" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PRELIM_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_ORDER_MAIN_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_ORDER_SUB_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_BACKWARD_REF" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_FORWARD_REF" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_VALID_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_CREATE_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="SITE_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="PURCHASE_COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICED_CARD_ID" type="xs:string" nillable="true"/>
+         <xs:element name="KSID" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_1_ID" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_ID_2_INFO" type="xs:string" nillable="true"/>
+         <xs:element name="CARD_2_ID" type="xs:string" nillable="true"/>
+         <xs:element name="ODOMETER" type="xs:string" nillable="true"/>
+         <xs:element name="TRANSACTION_DT" type="xs:string" nillable="true"/>
+         <xs:element name="TRANSACTION_TIME" type="xs:string" nillable="true"/>
+         <xs:element name="STATION_NAME" type="xs:string" nillable="true"/>
+         <xs:element name="ICC_INVOICE_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_NUMBER_COLLECTIVE" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_NUMBER_NON_COLLECTIVE" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICING_DATE" type="xs:string" nillable="true"/>
+         <xs:element name="TERMINAL_ID" type="xs:string" nillable="true"/>
+         <xs:element name="TERMINAL_SEQ" type="xs:string" nillable="true"/>
+         <xs:element name="PURCHASE_CURRENCY" type="xs:string" nillable="true"/>
+         <xs:element name="EXCHANGE_RATE" type="xs:string" nillable="true"/>
+         <xs:element name="ICC_YN" type="xs:string" nillable="true"/>
+         <xs:element name="TRANSACTION_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="PRELIM_STATUS_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="ACCOUNT_ID" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_MAIN_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SUB_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SEQ" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_FLAG" type="xs:string" nillable="true"/>
+         <xs:element name="WM_TRANS_REF_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_MODIFIED_DATE" type="xs:string" nillable="true"/>
+         <xs:element name="CUSTOMER_SERVICE_ID" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_BY" type="xs:string" nillable="true"/>
+         <xs:element name="PORTAL_MODIFIED_DATE" type="xs:string" nillable="true"/>
+         <xs:element name="PREVIOUS_ODOMETER" type="xs:string" nillable="true"/>
+         <xs:element name="ODOMETER_PORTAL" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_DATETIME" type="xs:dateTime" nillable="true"/>
+         <xs:element name="SOA_ERROR_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="SOA_ERROR_DESC" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

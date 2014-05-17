@@ -1,0 +1,21 @@
+<?binding.jca UpdateEmailErrorFlagSOADBAdapterV1_db.jca?>
+<wsdl:definitions name="UpdateEmailErrorFlagSOADBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateEmailErrorFlagSOADBAdapterV1">
+    <plt:partnerLinkType name="UpdateEmailErrorFlagSOADBAdapterV1_plt">
+        <plt:role name="UpdateEmailErrorFlagSOADBAdapterV1_role">
+            <plt:portType name="tns:UpdateEmailErrorFlagSOADBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateEmailErrorFlagSOADBAdapterV1" schemaLocation="xsd/UpdateEmailErrorFlagSOADBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaTxnheaderErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaTxnheaderErrorlogCollection" element="top:EngageSoaTxnheaderErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateEmailErrorFlagSOADBAdapterV1_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:EngageSoaTxnheaderErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
