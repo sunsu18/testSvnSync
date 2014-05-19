@@ -55,7 +55,9 @@
   <xsl:template match="/">
     <ns2:EngagePalsAccDtaErrorlogCollection>
       <xsl:for-each select="$InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc071Vs1CssktoDtaCollection/top:Cc071Vs1CssktoDtaCollection/top:Cc071Vs1CssktoDta">
-        <xsl:if test='(string-length(top:partnerId) != 8.0) or ((string-length(top:kontoId) != 10.0) or ((string-length(top:kundeGrp) != 2.0) or ((top:kontoId = "") or ((top:partnerId = "") or ((top:deltaTs = "") or (top:kundeGrp = ""))))))'>
+<!--        <xsl:if test='(string-length(top:partnerId) != 8.0) or ((string-length(top:kontoId) != 10.0) or ((string-length(top:kundeGrp) != 2.0) or ((top:kontoId = "") or ((top:partnerId = "") or ((top:deltaTs = "") or (top:kundeGrp = ""))))))'>
+-->
+<xsl:if test='(string-length(top:partnerId) > 8.0) or ((string-length(top:kontoId) > 10.0) or ((string-length(top:kundeGrp) > 2.0) or ((normalize-space(top:kontoId) = "") or ((normalize-space(top:partnerId) = "") or ((normalize-space(top:deltaTs) = "") or (normalize-space(top:kundeGrp) = ""))))))'>
           <ns2:EngagePalsAccDtaErrorlog>
             <ns2:deltaTs>
               <xsl:value-of select="top:deltaTs"/>

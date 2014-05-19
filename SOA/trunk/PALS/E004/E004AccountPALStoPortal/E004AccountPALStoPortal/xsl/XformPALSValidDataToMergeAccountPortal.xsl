@@ -54,7 +54,7 @@
   <xsl:template match="/">
     <ns2:PrtAccountCollection>
       <xsl:for-each select="$InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc071Vs1CssktoDtaCollection/top:Cc071Vs1CssktoDtaCollection/top:Cc071Vs1CssktoDta">
-        <xsl:if test='(string-length(top:partnerId) = 8.0) and ((string-length(top:kontoId) = 10.0) and ((string-length(top:kundeGrp) = 2.0) and ((top:kontoId != "") and ((top:partnerId != "") and ((top:deltaTs != "") and (top:kundeGrp != ""))))))'>
+        <xsl:if test='(string-length(top:partnerId) &lt;= 8.0) and ((string-length(top:kontoId) &lt;= 10.0) and ((string-length(top:kundeGrp) &lt;= 2.0) and ((normalize-space(top:kontoId) != "") and ((normalize-space(top:partnerId) != "") and ((normalize-space(top:deltaTs) != "") and (normalize-space(top:kundeGrp) != ""))))))'>
           <ns2:PrtAccount>
             <ns2:countryCode>
               <xsl:value-of select="/client:invocationMsg/client:CountryCode"/>
