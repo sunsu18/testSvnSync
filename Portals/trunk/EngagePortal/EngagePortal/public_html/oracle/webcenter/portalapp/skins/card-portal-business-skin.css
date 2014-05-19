@@ -1,3 +1,77 @@
+/*Common-Login CSS*/
+.headerAbtStatoil{
+        background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #767577 !important;
+    font-family: Georgia;
+    font-size: 11px;
+    font-weight:bold;
+    text-decoration: underline;
+    outline: medium none;
+}
+
+.footerLinks{
+  font-family: Lucida Sans;
+    font-size: 11px;
+    font-weight: normal;
+    color:#3cb6ce !important;
+    outline: medium none;
+    }
+.footerCopyright{
+     background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #999999 !important;
+    font-family: Lucida Sans;
+    font-size: 11px;
+}
+
+.link{
+    color:#524e4f; 
+font-size:12px;
+font-family:Lucida Sans;
+text-decoration: underline;
+font-weight: normal;
+}
+
+.outerPanel{
+    background-color:rgb(247,247,247); 
+    height:440.0px; 
+    width:952px;
+    border:1px solid silver;
+}
+
+heading_login1{
+    
+color:#3cb6ce;
+font-size:20px;
+font-family:Georgia; 
+font-weight:bold;
+text-align:left;
+}
+
+.innerPanel{
+    width:360px; 
+    height:320px;
+    background-color:rgb(238,238,238);
+    border:1px solid silver;
+}
+
+.loginButton{
+       background-color: #3DB7CE !important;
+    background-image: none !important;
+    font-family: Georgia;
+    font-weight:normal;
+    font-size: 12px;
+    text-align: center;
+     border: 1px solid #3DB7CE !important;
+     padding-top:5px;
+     padding-bottom:5px;
+     width: 80px;
+      height: 32px;
+     }
+
+
+
 /* Splash screen icon */
 af|document::splash-screen-icon {
 content: url("/images/ajax-loader-new.gif");
@@ -321,7 +395,7 @@ af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
     background-color: transparent;
 }
 
-.af_panelAccordion_disclosed-icon-style,
+/*.af_panelAccordion_disclosed-icon-style,
 .af_panelAccordion_undisclosed-icon-style,
 .af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_undisclosed-icon-style,
 .af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_disclosed-icon-style,
@@ -332,7 +406,7 @@ af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end{
     width:30px;
     border:none;
     border-color: transparent;
-}
+}*/
 /* background color of whole page default is blue gradient*/
 body {
    /* background-color: rgb(214,214,214) !important;*/
@@ -763,10 +837,10 @@ background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
 }
 
-.panel_padding_authenticated{
+/*.panel_padding_authenticated{
     padding-top: 6px;
     padding-bottom: 6px;
-}
+}*/
 
 /*.panel_header_authenticated{
     padding-left: 5px;
@@ -1168,14 +1242,14 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.af_panelAccordion_disclosed-icon-style,.af_panelAccordion_undisclosed-icon-style,.view_all,.view_all1,.view_all2,.view_all3,.view_all4,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .info_statoil{
-	background-position: -31px -333px ;
-	width: 17px;
-	height: 18px;
+	background-position: -29px -334px ;
+	width: 20px;
+	height: 21px;
 }
 
 
@@ -1185,6 +1259,7 @@ font-weight:bold;
 	background-position: -30px -312px ;
 	width: 20px;
 	height: 20px;
+        margin-left: -1px;
 }
 
 .arrow_learn_more_white{
@@ -1249,9 +1324,9 @@ font-weight:bold;
 }
 
 .arrow_learn_more{
-background-position: -28px -104px ;
-	width: 12px;
-	height: 13px;
+background-position: -30px -106px ;
+	width: 13px;
+	height: 14px;
 }
 
 .category_icon{
@@ -1261,7 +1336,7 @@ background-position: -28px -104px ;
 }
 
 .cart{
-	background-position: -30px -4px ;
+	background-position: -30px -6px ;
 	width: 21px;
 	height: 20px;
         margin-left: 5px;
@@ -1288,27 +1363,27 @@ background-position: -28px -104px ;
 }
 
 .info_legend{
-	background-position: -30px -358px ;
+	background-position: -31px -359px ;
 	width: 15px;
 	height: 15px;
         }
 
 .acc_summary{
-	background-position: -28px -244px ;
+	background-position: -30px -245px ;
 	width: 21px;
-	height: 19px;
+	height: 20px;
 }
 .transaction{
-	background-position: -30px -268px ;
-	width: 23px;
-	height: 16px;
+	background-position: -29px -270px ;
+	width: 24px;
+	height: 17px;
         margin-left: 5px;
 }
 
 .messages{
-	background-position: -30px -287px ;
-	width: 20px;
-	height: 20px;
+	background-position: -30px -289px ;
+	width: 22px;
+	height: 21px;
         margin-left: 5px;
 }
 
@@ -1323,9 +1398,46 @@ background-position: -28px -104px ;
 	height: 13px;
 }*/
 
+.view_all1{
+	background-position: -15px -570px ;
+	width: 20px;
+	height: 20px;
+}
 
+.view_all2{
+	background-position: -17px -539px ;
+	width: 18px;
+	height: 18px;
+}
 
+.view_all3{
+	background-position: -16px -508px ;
+	width: 20px;
+	height: 20px;
+}
 
+.view_all4{
+	background-position: -17px -476px ;
+	width: 20px;
+	height: 20px;
+}
+
+.view_all{
+	background-position: -14px -443px ;
+	width: 24px;
+	height: 24px;
+}
+
+.af_panelAccordion_undisclosed-icon-style{
+    background-position: -4px -380px ;
+	width: 22px;
+	height: 22px;
+}
+.af_panelAccordion_disclosed-icon-style{
+    background-position: -29px -379px ;
+	width: 22px;
+	height: 22px;
+}
 
 
 

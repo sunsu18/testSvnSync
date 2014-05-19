@@ -1,3 +1,81 @@
+/*Common-Login CSS*/
+.headerAbtStatoil{
+        background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #767577 !important;
+    font-family: Georgia;
+    font-size: 11px;
+    font-weight:bold;
+    text-decoration: underline;
+    outline: medium none;
+}
+
+
+.footerLinks{
+  font-family: Lucida Sans;
+    font-size: 11px;
+    font-weight: normal;
+    color:rgb(248,149,24) !important;
+    outline: medium none;
+    }
+.footerCopyright{
+     background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #999999 !important;
+    font-family: Lucida Sans;
+    font-size: 11px;
+}
+
+.link{
+    color:#524e4f; 
+font-size:12px;
+font-family:Lucida Sans;
+text-decoration: underline;
+font-weight: normal;
+}
+
+.outerPanel{
+    background-color:rgb(247,247,247); 
+    height:440.0px; 
+    width:952px;
+    border:1px solid silver;
+}
+
+heading_login1{
+    
+color:rgb(239,160,0);
+font-size:20px;
+font-family:Georgia; 
+font-weight:bold;
+text-align:left;
+}
+
+.innerPanel{
+    width:360px; 
+    height:320px;
+    background-color:rgb(238,238,238);
+    border:1px solid silver;
+}
+.loginButton{
+       background-color: rgb(242,173,0) !important;
+    background-image: none !important;
+    font-family: Georgia;
+    font-weight:normal;
+    font-size: 12px;
+    text-align: center;
+     border: 1px solid rgb(242,173,0) !important;
+     padding-top:5px;
+     padding-bottom:5px;
+     color:black !important;
+     width: 80px;
+      height: 32px;
+}
+
+
+
+
+
+
 /* Splash screen icon */
 af|document::splash-screen-icon {
 content: url("/images/ajax-loader-new.gif");
@@ -352,18 +430,22 @@ af|panelAccordion::header-subsequent:disclosed af|panelAccordion::header-end
     background-color: transparent;
 }
 
-.af_panelAccordion_disclosed-icon-style,
+/*.af_panelAccordion_disclosed-icon-style,
 .af_panelAccordion_undisclosed-icon-style,
 .af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_undisclosed-icon-style,
 .af_pannelAccordion_header.p_AFHilight.af_pannelAccordion_disclosed-icon-style,
 .af_pannelAccordion_header-subsequent.p_AFHilight.af_pannelAccordion_undisclosed-icon-style
 .af_pannelAccordion_header-subsequent.p_AFHilight.af_pannelAccordion_disclosed-icon-style{
-    background-image: url("/faces/images/FAQ_list_icon.png") !important;
+    background-position: -2px -407px ;
+	width: 22px;
+	height: 22px;*/
+    
+    /*background-image: url("/faces/images/FAQ_list_icon.png") !important;
     height:18px;
-    width:30px;
-    border:none;
+    width:30px;*/
+    /*border:none;
     border-color: transparent;
-}
+}*/
 
 /* background color of whole page default is blue gradient*/
 body {
@@ -948,10 +1030,10 @@ background: linear-gradient(to bottom,  #4a4748 59%,#312e2f 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4748', endColorstr='#312e2f',GradientType=0 ); /* IE6-9 */
 }
 
-.panel_padding_authenticated{
+/*.panel_padding_authenticated{
     padding-top: 6px;
     padding-bottom: 6px;
-}
+}*/
 
 /*.panel_header_authenticated{
     padding-left: 5px;
@@ -1401,32 +1483,33 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.view_all,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.af_panelAccordion_disclosed-icon-style,.af_panelAccordion_undisclosed-icon-style,.view_all,.view_all1,.view_all2,.view_all3,.view_all4,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
 .acc_summary{
 	background-position: -4px -244px ;
 	width: 21px;
-	height: 19px;
+	height: 20px;
 }
 
 .transaction{
-	background-position: -3px -267px ;
-	width: 23px;
-	height: 16px;
+	background-position: -3px -269px ;
+	width: 24px;
+	height: 17px;
         margin-left: 5px;
 }
 .messages{
-	background-position: -5px -287px ;
-	width: 20px;
-	height: 20px;
+	background-position: -6px -289px ;
+	width: 22px;
+	height: 21px;
         margin-left: 5px;
 }
 .invoice{
-	background-position: -5px -312px ;
+	background-position: -6px -312px ;
 	width: 20px;
 	height: 20px;
+        margin-left: -1px;
 }
 
 /*.arrow{
@@ -1438,9 +1521,9 @@ font-weight:bold;
 
 
 .info_statoil{
-	background-position: -6px -333px ;
-	width: 17px;
-	height: 18px;
+	background-position: -5px -333px ;
+	width: 20px;
+	height: 21px;
 }
 
 .sign_in{
@@ -1457,9 +1540,9 @@ font-weight:bold;
 
 
 .arrow_learn_more{
-background-position: -15px -104px ;
-	width: 12px;
-	height: 13px;
+background-position: -16px -106px ;
+	width: 13px;
+	height: 14px;
 }
 
 .arrow_learn_more_white{
@@ -1511,7 +1594,7 @@ background-position: -15px -104px ;
 }
 
 .cart{
-	background-position: -5px -3px ;
+	background-position: -4px -6px ;
 	width: 21px;
 	height: 20px;
         margin-left: 5px;
@@ -1539,7 +1622,7 @@ background-position: -15px -104px ;
 
 
 .info_legend{
-	background-position: -6px -357px ;
+	background-position: -8px -359px ;
 	width: 15px;
 	height: 15px;
 }
@@ -1550,6 +1633,47 @@ background-position: -15px -104px ;
 	height: 20px;
 }
 
+
+.view-all1{
+	background-position: -15px -570px ;
+	width: 20px;
+	height: 20px;
+}
+
+.view-all2{
+	background-position: -17px -539px ;
+	width: 18px;
+	height: 18px;
+}
+
+.view-all3{
+	background-position: -16px -508px ;
+	width: 20px;
+	height: 20px;
+}
+
+.view-all4{
+	background-position: -17px -476px ;
+	width: 20px;
+	height: 20px;
+}
+
+.view-all{
+	background-position: -14px -443px ;
+	width: 24px;
+	height: 24px;
+}
+
+.af_panelAccordion_undisclosed-icon-style{
+    background-position: -2px -407px ;
+	width: 22px;
+	height: 22px;
+}
+.af_panelAccordion_disclosed-icon-style{
+    background-position: -29px -408px ;
+	width: 22px;
+	height: 22px;
+}
 
 
 

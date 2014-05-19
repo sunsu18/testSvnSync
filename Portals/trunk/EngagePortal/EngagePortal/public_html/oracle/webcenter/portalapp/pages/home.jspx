@@ -301,7 +301,7 @@
                                                      layout="vertical"/>
                                 
                               </af:panelGroupLayout>
-                              <af:spacer height="10" id="s25" width="112"/>
+                              <af:spacer height="10" id="s25" width="100"/>
                               <af:panelGroupLayout id="pgl23"
                                                    layout="horizontal"
                                                    halign="start">

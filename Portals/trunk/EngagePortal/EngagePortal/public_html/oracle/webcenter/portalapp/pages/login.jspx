@@ -1,42 +1,140 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-  <f:loadBundle basename="oracle.webcenter.portalframework.sitestructure.resource.PortalAppPageResource"
-                var="portalResource"/>
-  <f:view>
-    <af:document title="#{portalResource['login_title']}" id="d1">
-	<af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1">
-        <f:attribute name="showNavigation" value="#{false}"/>  
-        <f:attribute name="showLogin" value="#{false}"/>  
-        <f:facet name="content">
-          <f:verbatim>
-            <form id="loginform" name="loginform" method="POST"
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" 
+          >
+   <!--<f:loadBundle basename="oracle.webcenter.portalframework.sitestructure.resource.PortalAppPageResource"
+                var="portalResource"/>-->
+
+   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+   <f:view>
+      <af:document title="Sign In" id="d1">
+         <af:messages id="m1"/>
+         <!--<af:resource type="css" source="/skin/sfrStyle.css"/>-->
+         <af:panelGroupLayout id="pgl11" layout="scroll" styleClass="AFStretchWidth">
+            <af:panelGroupLayout id="pgl5" layout="horizontal" halign="center" valign="top">
+               <af:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="width:962px; ">
+                  <f:subview id="qwe">
+                     <jsp:include page="/oracle/webcenter/portalapp/pages/sfrHeader.jspx"/>
+                  </f:subview>
+                  <af:spacer width="10" height="15" id="s12"/>
+                  <af:panelGroupLayout id="pgl2" layout="vertical" styleClass="outerPanel">
+                     <af:panelGroupLayout id="pgl10" layout="horizontal" inlineStyle="width:362px;" halign="center">
+                        <af:panelGroupLayout id="pgl9" layout="vertical">
+                           <af:spacer width="10" height="25" id="s1"/>
+                           <af:outputText value="Sign In" id="ot1" styleClass="heading_login1"
+                                          inlineStyle="font-size:22px;"/>
+                           <af:spacer width="10" height="5" id="s5"/>
+                        </af:panelGroupLayout>
+                     </af:panelGroupLayout>
+                     
+                     <af:panelGroupLayout id="pgl3" layout="horizontal" valign="top" halign="center">
+                        <af:panelGroupLayout id="pgl4" layout="horizontal" valign="top">
+                           <af:panelGroupLayout id="pgl6" layout="vertical" styleClass="innerPanel" inlineStyle="#{sessionScope['SESSION_CREATE_LINK'] == 'false'? 'height:270px':''}">
+                              <af:spacer width="10" height="10" id="s3"/>
+                              
+                              <af:subform id="s15">
+                                 <af:panelGroupLayout id="pgl8" layout="vertical" inlineStyle="margin-left:25px;">
+                                   
+                                    <af:spacer width="10" height="15" id="s6"/>
+                                    <!--<af:outputText value="errorMessage" id="ot5"
+                                                   styleClass="errorOutputText"/>-->
+                                    <form id="loginform" name="loginform" method="POST"
                   action="j_security_check">
-              <p/>
-              <table cellspacing="2" cellpadding="3" border="1">
-                <tr>
-                  <th>Username:</th>
-                  <td>
-                    <input id="j_username" type="text" name="j_username" autocomplete="off"/>
-                  </td>
-                </tr>
-                 
-                <tr>
-                  <th>Password:</th>
-                  <td>
-                    <input id="j_password" type="password" name="j_password" autocomplete="off"/>
-                  </td>
-                </tr>
-              </table>
-              <p>
-                <input type="submit" name="submit" value="Login"/>
-              </p>
-            </form>
-          </f:verbatim>
-        </f:facet>
-      </af:pageTemplate>
-    </af:document>
-  </f:view>
+                                       <table cellspacing="0" cellpadding="0" border="0" style="margin-left:-5px;">
+                                         
+  
+ <tr>
+                                          
+                                             <th>Username:</th>
+                  
+                                             
+                                          </tr>
+                                           
+                                          <tr>
+                                             <th class="outputTextSmallSignIn" width="111">
+                                                <!--<input id="username" type="text" name="username" class="signinIT"/>-->
+                                                 <input id="j_username" type="text" name="j_username" />
+                                                <af:panelGroupLayout id="payout1" layout="horizontal"
+                                                                     inlineStyle="width:300.0px;margin-bottom:15px;"
+                                                                     halign="right">
+                                                   <!--<af:goLink text="Forgot Username" id="cLink1"
+                                                              styleClass="link" destination="\forgotPassword.jspx"
+                                                              inlineStyle="font-style:italic;" rendered="false"/>-->
+                                                </af:panelGroupLayout>
+                                             </th>
+                                          </tr>
+                                           
+                                          <tr>
+                                            <th>Password:</th>
+                  
+                                          </tr>
+                                           
+                                          <tr>
+                                             <th class="outputTextSmallSignIn" width="7">
+                                                <input id="j_password" type="password" name="j_password" />
+                                                <af:panelGroupLayout id="pgl17" layout="vertical"
+                                                                     inlineStyle="width:300.0px;" halign="right">
+                                                   <af:goLink text="Reset Password" id="cLink2"
+                                                              styleClass="link" 
+                                                              inlineStyle="font-style:italic;" rendered="true"/>
+                                                </af:panelGroupLayout>
+                                             </th>
+                                          </tr>
+                                           
+                                          
+                                       </table>
+                                       <af:panelGroupLayout id="pgl7" layout="vertical" inlineStyle="margin-left:-5px;">
+                                          <af:spacer width="10" height="10" id="s4"/>
+                                          <af:panelGroupLayout id="pgl14" layout="horizontal">
+                                            
+                                            <input type="submit" name="submit" value="Login" class="loginButton"/>
+                                          </af:panelGroupLayout>
+                                          <af:spacer width="10" height="5" id="s7"/>
+                                       </af:panelGroupLayout>
+                                       <af:spacer width="10" height="7" id="s9"/>
+                                    </form>
+                                 </af:panelGroupLayout>
+                                 <af:spacer width="10" height="10" id="s16"/>
+                              </af:subform>
+                              <af:panelGroupLayout id="pgl16" layout="vertical"
+                                                   inlineStyle="border-top:1px solid silver;">
+                                 <af:panelGroupLayout id="pgl12" layout="vertical"
+                                                      inlineStyle="border-top:1px solid white;">
+                                    <af:panelGroupLayout id="pgl15" layout="vertical" inlineStyle="margin-left:22px;">
+                                       <af:spacer width="10" height="10" id="s13" rendered="#{sessionScope['SESSION_CREATE_LINK']}"/>
+                                       <af:panelGroupLayout id="pgl012" layout="horizontal">
+                                       <af:spacer width="1" height="30" id="s12228" rendered="#{sessionScope['SESSION_CREATE_LINK']}"/>
+                                          <af:panelGroupLayout id="pgl0" layout="vertical">
+                                             <af:commandLink text="NOT_SFR_CUSTOMER" id="cl1" styleClass="link" rendered="#{sessionScope['SESSION_CREATE_LINK']}"
+                                                             inlineStyle="text-decoration:none;"/>
+                                             <af:spacer width="10" height="3" id="s8" rendered="#{sessionScope['SESSION_HELP_LINK']}"/>
+                                             <af:panelGroupLayout id="pgl13">
+                                                <af:goLink text="Register He" id="cl2" styleClass="link" rendered="#{sessionScope['SESSION_CREATE_LINK']}"
+                                                           inlineStyle="font-style:italic;" />
+                                                <af:goLink text="TEXT_FOR_SFR_ACCOUNT" id="cl3" styleClass="link" visible="#{sessionScope['SESSION_CREATE_LINK']}"
+                                                           inlineStyle="text-decoration:none;" rendered="false"/>
+                                             </af:panelGroupLayout>
+                                          </af:panelGroupLayout>
+                                       </af:panelGroupLayout>
+                                       <af:spacer width="10" height="15" id="s10" rendered="#{sessionScope['SESSION_HELP_LINK']}"/>
+                                       <af:goLink text="LINK_NEED_HELP" id="cl4" styleClass="link" rendered="#{sessionScope['SESSION_HELP_LINK']}" inlineStyle="font-style:italic;"
+                                                  />
+                                       <af:spacer width="10" height="10" id="s11"/>
+                                    </af:panelGroupLayout>
+                                 </af:panelGroupLayout>
+                              </af:panelGroupLayout>
+                           </af:panelGroupLayout>
+                           <af:spacer width="3" height="10" id="s2"/>
+                        </af:panelGroupLayout>
+                     </af:panelGroupLayout>
+                  </af:panelGroupLayout>
+                  <f:subview id="qwr">
+                     <jsp:include page="/oracle/webcenter/portalapp/pages/sfrFooter.jspx"/>
+                  </f:subview>
+                  
+               </af:panelGroupLayout>
+            </af:panelGroupLayout>
+         </af:panelGroupLayout>
+      </af:document>
+   </f:view>
 </jsp:root>
