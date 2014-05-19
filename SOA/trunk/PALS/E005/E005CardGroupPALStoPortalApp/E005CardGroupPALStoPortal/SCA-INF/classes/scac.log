@@ -1,12 +1,12 @@
-May 15, 2014 12:33:09 PM oracle.mds
+May 16, 2014 1:50:01 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-May 15, 2014 12:33:09 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+May 16, 2014 1:50:01 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-May 15, 2014 12:33:09 PM com.collaxa.cube.CubeLogger info
+May 16, 2014 1:50:01 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E005CardGroupPALStoPortalBPEL.bpel" ...
-May 15, 2014 12:33:09 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+May 16, 2014 1:50:01 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-May 15, 2014 12:33:09 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+May 16, 2014 1:50:01 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -15,13 +15,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSwitchBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-May 15, 2014 12:33:09 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E005CardGroupPALStoPortalBPEL" in 53.3 milliseconds [nodes 112=1+111, 2,103.0 nodes/sec]
-May 15, 2014 12:33:10 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E005CardGroupPALStoPortalBPEL" in 1.133 seconds
-May 15, 2014 12:33:10 PM com.collaxa.cube.CubeLogger info
+May 16, 2014 1:50:01 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E005CardGroupPALStoPortalBPEL" in 54.1 milliseconds [nodes 112=1+111, 2,071.2 nodes/sec]
+May 16, 2014 1:50:03 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E005CardGroupPALStoPortalBPEL" in 1.145 seconds
+May 16, 2014 1:50:03 PM com.collaxa.cube.CubeLogger info
 INFO: Gathered 5 files in 0.4 milliseconds
 
-May 15, 2014 12:33:10 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E005CardGroupPALStoPortalBPEL" in 9.5 milliseconds
+May 16, 2014 1:50:03 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E005CardGroupPALStoPortalBPEL" in 9.2 milliseconds
 

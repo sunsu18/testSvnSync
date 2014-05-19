@@ -6,23 +6,23 @@
    <partnerlink_locations>
       <partnerlink name="E005CardGroupPALStoPortalClient" x="0" y="90" side="left"/>
       <partnerlink name="MergeCardGroupErrorLogDatabaseAdapterV1" x="0" y="2987" side="left"/>
-      <partnerlink name="SelectPALSDB2DBAdaptorV1" x="1780" y="2071" side="right"/>
-      <partnerlink name="SelectDeltaTSDBAdapterV1" x="1780" y="972" side="right"/>
-      <partnerlink name="MergeDeltaTSDatabaseAdapterV1" x="1780" y="4213" side="right"/>
-      <partnerlink name="GetCountPALSDB2DBAdapter" x="1780" y="1070" side="right"/>
-      <partnerlink name="MergeCardGroupPortalDatabaseAdaptorV1" x="1780" y="3324" side="right"/>
-      <partnerlink name="SelectSOACardGroupTempDatabaseAdapterV1" x="1780" y="3246" side="right"/>
-      <partnerlink name="MergeCardGroupTempDatabaseAdapterV1" x="1780" y="3152" side="right"/>
-      <partnerlink name="SelectValidCardGroupTempDatabaseAdapterV1" x="1780" y="3523" side="right"/>
-      <partnerlink name="TruncSOACardGroupDatabaseAdapterV1" x="1780" y="3800" side="right"/>
-      <partnerlink name="SOAErrorHandlerJMSQAdapterV1" x="1780" y="1605" side="right"/>
-      <partnerlink name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" x="1780" y="4603" side="right"/>
-      <partnerlink name="UpdateEmailFlagErrorLogDatabaseAdapterV1" x="1780" y="5058" side="right"/>
+      <partnerlink name="SelectPALSDB2DBAdaptorV1" x="1908" y="2071" side="right"/>
+      <partnerlink name="SelectDeltaTSDBAdapterV1" x="1908" y="972" side="right"/>
+      <partnerlink name="MergeDeltaTSDatabaseAdapterV1" x="1908" y="4213" side="right"/>
+      <partnerlink name="GetCountPALSDB2DBAdapter" x="1908" y="1070" side="right"/>
+      <partnerlink name="MergeCardGroupPortalDatabaseAdaptorV1" x="1908" y="3324" side="right"/>
+      <partnerlink name="SelectSOACardGroupTempDatabaseAdapterV1" x="1908" y="3246" side="right"/>
+      <partnerlink name="MergeCardGroupTempDatabaseAdapterV1" x="1908" y="3152" side="right"/>
+      <partnerlink name="SelectValidCardGroupTempDatabaseAdapterV1" x="1908" y="3523" side="right"/>
+      <partnerlink name="TruncSOACardGroupDatabaseAdapterV1" x="1908" y="3800" side="right"/>
+      <partnerlink name="SOAErrorHandlerJMSQAdapterV1" x="1908" y="1655" side="right"/>
+      <partnerlink name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" x="1908" y="4603" side="right"/>
+      <partnerlink name="UpdateEmailFlagErrorLogDatabaseAdapterV1" x="1908" y="5058" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="288,900,510,484" show_swimlanes="true">
+   <graph_layout viewport="1140,0,548,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
-      <layout_item collapsed="true" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[2]" type="catch"/>
       <layout_item collapsed="true" xpath="/process/faultHandlers/catch[2]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
