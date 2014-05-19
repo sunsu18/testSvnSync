@@ -46,7 +46,7 @@
   <xsl:template match="/">
     <ns2:EngageSoaCardgroupErrorlogCollection>
       <xsl:for-each select="/ns1:CardGroup/ns1:CardGroupData">
-        <xsl:if test='((((((((((normalize-space(ns1:ACCOUNT_ID) = "") or (string-length(normalize-space(ns1:ACCOUNT_ID)) != 10.0)) or (string-length(normalize-space(ns1:PARTNER_ID)) != 8.0)) or (string-length(normalize-space(ns1:CARDGROUP_MAIN_TYPE)) != 3.0)) or (string-length(normalize-space(ns1:CARDGROUP_SUB_TYPE)) != 3.0)) or (string-length(normalize-space(ns1:CARDGROUP_SEQ)) != 5.0)) or (string-length(normalize-space(ns1:CARDGROUP_DESCRIPTION)) > 45.0)) or (normalize-space(ns1:PARTNER_ID) = "")) or (normalize-space(ns1:CARDGROUP_MAIN_TYPE) = "")) or (normalize-space(ns1:CARDGROUP_SUB_TYPE) = "")) or (normalize-space(ns1:CARDGROUP_SEQ) = "")'>
+        <xsl:if test='((((((((((normalize-space(ns1:ACCOUNT_ID) = "") or (string-length(normalize-space(ns1:ACCOUNT_ID)) > 10.0)) or (string-length(normalize-space(ns1:PARTNER_ID)) > 8.0)) or (string-length(normalize-space(ns1:CARDGROUP_MAIN_TYPE)) > 3.0)) or (string-length(normalize-space(ns1:CARDGROUP_SUB_TYPE)) > 3.0)) or (string-length(normalize-space(ns1:CARDGROUP_SEQ)) > 5.0)) or (string-length(normalize-space(ns1:CARDGROUP_DESCRIPTION)) > 45.0)) or (normalize-space(ns1:PARTNER_ID) = "")) or (normalize-space(ns1:CARDGROUP_MAIN_TYPE) = "")) or (normalize-space(ns1:CARDGROUP_SUB_TYPE) = "")) or (normalize-space(ns1:CARDGROUP_SEQ) = "")'>
           <ns2:EngageSoaCardgroupErrorlog>
             <ns2:deltaTs>
               <xsl:value-of select="ns1:DELTA_TS"/>
