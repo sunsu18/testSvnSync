@@ -3,6 +3,7 @@ package com.sfr.engage.cardtaskflow;
 import com.sfr.engage.core.PartnerInfo;
 
 import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
+import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewBean;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -72,7 +73,8 @@ public class CardBean implements Serializable {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         statusValue = new ArrayList<String>();
-        partnerIdList= new ArrayList<SelectItem>();        
+        partnerIdList= new ArrayList<SelectItem>();  
+        resourceBundle = new EngageResourceBundle();
         partnerId=null;
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
@@ -82,7 +84,7 @@ public class CardBean implements Serializable {
                 {
                     System.out.println("inside for");
                 SelectItem selectItem = new SelectItem();
-                selectItem.setLabel(partnerInfoList.get(k).getPartnerValue().toString());
+                selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
                 selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
                 partnerIdList.add(selectItem);
                 //partnerIdValue.add(partnerInfoList.get(k).getPartnerValue().toString());
@@ -201,8 +203,13 @@ public class CardBean implements Serializable {
     public void setStatusList(ArrayList<SelectItem> statusList) {
         this.statusList = statusList;
     }
-    
+
+    /**
+     * @param errorVar
+     * @return
+     */
     public String showErrorMessage(String errorVar){
+      
         if(errorVar != null){
             if (resourceBundle.containsKey(errorVar)) {                    
                 FacesMessage msg =
@@ -213,6 +220,7 @@ public class CardBean implements Serializable {
                 return null;
             }
         }
+
         return null;
     }
 
@@ -394,6 +402,7 @@ public class CardBean implements Serializable {
         return null;
     }
     
+  
     public String searchResults() {
        
         isTableVisible = false;
@@ -401,14 +410,19 @@ public class CardBean implements Serializable {
         String statusPassingValues = null;
         String cardGroupPassingValues = null;
         
-        if(getBindings().getAccount().getValue() != null && getBindings().getPartner().getValue() != null && getBindings().getStatus().getValue() != null && getBindings().getCardGroup().getValue() != null){
+      try
+      {
+        
+        if( getBindings().getPartner().getValue() != null){
             
             
             if(getBindings().getAccount().getValue() != null){
                    accountPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
                    System.out.println("account values"+accountPassingValues);
                 }else{
+                System.out.println("no account selected");
                     showErrorMessage("ENGAGE_NO_ACCOUNT");
+                System.out.println("please select an account");
                     return null;
                 }
             
@@ -444,12 +458,16 @@ public class CardBean implements Serializable {
                  System.out.println("estimated count"+vo.getEstimatedRowCount());
                 isTableVisible = true;
             }
-            else{
-                showErrorMessage("ENGAGE_NO_PARTNER");
-                return null;
-            }
-            
+           
         }
+          else{
+              showErrorMessage("ENGAGE_NO_PARTNER");
+              return null;
+          }
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+      }
         
         
         return null;

@@ -39,6 +39,7 @@
           <Item Value="BlockCode"/>
           <Item Value="CardExpiry"/>
           <Item Value="CardIdentifier"/>
+          <Item Value="CardgroupDescription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
