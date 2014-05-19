@@ -8,13 +8,13 @@
   InheritPersonalization="true"
   BindingStyle="OracleName"
   CustomQuery="true"
-  RowClass="com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
@@ -47,8 +47,8 @@ FROM PRT_CARD PC
     ,PRT_DRIVER_INFORMATION PDI
 WHERE PC.ACCOUNT_ID          = trim(PDI.ACCOUNT_NUMBER)
 AND   PC.COUNTRY_CODE        = PDI.COUNTRY_CODE
-AND   PC.EXT_CARD_NUM        = PDI.CARD_NUMBER
-AND   trim(PDI.ACCOUNT_NUMBER)   = :accountValue
+AND   PC.PRT_CARD_PK        = PDI.CARD_NUMBER
+AND   INSTR(:accountValue,PDI.ACCOUNT_NUMBER)<>0
 AND   PDI.COUNTRY_CODE       = :countryCd
 AND   PC.PARTNER_ID          = :partnerValue
 AND   'Driver'               = :paramValue
@@ -62,8 +62,8 @@ FROM PRT_CARD PC
     ,PRT_TRUCK_INFORMATION PTI
 WHERE PC.ACCOUNT_ID            = trim(PTI.ACCOUNT_NUMBER)
 AND   PC.COUNTRY_CODE          = PTI.COUNTRY_CODE
-AND   PC.EXT_CARD_NUM          = PTI.CARD_NUMBER
-AND   trim(PTI.ACCOUNT_NUMBER) = :accountValue
+AND   PC.PRT_CARD_PK          = PTI.CARD_NUMBER
+AND   INSTR(:accountValue,PTI.ACCOUNT_NUMBER)<>0
 AND   PTI.COUNTRY_CODE         = :countryCd
 AND   PC.PARTNER_ID            = :partnerValue
 AND   'Vehicle'                = :paramValue]]>

@@ -7,6 +7,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
+import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
@@ -403,12 +404,18 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public PrtTruckInformationVOImpl getPrtTruckInformationVO3() {
         return (PrtTruckInformationVOImpl)findViewObject("PrtTruckInformationVO3");
     }
+ /**
+     * Container's getter for PrtExportInfoRVO1.
+     * @return PrtExportInfoRVO1
+     */
+    public PrtExportInfoRVOImpl getPrtExportInfoRVO1() {
+        return (PrtExportInfoRVOImpl)findViewObject("PrtExportInfoRVO1");
+    }
 
-    /**
+/**
      * Container's getter for PrtViewCardsVO1.
      * @return PrtViewCardsVO1
      */
     public PrtViewCardsVOImpl getPrtViewCardsVO1() {
         return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
-    }
-}
+    }}

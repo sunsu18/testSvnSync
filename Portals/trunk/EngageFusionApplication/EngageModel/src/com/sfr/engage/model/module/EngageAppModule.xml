@@ -92,6 +92,56 @@
   <ViewUsage
     Name="PrtTruckInformationVO3"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtTruckInformationVO"/>
+  <ViewUsage
+    Name="PrtExportInfoRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtExportInfoRVO"/>
+  <ClientInterface>
+    <Method
+      Name="deleteAllForAccount">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="accountId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCd"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="regDriverValue"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="getWebServiceErrorMessage">
+      <Return
+        Type="java.lang.String"/>
+      <Parameter
+        Name="errorMessage"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="countryCode"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="updateOdometerPortal">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="urefTransactionId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="palsCountryCode"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="odoMeterPortalValue"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="modifiedBy"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
