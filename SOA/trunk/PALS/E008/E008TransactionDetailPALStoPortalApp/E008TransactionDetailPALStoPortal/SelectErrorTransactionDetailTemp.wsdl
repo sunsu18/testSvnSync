@@ -1,0 +1,25 @@
+<?binding.jca SelectErrorTransactionDetailTemp_db.jca?>
+<wsdl:definitions name="SelectErrorTransactionDetailTemp" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SelectErrorTransactionDetailTemp" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorTransactionDetailTemp" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SelectErrorTransactionDetailTemp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectErrorTransactionDetailTemp_plt">
+        <plt:role name="SelectErrorTransactionDetailTemp_role">
+            <plt:portType name="tns:SelectErrorTransactionDetailTemp_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorTransactionDetailTemp" schemaLocation="xsd/SelectErrorTransactionDetailTemp.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectErrorTransactionDetailTempInput_msg">
+        <wsdl:part name="SelectErrorTransactionDetailTempInput_msg" element="db:SelectErrorTransactionDetailTempInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectErrorTransactionDetailTempOutputCollection_msg">
+        <wsdl:part name="SelectErrorTransactionDetailTempOutputCollection" element="db:SelectErrorTransactionDetailTempOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectErrorTransactionDetailTemp_ptt">
+        <wsdl:operation name="SelectErrorTransactionDetailTemp">
+            <wsdl:input message="tns:SelectErrorTransactionDetailTempInput_msg"/>
+            <wsdl:output message="tns:SelectErrorTransactionDetailTempOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

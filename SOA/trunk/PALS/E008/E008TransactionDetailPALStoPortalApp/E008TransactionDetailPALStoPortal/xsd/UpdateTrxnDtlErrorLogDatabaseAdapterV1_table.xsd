@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTrxnDtlErrorLogDatabaseAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTrxnDtlErrorLogDatabaseAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="EngageSoaTxndtlErrorlogCollection" type="EngageSoaTxndtlErrorlogCollection"/>
+   <xs:complexType name="EngageSoaTxndtlErrorlogCollection">
+      <xs:sequence>
+         <xs:element name="EngageSoaTxndtlErrorlog" type="EngageSoaTxndtlErrorlog" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EngageSoaTxndtlErrorlog">
+      <xs:sequence>
+         <xs:element name="deltaTs" type="xs:dateTime"/>
+         <xs:element name="emailFlag" type="xs:decimal" minOccurs="0" nillable="true"/>
+         <xs:element name="soaErrorCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

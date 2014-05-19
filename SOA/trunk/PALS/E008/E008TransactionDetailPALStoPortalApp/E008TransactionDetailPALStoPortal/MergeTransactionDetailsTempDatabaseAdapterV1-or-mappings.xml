@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>MergeTransactionDetailsTempDatabaseAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>MergeTransactionDetailsTempDatabaseAdapterV1.SoaTrxndtlTemp</class>
+         <alias>SOA_TRXNDTL_TEMP</alias>
+         <primary-key>
+            <field table="SOA_TRXNDTL_TEMP" name="PALS_COUNTRY_CODE" xsi:type="column"/>
+            <field table="SOA_TRXNDTL_TEMP" name="DELTA_TS" xsi:type="column"/>
+            <field table="SOA_TRXNDTL_TEMP" name="UREF_TRANSACTION_ID" xsi:type="column"/>
+            <field table="SOA_TRXNDTL_TEMP" name="DETAIL_NO" xsi:type="column"/>
+            <field table="SOA_TRXNDTL_TEMP" name="MODIFIED_BY" xsi:type="column"/>
+            <field table="SOA_TRXNDTL_TEMP" name="PORTAL_MODIFIED_DATE" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="MergeTransactionDetailsTempDatabaseAdapterV1Select" xsi:type="read-all-query">
+                  <reference-class>MergeTransactionDetailsTempDatabaseAdapterV1.SoaTrxndtlTemp</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>palsCountryCode</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PALS_COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>urefTransactionId</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="UREF_TRANSACTION_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detailNo</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="DETAIL_NO" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>palsPGroupId</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PALS_P_GROUP_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>palsPGroupSubgroupId</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PALS_P_GROUP_SUBGROUP_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>productName</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PRODUCT_NAME" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>quantity</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="QUANTITY" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>vatRate</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="VAT_RATE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invNetUnitPriceRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INV_NET_UNIT_PRICE_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedUnitPriceRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_UNIT_PRICE_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedNetAmountRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_NET_AMOUNT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedGrossAmountRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_GROSS_AMOUNT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoivedVatRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOIVED_VAT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyUnitPrice</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_UNIT_PRICE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyGrossAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_GROSS_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>unitOfMeasure</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="UNIT_OF_MEASURE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderId</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="ORDER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>prelimId</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PRELIM_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderLineNumber</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="ORDER_LINE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priceElementCode</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PRICE_ELEMENT_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>priceElementRate</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PRICE_ELEMENT_RATE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>orderLineRef</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="ORDER_LINE_REF" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fuelTransFlag</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="FUEL_TRANS_FLAG" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>palsModifiedDate</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PALS_MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>palsModifiedBy</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PALS_MODIFIED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedBy</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="MODIFIED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>portalModifiedDate</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="PORTAL_MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyVat</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_VAT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyDiscountAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_DISCOUNT_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyVatRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_VAT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyUnitPriceRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_UNIT_PRICE_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyGrossAmountRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_GROSS_AMOUNT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyNetAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_NET_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currencyNetAmountRebated</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="CURRENCY_NET_AMOUNT_REBATED" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedVat</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_VAT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedUnitPrice</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_UNIT_PRICE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedGrossAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_GROSS_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedNetAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICED_NET_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceDiscountAmount</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="INVOICE_DISCOUNT_AMOUNT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fuelYn</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="FUEL_YN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>vatRefundableYn</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="VAT_REFUNDABLE_YN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="SOA_TRXNDTL_TEMP" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="SOA_TRXNDTL_TEMP"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

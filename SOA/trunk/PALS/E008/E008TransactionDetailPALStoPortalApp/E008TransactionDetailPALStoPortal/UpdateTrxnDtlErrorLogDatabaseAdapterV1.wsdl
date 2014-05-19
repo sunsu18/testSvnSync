@@ -1,0 +1,21 @@
+<?binding.jca UpdateTrxnDtlErrorLogDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/UpdateTrxnDtlErrorLogDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/UpdateTrxnDtlErrorLogDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTrxnDtlErrorLogDatabaseAdapterV1">
+    <plt:partnerLinkType name="UpdateTrxnDtlErrorLogDatabaseAdapterV1_plt">
+        <plt:role name="UpdateTrxnDtlErrorLogDatabaseAdapterV1_role">
+            <plt:portType name="tns:UpdateTrxnDtlErrorLogDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTrxnDtlErrorLogDatabaseAdapterV1" schemaLocation="xsd/UpdateTrxnDtlErrorLogDatabaseAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaTxndtlErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaTxndtlErrorlogCollection" element="top:EngageSoaTxndtlErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateTrxnDtlErrorLogDatabaseAdapterV1_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:EngageSoaTxndtlErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

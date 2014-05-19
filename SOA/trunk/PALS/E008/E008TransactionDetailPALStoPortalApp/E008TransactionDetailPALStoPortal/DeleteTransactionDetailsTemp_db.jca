@@ -1,0 +1,12 @@
+<adapter-config name="DeleteTransactionDetailsTemp" adapter="Database Adapter" wsdlLocation="DeleteTransactionDetailsTemp.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
+  <endpoint-interaction portType="DeleteTransactionDetailsTemp_ptt" operation="DeleteTransactionDetailsTemp">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="delete from table SOA_TRXNDTL_TEMP"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+  </endpoint-interaction>
+
+</adapter-config>
