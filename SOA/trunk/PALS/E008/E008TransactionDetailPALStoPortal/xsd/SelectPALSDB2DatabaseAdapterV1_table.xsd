@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DatabaseAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DatabaseAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="Cc078Vs1CssolnjDtaCollection" type="Cc078Vs1CssolnjDtaCollection"/>
+   <xs:complexType name="Cc078Vs1CssolnjDtaCollection">
+      <xs:sequence>
+         <xs:element name="Cc078Vs1CssolnjDta" type="Cc078Vs1CssolnjDta" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Cc078Vs1CssolnjDta">
+      <xs:sequence>
+         <xs:element name="deltaTs" type="xs:dateTime"/>
+         <xs:element name="salgstransId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="salgstranslnjLnr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ordreId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="prelimId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ordrelinjeLnr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="prpslKd" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="prpslsats" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="tilordrelinjeLnr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="stasvaregrpKd" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="kvalitet" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="drivstoffJn" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="lokproduktNv" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="60"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="olkvantitetTp" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="olkvantitet" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olmvasats" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olopgbrtenhpr" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olopgbrtBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olbernetenhpr" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olberbrtenhpr" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olbernetBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olberbrtBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="olbermvaBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="endretDt" type="xs:date" minOccurs="0"/>
+         <xs:element name="endretSgn" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="6"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="SelectPALSDB2DatabaseAdapterV1Select_DELTA_TS_BatchSizeInputParameters" type="SelectPALSDB2DatabaseAdapterV1Select_DELTA_TS_BatchSize"/>
+   <xs:complexType name="SelectPALSDB2DatabaseAdapterV1Select_DELTA_TS_BatchSize">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

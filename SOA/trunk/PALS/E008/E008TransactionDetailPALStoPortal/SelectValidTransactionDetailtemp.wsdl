@@ -1,0 +1,25 @@
+<?binding.jca SelectValidTransactionDetailtemp_db.jca?>
+<wsdl:definitions name="SelectValidTransactionDetailtemp" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SelectValidTransactionDetailtemp" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidTransactionDetailtemp" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SelectValidTransactionDetailtemp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="SelectValidTransactionDetailtemp_plt">
+        <plt:role name="SelectValidTransactionDetailtemp_role">
+            <plt:portType name="tns:SelectValidTransactionDetailtemp_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectValidTransactionDetailtemp" schemaLocation="xsd/SelectValidTransactionDetailtemp.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectValidTransactionDetailtempInput_msg">
+        <wsdl:part name="SelectValidTransactionDetailtempInput_msg" element="db:SelectValidTransactionDetailtempInput"/>
+    </wsdl:message>
+    <wsdl:message name="SelectValidTransactionDetailtempOutputCollection_msg">
+        <wsdl:part name="SelectValidTransactionDetailtempOutputCollection" element="db:SelectValidTransactionDetailtempOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectValidTransactionDetailtemp_ptt">
+        <wsdl:operation name="SelectValidTransactionDetailtemp">
+            <wsdl:input message="tns:SelectValidTransactionDetailtempInput_msg"/>
+            <wsdl:output message="tns:SelectValidTransactionDetailtempOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

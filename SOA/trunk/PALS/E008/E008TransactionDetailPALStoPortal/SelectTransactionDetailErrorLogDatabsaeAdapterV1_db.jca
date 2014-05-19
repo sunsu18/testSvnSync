@@ -1,0 +1,13 @@
+<adapter-config name="SelectTransactionDetailErrorLogDatabsaeAdapterV1" adapter="Database Adapter" wsdlLocation="SelectTransactionDetailErrorLogDatabsaeAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="SelectTransactionDetailErrorLogDatabsaeAdapterV1_ptt" operation="SelectTransactionDetailErrorLogDatabsaeAdapterV1">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT UREF_TRANSACTION_ID,DETAIL_NO,ORDER_ID,DELTA_TS,SOA_ERROR_CODE, SOA_ERROR_DESC FROM ENGAGE_SOA_TXNDTL_ERRORLOG WHERE EMAIL_FLAG = 0 AND DELTA_RECIPT_FLAG = 0"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

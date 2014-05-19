@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/E008/ValidatePALSDB2"
+            targetNamespace="http://www.statoilfuelretail.com/integration/E008/ValidatePALSDB2"
+            elementFormDefault="qualified">
+  <xsd:element name="ValidationPayload">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="TransactionData" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="UREF_TRANSACTION_ID">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="DETAIL_NO">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="5"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ORDER_ID" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PRELIM_ID" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ORDER_LINE_NUMBER" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PRICE_ELEMENT_CODE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PRICE_ELEMENT_RATE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ORDER_LINE_REF" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="5"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PALS_P_GROUP_ID" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="5"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PALS_P_GROUP_SUBGROUP_ID" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="2"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="FUEL_TRANS_FLAG" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="1"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PRODUCT_NAME" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="60"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="UNIT_OF_MEASURE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="QUANTITY" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="VAT_RATE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURRENCY_UNIT_PRICE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURRENCY_GROSS_AMOUNT" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_NET_UNIT_PRICE_REBATED" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICED_UNIT_PRICE_REBATED" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICED_NET_AMOUNT_REBATED" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICED_GROSS_AMOUNT_REBATED" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOIVED_VAT_REBATED" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float">
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PALS_MODIFIED_DATE">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:date"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="PALS_MODIFIED_BY">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="60"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

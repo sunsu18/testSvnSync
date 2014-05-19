@@ -1,0 +1,23 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="E008TransactionDetailPALStoPortalClient"
+     targetNamespace="http://oracle.com/sca/soapservice/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/E008TransactionDetailPALStoPortalClient"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://www.statoilfuelretail.com/integration/E008/E008InvocationReqMsg"
+     xmlns:tns="http://oracle.com/sca/soapservice/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/E008TransactionDetailPALStoPortalClient"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.statoilfuelretail.com/integration/E008/E008InvocationReqMsg"
+                 schemaLocation="xsd/E008InvocationReqMsg.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="invocationPayload" element="inp1:invocationMsg"/>
+    </wsdl:message>
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="execute">
+            <wsdl:input message="tns:requestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

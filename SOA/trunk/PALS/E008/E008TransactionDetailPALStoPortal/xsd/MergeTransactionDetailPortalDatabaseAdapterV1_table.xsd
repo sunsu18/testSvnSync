@@ -1,0 +1,156 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeTransactionDetailPortalDatabaseAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeTransactionDetailPortalDatabaseAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PrtCardTransactionDetailCollection" type="PrtCardTransactionDetailCollection"/>
+   <xs:complexType name="PrtCardTransactionDetailCollection">
+      <xs:sequence>
+         <xs:element name="PrtCardTransactionDetail" type="PrtCardTransactionDetail" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PrtCardTransactionDetail">
+      <xs:sequence>
+         <xs:element name="palsCountryCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="urefTransactionId">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="detailNo">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="palsPGroupId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="palsPGroupSubgroupId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="productName" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="60"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="quantity" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="vatRate" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invNetUnitPriceRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedUnitPriceRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedNetAmountRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedGrossAmountRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoivedVatRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyUnitPrice" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyGrossAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="unitOfMeasure" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="orderId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="prelimId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="orderLineNumber" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="priceElementCode" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="priceElementRate" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="orderLineRef" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="fuelTransFlag" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="palsModifiedDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="palsModifiedBy" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="6"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="modifiedBy" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="portalModifiedDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="currencyVat" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyDiscountAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyVatRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyUnitPriceRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyGrossAmountRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyNetAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currencyNetAmountRebated" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedVat" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedUnitPrice" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedGrossAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoicedNetAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invoiceDiscountAmount" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="fuelYn" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="vatRefundableYn" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

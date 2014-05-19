@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorTransactionDetailTemp" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorTransactionDetailTemp" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectErrorTransactionDetailTempInput" type="SelectErrorTransactionDetailTempInput"/>
+   <xs:complexType name="SelectErrorTransactionDetailTempInput">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="SelectErrorTransactionDetailTempOutputCollection" type="SelectErrorTransactionDetailTempOutputCollection"/>
+   <xs:complexType name="SelectErrorTransactionDetailTempOutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectErrorTransactionDetailTempOutput" type="SelectErrorTransactionDetailTempOutput" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectErrorTransactionDetailTempOutput">
+      <xs:sequence>
+         <xs:element name="PALS_COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="UREF_TRANSACTION_ID" type="xs:string" nillable="true"/>
+         <xs:element name="DETAIL_NO" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_P_GROUP_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_P_GROUP_SUBGROUP_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PRODUCT_NAME" type="xs:string" nillable="true"/>
+         <xs:element name="QUANTITY" type="xs:double" nillable="true"/>
+         <xs:element name="VAT_RATE" type="xs:double" nillable="true"/>
+         <xs:element name="INV_NET_UNIT_PRICE_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_UNIT_PRICE_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_NET_AMOUNT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_GROSS_AMOUNT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="INVOIVED_VAT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_UNIT_PRICE" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_GROSS_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="UNIT_OF_MEASURE" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="PRELIM_ID" type="xs:string" nillable="true"/>
+         <xs:element name="ORDER_LINE_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="PRICE_ELEMENT_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="PRICE_ELEMENT_RATE" type="xs:double" nillable="true"/>
+         <xs:element name="ORDER_LINE_REF" type="xs:string" nillable="true"/>
+         <xs:element name="FUEL_TRANS_FLAG" type="xs:string" nillable="true"/>
+         <xs:element name="PALS_MODIFIED_DATE" type="xs:dateTime" nillable="true"/>
+         <xs:element name="PALS_MODIFIED_BY" type="xs:string" nillable="true"/>
+         <xs:element name="MODIFIED_BY" type="xs:string" nillable="true"/>
+         <xs:element name="PORTAL_MODIFIED_DATE" type="xs:dateTime" nillable="true"/>
+         <xs:element name="CURRENCY_VAT" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_DISCOUNT_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_VAT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_UNIT_PRICE_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_GROSS_AMOUNT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_NET_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="CURRENCY_NET_AMOUNT_REBATED" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_VAT" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_UNIT_PRICE" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_GROSS_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICED_NET_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="INVOICE_DISCOUNT_AMOUNT" type="xs:double" nillable="true"/>
+         <xs:element name="FUEL_YN" type="xs:string" nillable="true"/>
+         <xs:element name="VAT_REFUNDABLE_YN" type="xs:string" nillable="true"/>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
