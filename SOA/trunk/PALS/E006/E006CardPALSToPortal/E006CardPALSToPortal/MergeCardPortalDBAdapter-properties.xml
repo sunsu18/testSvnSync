@@ -77,7 +77,7 @@
    <entry key="PRT_CARD.CREATED_BY:db_column_size">6</entry>
    <entry key="PRT_CARD.CARD_RENEW_DATE:db_column_not_null">false</entry>
    <entry key="PRT_CARD.INVOICE_CITY:db_column_type">VARCHAR2</entry>
-   <entry key="PRT_CARD.MAGNETIC_CODE:db_column_size">3</entry>
+   <entry key="PRT_CARD.MAGNETIC_CODE:db_column_size">20</entry>
    <entry key="PRT_CARD.MODIFIED_DATE:db_column_type">TIMESTAMP(6)</entry>
    <entry key="PRT_CARD.INVOICE_CITY:db_column_not_null">false</entry>
    <entry key="PRT_CARD.BLOCK_CODE:db_column_type">VARCHAR2</entry>

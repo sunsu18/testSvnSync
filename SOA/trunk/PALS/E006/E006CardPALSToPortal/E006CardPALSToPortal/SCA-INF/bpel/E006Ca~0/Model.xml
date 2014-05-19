@@ -332,7 +332,9 @@
             <to variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" part="GetPALSDB2CountDBAdapterInput_msg" query="/ns4:GetPALSDB2CountDBAdapterInput/ns4:DeltaTS"/>
           </copy>
         </assign>
-        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable" partnerLink="GetPALSDB2CountDBAdapter" portType="ns3:GetPALSDB2CountDBAdapter_ptt" operation="GetPALSDB2CountDBAdapter" id="BpInv4"/>
+        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable" outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable" partnerLink="GetPALSDB2CountDBAdapter" portType="ns3:GetPALSDB2CountDBAdapter_ptt" operation="GetPALSDB2CountDBAdapter" id="BpInv4">
+                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                </invoke>
         <assign name="CalculateBatchCount" id="BpAss8">
           <copy>
             <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutput','/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')  div bpws:getVariableData('BatchSize'))"/>
@@ -398,7 +400,9 @@
                 <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" part="PALSDB2DBAdapterSelect_inputParameters" query="/ns6:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns6:BatchSize"/>
               </copy>
             </assign>
-            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable" partnerLink="PALSDB2DBAdapter" portType="ns5:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" id="BpInv6"/>
+            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable" partnerLink="PALSDB2DBAdapter" portType="ns5:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" id="BpInv6">
+                     <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                     </invoke>
             <assign name="GetDataCount" id="BpAss13">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta/ns6:deltaTs'))"/>
@@ -416,7 +420,7 @@
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
                   <copy>
-                    <from expression="ora:doXSLTransformForDoc('xsl/XformPALSToInvalidData.xsl', $AccountSummaryCardReqMsg.invocationMsg, 'ValidateCardData', $ValidateCardData)"/>
+                    <from expression="ora:doXSLTransformForDoc('xsl/XformPALSToInvalidData.xsl', $ValidateCardData)"/>
                     <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable" part="EngagePalsCardDtaErrorlogCollection"/>
                   </copy>
                 </assign>

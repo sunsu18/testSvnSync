@@ -76,7 +76,7 @@
               <xsd:element name="magneticCode" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
-                    <xsd:maxLength value="3"/>
+                    <xsd:maxLength value="20"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
@@ -95,7 +95,7 @@
                 </xsd:simpleType>
               </xsd:element>
               <xsd:element name="cardExpiry" nillable="true"
-                           type="xsd:dateTime"/>
+                           type="xsd:date"/>
               <xsd:element name="blockType" nillable="true">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
@@ -117,7 +117,7 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="blockDate" type="xsd:dateTime" nillable="true"/>
+              <xsd:element name="blockDate" type="xsd:date" nillable="true"/>
      <xsd:element name="blockTime" type="xsd:dateTime" nillable="true"/>
      <xsd:element name="blockLevel" nillable="true">
       <xsd:simpleType>
@@ -126,7 +126,7 @@
         </xsd:restriction>
       </xsd:simpleType>
      </xsd:element>
-     <xsd:element name="manufacturedDate" type="xsd:dateTime" nillable="true"/>
+     <xsd:element name="manufacturedDate" type="xsd:date" nillable="true"/>
               <xsd:element name="routexCustomerNumber" nillable="true">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
