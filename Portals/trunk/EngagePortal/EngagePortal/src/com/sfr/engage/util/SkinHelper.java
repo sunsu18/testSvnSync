@@ -51,11 +51,16 @@ public class SkinHelper extends ThreadSerialization {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession(); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
 
-        if (request != null && request.getParameter("profile") != null) {
-            profile = request.getParameter("profile");
-        } else {
-            profile = "private";
-        }
+//        if (request != null && request.getParameter("profile") != null) {
+//            profile = request.getParameter("profile");
+//        } else {
+//            profile = "private";
+//        }
+        
+        if(session.getAttribute("profile") != null)
+        {profile = (String)session.getAttribute("profile");}
+        else
+        {profile = "business";}
 
         if (request.getParameter("portal") != null &&
             (request.getParameter("portal").toString().equalsIgnoreCase("card") || request.getParameter("portal").toString().equalsIgnoreCase("jet") ||
