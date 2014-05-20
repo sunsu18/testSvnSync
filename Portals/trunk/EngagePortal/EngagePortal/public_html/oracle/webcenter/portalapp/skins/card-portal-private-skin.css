@@ -160,6 +160,10 @@ padding-top: 2px;
 }
 
 
+.af_panelAccordion_header.p_AFDisclosed.p_AFFlow, .af_panelAccordion_header-subsequent.p_AFDisclosed.p_AFFlow {
+padding-bottom: 8px;
+}
+
 /*------------------------------ADF tree---------------------------*/
 .af_tree_node-stamp-text{
     border-style: none ;
@@ -336,13 +340,13 @@ font-weight: bold !important;
 
 .af_panelAccordion_body-content.p_AFFlow{
     /*border-bottom:2px dotted Black;*/
-border-bottom: 1px dotted rgb(151, 151, 151) !important;
+border-bottom: 1px solid rgb(221, 220, 220) !important;
 }
 
 
 .af_panelAccordion_header.p_AFDisclosed,
 .af_panelAccordion_header-subsequent.p_AFDisclosed{
-    border-bottom:none !important;
+    border-bottom: 1px solid red !important;
 }
 .af_panelAccordion_header.p_AFDisclosed.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFDisclosed.p_AFFlow{
@@ -351,7 +355,7 @@ border-bottom: 1px dotted rgb(151, 151, 151) !important;
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{
     /*border-bottom:2px dotted Black !important;*/
-    border-bottom: 1px dotted rgb(151, 151, 151) !important;
+    border-bottom: 2px solid white !important;
 }
 
 .af_panelAccordion_header-subsequent{
@@ -364,7 +368,8 @@ border-bottom: 1px dotted rgb(151, 151, 151) !important;
 
 .af_panelAccordion{
     width:700px;
-    background: rgb(238, 238, 238);
+    background: rgba(238, 238, 238, 0.86);
+    outline: 1px solid rgb(221, 220, 220);
     /*background:transparent;*/
     /*border-bottom:2px dotted Black !important;*/
 }
