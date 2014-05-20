@@ -132,13 +132,20 @@ private boolean passwordChangeRequired;
             String lang = (String)request.getParameter("lang");
             System.out.println("Before phase lang from url is " + request.getParameter("lang"));
             if (lang == null) {
-                lang = "en_US";
+                if(session.getAttribute("lang") != null)
+                {lang = (String)session.getAttribute("lang");  }
+                else
+                {lang = "en_US";}
             }
             session.setAttribute("lang", lang);
             //profile
             String profile = (String)request.getParameter("profile");
             if (profile == null) {
-                profile = "business";
+                if(session.getAttribute("profile") != null)
+                {profile = (String)session.getAttribute("profile");  }
+                else
+                {profile = "business";}
+               
             }
             session.setAttribute("profile", profile);
 
