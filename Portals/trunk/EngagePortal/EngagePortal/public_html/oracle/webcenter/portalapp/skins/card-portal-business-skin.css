@@ -40,7 +40,7 @@ font-weight: normal;
     border:1px solid silver;
 }
 
-heading_login1{
+.heading_login1{
     
 color:#3cb6ce;
 font-size:20px;
@@ -69,7 +69,28 @@ text-align:left;
      width: 80px;
       height: 32px;
      }
+     
+     
+.signinIT {
+color: #524e4f;
+font-size: 12px;
+font-family: Lucida Sans;
+font-weight: normal;
+width: 300px;
+border: 1px solid #B1B1B1;
+text-align: left;
+height: 23px;
+background: -webkit-gradient(linear, 0 0%, 0 45%, from(#E6E6E6), to(#FFFFFF)) repeat scroll 0 0 transparent;
+}
 
+
+.outputTextSmallSignIn {
+font-family: Lucida Sans;
+font-weight: normal;
+font-size: 15px;
+color: #524e4f;
+text-align: justify;
+}
 
 
 /* Splash screen icon */

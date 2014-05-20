@@ -45,7 +45,7 @@
   
  <tr>
                                           
-                                             <th>Username:</th>
+                                             <th style="text-align: left;">Username:</th>
                   
                                              
                                           </tr>
@@ -53,7 +53,8 @@
                                           <tr>
                                              <th class="outputTextSmallSignIn" width="111">
                                                 <!--<input id="username" type="text" name="username" class="signinIT"/>-->
-                                                 <input id="j_username" type="text" name="j_username" />
+                                                 <input id="j_username" type="text" name="j_username"
+                                                        style="width:300.0px;"/>
                                                 <af:panelGroupLayout id="payout1" layout="horizontal"
                                                                      inlineStyle="width:300.0px;margin-bottom:15px;"
                                                                      halign="right">
@@ -65,13 +66,14 @@
                                           </tr>
                                            
                                           <tr>
-                                            <th>Password:</th>
+                                            <th style="text-align: left;">Password:</th>
                   
                                           </tr>
                                            
                                           <tr>
                                              <th class="outputTextSmallSignIn" width="7">
-                                                <input id="j_password" type="password" name="j_password" />
+                                                <input id="j_password" type="password" name="j_password"
+                                                       style="width:300.0px;"/>
                                                 <af:panelGroupLayout id="pgl17" layout="vertical"
                                                                      inlineStyle="width:300.0px;" halign="right">
                                                    <af:goLink text="Reset Password" id="cLink2"
@@ -90,6 +92,14 @@
                                             <input type="submit" name="submit" value="Login" class="loginButton"/>
                                           </af:panelGroupLayout>
                                           <af:spacer width="10" height="5" id="s7"/>
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
                                        </af:panelGroupLayout>
                                        <af:spacer width="10" height="7" id="s9"/>
                                     </form>
