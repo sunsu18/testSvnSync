@@ -32,15 +32,17 @@
                                inlineStyle="width:962.0px;">
       <af:spacer width="10" height="10" id="s1"/>
       <af:panelAccordion id="pa1" discloseNone="true"
-                              dimensionsFrom="children">
+                              dimensionsFrom="children"
+                         inlineStyle="width:945.0px;">
                       
           <af:forEach var="var" items="#{pageFlowScope.HelpInfoBean.helpList}">
        
           <af:showDetailItem text="#{var.question}" id="sdi1"
                                stretchChildren="none"
-                               inlineStyle="height:50.0px;">
+                               inlineStyle="height:50.0px !important;">
             <af:spacer width="10" height="10" id="s2"/>
-            <af:outputText value="#{var.answer}" id="otj1"/>
+            <af:outputText value="#{var.answer}" id="otj1"
+                           inlineStyle="background-color: white;"/>
            <af:spacer width="10" height="10" id="s7"/>  
             </af:showDetailItem>
          

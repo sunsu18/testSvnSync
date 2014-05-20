@@ -131,7 +131,7 @@
                        binding="#{pageFlowScope.AccountSummaryBean.bindings.companyOverview}">             
      <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal" >
      <af:spacer width="10" id="s327"/>
-      <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading"/>
+      <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading heading_account"/>
   </af:panelGroupLayout>
          <af:panelGroupLayout id="pgl8" inlineStyle="width:750px;">
 		
@@ -716,7 +716,7 @@
                       binding="#{pageFlowScope.AccountSummaryBean.bindings.cardGroupOverview}">        
      <af:panelGroupLayout id="CardGroupOverviewText" layout="horizontal">
      <af:spacer width="10" id="s333"/>
-      <af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading"/>
+      <af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading heading_account"/>
     </af:panelGroupLayout>
     
       <af:panelGroupLayout id="pgl10" inlineStyle="width:750px;">
@@ -990,7 +990,7 @@
                         binding="#{pageFlowScope.AccountSummaryBean.bindings.cardOverview}">        
                  <af:panelGroupLayout id="CardOverviewText" layout="horizontal">
                  <af:spacer width="10" id="s334"/>
-      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading"/>
+      <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading heading_account"/>
       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl9" inlineStyle="width:750px;">
@@ -1262,7 +1262,7 @@
                              binding="#{pageFlowScope.AccountSummaryBean.bindings.restrictedAccess}"
                              visible="false">
                               <af:panelGroupLayout id="pgl15" layout="horizontal">
-      <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading"/>
+      <af:outputText value="You are not authorized to view this page!" id="ot119" styleClass="heading heading_account"/>
        <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
         </af:panelGroupLayout>

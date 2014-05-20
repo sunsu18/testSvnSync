@@ -101,7 +101,7 @@ height: 48px;*/
 vertical-align: middle;
 }
 af|document::splash-screen-message {
-    color:red !important;
+    color:#666 !important;
 }
 
 
@@ -281,7 +281,7 @@ font-weight: bold !important;
     background-position: top, bottom;
     background-repeat: repeat-x, repeat-x;
     background-image: none;
-    background-color: transparent;
+    background-color: white;
     color: #524e4f !important;
     font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
@@ -307,7 +307,8 @@ font-weight: bold !important;
 }
 
 .af_panelAccordion_body-content.p_AFFlow{
-    border-bottom:2px dotted Black;
+    /*border-bottom:2px dotted Black;*/
+border-bottom: 1px dotted rgb(151, 151, 151) !important;
 }
 
 .af_panelAccordion_header.p_AFDisclosed,
@@ -322,7 +323,8 @@ font-weight: bold !important;
 
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{
-    border-bottom:2px dotted Black !important;
+    /*border-bottom:2px dotted Black !important;*/
+    border-bottom: 1px dotted rgb(151, 151, 151) !important;
 }
 
 .p_AFDisclosed .p_AFFlow{
@@ -332,7 +334,7 @@ font-weight: bold !important;
 .af_panelAccordion_header.p_AFFlow,
 .af_panelAccordion_header-subsequent.p_AFFlow{
    padding-bottom:10px;   
-   padding-top:5px;
+   padding-top:10px;
 }
 .af_panelAccordion_header-subsequent{
     border:none !important;
@@ -343,8 +345,9 @@ font-weight: bold !important;
 }
 
 .af_panelAccordion{
-    width:700px !important;
-    background:transparent;
+    width:700px;
+    background: rgb(238, 238, 238);
+    /*background:transparent;*/
 }
 
 .af_panelAccordion_header .p_AFDisclosed .p_AFFlow
@@ -1263,7 +1266,7 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.af_panelAccordion_disclosed-icon-style,.af_panelAccordion_undisclosed-icon-style,.view_all,.view_all1,.view_all2,.view_all3,.view_all4,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1374,6 +1377,7 @@ background-position: -30px -106px ;
 	background-position: -22px -230px ;
 	width: 6px;
 	height: 10px;
+        outline-color: transparent !important;
        
 }
 
@@ -1381,6 +1385,7 @@ background-position: -30px -106px ;
 	background-position: -6px -231px ;
 	width: 11px;
 	height: 6px;
+        outline-color: transparent !important;
 }
 
 .info_legend{
@@ -1409,9 +1414,9 @@ background-position: -30px -106px ;
 }
 
 .view_all{
-	background-position: -4px -383px ;
-	width: 20px;
-	height: 20px;
+	background-position: -9px -381px ;
+	width: 16px;
+	height: 16px;
 }
 /*.arrow{
 	background-position: -31px -106px ;
@@ -1419,45 +1424,20 @@ background-position: -30px -106px ;
 	height: 13px;
 }*/
 
-.view_all1{
-	background-position: -15px -570px ;
-	width: 20px;
-	height: 20px;
-}
-
-.view_all2{
-	background-position: -17px -539px ;
-	width: 18px;
-	height: 18px;
-}
-
-.view_all3{
-	background-position: -16px -508px ;
-	width: 20px;
-	height: 20px;
-}
-
-.view_all4{
-	background-position: -17px -476px ;
-	width: 20px;
-	height: 20px;
-}
-
-.view_all{
-	background-position: -14px -443px ;
-	width: 24px;
-	height: 24px;
-}
-
-.af_panelAccordion_undisclosed-icon-style{
-    background-position: -4px -380px ;
+.af_panelAccordion_undisclosed-icon-style, .af_panelBox_undisclosed-icon-style, .af_region_undisclosed-icon-style{
+    
+    background: url("/images/faq/faq3.png") !important;
+    /*background-position: -4px -380px ;*/
 	width: 22px;
 	height: 22px;
+        outline-color: transparent !important;
 }
 .af_panelAccordion_disclosed-icon-style{
-    background-position: -29px -379px ;
+    background: url("/images/faq/faq4.png") !important;
+    /*background-position: -29px -379px ;*/
 	width: 22px;
 	height: 22px;
+        outline-color: transparent !important;
 }
 
 
@@ -1701,6 +1681,10 @@ color:#3CB6CE;
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 20px;
 font-weight:bolder;
+}
+
+.heading_account{
+    font-size: 18px !important;
 }
 
 .subheading{
