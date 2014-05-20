@@ -11,7 +11,7 @@ import sys
 adminUrl='t3://10.24.240.12:11011'
 adminUser='weblogic'
 adminPassword='weblogic1'
-targetsName='server_cus_PYT01'
+targetsName='server_cus_ENG_PYT01'
 
 applicationName='EngagePortal_application1'
 stageModeValue='stage'
