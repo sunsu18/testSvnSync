@@ -178,9 +178,9 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"WEB_ASSIST",""},{"SUPPORT",""},{"CHANGE_ACCOUNT",""},{"CONTACT",""},{"EXPORT_TO_SPECIFIC",""},
         {"SELECT_ACCOUNT",""},{"CUSTOMER_VIEW",""},{"LOGOUT",""},{"NO_INVOICES_TO_DISPLAY",""},{"TRANSACTION_PRELIMINARY",""},{"TRANSACTION_NON_PRELIMINARY",""},
         {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},
-        {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"CARDGROUP_DESCRIPTION",""},
+        {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"MANAGE",""},{"BLOCKED",""},{"UNBLOCKED",""},
         {"STATUS",""},{"PARTNER",""},{"CARD_DETAILS",""},{"CARD_TYPE",""},{"ENGAGE_NO_PARTNER",""},
-        {"BLOCK_STATUS",""},{"CARD_EXPIRY",""},{"ENGAGE_CARD_DETAILS",""},{"ENGAGE_NO_ACCOUNT",""},{"ENGAGE_NO_STATUS",""}};
+        {"CARD_EXPIRY",""},{"ENGAGE_CARD_DETAILS",""},{"ENGAGE_NO_ACCOUNT",""},{"ENGAGE_NO_STATUS",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

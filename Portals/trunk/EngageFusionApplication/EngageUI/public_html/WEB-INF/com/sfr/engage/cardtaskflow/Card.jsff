@@ -96,7 +96,8 @@
                 <af:selectManyChoice id="smc7" contentStyle="width:150px;"
                                        value="#{pageFlowScope.CardBean.cardGroupValue}"
                                      partialTriggers="soc3 smc2 cb3"
-                                     binding="#{pageFlowScope.CardBean.bindings.cardGroup}">
+                                     binding="#{pageFlowScope.CardBean.bindings.cardGroup}"
+                                    valueChangeListener="#{pageFlowScope.CardBean.cardGroupValueChangeListener}">
                 <af:forEach items="#{pageFlowScope.CardBean.cardGroupList}"
                                   var="listItem">
                             <af:selectItem id="si2" value="#{listItem.value}"
@@ -113,7 +114,8 @@
                    <af:selectManyChoice id="smc8" contentStyle="width: 150px;"
                                         value="#{pageFlowScope.CardBean.statusValue}"
                                         binding="#{pageFlowScope.CardBean.bindings.status}"
-                                        partialTriggers="cb3">
+                                        partialTriggers="cb3"
+                                     valueChangeListener="#{pageFlowScope.CardBean.statusValueChangeListener}">
                  <af:forEach items="#{pageFlowScope.CardBean.statusList}"
                     var="listItem">
                 <af:selectItem   value="#{listItem.value}" 
@@ -122,17 +124,15 @@
                     id="select_item_type"/>
             </af:forEach>
                 </af:selectManyChoice>
-              
-               
-            
-          
-            </h:panelGrid>
-              
-           <af:spacer width="10" height="10" id="spacer7"/>
-            <af:panelGroupLayout id="pgl8" layout="horizontal"
-                                 inlineStyle="width:305.0px;" halign="right">
+            <af:spacer width="1" height="10" id="spacer7"/>
+            <af:spacer width="1" height="10" id="s24"/>
+            <af:spacer width="10" height="10" id="s25"/>
+            <af:spacer width="1" height="10" id="s26"/>
+            <af:spacer width="10" height="35" id="s27"/>
+             <af:panelGroupLayout id="pgl8" layout="horizontal"
+                                 halign="right" inlineStyle="width:180px;">
 
-              <af:spacer width="172" height="10" id="s5"/>
+             
               <af:commandButton text="#{sfr.SEARCH}" id="cb2"
               actionListener="#{pageFlowScope.CardBean.searchViewCardAction_event}">
               </af:commandButton>
@@ -140,6 +140,8 @@
               <af:commandButton text="#{sfr.CLEAR}" id="cb3"
                                 actionListener="#{pageFlowScope.CardBean.clearSearchListener}"/>
             </af:panelGroupLayout>
+          </h:panelGrid>
+        
           </af:panelGroupLayout>
         </af:panelGroupLayout>
             
@@ -152,7 +154,8 @@
       </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s16"/>
      <af:panelGroupLayout id="pgl0" layout="vertical"
-                          visible="#{pageFlowScope.CardBean.isTableVisible}">
+                          visible="#{pageFlowScope.CardBean.isTableVisible}"
+                          partialTriggers="soc3 smc2 smc7 smc8">
           <af:panelGroupLayout id="panelGroupLayout2" layout="vertical">
           <af:spacer height="10" id="spacer18" width="0"/>
           <af:panelGroupLayout id="pgl73" inlineStyle="width:350.0px;"
@@ -161,10 +164,11 @@
                            styleClass="heading"/>
             </af:panelGroupLayout>
             <af:spacer width="10" height="15" id="spacer2"/>
+            
         <af:panelGroupLayout id="pgl36" layout="scroll"
-                             inlineStyle="width:950px;">
+                             inlineStyle="width:945px;">
           <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
-                    var="row" width="937px"  rows="#{bindings.PrtViewCardsVO11.rangeSize}"
+                    var="row" width="940px"  rows="#{bindings.PrtViewCardsVO11.rangeSize}"
                     emptyText="#{bindings.PrtViewCardsVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
                     fetchSize="#{bindings.PrtViewCardsVO11.rangeSize}"
                     rowBandingInterval="1"
@@ -176,7 +180,7 @@
                     rowSelection="single" id="t1"
                     disableColumnReordering="true" columnResizing="disabled">
             <af:column sortProperty="AccountId" filterable="true"
-                       headerText="#{sfr.ACCOUNT}" width="100px"
+                       headerText="#{sfr.ACCOUNT}" width="95px"
                        id="c1">
               <af:inputText value="#{row.bindings.AccountId.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.AccountId.label}"
@@ -188,8 +192,8 @@
                 <f:validator binding="#{row.bindings.AccountId.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.CARDGROUP_DESCRIPTION}" filterable="true" sortProperty="cardGroupDescription"
-                       id="c9"  width="94px">
+            <af:column headerText="#{sfr.CARDGROUP}" filterable="true" sortProperty="cardGroupDescription"
+                       id="c9"  width="110px">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.mandatory}"
@@ -200,7 +204,7 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="CardType" filterable="true" width="90px"
+            <af:column sortProperty="CardType" filterable="true" width="45px"
                        headerText="#{sfr.CARD_TYPE}"
                        id="c6">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
@@ -214,7 +218,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}"
-                       id="c3"  width="165px">
+                       id="c3"  width="192px">
               <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
@@ -226,7 +230,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}"
-                       id="c8"  width="100px">
+                       id="c8"  width="80px">
               <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.mandatory}"
@@ -238,7 +242,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="DriverName" filterable="true" headerText="#{sfr.DRIVER}"
-                       id="c5" width="95px">
+                       id="c5" width="80px">
               <af:inputText value="#{row.bindings.DriverName.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.DriverName.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.DriverName.mandatory}"
@@ -249,9 +253,9 @@
                 <f:validator binding="#{row.bindings.DriverName.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="BlockCode" filterable="true" headerText="#{sfr.BLOCK_STATUS}"
-                       id="c4" width="95px">
-              <af:inputText value="#{row.bindings.BlockCode.inputValue}"
+            <af:column sortProperty="BlockCode" filterable="true" headerText="#{sfr.STATUS}"
+                       id="c4" width="110px">
+              <af:inputText value="#{(row.bindings.BlockCode.inputValue) eq '0'?  'Unblocked' : 'Blocked' }"
                             label="#{bindings.PrtViewCardsVO11.hints.BlockCode.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.BlockCode.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.BlockCode.displayWidth}"
@@ -262,7 +266,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}"
-                       id="c2" width="100px">
+                       id="c2" width="100px" align="center">
               <f:facet name="filter">
                 <af:inputDate value="#{vs.filterCriteria.CardExpiry}" id="id1">
                 <af:convertDateTime pattern="dd.MM.yyyy"/>
@@ -273,18 +277,97 @@
                             required="#{bindings.PrtViewCardsVO11.hints.CardExpiry.mandatory}"
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.CardExpiry.tooltip}"
                             id="id2">
-                <!--<f:validator binding="#{row.bindings.CardExpiry.validator}"/>-->
-                <af:convertDateTime pattern="#{bindings.PrtViewCardsVO11.hints.CardExpiry.format}"/>
+                <f:validator binding="#{row.bindings.CardExpiry.validator}"/>
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
+                <!--<af:convertDateTime pattern="#{bindings.PrtViewCardsVO11.hints.CardExpiry.format}"/>-->
               </af:inputDate>
             </af:column>
-            <af:column headerText="#{sfr.EDIT}"
-                       id="c7" align="center" width="40px">
-              <af:commandImageLink id="cil1" icon="/images/edit.png"/>
+            
+            <af:column headerText="#{sfr.MANAGE}"
+                       id="c7" align="center" width="65px">
+            
+              <af:commandImageLink id="cil1" icon="/images/edit.png">
+               <af:setPropertyListener from="#{row.CardType}"
+                                to="#{pageFlowScope.cardAssociation}"
+                                type="action"/>       
+                <af:showPopupBehavior popupId="::p1"/>
+                
+                </af:commandImageLink>
+            
+             
             </af:column>
           </af:table>
+           <af:popup id="p1">
+        <af:dialog id="d1">
+              <af:panelGroupLayout id="pgl5" layout="vertical">
+              <af:activeOutputText value="Card Association for:  " id="aot1"/>
+            <h:panelGrid columns="5" id="pg3">
+             <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
+           <af:spacer width="5" height="15" id="s8"/>
+                    <af:outputText value=":" id="ot42"/>
+                      <af:spacer width="10" height="15" id="s15"/>
+            <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
+                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}">
+              <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
+              <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
+              </af:selectOneRadio>
+                </h:panelGrid>
+               <af:panelGroupLayout layout="horizontal" id="both">
+                  <af:panelGroupLayout id="driver"
+                                       visible="#{pageFlowScope.CardBean.driverPGL}"
+                                       partialTriggers="sor1">
+                    <h:panelGrid columns="5" id="pg4">
+                  
+           <af:outputText value="#{sfr.DRIVER_NUMBER}" id="aot2"/>
+           <af:spacer width="10" height="15" id="s9"/>
+                    <af:outputText value=":" id="ot4"/>
+                      <af:spacer width="10" height="15" id="s10"/>
+               <af:selectOneChoice id="soc1" showRequired="false"
+                                unselectedLabel="&lt;Please Select>"
+                                contentStyle="width: 175px;">
+                    
+                </af:selectOneChoice> 
+ 
+        <af:outputText value="#{sfr.DRIVER_NAME}" id="ot10"/>
+           <af:spacer width="10" height="15" id="s19"/>
+                    <af:outputText value=":" id="ot9"/>
+                      <af:spacer width="10" height="15" id="s20"/>
+                        <af:outputText value="" id="ot16"/>
+  </h:panelGrid>
+  </af:panelGroupLayout>
+  <af:panelGroupLayout id="vehicle"
+                       visible="#{pageFlowScope.CardBean.vehiclePGL}"
+                       partialTriggers="sor1">
+  <h:panelGrid columns="5" id="pg5">
+          <af:outputText value="#{sfr.VEHICLE_NUMBER}" id="ot5"/>
+           <af:spacer width="10" height="15" id="s12"/>
+                    <af:outputText value=":" id="ot6"/>
+                      <af:spacer width="10" height="15" id="s18"/>
+               <af:selectOneChoice id="soc2" showRequired="false"
+                                unselectedLabel="&lt;Please Select>"
+                                contentStyle="width: 175px;" autoSubmit="true">
+                                 
+            </af:selectOneChoice>
+ 
+                <af:outputText value="#{sfr.VEHICLE}" id="ot14"/>
+           <af:spacer width="10" height="15" id="s21"/>
+                    <af:outputText value=":" id="ot17"/>
+                      <af:spacer width="10" height="15" id="s22"/>
+                        <af:outputText value="" id="ot15"/>
+                   
+             </h:panelGrid>
+            </af:panelGroupLayout>
         </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </af:dialog>
+        
+      </af:popup>
         </af:panelGroupLayout>
-     </af:panelGroupLayout>
+        
+        </af:panelGroupLayout>
+     
+    </af:panelGroupLayout>
+     
 </af:panelGroupLayout>
 </jsp:root>
        

@@ -32,6 +32,7 @@ import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 
+import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.javatools.marshal.StringConversion;
@@ -65,6 +66,8 @@ public class CardBean implements Serializable {
     private ArrayList<SelectItem> partnerIdList;
     private String partnerIdValue;
     ResourceBundle resourceBundle;
+    private boolean driverPGL   = false;
+    private boolean vehiclePGL = false;
   
 
     public CardBean() {
@@ -167,7 +170,9 @@ public class CardBean implements Serializable {
      * @param valueChangeEvent
      */
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        isTableVisible = false;
         if(valueChangeEvent.getNewValue()!=null) {
+      
         String[] accountString= StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
         cardGroupList = new ArrayList<SelectItem>();
         cardGroupValue = new ArrayList<String>();
@@ -195,6 +200,13 @@ public class CardBean implements Serializable {
         }   
             }
         }
+        else{
+            getBindings().getCardGroup().setValue(null);
+            getBindings().getStatus().setValue(null);
+            this.cardGroupValue=null;
+            this.statusValue=null;
+        }
+           
     }
 
 
@@ -280,7 +292,7 @@ public class CardBean implements Serializable {
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        
+    isTableVisible = false;
        
         if(valueChangeEvent.getNewValue()!=null) {
            
@@ -342,6 +354,12 @@ public class CardBean implements Serializable {
                 statusValue.add("1,2");
                 statusValue.add("0");
             }
+        else {
+            getBindings().getCardGroup().setValue(null);
+            getBindings().getAccount().setValue(null);
+            this.cardGroupValue=null;
+            this.accountIdValue=null;
+        }
         
        
 
@@ -515,6 +533,50 @@ public class CardBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getStatus());
     }
 
+    public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        
+        if(valueChangeEvent.getNewValue() != null){
+      
+            if(valueChangeEvent.getNewValue().equals("Driver")){
+                
+             
+                driverPGL = true;
+                vehiclePGL = false;
+           
+            }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
+           
+                driverPGL   = false;
+                vehiclePGL = true;
+            
+            }
+      
+    }
+    }
+
+    public void setDriverPGL(boolean driverPGL) {
+        this.driverPGL = driverPGL;
+    }
+
+    public boolean isDriverPGL() {
+        return driverPGL;
+    }
+
+    public void setVehiclePGL(boolean vehiclePGL) {
+        this.vehiclePGL = vehiclePGL;
+    }
+
+    public boolean isVehiclePGL() {
+        return vehiclePGL;
+    }
+
+    public void statusValueChangeListener(ValueChangeEvent valueChangeEvent) {
+       isTableVisible = false;
+    }
+
+    public void cardGroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
+       isTableVisible = false;
+    }
+
 
     public class Bindings {
     
@@ -522,8 +584,7 @@ public class CardBean implements Serializable {
         private RichSelectManyChoice cardGroup;
         private RichSelectManyChoice account;
         private RichSelectManyChoice status;
-
-        
+    
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
         }
@@ -555,5 +616,7 @@ public class CardBean implements Serializable {
         public RichSelectManyChoice getStatus() {
             return status;
         }
+
+   
     }
 }
