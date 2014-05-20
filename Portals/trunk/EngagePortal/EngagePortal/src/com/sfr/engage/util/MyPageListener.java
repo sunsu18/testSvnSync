@@ -258,7 +258,7 @@ private boolean passwordChangeRequired;
                             partnerListSession = new ArrayList<PartnerInfo>();
                             
                             //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
-                            for (int i = 0; i < user.getRoleList().size();
+                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
 
                                 if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
@@ -373,11 +373,15 @@ private boolean passwordChangeRequired;
                                     if (session.getAttribute("executePartnerObjLogic") ==
                                         null) {
                                         
-                                        
+                        partnerListSession = new ArrayList<PartnerInfo>();            
                         for(int partid = 0; partid < partnerlist.size(); partid++)
                         { 
                                 String partnerId = partnerlist.get(partid).getPartnerValue().toString();
+                                part = new PartnerInfo();
+                                accountlist =  new ArrayList<AccountInfo>();
+                            
                                 //This variable is just to compare if partner Id from partner list matches with id's from IDM's getattributes 
+                            System.out.println(" inside partner iterator " + partid);
                                 
                                 //TODO : HITK - For multipartner add one for loop for partnerlist size
                                 //TODO : Also to check if partner list values are proper or else get it from session
@@ -405,31 +409,47 @@ private boolean passwordChangeRequired;
 
 
                                         System.out.println("Partner id " +
-                                                           idlist + " " +
+                                                           partid + " " +
                                                            user.getRoleList().get(i).getIdString().get(idlist));
+                                       
+
                                         int pid_start =
-                                            user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
+                                            user.getRoleList().get(i).getIdString().get(partid).indexOf("PP");
                                         System.out.println("pid start index " +
                                                            pid_start);
                                         String pid =
-                                            user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                            user.getRoleList().get(i).getIdString().get(partid).substring(pid_start +
                                                                                                           2,
                                                                                                           pid_start +
                                                                                                           10);
                                         System.out.println("partner id " +
                                                            pid);
-
-                                     
                                             
 
-
-                                                part.setPartnerValue(pid);
-                                                part.setPartnerName(getPartnerName(pid));
+                                      
+                                                part.setPartnerValue(partnerId);
+                                                part.setPartnerName(getPartnerName(partnerId));
                                                 part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
                                                 part.setCompanyOverview(false);
-
+                                               
+                                     
                                                 do {
+                                                    if(idlist !=0)
+                                                    { 
+                                                    System.out.println(" In iterator  " + idlist);
                                                     
+                                                    pid_start =
+                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
+                                                    System.out.println("pid start index " +
+                                                                       pid_start);
+                                                    pid =
+                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                                      2,
+                                                                                                                      pid_start +
+                                                                                                                      10);
+                                                    System.out.println("partner id " +
+                                                                       pid);
+                                                    }
                                                     if (partnerId != null )
                                                     if (partnerId.equals(pid))
                                                     {
@@ -439,7 +459,8 @@ private boolean passwordChangeRequired;
                                                     
                                                     executeEmp = false;
 
-                                                    if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC")) {
+                                                    if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC") && partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +2,pid_start +10))) 
+                                                    {
 
 
                                                         System.out.println("Account B2B Manager");
@@ -509,9 +530,19 @@ new AccountInfo();
                                                             }
                                                             ViewObject vo2 =
                                                                 iter2.getViewObject();
+                                                            
+                                                            
+                                                            if("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo2.getWhereClause())) {
+                                                                System.out.println(" checking this ");
+                                                                vo2.removeNamedWhereClauseParam("cgid");
+                                                                vo2.removeNamedWhereClauseParam("cc");
+                                                                vo2.removeNamedWhereClauseParam("cgmain");
+                                                                vo2.removeNamedWhereClauseParam("cgsub");
+                                                                vo2.setWhereClause("");
+                                                                vo2.executeQuery();
+                                                                
+                                                            }
 
-                                                            vo2 =
-iter2.getViewObject();
                                                             vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
                                                             vo2.defineNamedWhereClauseParam("accid",
                                                                                             AccountID,
@@ -552,6 +583,7 @@ iter2.getViewObject();
                                                                             cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
                                                                             cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
                                                                             cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                                                            cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
                                                                             cardgrp.setCardGroupOverview(true);
 
                                                                         }
@@ -759,7 +791,7 @@ new CardInfo();
                                                         }
                                                         part.setAccountList(accountlist);
 
-                                                    } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG")) {
+                                                    } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG") && partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +2,pid_start +10))) {
                                                         AccountInfo account_check =
                                                             new AccountInfo();
                                                         List<CardGroupInfo> cardgrouplist_check =
@@ -806,6 +838,7 @@ new AccountInfo();
                                                         cardgrp.setCardGroupSubType(CardgroupSubType);
                                                         cardgrp.setCardGroupSeq(CardgroupSeq);
                                                         cardgrp.setCardGroupID((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
+                                                        cardgrp.setCardGroupName(getcardGroupName(CardgroupMainType,CardgroupSubType,CardgroupSeq));
                                                         cardgrp.setCardGroupOverview(true);
 
 
@@ -1053,7 +1086,7 @@ new CardInfo();
                                                             accountlist.add(acc);
                                                             part.setAccountList(accountlist);
                                                             part.setCompanyOverview(false);
-                                                            
+                                                            //partnerListSession.add(part);
                                                         
 
                                                         }
@@ -1070,29 +1103,13 @@ new CardInfo();
                                            
                                        
 
-                                        if (session != null) {
-                                            session.setAttribute("Partner_Object_List",
-                                                                 part);
-//                                            accountlist.clear();
-//                                                cardgrouplist.clear();
-//                                                cardlist.clear();
-//                                                partnerlist.clear();
-                                            System.out.println("partner list added");
-
-                                        }
-
+                                       
 
                                     }
 
 
                                     //flagexecute = false;
-                                    if (session != null) {
-                                        System.out.println("session not null");
-                                        session.setAttribute("executePartnerObjLogic",
-                                                             "no");
-                                        System.out.println("Session variable added");
-                                    }
-                                    System.out.println("flag value changed now");
+                                   
 
                                 }
 
@@ -1140,7 +1157,17 @@ new CardInfo();
                                                                                                           2);
                                         System.out.println("Card id is " +
                                                            cardId);
+                                        int pid_start =
+                                            user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
+                                        String pid = user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                                      2,
+                                                                                                                      pid_start +
+                                                                                                                      10);
 
+
+                                      if(partnerId != null )  
+                                          if (partnerId.equals(pid))
+                                      {
 
                                         DCBindingContainer bindings =
                                             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -1220,6 +1247,7 @@ new CardInfo();
                                                         cardgrp.setCardGroupSubType((currRowcard.getCardgroupSubType().toString()));
                                                         cardgrp.setCardGroupSeq(currRowcard.getCardgroupSeq().toString());
                                                         cardgrp.setCardGroupID((currRowcard.getCardgroupMainType().toString().concat(currRowcard.getCardgroupSubType().toString())).concat(currRowcard.getCardgroupSeq().toString()));
+                                                        cardgrp.setCardGroupName(getcardGroupName(currRowcard.getCardgroupMainType().toString(), currRowcard.getCardgroupSubType().toString(), currRowcard.getCardgroupSeq().toString()));
                                                         acc.setAccountNumber(currRowcard.getAccountId().toString());
                                                         part.setPartnerValue(currRowcard.getPartnerId().toString());
                                                         part.setPartnerName(getPartnerName(currRowcard.getPartnerId().toString()));
@@ -1373,13 +1401,14 @@ new CardInfo();
                                                 acc.setAccountOverview(false);
                                                 accountlist.add(acc);
                                                 part.setAccountList(accountlist);
+                                               // partnerListSession.add(part);
 
 
                                             }
                                            }
 
                                         
-
+                                        }
                                         
 
                                         idlist++;
@@ -1389,25 +1418,43 @@ new CardInfo();
                                     //cardlist
 
                                     if (accountOverView != true) {
-                                        session.setAttribute("Partner_Object_List",
-                                                             part);
+//                                        session.setAttribute("Partner_Object_List",
+//                                                             partnerListSession);
 //                                        accountlist.clear();
 //                                            cardgrouplist.clear();
 //                                            cardlist.clear();
 //                                            partnerlist.clear();
-                                        System.out.println("partner list added");
-
-
-                                        System.out.println("session not null");
-                                        session.setAttribute("executePartnerObjLogic",
-                                                             "no");
-                                        System.out.println("Session variable added");
+//                                        System.out.println("partner list added");
+//
+//
+//                                        System.out.println("session not null");
+//                                        session.setAttribute("executePartnerObjLogic",
+//                                                             "no");
+//                                        System.out.println("Session variable added");
                                     }
 
                                 }
                                  }
+                                        partnerListSession.add(part);
 
-                            }
+                                    }
+                                if (session != null) {
+                                    session.setAttribute("Partner_Object_List",
+                                                         partnerListSession);
+                                  
+                                //                                            accountlist.clear();
+                                //                                                cardgrouplist.clear();
+                                //                                                cardlist.clear();
+                                //                                                partnerlist.clear();
+                                    System.out.println("partner list added");
+                                    System.out.println("session not null");
+                                                                            session.setAttribute("executePartnerObjLogic",
+                                                                                                 "no");
+                                                                            System.out.println("Session variable added");
+                                    System.out.println("flag value changed now");
+
+                                }
+
                             
                             }
                             }
@@ -1737,6 +1784,19 @@ new CardInfo();
                     iter2 = null;
                 }
                 ViewObject cardGroupVO = iter2.getViewObject();
+                
+                System.out.println(" checkinng cardgroup query " + cardGroupVO.getWhereClause());
+                
+                if("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(cardGroupVO.getWhereClause())) {
+                    System.out.println(" checking this ");
+                    cardGroupVO.removeNamedWhereClauseParam("cgid");
+                    cardGroupVO.removeNamedWhereClauseParam("cc");
+                    cardGroupVO.removeNamedWhereClauseParam("cgmain");
+                    cardGroupVO.removeNamedWhereClauseParam("cgsub");
+                    cardGroupVO.setWhereClause("");
+                    cardGroupVO.executeQuery();
+                    
+                }
 
                 cardGroupVO = iter2.getViewObject();
                 cardGroupVO.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
@@ -2004,6 +2064,80 @@ return PartnerName;
     
 }
 
+    public String getcardGroupName(String CardgroupMainType,String CardgroupSubType,String CardgroupSeq) {
+        String cardGroupName = "";
+        
+        DCBindingContainer bindings =
+            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        
+        DCIteratorBinding iter1;
+        if (bindings != null) {
+            iter1 = bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
+            
+            
+            ViewObject cardGroupVO = iter1.getViewObject();
+            
+            System.out.println(" Checking query " + cardGroupVO.getWhereClause());
+            
+            if("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc".equalsIgnoreCase(cardGroupVO.getWhereClause())) {
+                System.out.println(" EQual matches");
+                cardGroupVO.removeNamedWhereClauseParam("accid");
+                cardGroupVO.removeNamedWhereClauseParam("cc");
+                
+                cardGroupVO.setWhereClause("");
+                cardGroupVO.executeQuery();
+            }
+            
+            cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+            log.info(accessDC.getDisplayRecord() +  this.getClass() + " cardGroup id passed in cardGroup VO is " + CardgroupMainType + " " + CardgroupSubType 
+                     + " " + CardgroupSeq);
+            
+            
+            cardGroupVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
+            cardGroupVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+            cardGroupVO.defineNamedWhereClauseParam("cgmain", CardgroupMainType, null);
+            cardGroupVO.defineNamedWhereClauseParam("cgsub", CardgroupSubType, null);
+            
+            
+           
+            
+            
+            cardGroupVO.executeQuery();
+            log.info(accessDC.getDisplayRecord() +  this.getClass() + " RowCount for cardGroupVO  " + 
+                                       cardGroupVO.getEstimatedRowCount());
+            
+            
+            if(cardGroupVO.getEstimatedRowCount() > 0)
+            {   PrtCardgroupVORowImpl currRowcard =
+                (PrtCardgroupVORowImpl)cardGroupVO.next();
+
+                if (currRowcard != null) {
+                
+
+                if (currRowcard.getCardgroupDescription() != null) 
+                {
+                    cardGroupName = currRowcard.getCardgroupDescription().toString();
+                            log.info(accessDC.getDisplayRecord() +  this.getClass() + " cardGroupName returned from database for cardGroupid "+ CardgroupMainType + " " + CardgroupSubType 
+                     + " " + CardgroupSeq +" is " + cardGroupName);
+                            
+
+                        }
+                
+                                        }
+            }
+            
+        } else {
+            log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtCardGroupVO1Iterator Bindings is null in my page listner");
+            
+            iter1 = null;
+        }
+
+       
+    return cardGroupName;
+          
+        
+    }
+
     private User populateUser(String role) {
         User user = new User();
         user.setFirstName("Hanif");
@@ -2038,11 +2172,11 @@ return PartnerName;
 
 //rr = new Roles();
 //                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-////                                idString = new ArrayList<String>();
-////                idString.add("NOPP26773218CGSLUTRX00001");
-////                
-////                idString.add("NOPP26773218CGSLUTRX00002");
-////        idString.add("NOPP26773218AC0022883797");
+//////                                idString = new ArrayList<String>();
+//                idString.add("NOPP26773218CGSLUTRX00001");
+//////                
+//                idString.add("NOPP26773219CGSLUTRX00003");
+//        idString.add("NOPP26773219AC0022883799");
 //        idString.add("NOPP26773218CGSLUTRX00006");
 //                rr.setIdString(idString);
 //                listrole.add(rr);
@@ -2080,27 +2214,27 @@ return PartnerName;
 //                rr.setIdString(idString);
 //                listrole.add(rr);
 //                
-        rr = new Roles();
-                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-                                idString = new ArrayList<String>();
-//                
-                        idString.add("NOPP26773218CC0058973603");
-                idString.add("NOPP26773218CC0058589248");
-//                
-//                idString.add("NOPP26773218CC0058589003");
-                rr.setIdString(idString);
-                listrole.add(rr);
-                
-        rr = new Roles();
-                rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
-                                idString = new ArrayList<String>();
-        //
-                        idString.add("101");
+//        rr = new Roles();
+//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+//                                idString = new ArrayList<String>();
+////                
+//                        idString.add("NOPP26773218CC0058973603");
 //                idString.add("NOPP26773218CC0058589248");
-        //
-        //                idString.add("NOPP26773218CC0058589003");
-                rr.setIdString(idString);
-                listrole.add(rr);
+//               idString.add("NOPP26773219CC0058589215");
+////                idString.add("NOPP26773218CC0058589003");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
+                
+//        rr = new Roles();
+//                rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
+//                                idString = new ArrayList<String>();
+//        //
+//                        idString.add("101");
+////                idString.add("NOPP26773218CC0058589248");
+//        //
+//        //                idString.add("NOPP26773218CC0058589003");
+//                rr.setIdString(idString);
+//                listrole.add(rr);
                 
                 
         
@@ -2112,7 +2246,7 @@ return PartnerName;
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
         
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR + "|"+ Constants.ROLE_WCP_CARD_CSR);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
         user.setUserID("B2BMgr1@test.com");
 
         return user;
