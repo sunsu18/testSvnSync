@@ -50,7 +50,12 @@
        PrtCardEO.DELETION_CODE, 
        PrtCardEO.SPERREBEH_KD, 
        PrtCardEO.SPERRELISTE_DT, 
-       PrtCardEO.SPESIALBEST_JN"
+       PrtCardEO.SPESIALBEST_JN, 
+       PrtCardEO.INVOICE_ADDR1, 
+       PrtCardEO.INVOICE_ADDR2, 
+       PrtCardEO.INVOICE_CITY, 
+       PrtCardEO.INVOICE_COUNTRY, 
+       PrtCardEO.INVOICE_POSTAL_CODE"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -349,4 +354,34 @@
     EntityAttrName="CardRemarks"
     EntityUsage="PrtCardEO"
     AliasName="CARD_REMARKS"/>
+  <ViewAttribute
+    Name="InvoiceAddr1"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceAddr1"
+    EntityUsage="PrtCardEO"
+    AliasName="INVOICE_ADDR1"/>
+  <ViewAttribute
+    Name="InvoiceAddr2"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceAddr2"
+    EntityUsage="PrtCardEO"
+    AliasName="INVOICE_ADDR2"/>
+  <ViewAttribute
+    Name="InvoiceCity"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceCity"
+    EntityUsage="PrtCardEO"
+    AliasName="INVOICE_CITY"/>
+  <ViewAttribute
+    Name="InvoiceCountry"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceCountry"
+    EntityUsage="PrtCardEO"
+    AliasName="INVOICE_COUNTRY"/>
+  <ViewAttribute
+    Name="InvoicePostalCode"
+    PrecisionRule="true"
+    EntityAttrName="InvoicePostalCode"
+    EntityUsage="PrtCardEO"
+    AliasName="INVOICE_POSTAL_CODE"/>
 </ViewObject>

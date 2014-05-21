@@ -180,7 +180,12 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},{"CURRENCY",""},{"FOREGIN_UNIT_PRICE",""},{"FOREGIN_GROSS_AMOUNT",""},
         {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"MANAGE",""},{"BLOCKED",""},{"UNBLOCKED",""},
         {"STATUS",""},{"PARTNER",""},{"CARD_DETAILS",""},{"CARD_TYPE",""},{"ENGAGE_NO_PARTNER",""},
-        {"CARD_EXPIRY",""},{"ENGAGE_CARD_DETAILS",""},{"ENGAGE_NO_ACCOUNT",""},{"ENGAGE_NO_STATUS",""}};
+        {"CARD_EXPIRY",""},{"ENGAGE_CARD_DETAILS",""},{"ENGAGE_NO_ACCOUNT",""},{"ENGAGE_NO_STATUS",""},
+    {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},
+    {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"DEFAULT_NAV_MSG",""},{"AUTH_MGR_CG_MSG",""}
+    ,{"AUTH_EMP_MSG",""},{"AUTH_MGR_MSG",""},{"AUTH_ADMIN_MSG",""},{"AUTH_MSG",""}
+    ,{"WELCOME_MESSAGE_ACC_SUMMARY",""},{"HELLO",""},{"SHOW_ALL_MSG",""},{"CARD_INV_ADD_1",""},{"CARD_INV_ADD_2",""},{"CARD_INV_POSTAL_CODE",""}
+                                  ,{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}};     
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

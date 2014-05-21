@@ -155,5 +155,51 @@
         <Item Value="PartnerCountry"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="OrgId">
+      <AttrNames>
+        <Item Value="OrgId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator" id="CardgroupSeq">
+      <AttrNames>
+        <Item Value="CardgroupSeq"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
+                     id="CardgroupDescription">
+      <AttrNames>
+        <Item Value="CardgroupDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceAddr1">
+      <AttrNames>
+        <Item Value="InvoiceAddr1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceAddr2">
+      <AttrNames>
+        <Item Value="InvoiceAddr2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="ModifiedBy">
+      <AttrNames>
+        <Item Value="ModifiedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceCity">
+      <AttrNames>
+        <Item Value="InvoiceCity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceCountry">
+      <AttrNames>
+        <Item Value="InvoiceCountry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoicePostalCode">
+      <AttrNames>
+        <Item Value="InvoicePostalCode"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

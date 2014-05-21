@@ -1,6 +1,7 @@
 package com.sfr.engage.accountsummarytaskflow;
 
 
+import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
 
@@ -33,11 +34,14 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 
 
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.Row;
@@ -61,7 +65,7 @@ public class AccountSummary implements Serializable {
 
     private String id;
 
-    private ArrayList<SelectItem> cardTypeList;
+    private ArrayList<String> cardTypeList;
 
     private String accountId;
     private String cardGroupId;
@@ -89,8 +93,27 @@ public class AccountSummary implements Serializable {
     private boolean privateProfile = false;
     private String profile = "private";
     
+    String cardType="";
+    private User userInfo;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
-//    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
+    private String firstName="";
+    private String lastName="";
+    private List<AccountInfo> AccountListDefault = new ArrayList<AccountInfo>();
+    private List<PartnerInfo> partnerListDefault = new ArrayList<PartnerInfo>();
+    private List<CardGroupInfo> cardgrouplistDefault = new ArrayList<CardGroupInfo>();
+    private List<CardGroupInfo> cardlistDefault = new ArrayList<CardGroupInfo>();
+    private String partnerName="";
+    private String accountName="";
+    private String cardgroupName="";
+    private String cardName="";
+    private PartnerInfo partnerDefault = new PartnerInfo();
+    private AccountInfo accountDefault = new AccountInfo();
+    private boolean isPartner=false;
+    private boolean ismanager=false;
+    private boolean isEmployee=false;                       
+
+    
+    //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
     
 
 
@@ -164,7 +187,164 @@ public class AccountSummary implements Serializable {
             
         } 
 
-log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Constructor of Account Summary");		
+log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Constructor of Account Summary");
+
+if(session!=null){
+    if (null != session.getAttribute(Constants.SESSION_USER_INFO))
+        userInfo =
+                (User)session.getAttribute(Constants.SESSION_USER_INFO);
+    
+    if (userInfo != null) {
+     
+     firstName=userInfo.getFirstName();
+        List<String> temp= new ArrayList<String>();
+        List<String> temp1= new ArrayList<String>();
+        List<String> temp2= new ArrayList<String>();
+        List<String> temp3= new ArrayList<String>();
+        partnerListDefault = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+     for(int i=0; i< userInfo.getRoleList().size(); i++){
+         for(int j=0;j<userInfo.getRoleList().get(i).getIdString().size();j++)    {
+             
+     if(userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)){
+        isPartner=true;
+         
+          if(partnerListDefault!=null) {
+                      for(int k=0;k<partnerListDefault.size();k++)
+                      {  
+                          int a = userInfo.getRoleList().get(i).getIdString().get(j).indexOf("PP");
+                          if(partnerListDefault.get(k).getPartnerValue().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(a +2,a +10))){
+                              temp.add(partnerListDefault.get(k).getPartnerName());
+                              partnerName=temp.toString().substring(1, temp.toString().length()-1).replace("", "");   
+                          }
+                      }
+                  }
+        
+    }
+     if(userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)){
+         if (userInfo.getRoleList().get(i).getIdString().get(j).contains("AC")) {
+         ismanager=true;
+
+                     
+         int b =userInfo.getRoleList().get(i).getIdString().get(j).indexOf("AC");
+             temp1.add(userInfo.getRoleList().get(i).getIdString().get(j).substring(b +2,b +12));
+             accountName=temp1.toString().substring(1, temp1.toString().length()-1).replace("", "");   
+                
+         }   
+         if(userInfo.getRoleList().get(i).getIdString().get(j).contains("CG")){
+             ismanager=true;
+             if(partnerListDefault!=null) {
+                         for(int k=0;k<partnerListDefault.size();k++)
+                         {  
+                             int c =userInfo.getRoleList().get(i).getIdString().get(j).indexOf("CG");
+                             
+                             
+                             for(int ac=0;ac<partnerListDefault.get(k).getAccountList().size();ac++){
+                                 for(int cg=0;cg<partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().size();cg++)   { 
+                                 
+                                if(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(c +2))){
+                                 temp2.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID());
+                                 cardgroupName=temp2.toString().substring(1, temp2.toString().length()-1).replace("", "");   
+                                     }
+                             }
+                         }
+                             }
+                         }
+                     }
+             
+         }
+     
+    if(userInfo.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP)){
+        
+                 if(userInfo.getRoleList().get(i).getIdString().get(j).contains("CC")){
+                     isEmployee=true;
+                     if(partnerListDefault!=null) {
+                                 for(int k=0;k<partnerListDefault.size();k++)
+                                 {  
+                                     int d =userInfo.getRoleList().get(i).getIdString().get(j).indexOf("CC");
+                                     
+                                     
+                                     for(int ac=0;ac<partnerListDefault.get(k).getAccountList().size();ac++){
+                                         for(int cg=0;cg<partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().size();cg++)   { 
+                                         
+                                         for(int cc=0;cc<partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();cc++)   { 
+                                         
+                                         
+                                        if(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(d +2))){
+                                         temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
+                                         cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", "");   
+                                             }
+                                         }
+                                     }
+                                 }
+                                     }
+                                 }
+                             }
+        
+        
+                 
+                 
+             }
+         }
+    
+     }   
+
+    
+//    if(session.getAttribute("Partner_Object_List") != null){
+//    List<String> temp= new ArrayList<String>();
+//    List<String> temp1= new ArrayList<String>();
+//    List<String> temp2= new ArrayList<String>();
+//    List<String> temp3= new ArrayList<String>();
+//        partnerListDefault = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+//        if(partnerListDefault!=null) {
+//            for(int i=0;i<partnerListDefault.size();i++)
+//            {
+//            
+//            if(partnerListDefault.get(i).isCompanyOverview()){
+//            isPartner=true;
+//            temp.add(partnerListDefault.get(i).getPartnerName());
+//            partnerName=temp.toString().substring(1, temp.toString().length()-1).replace("", "");
+//           
+//            }
+           
+            
+//                for(int j=0;j<partnerListDefault.get(i).getAccountList().size();j++){ 
+//                    
+//                    if(partnerListDefault.get(i).getAccountList().get(j).isAccountOverview()){
+//                        ismanager=true;
+//                        temp1.add(partnerListDefault.get(i).getAccountList().get(j).getAccountNumber());
+//                        accountName=temp1.toString().substring(1, temp1.toString().length()-1).replace("", "");
+//                        
+//                    }
+//                   
+//                     
+//                        for(int k=0;k<partnerListDefault.get(i).getAccountList().get(j).getCardGroup().size();k++){
+//                            
+//                            if(partnerListDefault.get(i).getAccountList().get(j).getCardGroup().get(k).isCardGroupOverview()){
+//                                ismanager=true;
+//                                temp2.add(partnerListDefault.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID());
+//                                cardgroupName=temp2.toString().substring(1, temp2.toString().length()-1).replace("", "");  
+//                            }
+//                              
+//                        for(int l=0;l<partnerListDefault.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size();l++){
+//                            
+//                            if(partnerListDefault.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(l).isCardOverview()){
+//                                isEmployee=true;
+//                                temp3.add(partnerListDefault.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(l).getExternalCardID());
+//                                cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", ""); 
+//                            }
+//                                                       
+//                        
+//                        
+//                        }
+//                       
+//                     
+//                    }
+//                }
+            }
+        }
+
+
+    
     }
 
     public void setPartner(PartnerInfo partner) {
@@ -185,6 +365,10 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
 
     public void setBusinessProfile(boolean businessProfile) {
         this.businessProfile = businessProfile;
+    }
+    public String close_Action() {
+       getBindings().getShowAllPopUp().cancel();
+        return null;
     }
 
     public boolean isBusinessProfile() {
@@ -208,6 +392,87 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
     }
 
 
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
+    }
+
+    public String getPartnerName() {
+        return partnerName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setCardgroupName(String cardgroupName) {
+        this.cardgroupName = cardgroupName;
+    }
+
+    public String getCardgroupName() {
+        return cardgroupName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setIsPartner(boolean isPartner) {
+        this.isPartner = isPartner;
+    }
+
+    public boolean isIsPartner() {
+        return isPartner;
+    }
+
+    public void setIsmanager(boolean ismanager) {
+        this.ismanager = ismanager;
+    }
+
+    public boolean isIsmanager() {
+        return ismanager;
+    }
+
+    public void setIsEmployee(boolean isEmployee) {
+        this.isEmployee = isEmployee;
+    }
+
+    public boolean isIsEmployee() {
+        return isEmployee;
+    }
+
+
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
         private RichPanelGroupLayout cardGroupOverview;
@@ -215,9 +480,31 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
         private RichPanelGroupLayout companyOverview;
         private RichPanelGroupLayout restrictedAccess;
         private RichTree adfTree;
-        
-        
+        private RichOutputText cardTypeOT;
+        private RichPopup showAllPopUp;
+        private RichPanelGroupLayout defaultPanel;
+        public void setDefaultPanel(RichPanelGroupLayout defaultPanel) {
+            this.defaultPanel = defaultPanel;
+        }
 
+        public RichPanelGroupLayout getDefaultPanel() {
+            return defaultPanel;
+        }
+        public void setCardTypeOT(RichOutputText cardTypeOT) {
+            this.cardTypeOT = cardTypeOT;
+        }
+
+        public RichOutputText getCardTypeOT() {
+            return cardTypeOT;
+        }
+
+        public void setShowAllPopUp(RichPopup showAllPopUp) {
+            this.showAllPopUp = showAllPopUp;
+        }
+
+        public RichPopup getShowAllPopUp() {
+            return showAllPopUp;
+        }
 
         public void setAccountOverview(RichPanelGroupLayout accountOverview) {
             this.accountOverview = accountOverview;
@@ -251,7 +538,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
             return companyOverview;
         }
 
-        
+       
 
 
         public void setRestrictedAccess(RichPanelGroupLayout restrictedAccess) {
@@ -303,7 +590,11 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() +" Exiting from Construct
             }
             return adfTree;
         }
+
+       
     }
+
+       
 
     public void treeListner(SelectionEvent selectionEvent) {
 log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner ");
@@ -413,22 +704,31 @@ System.out.println("Selection event " + selectionEvent.getSource());
         }
 
         if (rowType.contains("AccountInfo")) {
-
+            //hiding default panel
+            getBindings().getDefaultPanel().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to account so execute Account overview
             accountOverview();
 
 
         } else if (rowType.contains("CardGroupInfo")) {
-
+            //hiding default panel
+            getBindings().getDefaultPanel().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to cardGroup so execute cardGroup overview
             cardGroupOverview();
 
         } else if (rowType.contains("CardInfo")) {
+            //hiding default panel
+            getBindings().getDefaultPanel().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to card so execute card overview
             cardOverview();
 
         } else {
-
+            //hiding default panel
+            getBindings().getDefaultPanel().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to partner so execute partner overview
             companyOverview();
 
@@ -562,11 +862,11 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
     }
 
 
-    public void setCardTypeList(ArrayList<SelectItem> cardTypeList) {
+    public void setCardTypeList(ArrayList<String> cardTypeList) {
         this.cardTypeList = cardTypeList;
     }
 
-    public ArrayList<SelectItem> getCardTypeList() {
+    public ArrayList<String> getCardTypeList() {
         return cardTypeList;
     }
 
@@ -826,15 +1126,15 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
                 cardVO.executeQuery();
                 
                 if (cardVO.getEstimatedRowCount() != 0) {
-                    cardTypeList = new ArrayList<SelectItem>();
+                    cardTypeList = new ArrayList<String>();
                     while (cardVO.hasNext()) {
                         PrtCardVORowImpl currRow =
                             (PrtCardVORowImpl)cardVO.next();
                         if (currRow.getCardType() != null) {
-                            SelectItem selectItem = new SelectItem();
-                            selectItem.setLabel(currRow.getCardType());
-                            selectItem.setValue(currRow.getCardType());
-                            cardTypeList.add(selectItem);
+                            
+                            cardTypeList.add(currRow.getCardType());
+                            String card=cardTypeList.toString();
+                            cardType=card.substring(1, card.length() - 1).replace("", "");
 
                         }
                     }
@@ -843,12 +1143,14 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
 
                 }
 				log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
-                
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
 
 
             }
 
             getBindings().getCardGroupOverview().setVisible(true);
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
 
 

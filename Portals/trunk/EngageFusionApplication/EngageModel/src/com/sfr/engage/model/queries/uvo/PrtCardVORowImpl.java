@@ -478,6 +478,56 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 obj.setCardRemarks((String)value);
             }
         }
+        ,
+        InvoiceAddr1 {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getInvoiceAddr1();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setInvoiceAddr1((String)value);
+            }
+        }
+        ,
+        InvoiceAddr2 {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getInvoiceAddr2();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setInvoiceAddr2((String)value);
+            }
+        }
+        ,
+        InvoiceCity {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getInvoiceCity();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setInvoiceCity((String)value);
+            }
+        }
+        ,
+        InvoiceCountry {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getInvoiceCountry();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setInvoiceCountry((String)value);
+            }
+        }
+        ,
+        InvoicePostalCode {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getInvoicePostalCode();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setInvoicePostalCode((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -505,6 +555,7 @@ public class PrtCardVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
@@ -551,6 +602,11 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int SPERRELISTEDT = AttributesEnum.SperrelisteDt.index();
     public static final int SPESIALBESTJN = AttributesEnum.SpesialbestJn.index();
     public static final int CARDREMARKS = AttributesEnum.CardRemarks.index();
+    public static final int INVOICEADDR1 = AttributesEnum.InvoiceAddr1.index();
+    public static final int INVOICEADDR2 = AttributesEnum.InvoiceAddr2.index();
+    public static final int INVOICECITY = AttributesEnum.InvoiceCity.index();
+    public static final int INVOICECOUNTRY = AttributesEnum.InvoiceCountry.index();
+    public static final int INVOICEPOSTALCODE = AttributesEnum.InvoicePostalCode.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1300,6 +1356,86 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public void setCardRemarks(String value) {
         setAttributeInternal(CARDREMARKS, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_ADDR1 using the alias name InvoiceAddr1.
+     * @return the INVOICE_ADDR1
+     */
+    public String getInvoiceAddr1() {
+        return (String) getAttributeInternal(INVOICEADDR1);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_ADDR1 using the alias name InvoiceAddr1.
+     * @param value value to set the INVOICE_ADDR1
+     */
+    public void setInvoiceAddr1(String value) {
+        setAttributeInternal(INVOICEADDR1, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_ADDR2 using the alias name InvoiceAddr2.
+     * @return the INVOICE_ADDR2
+     */
+    public String getInvoiceAddr2() {
+        return (String) getAttributeInternal(INVOICEADDR2);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_ADDR2 using the alias name InvoiceAddr2.
+     * @param value value to set the INVOICE_ADDR2
+     */
+    public void setInvoiceAddr2(String value) {
+        setAttributeInternal(INVOICEADDR2, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_CITY using the alias name InvoiceCity.
+     * @return the INVOICE_CITY
+     */
+    public String getInvoiceCity() {
+        return (String) getAttributeInternal(INVOICECITY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_CITY using the alias name InvoiceCity.
+     * @param value value to set the INVOICE_CITY
+     */
+    public void setInvoiceCity(String value) {
+        setAttributeInternal(INVOICECITY, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_COUNTRY using the alias name InvoiceCountry.
+     * @return the INVOICE_COUNTRY
+     */
+    public String getInvoiceCountry() {
+        return (String) getAttributeInternal(INVOICECOUNTRY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_COUNTRY using the alias name InvoiceCountry.
+     * @param value value to set the INVOICE_COUNTRY
+     */
+    public void setInvoiceCountry(String value) {
+        setAttributeInternal(INVOICECOUNTRY, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_POSTAL_CODE using the alias name InvoicePostalCode.
+     * @return the INVOICE_POSTAL_CODE
+     */
+    public String getInvoicePostalCode() {
+        return (String) getAttributeInternal(INVOICEPOSTALCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_POSTAL_CODE using the alias name InvoicePostalCode.
+     * @param value value to set the INVOICE_POSTAL_CODE
+     */
+    public void setInvoicePostalCode(String value) {
+        setAttributeInternal(INVOICEPOSTALCODE, value);
     }
 
     /**
