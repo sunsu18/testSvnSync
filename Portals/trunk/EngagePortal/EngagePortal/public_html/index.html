@@ -2,8 +2,27 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></meta>
-    <meta http-equiv="refresh" content="0;url=./faces/card/home" />
     <title>Portal Home</title>
+  </head>
+</html><html>
+<script language='javascript'>
+function contextrootredirect(){
+
+   var pathArray = document.URL.split( '?' );
+
+   if(pathArray[1] == undefined) {
+       window.location.href = "/CustomerPortal/faces/card/home?lang=en_US&profile=business";
+   } else {
+       window.location.href = "/CustomerPortal/faces/card/home?" +pathArray[1];
+   }
+}
+</script>
+<body>
+<script>
+//call after page loaded
+window.onload=contextrootredirect ;
+</script>
+</body>
   </head>
   <body></body>
 </html>
