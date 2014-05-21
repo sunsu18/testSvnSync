@@ -97,7 +97,8 @@
                                        value="#{pageFlowScope.CardBean.cardGroupValue}"
                                      partialTriggers="soc3 smc2 cb3"
                                      binding="#{pageFlowScope.CardBean.bindings.cardGroup}"
-                                    valueChangeListener="#{pageFlowScope.CardBean.cardGroupValueChangeListener}">
+                                    valueChangeListener="#{pageFlowScope.CardBean.cardGroupValueChangeListener}"
+                                     autoSubmit="true">
                 <af:forEach items="#{pageFlowScope.CardBean.cardGroupList}"
                                   var="listItem">
                             <af:selectItem id="si2" value="#{listItem.value}"
@@ -114,7 +115,7 @@
                    <af:selectManyChoice id="smc8" contentStyle="width: 150px;"
                                         value="#{pageFlowScope.CardBean.statusValue}"
                                         binding="#{pageFlowScope.CardBean.bindings.status}"
-                                        partialTriggers="cb3"
+                                        partialTriggers="cb3" autoSubmit="true"
                                      valueChangeListener="#{pageFlowScope.CardBean.statusValueChangeListener}">
                  <af:forEach items="#{pageFlowScope.CardBean.statusList}"
                     var="listItem">
@@ -286,21 +287,25 @@
             <af:column headerText="#{sfr.MANAGE}"
                        id="c7" align="center" width="65px">
             
-              <af:commandImageLink id="cil1" icon="/images/edit.png">
+              <af:commandImageLink id="cil1" icon="/images/edit.png"
+                                   action="#{pageFlowScope.CardBean.editDetails}">
                <af:setPropertyListener from="#{row.CardType}"
                                 to="#{pageFlowScope.cardAssociation}"
-                                type="action"/>       
-                <af:showPopupBehavior popupId="::p1"/>
+                                type="action"
+                              />       
+           
                 
                 </af:commandImageLink>
             
              
             </af:column>
           </af:table>
-           <af:popup id="p1">
+           <af:popup id="p1" contentDelivery="immediate"
+             binding="#{pageFlowScope.CardBean.bindings.truckdriverDetails}"
+             autoCancel="disabled">
         <af:dialog id="d1">
               <af:panelGroupLayout id="pgl5" layout="vertical">
-              <af:activeOutputText value="Card Association for:  " id="aot1"/>
+              <af:outputText value="Card Association for: #{pageFlowScope.CardBean.cardAssociation}"  id="aot1"/>
             <h:panelGrid columns="5" id="pg3">
              <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
            <af:spacer width="5" height="15" id="s8"/>

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.share.logging.ADFLogger;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 
@@ -68,6 +69,7 @@ public class CardBean implements Serializable {
     ResourceBundle resourceBundle;
     private boolean driverPGL   = false;
     private boolean vehiclePGL = false;
+    private String cardAssociation = null;
   
 
     public CardBean() {
@@ -82,16 +84,16 @@ public class CardBean implements Serializable {
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if(partnerInfoList!=null && partnerInfoList.size()>0){
-                System.out.println("inside if");
+            
                 for(int k=0;k<partnerInfoList.size();k++)
                 {
-                    System.out.println("inside for");
+                 
                 SelectItem selectItem = new SelectItem();
                 selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
                 selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
                 partnerIdList.add(selectItem);
                 //partnerIdValue.add(partnerInfoList.get(k).getPartnerValue().toString());
-                System.out.println("partner list"+partnerInfoList.get(k).getPartnerValue().toString());
+             
                 }
             }
             
@@ -296,7 +298,7 @@ public class CardBean implements Serializable {
        
         if(valueChangeEvent.getNewValue()!=null) {
            
-           System.out.println("partner selected"+valueChangeEvent.getNewValue()) ; 
+         
               
         accountIdList  = new ArrayList<SelectItem>();
         accountIdValue = new ArrayList<String>();  
@@ -305,36 +307,36 @@ public class CardBean implements Serializable {
 
             String partnerSelected = valueChangeEvent.getNewValue().toString();
                  if( partnerSelected!= null){
-             System.out.println("inside if--------------------" +partnerSelected);
+
                    
                      for(int i=0 ; i<partnerInfoList.size(); i++){
                          
-                 System.out.println("inside for");
+                
                          if(partnerInfoList.get(i).getPartnerValue().toString()!= null && partnerInfoList.get(i).getPartnerValue().toString().equals(partnerSelected.trim())){
                              if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
-                                 System.out.println("inside second if" + partnerInfoList.get(i).getAccountList().size()+"account size");
+                               
                                  for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
-                                     System.out.println("inside second for");
+                                    
                                      if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
-                                         System.out.println("inside final if");
+                                       
                                          SelectItem selectItem = new SelectItem();
                                          selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                          selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                          accountIdList.add(selectItem);
                                          accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                         System.out.println("accountvalue" +accountIdValue );
+                                       
                                      }
                                      
                                      
                                      for(int k=0;k<partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();k++){
                                      if(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null){
-                                         System.out.println("inside final if");
+                                       
                                          SelectItem selectItem = new SelectItem();
                                          selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                          selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                          cardGroupList.add(selectItem);
                                         cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                         System.out.println("cardGroupValue" + cardGroupValue);
+                                        
                                      }
                                      
                                      }
@@ -436,17 +438,17 @@ public class CardBean implements Serializable {
             
             if(getBindings().getAccount().getValue() != null){
                    accountPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
-                   System.out.println("account values"+accountPassingValues);
+                  
                 }else{
-                System.out.println("no account selected");
+               
                     showErrorMessage("ENGAGE_NO_ACCOUNT");
-                System.out.println("please select an account");
+               
                     return null;
                 }
             
             if(getBindings().getStatus().getValue() != null){
                    statusPassingValues =  populateStringValues(getBindings().getStatus().getValue().toString());
-                    System.out.println("status values"+statusPassingValues);
+                  
                 }else{
                     showErrorMessage("ENGAGE_NO_STATUS");
                     return null;
@@ -455,7 +457,7 @@ public class CardBean implements Serializable {
             if(getBindings().getCardGroup().getValue() != null){
             cardGroupPassingValues =  populateStringValues(getBindings().getCardGroup().getValue().toString());
                 populateCardGroupValues(cardGroupPassingValues);
-                System.out.println("cardgroup values"+cardGroupPassingValues);
+               
             }
             else{
                 showErrorMessage("ENGAGE_NO_CARD_GROUP");
@@ -473,7 +475,7 @@ public class CardBean implements Serializable {
                 vo.setNamedWhereClauseParam("countryCd", lang);
                 vo.executeQuery();
                 
-                 System.out.println("estimated count"+vo.getEstimatedRowCount());
+                 
                 isTableVisible = true;
             }
            
@@ -577,6 +579,21 @@ public class CardBean implements Serializable {
        isTableVisible = false;
     }
 
+    public void setCardAssociation(String cardAssociation) {
+        this.cardAssociation = cardAssociation;
+    }
+
+    public String getCardAssociation() {
+        return cardAssociation;
+    }
+
+    public String editDetails() {
+        cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
+        getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
+        
+        return null;
+    }
+
 
     public class Bindings {
     
@@ -584,6 +601,7 @@ public class CardBean implements Serializable {
         private RichSelectManyChoice cardGroup;
         private RichSelectManyChoice account;
         private RichSelectManyChoice status;
+        private RichPopup truckdriverDetails;
     
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
@@ -617,6 +635,13 @@ public class CardBean implements Serializable {
             return status;
         }
 
-   
+
+        public void setTruckdriverDetails(RichPopup truckdriverDetails) {
+            this.truckdriverDetails = truckdriverDetails;
+        }
+
+        public RichPopup getTruckdriverDetails() {
+            return truckdriverDetails;
+        }
     }
 }
