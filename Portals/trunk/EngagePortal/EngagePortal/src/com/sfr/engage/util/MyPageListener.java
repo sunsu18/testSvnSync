@@ -2059,6 +2059,15 @@ public String getPartnerName(String partnerid) {
                                     }
         }
         
+        if("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode".equalsIgnoreCase(partnerVO.getWhereClause())) {
+            partnerVO.removeNamedWhereClauseParam("pid");
+            partnerVO.removeNamedWhereClauseParam("countryCode");
+            System.out.println(" remove executed -----------------");
+            
+            partnerVO.setWhereClause("");
+            partnerVO.executeQuery();
+        }
+        
     } else {
         log.severe(accessDC.getDisplayRecord() +  this.getClass() + " PrtPartnerVO1Iterator Bindings is null in my page listner");
         
@@ -2177,16 +2186,16 @@ return PartnerName;
 
 
 
-//rr = new Roles();
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-//////                                idString = new ArrayList<String>();
-//                idString.add("NOPP26773218CGSLUTRX00001");
+rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+                                idString = new ArrayList<String>();
+                idString.add("NOPP26773218CGSLUTRX00001");
 //////                
-//                idString.add("NOPP26773219CGSLUTRX00003");
-//        idString.add("NOPP26773219AC0022883799");
-//        idString.add("NOPP26773218CGSLUTRX00006");
-//                rr.setIdString(idString);
-//                listrole.add(rr);
+                idString.add("NOPP26773219CGSLUTRX00003");
+        idString.add("NOPP26773219AC0022883799");
+        idString.add("NOPP26773218CGSLUTRX00006");
+                rr.setIdString(idString);
+                listrole.add(rr);
                 
 //        
         
@@ -2221,16 +2230,16 @@ return PartnerName;
 //                rr.setIdString(idString);
 //                listrole.add(rr);
 //                
-//        rr = new Roles();
-//                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-//                                idString = new ArrayList<String>();
-////                
-//                        idString.add("NOPP26773218CC0058973603");
-//                idString.add("NOPP26773218CC0058589248");
-//               idString.add("NOPP26773219CC0058589215");
+        rr = new Roles();
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+                                idString = new ArrayList<String>();
+//////                
+                        idString.add("NOPP26773218CC0058589246");
+////                idString.add("NOPP26773218CC0058589248");
+               idString.add("NOPP26773219CC0058589215");
 ////                idString.add("NOPP26773218CC0058589003");
-//                rr.setIdString(idString);
-//                listrole.add(rr);
+                rr.setIdString(idString);
+                listrole.add(rr);
                 
 //        rr = new Roles();
 //                rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);

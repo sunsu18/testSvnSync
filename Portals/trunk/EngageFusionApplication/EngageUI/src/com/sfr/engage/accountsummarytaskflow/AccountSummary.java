@@ -71,6 +71,7 @@ public class AccountSummary implements Serializable {
     private String cardGroupId;
     private String cardId;
     private String partnerId;
+    private String partnerIdName;
 
     RowKeySetImpl rksImpl;
 
@@ -472,6 +473,14 @@ if(session!=null){
         return isEmployee;
     }
 
+    public void setPartnerIdName(String partnerIdName) {
+        this.partnerIdName = partnerIdName;
+    }
+
+    public String getPartnerIdName() {
+        return partnerIdName;
+    }
+
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
@@ -716,6 +725,16 @@ System.out.println("Selection event " + selectionEvent.getSource());
             getBindings().getDefaultPanel().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to cardGroup so execute cardGroup overview
+            
+            for (Object o : nodeBinding1.getAttributeValues()) {
+
+               // id = o.toString();
+                cardGroupId = o.toString();
+                System.out.println(" inside cardgroup overview id is " + cardGroupId);
+            //                break;
+
+
+            }
             cardGroupOverview();
 
         } else if (rowType.contains("CardInfo")) {
@@ -723,6 +742,15 @@ System.out.println("Selection event " + selectionEvent.getSource());
             getBindings().getDefaultPanel().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to card so execute card overview
+            for (Object o : nodeBinding1.getAttributeValues()) {
+
+               // id = o.toString();
+                cardId = o.toString();
+                System.out.println(" inside card overview id is " + id);
+//                break;
+
+
+            }
             cardOverview();
 
         } else {
@@ -730,6 +758,7 @@ System.out.println("Selection event " + selectionEvent.getSource());
             getBindings().getDefaultPanel().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to partner so execute partner overview
+            partnerIdName = id;
             companyOverview();
 
         }
@@ -948,10 +977,40 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
+              
+        partnerId = dropNodeParent.toString();
+        System.out.println("partnerId inside accountoverview " + partnerId );
+        
+        partnerIdName = partnerId.substring(partnerId.indexOf(" ")+1);
+        
+//        for(Object ob : dropNodeParent.getAttributeValues()) {
+//            if(ob != null)
+//            {System.out.println("dropNodeParent after conversion " + ob.toString());
+//             partnerId = ob.toString();}
+//            break;
+//        }
+        
+        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
+        System.out.println("partnerId inside accountoverview " + partnerId );
+        
+        
+        accountId = id;
+        
+        if(partnerList!=null) {
+            for(int k=0;k<partnerList.size();k++)
+            {
+                if(partnerList.get(k).getPartnerValue().toString().equals(partnerId)) {
+                    partner = partnerList.get(k);
+                    AccountList = partner.getAccountList();
+                }
+                
+            }
+
+        }
         for (int k = 0; k < AccountList.size(); k++) {
 
             if (AccountList.get(k).getAccountNumber().equalsIgnoreCase(id)) {
-
+                System.out.println("Account matched");
                 displayAccountOverview =
                         AccountList.get(k).isAccountOverview();
                 break;
@@ -960,9 +1019,9 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
 
 
         if (displayAccountOverview) {
-          log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked, Account Overview is true in partner object & Accountid " + id);
-            partnerId = dropNodeParent.toString();
-            accountId = id;
+          log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked, Account Overview is true in partner object " + partner.getPartnerValue() +" & Accountid " + id);
+//            partnerId = dropNodeParent.toString();
+//            accountId = id;
 
             DCBindingContainer bindings =
                 (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -1006,7 +1065,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         } else {
             hideAll();
             
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked But Account Overview is false in partner object & Accountid " + id);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Account node clicked But Account Overview is false in partner object " + partner.getPartnerValue() +" & Accountid " + id);
             getBindings().getRestrictedAccess().setVisible(true);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
@@ -1022,7 +1081,38 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
+        
+        partnerId =dropNodeParent.getParent().toString();
+        System.out.println("partnerId inside cardgroupoverview " + partnerId );
+        
+        partnerIdName = partnerId.substring(partnerId.indexOf(" ")+1);
+//        for(Object ob : dropNodeParent.getParent().getAttributeValues()) {
+//            if(ob != null)
+//            {System.out.println("dropNodeParent after conversion " + ob.toString());
+//             partnerId = ob.toString();}
+//            break;
+//        }
+        
+        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
+        System.out.println("partnerId inside cardgroupoverview " + partnerId );
+        
+       
+        
+        //cardGroupId = id;
+        accountId =dropNodeParent.toString();
+        
+        if(partnerList!=null) {
+                    for(int k=0;k<partnerList.size();k++)
+                    {
+                        if(partnerList.get(k).getPartnerValue().toString().equals(partnerId)) {
+                            partner = partnerList.get(k);
+                            AccountList = partner.getAccountList();
+                        }
+                        
+                    }
 
+                }
+ 
 
         for (int k = 0; k < AccountList.size(); k++) {
             account = AccountList.get(k);
@@ -1043,7 +1133,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         if (displayCardGroupOverview) {
 
             
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked, cardGroup Overview is true in partner object & cardGroupId " + id);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked, cardGroup Overview is true in partner object " + partner.getPartnerValue() +" & cardGroupId " + id);
             DCBindingContainer bindings =
                 (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter1;
@@ -1154,16 +1244,14 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
 
 
-            partnerId =dropNodeParent.getParent().toString();
-            cardGroupId = id;
-            accountId =dropNodeParent.toString();
+
 
 
         } else {
 
             hideAll();
             
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked But cardGroup Overview is false in partner object & cardGroupId " +
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardGroup node clicked But cardGroup Overview is false in partner object " + partner.getPartnerValue() +" & cardGroupId " +
                                id);
             getBindings().getRestrictedAccess().setVisible(true);
             
@@ -1183,9 +1271,37 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         hideAll();
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
+        
+       // cardId = id;
+        
+       for(Object ob : dropNodeParent.getAttributeValues()) {
+           cardGroupId = ob.toString();
+           System.out.println("cardgroupID after conversion " + cardGroupId);
+           
+       }
+       
+        
+
+
+        //cardGroupId = dropNodeParent.toString();
+        dropNodeParent = dropNodeParent.getParent();
+        accountId = dropNodeParent.toString();
+        partnerId = dropNodeParent.getParent().toString();
+        System.out.println("partnerId inside cardoverview " + partnerId );
+        partnerIdName = partnerId.substring(partnerId.indexOf(" ")+1); 
+        
+//        for(Object ob : dropNodeParent.getParent().getAttributeValues()) {
+//            if(ob != null)
+//            {System.out.println("dropNodeParent after conversion " + ob.toString());
+//             partnerId = ob.toString();}
+//            break;
+//        }
+        
+        partnerId = partnerId.substring(0, partnerId.indexOf(" "));
+        System.out.println("partnerId inside cardoverview " + partnerId );
 
         
-		log.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked & cardid " + id);
+		log.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked for partner object" + partner.getPartnerValue() +" & cardid " + id);
 
         DCBindingContainer bindings =
             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -1231,13 +1347,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardOverview());
 
 
-        cardId = id;
-
-
-        cardGroupId = dropNodeParent.toString();
-        dropNodeParent = dropNodeParent.getParent();
-        accountId = dropNodeParent.toString();
-        partnerId = dropNodeParent.getParent().toString();
+       
 
         
 		log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting cardOverview function");

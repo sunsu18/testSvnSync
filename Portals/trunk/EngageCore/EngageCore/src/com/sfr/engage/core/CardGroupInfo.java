@@ -14,11 +14,12 @@ public class CardGroupInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardGroupID;
-    private String cardGroupName;
+    
     private String cardGroupMainType;
     private String cardGroupSubType;
     private String cardGroupSeq;
     private List<CardInfo> card;
+    private String cardGroupName;
     private boolean cardGroupOverview;
 
 
