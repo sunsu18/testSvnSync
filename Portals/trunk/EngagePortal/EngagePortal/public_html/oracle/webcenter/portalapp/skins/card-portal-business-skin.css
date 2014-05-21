@@ -286,7 +286,7 @@ font-weight: bold !important;
     font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:normal !important;
-    padding-left: 40px;
+    padding-left: 35px;
 }
 
 /*.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
@@ -1135,6 +1135,15 @@ text-align: justify;
 display:inline-block;
 }
 
+.changepassword_padding{
+    padding-left: 8px !important;
+    border-bottom: 2px solid white !important;
+    width: 940px !important;
+    padding-bottom: 5px !important;
+    font-size: 13px !important;
+    color: #868686 !important;
+}
+
 .important_notice{
     font-weight: bold !important;
     font-size: 13px !important;
@@ -1306,9 +1315,9 @@ font-weight:bold;
 }
 
 .message_bell{
-	background-position: -33px -204px ;
-	width: 16px;
-	height: 20px;
+	background-position: -28px -375px ;
+	width: 18px;
+	height: 23px;
 }
 
 .pdf_icon{
@@ -1415,9 +1424,9 @@ background-position: -30px -106px ;
 }
 
 .view_all{
-	background-position: -9px -381px ;
-	width: 16px;
-	height: 16px;
+	background-position: -8px -427px ;
+	width: 14px;
+	height: 14px;
 }
 /*.arrow{
 	background-position: -31px -106px ;
@@ -1427,18 +1436,20 @@ background-position: -30px -106px ;
 
 .af_panelAccordion_undisclosed-icon-style, .af_panelBox_undisclosed-icon-style, .af_region_undisclosed-icon-style{
     
-    background: url("/images/faq/faq3.png") !important;
+    background: url("/images/faq/open.png") no-repeat !important;
     /*background-position: -4px -380px ;*/
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
+        padding-right: 8px;
         outline-color: transparent !important;
 }
 .af_panelAccordion_disclosed-icon-style{
-    background: url("/images/faq/faq4.png") !important;
+    background: url("/images/faq/close.png") no-repeat !important;
     /*background-position: -29px -379px ;*/
-	width: 22px;
-	height: 22px;
-        outline-color: transparent !important;
+	width: 18px;
+	height: 18px;
+        padding-right: 8px;
+outline-color: transparent !important;
 }
 
 
@@ -1746,14 +1757,14 @@ border: 1px solid  #979796;
 .outputText3{
 color:#524e4f !important; 
 font-size:12px !important;
-font-family:Arial, Helvetica, sans-serif !important;
+font-family : Lucida Sans,Georgia,Serif !important;
 font-weight:normal !important;
 }
 
 .outputText1{
 color:#524e4f; 
 font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
+font-family : Lucida Sans,Georgia,Serif !important;
 }
 
 

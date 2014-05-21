@@ -324,7 +324,7 @@ font-weight: bold !important;
     font-size: 13px !important;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:normal !important;
-    padding-left: 40px;
+    padding-left: 35px;
    
 }
 
@@ -1360,6 +1360,15 @@ display:inline-block;
 
 }
 
+.changepassword_padding{
+    padding-left: 8px !important;
+    border-bottom: 2px solid white !important;
+    width: 940px !important;
+    padding-bottom: 5px !important;
+    font-size: 13px !important;
+    color: #868686 !important;
+}
+
 
 .important_notice{
     font-weight: bold !important;
@@ -1600,9 +1609,9 @@ background-position: -16px -106px ;
 }
 
 .message_bell{
-	background-position: -33px -204px ;
-	width: 16px;
-	height: 20px;
+	background-position: -5px -375px ;
+	width: 18px;
+	height: 23px;
 }
 
 .pdf_icon{
@@ -1660,25 +1669,27 @@ background-position: -16px -106px ;
 }
 
 .view_all{
-	background-position: -9px -381px ;
-	width: 16px;
-	height: 16px;
+	background-position: -8px -427px ;
+	width: 14px;
+	height: 14px;
 }
 
 
 .af_panelAccordion_undisclosed-icon-style, .af_panelBox_undisclosed-icon-style, .af_region_undisclosed-icon-style{
     
-    background: url("/images/faq/faq1.png") !important;
+    background: url("/images/faq/open.png") no-repeat !important;
     /*background-position: -4px -380px ;*/
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
+        padding-right: 8px;
         outline-color: transparent !important;
 }
 .af_panelAccordion_disclosed-icon-style{
-    background: url("/images/faq/faq2.png") !important;
+    background: url("/images/faq/close.png") no-repeat !important;
     /*background-position: -29px -379px ;*/
-	width: 22px;
-	height: 22px;
+	width: 18px;
+	height: 18px;
+        padding-right: 8px;
 outline-color: transparent !important;
 }
 
@@ -1923,14 +1934,15 @@ margin-left: 15px;
 .outputText3{
 color:#524e4f !important; 
 font-size:12px !important;
-font-family:Arial, Helvetica, sans-serif !important;
+font-family : Lucida Sans,Georgia,Serif !important;
 font-weight:normal !important;
+padding-bottom:10px !important;
 }
 
 .outputText1{
 color:#524e4f; 
 font-size:12px;
-font-family:Arial, Helvetica, sans-serif;
+font-family : Lucida Sans,Georgia,Serif !important;
 }
 
 
