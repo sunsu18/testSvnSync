@@ -2,7 +2,7 @@ import sys
 
 
 #QA
-adminUrl='t3://10.24.240.37:11011'
+adminUrl='t3://10.24.240.37:11101'
 adminUser='weblogic'
 adminPassword='weblogic1'
 
