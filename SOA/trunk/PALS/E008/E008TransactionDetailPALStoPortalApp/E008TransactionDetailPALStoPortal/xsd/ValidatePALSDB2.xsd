@@ -14,14 +14,14 @@
         <xsd:element name="TransactionData" maxOccurs="unbounded">
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="UREF_TRANSACTION_ID">
+              <xsd:element name="UREF_TRANSACTION_ID" nillable="false">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="10"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="DETAIL_NO">
+              <xsd:element name="DETAIL_NO" nillable="false">
                 <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
                     <xsd:maxLength value="5"/>
@@ -163,10 +163,11 @@
                   <xsd:restriction base="xsd:date"/>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="PALS_MODIFIED_BY">
+              <xsd:element name="PALS_MODIFIED_BY" nillable="false">
               <xsd:simpleType>
                   <xsd:restriction base="xsd:string">
-                    <xsd:maxLength value="60"/>
+                    <xsd:maxLength value="6"/>
+                    <xsd:minLength value="1"/>
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>

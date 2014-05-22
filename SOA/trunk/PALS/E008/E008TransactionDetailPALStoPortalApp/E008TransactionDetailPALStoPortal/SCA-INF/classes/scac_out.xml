@@ -3,16 +3,6 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>537</line>
-      <col/>
-      <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
-      <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>
-      <fix>Use one of the built-in boolean functions from xpath http://www.w3.org/TR/xpath#section-Boolean-Functions to convert the return value to boolean</fix>
-      <msg>xpath expression "count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapterV1_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable')>0)" used in &lt;case> may not return boolean type value, the xpath engine would automatically try to convert the return value to boolean</msg>
-   </Fault>
-   <Fault>
-      <severity>warning</severity>
-      <loc/>
       <line>573</line>
       <col/>
       <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>

@@ -331,7 +331,7 @@
         </assign>
         <invoke name="InvokeSOADeltaTs" inputVariable="InvokeSelectDeltaTSDBAdapterV1_IV" outputVariable="InvokeSelectDeltaTSDBAdapterV1_OV" partnerLink="SelectDeltaTSDatabaseAdapterV1" portType="ns2:SelectDeltaTSDatabaseAdapterV1_ptt" operation="SelectDeltaTSDatabaseAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv5"/>
         <switch name="Switch2" id="BpSwt1">
-          <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapterV1_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable')>0)">
+          <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapterV1_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable'))>0">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">IF DELTA_TS exists</bpelx:property>
