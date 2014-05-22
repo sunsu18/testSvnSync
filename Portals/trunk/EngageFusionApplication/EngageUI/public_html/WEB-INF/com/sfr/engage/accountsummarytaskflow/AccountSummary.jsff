@@ -133,7 +133,7 @@
          
             <!--<af:spacer width="10" height="20" id="s329"/>-->
    <af:panelFormLayout id="pf12" rows="9" maxColumns="2">
-      <af:panelGroupLayout  layout="vertical" inlineStyle="width:700px;">
+      <af:panelGroupLayout  layout="vertical" inlineStyle="width:650px;">
              <af:panelGroupLayout id="pgl20" layout="horizontal">
    <af:outputText value="#{sfr.HELLO}" id="ot17" styleClass="FAQInfo"/>
    <af:spacer width="10"/>
@@ -192,16 +192,16 @@
      <af:spacer width="10" id="s327"/>
       <af:outputText value="#{sfr.COMPANY_OVERVIEW}" id="ot113" styleClass="heading heading_account"/>
   </af:panelGroupLayout>
-         <af:panelGroupLayout id="pgl8" inlineStyle="width:700px;">
+         <af:panelGroupLayout id="pgl8" inlineStyle="width:650px;">
 		
           <af:spacer width="10" height="5" id="s95"/>
            <af:panelGroupLayout id="pgl16" layout="horizontal">
            <af:spacer width="15" height="5" id="s336"/>
-          <af:separator id="s335" inlineStyle="width:700px;"/>
+          <af:separator id="s335" inlineStyle="width:650px;"/>
                   
           </af:panelGroupLayout>
            <af:panelGroupLayout id="pgl23" valign="middle" layout="horizontal"
-                              inlineStyle="width:700px;margin-top: -4px;"
+                              inlineStyle="width:650px;margin-top: -4px;"
                               styleClass="breadCrumb">
                               <af:spacer width="3" height="10" id="s342"/>
              <af:panelGroupLayout id="pgl25" layout="vertical">
@@ -585,17 +585,17 @@
       <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
     </af:panelGroupLayout>
     
-   <af:panelGroupLayout id="pgl26" inlineStyle="width:700px;">
+   <af:panelGroupLayout id="pgl26" inlineStyle="width:650px;">
   
    <af:spacer width="10" height="5" id="s94"/>
      <af:panelGroupLayout id="pgl17" layout="horizontal">
       <af:spacer width="15" height="5" id="s338"/>
-          <af:separator id="s337" inlineStyle="width:700px;"/>
+          <af:separator id="s337" inlineStyle="width:650px;"/>
           </af:panelGroupLayout>
 
        
             <af:panelGroupLayout id="pgl21" valign="middle" layout="horizontal"
-                                 inlineStyle="width:700px;margin-top: -4px;"
+                                 inlineStyle="width:650px;margin-top: -4px;"
                                  styleClass="breadCrumb">
                                  <af:spacer width="3" height="10" id="s331"/>
             <af:panelGroupLayout id="pgl0" layout="vertical">
@@ -824,14 +824,14 @@
       <af:outputText value="#{sfr.CARDGROUP_OVERVIEW}" id="ot26" styleClass="heading heading_account"/>
     </af:panelGroupLayout>
     
-      <af:panelGroupLayout id="pgl10" inlineStyle="width:700px;">
+      <af:panelGroupLayout id="pgl10" inlineStyle="width:650px;">
     <af:spacer width="10" height="5" id="s92"/>
        <af:panelGroupLayout id="pgl18" layout="horizontal"> <af:spacer width="15" height="5" id="s330"/>
-          <af:separator id="s339" inlineStyle="width:700px;"/>
+          <af:separator id="s339" inlineStyle="width:650px;"/>
           </af:panelGroupLayout>
 
     <af:panelGroupLayout id="pgl22" valign="middle" layout="horizontal"
-                         inlineStyle="width:700px;margin-top: -4px;"
+                         inlineStyle="width:650px;margin-top: -4px;"
                          styleClass="breadCrumb">
                          <af:spacer width="3" height="10" id="s340"/>
                          <af:panelGroupLayout id="pgl24" layout="vertical">
@@ -1125,15 +1125,15 @@
       <af:outputText value="#{sfr.CARD_OVERVIEW}" id="ot1" styleClass="heading heading_account"/>
       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
-      <af:panelGroupLayout id="pgl9" inlineStyle="width:700px;">
+      <af:panelGroupLayout id="pgl9" inlineStyle="width:650px;">
     <af:spacer width="10" height="5" id="s93"/>
       <af:panelGroupLayout id="pgl19" layout="horizontal"> <af:spacer width="15" height="5"
                                                   id="s343"/>
-          <af:separator id="s341" inlineStyle="width:700px;"/>
+          <af:separator id="s341" inlineStyle="width:650px;"/>
           </af:panelGroupLayout>
     
          <af:panelGroupLayout id="pgl30" valign="middle" layout="horizontal"
-                              inlineStyle="width:700px;margin-top: -4px;"
+                              inlineStyle="width:650px;margin-top: -4px;"
                               styleClass="breadCrumb">
                               <af:spacer width="3" height="10" id="s15"/>
              <af:panelGroupLayout id="pgl31" layout="vertical">
