@@ -14,9 +14,10 @@ public class PartnerInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String partnerValue;
-    private String partnerName;
+  
     private String country;
     private List<AccountInfo> accountList;
+    private String partnerName;
     private boolean companyOverview;
 
     /**

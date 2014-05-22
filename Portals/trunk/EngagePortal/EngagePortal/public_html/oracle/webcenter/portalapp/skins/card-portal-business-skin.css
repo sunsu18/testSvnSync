@@ -186,8 +186,8 @@ padding-top: 2px;
 
 .af_tree
 {
-    height:700px ;
-    width:220px ;
+    height:500px ;
+    width:225px ;
  
 }
 
@@ -924,7 +924,7 @@ font-style:normal;
 }
 .vertical_seperator_account{
     width:1px !important;
-    height:700px !important;
+    height:500px !important;
     background-color:#C3C3C3 !important;
     margin-left: -15px!important;
     margin-top: 3px;

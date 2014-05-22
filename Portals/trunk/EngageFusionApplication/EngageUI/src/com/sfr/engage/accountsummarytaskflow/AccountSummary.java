@@ -757,8 +757,17 @@ System.out.println("Selection event " + selectionEvent.getSource());
             //hiding default panel
             getBindings().getDefaultPanel().setVisible(false);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
+            
+            for (Object o : nodeBinding1.getAttributeValues()) {
+
+                partnerIdName = o.toString();
+                System.out.println(" partnerIdName is " + id);
+//                break;
+
+
+            }
             //clicked node belongs to partner so execute partner overview
-            partnerIdName = id;
+//            partnerIdName = id;
             companyOverview();
 
         }
@@ -1361,30 +1370,30 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
         getBindings().getRestrictedAccess().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
-        //            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-        //            DCIteratorBinding iter1;
+                    DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                    DCIteratorBinding iter1;
         //
-        //            if (bindings != null) {
-        //                iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
-        //                System.out.println("DC Iterator bindings for Card found in mypagelistner");
-        //            } else {
-        //                System.out.println("card bindings is null");
-        //                iter1 = null;
-        //            }
-        //            //
-        //            if(iter1!=null)
-        //            {
+                    if (bindings != null) {
+                        iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
+                        System.out.println("DC Iterator bindings for Card found in mypagelistner");
+                    } else {
+                        System.out.println("card bindings is null");
+                        iter1 = null;
+                    }
+                    //
+                    if(iter1!=null)
+                    {
         //
-        //            ViewObject vo_card = iter1.getViewObject();
-        //            vo_part.setWhereClause("PARTNER_ID =: partid");
-        //            vo_part.defineNamedWhereClauseParam("partid",id,null);
-        //            vo_part.setWhereClause("COUNTRY_CODE =: cc");
-        //            vo_part.defineNamedWhereClauseParam("cc","NO",null);
+                    ViewObject partnerVO = iter1.getViewObject();
+                    partnerVO.setWhereClause("PARTNER_ID =: partid AND COUNTRY_CODE =: cc");
+                    partnerVO.defineNamedWhereClauseParam("partid",id,null);
+        
+                    partnerVO.defineNamedWhereClauseParam("cc",(String)session.getAttribute(Constants.userLang),null);
         //
-        //            System.out.println(vo_part.getQuery());
-        //            vo_part.executeQuery();
+    
+                    partnerVO.executeQuery();
         //
-        //            }
+                    }
 
 
         if (session != null) {

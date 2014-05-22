@@ -68,11 +68,6 @@
         <Item Value="AccountId"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtCardVO4Iterator" id="PrtCardPk">
-      <AttrNames>
-        <Item Value="PrtCardPk"/>
-      </AttrNames>
-    </attributeValues>
     <attributeValues IterBinding="PrtCardgroupVO3Iterator"
                      id="CardgroupMainType">
       <AttrNames>
@@ -199,6 +194,11 @@
     <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoicePostalCode">
       <AttrNames>
         <Item Value="InvoicePostalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardEmbossNum">
+      <AttrNames>
+        <Item Value="CardEmbossNum"/>
       </AttrNames>
     </attributeValues>
   </bindings>
