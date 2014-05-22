@@ -328,6 +328,9 @@ font-weight: bold !important;
    
 }
 
+.af_panelAccordion_header.p_AFDisclosed.p_AFFlow, .af_panelAccordion_header-subsequent.p_AFDisclosed.p_AFFlow{
+padding-bottom: 10px !important;
+}
 
 /*.af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-disclose,
 .af_panelAccordion_header.p_AFDisclosed .af_panelAccordion_header-title,
@@ -422,6 +425,7 @@ border-bottom: 1px solid rgb(221, 220, 220) !important;
     font-size: 15px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
+    cursor: pointer;
 }
 
 .af_panelAccordion_header-subsequent.p_AFDisclosed .af_panelAccordion_header-title,
@@ -1176,6 +1180,10 @@ font-style:normal;
     margin-right:-15px !important;
     margin-left:-3px !important;
 }
+
+.af_panelAccordion_header .af_panelAccordion_header-start, .af_panelAccordion_header .af_panelAccordion_header-toolbar, .af_panelAccordion_header .af_panelAccordion_header-title, .af_panelAccordion_header .af_panelAccordion_header-end{
+    width:1 !important;
+}
 .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
     vertical-align:20% !important;
 }
@@ -1256,6 +1264,10 @@ font-style:normal;
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
     margin-right:-15px !important;
     margin-left:-2px !important;
+}
+
+.af_panelAccordion_header .af_panelAccordion_header-start, .af_panelAccordion_header .af_panelAccordion_header-toolbar, .af_panelAccordion_header .af_panelAccordion_header-title, .af_panelAccordion_header .af_panelAccordion_header-end{
+    width:1 !important;
 }
 
 .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text{
@@ -1454,7 +1466,7 @@ cursor:auto;
 .faqlink
 {
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color: #524e4f !important;
 font-weight: normal !important;
 text-decoration: underline !important;
@@ -1683,6 +1695,7 @@ background-position: -16px -106px ;
 	height: 18px;
         padding-right: 8px;
         outline-color: transparent !important;
+        cursor: pointer;
 }
 .af_panelAccordion_disclosed-icon-style{
     background: url("/images/faq/close.png") no-repeat !important;
@@ -1690,7 +1703,10 @@ background-position: -16px -106px ;
 	width: 18px;
 	height: 18px;
         padding-right: 8px;
+        cursor: pointer;
 outline-color: transparent !important;
+
+
 }
 
 
