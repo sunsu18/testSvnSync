@@ -1557,8 +1557,8 @@ font-weight:bold;
         margin-left: 5px;
 }
 .invoice{
-	background-position: -6px -312px ;
-	width: 20px;
+	background-position: -5px -313px ;
+	width: 19px;
 	height: 20px;
         margin-left: -1px;
 }
@@ -1584,8 +1584,9 @@ font-weight:bold;
 }
 
 .card_back{
-	background-position: -5px -31px ;
-	width: 20px;
+
+        background-position: -5px -29px ;
+	width: 23px;
 	height: 20px;
 }
 
@@ -1681,9 +1682,10 @@ background-position: -16px -106px ;
 }
 
 .view_all{
-	background-position: -8px -427px ;
-	width: 14px;
-	height: 14px;
+	background-position: -6px -402px ;
+	width: 12px;
+	height: 12px;
+        outline-color: transparent !important;
 }
 
 

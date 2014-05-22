@@ -63,7 +63,7 @@
                                          styleClass="paneltopbackground">
                     <af:panelGroupLayout id="pgl3" layout="horizontal"
                                          inlineStyle=" padding-top:4px;">
-                      <af:spacer width="5" height="10" id="s16"/>
+                      <af:spacer width="1" height="10" id="s16"/>
                           <af:panelGroupLayout id="pgl14" styleClass="cart"
                                                layout="vertical"/>
                           
@@ -175,7 +175,7 @@
                   <af:panelGroupLayout id="pgl2" layout="horizontal"
                                        inlineStyle="height:30px;width:342px;"
                                        styleClass="paneltopbackground">
-                    <af:spacer width="1.5" height="10" id="s15"/>
+                    <af:spacer width="1" height="10" id="s15"/>
                     <af:panelGroupLayout id="pgl6" layout="horizontal">
                           <af:panelGroupLayout id="pgl20" styleClass="sign_in"
                                                layout="vertical"/>

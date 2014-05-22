@@ -1300,7 +1300,7 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
 
@@ -1314,8 +1314,8 @@ font-weight:bold;
 
 
 .invoice{
-	background-position: -30px -312px ;
-	width: 20px;
+	background-position: -29px -312px ;
+	width: 19px;
 	height: 20px;
         margin-left: -1px;
 }
@@ -1357,8 +1357,8 @@ font-weight:bold;
 }
 
 .card_back{
-	background-position: -33px -31px ;
-	width: 20px;
+		background-position: -29px -29px ;
+	width: 23px;
 	height: 20px;
 }
 
@@ -1448,9 +1448,10 @@ background-position: -30px -106px ;
 }
 
 .view_all{
-	background-position: -8px -427px ;
-	width: 14px;
-	height: 14px;
+	background-position: -6px -402px ;
+	width: 12px;
+	height: 12px;
+        outline-color: transparent !important;
 }
 /*.arrow{
 	background-position: -31px -106px ;
