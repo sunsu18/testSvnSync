@@ -984,7 +984,7 @@ border-right: 1px solid #FFFFFF !important;
     color: #333333;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal; 
     height: 40px;
  
@@ -2046,9 +2046,11 @@ border: 1px solid  #979796;
 }
 .transaction_italic{
   font-style:italic;
+  
 }
 
 .transaction_regular
 {
- font-style:normal; 
+ font-style:normal;
+ 
 }

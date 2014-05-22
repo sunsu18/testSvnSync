@@ -277,7 +277,7 @@
                             disableColumnReordering="true"
                             inlineStyle="height:204px;">
                     <af:column sortProperty="TransactionDt" sortable="false"
-                                headerText="#{sfr.TRANSACTION_DATE}" id="c8" width="106">
+                                headerText="#{sfr.TRANSACTION_DATE}" id="c8" width="106" align="center">
  <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
                       
                         <af:convertDateTime pattern="dd.MM.yyyy"/>
@@ -386,7 +386,7 @@
                   </af:column>
                   <af:column sortProperty="InvoiceDate" sortable="false"
                              headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
-                             width="93" id="c2">
+                                 width="93" id="c2" align="center">
                     <af:outputText value="#{row.InvoiceDueDate}" id="ot10">
                       <af:convertDateTime pattern="dd.MM.yyyy"/>
                     </af:outputText>

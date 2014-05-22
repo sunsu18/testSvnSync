@@ -785,7 +785,7 @@ border-right: 1px solid #FFFFFF !important;
     color: #333333;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal; 
     height: 40px;
     border-bottom: 0px solid #FFFFFF !important;
@@ -1834,11 +1834,15 @@ color: #524e4f;
 .af_selectOneRadio_content-input {
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
+}
+
 .transaction_italic{
   font-style:italic;
+
 }
 
 .transaction_regular
 {
- font-style:normal; 
+ font-style:normal;
+
 }
