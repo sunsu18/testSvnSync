@@ -20,13 +20,32 @@
     <af:panelGroupLayout id="pgl9" inlineStyle="height:140.0px;"
                          layout="vertical">    
       <h:panelGrid columns="6" id="pg1">
-       <af:outputText value="*" id="colon"/>
-       <af:outputText value="#{sfr.ENGAGE_ACCOUNT}" id="ot53"/>
+      <af:outputText value="*" id="colon"/>
+       <af:outputText value="#{sfr.PARTNER}" id="ot53"/>
          <af:spacer width="10" height="15" id="s6"/>
        <af:outputText value=":" id="coll"/>
+          <af:spacer width="10" height="35" id="s6p"/>
+          
+       <af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT}" autoSubmit="true" 
+                           contentStyle="width: 175px;"
+                           value="#{pageFlowScope.InvoiceOverviewBean.partnerValue}"
+                           valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.partnerValueChangeListener}"
+                           binding="#{pageFlowScope.InvoiceOverviewBean.bindings.partnerNumber}">
+        <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.partnerList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="select_item"/>
+        </af:forEach>
+       </af:selectOneChoice>
+      
+      
+       <af:outputText value="*" id="colon_account"/>
+       <af:outputText value="#{sfr.ENGAGE_ACCOUNT}" id="ot54"/>
+         <af:spacer width="10" height="15" id="s36"/>
+       <af:outputText value=":" id="col2"/>
           <af:spacer width="10" height="35" id="s6a"/>
      
-       <af:selectOneChoice id="smc1" unselectedLabel="&lt;Please Select>" autoSubmit="true" 
+       <!--<af:selectOneChoice id="smc2" unselectedLabel="&lt;Please Select>" autoSubmit="true" 
                            binding="#{pageFlowScope.InvoiceOverviewBean.bindings.account}"
                            value="#{pageFlowScope.InvoiceOverviewBean.accountValue}"
                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.accountValueChangeListener}"
@@ -34,9 +53,21 @@
         <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.accountList}"
                     var="listItem">
          <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
-                        id="select_item"/>
+                        id="select_item_account"/>
         </af:forEach>
-       </af:selectOneChoice>
+       </af:selectOneChoice>-->
+       
+       <af:selectManyChoice id="smc4" autoSubmit="true"
+                            binding="#{pageFlowScope.InvoiceOverviewBean.bindings.account}"
+                            value="#{pageFlowScope.InvoiceOverviewBean.accountValue}"
+                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.accountValueChangeListener}"
+                            contentStyle="width: 150px;">
+            <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.accountList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="select_item_account"/>
+        </af:forEach>
+       </af:selectManyChoice>
         <af:outputText value="*" id="ot33"/>
       <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot34"/>
       <af:spacer width="10" height="15" id="s29"/>
@@ -51,7 +82,7 @@
       </af:selectOneRadio>
       </h:panelGrid>    
      <af:panelGroupLayout id="pgl20">
-      <af:spacer width="15" height="15" id="s19"/>
+      <!--<af:spacer width="15" height="15" id="s19"/>-->
  
       <af:panelGroupLayout id="pgl21"
                            visible="#{pageFlowScope.InvoiceOverviewBean.CGCardVisible}"
@@ -59,10 +90,10 @@
        <h:panelGrid columns="6" id="pg3">
         <af:outputText value="" id="ot9"/>
         <af:outputText value="#{sfr.ENGAGE_CARD_GROUP}" id="ot39" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
-         <af:spacer width="30" height="15" id="s18" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
+         <af:spacer width="28" height="15" id="s18" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
         <af:outputText value=":" id="ot10" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
         <af:spacer width="11" height="15" id="s12" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
-        <af:selectManyChoice id="smc2" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"
+        <af:selectManyChoice id="smc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"
                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGroup}"
                              value="#{pageFlowScope.InvoiceOverviewBean.cardGroupValue}"
                              contentStyle="width: 150px;">

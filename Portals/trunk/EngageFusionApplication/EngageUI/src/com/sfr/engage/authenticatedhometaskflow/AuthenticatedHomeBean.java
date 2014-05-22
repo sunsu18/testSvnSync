@@ -64,7 +64,7 @@ public class AuthenticatedHomeBean implements Serializable {
     private String customerTypeValue;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
-    private PartnerInfo partnerInfo;
+    private List<PartnerInfo> partnerInfoList;
     private ArrayList<String> cards=new ArrayList<String>();
     private HttpSession session;
     private ExternalContext ectx;
@@ -241,62 +241,41 @@ public class AuthenticatedHomeBean implements Serializable {
             }
             if (session.getAttribute("Partner_Object_List") != null) {
                 
-                List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
-                partnerlist = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-                partnerInfo = partnerlist.get(0);
+                partnerInfoList = new ArrayList<PartnerInfo>();
+                partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             }
 
-            if (partnerInfo != null) {
-                log.fine(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "Inside partner info object");
+            if (partnerInfoList != null && partnerInfoList.size() > 0) {
+                log.fine(accessDC.getDisplayRecord() + this.getClass() + " " + "Inside partner info object");
 
-                if (partnerInfo.getCountry() != null) {
+                if (partnerInfoList.get(0).getCountry() != null) {
 
-                    country = partnerInfo.getCountry().toString();
-
-
+                    country = partnerInfoList.get(0).getCountry().toString();
                 } else {
                     country = "SE";
                 }
                 locale = conversionUtility.getLocaleFromCountryCode(country);
-
-
-                if (partnerInfo.getAccountList() != null &&
-                    partnerInfo.getAccountList().size() > 0) {
-                    for (int i = 0; i < partnerInfo.getAccountList().size();
-                         i++) {
-                        if (partnerInfo.getAccountList().get(i) != null) {
-                            if (partnerInfo.getAccountList().get(i).getCardGroup() !=
-                                null &&
-                                partnerInfo.getAccountList().get(i).getCardGroup().size() >
-                                0) {
-                                for (int k = 0;
-                                     k < partnerInfo.getAccountList().get(i).getCardGroup().size();
-                                     k++) {
-                                    if (partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() !=
-                                        null &&
-                                        partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size() >
-                                        0) {
-                                        for (int m = 0;
-                                             m < partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size();
-                                             m++) {
-                                            cards.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
-                                            System.out.println("CardList--->" +
-                                                               partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID());
-
-
+                
+                 for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
+                    if (partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() !=null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0){
+                                for (int cg = 0;cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size();cg++){
+                                    if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
+                                        for (int cc = 0;cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null){
+                                                cards.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                                System.out.println("CardList--->" +partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                            }
                                         }
                                     }
                                 }
-
-
                             }
                         }
                     }
-                }
+                 }
                 String idList = cards.toString();
-                String cardId =
-                    idList.substring(1, idList.length() - 1).replace(" ", "");
+                String cardId =idList.substring(1, idList.length() - 1).replace(" ", "");
 
                 System.out.println("arraylist after conversion is " + cardId);
 

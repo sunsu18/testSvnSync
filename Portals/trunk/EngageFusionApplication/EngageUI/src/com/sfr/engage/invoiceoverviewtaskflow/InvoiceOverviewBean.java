@@ -66,7 +66,7 @@ public class InvoiceOverviewBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
-    private String accountValue;
+    private List<String> accountValue;
     private List<String> cardGroupValue;
     private String invoiceTypeValue;    
     private List<String> cardValue;    
@@ -83,7 +83,6 @@ public class InvoiceOverviewBean implements Serializable {
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
-    private PartnerInfo partnerInfo;
     private String cardGroupSubtypePassValues = "";
     private String cardGroupMaintypePassValue = "";
     private String cardGroupSeqPassValues     = "";
@@ -97,6 +96,13 @@ public class InvoiceOverviewBean implements Serializable {
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
     
+    private List<PartnerInfo> partnerInfoList;
+    private ArrayList<SelectItem> partnerList = null;
+    private String partnerValue = null;
+    
+    
+    
+
     public InvoiceOverviewBean() {
         super();
         conversionUtility = new Conversion(); 
@@ -104,25 +110,30 @@ public class InvoiceOverviewBean implements Serializable {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);        
         resourceBundle = new EngageResourceBundle();
-        accountList=new ArrayList<SelectItem>();
+        partnerList    = new ArrayList<SelectItem>();
         if(session.getAttribute("Partner_Object_List") != null){
-            partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-        if(partnerInfo != null){
-            if(partnerInfo.getPartnerValue() != null){   
-                partnerId = partnerInfo.getPartnerValue().toString(); 
+        
+        if(partnerInfoList != null && partnerInfoList.size() > 0){
+            for(int i=0 ; i<partnerInfoList.size() ; i++){
+                SelectItem selectItemPartner = new SelectItem();
+                selectItemPartner.setLabel(partnerInfoList.get(i).getPartnerName().toString());
+                selectItemPartner.setValue(partnerInfoList.get(i).getPartnerValue().toString());
+                partnerList.add(selectItemPartner);
             }
+            
          
-            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " " + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
-                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " " +"value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    SelectItem selectItem = new SelectItem();
-                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    accountList.add(selectItem);
-                }
-            }
+//            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+//                log.info(accessDC.getDisplayRecord() + this.getClass() + " " + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
+//                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+//                    log.info(accessDC.getDisplayRecord() + this.getClass() + " " +"value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+//                    SelectItem selectItem = new SelectItem();
+//                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+//                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
+//                    accountList.add(selectItem);
+//                }
+//            }
         }
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
         
@@ -142,70 +153,28 @@ public class InvoiceOverviewBean implements Serializable {
     }
     
     public ArrayList<SelectItem> getAccountList() {
-//        if (accountList == null) {
-//            accountList = new ArrayList<SelectItem>();            
-//                SelectItem selectItem = new SelectItem();
-//                selectItem.setLabel("100");
-//                selectItem.setValue("100");
-//                accountList.add(selectItem);
-//            SelectItem selectItem1 = new SelectItem();
-//            selectItem1.setLabel("200");
-//            selectItem1.setValue("200");
-//            accountList.add(selectItem1);
         return accountList;
     }
     
     public ArrayList<SelectItem> getCardGroupList() {
-    //        if (accountList == null) {
-    //            accountList = new ArrayList<SelectItem>();
-    //                SelectItem selectItem = new SelectItem();
-    //                selectItem.setLabel("100");
-    //                selectItem.setValue("100");
-    //                accountList.add(selectItem);
-    //            SelectItem selectItem1 = new SelectItem();
-    //            selectItem1.setLabel("200");
-    //            selectItem1.setValue("200");
-    //            accountList.add(selectItem1);
         return cardGroupList;
     }
     
     public ArrayList<SelectItem> getCardList() {
-    //        if (accountList == null) {
-    //            accountList = new ArrayList<SelectItem>();
-    //                SelectItem selectItem = new SelectItem();
-    //                selectItem.setLabel("100");
-    //                selectItem.setValue("100");
-    //                accountList.add(selectItem);
-    //            SelectItem selectItem1 = new SelectItem();
-    //            selectItem1.setLabel("200");
-    //            selectItem1.setValue("200");
-    //            accountList.add(selectItem1);
         return cardList;
     }
     
     public ArrayList<SelectItem> getInvoiceTypeList() {
         if (invoiceTypeList == null) {
-//            ViewObject vo = ADFUtils.getViewObject("PrtAccountRVO1Iterator");
-//            vo.setNamedWhereClauseParam("countryCode", "en_US");
-//            vo.executeQuery();
             invoiceTypeList = new ArrayList<SelectItem>();            
                 SelectItem selectItem = new SelectItem();
                 selectItem.setLabel("Card");
                 selectItem.setValue("Card");
                 invoiceTypeList.add(selectItem);
-            SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Bulk");
-            selectItem1.setValue("Bulk");
-            invoiceTypeList.add(selectItem1);  
-//            while (vo.hasNext()) {
-//                PrtAccountRVORowImpl currRow = (PrtAccountRVORowImpl)vo.next();
-//                if (currRow.getAccountId() != null) {
-//                    SelectItem selectItem = new SelectItem();
-//                    selectItem.setLabel(currRow.getAccountId());
-//                    selectItem.setValue(currRow.getAccountId());
-//                    accountList.add(selectItem);
-//                }
-//            }
+                SelectItem selectItem1 = new SelectItem();
+                selectItem1.setLabel("Bulk");
+                selectItem1.setValue("Bulk");
+                invoiceTypeList.add(selectItem1);  
         }
         return invoiceTypeList;
     }
@@ -218,14 +187,6 @@ public class InvoiceOverviewBean implements Serializable {
             bindings = new Bindings();
         }
         return bindings;
-    }
-
-    public void setAccountValue(String accountValue) {
-        this.accountValue = accountValue;
-    }
-
-    public String getAccountValue() {
-        return accountValue;
     }
 
     public void setInvoiceTypeValue(String invoiceTypeValue) {
@@ -305,8 +266,9 @@ public class InvoiceOverviewBean implements Serializable {
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+getBindings().getFromDate().getValue());
                 ViewObject invoiceVO =
                     ADFUtils.getViewObject("PrtInvoiceVO1Iterator"); 
-                if ("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardPK,PRT_CARD_PK)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                if ("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardPK,PRT_CARD_PK)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
                     invoiceVO.removeNamedWhereClauseParam("countryCode");
+                    invoiceVO.removeNamedWhereClauseParam("partnerId");
                     invoiceVO.removeNamedWhereClauseParam("accountId");
                     invoiceVO.removeNamedWhereClauseParam("fromDateBV");
                     invoiceVO.removeNamedWhereClauseParam("toDateBV");
@@ -315,8 +277,9 @@ public class InvoiceOverviewBean implements Serializable {
                     invoiceVO.setWhereClause("");
                     invoiceVO.executeQuery();
                 }else {
-                    if ("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                    if ("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
                         invoiceVO.removeNamedWhereClauseParam("countryCode");
+                        invoiceVO.removeNamedWhereClauseParam("partnerId");
                         invoiceVO.removeNamedWhereClauseParam("accountId");
                         invoiceVO.removeNamedWhereClauseParam("fromDateBV");
                         invoiceVO.removeNamedWhereClauseParam("toDateBV");
@@ -328,9 +291,11 @@ public class InvoiceOverviewBean implements Serializable {
                         invoiceVO.executeQuery();
                     }
                 }
-                invoiceVO.setWhereClause("COUNTRY_CODE =:countryCode AND trim(ACCOUNT_ID) =:accountId AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')");
-               invoiceVO.defineNamedWhereClauseParam("accountId",getBindings().getAccount().getValue(),null);
+                invoiceVO.setWhereClause("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')");
+                System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
+                invoiceVO.defineNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()),null);
                 invoiceVO.defineNamedWhereClauseParam("countryCode",lang,null);
+                invoiceVO.defineNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue(),null);
                 invoiceVO.defineNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString(),null);
                 invoiceVO.defineNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString(),null);
                 if(getBindings().getInvoiceType().getValue()!=null) {
@@ -399,8 +364,11 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void clearSearchListener(ActionEvent actionEvent) {
         // Add event code here...
+        
+        //this.accountValue=null;
+        this.partnerValue = null;
+        getBindings().getAccount().setSubmittedValue(null);
         getBindings().getAccount().setValue(null);
-        this.accountValue=null;
         getBindings().getCardGpCardList().setValue(null);
         this.invoiceTypeValue=null;
         getBindings().getFromDate().setValue(null);
@@ -495,30 +463,48 @@ public class InvoiceOverviewBean implements Serializable {
         // Add event code here...
         if(getBindings().getAccount().getValue()!=null)
         {
-        if(valueChangeEvent.getNewValue()!=null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Value ="+valueChangeEvent.getNewValue());
-            if(valueChangeEvent.getNewValue().equals("CardGroup")) {
-            populateValue(valueChangeEvent.getNewValue().toString());
-                cGCardVisible=true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
-            cardGroupVisible=true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
-                cardVisible=false;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
+            String accountNumberPassingValues = null;
+            String[] accountNumberValues;
+            int accountCount = 0;
+            accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
+            cardGroupList  = new ArrayList<SelectItem>();
+            cardGroupValue = new ArrayList<String>();
+            cardList       = new ArrayList<SelectItem>();
+            cardValue      = new ArrayList<String>();
+            if(accountNumberPassingValues != null){
+                if(accountNumberPassingValues.contains(",")){
+                    accountNumberValues = accountNumberPassingValues.split(",");
+                    accountCount  = accountNumberValues.length;
+                }else{
+                    accountCount  = 1;
+                    accountNumberValues = new String[1];
+                    accountNumberValues[0] = accountNumberPassingValues;
+                }
                 
-            }else{
-                populateValue(valueChangeEvent.getNewValue().toString());
-                cGCardVisible=true;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
-                cardVisible=true;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
-                cardGroupVisible=false;
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
-                      
-            }            
-            
-        }
-        }else {
+                if(valueChangeEvent.getNewValue()!=null && accountCount > 0){
+                    for(int acCount=0 ; acCount<accountCount; acCount++){
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Value ="+valueChangeEvent.getNewValue());
+                        if(valueChangeEvent.getNewValue().equals("CardGroup")) {
+                            populateValue(valueChangeEvent.getNewValue().toString(),accountNumberValues[acCount].trim());
+                            cGCardVisible=true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
+                            cardGroupVisible=true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
+                            cardVisible=false;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
+                        }else{
+                            populateValue(valueChangeEvent.getNewValue().toString(),accountNumberValues[acCount].trim());
+                            cGCardVisible=true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());        
+                            cardVisible=true;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());  
+                            cardGroupVisible=false;
+                            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());  
+                        }            
+                    }
+                }
+            }
+        }else{
             if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK_1")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -530,47 +516,91 @@ public class InvoiceOverviewBean implements Serializable {
         }
     }
     
-    public void populateValue(String paramType){
+    public void populateValue(String paramType, String accountNumber){
         if(paramType != null){
             if(paramType.equals("CardGroup")){
-                cardGroupList  = new ArrayList<SelectItem>();
-                cardGroupValue  = new ArrayList<String>();
-                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
-                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
-                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
-                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
-                                    SelectItem selectItem = new SelectItem();
-                                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                    selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                    cardGroupList.add(selectItem);
-                                    cardGroupValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+//                cardGroupList  = new ArrayList<SelectItem>();
+//                cardGroupValue  = new ArrayList<String>();
+                popoluateCardCardgroupValues(accountNumber, paramType);
+//                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+//                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+//                        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Number inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getAccountNumber());
+//                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
+//                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
+//                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+//                                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Card Group inside select one radio button==========>"+partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID()!= null){
+//                                    SelectItem selectItem = new SelectItem();
+//                                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                    selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                    cardGroupList.add(selectItem);
+//                                    cardGroupValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
             }else{
-                if(paramType.equals("Card")){
-                cardList  = new ArrayList<SelectItem>();
-                cardValue  = new ArrayList<String>();
-                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
-                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){ 
-                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
-                                    for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
-                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID() != null){
-                                                SelectItem selectItem = new SelectItem();
-                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
-                                                selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
-                                                cardList.add(selectItem);
-                                                cardValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+                    if(paramType.equals("Card")){
+//                    cardList  = new ArrayList<SelectItem>();
+//                    cardValue  = new ArrayList<String>();
+                    popoluateCardCardgroupValues(accountNumber, paramType);
+    //                if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
+    //                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
+    //                        if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(getBindings().getAccount().getValue())){
+    //                            if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){ 
+    //                                for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
+    //                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
+    //                                    for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
+    //                                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID() != null){
+    //                                                SelectItem selectItem = new SelectItem();
+    //                                                selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
+    //                                                selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+    //                                                cardList.add(selectItem);
+    //                                                cardValue.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
+    //                                            }
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+                }
+            }
+        }
+    }
+    
+    public void popoluateCardCardgroupValues(String passingAccountNumber , String paramType){
+        if(passingAccountNumber != null && paramType != null){
+            if(partnerInfoList != null && partnerInfoList.size() > 0){
+                for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
+                    if(partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() >0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null && partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(passingAccountNumber)
+                              && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() >0){
+                                for(int cg=0 ; cg<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
+                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID() != null){
+                                        if(paramType.equals("CardGroup")){
+                                            SelectItem selectItemCardGroup = new SelectItem();
+                                            selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            selectItemCardGroup.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            cardGroupList.add(selectItemCardGroup);
+                                            cardGroupValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                        }else{
+                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null 
+                                               && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
+                                                for(int cc=0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+                                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null
+                                                       && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() != null){
+                                                           SelectItem selectItem = new SelectItem();
+                                                           selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                           selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                                           cardList.add(selectItem);
+                                                           cardValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -579,9 +609,7 @@ public class InvoiceOverviewBean implements Serializable {
                         }
                     }
                 }
-                    
             }
-        }
         }
     }
 
@@ -606,9 +634,49 @@ public class InvoiceOverviewBean implements Serializable {
         // Add event code here...
         if(valueChangeEvent.getNewValue()!=null) {
             getBindings().getCardGpCardList().setValue(null);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());  
+            cGCardVisible    = false;
+            cardGroupVisible = false;
+            cardVisible      = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
             
         }
+    }
+    
+    public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent){
+            if(valueChangeEvent.getNewValue()!=null) {
+                getBindings().getCardGpCardList().setValue(null);
+                cGCardVisible    = false;
+                cardGroupVisible = false;
+                cardVisible      = false;
+                
+                accountList    = new ArrayList<SelectItem>();
+                accountValue   = new ArrayList<String>();
+                if(partnerInfoList != null && partnerInfoList.size() > 0){
+                    for(int i=0 ; i<partnerInfoList.size() ; i++){
+                        if(partnerInfoList.get(i).getPartnerValue() != null && partnerInfoList.get(i).getPartnerValue().toString().equals(valueChangeEvent.getNewValue().toString())
+                           && partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() >0){
+                            for(int m=0 ; m<partnerInfoList.get(i).getAccountList().size(); m++){
+                                if(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber() != null){
+                                    SelectItem selectItemAccount = new SelectItem();
+                                    selectItemAccount.setLabel(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                    selectItemAccount.setValue(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                    accountList.add(selectItemAccount);
+                                    accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                }
+                            }
+                        }
+                    }
+                }
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+                
+            }
     }
 
     public void setLocale(Locale locale) {
@@ -809,9 +877,32 @@ public class InvoiceOverviewBean implements Serializable {
         return lang;
     }
 
+    public void setPartnerList(ArrayList<SelectItem> partnerList) {
+        this.partnerList = partnerList;
+    }
+
+    public ArrayList<SelectItem> getPartnerList() {
+        return partnerList;
+    }
+
+    public void setAccountValue(List<String> accountValue) {
+        this.accountValue = accountValue;
+    }
+
+    public List<String> getAccountValue() {
+        return accountValue;
+    }
+
+    public void setPartnerValue(String partnerValue) {
+        this.partnerValue = partnerValue;
+    }
+
+    public String getPartnerValue() {
+        return partnerValue;
+    }
 
     public class Bindings {
-        private RichSelectOneChoice account;
+        private RichSelectManyChoice account;
         private RichSelectOneChoice invoiceType;
         private RichSelectManyChoice cardGroup;
         private RichSelectManyChoice card;
@@ -823,17 +914,10 @@ public class InvoiceOverviewBean implements Serializable {
         private RichPanelGroupLayout cardGroupPGL;
         private RichPanelGroupLayout cardPGL;    
         private RichTable invoiceResults;
+        private RichSelectOneChoice partnerNumber;
         
 
-        public void setAccount(RichSelectOneChoice account) {
-            this.account = account;
-        }
-
-        public RichSelectOneChoice getAccount() {
-            return account;
-        }
-
-        public void setInvoiceType(RichSelectOneChoice invoiceType) {
+       public void setInvoiceType(RichSelectOneChoice invoiceType) {
             this.invoiceType = invoiceType;
         }
 
@@ -919,6 +1003,22 @@ public class InvoiceOverviewBean implements Serializable {
 
         public RichTable getInvoiceResults() {
             return invoiceResults;
+        }
+        
+        public void setPartnerNumber(RichSelectOneChoice partnerNumber) {
+            this.partnerNumber = partnerNumber;
+        }
+
+        public RichSelectOneChoice getPartnerNumber() {
+            return partnerNumber;
+        }
+
+        public void setAccount(RichSelectManyChoice account) {
+            this.account = account;
+        }
+
+        public RichSelectManyChoice getAccount() {
+            return account;
         }
     }
 }
