@@ -1,0 +1,21 @@
+<?binding.jca InsertDeltaTSSOADBAdapterV1_db.jca?>
+<wsdl:definitions name="InsertDeltaTSSOADBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1">
+    <plt:partnerLinkType name="InsertDeltaTSSOADBAdapterV1_plt">
+        <plt:role name="InsertDeltaTSSOADBAdapterV1_role">
+            <plt:portType name="tns:InsertDeltaTSSOADBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" schemaLocation="xsd/InsertDeltaTSSOADBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaDeltatableCollection_msg">
+        <wsdl:part name="EngageSoaDeltatableCollection" element="top:EngageSoaDeltatableCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="InsertDeltaTSSOADBAdapterV1_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:EngageSoaDeltatableCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

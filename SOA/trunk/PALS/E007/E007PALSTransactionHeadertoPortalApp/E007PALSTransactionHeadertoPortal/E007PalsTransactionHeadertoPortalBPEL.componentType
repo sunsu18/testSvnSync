@@ -44,4 +44,8 @@
              ui:wsdlLocation="UpdateEmailErrorFlagSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1#wsdl.interface(UpdateEmailErrorFlagSOADBAdapterV1_ptt)"/>
   </reference>
+  <reference name="InsertDeltaTSSOADBAdapterV1"
+             ui:wsdlLocation="InsertDeltaTSSOADBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1#wsdl.interface(InsertDeltaTSSOADBAdapterV1_ptt)"/>
+  </reference>
 </componentType>

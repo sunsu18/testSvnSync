@@ -1,12 +1,12 @@
-May 17, 2014 2:19:39 PM oracle.mds
+May 22, 2014 6:23:47 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-May 17, 2014 2:19:39 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+May 22, 2014 6:23:48 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-May 17, 2014 2:19:39 PM com.collaxa.cube.CubeLogger info
+May 22, 2014 6:23:48 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E007PalsTransactionHeadertoPortalBPEL.bpel" ...
-May 17, 2014 2:19:39 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+May 22, 2014 6:23:48 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-May 17, 2014 2:19:39 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+May 22, 2014 6:23:48 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -15,13 +15,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandl
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-May 17, 2014 2:19:40 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E007PalsTransactionHeadertoPortalBPEL" in 48.4 milliseconds [nodes 89=1+88, 1,837.0 nodes/sec]
-May 17, 2014 2:19:41 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E007PalsTransactionHeadertoPortalBPEL" in 1.222 seconds
-May 17, 2014 2:19:41 PM com.collaxa.cube.CubeLogger info
-INFO: Gathered 5 files in 0.4 milliseconds
+May 22, 2014 6:23:48 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E007PalsTransactionHeadertoPortalBPEL" in 49.6 milliseconds [nodes 91=1+90, 1,835.0 nodes/sec]
+May 22, 2014 6:23:49 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E007PalsTransactionHeadertoPortalBPEL" in 1.256 seconds
+May 22, 2014 6:23:49 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 5 files in 0.5 milliseconds
 
-May 17, 2014 2:19:41 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E007PalsTransactionHeadertoPortalBPEL" in 8.5 milliseconds
+May 22, 2014 6:23:49 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E007PalsTransactionHeadertoPortalBPEL" in 8.9 milliseconds
 
