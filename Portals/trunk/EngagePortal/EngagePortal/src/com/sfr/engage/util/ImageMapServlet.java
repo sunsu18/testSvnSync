@@ -61,7 +61,7 @@ public class ImageMapServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
-        log.fine(accessDC.getDisplayRecord()+ this.getClass() + "Inside doGET method of ImageServlet");
+        System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Inside doGET method of ImageServlet");
         OutputStream os = response.getOutputStream();
         Connection connection1 = null; 
         response.setContentType(CONTENT_TYPE);
@@ -72,7 +72,7 @@ public class ImageMapServlet extends HttpServlet {
 //        System.out.println("Request3 -----------------------> " + request.getParameter("param3"));
 //        System.out.println("Request4 -----------------------> " + request.getParameter("param4"));
 //        System.out.println("Request5 -----------------------> " + request.getParameter("param5"));
-        log.fine(accessDC.getDisplayRecord()+ this.getClass() + "Param1 = " + request.getParameter("param1") + "Param2 = " + request.getParameter("param2") + "Param3 = " + request.getParameter("param3") + "Param4 = " + request.getParameter("param4") + "Param5 = " + request.getParameter("param5"));
+        System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Param1 = " + request.getParameter("param1") + "Param2 = " + request.getParameter("param2") + "Param3 = " + request.getParameter("param3") + "Param4 = " + request.getParameter("param4") + "Param5 = " + request.getParameter("param5"));
         String featureName = request.getParameter("param1"); 
         String featureValue = request.getParameter("param2"); 
         String controlAttr = request.getParameter("param3"); 
@@ -109,7 +109,7 @@ public class ImageMapServlet extends HttpServlet {
                     try {
 
                         if (image_id != null) {
-                            log.info(accessDC.getDisplayRecord()+ this.getClass() + "Record found in image map table with image id " + image_id);
+                            System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Record found in image map table with image id " + image_id);
                             
                             int img_id = Integer.parseInt(image_id);
                             
@@ -119,7 +119,7 @@ public class ImageMapServlet extends HttpServlet {
                             //statement.setInt(1, new Integer(imageId));
                             ResultSet rs2 = statement2.executeQuery();
                             if (rs2.next()) {
-                                log.info(accessDC.getDisplayRecord()+ this.getClass() + "Record image found for " + img_id);
+                                System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Record image found for " + img_id);
                                 System.out.println("record image found"); // TODO : ASHTHA - 02, May, 2014 : Use logger
                                 Blob blob = rs2.getBlob("prt_img");
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
@@ -144,7 +144,7 @@ public class ImageMapServlet extends HttpServlet {
                             //statement.setInt(1, new Integer(imageId));
                             ResultSet rs2 = statement2.executeQuery();
                             if (rs2.next()) {
-                                log.info(accessDC.getDisplayRecord()+ this.getClass() + "Record image found for " + img_id);
+                                System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Record image found for " + img_id);
                                 System.out.println("record image found"); // TODO : ASHTHA - 02, May, 2014 : Use logger
                                 Blob blob = rs2.getBlob("prt_img");
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
@@ -158,7 +158,7 @@ public class ImageMapServlet extends HttpServlet {
                             
                         }
                     } catch (Exception e) {
-                        log.severe(accessDC.getDisplayRecord()+ this.getClass() + "Internal Query Error for PRT_GEN_IMAGE table " + e.getMessage());
+                        System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Internal Query Error for PRT_GEN_IMAGE table " + e.getMessage());
                         
                     }
                     finally {
@@ -177,12 +177,12 @@ public class ImageMapServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
-            log.severe(accessDC.getDisplayRecord()+ this.getClass() + "External Query Error for PRT_GEN_IMAGE_MAP table " + e.getMessage());
+            System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "External Query Error for PRT_GEN_IMAGE_MAP table " + e.getMessage());
             
         }
        
         
-        log.fine(accessDC.getDisplayRecord()+ this.getClass() + "Exiting from doGET method of ImageServlet");
+        System.out.println(accessDC.getDisplayRecord()+ this.getClass() + "Exiting from doGET method of ImageServlet");
     }
     
     
