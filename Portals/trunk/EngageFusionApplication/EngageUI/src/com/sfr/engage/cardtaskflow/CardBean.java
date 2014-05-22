@@ -3,6 +3,8 @@ package com.sfr.engage.cardtaskflow;
 import com.sfr.engage.core.PartnerInfo;
 
 import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
+import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewBean;
 import com.sfr.util.ADFUtils;
@@ -14,8 +16,10 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -70,7 +74,14 @@ public class CardBean implements Serializable {
     private boolean driverPGL   = false;
     private boolean vehiclePGL = false;
     private String cardAssociation = null;
-  
+    private String associatedAccount = null;
+    private ArrayList<SelectItem> vehicleNumberList; 
+    private String vehicleNumberValue;
+    private ArrayList<SelectItem> driverNameList; 
+    private String driverNameValue;
+    Map<String,String> truckDriverList = new HashMap<String,String>();
+    private String displayDriverName;
+   private String  displayVehicleName;
 
     public CardBean() {
         super();
@@ -524,8 +535,10 @@ public class CardBean implements Serializable {
         getBindings().getPartner().setValue(null);
         getBindings().getStatus().setValue(null);
         this.partnerIdValue = null;
+        this.accountIdList = null;
         this.accountIdValue = null;
         this.cardGroupValue = null;
+        this.cardGroupList = null;
         statusValue.add("1,2");
         statusValue.add("0");
         isTableVisible=false;
@@ -537,6 +550,8 @@ public class CardBean implements Serializable {
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
         
+        System.out.println("inside radio button value change");
+        
         if(valueChangeEvent.getNewValue() != null){
       
             if(valueChangeEvent.getNewValue().equals("Driver")){
@@ -544,11 +559,15 @@ public class CardBean implements Serializable {
              
                 driverPGL = true;
                 vehiclePGL = false;
+                System.out.println("driver"+valueChangeEvent.getNewValue().toString());
+                populateValue(valueChangeEvent.getNewValue().toString());
            
             }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
            
                 driverPGL   = false;
                 vehiclePGL = true;
+                System.out.println("vehicle"+valueChangeEvent.getNewValue().toString());
+                populateValue(valueChangeEvent.getNewValue().toString());
             
             }
       
@@ -590,8 +609,157 @@ public class CardBean implements Serializable {
     public String editDetails() {
         cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
         getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
-        
         return null;
+    }
+    
+    public void populateValue(String paramType){
+        
+        System.out.println("inside populate value param type"+paramType);
+        if(paramType != null){
+            associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
+            System.out.println(associatedAccount+"associatedAccount");
+            if(paramType.equals("Vehicle") || paramType.equals("Driver")){
+                if(vehiclePGL){
+                    System.out.println("vehiclePGL");
+                    vehicleNumberList  = new ArrayList<SelectItem>();
+                    
+                }
+                if(driverPGL){
+                    System.out.println("driverPGL");
+                    driverNameList  = new ArrayList<SelectItem>();
+                   
+                }
+                ViewObject vo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
+                System.out.println(vo+"ViewObject");
+                if(associatedAccount != null){
+                    System.out.println("inside if"+associatedAccount);
+                vo.setNamedWhereClauseParam("accountValue",associatedAccount);
+                }
+                System.out.println("country code"+lang);
+                vo.setNamedWhereClauseParam("countryCd", lang);
+              
+                vo.setNamedWhereClauseParam("paramValue", paramType);
+                vo.executeQuery();
+                System.out.println("outside if"+vo.getEstimatedRowCount());
+                if(vo.getEstimatedRowCount() > 0){
+                    System.out.println("inside EstimatedRowCount"+vo.getEstimatedRowCount());
+                    for (int n = 0; n < vo.getEstimatedRowCount(); n++) {
+                        while(vo.hasNext()){
+                            PrtViewVehicleDriverVORowImpl currRow = (PrtViewVehicleDriverVORowImpl)vo.next();
+                            if (currRow != null) {
+                                if(paramType.equals("Vehicle")){
+                                    System.out.println("param---------"+paramType);
+                                    SelectItem selectItem = new SelectItem();
+                                  
+                                    if(currRow.getAttribute("VehicleNumber") != null)
+                                    {
+                                        System.out.println("VehicleNumber"+currRow.getVehicleNumber());
+                                    selectItem.setLabel(currRow.getVehicleNumber().toString());
+                                    selectItem.setValue(currRow.getVehicleNumber().toString());
+                                        truckDriverList.put(currRow.getVehicleNumber().toString(), currRow.getInternalName());
+                           
+                                    }
+                                    vehicleNumberList.add(selectItem);
+                                }else{
+                                    System.out.println("param---------"+paramType);
+                                    SelectItem selectItem = new SelectItem();
+                                   
+                                    if(currRow.getAttribute("DriverNumber") != null)
+                                    {
+                                        System.out.println("getDriverNumber"+currRow.getDriverNumber());
+                                    selectItem.setLabel(currRow.getDriverNumber().toString());
+                                    selectItem.setValue(currRow.getDriverNumber().toString());
+                                        truckDriverList.put(currRow.getDriverNumber().toString(), currRow.getDriverName());
+                                    }
+                                    driverNameList.add(selectItem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void setAssociatedAccount(String associatedAccount) {
+        this.associatedAccount = associatedAccount;
+    }
+
+    public String getAssociatedAccount() {
+        return associatedAccount;
+    }
+
+    public void setVehicleNumberList(ArrayList<SelectItem> vehicleNumberList) {
+        this.vehicleNumberList = vehicleNumberList;
+    }
+
+    public ArrayList<SelectItem> getVehicleNumberList() {
+        return vehicleNumberList;
+    }
+
+    public void setVehicleNumberValue(String vehicleNumberValue) {
+        this.vehicleNumberValue = vehicleNumberValue;
+    }
+
+    public String getVehicleNumberValue() {
+        return vehicleNumberValue;
+    }
+
+    public void setDriverNameList(ArrayList<SelectItem> driverNameList) {
+        this.driverNameList = driverNameList;
+    }
+
+    public ArrayList<SelectItem> getDriverNameList() {
+        return driverNameList;
+    }
+
+    public void setDriverNameValue(String driverNameValue) {
+        this.driverNameValue = driverNameValue;
+    }
+
+    public String getDriverNameValue() {
+        return driverNameValue;
+    }
+
+    public void setTruckDriverList(Map<String, String> truckDriverList) {
+        this.truckDriverList = truckDriverList;
+    }
+
+    public Map<String, String> getTruckDriverList() {
+        return truckDriverList;
+    }
+
+    public void driverValueChangeListener(ValueChangeEvent valueChangeEvent) {
+     if(valueChangeEvent.getNewValue()!=null)  {
+         System.out.println("inside driver value change");
+        displayDriverName = truckDriverList.get(valueChangeEvent.getNewValue().toString());
+        System.out.println("driver name"+ displayDriverName);
+         
+     }
+    }
+
+    public void setDisplayDriverName(String displayDriverName) {
+        this.displayDriverName = displayDriverName;
+    }
+
+    public String getDisplayDriverName() {
+        return displayDriverName;
+    }
+
+    public void vehicleValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue()!=null)  {
+            System.out.println("inside vehicle value change");
+           displayVehicleName = truckDriverList.get(valueChangeEvent.getNewValue().toString());
+           System.out.println("driver name"+ displayVehicleName);
+    }
+    }
+
+    public void setDisplayVehicleName(String displayVehicleName) {
+        this.displayVehicleName = displayVehicleName;
+    }
+
+    public String getDisplayVehicleName() {
+        return displayVehicleName;
     }
 
 

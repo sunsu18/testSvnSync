@@ -256,7 +256,7 @@
             </af:column>
             <af:column sortProperty="BlockCode" filterable="true" headerText="#{sfr.STATUS}"
                        id="c4" width="110px">
-              <af:inputText value="#{(row.bindings.BlockCode.inputValue) eq '0'?  'Unblocked' : 'Blocked' }"
+              <af:inputText value="#{(row.bindings.BlockCode.inputValue) eq '0' ?  'Unblocked' : ( (row.bindings.BlockCode.inputValue) eq '1' ? 'Temporary Block' : 'Permanent Block' ) }"
                             label="#{bindings.PrtViewCardsVO11.hints.BlockCode.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.BlockCode.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.BlockCode.displayWidth}"
@@ -291,9 +291,9 @@
                                    action="#{pageFlowScope.CardBean.editDetails}">
                <af:setPropertyListener from="#{row.CardType}"
                                 to="#{pageFlowScope.cardAssociation}"
-                                type="action"
-                              />       
-           
+                                type="action"/>       
+                
+                <af:setPropertyListener from="#{row.AccountId}" to="#{pageFlowScope.associatedAccount}" type="action"/>
                 
                 </af:commandImageLink>
             
@@ -329,15 +329,22 @@
                       <af:spacer width="10" height="15" id="s10"/>
                <af:selectOneChoice id="soc1" showRequired="false"
                                 unselectedLabel="&lt;Please Select>"
-                                contentStyle="width: 175px;">
-                    
+                                value="#{pageFlowScope.CardBean.driverNameValue}"
+                                contentStyle="width: 175px;"
+                                   valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}" autoSubmit="true" >
+                    <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
+                    var="listItem">
+                <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                    id="select_item_vehicle"/>
+            </af:forEach>
                 </af:selectOneChoice> 
  
         <af:outputText value="#{sfr.DRIVER_NAME}" id="ot10"/>
            <af:spacer width="10" height="15" id="s19"/>
                     <af:outputText value=":" id="ot9"/>
                       <af:spacer width="10" height="15" id="s20"/>
-                        <af:outputText value="" id="ot16"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.displayDriverName}" id="ot16"
+                                       partialTriggers="soc1"/>
   </h:panelGrid>
   </af:panelGroupLayout>
   <af:panelGroupLayout id="vehicle"
@@ -350,7 +357,14 @@
                       <af:spacer width="10" height="15" id="s18"/>
                <af:selectOneChoice id="soc2" showRequired="false"
                                 unselectedLabel="&lt;Please Select>"
-                                contentStyle="width: 175px;" autoSubmit="true">
+                                value="#{pageFlowScope.CardBean.vehicleNumberValue}"
+                                contentStyle="width: 175px;" autoSubmit="true"
+                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}">
+                    <af:forEach items="#{pageFlowScope.CardBean.vehicleNumberList}"
+                    var="listItem">
+                <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                    id="si3"/>
+            </af:forEach>
                                  
             </af:selectOneChoice>
  
@@ -358,7 +372,8 @@
            <af:spacer width="10" height="15" id="s21"/>
                     <af:outputText value=":" id="ot17"/>
                       <af:spacer width="10" height="15" id="s22"/>
-                        <af:outputText value="" id="ot15"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.displayVehicleName}" id="ot15"
+                                       partialTriggers="soc2"/>
                    
              </h:panelGrid>
             </af:panelGroupLayout>
@@ -372,8 +387,21 @@
         </af:panelGroupLayout>
      
     </af:panelGroupLayout>
-     
-</af:panelGroupLayout>
+    <!--<af:inputText value="#{bindings.DriverName.inputValue}" simple="true"
+                  required="#{bindings.DriverName.hints.mandatory}"
+                  columns="#{bindings.DriverName.hints.displayWidth}"
+                  maximumLength="#{bindings.DriverName.hints.precision}"
+                  shortDesc="#{bindings.DriverName.hints.tooltip}" id="it8">
+      <f:validator binding="#{bindings.DriverName.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.DriverName.inputValue}" simple="true"
+                  required="#{bindings.DriverName.hints.mandatory}"
+                  columns="#{bindings.DriverName.hints.displayWidth}"
+                  maximumLength="#{bindings.DriverName.hints.precision}"
+                  shortDesc="#{bindings.DriverName.hints.tooltip}" id="it8">
+      <f:validator binding="#{bindings.DriverName.validator}"/>
+    </af:inputText>-->
+  </af:panelGroupLayout>
 </jsp:root>
        
       

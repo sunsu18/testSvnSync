@@ -11,6 +11,9 @@
     <searchRegion Binds="PrtViewCardsVO1Iterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="PrtViewCardsVO11Query"/>
+    <iterator Binds="PrtViewVehicleDriverVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO1">
@@ -43,5 +46,11 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO1Iterator"
+                     id="DriverName">
+      <AttrNames>
+        <Item Value="DriverName"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>
