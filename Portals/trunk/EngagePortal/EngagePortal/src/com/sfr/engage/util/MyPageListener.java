@@ -1854,7 +1854,11 @@ new CardInfo();
                                 cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
                                 cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
                                 cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+                                if(currRowcardgrp.getCardgroupDescription()!= null)
                                 cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
+                                else
+                                cardgrp.setCardGroupName("Name not found");
+                                    
                                 cardgrp.setCardGroupOverview(true);
                             }
 
