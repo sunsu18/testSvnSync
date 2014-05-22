@@ -82,6 +82,7 @@ private boolean passwordChangeRequired;
     boolean executeAcc = false;
     boolean accountOverView = false;
     boolean cardGroupOverview = false;
+    boolean skipOtherRoles = false;
     AccountInfo account_check = new AccountInfo();
     CardGroupInfo cardgrp_check =
         new CardGroupInfo();
@@ -262,7 +263,7 @@ private boolean passwordChangeRequired;
                             partnerinfo_list = new ArrayList<PartnerInfo>();
                            
                             partnerlist = new ArrayList<PartnerInfo>();
-                            partnerListSession = new ArrayList<PartnerInfo>();
+                            
                             
                             //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
                              for (int i = 0; i < user.getRoleList().size();
@@ -342,7 +343,7 @@ private boolean passwordChangeRequired;
                             
                             //TODO : HITK - To remove this after testing
                             log.info(accessDC.getDisplayRecord() +  this.getClass() + " Final Partner list 2 size after going through the entire RoleList " + partnerlist.size());
-
+                            partnerListSession = new ArrayList<PartnerInfo>();
 
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
@@ -362,7 +363,7 @@ private boolean passwordChangeRequired;
                                                                         }
                                                                             while(partIndex < user.getRoleList().get(i).getIdString().size());
                                                                             }
-                                    session.setAttribute("executePartnerObjLogic", "no");
+                                   // session.setAttribute("executePartnerObjLogic", "no");
                                     log.info((accessDC.getDisplayRecord() +  this.getClass() + " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
                                     
                                     
@@ -380,7 +381,7 @@ private boolean passwordChangeRequired;
                                     if (session.getAttribute("executePartnerObjLogic") ==
                                         null) {
                                         
-                        partnerListSession = new ArrayList<PartnerInfo>();            
+                                    
                         for(int partid = 0; partid < partnerlist.size(); partid++)
                         { 
                                 String partnerId = partnerlist.get(partid).getPartnerValue().toString();
@@ -392,7 +393,18 @@ private boolean passwordChangeRequired;
                                 
                                 //TODO : HITK - For multipartner add one for loop for partnerlist size
                                 //TODO : Also to check if partner list values are proper or else get it from session
-                            
+                           
+                                skipOtherRoles = false;
+                           
+                           if(partnerListSession!= null) {
+                               for(int k=0;k<partnerListSession.size();k++)
+                                   if(partnerListSession.get(k).getPartnerValue().equalsIgnoreCase(partnerId) && partnerListSession.get(k).isCompanyOverview())
+                                   {skipOtherRoles = true; break;}
+                               else
+                               skipOtherRoles = false;
+                           }
+                           if(!skipOtherRoles)
+                            {        
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
                                 
@@ -1443,7 +1455,7 @@ new CardInfo();
                                 }
                                  }
                                         partnerListSession.add(part);
-
+                        }
                                     }
                                 if (session != null) {
                                     session.setAttribute("Partner_Object_List",
@@ -2178,7 +2190,7 @@ return PartnerName;
 
 //                rr= new Roles();
 //                idString = new ArrayList<String>();
-                        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+                rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
                 idString.add("NOPP26773218");
                 idString.add("NOPP26773219");
                 rr.setIdString(idString);
@@ -2186,7 +2198,7 @@ return PartnerName;
 
 
 
-rr = new Roles();
+                rr = new Roles();
                 rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
                                 idString = new ArrayList<String>();
                 idString.add("NOPP26773218CGSLUTRX00001");
