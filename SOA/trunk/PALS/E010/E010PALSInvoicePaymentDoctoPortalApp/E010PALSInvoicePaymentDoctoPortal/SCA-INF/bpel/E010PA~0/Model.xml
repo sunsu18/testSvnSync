@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E010PALSInvoicePaymentDoctoPrtalBPELProcess" targetNamespace="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E010/E010InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectRecordCountPALSDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SelectRecordCountPALSDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/MergeInvoicePaymentPortalDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertInvoicePaymentSOAErrorLogDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" id="BpPrc0">
+<process name="E010PALSInvoicePaymentDoctoPrtalBPELProcess" targetNamespace="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E010/E010InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectRecordCountPALSDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SelectRecordCountPALSDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/MergeInvoicePaymentPortalDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertInvoicePaymentSOAErrorLogDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/UpdateEmailFlagSOAErrorLogDBAdapterV1" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1" xmlns:ns17="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertInvoicePaymentSOAErrorLogDBAdapterV1" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +17,8 @@
     <partnerLink name="InsertInvoicePaymentSOAErrorLogDBAdapterV1" partnerLinkType="ns11:InsertInvoicePaymentSOAErrorLogDBAdapterV1_plt" partnerRole="InsertInvoicePaymentSOAErrorLogDBAdapterV1_role"/>
     <partnerLink name="SelectErrorRecordsSOADBAdapterV1" partnerLinkType="ns12:SelectErrorRecordsSOADBAdapterV1_plt" partnerRole="SelectErrorRecordsSOADBAdapterV1_role"/>
     <partnerLink name="InsertDeltaTSSOADBAdapterV1" partnerLinkType="ns13:InsertDeltaTSSOADBAdapterV1_plt" partnerRole="InsertDeltaTSSOADBAdapterV1_role"/>
+    <partnerLink name="UpdateEmailFlagSOAErrorLogDBAdapterV1" partnerLinkType="ns15:UpdateEmailFlagSOAErrorLogDBAdapterV1_plt" partnerRole="UpdateEmailFlagSOAErrorLogDBAdapterV1_role"/>
+    <partnerLink name="SOAErrorHanderJMSAdapterV1" partnerLinkType="ns16:Produce_Message_plt" partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveInvoicePaymentReqMsg_IV" messageType="ns1:requestMessage"/>
@@ -38,6 +40,8 @@
     <variable name="InvokeInsertDeltaTSSOADBAdapterV1_IV" messageType="ns13:EngageSoaDeltatableCollection_msg"/>
     <variable name="InvokeSelectErrorRecordsSOADBAdapterV1_IV" messageType="ns12:SelectErrorRecordsSOADBAdapterV1Input_msg"/>
     <variable name="InvokeSelectErrorRecordsSOADBAdapterV1_OV" messageType="ns12:SelectErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
+    <variable name="InvokeUpdateEmailFlagSOAErrorLogDBAdapterV1_IV" messageType="ns15:EngageSoaInvPmtErrorlogCollection_msg"/>
+    <variable name="InvokeSOAErrorHandler_IV" messageType="ns16:Produce_Message_msg"/>
   </variables>
   <sequence name="main" id="BpSeq0">
     <receive name="ReceiveInvoicePaymentReqMsg" createInstance="yes" variable="ReceiveInvoicePaymentReqMsg_IV" partnerLink="E010PALSInvoicePaymentdoctoPortal" portType="ns1:execute_ptt" operation="execute" id="BpRcv0"/>
@@ -293,6 +297,71 @@
               <to variable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV" part="EngageSoaInvPmtErrorlogCollection"/>
             </copy>
           </assign>
+          <assign name="AssignSOAErrorHAndlerValues" id="BpAss20">
+            <copy>
+              <from expression="ora:getCompositeInstanceId()"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
+            </copy>
+            <copy>
+              <from/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
+            </copy>
+            <copy>
+              <from expression="'E010PALSInvoicePaymentDoctoPortal'"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
+            </copy>
+            <copy>
+              <from expression="xp20:current-dateTime()"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:SenderSystem"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:UserName"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
+            </copy>
+            <copy>
+              <from expression="'BE-026'"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
+            </copy>
+            <copy>
+              <from expression="'Unable to process records.Records moved to SOA error log table ENGANE_SOA_INV_PMT_ERRORLOG'"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
+            </copy>
+            <copy>
+              <from expression="ora:getNodeValue(bpws:getVariableData('InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV','EngageSoaInvPmtErrorlogCollection','/ns18:EngageSoaInvPmtErrorlogCollection'))"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
+            </copy>
+            <copy>
+              <from expression="'E010_BE'"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
+            </copy>
+            <copy>
+              <from expression="'Error while processing the records for the interface E010'"/>
+              <to variable="InvokeSOAErrorHandler_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeSOAErrorHandler" inputVariable="InvokeSOAErrorHandler_IV" partnerLink="SOAErrorHanderJMSAdapterV1" portType="ns16:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv8"/>
+          <assign name="Xform_ErrorData_to_EmailFlagUpdate" id="BpAss21">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/ErrorData_to_EmailFlagUpdate.xsl', $InvokeSelectErrorRecordsSOADBAdapterV1_OV.SelectErrorRecordsSOADBAdapterV1OutputCollection)"/>
+              <to variable="InvokeUpdateEmailFlagSOAErrorLogDBAdapterV1_IV" part="EngageSoaInvPmtErrorlogCollection"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeUpdateEmailFlagSOAErrorLogDBAdapterV1" inputVariable="InvokeUpdateEmailFlagSOAErrorLogDBAdapterV1_IV" partnerLink="UpdateEmailFlagSOAErrorLogDBAdapterV1" portType="ns15:UpdateEmailFlagSOAErrorLogDBAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv9"/>
         </sequence>
       </case>
       <otherwise>

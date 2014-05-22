@@ -11,9 +11,11 @@
       <partnerlink name="MergeInvoicePaymentPortalDBAdapterV1" x="0" y="2913" side="left"/>
       <partnerlink name="InsertInvoicePaymentSOAErrorLogDBAdapterV1" x="0" y="2516" side="left"/>
       <partnerlink name="SelectErrorRecordsSOADBAdapterV1" x="0" y="3636" side="left"/>
+      <partnerlink name="UpdateEmailFlagSOAErrorLogDBAdapterV1" x="0" y="4091" side="left"/>
+      <partnerlink name="SOAErrorHanderJMSAdapterV1" x="0" y="3908" side="left"/>
       <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="1100" y="3290" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,3452,781,495" show_swimlanes="true">
+   <graph_layout viewport="0,3654,781,495" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[1]" type="scope" showhandlers="true"/>

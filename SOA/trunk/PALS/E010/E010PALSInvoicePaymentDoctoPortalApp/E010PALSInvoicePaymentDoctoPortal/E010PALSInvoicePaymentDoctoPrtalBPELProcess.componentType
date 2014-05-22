@@ -36,4 +36,12 @@
              ui:wsdlLocation="InsertDeltaTSSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertDeltaTSSOADBAdapterV1#wsdl.interface(InsertDeltaTSSOADBAdapterV1_ptt)"/>
   </reference>
+  <reference name="UpdateEmailFlagSOAErrorLogDBAdapterV1"
+             ui:wsdlLocation="UpdateEmailFlagSOAErrorLogDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/UpdateEmailFlagSOAErrorLogDBAdapterV1#wsdl.interface(UpdateEmailFlagSOAErrorLogDBAdapterV1_ptt)"/>
+  </reference>
+  <reference name="SOAErrorHanderJMSAdapterV1"
+             ui:wsdlLocation="SOAErrorHanderJMSAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

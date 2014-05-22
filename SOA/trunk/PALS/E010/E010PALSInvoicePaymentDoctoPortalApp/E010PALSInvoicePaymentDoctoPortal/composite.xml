@@ -32,6 +32,11 @@
           location="SelectErrorRecordsSOADBAdapterV1.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertDeltaTSSOADBAdapterV1"
           location="InsertDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/UpdateEmailFlagSOAErrorLogDBAdapterV1"
+          location="UpdateEmailFlagSOAErrorLogDBAdapterV1.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1"
+          location="SOAErrorHanderJMSAdapterV1.wsdl" importType="wsdl"/>
   <service name="E010PALSInvoicePaymentdoctoPortal"
            ui:wsdlLocation="E010PALSInvoicePaymentdoctoPortal.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal#wsdl.interface(execute_ptt)"/>
@@ -129,6 +134,23 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="UpdateEmailFlagSOAErrorLogDBAdapterV1"
+             ui:wsdlLocation="UpdateEmailFlagSOAErrorLogDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/UpdateEmailFlagSOAErrorLogDBAdapterV1#wsdl.interface(UpdateEmailFlagSOAErrorLogDBAdapterV1_ptt)"/>
+    <binding.jca config="UpdateEmailFlagSOAErrorLogDBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SOAErrorHanderJMSAdapterV1"
+             ui:wsdlLocation="SOAErrorHanderJMSAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAErrorHanderJMSAdapterV1_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E010PALSInvoicePaymentdoctoPortal</source.uri>
     <target.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/E010PALSInvoicePaymentdoctoPortal</target.uri>
@@ -160,5 +182,13 @@
   <wire>
     <source.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/InsertDeltaTSSOADBAdapterV1</source.uri>
     <target.uri>InsertDeltaTSSOADBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/UpdateEmailFlagSOAErrorLogDBAdapterV1</source.uri>
+    <target.uri>UpdateEmailFlagSOAErrorLogDBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/SOAErrorHanderJMSAdapterV1</source.uri>
+    <target.uri>SOAErrorHanderJMSAdapterV1</target.uri>
   </wire>
 </composite>
