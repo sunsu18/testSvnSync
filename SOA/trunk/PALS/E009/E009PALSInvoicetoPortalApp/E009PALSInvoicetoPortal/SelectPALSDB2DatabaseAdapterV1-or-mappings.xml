@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>SelectPALSDB2DatabaseAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SelectPALSDB2DatabaseAdapterV1.Cc074Vs1CssfakDta</class>
+         <alias>CC074VS1_CSSFAK_DTA</alias>
+         <primary-key>
+            <field table="CC074VS1_CSSFAK_DTA" name="DELTA_TS" xsi:type="column"/>
+            <field table="CC074VS1_CSSFAK_DTA" name="FAKTURA_NR" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SelectPALSDB2DatabaseAdapterV1Select" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, FAKTURA_NR, FAKSMND_NR, FAKTURA_DT, KJOPSALG_ID, BEVIS_TP, EKSTERN_ID, RTXMVAFAK_NR, FAKTURA_TX, FAKLEVSTEDADR, NETFAK_KD, OPPRFAKTURA_NR, FAKKORPRS_TP, FAKTOTUTL_BEL, FAKMVAP_BEL, FAKMVAI_BEL, FAKMVA_BEL, FAKTOTBRT_BEL, INTMVAP_BEL, INTMVAI_BEL, INTMVA_BEL, INTTOTBRT_BEL, INTUTLBRT_BEL FROM 
+(SELECT DELTA_TS, FAKTURA_NR, FAKSMND_NR, FAKTURA_DT, KJOPSALG_ID, BEVIS_TP, EKSTERN_ID, RTXMVAFAK_NR, FAKTURA_TX, FAKLEVSTEDADR, NETFAK_KD, OPPRFAKTURA_NR, FAKKORPRS_TP, FAKTOTUTL_BEL, FAKMVAP_BEL, FAKMVAI_BEL, FAKMVA_BEL, FAKTOTBRT_BEL, INTMVAP_BEL, INTMVAI_BEL, INTMVA_BEL, INTTOTBRT_BEL, INTUTLBRT_BEL, ROW_NUMBER() OVER() as rownumber FROM DHDTOCSS.CC074VS1_CSSFAK_DTA WHERE DELTA_TS >#DeltaTimeStamp order by DELTA_TS asc) Invoice WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>SelectPALSDB2DatabaseAdapterV1.Cc074Vs1CssfakDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaNr</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKTURA_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faksmndNr</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKSMND_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaDt</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKTURA_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kjopsalgId</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="KJOPSALG_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>bevisTp</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="BEVIS_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>eksternId</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="EKSTERN_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rtxmvafakNr</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="RTXMVAFAK_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaTx</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKTURA_TX" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faklevstedadr</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKLEVSTEDADR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>netfakKd</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="NETFAK_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>opprfakturaNr</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="OPPRFAKTURA_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakkorprsTp</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKKORPRS_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faktotutlBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKTOTUTL_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakmvapBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKMVAP_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakmvaiBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKMVAI_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakmvaBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKMVA_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faktotbrtBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="FAKTOTBRT_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>intmvapBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="INTMVAP_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>intmvaiBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="INTMVAI_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>intmvaBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="INTMVA_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>inttotbrtBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="INTTOTBRT_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>intutlbrtBel</attribute-name>
+               <field table="CC074VS1_CSSFAK_DTA" name="INTUTLBRT_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="CC074VS1_CSSFAK_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DatabaseAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DatabaseAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="Cc074Vs1CssfakDtaCollection" type="Cc074Vs1CssfakDtaCollection"/>
+   <xs:complexType name="Cc074Vs1CssfakDtaCollection">
+      <xs:sequence>
+         <xs:element name="Cc074Vs1CssfakDta" type="Cc074Vs1CssfakDta" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Cc074Vs1CssfakDta">
+      <xs:sequence>
+         <xs:element name="deltaTs" type="xs:dateTime"/>
+         <xs:element name="fakturaNr">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="9"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="faksmndNr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="9"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="fakturaDt" type="xs:date" minOccurs="0"/>
+         <xs:element name="kjopsalgId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="bevisTp" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="eksternId" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="rtxmvafakNr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="fakturaTx" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="90"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="faklevstedadr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="110"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="netfakKd" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="opprfakturaNr" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="9"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="fakkorprsTp" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="faktotutlBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="fakmvapBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="fakmvaiBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="fakmvaBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="faktotbrtBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="intmvapBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="intmvaiBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="intmvaBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="inttotbrtBel" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="intutlbrtBel" type="xs:decimal" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="SelectPALSDB2DatabaseAdapterV1Select_BatchSize_DeltaTimeStampInputParameters" type="SelectPALSDB2DatabaseAdapterV1Select_BatchSize_DeltaTimeStamp"/>
+   <xs:complexType name="SelectPALSDB2DatabaseAdapterV1Select_BatchSize_DeltaTimeStamp">
+      <xs:sequence>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

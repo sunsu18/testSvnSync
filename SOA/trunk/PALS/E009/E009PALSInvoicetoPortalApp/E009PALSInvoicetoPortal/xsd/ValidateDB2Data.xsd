@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/E009/ValidateDB2Data"
+            targetNamespace="http://www.statoilfuelretail.com/integration/E009/ValidateDB2Data"
+            elementFormDefault="qualified">
+  <xsd:element name="ValidationPayload">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ValidationData" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="INVOICE_NUMBER">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:minLength value="1"/>
+                    <xsd:maxLength value="9"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="COLLECTIVE_INVOICE_NUMBER" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                      <xsd:maxLength value="9"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICE_DATE" minOccurs="0">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:date"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICED_CARD" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                  </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CARD_TYPE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+            </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="MAGNETIC_CODE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="20"/>
+                  </xsd:restriction>
+            </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ROUTEX_VAT_INVOICE_NUMBER" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+            </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICE_INFORMATION" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="90"/>
+                  </xsd:restriction>
+            </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICE_DELIVERY_ADDRESS" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="110"/>
+                  </xsd:restriction>
+                  </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="NET_INVOICE_CODE" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                  </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="ORIGINAL_INVOICE_NUMBER" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="9"/>
+                  </xsd:restriction>
+                  </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CORRECTION_PRESENTATION" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                  </xsd:restriction>
+                  </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_TOTAL_GROSS_AMT_FOREIGN" minOccurs="0">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_TOTAL_NET_VAT_MANDATORY" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_TOTAL_NET_VAT_FREE" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_TOTAL_VAT_AMT" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INV_TOTAL_GROSS_AMT" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURR_TOTAL_NET_VAT_MANDATORY" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURR_TOTAL_NET_VAT_FREE" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURR_TOTAL_VAT_AMT" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURR_TOTAL_GROSS_AMT" minOccurs="0">
+               <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="CURR_TOTAL_GROSS_AMT_FOREIGN" minOccurs="0">
+              <xsd:simpleType>
+                  <xsd:restriction base="xsd:float"/>
+                </xsd:simpleType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

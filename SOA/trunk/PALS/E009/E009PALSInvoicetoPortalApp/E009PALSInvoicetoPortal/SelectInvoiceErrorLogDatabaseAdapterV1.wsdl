@@ -1,0 +1,25 @@
+<?binding.jca SelectInvoiceErrorLogDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="SelectInvoiceErrorLogDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectInvoiceErrorLogDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectInvoiceErrorLogDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoiceErrorLogDatabaseAdapterV1">
+    <plt:partnerLinkType name="SelectInvoiceErrorLogDatabaseAdapterV1_plt">
+        <plt:role name="SelectInvoiceErrorLogDatabaseAdapterV1_role">
+            <plt:portType name="tns:SelectInvoiceErrorLogDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoiceErrorLogDatabaseAdapterV1" schemaLocation="xsd/SelectInvoiceErrorLogDatabaseAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectInvoiceErrorLogDatabaseAdapterV1Select_inputParameters">
+        <wsdl:part name="SelectInvoiceErrorLogDatabaseAdapterV1Select_inputParameters" element="top:SelectInvoiceErrorLogDatabaseAdapterV1Select_emailflag_deltaflagInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="EngageSoaInvoiceErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaInvoiceErrorlogCollection" element="top:EngageSoaInvoiceErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectInvoiceErrorLogDatabaseAdapterV1_ptt">
+        <wsdl:operation name="SelectInvoiceErrorLogDatabaseAdapterV1Select">
+            <wsdl:input message="tns:SelectInvoiceErrorLogDatabaseAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:EngageSoaInvoiceErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
