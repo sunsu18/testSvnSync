@@ -1730,14 +1730,16 @@ new CardInfo();
             iter1 = null;
         }
 
-        ViewObject accountVO = iter1.getViewObject();
-        accountVO.setWhereClause("PARTNER_ID =: pid");
+
         log.info(accessDC.getDisplayRecord() +  this.getClass() + " Partner id passed in Account VO is " + Partnerid);
         
         part.setPartnerValue(Partnerid);
         part.setPartnerName(getPartnerName(Partnerid));
         part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
         part.setCompanyOverview(true);
+        
+        ViewObject accountVO = iter1.getViewObject();
+        accountVO.setWhereClause("PARTNER_ID =: pid");
         accountVO.defineNamedWhereClauseParam("pid", Partnerid, null);
         accountVO.setNamedWhereClauseParam("countryCode",(conv.getLangForWERCSURL(user.getLang().toString())));
         System.out.println(accountVO.getQuery());
