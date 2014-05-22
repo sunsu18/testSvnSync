@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate"
+            targetNamespace="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate"
+            elementFormDefault="qualified">
+  <xsd:element name="InvoiceCardPayment">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="InvoiceCardPaymentData" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="COUNTRY_CODE">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:length value="2"/>
+                    <xsd:pattern value=".*[^\s].*"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICE_DOC_NUMBER">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="9"/>
+                    <xsd:pattern value=".*[^\s].*"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="INVOICE_DOC_TYPE">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                    <xsd:pattern value=".*[^\s].*"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+              <xsd:element name="DELTA_TS" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="PARTNER_ID" minOccurs="0"
+                           type="xsd:normalizedString"/>
+              <xsd:element name="COMPANY_TYPE" type="xsd:string" minOccurs="0"/>
+              <xsd:element name="CARDGROUP_MAIN_TYPE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="CARDGROUP_SUB_TYPE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="CARDGROUP_SEQ" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICING_DATE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICING_DUE_DATE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_LEVEL" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="PAYMENT_CODE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="ELECTRONIC_INVOICE_TYPE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_LANG_CODE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="GROUPING_INVOICE_TYPE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="PRINT_INVOICE" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="PARTNER_SHORTNAME" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_ADDR1" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_ADDR2" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_ADDR3" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_COUNTRY" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="INVOICE_RECEIVER" type="xsd:normalizedString"
+                           minOccurs="0"/>
+              <xsd:element name="COMPANY_NAME" type="xsd:normalizedString"
+                           minOccurs="0"/>                           
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

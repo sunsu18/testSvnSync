@@ -1,0 +1,462 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 21 14:45:12 IST 2014
+  Author:  297792
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="E010PALSInvoicePaymentDoctoPrtalBPELProcess"
+               targetNamespace="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentDoctoPrtalBPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns1="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns2="http://www.statoilfuelretail.com/integration/E010/E010InvocationReqMsg"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectDeltaTSSOADBAdapterV1"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectRecordCountPALSDBAdapterV1"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SelectRecordCountPALSDBAdapterV1"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1"
+         xmlns:ns9="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/MergeInvoicePaymentPortalDBAdapterV1"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertInvoicePaymentSOAErrorLogDBAdapterV1"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectErrorRecordsSOADBAdapterV1"
+         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/InsertDeltaTSSOADBAdapterV1"
+         xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="E010PALSInvoicePaymentdoctoPortal"
+                 partnerLinkType="ns1:E010PALSInvoicePaymentdoctoPortal"
+                 myRole="execute_ptt"/>
+    <partnerLink name="SelectDeltaTSSOADBAdapterV1"
+                 partnerLinkType="ns3:SelectDeltaTSSOADBAdapterV1_plt"
+                 partnerRole="SelectDeltaTSSOADBAdapterV1_role"/>
+    <partnerLink name="SelectRecordCountPALSDBAdapterV1"
+                 partnerLinkType="ns5:SelectRecordCountPALSDBAdapterV1_plt"
+                 partnerRole="SelectRecordCountPALSDBAdapterV1_role"/>
+    <partnerLink name="SelectInvoicePaymentPALSDB2DBAdapterV1"
+                 partnerLinkType="ns7:SelectInvoicePaymentPALSDB2DBAdapterV1_plt"
+                 partnerRole="SelectInvoicePaymentPALSDB2DBAdapterV1_role"/>
+    <partnerLink name="MergeInvoicePaymentPortalDBAdapterV1"
+                 partnerLinkType="ns10:MergeInvoicePaymentPortalDBAdapterV1_plt"
+                 partnerRole="MergeInvoicePaymentPortalDBAdapterV1_role"/>
+    <partnerLink name="InsertInvoicePaymentSOAErrorLogDBAdapterV1"
+                 partnerLinkType="ns11:InsertInvoicePaymentSOAErrorLogDBAdapterV1_plt"
+                 partnerRole="InsertInvoicePaymentSOAErrorLogDBAdapterV1_role"/>
+    <partnerLink name="SelectErrorRecordsSOADBAdapterV1"
+                 partnerLinkType="ns12:SelectErrorRecordsSOADBAdapterV1_plt"
+                 partnerRole="SelectErrorRecordsSOADBAdapterV1_role"/>
+    <partnerLink name="InsertDeltaTSSOADBAdapterV1"
+                 partnerLinkType="ns13:InsertDeltaTSSOADBAdapterV1_plt"
+                 partnerRole="InsertDeltaTSSOADBAdapterV1_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveInvoicePaymentReqMsg_IV"
+              messageType="ns1:requestMessage"/>
+    <variable name="batchSize" type="xsd:integer"/>
+    <variable name="JNDI" type="xsd:string"/>
+    <variable name="errorFlag" type="xsd:string"/>
+    <variable name="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+              messageType="ns3:SelectDeltaTSSOADBAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectDeltaTSSOADBAdapterV1_OV"
+              messageType="ns3:EngageSoaDeltatableCollection_msg"/>
+    <variable name="deltaTSDB2Format" type="xsd:string"/>
+    <variable name="InvokeSelectRecordCountPALSDBAdapterV1_OV"
+              messageType="ns5:SelectRecordCountPALSDBAdapterV1Output_msg"/>
+    <variable name="batchCount" type="xsd:int"/>
+    <variable name="batchCountIterator" type="xsd:int"/>
+    <variable name="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_IV"
+              messageType="ns7:SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV"
+              messageType="ns7:Cc075Vs1CssbdokDtaCollection_msg"/>
+    <variable name="dataCount" type="xsd:integer"/>
+    <variable name="payloadValidate" element="ns9:InvoiceCardPayment"/>
+    <variable name="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
+              messageType="ns10:PrtCardPaymentDocCollection_msg"/>
+    <variable name="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+              messageType="ns11:EngageSoaInvPmtErrorlogCollection_msg"/>
+    <variable name="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+              messageType="ns13:EngageSoaDeltatableCollection_msg"/>
+    <variable name="InvokeSelectErrorRecordsSOADBAdapterV1_IV"
+              messageType="ns12:SelectErrorRecordsSOADBAdapterV1Input_msg"/>
+    <variable name="InvokeSelectErrorRecordsSOADBAdapterV1_OV"
+              messageType="ns12:SelectErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="ReceiveInvoicePaymentReqMsg" createInstance="yes"
+             variable="ReceiveInvoicePaymentReqMsg_IV"
+             partnerLink="E010PALSInvoicePaymentdoctoPortal"
+             portType="ns1:execute_ptt" operation="execute"/>
+    <assign name="AssignInitialValues">
+      <copy>
+        <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+              query="/ns2:invocationMsg/ns2:BatchSize"/>
+        <to variable="batchSize"/>
+      </copy>
+      <copy>
+        <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+              query="/ns2:invocationMsg/ns2:PALS_JNDI"/>
+        <to variable="JNDI"/>
+      </copy>
+      <copy>
+        <from expression="'false'"/>
+        <to variable="errorFlag"/>
+      </copy>
+    </assign>
+    <scope name="GetDeltaTSSOAScope" variableAccessSerializable="no">
+      <sequence name="GetDeltaTSSOASequence">
+        <assign name="AssignInterfaceIDCountryCode">
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:InterfaceID"/>
+            <to variable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                part="SelectDeltaTSSOADBAdapterV1Select_inputParameters"
+                query="/ns4:SelectDeltaTSSOADBAdapterV1Select_Interface_ID_Country_CodeInputParameters/ns4:Interface_ID"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:CountryCode"/>
+            <to variable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                part="SelectDeltaTSSOADBAdapterV1Select_inputParameters"
+                query="/ns4:SelectDeltaTSSOADBAdapterV1Select_Interface_ID_Country_CodeInputParameters/ns4:Country_Code"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectDeltaTSSOADBAdapterV1"
+                inputVariable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                outputVariable="InvokeSelectDeltaTSSOADBAdapterV1_OV"
+                partnerLink="SelectDeltaTSSOADBAdapterV1"
+                portType="ns3:SelectDeltaTSSOADBAdapterV1_ptt"
+                operation="SelectDeltaTSSOADBAdapterV1Select"
+                bpelx:invokeAsDetail="no"/>
+        <switch name="Switch1">
+          <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable'))>0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">IF DeltaTS Exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence name="FormatDeltaTSSequence">
+              <assign name="AssignDeltaTS">
+                <copy>
+                  <from expression="substring-before(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable/ns4:palsDeltaTimestamp'),'+')"/>
+                  <to variable="deltaTSDB2Format"/>
+                </copy>
+              </assign>
+              <assign name="FormatDeltaTS">
+                <copy>
+                  <from expression="concat(substring-before(bpws:getVariableData('deltaTSDB2Format'),'T'),' ',substring-after(bpws:getVariableData('deltaTSDB2Format'),'T'))"/>
+                  <to variable="deltaTSDB2Format"/>
+                </copy>
+              </assign>
+            </sequence>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultTS">
+              <copy>
+                <from expression="'0001-01-01 00:00:00.000000'"/>
+                <to variable="deltaTSDB2Format"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+      </sequence>
+    </scope>
+    <scope name="GetPALSRecordCountScope" variableAccessSerializable="no">
+      <variables>
+        <variable name="InvokeSelectRecordCountPALSDBAdapterV1_IV"
+                  messageType="ns5:SelectRecordCountPALSDBAdapterV1Input_msg"/>
+      </variables>
+      <sequence name="GetPALSRecordCountSequence">
+        <assign name="AssignDeltaTS">
+          <copy>
+            <from variable="deltaTSDB2Format"/>
+            <to variable="InvokeSelectRecordCountPALSDBAdapterV1_IV"
+                part="SelectRecordCountPALSDBAdapterV1Input_msg"
+                query="/ns6:SelectRecordCountPALSDBAdapterV1Input/ns6:DeltaTimeStamp"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectRecordCountPALSDBAdapterV1"
+                inputVariable="InvokeSelectRecordCountPALSDBAdapterV1_IV"
+                outputVariable="InvokeSelectRecordCountPALSDBAdapterV1_OV"
+                partnerLink="SelectRecordCountPALSDBAdapterV1"
+                portType="ns5:SelectRecordCountPALSDBAdapterV1_ptt"
+                operation="SelectRecordCountPALSDBAdapterV1"
+                bpelx:invokeAsDetail="no">
+                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                </invoke>
+        <assign name="CalculateBatchCount">
+          <copy>
+            <from expression="ceiling(number(bpws:getVariableData('InvokeSelectRecordCountPALSDBAdapterV1_OV','SelectRecordCountPALSDBAdapterV1Output','/ns6:SelectRecordCountPALSDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize')))"/>
+            <to variable="batchCount"/>
+          </copy>
+          <copy>
+            <from expression="1"/>
+            <to variable="batchCountIterator"/>
+          </copy>
+        </assign>
+      </sequence>
+    </scope>
+    <while name="WhileEachBatch"
+           condition="bpws:getVariableData('batchCountIterator') &lt;= bpws:getVariableData('batchCount')">
+      <sequence name="Sequence1">
+        <scope name="GetLatestDeltaTSScope" variableAccessSerializable="no">
+          <sequence name="GetLatestDeltaTSSequence">
+            <assign name="AssignInterfaceIDCountryCode"
+                    xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
+              <copy>
+                <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                      query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                <to variable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                    part="SelectDeltaTSSOADBAdapterV1Select_inputParameters"
+                    query="/ns4:SelectDeltaTSSOADBAdapterV1Select_Interface_ID_Country_CodeInputParameters/ns4:Interface_ID"/>
+              </copy>
+              <copy>
+                <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                      query="/ns2:invocationMsg/ns2:CountryCode"/>
+                <to variable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                    part="SelectDeltaTSSOADBAdapterV1Select_inputParameters"
+                    query="/ns4:SelectDeltaTSSOADBAdapterV1Select_Interface_ID_Country_CodeInputParameters/ns4:Country_Code"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeSelectDeltaTSSOADBAdapterV1"
+                    inputVariable="InvokeSelectDeltaTSSOADBAdapterV1_IV"
+                    outputVariable="InvokeSelectDeltaTSSOADBAdapterV1_OV"
+                    partnerLink="SelectDeltaTSSOADBAdapterV1"
+                    portType="ns3:SelectDeltaTSSOADBAdapterV1_ptt"
+                    operation="SelectDeltaTSSOADBAdapterV1Select"
+                    bpelx:invokeAsDetail="no"
+                    xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                    xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"/>
+            <switch name="Switch1"
+                    xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
+      <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable'))>0">
+         <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+            <bpelx:general>
+               <bpelx:property name="userLabel">IF DeltaTS Exists</bpelx:property>
+            </bpelx:general>
+         </bpelx:annotation>
+         <sequence name="FormatDeltaTSSequence">
+            <assign name="AssignDeltaTS">
+               <copy>
+                  <from expression="substring-before(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable/ns4:palsDeltaTimestamp'),'+')"/>
+                  <to variable="deltaTSDB2Format"/>
+               </copy>
+            </assign>
+            <assign name="FormatDeltaTS">
+               <copy>
+                  <from expression="concat(substring-before(bpws:getVariableData('deltaTSDB2Format'),'T'),' ',substring-after(bpws:getVariableData('deltaTSDB2Format'),'T'))"/>
+                  <to variable="deltaTSDB2Format"/>
+               </copy>
+            </assign>
+         </sequence>
+      </case>
+      <otherwise>
+         <assign name="AssignDefaultTS">
+            <copy>
+               <from expression="'0001-01-01 00:00:00.000000'"/>
+               <to variable="deltaTSDB2Format"/>
+            </copy>
+         </assign>
+      </otherwise>
+   </switch>
+          </sequence>
+        </scope>
+        <assign name="AssignInvoicePaymentInputParameters">
+          <copy>
+            <from variable="deltaTSDB2Format"/>
+            <to variable="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_IV"
+                part="SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters"
+                query="/ns8:SelectInvoicePaymentPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters/ns8:DeltaTimeStamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:BatchSize"/>
+            <to variable="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_IV"
+                part="SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters"
+                query="/ns8:SelectInvoicePaymentPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters/ns8:BatchSize"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1"
+                inputVariable="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_IV"
+                outputVariable="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV"
+                partnerLink="SelectInvoicePaymentPALSDB2DBAdapterV1"
+                portType="ns7:SelectInvoicePaymentPALSDB2DBAdapterV1_ptt"
+                operation="SelectInvoicePaymentPALSDB2DBAdapterV1Select"
+                bpelx:invokeAsDetail="no">
+                <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+           </invoke>
+        <assign name="AssignDataCount">
+          <copy>
+            <from expression="count(bpws:getVariableData('InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV','Cc075Vs1CssbdokDtaCollection','/ns8:Cc075Vs1CssbdokDtaCollection/ns8:Cc075Vs1CssbdokDta'))"/>
+            <to variable="dataCount"/>
+          </copy>
+        </assign>
+        <scope name="DataValidationScope" variableAccessSerializable="no">
+          <faultHandlers>
+            <catch faultName="bpelx:invalidVariables">
+              <sequence name="Sequence2">
+                <assign name="Xform_ValidationPayload_to_SOAInvPaymentErrorLog">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/ValidationPayload_to_SOAInvPaymentErrorLog.xsl', $payloadValidate)"/>
+                    <to variable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+                        part="EngageSoaInvPmtErrorlogCollection"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeInvoicePaymentSOAErrorLogDBAdapterV1"
+                        inputVariable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+                        partnerLink="InsertInvoicePaymentSOAErrorLogDBAdapterV1"
+                        portType="ns11:InsertInvoicePaymentSOAErrorLogDBAdapterV1_ptt"
+                        operation="merge" bpelx:invokeAsDetail="no"/>
+                <assign name="AssignErrorFlag">
+                  <copy>
+                    <from expression="'true'"/>
+                    <to variable="errorFlag"/>
+                  </copy>
+                </assign>
+              </sequence>
+            </catch>
+          </faultHandlers>
+          <sequence name="DataValidationSequence">
+            <assign name="Xform_InvoiceCardPayementData_to_PayloadValidation">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/InvoiceCardPayementData_to_PayloadValidation.xsl', $ReceiveInvoicePaymentReqMsg_IV.part1, 'InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection', $InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection)"/>
+                <to variable="payloadValidate"/>
+              </copy>
+            </assign>
+            <bpelx:validate name="ValidatePayload" variables="payloadValidate"/>
+          </sequence>
+        </scope>
+        <scope name="InsertInvoiceCardPaymentDatatoPortalScope"
+               variableAccessSerializable="no">
+          <sequence name="InsertInvoiceCardPaymentDatatoPortalSequence">
+            <assign name="Xform_InvoiceCardPayment_to_Portal">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/InvoiceCardPayment_to_Portal.xsl', $ReceiveInvoicePaymentReqMsg_IV.part1, 'InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection', $InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection)"/>
+                <to variable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
+                    part="PrtCardPaymentDocCollection"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeInsertInvoiceCardPortalDBAdapterV1"
+                    inputVariable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
+                    partnerLink="MergeInvoicePaymentPortalDBAdapterV1"
+                    portType="ns10:MergeInvoicePaymentPortalDBAdapterV1_ptt"
+                    operation="merge" bpelx:invokeAsDetail="no"/>
+          </sequence>
+        </scope>
+        <assign name="AssignLatestDeltaTSValue">
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:InterfaceID"/>
+            <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:interfaceid"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:CountryCode"/>
+            <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:countrycode"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV','Cc075Vs1CssbdokDtaCollection','/ns8:Cc075Vs1CssbdokDtaCollection/ns8:Cc075Vs1CssbdokDta[$dataCount]/ns8:deltaTs')"/>
+            <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:palsDeltaTimestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:UserName"/>
+            <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:updatedby"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                part="EngageSoaDeltatableCollection"
+                query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:modifiedbytimestamp"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeInsertDeltaTSSOADBAdapterV1"
+                inputVariable="InvokeInsertDeltaTSSOADBAdapterV1_IV"
+                partnerLink="InsertDeltaTSSOADBAdapterV1"
+                portType="ns13:InsertDeltaTSSOADBAdapterV1_ptt"
+                operation="merge" bpelx:invokeAsDetail="no"/>
+        <assign name="NextBatch">
+          <copy>
+            <from expression="bpws:getVariableData('batchCountIterator')+1"/>
+            <to variable="batchCountIterator"/>
+          </copy>
+        </assign>
+      </sequence>
+    </while>
+    <switch name="Switch2">
+      <case condition="bpws:getVariableData('errorFlag')='true'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">If Error Occured</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="Sequence3">
+          <invoke name="InvokeSelectErrorRecordsSOADBAdapterV1"
+                  inputVariable="InvokeSelectErrorRecordsSOADBAdapterV1_IV"
+                  outputVariable="InvokeSelectErrorRecordsSOADBAdapterV1_OV"
+                  partnerLink="SelectErrorRecordsSOADBAdapterV1"
+                  portType="ns12:SelectErrorRecordsSOADBAdapterV1_ptt"
+                  operation="SelectErrorRecordsSOADBAdapterV1"
+                  bpelx:invokeAsDetail="no"/>
+          <assign name="Xform_ErrorData_to_ErrorDesc">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/ErrorData_to_ErrorDesc.xsl', $InvokeSelectErrorRecordsSOADBAdapterV1_OV.SelectErrorRecordsSOADBAdapterV1OutputCollection)"/>
+              <to variable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+                  part="EngageSoaInvPmtErrorlogCollection"/>
+            </copy>
+          </assign>
+        </sequence>
+      </case>
+      <otherwise>
+        <empty name="SendDeltaReciept"/>
+      </otherwise>
+    </switch>
+  </sequence>
+</process>

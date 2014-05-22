@@ -1,0 +1,21 @@
+<?binding.jca MergeInvoicePaymentPortalDBAdapterV1_db.jca?>
+<wsdl:definitions name="MergeInvoicePaymentPortalDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/MergeInvoicePaymentPortalDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/MergeInvoicePaymentPortalDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoicePaymentPortalDBAdapterV1">
+    <plt:partnerLinkType name="MergeInvoicePaymentPortalDBAdapterV1_plt">
+        <plt:role name="MergeInvoicePaymentPortalDBAdapterV1_role">
+            <plt:portType name="tns:MergeInvoicePaymentPortalDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoicePaymentPortalDBAdapterV1" schemaLocation="xsd/MergeInvoicePaymentPortalDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="PrtCardPaymentDocCollection_msg">
+        <wsdl:part name="PrtCardPaymentDocCollection" element="top:PrtCardPaymentDocCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="MergeInvoicePaymentPortalDBAdapterV1_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:PrtCardPaymentDocCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

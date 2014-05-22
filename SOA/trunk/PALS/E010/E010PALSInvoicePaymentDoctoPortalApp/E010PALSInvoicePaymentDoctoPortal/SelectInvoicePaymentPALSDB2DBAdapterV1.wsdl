@@ -1,0 +1,25 @@
+<?binding.jca SelectInvoicePaymentPALSDB2DBAdapterV1_db.jca?>
+<wsdl:definitions name="SelectInvoicePaymentPALSDB2DBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1">
+    <plt:partnerLinkType name="SelectInvoicePaymentPALSDB2DBAdapterV1_plt">
+        <plt:role name="SelectInvoicePaymentPALSDB2DBAdapterV1_role">
+            <plt:portType name="tns:SelectInvoicePaymentPALSDB2DBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1" schemaLocation="xsd/SelectInvoicePaymentPALSDB2DBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters">
+        <wsdl:part name="SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters" element="top:SelectInvoicePaymentPALSDB2DBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="Cc075Vs1CssbdokDtaCollection_msg">
+        <wsdl:part name="Cc075Vs1CssbdokDtaCollection" element="top:Cc075Vs1CssbdokDtaCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SelectInvoicePaymentPALSDB2DBAdapterV1_ptt">
+        <wsdl:operation name="SelectInvoicePaymentPALSDB2DBAdapterV1Select">
+            <wsdl:input message="tns:SelectInvoicePaymentPALSDB2DBAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:Cc075Vs1CssbdokDtaCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

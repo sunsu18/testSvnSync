@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="SelectErrorRecordsSOADBAdapterV1Input" type="SelectErrorRecordsSOADBAdapterV1Input"/>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1Input">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="SelectErrorRecordsSOADBAdapterV1OutputCollection" type="SelectErrorRecordsSOADBAdapterV1OutputCollection"/>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1OutputCollection">
+      <xs:sequence>
+         <xs:element name="SelectErrorRecordsSOADBAdapterV1Output" type="SelectErrorRecordsSOADBAdapterV1Output" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SelectErrorRecordsSOADBAdapterV1Output">
+      <xs:sequence>
+         <xs:element name="DELTA_TS" type="xs:string" nillable="true"/>
+         <xs:element name="COUNTRY_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_DOC_NUMBER" type="xs:string" nillable="true"/>
+         <xs:element name="INVOICE_DOC_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="PARTNER_ID" type="xs:string" nillable="true"/>
+         <xs:element name="COMPANY_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_MAIN_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SUB_TYPE" type="xs:string" nillable="true"/>
+         <xs:element name="CARDGROUP_SEQ" type="xs:string" nillable="true"/>
+         <xs:element name="ERROR_CODE" type="xs:string" nillable="true"/>
+         <xs:element name="ERROR_DESC" type="xs:string" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

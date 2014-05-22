@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>SelectInvoicePaymentPALSDB2DBAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>SelectInvoicePaymentPALSDB2DBAdapterV1.Cc075Vs1CssbdokDta</class>
+         <alias>DHDTOCSS.CC075VS1_CSSBDOK_DTA</alias>
+         <primary-key>
+            <field table="CC075VS1_CSSBDOK_DTA" name="DELTA_TS" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="SelectInvoicePaymentPALSDB2DBAdapterV1Select" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, FAKDOK_NR, FAKDOK_TP, PARTNER_ID, PARTNER_TP, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, FAKTURA_DT, FORFALL_DT, BETDOKNIVA_KD, BET_MAATE_KD, FAKELEKTRO_KD, SPRAK_KD, FAKSMND_KD, FAKUTSKRIFT_JN, KORT_NV, ADRESSELNJ1, ADRESSELNJ2, ADRESSELNJ3, LAND_NV, FAKMOTTAKER_NV, REDIGERT_NV FROM (SELECT DELTA_TS, FAKDOK_NR, FAKDOK_TP, PARTNER_ID, PARTNER_TP, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, FAKTURA_DT, FORFALL_DT, BETDOKNIVA_KD, BET_MAATE_KD, FAKELEKTRO_KD, SPRAK_KD, FAKSMND_KD, FAKUTSKRIFT_JN, KORT_NV, ADRESSELNJ1, ADRESSELNJ2, ADRESSELNJ3, LAND_NV, FAKMOTTAKER_NV, REDIGERT_NV, ROW_NUMBER() OVER() as rownumber FROM CC075VS1_CSSBDOK_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Transaction WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>SelectInvoicePaymentPALSDB2DBAdapterV1.Cc075Vs1CssbdokDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakdokNr</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKDOK_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakdokTp</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKDOK_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerId</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="PARTNER_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>partnerTp</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="PARTNER_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdHtp</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="F_FORHOLD_HTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdUtp</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="F_FORHOLD_UTP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fForholdLnr</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="F_FORHOLD_LNR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakturaDt</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKTURA_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>forfallDt</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FORFALL_DT" xsi:type="column"/>
+               <attribute-classification>java.sql.Date</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>betdoknivaKd</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="BETDOKNIVA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>betMaateKd</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="BET_MAATE_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakelektroKd</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKELEKTRO_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>sprakKd</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="SPRAK_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>faksmndKd</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKSMND_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakutskriftJn</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKUTSKRIFT_JN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kortNv</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="KORT_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>adresselnj1</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="ADRESSELNJ1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>adresselnj2</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="ADRESSELNJ2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>adresselnj3</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="ADRESSELNJ3" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>landNv</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="LAND_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakmottakerNv</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="FAKMOTTAKER_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>redigertNv</attribute-name>
+               <field table="CC075VS1_CSSBDOK_DTA" name="REDIGERT_NV" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="DHDTOCSS.CC075VS1_CSSBDOK_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>
