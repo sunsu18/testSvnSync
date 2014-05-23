@@ -302,25 +302,20 @@
 	 visible="#{pageFlowScope.TransactionOverviewBean.isTableVisible}"
                            layout="vertical"
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
-        <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
+        <af:panelGroupLayout id="pgl15" layout="vertical">
+         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:350.0px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:948.0px;"
                                layout="horizontal">
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
-                           styleClass="heading"/>
+                           styleClass="heading heading_account "/>
         <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
            <af:panelGroupLayout id="pgl35" styleClass="info_legend"
-                             layout="horizontal">
+                             layout="horizontal"
+                                inlineStyle="padding-left: 610px;">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
             </af:panelGroupLayout>
-   <!--       </af:commandLink> -->
-          <af:spacer width="10" height="10" id="s53"/>
-          <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
-                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
-                          partialSubmit="true">
-        </af:commandButton>
-        </af:panelGroupLayout>
-        <af:popup id="p2">
+            <af:popup id="p2">
           <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl34" layout="vertical">
             <af:outputText value="#{sfr.TRANSACTION_PRELIMINARY}" id="ot65" styleClass="outputText3"/>
@@ -328,18 +323,30 @@
           </af:panelGroupLayout>
           </af:noteWindow>
         </af:popup>
+   <!--       </af:commandLink> -->
+          <!--<af:spacer width="10" height="10" id="s53"/>-->
+          <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
+                          actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
+                          partialSubmit="true">
+        </af:commandButton>
+        </af:panelGroupLayout>
+        
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl17">
+        <af:spacer width="500" height="25" id="s56"/>
+        </af:panelGroupLayout>
         <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
                                halign="right"
-                               inlineStyle="width:600.0px; height:15.0px;">
+                               inlineStyle="width:930.0px; height:15.0px;">
             
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"
                            id="ot59" styleClass="popupoutputText"/>           
           </af:panelGroupLayout>
         </af:panelGroupLayout>
-        <af:spacer width="10" height="15" id="spacer2"/>
+        <af:spacer width="10" height="2" id="spacer2"/>
       <af:panelGroupLayout id="pgl36" layout="scroll">
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
-                  var="row" width="930" disableColumnReordering="true" columnResizing="disabled"
+                  var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"  
                   emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? 'No data to display.' : 'Access Denied.'}"
                   fetchSize="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
@@ -351,7 +358,7 @@
                   selectionListener="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel.makeCurrent}"
                   rowSelection="single" id="t1">
         <af:column sortProperty="TransactionDt" filterable="true"
-                     sortable="false" width="120" align="center"
+                     sortable="false" width="125" align="center"
                      headerText="#{sfr.TRANSACTION_DATE}"
                      id="c32">
             <f:facet name="filter">
@@ -436,7 +443,7 @@
             <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
           </af:column>
           <af:column sortProperty="PurchaseCountryCode" filterable="true"
-                     sortable="false" width="55" align="left"
+                     sortable="false" width="65" align="left"
                      headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
                      id="c20">
             <af:outputText value="#{row.PurchaseCountryCode}" id="ot39" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
