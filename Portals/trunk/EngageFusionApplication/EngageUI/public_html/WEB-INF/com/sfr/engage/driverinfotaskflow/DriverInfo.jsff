@@ -22,25 +22,50 @@
                            inlineStyle="width:331.0px;">
         <af:panelGroupLayout id="pgl10">
           <h:panelGrid columns="5" id="pg1">
-            <af:outputText value="*" id="gff"/>
-            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="colon"/>
+          <af:outputText value="*" id="gff"/>
+            <af:outputText value="#{sfr.PARTNER}" id="colon"/>
             <af:outputText value=":" id="col"/>
             <af:spacer width="15" height="10" id="s18"/>
-            <af:selectManyChoice id="smc1"
-                                 binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
-                                 value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
-              <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}"
+            <af:selectOneChoice id="partnerSOC"
+                                binding="#{pageFlowScope.DriverInfoBean.bindings.linkedPartner}"
+                                contentStyle="width: 175px;"
+                                autoSubmit="true"
+                                unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                value="#{pageFlowScope.DriverInfoBean.linkedPartnerLOVValues}"
+                                valueChangeListener="#{pageFlowScope.DriverInfoBean.partnerNumberValueChangeListener}">
+              <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
                           var="listItem">
                 <af:selectItem label="#{listItem.label}"
-                               value="#{listItem.value}" id="select_item"/>
+                               value="#{listItem.value}" id="select_item_partner"/>
               </af:forEach>
-            </af:selectManyChoice>
+            </af:selectOneChoice>
             <af:spacer height="10" id="s24"/>
             <af:spacer height="10" id="s20"/>
             <af:spacer height="10" id="s21"/>
             <af:spacer height="10" id="s22"/>
-             <af:spacer height="10" id="s2ewe2"/>
-              <af:spacer height="10" id="s2fg2"/>
+            <af:spacer height="10" id="s2ewe2"/>
+          
+          
+            <af:outputText value="" id="ot12"/>
+            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="ot13"/>
+            <af:outputText value=":" id="ot14"/>
+            <af:spacer width="15" height="10" id="s37"/>
+            <af:selectManyChoice id="smc1"
+                                 binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
+                                 contentStyle="width: 150px;"
+                                 value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
+              <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}"
+                          var="listItem">
+                <af:selectItem label="#{listItem.label}"
+                               value="#{listItem.value}" id="select_item_account"/>
+              </af:forEach>
+            </af:selectManyChoice>
+            <af:spacer height="10" id="s38"/>
+            <af:spacer height="10" id="s39"/>
+            <af:spacer height="10" id="s41"/>
+            <af:spacer height="10" id="s42"/>
+            <af:spacer height="10" id="s2ewe3"/>
+            <af:spacer height="10" id="s2fg2"/>
             <af:outputText value="#{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
             <af:outputText value=":" id="coll3"/>
             <af:spacer width="15" height="10" id="s19"/>
@@ -125,7 +150,7 @@
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}" id="c2"
                              width="120">
-                    <af:outputText value="#{row.cardNumber}" id="ot5"/>
+                    <af:outputText value="#{row.embossCardNumber}" id="ot5"/>
                   </af:column>
                    <af:column sortable="false" headerText="#{sfr.DRIVER_NAME}" id="c3"
                               width="120">
@@ -179,7 +204,7 @@
                        <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot10"
                        binding="#{pageFlowScope.DriverInfoBean.bindings.showErrorMsg}"
                        visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
-                       styleClass="errorOutputText"/>
+                       styleClass="errorOutputText" partialTriggers="save"/>
                        <af:spacer width="10" height="10" id="s36"/>
         <af:panelStretchLayout id="psl6"
                                dimensionsFrom="children">
@@ -208,23 +233,41 @@
                                  styleClass="WCPanelMargin" layout="horizontal">
               
                   <h:panelGrid columns="9" id="popupGrid">
-              
-               <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Acctid"/>
-          <af:outputText value=":" id="colonpop"/>
-          <af:spacer width="15" height="10" id="s1856"/>
+                  
+                <af:outputText value="*#{sfr.PARTNER}" id="partnerid"/>
+                <af:outputText value=":" id="colonpartner"/>
+                <af:spacer width="15" height="10" id="s1856"/>
                
-              <af:selectOneChoice id="soc1" contentStyle="width:165px;height:24.0px;"
-                                    autoSubmit="true" 
-                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}"
-                                    binding="#{pageFlowScope.DriverInfoBean.bindings.addAccountId}"
-                                    value="#{pageFlowScope.DriverInfoBean.addAccountIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
-                  <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}"
-                          var="listItem">
-                <af:selectItem label="#{listItem.label}"
-                               value="#{listItem.value}" id="select_account_item"/>
-              </af:forEach>
-                </af:selectOneChoice>
+                  <af:selectOneChoice id="soc1" contentStyle="width:165px;height:24.0px;"
+                                        autoSubmit="true" 
+                                        valueChangeListener="#{pageFlowScope.DriverInfoBean.AddPartnerNumberListener}"
+                                        binding="#{pageFlowScope.DriverInfoBean.bindings.addPartnerNumberId}"
+                                        value="#{pageFlowScope.DriverInfoBean.addPartnerNumberDisplayValue}"
+                                        unselectedLabel="#{sfr.PLEASE_SELECT}">
+                      <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}" id="select_partner_item"/>
+                  </af:forEach>
+                    </af:selectOneChoice>  
+                  
+              
+                <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Acctid"/>
+                <af:outputText value=":" id="colonpop"/>
+                <af:spacer width="15" height="10" id="s43"/>
+               
+                  <af:selectOneChoice id="soc5" contentStyle="width:165px;height:24.0px;"
+                                        autoSubmit="true" 
+                                        valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}"
+                                        binding="#{pageFlowScope.DriverInfoBean.bindings.addAccountId}"
+                                        value="#{pageFlowScope.DriverInfoBean.addAccountIdDisplayValue}"
+                                        unselectedLabel="#{sfr.PLEASE_SELECT}">
+                      <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAddAccountList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}" id="select_account_item"/>
+                  </af:forEach>
+                    </af:selectOneChoice>
                 
                 <!--<af:selectOneChoice value="#{bindings.AccountId.inputValue}"                                    
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
@@ -243,7 +286,8 @@
                             maximumLength="#{bindings.DriverNumber.hints.precision}"
                             shortDesc="#{bindings.DriverNumber.hints.tooltip}"
                             id="it2"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                             binding="#{pageFlowScope.DriverInfoBean.bindings.addDriverNumber}">
                 <f:validator binding="#{bindings.DriverNumber.validator}"/>
               </af:inputText>            
                  <af:outputText value="#{sfr.CARD_NUMBER}" id="Acctid1"/>
@@ -278,7 +322,8 @@
                             maximumLength="#{bindings.DriverName.hints.precision}"
                             shortDesc="#{bindings.DriverName.hints.tooltip}"
                             id="it8"
-                            contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                            contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                            binding="#{pageFlowScope.DriverInfoBean.bindings.addDriverName}">
                 <f:validator binding="#{bindings.DriverName.validator}"/>
               </af:inputText>
                <af:outputText value="#{sfr.NATIONALITY}" id="Acctid4"/>
@@ -447,9 +492,28 @@
             <af:panelGroupLayout id="editDriver_scroll"
                                  styleClass="WCPanelMargin">
                <h:panelGrid columns="9" id="drivGrid">
-                    <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Driv1"/>
-          <af:outputText value=":" id="Driv2"/>
-          <af:spacer width="15" height="10" id="Driv3"/>
+               
+               <af:outputText value="*#{sfr.PARTNER}" id="editpartnerid"/>
+                <af:outputText value=":" id="editpartner"/>
+                <af:spacer width="15" height="10" id="s44"/>
+               
+                  <af:selectOneChoice id="soc6" contentStyle="width:165px;height:24.0px;"
+                                        autoSubmit="true"
+                                      valueChangeListener="#{pageFlowScope.DriverInfoBean.EditPartnerNumberLIstener}"
+                                      binding="#{pageFlowScope.DriverInfoBean.bindings.editPartnerNumberId}"
+                                        value="#{pageFlowScope.DriverInfoBean.editPartnerNumberDisplayValue}"
+                                        unselectedLabel="#{sfr.PLEASE_SELECT}">
+                      <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}" id="select_partner__edititem"/>
+                  </af:forEach>
+                    </af:selectOneChoice>
+               
+               
+            <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Driv1"/>
+            <af:outputText value=":" id="Driv2"/>
+            <af:spacer width="15" height="10" id="Driv3"/>
            <!--<af:selectOneChoice value="#{bindings.AccountId.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountId.hints.tooltip}"
                                     id="soc2"
@@ -465,7 +529,7 @@
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.editAccountId}"
                                     value="#{pageFlowScope.DriverInfoBean.editAccountIdDisplayValue}"
                                     unselectedLabel="#{sfr.PLEASE_SELECT}">
-                    <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}" var="listItem">
+                    <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedEditAccountList}" var="listItem">
                         <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_account_edit_item"/>
                     </af:forEach>
                 </af:selectOneChoice>
@@ -479,7 +543,8 @@
                               maximumLength="#{bindings.DriverNumber.hints.precision}"
                               shortDesc="#{bindings.DriverNumber.hints.tooltip}"
                               id="it14"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverNumber}">
                   <f:validator binding="#{bindings.DriverNumber.validator}"/>
                 </af:inputText>
             
@@ -517,7 +582,8 @@
                               maximumLength="#{bindings.DriverName.hints.precision}"
                               shortDesc="#{bindings.DriverName.hints.tooltip}"
                               id="it15"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverName}">
                   <f:validator binding="#{bindings.DriverName.validator}"/>
                 </af:inputText>
                   <af:outputText value="#{sfr.NATIONALITY}" id="Driv15"/>

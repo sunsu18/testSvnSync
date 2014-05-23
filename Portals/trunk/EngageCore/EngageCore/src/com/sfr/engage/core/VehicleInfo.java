@@ -22,6 +22,7 @@ public class VehicleInfo implements Serializable {
     private String prtTruckInformationPK;
     private String accountNumber;
     private String cardNumber;
+    private String embossCardNumber;
     private String vehicleNumber;
     private String internalName;
     private String registrationNumber;
@@ -245,5 +246,13 @@ public class VehicleInfo implements Serializable {
      */
     public Integer getOdoMeter() {
         return odoMeter;
+    }
+
+    public void setEmbossCardNumber(String embossCardNumber) {
+        this.embossCardNumber = embossCardNumber;
+    }
+
+    public String getEmbossCardNumber() {
+        return embossCardNumber;
     }
 }

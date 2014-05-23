@@ -23,6 +23,7 @@ public class DriverInfo implements Serializable {
     private String prtDriverInformationPK;
     private String accountId;
     private String cardNumber;
+    private String embossCardNumber;
     private String driverName;
     private String driverNumber;
     private String nationality;
@@ -259,5 +260,13 @@ public class DriverInfo implements Serializable {
      */
     public String getModifiedBy() {
         return modifiedBy;
+    }
+
+    public void setEmbossCardNumber(String embossCardNumber) {
+        this.embossCardNumber = embossCardNumber;
+    }
+
+    public String getEmbossCardNumber() {
+        return embossCardNumber;
     }
 }
