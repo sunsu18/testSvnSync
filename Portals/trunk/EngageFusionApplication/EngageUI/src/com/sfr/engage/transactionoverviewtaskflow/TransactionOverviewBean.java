@@ -739,6 +739,7 @@ public class TransactionOverviewBean implements Serializable{
        // _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal pass ================>"+terminalPassingValues);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of trans type ================>"+transTypePassingValues);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of card111111 ================>"+cardNumberPasingValues);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Account Values ================>"+getBindings().getAccount().getValue());
         
         isTableVisible = false;
         ViewObject vo = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
@@ -872,7 +873,8 @@ public class TransactionOverviewBean implements Serializable{
     public void clearSearchListener(ActionEvent actionEvent) {
         // Add event code here...
         getBindings().getPartner().setValue(null);
-        getBindings().getAccount().setValue(null);
+        this.accountIdValue=null;
+        //getBindings().getAccount().setValue(null);
         this.accountIdValue=null;
         this.partnerIdValue=null;
         this.reportFormatValue=null;
@@ -1717,10 +1719,10 @@ public class TransactionOverviewBean implements Serializable{
                }  
                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Formed String ="+selectedValues);
                String passedString=selectedValues.substring(0, selectedValues.length()-1);
+              
+            
+                 
                
-                
-                
-                
         String partnerCompanyName="";
         ViewObject partnerVO = ADFUtils.getViewObject("PrtPartnerVO1Iterator");
         partnerVO.setWhereClause("PARTNER_ID =: partnerId");
@@ -1744,7 +1746,7 @@ public class TransactionOverviewBean implements Serializable{
         HSSFFont f =XLS.createFont();
         
         //create sheet
-        HSSFSheet XLS_SH=XLS.createSheet();
+        HSSFSheet XLS_SH=XLS.createSheet();        
         XLS.setSheetName(0,"TransactionReport");
         
         f.setFontHeightInPoints((short) 10);
@@ -2669,20 +2671,24 @@ public class TransactionOverviewBean implements Serializable{
             if(strCardGroup!=null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
                 result=true;
+                getBindings().getSelectionExportOneRadio().setValue(null);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints()); 
             }   else if(strCard!=null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
                 result=true;
+                getBindings().getSelectionExportOneRadio().setValue(null);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints()); 
             }else if(strVehicle!=null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
                 result=true;
+                getBindings().getSelectionExportOneRadio().setValue(null);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints()); 
             }else
             {
                 if(strDriver!=null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
                 result=true;
+                getBindings().getSelectionExportOneRadio().setValue(null);
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints()); 
                 }
             }
