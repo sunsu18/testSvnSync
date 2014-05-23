@@ -15,7 +15,7 @@
    <entry key="PRT_CARD_TRANSACTION_HEADER.CARD_1_ID:db_column_not_null">false</entry>
    <entry key="PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT:db_column_type">DATE</entry>
    <entry key="PRT_CARD_TRANSACTION_HEADER.CARDGROUP_MAIN_TYPE:db_column_not_null">false</entry>
-   <entry key="PRT_CARD_TRANSACTION_HEADER.PALS_MODIFIED_BY:db_column_not_null">true</entry>
+   <entry key="PRT_CARD_TRANSACTION_HEADER.PALS_MODIFIED_BY:db_column_not_null">false</entry>
    <entry key="PRT_CARD_TRANSACTION_HEADER:db_column_9">ODOMETER</entry>
    <entry key="PRT_CARD_TRANSACTION_HEADER.ORDER_ID:db_column_type">VARCHAR2</entry>
    <entry key="PRT_CARD_TRANSACTION_HEADER:db_column_8">ODOMETER_PORTAL</entry>

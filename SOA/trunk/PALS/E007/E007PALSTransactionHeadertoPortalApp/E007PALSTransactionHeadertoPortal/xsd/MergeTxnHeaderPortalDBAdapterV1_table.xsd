@@ -279,7 +279,7 @@
             </xs:simpleType>
          </xs:element>
          <xs:element name="palsModifiedDate" type="xs:dateTime" minOccurs="0"/>
-         <xs:element name="palsModifiedBy" minOccurs="0">
+         <xs:element name="palsModifiedBy" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="6"/>

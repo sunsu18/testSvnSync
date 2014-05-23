@@ -16,7 +16,7 @@
       <partnerlink name="UpdateEmailErrorFlagSOADBAdapterV1" x="0" y="4130" side="left"/>
       <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="0" y="3329" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,2925,781,495" show_swimlanes="true">
+   <graph_layout viewport="121,2807,742,495" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
