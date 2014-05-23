@@ -1724,16 +1724,14 @@ public class TransactionOverviewBean implements Serializable{
                  
                
         String partnerCompanyName="";
-        ViewObject partnerVO = ADFUtils.getViewObject("PrtPartnerVO1Iterator");
-        partnerVO.setWhereClause("PARTNER_ID =: partnerId");
-        partnerVO.defineNamedWhereClauseParam("partnerId", partnerId,null);
-        partnerVO.executeQuery();
-        if (partnerVO.getEstimatedRowCount() != 0) {
-            while(partnerVO.hasNext()) {
-                PrtPartnerVORowImpl row=(PrtPartnerVORowImpl)partnerVO.next();
-                partnerCompanyName=row.getFirstLastName();
+        for(int k=0;k<partnerInfoList.size();k++)
+        {                 
+        if(partnerId.equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString()))   {            
+                partnerCompanyName=partnerInfoList.get(k).getPartnerName();
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Partner value:"+partnerCompanyName);  
             }
-        }        
+             
+        }  
         
         if("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString()))
         {
@@ -2545,12 +2543,6 @@ public class TransactionOverviewBean implements Serializable{
                 out.close();
                 
             }
-        }
-        if("PARTNER_ID =: partnerId".equalsIgnoreCase(partnerVO.getWhereClause())){
-            partnerVO.removeNamedWhereClauseParam("partnerId");            
-            partnerVO.setWhereClause("");
-            partnerVO.executeQuery();            
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Removing PartnerId where clause");
         }
         
     }
