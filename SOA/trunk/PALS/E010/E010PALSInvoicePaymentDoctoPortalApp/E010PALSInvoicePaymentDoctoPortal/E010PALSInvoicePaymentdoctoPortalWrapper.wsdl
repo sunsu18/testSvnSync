@@ -2,11 +2,12 @@
 <wsdl:definitions
      name="E010PALSInvoicePaymentdoctoPortal"
      targetNamespace="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal"
+     xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation"
      xmlns:ns1="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate"
      xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
-     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
-     xmlns:tns="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     >
     <plnk:partnerLinkType name="E010PALSInvoicePaymentdoctoPortal">
@@ -20,6 +21,10 @@
         <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
             <xsd:import namespace="http://www.statoilfuelretail.com/integration/E010InvoiceCardPaymentValidate"
                  schemaLocation="xsd/InoiveCardPaymentValidationPayload.xsd"/>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation"
+                 schemaLocation="xsd/InvoicePaymentPortalValidation.xsd"/>
         </xsd:schema>
     </wsdl:types>
 </wsdl:definitions>

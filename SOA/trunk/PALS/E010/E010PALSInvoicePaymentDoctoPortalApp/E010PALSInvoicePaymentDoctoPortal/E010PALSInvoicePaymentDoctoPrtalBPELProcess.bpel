@@ -46,7 +46,9 @@
          xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/UpdateEmailFlagSOAErrorLogDBAdapterV1"
          xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1"
          xmlns:ns17="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd"
-         xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertInvoicePaymentSOAErrorLogDBAdapterV1">
+         xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertInvoicePaymentSOAErrorLogDBAdapterV1"
+         xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1"
+         xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +124,250 @@
               messageType="ns15:EngageSoaInvPmtErrorlogCollection_msg"/>
     <variable name="InvokeSOAErrorHandler_IV"
               messageType="ns16:Produce_Message_msg"/>
+    <variable name="InvalidData_IV"
+              messageType="ns10:PrtCardPaymentDocCollection_msg"/>
+    <variable name="cardPaymentValidation"
+              element="ns20:PrtCardPaymentDocCollection"/>
   </variables>
+  <faultHandlers>
+    <catch faultName="bpelx:remoteFault">
+      <sequence name="Sequence6">
+        <assign name="AssignRemoteFault">
+        <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E010PALSInvoicePaymentDoctoPortal'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:SenderSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:UserName"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-002'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Remote Fault in InterfaceID: E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E010_TE'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Remote Fault in E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOARemoteErrorHanderJMSAdapterV1"
+                inputVariable="InvokeSOAErrorHandler_IV"
+                partnerLink="SOAErrorHanderJMSAdapterV1"
+                portType="ns16:Produce_Message_ptt"
+                operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+      </sequence>
+    </catch>
+    <catch faultName="bpelx:bindingFault">
+      <sequence name="Sequence5">
+        <assign name="AssignBindingFault">
+          <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E010PALSInvoicePaymentDoctoPortal'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:SenderSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:UserName"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-001'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Binding Fault in InterfaceID: E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E010_TE'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Binding Fault in E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOABindingErrorHanderJMSAdapterV1"
+                inputVariable="InvokeSOAErrorHandler_IV"
+                partnerLink="SOAErrorHanderJMSAdapterV1"
+                portType="ns16:Produce_Message_ptt"
+                operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+      </sequence>
+    </catch>
+    <catchAll>
+      <sequence name="Sequence7">
+        <assign name="AssignTechnicalFault">
+        <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E010PALSInvoicePaymentDoctoPortal'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:SenderSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                  query="/ns2:invocationMsg/ns2:UserName"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-003'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Technical Fault in InterfaceID: E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E010_TE'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Technical Fault in E010'"/>
+            <to variable="InvokeSOAErrorHandler_IV" part="body"
+                query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOATecnicalErrorHanderJMSAdapterV1"
+                inputVariable="InvokeSOAErrorHandler_IV"
+                partnerLink="SOAErrorHanderJMSAdapterV1"
+                portType="ns16:Produce_Message_ptt"
+                operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
   <sequence name="main">
     <receive name="ReceiveInvoicePaymentReqMsg" createInstance="yes"
              variable="ReceiveInvoicePaymentReqMsg_IV"
@@ -373,26 +618,74 @@
             <bpelx:validate name="ValidatePayload" variables="payloadValidate"/>
           </sequence>
         </scope>
+        <assign name="Xform_InvoiceCardPayment_to_PortalValidate">
+          <bpelx:annotation>
+            <bpelx:pattern>transformation</bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from expression="ora:doXSLTransformForDoc('xsl/InvoiceCardPayment_to_Portal1.xsl', $ReceiveInvoicePaymentReqMsg_IV.part1, 'InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection', $InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection)"/>
+            <to variable="cardPaymentValidation"/>
+          </copy>
+        </assign>
         <scope name="InsertInvoiceCardPaymentDatatoPortalScope"
                variableAccessSerializable="no">
+          <faultHandlers>
+            <catch faultName="bpelx:invalidVariables">
+              <sequence name="Sequence4">
+                <assign name="xformInvoiceCardPaymetPortal_to_Errorlog">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/InsertInvoiceCard_to_ErrorLog2.xsl', $cardPaymentValidation)"/>
+                    <to variable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+                        part="EngageSoaInvPmtErrorlogCollection"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeInvoicePaymentSOAErrorLogDBAdapterV1"
+                        inputVariable="InvokeInvoicePaymentSOAErrorLogDBAdapterV1_IV"
+                        partnerLink="InsertInvoicePaymentSOAErrorLogDBAdapterV1"
+                        portType="ns11:InsertInvoicePaymentSOAErrorLogDBAdapterV1_ptt"
+                        operation="merge" bpelx:invokeAsDetail="no"/>
+                <assign name="xformValidRecords">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/Invoice_CardPortal_to_ValidInvoiceCardPortal1.xsl', $cardPaymentValidation)"/>
+                    <to variable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
+                        part="PrtCardPaymentDocCollection"/>
+                  </copy>
+                </assign>
+                <assign name="AssignErrorFlag">
+                  <copy>
+                    <from expression="'true'"/>
+                    <to variable="errorFlag"/>
+                  </copy>
+                </assign>
+              </sequence>
+            </catch>
+          </faultHandlers>
           <sequence name="InsertInvoiceCardPaymentDatatoPortalSequence">
+            <bpelx:validate name="ValidateforAccountID"
+                            variables="cardPaymentValidation"/>
             <assign name="Xform_InvoiceCardPayment_to_Portal">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
               <copy>
-                <from expression="ora:doXSLTransformForDoc('xsl/InvoiceCardPayment_to_Portal.xsl', $ReceiveInvoicePaymentReqMsg_IV.part1, 'InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection', $InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection)"/>
+                <from expression="ora:doXSLTransformForDoc('xsl/CardValidate_to_InvoiceCardPortal.xsl', $cardPaymentValidation)"/>
                 <to variable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
                     part="PrtCardPaymentDocCollection"/>
               </copy>
             </assign>
-            <invoke name="InvokeInsertInvoiceCardPortalDBAdapterV1"
-                    inputVariable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
-                    partnerLink="MergeInvoicePaymentPortalDBAdapterV1"
-                    portType="ns10:MergeInvoicePaymentPortalDBAdapterV1_ptt"
-                    operation="merge" bpelx:invokeAsDetail="no"/>
           </sequence>
         </scope>
+        <invoke name="InvokeInsertInvoiceCardPortalDBAdapterV1"
+                inputVariable="InvokeInsertInvoiceCardPortalDBAdapterV1_IV"
+                partnerLink="MergeInvoicePaymentPortalDBAdapterV1"
+                portType="ns10:MergeInvoicePaymentPortalDBAdapterV1_ptt"
+                operation="merge" bpelx:invokeAsDetail="no"/>
         <assign name="AssignLatestDeltaTSValue">
           <copy>
             <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"

@@ -48,6 +48,11 @@
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>accountId</attribute-name>
+               <field table="PRT_CARD_PAYMENT_DOC" name="ACCOUNT_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cardgroupMainType</attribute-name>
                <field table="PRT_CARD_PAYMENT_DOC" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>

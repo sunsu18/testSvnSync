@@ -1,5 +1,6 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoicePaymentPortalDBAdapterV1" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoicePaymentPortalDBAdapterV1" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation"
+           xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
    <xs:element name="PrtCardPaymentDocCollection" type="PrtCardPaymentDocCollection"/>
    <xs:complexType name="PrtCardPaymentDocCollection">
       <xs:sequence>
@@ -8,6 +9,7 @@
    </xs:complexType>
    <xs:complexType name="PrtCardPaymentDoc">
       <xs:sequence>
+         <xs:element name="DeltaTS" type="xs:string"/>
          <xs:element name="countryCode">
             <xs:simpleType>
                <xs:restriction base="xs:string">
