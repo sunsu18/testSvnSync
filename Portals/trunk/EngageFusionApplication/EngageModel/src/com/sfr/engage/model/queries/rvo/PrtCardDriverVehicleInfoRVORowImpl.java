@@ -73,6 +73,8 @@ public class PrtCardDriverVehicleInfoRVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int DRIVERNAME = AttributesEnum.DriverName.index();
     public static final int VEHICLENUMBER = AttributesEnum.VehicleNumber.index();
     public static final int PRTCARDPK = AttributesEnum.PrtCardPk.index();

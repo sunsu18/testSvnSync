@@ -6,43 +6,51 @@
   Name="PrtCardTransactionHeaderVO"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
-  SelectList="PrtCardTransactionHeaderEO.DELTA_TIMESTAMP, 
-       PrtCardTransactionHeaderEO.LAST_UPDATED, 
-       PrtCardTransactionHeaderEO.UREF_TRANSACTION_ID, 
-       PrtCardTransactionHeaderEO.PALS_COUNTRY_CODE, 
-       PrtCardTransactionHeaderEO.PURCHASE_COUNTRY_CODE, 
-       PrtCardTransactionHeaderEO.ORDER_ID, 
-       PrtCardTransactionHeaderEO.PRELIM_ID, 
+  SelectList="PrtCardTransactionHeaderEO.ACCOUNT_ID, 
        PrtCardTransactionHeaderEO.CARD_1_ID, 
        PrtCardTransactionHeaderEO.CARD_2_ID, 
        PrtCardTransactionHeaderEO.CARD_ID_2_INFO, 
-       PrtCardTransactionHeaderEO.ODOMETER_PORTAL, 
+       PrtCardTransactionHeaderEO.CARDGROUP_MAIN_TYPE, 
+       PrtCardTransactionHeaderEO.CARDGROUP_SEQ, 
+       PrtCardTransactionHeaderEO.CARDGROUP_SUB_TYPE, 
+       PrtCardTransactionHeaderEO.EXCHANGE_RATE, 
+       PrtCardTransactionHeaderEO.ICC_INVOICE_NUMBER, 
+       PrtCardTransactionHeaderEO.ICC_YN, 
+       PrtCardTransactionHeaderEO.INVOICE_FLAG, 
+       PrtCardTransactionHeaderEO.INVOICE_NUMBER_COLLECTIVE, 
+       PrtCardTransactionHeaderEO.INVOICE_NUMBER_NON_COLLECTIVE, 
+       PrtCardTransactionHeaderEO.INVOICED_CARD_ID, 
+       PrtCardTransactionHeaderEO.INVOICING_DATE, 
+       PrtCardTransactionHeaderEO.KSID, 
+       PrtCardTransactionHeaderEO.MODIFIED_BY, 
        PrtCardTransactionHeaderEO.ODOMETER, 
+       PrtCardTransactionHeaderEO.ODOMETER_PORTAL, 
+       PrtCardTransactionHeaderEO.ORDER_BACKWARD_REF, 
+       PrtCardTransactionHeaderEO.ORDER_CREATE_CODE, 
+       PrtCardTransactionHeaderEO.ORDER_FORWARD_REF, 
+       PrtCardTransactionHeaderEO.ORDER_ID, 
+       PrtCardTransactionHeaderEO.ORDER_VALID_CODE, 
+       PrtCardTransactionHeaderEO.PALS_COUNTRY_CODE, 
+       PrtCardTransactionHeaderEO.PALS_MODIFIED_BY, 
+       PrtCardTransactionHeaderEO.PALS_MODIFIED_DATE, 
+       PrtCardTransactionHeaderEO.PALS_ORDER_MAIN_TYPE, 
+       PrtCardTransactionHeaderEO.PALS_ORDER_SUB_TYPE, 
+       PrtCardTransactionHeaderEO.PARTNER_ID, 
+       PrtCardTransactionHeaderEO.PORTAL_MODIFIED_DATE, 
+       PrtCardTransactionHeaderEO.PRELIM_ID, 
+       PrtCardTransactionHeaderEO.PRELIM_STATUS_CODE, 
+       PrtCardTransactionHeaderEO.PREVIOUS_ODOMETER, 
+       PrtCardTransactionHeaderEO.PURCHASE_COUNTRY_CODE, 
+       PrtCardTransactionHeaderEO.PURCHASE_CURRENCY, 
+       PrtCardTransactionHeaderEO.SITE_NUMBER, 
+       PrtCardTransactionHeaderEO.STATION_NAME, 
+       PrtCardTransactionHeaderEO.TERMINAL_ID, 
+       PrtCardTransactionHeaderEO.TERMINAL_SEQ, 
        PrtCardTransactionHeaderEO.TRANSACTION_DT, 
        PrtCardTransactionHeaderEO.TRANSACTION_TIME, 
-       PrtCardTransactionHeaderEO.STATION_NAME, 
-       PrtCardTransactionHeaderEO.STATION_GROUP_ID, 
-       PrtCardTransactionHeaderEO.STATION_GROUP_NAME, 
-       PrtCardTransactionHeaderEO.ICC_INVOICE_NUMBER, 
-       PrtCardTransactionHeaderEO.INVOICE_NUMBER_NON_COLLECTIVE, 
-       PrtCardTransactionHeaderEO.INVOICING_DATE, 
-       PrtCardTransactionHeaderEO.RECIEPT_NO, 
-       PrtCardTransactionHeaderEO.PURCHASE_CURRENCY, 
-       PrtCardTransactionHeaderEO.EXCHANGE_RATE, 
-       PrtCardTransactionHeaderEO.ICC_YN, 
        PrtCardTransactionHeaderEO.TRANSACTION_TYPE, 
-       PrtCardTransactionHeaderEO.PRELIM_STATUS_CODE, 
-       PrtCardTransactionHeaderEO.INVOICE_NUMBER_COLLECTIVE, 
-       PrtCardTransactionHeaderEO.KSID, 
-       PrtCardTransactionHeaderEO.PARTNER_ID, 
-       PrtCardTransactionHeaderEO.ACCOUNT_ID, 
-       PrtCardTransactionHeaderEO.CARDGROUP_MAIN_TYPE, 
-       PrtCardTransactionHeaderEO.CARDGROUP_SUB_TYPE, 
-       PrtCardTransactionHeaderEO.CARDGROUP_SEQ, 
-       PrtCardTransactionHeaderEO.TERMINAL, 
-       PrtCardTransactionHeaderEO.MODIFIED_BY, 
-       PrtCardTransactionHeaderEO.LAST_MODIFIED_DATE, 
-       PrtCardTransactionHeaderEO.PREVIOUS_ODOMETER"
+       PrtCardTransactionHeaderEO.UREF_TRANSACTION_ID, 
+       PrtCardTransactionHeaderEO.WM_TRANS_REF_NUMBER"
   FromList="PRT_CARD_TRANSACTION_HEADER PrtCardTransactionHeaderEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -58,49 +66,11 @@
     Name="PrtCardTransactionHeaderEO"
     Entity="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO"/>
   <ViewAttribute
-    Name="DeltaTimestamp"
+    Name="AccountId"
     PrecisionRule="true"
-    EntityAttrName="DeltaTimestamp"
+    EntityAttrName="AccountId"
     EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="DELTA_TIMESTAMP"/>
-  <ViewAttribute
-    Name="LastUpdated"
-    PrecisionRule="true"
-    EntityAttrName="LastUpdated"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="LAST_UPDATED"/>
-  <ViewAttribute
-    Name="UrefTransactionId"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="UrefTransactionId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="UREF_TRANSACTION_ID"/>
-  <ViewAttribute
-    Name="PalsCountryCode"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="PalsCountryCode"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PALS_COUNTRY_CODE"/>
-  <ViewAttribute
-    Name="PurchaseCountryCode"
-    PrecisionRule="true"
-    EntityAttrName="PurchaseCountryCode"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PURCHASE_COUNTRY_CODE"/>
-  <ViewAttribute
-    Name="OrderId"
-    PrecisionRule="true"
-    EntityAttrName="OrderId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="ORDER_ID"/>
-  <ViewAttribute
-    Name="PrelimId"
-    PrecisionRule="true"
-    EntityAttrName="PrelimId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PRELIM_ID"/>
+    AliasName="ACCOUNT_ID"/>
   <ViewAttribute
     Name="Card1Id"
     PrecisionRule="true"
@@ -120,17 +90,226 @@
     EntityUsage="PrtCardTransactionHeaderEO"
     AliasName="CARD_ID_2_INFO"/>
   <ViewAttribute
-    Name="OdometerPortal"
+    Name="CardgroupMainType"
     PrecisionRule="true"
-    EntityAttrName="OdometerPortal"
+    EntityAttrName="CardgroupMainType"
     EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="ODOMETER_PORTAL"/>
+    AliasName="CARDGROUP_MAIN_TYPE"/>
+  <ViewAttribute
+    Name="CardgroupSeq"
+    PrecisionRule="true"
+    EntityAttrName="CardgroupSeq"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="CARDGROUP_SEQ"/>
+  <ViewAttribute
+    Name="CardgroupSubType"
+    PrecisionRule="true"
+    EntityAttrName="CardgroupSubType"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="CARDGROUP_SUB_TYPE"/>
+  <ViewAttribute
+    Name="ExchangeRate"
+    PrecisionRule="true"
+    EntityAttrName="ExchangeRate"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="EXCHANGE_RATE"/>
+  <ViewAttribute
+    Name="IccInvoiceNumber"
+    PrecisionRule="true"
+    EntityAttrName="IccInvoiceNumber"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ICC_INVOICE_NUMBER"/>
+  <ViewAttribute
+    Name="IccYn"
+    PrecisionRule="true"
+    EntityAttrName="IccYn"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ICC_YN"/>
+  <ViewAttribute
+    Name="InvoiceFlag"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceFlag"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="INVOICE_FLAG"/>
+  <ViewAttribute
+    Name="InvoiceNumberCollective"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceNumberCollective"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="INVOICE_NUMBER_COLLECTIVE"/>
+  <ViewAttribute
+    Name="InvoiceNumberNonCollective"
+    PrecisionRule="true"
+    EntityAttrName="InvoiceNumberNonCollective"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="INVOICE_NUMBER_NON_COLLECTIVE"/>
+  <ViewAttribute
+    Name="InvoicedCardId"
+    PrecisionRule="true"
+    EntityAttrName="InvoicedCardId"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="INVOICED_CARD_ID"/>
+  <ViewAttribute
+    Name="InvoicingDate"
+    PrecisionRule="true"
+    EntityAttrName="InvoicingDate"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="INVOICING_DATE"/>
+  <ViewAttribute
+    Name="Ksid"
+    PrecisionRule="true"
+    EntityAttrName="Ksid"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="KSID"/>
+  <ViewAttribute
+    Name="ModifiedBy"
+    PrecisionRule="true"
+    EntityAttrName="ModifiedBy"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="MODIFIED_BY"
+    IsNotNull="true"/>
   <ViewAttribute
     Name="Odometer"
     PrecisionRule="true"
     EntityAttrName="Odometer"
     EntityUsage="PrtCardTransactionHeaderEO"
     AliasName="ODOMETER"/>
+  <ViewAttribute
+    Name="OdometerPortal"
+    PrecisionRule="true"
+    EntityAttrName="OdometerPortal"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ODOMETER_PORTAL"/>
+  <ViewAttribute
+    Name="OrderBackwardRef"
+    PrecisionRule="true"
+    EntityAttrName="OrderBackwardRef"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ORDER_BACKWARD_REF"/>
+  <ViewAttribute
+    Name="OrderCreateCode"
+    PrecisionRule="true"
+    EntityAttrName="OrderCreateCode"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ORDER_CREATE_CODE"/>
+  <ViewAttribute
+    Name="OrderForwardRef"
+    PrecisionRule="true"
+    EntityAttrName="OrderForwardRef"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ORDER_FORWARD_REF"/>
+  <ViewAttribute
+    Name="OrderId"
+    PrecisionRule="true"
+    EntityAttrName="OrderId"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ORDER_ID"/>
+  <ViewAttribute
+    Name="OrderValidCode"
+    PrecisionRule="true"
+    EntityAttrName="OrderValidCode"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="ORDER_VALID_CODE"/>
+  <ViewAttribute
+    Name="PalsCountryCode"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PalsCountryCode"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PALS_COUNTRY_CODE"/>
+  <ViewAttribute
+    Name="PalsModifiedBy"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PalsModifiedBy"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PALS_MODIFIED_BY"/>
+  <ViewAttribute
+    Name="PalsModifiedDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PalsModifiedDate"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PALS_MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="PalsOrderMainType"
+    PrecisionRule="true"
+    EntityAttrName="PalsOrderMainType"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PALS_ORDER_MAIN_TYPE"/>
+  <ViewAttribute
+    Name="PalsOrderSubType"
+    PrecisionRule="true"
+    EntityAttrName="PalsOrderSubType"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PALS_ORDER_SUB_TYPE"/>
+  <ViewAttribute
+    Name="PartnerId"
+    PrecisionRule="true"
+    EntityAttrName="PartnerId"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PARTNER_ID"/>
+  <ViewAttribute
+    Name="PortalModifiedDate"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PortalModifiedDate"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PORTAL_MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="PrelimId"
+    PrecisionRule="true"
+    EntityAttrName="PrelimId"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PRELIM_ID"/>
+  <ViewAttribute
+    Name="PrelimStatusCode"
+    PrecisionRule="true"
+    EntityAttrName="PrelimStatusCode"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PRELIM_STATUS_CODE"/>
+  <ViewAttribute
+    Name="PreviousOdometer"
+    PrecisionRule="true"
+    EntityAttrName="PreviousOdometer"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PREVIOUS_ODOMETER"/>
+  <ViewAttribute
+    Name="PurchaseCountryCode"
+    PrecisionRule="true"
+    EntityAttrName="PurchaseCountryCode"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PURCHASE_COUNTRY_CODE"/>
+  <ViewAttribute
+    Name="PurchaseCurrency"
+    PrecisionRule="true"
+    EntityAttrName="PurchaseCurrency"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="PURCHASE_CURRENCY"/>
+  <ViewAttribute
+    Name="SiteNumber"
+    PrecisionRule="true"
+    EntityAttrName="SiteNumber"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="SITE_NUMBER"/>
+  <ViewAttribute
+    Name="StationName"
+    PrecisionRule="true"
+    EntityAttrName="StationName"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="STATION_NAME"/>
+  <ViewAttribute
+    Name="TerminalId"
+    PrecisionRule="true"
+    EntityAttrName="TerminalId"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="TERMINAL_ID"/>
+  <ViewAttribute
+    Name="TerminalSeq"
+    PrecisionRule="true"
+    EntityAttrName="TerminalSeq"
+    EntityUsage="PrtCardTransactionHeaderEO"
+    AliasName="TERMINAL_SEQ"/>
   <ViewAttribute
     Name="TransactionDt"
     PrecisionRule="true"
@@ -144,141 +323,22 @@
     EntityUsage="PrtCardTransactionHeaderEO"
     AliasName="TRANSACTION_TIME"/>
   <ViewAttribute
-    Name="StationName"
-    PrecisionRule="true"
-    EntityAttrName="StationName"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="STATION_NAME"/>
-  <ViewAttribute
-    Name="StationGroupId"
-    PrecisionRule="true"
-    EntityAttrName="StationGroupId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="STATION_GROUP_ID"/>
-  <ViewAttribute
-    Name="StationGroupName"
-    PrecisionRule="true"
-    EntityAttrName="StationGroupName"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="STATION_GROUP_NAME"/>
-  <ViewAttribute
-    Name="IccInvoiceNumber"
-    PrecisionRule="true"
-    EntityAttrName="IccInvoiceNumber"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="ICC_INVOICE_NUMBER"/>
-  <ViewAttribute
-    Name="InvoiceNumberNonCollective"
-    PrecisionRule="true"
-    EntityAttrName="InvoiceNumberNonCollective"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="INVOICE_NUMBER_NON_COLLECTIVE"/>
-  <ViewAttribute
-    Name="InvoicingDate"
-    PrecisionRule="true"
-    EntityAttrName="InvoicingDate"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="INVOICING_DATE"/>
-  <ViewAttribute
-    Name="RecieptNo"
-    PrecisionRule="true"
-    EntityAttrName="RecieptNo"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="RECIEPT_NO"/>
-  <ViewAttribute
-    Name="PurchaseCurrency"
-    PrecisionRule="true"
-    EntityAttrName="PurchaseCurrency"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PURCHASE_CURRENCY"/>
-  <ViewAttribute
-    Name="ExchangeRate"
-    PrecisionRule="true"
-    EntityAttrName="ExchangeRate"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="EXCHANGE_RATE"/>
-  <ViewAttribute
-    Name="IccYn"
-    PrecisionRule="true"
-    EntityAttrName="IccYn"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="ICC_YN"/>
-  <ViewAttribute
     Name="TransactionType"
     PrecisionRule="true"
     EntityAttrName="TransactionType"
     EntityUsage="PrtCardTransactionHeaderEO"
     AliasName="TRANSACTION_TYPE"/>
   <ViewAttribute
-    Name="PrelimStatusCode"
+    Name="UrefTransactionId"
+    IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="PrelimStatusCode"
+    EntityAttrName="UrefTransactionId"
     EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PRELIM_STATUS_CODE"/>
+    AliasName="UREF_TRANSACTION_ID"/>
   <ViewAttribute
-    Name="InvoiceNumberCollective"
+    Name="WmTransRefNumber"
     PrecisionRule="true"
-    EntityAttrName="InvoiceNumberCollective"
+    EntityAttrName="WmTransRefNumber"
     EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="INVOICE_NUMBER_COLLECTIVE"/>
-  <ViewAttribute
-    Name="Ksid"
-    PrecisionRule="true"
-    EntityAttrName="Ksid"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="KSID"/>
-  <ViewAttribute
-    Name="PartnerId"
-    PrecisionRule="true"
-    EntityAttrName="PartnerId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PARTNER_ID"/>
-  <ViewAttribute
-    Name="AccountId"
-    PrecisionRule="true"
-    EntityAttrName="AccountId"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="ACCOUNT_ID"/>
-  <ViewAttribute
-    Name="CardgroupMainType"
-    PrecisionRule="true"
-    EntityAttrName="CardgroupMainType"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="CARDGROUP_MAIN_TYPE"/>
-  <ViewAttribute
-    Name="CardgroupSubType"
-    PrecisionRule="true"
-    EntityAttrName="CardgroupSubType"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="CARDGROUP_SUB_TYPE"/>
-  <ViewAttribute
-    Name="CardgroupSeq"
-    PrecisionRule="true"
-    EntityAttrName="CardgroupSeq"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="CARDGROUP_SEQ"/>
-  <ViewAttribute
-    Name="Terminal"
-    PrecisionRule="true"
-    EntityAttrName="Terminal"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="TERMINAL"/>
-  <ViewAttribute
-    Name="ModifiedBy"
-    PrecisionRule="true"
-    EntityAttrName="ModifiedBy"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="MODIFIED_BY"/>
-  <ViewAttribute
-    Name="LastModifiedDate"
-    PrecisionRule="true"
-    EntityAttrName="LastModifiedDate"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="LAST_MODIFIED_DATE"/>
-  <ViewAttribute
-    Name="PreviousOdometer"
-    PrecisionRule="true"
-    EntityAttrName="PreviousOdometer"
-    EntityUsage="PrtCardTransactionHeaderEO"
-    AliasName="PREVIOUS_ODOMETER"/>
+    AliasName="WM_TRANS_REF_NUMBER"/>
 </ViewObject>

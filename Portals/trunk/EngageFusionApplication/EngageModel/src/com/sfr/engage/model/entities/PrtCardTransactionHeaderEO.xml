@@ -18,28 +18,6 @@
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Attribute
-    Name="DeltaTimestamp"
-    ColumnName="DELTA_TIMESTAMP"
-    SQLType="TIMESTAMP"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="LastUpdated"
-    ColumnName="LAST_UPDATED"
-    SQLType="TIMESTAMP"
-    Type="oracle.jbo.domain.Date"
-    ColumnType="DATE"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
     Name="UrefTransactionId"
     IsNotNull="true"
     Precision="10"
@@ -56,7 +34,7 @@
   <Attribute
     Name="PalsCountryCode"
     IsNotNull="true"
-    Precision="8"
+    Precision="2"
     ColumnName="PALS_COUNTRY_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -187,32 +165,8 @@
   </Attribute>
   <Attribute
     Name="StationName"
-    Precision="30"
+    Precision="45"
     ColumnName="STATION_NAME"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="StationGroupId"
-    Precision="3"
-    ColumnName="STATION_GROUP_ID"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="StationGroupName"
-    Precision="30"
-    ColumnName="STATION_GROUP_NAME"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
@@ -257,18 +211,6 @@
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="RecieptNo"
-    Precision="8"
-    ColumnName="RECIEPT_NO"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
     Name="PurchaseCurrency"
     Precision="3"
     ColumnName="PURCHASE_CURRENCY"
@@ -282,12 +224,12 @@
   </Attribute>
   <Attribute
     Name="ExchangeRate"
-    Precision="13"
+    Precision="126"
     Scale="0"
     ColumnName="EXCHANGE_RATE"
-    SQLType="NUMERIC"
+    SQLType="FLOAT"
     Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    ColumnType="FLOAT"
     TableName="PRT_CARD_TRANSACTION_HEADER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="14"/>
@@ -343,7 +285,7 @@
   </Attribute>
   <Attribute
     Name="Ksid"
-    Precision="20"
+    Precision="10"
     ColumnName="KSID"
     SQLType="VARCHAR"
     Type="java.lang.String"
@@ -414,38 +356,16 @@
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="Terminal"
-    Precision="10"
-    ColumnName="TERMINAL"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
     Name="ModifiedBy"
-    Precision="20"
+    Precision="50"
     ColumnName="MODIFIED_BY"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
+    TableName="PRT_CARD_TRANSACTION_HEADER"
+    IsNotNull="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="LastModifiedDate"
-    ColumnName="LAST_MODIFIED_DATE"
-    SQLType="TIMESTAMP"
-    Type="oracle.jbo.domain.Date"
-    ColumnType="DATE"
-    TableName="PRT_CARD_TRANSACTION_HEADER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </Attribute>
   <Attribute
@@ -460,10 +380,216 @@
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </Attribute>
-  <Key
-    Name="SysC0054293">
+  <Attribute
+    Name="PalsOrderMainType"
+    Precision="3"
+    ColumnName="PALS_ORDER_MAIN_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054293"/>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PalsOrderSubType"
+    Precision="3"
+    ColumnName="PALS_ORDER_SUB_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OrderBackwardRef"
+    Precision="10"
+    ColumnName="ORDER_BACKWARD_REF"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OrderForwardRef"
+    Precision="10"
+    ColumnName="ORDER_FORWARD_REF"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OrderValidCode"
+    Precision="3"
+    ColumnName="ORDER_VALID_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="OrderCreateCode"
+    Precision="3"
+    ColumnName="ORDER_CREATE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SiteNumber"
+    Precision="5"
+    ColumnName="SITE_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoicedCardId"
+    Precision="10"
+    ColumnName="INVOICED_CARD_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TerminalId"
+    Precision="2"
+    ColumnName="TERMINAL_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="TerminalSeq"
+    Precision="6"
+    ColumnName="TERMINAL_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceFlag"
+    Precision="10"
+    ColumnName="INVOICE_FLAG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="WmTransRefNumber"
+    Precision="12"
+    ColumnName="WM_TRANS_REF_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="12"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PalsModifiedDate"
+    IsNotNull="true"
+    ColumnName="PALS_MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PalsModifiedBy"
+    IsNotNull="true"
+    Precision="6"
+    ColumnName="PALS_MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PortalModifiedDate"
+    IsNotNull="true"
+    ColumnName="PORTAL_MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD_TRANSACTION_HEADER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Key
+    Name="PrtCardTransactionHeadPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_TRANSACTION_HEAD_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.UrefTransactionId"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PalsCountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0056374">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0056374"/>
+      <Attr Name="_checkCondition" Value='"PALS_COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PalsCountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0056375">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0056375"/>
       <Attr Name="_checkCondition" Value='"UREF_TRANSACTION_ID" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
@@ -473,15 +599,51 @@
     </AttrArray>
   </Key>
   <Key
-    Name="SysC0054294">
+    Name="SysC0056376">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="SYS_C0054294"/>
-      <Attr Name="_checkCondition" Value='"PALS_COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_DBObjectName" Value="SYS_C0056376"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item
-        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PalsCountryCode"/>
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0056377">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0056377"/>
+      <Attr Name="_checkCondition" Value='"PALS_MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PalsModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0056378">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0056378"/>
+      <Attr Name="_checkCondition" Value='"PALS_MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PalsModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0056379">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0056379"/>
+      <Attr Name="_checkCondition" Value='"PORTAL_MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardTransactionHeaderEO.PortalModifiedDate"/>
     </AttrArray>
   </Key>
 </Entity>

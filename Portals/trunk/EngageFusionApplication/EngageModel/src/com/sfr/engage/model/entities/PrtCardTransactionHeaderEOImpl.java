@@ -22,26 +22,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
-        DeltaTimestamp {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getDeltaTimestamp();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setDeltaTimestamp((Timestamp)value);
-            }
-        }
-        ,
-        LastUpdated {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getLastUpdated();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setLastUpdated((Date)value);
-            }
-        }
-        ,
         UrefTransactionId {
             public Object get(PrtCardTransactionHeaderEOImpl obj) {
                 return obj.getUrefTransactionId();
@@ -172,26 +152,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
             }
         }
         ,
-        StationGroupId {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getStationGroupId();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setStationGroupId((String)value);
-            }
-        }
-        ,
-        StationGroupName {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getStationGroupName();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setStationGroupName((String)value);
-            }
-        }
-        ,
         IccInvoiceNumber {
             public Object get(PrtCardTransactionHeaderEOImpl obj) {
                 return obj.getIccInvoiceNumber();
@@ -219,16 +179,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
 
             public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
                 obj.setInvoicingDate((Date)value);
-            }
-        }
-        ,
-        RecieptNo {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getRecieptNo();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setRecieptNo((String)value);
             }
         }
         ,
@@ -352,16 +302,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
             }
         }
         ,
-        Terminal {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getTerminal();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setTerminal((String)value);
-            }
-        }
-        ,
         ModifiedBy {
             public Object get(PrtCardTransactionHeaderEOImpl obj) {
                 return obj.getModifiedBy();
@@ -372,16 +312,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
             }
         }
         ,
-        LastModifiedDate {
-            public Object get(PrtCardTransactionHeaderEOImpl obj) {
-                return obj.getLastModifiedDate();
-            }
-
-            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
-                obj.setLastModifiedDate((Date)value);
-            }
-        }
-        ,
         PreviousOdometer {
             public Object get(PrtCardTransactionHeaderEOImpl obj) {
                 return obj.getPreviousOdometer();
@@ -389,6 +319,156 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
 
             public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
                 obj.setPreviousOdometer((String)value);
+            }
+        }
+        ,
+        PalsOrderMainType {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getPalsOrderMainType();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setPalsOrderMainType((String)value);
+            }
+        }
+        ,
+        PalsOrderSubType {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getPalsOrderSubType();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setPalsOrderSubType((String)value);
+            }
+        }
+        ,
+        OrderBackwardRef {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getOrderBackwardRef();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setOrderBackwardRef((String)value);
+            }
+        }
+        ,
+        OrderForwardRef {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getOrderForwardRef();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setOrderForwardRef((String)value);
+            }
+        }
+        ,
+        OrderValidCode {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getOrderValidCode();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setOrderValidCode((String)value);
+            }
+        }
+        ,
+        OrderCreateCode {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getOrderCreateCode();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setOrderCreateCode((String)value);
+            }
+        }
+        ,
+        SiteNumber {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getSiteNumber();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setSiteNumber((String)value);
+            }
+        }
+        ,
+        InvoicedCardId {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getInvoicedCardId();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setInvoicedCardId((String)value);
+            }
+        }
+        ,
+        TerminalId {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getTerminalId();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setTerminalId((String)value);
+            }
+        }
+        ,
+        TerminalSeq {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getTerminalSeq();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setTerminalSeq((String)value);
+            }
+        }
+        ,
+        InvoiceFlag {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getInvoiceFlag();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setInvoiceFlag((String)value);
+            }
+        }
+        ,
+        WmTransRefNumber {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getWmTransRefNumber();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setWmTransRefNumber((String)value);
+            }
+        }
+        ,
+        PalsModifiedDate {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getPalsModifiedDate();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setPalsModifiedDate((Date)value);
+            }
+        }
+        ,
+        PalsModifiedBy {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getPalsModifiedBy();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setPalsModifiedBy((String)value);
+            }
+        }
+        ,
+        PortalModifiedDate {
+            public Object get(PrtCardTransactionHeaderEOImpl obj) {
+                return obj.getPortalModifiedDate();
+            }
+
+            public void put(PrtCardTransactionHeaderEOImpl obj, Object value) {
+                obj.setPortalModifiedDate((Date)value);
             }
         }
         ;
@@ -419,8 +499,8 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
             return vals;
         }
     }
-    public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
-    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
+
+
     public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
     public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
     public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
@@ -434,12 +514,9 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
     public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
     public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
     public static final int STATIONNAME = AttributesEnum.StationName.index();
-    public static final int STATIONGROUPID = AttributesEnum.StationGroupId.index();
-    public static final int STATIONGROUPNAME = AttributesEnum.StationGroupName.index();
     public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
     public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
-    public static final int RECIEPTNO = AttributesEnum.RecieptNo.index();
     public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
     public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
     public static final int ICCYN = AttributesEnum.IccYn.index();
@@ -452,10 +529,23 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
     public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
     public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
     public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
-    public static final int TERMINAL = AttributesEnum.Terminal.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
-    public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
     public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
+    public static final int PALSORDERMAINTYPE = AttributesEnum.PalsOrderMainType.index();
+    public static final int PALSORDERSUBTYPE = AttributesEnum.PalsOrderSubType.index();
+    public static final int ORDERBACKWARDREF = AttributesEnum.OrderBackwardRef.index();
+    public static final int ORDERFORWARDREF = AttributesEnum.OrderForwardRef.index();
+    public static final int ORDERVALIDCODE = AttributesEnum.OrderValidCode.index();
+    public static final int ORDERCREATECODE = AttributesEnum.OrderCreateCode.index();
+    public static final int SITENUMBER = AttributesEnum.SiteNumber.index();
+    public static final int INVOICEDCARDID = AttributesEnum.InvoicedCardId.index();
+    public static final int TERMINALID = AttributesEnum.TerminalId.index();
+    public static final int TERMINALSEQ = AttributesEnum.TerminalSeq.index();
+    public static final int INVOICEFLAG = AttributesEnum.InvoiceFlag.index();
+    public static final int WMTRANSREFNUMBER = AttributesEnum.WmTransRefNumber.index();
+    public static final int PALSMODIFIEDDATE = AttributesEnum.PalsModifiedDate.index();
+    public static final int PALSMODIFIEDBY = AttributesEnum.PalsModifiedBy.index();
+    public static final int PORTALMODIFIEDDATE = AttributesEnum.PortalModifiedDate.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -463,36 +553,15 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
     public PrtCardTransactionHeaderEOImpl() {
     }
 
-    /**
-     * Gets the attribute value for DeltaTimestamp, using the alias name DeltaTimestamp.
-     * @return the DeltaTimestamp
-     */
-    public Timestamp getDeltaTimestamp() {
-        return (Timestamp)getAttributeInternal(DELTATIMESTAMP);
-    }
 
     /**
-     * Sets <code>value</code> as the attribute value for DeltaTimestamp.
-     * @param value value to set the DeltaTimestamp
+     * @return the definition object for this instance class.
      */
-    public void setDeltaTimestamp(Timestamp value) {
-        setAttributeInternal(DELTATIMESTAMP, value);
-    }
-
-    /**
-     * Gets the attribute value for LastUpdated, using the alias name LastUpdated.
-     * @return the LastUpdated
-     */
-    public Date getLastUpdated() {
-        return (Date)getAttributeInternal(LASTUPDATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for LastUpdated.
-     * @param value value to set the LastUpdated
-     */
-    public void setLastUpdated(Date value) {
-        setAttributeInternal(LASTUPDATED, value);
+    public static synchronized EntityDefImpl getDefinitionObject() {
+        if (mDefinitionObject == null) {
+            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtCardTransactionHeaderEO");
+        }
+        return mDefinitionObject;
     }
 
     /**
@@ -703,37 +772,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
         setAttributeInternal(STATIONNAME, value);
     }
 
-    /**
-     * Gets the attribute value for StationGroupId, using the alias name StationGroupId.
-     * @return the StationGroupId
-     */
-    public String getStationGroupId() {
-        return (String)getAttributeInternal(STATIONGROUPID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for StationGroupId.
-     * @param value value to set the StationGroupId
-     */
-    public void setStationGroupId(String value) {
-        setAttributeInternal(STATIONGROUPID, value);
-    }
-
-    /**
-     * Gets the attribute value for StationGroupName, using the alias name StationGroupName.
-     * @return the StationGroupName
-     */
-    public String getStationGroupName() {
-        return (String)getAttributeInternal(STATIONGROUPNAME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for StationGroupName.
-     * @param value value to set the StationGroupName
-     */
-    public void setStationGroupName(String value) {
-        setAttributeInternal(STATIONGROUPNAME, value);
-    }
 
     /**
      * Gets the attribute value for IccInvoiceNumber, using the alias name IccInvoiceNumber.
@@ -783,21 +821,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
         setAttributeInternal(INVOICINGDATE, value);
     }
 
-    /**
-     * Gets the attribute value for RecieptNo, using the alias name RecieptNo.
-     * @return the RecieptNo
-     */
-    public String getRecieptNo() {
-        return (String)getAttributeInternal(RECIEPTNO);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for RecieptNo.
-     * @param value value to set the RecieptNo
-     */
-    public void setRecieptNo(String value) {
-        setAttributeInternal(RECIEPTNO, value);
-    }
 
     /**
      * Gets the attribute value for PurchaseCurrency, using the alias name PurchaseCurrency.
@@ -991,21 +1014,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
         setAttributeInternal(CARDGROUPSEQ, value);
     }
 
-    /**
-     * Gets the attribute value for Terminal, using the alias name Terminal.
-     * @return the Terminal
-     */
-    public String getTerminal() {
-        return (String)getAttributeInternal(TERMINAL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for Terminal.
-     * @param value value to set the Terminal
-     */
-    public void setTerminal(String value) {
-        setAttributeInternal(TERMINAL, value);
-    }
 
     /**
      * Gets the attribute value for ModifiedBy, using the alias name ModifiedBy.
@@ -1023,21 +1031,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
         setAttributeInternal(MODIFIEDBY, value);
     }
 
-    /**
-     * Gets the attribute value for LastModifiedDate, using the alias name LastModifiedDate.
-     * @return the LastModifiedDate
-     */
-    public Date getLastModifiedDate() {
-        return (Date)getAttributeInternal(LASTMODIFIEDDATE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for LastModifiedDate.
-     * @param value value to set the LastModifiedDate
-     */
-    public void setLastModifiedDate(Date value) {
-        setAttributeInternal(LASTMODIFIEDDATE, value);
-    }
 
     /**
      * Gets the attribute value for PreviousOdometer, using the alias name PreviousOdometer.
@@ -1053,6 +1046,246 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
      */
     public void setPreviousOdometer(String value) {
         setAttributeInternal(PREVIOUSODOMETER, value);
+    }
+
+    /**
+     * Gets the attribute value for PalsOrderMainType, using the alias name PalsOrderMainType.
+     * @return the PalsOrderMainType
+     */
+    public String getPalsOrderMainType() {
+        return (String)getAttributeInternal(PALSORDERMAINTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PalsOrderMainType.
+     * @param value value to set the PalsOrderMainType
+     */
+    public void setPalsOrderMainType(String value) {
+        setAttributeInternal(PALSORDERMAINTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for PalsOrderSubType, using the alias name PalsOrderSubType.
+     * @return the PalsOrderSubType
+     */
+    public String getPalsOrderSubType() {
+        return (String)getAttributeInternal(PALSORDERSUBTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PalsOrderSubType.
+     * @param value value to set the PalsOrderSubType
+     */
+    public void setPalsOrderSubType(String value) {
+        setAttributeInternal(PALSORDERSUBTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for OrderBackwardRef, using the alias name OrderBackwardRef.
+     * @return the OrderBackwardRef
+     */
+    public String getOrderBackwardRef() {
+        return (String)getAttributeInternal(ORDERBACKWARDREF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for OrderBackwardRef.
+     * @param value value to set the OrderBackwardRef
+     */
+    public void setOrderBackwardRef(String value) {
+        setAttributeInternal(ORDERBACKWARDREF, value);
+    }
+
+    /**
+     * Gets the attribute value for OrderForwardRef, using the alias name OrderForwardRef.
+     * @return the OrderForwardRef
+     */
+    public String getOrderForwardRef() {
+        return (String)getAttributeInternal(ORDERFORWARDREF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for OrderForwardRef.
+     * @param value value to set the OrderForwardRef
+     */
+    public void setOrderForwardRef(String value) {
+        setAttributeInternal(ORDERFORWARDREF, value);
+    }
+
+    /**
+     * Gets the attribute value for OrderValidCode, using the alias name OrderValidCode.
+     * @return the OrderValidCode
+     */
+    public String getOrderValidCode() {
+        return (String)getAttributeInternal(ORDERVALIDCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for OrderValidCode.
+     * @param value value to set the OrderValidCode
+     */
+    public void setOrderValidCode(String value) {
+        setAttributeInternal(ORDERVALIDCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for OrderCreateCode, using the alias name OrderCreateCode.
+     * @return the OrderCreateCode
+     */
+    public String getOrderCreateCode() {
+        return (String)getAttributeInternal(ORDERCREATECODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for OrderCreateCode.
+     * @param value value to set the OrderCreateCode
+     */
+    public void setOrderCreateCode(String value) {
+        setAttributeInternal(ORDERCREATECODE, value);
+    }
+
+    /**
+     * Gets the attribute value for SiteNumber, using the alias name SiteNumber.
+     * @return the SiteNumber
+     */
+    public String getSiteNumber() {
+        return (String)getAttributeInternal(SITENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for SiteNumber.
+     * @param value value to set the SiteNumber
+     */
+    public void setSiteNumber(String value) {
+        setAttributeInternal(SITENUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for InvoicedCardId, using the alias name InvoicedCardId.
+     * @return the InvoicedCardId
+     */
+    public String getInvoicedCardId() {
+        return (String)getAttributeInternal(INVOICEDCARDID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for InvoicedCardId.
+     * @param value value to set the InvoicedCardId
+     */
+    public void setInvoicedCardId(String value) {
+        setAttributeInternal(INVOICEDCARDID, value);
+    }
+
+    /**
+     * Gets the attribute value for TerminalId, using the alias name TerminalId.
+     * @return the TerminalId
+     */
+    public String getTerminalId() {
+        return (String)getAttributeInternal(TERMINALID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for TerminalId.
+     * @param value value to set the TerminalId
+     */
+    public void setTerminalId(String value) {
+        setAttributeInternal(TERMINALID, value);
+    }
+
+    /**
+     * Gets the attribute value for TerminalSeq, using the alias name TerminalSeq.
+     * @return the TerminalSeq
+     */
+    public String getTerminalSeq() {
+        return (String)getAttributeInternal(TERMINALSEQ);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for TerminalSeq.
+     * @param value value to set the TerminalSeq
+     */
+    public void setTerminalSeq(String value) {
+        setAttributeInternal(TERMINALSEQ, value);
+    }
+
+    /**
+     * Gets the attribute value for InvoiceFlag, using the alias name InvoiceFlag.
+     * @return the InvoiceFlag
+     */
+    public String getInvoiceFlag() {
+        return (String)getAttributeInternal(INVOICEFLAG);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for InvoiceFlag.
+     * @param value value to set the InvoiceFlag
+     */
+    public void setInvoiceFlag(String value) {
+        setAttributeInternal(INVOICEFLAG, value);
+    }
+
+    /**
+     * Gets the attribute value for WmTransRefNumber, using the alias name WmTransRefNumber.
+     * @return the WmTransRefNumber
+     */
+    public String getWmTransRefNumber() {
+        return (String)getAttributeInternal(WMTRANSREFNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for WmTransRefNumber.
+     * @param value value to set the WmTransRefNumber
+     */
+    public void setWmTransRefNumber(String value) {
+        setAttributeInternal(WMTRANSREFNUMBER, value);
+    }
+
+    /**
+     * Gets the attribute value for PalsModifiedDate, using the alias name PalsModifiedDate.
+     * @return the PalsModifiedDate
+     */
+    public Date getPalsModifiedDate() {
+        return (Date)getAttributeInternal(PALSMODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PalsModifiedDate.
+     * @param value value to set the PalsModifiedDate
+     */
+    public void setPalsModifiedDate(Date value) {
+        setAttributeInternal(PALSMODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for PalsModifiedBy, using the alias name PalsModifiedBy.
+     * @return the PalsModifiedBy
+     */
+    public String getPalsModifiedBy() {
+        return (String)getAttributeInternal(PALSMODIFIEDBY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PalsModifiedBy.
+     * @param value value to set the PalsModifiedBy
+     */
+    public void setPalsModifiedBy(String value) {
+        setAttributeInternal(PALSMODIFIEDBY, value);
+    }
+
+    /**
+     * Gets the attribute value for PortalModifiedDate, using the alias name PortalModifiedDate.
+     * @return the PortalModifiedDate
+     */
+    public Date getPortalModifiedDate() {
+        return (Date)getAttributeInternal(PORTALMODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PortalModifiedDate.
+     * @param value value to set the PortalModifiedDate
+     */
+    public void setPortalModifiedDate(Date value) {
+        setAttributeInternal(PORTALMODIFIEDDATE, value);
     }
 
     /**
@@ -1088,6 +1321,7 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
         super.setAttrInvokeAccessor(index, value, attrDef);
     }
 
+
     /**
      * @param urefTransactionId key constituent
      * @param palsCountryCode key constituent
@@ -1097,16 +1331,6 @@ public class PrtCardTransactionHeaderEOImpl extends EntityImpl {
     public static Key createPrimaryKey(String urefTransactionId,
                                        String palsCountryCode) {
         return new Key(new Object[]{urefTransactionId, palsCountryCode});
-    }
-
-    /**
-     * @return the definition object for this instance class.
-     */
-    public static synchronized EntityDefImpl getDefinitionObject() {
-        if (mDefinitionObject == null) {
-            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtCardTransactionHeaderEO");
-        }
-        return mDefinitionObject;
     }
 
     /**

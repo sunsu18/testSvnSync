@@ -8,13 +8,13 @@
   InheritPersonalization="true"
   BindingStyle="OracleName"
   CustomQuery="true"
-  RowClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
@@ -31,45 +31,28 @@
     Name="countryCd"
     Kind="where"
     Type="java.lang.String"/>
+  <Variable
+    Name="partnerId"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT * 
+    <![CDATA[SELECT PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID,PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE,PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TYPE,PRT_CARD_TRANSACTION_HEADER.PURCHASE_CURRENCY,PRT_CARD_TRANSACTION_HEADER.KSID,PRT_CARD_TRANSACTION_HEADER.PURCHASE_COUNTRY_CODE,PRT_CARD_TRANSACTION_HEADER.CARD_1_ID,PRT_CARD_TRANSACTION_HEADER.ODOMETER_PORTAL,PRT_CARD_TRANSACTION_HEADER.ODOMETER,
+PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT,PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME,PRT_CARD_TRANSACTION_HEADER.STATION_NAME,PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_NON_COLLECTIVE,
+PRT_CARD_TRANSACTION_HEADER.MODIFIED_BY,PRT_CARD_TRANSACTION_HEADER.PORTAL_MODIFIED_DATE,PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_COLLECTIVE,PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID,PRT_CARD_TRANSACTION_HEADER.CARDGROUP_MAIN_TYPE,PRT_CARD_TRANSACTION_HEADER.CARDGROUP_SUB_TYPE,
+PRT_CARD_TRANSACTION_HEADER.CARDGROUP_SEQ,PRT_CARD_TRANSACTION_HEADER.PREVIOUS_ODOMETER,PRT_CARD_TRANSACTION_DETAIL.PRODUCT_NAME,PRT_CARD_TRANSACTION_DETAIL.QUANTITY,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_UNIT_PRICE,
+PRT_CARD_TRANSACTION_DETAIL.INVOICED_VAT,PRT_CARD_TRANSACTION_DETAIL.INVOICED_NET_AMOUNT,PRT_CARD_TRANSACTION_DETAIL.INVOICE_DISCOUNT_AMOUNT,PRT_CARD_TRANSACTION_DETAIL.INVOICED_UNIT_PRICE,PRT_CARD_TRANSACTION_DETAIL.INVOICED_GROSS_AMOUNT,PRT_CARD_TRANSACTION_DETAIL.INVOICED_NET_AMOUNT_REBATED,PRT_CARD_TRANSACTION_DETAIL.INVOIVED_VAT_REBATED,PRT_CARD_TRANSACTION_DETAIL.INVOICED_UNIT_PRICE_REBATED,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_GROSS_AMOUNT_REBATED,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_UNIT_PRICE_REBATED,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_GROSS_AMOUNT,PRT_CARD_TRANSACTION_DETAIL.UNIT_OF_MEASURE,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_VAT,PRT_CARD_TRANSACTION_DETAIL.CURRENCY_DISCOUNT_AMOUNT,
+PRT_CARD_TRANSACTION_DETAIL.CURRENCY_NET_AMOUNT,PRT_CARD_TRANSACTION_DETAIL.INVOICED_GROSS_AMOUNT_REBATED,PRT_DRIVER_INFORMATION.DRIVER_NUMBER,PRT_DRIVER_INFORMATION.DRIVER_NAME,
+PRT_TRUCK_INFORMATION.VEHICLE_NUMBER,PRT_TRUCK_INFORMATION.INTERNAL_NAME
 FROM PRT_CARD_TRANSACTION_HEADER inner join PRT_CARD_TRANSACTION_DETAIL ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
 and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
-left join PRT_DRIVER_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_DRIVER_INFORMATION.ACCOUNT_NUMBER and PRT_CARD_TRANSACTION_HEADER.CARD_1_ID = PRT_DRIVER_INFORMATION.CARD_NUMBER 
+left join PRT_DRIVER_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_DRIVER_INFORMATION.ACCOUNT_NUMBER and PRT_CARD_TRANSACTION_HEADER.KSID = PRT_DRIVER_INFORMATION.CARD_NUMBER 
 and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_DRIVER_INFORMATION.COUNTRY_CODE 
-left join PRT_TRUCK_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_TRUCK_INFORMATION.ACCOUNT_NUMBER and PRT_CARD_TRANSACTION_HEADER.CARD_1_ID = PRT_TRUCK_INFORMATION.CARD_NUMBER 
+left join PRT_TRUCK_INFORMATION ON PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = PRT_TRUCK_INFORMATION.ACCOUNT_NUMBER and PRT_CARD_TRANSACTION_HEADER.KSID = PRT_TRUCK_INFORMATION.CARD_NUMBER 
 and PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = PRT_TRUCK_INFORMATION.COUNTRY_CODE
-WHERE PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID = :accountId
-AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
+WHERE  INSTR(:accountId,PRT_CARD_TRANSACTION_HEADER.ACCOUNT_ID)<>0 
+AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd
+AND PRT_CARD_TRANSACTION_HEADER.PARTNER_ID =:partnerId]]>
   </SQLQuery>
-  <ViewAttribute
-    Name="DeltaTimestamp"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="DELTA_TIMESTAMP"
-    Expression="DELTA_TIMESTAMP"
-    SQLType="TIMESTAMP">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="LastUpdated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="LAST_UPDATED"
-    Expression="LAST_UPDATED"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
   <ViewAttribute
     Name="UrefTransactionId"
     IsUpdateable="false"
@@ -92,14 +75,59 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsPersistent="false"
     IsNotNull="true"
     PrecisionRule="true"
-    Precision="8"
+    Precision="2"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PALS_COUNTRY_CODE"
     Expression="PALS_COUNTRY_CODE"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransactionType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSACTION_TYPE"
+    Expression="TRANSACTION_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PurchaseCurrency"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PURCHASE_CURRENCY"
+    Expression="PURCHASE_CURRENCY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ksid"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="KSID"
+    Expression="KSID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -118,36 +146,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="OrderId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ORDER_ID"
-    Expression="ORDER_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PrelimId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRELIM_ID"
-    Expression="PRELIM_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="Card1Id"
     IsUpdateable="false"
     IsPersistent="false"
@@ -160,36 +158,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Card2Id"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_2_ID"
-    Expression="CARD_2_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardId2Info"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="2"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_ID_2_INFO"
-    Expression="CARD_ID_2_INFO"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -227,7 +195,7 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.sql.Date"
+    Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="TRANSACTION_DT"
     Expression="TRANSACTION_DT"
@@ -241,7 +209,7 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.sql.Timestamp"
+    Type="oracle.jbo.domain.Timestamp"
     ColumnType="TIMESTAMP"
     AliasName="TRANSACTION_TIME"
     Expression="TRANSACTION_TIME"
@@ -255,59 +223,14 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="30"
+    Precision="45"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="STATION_NAME"
     Expression="STATION_NAME"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="StationGroupId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="STATION_GROUP_ID"
-    Expression="STATION_GROUP_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="StationGroupName"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="30"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="STATION_GROUP_NAME"
-    Expression="STATION_GROUP_NAME"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="IccInvoiceNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ICC_INVOICE_NUMBER"
-    Expression="ICC_INVOICE_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
+      <Attr Name="_DisplaySize" Value="45"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -326,108 +249,34 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoicingDate"
+    Name="ModifiedBy"
     IsUpdateable="false"
     IsPersistent="false"
+    IsNotNull="true"
     PrecisionRule="true"
-    Type="java.sql.Date"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MODIFIED_BY"
+    Expression="MODIFIED_BY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PortalModifiedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    AliasName="INVOICING_DATE"
-    Expression="INVOICING_DATE"
+    AliasName="PORTAL_MODIFIED_DATE"
+    Expression="PORTAL_MODIFIED_DATE"
     SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="RecieptNo"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="RECIEPT_NO"
-    Expression="RECIEPT_NO"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PurchaseCurrency"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PURCHASE_CURRENCY"
-    Expression="PURCHASE_CURRENCY"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ExchangeRate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="13"
-    Scale="0"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="EXCHANGE_RATE"
-    Expression="EXCHANGE_RATE"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="14"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="IccYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ICC_YN"
-    Expression="ICC_YN"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="TransactionType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="TRANSACTION_TYPE"
-    Expression="TRANSACTION_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PrelimStatusCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRELIM_STATUS_CODE"
-    Expression="PRELIM_STATUS_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -443,36 +292,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="9"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Ksid"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="KSID"
-    Expression="KSID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PartnerId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PARTNER_ID"
-    Expression="PARTNER_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -536,50 +355,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="Terminal"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="TERMINAL"
-    Expression="TERMINAL"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedBy"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="MODIFIED_BY"
-    Expression="MODIFIED_BY"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="LastModifiedDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="LAST_MODIFIED_DATE"
-    Expression="LAST_MODIFIED_DATE"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="PreviousOdometer"
     IsUpdateable="false"
     IsPersistent="false"
@@ -595,126 +370,18 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="DeltaTimestamp1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="DELTA_TIMESTAMP"
-    SQLType="TIMESTAMP"
-    Expression="DELTA_TIMESTAMP">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="UrefTransactionId1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="UREF_TRANSACTION_ID"
-    SQLType="VARCHAR"
-    Expression="UREF_TRANSACTION_ID">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsCountryCode1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PALS_COUNTRY_CODE"
-    SQLType="VARCHAR"
-    Expression="PALS_COUNTRY_CODE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-
-  <ViewAttribute
-    Name="DetailNo"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="5"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="DETAIL_NO"
-    Expression="DETAIL_NO"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsPGroupId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="2"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PALS_P_GROUP_ID"
-    Expression="PALS_P_GROUP_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="2"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PalsPGroupSubgroupId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PALS_P_GROUP_SUBGROUP_ID"
-    Expression="PALS_P_GROUP_SUBGROUP_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="FuelYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="FUEL_YN"
-    Expression="FUEL_YN"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="ProductName"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="30"
+    Precision="60"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRODUCT_NAME"
     Expression="PRODUCT_NAME"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
+      <Attr Name="_DisplaySize" Value="60"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -722,56 +389,12 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="QUANTITY"
     Expression="QUANTITY"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="VatRate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="VAT_RATE"
-    Expression="VAT_RATE"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyVat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_VAT"
-    Expression="CURRENCY_VAT"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedVat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="INVOICED_VAT"
-    Expression="INVOICED_VAT"
     SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -794,65 +417,17 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoicedUnitPrice"
+    Name="InvoicedVat"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="java.lang.Float"
+    Type="oracle.jbo.domain.Number"
     ColumnType="FLOAT"
-    AliasName="INVOICED_UNIT_PRICE"
-    Expression="INVOICED_UNIT_PRICE"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyGrossAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_GROSS_AMOUNT"
-    Expression="CURRENCY_GROSS_AMOUNT"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedGrossAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="INVOICED_GROSS_AMOUNT"
-    Expression="INVOICED_GROSS_AMOUNT"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyNetAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_NET_AMOUNT"
-    Expression="CURRENCY_NET_AMOUNT"
-    SQLType="FLOAT">
+    AliasName="INVOICED_VAT"
+    Expression="INVOICED_VAT"
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -864,27 +439,11 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="java.lang.Float"
+    Type="oracle.jbo.domain.Number"
     ColumnType="FLOAT"
     AliasName="INVOICED_NET_AMOUNT"
     Expression="INVOICED_NET_AMOUNT"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyDiscountAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_DISCOUNT_AMOUNT"
-    Expression="CURRENCY_DISCOUNT_AMOUNT"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -896,76 +455,49 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="java.lang.Float"
+    Type="oracle.jbo.domain.Number"
     ColumnType="FLOAT"
     AliasName="INVOICE_DISCOUNT_AMOUNT"
     Expression="INVOICE_DISCOUNT_AMOUNT"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="VatRefundableYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="VAT_REFUNDABLE_YN"
-    Expression="VAT_REFUNDABLE_YN"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="SurchargeYn"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="SURCHARGE_YN"
-    Expression="SURCHARGE_YN"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AtIabf538aPrpslKd"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="AT_IABF538A_PRPSL_KD"
-    Expression="AT_IABF538A_PRPSL_KD"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AsIabf538aPrpslsats"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="AS_IABF538A_PRPSLSATS"
-    Expression="AS_IABF538A_PRPSLSATS"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="CurrencyVatRebated"
+    Name="InvoicedUnitPrice"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="INVOICED_UNIT_PRICE"
+    Expression="INVOICED_UNIT_PRICE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedGrossAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="INVOICED_GROSS_AMOUNT"
+    Expression="INVOICED_GROSS_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedNetAmountRebated"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -973,8 +505,8 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     Scale="0"
     Type="java.lang.Float"
     ColumnType="FLOAT"
-    AliasName="CURRENCY_VAT_REBATED"
-    Expression="CURRENCY_VAT_REBATED"
+    AliasName="INVOICED_NET_AMOUNT_REBATED"
+    Expression="INVOICED_NET_AMOUNT_REBATED"
     SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -991,22 +523,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     ColumnType="FLOAT"
     AliasName="INVOIVED_VAT_REBATED"
     Expression="INVOIVED_VAT_REBATED"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyUnitPriceRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_UNIT_PRICE_REBATED"
-    Expression="CURRENCY_UNIT_PRICE_REBATED"
     SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -1045,6 +561,101 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="CurrencyUnitPriceRebated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_UNIT_PRICE_REBATED"
+    Expression="CURRENCY_UNIT_PRICE_REBATED"
+    SQLType="FLOAT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyGrossAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_GROSS_AMOUNT"
+    Expression="CURRENCY_GROSS_AMOUNT"
+    SQLType="FLOAT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UnitOfMeasure"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_OF_MEASURE"
+    Expression="UNIT_OF_MEASURE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyVat"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_VAT"
+    Expression="CURRENCY_VAT"
+    SQLType="FLOAT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyDiscountAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_DISCOUNT_AMOUNT"
+    Expression="CURRENCY_DISCOUNT_AMOUNT"
+    SQLType="FLOAT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyNetAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_NET_AMOUNT"
+    Expression="CURRENCY_NET_AMOUNT"
+    SQLType="FLOAT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="InvoicedGrossAmountRebated"
     IsUpdateable="false"
     IsPersistent="false"
@@ -1058,113 +669,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyNetAmountRebated"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="CURRENCY_NET_AMOUNT_REBATED"
-    Expression="CURRENCY_NET_AMOUNT_REBATED"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedNetAmountRabeted"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="java.lang.Float"
-    ColumnType="FLOAT"
-    AliasName="INVOICED_NET_AMOUNT_RABETED"
-    Expression="INVOICED_NET_AMOUNT_RABETED"
-    SQLType="FLOAT">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="UnitOfMeasure"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="UNIT_OF_MEASURE"
-    Expression="UNIT_OF_MEASURE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PrtDriverInformationPk"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRT_DRIVER_INFORMATION_PK"
-    Expression="PRT_DRIVER_INFORMATION_PK"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CountryCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="COUNTRY_CODE"
-    Expression="COUNTRY_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AccountNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="CHAR"
-    AliasName="ACCOUNT_NUMBER"
-    Expression="ACCOUNT_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="30"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_NUMBER"
-    Expression="CARD_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -1198,225 +702,6 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="Nationality"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="15"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="NATIONALITY"
-    Expression="NATIONALITY"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="15"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="MobileNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="MOBILE_NUMBER"
-    Expression="MOBILE_NUMBER"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Remarks"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="30"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REMARKS"
-    Expression="REMARKS"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PassportNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PASSPORT_NUMBER"
-    Expression="PASSPORT_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PassportExpiry"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="PASSPORT_EXPIRY"
-    Expression="PASSPORT_EXPIRY"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="LicenseNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="LICENSE_NUMBER"
-    Expression="LICENSE_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="LicenseExpiry"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="LICENSE_EXPIRY"
-    Expression="LICENSE_EXPIRY"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="EmployStart"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="EMPLOY_START"
-    Expression="EMPLOY_START"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="EmployEnd"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="EMPLOY_END"
-    Expression="EMPLOY_END"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedBy1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="MODIFIED_BY"
-    SQLType="VARCHAR"
-    Expression="MODIFIED_BY">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="MODIFIED_DATE"
-    Expression="MODIFIED_DATE"
-    SQLType="TIMESTAMP">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PrtTruckInformationPk"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRT_TRUCK_INFORMATION_PK"
-    Expression="PRT_TRUCK_INFORMATION_PK"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CountryCode1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="COUNTRY_CODE"
-    SQLType="VARCHAR"
-    Expression="COUNTRY_CODE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AccountNumber1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ACCOUNT_NUMBER"
-    Expression="ACCOUNT_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardNumber1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_NUMBER"
-    SQLType="VARCHAR"
-    Expression="CARD_NUMBER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="VehicleNumber"
     IsUpdateable="false"
     IsPersistent="false"
@@ -1447,204 +732,45 @@ AND  PRT_CARD_TRANSACTION_HEADER.PALS_COUNTRY_CODE = :countryCd]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="RegistrationNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGISTRATION_NUMBER"
-    Expression="REGISTRATION_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Brand"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="BRAND"
-    Expression="BRAND"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Year"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="YEAR"
-    Expression="YEAR"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="RegistrationDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="REGISTRATION_DATE"
-    Expression="REGISTRATION_DATE"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="EndDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    AliasName="END_DATE"
-    Expression="END_DATE"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="FuelType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="15"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="FUEL_TYPE"
-    Expression="FUEL_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="15"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="MaxFuel"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="MAX_FUEL"
-    Expression="MAX_FUEL"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Odometer1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="ODOMETER"
-    SQLType="NUMERIC"
-    Expression="ODOMETER">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Remarks1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REMARKS"
-    SQLType="VARCHAR"
-    Expression="REMARKS">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedBy2"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="255"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="MODIFIED_BY"
-    SQLType="VARCHAR"
-    Expression="MODIFIED_BY">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedDate1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.sql.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="MODIFIED_DATE"
-    SQLType="TIMESTAMP"
-    Expression="MODIFIED_DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="kmTotal"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="NUMERIC"/>
+    SQLType="FLOAT"/>
   <ViewAttribute
     Name="kmPerLt"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="NUMERIC"/>
+    SQLType="FLOAT"/>
   <ViewAttribute
     Name="ltPerHundred"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="NUMERIC"/>
+    SQLType="FLOAT"/>
   <ViewAttribute
     Name="grandTotal"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.Integer"
-    ColumnType="NUMBER"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="NUMERIC"/>
+    SQLType="FLOAT"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

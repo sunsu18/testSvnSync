@@ -18,80 +18,14 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
-        DeltaTimestamp {
+        AccountId {
             public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getDeltaTimestamp();
+                return obj.getAccountId();
             }
 
             public void put(PrtCardTransactionHeaderVORowImpl obj,
                             Object value) {
-                obj.setDeltaTimestamp((Timestamp)value);
-            }
-        }
-        ,
-        LastUpdated {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getLastUpdated();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setLastUpdated((Date)value);
-            }
-        }
-        ,
-        UrefTransactionId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getUrefTransactionId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setUrefTransactionId((String)value);
-            }
-        }
-        ,
-        PalsCountryCode {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPalsCountryCode();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPalsCountryCode((String)value);
-            }
-        }
-        ,
-        PurchaseCountryCode {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPurchaseCountryCode();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPurchaseCountryCode((String)value);
-            }
-        }
-        ,
-        OrderId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getOrderId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setOrderId((String)value);
-            }
-        }
-        ,
-        PrelimId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPrelimId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPrelimId((String)value);
+                obj.setAccountId((String)value);
             }
         }
         ,
@@ -128,14 +62,146 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        OdometerPortal {
+        CardgroupMainType {
             public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getOdometerPortal();
+                return obj.getCardgroupMainType();
             }
 
             public void put(PrtCardTransactionHeaderVORowImpl obj,
                             Object value) {
-                obj.setOdometerPortal((String)value);
+                obj.setCardgroupMainType((String)value);
+            }
+        }
+        ,
+        CardgroupSeq {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getCardgroupSeq();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setCardgroupSeq((String)value);
+            }
+        }
+        ,
+        CardgroupSubType {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getCardgroupSubType();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setCardgroupSubType((String)value);
+            }
+        }
+        ,
+        ExchangeRate {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getExchangeRate();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setExchangeRate((Number)value);
+            }
+        }
+        ,
+        IccInvoiceNumber {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getIccInvoiceNumber();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setIccInvoiceNumber((String)value);
+            }
+        }
+        ,
+        IccYn {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getIccYn();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setIccYn((String)value);
+            }
+        }
+        ,
+        InvoiceFlag {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getInvoiceFlag();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setInvoiceFlag((String)value);
+            }
+        }
+        ,
+        InvoiceNumberCollective {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getInvoiceNumberCollective();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setInvoiceNumberCollective((String)value);
+            }
+        }
+        ,
+        InvoiceNumberNonCollective {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getInvoiceNumberNonCollective();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setInvoiceNumberNonCollective((String)value);
+            }
+        }
+        ,
+        InvoicedCardId {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getInvoicedCardId();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setInvoicedCardId((String)value);
+            }
+        }
+        ,
+        InvoicingDate {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getInvoicingDate();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setInvoicingDate((Date)value);
+            }
+        }
+        ,
+        Ksid {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getKsid();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setKsid((String)value);
+            }
+        }
+        ,
+        ModifiedBy {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getModifiedBy();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setModifiedBy((String)value);
             }
         }
         ,
@@ -147,6 +213,248 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
             public void put(PrtCardTransactionHeaderVORowImpl obj,
                             Object value) {
                 obj.setOdometer((String)value);
+            }
+        }
+        ,
+        OdometerPortal {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOdometerPortal();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOdometerPortal((String)value);
+            }
+        }
+        ,
+        OrderBackwardRef {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOrderBackwardRef();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOrderBackwardRef((String)value);
+            }
+        }
+        ,
+        OrderCreateCode {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOrderCreateCode();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOrderCreateCode((String)value);
+            }
+        }
+        ,
+        OrderForwardRef {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOrderForwardRef();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOrderForwardRef((String)value);
+            }
+        }
+        ,
+        OrderId {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOrderId();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOrderId((String)value);
+            }
+        }
+        ,
+        OrderValidCode {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getOrderValidCode();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setOrderValidCode((String)value);
+            }
+        }
+        ,
+        PalsCountryCode {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPalsCountryCode();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPalsCountryCode((String)value);
+            }
+        }
+        ,
+        PalsModifiedBy {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPalsModifiedBy();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPalsModifiedBy((String)value);
+            }
+        }
+        ,
+        PalsModifiedDate {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPalsModifiedDate();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPalsModifiedDate((Date)value);
+            }
+        }
+        ,
+        PalsOrderMainType {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPalsOrderMainType();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPalsOrderMainType((String)value);
+            }
+        }
+        ,
+        PalsOrderSubType {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPalsOrderSubType();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPalsOrderSubType((String)value);
+            }
+        }
+        ,
+        PartnerId {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPartnerId();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPartnerId((String)value);
+            }
+        }
+        ,
+        PortalModifiedDate {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPortalModifiedDate();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPortalModifiedDate((Date)value);
+            }
+        }
+        ,
+        PrelimId {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPrelimId();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPrelimId((String)value);
+            }
+        }
+        ,
+        PrelimStatusCode {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPrelimStatusCode();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPrelimStatusCode((String)value);
+            }
+        }
+        ,
+        PreviousOdometer {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPreviousOdometer();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPreviousOdometer((String)value);
+            }
+        }
+        ,
+        PurchaseCountryCode {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPurchaseCountryCode();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPurchaseCountryCode((String)value);
+            }
+        }
+        ,
+        PurchaseCurrency {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getPurchaseCurrency();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setPurchaseCurrency((String)value);
+            }
+        }
+        ,
+        SiteNumber {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getSiteNumber();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setSiteNumber((String)value);
+            }
+        }
+        ,
+        StationName {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getStationName();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setStationName((String)value);
+            }
+        }
+        ,
+        TerminalId {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getTerminalId();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setTerminalId((String)value);
+            }
+        }
+        ,
+        TerminalSeq {
+            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
+                return obj.getTerminalSeq();
+            }
+
+            public void put(PrtCardTransactionHeaderVORowImpl obj,
+                            Object value) {
+                obj.setTerminalSeq((String)value);
             }
         }
         ,
@@ -172,116 +480,6 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        StationName {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getStationName();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setStationName((String)value);
-            }
-        }
-        ,
-        StationGroupId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getStationGroupId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setStationGroupId((String)value);
-            }
-        }
-        ,
-        StationGroupName {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getStationGroupName();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setStationGroupName((String)value);
-            }
-        }
-        ,
-        IccInvoiceNumber {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getIccInvoiceNumber();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setIccInvoiceNumber((String)value);
-            }
-        }
-        ,
-        InvoiceNumberNonCollective {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getInvoiceNumberNonCollective();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setInvoiceNumberNonCollective((String)value);
-            }
-        }
-        ,
-        InvoicingDate {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getInvoicingDate();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setInvoicingDate((Date)value);
-            }
-        }
-        ,
-        RecieptNo {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getRecieptNo();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setRecieptNo((String)value);
-            }
-        }
-        ,
-        PurchaseCurrency {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPurchaseCurrency();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPurchaseCurrency((String)value);
-            }
-        }
-        ,
-        ExchangeRate {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getExchangeRate();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setExchangeRate((Number)value);
-            }
-        }
-        ,
-        IccYn {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getIccYn();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setIccYn((String)value);
-            }
-        }
-        ,
         TransactionType {
             public Object get(PrtCardTransactionHeaderVORowImpl obj) {
                 return obj.getTransactionType();
@@ -293,135 +491,25 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        PrelimStatusCode {
+        UrefTransactionId {
             public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPrelimStatusCode();
+                return obj.getUrefTransactionId();
             }
 
             public void put(PrtCardTransactionHeaderVORowImpl obj,
                             Object value) {
-                obj.setPrelimStatusCode((String)value);
+                obj.setUrefTransactionId((String)value);
             }
         }
         ,
-        InvoiceNumberCollective {
+        WmTransRefNumber {
             public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getInvoiceNumberCollective();
+                return obj.getWmTransRefNumber();
             }
 
             public void put(PrtCardTransactionHeaderVORowImpl obj,
                             Object value) {
-                obj.setInvoiceNumberCollective((String)value);
-            }
-        }
-        ,
-        Ksid {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getKsid();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setKsid((String)value);
-            }
-        }
-        ,
-        PartnerId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPartnerId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPartnerId((String)value);
-            }
-        }
-        ,
-        AccountId {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getAccountId();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setAccountId((String)value);
-            }
-        }
-        ,
-        CardgroupMainType {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getCardgroupMainType();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupMainType((String)value);
-            }
-        }
-        ,
-        CardgroupSubType {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getCardgroupSubType();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupSubType((String)value);
-            }
-        }
-        ,
-        CardgroupSeq {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getCardgroupSeq();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setCardgroupSeq((String)value);
-            }
-        }
-        ,
-        Terminal {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getTerminal();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setTerminal((String)value);
-            }
-        }
-        ,
-        ModifiedBy {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getModifiedBy();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setModifiedBy((String)value);
-            }
-        }
-        ,
-        LastModifiedDate {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getLastModifiedDate();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setLastModifiedDate((Date)value);
-            }
-        }
-        ,
-        PreviousOdometer {
-            public Object get(PrtCardTransactionHeaderVORowImpl obj) {
-                return obj.getPreviousOdometer();
-            }
-
-            public void put(PrtCardTransactionHeaderVORowImpl obj,
-                            Object value) {
-                obj.setPreviousOdometer((String)value);
+                obj.setWmTransRefNumber((String)value);
             }
         }
         ;
@@ -452,43 +540,53 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
-    public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
-    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
-    public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
-    public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
-    public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
-    public static final int ORDERID = AttributesEnum.OrderId.index();
-    public static final int PRELIMID = AttributesEnum.PrelimId.index();
+
+
+    public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int CARD1ID = AttributesEnum.Card1Id.index();
     public static final int CARD2ID = AttributesEnum.Card2Id.index();
     public static final int CARDID2INFO = AttributesEnum.CardId2Info.index();
-    public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
+    public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
+    public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
+    public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
+    public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
+    public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
+    public static final int ICCYN = AttributesEnum.IccYn.index();
+    public static final int INVOICEFLAG = AttributesEnum.InvoiceFlag.index();
+    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
+    public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
+    public static final int INVOICEDCARDID = AttributesEnum.InvoicedCardId.index();
+    public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
+    public static final int KSID = AttributesEnum.Ksid.index();
+    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int ODOMETER = AttributesEnum.Odometer.index();
+    public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
+    public static final int ORDERBACKWARDREF = AttributesEnum.OrderBackwardRef.index();
+    public static final int ORDERCREATECODE = AttributesEnum.OrderCreateCode.index();
+    public static final int ORDERFORWARDREF = AttributesEnum.OrderForwardRef.index();
+    public static final int ORDERID = AttributesEnum.OrderId.index();
+    public static final int ORDERVALIDCODE = AttributesEnum.OrderValidCode.index();
+    public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
+    public static final int PALSMODIFIEDBY = AttributesEnum.PalsModifiedBy.index();
+    public static final int PALSMODIFIEDDATE = AttributesEnum.PalsModifiedDate.index();
+    public static final int PALSORDERMAINTYPE = AttributesEnum.PalsOrderMainType.index();
+    public static final int PALSORDERSUBTYPE = AttributesEnum.PalsOrderSubType.index();
+    public static final int PARTNERID = AttributesEnum.PartnerId.index();
+    public static final int PORTALMODIFIEDDATE = AttributesEnum.PortalModifiedDate.index();
+    public static final int PRELIMID = AttributesEnum.PrelimId.index();
+    public static final int PRELIMSTATUSCODE = AttributesEnum.PrelimStatusCode.index();
+    public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
+    public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
+    public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
+    public static final int SITENUMBER = AttributesEnum.SiteNumber.index();
+    public static final int STATIONNAME = AttributesEnum.StationName.index();
+    public static final int TERMINALID = AttributesEnum.TerminalId.index();
+    public static final int TERMINALSEQ = AttributesEnum.TerminalSeq.index();
     public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
     public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
-    public static final int STATIONNAME = AttributesEnum.StationName.index();
-    public static final int STATIONGROUPID = AttributesEnum.StationGroupId.index();
-    public static final int STATIONGROUPNAME = AttributesEnum.StationGroupName.index();
-    public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
-    public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
-    public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
-    public static final int RECIEPTNO = AttributesEnum.RecieptNo.index();
-    public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
-    public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
-    public static final int ICCYN = AttributesEnum.IccYn.index();
     public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
-    public static final int PRELIMSTATUSCODE = AttributesEnum.PrelimStatusCode.index();
-    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
-    public static final int KSID = AttributesEnum.Ksid.index();
-    public static final int PARTNERID = AttributesEnum.PartnerId.index();
-    public static final int ACCOUNTID = AttributesEnum.AccountId.index();
-    public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
-    public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
-    public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
-    public static final int TERMINAL = AttributesEnum.Terminal.index();
-    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
-    public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
-    public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
+    public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
+    public static final int WMTRANSREFNUMBER = AttributesEnum.WmTransRefNumber.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -504,37 +602,6 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
         return (PrtCardTransactionHeaderEOImpl)getEntity(0);
     }
 
-    /**
-     * Gets the attribute value for DELTA_TIMESTAMP using the alias name DeltaTimestamp.
-     * @return the DELTA_TIMESTAMP
-     */
-    public Timestamp getDeltaTimestamp() {
-        return (Timestamp) getAttributeInternal(DELTATIMESTAMP);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for DELTA_TIMESTAMP using the alias name DeltaTimestamp.
-     * @param value value to set the DELTA_TIMESTAMP
-     */
-    public void setDeltaTimestamp(Timestamp value) {
-        setAttributeInternal(DELTATIMESTAMP, value);
-    }
-
-    /**
-     * Gets the attribute value for LAST_UPDATED using the alias name LastUpdated.
-     * @return the LAST_UPDATED
-     */
-    public Date getLastUpdated() {
-        return (Date) getAttributeInternal(LASTUPDATED);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for LAST_UPDATED using the alias name LastUpdated.
-     * @param value value to set the LAST_UPDATED
-     */
-    public void setLastUpdated(Date value) {
-        setAttributeInternal(LASTUPDATED, value);
-    }
 
     /**
      * Gets the attribute value for UREF_TRANSACTION_ID using the alias name UrefTransactionId.
@@ -553,6 +620,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for WM_TRANS_REF_NUMBER using the alias name WmTransRefNumber.
+     * @return the WM_TRANS_REF_NUMBER
+     */
+    public String getWmTransRefNumber() {
+        return (String) getAttributeInternal(WMTRANSREFNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for WM_TRANS_REF_NUMBER using the alias name WmTransRefNumber.
+     * @param value value to set the WM_TRANS_REF_NUMBER
+     */
+    public void setWmTransRefNumber(String value) {
+        setAttributeInternal(WMTRANSREFNUMBER, value);
+    }
+
+    /**
      * Gets the attribute value for PALS_COUNTRY_CODE using the alias name PalsCountryCode.
      * @return the PALS_COUNTRY_CODE
      */
@@ -566,6 +649,70 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
      */
     public void setPalsCountryCode(String value) {
         setAttributeInternal(PALSCOUNTRYCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for PALS_MODIFIED_BY using the alias name PalsModifiedBy.
+     * @return the PALS_MODIFIED_BY
+     */
+    public String getPalsModifiedBy() {
+        return (String) getAttributeInternal(PALSMODIFIEDBY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PALS_MODIFIED_BY using the alias name PalsModifiedBy.
+     * @param value value to set the PALS_MODIFIED_BY
+     */
+    public void setPalsModifiedBy(String value) {
+        setAttributeInternal(PALSMODIFIEDBY, value);
+    }
+
+    /**
+     * Gets the attribute value for PALS_MODIFIED_DATE using the alias name PalsModifiedDate.
+     * @return the PALS_MODIFIED_DATE
+     */
+    public Date getPalsModifiedDate() {
+        return (Date) getAttributeInternal(PALSMODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PALS_MODIFIED_DATE using the alias name PalsModifiedDate.
+     * @param value value to set the PALS_MODIFIED_DATE
+     */
+    public void setPalsModifiedDate(Date value) {
+        setAttributeInternal(PALSMODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for PALS_ORDER_MAIN_TYPE using the alias name PalsOrderMainType.
+     * @return the PALS_ORDER_MAIN_TYPE
+     */
+    public String getPalsOrderMainType() {
+        return (String) getAttributeInternal(PALSORDERMAINTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PALS_ORDER_MAIN_TYPE using the alias name PalsOrderMainType.
+     * @param value value to set the PALS_ORDER_MAIN_TYPE
+     */
+    public void setPalsOrderMainType(String value) {
+        setAttributeInternal(PALSORDERMAINTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for PALS_ORDER_SUB_TYPE using the alias name PalsOrderSubType.
+     * @return the PALS_ORDER_SUB_TYPE
+     */
+    public String getPalsOrderSubType() {
+        return (String) getAttributeInternal(PALSORDERSUBTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PALS_ORDER_SUB_TYPE using the alias name PalsOrderSubType.
+     * @param value value to set the PALS_ORDER_SUB_TYPE
+     */
+    public void setPalsOrderSubType(String value) {
+        setAttributeInternal(PALSORDERSUBTYPE, value);
     }
 
     /**
@@ -598,6 +745,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
      */
     public void setOrderId(String value) {
         setAttributeInternal(ORDERID, value);
+    }
+
+    /**
+     * Gets the attribute value for ORDER_VALID_CODE using the alias name OrderValidCode.
+     * @return the ORDER_VALID_CODE
+     */
+    public String getOrderValidCode() {
+        return (String) getAttributeInternal(ORDERVALIDCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ORDER_VALID_CODE using the alias name OrderValidCode.
+     * @param value value to set the ORDER_VALID_CODE
+     */
+    public void setOrderValidCode(String value) {
+        setAttributeInternal(ORDERVALIDCODE, value);
     }
 
     /**
@@ -681,6 +844,54 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for ORDER_BACKWARD_REF using the alias name OrderBackwardRef.
+     * @return the ORDER_BACKWARD_REF
+     */
+    public String getOrderBackwardRef() {
+        return (String) getAttributeInternal(ORDERBACKWARDREF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ORDER_BACKWARD_REF using the alias name OrderBackwardRef.
+     * @param value value to set the ORDER_BACKWARD_REF
+     */
+    public void setOrderBackwardRef(String value) {
+        setAttributeInternal(ORDERBACKWARDREF, value);
+    }
+
+    /**
+     * Gets the attribute value for ORDER_CREATE_CODE using the alias name OrderCreateCode.
+     * @return the ORDER_CREATE_CODE
+     */
+    public String getOrderCreateCode() {
+        return (String) getAttributeInternal(ORDERCREATECODE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ORDER_CREATE_CODE using the alias name OrderCreateCode.
+     * @param value value to set the ORDER_CREATE_CODE
+     */
+    public void setOrderCreateCode(String value) {
+        setAttributeInternal(ORDERCREATECODE, value);
+    }
+
+    /**
+     * Gets the attribute value for ORDER_FORWARD_REF using the alias name OrderForwardRef.
+     * @return the ORDER_FORWARD_REF
+     */
+    public String getOrderForwardRef() {
+        return (String) getAttributeInternal(ORDERFORWARDREF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ORDER_FORWARD_REF using the alias name OrderForwardRef.
+     * @param value value to set the ORDER_FORWARD_REF
+     */
+    public void setOrderForwardRef(String value) {
+        setAttributeInternal(ORDERFORWARDREF, value);
+    }
+
+    /**
      * Gets the attribute value for ODOMETER using the alias name Odometer.
      * @return the ODOMETER
      */
@@ -744,36 +955,37 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
         setAttributeInternal(STATIONNAME, value);
     }
 
+
     /**
-     * Gets the attribute value for STATION_GROUP_ID using the alias name StationGroupId.
-     * @return the STATION_GROUP_ID
+     * Gets the attribute value for TERMINAL_ID using the alias name TerminalId.
+     * @return the TERMINAL_ID
      */
-    public String getStationGroupId() {
-        return (String) getAttributeInternal(STATIONGROUPID);
+    public String getTerminalId() {
+        return (String) getAttributeInternal(TERMINALID);
     }
 
     /**
-     * Sets <code>value</code> as attribute value for STATION_GROUP_ID using the alias name StationGroupId.
-     * @param value value to set the STATION_GROUP_ID
+     * Sets <code>value</code> as attribute value for TERMINAL_ID using the alias name TerminalId.
+     * @param value value to set the TERMINAL_ID
      */
-    public void setStationGroupId(String value) {
-        setAttributeInternal(STATIONGROUPID, value);
+    public void setTerminalId(String value) {
+        setAttributeInternal(TERMINALID, value);
     }
 
     /**
-     * Gets the attribute value for STATION_GROUP_NAME using the alias name StationGroupName.
-     * @return the STATION_GROUP_NAME
+     * Gets the attribute value for TERMINAL_SEQ using the alias name TerminalSeq.
+     * @return the TERMINAL_SEQ
      */
-    public String getStationGroupName() {
-        return (String) getAttributeInternal(STATIONGROUPNAME);
+    public String getTerminalSeq() {
+        return (String) getAttributeInternal(TERMINALSEQ);
     }
 
     /**
-     * Sets <code>value</code> as attribute value for STATION_GROUP_NAME using the alias name StationGroupName.
-     * @param value value to set the STATION_GROUP_NAME
+     * Sets <code>value</code> as attribute value for TERMINAL_SEQ using the alias name TerminalSeq.
+     * @param value value to set the TERMINAL_SEQ
      */
-    public void setStationGroupName(String value) {
-        setAttributeInternal(STATIONGROUPNAME, value);
+    public void setTerminalSeq(String value) {
+        setAttributeInternal(TERMINALSEQ, value);
     }
 
     /**
@@ -809,6 +1021,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for INVOICED_CARD_ID using the alias name InvoicedCardId.
+     * @return the INVOICED_CARD_ID
+     */
+    public String getInvoicedCardId() {
+        return (String) getAttributeInternal(INVOICEDCARDID);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICED_CARD_ID using the alias name InvoicedCardId.
+     * @param value value to set the INVOICED_CARD_ID
+     */
+    public void setInvoicedCardId(String value) {
+        setAttributeInternal(INVOICEDCARDID, value);
+    }
+
+    /**
      * Gets the attribute value for INVOICING_DATE using the alias name InvoicingDate.
      * @return the INVOICING_DATE
      */
@@ -824,21 +1052,6 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
         setAttributeInternal(INVOICINGDATE, value);
     }
 
-    /**
-     * Gets the attribute value for RECIEPT_NO using the alias name RecieptNo.
-     * @return the RECIEPT_NO
-     */
-    public String getRecieptNo() {
-        return (String) getAttributeInternal(RECIEPTNO);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for RECIEPT_NO using the alias name RecieptNo.
-     * @param value value to set the RECIEPT_NO
-     */
-    public void setRecieptNo(String value) {
-        setAttributeInternal(RECIEPTNO, value);
-    }
 
     /**
      * Gets the attribute value for PURCHASE_CURRENCY using the alias name PurchaseCurrency.
@@ -854,6 +1067,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
      */
     public void setPurchaseCurrency(String value) {
         setAttributeInternal(PURCHASECURRENCY, value);
+    }
+
+    /**
+     * Gets the attribute value for SITE_NUMBER using the alias name SiteNumber.
+     * @return the SITE_NUMBER
+     */
+    public String getSiteNumber() {
+        return (String) getAttributeInternal(SITENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for SITE_NUMBER using the alias name SiteNumber.
+     * @param value value to set the SITE_NUMBER
+     */
+    public void setSiteNumber(String value) {
+        setAttributeInternal(SITENUMBER, value);
     }
 
     /**
@@ -886,6 +1115,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
      */
     public void setIccYn(String value) {
         setAttributeInternal(ICCYN, value);
+    }
+
+    /**
+     * Gets the attribute value for INVOICE_FLAG using the alias name InvoiceFlag.
+     * @return the INVOICE_FLAG
+     */
+    public String getInvoiceFlag() {
+        return (String) getAttributeInternal(INVOICEFLAG);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INVOICE_FLAG using the alias name InvoiceFlag.
+     * @param value value to set the INVOICE_FLAG
+     */
+    public void setInvoiceFlag(String value) {
+        setAttributeInternal(INVOICEFLAG, value);
     }
 
     /**
@@ -969,6 +1214,22 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for PORTAL_MODIFIED_DATE using the alias name PortalModifiedDate.
+     * @return the PORTAL_MODIFIED_DATE
+     */
+    public Date getPortalModifiedDate() {
+        return (Date) getAttributeInternal(PORTALMODIFIEDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PORTAL_MODIFIED_DATE using the alias name PortalModifiedDate.
+     * @param value value to set the PORTAL_MODIFIED_DATE
+     */
+    public void setPortalModifiedDate(Date value) {
+        setAttributeInternal(PORTALMODIFIEDDATE, value);
+    }
+
+    /**
      * Gets the attribute value for ACCOUNT_ID using the alias name AccountId.
      * @return the ACCOUNT_ID
      */
@@ -1032,21 +1293,6 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARDGROUPSEQ, value);
     }
 
-    /**
-     * Gets the attribute value for TERMINAL using the alias name Terminal.
-     * @return the TERMINAL
-     */
-    public String getTerminal() {
-        return (String) getAttributeInternal(TERMINAL);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for TERMINAL using the alias name Terminal.
-     * @param value value to set the TERMINAL
-     */
-    public void setTerminal(String value) {
-        setAttributeInternal(TERMINAL, value);
-    }
 
     /**
      * Gets the attribute value for MODIFIED_BY using the alias name ModifiedBy.
@@ -1064,21 +1310,6 @@ public class PrtCardTransactionHeaderVORowImpl extends ViewRowImpl {
         setAttributeInternal(MODIFIEDBY, value);
     }
 
-    /**
-     * Gets the attribute value for LAST_MODIFIED_DATE using the alias name LastModifiedDate.
-     * @return the LAST_MODIFIED_DATE
-     */
-    public Date getLastModifiedDate() {
-        return (Date) getAttributeInternal(LASTMODIFIEDDATE);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for LAST_MODIFIED_DATE using the alias name LastModifiedDate.
-     * @param value value to set the LAST_MODIFIED_DATE
-     */
-    public void setLastModifiedDate(Date value) {
-        setAttributeInternal(LASTMODIFIEDDATE, value);
-    }
 
     /**
      * Gets the attribute value for PREVIOUS_ODOMETER using the alias name PreviousOdometer.

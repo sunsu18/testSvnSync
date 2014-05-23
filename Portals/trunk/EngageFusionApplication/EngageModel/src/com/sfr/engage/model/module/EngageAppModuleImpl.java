@@ -211,7 +211,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                 if (currRow != null) {
                     currRow.setAttribute("OdometerPortal",odoMeterPortalValue);
                     currRow.setAttribute("ModifiedBy", modifiedBy);
-                    currRow.setAttribute("LastModifiedDate",getSysDate());
+                    currRow.setAttribute("PortalModifiedDate",getSysDate());
                 }
             }
             getDBTransaction().commit();
