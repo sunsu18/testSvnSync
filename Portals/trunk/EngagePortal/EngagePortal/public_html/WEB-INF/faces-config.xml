@@ -16,12 +16,12 @@
     <from-view-id>*</from-view-id>
     <navigation-case>
       <from-outcome>login_success</from-outcome>
-      <to-view-id>/card</to-view-id>
+      <to-view-id>/pages_home</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
       <from-outcome>logout_success</from-outcome>
-      <to-view-id>/card</to-view-id>
+      <to-view-id>/pages_home</to-view-id>
       <redirect/>
     </navigation-case>
   </navigation-rule>
