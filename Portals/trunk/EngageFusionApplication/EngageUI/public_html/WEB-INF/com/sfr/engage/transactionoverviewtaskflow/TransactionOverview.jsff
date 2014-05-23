@@ -26,7 +26,7 @@
           <h:panelGrid columns="6" id="pg1">
           
           <af:outputText value="*" id="op51"/>       
-            <af:outputText value="Partner" id="ot2"/>
+            <af:outputText value="#{sfr.PARTNER}" id="ot2"/>
             <af:spacer width="10" height="15" id="s6"/>
                <af:outputText value=":" id="ot2a"/>
               <af:spacer width="10" height="35" id="s6a"/>
@@ -92,7 +92,7 @@
             </af:selectManyChoice>
             
             <af:outputText value="*" id="ot70"/>       
-            <af:outputText value="Report" id="ot71"/>
+            <af:outputText value="#{sfr.REPORT}" id="ot71"/>
             <af:spacer width="10" height="15" id="s54"/>
                <af:outputText value=":" id="ot72"/>
               <af:spacer width="10" height="35" id="s55"/>
@@ -336,11 +336,11 @@
         <af:spacer width="10" height="15" id="spacer2"/>
       <af:panelGroupLayout id="pgl36" layout="scroll">
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
-                  var="row" width="900" disableColumnReordering="true" columnResizing="disabled"
+                  var="row" width="930" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"  
                   emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? 'No data to display.' : 'Access Denied.'}"
                   fetchSize="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
-                  rowBandingInterval="0"
+                  rowBandingInterval="1"
                   filterModel="#{bindings.PrtCardTransactionOverviewRVO12Query.queryDescriptor}"
                   queryListener="#{pageFlowScope.TransactionOverviewBean.queryListener}"
                   filterVisible="true" varStatus="vs"
@@ -463,7 +463,7 @@
             <af:outputText value="#{row.UnitOfMeasure}" id="ot74" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
             </af:panelGroupLayout>
           </af:column>
-          <af:column sortProperty="CurrencyUnitPrice" filterable="true"
+          <af:column sortProperty="CurrencyUnitPrice" filterable="false"
                      sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx}"
                      headerText="#{sfr.FOREGIN_UNIT_PRICE}"
                      id="c1">
@@ -483,7 +483,7 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyDiscountAmount.format}"/>
             </af:outputText>
           </af:column>-->
-           <af:column sortProperty="CurrencyGrossAmount" filterable="true"
+           <af:column sortProperty="CurrencyGrossAmount" filterable="false"
                      sortable="false" align="right"
                      headerText="#{sfr.FOREGIN_GROSS_AMOUNT}"
                      id="c5">
@@ -513,7 +513,7 @@
             </af:outputText>
           </af:column>-->
         
-           <af:column sortProperty="InvoicedGrossAmountRebated" filterable="true"
+           <af:column sortProperty="InvoicedGrossAmountRebated" filterable="false"
                      sortable="false" align="right"
                      headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                      id="c6">
