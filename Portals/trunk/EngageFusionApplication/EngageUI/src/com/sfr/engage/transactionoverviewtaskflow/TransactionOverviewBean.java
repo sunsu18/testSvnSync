@@ -874,6 +874,7 @@ public class TransactionOverviewBean implements Serializable{
         // Add event code here...
         getBindings().getPartner().setValue(null);
         this.accountIdValue=null;
+        accountIdList=new ArrayList<SelectItem>();        
         //getBindings().getAccount().setValue(null);
         this.accountIdValue=null;
         this.partnerIdValue=null;
