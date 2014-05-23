@@ -34,12 +34,16 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCBindingContainer;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.data.RichTree;
@@ -57,6 +61,8 @@ public class AuthenticatedHomeBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
+    String customerType = "B2B";
+    String lang = "SE";
     private String infoValue = "";
      //TODO : Message class in EngageCore is not seriliazed.Make it serilizable class
     private List<Messages> messages;
@@ -122,6 +128,27 @@ public class AuthenticatedHomeBean implements Serializable {
                     
                 }
             }
+            
+            
+            
+            lang = (String)session.getAttribute("lang");
+            profile = (String)session.getAttribute("profile");
+            DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding iter;
+            if (bindings != null) {
+                iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
+                System.out.println("ProductsDisplayRVO1Iterator Iterator bindings found");
+            } else {
+                System.out.println("ProductsDisplayRVO1Iterator bindings is null");
+                iter = null;
+            }
+            ViewObject vo = iter.getViewObject();
+            // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
+            vo.setNamedWhereClauseParam("countryCode", "SE");
+            vo.setNamedWhereClauseParam("catalogType", "PP");
+            vo.setNamedWhereClauseParam("customerType", "B2B");
+            vo.executeQuery();
+            System.out.println(" vo.estimated rowcount " + vo.getEstimatedRowCount());
         }
         resourceBundle = new EngageResourceBundle();
         Date date = new Date();
@@ -520,6 +547,26 @@ public class AuthenticatedHomeBean implements Serializable {
 
     public String getProfile() {
         return profile;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void forCheckingPurpose(ActionEvent actionEvent) {
+        // Add event code here...
     }
 
 

@@ -30,7 +30,16 @@
             
             }
             
-      }
+      } 
+    function redirect() {
+
+       
+         window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
+        window.focus(); 
+        
+
+    }
+      
       </af:resource>
       
   <af:panelGroupLayout id="pgl2" >
@@ -436,7 +445,95 @@
                          <!--<af:spacer width="10" height="10" id="s12"/>-->
               <af:outputText value="Webshop Panel" id="ot7" 
               styleClass="headertexthome panel_header_authenticated"/>
-              <af:spacer width="350" height="10" id="s27"/>
+              
+              
+              <af:panelGroupLayout id="pgl44"
+                                       layout="vertical"
+                                  inlineStyle="width:605px; height:10px;" halign="right">
+                                  
+                  
+                  <!--<af:spacer width="10" height="5" id="s1"/>-->
+                  <div id="wrap">
+      
+              <ul id="mycarousel" class="jcarousel-skin-tango">
+          <af:forEach varStatus="stat" begin="0"
+                      end="#{(bindings.ProductsDisplayRVO1.estimatedRowCount) ne 0 ?((bindings.ProductsDisplayRVO1.estimatedRowCount)-1):3}">
+            <li>
+            <af:panelGroupLayout layout="horizontal"
+                                 inlineStyle="vertical-align:top; text-align:left;"
+                                 valign="top" id="pgl48">
+                 
+               
+  <af:panelGroupLayout id="pgl45" layout="vertical" halign="center">
+    <af:commandLink  id="cl2" styleClass="carousalOT"
+                                  actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"     >
+                        <af:image source="/imageservlet?id=#{bindings.ProductsDisplayRVO1.children[stat.index].Itemno}&amp;categId=#{(bindings.ProductsDisplayRVO1.children[stat.index].CategCode9)}"
+                    id="i9" inlineStyle="width:100px; height:100px; text-align:center;margin-left:5px; border: 1px solid  #979796;"/>
+                                  
+                                 
+                              </af:commandLink>
+                              
+ <af:spacer id="s27" width="5" height="4"/>
+  <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) : &quot;--&quot;}"
+                                     id="cl1" styleClass="topproducttext"
+                                      actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"
+                                      disabled="true">
+                                      
+                      
+                              </af:commandLink>
+                               
+ <!--<af:panelGroupLayout id="pgl233" layout="vertical"
+                                         halign="left"
+                                  inlineStyle="width:20px; text-align:left; vertical-align:bottom;"
+                                  valign="bottom">
+                     
+                             
+                             
+                              
+                  </af:panelGroupLayout>!-->
+           <af:panelGroupLayout id="pgl46" layout="horizontal" halign="center">
+   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
+                                     id="cl3" styleClass="productprice"
+                   actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"
+                                               disabled="true">
+                                               </af:commandLink>   
+                                               <af:spacer id="s29" width="5"/>
+                                               <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.lang eq "no_NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.lang eq "da_DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.lang eq "en_US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.lang eq "se_SE") ? "SEK":"-"}'
+                                                              id="ot21"
+                                                              styleClass="productprice"/>
+                                                              qwerty
+</af:panelGroupLayout>
+</af:panelGroupLayout>
+                    
+        
+        <af:spacer id="s30" width="5" height="3"/>
+             
+            </af:panelGroupLayout>
+                       </li>                 
+          </af:forEach>
+                      
+              </ul>
+        
+          </div>
+                        <af:spacer width="10" height="15" id="s31"/>
+                        <af:panelGroupLayout id="pgl47" layout="horizontal" 
+                               halign="left">
+                        <af:spacer width="250" height="1" id="s32"/>
+                       <!-- <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
+                                     destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
+                                     targetFrame="_blank"
+                                     styleClass="gobutton1"/> !-->
+                                     <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
+                                                      
+                                                      >
+                            <af:clientListener method="redirect" type="click"/>
+                          </af:commandButton>            
+                                     
+                        <af:spacer width="20" height="1" id="spacer16"/>
+                      </af:panelGroupLayout>
+        
+                  </af:panelGroupLayout>
+              <!--<af:spacer width="350" height="10" id="s27"/>-->
             </af:panelGroupLayout>
               <af:spacer width="7" height="5" id="s28"/>
               <!--<af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
