@@ -94,8 +94,6 @@ public class VehicleInfoBean implements Serializable {
     private String addPartnerIdVal = null;
     private String editPartnerIdVal = null;
     
-
-
     /**
      * @return bindings Object
      */
@@ -596,14 +594,15 @@ public class VehicleInfoBean implements Serializable {
         createOpn.execute();
         showErrorMsgFlag = false;
         linkedAddAccountList  = new ArrayList<SelectItem>();
+        addPartnerNumberDisplayValue = null;
+        addAccountIdDisplayValue = null;
+        addCardIdDisplayValue    =null;
         cardNumberList = new ArrayList<SelectItem>();
-        if(getBindings().getLinkedPartner().getValue()!= null && getBindings().getRegisterNumber().getValue() != null){
+        if(getBindings().getLinkedPartner().getValue()!= null){
             if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0 && linkedAccountLOVValues.size()==1){
                 this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
                 this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
                 this.addCardIdDisplayValue = null;
-                getBindings().getAddRegistrationNumber().setSubmittedValue(null);
-                getBindings().getAddRegistrationNumber().setSubmittedValue(getBindings().getRegisterNumber().getValue().toString());
                 populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Add");
                 populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()),"newVehicleAdd",getBindings().getLinkedPartner().getValue().toString());
             }
@@ -611,6 +610,11 @@ public class VehicleInfoBean implements Serializable {
                 this.addPartnerNumberDisplayValue = null;
                 this.addAccountIdDisplayValue = null;
                 this.addCardIdDisplayValue    =null;
+        }
+        
+        if(getBindings().getRegisterNumber().getValue() != null){
+            getBindings().getAddRegistrationNumber().setSubmittedValue(null);
+            getBindings().getAddRegistrationNumber().setSubmittedValue(getBindings().getRegisterNumber().getValue().toString());
         }
         getBindings().getNewVehicle().show(new RichPopup.PopupHints());
         return null;
@@ -654,40 +658,73 @@ public class VehicleInfoBean implements Serializable {
                          }
                     }
                 }
-            
-            if((!previousCardId.equals(getBindings().getEditCardId().getValue().toString())) && getBindings().getEditCardId().getValue() != null){
-                System.out.println("value of previuous card id===========>"+previousCardId);
-                ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
-                truckVo.setNamedWhereClauseParam("countryCd", countryParam);
-                truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-                truckVo.defineNamedWhereClauseParam("accountId",editAccountNumberVal, null);
-                if(getBindings().getEditCardId().getValue() != null){
-                System.out.println("For checking truck======>"+getBindings().getEditCardId().getValue());
-                truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+                
+                if(previousCardId != null && getBindings().getEditCardId().getValue() != null){
+                    if(!previousCardId.equals(getBindings().getEditCardId().getValue().toString())){
+                        System.out.println("value of previuous card id===========>"+previousCardId);
+                        
+                        ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+                        truckVo.setNamedWhereClauseParam("countryCd", countryParam);
+                        truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+                        truckVo.defineNamedWhereClauseParam("accountId",editAccountNumberVal, null);
+                        if(getBindings().getEditCardId().getValue() != null){
+                        System.out.println("For checking truck======>"+getBindings().getEditCardId().getValue());
+                        truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+                        }else{
+                            truckVo.defineNamedWhereClauseParam("cardNo","", null);
+                        }
+                        truckVo.executeQuery();
+                        if(truckVo.getEstimatedRowCount() > 0){
+                            System.out.println("For checking truck row count======>");
+                            while (truckVo.hasNext()) {
+                                 PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
+                                  if (currRow != null) {
+                                      System.out.println("For checking truck row count======>++++++++++++");
+                                        if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
+                                            System.out.println("1111111111111111111111111111111111111111111111111111111111");
+                                             warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                                             showErrorMsgEditFlag = true;
+                                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                                            //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                                            //FacesContext.getCurrentInstance().addMessage(null, msg);
+                                            return null;
+                                        }
+                                  }
+                            }
+                        }
+                    }
                 }else{
-                    truckVo.defineNamedWhereClauseParam("cardNo","", null);
-                }
-                truckVo.executeQuery();
-                if(truckVo.getEstimatedRowCount() > 0){
-                    System.out.println("For checking truck row count======>");
-                    while (truckVo.hasNext()) {
-                         PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
-                          if (currRow != null) {
-                              System.out.println("For checking truck row count======>++++++++++++");
-                                if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                                    System.out.println("1111111111111111111111111111111111111111111111111111111111");
-                                     warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
-                                     showErrorMsgEditFlag = true;
-                                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                                    //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                                    //FacesContext.getCurrentInstance().addMessage(null, msg);
-                                    return null;
-                                }
-                          }
+                    ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+                    truckVo.setNamedWhereClauseParam("countryCd", countryParam);
+                    truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+                    truckVo.defineNamedWhereClauseParam("accountId",editAccountNumberVal, null);
+                    if(getBindings().getEditCardId().getValue() != null){
+                    System.out.println("For checking truck======>"+getBindings().getEditCardId().getValue());
+                    truckVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+                    }else{
+                        truckVo.defineNamedWhereClauseParam("cardNo","", null);
+                    }
+                    truckVo.executeQuery();
+                    if(truckVo.getEstimatedRowCount() > 0){
+                        System.out.println("For checking truck row count======>");
+                        while (truckVo.hasNext()) {
+                             PrtTruckInformationVORowImpl currRow =(PrtTruckInformationVORowImpl)truckVo.next();
+                              if (currRow != null) {
+                                  System.out.println("For checking truck row count======>++++++++++++");
+                                    if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
+                                        System.out.println("1111111111111111111111111111111111111111111111111111111111");
+                                         warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                                         showErrorMsgEditFlag = true;
+                                         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                                        //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                                        //FacesContext.getCurrentInstance().addMessage(null, msg);
+                                        return null;
+                                    }
+                              }
+                        }
                     }
                 }
-            }
-            
+                
             getBindings().getEditVehicle().hide();
             System.out.println("save =" + editAccountNumberVal);
             BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -724,7 +761,7 @@ public class VehicleInfoBean implements Serializable {
         }
         return null;
     }
-
+    
     /**
      * @return
      */
@@ -950,6 +987,7 @@ public class VehicleInfoBean implements Serializable {
         this.linkedAccountLOVValues = null;
         linkedAccountList = new ArrayList<SelectItem>();
         this.linkedAccountLOVValues = null;
+        this.registrationNumber = null;
         getBindings().getLinkedPartner().setSubmittedValue(null);
         getBindings().getLinkedPartner().setValue(null);
         getBindings().getRegisterNumber().setValue(null);
@@ -1030,6 +1068,8 @@ public class VehicleInfoBean implements Serializable {
     
     public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue()!=null) {
+            this.searchResultsShow = false;
+             this.registrationNumber = null;
             linkedAccountList      = new ArrayList<SelectItem>();
             linkedAccountLOVValues = new ArrayList<String>();
             if(partnerInfoList != null && partnerInfoList.size() > 0){
@@ -1049,6 +1089,8 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
          }
     }
     
@@ -1138,11 +1180,24 @@ public class VehicleInfoBean implements Serializable {
     public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
            cardId = valueChangeEvent.getNewValue().toString();
+        }else{
+            this.cardId = null;
+            this.cardId = "";
         }
         this.showErrorMsgEditFlag = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
+    
+    public void addCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+         
+        this.showErrorMsgEditFlag = false;
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+        }
+    }
+    
+    
     
     public void AddPartnerNumberListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){

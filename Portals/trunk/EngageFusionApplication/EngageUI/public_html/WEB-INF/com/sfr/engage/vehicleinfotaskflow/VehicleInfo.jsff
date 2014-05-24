@@ -226,7 +226,7 @@
         <af:outputText value="#{pageFlowScope.VehicleInfoBean.warningMsg}" id="ot9"
                        binding="#{pageFlowScope.VehicleInfoBean.bindings.showErrorMsg}"
                        visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgFlag}"
-                       styleClass="errorOutputText"/>
+                       styleClass="errorOutputText" partialTriggers="soc3"/>
         <af:spacer width="10" height="10" id="s39"/>
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
@@ -255,15 +255,6 @@
                  
                   <h:panelGrid columns="9" id="popupGrid22">
                   
-            
-                
-                
-               
-                         
-                  
-          
-          
-          
             <af:outputText value="*#{sfr.PARTNER}" id="partnerid"/>
                 <af:outputText value=":" id="colonpartner"/>
                 <af:spacer width="15" height="10" id="s1856"/>
@@ -336,7 +327,9 @@
                  <af:selectOneChoice id="soc3" contentStyle="width:165px;height:24.0px;"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.addCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.addCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                     autoSubmit="true"
+                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.addCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.VehicleInfoBean.cardNumberList}"
                           var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -517,15 +510,6 @@
      
                  <h:panelGrid columns="9" id="popupGrid2">
                  
-                 
-                
-                
-               
-                  
-                 
-          
-          
-          
                  <af:outputText value="*#{sfr.PARTNER}" id="editpartnerid"/>
                 <af:outputText value=":" id="editpartner"/>
                 <af:spacer width="15" height="10" id="s46"/>

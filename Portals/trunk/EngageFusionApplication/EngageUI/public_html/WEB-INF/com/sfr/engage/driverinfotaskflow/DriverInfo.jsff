@@ -212,7 +212,7 @@
                        <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot10"
                        binding="#{pageFlowScope.DriverInfoBean.bindings.showErrorMsg}"
                        visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
-                       styleClass="errorOutputText" partialTriggers="save"/>
+                       styleClass="errorOutputText" partialTriggers="soc3"/>
                        <af:spacer width="10" height="10" id="s36"/>
         <af:panelStretchLayout id="psl6"
                                dimensionsFrom="children">
@@ -311,9 +311,11 @@
               </af:inputText>-->
               
                 <af:selectOneChoice id="soc3" contentStyle="width:165px;height:24.0px;"
+                                    autoSubmit="true"
                                     binding="#{pageFlowScope.DriverInfoBean.bindings.addCardId}"
                                     value="#{pageFlowScope.DriverInfoBean.addCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.addCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.DriverInfoBean.cardNumberList}"
                           var="listItem">
                     <af:selectItem label="#{listItem.label}"

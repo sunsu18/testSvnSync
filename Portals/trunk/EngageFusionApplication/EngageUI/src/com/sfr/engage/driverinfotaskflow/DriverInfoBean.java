@@ -611,16 +611,16 @@ public class DriverInfoBean implements Serializable {
         createOpn.execute();
         showErrorMsgFlag = false;
         linkedAddAccountList  = new ArrayList<SelectItem>();
+        addPartnerNumberDisplayValue = null;
+        addAccountIdDisplayValue = null;
+        addCardIdDisplayValue    =null;
         cardNumberList = new ArrayList<SelectItem>();
-        if(getBindings().getLinkedPartner().getValue()!= null && getBindings().getDriverName().getValue() != null){
-        
+        if(getBindings().getLinkedPartner().getValue()!= null){
             if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0 && linkedAccountLOVValues.size()==1){
                 System.out.println("Is it coming inside add driver action if block");
                 this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
                 this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
                 this.addCardIdDisplayValue = null;
-                getBindings().getAddDriverName().setSubmittedValue(null);
-                getBindings().getAddDriverName().setSubmittedValue(getBindings().getDriverName().getValue().toString());
                 populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Add");
                 populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()),"newDriverAdd",getBindings().getLinkedPartner().getValue().toString());
             }
@@ -630,6 +630,11 @@ public class DriverInfoBean implements Serializable {
         this.addPartnerNumberDisplayValue = null;
         this.addAccountIdDisplayValue = null;
         this.addCardIdDisplayValue    =null;
+        }
+        
+        if(getBindings().getDriverName().getValue() != null){
+            getBindings().getAddDriverName().setSubmittedValue(null);
+            getBindings().getAddDriverName().setSubmittedValue(getBindings().getDriverName().getValue().toString());
         }
         getBindings().getNewDriver().show(new RichPopup.PopupHints());
         return null;
@@ -642,10 +647,41 @@ public class DriverInfoBean implements Serializable {
     public String editDriverSave() {
         
         if (getBindings().getEditAccountId().getValue() != null && getBindings().getEditDriverName().getValue() != null && getBindings().getEditDriverNumber().getValue() != null) {
-            System.out.println("cardid value inside edit driver save======>"+previousCardId);
+            
             System.out.println("cardid value inside edit driver save11111======>"+getBindings().getEditCardId().getValue());
             
-            if((!previousCardId.equals(getBindings().getEditCardId().getValue().toString())) && getBindings().getEditCardId().getValue() != null){
+            if(previousCardId != null && getBindings().getEditCardId().getValue() != null){ 
+                System.out.println("cardid value inside edit driver save======>"+previousCardId);
+                if(!previousCardId.equals(getBindings().getEditCardId().getValue().toString())){
+                    ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+                    driverVo.setNamedWhereClauseParam("countryCd", countryParam);
+                    driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+                    driverVo.defineNamedWhereClauseParam("accountId",editAccountIdVal, null);
+                    if(getBindings().getEditCardId().getValue() != null){
+                    driverVo.defineNamedWhereClauseParam("cardNo",getBindings().getEditCardId().getValue().toString(), null);
+                    }else{
+                        driverVo.defineNamedWhereClauseParam("cardNo","", null);  
+                    }
+                    driverVo.executeQuery();
+                    if(driverVo.getEstimatedRowCount() > 0){
+                        while (driverVo.hasNext()) {
+                        PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
+                             if (currRow != null) {
+                             System.out.println("is it coming inside the newDriverSave method===============++++++++++++++>");
+                                if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
+                                    warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                                    showErrorMsgEditFlag = true;
+                                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                                    //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
+                                    //FacesContext.getCurrentInstance().addMessage(null, msg);
+                                    return null;
+                            
+                                }
+                             }
+                        }
+                    }
+                }
+            }else{
                 ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
                 driverVo.setNamedWhereClauseParam("countryCd", countryParam);
                 driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
@@ -1173,10 +1209,20 @@ public class DriverInfoBean implements Serializable {
     public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
             cardId = valueChangeEvent.getNewValue().toString();
+        }else{
+            this.cardId = null;
+            this.cardId = "";
         }
         this.showErrorMsgEditFlag = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
+    }
+    
+    public void addCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+            this.showErrorMsgEditFlag = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+        }
     }
 
 
@@ -1364,6 +1410,8 @@ public class DriverInfoBean implements Serializable {
 
     public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue()!=null) {
+             this.searchResultsShow = false;
+             this.driverN = null;
             linkedAccountList      = new ArrayList<SelectItem>();
             linkedAccountLOVValues = new ArrayList<String>();
             if(partnerInfoList != null && partnerInfoList.size() > 0){
@@ -1383,6 +1431,8 @@ public class DriverInfoBean implements Serializable {
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+             AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getDriverName());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
          }
     }
 
