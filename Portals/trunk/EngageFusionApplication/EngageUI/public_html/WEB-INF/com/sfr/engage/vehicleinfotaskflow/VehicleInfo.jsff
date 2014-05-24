@@ -16,17 +16,18 @@
       <af:panelGroupLayout id="pgl2" layout="horizontal">
         <af:separator id="s4"/>
       </af:panelGroupLayout>
-      <af:spacer width="10" height="15" id="s17"/>
+      <!--<af:spacer width="10" height="15" id="s17"/>-->
       <af:panelGroupLayout id="pgl1"
                            binding="#{pageFlowScope.VehicleInfoBean.bindings.searchPanelGroupLayout}"
-                           layout="vertical" inlineStyle="width:355.0px;">
+                           layout="vertical" inlineStyle="width:440.0px;">
         <af:panelGroupLayout id="pgl9" halign="right">
-          <h:panelGrid columns="5" id="pg1">
+          <h:panelGrid columns="6" id="pg1">
           
           <af:outputText value="*" id="gff"/>
             <af:outputText value="#{sfr.PARTNER}" id="colon"/>
+           <af:spacer width="20" height="10" id="s18"/>
             <af:outputText value=":" id="col"/>
-            <af:spacer width="15" height="10" id="s18"/>
+        <af:spacer width="20" height="50" id="s45"/>
             <af:selectOneChoice id="partnerSOC"
                                 binding="#{pageFlowScope.VehicleInfoBean.bindings.linkedPartner}"
                                 contentStyle="width: 175px;"
@@ -40,48 +41,52 @@
                                value="#{listItem.value}" id="select_item_partner"/>
               </af:forEach>
             </af:selectOneChoice>
-            <af:spacer height="10" id="s24"/>
+            <!--<af:spacer height="10" id="s24"/>
             <af:spacer height="10" id="s20"/>
             <af:spacer height="10" id="s21"/>
             <af:spacer height="10" id="s22"/>
-            <af:spacer height="10" id="s2ewe2"/>
+            <af:spacer height="10" id="s2ewe2"/>-->
           
           
           
             <af:outputText value="" id="str"/>
             <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="ot11"/>
-            <af:outputText value=":" id="coll"/>
-            <af:spacer width="15" height="10" id="s41"/>
+           <af:spacer width="20" height="10" id="s37"/>
+            <af:outputText value=":" id="ot14"/>
+            <af:spacer width="20" height="20" id="s20"/>
             <af:selectManyChoice id="smc1"
                                  binding="#{pageFlowScope.VehicleInfoBean.bindings.linkedAccount}"
                                  
                                  value="#{pageFlowScope.VehicleInfoBean.linkedAccountLOVValues}"
-                                 contentStyle="width: 150px;">
+                                 contentStyle="width: 150px;height:14px;">
               <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedAccountList}"
                           var="listItem">
                 <af:selectItem label="#{listItem.label}"
                                value="#{listItem.value}" id="select_item"/>
               </af:forEach>
             </af:selectManyChoice>
-            <af:spacer height="10" id="s42"/>
+            <!--<af:spacer height="10" id="s42"/>
             <af:spacer height="10" id="s43"/>
             <af:spacer height="10" id="s44"/>
             <af:spacer height="10" id="s23"/>
             <af:spacer height="10" id="sdf23"/>
-          <af:spacer height="10" id="dfdsdf23"/>
-        
+          <af:spacer height="10" id="dfdsdf23"/>-->
+             <af:outputText value="" id="ot18"/>
             <af:outputText value="#{sfr.FILTER_REGISTRATION_NUMBER}"
                            id="colon1"/>
-            <af:outputText value=":" id="coll2"/>
-            <af:spacer width="15" height="10" id="s19"/>
+            <af:spacer width="20" height="10" id="s19"/>
+            <af:outputText value=":" id="coll3"/>
+            <af:spacer width="20" height="50" id="s21"/>
             <af:inputText id="it7" autoSubmit="true"
                           binding="#{pageFlowScope.VehicleInfoBean.bindings.registerNumber}"
-                          value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"/>
+                          value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"
+                          contentStyle="width: 165px;"/>
           </h:panelGrid>
         </af:panelGroupLayout>
         <af:spacer width="12" height="10" id="s2"/>
         <af:panelGroupLayout id="pgal1"
-                             halign="right" layout="horizontal">
+                             halign="right" layout="horizontal"
+                             inlineStyle="padding-right: 50px;">
           <af:commandButton text="#{sfr.SEARCH}" id="cb1" 
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}"
                             partialTriggers="it7"></af:commandButton>
@@ -94,7 +99,7 @@
         <af:spacer width="12" height="10" id="s33"/>
           <af:commandButton text="#{sfr.ENGAGE_CLEAR}" id="cb2"
                             actionListener="#{pageFlowScope.VehicleInfoBean.searchCancel}"></af:commandButton>
-                            <af:spacer width="7" height="10" id="s45"/>
+                            <af:spacer width="7" height="10" id="s17"/>
         </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>
@@ -116,7 +121,7 @@
                           </af:panelGroupLayout>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl4">
-        <af:spacer width="10" height="20" id="s6"/>
+        <af:spacer width="10" height="25" id="s6"/>
         <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccountList}"
                     var="var">
           <!-- <c:if test="${not empty var.vehicleInfoList}">-->
@@ -126,13 +131,13 @@
             <af:spacer width="10" height="10" id="s31"/>
             <af:outputText value="#{var.accountNumber}" id="ot3"
                            styleClass="boldtext"/>
-            <af:spacer width="10" height="10" id="s27"/>  
+            <af:spacer width="690" height="10" id="s27"/>  
         <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb8"
                           action="#{pageFlowScope.VehicleInfoBean.deleteAllRecordsAction}" styleClass="buttonback buttontext">
         <af:setPropertyListener from="#{var.accountNumber}" to="#{pageFlowScope.accountNumber}" type="action"/>
         </af:commandButton>
           </af:panelGroupLayout>
-          <af:spacer width="10" height="10" id="s25"/>
+          <af:spacer width="10" height="5" id="s25"/>
           <af:panelGroupLayout id="pgl6">
             <af:table var="row" rowBandingInterval="1" id="t1"
                       value="#{var.vehicleInfoList}"  rows="5" width="962px"
@@ -177,7 +182,7 @@
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MAX_FUEL}" id="c11"
                          width="90">
-                <af:outputText value="#{row.maxFuel}" id="ot14"/>
+                <af:outputText value="#{row.maxFuel}" id="ot19"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.ODOMETER}" id="c12"
                          width="90">
@@ -791,7 +796,7 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteAllDriver_scroll"
                                  styleClass="WCPanelMargin">
-               <af:separator id="s37"
+               <af:separator id="s22"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
                 <af:panelFormLayout id="pfasl2" >
                 <af:outputText value="#{sfr.DELETE_COMFIRMATION_ALL_DRIVER}" id="ot17"/>

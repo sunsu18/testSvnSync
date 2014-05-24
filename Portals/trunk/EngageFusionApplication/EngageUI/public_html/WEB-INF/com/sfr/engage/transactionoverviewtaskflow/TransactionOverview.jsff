@@ -911,7 +911,8 @@
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.shuttleExcel}"
                                     value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}"
-                                    partialTriggers="cb4">
+                                    partialTriggers="cb4"
+                                    contentStyle="height:200.0px;">
                   <af:forEach items="#{pageFlowScope.TransactionOverviewBean.shuttleList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"

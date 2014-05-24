@@ -1,3 +1,10 @@
+.af_selectManyShuttle_options, .af_selectOrderShuttle_options {
+font-family: Lucida Sans,Georgia,Serif !important;
+font-weight: bold;
+font-size: 12px;
+}
+
+
 /*Popup Close Icon*/
 
 .af_panelWindow_close-icon-style, .af_dialog_close-icon-style{
