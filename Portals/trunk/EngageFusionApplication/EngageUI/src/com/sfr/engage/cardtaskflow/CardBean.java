@@ -4,6 +4,7 @@ import com.sfr.engage.core.PartnerInfo;
 
 import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewBean;
@@ -32,13 +33,19 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 
+import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
+
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
 
 import oracle.javatools.marshal.StringConversion;
 
@@ -82,6 +89,12 @@ public class CardBean implements Serializable {
     Map<String,String> truckDriverList = new HashMap<String,String>();
     private String displayDriverName;
    private String  displayVehicleName;
+    private String driverNumber = null;
+    private String vehicleNumber = null;
+    private RichSelectOneChoice driverNameAssociation;
+    private String warningMsg = null;
+    private boolean showErrorMsgEditFlag = false;
+        private String internalCardNumber = null;
 
     public CardBean() {
         super();
@@ -354,13 +367,6 @@ public class CardBean implements Serializable {
                                      
                                  }  
                              }
-                          
-                          
-                          
-                          
-                          
-                          
-                             
                         }
                     }
                 }
@@ -556,7 +562,9 @@ public class CardBean implements Serializable {
       
             if(valueChangeEvent.getNewValue().equals("Driver")){
                 
-             
+               
+                this.getBindings().getVehicleNumber().setValue(null); 
+                this.displayVehicleName = null;
                 driverPGL = true;
                 vehiclePGL = false;
                 System.out.println("driver"+valueChangeEvent.getNewValue().toString());
@@ -564,6 +572,10 @@ public class CardBean implements Serializable {
            
             }else if(valueChangeEvent.getNewValue().equals("Vehicle")){
            
+                this.getBindings().getDriverNumber().setValue(null); 
+         
+                this.displayDriverName=null;
+            
                 driverPGL   = false;
                 vehiclePGL = true;
                 System.out.println("vehicle"+valueChangeEvent.getNewValue().toString());
@@ -607,8 +619,16 @@ public class CardBean implements Serializable {
     }
 
     public String editDetails() {
+        
+        
         cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
+        getBindings().getVehicleDriverRadio().setValue(null);
+        this.getBindings().getDriverNumber().setValue(null); 
+        this.getBindings().getVehicleNumber().setValue(null); 
+        this.displayDriverName=null;
+        this.displayVehicleName = null;
         getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
+      
         return null;
     }
     
@@ -639,6 +659,12 @@ public class CardBean implements Serializable {
                 vo.setNamedWhereClauseParam("countryCd", lang);
               
                 vo.setNamedWhereClauseParam("paramValue", paramType);
+                if(paramType=="Driver") {
+                    vo.setNamedWhereClauseParam("driverNumber", null);
+                }
+                else {
+                    vo.setNamedWhereClauseParam("vehicleNumber", null);
+                }
                 vo.executeQuery();
                 System.out.println("outside if"+vo.getEstimatedRowCount());
                 if(vo.getEstimatedRowCount() > 0){
@@ -761,6 +787,327 @@ public class CardBean implements Serializable {
     public String getDisplayVehicleName() {
         return displayVehicleName;
     }
+   
+   public void checkVehicleAssociation() {
+       
+       System.out.println("inside vehicle association method");
+System.out.println("vehicle number already associated is" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber"));
+           
+       ViewObject vehicleVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO2Iterator");
+       
+       System.out.println("view object" + vehicleVo);
+       
+       vehicleVo.setNamedWhereClauseParam("countryCd", lang);
+       
+       vehicleVo.setNamedWhereClauseParam("paramValue", "Vehicle");
+       if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
+           System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim()+ "account");
+           vehicleVo.setNamedWhereClauseParam("accountValue",AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim());
+       }
+       
+       if( getBindings().getVehicleNumber().getValue() != null)
+       {
+           System.out.println("VehicleNumber in where clause"+ getBindings().getVehicleNumber().getValue());
+       vehicleVo.setNamedWhereClauseParam("vehicleNumber", getBindings().getVehicleNumber().getValue());
+       
+       }
+       vehicleVo.executeQuery();
+       System.out.println("estimated row count of vehicle vo" + vehicleVo.getEstimatedRowCount());
+       if(vehicleVo.getEstimatedRowCount() > 0)
+       {
+           System.out.println("curr row > 0" + vehicleVo.getEstimatedRowCount());
+           while (vehicleVo.hasNext()) {
+               System.out.println("inside while of vehicle");
+                  PrtViewVehicleDriverVORowImpl currRow =(PrtViewVehicleDriverVORowImpl)vehicleVo.next();
+               System.out.println("currRow"+currRow);
+               System.out.println("card number" + currRow.getCardNumber()); 
+                   if (currRow != null) {
+                       if(currRow.getCardNumber() != null)
+                       {
+                  System.out.println("card number" + currRow.getCardNumber());     
+       if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
+           System.out.println("vehicle already associated");
+           showErrorMsgEditFlag=true;
+           warningMsg = resourceBundle.getObject("TRUCK_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardNumber());
+           System.out.println("warningMsg" + warningMsg);
+       }
+       }
+                    
+                       else {
+                               
+                               System.out.println("internal card number" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") );
+                               if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null)
+                               {
+                               internalCardNumber=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+                               }
+                               if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null)
+                               {
+                               associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
+                               }
+                               BindingContainer bindings =  BindingContext.getCurrent().getCurrentBindingsEntry();
+                               OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
+                               operationBinding.getParamsMap().put("cardNumber", internalCardNumber);
+                              
+                               operationBinding.getParamsMap().put("type", "Vehicle");
+                               operationBinding.getParamsMap().put("countryCd", lang); 
+                               
+                               operationBinding.getParamsMap().put("vehicleDriverValue",getBindings().getVehicleNumber().getValue() );
+                               
+                               operationBinding.getParamsMap().put("associatedAccount", associatedAccount);       
+                               
+                              
+                               Object result = operationBinding.execute();
+                       
+                              if (resourceBundle.containsKey("VEHICLE_ASSOCIATED")) {
+                                   getBindings().getTruckdriverDetails().hide();
+                               FacesMessage msg =
+                               new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ASSOCIATED"),
+                               "");
+                               FacesContext.getCurrentInstance().addMessage(null, msg);
+                               }  
+
+                               
+                           }
+                       
+                       
+   
+                       
+                       
+                   }  
+           }
+       }
+                  
+   }
+   
+   
+        public void checkDriverAssociation() {
+            
+            System.out.println("inside driver association method");
+            System.out.println("driver number already associated is" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber"));
+                
+            ViewObject driverVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO2Iterator");
+            
+            System.out.println("view object" + driverVo);
+            
+            driverVo.setNamedWhereClauseParam("countryCd", lang);
+            
+            driverVo.setNamedWhereClauseParam("paramValue", "Driver");
+            
+            if( getBindings().getDriverNumber().getValue() != null)
+            {
+                System.out.println("getDriverNumber in where clause"+ getBindings().getDriverNumber().getValue());
+            driverVo.setNamedWhereClauseParam("driverNumber", getBindings().getDriverNumber().getValue());
+            
+            }
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
+                System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim()+ "account");
+                driverVo.setNamedWhereClauseParam("accountValue",AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim());
+            }
+            driverVo.executeQuery();
+            System.out.println("estimated row count of driver vo" + driverVo.getEstimatedRowCount());
+            if(driverVo.getEstimatedRowCount() > 0)
+            {
+                System.out.println("curr row > 0" + driverVo.getEstimatedRowCount());
+                while (driverVo.hasNext()) {
+                    System.out.println("inside while of driverVo");
+                       PrtViewVehicleDriverVORowImpl currRow =(PrtViewVehicleDriverVORowImpl)driverVo.next();
+                    System.out.println("currRow"+currRow);
+                    System.out.println("card number" + currRow.getCardNumber()); 
+                        if (currRow != null) {
+                            if(currRow.getCardNumber() != null)
+                            {
+                       System.out.println("card number" + currRow.getCardNumber());     
+            if (resourceBundle.containsKey("DRIVER_CARD_ALREADY_EXIST")) {
+                System.out.println("driver already associated");
+                showErrorMsgEditFlag=true;
+                warningMsg = resourceBundle.getObject("DRIVER_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardNumber());
+                System.out.println("warningMsg" + warningMsg);
+            }
+            }
+                            
+                            else {
+                                System.out.println("internal card number" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") );
+                                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null)
+                                {
+                                internalCardNumber=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+                                }
+                                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null)
+                                {
+                                associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
+                                }
+                                BindingContainer bindings =  BindingContext.getCurrent().getCurrentBindingsEntry();
+                                OperationBinding operationBinding = bindings.getOperationBinding("updateVehicleDriver");
+                                operationBinding.getParamsMap().put("cardNumber", internalCardNumber);
+                                
+                                operationBinding.getParamsMap().put("type", "Driver");
+                                operationBinding.getParamsMap().put("countryCd", lang); 
+                                
+                                operationBinding.getParamsMap().put("vehicleDriverValue",getBindings().getDriverNumber().getValue() );
+                                
+                                operationBinding.getParamsMap().put("associatedAccount", associatedAccount);       
+                                
+                                
+                                Object result = operationBinding.execute();
+                                
+                               if (resourceBundle.containsKey("DRIVER_ASSOCIATED")) {
+                                    getBindings().getTruckdriverDetails().hide();
+                                FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("DRIVER_ASSOCIATED"),
+                                "");
+                                FacesContext.getCurrentInstance().addMessage(null, msg);
+                                } 
+                                
+                            }
+                            
+                        }  
+                }
+            }
+           
+        }
+    
+
+    public String saveVehicleDriver() {
+        
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null || AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null )
+        {            
+        
+  if(vehiclePGL) {
+                System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") +"inside vehiclepgl");
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) 
+                {
+                    
+                    System.out.println("inside vehiclepgl driver ! null");
+                if (resourceBundle.containsKey("DRIVER_CARD_EXIST"))
+                {
+                    
+                    showErrorMsgEditFlag=true;
+                    System.out.println("driver already associated");
+                    warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString());
+                }
+                
+            }
+                else
+                {
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
+                    {
+                    checkVehicleAssociation();
+                   // getBindings().getTruckdriverDetails().hide();
+                    
+                    
+                    }
+                }
+            }
+        else
+            {
+    
+            if(driverPGL)
+            {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") +"inside driverPGL");
+            if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) 
+            {
+            System.out.println("inside driverPGL  ! null");
+           
+            if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) 
+            {
+                System.out.println("vehicle already associated");
+                showErrorMsgEditFlag=true;
+                warningMsg =  resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
+            }
+            
+            }
+            else
+            {
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
+                    {
+                checkDriverAssociation();
+               // getBindings().getTruckdriverDetails().hide();
+            }
+            } 
+            }   
+        }
+        }
+        
+        else
+        {
+       
+            
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") == null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") == null ) 
+        {
+            if(vehiclePGL)
+            {
+               
+            
+                checkVehicleAssociation();
+            }
+            else 
+            {
+        if(driverPGL)
+        {
+            
+        checkDriverAssociation();
+        }
+            }    
+        }
+        }          
+     
+        return null;  
+    }    
+   
+    /**
+     * @param driverNumber
+     */
+    public void setDriverNumber(String driverNumber) {
+        this.driverNumber = driverNumber;
+    }
+
+    public String getDriverNumber() {
+        return driverNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setDriverNameAssociation(RichSelectOneChoice driverNameAssociation) {
+        this.driverNameAssociation = driverNameAssociation;
+    }
+
+    public RichSelectOneChoice getDriverNameAssociation() {
+        return driverNameAssociation;
+    }
+
+    public void setWarningMsg(String warningMsg) {
+        this.warningMsg = warningMsg;
+    }
+
+    public String getWarningMsg() {
+        return warningMsg;
+    }
+
+    public void setShowErrorMsgEditFlag(boolean showErrorMsgEditFlag) {
+        this.showErrorMsgEditFlag = showErrorMsgEditFlag;
+    }
+
+    public boolean isShowErrorMsgEditFlag() {
+        return showErrorMsgEditFlag;
+    }
+
+    public void setInternalCardNumber(String internalCardNumber) {
+        this.internalCardNumber = internalCardNumber;
+    }
+
+    public String getInternalCardNumber() {
+        return internalCardNumber;
+    }
+
+    public String closePopUp() {
+     getBindings().getTruckdriverDetails().hide();
+        return null;
+    }
 
 
     public class Bindings {
@@ -770,6 +1117,10 @@ public class CardBean implements Serializable {
         private RichSelectManyChoice account;
         private RichSelectManyChoice status;
         private RichPopup truckdriverDetails;
+        private RichSelectOneChoice driverNumber;
+        private RichSelectOneChoice vehicleNumber;
+        private RichOutputText showEditErrorMessage;
+        private RichSelectOneRadio vehicleDriverRadio;
     
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
@@ -809,7 +1160,45 @@ public class CardBean implements Serializable {
         }
 
         public RichPopup getTruckdriverDetails() {
+            showErrorMsgEditFlag=false;
+            vehiclePGL=false;
+            driverPGL=false;
+            
             return truckdriverDetails;
         }
+
+
+        public void setDriverNumber(RichSelectOneChoice driverNumber) {
+            this.driverNumber = driverNumber;
+        }
+
+        public RichSelectOneChoice getDriverNumber() {
+            return driverNumber;
+        }
+
+        public void setVehicleNumber(RichSelectOneChoice vehicleNumber) {
+            this.vehicleNumber = vehicleNumber;
+        }
+
+        public RichSelectOneChoice getVehicleNumber() {
+            return vehicleNumber;
+        }
+
+        public void setShowEditErrorMessage(RichOutputText showEditErrorMessage) {
+            this.showEditErrorMessage = showEditErrorMessage;
+        }
+
+        public RichOutputText getShowEditErrorMessage() {
+            return showEditErrorMessage;
+        }
+
+        public void setVehicleDriverRadio(RichSelectOneRadio vehicleDriverRadio) {
+            this.vehicleDriverRadio = vehicleDriverRadio;
+        }
+
+        public RichSelectOneRadio getVehicleDriverRadio() {
+            return vehicleDriverRadio;
+        }
     }
-}
+    }
+

@@ -96,11 +96,14 @@
     Name="PrtExportInfoRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtExportInfoRVO"/>
   <ViewUsage
-    Name="PrtViewCardsVO1"
-    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"/>
-  <ViewUsage
     Name="PrtViewVehicleDriverVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVO"/>
+  <ViewUsage
+    Name="PrtViewVehicleDriverVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVO"/>
+  <ViewUsage
+    Name="PrtViewCardsVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
@@ -147,14 +150,12 @@
         Name="modifiedBy"
         Type="java.lang.String"/>
     </Method>
-  </ClientInterface>
-  <ClientInterface>
     <Method
-      Name="deleteAllForAccount">
+      Name="updateVehicleDriver">
       <Return
         Type="void"/>
       <Parameter
-        Name="accountId"
+        Name="cardNumber"
         Type="java.lang.String"/>
       <Parameter
         Name="type"
@@ -163,35 +164,10 @@
         Name="countryCd"
         Type="java.lang.String"/>
       <Parameter
-        Name="regDriverValue"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="getWebServiceErrorMessage">
-      <Return
+        Name="vehicleDriverValue"
         Type="java.lang.String"/>
       <Parameter
-        Name="errorMessage"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="countryCode"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="updateOdometerPortal">
-      <Return
-        Type="void"/>
-      <Parameter
-        Name="urefTransactionId"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="palsCountryCode"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="odoMeterPortalValue"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="modifiedBy"
+        Name="associatedAccount"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>

@@ -48,7 +48,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_code,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description
+    <![CDATA[select pc.account_id,pc.block_code,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -317,7 +317,8 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRT_CARD_PK"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="PRT_CARD_PK">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>

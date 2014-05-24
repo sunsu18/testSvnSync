@@ -13,4 +13,8 @@ public interface EngageAppModule extends ApplicationModule {
 
     void updateOdometerPortal(String urefTransactionId, String palsCountryCode,
                               String odoMeterPortalValue, String modifiedBy);
+
+    void updateVehicleDriver(String cardNumber, String type, String countryCd,
+                             String vehicleDriverValue,
+                             String associatedAccount);
 }

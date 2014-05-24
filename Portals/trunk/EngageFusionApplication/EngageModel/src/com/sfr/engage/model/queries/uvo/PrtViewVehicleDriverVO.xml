@@ -35,16 +35,27 @@
     Name="accountValue"
     Kind="where"
     Type="java.lang.String"/>
+  <Variable
+    Name="vehicleNumber"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="driverNumber"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[SELECT PDI.DRIVER_NAME AS DRIVER_NAME
        ,PDI.DRIVER_NUMBER AS DRIVER_NUMBER
        ,null as VEHICLE_NUMBER
        ,null as INTERNAL_NAME
+       ,PDI.CARD_NUMBER
      
 FROM PRT_DRIVER_INFORMATION PDI
 WHERE  INSTR(:accountValue,PDI.ACCOUNT_NUMBER)<>0
 AND   PDI.COUNTRY_CODE       = :countryCd
 AND   'Driver'               = :paramValue
+AND   PDI.DRIVER_NUMBER      LIKE CONCAT (:driverNumber,'%')
+
 
 UNION
 
@@ -52,12 +63,14 @@ SELECT null as DRIVER_NAME
        ,null as DRIVER_NUMBER
        ,PTI.VEHICLE_NUMBER
        ,PTI.INTERNAL_NAME
+       ,PTI.CARD_NUMBER
       
 
 FROM PRT_TRUCK_INFORMATION PTI
 WHERE  INSTR(:accountValue,PTI.ACCOUNT_NUMBER)<>0
-AND   PTI.COUNTRY_CODE       = :countryCd
-AND   'Vehicle'               = :paramValue]]>
+AND   PTI.COUNTRY_CODE        = :countryCd
+AND   'Vehicle'               = :paramValue
+AND   PTI.VEHICLE_NUMBER      LIKE CONCAT (:vehicleNumber,'%')]]>
   </SQLQuery>
   <ViewAttribute
     Name="DriverName"
@@ -117,6 +130,21 @@ AND   'Vehicle'               = :paramValue]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_NUMBER"
+    Expression="CARD_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </ViewAttribute>
   <ResourceBundle>

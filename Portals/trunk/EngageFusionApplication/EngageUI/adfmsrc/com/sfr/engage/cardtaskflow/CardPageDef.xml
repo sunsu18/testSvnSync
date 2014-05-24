@@ -14,22 +14,11 @@
     <iterator Binds="PrtViewVehicleDriverVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtViewVehicleDriverVO1Iterator"/>
+    <iterator Binds="PrtViewVehicleDriverVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO2Iterator"/>
   </executables>
   <bindings>
-    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
-                      Name="PrtViewCardsVO10">
-        <AttrNames>
-          <Item Value="AccountId"/>
-          <Item Value="CardType"/>
-          <Item Value="CardEmbossNum"/>
-          <Item Value="CardExpiry"/>
-          <Item Value="BlockCode"/>
-          <Item Value="DriverName"/>
-          <Item Value="VehicleNumber"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
     <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO11">
       <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
                       Name="PrtViewCardsVO110">
@@ -37,12 +26,14 @@
           <Item Value="AccountId"/>
           <Item Value="CardType"/>
           <Item Value="CardEmbossNum"/>
-          <Item Value="VehicleNumber"/>
+      <Item Value="VehicleNumber"/>
           <Item Value="DriverName"/>
           <Item Value="BlockCode"/>
           <Item Value="CardExpiry"/>
           <Item Value="CardIdentifier"/>
           <Item Value="CardgroupDescription"/>
+          <Item Value="CardNumber"/>
+          <Item Value="PrtCardPk"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -52,5 +43,23 @@
         <Item Value="DriverName"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardNumber">
+      <AttrNames>
+        <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updateVehicleDriver"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateVehicleDriver" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.updateVehicleDriver_EngageAppModuleDataControl_dataProvider_updateVehicleDriver_result">
+      <NamedData NDName="cardNumber" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="vehicleDriverValue" NDType="java.lang.String"/>
+      <NamedData NDName="associatedAccount" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

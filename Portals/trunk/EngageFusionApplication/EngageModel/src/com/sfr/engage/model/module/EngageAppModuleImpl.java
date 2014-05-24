@@ -23,6 +23,8 @@ import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl;
 
+import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVOImpl;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -189,6 +191,49 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                     }
                 }
     }
+
+public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount) {
+    System.out.println("inside update vehicle driver");
+    System.out.println("cardNumber in Application module===>"+cardNumber);
+    System.out.println("type in application module====>"+type);
+    System.out.println("countryCd in application module=====>"+countryCd);
+    System.out.println("regDriverValue in apppilcation module====>"+vehicleDriverValue);
+    System.out.println("associatedAccount in apppilcation module====>"+associatedAccount);
+    Connection con=null;
+    PreparedStatement pStmt = null;
+    String statement = null;
+    
+    try {
+        Statement stmt = getDBTransaction().createStatement(0);
+        con = stmt.getConnection();
+        if(type.equals("Driver")){
+            if(vehicleDriverValue!= null){
+            System.out.println("Inside this block of driver in application moule");
+            statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+            }
+        }else{
+            if(type.equals("Vehicle")){
+            System.out.println("Inside this block of vehicle in application moule");
+                statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+            }
+        }                    
+       
+        pStmt = con.prepareStatement(statement);   
+        pStmt.executeUpdate();
+        con.commit();
+    } catch (SQLException sqle) {
+        sqle.getMessage();
+    } finally {
+        try {
+            pStmt.close();
+        } catch (SQLException sqle) {
+            sqle.getMessage();
+        }
+    }
+    
+    
+    
+}
     
     public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
         System.out.println("transaction id in Application module===>"+urefTransactionId);
@@ -412,13 +457,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtExportInfoRVOImpl)findViewObject("PrtExportInfoRVO1");
     }
 
-/**
-     * Container's getter for PrtViewCardsVO1.
-     * @return PrtViewCardsVO1
-     */
-    public PrtViewCardsVOImpl getPrtViewCardsVO1() {
-        return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
-    }
 
     /**
      * Container's getter for PrtViewVehicleDriverVO1.
@@ -426,5 +464,21 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtViewVehicleDriverVO1() {
         return (ViewObjectImpl)findViewObject("PrtViewVehicleDriverVO1");
+    }
+
+    /**
+     * Container's getter for PrtViewVehicleDriverVO2.
+     * @return PrtViewVehicleDriverVO2
+     */
+    public PrtViewVehicleDriverVOImpl getPrtViewVehicleDriverVO2() {
+        return (PrtViewVehicleDriverVOImpl)findViewObject("PrtViewVehicleDriverVO2");
+    }
+
+    /**
+     * Container's getter for PrtViewCardsVO1.
+     * @return PrtViewCardsVO1
+     */
+    public ViewObjectImpl getPrtViewCardsVO1() {
+        return (ViewObjectImpl)findViewObject("PrtViewCardsVO1");
     }
 }

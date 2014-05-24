@@ -17,6 +17,14 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
     }
 
 
+    public void updateVehicleDriver(String cardNumber, String type,
+                                    String countryCd,
+                                    String vehicleDriverValue) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"updateVehicleDriver",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, type, countryCd, vehicleDriverValue});
+        return;
+    }
+
     public void deleteAllForAccount(String accountId, String type,
                                     String countryCd, String regDriverValue) {
         Object _ret =
@@ -37,6 +45,15 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
                                      String modifiedBy) {
         Object _ret =
             this.riInvokeExportedMethod(this,"updateOdometerPortal",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {urefTransactionId, palsCountryCode, odoMeterPortalValue, modifiedBy});
+        return;
+    }
+
+    public void updateVehicleDriver(String cardNumber, String type,
+                                    String countryCd,
+                                    String vehicleDriverValue,
+                                    String associatedAccount) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"updateVehicleDriver",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, type, countryCd, vehicleDriverValue, associatedAccount});
         return;
     }
 }
