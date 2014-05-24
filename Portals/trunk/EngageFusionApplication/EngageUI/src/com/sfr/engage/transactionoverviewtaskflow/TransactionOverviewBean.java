@@ -980,6 +980,14 @@ public class TransactionOverviewBean implements Serializable{
         }
     }
     
+    public void reportFormatValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(isTableVisible)
+        {
+        isTableVisible = false;            
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+    }
+    
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
         if(valueChangeEvent.getNewValue()!=null) {

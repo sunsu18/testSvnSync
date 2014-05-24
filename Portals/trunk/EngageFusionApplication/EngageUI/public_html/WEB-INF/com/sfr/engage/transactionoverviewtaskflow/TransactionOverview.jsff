@@ -97,8 +97,9 @@
                <af:outputText value=":" id="ot72"/>
               <af:spacer width="10" height="35" id="s55"/>
             <af:selectOneChoice id="smc7" contentStyle="width: 175px;" unselectedLabel="&lt;Please Select>" partialTriggers="cb3"
-                                 value="#{pageFlowScope.TransactionOverviewBean.reportFormatValue}"
-                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.reportFormat}">
+                                 value="#{pageFlowScope.TransactionOverviewBean.reportFormatValue}" autoSubmit="true"
+                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.reportFormat}"
+                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.reportFormatValueChangeListener}">
               <af:forEach items="#{pageFlowScope.TransactionOverviewBean.reportFormatList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
