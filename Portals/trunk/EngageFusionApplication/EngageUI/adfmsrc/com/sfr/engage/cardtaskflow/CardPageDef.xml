@@ -14,9 +14,17 @@
     <iterator Binds="PrtViewVehicleDriverVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtViewVehicleDriverVO1Iterator"/>
-    <iterator Binds="PrtViewVehicleDriverVO2" RangeSize="25"
+ <iterator Binds="PrtViewVehicleDriverVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtViewVehicleDriverVO2Iterator"/>
+ <iterator Binds="PrtPartnerVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPartnerVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>  
   </executables>
   <bindings>
     <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO11">
@@ -43,10 +51,15 @@
         <Item Value="DriverName"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+<attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
                      id="CardNumber">
       <AttrNames>
         <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>
+ <attributeValues IterBinding="PrtCardgroupVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
       </AttrNames>
     </attributeValues>
     <methodAction id="updateVehicleDriver"
@@ -60,6 +73,5 @@
       <NamedData NDName="countryCd" NDType="java.lang.String"/>
       <NamedData NDName="vehicleDriverValue" NDType="java.lang.String"/>
       <NamedData NDName="associatedAccount" NDType="java.lang.String"/>
-    </methodAction>
-  </bindings>
+    </methodAction>  </bindings>
 </pageDefinition>

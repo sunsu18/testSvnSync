@@ -62,8 +62,7 @@
                                    partialTriggers="soc3 cb3"
                                    valueChangeListener="#{pageFlowScope.CardBean.accountValueChangeListener}"
                                    autoSubmit="true"
-                                   binding="#{pageFlowScope.CardBean.bindings.account}"
-                               >
+                                   binding="#{pageFlowScope.CardBean.bindings.account}">
                       <af:forEach items="#{pageFlowScope.CardBean.accountIdList}"
                                   var="listItem">
                             <af:selectItem id="si1" value="#{listItem.value}"
@@ -159,10 +158,17 @@
                           partialTriggers="soc3 smc2 smc7 smc8">
           <af:panelGroupLayout id="panelGroupLayout2" layout="vertical">
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:350.0px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:945px;"
                                layout="horizontal">
+            
             <af:outputText value="#{sfr.ENGAGE_CARD_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
+          <af:spacer width="700px" height="10" id="s28"/>
+          <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}"
+                              actionListener="#{pageFlowScope.CardBean.exportExcelSpecificAction}"
+                              id="cb1">
+                   
+            </af:commandButton>
             </af:panelGroupLayout>
             <af:spacer width="10" height="15" id="spacer2"/>
             
@@ -403,7 +409,7 @@
           <af:panelGroupLayout id="pgl10" 
                                visible="#{pageFlowScope.CardBean.driverPGL eq 'true' ? true : pageFlowScope.CardBean.vehiclePGL eq true ? true : false}"
                                partialTriggers="sor1">
-                  <af:spacer width="221" height="10" id="s28"/>
+                  <af:spacer width="221" height="10" id="s30"/>
                   <af:commandButton text="#{sfr.SAVE}" id="save"
                                   action="#{pageFlowScope.CardBean.saveVehicleDriver}" />
                 <af:spacer width="10" height="10" id="s5"/>
@@ -420,30 +426,89 @@
         
         </af:panelGroupLayout>
      
+     
     </af:panelGroupLayout>
-    <!--<af:inputText value="#{bindings.DriverName.inputValue}" simple="true"
-                  required="#{bindings.DriverName.hints.mandatory}"
-                  columns="#{bindings.DriverName.hints.displayWidth}"
-                  maximumLength="#{bindings.DriverName.hints.precision}"
-                  shortDesc="#{bindings.DriverName.hints.tooltip}" id="it8">
-      <f:validator binding="#{bindings.DriverName.validator}"/>
-    </af:inputText>
-    <af:inputText value="#{bindings.DriverName.inputValue}" simple="true"
-                  required="#{bindings.DriverName.hints.mandatory}"
-                  columns="#{bindings.DriverName.hints.displayWidth}"
-                  maximumLength="#{bindings.DriverName.hints.precision}"
-                  shortDesc="#{bindings.DriverName.hints.tooltip}" id="it8">
-      <f:validator binding="#{bindings.DriverName.validator}"/>
-    </af:inputText>
-    <af:inputText value="#{bindings.CardNumber.inputValue}" simple="true"
-                  required="#{bindings.CardNumber.hints.mandatory}"
-                  columns="#{bindings.CardNumber.hints.displayWidth}"
-                  maximumLength="#{bindings.CardNumber.hints.precision}"
-                  shortDesc="#{bindings.CardNumber.hints.tooltip}" id="it8">
-      <f:validator binding="#{bindings.CardNumber.validator}"/>
-    </af:inputText>-->
-    
+
   </af:panelGroupLayout>
+  
+   <af:popup id="show_columns" contentDelivery="immediate"
+              binding="#{pageFlowScope.CardBean.bindings.specificColumns}"
+              autoCancel="disabled">
+      <af:dialog id="specificColumns" title="#{sfr.TRANSACTION_SPECIFIC}" type="none"
+                 closeIconVisible="true">
+        <af:panelStretchLayout id="psl1"
+                               dimensionsFrom="children">
+          <f:facet name="center">
+            <af:panelGroupLayout id="deleteAllDriver_scroll"
+                                 styleClass="WCPanelMargin">
+               <af:separator id="s31"
+                              inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+              <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.CardBean.bindings.shuttleExcel}"
+                                    value="#{pageFlowScope.CardBean.shuttleValue}"
+                                    partialTriggers="cb1">
+                  <af:forEach items="#{pageFlowScope.CardBean.shuttleList}"
+                    var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="sms2"/>
+            </af:forEach>               
+              </af:selectManyShuttle>                                                                
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="bottom">
+            <af:toolbar id="specific_columns_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout layout="vertical" id="pgl13">
+              <af:spacer width="4" height="10" id="s1sf6"/>
+              <af:panelGroupLayout id="specific_columns_footer_panel" layout="horizontal">
+              <af:spacer width="4" height="10" id="s1sdf6"/>               
+                <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}" id="exportall"
+                                  actionListener="#{pageFlowScope.CardBean.getValuesForExcel}">
+                     <af:clientListener method="exitFromPopup" type="action"/>
+                </af:commandButton>              
+              </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    
+      <af:popup id="confirmation_columns" contentDelivery="immediate"
+              binding="#{pageFlowScope.CardBean.bindings.confirmationExcel}"
+              autoCancel="disabled">
+      <af:dialog id="confirmationColumns" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="psl2"
+                               dimensionsFrom="children">
+          <f:facet name="center">           
+              <af:panelGroupLayout id="pgl28" layout="vertical">
+              <af:outputText value="#{sfr.TRANSACTION_SPECIFIC_CONFIRMATION}?" id="ot43"/>                           
+             <af:spacer width="10" height="10" id="s44"/>  
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="bottom">
+            <af:toolbar id="t3"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="pgl12" layout="horizontal">
+              <af:spacer width="4" height="10" id="s42"/>               
+                <af:commandButton text="#{sfr.YES}" id="cb6"
+                                  action="#{pageFlowScope.CardBean.excelDownLoad}">
+                  <af:clientListener method="exitFromPopupConfirmation" type="action"/>
+                  <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
+                                         filename="Card_Report.xls"
+                                        method="#{pageFlowScope.CardBean.specificExportExcelListener}"/>
+                </af:commandButton> 
+                 <af:spacer width="10" height="10" id="s43"/>    
+                <af:commandButton text="#{sfr.NO}" id="cb7"
+                                 action="#{pageFlowScope.CardBean.confirmationCancelAction}"/> 
+                </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+  
+  
+  
 </jsp:root>
        
       
