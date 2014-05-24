@@ -373,9 +373,9 @@
             <af:convertDateTime pattern="dd.MM.yyyy"/>
               <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionDt.format}"/>-->
             </af:outputText>
-            <af:spacer width="2" height="1" id="s29"/>
+            <af:spacer width="4" height="1" id="s29"/>
             <af:outputText value="#{row.TransactionTime}" id="ot47" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertDateTime pattern="hh.mm"/>
+             <af:convertDateTime pattern="hh:mm"/>
              <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionTime.format}"/>-->
             </af:outputText>
             </af:panelGroupLayout>
