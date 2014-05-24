@@ -287,7 +287,7 @@
                             inlineStyle="height:204px;">
                     <af:column sortProperty="TransactionDt" sortable="false"
                                 headerText="#{sfr.TRANSACTION_DATE}" id="c8" width="106" align="center">
- <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+ <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
                       
                         <af:convertDateTime pattern="dd.MM.yyyy"/>
                         
@@ -297,15 +297,15 @@
                     </af:column>
                     <af:column sortProperty="Card1Id" sortable="false"
                                headerText="#{sfr.CARD}" id="c5" width="180">
-<af:outputText value="#{row.Card1Id}" id="ot16" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+<af:outputText value="#{row.Card1Id}" id="ot16" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
                     </af:column>
                     <af:column sortProperty="StationName" sortable="false"
                                headerText="#{sfr.ENGAGE_STATION_NAME}" id="c9" width="129">
-<af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+<af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
                     </af:column>
                     <af:column sortProperty="ProductName" sortable="false"
                                headerText="#{sfr.ENGAGE_PRODUCT}" id="c4" width="106">
-                      <af:outputText value="#{row.ProductName}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+                      <af:outputText value="#{row.ProductName}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
                     </af:column>
                     <af:column sortProperty="Quantity" sortable="false"
                                headerText="#{sfr.ENGAGE_QUANTITY}" id="c6" width="102"
@@ -314,13 +314,13 @@
                                                                 id="pgl15"
                                                                 inlineStyle="text-align: right;">
                                         
-                        <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"
+                        <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
                                        inlineStyle="text-align: right;">
                           <af:convertNumber groupingUsed="false"
                                             pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
                         </af:outputText>
                         <af:spacer width="4" id="s24"/>
-                        <af:outputText value="#{row.UnitOfMeasure}" id="ot13" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}"/>
+                        <af:outputText value="#{row.UnitOfMeasure}" id="ot13" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
                       </af:panelGroupLayout>
                     </af:column>
                   </af:table>

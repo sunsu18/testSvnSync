@@ -1,3 +1,27 @@
+/*Popup Close Icon*/
+
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style{
+    display: block;
+cursor: default;
+background-position: top;
+/*background-image: url(/CustomerPortal/afr/fusion/close_ena.png);*/
+/*background-image: url(/CustomerPortal/afr/fusion/close_ena.png);*/
+background-repeat: no-repeat;
+margin-top: 0px;
+padding: 0px;
+width: 15px;
+height: 15px;   
+}
+
+.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover{
+    background-image: url("/images/Sprite/sprites.png") !important;
+background-repeat: no-repeat;
+
+width: 15px !important;
+height: 15px;
+}
+
+
 /*Filter Colum Styling on Tables*/
 .af_column_column-filter-cell .af_inputDate_content {
 width: 100px !important;
@@ -681,6 +705,8 @@ padding-top:15px !important;
 color:#524e4f; 
 font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
+background-image: none;
+background-color: rgba(199, 206, 218, 0);
 }
 
 
@@ -903,14 +929,14 @@ background-color:#ffffff !important;
 
 /*Panel Top Gradient*/
 .paneltopbackground{
-background: #686464; /* Old browsers */
-background: -moz-linear-gradient(top,  #686464 1%, #4b4a4c 50%, #2b2929 99%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#686464), color-stop(50%,#4b4a4c), color-stop(99%,#2b2929)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #686464 1%,#4b4a4c 50%,#2b2929 99%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #686464 1%,#4b4a4c 50%,#2b2929 99%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #686464 1%,#4b4a4c 50%,#2b2929 99%); /* IE10+ */
-background: linear-gradient(to bottom,  #686464 1%,#4b4a4c 50%,#2b2929 99%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#686464', endColorstr='#2b2929',GradientType=0 ); /* IE6-9 */
+background: #524e4f; /* Old browsers */
+background: -moz-linear-gradient(top,  #524e4f 1%, #524e4f 44%, #2b2a2a 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#524e4f), color-stop(44%,#524e4f), color-stop(100%,#2b2a2a)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #524e4f 1%,#524e4f 44%,#2b2a2a 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #524e4f 1%,#524e4f 44%,#2b2a2a 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #524e4f 1%,#524e4f 44%,#2b2a2a 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #524e4f 1%,#524e4f 44%,#2b2a2a 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#524e4f', endColorstr='#2b2a2a',GradientType=0 ); /* IE6-9 */
 
 }
 
@@ -1291,7 +1317,7 @@ font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px;
 color: #524e4f !important;
 font-weight: normal !important;
-text-decoration: underline !important;
+/*text-decoration: underline !important;*/
 font-style:italic !important;
 cursor: auto;    
 }
@@ -1348,9 +1374,25 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
+
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style{
+    background-position: -2px -145px ;
+	width: 14px;
+	height: 14px;
+        outline-color: transparent !important;
+}
+
+
+.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover{
+    background-position: -16px -146px !important ;
+	width: 15px;
+	height: 15px;
+        outline-color: transparent !important;
+}
+
 
 .info_statoil{
 	background-position: -29px -334px ;
@@ -1412,7 +1454,7 @@ font-weight:bold;
 
 .errorOutputText{     
     color:red;      
-    font-size:10px;     
+    font-size:11px;     
     font-weight:bold;     
     font-family:Lucida Sans,Georgia,Serif !important;     
     }
@@ -1882,15 +1924,4 @@ color: #524e4f;
 .af_selectOneRadio_content-input {
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
-}
-
-.transaction_italic{
-  font-style:italic;
-
-}
-
-.transaction_regular
-{
- font-style:normal;
-
 }

@@ -1,3 +1,29 @@
+/*Popup Close Icon*/
+
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style{
+    display: block;
+cursor: default;
+background-position: top;
+/*background-image: url(/CustomerPortal/afr/fusion/close_ena.png);*/
+/*background-image: url(/CustomerPortal/afr/fusion/close_ena.png);*/
+background-repeat: no-repeat;
+margin-top: 0px;
+padding: 0px;
+width: 15px;
+height: 15px;   
+}
+
+.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover{
+    background-image: url("/images/Sprite/sprites.png") !important;
+background-repeat: no-repeat;
+
+width: 15px !important;
+height: 15px;
+}
+
+
+
+
 /*Filter Colum Styling on Tables*/
 .af_column_column-filter-cell .af_inputDate_content {
 width: 100px !important;
@@ -713,6 +739,8 @@ padding-top:15px !important;
 color:#524e4f; 
 font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
+background-image: none;
+background-color: rgba(199, 206, 218, 0);
 }
 
 
@@ -1515,7 +1543,7 @@ font-size: 13px;
 color: #524e4f !important;
 font-weight: normal !important;
 text-decoration: underline !important;
-font-style:italic !important;
+/*font-style:italic !important;*/
 cursor: auto;    
 }
 
@@ -1569,8 +1597,8 @@ font-weight:bold;
 
 .errorOutputText{     
     color:red;      
-    font-size:10px;     
-    font-weight:bold;     
+    font-size:12px;     
+    font-weight:normal;     
     font-family:Lucida Sans,Georgia,Serif !important;     
     }
 
@@ -1579,9 +1607,26 @@ font-weight:bold;
 /*SPRITE CSS*/
 
 
-.view_all,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
 }
+
+.af_panelWindow_close-icon-style, .af_dialog_close-icon-style{
+    background-position: -2px -145px ;
+	width: 14px;
+	height: 14px;
+        outline-color: transparent !important;
+}
+
+
+.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover{
+    background-position: -16px -146px !important ;
+	width: 15px;
+	height: 15px;
+        outline-color: transparent !important;
+}
+
+
 
 .acc_summary{
 	background-position: -4px -244px ;
@@ -2089,13 +2134,4 @@ border: 1px solid  #979796;
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
 }
-.transaction_italic{
-  font-style:italic;
-  
-}
 
-.transaction_regular
-{
- font-style:normal;
- 
-}
