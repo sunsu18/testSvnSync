@@ -584,7 +584,7 @@ public class InvoiceOverviewBean implements Serializable {
                                     if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID() != null){
                                         if(paramType.equals("CardGroup")){
                                             SelectItem selectItemCardGroup = new SelectItem();
-                                            selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupName().toString());
                                             selectItemCardGroup.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                             cardGroupList.add(selectItemCardGroup);
                                             cardGroupValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());

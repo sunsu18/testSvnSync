@@ -356,6 +356,7 @@ public class DriverInfoBean implements Serializable {
                         if (currRow != null) {
                             //currRow.getCardNumber().isEmpty() || editCardNumberList.contains(currRow.getCardNumber())
                             //if(current Row Card number is blank || or is in the allowed card numbers which is list of cards in session set by MyPageListener Part)
+                            System.out.println("current card row====>"+currRow.getCardNumber());
                             if(currRow.getCardNumber()== null || linkedCardValues.contains(currRow.getCardNumber().toString())){
                                 System.out.println("is it coming inside to get driver details=================>");
                                 DriverInfo driver = new DriverInfo();
@@ -612,7 +613,9 @@ public class DriverInfoBean implements Serializable {
         linkedAddAccountList  = new ArrayList<SelectItem>();
         cardNumberList = new ArrayList<SelectItem>();
         if(getBindings().getLinkedPartner().getValue()!= null && getBindings().getDriverName().getValue() != null){
+        
             if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0 && linkedAccountLOVValues.size()==1){
+                System.out.println("Is it coming inside add driver action if block");
                 this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
                 this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
                 this.addCardIdDisplayValue = null;
@@ -623,6 +626,7 @@ public class DriverInfoBean implements Serializable {
             }
         }
         else{
+            System.out.println("Is it coming inside add driver action else block");
         this.addPartnerNumberDisplayValue = null;
         this.addAccountIdDisplayValue = null;
         this.addCardIdDisplayValue    =null;
@@ -1037,19 +1041,21 @@ public class DriverInfoBean implements Serializable {
                 vo.setWhereClause("");
                 vo.executeQuery();
             }
-            linkedAccountList = new ArrayList<SelectItem>();
+            
             this.linkedPartnerLOVValues = null;
-            getBindings().getLinkedPartner().setSubmittedValue("");
-            getBindings().getLinkedPartner().setValue("");
-            getBindings().getLinkedAccount().setSubmittedValue(null);
-            getBindings().getLinkedAccount().setValue(null);
-            linkedAccountList = null;
+            this.linkedAccountLOVValues = null;
+            linkedAccountList = new ArrayList<SelectItem>();
+            this.linkedAccountLOVValues = null;
+            getBindings().getLinkedPartner().setSubmittedValue(null);
+            getBindings().getLinkedPartner().setValue(null);
             driverN = null;
             searchResultsShow = false;
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getDriverName());
-            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedAccount());
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedAccount());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getDriverName());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+            
         } catch (JboException ex) {
             FacesMessage msg =
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),

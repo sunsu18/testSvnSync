@@ -68,7 +68,7 @@ public class VehicleInfoBean implements Serializable {
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
-    private PartnerInfo partnerInfo;
+    private List<PartnerInfo> partnerInfoList;
     private ArrayList<SelectItem> cardNumberList;
     private ArrayList<SelectItem>editCardNumberList;
     private String addAccountIdDisplayValue = null;
@@ -83,6 +83,16 @@ public class VehicleInfoBean implements Serializable {
     private boolean showErrorMsgEditFlag = false;
     private ArrayList<String> validateAccountCard;
     private String previousCardId = null;
+    
+    private String linkedPartnerLOVValues = null;
+    private ArrayList<SelectItem> linkedPartnerList = null;
+    private ArrayList<SelectItem> linkedAddAccountList;
+    private ArrayList<SelectItem> linkedEditAccountList;
+    private String addPartnerNumberDisplayValue;
+    private String editPartnerNumberDisplayValue;
+    HashMap<String, String> cardNumberMap = new HashMap<String, String>();
+    private String addPartnerIdVal = null;
+    private String editPartnerIdVal = null;
     
 
 
@@ -99,36 +109,39 @@ public class VehicleInfoBean implements Serializable {
     public VehicleInfoBean() {
         super();
         resourceBundle = new EngageResourceBundle();
-        linkedAccountLOVValues = new ArrayList<String>();
-        
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        linkedAccountList =  new ArrayList<SelectItem>();
         countryParam = null;
         linkedCardValues = new ArrayList<String>();
         
+        linkedPartnerLOVValues    = null;
+        linkedPartnerList         = new ArrayList<SelectItem>();
+       
         if(session.getAttribute("Partner_Object_List") != null){
-                    partnerInfo = (PartnerInfo)session.getAttribute("Partner_Object_List");
-                    countryParam = partnerInfo.getCountry().toString();
-                    System.out.println("value of countryParam==============>"+countryParam);
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
                 
-        if(partnerInfo != null){
-            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                    SelectItem selectItem = new SelectItem();
-                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    linkedAccountLOVValues.add(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                    linkedAccountList.add(selectItem);
-                    if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){
-                        for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                            if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){
-                                for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
-                                    if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID()!= null){
-                                        linkedCardValues.add(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
-                                    System.out.println("value of cards in constructor=========>"+linkedCardValues);
+        if(partnerInfoList != null && partnerInfoList.size() >0){
+            for(int pa=0 ; pa<partnerInfoList.size(); pa++){
+                countryParam = partnerInfoList.get(0).getCountry().toString();
+                System.out.println("value of countryParam==============>"+countryParam);
+                SelectItem selectItemPartner = new SelectItem();
+                selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString());
+                selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString());
+                linkedPartnerList.add(selectItemPartner);
+                    if(partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size()>0){
+                                for(int cg =0 ; cg< partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
+                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
+                                        for(int cc =0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID()!= null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID()!= null){
+                                                linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                cardNumberMap.put(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString(), partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                System.out.println("value of cards in constructor=========>"+linkedCardValues);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -136,36 +149,9 @@ public class VehicleInfoBean implements Serializable {
                     }
                 }
             }
-        }
-        
-        
-        /*ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
-        vo.setNamedWhereClauseParam("countryCode", "en_US");
-        vo.executeQuery();
-        while (vo.hasNext()) {
-            PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
-            if (currRow.getAccountId() != null) {
-                linkedAccountLOVValues.add(currRow.getAccountId());
-            }
-        }*/
-    }
+     }
 
     public ArrayList<SelectItem> getLinkedAccountList() {
-        /*if (linkedAccountList == null) {
-            ViewObject vo = ADFUtils.getViewObject("PrtAccountVO1Iterator");
-            vo.setNamedWhereClauseParam("countryCode", countryParam);
-            vo.executeQuery();
-            linkedAccountList = new ArrayList<SelectItem>();
-            while (vo.hasNext()) {
-                PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)vo.next();
-                if (currRow.getAccountId() != null) {
-                    SelectItem selectItem = new SelectItem();
-                    selectItem.setLabel(currRow.getAccountId());
-                    selectItem.setValue(currRow.getAccountId());
-                    linkedAccountList.add(selectItem);
-                }
-            }
-        }*/
         return linkedAccountList;
     }
 
@@ -212,45 +198,80 @@ public class VehicleInfoBean implements Serializable {
                 }
             } else {
                 System.out.println("Add/Edit number val");
-                if (getBindings().getLinkedAccount().getValue() == null &&
-                    addAccountNumberVal != null) {
+                if (getBindings().getLinkedPartner().getValue() == null && getBindings().getLinkedAccount().getValue() == null &&
+                    addAccountNumberVal != null && addPartnerIdVal != null) {
                 System.out.println("Linked Account Values="+linkedAccountLOVValues);
                     System.out.println("Adding only addAccount");
                     if(linkedAccountLOVValues==null) {
                         linkedAccountLOVValues=new ArrayList<String>();
+                        linkedAccountList = new ArrayList<SelectItem>();
+                        linkedPartnerLOVValues = null;
                     }
+                    if(linkedAddAccountList.size()>0){
+                        for(int i=0 ; i<linkedAddAccountList.size();i++){
+                             linkedAccountList.add(linkedAddAccountList.get(i));
+                        }
+                    }
+                    this.linkedPartnerLOVValues = addPartnerIdVal;
                     linkedAccountLOVValues.add(addAccountNumberVal);
                 } else {
-                    if (getBindings().getLinkedAccount().getValue() != null) {
+                    if (getBindings().getLinkedPartner().getValue() != null && getBindings().getLinkedAccount().getValue() != null) {
                         System.out.println("Comming");
-                        String searchValues =
-                            getBindings().getLinkedAccount().getValue().toString().trim();
+                        String searchValues =getBindings().getLinkedAccount().getValue().toString().trim();
                         String[] search = StringConversion(searchValues);
                         System.out.println("searchResults =" + search.length);
-                        if (addAccountNumberVal != null) {
-                            int count = 0;
-                            for (int i = 0; i < search.length; i++) {
-                                System.out.println("String =" + search[i]);
-                                if ((addAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
-                                    System.out.println("ADDInside");
-                                    count = 1;
+                        if (addAccountNumberVal != null && addPartnerIdVal != null) {
+                            if(addPartnerIdVal.equals(getBindings().getLinkedPartner().getValue().toString())){
+                                int count = 0;
+                                for (int i = 0; i < search.length; i++) {
+                                    System.out.println("String =" + search[i]);
+                                    if ((addAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
+                                        System.out.println("ADDInside");
+                                        count = 1;
+                                    }
                                 }
-                            }
-                            if (count == 0) {
-                                linkedAccountLOVValues.add(addAccountNumberVal);
+                                if (count == 0) {
+                                    linkedAccountLOVValues.add(addAccountNumberVal);
+                                }
+                            }else{
+                                    linkedAccountLOVValues = new ArrayList<String>();
+                                    linkedAccountList = new ArrayList<SelectItem>();
+                                    linkedPartnerLOVValues = null;
+                                    
+                                    if(linkedAddAccountList.size()>0){
+                                        for(int i=0 ; i<linkedAddAccountList.size();i++){
+                                             linkedAccountList.add(linkedAddAccountList.get(i));
+                                        }
+                                    }
+                                    linkedAccountLOVValues.add(addAccountNumberVal);
+                                    this.linkedPartnerLOVValues = addPartnerIdVal;
                             }
                         }
-                        if (editAccountNumberVal != null) {
-                            int count = 0;
-                            for (int i = 0; i < search.length; i++) {
-                                System.out.println("String =" + search[i]);
-                                if ((editAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
-                                    System.out.println("EditInside");
-                                    count = 1;                                    
+                        if (editAccountNumberVal != null && editPartnerIdVal != null) {
+                            if(editPartnerIdVal.equals(getBindings().getLinkedPartner().getValue().toString())){
+                                int count = 0;
+                                for (int i = 0; i < search.length; i++) {
+                                    System.out.println("String =" + search[i]);
+                                    if ((editAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
+                                        System.out.println("EditInside");
+                                        count = 1;                                    
+                                    }
                                 }
-                            }
-                            if (count ==0) {
+                                if (count ==0) {
+                                    linkedAccountLOVValues.add(editAccountNumberVal);
+                                }
+                            }else{
+                                linkedAccountLOVValues = new ArrayList<String>();
+                                linkedAccountList = new ArrayList<SelectItem>();
+                                linkedPartnerLOVValues = null;
+                                
+                                if(linkedEditAccountList.size()>0){
+                                    for(int i=0 ; i<linkedEditAccountList.size();i++){
+                                         linkedAccountList.add(linkedEditAccountList.get(i));
+                                    }
+                                }
                                 linkedAccountLOVValues.add(editAccountNumberVal);
+                                this.linkedPartnerLOVValues = editPartnerIdVal;
                             }
                         }
                     }
@@ -331,7 +352,9 @@ public class VehicleInfoBean implements Serializable {
                         PrtTruckInformationVORowImpl currRow =
                             (PrtTruckInformationVORowImpl)vo.next();
                         if (currRow != null) {
+                                System.out.println("current card number=====>"+currRow.getCardNumber());
                                 if(currRow.getCardNumber()== null || linkedCardValues.contains(currRow.getCardNumber().toString())){
+                                    System.out.println("is it coming inside to get vehicle details details=================>");
                                 VehicleInfo vehicle = new VehicleInfo();
                                 if (currRow.getPrtTruckInformationPk() != null) {
                                     vehicle.setPrtTruckInformationPK(currRow.getPrtTruckInformationPk().toString());
@@ -339,6 +362,7 @@ public class VehicleInfoBean implements Serializable {
                                 vehicle.setAccountNumber(currRow.getAccountNumber());
                                 vehicle.setVehicleNumber(currRow.getVehicleNumber());
                                 vehicle.setCardNumber(currRow.getCardNumber());
+                                vehicle.setEmbossCardNumber(cardNumberMap.get(currRow.getCardNumber()));
                                 vehicle.setInternalName(currRow.getInternalName());
                                 vehicle.setRegistrationNumber(currRow.getRegistrationNumber());
                                 vehicle.setBrand(currRow.getBrand());
@@ -439,11 +463,14 @@ public class VehicleInfoBean implements Serializable {
      */
     public String newVehicleSave() {
         
-        if (getBindings().getAddAccountId().getValue() != null) {
+        if (getBindings().getAddAccountId().getValue() != null && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null) {
             System.out.println("is it coming inside the newDriverSave method++++++++++===============>");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
             driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
+            if(addAccountNumberVal == null){
+                addAccountNumberVal = getBindings().getAddAccountId().getValue().toString();
+            }
             System.out.println("value of add account id=============>"+addAccountNumberVal);
             driverVo.defineNamedWhereClauseParam("accountId",addAccountNumberVal, null);
             if(getBindings().getAddCardId().getValue() != null){
@@ -548,6 +575,17 @@ public class VehicleInfoBean implements Serializable {
         getBindings().getNewVehicle().hide();
         return null;
     }
+    
+    public String populateStringValues(String var){
+            String passingValues = null;
+            if(var != null){
+                String lovValues = var.trim();
+                String selectedValues = lovValues.substring(1, lovValues.length() - 1);
+                passingValues = selectedValues.trim();
+                    
+            }
+            return passingValues;
+    }
 
     /**
      * @return
@@ -557,8 +595,23 @@ public class VehicleInfoBean implements Serializable {
         OperationBinding createOpn = bindings.getOperationBinding("CreateInsert");
         createOpn.execute();
         showErrorMsgFlag = false;
-        this.addAccountIdDisplayValue = null;
-        this.addCardIdDisplayValue    =null;
+        linkedAddAccountList  = new ArrayList<SelectItem>();
+        cardNumberList = new ArrayList<SelectItem>();
+        if(getBindings().getLinkedPartner().getValue()!= null && getBindings().getRegisterNumber().getValue() != null){
+            if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0 && linkedAccountLOVValues.size()==1){
+                this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
+                this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
+                this.addCardIdDisplayValue = null;
+                getBindings().getAddRegistrationNumber().setSubmittedValue(null);
+                getBindings().getAddRegistrationNumber().setSubmittedValue(getBindings().getRegisterNumber().getValue().toString());
+                populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Add");
+                populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()),"newVehicleAdd",getBindings().getLinkedPartner().getValue().toString());
+            }
+        }else{
+                this.addPartnerNumberDisplayValue = null;
+                this.addAccountIdDisplayValue = null;
+                this.addCardIdDisplayValue    =null;
+        }
         getBindings().getNewVehicle().show(new RichPopup.PopupHints());
         return null;
     }
@@ -569,7 +622,7 @@ public class VehicleInfoBean implements Serializable {
      */
     public String editVehicleSave() {
         
-        if (getBindings().getEditAccountId().getValue() != null) {
+        if (getBindings().getEditAccountId().getValue() != null && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null) {
             
                 ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
                 driverVo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -691,16 +744,19 @@ public class VehicleInfoBean implements Serializable {
             editAccountIdDisplayValue = null;
             editCardIdDisplayValue = null;
             editCardNumberList   = new ArrayList<SelectItem>();
+            linkedEditAccountList = new ArrayList<SelectItem>();
             String primaryKey    =(String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
             String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
             cardId         = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             previousCardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
             System.out.println("PrimaryKey =" + primaryKey);
-            if (primaryKey != null && accountNumber != null) {
+            if (primaryKey != null && accountNumber != null && getBindings().getLinkedPartner().getValue() != null) {
+                editPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
                 editAccountIdDisplayValue = accountNumber;
                 editAccountNumberVal = editAccountIdDisplayValue;
                 if(editAccountIdDisplayValue != null){
-                    populateCardNumberList(editAccountIdDisplayValue, "editButton");
+                    populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Edit");
+                    populateCardNumberList(editAccountIdDisplayValue, "editButton",getBindings().getLinkedPartner().getValue().toString());
                 }
                 
                 ViewObject vo =ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
@@ -731,13 +787,14 @@ public class VehicleInfoBean implements Serializable {
     public String vehicleDeleteAction() {
         if (val.size() != 0) {
         ArrayList<String> validateCard = new ArrayList<String>();
-            if(partnerInfo != null){
-                if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                     System.out.println("value inside delete check box listener=====>"+partnerInfo.getAccountList().get(i).isAccountOverview());
-                        if(validateAccountCard.contains(partnerInfo.getAccountList().get(i).getAccountNumber().toString()) && partnerInfo.getAccountList().get(i).isAccountOverview() == false){
-                            validateCard.add(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-                         }
+            if(partnerInfoList != null && partnerInfoList.size()>0){
+                for(int pa=0 ; pa<partnerInfoList.size();pa++){
+                    if( partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(validateAccountCard.contains(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString()) && partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() == false){
+                                validateCard.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                             }
+                        }
                     }
                 }
             }
@@ -889,13 +946,20 @@ public class VehicleInfoBean implements Serializable {
             vo.setWhereClause("");
             vo.executeQuery();
         }
-        getBindings().getLinkedAccount().setSubmittedValue(null);
-        getBindings().getLinkedAccount().setValue(linkedAccountLOVValues);
+        this.linkedPartnerLOVValues = null;
+        this.linkedAccountLOVValues = null;
+        linkedAccountList = new ArrayList<SelectItem>();
+        this.linkedAccountLOVValues = null;
+        getBindings().getLinkedPartner().setSubmittedValue(null);
+        getBindings().getLinkedPartner().setValue(null);
         getBindings().getRegisterNumber().setValue(null);
         searchResultsShow = false;
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+        
     }
 
     /**
@@ -928,7 +992,7 @@ public class VehicleInfoBean implements Serializable {
 
     public void AddAccountNumberListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
-        if (valueChangeEvent.getNewValue() != null) {
+        if (valueChangeEvent.getNewValue() != null && getBindings().getAddPartnerNumberId().getValue() != null) {
            /* BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding itr =(DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
             Row row =itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
@@ -936,35 +1000,88 @@ public class VehicleInfoBean implements Serializable {
                 addAccountNumberVal = (String)row.getAttribute("AccountId");
             }*/
            cardNumberList  = new ArrayList<SelectItem>();
-           populateCardNumberList(valueChangeEvent.getNewValue().toString() , "Add");
+           populateCardNumberList(valueChangeEvent.getNewValue().toString() , "Add",getBindings().getAddPartnerNumberId().getValue().toString());
            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
     }
     
-    public void populateCardNumberList(String accountNo , String type){
+    public void populateAccountNumber(String partnerId , String type){
+        if(partnerId != null){
+            if(partnerInfoList != null && partnerInfoList.size() >0 ){
+                for(int pa=0 ; pa<partnerInfoList.size(); pa++){
+                    if(partnerInfoList.get(pa).getPartnerValue().equals(partnerId) && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null){
+                                SelectItem selectItem = new SelectItem();
+                                selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                if(type.equals("Add")){
+                                    linkedAddAccountList.add(selectItem);
+                                }else{
+                                    linkedEditAccountList.add(selectItem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue()!=null) {
+            linkedAccountList      = new ArrayList<SelectItem>();
+            linkedAccountLOVValues = new ArrayList<String>();
+            if(partnerInfoList != null && partnerInfoList.size() > 0){
+                for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
+                    if(partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getPartnerValue().toString().equals(valueChangeEvent.getNewValue().toString())
+                       && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() >0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null){
+                                SelectItem selectItemAccount = new SelectItem();
+                                selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                linkedAccountList.add(selectItemAccount);
+                                linkedAccountLOVValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                            }
+                        }
+                    }
+                }
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+         }
+    }
+    
+    public void populateCardNumberList(String accountNo , String type , String partnerNumber){
         
         if(accountNo != null){
-            if(partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                    if(partnerInfo.getAccountList().get(i).getAccountNumber() != null && partnerInfo.getAccountList().get(i).getAccountNumber().equals(accountNo)){
-                        if(partnerInfo.getAccountList().get(i).getCardGroup() != null && partnerInfo.getAccountList().get(i).getCardGroup().size()>0){ 
-                            for(int k =0 ; k< partnerInfo.getAccountList().get(i).getCardGroup().size(); k++){
-                                if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard() != null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size()>0){ 
-                                for(int m =0 ; m<partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().size(); m++){
-                                        if(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID()!= null && partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID()!= null){
-                                            SelectItem selectItem = new SelectItem();
-                                            selectItem.setLabel(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getExternalCardID().toString());
-                                            selectItem.setValue(partnerInfo.getAccountList().get(i).getCardGroup().get(k).getCard().get(m).getCardID().toString());
-                                            if(type.equals("Add")){
-                                            //addAccountIdVal = valueChangeEvent.getNewValue().toString();
-                                              addAccountNumberVal = accountNo;
-                                              cardNumberList.add(selectItem);
-                                              System.out.println("addAccountNumber =" + addAccountNumberVal);
-                                            }else if(type.equals("Edit")){
-                                                editAccountNumberVal = accountNo;
-                                                editCardNumberList.add(selectItem);
-                                            }else{
-                                                editCardNumberList.add(selectItem); 
+            if(partnerInfoList != null && partnerInfoList.size()>0){
+                for( int pa=0 ; pa<partnerInfoList.size() ; pa++){
+                    if(partnerInfoList.get(pa).getPartnerValue().equals(partnerNumber) && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null && partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(accountNo)){
+                                if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size()>0){ 
+                                    for(int cg =0 ; cg< partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
+                                        if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){ 
+                                        for(int cc =0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+                                                if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID()!= null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID()!= null){
+                                                    SelectItem selectItem = new SelectItem();
+                                                    selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                    selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                    if(type.equals("Add")){
+                                                    addAccountNumberVal = accountNo;
+                                                      cardNumberList.add(selectItem);
+                                                      System.out.println("addAccountNumber =" + addAccountNumberVal);
+                                                    }else if(type.equals("Edit")){
+                                                        editAccountNumberVal = accountNo;
+                                                        editCardNumberList.add(selectItem);
+                                                    }else if(type.equals("newVehicleAdd")){
+                                                            cardNumberList.add(selectItem);
+                                                    }
+                                                    else{
+                                                        editCardNumberList.add(selectItem); 
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -1002,7 +1119,7 @@ public class VehicleInfoBean implements Serializable {
     }
 
     public void editAccountNumberChangeListener(ValueChangeEvent valueChangeEvent) {
-        if (valueChangeEvent.getNewValue() != null) {
+        if (valueChangeEvent.getNewValue() != null && getBindings().getEditPartnerNumberId().getValue() != null) {
             /*BindingContainer bindings =BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding itr =(DCIteratorBinding)bindings.get("PrtAccountVO1Iterator");
             Row row =itr.getRowAtRangeIndex(((Integer)valueChangeEvent.getNewValue()));
@@ -1011,7 +1128,7 @@ public class VehicleInfoBean implements Serializable {
             }*/
             editCardNumberList = new ArrayList<SelectItem>();
             cardId = null;
-            populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit");
+            populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit",getBindings().getEditPartnerNumberId().getValue().toString());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
             System.out.println("editAccountNumber =" + editAccountNumberVal);
         }
@@ -1026,19 +1143,44 @@ public class VehicleInfoBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
+    
+    public void AddPartnerNumberListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+            linkedAddAccountList  = new ArrayList<SelectItem>();
+            cardNumberList    = new ArrayList<SelectItem>();
+            addPartnerIdVal = null;
+            addPartnerIdVal = valueChangeEvent.getNewValue().toString();
+            populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Add");
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
+        }
+    }
+    
+    public void EditPartnerNumberLIstener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue() != null){
+            linkedEditAccountList  = new ArrayList<SelectItem>();
+            editCardNumberList    = new ArrayList<SelectItem>();
+            editPartnerIdVal = null;
+            editPartnerIdVal = valueChangeEvent.getNewValue().toString();
+            populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Edit");
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
+        }
+    }
 
     public String deleteAllRecordsAction() {
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
         { 
             int validateDeleteAccountCount = 0;
             displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
-            if(partnerInfo != null){
-                if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-                    for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-                     System.out.println("value inside delete check box listener+++++++++++++++++=====>"+partnerInfo.getAccountList().get(i).isAccountOverview());
-                        if(partnerInfo.getAccountList().get(i).getAccountNumber().toString().equals(displayAccountNumber) && partnerInfo.getAccountList().get(i).isAccountOverview() == false){
-                             validateDeleteAccountCount = 1;
-                         }
+            if(partnerInfoList != null && partnerInfoList.size()>0){
+                    for(int pa=0 ; pa<partnerInfoList.size();pa++){
+                    if( partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString().equals(displayAccountNumber) && partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() == false){
+                                 validateDeleteAccountCount = 1;
+                             }
+                        }
                     }
                 }
             }
@@ -1242,6 +1384,70 @@ public class VehicleInfoBean implements Serializable {
         return previousCardId;
     }
 
+    public void setLinkedPartnerLOVValues(String linkedPartnerLOVValues) {
+        this.linkedPartnerLOVValues = linkedPartnerLOVValues;
+    }
+
+    public String getLinkedPartnerLOVValues() {
+        return linkedPartnerLOVValues;
+    }
+
+    public void setLinkedPartnerList(ArrayList<SelectItem> linkedPartnerList) {
+        this.linkedPartnerList = linkedPartnerList;
+    }
+
+    public ArrayList<SelectItem> getLinkedPartnerList() {
+        return linkedPartnerList;
+    }
+
+    public void setLinkedAddAccountList(ArrayList<SelectItem> linkedAddAccountList) {
+        this.linkedAddAccountList = linkedAddAccountList;
+    }
+
+    public ArrayList<SelectItem> getLinkedAddAccountList() {
+        return linkedAddAccountList;
+    }
+
+    public void setLinkedEditAccountList(ArrayList<SelectItem> linkedEditAccountList) {
+        this.linkedEditAccountList = linkedEditAccountList;
+    }
+
+    public ArrayList<SelectItem> getLinkedEditAccountList() {
+        return linkedEditAccountList;
+    }
+
+    public void setAddPartnerNumberDisplayValue(String addPartnerNumberDisplayValue) {
+        this.addPartnerNumberDisplayValue = addPartnerNumberDisplayValue;
+    }
+
+    public String getAddPartnerNumberDisplayValue() {
+        return addPartnerNumberDisplayValue;
+    }
+
+    public void setEditPartnerNumberDisplayValue(String editPartnerNumberDisplayValue) {
+        this.editPartnerNumberDisplayValue = editPartnerNumberDisplayValue;
+    }
+
+    public String getEditPartnerNumberDisplayValue() {
+        return editPartnerNumberDisplayValue;
+    }
+
+    public void setAddPartnerIdVal(String addPartnerIdVal) {
+        this.addPartnerIdVal = addPartnerIdVal;
+    }
+
+    public String getAddPartnerIdVal() {
+        return addPartnerIdVal;
+    }
+
+    public void setEditPartnerIdVal(String editPartnerIdVal) {
+        this.editPartnerIdVal = editPartnerIdVal;
+    }
+
+    public String getEditPartnerIdVal() {
+        return editPartnerIdVal;
+    }
+
     public class Bindings {
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
@@ -1258,6 +1464,14 @@ public class VehicleInfoBean implements Serializable {
         private RichSelectOneChoice editCardId;
         private RichOutputText showErrorMsg;
         private RichOutputText showEditErrorMessage;
+        private RichSelectOneChoice linkedPartner;
+        private RichInputText addInternalName;
+        private RichInputText addVehicleNumber;
+        private RichInputText editVehicleNumber;
+        private RichInputText editInternalName;
+        private RichInputText addRegistrationNumber;
+        private RichSelectOneChoice addPartnerNumberId;
+        private RichSelectOneChoice editPartnerNumberId;
 
         /**
          * @param linkedAccount
@@ -1425,6 +1639,70 @@ public class VehicleInfoBean implements Serializable {
 
         public RichOutputText getShowEditErrorMessage() {
             return showEditErrorMessage;
+        }
+        
+        public void setLinkedPartner(RichSelectOneChoice linkedPartner) {
+            this.linkedPartner = linkedPartner;
+        }
+
+        public RichSelectOneChoice getLinkedPartner() {
+            return linkedPartner;
+        }
+        
+        public void setAddInternalName(RichInputText addInternalName) {
+            this.addInternalName = addInternalName;
+        }
+
+        public RichInputText getAddInternalName() {
+            return addInternalName;
+        }
+
+        public void setAddVehicleNumber(RichInputText addVehicleNumber) {
+            this.addVehicleNumber = addVehicleNumber;
+        }
+
+        public RichInputText getAddVehicleNumber() {
+            return addVehicleNumber;
+        }
+        
+        public void setEditVehicleNumber(RichInputText editVehicleNumber) {
+            this.editVehicleNumber = editVehicleNumber;
+        }
+
+        public RichInputText getEditVehicleNumber() {
+            return editVehicleNumber;
+        }
+
+        public void setEditInternalName(RichInputText editInternalName) {
+            this.editInternalName = editInternalName;
+        }
+
+        public RichInputText getEditInternalName() {
+            return editInternalName;
+        }
+        
+        public void setAddRegistrationNumber(RichInputText addRegistrationNumber) {
+            this.addRegistrationNumber = addRegistrationNumber;
+        }
+
+        public RichInputText getAddRegistrationNumber() {
+            return addRegistrationNumber;
+        }
+        
+        public void setAddPartnerNumberId(RichSelectOneChoice addPartnerNumberId) {
+            this.addPartnerNumberId = addPartnerNumberId;
+        }
+
+        public RichSelectOneChoice getAddPartnerNumberId() {
+            return addPartnerNumberId;
+        }
+        
+        public void setEditPartnerNumberId(RichSelectOneChoice editPartnerNumberId) {
+            this.editPartnerNumberId = editPartnerNumberId;
+        }
+
+        public RichSelectOneChoice getEditPartnerNumberId() {
+            return editPartnerNumberId;
         }
     }
 }
