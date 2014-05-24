@@ -33,6 +33,7 @@ import oracle.adf.view.rich.component.rich.*;
 import oracle.adf.view.rich.component.rich.data.*;
 import oracle.adf.view.rich.component.rich.input.*;
 import oracle.adf.view.rich.component.rich.layout.*;
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.*;
 import oracle.adf.view.rich.event.*;
 import oracle.adf.view.rich.util.*;
@@ -111,6 +112,7 @@ public class TransactionOverviewBean implements Serializable {
     private String strVehicleExtra;
     private String strDriverExtra;
     private boolean shuttleStatus=false;
+    private boolean noteVisible=true;
 
     private String vehicleNumberOdometer = "";
     private String odometerPortal = null;
@@ -170,6 +172,8 @@ public class TransactionOverviewBean implements Serializable {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
         }
+        
+        reportFormatValue="Default";
     }
 
     /**
@@ -1017,7 +1021,7 @@ public class TransactionOverviewBean implements Serializable {
         //getBindings().getAccount().setValue(null);
         this.accountIdValue = null;
         this.partnerIdValue = null;
-        this.reportFormatValue = null;
+        this.reportFormatValue = "Default";
         getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
         getBindings().getReportFormat().setValue(null);
         getBindings().getFromDate().setValue(null);
@@ -1128,10 +1132,18 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public void reportFormatValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent.getNewValue()!=null) {
+            if("International".equalsIgnoreCase(valueChangeEvent.getNewValue().toString())) {
+                noteVisible=false;
+            }else {
+                noteVisible=true;
+            }
+        }
         if (isTableVisible) {
             isTableVisible = false;
         }
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNoteText());  
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());              
     }
 
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
@@ -1997,12 +2009,19 @@ public class TransactionOverviewBean implements Serializable {
             String[] headerValues = passedString.split(",");
 
             XLS_SH_R = XLS_SH.createRow(8);
-            XLS_SH_R_C = XLS_SH_R.createCell(5);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             for (int i = 0; i < headerValues.length; i++) {
                 if ("Total Amount".equalsIgnoreCase(headerValues[i].toString().trim())) {
-                    XLS_SH_R_C.setCellValue("*Note : All prices below are in " +
-                                            currencyCode);
+                    if(getBindings().getReportFormat().getValue()!=null) {
+                        if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                            XLS_SH_R_C.setCellValue("");
+                        }else {
+                            XLS_SH_R_C.setCellValue("*Note : All prices below are in " +
+                                                    currencyCode);
+                        }
+                    }
+                   
                 }
             }
 
@@ -2046,7 +2065,7 @@ public class TransactionOverviewBean implements Serializable {
                                 String time = "";
                                 if (row.getTransactionTime() != null) {
                                     time =
-getTimeHour(row.getTransactionTime().timestampValue());
+                                        getTimeHour(row.getTransactionTime().timestampValue());
                                 }
                                 XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
                                                         "  " + time);
@@ -3170,6 +3189,14 @@ getTimeHour(row.getTransactionTime().timestampValue());
         return reportPriceSpecification;
     }
 
+    public void setNoteVisible(boolean noteVisible) {
+        this.noteVisible = noteVisible;
+    }
+
+    public boolean isNoteVisible() {
+        return noteVisible;
+    }
+
     public class Bindings {
         private RichSelectManyChoice account;
         private RichSelectOneChoice partner;
@@ -3197,6 +3224,7 @@ getTimeHour(row.getTransactionTime().timestampValue());
         private RichInputText odometerPortalValue;
         private RichPopup odometer_PopUp;
         private RichTable searchTable;
+        private RichOutputText noteText;
 
         public void setOdometer_PopUp(RichPopup odometer_PopUp) {
             this.odometer_PopUp = odometer_PopUp;
@@ -3405,6 +3433,14 @@ getTimeHour(row.getTransactionTime().timestampValue());
 
         public RichSelectOneChoice getReportFormat() {
             return reportFormat;
+        }
+
+        public void setNoteText(RichOutputText noteText) {
+            this.noteText = noteText;
+        }
+
+        public RichOutputText getNoteText() {
+            return noteText;
         }
     }
 }

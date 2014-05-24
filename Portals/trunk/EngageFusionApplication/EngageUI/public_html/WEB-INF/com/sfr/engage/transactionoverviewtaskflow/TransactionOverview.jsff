@@ -91,12 +91,12 @@
             </af:forEach>
             </af:selectManyChoice>
             
-            <af:outputText value="*" id="ot70"/>       
+            <af:outputText value=" " id="ot70"/>       
             <af:outputText value="#{sfr.REPORT}" id="ot71"/>
             <af:spacer width="10" height="15" id="s54"/>
                <af:outputText value=":" id="ot72"/>
               <af:spacer width="10" height="35" id="s55"/>
-            <af:selectOneChoice id="smc7" contentStyle="width: 175px;" unselectedLabel="&lt;Please Select>" partialTriggers="cb3"
+            <af:selectOneChoice id="smc7" contentStyle="width: 175px;" partialTriggers="cb3"
                                  value="#{pageFlowScope.TransactionOverviewBean.reportFormatValue}" autoSubmit="true"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.reportFormat}"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.reportFormatValueChangeListener}">
@@ -340,8 +340,8 @@
                                halign="right"
                                inlineStyle="width:930.0px; height:15.0px;">
             
-            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"
-                           id="ot59" styleClass="popupoutputText"/>           
+            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteText}"
+                           id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"/>           
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="2" id="spacer2"/>
@@ -475,7 +475,7 @@
             </af:panelGroupLayout>
           </af:column>
           <af:column sortProperty="CurrencyUnitPrice" filterable="false"
-                     sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx}"
+                     sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"
                      headerText="#{sfr.FOREGIN_UNIT_PRICE}"
                      id="c1">
             <af:outputText value="#{row.CurrencyUnitPrice}" id="ot79" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -495,7 +495,7 @@
             </af:outputText>
           </af:column>-->
            <af:column sortProperty="CurrencyGrossAmount" filterable="false"
-                     sortable="false" align="right"
+                     sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.FOREGIN_GROSS_AMOUNT}"
                      id="c5">
             <af:outputText value="#{row.CurrencyGrossAmount}" id="ot61" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
