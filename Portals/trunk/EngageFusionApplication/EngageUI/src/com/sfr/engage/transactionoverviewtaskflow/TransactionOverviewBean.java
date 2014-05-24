@@ -272,7 +272,12 @@ public class TransactionOverviewBean implements Serializable{
             cardIdPGL     =false;
             cardGPGL      =false;
             vNumberPGL    =false;
-            dNamePGL      =false;                         
+            dNamePGL      =false;   
+            if(isTableVisible)
+            {
+            isTableVisible = false;            
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());  
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL()); 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVhNumberPGL());
@@ -339,6 +344,11 @@ public class TransactionOverviewBean implements Serializable{
         }else{
             showErrorMessage("ENGAGE_NO_ACCOUNT_CHECK");
         }
+        if(isTableVisible)
+        {
+        isTableVisible = false;            
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
     }
     
     public void setCardIdPGL(boolean cardIdPGL) {
@@ -652,7 +662,7 @@ public class TransactionOverviewBean implements Serializable{
         String cardGroupPassingValues = null;
         String  newFromDate = null;
         String  newToDate = null;
-        if(getBindings().getPartner().getValue() != null && getBindings().getReportFormat().getValue() != null && getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null){
+        if(getBindings().getPartner().getValue() != null && getBindings().getReportFormat().getValue() != null && getBindings().getFromDate().getValue() != null && getBindings().getToDate().getValue() != null && getBindings().getCardCardGrpDrVhOneRadio().getValue() != null){
 //            if(getBindings().getTerminalType().getValue() != null){
 //            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "value of terminal type================>"+getBindings().getTerminalType().getValue().toString().trim());
 //               terminalPassingValues =  populateStringValues(getBindings().getTerminalType().getValue().toString());
@@ -978,6 +988,12 @@ public class TransactionOverviewBean implements Serializable{
             cardIdPGL  = false;
             dNamePGL   = false;
             vNumberPGL = false;
+            
+            if(isTableVisible)
+            {
+            isTableVisible = false;            
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNamePGL());
