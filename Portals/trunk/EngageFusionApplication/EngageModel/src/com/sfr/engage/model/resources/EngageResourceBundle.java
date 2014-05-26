@@ -181,7 +181,7 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"MANAGE",""},{"BLOCKED",""},{"UNBLOCKED",""},
         {"STATUS",""},{"PARTNER",""},{"CARD_DETAILS",""},{"CARD_TYPE",""},{"ENGAGE_NO_PARTNER",""},
         {"CARD_EXPIRY",""},{"ENGAGE_CARD_DETAILS",""},{"ENGAGE_NO_ACCOUNT",""},{"ENGAGE_NO_STATUS",""},
-    {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},
+    {"MANDATORY_CHECK",""},{"TRUCK_CARD_EXIST",""},{"DRIVER_CARD_EXIST",""},{"TRANSACTION_SPECIFIC_ERROR_DB",""},
     {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"DEFAULT_NAV_MSG",""},{"AUTH_MGR_CG_MSG",""}
     ,{"AUTH_EMP_MSG",""},{"AUTH_MGR_MSG",""},{"AUTH_ADMIN_MSG",""},{"AUTH_MSG",""},{"PARTNER",""},{"REPORT",""}
     ,{"WELCOME_MESSAGE_ACC_SUMMARY",""},{"HELLO",""},{"SHOW_ALL_MSG",""},{"CARD_INV_ADD_1",""},{"CARD_INV_ADD_2",""},{"CARD_INV_POSTAL_CODE",""}

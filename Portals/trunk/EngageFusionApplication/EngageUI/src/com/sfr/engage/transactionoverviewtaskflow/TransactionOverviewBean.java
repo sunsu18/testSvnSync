@@ -2857,10 +2857,10 @@ getTimeHour(row.getTransactionTime().timestampValue());
         }
 
         if (!result) {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                     (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"),
                                      "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
@@ -2877,20 +2877,18 @@ getTimeHour(row.getTransactionTime().timestampValue());
 
     public void getValuesForExcel(ActionEvent actionEvent) {
         // _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Size =="+shuttleValue.size());
-        if (shuttleValue.size() > 0 &&
-            getBindings().getSelectionExportOneRadio().getValue() != null) {
-            shuttleStatus=true;
-            getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
-        } else {
-            if (shuttleValue.size() < 0 && shuttleValue == null) {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
-            } else {
+        if(shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
+            if(shuttleValue == null)
+            {
+            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+            
+            }else {
                 if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
                     FacesMessage msg =
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -2899,9 +2897,36 @@ getTimeHour(row.getTransactionTime().timestampValue());
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
-
-
-        }
+        }else
+        {
+            if(getBindings().getSelectionExportOneRadio().getValue() != null)
+            {
+                if(shuttleValue == null) {
+                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                             (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                }else
+                {
+                if (shuttleValue.size() > 0 &&
+                    getBindings().getSelectionExportOneRadio().getValue() != null) {
+                     shuttleStatus=true;
+                    getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
+                } 
+            }
+        }  else {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
+     }
     }
 
     public String confirmationCancelAction() {
