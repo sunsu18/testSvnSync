@@ -64,7 +64,7 @@ public class VehicleInfoBean implements Serializable {
     private List<String> linkedAccountLOVValues;
     private String displayAccountNumber;
     private List<Account> myAccountList;
-    
+
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
@@ -83,7 +83,7 @@ public class VehicleInfoBean implements Serializable {
     private boolean showErrorMsgEditFlag = false;
     private ArrayList<String> validateAccountCard;
     private String previousCardId = null;
-    
+
     private String linkedPartnerLOVValues = null;
     private ArrayList<SelectItem> linkedPartnerList = null;
     private ArrayList<SelectItem> linkedAddAccountList;
@@ -93,7 +93,7 @@ public class VehicleInfoBean implements Serializable {
     HashMap<String, String> cardNumberMap = new HashMap<String, String>();
     private String addPartnerIdVal = null;
     private String editPartnerIdVal = null;
-    
+
     /**
      * @return bindings Object
      */
@@ -112,14 +112,14 @@ public class VehicleInfoBean implements Serializable {
         session = request.getSession(false);
         countryParam = null;
         linkedCardValues = new ArrayList<String>();
-        
+
         linkedPartnerLOVValues    = null;
         linkedPartnerList         = new ArrayList<SelectItem>();
-       
+
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
-                
+
         if(partnerInfoList != null && partnerInfoList.size() >0){
             for(int pa=0 ; pa<partnerInfoList.size(); pa++){
                 countryParam = partnerInfoList.get(0).getCountry().toString();
@@ -137,7 +137,7 @@ public class VehicleInfoBean implements Serializable {
                                             if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID()!= null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID()!= null){
                                                 linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
                                                 cardNumberMap.put(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString(), partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
-                                                System.out.println("value of cards in constructor=========>"+linkedCardValues);
+//                                                System.out.println("value of cards in constructor=========>"+linkedCardValues);
                                             }
                                         }
                                     }
@@ -198,8 +198,8 @@ public class VehicleInfoBean implements Serializable {
                 System.out.println("Add/Edit number val");
                 if (getBindings().getLinkedPartner().getValue() == null && getBindings().getLinkedAccount().getValue() == null &&
                     addAccountNumberVal != null && addPartnerIdVal != null) {
-                System.out.println("Linked Account Values="+linkedAccountLOVValues);
-                    System.out.println("Adding only addAccount");
+//                System.out.println("Linked Account Values=" + linkedAccountLOVValues);
+//                    System.out.println("Adding only addAccount");
                     if(linkedAccountLOVValues==null) {
                         linkedAccountLOVValues=new ArrayList<String>();
                         linkedAccountList = new ArrayList<SelectItem>();
@@ -235,7 +235,7 @@ public class VehicleInfoBean implements Serializable {
                                     linkedAccountLOVValues = new ArrayList<String>();
                                     linkedAccountList = new ArrayList<SelectItem>();
                                     linkedPartnerLOVValues = null;
-                                    
+
                                     if(linkedAddAccountList.size()>0){
                                         for(int i=0 ; i<linkedAddAccountList.size();i++){
                                              linkedAccountList.add(linkedAddAccountList.get(i));
@@ -252,7 +252,7 @@ public class VehicleInfoBean implements Serializable {
                                     System.out.println("String =" + search[i]);
                                     if ((editAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
                                         System.out.println("EditInside");
-                                        count = 1;                                    
+                                        count = 1;
                                     }
                                 }
                                 if (count ==0) {
@@ -262,7 +262,7 @@ public class VehicleInfoBean implements Serializable {
                                 linkedAccountLOVValues = new ArrayList<String>();
                                 linkedAccountList = new ArrayList<SelectItem>();
                                 linkedPartnerLOVValues = null;
-                                
+
                                 if(linkedEditAccountList.size()>0){
                                     for(int i=0 ; i<linkedEditAccountList.size();i++){
                                          linkedAccountList.add(linkedEditAccountList.get(i));
@@ -431,7 +431,7 @@ public class VehicleInfoBean implements Serializable {
                 searchResultsShow = false;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }
-       
+
     }
 
     /**
@@ -460,7 +460,7 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String newVehicleSave() {
-        
+
         if (getBindings().getAddAccountId().getValue() != null && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null) {
             System.out.println("is it coming inside the newDriverSave method++++++++++===============>");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
@@ -493,7 +493,7 @@ public class VehicleInfoBean implements Serializable {
                          }
                     }
             }
-            
+
             ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
             truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
@@ -519,18 +519,18 @@ public class VehicleInfoBean implements Serializable {
                         }
                 }
             }
-            
-            
+
+
             getBindings().getNewVehicle().hide();
-            System.out.println("save =" + addAccountNumberVal);
+//            System.out.println("save =" + addAccountNumberVal);
             BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding vehicleInfoItr = (DCIteratorBinding)bindings.get("PrtTruckInformationVO2Iterator");
             Row vehicleInfoRow = vehicleInfoItr.getCurrentRow();
-            System.out.println("Before new vehicle save current row is not null+++++++++++");
+//            System.out.println("Before new vehicle save current row is not null+++++++++++");
                 if(vehicleInfoRow != null){
                 System.out.println("Inside new driver save current row is not null+++++++++++");
                 System.out.println("value of add account id=====>"+getBindings().getAddAccountId().getValue().toString());
-                
+
                 vehicleInfoRow.setAttribute("AccountNumber", getBindings().getAddAccountId().getValue().toString());
                 if(getBindings().getAddCardId().getValue() != null){
                 System.out.println("value of add card    id=====>"+getBindings().getAddCardId().getValue().toString());
@@ -573,14 +573,14 @@ public class VehicleInfoBean implements Serializable {
         getBindings().getNewVehicle().hide();
         return null;
     }
-    
+
     public String populateStringValues(String var){
             String passingValues = null;
             if(var != null){
                 String lovValues = var.trim();
                 String selectedValues = lovValues.substring(1, lovValues.length() - 1);
                 passingValues = selectedValues.trim();
-                    
+
             }
             return passingValues;
     }
@@ -611,7 +611,7 @@ public class VehicleInfoBean implements Serializable {
                 this.addAccountIdDisplayValue = null;
                 this.addCardIdDisplayValue    =null;
         }
-        
+
         if(getBindings().getRegisterNumber().getValue() != null){
             getBindings().getAddRegistrationNumber().setSubmittedValue(null);
             getBindings().getAddRegistrationNumber().setSubmittedValue(getBindings().getRegisterNumber().getValue().toString());
@@ -625,9 +625,9 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String editVehicleSave() {
-        
+
         if (getBindings().getEditAccountId().getValue() != null && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null) {
-            
+
                 ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
                 driverVo.setNamedWhereClauseParam("countryCd", countryParam);
                 driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
@@ -658,11 +658,11 @@ public class VehicleInfoBean implements Serializable {
                          }
                     }
                 }
-                
+
                 if(previousCardId != null && getBindings().getEditCardId().getValue() != null){
                     if(!previousCardId.equals(getBindings().getEditCardId().getValue().toString())){
                         System.out.println("value of previuous card id===========>"+previousCardId);
-                        
+
                         ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
                         truckVo.setNamedWhereClauseParam("countryCd", countryParam);
                         truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
@@ -682,7 +682,7 @@ public class VehicleInfoBean implements Serializable {
                                       System.out.println("For checking truck row count======>++++++++++++");
                                         if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
                                             System.out.println("1111111111111111111111111111111111111111111111111111111111");
-                                             warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                                             warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                                              showErrorMsgEditFlag = true;
                                              AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                                             //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
@@ -713,7 +713,7 @@ public class VehicleInfoBean implements Serializable {
                                   System.out.println("For checking truck row count======>++++++++++++");
                                     if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
                                         System.out.println("1111111111111111111111111111111111111111111111111111111111");
-                                         warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());   
+                                         warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                                          showErrorMsgEditFlag = true;
                                          AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                                         //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
@@ -724,7 +724,7 @@ public class VehicleInfoBean implements Serializable {
                         }
                     }
                 }
-                
+
             getBindings().getEditVehicle().hide();
             System.out.println("save =" + editAccountNumberVal);
             BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -734,7 +734,7 @@ public class VehicleInfoBean implements Serializable {
                 if(vehicleInfoRow != null){
                 System.out.println("Inside new driver save current row is not null+++++++++++");
                 System.out.println("value of add account id=====>"+getBindings().getEditAccountId().getValue().toString());
-               
+
                 vehicleInfoRow.setAttribute("AccountNumber", getBindings().getEditAccountId().getValue().toString());
                 if(getBindings().getEditCardId().getValue() != null){
                 System.out.println("value of add card    id=====>"+getBindings().getEditCardId().getValue().toString());
@@ -761,7 +761,7 @@ public class VehicleInfoBean implements Serializable {
         }
         return null;
     }
-    
+
     /**
      * @return
      */
@@ -795,7 +795,7 @@ public class VehicleInfoBean implements Serializable {
                     populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Edit");
                     populateCardNumberList(editAccountIdDisplayValue, "editButton",getBindings().getLinkedPartner().getValue().toString());
                 }
-                
+
                 ViewObject vo =ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
                 vo.setNamedWhereClauseParam("countryCd", countryParam);
                 vo.setWhereClause("PRT_TRUCK_INFORMATION_PK =: prtTruckInformationPK");
@@ -845,7 +845,7 @@ public class VehicleInfoBean implements Serializable {
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,vehicleErrorMsg,"");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
-                } 
+                }
             }
             getBindings().getDeleteVehicle().show(new RichPopup.PopupHints());
         } else {
@@ -992,12 +992,12 @@ public class VehicleInfoBean implements Serializable {
         getBindings().getLinkedPartner().setValue(null);
         getBindings().getRegisterNumber().setValue(null);
         searchResultsShow = false;
-        
+
         AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-        
+
     }
 
     /**
@@ -1042,7 +1042,7 @@ public class VehicleInfoBean implements Serializable {
            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
     }
-    
+
     public void populateAccountNumber(String partnerId , String type){
         if(partnerId != null){
             if(partnerInfoList != null && partnerInfoList.size() >0 ){
@@ -1065,7 +1065,7 @@ public class VehicleInfoBean implements Serializable {
             }
         }
     }
-    
+
     public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue()!=null) {
             this.searchResultsShow = false;
@@ -1093,18 +1093,18 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
          }
     }
-    
+
     public void populateCardNumberList(String accountNo , String type , String partnerNumber){
-        
+
         if(accountNo != null){
             if(partnerInfoList != null && partnerInfoList.size()>0){
                 for( int pa=0 ; pa<partnerInfoList.size() ; pa++){
                     if(partnerInfoList.get(pa).getPartnerValue().equals(partnerNumber) && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
                         for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
                             if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null && partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(accountNo)){
-                                if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size()>0){ 
+                                if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size()>0){
                                     for(int cg =0 ; cg< partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
-                                        if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){ 
+                                        if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
                                         for(int cc =0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
                                                 if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID()!= null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID()!= null){
                                                     SelectItem selectItem = new SelectItem();
@@ -1113,7 +1113,7 @@ public class VehicleInfoBean implements Serializable {
                                                     if(type.equals("Add")){
                                                     addAccountNumberVal = accountNo;
                                                       cardNumberList.add(selectItem);
-                                                      System.out.println("addAccountNumber =" + addAccountNumberVal);
+//                                                      System.out.println("addAccountNumber =" + addAccountNumberVal);
                                                     }else if(type.equals("Edit")){
                                                         editAccountNumberVal = accountNo;
                                                         editCardNumberList.add(selectItem);
@@ -1121,7 +1121,7 @@ public class VehicleInfoBean implements Serializable {
                                                             cardNumberList.add(selectItem);
                                                     }
                                                     else{
-                                                        editCardNumberList.add(selectItem); 
+                                                        editCardNumberList.add(selectItem);
                                                     }
                                                 }
                                             }
@@ -1176,7 +1176,7 @@ public class VehicleInfoBean implements Serializable {
         }
 
     }
-    
+
     public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
            cardId = valueChangeEvent.getNewValue().toString();
@@ -1188,17 +1188,17 @@ public class VehicleInfoBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
-    
+
     public void addCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
-         
+
         this.showErrorMsgEditFlag = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         }
     }
-    
-    
-    
+
+
+
     public void AddPartnerNumberListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
             linkedAddAccountList  = new ArrayList<SelectItem>();
@@ -1210,7 +1210,7 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
     }
-    
+
     public void EditPartnerNumberLIstener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue() != null){
             linkedEditAccountList  = new ArrayList<SelectItem>();
@@ -1225,7 +1225,7 @@ public class VehicleInfoBean implements Serializable {
 
     public String deleteAllRecordsAction() {
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber")!=null)
-        { 
+        {
             int validateDeleteAccountCount = 0;
             displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
             if(partnerInfoList != null && partnerInfoList.size()>0){
@@ -1239,7 +1239,7 @@ public class VehicleInfoBean implements Serializable {
                     }
                 }
             }
-            
+
             if(validateDeleteAccountCount > 0){
                 if (resourceBundle.containsKey("NO_DELETE_VEHICLE")) {
                     String vehicleErrorMsg = resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(displayAccountNumber);
@@ -1248,7 +1248,7 @@ public class VehicleInfoBean implements Serializable {
                     return null;
                 }
             }
-            
+
             int count = 0;
             if(myAccountList.size()>0){
                 for(int i=0 ; i<myAccountList.size();i++){
@@ -1282,12 +1282,12 @@ public class VehicleInfoBean implements Serializable {
             OperationBinding operationBinding = bindings.getOperationBinding("deleteAllForAccount");
             operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
             operationBinding.getParamsMap().put("type", "vehicle");
-            operationBinding.getParamsMap().put("countryCd", countryParam);              
+            operationBinding.getParamsMap().put("countryCd", countryParam);
             if (getBindings().getRegisterNumber().getValue()!=null && getBindings().getRegisterNumber().getValue().toString().length()>0) {
             System.out.println("Inside vehicle bean this block===================");
                 System.out.println("value of vehicle name in this block==================="+getBindings().getRegisterNumber().getValue().toString());
                 operationBinding.getParamsMap().put("regDriverValue", registrationNumber);
-            }else{               
+            }else{
                 System.out.println("Inside vehicle bean else block===================");
                 operationBinding.getParamsMap().put("regDriverValue", null);
             }
@@ -1296,7 +1296,7 @@ public class VehicleInfoBean implements Serializable {
                 getBindings().getDeleteAllInfoVehicle().hide();
                 searchResults(true);
             }else{
-                
+
             }
         }
         return null;
@@ -1647,7 +1647,7 @@ public class VehicleInfoBean implements Serializable {
         public RichPopup getDeleteAllInfoVehicle() {
             return deleteAllInfoVehicle;
         }
-        
+
         public void setAddCardId(RichSelectOneChoice addCardId) {
             this.addCardId = addCardId;
         }
@@ -1655,7 +1655,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getAddCardId() {
             return addCardId;
         }
-        
+
         public void setAddAccountId(RichSelectOneChoice addAccountId) {
             this.addAccountId = addAccountId;
         }
@@ -1663,7 +1663,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getAddAccountId() {
             return addAccountId;
         }
-        
+
         public void setEditAccountId(RichSelectOneChoice editAccountId) {
             this.editAccountId = editAccountId;
         }
@@ -1679,7 +1679,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getEditCardId() {
             return editCardId;
         }
-        
+
         public void setShowErrorMsg(RichOutputText showErrorMsg) {
             this.showErrorMsg = showErrorMsg;
         }
@@ -1687,7 +1687,7 @@ public class VehicleInfoBean implements Serializable {
         public RichOutputText getShowErrorMsg() {
             return showErrorMsg;
         }
-        
+
         public void setShowEditErrorMessage(RichOutputText showEditErrorMessage) {
             this.showEditErrorMessage = showEditErrorMessage;
         }
@@ -1695,7 +1695,7 @@ public class VehicleInfoBean implements Serializable {
         public RichOutputText getShowEditErrorMessage() {
             return showEditErrorMessage;
         }
-        
+
         public void setLinkedPartner(RichSelectOneChoice linkedPartner) {
             this.linkedPartner = linkedPartner;
         }
@@ -1703,7 +1703,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getLinkedPartner() {
             return linkedPartner;
         }
-        
+
         public void setAddInternalName(RichInputText addInternalName) {
             this.addInternalName = addInternalName;
         }
@@ -1719,7 +1719,7 @@ public class VehicleInfoBean implements Serializable {
         public RichInputText getAddVehicleNumber() {
             return addVehicleNumber;
         }
-        
+
         public void setEditVehicleNumber(RichInputText editVehicleNumber) {
             this.editVehicleNumber = editVehicleNumber;
         }
@@ -1735,7 +1735,7 @@ public class VehicleInfoBean implements Serializable {
         public RichInputText getEditInternalName() {
             return editInternalName;
         }
-        
+
         public void setAddRegistrationNumber(RichInputText addRegistrationNumber) {
             this.addRegistrationNumber = addRegistrationNumber;
         }
@@ -1743,7 +1743,7 @@ public class VehicleInfoBean implements Serializable {
         public RichInputText getAddRegistrationNumber() {
             return addRegistrationNumber;
         }
-        
+
         public void setAddPartnerNumberId(RichSelectOneChoice addPartnerNumberId) {
             this.addPartnerNumberId = addPartnerNumberId;
         }
@@ -1751,7 +1751,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getAddPartnerNumberId() {
             return addPartnerNumberId;
         }
-        
+
         public void setEditPartnerNumberId(RichSelectOneChoice editPartnerNumberId) {
             this.editPartnerNumberId = editPartnerNumberId;
         }

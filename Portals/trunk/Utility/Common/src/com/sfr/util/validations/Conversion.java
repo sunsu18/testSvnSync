@@ -1,21 +1,12 @@
 package com.sfr.util.validations;
 
-import com.sfr.util.AccessDataControl;
-
-import java.util.Locale;
 
 import com.sfr.util.constants.Constants;
 
-import java.sql.SQLException;
-
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
-import javax.naming.NamingException;
-
-import org.apache.commons.collections.iterators.EntrySetMapIterator;
 
 public class Conversion {
     public Conversion() {
@@ -42,16 +33,16 @@ public class Conversion {
         }
 
     }
-    
+
     public String getCustomerCountryCode(String countryCode)
     {
         if(countryCode.equalsIgnoreCase("NO"))
             return "no_NO";
         if(countryCode.equalsIgnoreCase("SE"))
             return "se_SE";
-        else          
-        
-    return "no_NO";    
+        else
+
+    return "no_NO";
     }
     public Locale getLocaleFromCountryCode(String countryCode) {
         if (countryCode == null || countryCode.isEmpty())
@@ -67,7 +58,7 @@ public class Conversion {
         else
             return new Locale("en", "US");
 
-     
+
     }
 
     public String getCountryCode(String CurrencyCode) {
@@ -86,14 +77,14 @@ public class Conversion {
 
 
     public String getLangForWERCSURL(String countryCode) {
-        
-        System.out.println(AccessDataControl.getDisplayRecord()+"Conversion.getLangForWERCSURL : "+"countryCode::::"+countryCode);
+
+//        System.out.println(AccessDataControl.getDisplayRecord()+"Conversion.getLangForWERCSURL : "+"countryCode::::"+countryCode);
         String lang = "";
-        
+
        if (countryCode != null && !countryCode.isEmpty()){
-           
+
         Map<String, String> paramMap = new HashMap<String, String>();
-     
+
         paramMap.put("se_SE", "SE");
         paramMap.put("no_NO", "NO");
         paramMap.put("da_DK", "DK");
@@ -104,7 +95,7 @@ public class Conversion {
         paramMap.put("en_EN", "EN");
 
        lang = paramMap.get(countryCode);
-       
+
         return lang;
         }
        else
@@ -112,8 +103,8 @@ public class Conversion {
     }
 
     public static String getLangFromCountryCode(String countryCode) {
-        System.out.print("Conversion.getLangFromCountryCode : " +
-                         "countryCode:<" + countryCode + ">");
+//        System.out.print("Conversion.getLangFromCountryCode : " +
+//                         "countryCode:<" + countryCode + ">");
         String lang = Constants.LANGUAGE_SWEDISH;
         if (countryCode != null && !countryCode.isEmpty()) {
             Map<String, String> paramMap = new HashMap<String, String>();
@@ -128,7 +119,7 @@ public class Conversion {
 
             lang = paramMap.get(countryCode);
         }
-        System.out.println("lang=<" + lang + ">");
+//        System.out.println("lang=<" + lang + ">");
         return lang;
     }
 }
