@@ -1201,13 +1201,10 @@ public class CardBean implements Serializable {
             }
         }else
         {
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
+            if (shuttleValue.size() > 0) {
+                 shuttleStatus=true;
+                getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
+            }  
         }
 
     }
