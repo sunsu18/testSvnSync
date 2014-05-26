@@ -639,6 +639,7 @@ public class CardBean implements Serializable {
         
         
         cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
+        internalCardNumber= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
         getBindings().getVehicleDriverRadio().setValue(null);
         this.getBindings().getDriverNumber().setValue(null); 
         this.getBindings().getVehicleNumber().setValue(null); 
@@ -1189,7 +1190,7 @@ public class CardBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
-        if(shuttleValue.size()>0){
+        if(shuttleValue.size()>0 && shuttleValue != null){
             shuttleStatus=true;
             getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
         }
