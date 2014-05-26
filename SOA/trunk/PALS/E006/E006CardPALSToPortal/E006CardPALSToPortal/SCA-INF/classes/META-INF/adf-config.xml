@@ -21,8 +21,21 @@
   <adf-mds-config xmlns="http://xmlns.oracle.com/adf/mds/config">
     <mds-config xmlns="http://xmlns.oracle.com/mds/config">
       <persistence-config>
-        <metadata-namespaces/>
-        <metadata-store-usages/>
+        <metadata-namespaces>
+          <namespace path="/deployed-composites/PALS"
+                     metadata-store-usage="mstore-usage_2"/>
+        </metadata-namespaces>
+        <metadata-store-usages>
+          <metadata-store-usage id="mstore-usage_2">
+            <metadata-store class-name="oracle.mds.persistence.stores.db.DBMetadataStore">
+              <property name="jdbc-userid" value="DEV03_MDS"/>
+              <property name="jdbc-password" value="soa001d"/>
+              <property name="jdbc-url"
+                        value="jdbc:oracle:thin:@//ed2adb01.statoilfuelretail.com:1521/soa001d.statoilfuelretail.com"/>
+              <property name="partition-name" value="soa-infra"/>
+            </metadata-store>
+          </metadata-store-usage>
+        </metadata-store-usages>
       </persistence-config>
     </mds-config>
   </adf-mds-config>

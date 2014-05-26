@@ -1,0 +1,13 @@
+<adapter-config name="CardPortalProcDBAdapter" adapter="Database Adapter" wsdlLocation="CardPortalProcDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <endpoint-interaction portType="CardPortalProcDBAdapter_ptt" operation="CardPortalProcDBAdapter">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="WCPCUSTOM"/>
+      <property name="ProcedureName" value="SOA_MERGE_PRT_CARD"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

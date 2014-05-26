@@ -24,7 +24,7 @@
                   </xsd:restriction>
                 </xsd:simpleType>
               </xsd:element>
-              <xsd:element name="accountId">
+              <xsd:element name="accountId" nillable="true" minOccurs="0">
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
               <xsd:maxLength value="10"/>
