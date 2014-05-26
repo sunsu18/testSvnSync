@@ -11,7 +11,7 @@ function contextrootredirect(){
    var pathArray = document.URL.split( '?' );
 
    if(pathArray[1] == undefined) {
-       window.location.href = "/CustomerPortal/faces/card/home?lang=en_US&profile=business";
+       window.location.href = "/CustomerPortal/faces/card/home";
    } else {
        window.location.href = "/CustomerPortal/faces/card/home?" +pathArray[1];
    }
