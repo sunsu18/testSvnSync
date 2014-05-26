@@ -260,16 +260,16 @@
                 <f:validator binding="#{row.bindings.DriverName.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="BlockCode" filterable="true" headerText="#{sfr.STATUS}"
+            <af:column headerText="#{sfr.STATUS}" sortProperty="BlockCode" filterable="true"
                        id="c4" width="110px">
-              <af:inputText value="#{(row.bindings.BlockCode.inputValue) eq '0' ?  'Unblocked' : ( (row.bindings.BlockCode.inputValue) eq '1' ? 'Temporary Block' : 'Permanent Block' ) }"
-                            label="#{bindings.PrtViewCardsVO11.hints.BlockCode.label}"
-                            required="#{bindings.PrtViewCardsVO11.hints.BlockCode.mandatory}"
-                            columns="#{bindings.PrtViewCardsVO11.hints.BlockCode.displayWidth}"
-                            maximumLength="#{bindings.PrtViewCardsVO11.hints.BlockCode.precision}"
-                            shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockCode.tooltip}"
+              <af:inputText value="#{(row.bindings.BlockAction.inputValue) eq '0' ?  'Unblocked' : ( (row.bindings.BlockAction.inputValue) eq '1' ? 'Temporary Block' : 'Permanent Block' ) }"
+                            label="#{bindings.PrtViewCardsVO11.hints.BlockAction.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.BlockAction.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.BlockAction.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.BlockAction.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockAction.tooltip}"
                             id="it4">
-                <f:validator binding="#{row.bindings.BlockCode.validator}"/>
+                <f:validator binding="#{row.bindings.BlockAction.validator}"/>
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}"

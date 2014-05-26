@@ -1471,10 +1471,10 @@ public class CardBean implements Serializable {
                         }
                     }
                     else if("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getBlockCode()!=null){
+                        if(row.getBlockAction()!=null){
                             XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
                             XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(statusConversion(row.getBlockCode().toString()));
+                            XLS_SH_R_C.setCellValue(statusConversion(row.getBlockAction().toString()));
                         }
                     }
                     else if("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {

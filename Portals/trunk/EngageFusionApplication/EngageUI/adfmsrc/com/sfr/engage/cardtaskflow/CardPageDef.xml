@@ -42,6 +42,7 @@
           <Item Value="CardgroupDescription"/>
           <Item Value="CardNumber"/>
           <Item Value="PrtCardPk"/>
+          <Item Value="BlockAction"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

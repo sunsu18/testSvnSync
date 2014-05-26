@@ -52,7 +52,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_code,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
+    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -80,7 +80,7 @@ and pc.cardgroup_seq = t1.cardgroup_seq
 and INSTR(:accountID,pc.account_id)<>0
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
-and INSTR(:status,pc.block_code)<>0
+and INSTR(:status,pc.block_action)<>0
 and INSTR(:cgMain,pc.cardgroup_main_type)<>0
 and INSTR(:cgSub,pc.cardgroup_sub_type)<>0
 and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
@@ -102,18 +102,18 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="BlockCode"
+    Name="BlockAction"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="3"
+    Precision="1"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="BLOCK_CODE"
+    AliasName="BLOCK_ACTION"
     SQLType="VARCHAR"
-    Expression="BLOCK_CODE">
+    Expression="BLOCK_ACTION">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
+      <Attr Name="_DisplaySize" Value="1"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -223,6 +223,36 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="PrtCardPk"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRT_CARD_PK"
+    SQLType="VARCHAR"
+    Expression="PRT_CARD_PK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BlockCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BLOCK_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="Dummy"
     IsUpdateable="false"
     IsPersistent="false"
@@ -312,22 +342,6 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="PrtCardPk"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRT_CARD_PK"
-    SQLType="VARCHAR"
-    Expression="PRT_CARD_PK">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="CardIdentifier"
     IsUpdateable="false"
     IsPersistent="false"
@@ -381,20 +395,6 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="BlockAction"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="1"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="BLOCK_ACTION"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -465,7 +465,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -479,7 +479,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
