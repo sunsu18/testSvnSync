@@ -33,136 +33,271 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>purchaseCountryCode</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PURCHASE_COUNTRY_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>orderId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ORDER_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>prelimId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PRELIM_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>card1_Id</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARD_1_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>card2_Id</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARD_2_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cardId2_Info</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARD_ID_2_INFO" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>odometerPortal</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ODOMETER_PORTAL" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>odometer</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ODOMETER" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>transactionDt</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="TRANSACTION_DT" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>transactionTime</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="TRANSACTION_TIME" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>stationName</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="STATION_NAME" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>iccInvoiceNumber</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ICC_INVOICE_NUMBER" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoiceNumberNonCollective</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="INVOICE_NUMBER_NON_COLLECTIVE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoicingDate</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="INVOICING_DATE" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>purchaseCurrency</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PURCHASE_CURRENCY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>exchangeRate</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="EXCHANGE_RATE" xsi:type="column"/>
                <attribute-classification>java.lang.Double</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>iccYn</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ICC_YN" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>transactionType</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="TRANSACTION_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>prelimStatusCode</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PRELIM_STATUS_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoiceNumberCollective</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="INVOICE_NUMBER_COLLECTIVE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>ksid</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="KSID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>partnerId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PARTNER_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>accountId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ACCOUNT_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cardgroupMainType</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cardgroupSubType</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>cardgroupSeq</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="CARDGROUP_SEQ" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>modifiedBy</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="MODIFIED_BY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
@@ -173,76 +308,151 @@
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>palsOrderMainType</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PALS_ORDER_MAIN_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>palsOrderSubType</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PALS_ORDER_SUB_TYPE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>orderBackwardRef</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ORDER_BACKWARD_REF" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>orderForwardRef</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ORDER_FORWARD_REF" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>orderValidCode</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ORDER_VALID_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>orderCreateCode</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="ORDER_CREATE_CODE" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>siteNumber</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="SITE_NUMBER" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoicedCardId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="INVOICED_CARD_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>terminalId</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="TERMINAL_ID" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>terminalSeq</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="TERMINAL_SEQ" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoiceFlag</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="INVOICE_FLAG" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>wmTransRefNumber</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="WM_TRANS_REF_NUMBER" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>palsModifiedDate</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PALS_MODIFIED_DATE" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>palsModifiedBy</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PALS_MODIFIED_BY" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>portalModifiedDate</attribute-name>
+               <properties>
+                  <property name="enabled">
+                     <value>false</value>
+                  </property>
+               </properties>
                <field table="PRT_CARD_TRANSACTION_HEADER" name="PORTAL_MODIFIED_DATE" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
