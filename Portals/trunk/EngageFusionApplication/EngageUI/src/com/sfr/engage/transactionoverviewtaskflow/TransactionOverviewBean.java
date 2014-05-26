@@ -1071,8 +1071,7 @@ public class TransactionOverviewBean implements Serializable {
         this.accountIdValue = null;
         this.partnerIdValue = null;
         this.reportFormatValue = "Default";
-        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
-        getBindings().getReportFormat().setValue(null);
+        getBindings().getCardCardGrpDrVhOneRadio().setValue(null);        
         getBindings().getFromDate().setValue(null);
         getBindings().getToDate().setValue(null);
         isTableVisible = false;
