@@ -271,8 +271,9 @@ if(session!=null){
                                          
                                          
                                         if(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(d +2))){
-                                         temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
-                                         cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", "");   
+                                            if(!(temp3.contains(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID())))
+                                            {temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
+                                         cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", "");   }
                                              }
                                          }
                                      }
