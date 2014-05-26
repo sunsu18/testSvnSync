@@ -394,7 +394,7 @@
         </af:column>      
         
         <af:column sortProperty="AccountId" filterable="true" sortable="false"
-                     headerText="#{sfr.ACCOUNT}" width="100"  align="left"
+                     headerText="#{sfr.ACCOUNT}" width="128"  align="left"
                      id="c30">
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>           

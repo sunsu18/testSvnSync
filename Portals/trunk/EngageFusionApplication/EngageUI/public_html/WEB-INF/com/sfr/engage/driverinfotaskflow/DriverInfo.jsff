@@ -246,7 +246,7 @@
                 <af:outputText value=":" id="colonpartner"/>
                 <af:spacer width="15" height="10" id="s1856"/>
                
-                  <af:selectOneChoice id="soc1" contentStyle="width:165px;height:24.0px;"
+                  <af:selectOneChoice id="soc1" contentStyle="width:165px;height:20.0px;"
                                         autoSubmit="true" 
                                         valueChangeListener="#{pageFlowScope.DriverInfoBean.AddPartnerNumberListener}"
                                         binding="#{pageFlowScope.DriverInfoBean.bindings.addPartnerNumberId}"
@@ -264,7 +264,7 @@
                 <af:outputText value=":" id="colonpop"/>
                 <af:spacer width="15" height="10" id="s43"/>
                
-                  <af:selectOneChoice id="soc5" contentStyle="width:165px;height:24.0px;"
+                  <af:selectOneChoice id="soc5" contentStyle="width:165px;height:20.0px;"
                                         autoSubmit="true" 
                                         valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}"
                                         binding="#{pageFlowScope.DriverInfoBean.bindings.addAccountId}"

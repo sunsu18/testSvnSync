@@ -1,3 +1,18 @@
+/*Popup Styling*/
+.af_dialog_main {
+position: relative;
+width: 100%;
+z-index: 2;
+opacity: 1 !important;
+border: 1px solid #3cb6ce;
+box-shadow: -2px 0px 12px #888888;
+-webkit-box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
+-moz-box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
+box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
+}
+
+
+
 .af_selectManyShuttle_options, .af_selectOrderShuttle_options {
 font-family: Lucida Sans,Georgia,Serif !important;
 font-weight: bold;
