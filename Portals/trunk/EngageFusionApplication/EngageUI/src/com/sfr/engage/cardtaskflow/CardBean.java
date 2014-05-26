@@ -1006,8 +1006,8 @@ public class CardBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());  
         getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
         }else {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),"");
+            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"),"");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } 
         }
@@ -1190,26 +1190,26 @@ public class CardBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
-        if(shuttleValue.size()>0 && shuttleValue != null){
-            shuttleStatus=true;
-            getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
-        }
-        else {
-            if(shuttleValue.size()<0 && shuttleValue == null){
-                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                             (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),"");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }   
+        
+        if(shuttleValue == null) {
+            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            else{
+        }else
+        {
                 if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                 (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),"");
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                }  
-            }                    
+                }
         }
+
     }
 
     public String excelDownLoad() {
