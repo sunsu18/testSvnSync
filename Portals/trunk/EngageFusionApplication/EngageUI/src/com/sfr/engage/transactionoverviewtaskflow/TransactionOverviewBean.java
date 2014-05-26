@@ -880,7 +880,38 @@ public class TransactionOverviewBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "count of vo=====>" +
                              vo.getEstimatedRowCount());
-            } else {
+            } else if("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)".equalsIgnoreCase(vo.getWhereClause())){
+                vo.removeNamedWhereClauseParam("card");
+                //vo.removeNamedWhereClauseParam("terminal");
+                vo.removeNamedWhereClauseParam("type");
+                vo.removeNamedWhereClauseParam("fromDate");
+                vo.removeNamedWhereClauseParam("toDate");
+                vo.removeNamedWhereClauseParam("purchaseCountryCode");
+                //vo.removeNamedWhereClauseParam("partnerNumber");
+                //vo.removeNamedWhereClauseParam("accountId");
+                vo.setWhereClause("");
+                vo.executeQuery();
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "count of vo=====>" +
+                             vo.getEstimatedRowCount());
+            }else if("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)".equalsIgnoreCase(vo.getWhereClause())){
+                vo.removeNamedWhereClauseParam("cardGrpMainType");
+                vo.removeNamedWhereClauseParam("cardgrpSubType");
+                vo.removeNamedWhereClauseParam("cardGrpSeq");
+                //vo.removeNamedWhereClauseParam("terminal");
+                vo.removeNamedWhereClauseParam("type");
+                vo.removeNamedWhereClauseParam("fromDate");
+                vo.removeNamedWhereClauseParam("toDate");
+                vo.removeNamedWhereClauseParam("purchaseCountryCode");
+                //vo.removeNamedWhereClauseParam("partnerNumber");
+                //vo.removeNamedWhereClauseParam("accountId");
+                vo.setWhereClause("");
+                vo.executeQuery();
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "count of vo=====>" +
+                             vo.getEstimatedRowCount());
+            }
+            else {
                 if ("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate".equalsIgnoreCase(vo.getWhereClause())) {
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() + " " +
@@ -905,14 +936,32 @@ public class TransactionOverviewBean implements Serializable {
 
             if (cardIdPGL || vNumberPGL || dNamePGL) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Inside block for card");
-                vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
+                             " " + "Inside block for card");               
+                if(getBindings().getReportFormat().getValue()!=null) {
+                    if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                        vo.defineNamedWhereClauseParam("purchaseCountryCode", lang,
+                                                       null);
+                    }else {
+                    vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:card,KSID)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
+                    }
+                }
                 vo.defineNamedWhereClauseParam("card", cardNumberPasingValues,
                                                null);
+                
             } else {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "Coming inside card group block");
-                vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");
+                if(getBindings().getReportFormat().getValue()!=null) {
+                    if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
+                        vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
+                        vo.defineNamedWhereClauseParam("purchaseCountryCode", lang,
+                                                       null);
+                    }else {
+                        vo.setWhereClause("INSTR(:type,TRANSACTION_TYPE)<>0 AND INSTR(:cardGrpMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardgrpSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGrpSeq,CARDGROUP_SEQ)<>0 AND TRANSACTION_DT >= :fromDate AND TRANSACTION_DT <= :toDate");         
+                    }
+                
+                }  
                 vo.defineNamedWhereClauseParam("cardGrpMainType",
                                                cardGroupMaintypePassValue,
                                                null);

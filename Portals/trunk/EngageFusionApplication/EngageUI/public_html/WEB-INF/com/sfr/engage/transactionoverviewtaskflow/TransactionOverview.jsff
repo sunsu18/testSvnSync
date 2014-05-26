@@ -412,31 +412,7 @@
                      headerText="#{sfr.CARD}" align="left" width="150"
                      id="c31">
             <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
-           <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" width="90" align="left"
-                     headerText="#{sfr.VEHICLE_NUMBER}"
-                     id="c34">
-            <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
-        <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" width="100" align="left"
-                     headerText="#{sfr.INTERNAL_NAME}"
-                     id="c25">
-            <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
-           <af:column sortProperty="DriverNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left"
-                     headerText="#{bindings.PrtCardTransactionOverviewRVO13.hints.DriverNumber.label}"
-                     id="c17">
-            <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
-          <af:column sortProperty="DriverName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left"
-                     headerText="#{sfr.DRIVER_NAME}"
-                     id="c18">
-            <af:outputText value="#{row.DriverName}" id="ot86" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
+          </af:column>           
             <af:column sortProperty="StationName" filterable="true" 
                      sortable="false" align="left"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"
@@ -504,6 +480,30 @@
                                 locale="#{pageFlowScope.TransactionOverviewBean.locale}"
                                 minFractionDigits="2"/>
             </af:outputText>
+          </af:column>
+          <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="false" width="90" align="left"
+                     headerText="#{sfr.VEHICLE_NUMBER}"
+                     id="c34">
+            <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
+        <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="false" width="100" align="left"
+                     headerText="#{sfr.INTERNAL_NAME}"
+                     id="c25">
+            <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
+           <af:column sortProperty="DriverNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="false" align="left"
+                     headerText="#{bindings.PrtCardTransactionOverviewRVO13.hints.DriverNumber.label}"
+                     id="c17">
+            <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
+          <af:column sortProperty="DriverName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="false" align="left"
+                     headerText="#{sfr.DRIVER_NAME}"
+                     id="c18">
+            <af:outputText value="#{row.DriverName}" id="ot86" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
          <!--<af:column sortProperty="CurrencyVat" filterable="true"
                      sortable="false"
