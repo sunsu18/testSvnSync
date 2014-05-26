@@ -71,7 +71,7 @@ public class AuthenticatedHomeBean implements Serializable {
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
     private List<PartnerInfo> partnerInfoList;
-    private ArrayList<String> cards=new ArrayList<String>();
+    private ArrayList<String> partnerId=new ArrayList<String>();
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
@@ -284,27 +284,34 @@ public class AuthenticatedHomeBean implements Serializable {
                 locale = conversionUtility.getLocaleFromCountryCode(country);
                 
                  for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
-                    if (partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
-                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() !=null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0){
-                                for (int cg = 0;cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size();cg++){
-                                    if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
-                                        for (int cc = 0;cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
-                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null){
-                                                cards.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
-                                                System.out.println("CardList--->" +partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+//                    if (partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+//                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+//                            if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() !=null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0){
+//                                for (int cg = 0;cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size();cg++){
+//                                    if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
+//                                        for (int cc = 0;cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+//                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null){
+//                                                cards.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+//                                                System.out.println("CardList--->" +partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+                        
+                        
+                   partnerId.add(partnerInfoList.get(pa).getPartnerValue());     
+                        
+                        
+                        
+//                    }      
                  }
-                String idList = cards.toString();
-                String cardId =idList.substring(1, idList.length() - 1).replace(" ", "");
+                String idList = partnerId.toString();
+                String partnerIdList =idList.substring(1, idList.length() - 1).replace(" ", "");
 
-                System.out.println("arraylist after conversion is " + cardId);
+                System.out.println("arraylist after conversion is " + partnerIdList);
 
                 if (session != null) {
                 user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -344,15 +351,15 @@ public class AuthenticatedHomeBean implements Serializable {
                     else{
                      System.out.println("Authenticated Panel should be visible"); 
 
-                    searchInvoices(cardId, country);
-                    searchTransactions(cardId, country);
+                    searchInvoices(partnerIdList, country);
+                    searchTransactions(partnerIdList, country);
 
                     }
 
                 }
+            
+
             }
-
-
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -417,11 +424,11 @@ public class AuthenticatedHomeBean implements Serializable {
         return customerTypeValue;
     }
 
-    private void searchInvoices(String cardId, String country) {
+    private void searchInvoices(String partnerId, String country) {
         ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
         
         vo.setNamedWhereClauseParam("countryCode", country);
-        vo.setNamedWhereClauseParam("cards", cardId);
+        vo.setNamedWhereClauseParam("partnerId", partnerId);
         vo.executeQuery();
          
                      if (vo.getEstimatedRowCount() != 0) {
@@ -485,14 +492,14 @@ public class AuthenticatedHomeBean implements Serializable {
         return invoicesPanel;
     }
 
-    private void searchTransactions(String cardId, String country) {
+    private void searchTransactions(String partnerId, String country) {
         ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
         System.out.println("Country code in Transaction VO" + country);
-        System.out.println("Arraylist in Transaction VO " + cardId);
+        System.out.println("Arraylist in Transaction VO " + partnerId);
         
         //latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
         latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
-        latestTransactionVO.setNamedWhereClauseParam("cards", cardId);
+        latestTransactionVO.setNamedWhereClauseParam("partnerId", partnerId);
         //latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
         
         System.out.println(latestTransactionVO.getQuery());

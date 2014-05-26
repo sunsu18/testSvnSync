@@ -24,7 +24,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="cards"
+    Name="partnerId"
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
@@ -34,7 +34,7 @@ inner join PRT_CARD_TRANSACTION_HEADER
 ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
 and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
 where PRT_CARD_TRANSACTION_DETAIL.pals_country_code =: countryCode
-and INSTR(:cards,KSID)<>0
+and INSTR(:partnerId,PARTNER_ID)<>0
 ORDER by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT DESC)
 where ROWNUM <=5]]>
   </SQLQuery>

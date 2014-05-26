@@ -24,12 +24,12 @@
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="cards"
+    Name="partnerId"
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[SELECT * from (SELECT * from PRT_INVOICE where PRT_INVOICE.country_code =: countryCode
-and INSTR(:cards,PRT_CARD_PK)<>0 order by INVOICE_DATE DESC) WHERE ROWNUM <=5]]>
+and INSTR(:partnerId,PARTNER_ID)<>0 order by INVOICE_DATE DESC) WHERE ROWNUM <=5]]>
   </SQLQuery>
   <ViewAttribute
     Name="InvoiceNumber"
