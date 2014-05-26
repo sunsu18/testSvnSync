@@ -817,13 +817,11 @@ margin-top: 10px;
 font-family : Lucida Sans,Georgia,Serif !important;
 font-weight: normal;
 font-size: 13px;
-border-color: #9297A6;
-border-style: solid;
-border-width: 1px;
-border-top-color: #aeb4bd;
+border: 1px solid #AFAFAF;
+/*border-top-color: #aeb4bd;
 border-left-color: #aeb4bd;
 border-bottom-color: #e0e3e8;
-border-right-color: #e0e3e8;
+border-right-color: #e0e3e8;*/
 background-image: url(/CustomerPortal/afr/fusion/inputText_bg.png);
 background-repeat: repeat-x;
 color: #524e4f;

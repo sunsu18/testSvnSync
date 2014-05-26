@@ -218,7 +218,7 @@
     <af:popup id="new_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.newVehicle}"
               autoCancel="disabled">
-      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="750"
+      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="740"
                  type="none" closeIconVisible="false" >
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -508,7 +508,7 @@
                 <af:commandButton text="#{sfr.SAVE}" id="editsave"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
                                   styleClass="buttonback buttontext"/>
-                <af:spacer width="10" height="10" id="s9"/>
+                <af:spacer width="20" height="50" id="s9"/>
                 <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb5"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
@@ -527,8 +527,8 @@
                  
                  <af:outputText value="*#{sfr.PARTNER}" id="editpartnerid"/>
                 <af:outputText value=":" id="editpartner"/>
-                <af:spacer width="15" height="10" id="s46"/>
-                  <af:selectOneChoice id="soc6" contentStyle="width:165px;height:24.0px;"
+                <af:spacer width="15" height="30" id="s46"/>
+                  <af:selectOneChoice id="soc6" contentStyle="width:165px;height:20.0px;"
                                         autoSubmit="true"
                                       valueChangeListener="#{pageFlowScope.VehicleInfoBean.EditPartnerNumberLIstener}"
                                       binding="#{pageFlowScope.VehicleInfoBean.bindings.editPartnerNumberId}"
@@ -539,9 +539,11 @@
                     <af:selectItem label="#{listItem.label}"
                                    value="#{listItem.value}" id="select_partner__edititem"/>
                   </af:forEach>
-                    </af:selectOneChoice><af:outputText value="*#{sfr.VEHICLEINFO_ACCOUNTNUMBER}" id="Acctid23"/>
+          </af:selectOneChoice>
+          <af:spacer width="75" height="10" id="colnSpace21"/>
+                    <af:outputText value="*#{sfr.VEHICLEINFO_ACCOUNTNUMBER}" id="Acctid23"/>
           <af:outputText value=":" id="colonpop23"/>
-          <af:spacer width="15" height="10" id="s2123"/>
+          <af:spacer width="15" height="30" id="s2123"/>
                 <!--<af:selectOneChoice value="#{bindings.AccountNumber.inputValue}"  autoSubmit="true"                                 
                                     shortDesc="#{bindings.AccountNumber.hints.tooltip}"
                                     id="soc2"
@@ -551,7 +553,7 @@
                                  id="si2"/>
                 </af:selectOneChoice>-->
                 
-                <af:selectOneChoice id="soc2" contentStyle="width:165px;height:24.0px;"
+                <af:selectOneChoice id="soc2" contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true" 
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editAccountId}"
@@ -562,23 +564,25 @@
                     </af:forEach>
                 </af:selectOneChoice>
                 
-                  <af:spacer width="25" height="10" id="colnSpace21"/>
-                   <af:outputText value="*#{sfr.VEHICLEINFO_VEHICLENUMBER}" id="Acctid21"/>
+                  
+                       <af:outputText value="*#{sfr.VEHICLEINFO_VEHICLENUMBER}" id="Acctid21"/>
           <af:outputText value=":" id="colonpop21"/>
-          <af:spacer width="15" height="10" id="s2121"/>
+          <af:spacer width="15" height="30" id="s2121"/>
            <af:inputText value="#{bindings.VehicleNumber.inputValue}"   
                               columns="#{bindings.VehicleNumber.hints.displayWidth}"
                               maximumLength="#{bindings.VehicleNumber.hints.precision}"
                               shortDesc="#{bindings.VehicleNumber.hints.tooltip}"
                               id="it13"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
                          binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicleNumber}">
                   <f:validator binding="#{bindings.VehicleNumber.validator}"/>
                 </af:inputText>
                 
+                 <af:spacer width="25" height="10" id="colnSpace31"/>
+                
                 <af:outputText value="#{sfr.VEHICLEINFO_CARDNUMBER}" id="Acctid262"/>
           <af:outputText value=":" id="colonpop226"/>
-          <af:spacer width="15" height="10" id="s21226"/>
+          <af:spacer width="15" height="30" id="s21226"/>
                
                 <!--<af:inputText value="#{bindings.CardNumber.inputValue}"   
                               columns="#{bindings.CardNumber.hints.displayWidth}"
@@ -589,7 +593,7 @@
                   <f:validator binding="#{bindings.CardNumber.validator}"/>
                 </af:inputText>-->
                 
-                <af:selectOneChoice id="soc4" contentStyle="width:165px;height:24.0px;"
+                <af:selectOneChoice id="soc4" contentStyle="width:165px;height:20.0px;"
                                     autoSubmit="true"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editCardIdDisplayValue}"
@@ -602,125 +606,133 @@
                     </af:forEach>
                 </af:selectOneChoice>
               
-                  <af:spacer width="25" height="10" id="colnSpace31"/>
+                 
                  <af:outputText value="*#{sfr.VEHICLEINFO_INTERNALNAME}" id="Acctid24"/>
           <af:outputText value=":" id="colonpop24"/>
-          <af:spacer width="15" height="10" id="s2124"/>
+          <af:spacer width="15" height="30" id="s2124"/>
                 <af:inputText value="#{bindings.InternalName.inputValue}"
                               columns="#{bindings.InternalName.hints.displayWidth}"
                               maximumLength="#{bindings.InternalName.hints.precision}"
                               shortDesc="#{bindings.InternalName.hints.tooltip}"
                               id="it16"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
                               binding="#{pageFlowScope.VehicleInfoBean.bindings.editInternalName}">
                   <f:validator binding="#{bindings.InternalName.validator}"/>
                 </af:inputText>
+                
+                 <af:spacer width="25" height="10" id="colnSpace41"/>
                   <af:outputText value="#{sfr.VEHICLEINFO_REGISTRATIONNUMBER}" id="Acctid25"/>
           <af:outputText value=":" id="colonpop25"/>
-          <af:spacer width="15" height="10" id="s2125"/>
+          <af:spacer width="15" height="30" id="s2125"/>
                 <af:inputText value="#{bindings.RegistrationNumber.inputValue}"
                               columns="#{bindings.RegistrationNumber.hints.displayWidth}"
                               maximumLength="#{bindings.RegistrationNumber.hints.precision}"
                               shortDesc="#{bindings.RegistrationNumber.hints.tooltip}"
                               id="it17"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.RegistrationNumber.validator}"/>
                 </af:inputText>
-                  <af:spacer width="25" height="10" id="colnSpace41"/>
+                 
                  <af:outputText value="#{sfr.VEHICLEINFO_BRAND}" id="Acctid26"/>
           <af:outputText value=":" id="colonpop26"/>
-          <af:spacer width="15" height="10" id="s2126"/>
+          <af:spacer width="15" height="30" id="s2126"/>
                 <af:inputText value="#{bindings.Brand.inputValue}"
                               columns="#{bindings.Brand.hints.displayWidth}"
                               maximumLength="#{bindings.Brand.hints.precision}"
                               shortDesc="#{bindings.Brand.hints.tooltip}"
                               id="it18"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.Brand.validator}"/>
                 </af:inputText>
+                 <af:spacer width="25" height="10" id="colnSpace51"/>
                 <af:outputText value="#{sfr.VEHICLEINFO_YEAR}" id="Acctid27"/>
           <af:outputText value=":" id="colonpop27"/>
-          <af:spacer width="15" height="10" id="s2127"/>
+          <af:spacer width="15" height="30" id="s2127"/>
                 <af:inputText value="#{bindings.Year.inputValue}"
                               columns="#{bindings.Year.hints.displayWidth}"
                               maximumLength="#{bindings.Year.hints.precision}"
                               shortDesc="#{bindings.Year.hints.tooltip}"
                               id="it19"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.Year.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.Year.format}"/>
                 </af:inputText>
-                  <af:spacer width="25" height="10" id="colnSpace51"/>
+                 
                  <af:outputText value="#{sfr.VEHICLEINFO_REGISTRATIONDATE}" id="Acctid278"/>
           <af:outputText value=":" id="bnbn"/>
-          <af:spacer width="15" height="10" id="s2128"/>
+          <af:spacer width="15" height="30" id="s2128"/>
                 <af:inputDate value="#{bindings.RegistrationDate.inputValue}"
                               shortDesc="#{bindings.RegistrationDate.hints.tooltip}"
                               id="jkjl"
-                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.RegistrationDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.RegistrationDate.format}"/>
                 </af:inputDate>
+                   
+                   <af:spacer width="25" height="10" id="colnSpace61"/>
                     <af:outputText value="#{sfr.VEHICLEINFO_FUELTYPE}" id="Acctid210"/>
           <af:outputText value=":" id="colonpop210"/>
-          <af:spacer width="15" height="10" id="s2110"/>
+          <af:spacer width="15" height="30" id="s2110"/>
                 <af:inputText value="#{bindings.FuelType.inputValue}"
                               columns="#{bindings.FuelType.hints.displayWidth}"
                               maximumLength="#{bindings.FuelType.hints.precision}"
                               shortDesc="#{bindings.FuelType.hints.tooltip}"
                               id="it20"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.FuelType.validator}"/>
                 </af:inputText>
-                  <af:spacer width="25" height="10" id="colnSpace61"/>
+                  
                
                  <af:outputText value="#{sfr.VEHICLEINFO_ENDDATE}" id="Acctid279"/>
           <af:outputText value=":" id="dfg"/>
-          <af:spacer width="15" height="10" id="s2129"/>
+          <af:spacer width="15" height="30" id="s2129"/>
                 <af:inputDate value="#{bindings.EndDate.inputValue}"
                               shortDesc="#{bindings.EndDate.hints.tooltip}"
                               id="jkl"
-                              contentStyle="width:159.5px;height:18.0px;padding-top: 4px">
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.EndDate.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EndDate.format}"/>
                 </af:inputDate>
+                <af:spacer width="25" height="10" id="colnSpace71"/>
+                
                     <af:outputText value="#{sfr.VEHICLEINFO_MAXFUEL}" id="Acctid211"/>
           <af:outputText value=":" id="colonpop211"/>
-          <af:spacer width="15" height="10" id="s2111"/>
+          <af:spacer width="15" height="30" id="s2111"/>
                 <af:inputText value="#{bindings.MaxFuel.inputValue}"
                               columns="#{bindings.MaxFuel.hints.displayWidth}"
                               maximumLength="#{bindings.MaxFuel.hints.precision}"
                               shortDesc="#{bindings.MaxFuel.hints.tooltip}"
                               id="it21"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.MaxFuel.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.MaxFuel.format}"/>
                 </af:inputText>
-                  <af:spacer width="25" height="10" id="colnSpace71"/>
+                  
                   <af:outputText value="#{sfr.VEHICLEINFO_ODOMETER}" id="Acctid212"/>
           <af:outputText value=":" id="colonpop212"/>
-          <af:spacer width="15" height="10" id="s2112"/>
+          <af:spacer width="15" height="30" id="s2112"/>
                 <af:inputText value="#{bindings.Odometer.inputValue}"
                               columns="#{bindings.Odometer.hints.displayWidth}"
                               maximumLength="#{bindings.Odometer.hints.precision}"
                               shortDesc="#{bindings.Odometer.hints.tooltip}"
                               id="it22"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.Odometer.validator}"/>
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.Odometer.format}"/>
                 </af:inputText>
+                <af:spacer width="25" height="10" id="s24"/>
                  <af:outputText value="#{sfr.VEHICLEINFO_REMARKS}" id="Acctid213"/>
           <af:outputText value=":" id="colonpop213"/>
-          <af:spacer width="15" height="10" id="s2113"/>
+          <af:spacer width="15" height="30" id="s2113"/>
                 <af:inputText value="#{bindings.Remarks.inputValue}"
                               columns="#{bindings.Remarks.hints.displayWidth}"
                               maximumLength="#{bindings.Remarks.hints.precision}"
                               shortDesc="#{bindings.Remarks.hints.tooltip}"
                               id="it23"
-                              contentStyle="width:158px;height:16.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.Remarks.validator}"/>
                 </af:inputText>
                  </h:panelGrid>
