@@ -1178,7 +1178,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
                 String cardgroupseq = id.substring(6);
                 
 
-                cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
 
 
                 cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
@@ -1186,6 +1186,8 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
                 cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
                 cardGroupVO.defineNamedWhereClauseParam("cgmain", maintype, null);
                 cardGroupVO.defineNamedWhereClauseParam("cgsub", subtype, null);
+                cardGroupVO.defineNamedWhereClauseParam("acid", accountId, null);
+              
 
                 
                 cardGroupVO.executeQuery();
@@ -1215,12 +1217,14 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
 
 
                 cardVO = iter3.getViewObject();
-                cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
                 cardVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
                 cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
                 cardVO.defineNamedWhereClauseParam("cgmain", maintype, null);
                 cardVO.defineNamedWhereClauseParam("cgsub", subtype, null);
+                cardVO.defineNamedWhereClauseParam("acid", accountId, null);
+               
 
 
                 cardVO.executeQuery();
@@ -1331,12 +1335,13 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
 
             ViewObject cardVO = iter1.getViewObject();
 
-            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(cardVO.getWhereClause())) {
+            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid".equalsIgnoreCase(cardVO.getWhereClause())) {
                 
                 cardVO.removeNamedWhereClauseParam("cgid");
                 cardVO.removeNamedWhereClauseParam("cc");
                 cardVO.removeNamedWhereClauseParam("cgmain");
                 cardVO.removeNamedWhereClauseParam("cgsub");
+                cardVO.removeNamedWhereClauseParam("acid");
                 cardVO.setWhereClause("");
                 cardVO.executeQuery();
             }

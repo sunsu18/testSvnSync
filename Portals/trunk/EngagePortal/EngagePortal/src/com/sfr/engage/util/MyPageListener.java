@@ -1825,7 +1825,7 @@ new CardInfo();
 
 
                         cardVO = iter3.getViewObject();
-                        cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+                        cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
                         System.out.println(accessDC.getDisplayRecord() +  this.getClass() + " CardGroup id passed in Card VO is " + CardgroupMainType+CardgroupSubType+CardgroupSeq);
 
                         cardVO.defineNamedWhereClauseParam("cgid", CardgroupSeq,
@@ -1836,6 +1836,9 @@ new CardInfo();
                                                         null);
                         cardVO.defineNamedWhereClauseParam("cgsub",
                                                         CardgroupSubType,
+                                                        null);
+                        cardVO.defineNamedWhereClauseParam("acid",
+                                                        AccountID,
                                                         null);
 
 
