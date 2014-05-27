@@ -112,7 +112,7 @@ public class AccountSummary implements Serializable {
     private boolean isPartner=false;
     private boolean ismanager=false;
     private boolean isEmployee=false;                       
-
+    private boolean isManagerCg=false;
     
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
     
@@ -232,7 +232,7 @@ if(session!=null){
                 
          }   
          if(userInfo.getRoleList().get(i).getIdString().get(j).contains("CG")){
-             ismanager=true;
+             isManagerCg=true;
              if(partnerListDefault!=null) {
                          for(int k=0;k<partnerListDefault.size();k++)
                          {  
@@ -271,9 +271,8 @@ if(session!=null){
                                          
                                          
                                         if(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().equals(userInfo.getRoleList().get(i).getIdString().get(j).substring(d +2))){
-                                            if(!(temp3.contains(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID())))
-                                            {temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
-                                         cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", "");   }
+                                            temp3.add(partnerListDefault.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID());
+                                         cardName=temp3.toString().substring(1, temp3.toString().length()-1).replace("", "");
                                              }
                                          }
                                      }
@@ -480,6 +479,14 @@ if(session!=null){
 
     public String getPartnerIdName() {
         return partnerIdName;
+    }
+
+    public void setIsManagerCg(boolean isManagerCg) {
+        this.isManagerCg = isManagerCg;
+    }
+
+    public boolean isIsManagerCg() {
+        return isManagerCg;
     }
 
 
@@ -1235,8 +1242,9 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
                         PrtCardVORowImpl currRow =
                             (PrtCardVORowImpl)cardVO.next();
                         if (currRow.getCardType() != null) {
-                            
+                            if(!cardTypeList.contains(currRow.getCardType())){
                             cardTypeList.add(currRow.getCardType());
+                            }
                             String card=cardTypeList.toString();
                             cardType=card.substring(1, card.length() - 1).replace("", "");
 
@@ -1246,7 +1254,7 @@ log.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from tree sel
                     
 
                 }
-				log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
+		log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
 

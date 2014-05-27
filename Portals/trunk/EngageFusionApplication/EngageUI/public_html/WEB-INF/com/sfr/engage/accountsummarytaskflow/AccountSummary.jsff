@@ -151,8 +151,13 @@
 <af:spacer height="10"/>
 <af:outputText value="#{sfr.AUTH_ADMIN_MSG} #{pageFlowScope.AccountSummaryBean.partnerName} " visible="#{pageFlowScope.AccountSummaryBean.isPartner}" id="ot21"/>
 <af:spacer height="10"/>
-<af:outputText value="#{sfr.AUTH_MGR_MSG} #{pageFlowScope.AccountSummaryBean.accountName} #{sfr.AUTH_MGR_CG_MSG} #{pageFlowScope.AccountSummaryBean.cardgroupName}" visible="#{pageFlowScope.AccountSummaryBean.ismanager}" id="ot22"/>
+<af:outputText value="#{sfr.AUTH_MGR_MSG} #{pageFlowScope.AccountSummaryBean.accountName}" visible="#{pageFlowScope.AccountSummaryBean.ismanager}" id="ot22"/>
 <af:spacer height="10"/>
+
+<af:outputText value="#{sfr.AUTH_MGR_CG_MSG} #{pageFlowScope.AccountSummaryBean.cardgroupName}" visible="#{pageFlowScope.AccountSummaryBean.isManagerCg}"
+               id="ot16"/>
+<af:spacer height="10"/>
+
 <af:outputText value="#{sfr.AUTH_EMP_MSG}#{pageFlowScope.AccountSummaryBean.cardName}" visible="#{pageFlowScope.AccountSummaryBean.isEmployee}" id="ot23"/>
 
 </af:panelGroupLayout>
