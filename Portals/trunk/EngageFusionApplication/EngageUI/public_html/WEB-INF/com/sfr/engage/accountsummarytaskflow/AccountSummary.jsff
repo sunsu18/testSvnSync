@@ -224,14 +224,14 @@
       <af:outputText value="#{sfr.COMPANY_NAME}" id="ot55"/>
             <af:outputText value=":" id="ot56"/>
           <af:spacer width="1" height="10" id="s90"/>
-              
-               <af:inputText value="#{bindings.FirstLastName.inputValue}"                          
+          
+              <af:inputText value="#{bindings.CompanyName.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it26"
                         
-                             maximumLength="#{bindings.FirstLastName.hints.precision}"
+                             maximumLength="#{bindings.CompanyName.hints.precision}"
                              readOnly="true">
-                <f:validator binding="#{bindings.FirstLastName.validator}"/>
+                <f:validator binding="#{bindings.CompanyName.validator}"/>
               </af:inputText>
                <af:spacer width="50" height="10" id="s48"/>
                             <af:outputText value="#{sfr.TERMINAL_TYPE}" id="ot63"

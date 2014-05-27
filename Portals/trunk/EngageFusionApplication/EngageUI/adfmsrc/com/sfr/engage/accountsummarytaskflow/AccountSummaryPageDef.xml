@@ -201,5 +201,10 @@
         <Item Value="CardEmbossNum"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CompanyName">
+      <AttrNames>
+        <Item Value="CompanyName"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>
