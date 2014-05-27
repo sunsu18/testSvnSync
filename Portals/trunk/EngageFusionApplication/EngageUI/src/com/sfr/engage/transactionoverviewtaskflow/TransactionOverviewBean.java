@@ -547,15 +547,15 @@ public class TransactionOverviewBean implements Serializable {
             typeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
             selectItem.setLabel("Preliminary");
-            selectItem.setValue("PRI");
+            selectItem.setValue("PRE");
             typeList.add(selectItem);
             SelectItem selectItem1 = new SelectItem();
             selectItem1.setLabel("Priced");
-            selectItem1.setValue("PR");
+            selectItem1.setValue("PRI");
             typeList.add(selectItem1);
             SelectItem selectItem2 = new SelectItem();
             selectItem2.setLabel("Invoice");
-            selectItem2.setValue("INV");
+            selectItem2.setValue("FAK");
             typeList.add(selectItem2);
         }
         return typeList;
