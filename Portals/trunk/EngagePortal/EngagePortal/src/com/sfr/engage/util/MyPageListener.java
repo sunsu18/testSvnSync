@@ -1950,7 +1950,7 @@ new CardInfo();
         String partnerName = "";
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
-        if (bindings != null) {
+        if (bindings != null && bindings.findIteratorBinding("PrtPartnerVO1Iterator") != null) {
             iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
             ViewObject partnerVO = iter1.getViewObject();
             partnerVO.setWhereClause("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode");
@@ -1975,7 +1975,6 @@ new CardInfo();
             }
         } else {
             System.out.println(accessDC.getDisplayRecord() + this.getClass() + " PrtPartnerVO1Iterator Bindings is null in my page listner");
-            partnerName = "Error";
             iter1 = null;
         }
 
