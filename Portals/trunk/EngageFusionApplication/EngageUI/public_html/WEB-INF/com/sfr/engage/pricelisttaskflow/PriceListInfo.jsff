@@ -8,9 +8,9 @@
                         >
       <af:outputText value="#{sfr.PRICES}" id="ot1" styleClass="heading"/>
       <af:spacer width="20" height="1" id="s1"/>
-      <input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
+      <!--<input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
              style="border-color:White; border-style:none;"
-             src="../../../images/download.jpg"/>
+             src="../../../images/download.jpg"/>-->
      </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s31"/>
       

@@ -124,7 +124,7 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                 if (session.getAttribute("lang") != null) {
                     lang = (String)session.getAttribute("lang");
                 } else {
-                    lang = "en_US";
+                    lang = "se_SE";
                 }
             }
             session.setAttribute("lang", lang);

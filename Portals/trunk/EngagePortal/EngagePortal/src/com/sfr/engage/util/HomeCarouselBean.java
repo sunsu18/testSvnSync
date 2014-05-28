@@ -3,6 +3,8 @@ package com.sfr.engage.util;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
+import com.sfr.util.validations.Conversion;
+
 import java.util.ResourceBundle;
 
 import javax.faces.context.ExternalContext;
@@ -122,8 +124,14 @@ public class HomeCarouselBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+        Conversion conv = new Conversion();
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
+        if(profile.equalsIgnoreCase("business"))
+            { customerType = "B2B";}
+        else
+            { customerType = "B2C";}
+       
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
         if (bindings != null) {
@@ -135,9 +143,11 @@ public class HomeCarouselBean {
         }
         ViewObject vo = iter.getViewObject();
         // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
-        vo.setNamedWhereClauseParam("countryCode", "SE");
+        vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
+        
         vo.setNamedWhereClauseParam("catalogType", "PP");
-        vo.setNamedWhereClauseParam("customerType", "B2B");
+        vo.setNamedWhereClauseParam("customerType", customerType);
+        System.out.println("countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
         vo.executeQuery();
 
         return testSpacer;
