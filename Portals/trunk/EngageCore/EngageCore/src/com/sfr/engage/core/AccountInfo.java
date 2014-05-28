@@ -4,12 +4,13 @@ import java.io.Serializable;
 
 import java.util.List;
 
+
 /**
  * TODO : ASHTHA - 30, Apr, 2014 :
  *  1. ADD Class level and complete method level JAVA DOC toString() method
  *  2. Override toString() method
  */
-public class AccountInfo implements Serializable {
+public class AccountInfo implements Comparable<AccountInfo>, Serializable {
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
@@ -63,5 +64,14 @@ public class AccountInfo implements Serializable {
      */
     public boolean isAccountOverview() {
         return accountOverview;
+    }
+
+    /**
+     * To sort the list of Account objects based on Account number.
+     * @param o - Object with which the current Account has to be compared
+     * @return Returns
+     */
+    public int compareTo(AccountInfo o) {
+        return this.getAccountNumber().compareTo(o.getAccountNumber());
     }
 }

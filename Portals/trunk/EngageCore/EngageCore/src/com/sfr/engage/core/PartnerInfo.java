@@ -2,6 +2,7 @@ package com.sfr.engage.core;
 
 import java.io.Serializable;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -14,7 +15,7 @@ public class PartnerInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String partnerValue;
-  
+
     private String country;
     private List<AccountInfo> accountList;
     private String partnerName;
@@ -45,6 +46,7 @@ public class PartnerInfo implements Serializable {
      * @param accountList
      */
     public void setAccountList(List<AccountInfo> accountList) {
+        Collections.sort(accountList); // Always sort the AccountList by Account Number
         this.accountList = accountList;
     }
 
