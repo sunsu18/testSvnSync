@@ -2055,7 +2055,7 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Passed String =" + passedString);
             String[] headerValues = passedString.split(",");
-
+          
             XLS_SH_R = XLS_SH.createRow(8);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
@@ -2086,7 +2086,8 @@ public class TransactionOverviewBean implements Serializable {
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col].toString());
             }
-
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Created Header Data");
             int rowVal = 9;
             boolean val = false;
             int valLoc = 0;
@@ -2094,6 +2095,8 @@ public class TransactionOverviewBean implements Serializable {
                 ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
             RowSetIterator iterator =
                 prtCardTransactionOverViewRVO.createRowSetIterator(null);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "view object row count =="+prtCardTransactionOverViewRVO.getEstimatedRowCount());
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtCardTransactionOverviewRVORowImpl row =
