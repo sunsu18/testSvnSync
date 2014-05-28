@@ -171,6 +171,12 @@ public class TransactionOverviewBean implements Serializable {
         } else if (lang == "SE") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+        }else if (lang == "DK") {
+            currencyCode = conversionUtility.getCurrencyCode(lang);
+            locale = conversionUtility.getLocaleFromCountryCode(lang);
+        }else if (lang == "PL") {
+            currencyCode = conversionUtility.getCurrencyCode(lang);
+            locale = conversionUtility.getLocaleFromCountryCode(lang);
         }
         
         reportFormatValue="Default";
