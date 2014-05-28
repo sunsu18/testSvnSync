@@ -5,40 +5,27 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.Messages;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
-import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
-
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
-
-import com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean;
-
 import com.sfr.util.AccessDataControl;
-
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
+import java.io.IOException;
 import java.io.Serializable;
-
-import java.text.DateFormat;
-
-import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import java.util.Locale;
-
 import java.util.ResourceBundle;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
@@ -49,13 +36,10 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
-
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
 
-import oracle.adf.view.rich.context.AdfFacesContext;
-
-import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
+
 
 public class AuthenticatedHomeBean implements Serializable {
     @SuppressWarnings("compatibility")
@@ -84,13 +68,13 @@ public class AuthenticatedHomeBean implements Serializable {
     private RichPanelGroupLayout authenticatedPanel;
     ResourceBundle resourceBundle;
     private boolean authenticatedPanelVisible =false;
-    private boolean invoicesPanel = false; 
+    private boolean invoicesPanel = false;
     private boolean webshopPanel = false;
     private RichTree adfTree;
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
-    
+
 
     /**
      * @return bindings Object
@@ -101,19 +85,19 @@ public class AuthenticatedHomeBean implements Serializable {
         }
         return bindings;
     }
-    
+
     //TODO : Add java docs for all methods.
     public AuthenticatedHomeBean() {
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-        
+
         if(session!=null)
-        { 
+        {
             System.out.println("temp1----------------------> " +  "session not null");
             if(session.getAttribute("profile")!=null)
-            {   
+            {
                 System.out.println("temp1----------------------> " +  "session getAttribute(profile) not null");
                 profile = (String)session.getAttribute("profile");
                 System.out.println("temp1----------------------> " +  "profile from session " + profile);
@@ -125,14 +109,19 @@ public class AuthenticatedHomeBean implements Serializable {
                     System.out.println("temp1----------------------> " +  "profile from session is private");
                     businessProfile = false;
                     privateProfile = true;
-                    
+
                 }
             }
-            
-            
-            
+
+
+
+            Conversion conv = new Conversion();
             lang = (String)session.getAttribute("lang");
             profile = (String)session.getAttribute("profile");
+            if(profile.equalsIgnoreCase("business"))
+                { customerType = "B2B";}
+            else
+                { customerType = "B2C";}
             DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding iter;
             if (bindings != null) {
@@ -144,9 +133,9 @@ public class AuthenticatedHomeBean implements Serializable {
             }
             ViewObject vo = iter.getViewObject();
             // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
-            vo.setNamedWhereClauseParam("countryCode", "SE");
+            vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
             vo.setNamedWhereClauseParam("catalogType", "PP");
-            vo.setNamedWhereClauseParam("customerType", "B2B");
+            vo.setNamedWhereClauseParam("customerType", customerType);
             vo.executeQuery();
             System.out.println(" vo.estimated rowcount " + vo.getEstimatedRowCount());
         }
@@ -267,7 +256,7 @@ public class AuthenticatedHomeBean implements Serializable {
 
             }
             if (session.getAttribute("Partner_Object_List") != null) {
-                
+
                 partnerInfoList = new ArrayList<PartnerInfo>();
                 partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             }
@@ -282,7 +271,7 @@ public class AuthenticatedHomeBean implements Serializable {
                     country = "SE";
                 }
                 locale = conversionUtility.getLocaleFromCountryCode(country);
-                
+
                  for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
 //                    if (partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
 //                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
@@ -300,13 +289,13 @@ public class AuthenticatedHomeBean implements Serializable {
 //                            }
 //                        }
 //                    }
-                        
-                        
-                   partnerId.add(partnerInfoList.get(pa).getPartnerValue());     
-                        
-                        
-                        
-//                    }      
+
+
+                   partnerId.add(partnerInfoList.get(pa).getPartnerValue());
+
+
+
+//                    }
                  }
                 String idList = partnerId.toString();
                 String partnerIdList =idList.substring(1, idList.length() - 1).replace(" ", "");
@@ -317,11 +306,11 @@ public class AuthenticatedHomeBean implements Serializable {
                 user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                 roleCsr = false;
                 if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN))
-                { 
+                {
                 authenticatedPanelVisible = true;
                 invoicesPanel = true;
-                 System.out.println("Higher roles found"); 
-            
+                 System.out.println("Higher roles found");
+
                 }
                 else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)) {
                 authenticatedPanelVisible = true;
@@ -347,9 +336,9 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
 
-                    } 
+                    }
                     else{
-                     System.out.println("Authenticated Panel should be visible"); 
+                     System.out.println("Authenticated Panel should be visible");
 
                     searchInvoices(partnerIdList, country);
                     searchTransactions(partnerIdList, country);
@@ -357,7 +346,7 @@ public class AuthenticatedHomeBean implements Serializable {
                     }
 
                 }
-            
+
 
             }
         } catch (Exception e) {
@@ -367,25 +356,25 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
     }
-        
 
-       
-       
-  
-    
-    
+
+
+
+
+
+
     public String populateStringValues(String var){
         String passingValues = null;
         if(var != null){
             String lovValues = var.trim();
             String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
-                
+
         }
         return passingValues;
     }
-    
-    
+
+
     /**
      * @param messages
      */
@@ -426,21 +415,21 @@ public class AuthenticatedHomeBean implements Serializable {
 
     private void searchInvoices(String partnerId, String country) {
         ViewObject vo = ADFUtils.getViewObject("PrtHomeInvoiceRVO1Iterator");
-        
+
         vo.setNamedWhereClauseParam("countryCode", country);
         vo.setNamedWhereClauseParam("partnerId", partnerId);
         vo.executeQuery();
-         
+
                      if (vo.getEstimatedRowCount() != 0) {
                          log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count" + vo.getEstimatedRowCount());
-                         
+
                          }
                      else{
-                        
+
                          emptyText = (String)resourceBundle.getObject("NO_INVOICES_TO_DISPLAY");
                      }
-        
-        
+
+
     }
 
     public void setLocale(Locale locale) {
@@ -496,24 +485,24 @@ public class AuthenticatedHomeBean implements Serializable {
         ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
         System.out.println("Country code in Transaction VO" + country);
         System.out.println("Arraylist in Transaction VO " + partnerId);
-        
+
         //latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
         latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
         latestTransactionVO.setNamedWhereClauseParam("partnerId", partnerId);
         //latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
-        
+
         System.out.println(latestTransactionVO.getQuery());
-        
+
         latestTransactionVO.executeQuery();
         if (latestTransactionVO.getEstimatedRowCount() != 0) {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside Estimated row count latestTransactionVO" + latestTransactionVO.getEstimatedRowCount());
-            
+
             }
         else{
-           
+
             emptyText = (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS");
         }
-        
+
     }
 
     public void setWebshopPanel(boolean webshopPanel) {
@@ -572,8 +561,62 @@ public class AuthenticatedHomeBean implements Serializable {
         return lang;
     }
 
-    public void forCheckingPurpose(ActionEvent actionEvent) {
+
+
+//    public String viewAllTransactions() {
+//        // Add event code here...
+//        try {
+//            ectx.redirect(ectx.getRequestContextPath()+"/faces/card/transaction/transactions");
+//        } catch (IOException e) {
+//            System.out.println(" Error while redirecting to Invoices overview page");
+//        }
+//        return invoiceoverview;
+//    }
+
+//    public void viewAllTransactions() {
+//        try {
+//            ectx.redirect(ectx.getRequestContextPath()+"/faces/card/transaction/transactions");
+//        } catch (IOException e) {
+//            System.out.println(" Error while redirecting to Invoices overview page");
+//    }
+//    }
+
+//    public void viewAllInvoices() {
+//        // Add event code here...
+//
+//
+//    }
+
+    public void viewAllInvoices(ActionEvent actionEvent) {
         // Add event code here...
+
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+
+        try {
+            System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            String urlRedirect = request.getContextPath() + "/faces/card/transaction/invoiceoverview";
+            ectx.redirect(urlRedirect);
+        } catch (IOException e) {
+            System.out.println(" Error while redirecting to Invoices overview page");
+        }
+    }
+
+    public void viewAllTransactions(ActionEvent actionEvent) {
+        // Add event code here...
+
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+
+        try {
+            System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
+            ectx.redirect(urlRedirect);
+        } catch (IOException e) {
+            System.out.println(" Error while redirecting to Transactions overview page");
+        }
     }
 
 
@@ -604,7 +647,7 @@ public class AuthenticatedHomeBean implements Serializable {
         public RichTable getInvoiceTable() {
             return invoiceTable;
         }
-        
+
     }
 }
 

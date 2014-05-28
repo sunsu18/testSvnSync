@@ -4,52 +4,52 @@
           xmlns:f="http://java.sun.com/jsf/core">
                           <af:resource type="javascript">
       function expandNode(event)
-      { 
+      {
       //alert();
-        var _tree = event.getSource(); 
-        rwKeySet = _tree.getSelectedRowKeys(); 
-        
-        var firstRowKey; 
+        var _tree = event.getSource();
+        rwKeySet = _tree.getSelectedRowKeys();
+
+        var firstRowKey;
 
             for(rowKey in rwKeySet)
-            { 
-            firstRowKey = rowKey; 
-            // we are interested in the first hit, 
-            //so break out here 
+            {
+            firstRowKey = rowKey;
+            // we are interested in the first hit,
+            //so break out here
           //  alert(firstRowKey);
-            break; 
+            break;
             }
-            
+
             if (_tree.isPathExpanded(firstRowKey))
-            { 
-                _tree.setDisclosedRowKey(firstRowKey,false); 
+            {
+                _tree.setDisclosedRowKey(firstRowKey,false);
             }
             else
-            { 
-            _tree.setDisclosedRowKey(firstRowKey,true); 
-            
+            {
+            _tree.setDisclosedRowKey(firstRowKey,true);
+
             }
-            
-      } 
+
+      }
     function redirect() {
 
-       
+
          window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
-        window.focus(); 
-        
+        window.focus();
+
 
     }
-      
+
       </af:resource>
-      
+
   <af:panelGroupLayout id="pgl2" >
     <af:panelGroupLayout id="pgl7" layout="vertical" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoPanel}"
                          visible="#{pageFlowScope.AuthenticatedHomeBean.infoPanelVisible}">
-   
+
   <af:panelGroupLayout id="pgl1"
                        inlineStyle="width:962.0px; height:120px;"
                        layout="vertical">
-        
+
          <af:panelGroupLayout id="pgl0" layout="horizontal"
                               styleClass="paneltopbackground panel_padding_authenticated"
                               inlineStyle="width:962px; height:30.0px;">
@@ -59,17 +59,17 @@
          <af:spacer width="5" height="10" id="s16"/>
                           <af:panelGroupLayout id="pgl14" styleClass="info_statoil"
                                                layout="vertical"/>
-                          
+
                           <af:spacer width="10" height="10" id="s4"/>
    <af:outputText value="#{sfr.STATOIL_INFO}" id="ot2"
                  styleClass="headertexthome panel_header_authenticated"/>
-                 
+
   <af:spacer width="700" height="10" id="s8"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl24" layout="scroll" inlineStyle="width:960px; height:90.0px;" styleClass="panelbackground box-shadow info" >
 <af:spacer width="10" height="5" id="s2"/>
 <af:panelGroupLayout id="pgl36" layout="vertical">
-  
+
 
 
 <af:panelGroupLayout id="pgl10">
@@ -79,7 +79,7 @@
           <af:spacer width="10" height="5" id="s18"/>
         <af:panelGroupLayout id="pgl8" inlineStyle="width:940px;" layout="horizontal">
                              <af:spacer width="5" height="10" id="s22"/>
-        <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"                 
+        <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"
                    styleClass="home_text"
                    binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>
             </af:panelGroupLayout>
@@ -91,7 +91,7 @@
   </af:panelGroupLayout>
   </af:panelGroupLayout>
   </af:panelGroupLayout>
-  
+
   <af:spacer width="0" height="10" id="s3"/>
     <af:panelGroupLayout id="pgl16" layout="vertical" halign="left"
                          inlineStyle="width:962.0px;" visible="#{pageFlowScope.AuthenticatedHomeBean.authenticatedPanelVisible}"
@@ -100,7 +100,7 @@
                            inlineStyle="height:440.0px;" valign="top">
         <af:panelGroupLayout id="panelGroupLayout1" layout="vertical"
                              inlineStyle="width:300px; height:440.0px;" valign="top">
-          
+
           <af:panelGroupLayout id="Tree" layout="vertical"
                                inlineStyle="height:440px; width:300px;"
                                styleClass="box-shadow panelbackground accsummary1">
@@ -108,12 +108,12 @@
                                                     layout="horizontal"
                                inlineStyle="width:300px; height:30.0px;"
                                                     styleClass="paneltopbackground panel_padding_authenticated">
-                                                    
+
                                                      <af:spacer width="5" height="10"
                                                                 id="s1"/>
                           <af:panelGroupLayout id="pgl19" styleClass="acc_summary"
                                                layout="vertical"/>
-                          
+
                           <af:spacer width="5" height="10" id="spacer1"/>
             <af:outputText value="Account Summary" id="outputText1"
                            styleClass="headertexthome panel_header_authenticated"/>
@@ -129,10 +129,10 @@
                      initiallyExpanded="false"
                      inlineStyle="height:405px; width:295.0px;padding-left: 5px;padding-top: 5px;">
               <f:facet name="nodeStamp">
-            <af:switcher id="s17" 
+            <af:switcher id="s17"
                  facetName="#{node.hierTypeBinding.viewDefName}">
-     
-     
+
+
      <f:facet name="com.sfr.engage.core.PartnerInfo">
         <af:group id="g2">
      <af:image shortDesc="" id="i5" source="/images/business_partner.png"
@@ -143,18 +143,18 @@
         <af:outputText value="#{node.partnerName}" id="ot109" truncateAt="25"/>
         </af:group>
       </f:facet>
-      
-      
+
+
       <f:facet name="com.sfr.engage.core.AccountInfo">
       <af:group id="g3">
       <af:image shortDesc="" id="i1" source="/images/business_account.png"  rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
       <af:image shortDesc="" id="i6" source="/images/private_account.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
-       <af:spacer width="4"  id="s47"/>  
+       <af:spacer width="4"  id="s47"/>
       <af:outputText value="#{node.accountNumber}" id="ot4"/>
       </af:group>
       </f:facet>
-      
-      
+
+
       <f:facet name="com.sfr.engage.core.CardGroupInfo">
         <af:group id="g1">
         <af:image shortDesc="" id="i2" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
@@ -163,8 +163,8 @@
          <af:outputText value="#{node.cardGroupName}" id="ot8" truncateAt="25"/>
         </af:group>
       </f:facet>
-      
-      
+
+
       <f:facet name="com.sfr.engage.core.CardInfo">
       <af:group id="g4">
      <af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
@@ -174,11 +174,11 @@
        </af:outputText>
        </af:group>
       </f:facet>
-      
-      
+
+
    </af:switcher>
               </f:facet>
-               <af:clientListener method="expandNode" type="click"/> 
+               <af:clientListener method="expandNode" type="click"/>
             </af:tree>
 
           </af:panelGroupLayout>
@@ -190,12 +190,12 @@
             <af:panelGroupLayout id="pgl6" layout="horizontal"
                                                       styleClass="paneltopbackground panel_padding_authenticated"
                                                       inlineStyle="width:650px; height:30.0px;">
-                                                      
+
                                                       <af:spacer width="1" height="10"
                                                                 id="s10"/>
                           <af:panelGroupLayout id="pgl20" styleClass="messages"
                                                layout="vertical"/>
-                          
+
                           <!--<af:spacer width="10" height="10" id="s13"/>-->
               <af:outputText value="#{sfr.AUTH_MESSAGES}" id="ot18"
                              styleClass="headertexthome panel_header_authenticated"/>
@@ -230,30 +230,31 @@
           </af:panelGroupLayout>
           <af:spacer width="10" height="8" id="s11"/>
           <af:panelGroupLayout id="pgl28" layout="vertical" visible="true">
-            
+
             <af:panelGroupLayout id="pgl30" layout="vertical"
                                  inlineStyle="height:230px; width:650px;"
                                  styleClass="box-shadow panelbackground">
                                  <af:panelGroupLayout id="pgl29" layout="horizontal"
                                                       styleClass="paneltopbackground panel_padding_authenticated"
                                                       inlineStyle="width:650px; height:30.0px;">
-                                                      
+
                                                       <af:spacer width="2" height="10"
                                                                 id="s15"/>
                           <af:panelGroupLayout id="pgl21" styleClass="transaction"
                                                layout="vertical"/>
-                          
+
                           <!--<af:spacer width="10" height="10" id="s18"/>-->
               <af:outputText value="#{sfr.LATEST_TRANSACTIONS}" id="ot14"
                              styleClass="headertexthome panel_header_authenticated"/>
                              <af:spacer width="350" height="10" id="spacer4"/>
-                             
+
                             <af:panelGroupLayout id="pgl17" styleClass="view_all">
                             <af:commandButton id="cb1"
                                     styleClass="view_all"
-                                    inlineStyle="width:12px; height:13.0px;background:none !important;"/>
+                                    inlineStyle="width:12px; height:13.0px;background:none !important;"
+                                             actionListener="#{pageFlowScope.AuthenticatedHomeBean.viewAllTransactions}"/>
                 </af:panelGroupLayout>
-                            <!--<af:goLink id="goLink1" 
+                            <!--<af:goLink id="goLink1"
                              destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"
                                        text="HELLO THERE"
                                        styleClass="arrow_learn_more">
@@ -261,15 +262,15 @@
                     <!--<af:goButton id="gb1"
                                  styleClass="arrow_learn_more"
                                  destination="#{navigationContext.currentNavigationModel.node['card/transaction/transactions'].goLinkPrettyUrl}&quot;/>"/>-->
-                  
-                             
+
+
                              <!--<af:panelGroupLayout id="panelGroupLayout4" halign="left"
                                      layout="horizontal" valign="top"
                                      inlineStyle="height:15px;background-image:none; padding:0px;">
                   --><!--<af:spacer width="550" id="spacer3"/>--><!--
-                  
+
                 </af:panelGroupLayout>-->
-              
+
               <!--<af:spacer width="10" height="10" id="s14"/>-->
             </af:panelGroupLayout>
               <!--<af:spacer width="7" height="5" id="s13"/>-->
@@ -288,10 +289,10 @@
                     <af:column sortProperty="TransactionDt" sortable="false"
                                 headerText="#{sfr.TRANSACTION_DATE}" id="c8" width="106" align="center">
  <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-                      
+
                         <af:convertDateTime pattern="dd.MM.yyyy"/>
-                        
-                        
+
+
                       </af:outputText>
                       <!--<af:outputText value="#{row.TransactionType}" id="ot20"/>-->
                     </af:column>
@@ -313,7 +314,7 @@
                                            <af:panelGroupLayout halign="right"
                                                                 id="pgl15"
                                                                 inlineStyle="text-align: right;">
-                                        
+
                         <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
                                        inlineStyle="text-align: right;">
                           <af:convertNumber groupingUsed="false"
@@ -326,8 +327,8 @@
                   </af:table>
                  </af:panelGroupLayout>
                 </af:panelGroupLayout>
-                
-           
+
+
               </af:panelGroupLayout>
             </af:panelGroupLayout>
           </af:panelGroupLayout>
@@ -336,7 +337,7 @@
       <af:panelGroupLayout id="pgl34" layout="horizontal">
         <af:panelGroupLayout id="pgl23" layout="vertical"
                              visible="#{pageFlowScope.AuthenticatedHomeBean.invoicesPanel}">
-         
+
           <af:panelGroupLayout id="pgl12" layout="vertical"
                                inlineStyle="height:230px; width:300.0px;"
                                styleClass="box-shadow panelbackground">
@@ -347,9 +348,9 @@
                                                                 id="s19"/>
                           <af:panelGroupLayout id="pgl31" styleClass="invoice"
                                                layout="vertical"/>
-                          
+
                           <!--<af:spacer width="10" height="10" id="s21"/>-->
-                                                     
+
             <af:outputText value="#{sfr.LATEST_INVOICES}" id="ot5"
                            styleClass="headertexthome panel_header_authenticated"/>
                             <af:spacer width="100" height="10" id="s26"/>
@@ -357,20 +358,22 @@
                                      layout="horizontal" valign="top"
                                      inlineStyle="height:15px;background-image:none; padding:0px;">
                   <!--<af:spacer width="250" id="s22"/>-->
-                  
+
                   <af:panelGroupLayout id="pgl18" styleClass="view_all">
                             <af:commandButton id="cb2"
                                     styleClass="view_all"
-                                    inlineStyle="width:12px; height:13.0px;background:none !important;"/>
+                                    inlineStyle="width:12px; height:13.0px;background:none !important;"
+                                              actionListener="#{pageFlowScope.AuthenticatedHomeBean.viewAllInvoices}"/>
                 </af:panelGroupLayout>
-                  
+
                   <!--<af:goLink id="gl2" styleClass="arrow_learn_more "
-                             destination="#{navigationContext.currentNavigationModel.node['card/transaction/invoiceoverview'].goLinkPrettyUrl}&quot;/>"/>-->
+                             destination="#{navigationContext.currentNavigationModel.node['card/
+                             /invoiceoverview'].goLinkPrettyUrl}&quot;/>"/>-->
                 </af:panelGroupLayout>
-            
-            
-            
-           
+
+
+
+
           </af:panelGroupLayout>
             <!--<af:spacer width="7" height="5" id="s11"/>-->
             <af:panelGroupLayout id="pgl13" layout="horizontal" valign="top">
@@ -418,43 +421,43 @@
                   </af:column>
                 </af:table>
                 <af:spacer width="10" height="10" id="s23"/>
-                
+
               </af:panelGroupLayout>
             </af:panelGroupLayout>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
-        
-        
+
+
         <af:spacer width="12" height="10" id="s21"/>
         <af:panelGroupLayout id="pgl37" layout="vertical">
           <af:panelGroupLayout id="pgl38" layout="vertical"
                                inlineStyle="width:600.0px;">
-            
+
             <af:panelGroupLayout id="pgl39" layout="scroll"
                                  inlineStyle="height:230px; width:650px;"
                                  styleClass="box-shadow panelbackground ">
                                  <af:panelGroupLayout id="pgl40" layout="horizontal"
                                                       styleClass="paneltopbackground panel_padding_authenticated"
                                                       inlineStyle="width:650px; height:30.0px;">
-                                                      
+
                                                       <af:spacer width="1" height="10"
                                                                 id="s25"/>
                           <af:panelGroupLayout id="pgl41" styleClass="cart"
                                                layout="vertical"/>
-                          
+
                          <!--<af:spacer width="10" height="10" id="s12"/>-->
-              <af:outputText value="Webshop Panel" id="ot7" 
+              <af:outputText value="Webshop Panel" id="ot7"
               styleClass="headertexthome panel_header_authenticated"/>
-              
-              
+
+
               <af:panelGroupLayout id="pgl44"
                                        layout="vertical"
                                   inlineStyle="width:605px; height:10px;" halign="right">
-                                  
-                  
+
+
                   <!--<af:spacer width="10" height="5" id="s1"/>-->
                   <div id="wrap">
-      
+
               <ul id="mycarousel" class="jcarousel-skin-tango">
           <af:forEach varStatus="stat" begin="0"
                       end="#{(bindings.ProductsDisplayRVO1.estimatedRowCount) ne 0 ?((bindings.ProductsDisplayRVO1.estimatedRowCount)-1):3}">
@@ -462,41 +465,41 @@
             <af:panelGroupLayout layout="horizontal"
                                  inlineStyle="vertical-align:top; text-align:left;"
                                  valign="top" id="pgl48">
-                 
-               
+
+
   <af:panelGroupLayout id="pgl45" layout="vertical" halign="center">
     <af:commandLink  id="cl2" styleClass="carousalOT"
                                   actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"     >
                         <af:image source="/imageservlet?id=#{bindings.ProductsDisplayRVO1.children[stat.index].Itemno}&amp;categId=#{(bindings.ProductsDisplayRVO1.children[stat.index].CategCode9)}"
                     id="i9" inlineStyle="width:100px; height:100px; text-align:center;margin-left:5px; border: 1px solid  #979796;"/>
-                                  
-                                 
+
+
                               </af:commandLink>
-                              
+
  <af:spacer id="s27" width="5" height="4"/>
   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) : &quot;--&quot;}"
                                      id="cl1" styleClass="topproducttext"
                                       actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"
                                       disabled="true">
-                                      
-                      
+
+
                               </af:commandLink>
-                               
+
  <!--<af:panelGroupLayout id="pgl233" layout="vertical"
                                          halign="left"
                                   inlineStyle="width:20px; text-align:left; vertical-align:bottom;"
                                   valign="bottom">
-                     
-                             
-                             
-                              
+
+
+
+
                   </af:panelGroupLayout>!-->
            <af:panelGroupLayout id="pgl46" layout="horizontal" halign="center">
    <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
                                      id="cl3" styleClass="productprice"
                    actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"
                                                disabled="true">
-                                               </af:commandLink>   
+                                               </af:commandLink>
                                                <af:spacer id="s29" width="5"/>
                                                <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.lang eq "no_NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.lang eq "da_DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.lang eq "en_US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.lang eq "se_SE") ? "SEK":"-"}'
                                                               id="ot21"
@@ -504,19 +507,19 @@
                                                               qwerty
 </af:panelGroupLayout>
 </af:panelGroupLayout>
-                    
-        
+
+
         <af:spacer id="s30" width="5" height="3"/>
-             
+
             </af:panelGroupLayout>
-                       </li>                 
+                       </li>
           </af:forEach>
-                      
+
               </ul>
-        
+
           </div>
                         <af:spacer width="10" height="15" id="s31"/>
-                        <af:panelGroupLayout id="pgl47" layout="horizontal" 
+                        <af:panelGroupLayout id="pgl47" layout="horizontal"
                                halign="left">
                         <af:spacer width="250" height="1" id="s32"/>
                        <!-- <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
@@ -524,14 +527,14 @@
                                      targetFrame="_blank"
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
-                                                      
+
                                                       >
                             <af:clientListener method="redirect" type="click"/>
-                          </af:commandButton>            
-                                     
+                          </af:commandButton>
+
                         <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
-        
+
                   </af:panelGroupLayout>
               <!--<af:spacer width="350" height="10" id="s27"/>-->
             </af:panelGroupLayout>
@@ -555,28 +558,28 @@
               </af:forEach>-->
             </af:panelGroupLayout>
           </af:panelGroupLayout>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!--<af:panelGroupLayout id="pgl24" layout="vertical" visible="true"
                              inlineStyle="width:650px; height:230.0px;">
-          
+
           <af:panelGroupLayout id="pgl18" layout="horizontal"
                                inlineStyle="height:230px; width:650px;"
                                styleClass="box-shadow panelbackground">
@@ -587,9 +590,9 @@
                                                                 id="s22"/>
                           <af:panelGroupLayout id="pgl36" styleClass="cart"
                                                layout="vertical"/>
-                          
+
                           --><!--<af:spacer width="10" height="10" id="s25"/>--><!--
-                                                    
+
             <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7" styleClass="headertexthome panel_header_authenticated"/>
             <af:spacer width="350" height="10" id="s18"/>
           </af:panelGroupLayout>
