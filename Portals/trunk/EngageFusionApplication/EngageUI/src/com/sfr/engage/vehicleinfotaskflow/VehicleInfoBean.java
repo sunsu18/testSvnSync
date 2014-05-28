@@ -329,7 +329,7 @@ public class VehicleInfoBean implements Serializable {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
             vo.setNamedWhereClauseParam("countryCd", countryParam);
-            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')");
+            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))");
             System.out.println("values of i" + values[i]);
             vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
                                            null);
@@ -388,7 +388,7 @@ public class VehicleInfoBean implements Serializable {
                 }
 
             }
-            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))".equalsIgnoreCase(vo.getWhereClause())) {
                 vo.removeNamedWhereClauseParam("accountNumber");
                 vo.removeNamedWhereClauseParam("registrationNumber");
                 vo.setWhereClause("");
@@ -977,7 +977,7 @@ public class VehicleInfoBean implements Serializable {
 
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND REGISTRATION_NUMBER LIKE CONCAT (:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))".equalsIgnoreCase(vo.getWhereClause())) {
             vo.removeNamedWhereClauseParam("accountNumber");
             vo.removeNamedWhereClauseParam("registrationNumber");
             vo.setWhereClause("");

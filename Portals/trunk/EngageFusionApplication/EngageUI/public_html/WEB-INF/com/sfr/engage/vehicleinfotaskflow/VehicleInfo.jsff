@@ -162,7 +162,7 @@
                 <af:outputText value="#{row.vehicleNumber}" id="ot4"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}"
-                         id="c2">
+                         id="c2" width="145">
                 <af:outputText value="#{row.embossCardNumber}" id="ot5"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.INTERNAL_NAME}"
@@ -177,19 +177,19 @@
                 <af:outputText value="#{row.remarks}" id="ot12"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.FUEL_TYPE}"
-                         id="c10" width="70">
+                         id="c10" width="69">
                 <af:outputText value="#{row.fuelType}" id="ot13"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MAX_FUEL}" id="c11"
-                         width="90">
+                         width="78">
                 <af:outputText value="#{row.maxFuel}" id="ot19"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.ODOMETER}" id="c12"
-                         width="90">
+                         width="78">
                 <af:outputText value="#{row.odoMeter}" id="ot15"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
-                         id="c14" width="115" align="center">
+                         id="c14" width="95" align="center">
                      <af:commandImageLink id="cil1"
                                      action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                      icon="/images/edit.png">
