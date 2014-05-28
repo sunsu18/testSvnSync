@@ -1205,7 +1205,7 @@ public class CardBean implements Serializable {
     public String statusConversion(String statusLabel){
         if(statusLabel != null){
             statusLabel = statusLabel.trim();
-            System.out.println("status getting converted--------------------------" + statusLabel);
+//            System.out.println("status getting converted--------------------------" + statusLabel);
             if(statusLabel.equalsIgnoreCase("0")) {
                 return "Unblocked";
             }
