@@ -1,0 +1,14 @@
+<adapter-config name="PALSDB2DBAdapter" adapter="Database Adapter" wsdlLocation="PALSDB2DBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/PALSDB2DNXADS" UIConnectionName="AccountSummary" adapterRef=""/>
+  <endpoint-interaction portType="PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="PALSDB2DBAdapter.Cc076Vs1CssbdetDta"/>
+      <property name="QueryName" value="PALSDB2DBAdapterSelect"/>
+      <property name="MappingsMetaDataURL" value="PALSDB2DBAdapter-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

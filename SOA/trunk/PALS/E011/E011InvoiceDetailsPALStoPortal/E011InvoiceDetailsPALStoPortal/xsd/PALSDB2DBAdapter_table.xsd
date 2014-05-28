@@ -1,0 +1,107 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="Cc076Vs1CssbdetDtaCollection" type="Cc076Vs1CssbdetDtaCollection"/>
+   <xs:complexType name="Cc076Vs1CssbdetDtaCollection">
+      <xs:sequence>
+         <xs:element name="Cc076Vs1CssbdetDta" type="Cc076Vs1CssbdetDta" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Cc076Vs1CssbdetDta">
+      <xs:sequence>
+         <xs:element name="deltaTs" type="xs:dateTime"/>
+         <xs:element name="fakdokNr">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="9"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="fakdokTp">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="kontoId">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="detaljTp">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="restransTp">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="betdokrefNr">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="betdokkidNr">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="17"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="betdokutskJn">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="autogiroKd">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="forfallKd">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="forfalldgAnt" type="xs:short"/>
+         <xs:element name="fakvalutaKd">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="detintberbrtBel" type="xs:decimal"/>
+         <xs:element name="detintbermvaBel" type="xs:decimal"/>
+         <xs:element name="detintbermvaiBel" type="xs:decimal"/>
+         <xs:element name="detintbermvapBel" type="xs:decimal"/>
+         <xs:element name="detavrberbrtBel" type="xs:decimal"/>
+         <xs:element name="detavrbermvaBel" type="xs:decimal"/>
+         <xs:element name="detavrbermvaiBel" type="xs:decimal"/>
+         <xs:element name="detavrbermvapBel" type="xs:decimal"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters" type="PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSize"/>
+   <xs:complexType name="PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSize">
+      <xs:sequence>
+         <xs:element name="DeltaTimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="BatchSize" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

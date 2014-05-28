@@ -1,0 +1,339 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 28 12:59:08 IST 2014
+  Author:  10602239
+  Type: BPEL 1.1 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="E011InvoiceDetailsPALStoPortalBPEL"
+         targetNamespace="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL"
+         xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:client="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SelectDeltaTSDBAdapter"
+         xmlns:ns2="http://www.statoilfuelretail.com/integration/engage/E011/E011InvocationReqMsg"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/GetPALSDB2CountDBAdapter"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/PALSDB2DBAdapter"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter">
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="e011invoicedetailspalstoportalbpel_client"
+                 partnerLinkType="client:E011InvoiceDetailsPALStoPortalBPEL"
+                 myRole="E011InvoiceDetailsPALStoPortalBPELProvider"/>
+    <partnerLink name="SelectDeltaTSDBAdapter"
+                 partnerLinkType="ns1:SelectDeltaTSDBAdapter_plt"
+                 partnerRole="SelectDeltaTSDBAdapter_role"/>
+    <partnerLink name="GetPALSDB2CountDBAdapter"
+                 partnerLinkType="ns4:GetPALSDB2CountDBAdapter_plt"
+                 partnerRole="GetPALSDB2CountDBAdapter_role"/>
+    <partnerLink name="PALSDB2DBAdapter"
+                 partnerLinkType="ns6:PALSDB2DBAdapter_plt"
+                 partnerRole="PALSDB2DBAdapter_role"/>
+  </partnerLinks>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="ReceiveInvoiceDetailsReqMsg_process_IV"
+              messageType="client:E011InvoiceDetailsPALStoPortalBPELRequestMessage"/>
+    <variable name="DeltaTS" type="xsd:string"/>
+    <variable name="JNDI" type="xsd:string"/>
+    <variable name="ErrorFlag" type="xsd:string"/>
+    <variable name="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+              messageType="ns1:SelectDeltaTSDBAdapterSelect_inputParameters"/>
+    <variable name="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV"
+              messageType="ns1:EngageSoaDeltatableCollection_msg"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_IV"
+              messageType="ns4:GetPALSDB2CountDBAdapterInput_msg"/>
+    <variable name="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OV"
+              messageType="ns4:GetPALSDB2CountDBAdapterOutput_msg"/>
+    <variable name="DataCount" type="xsd:integer"/>
+    <variable name="BatchCount" type="xsd:integer"/>
+    <variable name="Count" type="xsd:integer"/>
+    <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV"
+              messageType="ns6:PALSDB2DBAdapterSelect_inputParameters"/>
+    <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV"
+              messageType="ns6:Cc076Vs1CssbdetDtaCollection_msg"/>
+  </variables>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+    <!-- Receive input from requestor. (Note: This maps to operation defined in E011InvoiceDetailsPALStoPortalBPEL.wsdl) -->
+    <receive name="ReceiveInvoiceDetailsReqMsg"
+             partnerLink="e011invoicedetailspalstoportalbpel_client"
+             portType="client:E011InvoiceDetailsPALStoPortalBPEL"
+             operation="process"
+             variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+             createInstance="yes"/>
+    <assign name="AssignInitialValues">
+      <copy>
+        <from expression="'NO'"/>
+        <to variable="ErrorFlag"/>
+      </copy>
+      <copy>
+        <from expression="0"/>
+        <to variable="DataCount"/>
+      </copy>
+      <copy>
+        <from expression="0"/>
+        <to variable="BatchCount"/>
+      </copy>
+      <copy>
+        <from expression="1"/>
+        <to variable="Count"/>
+      </copy>
+      <copy>
+        <from variable="ReceiveInvoiceDetailsReqMsg_process_IV" part="payload"
+              query="/ns2:invocationMsg/ns2:PALS_JNDI"/>
+        <to variable="JNDI"/>
+      </copy>
+    </assign>
+    <scope name="GetDeltaTSScope" variableAccessSerializable="no">
+      <sequence name="GetDeltaTSSequence">
+        <assign name="AssignSelectDeltaTSInputValues">
+          <copy>
+            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                  part="payload" query="/ns2:invocationMsg/ns2:CountryCode"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns3:SelectDeltaTSDBAdapterSelect_CountryCode_InterfaceIDInputParameters/ns3:CountryCode"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                  part="payload" query="/ns2:invocationMsg/ns2:InterfaceID"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns3:SelectDeltaTSDBAdapterSelect_CountryCode_InterfaceIDInputParameters/ns3:InterfaceID"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOADeltaTS" bpelx:invokeAsDetail="no"
+                inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV"
+                partnerLink="SelectDeltaTSDBAdapter"
+                portType="ns1:SelectDeltaTSDBAdapter_ptt"
+                operation="SelectDeltaTSDBAdapterSelect"/>
+        <switch name="DeltaTSExists">
+          <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable/ns3:palsDeltaTimestamp')) > 0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">DeltaTS Exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignDeltaTS">
+              <copy>
+                <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable/ns3:palsDeltaTimestamp'),'+')"/>
+                <to variable="DeltaTS"/>
+              </copy>
+              <copy>
+                <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultDeltaTS">
+              <copy>
+                <from expression="'0001-01-01 00:00:00.000000'"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+      </sequence>
+    </scope>
+    <scope name="GetCountFromPALSScope" variableAccessSerializable="no">
+      <sequence name="GetCountFromPALSSequence">
+        <assign name="AssignDeltaTSValue">
+          <copy>
+            <from variable="DeltaTS"/>
+            <to variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_IV"
+                part="GetPALSDB2CountDBAdapterInput_msg"
+                query="/ns5:GetPALSDB2CountDBAdapterInput/ns5:DeltaTS"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no"
+                inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_IV"
+                outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OV"
+                partnerLink="GetPALSDB2CountDBAdapter"
+                portType="ns4:GetPALSDB2CountDBAdapter_ptt"
+                operation="GetPALSDB2CountDBAdapter">
+          <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+        </invoke>
+        <assign name="CalculateBatchCount">
+          <copy>
+            <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OV','GetPALSDB2CountDBAdapterOutput','/ns5:GetPALSDB2CountDBAdapterOutput/ns5:count')  div bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize'))"/>
+            <to variable="BatchCount"/>
+          </copy>
+          <copy>
+            <from variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OV"
+                  part="GetPALSDB2CountDBAdapterOutput"
+                  query="/ns5:GetPALSDB2CountDBAdapterOutput/ns5:count"/>
+            <to variable="DataCount"/>
+          </copy>
+        </assign>
+        <switch name="NoDataSwitch">
+          <case condition="bpws:getVariableData('DataCount') &lt;= 0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">NoData</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <terminate name="Terminate"/>
+          </case>
+          <otherwise>
+            <empty name="Empty"/>
+          </otherwise>
+        </switch>
+        <switch name="CheckBatchCountSwitch">
+          <case condition="bpws:getVariableData('BatchCount') > bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">PALSBatchCountisGreater</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                      part="payload"
+                      query="/ns2:invocationMsg/ns2:NumberOfBatches"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <empty name="Empty"/>
+          </otherwise>
+        </switch>
+      </sequence>
+    </scope>
+    <while name="WhileEachBatch"
+           condition="bpws:getVariableData('Count') &lt;= bpws:getVariableData('BatchCount')">
+      <sequence name="Sequence">
+        <scope name="GetPALSdataScope" variableAccessSerializable="no">
+          <sequence name="GetPALSdataSequence">
+                  <assign name="AssignSelectDeltaTSInputValues">
+          <copy>
+            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                  part="payload" query="/ns2:invocationMsg/ns2:CountryCode"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns3:SelectDeltaTSDBAdapterSelect_CountryCode_InterfaceIDInputParameters/ns3:CountryCode"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                  part="payload" query="/ns2:invocationMsg/ns2:InterfaceID"/>
+            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                part="SelectDeltaTSDBAdapterSelect_inputParameters"
+                query="/ns3:SelectDeltaTSDBAdapterSelect_CountryCode_InterfaceIDInputParameters/ns3:InterfaceID"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOADeltaTS" bpelx:invokeAsDetail="no"
+                inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_IV"
+                outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV"
+                partnerLink="SelectDeltaTSDBAdapter"
+                portType="ns1:SelectDeltaTSDBAdapter_ptt"
+                operation="SelectDeltaTSDBAdapterSelect"/>
+        <switch name="DeltaTSExists">
+          <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable/ns3:palsDeltaTimestamp')) > 0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">DeltaTS Exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignDeltaTS">
+              <copy>
+                <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable/ns3:palsDeltaTimestamp'),'+')"/>
+                <to variable="DeltaTS"/>
+              </copy>
+              <copy>
+                <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultDeltaTS">
+              <copy>
+                <from expression="'0001-01-01 00:00:00.000000'"/>
+                <to variable="DeltaTS"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+            <assign name="AssignSelectPALSDB2DataInputValues">
+              <copy>
+                <from variable="DeltaTS"/>
+                <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV"
+                    part="PALSDB2DBAdapterSelect_inputParameters"
+                    query="/ns7:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns7:DeltaTimeStamp"/>
+              </copy>
+              <copy>
+                <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                      part="payload" query="/ns2:invocationMsg/ns2:BatchSize"/>
+                <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV"
+                    part="PALSDB2DBAdapterSelect_inputParameters"
+                    query="/ns7:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns7:BatchSize"/>
+              </copy>
+            </assign>
+            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no"
+                    inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV"
+                    outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV"
+                    partnerLink="PALSDB2DBAdapter"
+                    portType="ns6:PALSDB2DBAdapter_ptt"
+                    operation="PALSDB2DBAdapterSelect"/>
+            <assign name="GetDataCount">
+              <copy>
+                <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta/ns7:deltaTs'))"/>
+                <to variable="DataCount"/>
+              </copy>
+              <copy>
+                <from expression="bpws:getVariableData('Count') + 1"/>
+                <to variable="Count"/>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+      </sequence>
+    </while>
+  </sequence>
+</process>

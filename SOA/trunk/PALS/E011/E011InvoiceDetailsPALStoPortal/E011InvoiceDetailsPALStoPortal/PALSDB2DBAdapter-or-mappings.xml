@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>PALSDB2DBAdapter-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>PALSDB2DBAdapter.Cc076Vs1CssbdetDta</class>
+         <alias>DHDUOCSS.CC076VS1_CSSBDET_DTA</alias>
+         <primary-key>
+            <field table="CC076VS1_CSSBDET_DTA" name="DELTA_TS" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="FAKDOK_TP" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="FAKDOK_NR" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="KONTO_ID" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETALJ_TP" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="RESTRANS_TP" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="BETDOKREF_NR" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="BETDOKKID_NR" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="BETDOKUTSK_JN" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="AUTOGIRO_KD" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="FORFALL_KD" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="FORFALLDG_ANT" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERBRT_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="FAKVALUTA_KD" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVA_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVAI_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERBRT_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVAP_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVA_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVAI_BEL" xsi:type="column"/>
+            <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVAP_BEL" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="PALSDB2DBAdapterSelect" xsi:type="read-all-query">
+                  <arguments>
+                     <argument name="DeltaTimeStamp">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="BatchSize">
+                        <type>java.lang.String</type>
+                     </argument>
+                  </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, FAKDOK_NR, FAKDOK_TP, KONTO_ID, DETALJ_TP, RESTRANS_TP, BETDOKREF_NR, BETDOKKID_NR, BETDOKUTSK_JN, AUTOGIRO_KD, FORFALL_KD, FORFALLDG_ANT, FAKVALUTA_KD, DETINTBERBRT_BEL, DETINTBERMVA_BEL, DETINTBERMVAI_BEL, DETINTBERMVAP_BEL, DETAVRBERBRT_BEL, DETAVRBERMVA_BEL, DETAVRBERMVAI_BEL, DETAVRBERMVAP_BEL from (SELECT DELTA_TS, FAKDOK_NR, FAKDOK_TP, KONTO_ID, DETALJ_TP, RESTRANS_TP, BETDOKREF_NR, BETDOKKID_NR, BETDOKUTSK_JN, AUTOGIRO_KD, FORFALL_KD, FORFALLDG_ANT, FAKVALUTA_KD, DETINTBERBRT_BEL, DETINTBERMVA_BEL, DETINTBERMVAI_BEL, DETINTBERMVAP_BEL, DETAVRBERBRT_BEL, DETAVRBERMVA_BEL, DETAVRBERMVAI_BEL, DETAVRBERMVAP_BEL, ROW_NUMBER()  OVER() as rownumber FROM DHDUOCSS.CC076VS1_CSSBDET_DTA  WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Account WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                  </call>
+                  <reference-class>PALSDB2DBAdapter.Cc076Vs1CssbdetDta</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>deltaTs</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DELTA_TS" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakdokNr</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="FAKDOK_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakdokTp</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="FAKDOK_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>kontoId</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="KONTO_ID" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detaljTp</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETALJ_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>restransTp</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="RESTRANS_TP" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>betdokrefNr</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="BETDOKREF_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>betdokkidNr</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="BETDOKKID_NR" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>betdokutskJn</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="BETDOKUTSK_JN" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>autogiroKd</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="AUTOGIRO_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>forfallKd</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="FORFALL_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>forfalldgAnt</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="FORFALLDG_ANT" xsi:type="column"/>
+               <attribute-classification>java.lang.Short</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>fakvalutaKd</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="FAKVALUTA_KD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detintberbrtBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERBRT_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detintbermvaBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVA_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detintbermvaiBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVAI_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detintbermvapBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETINTBERMVAP_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detavrberbrtBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERBRT_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detavrbermvaBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVA_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detavrbermvaiBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVAI_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>detavrbermvapBel</attribute-name>
+               <field table="CC076VS1_CSSBDET_DTA" name="DETAVRBERMVAP_BEL" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="DHDUOCSS.CC076VS1_CSSBDET_DTA"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.DB2Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>
