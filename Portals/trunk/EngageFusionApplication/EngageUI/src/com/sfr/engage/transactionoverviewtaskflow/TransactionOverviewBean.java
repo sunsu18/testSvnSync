@@ -2166,9 +2166,7 @@ public class TransactionOverviewBean implements Serializable {
                                 }
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),
-                                                                         locale) +
-                                                        " " + unitOfMeasure);
+                                XLS_SH_R_C.setCellValue(row.getQuantity().toString() + " " + unitOfMeasure);
                             }
                         } else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
@@ -2400,9 +2398,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (row.getUnitOfMeasure() != null) {
                                     unitOfMeasure = row.getUnitOfMeasure();
                                 }
-                                out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),
-                                                           locale) + " " +
-                                          unitOfMeasure);
+                                out.print(row.getQuantity().toString()+ " " +unitOfMeasure);
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -2615,9 +2611,7 @@ public class TransactionOverviewBean implements Serializable {
                                     if (row.getUnitOfMeasure() != null) {
                                         unitOfMeasure = row.getUnitOfMeasure();
                                     }
-                                    out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),
-                                                               locale) + " " +
-                                              unitOfMeasure);
+                                    out.print(row.getQuantity().toString()+ " " +unitOfMeasure);
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
