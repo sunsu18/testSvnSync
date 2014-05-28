@@ -128,7 +128,7 @@
           <af:panelGroupLayout id="pgl5" layout="horizontal">
             <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"
                            styleClass="boldtext"/>
-            <af:spacer width="10" height="10" id="s31"/>
+            <af:spacer width="1" height="10" id="s31"/>
             <af:outputText value="#{var.accountNumber}" id="ot3"
                            styleClass="boldtext"/>
             <af:spacer width="690" height="10" id="s27"/>
