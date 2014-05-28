@@ -2101,7 +2101,8 @@ public class TransactionOverviewBean implements Serializable {
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
-
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "Printing excel Data");
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
 
@@ -2305,7 +2306,8 @@ public class TransactionOverviewBean implements Serializable {
             }
             iterator.closeRowSetIterator();
 
-
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Printing excel Data completed");
             XLS.write(outputStream);
             outputStream.close();
         } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
@@ -2329,7 +2331,8 @@ public class TransactionOverviewBean implements Serializable {
                 PrtCardTransactionOverviewRVORowImpl row =
                     (PrtCardTransactionOverviewRVORowImpl)iterator.next();
                 if (row != null) {
-
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "Printing Data");
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
 
@@ -2339,8 +2342,7 @@ public class TransactionOverviewBean implements Serializable {
 
                                 String time = "";
                                 if (row.getTransactionTime() != null) {
-                                    time =
-getTimeHour(row.getTransactionTime().timestampValue());
+                                    time = getTimeHour(row.getTransactionTime().timestampValue());
                                 }
                                 out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
                                           " " + time);
@@ -2555,8 +2557,7 @@ getTimeHour(row.getTransactionTime().timestampValue());
 
                                     String time = "";
                                     if (row.getTransactionTime() != null) {
-                                        time =
-getTimeHour(row.getTransactionTime().timestampValue());
+                                        time =getTimeHour(row.getTransactionTime().timestampValue());
                                     }
                                     out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
                                               " " + time);
