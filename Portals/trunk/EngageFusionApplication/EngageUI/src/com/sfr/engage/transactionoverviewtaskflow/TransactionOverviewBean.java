@@ -1340,11 +1340,11 @@ public class TransactionOverviewBean implements Serializable {
                     val = "ALL";
                 } else {
                     for (int i = 0; i < listValues.length; i++) {
-                        if ("PRI".equalsIgnoreCase(listValues[i].toString().trim())) {
+                        if ("PRE".equalsIgnoreCase(listValues[i].toString().trim())) {
                             val = val + "Preliminary" + ", ";
-                        } else if ("PR".equalsIgnoreCase(listValues[i].toString().trim())) {
+                        } else if ("PRI".equalsIgnoreCase(listValues[i].toString().trim())) {
                             val = val + "Priced" + ", ";
-                        } else if ("INV".equalsIgnoreCase(listValues[i].toString().trim())) {
+                        } else if ("FAK".equalsIgnoreCase(listValues[i].toString().trim())) {
                             val = val + "Invoice" + ", ";
                         }
                     }
