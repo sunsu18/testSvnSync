@@ -153,9 +153,9 @@ public class TransactionOverviewBean implements Serializable {
         terminalValue.add("HOME");
         terminalValue.add("EXTERNAL");
 
+        typeValue.add("PRE");
         typeValue.add("PRI");
-        typeValue.add("PR");
-        typeValue.add("INV");
+        typeValue.add("FAK");
 
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
 
