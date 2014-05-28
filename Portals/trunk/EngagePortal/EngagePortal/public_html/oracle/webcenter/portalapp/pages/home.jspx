@@ -231,7 +231,7 @@
                         <af:outputText value="#{sfr.NEW_TO_CARD}"
                                        id="outputText5"
                                        styleClass="contenttext"/>
-                        <af:spacer width="152" height="10" id="s12"/>
+                        <af:spacer width="85" height="10" id="s12"/>
                         <af:goLink text="#{sfr.REGISTER_HERE}" id="gl1"
                                    styleClass="links"/>
                       </af:panelGroupLayout>
@@ -354,7 +354,7 @@
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/>
                               </af:panelGroupLayout>
-                              <af:spacer height="10" id="spacer3" width="112"/>
+                              <af:spacer height="10" id="spacer3" width="90"/>
                               <af:panelGroupLayout id="panelGroupLayout7"
                                                    layout="horizontal"
                                                    halign="start">
