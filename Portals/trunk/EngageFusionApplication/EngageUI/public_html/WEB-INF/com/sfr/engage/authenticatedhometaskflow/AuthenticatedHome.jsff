@@ -73,7 +73,7 @@
 
 
 <af:panelGroupLayout id="pgl10">
-            <af:outputText value="Important Note :" id="ot20"
+            <af:outputText value="#{sfr.IMPORTANT_NOTE}:" id="ot20"
                            styleClass="contenttext important_notice"/>
           </af:panelGroupLayout>
           <af:spacer width="10" height="5" id="s18"/>
@@ -115,7 +115,7 @@
                                                layout="vertical"/>
 
                           <af:spacer width="5" height="10" id="spacer1"/>
-            <af:outputText value="Account Summary" id="outputText1"
+            <af:outputText value="#{sfr.ACCOUNT_SUMMARY}" id="outputText1"
                            styleClass="headertexthome panel_header_authenticated"/>
                            <af:spacer width="100" height="10" id="s12"/>
             <!--<af:spacer width="10" height="10" id="spacer1"/>-->
@@ -446,7 +446,7 @@
                                                layout="vertical"/>
 
                          <!--<af:spacer width="10" height="10" id="s12"/>-->
-              <af:outputText value="Webshop Panel" id="ot7"
+              <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7" 
               styleClass="headertexthome panel_header_authenticated"/>
 
 

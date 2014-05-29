@@ -873,7 +873,7 @@
                 <f:validator binding="#{bindings.CardgroupSubType.validator}"/>
               </af:inputText>-->
               
-              <af:inputText value="#{bindings.CardgroupMainType.inputValue} #{bindings.CardgroupSubType.inputValue}#{bindings.CardgroupSeq.inputValue}"                          
+              <af:inputText value="#{bindings.CardgroupMainType.inputValue}#{bindings.CardgroupSubType.inputValue}#{bindings.CardgroupSeq.inputValue}"                          
                              contentStyle="width:158px;height:16.0px;padding-top: 4px"
                              id="it1"
                             

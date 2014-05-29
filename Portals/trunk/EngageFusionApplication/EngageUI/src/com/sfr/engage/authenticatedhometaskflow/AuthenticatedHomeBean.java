@@ -170,7 +170,7 @@ public class AuthenticatedHomeBean implements Serializable {
                                                           "INFO_STATOIL",
                                                           null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                          "se_SE", null);
+                                                          lang, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
                                                           passedDate, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
@@ -211,7 +211,7 @@ public class AuthenticatedHomeBean implements Serializable {
                 prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
                                                           "MESSAGES", null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                          "no_NO", null);
+                                                          lang, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
                                                           passedDate, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
