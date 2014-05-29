@@ -650,7 +650,9 @@
                     outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV"
                     partnerLink="PALSDB2DBAdapter"
                     portType="ns6:PALSDB2DBAdapter_ptt"
-                    operation="PALSDB2DBAdapterSelect"/>
+                    operation="PALSDB2DBAdapterSelect">
+                    <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                    </invoke>
             <assign name="GetDataCount">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta/ns7:deltaTs'))"/>

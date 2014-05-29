@@ -414,7 +414,9 @@
                 <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV" part="PALSDB2DBAdapterSelect_inputParameters" query="/ns7:PALSDB2DBAdapterSelect_DeltaTimeStamp_BatchSizeInputParameters/ns7:BatchSize"/>
               </copy>
             </assign>
-            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV" partnerLink="PALSDB2DBAdapter" portType="ns6:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" id="BpInv6"/>
+            <invoke name="InvokePALSDB2DBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV" partnerLink="PALSDB2DBAdapter" portType="ns6:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" id="BpInv6">
+                    <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+                    </invoke>
             <assign name="GetDataCount" id="BpAss14">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta/ns7:deltaTs'))"/>
