@@ -836,6 +836,50 @@ public class CardBean implements Serializable {
                         operationBinding.getParamsMap().put("associatedAccount", associatedAccount);
 
                         Object result = operationBinding.execute();
+                        
+                        String accountPassingValues = null;
+                        String statusPassingValues = null;
+                        String cardGroupPassingValues = null;
+                        
+                        if (getBindings().getPartner().getValue() != null) {
+                            if (getBindings().getAccount().getValue() != null) {
+                                accountPassingValues = populateStringValues(getBindings().getAccount().getValue().toString());
+                            } else {
+                                showErrorMessage("ENGAGE_NO_ACCOUNT");
+                               
+                            }
+
+                            if (getBindings().getStatus().getValue() != null) {
+                                statusPassingValues = populateStringValues(getBindings().getStatus().getValue().toString());
+                            } else {
+                                showErrorMessage("ENGAGE_NO_STATUS");
+                                
+                            }
+
+                            if (getBindings().getCardGroup().getValue() != null) {
+                                cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
+                                populateCardGroupValues(cardGroupPassingValues);
+
+                            } else {
+                                showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                               
+                            }
+
+                            if (getBindings().getPartner().getValue() != null) {
+                                ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+                                vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+                                vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
+                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
+                                vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
+                                vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+                                vo.setNamedWhereClauseParam("countryCd", lang);
+                                vo.executeQuery();
+
+                                isTableVisible = true;
+                            }
+                        } 
+                        
 
                         if (resourceBundle.containsKey("VEHICLE_ASSOCIATED")) {
                             getBindings().getTruckdriverDetails().hide();
@@ -918,6 +962,52 @@ public class CardBean implements Serializable {
 
 
                                 Object result = operationBinding.execute();
+                                
+                                
+                                
+                                String accountPassingValues = null;
+                                String statusPassingValues = null;
+                                String cardGroupPassingValues = null;
+                                
+                                if (getBindings().getPartner().getValue() != null) {
+                                    if (getBindings().getAccount().getValue() != null) {
+                                        accountPassingValues = populateStringValues(getBindings().getAccount().getValue().toString());
+                                    } else {
+                                        showErrorMessage("ENGAGE_NO_ACCOUNT");
+                                       
+                                    }
+
+                                    if (getBindings().getStatus().getValue() != null) {
+                                        statusPassingValues = populateStringValues(getBindings().getStatus().getValue().toString());
+                                    } else {
+                                        showErrorMessage("ENGAGE_NO_STATUS");
+                                        
+                                    }
+
+                                    if (getBindings().getCardGroup().getValue() != null) {
+                                        cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
+                                        populateCardGroupValues(cardGroupPassingValues);
+
+                                    } else {
+                                        showErrorMessage("ENGAGE_NO_CARD_GROUP");
+                                       
+                                    }
+
+                                    if (getBindings().getPartner().getValue() != null) {
+                                        ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+                                        vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+                                        vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
+                                        vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                        vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
+                                        vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
+                                        vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+                                        vo.setNamedWhereClauseParam("countryCd", lang);
+                                        vo.executeQuery();
+
+                                        isTableVisible = true;
+                                    }
+                                } 
+                                
 
                                if (resourceBundle.containsKey("DRIVER_ASSOCIATED")) {
                                     getBindings().getTruckdriverDetails().hide();
@@ -1055,6 +1145,8 @@ public class CardBean implements Serializable {
             }
         }
         }
+        
+     
 
         return null;
     }
@@ -1112,8 +1204,8 @@ public class CardBean implements Serializable {
 
     public String closePopUp() {
      getBindings().getVehicleDriverRadio().setValue(null);
-  
-     getBindings().getTruckdriverDetails().hide();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
+        getBindings().getTruckdriverDetails().hide();
         return null;
     }
     
