@@ -556,18 +556,23 @@ public class CardBean implements Serializable {
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        
         if (valueChangeEvent.getNewValue() != null) {
             if (valueChangeEvent.getNewValue().equals("Driver")) {
                 this.getBindings().getVehicleNumber().setValue(null);
                 this.displayVehicleName = null;
+                showErrorMsgEditFlag = false;
                 driverPGL = true;
                 vehiclePGL = false;
 //                System.out.println("driver" + valueChangeEvent.getNewValue().toString());
+         
+                    
                 populateValue(valueChangeEvent.getNewValue().toString());
                
 
             } else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
                 this.getBindings().getDriverNumber().setValue(null);
+                showErrorMsgEditFlag = false;
                 this.displayDriverName = null;
                 driverPGL = false;
                 vehiclePGL = true;
@@ -811,12 +816,15 @@ public class CardBean implements Serializable {
                 if (currRow != null) {
                     if (currRow.getCardNumber() != null) {
 //                        System.out.println("card number" + currRow.getCardNumber());
+                       
+                           
                         if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
 //                            System.out.println("vehicle already associated");
                             showErrorMsgEditFlag = true;
                             warningMsg = resourceBundle.getObject("TRUCK_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardEmbossNum());
                             System.out.println("warningMsg" + warningMsg);
                         }
+                    
                     }
 
                     else {
@@ -1068,11 +1076,23 @@ public class CardBean implements Serializable {
         {
 
      if(vehiclePGL) {
-                System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") +"inside vehiclepgl");
-                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
+     
+     
+                if(getBindings().getVehicleNumber().getValue() == null)
+                {
+                showErrorMsgEditFlag = true;
+                    warningMsg =  resourceBundle.getObject("VEHICLE_EMPTY").toString();
+                System.out.println("warningMsg" + warningMsg);
+                
+                }
+               // System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") +"inside vehiclepgl");
+                
+            else    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
                 {
 
                     System.out.println("inside vehiclepgl driver ! null");
+                    
+               
                 if (resourceBundle.containsKey("DRIVER_CARD_EXIST"))
                 {
 
@@ -1084,8 +1104,11 @@ public class CardBean implements Serializable {
             }
                 else
                 {
+                    
                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
                     {
+                        
+                        
                     checkVehicleAssociation();
                    // getBindings().getTruckdriverDetails().hide();
 
@@ -1099,9 +1122,19 @@ public class CardBean implements Serializable {
             if(driverPGL)
             {
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") +"inside driverPGL");
-            if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
+            
+                if(getBindings().getDriverNumber().getValue() == null)
+                {
+                showErrorMsgEditFlag = true;
+                    warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
+                System.out.println("warningMsg" + warningMsg);
+                
+                }
+     else       if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
             {
             System.out.println("inside driverPGL  ! null");
+            
+              
 
             if (resourceBundle.containsKey("TRUCK_CARD_EXIST"))
             {
@@ -1131,16 +1164,36 @@ public class CardBean implements Serializable {
         {
             if(vehiclePGL)
             {
-
-
+                System.out.println("driver number" + getBindings().getVehicleNumber().getValue());
+                if(getBindings().getVehicleNumber().getValue() == null)
+                {
+                showErrorMsgEditFlag = true;
+                    warningMsg =  resourceBundle.getObject("VEHICLE_EMPTY").toString();
+                System.out.println("warningMsg" + warningMsg);
+                
+                }
+else
+                {
                 checkVehicleAssociation();
+                }
             }
             else
             {
+                
         if(driverPGL)
         {
-
+            System.out.println("driver number" + getBindings().getDriverNumber().getValue());
+            if(getBindings().getDriverNumber().getValue() == null)
+            {
+            showErrorMsgEditFlag = true;
+            warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
+            System.out.println("warningMsg" + warningMsg);
+            
+            }
+            else
+            {
         checkDriverAssociation();
+            }
         }
             }
         }

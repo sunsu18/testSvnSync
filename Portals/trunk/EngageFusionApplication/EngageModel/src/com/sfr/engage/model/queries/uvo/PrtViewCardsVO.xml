@@ -10,6 +10,7 @@
   CustomQuery="true"
   PageIterMode="Full"
   UseGlueCode="false"
+  OrderBy='"ACCOUNT_ID"'
   RowClass="com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl"
   ComponentClass="com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl">
   <DesignTime>

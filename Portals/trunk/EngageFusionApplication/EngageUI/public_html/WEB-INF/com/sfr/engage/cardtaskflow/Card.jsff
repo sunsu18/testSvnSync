@@ -199,8 +199,8 @@
                 <f:validator binding="#{row.bindings.AccountId.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.CARDGROUP}" filterable="true" sortProperty="cardGroupDescription"
-                       id="c9"  width="110px">
+            <af:column headerText="#{sfr.CARDGROUP}"  filterable="true" sortProperty="cardGroupDescription"
+                       id="c9" width="147px">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.mandatory}"
@@ -225,7 +225,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}"
-                       id="c3"  width="192px">
+                       id="c3"  width="155px">
               <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
@@ -325,7 +325,7 @@
                        id="ot10"
                        binding="#{pageFlowScope.CardBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
-                       styleClass="errorOutputText" partialTriggers="save"/>
+                       styleClass="errorOutputText" partialTriggers="save sor1"/>
                        
             <h:panelGrid columns="5" id="pg3">
              <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
