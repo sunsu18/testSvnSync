@@ -399,7 +399,7 @@
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>           
         <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left"
+                     sortable="false" align="left" width="150"
                      headerText="#{sfr.CARDGROUP}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
