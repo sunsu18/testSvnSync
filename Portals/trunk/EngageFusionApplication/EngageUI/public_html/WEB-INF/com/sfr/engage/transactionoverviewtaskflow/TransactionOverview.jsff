@@ -398,17 +398,17 @@
                      id="c30">
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>           
-        <af:column sortProperty="CardgroupMainType" filterable="false" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+        <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="false" align="left"
                      headerText="#{sfr.CARDGROUP}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
-            <af:outputText value="#{row.CardgroupMainType}" id="ot37" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-             <af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-             <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.CardGroupDesc}" id="ot37" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+             <!--<af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+             <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
-           <af:column sortProperty="Card1Id" filterable="true" sortable="false" visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+           <af:column sortProperty="Card1Id" filterable="true" sortable="false"
                      headerText="#{sfr.CARD}" align="left" width="150"
                      id="c31">
             <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
@@ -437,18 +437,18 @@
                      id="c28">
             <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-         <af:column sortProperty="Quantity" filterable="false" sortable="false" width="80"
+         <af:column sortProperty="Quantity" filterable="true" sortable="false" width="80"
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
                      id="c35">
-            <af:panelGroupLayout id="pgl19">
-              <af:spacer width="2" height="1" id="spacer14"/>
             <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.Quantity.format}"/>
             </af:outputText>
-             <af:spacer width="2" height="1" id="s229"/>
-            <af:outputText value="#{row.UnitOfMeasure}" id="ot74" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-            </af:panelGroupLayout>
+          </af:column>
+           <af:column sortProperty="UnitOfMeasure" filterable="false" sortable="false" width="80"
+                     headerText="#{sfr.ENGAGE_UNITOFMEASURE}" align="left"
+                      id="c2">
+            <af:outputText value="#{row.UnitOfMeasure}" id="ot35" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>            
           </af:column>
           <af:column sortProperty="CurrencyUnitPrice" filterable="false"
                      sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"

@@ -1,5 +1,18 @@
 package com.sfr.engage.model.queries.rvo;
 
+import com.sfr.engage.core.PartnerInfo;
+
+import java.util.List;
+
+import javax.faces.context.ExternalContext;
+
+import javax.faces.context.FacesContext;
+
+import javax.faces.model.SelectItem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import oracle.jbo.domain.Date;
 import oracle.jbo.domain.Number;
 import oracle.jbo.domain.Timestamp;
@@ -12,6 +25,13 @@ import oracle.jbo.server.ViewRowImpl;
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
 public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
+    
+    private ExternalContext ectx=FacesContext.getCurrentInstance().getExternalContext();
+    private HttpServletRequest request=(HttpServletRequest)ectx.getRequest();
+    private HttpSession session=request.getSession(false);
+    private List<PartnerInfo> partnerInfoList;
+    
+    
     /**
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
@@ -24,6 +44,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             public void put(PrtCardTransactionOverviewRVORowImpl obj,
                             Object value) {
                 obj.setUrefTransactionId((String)value);
+            }
+        }
+        ,
+        PartnerId {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getPartnerId();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setPartnerId((String)value);
             }
         }
         ,
@@ -543,6 +574,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setgrandTotal((Float)value);
             }
         }
+        ,
+        CardGroupDesc {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardGroupDesc();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardGroupDesc((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -574,6 +616,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
 
 
     public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
+    public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
     public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
     public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
@@ -621,6 +664,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int KMPERLT = AttributesEnum.kmPerLt.index();
     public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
     public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
+    public static final int CARDGROUPDESC = AttributesEnum.CardGroupDesc.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -642,6 +686,22 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setUrefTransactionId(String value) {
         setAttributeInternal(UREFTRANSACTIONID, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PartnerId.
+     * @return the PartnerId
+     */
+    public String getPartnerId() {
+        return (String) getAttributeInternal(PARTNERID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerId.
+     * @param value value to set the  PartnerId
+     */
+    public void setPartnerId(String value) {
+        setAttributeInternal(PARTNERID, value);
     }
 
     /**
@@ -1440,6 +1500,48 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setgrandTotal(Float value) {
         setAttributeInternal(GRANDTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardGroupDesc.
+     * @return the CardGroupDesc
+     */
+    public String getCardGroupDesc() {
+        String cardGroupDesc="";
+        if(session!=null) {
+            if (session.getAttribute("Partner_Object_List") != null) {
+                partnerInfoList =
+                        (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                String partnerId=getPartnerId();
+                String cardGroupId=getCardgroupMainType().toString().trim()+getCardgroupSubType().toString().trim()+getCardgroupSeq().toString().trim();
+                if (partnerInfoList != null) {
+                    for (int k = 0; k < partnerInfoList.size(); k++) {
+                        if (partnerId.equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {                           
+                                for (int ac = 0;ac < partnerInfoList.get(k).getAccountList().size();ac++) {                                    
+                                        for (int cg = 0;cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size();cg++) {
+                                            if(cardGroupId.equalsIgnoreCase(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID())) {
+                                               cardGroupDesc=  partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupName().toString();                                              
+                                            }                                         
+                                            
+                                        }                                                          
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return cardGroupDesc;
+        //return (String) getAttributeInternal(CARDGROUPDESC);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardGroupDesc.
+     * @param value value to set the  CardGroupDesc
+     */
+    public void setCardGroupDesc(String value) {
+        setAttributeInternal(CARDGROUPDESC, value);
     }
 
     /**

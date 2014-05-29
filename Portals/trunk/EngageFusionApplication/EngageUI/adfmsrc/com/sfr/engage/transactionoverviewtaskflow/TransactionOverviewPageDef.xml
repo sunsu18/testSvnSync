@@ -249,6 +249,7 @@
           <Item Value="TransactionType"/>
            <Item Value="UrefTransactionId"/>
           <Item Value="PalsCountryCode"/>
+          <Item Value="CardGroupDesc"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

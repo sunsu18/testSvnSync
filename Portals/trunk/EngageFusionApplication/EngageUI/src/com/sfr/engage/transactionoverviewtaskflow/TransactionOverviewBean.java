@@ -1327,7 +1327,7 @@ public class TransactionOverviewBean implements Serializable {
 
 
     public String formatConversion(Date date) {
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
         return sdf.format(date);
     }
 
@@ -2159,16 +2159,18 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(row.getProductName().toString());
                             }
                         } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getQuantity() != null) {
-                                String unitOfMeasure = "";
-                                if (row.getUnitOfMeasure() != null) {
-                                    unitOfMeasure = row.getUnitOfMeasure();
-                                }
+                            if (row.getQuantity() != null) {  
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getQuantity().toString() + " " + unitOfMeasure);
+                                XLS_SH_R_C.setCellValue(row.getQuantity().toString());
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getUnitOfMeasure() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getUnitOfMeasure().toString());
+                            }
+                        }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
@@ -2266,12 +2268,10 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(row.getltPerHundred().toString());
                             }
                         } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getCardgroupMainType() != null) {
+                            if (row.getCardGroupDesc() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getCardgroupMainType().toString() +
-                                                        row.getCardgroupSubType() +
-                                                        row.getCardgroupSeq());
+                                XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
                         } else if ("DriverNumber".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getDriverNumber() != null) {
@@ -2393,17 +2393,20 @@ public class TransactionOverviewBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getQuantity() != null) {
-                                String unitOfMeasure = "";
-                                if (row.getUnitOfMeasure() != null) {
-                                    unitOfMeasure = row.getUnitOfMeasure();
-                                }
-                                out.print(row.getQuantity().toString()+ " " +unitOfMeasure);
+                            if (row.getQuantity() != null) { 
+                                out.print(row.getQuantity().toString());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getUnitOfMeasure() != null) {
+                                out.print(row.getUnitOfMeasure().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())),
                                                            locale));
@@ -2495,10 +2498,8 @@ public class TransactionOverviewBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getCardgroupMainType() != null) {
-                                out.print(row.getCardgroupMainType().toString() +
-                                          row.getCardgroupSubType() +
-                                          row.getCardgroupSeq());
+                            if (row.getCardGroupDesc() != null) {
+                                out.print(row.getCardGroupDesc().toString());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -2616,7 +2617,14 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            }  else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if (row.getUnitOfMeasure() != null) {
+                                        out.print(row.getUnitOfMeasure().toString());
+                                        }
+                                 if (cellValue != headerValues.length - 1) {
+                                     out.print("|");
+                                 }
+                             }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCurrencyUnitPrice() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())),
                                                                locale));
@@ -2709,10 +2717,8 @@ public class TransactionOverviewBean implements Serializable {
                                     out.print("|");
                                 }
                             } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getCardgroupMainType() != null) {
-                                    out.print(row.getCardgroupMainType().toString() +
-                                              row.getCardgroupSubType() +
-                                              row.getCardgroupSeq());
+                                if (row.getCardGroupDesc() != null) {
+                                    out.print(row.getCardGroupDesc().toString());
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
