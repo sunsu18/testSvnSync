@@ -620,7 +620,7 @@
         
         
         
-        <af:outputText value="#{sfr.ACCOUNT_NAME}" id="ot70"/>
+        <af:outputText value="#{sfr.ACCOUNT_ID}" id="ot70"/>
           <af:outputText value=":" id="ot72"/>
           <af:spacer width="10" height="10" id="s60"/>
               
