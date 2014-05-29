@@ -584,8 +584,8 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
         }else{
-            if (resourceBundle.containsKey("MANDATORY_CHECK")) {
-                warningMsg = resourceBundle.getObject("MANDATORY_CHECK").toString();
+            if (resourceBundle.containsKey("ENGAGE_SELECT_TRANSACTION_MANDATORY")) {
+                warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
                 //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"), "");
@@ -793,8 +793,8 @@ public class VehicleInfoBean implements Serializable {
             }
 
         }else{
-            if (resourceBundle.containsKey("MANDATORY_CHECK")) {
-                warningMsg = resourceBundle.getObject("MANDATORY_CHECK").toString();
+            if (resourceBundle.containsKey("ENGAGE_SELECT_TRANSACTION_MANDATORY")) {
+                warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgEditFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                 //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"), "");

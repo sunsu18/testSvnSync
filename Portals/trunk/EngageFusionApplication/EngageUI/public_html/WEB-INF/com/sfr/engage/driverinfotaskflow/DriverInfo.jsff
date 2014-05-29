@@ -97,7 +97,7 @@
          <!--<af:showPopupBehavior triggerType="click" popupId="new_driver"/>-->                 
          </af:commandButton>                 
         <af:spacer width="12" height="10" id="s23"/>
-            <af:commandButton text="#{sfr.ENGAGE_CLEAR}" id="cb2"
+            <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                        actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}">
                        </af:commandButton> 
                        <af:spacer width="10" height="10" id="s35"/>
@@ -227,7 +227,7 @@
                                   action="#{pageFlowScope.DriverInfoBean.newDriverSave}" 
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s8"/>
-                <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
+                <af:commandButton text="#{sfr.CLEAR}" id="ccb11"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.newDriverCancel}" styleClass="buttonback buttontext">                  
@@ -497,7 +497,7 @@
                                   action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s9"/>
-                <af:commandButton text="#{sfr.CANCEL}" id="cb8"
+                <af:commandButton text="#{sfr.CLEAR}" id="cb8"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.DriverInfoBean.editDriverCancel}" 

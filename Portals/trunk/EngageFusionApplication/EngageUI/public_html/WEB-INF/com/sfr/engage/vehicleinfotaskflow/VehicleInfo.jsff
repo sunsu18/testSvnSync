@@ -241,7 +241,7 @@
                                   action="#{pageFlowScope.VehicleInfoBean.newVehicleSave}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="10" height="10" id="s8"/>
-                <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="ccb11"
+                <af:commandButton text="#{sfr.CLEAR}" id="ccb11"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.VehicleInfoBean.newVehicleCancel}"></af:commandButton>
@@ -509,7 +509,7 @@
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleSave}"
                                   styleClass="buttonback buttontext"/>
                 <af:spacer width="20" height="50" id="s9"/>
-                <af:commandButton text="#{sfr.VEHICLEINFO_CANCEL}" id="cb5"
+                <af:commandButton text="#{sfr.CLEAR}" id="cb5"
                                   actionListener="#{bindings.Rollback.execute}"
                                   immediate="true"
                                   action="#{pageFlowScope.VehicleInfoBean.editVehicleCancel}"
