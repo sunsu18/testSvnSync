@@ -11,14 +11,15 @@ import com.sfr.engage.model.datacontrol.UserClient;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.services.core.dao.factory.DAOFactory;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
@@ -36,20 +37,14 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.ADFContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.share.security.SecurityContext;
 import oracle.adf.view.rich.context.AdfFacesContext;
-
-import com.sfr.util.validations.Conversion;
-
-import java.util.logging.Logger;
-
-import oracle.adf.share.logging.ADFLogger;
 
 import oracle.jbo.ViewObject;
 
 import oracle.webcenter.portalframework.sitestructure.SiteStructure;
 import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
-
 
 
 public class MyPageListener implements PagePhaseListener {
@@ -71,6 +66,8 @@ public class MyPageListener implements PagePhaseListener {
     List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
     List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
+
+
     boolean addflagaccount = false;
     boolean addflagcardgroup = false;
     boolean addflagcard = false;
@@ -81,6 +78,9 @@ public class MyPageListener implements PagePhaseListener {
     boolean skipOtherRoles = false;
     AccountInfo account_check = new AccountInfo();
     CardGroupInfo cardgrp_check = new CardGroupInfo();
+
+
+    HashSet cardTypeHS = new HashSet();
 
 public void afterPhase(PagePhaseEvent pagePhaseEvent) {
         if (pagePhaseEvent.getPhaseId() == Lifecycle.PREPARE_RENDER_ID) {
@@ -158,7 +158,7 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                 // check if user is authenticated, read user information and set in session
 //                System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "IN PHASE 9 ");
                 if (securityContext.isAuthenticated()) {
-                    System.out.println("This should execute only after authentication is true");
+//                    System.out.println("This should execute only after authentication is true");
 
                     if (session.getAttribute(Constants.SESSION_USER_INFO) == null) {
                         System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " +
@@ -202,6 +202,7 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                         if (session.getAttribute("executePartnerObjLogic") ==
                             null ) {
                                 //System.out.println("Executing logic to prepare partner object");
+
                                 System.out.println(accessDC.getDisplayRecord() +  this.getClass() + " Executing logic to prepare Partner object");
 
 
@@ -224,7 +225,7 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                                     if (user.getRoleList().get(i).getIdString() !=
                                         null) {
                                         int idlist = 0;
-                                   System.out.println(" user.getRoleList().get(i).getIdString().size()" + user.getRoleList().get(i).getIdString().size());
+                                   System.out.println(accessDC.getDisplayRecord() +  this.getClass() + " user.getRoleList().get(i).getIdString().size()" + user.getRoleList().get(i).getIdString().size());
                                         do {
                                             partnerobj = new PartnerInfo();
 
@@ -290,6 +291,9 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                             System.out.println(accessDC.getDisplayRecord() +  this.getClass() + " Final Partner list 2 size after going through the entire RoleList " + partnerlist.size());
                             partnerListSession = new ArrayList<PartnerInfo>();
 
+
+                            cardTypeHS = new HashSet();
+
                             for (int i = 0; i < user.getRoleList().size();
                                  i++) {
 
@@ -310,7 +314,8 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                                                                             }
                                    // session.setAttribute("executePartnerObjLogic", "no");
                                     System.out.println((accessDC.getDisplayRecord() +  this.getClass() + " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
-
+                                    System.out.println("cardTypeHS size is " + cardTypeHS.size());
+                                    session.setAttribute("cardTypeList", cardTypeHS);
 
                                 }
 
@@ -1485,9 +1490,11 @@ new CardInfo();
 
 
         if (userList != null)
-            System.out.println("userlist size " + userList.size());
+            System.out.println(AccessDataControl.getDisplayRecord() +
+                           this.getClass() + ".setUserInfoInSession : " +"userlist size " + userList.size());
         else
-            System.out.println("userlist size is null");
+            System.out.println(AccessDataControl.getDisplayRecord() +
+                           this.getClass() + "userlist size is null");
 
         if (userList != null && !userList.isEmpty()) {
             //TODO : We are setting 1st user value from the List. Is that right ?
@@ -1506,10 +1513,13 @@ new CardInfo();
                                      user.getFirstName());
                 if (user.getRolelist() != null &&
                     !user.getRolelist().isEmpty()) {
-                    System.out.println("Checking user get role list is proper or not===================>");
-                    System.out.println("RoleList size      -----------" +
+                    System.out.println(AccessDataControl.getDisplayRecord() +
+                           this.getClass() + "Checking user get role list is proper or not===================>");
+                    System.out.println(AccessDataControl.getDisplayRecord() +
+                           this.getClass() + "RoleList size      -----------" +
                                        user.getRoleList().size());
-                    System.out.println("RoleList size" +
+                    System.out.println(AccessDataControl.getDisplayRecord() +
+                           this.getClass() + "RoleName " +
                                        user.getRoleList().get(0).getRoleName());
                     //System.out.println("Role of admin" +
                     //              (Constants.ROLE_WCP_CARD_ADMIN));
@@ -1904,6 +1914,9 @@ new CardInfo();
 
 
             card = new CardInfo();
+
+
+
             PrtCardVORowImpl currRowcard =
                 (PrtCardVORowImpl)cardVO.next();
 
@@ -1915,8 +1928,11 @@ new CardInfo();
 //                                                           currRowcard.getPrtCardPk());
 
                     card.setCardID(currRowcard.getPrtCardPk().toString());
-
                     card.setCardOverview(true);
+                }
+
+                if(currRowcard.getCardType()!= null) {
+                    cardTypeHS.add(currRowcard.getCardType().toString());
                 }
 
                 if (currRowcard.getCardEmbossNum() != null)
