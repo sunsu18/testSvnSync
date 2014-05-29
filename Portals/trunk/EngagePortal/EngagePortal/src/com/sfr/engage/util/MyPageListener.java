@@ -177,6 +177,7 @@ public class MyPageListener implements PagePhaseListener {
 
                     // if user is authenticated and requested for sign in page then redirect to home page
                     SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
+
                     if (currentViewId.contains("login")) {
                         if (securityContext.isAuthenticated()) {
                             System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Inside OAM authenticated");
@@ -185,7 +186,9 @@ public class MyPageListener implements PagePhaseListener {
                             ectx.redirect(ectx.getRequestContextPath() + requestedPage);
                         }
                         else {
-                            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Request is for login however user is " +user);
+                            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " +
+                                               "Request is for login however Authorization enabled = " +
+                                               ADFContext.getCurrent().getSecurityContext().isAuthorizationEnabled() + "user is " + user);
                         }
                     }
                 }
