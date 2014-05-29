@@ -232,7 +232,7 @@
                             columns="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.displayWidth}"
                             maximumLength="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.precision}"
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.tooltip}"
-                            id="it1">
+                            id="it1" >
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
               </af:inputText>
             </af:column>
@@ -295,15 +295,12 @@
             
               <af:commandImageLink id="cil1" icon="/images/edit.png"
                                    action="#{pageFlowScope.CardBean.editDetails}">
-               <af:setPropertyListener from="#{row.CardType}"
-                                to="#{pageFlowScope.cardAssociation}"
-                                type="action"/>
-                <af:setPropertyListener from="#{row.PrtCardPk}" to="#{pageFlowScope.internalCardNumber}"
-                                type="action"/>                 
-                
+               <af:setPropertyListener from="#{row.CardType}" to="#{pageFlowScope.cardAssociation}" type="action"/>
+                <af:setPropertyListener from="#{row.PrtCardPk}" to="#{pageFlowScope.internalCardNumber}" type="action"/>  
                 <af:setPropertyListener from="#{row.AccountId}" to="#{pageFlowScope.associatedAccount}" type="action"/>
                  <af:setPropertyListener from="#{row.VehicleNumber}" to="#{pageFlowScope.VehicleNumber}" type="action"/>
                   <af:setPropertyListener from="#{row.DriverName}" to="#{pageFlowScope.DriverNumber}" type="action"/>
+                  <af:setPropertyListener from="#{row.CardEmbossNum}" to="#{pageFlowScope.cardEmbossNum}" type="action"/>
                 
                 </af:commandImageLink>
             
@@ -312,14 +309,14 @@
           </af:table>
            <af:popup id="p1" contentDelivery="immediate"
              binding="#{pageFlowScope.CardBean.bindings.truckdriverDetails}"
-             autoCancel="disabled"  >
-        <af:dialog id="d1" type="none">
+             autoCancel="disabled"   >
+        <af:dialog id="d1" type="none" closeIconVisible="false">
               <af:panelGroupLayout id="pgl5" layout="vertical"
                                    inlineStyle="width:390px; height:200.0px;">
-              <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.internalCardNumber}"  id="aot1"
+              <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}"  id="aot1"
                              styleClass="heading heading_account"/>
-                             
-                             <af:panelGroupLayout id="pgl11" layout="horizontal">
+              
+                <af:panelGroupLayout id="pgl11" layout="horizontal">
       <af:separator id="s29"
                       inlineStyle="width:390px; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
     </af:panelGroupLayout>
@@ -403,7 +400,7 @@
                                        partialTriggers="soc2"/>
                    
              </h:panelGrid>
-                   
+                  
                   </af:panelGroupLayout>
                  
         </af:panelGroupLayout>

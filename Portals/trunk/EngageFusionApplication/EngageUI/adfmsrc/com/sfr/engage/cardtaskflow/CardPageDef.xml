@@ -34,7 +34,7 @@
           <Item Value="AccountId"/>
           <Item Value="CardType"/>
           <Item Value="CardEmbossNum"/>
-      <Item Value="VehicleNumber"/>
+          <Item Value="VehicleNumber"/>
           <Item Value="DriverName"/>
           <Item Value="BlockCode"/>
           <Item Value="CardExpiry"/>
@@ -74,5 +74,12 @@
       <NamedData NDName="countryCd" NDType="java.lang.String"/>
       <NamedData NDName="vehicleDriverValue" NDType="java.lang.String"/>
       <NamedData NDName="associatedAccount" NDType="java.lang.String"/>
-    </methodAction>  </bindings>
+    </methodAction>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardEmbossNum">
+      <AttrNames>
+        <Item Value="CardEmbossNum"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
 </pageDefinition>

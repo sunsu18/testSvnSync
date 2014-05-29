@@ -49,12 +49,16 @@
        ,null as VEHICLE_NUMBER
        ,null as INTERNAL_NAME
        ,PDI.CARD_NUMBER
+       ,PC.CARD_EMBOSS_NUM
      
 FROM PRT_DRIVER_INFORMATION PDI
+LEFT JOIN PRT_CARD PC
+ON    PDI.CARD_NUMBER        = PC.PRT_CARD_PK
 WHERE  INSTR(:accountValue,PDI.ACCOUNT_NUMBER)<>0
 AND   PDI.COUNTRY_CODE       = :countryCd
 AND   'Driver'               = :paramValue
 AND   PDI.DRIVER_NUMBER      LIKE CONCAT (:driverNumber,'%')
+ 
 
 
 UNION
@@ -64,9 +68,12 @@ SELECT null as DRIVER_NAME
        ,PTI.VEHICLE_NUMBER
        ,PTI.INTERNAL_NAME
        ,PTI.CARD_NUMBER
+       ,PC.CARD_EMBOSS_NUM
       
-
 FROM PRT_TRUCK_INFORMATION PTI
+LEFT JOIN PRT_CARD PC
+ON    PTI.CARD_NUMBER        = PC.PRT_CARD_PK
+
 WHERE  INSTR(:accountValue,PTI.ACCOUNT_NUMBER)<>0
 AND   PTI.COUNTRY_CODE        = :countryCd
 AND   'Vehicle'               = :paramValue
@@ -145,6 +152,21 @@ AND   PTI.VEHICLE_NUMBER      LIKE CONCAT (:vehicleNumber,'%')]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardEmbossNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_EMBOSS_NUM"
+    Expression="CARD_EMBOSS_NUM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ResourceBundle>

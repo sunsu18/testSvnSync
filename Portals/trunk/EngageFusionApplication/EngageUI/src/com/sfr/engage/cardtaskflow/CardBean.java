@@ -119,6 +119,7 @@ public class CardBean implements Serializable {
     private String warningMsg = null;
     private boolean showErrorMsgEditFlag = false;
     private String internalCardNumber = null;
+    private String cardEmbossNum = null;
 
    public CardBean() {
         super();
@@ -563,6 +564,7 @@ public class CardBean implements Serializable {
                 vehiclePGL = false;
 //                System.out.println("driver" + valueChangeEvent.getNewValue().toString());
                 populateValue(valueChangeEvent.getNewValue().toString());
+               
 
             } else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
                 this.getBindings().getDriverNumber().setValue(null);
@@ -610,6 +612,7 @@ public class CardBean implements Serializable {
     public String editDetails() {
         cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
         internalCardNumber= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber").toString().trim();
+        cardEmbossNum = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardEmbossNum").toString().trim();
         getBindings().getVehicleDriverRadio().setValue(null);
         this.getBindings().getDriverNumber().setValue(null);
         this.getBindings().getVehicleNumber().setValue(null);
@@ -722,6 +725,9 @@ public class CardBean implements Serializable {
     }
 
     public void setDriverNameValue(String driverNameValue) {
+//        if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null){
+//            this.driverNameValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
+//        }
         this.driverNameValue = driverNameValue;
     }
 
@@ -775,7 +781,7 @@ public class CardBean implements Serializable {
         System.out.println("inside vehicle association method");
         System.out.println("vehicle number already associated is" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber"));
 
-        ViewObject vehicleVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO2Iterator");
+        ViewObject vehicleVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
 
         System.out.println("view object" + vehicleVo);
 
@@ -808,7 +814,7 @@ public class CardBean implements Serializable {
                         if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
 //                            System.out.println("vehicle already associated");
                             showErrorMsgEditFlag = true;
-                            warningMsg = resourceBundle.getObject("TRUCK_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardNumber());
+                            warningMsg = resourceBundle.getObject("TRUCK_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardEmbossNum());
                             System.out.println("warningMsg" + warningMsg);
                         }
                     }
@@ -849,7 +855,7 @@ public class CardBean implements Serializable {
             System.out.println("inside driver association method");
             System.out.println("driver number already associated is" + AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber"));
 
-            ViewObject driverVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO2Iterator");
+            ViewObject driverVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
 
             System.out.println("view object" + driverVo);
 
@@ -876,7 +882,7 @@ public class CardBean implements Serializable {
                     System.out.println("inside while of driverVo");
                        PrtViewVehicleDriverVORowImpl currRow =(PrtViewVehicleDriverVORowImpl)driverVo.next();
                     System.out.println("currRow"+currRow);
-                    System.out.println("card number" + currRow.getCardNumber());
+                    System.out.println("card number" + currRow.getCardEmbossNum());
                         if (currRow != null) {
                             if(currRow.getCardNumber() != null)
                             {
@@ -884,7 +890,7 @@ public class CardBean implements Serializable {
             if (resourceBundle.containsKey("DRIVER_CARD_ALREADY_EXIST")) {
                 System.out.println("driver already associated");
                 showErrorMsgEditFlag=true;
-                warningMsg = resourceBundle.getObject("DRIVER_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardNumber());
+                warningMsg = resourceBundle.getObject("DRIVER_CARD_ALREADY_EXIST").toString().concat(" ").concat(currRow.getCardEmbossNum());
                 System.out.println("warningMsg" + warningMsg);
             }
             }
@@ -1105,9 +1111,13 @@ public class CardBean implements Serializable {
     }
 
     public String closePopUp() {
+     getBindings().getVehicleDriverRadio().setValue(null);
+  
      getBindings().getTruckdriverDetails().hide();
         return null;
-    } public List getShuttleList() {
+    }
+    
+    public List getShuttleList() {
         return shuttleList;
     }
 
@@ -1167,7 +1177,7 @@ public class CardBean implements Serializable {
     }
 
     public String formatConversion(Date date) {
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
         return sdf.format(date);
     }
 
@@ -1454,8 +1464,16 @@ public class CardBean implements Serializable {
         return null;
     }
 
+    public void setCardEmbossNum(String cardEmbossNum) {
+        this.cardEmbossNum = cardEmbossNum;
+    }
 
- public class Bindings {
+    public String getCardEmbossNum() {
+        return cardEmbossNum;
+    }
+
+
+    public class Bindings {
         private RichSelectOneChoice partner;
         private RichSelectManyChoice cardGroup;
         private RichSelectManyChoice account;

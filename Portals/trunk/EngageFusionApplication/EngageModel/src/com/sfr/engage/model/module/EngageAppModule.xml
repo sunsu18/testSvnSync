@@ -96,14 +96,11 @@
     Name="PrtExportInfoRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtExportInfoRVO"/>
   <ViewUsage
-    Name="PrtViewVehicleDriverVO1"
-    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVO"/>
-  <ViewUsage
-    Name="PrtViewVehicleDriverVO2"
-    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVO"/>
-  <ViewUsage
     Name="PrtViewCardsVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"/>
+  <ViewUsage
+    Name="PrtViewVehicleDriverVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVO"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
