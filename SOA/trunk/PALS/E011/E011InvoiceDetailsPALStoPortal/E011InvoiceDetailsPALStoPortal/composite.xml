@@ -18,6 +18,18 @@
           location="GetPALSDB2CountDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/PALSDB2DBAdapter"
           location="PALSDB2DBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeInvoiceDetailsPortalDBAdapter"
+          location="MergeInvoiceDetailsPortalDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorDBAdapter"
+          location="SOAErrorDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeDeltaTSSOADBAdapterV1"
+          location="MergeDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorLogDBAdapter"
+          location="SOAErrorLogDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorHandlerJMSAdapter"
+          location="SOAErrorHandlerJMSAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/UpdateSOAErrorDBAdapter"
+          location="UpdateSOAErrorDBAdapter.wsdl" importType="wsdl"/>
   <service name="e011invoicedetailspalstoportalbpel_client_ep"
            ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
@@ -63,6 +75,75 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="MergeInvoiceDetailsPortalDBAdapter"
+             ui:wsdlLocation="MergeInvoiceDetailsPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeInvoiceDetailsPortalDBAdapter#wsdl.interface(MergeInvoiceDetailsPortalDBAdapter_ptt)"/>
+    <binding.jca config="MergeInvoiceDetailsPortalDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
+    <binding.jca config="SOAErrorDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="MergeDeltaTSSOADBAdapterV1"
+             ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
+    <binding.jca config="MergeDeltaTSSOADBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
+    <binding.jca config="SOAErrorLogDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="SOAErrorHandlerJMSAdapter"
+             ui:wsdlLocation="SOAErrorHandlerJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAErrorHandlerJMSAdapter_jms.jca"/>
+  </reference>
+  <reference name="UpdateSOAErrorDBAdapter"
+             ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
+    <binding.jca config="UpdateSOAErrorDBAdapter_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="E011InvoiceDetailsPALStoPortalWebservice"
+             ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
+    <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
+    <binding.ws port="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.endpoint(e011invoicedetailspalstoportalbpel_client_ep/E011InvoiceDetailsPALStoPortalBPEL_pt)" location="http://10.24.240.15:7021/soa-infra/services/PALS/E011InvoiceDetailsPALStoPortal/e011invoicedetailspalstoportalbpel_client_ep?WSDL"/>
+  </reference>
   <wire>
     <source.uri>e011invoicedetailspalstoportalbpel_client_ep</source.uri>
     <target.uri>E011InvoiceDetailsPALStoPortalBPEL/e011invoicedetailspalstoportalbpel_client</target.uri>
@@ -78,5 +159,33 @@
   <wire>
     <source.uri>E011InvoiceDetailsPALStoPortalBPEL/PALSDB2DBAdapter</source.uri>
     <target.uri>PALSDB2DBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/MergeInvoiceDetailsPortalDBAdapter</source.uri>
+    <target.uri>MergeInvoiceDetailsPortalDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/SOAErrorDBAdapter</source.uri>
+    <target.uri>SOAErrorDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/MergeDeltaTSSOADBAdapterV1</source.uri>
+    <target.uri>MergeDeltaTSSOADBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/SOAErrorLogDBAdapter</source.uri>
+    <target.uri>SOAErrorLogDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/SOAErrorHandlerJMSAdapter</source.uri>
+    <target.uri>SOAErrorHandlerJMSAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/UpdateSOAErrorDBAdapter</source.uri>
+    <target.uri>UpdateSOAErrorDBAdapter</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/E011InvoiceDetailsPALStoPortalWebservice</source.uri>
+    <target.uri>E011InvoiceDetailsPALStoPortalWebservice</target.uri>
   </wire>
 </composite>

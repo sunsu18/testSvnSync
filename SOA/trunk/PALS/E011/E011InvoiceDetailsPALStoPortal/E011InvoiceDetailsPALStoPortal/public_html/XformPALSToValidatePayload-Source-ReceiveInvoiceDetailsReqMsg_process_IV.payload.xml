@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<invocationMsg xmlns="http://www.statoilfuelretail.com/integration/engage/E011/E011InvocationReqMsg">
+   <SenderSystem>SenderSystem91</SenderSystem>
+   <ReceiverSystem>ReceiverSystem92</ReceiverSystem>
+   <InterfaceID>InterfaceID93</InterfaceID>
+   <CountryCode>CountryCode94</CountryCode>
+   <PALS_JNDI>PALS_JNDI95</PALS_JNDI>
+   <BatchSize>96</BatchSize>
+   <NumberOfBatches>97</NumberOfBatches>
+   <UserName>UserName98</UserName>
+</invocationMsg>

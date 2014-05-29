@@ -1,0 +1,25 @@
+<?binding.jca SOAErrorLogDBAdapter_db.jca?>
+<wsdl:definitions name="SOAErrorLogDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorLogDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorLogDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter">
+    <plt:partnerLinkType name="SOAErrorLogDBAdapter_plt">
+        <plt:role name="SOAErrorLogDBAdapter_role">
+            <plt:portType name="tns:SOAErrorLogDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter" schemaLocation="xsd/SOAErrorLogDBAdapter_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SOAErrorLogDBAdapterSelect_inputParameters">
+        <wsdl:part name="SOAErrorLogDBAdapterSelect_inputParameters" element="top:SOAErrorLogDBAdapterSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="EngageCrdInvdtlsErrlogsCollection_msg">
+        <wsdl:part name="EngageCrdInvdtlsErrlogsCollection" element="top:EngageCrdInvdtlsErrlogsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="SOAErrorLogDBAdapter_ptt">
+        <wsdl:operation name="SOAErrorLogDBAdapterSelect">
+            <wsdl:input message="tns:SOAErrorLogDBAdapterSelect_inputParameters"/>
+            <wsdl:output message="tns:EngageCrdInvdtlsErrlogsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

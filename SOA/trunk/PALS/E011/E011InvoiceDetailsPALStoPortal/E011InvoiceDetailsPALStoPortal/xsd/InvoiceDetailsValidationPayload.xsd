@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/engage/"
+            targetNamespace="http://www.statoilfuelretail.com/integration/engage/"
+            elementFormDefault="qualified">
+  <xsd:element name="CardInvoiceDetails">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Payload" maxOccurs="unbounded">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="countryCode">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="2"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="invoiceDocNumber">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="9"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="invoiceDocType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="accountId">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="10"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="paymentDocDetailType" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="accountType" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="paymentDocRefNumber">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="5"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="customerId" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="17"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="printPaymentDoc" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="1"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="autogiroCodeType" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="paymentDueDate" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="daysBetweenInvoiceDue" minOccurs="0" nillable="true">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="3"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="invoiceCurrency" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="invGrossAmt" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="invVatAmt" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="currNetVatFree" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="currNetVatMandatory" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="roundInvGrossAmt" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="roundInvVatAmt" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="roundCurrNetVatFree" type="xsd:double" minOccurs="0"
+                     nillable="true"/>
+        <xsd:element name="roundCurrNetVatMandatory" type="xsd:double"
+                     minOccurs="0" nillable="true"/>
+        <xsd:element name="modifiedBy" minOccurs="0">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="50"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="modifiedDate" type="xsd:dateTime" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:complexType>
+    </xsd:element>
+    </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

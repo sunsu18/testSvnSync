@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoiceDetailsPortalDBAdapter" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoiceDetailsPortalDBAdapter" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="PrtCardInvoiceDetailsCollection" type="PrtCardInvoiceDetailsCollection"/>
+   <xs:complexType name="PrtCardInvoiceDetailsCollection">
+      <xs:sequence>
+         <xs:element name="PrtCardInvoiceDetails" type="PrtCardInvoiceDetails" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="PrtCardInvoiceDetails">
+      <xs:sequence>
+         <xs:element name="countryCode">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="invoiceDocNumber">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="9"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="invoiceDocType">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="accountId">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="10"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="paymentDocDetailType" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="accountType" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="paymentDocRefNumber">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="5"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="customerId" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="17"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="printPaymentDoc" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="autogiroCodeType" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="paymentDueDate" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="daysBetweenInvoiceDue" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="3"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="invoiceCurrency" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invGrossAmt" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="invVatAmt" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currNetVatFree" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="currNetVatMandatory" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="roundInvGrossAmt" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="roundInvVatAmt" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="roundCurrNetVatFree" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="roundCurrNetVatMandatory" type="xs:double" minOccurs="0" nillable="true"/>
+         <xs:element name="modifiedBy" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

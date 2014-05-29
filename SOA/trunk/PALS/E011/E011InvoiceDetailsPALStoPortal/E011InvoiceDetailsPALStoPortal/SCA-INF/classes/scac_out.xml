@@ -3,11 +3,31 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>303</line>
+      <line>736</line>
       <col/>
       <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
       <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
       <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
-      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}integer" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}string"</msg>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}interfaceid anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>736</line>
+      <col/>
+      <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
+      <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}countrycode anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>736</line>
+      <col/>
+      <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
+      <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}updatedby anonymous type"</msg>
    </Fault>
 </Faults>

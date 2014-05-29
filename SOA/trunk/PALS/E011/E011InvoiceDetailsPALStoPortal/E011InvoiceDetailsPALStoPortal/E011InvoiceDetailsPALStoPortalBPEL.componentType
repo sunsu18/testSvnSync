@@ -19,4 +19,31 @@
   <reference name="PALSDB2DBAdapter" ui:wsdlLocation="PALSDB2DBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/PALSDB2DBAdapter#wsdl.interface(PALSDB2DBAdapter_ptt)"/>
   </reference>
+  <reference name="MergeInvoiceDetailsPortalDBAdapter"
+             ui:wsdlLocation="MergeInvoiceDetailsPortalDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeInvoiceDetailsPortalDBAdapter#wsdl.interface(MergeInvoiceDetailsPortalDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SOAErrorDBAdapter" ui:wsdlLocation="SOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorDBAdapter#wsdl.interface(SOAErrorDBAdapter_ptt)"/>
+  </reference>
+  <reference name="MergeDeltaTSSOADBAdapterV1"
+             ui:wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/MergeDeltaTSSOADBAdapterV1#wsdl.interface(MergeDeltaTSSOADBAdapterV1_ptt)"/>
+  </reference>
+  <reference name="SOAErrorLogDBAdapter"
+             ui:wsdlLocation="SOAErrorLogDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorLogDBAdapter#wsdl.interface(SOAErrorLogDBAdapter_ptt)"/>
+  </reference>
+  <reference name="SOAErrorHandlerJMSAdapter"
+             ui:wsdlLocation="SOAErrorHandlerJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAErrorHandlerJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="UpdateSOAErrorDBAdapter"
+             ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
+  </reference>
+  <reference name="E011InvoiceDetailsPALStoPortalWebservice"
+             ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
+    <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
+  </reference>
 </componentType>
