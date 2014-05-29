@@ -17,9 +17,12 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -31,7 +34,9 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
+import oracle.adf.share.ADFContext;
 import oracle.adf.share.logging.ADFLogger;
+import oracle.adf.share.security.SecurityContext;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
@@ -74,8 +79,10 @@ public class AuthenticatedHomeBean implements Serializable {
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
-
-
+    SecurityContext securityContext = null;
+    ADFContext adfCtx = null;
+    private List<PartnerInfo> partnerListDefault = new ArrayList<PartnerInfo>();
+    private User userInfo;
     /**
      * @return bindings Object
      */
@@ -92,7 +99,9 @@ public class AuthenticatedHomeBean implements Serializable {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
-
+        adfCtx = ADFContext.getCurrent();
+        securityContext = adfCtx.getSecurityContext();
+        if(securityContext.isAuthenticated()){
         if(session!=null)
         {
             System.out.println("temp1----------------------> " +  "session not null");
@@ -142,18 +151,30 @@ public class AuthenticatedHomeBean implements Serializable {
         resourceBundle = new EngageResourceBundle();
         Date date = new Date();
         java.sql.Date passedDate = new java.sql.Date(date.getTime());
+        Set<String> cardTypeSet = new HashSet<String>();
+        List<String> customerTypeList=new ArrayList<String>();
+        if(session.getAttribute("cardTypeList")!=null){
+            
+            cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
+        }
+        
+        List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
+        String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");   
+        
         ViewObject prtCustomerCardMapVO =
             ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
-        prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", "FA1");
+        prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
         prtCustomerCardMapVO.executeQuery();
         if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
             while (prtCustomerCardMapVO.hasNext()) {
                 PrtCustomerCardMapRVO1RowImpl currRow =
                     (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                 if (currRow != null) {
-                    customerTypeValue = currRow.getCustomerType();
+                    customerTypeList.add(currRow.getCustomerType());
+                    customerTypeValue=customerTypeList.toString().substring(1, customerTypeList.toString().length()-1).replace("", "");  
                 }
             }
+            customerTypeValue=customerTypeValue + ",ALL";
         }
         //TODO : This block could be surrounded by try catch block.
         //TODO : Check if the below queries can be merged and make it one, otherwise okay.
@@ -162,7 +183,7 @@ public class AuthenticatedHomeBean implements Serializable {
             if (customerTypeValue != null) {
                 ViewObject prtPCMFeedsVO =
                     ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
-                prtPCMFeedsVO.setWhereClause("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
+                prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
                 prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
                                                           customerTypeValue,
                                                           null);
@@ -244,7 +265,7 @@ public class AuthenticatedHomeBean implements Serializable {
                     }
                 }
 
-                if ("CUSTOMER_TYPE =: customerType AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
+                if ("INSTR(:customerType,CUSTOMER_TYPE)<>0 AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())) {
                     prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
                     prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
                     prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
@@ -357,7 +378,7 @@ public class AuthenticatedHomeBean implements Serializable {
 
     }
 
-
+    }
 
 
 

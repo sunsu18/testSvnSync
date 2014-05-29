@@ -28,7 +28,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT CUSTOMER_TYPE FROM PRT_CUSTOMER_CARD_MAP WHERE CARD_TYPE =:cardType]]>
+    <![CDATA[SELECT DISTINCT CUSTOMER_TYPE FROM PRT_CUSTOMER_CARD_MAP WHERE INSTR(:cardType,CARD_TYPE)<>0]]>
   </SQLQuery>
   <ViewAttribute
     Name="CustomerType"
