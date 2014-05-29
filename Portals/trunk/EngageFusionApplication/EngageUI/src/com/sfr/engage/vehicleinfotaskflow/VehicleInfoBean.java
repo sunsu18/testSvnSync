@@ -171,27 +171,49 @@ public class VehicleInfoBean implements Serializable {
      * This method performs search functionality in VehicleInfo Page.
      * @param actionEvent
      */
-    public void searchAction(ActionEvent actionEvent) {
+    /*public void searchAction(ActionEvent actionEvent) {
         searchResults(true);
+    }*/
+    
+    /**
+     * This method performs search functionality in VehicleInfo Page.
+     * 
+     */
+    public String searchAction(){
+        searchResults(true);
+        return null;
     }
 
     /**
      * This method is reusable for different scenario's in VehicleInfo Page to show searchResults.
      */
-    public void searchResults(boolean value) {
+    public String searchResults(boolean value) {
 
         try {
             if (value == true) {
-                if (getBindings().getLinkedAccount().getValue() != null) {
-                    searchResultsExecution();
-                } else {
-                    if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
+                if(getBindings().getLinkedPartner().getValue() != null){
+                    if (getBindings().getLinkedAccount().getValue() != null) {
+                        searchResultsExecution();
+                    } else {
+                        if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
+                            FacesMessage msg =
+                                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                 (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"),
+                                                 "");
+                            FacesContext.getCurrentInstance().addMessage(null,
+                                                                         msg);
+                            return null;
+                        }
+                    }
+                }else{
+                    if (resourceBundle.containsKey("LINKED_PARTNER")) {
                         FacesMessage msg =
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                             (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"),
+                                             (String)resourceBundle.getObject("LINKED_PARTNER"),
                                              "");
                         FacesContext.getCurrentInstance().addMessage(null,
                                                                      msg);
+                        return null;
                     }
                 }
             } else {
@@ -290,6 +312,7 @@ public class VehicleInfoBean implements Serializable {
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+        return null;
     }
 
     public String[] StringConversion(String passedVal) {
@@ -299,7 +322,22 @@ public class VehicleInfoBean implements Serializable {
         return val;
     }
 
-    public void searchResultsExecution() {
+    public String searchResultsExecution() {
+        ViewObject vo =
+            ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
+        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+            vo.removeNamedWhereClauseParam("accountNumber");
+            vo.removeNamedWhereClauseParam("registrationNumber");
+            vo.setWhereClause("");
+            vo.executeQuery();
+        }
+        
+        if("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())){
+            vo.removeNamedWhereClauseParam("accountNumber");
+            vo.setWhereClause("");
+            vo.executeQuery();
+        }
+        
         System.out.println("searchResultsExecution");
         int count = 0;
         String[] values;
@@ -326,20 +364,24 @@ public class VehicleInfoBean implements Serializable {
             Account acc = new Account();
             acc.setAccountNumber(values[i]);
             List<VehicleInfo> myVehicleList = new ArrayList<VehicleInfo>();
-            ViewObject vo =
-                ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
             vo.setNamedWhereClauseParam("countryCd", countryParam);
-            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))");
-            System.out.println("values of i" + values[i]);
-            vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
-                                           null);
-            if (getBindings().getRegisterNumber().getValue() != null) {
+//            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))");
+//            System.out.println("values of i" + values[i]);
+//            vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
+//                                           null);
+            if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length()>0) {
+                vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')");
+                vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
+                                               null);
                 vo.defineNamedWhereClauseParam("registrationNumber",
-                                               getBindings().getRegisterNumber().getValue().toString(),
+                                               getBindings().getRegisterNumber().getValue().toString().trim(),
                                                null);
             } else {
-                vo.defineNamedWhereClauseParam("registrationNumber", null,
+                vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber");
+                vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
                                                null);
+//                vo.defineNamedWhereClauseParam("registrationNumber", null,
+//                                               null);
             }
             System.out.println("Query ==" + vo.getQuery());
             vo.executeQuery();
@@ -388,12 +430,6 @@ public class VehicleInfoBean implements Serializable {
                 }
 
             }
-            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))".equalsIgnoreCase(vo.getWhereClause())) {
-                vo.removeNamedWhereClauseParam("accountNumber");
-                vo.removeNamedWhereClauseParam("registrationNumber");
-                vo.setWhereClause("");
-                vo.executeQuery();
-            }
             acc.setVehicleInfoList(myVehicleList);
             myAccount.add(acc);
         }
@@ -427,11 +463,12 @@ public class VehicleInfoBean implements Serializable {
                                          (String)resourceBundle.getObject("NO_RECORDS_FOUND_VEHICLE"),
                                          "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
                 }
                 searchResultsShow = false;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }
-
+            return null;
     }
 
     /**
@@ -461,7 +498,8 @@ public class VehicleInfoBean implements Serializable {
      */
     public String newVehicleSave() {
 
-        if (getBindings().getAddAccountId().getValue() != null && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null) {
+        if (getBindings().getAddPartnerNumberId().getValue() !=null && getBindings().getAddAccountId().getValue() != null 
+            && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null) {
             System.out.println("is it coming inside the newDriverSave method++++++++++===============>");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -561,6 +599,7 @@ public class VehicleInfoBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ADD"),
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
         return null;
     }
@@ -599,8 +638,10 @@ public class VehicleInfoBean implements Serializable {
         addCardIdDisplayValue    =null;
         cardNumberList = new ArrayList<SelectItem>();
         if(getBindings().getLinkedPartner().getValue()!= null){
-            if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0 && linkedAccountLOVValues.size()==1){
-                this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
+            if(getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() >0){
+                if(linkedAccountLOVValues.size()==1){
+                    this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString());
+                }
                 this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString();
                 this.addCardIdDisplayValue = null;
                 populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),"Add");
@@ -626,7 +667,8 @@ public class VehicleInfoBean implements Serializable {
      */
     public String editVehicleSave() {
 
-        if (getBindings().getEditAccountId().getValue() != null && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null) {
+        if (getBindings().getEditPartnerNumberId().getValue()!= null && getBindings().getEditAccountId().getValue() != null 
+            && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null) {
 
                 ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
                 driverVo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -750,6 +792,15 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
 
+        }else{
+            if (resourceBundle.containsKey("MANDATORY_CHECK")) {
+                warningMsg = resourceBundle.getObject("MANDATORY_CHECK").toString();
+                showErrorMsgEditFlag = true;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
+                //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"), "");
+                //FacesContext.getCurrentInstance().addMessage(null, msg);
+                return null;
+            }
         }
         searchResults(false);
         System.out.println("After Edit Save");
@@ -758,6 +809,7 @@ public class VehicleInfoBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_EDIT"),
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
         return null;
     }
@@ -853,6 +905,7 @@ public class VehicleInfoBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE_1"),
                                  "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
         }
         return null;
     }
@@ -900,6 +953,7 @@ public class VehicleInfoBean implements Serializable {
                                          (String)resourceBundle.getObject("VEHICLE_DELETE_SUCCESS"),
                                          "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
                 }
             } else {
                 if (resourceBundle.containsKey("VEHICLE_DELETE_FAILURE")) {
@@ -908,6 +962,7 @@ public class VehicleInfoBean implements Serializable {
                                          (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE"),
                                          "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
                 }
                 System.out.println("Error while commiting");
             }
@@ -977,12 +1032,19 @@ public class VehicleInfoBean implements Serializable {
 
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))".equalsIgnoreCase(vo.getWhereClause())) {
-            vo.removeNamedWhereClauseParam("accountNumber");
-            vo.removeNamedWhereClauseParam("registrationNumber");
-            vo.setWhereClause("");
-            vo.executeQuery();
-        }
+        
+            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+                vo.removeNamedWhereClauseParam("accountNumber");
+                vo.removeNamedWhereClauseParam("registrationNumber");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
+            
+            if("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())){
+                vo.removeNamedWhereClauseParam("accountNumber");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
         this.linkedPartnerLOVValues = null;
         this.linkedAccountLOVValues = null;
         linkedAccountList = new ArrayList<SelectItem>();
@@ -1069,7 +1131,7 @@ public class VehicleInfoBean implements Serializable {
     public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
         if(valueChangeEvent.getNewValue()!=null) {
             this.searchResultsShow = false;
-             this.registrationNumber = null;
+            this.registrationNumber = null;
             linkedAccountList      = new ArrayList<SelectItem>();
             linkedAccountLOVValues = new ArrayList<String>();
             if(partnerInfoList != null && partnerInfoList.size() > 0){
@@ -1089,9 +1151,19 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
-             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-         }
+        }else{
+            this.linkedAccountLOVValues = null;
+            linkedAccountList = new ArrayList<SelectItem>();
+            this.linkedAccountLOVValues = null;
+            this.registrationNumber = null;
+            getBindings().getRegisterNumber().setValue(null);
+            searchResultsShow = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+        }
     }
 
     public void populateCardNumberList(String accountNo , String type , String partnerNumber){
@@ -1269,6 +1341,7 @@ public class VehicleInfoBean implements Serializable {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                          (String)resourceBundle.getObject("NO_RECORDS_FOUND_DELETE_ALL"),"");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return null;
                 }
             }
         }

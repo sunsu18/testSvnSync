@@ -186,7 +186,8 @@ public class EngageResourceBundle extends ListResourceBundle{
     ,{"AUTH_EMP_MSG",""},{"AUTH_MGR_MSG",""},{"AUTH_ADMIN_MSG",""},{"AUTH_MSG",""},{"PARTNER",""},{"REPORT",""},{"ENGAGE_UNITOFMEASURE",""}
     ,{"WELCOME_MESSAGE_ACC_SUMMARY",""},{"HELLO",""},{"SHOW_ALL_MSG",""},{"CARD_INV_ADD_1",""},{"CARD_INV_ADD_2",""},{"CARD_INV_POSTAL_CODE",""}
     ,{"IMPORTANT_NOTE",""},{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""}, {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},     
-            {"TEMPORARY_BLOCKED",""},{"PERMANENT_BLOCKED",""} ,{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""}, {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""}};     
+            {"TEMPORARY_BLOCKED",""},{"PERMANENT_BLOCKED",""} ,{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""},
+    {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},{"LINKED_PARTNER",""}};     
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

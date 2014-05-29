@@ -88,7 +88,7 @@
                              halign="right" layout="horizontal"
                              inlineStyle="padding-right: 50px;">
           <af:commandButton text="#{sfr.SEARCH}" id="cb1"
-                            actionListener="#{pageFlowScope.VehicleInfoBean.searchAction}"
+                            action="#{pageFlowScope.VehicleInfoBean.searchAction}"
                             partialTriggers="it7"></af:commandButton>
           <af:spacer width="12" height="10" id="s38"/>
           <af:commandButton text="#{sfr.ADD}" id="cb3"
