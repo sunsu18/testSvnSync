@@ -82,7 +82,7 @@ public class MyPageListener implements PagePhaseListener {
 
     HashSet cardTypeHS = new HashSet();
 
-public void afterPhase(PagePhaseEvent pagePhaseEvent) {
+    public void afterPhase(PagePhaseEvent pagePhaseEvent) {
         if (pagePhaseEvent.getPhaseId() == Lifecycle.PREPARE_RENDER_ID) {
             try {
                 SiteStructureContext ctx = SiteStructureContext.getInstance();
@@ -98,70 +98,61 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
         //log.fine(accessDC.getDisplayRecord() +  this.getClass() + " Before Phase");
         //TODO : Amit - We need to check, how many times beforePhase gets/should be called for respective page,
         //as it could improve or degrade render time. Presently for Home page alone, it shows 5-7 beforePhase calls.
-        ExternalContext ectx = null;
-        HttpServletRequest request = null;
-        HttpSession session = null;
-        ADFContext adfCtx = null;
-        SecurityContext securityContext = null;
+
         UserClient userClient = null;
         Integer phase = pagePhaseEvent.getPhaseId();
-        adfCtx = ADFContext.getCurrent();
-        securityContext = adfCtx.getSecurityContext();
-        ectx = FacesContext.getCurrentInstance().getExternalContext();
-        request = (HttpServletRequest)ectx.getRequest();
-        session = request.getSession();
 
         boolean createCardGroupList = false;
         boolean createCardList = false;
         List<CardGroupInfo> cardgrplist_check = new ArrayList<CardGroupInfo>();
 
         try {
-            String lang = (String)request.getParameter("lang");
-            //            System.out.println("Before phase lang from url is " + request.getParameter("lang"));
-            if (lang == null) {
-                if (session.getAttribute("lang") != null) {
-                    lang = (String)session.getAttribute("lang");
-                } else {
-                    lang = "se_SE";
-                }
-            }
-            session.setAttribute("lang", lang);
-            //profile
-            String profile = (String)request.getParameter("profile");
-            if (profile == null) {
-                if (session.getAttribute("profile") != null) {
-                    profile = (String)session.getAttribute("profile");
-                } else {
-                    profile = "business";
-                }
-            }
-            session.setAttribute("profile", profile);
-
             if (phase.equals(ADFLifecycle.PREPARE_MODEL_ID)) {
-                // Read lang request parameter
-                //                System.out.println("Phase is PREPARE_MODEL_ID");
-                if (session == null) {
-                    session = request.getSession(true); //if session is null then create new session
-                    //                    System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Session is NULL" + " New Session ID: " +
-                    //                                       session.getId());
+                HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+                if (session != null) {
+                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"********************Session is NOT NULL*************************");
+                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"################Session ID: " + session.getId());
                 } else {
-                    //                    System.out.println("Session is not null so take the previous");
-                    session = request.getSession(false);
-                    session.setAttribute(Constants.SESSION_PORTAL_NAME, Constants.EN_PORTAL);
+                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session is NULL");
+                    session = request.getSession(true); //if session is null then create new session
+                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session ID: " + session.getId());
                 }
+
+                String lang = (String)request.getParameter("lang");
+                //            System.out.println("Before phase lang from url is " + request.getParameter("lang"));
+                if (lang == null) {
+                    if (session.getAttribute("lang") != null) {
+                        lang = (String)session.getAttribute("lang");
+                    } else {
+                        lang = "se_SE";
+                    }
+                }
+                session.setAttribute("lang", lang);
+                //profile
+                String profile = (String)request.getParameter("profile");
+                if (profile == null) {
+                    if (session.getAttribute("profile") != null) {
+                        profile = (String)session.getAttribute("profile");
+                    } else {
+                        profile = "business";
+                    }
+                }
+                session.setAttribute("profile", profile);
+                session.setAttribute(Constants.SESSION_PORTAL_NAME, Constants.EN_PORTAL);
             }
 
             if (phase == 9) {
-                // if (!AdfFacesContext.getCurrentInstance().isPostback()) {
+                HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
                 // check if user is authenticated, read user information and set in session
-                securityContext = ADFContext.getCurrent().getSecurityContext();
+                SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
                 if (securityContext.isAuthenticated()) {
                     //                    System.out.println("This should execute only after authentication is true");
 
                     if (session.getAttribute(Constants.SESSION_USER_INFO) == null) {
                         System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " +
                                            "UserInfo in session is null , Fetching the data");
-                        setUserInfoInSession(request, session, userClient, securityContext);
+                        setUserInfoInSession();
                         boolean usererror = (String)session.getAttribute("SESSION_USER_ERROR") == "" ? false : true;
                         if (usererror) {
                             return;
@@ -169,31 +160,44 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                     } else {
                         if (user == null) {
                             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-
-                            //TODO: Below if loop to be removed once Incident 23951 is fixed.
-                            //SOP's added for troubleshooting incorrect Customer Association problem
-                            if (null != user.getRolelist()) {
-                                System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + "Incident 23951 - 1 ->" + user.getUserID() +
-                                                   user.getEmailID() + user.getRolelist());
-
-                            }
                         }
                     }
                 }
-                //}
             }
 
+            if (phase == PhaseId.RESTORE_VIEW.getOrdinal()) {
+                ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+                HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+                if (!AdfFacesContext.getCurrentInstance().isPostback()) {
+                    FacesContext facesCtx = FacesContext.getCurrentInstance();
+                    String currentViewId = facesCtx.getViewRoot().getViewId();
+                    System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "facesCtx.getViewRoot().getViewId():: " +
+                                       currentViewId);
 
+                    // if user is authenticated and requested for sign in page then redirect to home page
+                    SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
+                    if (currentViewId.contains("login")) {
+                        if (securityContext.isAuthenticated()) {
+                            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Inside OAM authenticated");
+                            session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
+                            String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+                            ectx.redirect(ectx.getRequestContextPath() + requestedPage);
+                        }
+                        else {
+                            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Request is for login however user is " +user);
+                        }
+                    }
+                }
+            }
             if (phase.equals(ADFLifecycle.INIT_CONTEXT_ID)) {
-
+                HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+                HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 
                 List<PartnerInfo> partnerinfo_list = new ArrayList<PartnerInfo>();
-
                 PartnerInfo partnerobj;
 
                 if (session.getAttribute(Constants.SESSION_USER_INFO) != null) {
-
-                    if (session != null)
                         if (session.getAttribute("executePartnerObjLogic") == null) {
                             //System.out.println("Executing logic to prepare partner object");
 
@@ -250,13 +254,8 @@ public void afterPhase(PagePhaseEvent pagePhaseEvent) {
                                         } while (idlist < user.getRoleList().get(i).getIdString().size());
 
                                     }
-
-
                                 }
-
-
                             }
-
 
                             System.out.println(accessDC.getDisplayRecord() + this.getClass() +
                                                " Final Partner list size after going through the entire RoleList " + partnerinfo_list.size());
@@ -1112,35 +1111,23 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 System.out.println("Exit From Binding phase");
                 // }
             }
-            if (phase == PhaseId.RESTORE_VIEW.getOrdinal()) {
-                if (!AdfFacesContext.getCurrentInstance().isPostback()) {
-                    FacesContext facesCtx = FacesContext.getCurrentInstance();
-                    String currentViewId = facesCtx.getViewRoot().getViewId();
-                    System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "facesCtx.getViewRoot().getViewId():: " +
-                                       currentViewId);
-                    // if user is authenticated and requested for sign in page then redirect to home page
-                    securityContext = ADFContext.getCurrent().getSecurityContext();
-                    if (currentViewId.contains("login") && securityContext.isAuthenticated()) {
-                        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Inside OAM authenticated");
-                        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
-                        String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
-                        ectx.redirect(ectx.getRequestContextPath() + requestedPage);
-                    }
-                }
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setUserInfoInSession(HttpServletRequest request, HttpSession session, UserClient userClient,
-                                      SecurityContext securityContext) throws Exception {
+    private void setUserInfoInSession() throws Exception {
+        SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
+        HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+        HttpSession session = request.getSession();
+
         DAOFactory factory = DAOFactory.getInstance();
         System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " +
                            "MyPageListener.setUserInfoInSession: OPSS called for user: " + securityContext.getUserName());
         List<User> userList = new ArrayList<User>();
         boolean success = false;
-        userClient = new UserClient();
+        UserClient userClient=new UserClient();
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
