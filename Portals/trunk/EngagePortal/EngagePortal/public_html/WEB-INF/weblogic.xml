@@ -20,6 +20,7 @@
     <cookie-name>/CustomerPortal</cookie-name>
     <cookie-max-age-secs>43200</cookie-max-age-secs>
     <persistent-store-type>MEMORY</persistent-store-type>
+	<url-rewriting-enabled>true</url-rewriting-enabled>
     <sharing-enabled>true</sharing-enabled>
   </session-descriptor>
   <library-ref>
