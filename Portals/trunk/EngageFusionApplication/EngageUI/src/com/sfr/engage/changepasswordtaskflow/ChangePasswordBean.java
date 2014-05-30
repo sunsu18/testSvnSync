@@ -1,11 +1,14 @@
 package com.sfr.engage.changepasswordtaskflow;
 
 import com.sfr.core.bean.BaseBean;
+import com.sfr.core.bean.User;
 import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
 import com.sfr.util.AccessDataControl;
+
+import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
@@ -40,6 +43,11 @@ public class ChangePasswordBean implements Serializable {
     private String lang;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
+    private HttpSession session;
+    private ExternalContext ectx;
+    private HttpServletRequest request;
+    private User userBean;
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     /**
      * @return bindings Object
      */
@@ -52,8 +60,20 @@ public class ChangePasswordBean implements Serializable {
 
     public ChangePasswordBean() {
         super();
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        userBean = new User();
         resourceBundle = new EngageResourceBundle();
-        lang = "en_US";
+        if (session != null) {
+            if (null != session.getAttribute(Constants.SESSION_USER_INFO))
+                userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Inside change password constructor :" + userBean.getRolelist());
+            lang = (String)session.getAttribute(Constants.userLang);
+        }
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "Language :" + lang);
+        
     }
 
     public String changeUserPassword() {
@@ -104,7 +124,7 @@ public class ChangePasswordBean implements Serializable {
                         BindingContext.getCurrent().getCurrentBindingsEntry();
                     OperationBinding operationBinding =
                         bindings.getOperationBinding("changePassword");
-                    operationBinding.getParamsMap().put("userID", "TestCR482@sample.com");
+                    operationBinding.getParamsMap().put("userID", userBean.getEmailID());
                     operationBinding.getParamsMap().put("oldPassword", getBindings().getOldPasswordIT().getValue().toString());
                     operationBinding.getParamsMap().put("newPassword", getBindings().getNewPasswordIT().getValue().toString());
                     result = (BaseBean)operationBinding.execute();
