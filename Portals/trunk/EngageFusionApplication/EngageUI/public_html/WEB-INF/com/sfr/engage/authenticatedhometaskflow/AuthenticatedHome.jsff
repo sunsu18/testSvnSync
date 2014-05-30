@@ -449,7 +449,9 @@
                          <!--<af:spacer width="10" height="10" id="s12"/>-->
               <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7"
               styleClass="headertexthome panel_header_authenticated"/>
-
+<af:spacer width="120" height="10"
+                                                                id="s33"/>
+ </af:panelGroupLayout>
 
               <af:panelGroupLayout id="pgl44"
                                        layout="vertical"
@@ -538,7 +540,7 @@
 
                   </af:panelGroupLayout>
               <!--<af:spacer width="350" height="10" id="s27"/>-->
-            </af:panelGroupLayout>
+           
               <af:spacer width="7" height="5" id="s28"/>
               <!--<af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
                           var="var">
