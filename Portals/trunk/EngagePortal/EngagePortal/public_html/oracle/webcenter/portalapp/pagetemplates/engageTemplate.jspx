@@ -102,12 +102,12 @@
                                 </li>
                               </c:forEach>
                               
-                              <af:commandButton id="pt_cb1"
+                              <!--<af:commandButton id="pt_cb1"
                                                             rendered="#{securityContext.authenticated}"
                                                 inlineStyle="background-image:none; border-style:none; font-size:12px; margin-left: -30px !important;
 margin-top: -6px !important; padding:0px; height:32.0px; width:32px; background-color:#F3F3F3;"
                                                            action="#{LoginBean.sfrLogout}"
-                                                icon="/images/arrow/logout.png"/>
+                                                icon="/images/arrow/logout.png"/>-->
                                                             
                                                             
                                <!--<af:commandToolbarButton id="pt_ctb1"
