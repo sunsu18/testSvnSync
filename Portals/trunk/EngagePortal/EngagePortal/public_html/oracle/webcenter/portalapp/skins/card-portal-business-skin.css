@@ -1855,6 +1855,16 @@ width:30px;
   
 }
 
+.account
+{
+height:20px;
+width:30px;
+background: url("/images/Info/account_business.png") !important;
+  background-position: right !important;
+  background-repeat:no-repeat  !important;
+ 
+}
+
 
 .message1
 {

@@ -2106,6 +2106,17 @@ background: url("/images/Info/info_private.png") !important;
  
 }
 
+
+.account
+{
+height:20px;
+width:30px;
+background: url("/images/Info/account_private.png") !important;
+  background-position: right !important;
+  background-repeat:no-repeat  !important;
+ 
+}
+
 .message1
 {
 height:20px;

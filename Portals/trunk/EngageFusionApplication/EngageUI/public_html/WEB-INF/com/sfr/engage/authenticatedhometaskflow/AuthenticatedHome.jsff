@@ -97,13 +97,14 @@
                          inlineStyle="width:962.0px;" visible="#{pageFlowScope.AuthenticatedHomeBean.authenticatedPanelVisible}"
                          valign="top">
       <af:panelGroupLayout id="pgl32" layout="horizontal"
-                           inlineStyle="height:440.0px;" valign="top">
+                           inlineStyle="height:440.0px;" valign="top" styleClass="account">
         <af:panelGroupLayout id="panelGroupLayout1" layout="vertical"
-                             inlineStyle="width:300px; height:440.0px;" valign="top">
+                             inlineStyle="width:300px; height:440.0px;" valign="top"
+                             styleClass="account">
 
           <af:panelGroupLayout id="Tree" layout="vertical"
                                inlineStyle="height:440px; width:300px;"
-                               styleClass="box-shadow panelbackground accsummary1">
+                               styleClass="box-shadow panelbackground account">
                                <af:panelGroupLayout id="panelGroupLayout2"
                                                     layout="horizontal"
                                inlineStyle="width:300px; height:30.0px;"
