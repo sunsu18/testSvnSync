@@ -7,33 +7,26 @@
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable"
           >
    <f:loadBundle basename="com.sfr.engage.model.resources.EngageResourceBundle"
-                var="sfr"/>      
+                var="sfr"/>
   <f:loadBundle basename="oracle.webcenter.portalframework.sitestructure.resource.PortalAppPageResource"
                 var="portalResource"/>
-                
+
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
     <af:document id="d1" title="#{portalResource['home_title']}">
     <af:clientListener type="load" method="refreshCarousal"/>
 
-      <af:form id="f1">    
-     
+      <af:form id="f1">
+
       <af:resource type="css" source="/css/carousal.css"/>
       <af:resource type="javascript" source="/js/jquery.min.js"/>
-     
+
       <af:resource type="javascript" source="/js/jquery-1.4.2.min.js"/>
       <af:resource type="javascript" source="/js/jquery.jcarousel.min.js"/>
-      <af:resource type="javascript" source="/js/homeCarousel.js"/> 
+      <af:resource type="javascript" source="/js/homeCarousel.js"/>
       <af:resource type="javascript">
-      
-    function redirect() {
 
-       
-         window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
-        window.focus(); 
-        
 
-    }
       </af:resource>
 	<af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1"          >
           <f:facet name="content">
@@ -45,7 +38,7 @@
                                   inlineStyle="width:962px; height:auto;"
                                    styleClass="portalbackground"
                                    visible="#{not securityContext.authenticated}">
-                                
+
                   <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
                     <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}.png"
                               id="i1"/>
@@ -66,7 +59,7 @@
                       <af:spacer width="1" height="10" id="s16"/>
                           <af:panelGroupLayout id="pgl14" styleClass="cart"
                                                layout="vertical"/>
-                          
+
                           <af:spacer width="10" height="10" id="s4"/>
                           <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot1"
                                          styleClass="headertexthome "/>
@@ -75,7 +68,7 @@
                         <af:panelGroupLayout id="pgl19"
                                        layout="vertical"
                                   inlineStyle="width:605px; height:190px;" halign="right">
-                  
+
                   <!--<af:spacer width="10" height="5" id="s1"/>-->
                   <div id="wrap"
                        style="background-color:White;">
@@ -87,75 +80,77 @@
             <af:panelGroupLayout layout="horizontal"
                                  inlineStyle="vertical-align:top; text-align:left;"
                                  valign="top">
-                 
-               
+
+
   <af:panelGroupLayout id="pgl0" layout="vertical" halign="center">
    <af:commandLink  id="ot2" styleClass="carousalOT"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}" >
                         <af:image source="/imageservlet?id=#{bindings.ProductsDisplayRVO1.children[stat.index].Itemno}&amp;categId=#{(bindings.ProductsDisplayRVO1.children[stat.index].CategCode9)}"
                     id="i2" inlineStyle="width:100px; height:100px; text-align:center;margin-left:5px; border: 1px solid  #979796;"/>
-                                  
-                                 
+
+
                               </af:commandLink>
-                              
+
  <af:spacer id="s3" width="5" height="4"/>
   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].ArticleName) : &quot;--&quot;}"
                                      id="cl1" styleClass="topproducttext"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}"
                                       disabled="true">
-                                      
-                      
+
+
                               </af:commandLink>
-                               
+
  <!--<af:panelGroupLayout id="pgl233" layout="vertical"
                                          halign="left"
                                   inlineStyle="width:20px; text-align:left; vertical-align:bottom;"
                                   valign="bottom">
-                     
-                             
-                             
-                              
+
+
+
+
                   </af:panelGroupLayout>!-->
            <af:panelGroupLayout id="pgl12" layout="horizontal" halign="center">
    <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
                                      id="cl3" styleClass="productprice"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}"
                                                disabled="true">
-                                               </af:commandLink>   
+                                               </af:commandLink>
                                                <af:spacer id="s1" width="5"/>
                                                <af:outputText value='#{(homeCarousalBean.lang eq "no_NO" )?"NOK":(homeCarousalBean.lang eq "da_DK") ? "DKK":(homeCarousalBean.lang eq "en_US") ? "USD":(homeCarousalBean.lang eq "se_SE") ? "SEK":"-"}'
                                                               id="ot7"
                                                               styleClass="productprice"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
-                    
-        
+
+
         <af:spacer id="s2" width="5" height="3"/>
-             
+
             </af:panelGroupLayout>
-                       </li>                 
+                       </li>
           </af:forEach>
-                      
+
               </ul>
              </f:verbatim>
           </div>
                         <af:spacer width="10" height="15" id="s24"/>
-                        <af:panelGroupLayout id="pgl17" layout="horizontal" 
+                        <af:panelGroupLayout id="pgl17" layout="horizontal"
                                halign="left">
                         <af:spacer width="250" height="1" id="s19"/>
                        <!-- <af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1"
                                      destination="https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog"
                                      targetFrame="_blank"
                                      styleClass="gobutton1"/> !-->
+
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb1"
-                                                      
-                                                      >
-                            <af:clientListener method="redirect" type="click"/>
-                          </af:commandButton>            
-                                     
-                        <af:spacer width="20" height="1" id="spacer16"/>
+
+                                                     actionListener="#{homeCarousalBean.goProductCatalog}">
+
+                          </af:commandButton>
+                          <!--<af:goButton text="#{sfr.VIEW_CATALOG}" id="gb1" destination="#{homeCarousalBean.wsPortalCatalogLink}" targetFrame="_blank"
+                                       styleClass="viewCatalog"/>-->
+                          <af:spacer width="20" height="1" id="spacer16"/>
                       </af:panelGroupLayout>
-        
+
                   </af:panelGroupLayout>
 
 <!--<af:panelGroupLayout id="pgl17" layout="horizontal" inlineStyle="height:50px;">
@@ -164,9 +159,9 @@
                                      destination="http://www.statoil.se/"
                                      targetFrame="_blank"/>
         </af:panelGroupLayout>-->
- 
-                  
-                     
+
+
+
                     </af:panelGroupLayout>
                 <af:spacer width="10" height="10" id="s13"/>
                 <af:panelGroupLayout id="pgl5" layout="vertical"
@@ -250,7 +245,7 @@
                   <af:panelGroupLayout id="pgl7" layout="horizontal">
                         <af:panelGroupLayout id="pgl21" styleClass="card_back"
                                              layout="vertical"/>
-                       
+
                         <af:spacer width="5" height="10" id="s6"/>
                         <af:outputText value="#{sfr.CARD_GROUPS}" id="ot5"
                                        styleClass="headertexthome"/>
@@ -299,7 +294,7 @@
                                 <af:panelGroupLayout id="pgl22"
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/>
-                                
+
                               </af:panelGroupLayout>
                               <af:spacer height="10" id="s25" width="100"/>
                               <af:panelGroupLayout id="pgl23"
@@ -370,10 +365,10 @@
                               </af:panelGroupLayout>
                             </af:panelGroupLayout>
                           </af:panelGroupLayout>
-                          
+
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
-                </af:panelGroupLayout>                    
+                </af:panelGroupLayout>
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
                 <af:spacer width="10" height="5" id="s29"  visible="#{securityContext.authenticated}"/>

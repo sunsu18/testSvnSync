@@ -2,8 +2,10 @@ package com.sfr.engage.util;
 
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
-
+import com.sfr.util.AccessDataControl;
 import com.sfr.util.validations.Conversion;
+
+import java.io.IOException;
 
 import java.util.ResourceBundle;
 
@@ -48,6 +50,8 @@ public class HomeCarouselBean {
     String card2_apply_now;
     ResourceBundle resourceBundle;
 
+    String WsPortalCatalogLink = "";
+
     /**
      * Default Constructor : initialized UI components
      */
@@ -59,6 +63,7 @@ public class HomeCarouselBean {
         getCard_name2();
         getCard_desc1();
         getCard_desc2();
+
     }
 
     // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary methods. Avoid using names like 'timepass'
@@ -124,6 +129,9 @@ public class HomeCarouselBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+
+        if(session!=null)
+        { WsPortalCatalogLink = "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile");}
         Conversion conv = new Conversion();
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
@@ -131,7 +139,7 @@ public class HomeCarouselBean {
             { customerType = "B2B";}
         else
             { customerType = "B2C";}
-       
+
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
         if (bindings != null) {
@@ -144,7 +152,7 @@ public class HomeCarouselBean {
         ViewObject vo = iter.getViewObject();
         // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
         vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
-        
+
         vo.setNamedWhereClauseParam("catalogType", "PP");
         vo.setNamedWhereClauseParam("customerType", customerType);
         System.out.println("countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
@@ -574,5 +582,33 @@ public class HomeCarouselBean {
             }
         }
         return card1_apply_now;
+    }
+
+    public void goProductCatalog(ActionEvent actionEvent) {
+        // Add event code here...
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+        HttpSession session = (HttpSession)request.getSession(false);
+
+
+        try {
+            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
+            System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+
+
+
+        } catch (IOException e) {
+            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() +" Error while redirecting to Product Catalog overview page");
+        }
+    }
+
+    public void setWsPortalCatalogLink(String WsPortalCatalogLink) {
+        this.WsPortalCatalogLink = WsPortalCatalogLink;
+    }
+
+    public String getWsPortalCatalogLink() {
+        return WsPortalCatalogLink;
     }
 }

@@ -31,9 +31,9 @@
             }
 
       }
-    function redirect() {
+    function redirect2() {
 
-
+        alert();
          window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
         window.focus();
 
@@ -446,7 +446,7 @@
                                                layout="vertical"/>
 
                          <!--<af:spacer width="10" height="10" id="s12"/>-->
-              <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7" 
+              <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7"
               styleClass="headertexthome panel_header_authenticated"/>
 
 
@@ -504,7 +504,7 @@
                                                <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.lang eq "no_NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.lang eq "da_DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.lang eq "en_US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.lang eq "se_SE") ? "SEK":"-"}'
                                                               id="ot21"
                                                               styleClass="productprice"/>
-                                                              qwerty
+
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 
@@ -528,8 +528,8 @@
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
 
-                                                      >
-                            <af:clientListener method="redirect" type="click"/>
+                                                      actionListener="#{pageFlowScope.AuthenticatedHomeBean.redirectToProductCatalog}">
+                            <!--<af:clientListener method="redirect" type="click"/>-->
                           </af:commandButton>
 
                         <af:spacer width="20" height="1" id="spacer16"/>

@@ -512,7 +512,7 @@ public class AuthenticatedHomeBean implements Serializable {
         latestTransactionVO.setNamedWhereClauseParam("partnerId", partnerId);
         //latestTransactionVO.defineNamedWhereClauseParam("cards", cardId, null);
 
-        System.out.println(latestTransactionVO.getQuery());
+        //System.out.println(latestTransactionVO.getQuery());
 
         latestTransactionVO.executeQuery();
         if (latestTransactionVO.getEstimatedRowCount() != 0) {
@@ -616,11 +616,11 @@ public class AuthenticatedHomeBean implements Serializable {
         session = request.getSession(false);
 
         try {
-            System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
             String urlRedirect = request.getContextPath() + "/faces/card/transaction/invoiceoverview";
             ectx.redirect(urlRedirect);
         } catch (IOException e) {
-            System.out.println(" Error while redirecting to Invoices overview page");
+            log.severe(accessDC.getDisplayRecord() + this.getClass() + " Error while redirecting to Invoices overview page");
         }
     }
 
@@ -632,12 +632,34 @@ public class AuthenticatedHomeBean implements Serializable {
         session = request.getSession(false);
 
         try {
-            System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
             String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
             ectx.redirect(urlRedirect);
         } catch (IOException e) {
-            System.out.println(" Error while redirecting to Transactions overview page");
+            log.severe(accessDC.getDisplayRecord() + this.getClass() +" Error while redirecting to Transactions overview page");
         }
+    }
+
+    public void redirectToProductCatalog(ActionEvent actionEvent) {
+        // Add event code here...
+
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+
+
+        try {
+            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
+            System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+
+        } catch (IOException e) {
+            log.severe(accessDC.getDisplayRecord() + this.getClass() +" Error while redirecting to Product Catalog overview page");
+        }
+
+
+
     }
 
 
