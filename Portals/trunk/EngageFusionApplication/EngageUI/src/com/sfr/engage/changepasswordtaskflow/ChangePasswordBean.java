@@ -68,7 +68,7 @@ public class ChangePasswordBean implements Serializable {
         if (session != null) {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO))
                 userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Inside change password constructor :" + userBean.getRolelist());
+             _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Inside change password constructor :" + userBean.getRolelist());
             lang = (String)session.getAttribute(Constants.userLang);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -124,6 +124,7 @@ public class ChangePasswordBean implements Serializable {
                         BindingContext.getCurrent().getCurrentBindingsEntry();
                     OperationBinding operationBinding =
                         bindings.getOperationBinding("changePassword");
+                    _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Email Id :" + userBean.getEmailID());
                     operationBinding.getParamsMap().put("userID", userBean.getEmailID());
                     operationBinding.getParamsMap().put("oldPassword", getBindings().getOldPasswordIT().getValue().toString());
                     operationBinding.getParamsMap().put("newPassword", getBindings().getNewPasswordIT().getValue().toString());
