@@ -191,8 +191,23 @@ public class MyPageListener implements PagePhaseListener {
                                                ADFContext.getCurrent().getSecurityContext().isAuthorizationEnabled() + "user is " + user);
                         }
                     }
+
+                    //
+                    if (securityContext.isAuthenticated() && currentViewId.contains("home") && session.getAttribute("IS_HOME_REDIRECTION_DONE") == null) {
+                        session.setAttribute("IS_HOME_REDIRECTION_DONE", "true");
+                        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
+                        String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+                        ectx.redirect(ectx.getRequestContextPath() + requestedPage);
+                    }
+
+                    // To bypass png amd jpeg and gif requests
+                    if (currentViewId.contains(".jpeg") || currentViewId.contains(".gif") || currentViewId.contains(".jpg") ||
+                        currentViewId.contains(".png")) {
+                        return;
+                    }
                 }
             }
+
             if (phase.equals(ADFLifecycle.INIT_CONTEXT_ID)) {
                 HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
                 HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
