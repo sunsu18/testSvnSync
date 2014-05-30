@@ -14,11 +14,17 @@
         </plnk:role>
     </plnk:partnerLinkType>
     <wsdl:types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/engage/"
+             xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E011/E011InvocationReqMsg"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
             <import namespace="http://www.statoilfuelretail.com/integration/engage/E011/E011InvocationReqMsg"
                  schemaLocation="xsd/E011InvocationReqMsg.xsd"/>
         </schema>
-        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/engage/"
+             xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E011/E011InvocationReqMsg"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
             <xsd:import namespace="http://www.statoilfuelretail.com/integration/engage/" schemaLocation="xsd/InvoiceDetailsValidationPayload.xsd"/>
         </xsd:schema>
     </wsdl:types>

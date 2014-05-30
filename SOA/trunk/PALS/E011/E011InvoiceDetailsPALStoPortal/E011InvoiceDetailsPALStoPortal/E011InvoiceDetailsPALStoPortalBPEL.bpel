@@ -121,7 +121,6 @@
               messageType="ns6:Cc076Vs1CssbdetDtaCollection_msg"/>
     <variable name="InvokeMergeInvoiceDetailPortalDBAdapter_merge_IV"
               messageType="ns8:PrtCardInvoiceDetailsCollection_msg"/>
-    <variable name="ValidationPayload" element="ns9:CardInvoiceDetails"/>
     <variable name="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_IV"
               messageType="ns10:EngageCrdInvdtlsErrlogsCollection_msg"/>
     <variable name="InvokeMergeDeltaTSSOADBAdapterV1_merge_IV"
@@ -136,6 +135,7 @@
               messageType="ns15:EngageCrdInvdtlsErrlogsCollection_msg"/>
     <variable name="InvokeE011InvoiceDetailsPALStoPortalWebService_process_InputVariable"
               messageType="client:E011InvoiceDetailsPALStoPortalBPELRequestMessage"/>
+    <variable name="ValidationPayload" element="ns9:CardInvoiceDetails"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:bindingFault">
@@ -450,7 +450,7 @@
         <to variable="BatchCount"/>
       </copy>
       <copy>
-        <from expression="1"/>
+        <from expression="0"/>
         <to variable="Count"/>
       </copy>
       <copy>
@@ -556,7 +556,7 @@
           </otherwise>
         </switch>
         <switch name="CheckBatchCountSwitch">
-          <case condition="bpws:getVariableData('BatchCount') > bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
+          <case condition="bpws:getVariableData('BatchCount') > bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:NumberOfBatches')">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">PALSBatchCountisGreater</bpelx:property>
@@ -578,7 +578,7 @@
       </sequence>
     </scope>
     <while name="WhileEachBatch"
-           condition="bpws:getVariableData('Count') &lt;= bpws:getVariableData('BatchCount')">
+           condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('BatchCount')">
       <sequence name="Sequence">
         <scope name="GetPALSdataScope" variableAccessSerializable="no">
           <sequence name="GetPALSdataSequence">
@@ -1018,7 +1018,7 @@
           </copy>
         </assign>
         <switch name="NoDataSwitch">
-          <case condition="bpws:getVariableData('DataCount') > 0">
+          <case condition="bpws:getVariableData('DataCount') >= 1">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">DataLeftForProcessing</bpelx:property>

@@ -144,7 +144,7 @@
                   </property>
                </properties>
                <field table="ENGAGE_CRD_INVDTLS_ERRLOGS" name="DAYS_BETWEEN_INVOICE_DUE" xsi:type="column"/>
-               <attribute-classification>java.lang.String</attribute-classification>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invoiceCurrency</attribute-name>
@@ -154,7 +154,7 @@
                   </property>
                </properties>
                <field table="ENGAGE_CRD_INVDTLS_ERRLOGS" name="INVOICE_CURRENCY" xsi:type="column"/>
-               <attribute-classification>java.lang.Double</attribute-classification>
+               <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>invGrossAmt</attribute-name>

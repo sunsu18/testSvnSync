@@ -46,7 +46,6 @@
     <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_IV" messageType="ns6:PALSDB2DBAdapterSelect_inputParameters"/>
     <variable name="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV" messageType="ns6:Cc076Vs1CssbdetDtaCollection_msg"/>
     <variable name="InvokeMergeInvoiceDetailPortalDBAdapter_merge_IV" messageType="ns8:PrtCardInvoiceDetailsCollection_msg"/>
-    <variable name="ValidationPayload" element="ns9:CardInvoiceDetails"/>
     <variable name="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_IV" messageType="ns10:EngageCrdInvdtlsErrlogsCollection_msg"/>
     <variable name="InvokeMergeDeltaTSSOADBAdapterV1_merge_IV" messageType="ns11:EngageSoaDeltatableCollection_msg"/>
     <variable name="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_InputVariable" messageType="ns13:SOAErrorLogDBAdapterSelect_inputParameters"/>
@@ -54,6 +53,7 @@
     <variable name="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV" messageType="ns14:Produce_Message_msg"/>
     <variable name="InvokeUpdateSOAErrorDBAdapter_update_IV" messageType="ns15:EngageCrdInvdtlsErrlogsCollection_msg"/>
     <variable name="InvokeE011InvoiceDetailsPALStoPortalWebService_process_InputVariable" messageType="client:E011InvoiceDetailsPALStoPortalBPELRequestMessage"/>
+    <variable name="ValidationPayload" element="ns9:CardInvoiceDetails"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:bindingFault" id="BpCFt0">
@@ -258,7 +258,7 @@
         <to variable="BatchCount"/>
       </copy>
       <copy>
-        <from expression="1"/>
+        <from expression="0"/>
         <to variable="Count"/>
       </copy>
       <copy>
@@ -343,7 +343,7 @@
           </otherwise>
         </switch>
         <switch name="CheckBatchCountSwitch" id="BpSwt2">
-          <case condition="bpws:getVariableData('BatchCount') > bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
+          <case condition="bpws:getVariableData('BatchCount') > bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:NumberOfBatches')">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">PALSBatchCountisGreater</bpelx:property>
@@ -362,7 +362,7 @@
         </switch>
       </sequence>
     </scope>
-    <while name="WhileEachBatch" condition="bpws:getVariableData('Count') &lt;= bpws:getVariableData('BatchCount')" id="BpWhl0">
+    <while name="WhileEachBatch" condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('BatchCount')" id="BpWhl0">
       <sequence name="Sequence" id="BpSeq6">
         <scope name="GetPALSdataScope" variableAccessSerializable="no" id="BpScp2">
           <sequence name="GetPALSdataSequence" id="BpSeq7">
@@ -680,7 +680,7 @@
           </copy>
         </assign>
         <switch name="NoDataSwitch" id="BpSwt6">
-          <case condition="bpws:getVariableData('DataCount') > 0">
+          <case condition="bpws:getVariableData('DataCount') >= 1">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">DataLeftForProcessing</bpelx:property>
