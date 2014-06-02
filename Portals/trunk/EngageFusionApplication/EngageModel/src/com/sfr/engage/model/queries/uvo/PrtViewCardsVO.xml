@@ -53,7 +53,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
+    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -158,6 +158,21 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     AliasName="VEHICLE_NUMBER"
     SQLType="VARCHAR"
     Expression="VEHICLE_NUMBER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InternalName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INTERNAL_NAME"
+    SQLType="VARCHAR"
+    Expression="INTERNAL_NAME">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
@@ -466,7 +481,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -480,7 +495,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -1182,20 +1197,6 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRT_TRUCK_INFORMATION_PK"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InternalName"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INTERNAL_NAME"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>

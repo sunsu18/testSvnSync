@@ -289,19 +289,21 @@
                 <!--<af:convertDateTime pattern="#{bindings.PrtViewCardsVO11.hints.CardExpiry.format}"/>-->
               </af:inputDate>
             </af:column>
-            
+       
             <af:column headerText="#{sfr.MANAGE}"
                        id="c7" align="center" width="65px">
             
               <af:commandImageLink id="cil1" icon="/images/edit.png"
-                                   action="#{pageFlowScope.CardBean.editDetails}">
+                                   action="#{pageFlowScope.CardBean.editDetails}"
+                                   actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">
                <af:setPropertyListener from="#{row.CardType}" to="#{pageFlowScope.cardAssociation}" type="action"/>
                 <af:setPropertyListener from="#{row.PrtCardPk}" to="#{pageFlowScope.internalCardNumber}" type="action"/>  
                 <af:setPropertyListener from="#{row.AccountId}" to="#{pageFlowScope.associatedAccount}" type="action"/>
                  <af:setPropertyListener from="#{row.VehicleNumber}" to="#{pageFlowScope.VehicleNumber}" type="action"/>
-                  <af:setPropertyListener from="#{row.DriverName}" to="#{pageFlowScope.DriverNumber}" type="action"/>
+                  <af:setPropertyListener from="#{row.DriverName}" to="#{pageFlowScope.DriverName}" type="action"/>
                   <af:setPropertyListener from="#{row.CardEmbossNum}" to="#{pageFlowScope.cardEmbossNum}" type="action"/>
-                
+                 <af:setPropertyListener from="#{row.InternalName}" to="#{pageFlowScope.InternalName}" type="action"/>
+                   <af:setPropertyListener from="#{row.DriverNumber}" to="#{pageFlowScope.DriverNumber}" type="action"/>
                 </af:commandImageLink>
             
              
@@ -333,8 +335,7 @@
                     <af:outputText value=":" id="ot42"/>
                       <af:spacer width="7" height="30" id="s15"/>
             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
-                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
-                               partialTriggers="t1:cil1 ccb11">
+                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}">
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
@@ -349,12 +350,11 @@
            <af:spacer width="50" height="15" id="s9"/>
                     <af:outputText value=":" id="ot4"/>
                       <af:spacer width="28" height="30" id="s10"/>
-               <af:selectOneChoice id="soc1" showRequired="false"
-                                unselectedLabel="&lt;Please Select>"
+               <af:selectOneChoice id="soc1" showRequired="false" partialTriggers="sor1"                                
                                 value="#{pageFlowScope.CardBean.driverNameValue}"
                                 contentStyle="width: 175px;"
                                    valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}" autoSubmit="true"
-                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}">
+                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT}">
                     <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -378,11 +378,10 @@
            <af:spacer width="40" height="15" id="s12"/>
                     <af:outputText value=":" id="ot6"/>
                       <af:spacer width="31" height="30" id="s18"/>
-               <af:selectOneChoice id="soc2" showRequired="false"
-                                unselectedLabel="&lt;Please Select>"
+               <af:selectOneChoice id="soc2" showRequired="false" partialTriggers="sor1"                                
                                 value="#{pageFlowScope.CardBean.vehicleNumberValue}"
                                 contentStyle="width: 175px;" autoSubmit="true"
-                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}">
+                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}" unselectedLabel="#{sfr.PLEASE_SELECT}">
                     <af:forEach items="#{pageFlowScope.CardBean.vehicleNumberList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -411,10 +410,9 @@
                   <af:commandButton text="#{sfr.SAVE}" id="save"
                                   action="#{pageFlowScope.CardBean.saveVehicleDriver}" />
                 <af:spacer width="10" height="10" id="s5"/>
-                <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
-                                 
-                                  immediate="true"
-                                  action="#{pageFlowScope.CardBean.closePopUp}"></af:commandButton>
+                <af:commandButton text="#{sfr.CANCEL}" id="ccb11"                                 
+                                  immediate="true"                                  
+                                  actionListener="#{pageFlowScope.CardBean.closePopUpListener}"></af:commandButton>
                     </af:panelGroupLayout>
           </af:panelGroupLayout>
         </af:dialog>

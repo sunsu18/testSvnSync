@@ -43,6 +43,8 @@
           <Item Value="CardNumber"/>
           <Item Value="PrtCardPk"/>
           <Item Value="BlockAction"/>
+          <Item Value="InternalName"/>
+          <Item Value="DriverNumber"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
