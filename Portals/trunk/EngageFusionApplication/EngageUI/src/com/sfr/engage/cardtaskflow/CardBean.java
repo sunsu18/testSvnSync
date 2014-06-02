@@ -288,20 +288,27 @@ public class CardBean implements Serializable {
         if (statusList == null) {
             statusList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            selectItem.setLabel("Unblocked");
+           // System.out.println("unblocked"+resourceBundle.getObject("UNBLOCKED").toString());
+           if (resourceBundle.containsKey("UNBLOCKED"))
+           {
+            selectItem.setLabel(resourceBundle.getObject("UNBLOCKED").toString());
             selectItem.setValue("0");
             statusList.add(selectItem);
-
+           }
             SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Temporary Blocked");
+        if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
+        {
+            selectItem1.setLabel(resourceBundle.getObject("TEMPORARY_BLOCKED").toString());
             selectItem1.setValue("1");
             statusList.add(selectItem1);
-
+        }
             SelectItem selectItem2 = new SelectItem();
-            selectItem2.setLabel("Permanent Blocked");
+        if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
+        {
+            selectItem2.setLabel(resourceBundle.getObject("PERMANENT_BLOCKED").toString());
             selectItem2.setValue("2");
             statusList.add(selectItem2);
-
+        }
 
 
     }
@@ -1374,13 +1381,21 @@ else
             statusLabel = statusLabel.trim();
 
             if(statusLabel.equalsIgnoreCase("0")) {
-                return "Unblocked";
+                
+                if (resourceBundle.containsKey("UNBLOCKED"))
+                
+                return resourceBundle.getObject("UNBLOCKED").toString();
             }
             else if(statusLabel.equalsIgnoreCase("1")){
-                return "Temporary Blocked";
+                
+                
+                if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
+                return resourceBundle.getObject("TEMPORARY_BLOCKED").toString() ;
             }
             else if(statusLabel.equalsIgnoreCase("2")){
-                return "Permanent Blocked";
+                
+                if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
+                return resourceBundle.getObject("PERMANENT_BLOCKED").toString() ; 
             }
         }
         return null;

@@ -262,7 +262,7 @@
             </af:column>
             <af:column headerText="#{sfr.STATUS}" sortProperty="BlockCode" filterable="true"
                        id="c4" width="110px">
-              <af:inputText value="#{(row.bindings.BlockAction.inputValue) eq '0' ?  'Unblocked' : ( (row.bindings.BlockAction.inputValue) eq '1' ? 'Temporary Block' : 'Permanent Block' ) }"
+              <af:inputText value="#{row.bindings.BlockAction.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.BlockAction.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.BlockAction.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.BlockAction.displayWidth}"
