@@ -535,7 +535,7 @@
              <af:panelGroupLayout id="pgl20">
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedGrossAmountRebated.tooltip}"
                               id="it3"
-                              text="#{row.InvoicedGrossAmountRebated}" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+                              text="#{row.TotalAmount}" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
                               
                 <af:showPopupBehavior triggerType="click" popupId="::pp1"/>
                 

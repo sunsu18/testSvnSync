@@ -2,7 +2,14 @@ package com.sfr.engage.model.queries.rvo;
 
 import com.sfr.engage.core.PartnerInfo;
 
+import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
+
+import java.text.NumberFormat;
+
 import java.util.List;
+
+import java.util.Locale;
 
 import javax.faces.context.ExternalContext;
 
@@ -30,7 +37,9 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     private HttpServletRequest request=(HttpServletRequest)ectx.getRequest();
     private HttpSession session=request.getSession(false);
     private List<PartnerInfo> partnerInfoList;
-    
+    private String lang;
+    private Locale locale;
+    private Conversion conversionUtility= new Conversion();
     
     /**
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
@@ -585,6 +594,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setCardGroupDesc((String)value);
             }
         }
+        ,
+        TotalAmount {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getTotalAmount();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setTotalAmount((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -665,6 +685,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int LTPERHUNDRED = AttributesEnum.ltPerHundred.index();
     public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
     public static final int CARDGROUPDESC = AttributesEnum.CardGroupDesc.index();
+    public static final int TOTALAMOUNT = AttributesEnum.TotalAmount.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1311,12 +1332,19 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public void setCurrencyNetAmount(Float value) {
         setAttributeInternal(CURRENCYNETAMOUNT, value);
     }
+    
+    public String formatConversion(Float passedValue, Locale countryLocale) {
+        String val = "";
+        NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
+        val = numberFormat.format(passedValue);
+        return val;
+    }
 
     /**
      * Gets the attribute value for the calculated attribute InvoicedGrossAmountRebated.
      * @return the InvoicedGrossAmountRebated
      */
-    public Float getInvoicedGrossAmountRebated() {
+    public Float getInvoicedGrossAmountRebated() {       
         return (Float) getAttributeInternal(INVOICEDGROSSAMOUNTREBATED);
     }
 
@@ -1542,6 +1570,42 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setCardGroupDesc(String value) {
         setAttributeInternal(CARDGROUPDESC, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute TotalAmount.
+     * @return the TotalAmount
+     */
+    public String getTotalAmount() {  
+        String val="";
+        Float f=(Float)getInvoicedGrossAmountRebated();
+        if (session != null) {
+            lang = (String)session.getAttribute(Constants.userLang);
+            if(lang!=null) {
+                if (lang == "NO") {            
+                    locale = conversionUtility.getLocaleFromCountryCode(lang);
+                } else if (lang == "SE") {           
+                    locale = conversionUtility.getLocaleFromCountryCode(lang);
+                }else if (lang == "DK") {            
+                    locale = conversionUtility.getLocaleFromCountryCode(lang);
+                }else if (lang == "PL") {            
+                    locale = conversionUtility.getLocaleFromCountryCode(lang);
+                }
+            }
+            if(locale!=null) {               
+               val=formatConversion(f,locale);
+            }
+        }
+        //return (String) getAttributeInternal(TOTALAMOUNT);
+        return val;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute TotalAmount.
+     * @param value value to set the  TotalAmount
+     */
+    public void setTotalAmount(String value) {
+        setAttributeInternal(TOTALAMOUNT, value);
     }
 
     /**

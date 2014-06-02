@@ -797,6 +797,16 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT desc]]>
     ColumnType="VARCHAR2"
     AliasName="VIEW_ATTR"
     SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="TotalAmount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

@@ -250,6 +250,7 @@
            <Item Value="UrefTransactionId"/>
           <Item Value="PalsCountryCode"/>
           <Item Value="CardGroupDesc"/>
+          <Item Value="TotalAmount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
