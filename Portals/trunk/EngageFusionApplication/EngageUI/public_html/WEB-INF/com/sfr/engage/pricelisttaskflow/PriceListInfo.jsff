@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
- <c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>
+ <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
   <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
     <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="printPanel1" layout="horizontal"
@@ -13,13 +13,13 @@
              src="../../../images/download.jpg"/>-->
      </af:panelGroupLayout>
       <af:spacer width="5" height="10" id="s31"/>
-      
+
         <af:panelGroupLayout id="pgl2" layout="horizontal">
       <af:separator id="s4" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s6"/>
-    
-    
+
+
     <af:panelGroupLayout id="printPanel2" halign="left" layout="vertical" inlineStyle="border-style:none;">
     <af:panelGroupLayout layout="vertical" id="pgl4" inlineStyle="width:315px;">
      <af:panelGroupLayout id="pgl1" layout="horizontal">
@@ -31,7 +31,7 @@
         <af:convertDateTime pattern="dd-MMM-yyyy  HH:mm:ss"/>
         </af:outputText>
         </af:panelGroupLayout>
-        
+
         <af:spacer width="10" height="10" id="s7"/>
       <af:panelGroupLayout id="pgl3" layout="horizontal"
                            inlineStyle="width:400px;">
@@ -43,30 +43,30 @@
                   rowBandingInterval="1" id="t1"
                   binding="#{pageFlowScope.PriceListInfoBean.pricelistinfotable}" disableColumnReordering="true" columnResizing="disabled"
                   contentDelivery="immediate">
-         
+
           <af:column sortProperty="DescLine1" sortable="false"
                      headerText="#{sfr.PRODUCTS}"
                      id="c1" width="180"
                      inlineStyle="vertical-align:middle;">
-           
-           
+
+
             <af:panelGroupLayout id="pgl5" layout="vertical">
                 <af:panelGroupLayout id="pgl6" layout="horizontal">
                     <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
                               id="i1" styleClass="pricelistimage"/>
-            
+
                     <af:spacer width="10" height="8" id="s10"/>
                     <af:outputText value="#{row.DescLine1}" id="ot6"
                                    styleClass="pricelisttext"/>
                 </af:panelGroupLayout>
             </af:panelGroupLayout>
-            
-           
+
+
           </af:column>
           <af:column sortProperty="UnitPrice" sortable="false"
                      headerText="#{sfr.UNIT_PRICE}"
                      id="c6" width="135">
-                     <af:panelGroupLayout id="pgl0" layout="horizontal" halign="right" 
+                     <af:panelGroupLayout id="pgl0" layout="horizontal" halign="right"
                                  styleClass="tablepanel">
             <af:outputText value="#{row.UnitPrice}" id="ot15">
               <af:convertNumber groupingUsed="true"
@@ -81,13 +81,13 @@
                <af:spacer width="10" height="1" id="s11"/>
             </af:panelGroupLayout>
           </af:column>
-         
+
         </af:table>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s8"/>
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     </af:panelGroupLayout>
-    
-    
+
+
 </jsp:root>
