@@ -73,13 +73,13 @@
                   <div id="wrap"
                        style="background-color:White;">
          <f:verbatim>
-              <ul id="mycarousel" class="jcarousel-skin-tango">
+              <ul id="mycarouselunauth" class="jcarousel-skin-tango">
           <af:forEach varStatus="stat" begin="0"
                       end="#{(bindings.ProductsDisplayRVO1.estimatedRowCount) ne 0 ?((bindings.ProductsDisplayRVO1.estimatedRowCount)-1):3}">
             <li>
             <af:panelGroupLayout layout="horizontal"
                                  inlineStyle="vertical-align:top; text-align:left;"
-                                 valign="top">
+                                 valign="top" id="pgl48">
 
 
   <af:panelGroupLayout id="pgl0" layout="vertical" halign="center">

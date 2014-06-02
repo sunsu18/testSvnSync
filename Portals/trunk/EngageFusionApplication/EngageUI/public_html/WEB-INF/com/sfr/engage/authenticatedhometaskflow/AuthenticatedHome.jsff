@@ -335,7 +335,8 @@
           </af:panelGroupLayout>
         </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s20"/>
-      <af:panelGroupLayout id="pgl34" layout="horizontal">
+      <af:panelGroupLayout id="pgl34" layout="horizontal"
+      inlineStyle="width:962px; height:230px;">
         <af:panelGroupLayout id="pgl23" layout="vertical"
                              visible="#{pageFlowScope.AuthenticatedHomeBean.invoicesPanel}">
 
@@ -430,38 +431,36 @@
 
 
         <af:spacer width="12" height="10" id="s21"/>
-        <af:panelGroupLayout id="pgl37" layout="vertical">
-          <af:panelGroupLayout id="pgl38" layout="vertical"
-                               inlineStyle="width:600.0px;">
-
-            <af:panelGroupLayout id="pgl39" layout="scroll"
-                                 inlineStyle="height:230px; width:650px;"
-                                 styleClass="box-shadow panelbackground ">
-                                 <af:panelGroupLayout id="pgl40" layout="horizontal"
-                                                      styleClass="paneltopbackground panel_padding_authenticated"
-                                                      inlineStyle="width:650px; height:30.0px;">
-
-                                                      <af:spacer width="1" height="10"
-                                                                id="s25"/>
-                          <af:panelGroupLayout id="pgl41" styleClass="cart"
+        <af:panelGroupLayout id="pgl37" layout="vertical"
+        inlineStyle="height:230px;width:650px;  border: 1px solid  #979796;"
+                                        valign="bottom" halign="left"
+                                        styleClass="panelbackground">
+            <af:panelGroupLayout id="pgl38" layout="vertical"
+                                         inlineStyle="height:30px;width:650px;"
+                                           valign="top" halign="left"
+                                         styleClass="paneltopbackground">
+                    <af:panelGroupLayout id="pgl39" layout="horizontal"
+                                         inlineStyle=" padding-top:4px;">
+                      <af:spacer width="1" height="10" id="s25"/>
+                          <af:panelGroupLayout id="pgl40" styleClass="cart"
                                                layout="vertical"/>
 
-                         <!--<af:spacer width="10" height="10" id="s12"/>-->
-              <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7"
-              styleClass="headertexthome panel_header_authenticated"/>
-<af:spacer width="120" height="10"
-                                                                id="s33"/>
- </af:panelGroupLayout>
+                          <af:spacer width="10" height="10" id="s33"/>
+                          <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}"
+                                         id="ot7"
+                                         styleClass="headertexthome "/>
+                    </af:panelGroupLayout>
+                    </af:panelGroupLayout>
 
-              <af:panelGroupLayout id="pgl44"
+              <af:panelGroupLayout id="pgl41"
                                        layout="vertical"
-                                  inlineStyle="width:605px; height:10px;" halign="right">
+                                  inlineStyle="width:650px; height:190px;" halign="right">
 
 
                   <!--<af:spacer width="10" height="5" id="s1"/>-->
                   <div id="wrap">
-
-              <ul id="mycarousel" class="jcarousel-skin-tango">
+<f:verbatim>
+              <ul id="mycarouselauth" class="jcarousel-skin-tango">
           <af:forEach varStatus="stat" begin="0"
                       end="#{(bindings.ProductsDisplayRVO1.estimatedRowCount) ne 0 ?((bindings.ProductsDisplayRVO1.estimatedRowCount)-1):3}">
             <li>
@@ -519,9 +518,9 @@
           </af:forEach>
 
               </ul>
-
+                </f:verbatim>
           </div>
-                        <af:spacer width="10" height="15" id="s31"/>
+                        <af:spacer width="10" height="25" id="s31"/>
                         <af:panelGroupLayout id="pgl47" layout="horizontal"
                                halign="left">
                         <af:spacer width="250" height="1" id="s32"/>
@@ -541,66 +540,8 @@
                   </af:panelGroupLayout>
               <!--<af:spacer width="350" height="10" id="s27"/>-->
            
-              <af:spacer width="7" height="5" id="s28"/>
-              <!--<af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.messages}"
-                          var="var">
-                <af:panelGroupLayout id="pgl42" layout="horizontal" valign="top">
-                  <af:spacer width="7" height="20" id="s29"/>
-                  <af:panelGroupLayout id="pgl43" layout="horizontal"
-                                       styleClass="message_bell"/>
-                  <af:spacer width="7" height="30" id="s30"/>
-                  <af:panelGroupLayout id="pgl44"
-                                       inlineStyle="width:200px; height:100.0px;"
-                                       halign="start">
-                    <af:outputText value="#{var.message}" id="ot21"
-                                   styleClass="contenttext"
-                                   inlineStyle="padding-right:5px;"/>
-                    <af:spacer width="7" height="30" id="s31"/>
-                  </af:panelGroupLayout>
-                </af:panelGroupLayout>
-              </af:forEach>-->
-            </af:panelGroupLayout>
-          </af:panelGroupLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--<af:panelGroupLayout id="pgl24" layout="vertical" visible="true"
-                             inlineStyle="width:650px; height:230.0px;">
-
-          <af:panelGroupLayout id="pgl18" layout="horizontal"
-                               inlineStyle="height:230px; width:650px;"
-                               styleClass="box-shadow panelbackground">
-                               <af:panelGroupLayout id="pgl17" layout="horizontal"
-                                                    styleClass="paneltopbackground panel_padding_authenticated"
-                                                    inlineStyle="margin-bottom:248px; width:650px; height:30.0px;">
-                                                    <af:spacer width="2" height="10"
-                                                                id="s22"/>
-                          <af:panelGroupLayout id="pgl36" styleClass="cart"
-                                               layout="vertical"/>
-
-                          --><!--<af:spacer width="10" height="10" id="s25"/>--><!--
-
-            <af:outputText value="#{sfr.TOP_PRODUCTS_ENGAGE}" id="ot7" styleClass="headertexthome panel_header_authenticated"/>
-            <af:spacer width="350" height="10" id="s18"/>
-          </af:panelGroupLayout>
-            --><!--<af:spacer width="7" height="5" id="s16"/>--><!--
-          </af:panelGroupLayout>-->
+              <!--<af:spacer width="7" height="5" id="s28"/>-->
+             
         </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>

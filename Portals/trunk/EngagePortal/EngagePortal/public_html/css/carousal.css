@@ -28,8 +28,9 @@ body
 .jcarousel-skin-tango .jcarousel-container-horizontal {
     height: 100px;
     padding: 20px 0px;
-    width: 600px;
+    /*width: 600px;*/
 }
+
 .jcarousel-skin-tango .jcarousel-container-vertical {
     height: 5px;
     padding: 40px 20px;
@@ -156,11 +157,11 @@ body
     background-position: 0 -96px;
     cursor: default;
 }
-#mycarousel.jcarousel-skin-tango{
+#mycarouselunauth.jcarousel-skin-tango, #mycarouselunauth.jcarousel-skin-tango{
 background:url("../images/ajax-loader.gif")  center center no-repeat;
 width:932px;
 height:177px;
  }
-#mycarousel.jcarousel-skin-tango li{
+#mycarouselunauth.jcarousel-skin-tango li, #mycarouselauth.jcarousel-skin-tango li{
  display:none;
  }

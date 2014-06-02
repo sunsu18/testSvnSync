@@ -19,11 +19,18 @@ function mycarousel_initCallback(carousel)
 };
  
 jQuery(document).ready(function() {
-    jQuery('#mycarousel').jcarousel({
+    jQuery('#mycarouselunauth').jcarousel({
         auto: 10,
         wrap: 'last',
       
         initCallback: mycarousel_initCallback
     });
+    jQuery('#mycarouselauth').jcarousel({
+        auto: 10,
+        wrap: 'last',
+      
+        initCallback: mycarousel_initCallback
+    });
+    
 });
 }
