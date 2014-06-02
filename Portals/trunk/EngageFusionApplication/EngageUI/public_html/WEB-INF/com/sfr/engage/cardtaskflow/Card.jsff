@@ -29,7 +29,7 @@
 
            <af:outputText value="*" id="op51"/>
 
-            <af:outputText value="#{sfr.PARTNER}" id="ot2"/>
+            <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
             <af:spacer width="10" height="15" id="s6"/>
                <af:outputText value=":" id="ot2a"/>
 

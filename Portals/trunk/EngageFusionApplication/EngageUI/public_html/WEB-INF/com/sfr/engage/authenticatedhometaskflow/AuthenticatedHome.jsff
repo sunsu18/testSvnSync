@@ -33,7 +33,8 @@
       }
     function redirect2() {
 
-        alert();
+        alert(${pageFlowScope.AuthenticatedHomeBean.lang});
+
          window.open('https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog','_blank');
         window.focus();
 
@@ -530,8 +531,9 @@
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
 
-                                                      actionListener="#{pageFlowScope.AuthenticatedHomeBean.redirectToProductCatalog}">
-                            <!--<af:clientListener method="redirect" type="click"/>-->
+
+                                                      >
+                            <af:clientListener method="redirect2" type="click"/>
                           </af:commandButton>
 
                         <af:spacer width="20" height="1" id="spacer16"/>
@@ -539,7 +541,7 @@
 
                   </af:panelGroupLayout>
               <!--<af:spacer width="350" height="10" id="s27"/>-->
-           
+
               <!--<af:spacer width="7" height="5" id="s28"/>-->
              
         </af:panelGroupLayout>

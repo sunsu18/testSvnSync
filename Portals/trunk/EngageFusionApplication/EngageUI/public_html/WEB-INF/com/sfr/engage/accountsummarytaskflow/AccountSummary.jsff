@@ -226,7 +226,7 @@
 
 
 
-      <af:outputText value="#{sfr.COMPANY_NAME}" id="ot55"/>
+      <af:outputText value="#{sfr.COMP_NAME}" id="ot55"/>
             <af:outputText value=":" id="ot56"/>
           <af:spacer width="1" height="10" id="s90"/>
 
@@ -424,7 +424,7 @@
               <af:spacer width="10" height="10" id="s142"/>
               <af:spacer width="10" height="10" id="s143"/>
 
-               <af:outputText value="#{sfr.POSTAL_CODE}" id="ot78"/>
+               <af:outputText value="#{sfr.POST_CODE}" id="ot78"/>
           <af:outputText value=":" id="ot76"/>
           <af:spacer width="10" height="10" id="s65"/>
 
@@ -470,7 +470,7 @@
               <af:spacer width="10" height="10" id="s150"/>
               <af:spacer width="10" height="10" id="s152"/>
 
-            <af:outputText value="#{sfr.CITY}" id="ot82"/>
+            <af:outputText value="#{sfr.CIT}" id="ot82"/>
           <af:outputText value=":" id="ot84"/>
           <af:spacer width="10" height="10" id="s69"/>
 
@@ -515,7 +515,7 @@
               <af:spacer width="10" height="10" id="s161"/>
               <af:spacer width="10" height="10" id="s160"/>
 
-              <af:outputText value="#{sfr.COUNTRY}" id="ot81"/>
+              <af:outputText value="#{sfr.COUNTRY_ENG}" id="ot81"/>
           <af:outputText value=":" id="ot80"/>
           <af:spacer width="10" height="10" id="s64"/>
 
@@ -710,7 +710,7 @@
               <af:spacer width="10" height="10" id="s197"/>
               <af:spacer width="10" height="10" id="s192"/>
               <af:spacer width="10" height="10" id="s194"/>
-              <af:outputText value="#{sfr.POSTAL_CODE}" id="ot97"
+              <af:outputText value="#{sfr.POST_CODE}" id="ot97"
                              visible="false"/>
           <af:outputText value=":" id="ot98" visible="false"/>
           <af:spacer width="10" height="10" id="s80"/>
@@ -741,7 +741,7 @@
               <af:spacer width="10" height="10" id="s206"/>
 
 
-              <af:outputText value="#{sfr.CITY}" id="ot101" visible="false"/>
+              <af:outputText value="#{sfr.CIT}" id="ot101" visible="false"/>
           <af:outputText value=":" id="ot102" visible="false"/>
           <af:spacer width="10" height="10" id="s83"/>
 
@@ -770,7 +770,7 @@
               <af:spacer width="10" height="10" id="s213"/>
               <af:spacer width="10" height="10" id="s214"/>
 
-              <af:outputText value="#{sfr.COUNTRY}" id="ot105" visible="false"/>
+              <af:outputText value="#{sfr.COUNTRY_ENG}" id="ot105" visible="false"/>
           <af:outputText value=":" id="ot106" visible="false"/>
           <af:spacer width="10" height="10" id="s86"/>
 
@@ -884,7 +884,7 @@
 
 
                <af:spacer width="50" height="10" id="s26"/>
-               <af:outputText value="#{sfr.COUNTRY}" id="ot31" visible="false"/>
+               <af:outputText value="#{sfr.COUNTRY_ENG}" id="ot31" visible="false"/>
           <af:outputText value=":" id="ot32" visible="false"/>
           <af:spacer width="10" height="10" id="s25"/>
               <af:inputText value=""
@@ -1051,7 +1051,7 @@
               <af:spacer width="10" height="10" id="s258"/>
               <af:spacer width="10" height="10" id="s259"/>
 
-              <af:outputText value="#{sfr.POSTAL_CODE}" id="ot54"
+              <af:outputText value="#{sfr.POST_CODE}" id="ot54"
                              visible="false"/>
           <af:outputText value=":" id="ot53" visible="false"/>
           <af:spacer width="10" height="10" id="s43"/>
@@ -1082,7 +1082,7 @@
               <af:spacer width="10" height="10" id="s267"/>
               <af:spacer width="10" height="10" id="s268"/>
               <af:spacer width="10" height="10" id="s269"/>
-              <af:outputText value="#{sfr.CITY}" id="ot49" visible="false"/>
+              <af:outputText value="#{sfr.CIT}" id="ot49" visible="false"/>
           <af:outputText value=":" id="ot50" visible="false"/>
           <af:spacer width="10" height="10" id="s40"/>
 
@@ -1282,7 +1282,7 @@
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
-              <af:outputText value="#{sfr.CARD_INV_POSTAL_CODE}" id="ot10"/>
+              <af:outputText value="#{sfr.CARD_INV_POST_CODE}" id="ot10"/>
           <af:outputText value=":" id="ot11"/>
           <af:spacer width="10" height="10" id="s11"/>
               <af:inputText value="#{bindings.InvoicePostalCode.inputValue}"

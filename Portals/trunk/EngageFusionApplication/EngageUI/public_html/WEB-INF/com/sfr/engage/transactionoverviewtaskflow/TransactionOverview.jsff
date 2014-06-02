@@ -26,7 +26,7 @@
           <h:panelGrid columns="6" id="pg1">
 
           <af:outputText value="*" id="op51"/>
-            <af:outputText value="#{sfr.PARTNER}" id="ot2"/>
+            <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
             <af:spacer width="10" height="15" id="s6"/>
                <af:outputText value=":" id="ot2a"/>
               <af:spacer width="10" height="35" id="s6a"/>
@@ -92,7 +92,7 @@
             </af:selectManyChoice>
 
             <af:outputText value=" " id="ot70"/>
-            <af:outputText value="#{sfr.REPORT}" id="ot71"/>
+            <af:outputText value="#{sfr.REPORT_ENG}" id="ot71"/>
             <af:spacer width="10" height="15" id="s54"/>
                <af:outputText value=":" id="ot72"/>
               <af:spacer width="10" height="35" id="s55"/>
@@ -149,7 +149,7 @@
               </af:inputDate>
 
                 <af:outputText value="*" id="ot41"/>
-                <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
+                <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
            <af:spacer width="10" height="15" id="s4"/>
                     <af:outputText value=":" id="ot42"/>
                       <af:spacer width="10" height="30" id="s15"/>

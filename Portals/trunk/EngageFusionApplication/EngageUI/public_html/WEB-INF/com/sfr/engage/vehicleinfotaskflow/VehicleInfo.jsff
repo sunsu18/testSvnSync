@@ -24,7 +24,7 @@
           <h:panelGrid columns="6" id="pg1">
 
           <af:outputText value="*" id="gff"/>
-            <af:outputText value="#{sfr.PARTNER}" id="colon"/>
+            <af:outputText value="#{sfr.PARTNER_ENG}" id="colon"/>
            <af:spacer width="20" height="10" id="s18"/>
             <af:outputText value=":" id="col"/>
         <af:spacer width="20" height="50" id="s45"/>
@@ -32,7 +32,7 @@
                                 binding="#{pageFlowScope.VehicleInfoBean.bindings.linkedPartner}"
                                 contentStyle="width: 175px;"
                                 autoSubmit="true"
-                                unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
                                 value="#{pageFlowScope.VehicleInfoBean.linkedPartnerLOVValues}"
                                 valueChangeListener="#{pageFlowScope.VehicleInfoBean.partnerNumberValueChangeListener}">
               <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedPartnerList}"
@@ -50,7 +50,7 @@
 
 
             <af:outputText value="" id="str"/>
-            <af:outputText value="#{sfr.LINKED_ACCOUNT}" id="ot11"/>
+            <af:outputText value="#{sfr.LINK_ACCOUNT}" id="ot11"/>
            <af:spacer width="20" height="10" id="s37"/>
             <af:outputText value=":" id="ot14"/>
             <af:spacer width="20" height="20" id="s20"/>
@@ -111,7 +111,7 @@
                     inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
       <af:spacer width="10" height="20" id="s14"/>
       <af:panelGroupLayout id="pgl0" layout="horizontal"  inlineStyle="width:948.0px;">
-        <af:outputText value="#{sfr.SEARCH_RESULTS} :" id="ot8"
+        <af:outputText value="#{sfr.SEARCH_RESULTS_ENG} :" id="ot8"
                        styleClass="subheading"/>
         <af:spacer width="690" height="10" id="s7"/>
         <af:spacer width="10" height="10" id="s15"/>
@@ -170,7 +170,7 @@
                 <af:outputText value="#{row.internalName}" id="ot6"/>
               </af:column>
               <af:column sortable="false"
-                         headerText="#{sfr.REGISTRATION_NUMBER}" id="c4">
+                         headerText="#{sfr.REGISTRAT_NUMBER}" id="c4">
                 <af:outputText value="#{row.registrationNumber}" id="ot7"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c9">
@@ -255,7 +255,7 @@
 
                   <h:panelGrid columns="9" id="popupGrid22">
 
-            <af:outputText value="*#{sfr.PARTNER}" id="partnerid"/>
+            <af:outputText value="*#{sfr.PARTNER_ENG}" id="partnerid"/>
                 <af:outputText value=":" id="colonpartner"/>
                 <af:spacer width="15" height="30" id="s1856"/>
                   <af:selectOneChoice id="soc1" contentStyle="width:165px;height:20.0px;"
@@ -263,7 +263,7 @@
                                         valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddPartnerNumberListener}"
                                         binding="#{pageFlowScope.VehicleInfoBean.bindings.addPartnerNumberId}"
                                         value="#{pageFlowScope.VehicleInfoBean.addPartnerNumberDisplayValue}"
-                                        unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                        unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                       <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedPartnerList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -290,7 +290,7 @@
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.AddAccountNumberListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.addAccountId}"
                                     value="#{pageFlowScope.VehicleInfoBean.addAccountIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                   <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedAddAccountList}"
                           var="listItem">
                 <af:selectItem label="#{listItem.label}"
@@ -333,7 +333,7 @@
                  <af:selectOneChoice id="soc3" contentStyle="width:165px;height:20.0px;"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.addCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.addCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
                                      autoSubmit="true"
                                      valueChangeListener="#{pageFlowScope.VehicleInfoBean.addCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.VehicleInfoBean.cardNumberList}"
@@ -525,7 +525,7 @@
 
                  <h:panelGrid columns="9" id="popupGrid2">
 
-                 <af:outputText value="*#{sfr.PARTNER}" id="editpartnerid"/>
+                 <af:outputText value="*#{sfr.PARTNER_ENG}" id="editpartnerid"/>
                 <af:outputText value=":" id="editpartner"/>
                 <af:spacer width="15" height="30" id="s46"/>
                   <af:selectOneChoice id="soc6" contentStyle="width:165px;height:20.0px;"
@@ -533,7 +533,7 @@
                                       valueChangeListener="#{pageFlowScope.VehicleInfoBean.EditPartnerNumberLIstener}"
                                       binding="#{pageFlowScope.VehicleInfoBean.bindings.editPartnerNumberId}"
                                         value="#{pageFlowScope.VehicleInfoBean.editPartnerNumberDisplayValue}"
-                                        unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                        unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                       <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedPartnerList}"
                               var="listItem">
                     <af:selectItem label="#{listItem.label}"
@@ -558,7 +558,7 @@
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.editAccountNumberChangeListener}"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editAccountId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editAccountIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                     <af:forEach items="#{pageFlowScope.VehicleInfoBean.linkedEditAccountList}" var="listItem">
                         <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_account_edit_item"/>
                     </af:forEach>
@@ -597,7 +597,7 @@
                                     autoSubmit="true"
                                     binding="#{pageFlowScope.VehicleInfoBean.bindings.editCardId}"
                                     value="#{pageFlowScope.VehicleInfoBean.editCardIdDisplayValue}"
-                                    unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
                                     valueChangeListener="#{pageFlowScope.VehicleInfoBean.editCardNumberChangeListener}">
                     <af:forEach items="#{pageFlowScope.VehicleInfoBean.editCardNumberList}"
                           var="listItem">
