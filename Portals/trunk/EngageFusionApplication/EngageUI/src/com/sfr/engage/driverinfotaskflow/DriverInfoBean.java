@@ -359,20 +359,20 @@ public class DriverInfoBean implements Serializable {
             List<DriverInfo> myDriverList = new ArrayList<DriverInfo>();
             ViewObject vo =ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
             vo.setNamedWhereClauseParam("countryCd", countryParam);
-            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountId AND trim(DRIVER_NAME) LIKE CONCAT (:driverName,'%')");
+            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'");
             System.out.println("values of i" + values[i]);
             vo.defineNamedWhereClauseParam("accountId", values[i].trim(),
                                            null);
-            if (getBindings().getDriverName().getValue() != null) {
+            if (getBindings().getDriverName().getValue() != null && getBindings().getDriverName().getValue().toString().length()>0) {
                 vo.defineNamedWhereClauseParam("driverName",
                                                getBindings().getDriverName().getValue().toString().trim(),
                                                null);
             } else {
-                vo.defineNamedWhereClauseParam("driverName", null, null);
+               vo.defineNamedWhereClauseParam("driverName", null, null);
             }
             vo.executeQuery();
             if (vo.getEstimatedRowCount() != 0) {
-                System.out.println("RowCount" + values[i]);
+                System.out.println("RowCount" + vo.getEstimatedRowCount());
                 for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
                     while (vo.hasNext()) {
                         PrtDriverInformationVORowImpl currRow =
@@ -419,7 +419,7 @@ public class DriverInfoBean implements Serializable {
                 }
 
             }
-            if ("trim(ACCOUNT_ID) =: accountId AND trim(DRIVER_NAME) LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+            if ("trim(ACCOUNT_ID) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'".equalsIgnoreCase(vo.getWhereClause())) {
                 System.out.println("Is it coming inside remove where clause");
                 vo.removeNamedWhereClauseParam("accountId");
                 vo.removeNamedWhereClauseParam("driverName");
@@ -455,6 +455,8 @@ public class DriverInfoBean implements Serializable {
             searchResultsShow = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         } else {
+            searchResultsShow = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             System.out.println("Inside else block of the show condition of panel +++++++++++++++++++++");
             if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
                 FacesMessage msg =
@@ -463,8 +465,7 @@ public class DriverInfoBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
-            searchResultsShow = false;
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+           
         }
         return null;
         // searchResultsShow = true;
@@ -1115,12 +1116,14 @@ public class DriverInfoBean implements Serializable {
         try {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
-            if ("trim(ACCOUNT_NUMBER) =: accountId AND trim(DRIVER_NAME) LIKE CONCAT (:driverName,'%')".equalsIgnoreCase(vo.getWhereClause())) {
-                vo.removeNamedWhereClauseParam("accountId");
-                vo.removeNamedWhereClauseParam("driverName");
-                vo.setWhereClause("");
-                vo.executeQuery();
-            }
+                if ("trim(ACCOUNT_ID) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'".equalsIgnoreCase(vo.getWhereClause())) {
+                    System.out.println("Is it coming inside remove where clause");
+                    vo.removeNamedWhereClauseParam("accountId");
+                    vo.removeNamedWhereClauseParam("driverName");
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                }
+                
 
             this.linkedPartnerLOVValues = null;
             this.linkedAccountLOVValues = null;
@@ -1508,6 +1511,13 @@ public class DriverInfoBean implements Serializable {
             populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Add");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
+        }else{
+            this.addAccountIdDisplayValue = null;
+            linkedAddAccountList  = new ArrayList<SelectItem>();
+            this.addAccountIdDisplayValue = null;
+            cardNumberList    = new ArrayList<SelectItem>();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
     }
 
@@ -1520,7 +1530,16 @@ public class DriverInfoBean implements Serializable {
             populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Edit");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
-        }
+        }else{
+            this.editAccountIdDisplayValue = null;
+            linkedEditAccountList  = new ArrayList<SelectItem>();
+            this.editAccountIdDisplayValue = null;
+            this.cardId = null;
+            this.cardId = "";
+            editCardNumberList    = new ArrayList<SelectItem>();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
+         }
     }
 
     public void populateAccountNumber(String partnerId , String type){

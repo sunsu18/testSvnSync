@@ -325,7 +325,7 @@ public class VehicleInfoBean implements Serializable {
     public String searchResultsExecution() {
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+        if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
             vo.removeNamedWhereClauseParam("accountNumber");
             vo.removeNamedWhereClauseParam("registrationNumber");
             vo.setWhereClause("");
@@ -370,7 +370,7 @@ public class VehicleInfoBean implements Serializable {
 //            vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
 //                                           null);
             if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length()>0) {
-                vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')");
+                vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'");
                 vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
                                                null);
                 vo.defineNamedWhereClauseParam("registrationNumber",
@@ -456,6 +456,8 @@ public class VehicleInfoBean implements Serializable {
                 searchResultsShow = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }else{
+                searchResultsShow = false;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
                 System.out.println("Inside else block of the show condition of panel +++++++++++++++++++++");
                 if (resourceBundle.containsKey("NO_RECORDS_FOUND_VEHICLE")) {
                     FacesMessage msg =
@@ -465,8 +467,8 @@ public class VehicleInfoBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
-                searchResultsShow = false;
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+//                searchResultsShow = false;
+//                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }
             return null;
     }
@@ -1033,7 +1035,7 @@ public class VehicleInfoBean implements Serializable {
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
         
-            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like concat(:registrationNumber,'%')".equalsIgnoreCase(vo.getWhereClause())) {
+            if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
                 vo.removeNamedWhereClauseParam("accountNumber");
                 vo.removeNamedWhereClauseParam("registrationNumber");
                 vo.setWhereClause("");
@@ -1280,6 +1282,13 @@ public class VehicleInfoBean implements Serializable {
             populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Add");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
+        }else{
+            this.addAccountIdDisplayValue = null;
+            linkedAddAccountList  = new ArrayList<SelectItem>();
+            this.addAccountIdDisplayValue = null;
+            cardNumberList    = new ArrayList<SelectItem>();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
     }
 
@@ -1290,6 +1299,16 @@ public class VehicleInfoBean implements Serializable {
             editPartnerIdVal = null;
             editPartnerIdVal = valueChangeEvent.getNewValue().toString();
             populateAccountNumber(valueChangeEvent.getNewValue().toString(),"Edit");
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
+        }else{
+            this.editAccountIdDisplayValue = null;
+            linkedEditAccountList  = new ArrayList<SelectItem>();
+            this.editAccountIdDisplayValue = null;
+            this.cardId = null;
+            this.cardId = "";
+            editCardNumberList    = new ArrayList<SelectItem>();
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }

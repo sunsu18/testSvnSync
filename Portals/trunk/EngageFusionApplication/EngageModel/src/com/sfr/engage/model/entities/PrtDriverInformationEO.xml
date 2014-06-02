@@ -135,6 +135,14 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.PassportExpiry_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.PassportExpiry_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </Attribute>
   <Attribute
     Name="LicenseNumber"
@@ -158,6 +166,14 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.LicenseExpiry_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.LicenseExpiry_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </Attribute>
   <Attribute
     Name="EmployStart"
@@ -169,6 +185,14 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployStart_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployStart_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </Attribute>
   <Attribute
     Name="EmployEnd"
@@ -180,6 +204,14 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployEnd_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtDriverInformationEO.EmployEnd_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </Attribute>
   <Attribute
     Name="ModifiedBy"
@@ -314,4 +346,8 @@
         Value="com.sfr.engage.model.entities.PrtDriverInformationEO.ModifiedDate"/>
     </AttrArray>
   </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
 </Entity>
