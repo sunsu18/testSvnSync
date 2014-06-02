@@ -48,7 +48,7 @@
 
 
             <af:outputText value="" id="ot12"/>
-            <af:outputText value="#{sfr.LINK_ACCOUNT}" id="ot13"/>
+            <af:outputText value="#{sfr.ACCOUNT}" id="ot13"/>
             <af:spacer width="20" height="10" id="s37"/>
             <af:outputText value=":" id="ot14"/>
             <af:spacer width="20" height="20" id="s20"/>
