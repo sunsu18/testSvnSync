@@ -69,7 +69,9 @@ public class ChangePasswordBean implements Serializable {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO))
                 userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
              _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Inside change password constructor :" + userBean.getRolelist());
-            lang = (String)session.getAttribute(Constants.userLang);
+            //lang = (String)session.getAttribute(Constants.userLang);
+            lang = (String)session.getAttribute("lang");
+            _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Language :" + lang);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Language :" + lang);
