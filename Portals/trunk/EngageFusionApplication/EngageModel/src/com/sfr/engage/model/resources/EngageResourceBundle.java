@@ -1,5 +1,6 @@
 package com.sfr.engage.model.resources;
 
+
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
@@ -21,13 +22,13 @@ import oracle.jbo.client.Configuration;
 
 
 public class EngageResourceBundle extends ListResourceBundle{
-    
+
     //public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-        
+
         public EngageResourceBundle() {
             super();
         }
-        
+
         /**
              * This variable holds all keys and values of UI component text resource for localization.
              */
@@ -115,7 +116,7 @@ public class EngageResourceBundle extends ListResourceBundle{
       { "ENGAGE_CANCEL", "" }, { "ENGAGE_INVOICE_INVOICE_NO", "" },
       { "ENGAGE_INVOICE_INVOICE_DATE", "" }, { "ENGAGE_INVOICE_DUE_DATE", "" },
       { "ENGAGE_INVOICE_TYPE_1", "" }, { "ENGAGE_INVOICE_NET", "" },
-      { "ENGAGE_INVOICE_VAT", "" }, { "ENGAGE_INVOICE_TOTAL_AMOUNT", "" }, 
+      { "ENGAGE_INVOICE_VAT", "" }, { "ENGAGE_INVOICE_TOTAL_AMOUNT", "" },
       { "TERMINAL", "" }, { "TYPE", "" }, { "ACCOUNT", "" }, { "CARDGROUP", "" },
         { "FROM_DATE", "" }, { "TO_DATE", "" }, { "CARD", "" },
         { "VEHICLE", "" }, { "ENGAGE_INVOICE", "" },
@@ -155,11 +156,11 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"ENGAGE_KM_TOTAL",""},{"ENGAGE_KM_PER_LT",""},{"ENGAGE_LT_PER_HUNDRED",""},
         {"INVOICE_MANDATORY_CHECK",""},{"INVOICE_TODATE_LESSTHAN",""},{"INVOICE_MANDATORY_CHECK_1",""},
         {"ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN",""},{"ENGAGE_TRANSACTION_DETAILS",""},{"PLEASE_SELECT",""},{"ACCOUNT_SUMMARY",""},
-        {"ENGAGE_NO_TERMINAL_TYPE",""},{"ENGAGE_NO_TO_DATE",""},                             
+        {"ENGAGE_NO_TERMINAL_TYPE",""},{"ENGAGE_NO_TO_DATE",""},
         {"ENGAGE_NO_FROM_DATE",""},{"ENGAGE_NO_CARD",""},
         {"ENGAGE_NO_CARD_GROUP",""},{"ENGAGE_NO_TRANSACTION_TYPE",""},
-        {"ENGAGE_VALID_FROM_TO_DATE",""},{"ENGAGE_SELECT_TRANSACTION_MANDATORY",""},        
-        {"INVOICE_LINENO",""},{"INVOICE_PRODUCT_NAME",""},                             
+        {"ENGAGE_VALID_FROM_TO_DATE",""},{"ENGAGE_SELECT_TRANSACTION_MANDATORY",""},
+        {"INVOICE_LINENO",""},{"INVOICE_PRODUCT_NAME",""},
         {"INVOICE_QUANTITY",""},{"INVOICE_STATION",""},
         {"INVOICE_RECEIPT_NO",""},{"INVOICE_CARD",""},
         {"INVOICE_NET",""},{"INVOICE_GROSS_AMOUNT",""},
@@ -167,8 +168,8 @@ public class EngageResourceBundle extends ListResourceBundle{
         {"ENGAGE_NO_DRIVER",""},{"ENGAGE_NO_VEHICLE",""},{"RESTRICTED_ACCESS",""},{"PLEASE_SELECT",""},
         {"ENGAGE_CLEAR",""},{"STATOIL_COMPANY_CARD_LEARN_MORE",""},{"STATOIL_TRUCK_CARD_LEARN_MORE",""},
         {"STATOIL_EUROPE_CARD_LEARN_MORE",""},{"STATOIL_MASTER_CARD_LEARN_MORE",""},{"STATOIL_TRUCK_CARD_APPLY_NOW",""},
-        {"STATOIL_COMPANY_CARD_APPLY_NOW",""},{"STATOIL_MASTER_CARD_APPLY_NOW",""},{"STATOIL_EUROPE_CARD_APPLY_NOW",""},                             
-        {"ENGAGE_DISCOUNTED_PRICE",""},{"TRANSACTION_SPECIFIC",""},{"TRANSACTION_SPECIFIC_CONFIRMATION",""}, 
+        {"STATOIL_COMPANY_CARD_APPLY_NOW",""},{"STATOIL_MASTER_CARD_APPLY_NOW",""},{"STATOIL_EUROPE_CARD_APPLY_NOW",""},
+        {"ENGAGE_DISCOUNTED_PRICE",""},{"TRANSACTION_SPECIFIC",""},{"TRANSACTION_SPECIFIC_CONFIRMATION",""},
         {"TRANSACTION_SPECIFIC_ERROR",""},{"ENGAGE_ODOMETER_WARNING",""},{"EDIT_ODOMETER",""},
         {"HOME",""},{"ACCOUNT",""},{"VEHICLES",""},{"DRIVERS",""},
         {"MESSAGES",""},{"TRANSACTIONS",""},{"INVOICE_OVERVIEW",""},{"AR_OVERVIEW",""},
@@ -185,16 +186,16 @@ public class EngageResourceBundle extends ListResourceBundle{
     {"NO_DELETE_DRIVER",""},{"NO_DELETE_VEHICLE",""},{"DEFAULT_NAV_MSG",""},{"AUTH_MGR_CG_MSG",""}
     ,{"AUTH_EMP_MSG",""},{"AUTH_MGR_MSG",""},{"AUTH_ADMIN_MSG",""},{"AUTH_MSG",""},{"PARTNER",""},{"REPORT",""},{"ENGAGE_UNITOFMEASURE",""}
     ,{"WELCOME_MESSAGE_ACC_SUMMARY",""},{"HELLO",""},{"SHOW_ALL_MSG",""},{"CARD_INV_ADD_1",""},{"CARD_INV_ADD_2",""},{"CARD_INV_POSTAL_CODE",""}
-    ,{"IMPORTANT_NOTE",""},{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""}, {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},     
+    ,{"IMPORTANT_NOTE",""},{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""}, {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},
             {"TEMPORARY_BLOCKED",""},{"PERMANENT_BLOCKED",""} ,{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""},
-    {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},{"LINKED_PARTNER",""},     
+    {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},{"LINKED_PARTNER",""},
             {"TEMPORARY_BLOCKED",""},{"PERMANENT_BLOCKED",""} ,{"CARD_INV_CITY",""},{"CARD_INV_COUNTRY",""},{"LATEST_TRANSACTIONS",""},{"VIEW_ALL",""},{"LATEST_INVOICES",""}, {"CARD_ASSOCIATION",""},{"DRIVER_CARD_ALREADY_EXIST",""},{"TRUCK_CARD_ALREADY_EXIST",""}, {"VEHICLE_ASSOCIATED",""},{"DRIVER_ASSOCIATED",""},{"DRIVER_EMPTY",""},{"VEHICLE_EMPTY",""},
-    {"CARD_1_TEXT",""},{"CARD_2_TEXT",""} ,{"CARD_1_LINK",""},{"CARD_2_LINK",""}, 
-    {"STATOIL_COMMERCIAL_CARD",""},{"STATOIL_BUSINESS_CARD",""} ,{"STATOIL_MASTER_CARD",""},{"STATOIL_EUROPE_CARD",""}, 
-    {"STATOIL_COMMERCIAL_CARD_TEXT",""},{"STATOIL_BUSINESS_CARD_TEXT",""} ,{"STATOIL_MASTER_CARD_TEXT",""},{"STATOIL_EUROPE_CARD_TEXT",""}, 
-    {"STATOIL_COMMERCIAL_CARD_LINK",""},{"STATOIL_BUSINESS_CARD_LINK",""} ,{"STATOIL_MASTER_CARD_LINK",""},{"STATOIL_EUROPE_CARD_LINK",""}, 
-    {"LEARN_MORE_AND_APPLY",""}                                   
-    };     
+    {"CARD_1_TEXT",""},{"CARD_2_TEXT",""} ,{"CARD_1_LINK",""},{"CARD_2_LINK",""},
+    {"STATOIL_COMMERCIAL_CARD",""},{"STATOIL_BUSINESS_CARD",""} ,{"STATOIL_MASTER_CARD",""},{"STATOIL_EUROPE_CARD",""},
+    {"STATOIL_COMMERCIAL_CARD_TEXT",""},{"STATOIL_BUSINESS_CARD_TEXT",""} ,{"STATOIL_MASTER_CARD_TEXT",""},{"STATOIL_EUROPE_CARD_TEXT",""},
+    {"STATOIL_COMMERCIAL_CARD_LINK",""},{"STATOIL_BUSINESS_CARD_LINK",""} ,{"STATOIL_MASTER_CARD_LINK",""},{"STATOIL_EUROPE_CARD_LINK",""},
+    {"LEARN_MORE_AND_APPLY",""}
+    };
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
@@ -205,46 +206,48 @@ public class EngageResourceBundle extends ListResourceBundle{
                 //_logger.info("Inside getContents() method,to fetch all keys and values for specific language.");
                 long startTime = System.currentTimeMillis();
                 clearCache();
-                
+
                 String langValue;
                 String key       = "";
                 String value     = "";
-                
+
                 ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
                 HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
                 HttpSession session = request.getSession();
-                
+
                 if (session.getAttribute("lang") != null) {
                     langValue = (String)session.getAttribute("lang");
                 } else {
-                    langValue = "en_US";
+                    //System.out.println("resouce bundle lang as EN_US");
+                    langValue = "se_SE";
                 }
-                
+
                 try {
-                    
+
                     if (session.getAttribute("TRANSLATION_" + langValue) != null) {
                         contents = (Object[][])session.getAttribute("TRANSLATION_" + langValue);
                         return contents;
                     }
-                    
+
                     HashMap<String, String> map = parseHashMap(contents);
-                    
+
                     String amDef = "com.sfr.engage.model.module.EngageAppModule";
                     String config = "EngageAppModuleLocal";
 
                     ApplicationModule am =
                         Configuration.createRootApplicationModule(amDef, config);
-                    
+
                     PrtGenStringRVOImpl vo =
                         (PrtGenStringRVOImpl)am.findViewObject("PrtGenStringRVO1");
 
                     ViewCriteria vc = vo.createViewCriteria();
                     ViewCriteriaRow vcr1 = vc.createViewCriteriaRow();
+                    System.out.println("langValue passed in GenStringRVO " + langValue);
                     vcr1.setAttribute("LangCode", langValue);
                     vc.add(vcr1);
                     vo.applyViewCriteria(vc);
                     vo.executeQuery();
-                    
+
                     while (vo.hasNext()) {
                         PrtGenStringRVORowImpl currRow = (PrtGenStringRVORowImpl)vo.next();
                         key = currRow.getKeyCode();
@@ -259,7 +262,7 @@ public class EngageResourceBundle extends ListResourceBundle{
                     Configuration.releaseRootApplicationModule(am, true);
 
                     parseArray(map);
-                } 
+                }
                 catch(SQLException sqe){
                     //_logger.severe("Unexpected Exception on execution of sql query");
                     //sqe.getMessage();
@@ -269,15 +272,15 @@ public class EngageResourceBundle extends ListResourceBundle{
                     //_logger.severe("Unexpected Exception on execution of sql query inside main Exception catch block.");
                     //e.printStackTrace();
                 }
-                
+
                 long elapsedTime = System.currentTimeMillis() - startTime;
 
                 session.setAttribute("TRANSLATION_" + langValue, contents);
-                
+
                 //_logger.info("Exiting getContents() method.");
                 return contents;
             }
-            
+
             /**
              *This methods replaces default values of keys with those retrieved from database.
              * @param map
@@ -311,5 +314,5 @@ public class EngageResourceBundle extends ListResourceBundle{
                 }
             }
 
-    
+
 }
