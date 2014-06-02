@@ -21,6 +21,7 @@
     
     
     <af:panelGroupLayout id="printPanel2" halign="left" layout="vertical" inlineStyle="border-style:none;">
+    <af:panelGroupLayout layout="vertical" id="pgl4" inlineStyle="width:315px;">
      <af:panelGroupLayout id="pgl1" layout="horizontal">
         <af:spacer width="2" height="1" id="s3"/>
         <af:outputText value="#{sfr.LATEST_UPDATE}" id="ot4"
@@ -33,7 +34,7 @@
         
         <af:spacer width="10" height="10" id="s7"/>
       <af:panelGroupLayout id="pgl3" layout="horizontal"
-                           inlineStyle="width:350px;">
+                           inlineStyle="width:400px;">
         <af:table value="#{bindings.PriceListRVO1.collectionModel}" var="row"
                   rows="#{bindings.PriceListRVO1.rangeSize}"
                   autoHeightRows="10"
@@ -45,17 +46,20 @@
          
           <af:column sortProperty="DescLine1" sortable="false"
                      headerText="#{sfr.PRODUCTS}"
-                     id="c1" width="180" 
+                     id="c1" width="180"
                      inlineStyle="vertical-align:middle;">
            
            
-              <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
-                      id="i1" styleClass="pricelistimage"/>
+            <af:panelGroupLayout id="pgl5" layout="vertical">
+                <af:panelGroupLayout id="pgl6" layout="horizontal">
+                    <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
+                              id="i1" styleClass="pricelistimage"/>
             
-            <af:spacer width="10" height="8" id="s10"/>
-            <af:outputText value="#{row.DescLine1}" id="ot6"
-                             styleClass="pricelisttext"
-                           />
+                    <af:spacer width="10" height="8" id="s10"/>
+                    <af:outputText value="#{row.DescLine1}" id="ot6"
+                                   styleClass="pricelisttext"/>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
             
            
           </af:column>
@@ -81,7 +85,7 @@
         </af:table>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s8"/>
-    
+    </af:panelGroupLayout>
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     

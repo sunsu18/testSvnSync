@@ -366,6 +366,7 @@ font-weight: bold !important;
     z-index: 1;
     position: absolute;
     padding-left: 5px;
+    margin-top:-16px;
 }
 
 .af_selectOneRadio_item-text, .af_chooseDate_ampm-item-text {

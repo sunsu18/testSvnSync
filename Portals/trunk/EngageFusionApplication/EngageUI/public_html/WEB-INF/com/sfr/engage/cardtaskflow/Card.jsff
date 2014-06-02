@@ -175,7 +175,7 @@
         <af:panelGroupLayout id="pgl36" layout="scroll"
                              inlineStyle="width:945px;">
           <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
-                    var="row" width="940px"  rows="#{bindings.PrtViewCardsVO11.rangeSize}"
+                    var="row" width="940px" rows="#{bindings.PrtViewCardsVO11.rangeSize}"
                     emptyText="#{bindings.PrtViewCardsVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
                     fetchSize="#{bindings.PrtViewCardsVO11.rangeSize}"
                     rowBandingInterval="1"
@@ -185,7 +185,8 @@
                     selectedRowKeys="#{bindings.PrtViewCardsVO11.collectionModel.selectedRow}"
                     selectionListener="#{bindings.PrtViewCardsVO11.collectionModel.makeCurrent}"
                     rowSelection="single" id="t1"
-                    disableColumnReordering="true" columnResizing="disabled">
+                    disableColumnReordering="true" columnResizing="disabled"
+                    autoHeightRows="25" contentDelivery="immediate">
             <af:column sortProperty="AccountId" filterable="true"
                        headerText="#{sfr.ACCOUNT}" width="95px"
                        id="c1">
@@ -419,7 +420,7 @@
         
       </af:popup>
         </af:panelGroupLayout>
-        
+        <af:spacer id="s62" height="20px" width="10px"/>
         </af:panelGroupLayout>
      
      
