@@ -286,7 +286,7 @@
                               <af:panelGroupLayout id="pgl16"
                                                    layout="horizontal">
                                 <af:goImageLink id="gl2"
-                                                     text="#{sfr.LEARN_MORE}"
+                                                     text="#{sfr.CARD_1_LINK}"
                                                      styleClass="greylinks"
                                                      destination="#{homeCarousalBean.card1_learn_more}"
                                                 targetFrame="_blank"/>
@@ -297,7 +297,7 @@
 
                               </af:panelGroupLayout>
                               <af:spacer height="10" id="s25" width="100"/>
-                              <af:panelGroupLayout id="pgl23"
+                              <!--<af:panelGroupLayout id="pgl23"
                                                    layout="horizontal"
                                                    halign="start">
                               <af:goImageLink text="#{sfr.APPLY_NOW}"
@@ -308,7 +308,7 @@
                                 <af:spacer width="2" height="10" id="s26"/>
                                 <af:panelGroupLayout id="pgl27"
                                                      styleClass="arrow_learn_more"
-                                                     layout="vertical"/></af:panelGroupLayout>
+                                                     layout="vertical"/></af:panelGroupLayout>-->
                             </af:panelGroupLayout>
                           </af:panelGroupLayout>
                     </af:panelGroupLayout>
@@ -340,7 +340,7 @@
                               <af:panelGroupLayout id="panelGroupLayout4"
                                                    layout="horizontal">
                                 <af:goImageLink id="commandImageLink1"
-                                                     text="#{sfr.LEARN_MORE}"
+                                                     text="#{sfr.CARD_2_LINK}"
                                                      styleClass="greylinks"
                                                      destination="#{homeCarousalBean.card2_learn_more}"
                                                 targetFrame="_blank"/>
@@ -350,7 +350,7 @@
                                                      layout="vertical"/>
                               </af:panelGroupLayout>
                               <af:spacer height="10" id="spacer3" width="90"/>
-                              <af:panelGroupLayout id="panelGroupLayout7"
+                              <!--<af:panelGroupLayout id="panelGroupLayout7"
                                                    layout="horizontal"
                                                    halign="start">
                                 <af:goImageLink text="#{sfr.APPLY_NOW}"
@@ -362,7 +362,7 @@
                                 <af:panelGroupLayout id="panelGroupLayout8"
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/>
-                              </af:panelGroupLayout>
+                              </af:panelGroupLayout>-->
                             </af:panelGroupLayout>
                           </af:panelGroupLayout>
 
