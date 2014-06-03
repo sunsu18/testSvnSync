@@ -352,7 +352,7 @@
                     <h:panelGrid columns="5" id="pg4">
 
            <af:outputText value="#{sfr.DRIVER_NUMBER}" id="aot2"/>
-           <af:spacer width="50" height="15" id="s9"/>
+           <af:spacer width="85" height="15" id="s9"/>
                     <af:outputText value=":" id="ot4"/>
                       <af:spacer width="28" height="30" id="s10"/>
                <af:selectOneChoice id="soc1" showRequired="false" partialTriggers="sor1"
