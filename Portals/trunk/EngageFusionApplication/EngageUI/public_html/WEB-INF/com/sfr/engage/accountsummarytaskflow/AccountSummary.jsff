@@ -1282,7 +1282,7 @@
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
-              <af:outputText value="#{sfr.CARD_INV_POST_CODE}" id="ot10"/>
+              <af:outputText value="#{sfr.CARD_INV_POSTAL_CODE}" id="ot10"/>
           <af:outputText value=":" id="ot11"/>
           <af:spacer width="10" height="10" id="s11"/>
               <af:inputText value="#{bindings.InvoicePostalCode.inputValue}"
