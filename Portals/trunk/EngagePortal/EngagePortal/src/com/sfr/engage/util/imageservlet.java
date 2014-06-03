@@ -2,6 +2,7 @@ package com.sfr.engage.util;
 
 
 import com.sfr.engage.services.core.dao.factory.DAOFactory;
+import com.sfr.util.AccessDataControl;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class imageservlet extends HttpServlet {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+    AccessDataControl accessDC = new AccessDataControl();
 
     /**
      */
@@ -45,8 +47,8 @@ public class imageservlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType(CONTENT_TYPE);
-        System.out.println("Request -----------------------> " + request.getParameter("id"));
-        System.out.println("Request -----------------------> " + request.getParameter("categId"));
+        System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Request -----------------------> " + request.getParameter("id"));
+        System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Request -----------------------> " + request.getParameter("categId"));
         String imageId = "";
         String categId = "";
         int image_id = 0;
@@ -138,7 +140,7 @@ public class imageservlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            System.out.println(".doGet :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
+            System.out.println(accessDC.getDisplayRecord()+this.getClass()+".doGet :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
@@ -150,7 +152,7 @@ public class imageservlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println(".doGet : :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
+                System.out.println(accessDC.getDisplayRecord()+this.getClass()+".doGet : :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
             }
         }
 
