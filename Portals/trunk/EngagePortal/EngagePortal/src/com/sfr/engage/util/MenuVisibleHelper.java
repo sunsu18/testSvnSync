@@ -1,13 +1,13 @@
 package com.sfr.engage.util;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
- /* TODO : ASHTHA - 02, May, 2014 :
+/* TODO : ASHTHA - 02, May, 2014 :
  *  1. ADD Class level and complete method level JAVA DOC
  *  2. Override toString() method
  *  3. Remove if not needed
  */
 public class MenuVisibleHelper {
-    
+
     String menuHome = "Home";
     String menuAccount = "Account";
     String menuAccountSummary = "Account Summary";
@@ -39,7 +39,7 @@ public class MenuVisibleHelper {
     String menuChangePassword = "Change Password";
     String menuCustomerView = "Customer View";
     EngageResourceBundle sfr = new EngageResourceBundle();
-    
+
     public MenuVisibleHelper() {
         super();
         sfr = new EngageResourceBundle();
@@ -160,8 +160,8 @@ public class MenuVisibleHelper {
     }
 
     public String getMenuViewCards() {
-        if (sfr.containsKey("VIEW_CARD"))
-            menuViewCards = (String)sfr.getObject("VIEW_CARD");
+        if (sfr.containsKey("VIEW_CARDS"))
+            menuViewCards = (String)sfr.getObject("VIEW_CARDS");
         return menuViewCards;
     }
 
@@ -210,8 +210,8 @@ public class MenuVisibleHelper {
     }
 
     public String getMenuListPrice() {
-        if (sfr.containsKey("LIST_PRICE"))
-            menuListPrice = (String)sfr.getObject("LIST_PRICE");
+        if (sfr.containsKey("LIST_PRICES"))
+            menuListPrice = (String)sfr.getObject("LIST_PRICES");
         return menuListPrice;
     }
 
@@ -310,8 +310,8 @@ public class MenuVisibleHelper {
     }
 
     public String getMenuFAQ() {
-        if (sfr.containsKey("FAQ"))
-            menuFAQ = (String)sfr.getObject("FAQ");
+        if (sfr.containsKey("FAQ_ENG"))
+            menuFAQ = (String)sfr.getObject("FAQ_ENG");
         return menuFAQ;
     }
 
@@ -330,8 +330,8 @@ public class MenuVisibleHelper {
     }
 
     public String getMenuChangePassword() {
-        if (sfr.containsKey("CHANGE_PASSWORD"))
-            menuChangePassword = (String)sfr.getObject("CHANGE_PASSWORD");
+        if (sfr.containsKey("ENGAGE_CHANGE_PASSWORD"))
+            menuChangePassword = (String)sfr.getObject("ENGAGE_CHANGE_PASSWORD");
         return menuChangePassword;
     }
 
