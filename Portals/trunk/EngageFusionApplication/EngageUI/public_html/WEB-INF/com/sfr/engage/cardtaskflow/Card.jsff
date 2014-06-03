@@ -200,7 +200,7 @@
                 <f:validator binding="#{row.bindings.AccountId.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.CARDGROUP}" sortProperty="cardGroupDescription"
+            <af:column headerText="#{sfr.CARDGROUP}" sortProperty="CardgroupDescription" filterable="true"
                        id="c9" width="147px">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
