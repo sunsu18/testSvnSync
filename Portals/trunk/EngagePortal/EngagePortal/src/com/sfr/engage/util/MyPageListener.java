@@ -111,12 +111,12 @@ public class MyPageListener implements PagePhaseListener {
                 HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
                 HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
                 if (session != null) {
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"********************Session is NOT NULL*************************");
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"################Session ID: " + session.getId());
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+".beforePhase : "+"********************Session is NOT NULL*************************");
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+".beforePhase : "+"################Session ID: " + session.getId());
                 } else {
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session is NULL");
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session is NULL");
                     session = request.getSession(true); //if session is null then create new session
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session ID: " + session.getId());
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+".beforePhase : "+"Session ID: " + session.getId());
                 }
 
                 String lang = (String)request.getParameter("lang");
@@ -150,7 +150,7 @@ public class MyPageListener implements PagePhaseListener {
                     //                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+"This should execute only after authentication is true");
 
                     if (session.getAttribute(Constants.SESSION_USER_INFO) == null) {
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " +
+                        System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".beforePhase : " +
                                            "UserInfo in session is null , Fetching the data");
                         setUserInfoInSession();
                         boolean usererror = (String)session.getAttribute("SESSION_USER_ERROR") == "" ? false : true;
@@ -172,7 +172,7 @@ public class MyPageListener implements PagePhaseListener {
                 if (!AdfFacesContext.getCurrentInstance().isPostback()) {
                     FacesContext facesCtx = FacesContext.getCurrentInstance();
                     String currentViewId = facesCtx.getViewRoot().getViewId();
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "facesCtx.getViewRoot().getViewId():: " +
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".beforePhase : " + "facesCtx.getViewRoot().getViewId():: " +
                                        currentViewId);
 
                     // if user is authenticated and requested for sign in page then redirect to home page
@@ -180,13 +180,13 @@ public class MyPageListener implements PagePhaseListener {
 
                     if (currentViewId.contains("login")) {
                         if (securityContext.isAuthenticated()) {
-                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " + "Inside OAM authenticated");
+                            System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".beforePhase : " + "Inside OAM authenticated");
                             session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
                             String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
                             ectx.redirect(ectx.getRequestContextPath() + requestedPage);
                         }
                         else {
-                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".beforePhase : " +
+                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".beforePhase : " +
                                                "Request is for login however Authorization enabled = " +
                                                ADFContext.getCurrent().getSecurityContext().isAuthorizationEnabled() + "user is " + user);
                         }
@@ -1141,7 +1141,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         HttpSession session = request.getSession();
 
         DAOFactory factory = DAOFactory.getInstance();
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " +
+        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".setUserInfoInSession : " +
                            "MyPageListener.setUserInfoInSession: OPSS called for user: " + securityContext.getUserName());
         List<User> userList = new ArrayList<User>();
         boolean success = false;
@@ -1170,15 +1170,15 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             }
         }
 
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " + "securityContext.getUserName() = <" +
+        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".setUserInfoInSession : " + "securityContext.getUserName() = <" +
                            securityContext.getUserName() + ">");
         session.setAttribute(Constants.SESSION_USER_NAME, securityContext.getUserName());
 
 
         if (userList != null)
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " + "userlist size " + userList.size());
+            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".setUserInfoInSession : " + "userlist size " + userList.size());
         else
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + "userlist size is null");
+            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ "userlist size is null");
 
         if (userList != null && !userList.isEmpty()) {
             //TODO : We are setting 1st user value from the List. Is that right ?
@@ -1188,24 +1188,24 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             if (getUser() != null) {
                 session.setAttribute(Constants.SESSION_USER_INFO, user);
                 session.setAttribute(Constants.userLang, conv.getLangForWERCSURL(user.getLang().toString()));
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " + "user.getUserID = <" +
+                System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".setUserInfoInSession : " + "user.getUserID = <" +
                                    user.getUserID() + ">");
                 session.setAttribute(Constants.SESSION_USER_DISPLAY_NAME, user.getFirstName());
                 if (user.getRolelist() != null && !user.getRolelist().isEmpty()) {
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() +
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+
                                        "Checking user get role list is proper or not===================>");
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + "RoleList size      -----------" + user.getRoleList().size());
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + "RoleName " + user.getRoleList().get(0).getRoleName());
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+ "RoleList size      -----------" + user.getRoleList().size());
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+ "RoleName " + user.getRoleList().get(0).getRoleName());
                     //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Role of admin" +
                     //              (Constants.ROLE_WCP_CARD_ADMIN));
 
                 }
             } else {
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " +
+                System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".setUserInfoInSession : " +
                                    "MyPageListener.setUserInfoInSession:  User in userList was Null");
             }
         } else {
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".setUserInfoInSession : " +
+            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".setUserInfoInSession : " +
                                " MyPageListener.setUserInfoInSession: userList was either null or empty");
         }
     }
@@ -1219,13 +1219,13 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 if (us.getEmailID() == null) {
                     //                    navigateToErrorPage("ERROR_OPSS");
                     session.setAttribute("SESSION_USER_ERROR", "ERROR_OPSS");
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "User EMAIL is NULL");
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".validateOPSSCall : " + "User EMAIL is NULL");
                     return false;
                 }
                 if (us.getRolelist() == null) {
                     //                    navigateToErrorPage("ERROR_OPSS");
                     session.setAttribute("SESSION_USER_ERROR", "ERROR_OPSS");
-                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "User ROLELIST is NULL");
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".validateOPSSCall : " + "User ROLELIST is NULL");
                     return false;
                 } else {
                     if (us.getRolelist().contains("WCP_Administrators") || us.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
@@ -1234,11 +1234,11 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         us.getRolelist().contains(Constants.ROLE_WCP_ICSR) || us.getRolelist().contains(Constants.ROLE_WCP_ISSM) ||
                         us.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) || us.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) ||
                         us.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) || us.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "Proper roles found");
+                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".validateOPSSCall : " + "Proper roles found");
                     } else {
                         //                        navigateToErrorPage("ERROR_NOROLE");
                         session.setAttribute("SESSION_USER_ERROR", "ERROR_NOROLE");
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "Roles found are:" +
+                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".validateOPSSCall : " + "Roles found are:" +
                                            us.getRolelist() + " You are not authorized to enter Partner Portal.");
                         return false;
                     }
@@ -1246,12 +1246,12 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             } else {
                 //                navigateToErrorPage("ERROR_OPSS");
                 session.setAttribute("SESSION_USER_ERROR", "ERROR_OPSS");
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "User OBJECT is NULL");
+                System.out.println(accessDC.getDisplayRecord()+this.getClass()+".validateOPSSCall : " + "User OBJECT is NULL");
                 return false;
             }
         } else {
             session.setAttribute("SESSION_USER_ERROR", "ERROR_OPSS");
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+AccessDataControl.getDisplayRecord() + this.getClass() + ".validateOPSSCall : " + "user LIST is NULL");
+            System.out.println(accessDC.getDisplayRecord()+this.getClass()+".validateOPSSCall : " + "user LIST is NULL");
             return false;
         }
         return true;

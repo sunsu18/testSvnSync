@@ -2,6 +2,7 @@ package com.sfr.engage.util;
 
 
 import com.sfr.services.core.dao.factory.DAOFactory;
+import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
 import java.security.Principal;
@@ -47,6 +48,7 @@ public class LoginBean extends LoginBackingBean {
      * @return
      */
     public String sfrLogout() {
+        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + "Logout button clciked");
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession(false);
