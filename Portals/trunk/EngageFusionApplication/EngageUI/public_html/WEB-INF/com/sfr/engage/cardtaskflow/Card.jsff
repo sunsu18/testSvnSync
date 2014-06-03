@@ -367,7 +367,7 @@
             </af:forEach>
                 </af:selectOneChoice>
 
-        <af:outputText value="#{sfr.DRIVER_NAME}" id="ot18"/>
+        <af:outputText value="#{sfr.DRIVER_NAME_ENG}" id="ot18"/>
            <af:spacer width="14" height="15" id="s19"/>
                     <af:outputText value=":" id="ot9"/>
                       <af:spacer width="20" height="30" id="s20"/>
