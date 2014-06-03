@@ -170,7 +170,7 @@
                 <af:outputText value="#{row.internalName}" id="ot6"/>
               </af:column>
               <af:column sortable="false"
-                         headerText="#{sfr.REGISTRAT_NUMBER}" id="c4">
+                         headerText="#{sfr.VEHICLEINFO_REGISTRATIONNUMBER}" id="c4">
                 <af:outputText value="#{row.registrationNumber}" id="ot7"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c9">
