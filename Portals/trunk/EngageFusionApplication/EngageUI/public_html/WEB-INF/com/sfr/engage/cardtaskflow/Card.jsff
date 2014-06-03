@@ -158,12 +158,12 @@
                           partialTriggers="soc3 smc2 smc7 smc8">
           <af:panelGroupLayout id="panelGroupLayout2" layout="vertical">
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:945px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:1445px;"
                                layout="horizontal">
 
             <af:outputText value="#{sfr.ENGAGE_CARD_DETAILS}:" id="outputText8"
                            styleClass="heading"/>
-          <af:spacer width="700px" height="10" id="s28"/>
+          <af:spacer width="0px" height="10" id="s28"/>
           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}"
                               actionListener="#{pageFlowScope.CardBean.exportExcelSpecificAction}"
                               id="cb1">
@@ -261,8 +261,10 @@
                 <f:validator binding="#{row.bindings.DriverName.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.STATUS}" sortProperty="BlockCode" filterable="true"
-                       id="c4" width="110px">
+           
+            <af:column headerText="#{sfr.STATUS}" sortProperty="BlockAction" filterable="true"  width="110px"
+                       id="c4">
+                      
               <af:inputText value="#{row.bindings.BlockAction.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.BlockAction.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.BlockAction.mandatory}"
@@ -270,8 +272,10 @@
                             maximumLength="#{bindings.PrtViewCardsVO11.hints.BlockAction.precision}"
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockAction.tooltip}"
                             id="it4">
+                           
                 <f:validator binding="#{row.bindings.BlockAction.validator}"/>
               </af:inputText>
+              
             </af:column>
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}"
                        id="c2" width="100px" align="center">
@@ -315,7 +319,7 @@
              autoCancel="disabled"   >
         <af:dialog id="d1" type="none" closeIconVisible="false">
               <af:panelGroupLayout id="pgl5" layout="vertical"
-                                   inlineStyle="width:390px; height:200.0px;">
+                                   inlineStyle="width:410px; height:200.0px;">
               <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}"  id="aot1"
                              styleClass="heading heading_account"/>
 
@@ -332,7 +336,7 @@
 
             <h:panelGrid columns="5" id="pg3">
              <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
-           <af:spacer width="44" height="15" id="s8"/>
+           <af:spacer width="118" height="15" id="s8"/>
                     <af:outputText value=":" id="ot42"/>
                       <af:spacer width="7" height="30" id="s15"/>
             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
