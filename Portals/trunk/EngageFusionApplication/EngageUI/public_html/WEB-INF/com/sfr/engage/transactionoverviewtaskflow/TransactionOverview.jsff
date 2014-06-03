@@ -31,7 +31,7 @@
                <af:outputText value=":" id="ot2a"/>
               <af:spacer width="10" height="35" id="s6a"/>
             <af:selectOneChoice id="smc1" contentStyle="width: 175px;" partialTriggers="cb3"
-                                  unselectedLabel="&lt;Please Select>" autoSubmit="true"
+                                  unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
                                  value="#{pageFlowScope.TransactionOverviewBean.partnerIdValue}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.partner}"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.partnerIdValueChangeListener}">
