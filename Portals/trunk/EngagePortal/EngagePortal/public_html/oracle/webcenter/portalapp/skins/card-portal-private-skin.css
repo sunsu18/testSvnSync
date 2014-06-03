@@ -224,7 +224,7 @@ padding-top: 2px;
 
 .home .af_table_data-table-VH-lines .af_column_data-cell, .home .af_table_data-table-VH-lines .af_column_banded-data-cell{
     height: 30px;
-    font-weight: bold;
+    /*font-weight: bold !important;*/
     
 }
 
@@ -766,6 +766,7 @@ font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
 background-image: none;
 background-color: rgba(199, 206, 218, 0);
+
 }
 
 
@@ -1051,7 +1052,7 @@ font-weight: bold;
     border-right: 1px solid #F0EEEE;
     border-top: 0 solid #FFFFFF;
     font-family: Lucida Sans,Georgia,Serif !important;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     height: 30px;
     overflow: hidden;
@@ -1564,7 +1565,7 @@ cursor:auto;
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px;
 color: #524e4f !important;
-font-weight: normal !important;
+/*font-weight: normal !important;*/
 text-decoration: underline !important;
 /*font-style:italic !important;*/
 cursor: auto;    
