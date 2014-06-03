@@ -328,7 +328,7 @@
                       inlineStyle="width:390px; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
     </af:panelGroupLayout>
 
-               <af:outputText value="warning message : #{pageFlowScope.CardBean.warningMsg}"
+               <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
                        id="ot10"
                        binding="#{pageFlowScope.CardBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
