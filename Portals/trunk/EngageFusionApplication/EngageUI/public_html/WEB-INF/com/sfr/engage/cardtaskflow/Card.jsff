@@ -35,7 +35,7 @@
 
               <af:spacer width="10" height="35" id="s6a"/>
              <af:selectOneChoice id="soc3" showRequired="false"
-                                unselectedLabel="&lt;Please Select>"
+                                unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
                                 contentStyle="width: 175px;"
                                  value="#{pageFlowScope.CardBean.partnerIdValue}"
                                   autoSubmit="true"
@@ -335,7 +335,7 @@
                        styleClass="errorOutputText" partialTriggers="save sor1"/>
 
             <h:panelGrid columns="5" id="pg3">
-             <af:outputText value="#{sfr.PLEASE_SELECT}" id="ot38"/>
+             <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
            <af:spacer width="118" height="15" id="s8"/>
                     <af:outputText value=":" id="ot42"/>
                       <af:spacer width="7" height="30" id="s15"/>
@@ -359,7 +359,7 @@
                                 value="#{pageFlowScope.CardBean.driverNameValue}"
                                 contentStyle="width: 175px;"
                                    valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}" autoSubmit="true"
-                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                     <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -386,7 +386,7 @@
                <af:selectOneChoice id="soc2" showRequired="false" partialTriggers="sor1"
                                 value="#{pageFlowScope.CardBean.vehicleNumberValue}"
                                 contentStyle="width: 175px;" autoSubmit="true"
-                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}" unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
                     <af:forEach items="#{pageFlowScope.CardBean.vehicleNumberList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
