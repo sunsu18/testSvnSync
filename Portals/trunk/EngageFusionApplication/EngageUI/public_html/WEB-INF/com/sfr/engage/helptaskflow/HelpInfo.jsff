@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
 
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich" 
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
            xmlns:c="http://java.sun.com/jsp/jstl/core">
 <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
 
   <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
    <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="printPanel1" layout="horizontal">
-      <af:outputText value="#{sfr.FAQ}" id="ot1" styleClass="heading"/>
-     
+      <af:outputText value="#{sfr.FAQ_ENG}" id="ot1" styleClass="heading"/>
+
     </af:panelGroupLayout>
     <af:spacer width="5" height="10" id="s31"/>
-    
+
     <af:panelGroupLayout id="pgl2" layout="horizontal">
       <af:separator id="s4"/>
     </af:panelGroupLayout>
@@ -34,24 +34,24 @@
       <af:panelAccordion id="pa1" discloseNone="true"
                               dimensionsFrom="children"
                          inlineStyle="width:945.0px;">
-                      
+
           <af:forEach var="var" items="#{pageFlowScope.HelpInfoBean.helpList}">
-       
+
           <af:showDetailItem text="#{var.question}" id="sdi1"
                                stretchChildren="none"
                                inlineStyle="height:50.0px !important;">
             <af:spacer width="10" height="10" id="s2"/>
             <af:outputText value="#{var.answer}" id="otj1"
                            inlineStyle="background-color: white;"/>
-           <af:spacer width="10" height="10" id="s7"/>  
+           <af:spacer width="10" height="10" id="s7"/>
             </af:showDetailItem>
-         
+
         </af:forEach>
 
           </af:panelAccordion>
           </af:panelGroupLayout>
 
-    
-    
+
+
     </af:panelGroupLayout>
 </jsp:root>
