@@ -1070,6 +1070,8 @@ font-style:normal;
 /*Button Background*/
 
 @agent gecko{
+
+
 .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
     margin-left:-3px !important;
@@ -1234,7 +1236,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3cb6ce', end
 /*Portal Text*/
 .contenttext{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
+font-size: 13px;
 color: #524e4f;
 font-weight: normal;
 font-style:normal;

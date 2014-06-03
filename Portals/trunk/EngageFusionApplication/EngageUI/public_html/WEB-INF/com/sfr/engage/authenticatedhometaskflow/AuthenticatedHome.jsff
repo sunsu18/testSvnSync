@@ -365,7 +365,7 @@
                   <af:panelGroupLayout id="pgl18" styleClass="view_all">
                             <af:commandButton id="cb2"
                                     styleClass="view_all"
-                                    inlineStyle="width:12px; height:13.0px;background:none !important;"
+                                    inlineStyle="width:12px; height:20.0px;background:none !important;"
                                               actionListener="#{pageFlowScope.AuthenticatedHomeBean.viewAllInvoices}"/>
                 </af:panelGroupLayout>
 
