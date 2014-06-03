@@ -158,7 +158,7 @@
                           partialTriggers="soc3 smc2 smc7 smc8">
           <af:panelGroupLayout id="panelGroupLayout2" layout="vertical">
           <af:spacer height="10" id="spacer18" width="0"/>
-          <af:panelGroupLayout id="pgl73" inlineStyle="width:1445px;"
+          <af:panelGroupLayout id="pgl73" inlineStyle="width:1390px;"
                                layout="horizontal">
 
             <af:outputText value="#{sfr.ENGAGE_CARD_DETAILS}:" id="outputText8"
