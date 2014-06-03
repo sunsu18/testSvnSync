@@ -495,7 +495,7 @@
           </af:column>
            <af:column sortProperty="DriverNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="false" align="left"
-                     headerText="#{bindings.PrtCardTransactionOverviewRVO13.hints.DriverNumber.label}"
+                     headerText="#{sfr.DRIVER_NUMBER}"
                      id="c17">
             <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
