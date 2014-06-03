@@ -49,6 +49,7 @@ public class HomeCarouselBean {
     String card1_apply_now;
     String card2_apply_now;
     ResourceBundle resourceBundle;
+    AccessDataControl accessDC = new AccessDataControl();
 
     String WsPortalCatalogLink = "";
 
@@ -144,9 +145,9 @@ public class HomeCarouselBean {
         DCIteratorBinding iter;
         if (bindings != null) {
             iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
-            System.out.println("DC Iterator bindings found");
+            //System.out.println("DC Iterator bindings found");
         } else {
-            System.out.println("bindings is null");
+                 System.out.println(accessDC.getDisplayRecord() + this.getClass() + " ProductsDisplayRVO1Iterator bindings is null");
             iter = null;
         }
         ViewObject vo = iter.getViewObject();
@@ -155,7 +156,7 @@ public class HomeCarouselBean {
 
         vo.setNamedWhereClauseParam("catalogType", "PP");
         vo.setNamedWhereClauseParam("customerType", customerType);
-        System.out.println("countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
+        System.out.println(accessDC.getDisplayRecord() + this.getClass() + "countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
         vo.executeQuery();
 
         return testSpacer;
@@ -334,7 +335,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD")) {
                 card_name1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD");
             }
-        } 
+        }
 
         return card_name1;
     }
@@ -361,7 +362,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD")) {
                 card_name2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD");
             }
-        } 
+        }
 
         return card_name2;
     }
@@ -393,7 +394,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_TEXT")) {
                 card_desc1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_TEXT");
             }
-        } 
+        }
 
         return card_desc1;
     }
@@ -418,7 +419,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_TEXT")) {
                 card_desc2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_TEXT");
             }
-        } 
+        }
 
         return card_desc2;
     }
@@ -444,7 +445,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_LINK")) {
                 card1_learn_more = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_LINK");
             }
-        } 
+        }
 
         return card1_learn_more;
     }
@@ -468,7 +469,7 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LINK")) {
                 card2_learn_more = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LINK");
             }
-        } 
+        }
 
         return card2_learn_more;
     }
