@@ -264,7 +264,7 @@
            
             <af:column headerText="#{sfr.STATUS}" sortProperty="BlockAction" filterable="true"  width="110px"
                        id="c4">
-                      
+                  
               <af:inputText value="#{row.bindings.BlockAction.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.BlockAction.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.BlockAction.mandatory}"
@@ -275,8 +275,9 @@
                            
                 <f:validator binding="#{row.bindings.BlockAction.validator}"/>
               </af:inputText>
-              
+            
             </af:column>
+         
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}"
                        id="c2" width="100px" align="center">
               <f:facet name="filter">
@@ -299,7 +300,7 @@
                        id="c7" align="center" width="65px">
 
               <af:commandImageLink id="cil1" icon="/images/edit.png"
-                                   action="#{pageFlowScope.CardBean.editDetails}"
+                                
                                    actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">
                <af:setPropertyListener from="#{row.CardType}" to="#{pageFlowScope.cardAssociation}" type="action"/>
                 <af:setPropertyListener from="#{row.PrtCardPk}" to="#{pageFlowScope.internalCardNumber}" type="action"/>
@@ -309,6 +310,10 @@
                   <af:setPropertyListener from="#{row.CardEmbossNum}" to="#{pageFlowScope.cardEmbossNum}" type="action"/>
                  <af:setPropertyListener from="#{row.InternalName}" to="#{pageFlowScope.InternalName}" type="action"/>
                    <af:setPropertyListener from="#{row.DriverNumber}" to="#{pageFlowScope.DriverNumber}" type="action"/>
+<af:setPropertyListener from="#{row.VehicleModifiedBy}" to="#{pageFlowScope.vehicleModifiedBy}" type="action"/>
+<af:setPropertyListener from="#{row.VehicleModifiedDate}" to="#{pageFlowScope.vehicleModifiedDate}" type="action"/>
+<af:setPropertyListener from="#{row.ModifiedBy}" to="#{pageFlowScope.driverModifiedBy}" type="action"/>
+<af:setPropertyListener from="#{row.ModifiedDate}" to="#{pageFlowScope.driverModifiedDate}" type="action"/>
                 </af:commandImageLink>
 
 
@@ -319,7 +324,7 @@
              autoCancel="disabled"   >
         <af:dialog id="d1" type="none" closeIconVisible="false">
               <af:panelGroupLayout id="pgl5" layout="vertical"
-                                   inlineStyle="width:410px; height:200.0px;">
+                                   inlineStyle="width:410px; height:270.0px;">
               <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}"  id="aot1"
                              styleClass="heading heading_account"/>
 
@@ -340,7 +345,8 @@
                     <af:outputText value=":" id="ot42"/>
                       <af:spacer width="7" height="30" id="s15"/>
             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
-                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}">
+                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
+                           partialTriggers="t1:cil1 ccb11">
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
@@ -373,6 +379,27 @@
                       <af:spacer width="20" height="30" id="s20"/>
                         <af:outputText value="#{pageFlowScope.CardBean.displayDriverName}" id="ot16"
                                        partialTriggers="soc1"/>
+                                       
+                                       
+<af:outputText value="#{sfr.MODIFIED_DATE}" id="ot20" noWrap="true"/>
+           <af:spacer width="10" height="15" id="s32"/>
+                    <af:outputText value=":" id="ot19"/>
+                      <af:spacer width="10" height="30" id="s34"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.driverModifiedDate}"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"
+                                       id="ot21"
+                                       partialTriggers="soc1"/>
+                                       
+  <af:outputText value="#{sfr.MODIFIED_BY}" id="ot22" noWrap="true"/>
+           <af:spacer width="10" height="15" id="s35"/>
+                    <af:outputText value=":" id="ot23"/>
+                      <af:spacer width="10" height="30" id="s36"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.driverModifiedBy}"
+                                       id="ot24"
+                                       visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"
+                                       partialTriggers="soc1"/> 
+                                       
+                                       
   </h:panelGrid>
   </af:panelGroupLayout>
   <af:panelGroupLayout id="vehicle"
@@ -402,6 +429,26 @@
                       <af:spacer width="10" height="30" id="s22"/>
                         <af:outputText value="#{pageFlowScope.CardBean.displayVehicleName}" id="ot15"
                                        partialTriggers="soc2"/>
+                                       
+                          <af:outputText value="#{sfr.MODIFIED_DATE}" id="ot2811"
+                               noWrap="true"/>
+           <af:spacer width="10" height="15" id="s381"/>
+                    <af:outputText value=":" id="ot261"/>
+                      <af:spacer width="10" height="30" id="s391"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedDate}"
+                                       id="ot30"
+                                       partialTriggers="soc2"
+                                       visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
+                                       
+     <af:outputText value="#{sfr.MODIFIED_BY}"
+                            id="ot29" noWrap="true"/>
+           <af:spacer width="10" height="15" id="s37"/>
+                    <af:outputText value=":" id="ot31"/>
+                      <af:spacer width="10" height="30" id="s411"/>
+                        <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedBy}"
+                                       id="ot271"
+                                       partialTriggers="soc2"
+                                       visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/> 
 
              </h:panelGrid>
 

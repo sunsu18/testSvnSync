@@ -45,6 +45,10 @@
           <Item Value="BlockAction"/>
           <Item Value="InternalName"/>
           <Item Value="DriverNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="VehicleModifiedBy"/>
+          <Item Value="VehicleModifiedDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

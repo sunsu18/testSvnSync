@@ -124,7 +124,16 @@ public class CardBean implements Serializable {
         private String DriverNumber=null;
         private String DriverName=null;
         private String VehicleNumber=null;
-
+        private String vehicleModifiedBy =null;
+        private String vehicleModifiedDate =null;
+        private String driverModifiedBy =null;
+        private String  driverModifiedDate =null;
+        private boolean vehicleModifiedByVisible =false;
+        private boolean vehicleModifiedDateVisible =false;
+        private boolean driverModifiedByVisible =false;
+        private boolean  driverModifiedDateVisible =false; 
+        
+        
    public CardBean() {
         super();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -288,7 +297,7 @@ public class CardBean implements Serializable {
         if (statusList == null) {
             statusList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-           // System.out.println("unblocked"+resourceBundle.getObject("UNBLOCKED").toString());
+          
            if (resourceBundle.containsKey("UNBLOCKED"))
            {
             selectItem.setLabel(resourceBundle.getObject("UNBLOCKED").toString());
@@ -574,6 +583,10 @@ public class CardBean implements Serializable {
                 showErrorMsgEditFlag = false;
                 driverPGL = true;
                 vehiclePGL = false;
+                vehicleModifiedByVisible=false;
+                vehicleModifiedDateVisible=false;
+                driverModifiedByVisible=false;
+                driverModifiedDateVisible=false;
                 populateValue(valueChangeEvent.getNewValue().toString());
 
                  if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
@@ -581,6 +594,15 @@ public class CardBean implements Serializable {
                    
                     
                       driverNameValue=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
+                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null  )
+                     {
+                         vehicleModifiedByVisible=false;
+                         vehicleModifiedDateVisible=false;
+                         driverModifiedByVisible=true;
+                         driverModifiedDateVisible=true;
+                         driverModifiedBy= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
+                         driverModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
+                     } 
                       
                  }
                 
@@ -608,6 +630,18 @@ public class CardBean implements Serializable {
                     
                                    
                     vehicleNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().trim();
+                    
+                    
+                                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null  )
+                                     {
+                                         
+                                         driverModifiedByVisible=false;
+                                         driverModifiedDateVisible=false;
+                                         vehicleModifiedByVisible=true;
+                                         vehicleModifiedDateVisible=true;
+                                         vehicleModifiedBy= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
+                                         vehicleModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
+                                     } 
                                      
                                  }
                      
@@ -654,9 +688,7 @@ public class CardBean implements Serializable {
         return cardAssociation;
     }
 
-    public String editDetails() {       
-        return null;
-    }
+  
 
     public void populateValue(String paramType){
       
@@ -1681,7 +1713,7 @@ else
         //this.getBindings().getVehicleNumber().setValue(null);
         this.displayDriverName=null;
         this.displayVehicleName = null;
-        if(getBindings().getVehicleDriverRadio().getValue()!=null) {
+        if(getBindings().getVehicleDriverRadio().getValue() == null) {
           
             getBindings().getVehicleDriverRadio().setValue(null);
         }
@@ -1693,10 +1725,74 @@ else
     }
 
     public void closePopUpListener(ActionEvent actionEvent) {
-        // Add event code here...
+       
         getBindings().getVehicleDriverRadio().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         getBindings().getTruckdriverDetails().cancel();
+    }
+
+    public void setVehicleModifiedBy(String vehicleModifiedBy) {
+        this.vehicleModifiedBy = vehicleModifiedBy;
+    }
+
+    public String getVehicleModifiedBy() {
+        return vehicleModifiedBy;
+    }
+
+    public void setVehicleModifiedDate(String vehicleModifiedDate) {
+        this.vehicleModifiedDate = vehicleModifiedDate;
+    }
+
+    public String getVehicleModifiedDate() {
+        return vehicleModifiedDate;
+    }
+
+    public void setDriverModifiedBy(String driverModifiedBy) {
+        this.driverModifiedBy = driverModifiedBy;
+    }
+
+    public String getDriverModifiedBy() {
+        return driverModifiedBy;
+    }
+
+    public void setDriverModifiedDate(String driverModifiedDate) {
+        this.driverModifiedDate = driverModifiedDate;
+    }
+
+    public String getDriverModifiedDate() {
+        return driverModifiedDate;
+    }
+
+    public void setVehicleModifiedByVisible(boolean vehicleModifiedByVisible) {
+        this.vehicleModifiedByVisible = vehicleModifiedByVisible;
+    }
+
+    public boolean isVehicleModifiedByVisible() {
+        return vehicleModifiedByVisible;
+    }
+
+    public void setVehicleModifiedDateVisible(boolean vehicleModifiedDateVisible) {
+        this.vehicleModifiedDateVisible = vehicleModifiedDateVisible;
+    }
+
+    public boolean isVehicleModifiedDateVisible() {
+        return vehicleModifiedDateVisible;
+    }
+
+    public void setDriverModifiedByVisible(boolean driverModifiedByVisible) {
+        this.driverModifiedByVisible = driverModifiedByVisible;
+    }
+
+    public boolean isDriverModifiedByVisible() {
+        return driverModifiedByVisible;
+    }
+
+    public void setDriverModifiedDateVisible(boolean driverModifiedDateVisible) {
+        this.driverModifiedDateVisible = driverModifiedDateVisible;
+    }
+
+    public boolean isDriverModifiedDateVisible() {
+        return driverModifiedDateVisible;
     }
 
 

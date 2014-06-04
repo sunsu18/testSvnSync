@@ -53,7 +53,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name,pc.card_type,pdi.driver_name,pdi.driver_number,t1.cardgroup_description,pc.prt_card_pk
+    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,pdi.driver_number,pdi.modified_by,pdi.modified_date,t1.cardgroup_description,pc.prt_card_pk
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -178,6 +178,35 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="VehicleModifiedBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VEHICLE_MODIFIED_BY"
+    Expression="VEHICLE_MODIFIED_BY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VehicleModifiedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="VEHICLE_MODIFIED_DATE"
+    Expression="VEHICLE_MODIFIED_DATE"
+    SQLType="TIMESTAMP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="CardType"
     IsUpdateable="false"
     IsPersistent="false"
@@ -221,6 +250,37 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Expression="DRIVER_NUMBER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ModifiedBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Expression="MODIFIED_BY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ModifiedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Expression="MODIFIED_DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -481,7 +541,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -495,7 +555,7 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -590,35 +650,6 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedBy"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="25"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="MODIFIED_BY"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="25"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ModifiedDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="MODIFIED_DATE"
-    SQLType="TIMESTAMP">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
