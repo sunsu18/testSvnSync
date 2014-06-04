@@ -378,10 +378,10 @@ padding-bottom: 10px !important;
 
 .FAQInfo{
     color: #524e4f !important;
-    font-size: 14px;
-    font-family: Lucida Sans,Georgia,Serif !important;
+    /*font-size: 14px;*/
+    /*font-family: Lucida Sans,Georgia,Serif !important;*/
     line-height: 1.4;
-     font-weight: bold;
+     /*font-weight: bold;*/
 }
 
 .af_panelAccordion_body-content.p_AFFlow{
@@ -458,7 +458,7 @@ border-bottom: 1px solid rgb(221, 220, 220) !important;
 }
 .af_panelAccordion_header-title{
     color: #524e4f;
-    font-size: 15px;
+    font-size: 13px;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-weight:bold;
     cursor: pointer;
@@ -731,9 +731,9 @@ font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
 background-image: none;
 background-color: rgba(199, 206, 218, 0);
+/*font-weight: bold;*/
 
 }
-
 
 .af_panelFormLayout_label-cell {
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -877,11 +877,11 @@ border-right: 1px solid #FFFFFF !important;
 }
 
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
-    color: #333333;
+    color: #524e4f;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 12px;
-    font-weight: normal; 
+    /*font-weight: bold;*/ 
     height: 40px;
     border-bottom: 0px solid #FFFFFF !important;
     border-right: 1px solid #FFFFFF !important;
@@ -1312,28 +1312,30 @@ color: #3CB6CE;
 font-style:italic;
 font-weight:bold;
 }
-
+.af_commandImageLink_text, .af_goImageLink_text{
+    margin-left: 0px ;
+}
 
 /*Links*/
-.links{
+.links,.greylinks{
 font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 14px;
-color: #2181dc !important;
+font-size: 13px;
+color: #7c7c7c !important;
 font-weight: normal !important;
 text-decoration: underline !important;
-font-style:italic !important;
+/*font-style:bold !important;*/
 cursor: auto;
 }
 
+.af_goLink:hover,.af_goImageLink_text:hover,.af_goImageLink:hover{
+    text-decoration: none !important;
+}
 
 .greylinks{
-font-family : Lucida Sans,Georgia,Serif !important;
-font-size: 12px !important;
-color: #524e4f !important;
 font-weight: bold ;
-font-style:normal;
-text-decoration: none !important;
-cursor:auto;
+}
+.af_goLink{
+    font-size: 13px !important;
 }
 
 .faqlink
@@ -1392,7 +1394,7 @@ font-weight:bold;
 }   
 
 .af_commandImageLink_text, .af_goImageLink_text{
-    color:#524e4f !important;
+    color:#7c7c7c !important;
 }
 
 
@@ -1705,7 +1707,7 @@ background-color: red !important;
 }
 
 #top a {
-    color: #524E4F !important;
+    color: #524E4F;
     display: block;
     font: bold 12px Georgia;
     margin-right: 10px;
@@ -1822,14 +1824,21 @@ background-color: red !important;
     color: #3cb6ce;
 }
 
+
 .af_panelCustomizable {
     padding: 0px !important;
 }
 
 .spacerStyle{
 margin-left: 15px;
-}
 
+}
+.active-menu{
+color: #3cb6ce !important;    
+border-bottom: 5px solid #3cb6ce;
+margin-left: 9.0px;
+white-space: nowrap !important;
+}
 .heading{
 color:#3CB6CE;
 font-family : Lucida Sans,Georgia,Serif !important;

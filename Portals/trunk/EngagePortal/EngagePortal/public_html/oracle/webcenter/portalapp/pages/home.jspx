@@ -221,7 +221,7 @@
                                          id="outputText4"/>-->
                         <af:spacer width="10" height="10" id="s18"/>
                       </af:panelGroupLayout>
-                      <af:spacer width="10" height="14" id="spacer15"/>
+                      <af:spacer width="10" height="20" id="spacer15"/>
                       <af:panelGroupLayout id="pgl9" layout="horizontal">
                         <af:outputText value="#{sfr.NEW_TO_CARD}"
                                        id="outputText5"
@@ -310,6 +310,7 @@
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/></af:panelGroupLayout>-->
                             </af:panelGroupLayout>
+                             <af:spacer width="10" height="10" id="s26"/>
                           </af:panelGroupLayout>
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>

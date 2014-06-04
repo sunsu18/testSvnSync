@@ -530,9 +530,8 @@
                                      targetFrame="_blank"
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
-
-
-                                                      >
+ actionListener="#{pageFlowScope.AuthenticatedHomeBean.redirectToProductCatalog}">
+ 
                             <af:clientListener method="redirect2" type="click"/>
                           </af:commandButton>
 
