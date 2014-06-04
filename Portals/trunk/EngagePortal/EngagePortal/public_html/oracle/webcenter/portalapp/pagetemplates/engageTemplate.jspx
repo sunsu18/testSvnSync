@@ -81,17 +81,18 @@
                               <c:forEach var="menu" varStatus="vs"
                                          items="${navNodes}">
                                 <li id="vLine">
-                                  <a class="${(not empty menu.children)?'arrow':''}"
+                                  <a class="${menu.onSelectedPath ? 'active-menu' : ''} ${(not empty menu.children)?'arrow':''}"
                                      onclick="${(not empty menu.children)?'return false':'return true'}"
                                      href="${contextRoot}${menu.goLinkPrettyUrl}">
                                     ${menu.title}</a>
+
                                   <c:if test="${not empty menu.children}">
                                     <ul>
                                       <c:forEach var="child"
                                                  items="#{menu.children}">
                                         <li>
                                           <a href="${contextRoot}${child.goLinkPrettyUrl}">
-                                            ${child.title}
+                                            ${child.title} ${child.selected}
                                             
                                              <af:clientListener method="refreshTF" type="click"/>
                                             </a>
