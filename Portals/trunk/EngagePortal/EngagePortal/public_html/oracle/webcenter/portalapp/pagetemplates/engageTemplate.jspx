@@ -5,10 +5,10 @@
           xmlns:pe="http://xmlns.oracle.com/adf/pageeditor"
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
- <f:loadBundle basename="com.sfr.engage.model.resources.EngageResourceBundle" var="sfr"/> 
- 
+ <f:loadBundle basename="com.sfr.engage.model.resources.EngageResourceBundle" var="sfr"/>
+
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-     
+
  <af:resource type="javascript">
         function refreshTF(evt) {
           //  alert('ja');
@@ -18,10 +18,10 @@
            // alert('Que');
             event.cancel();
         }
-        
-        
+
+
     </af:resource>
-    
+
 <c:set var="contextRoot"
          value="${facesContext.externalContext.requestContextPath}"
          scope="session"/>
@@ -48,13 +48,13 @@
                                     rendered="#{!composerContext.inEditMode or attrs.isEditingTemplate}"
                                     inlineStyle="margin-bottom:0px;">
                 <af:panelGroupLayout layout="vertical" id="pt_pgl1" styleClass="hLine">
-                
-                
-               
 
-                  
-                  
-                  
+
+
+
+
+
+
                   <af:spacer width="10" height="0" id="pt_s1"/>
                   <pe:layoutCustomizable id="pt_lc2" type="twoColumnTop"
                                          showIcon="false" shortDesc="Header">
@@ -77,7 +77,7 @@
                               <c:set var="navNodes"
                                      value="${navigationContext.defaultNavigationModel.listModel['startNode=/card, includeStartNode=false']}"
                                      scope="session"/>
-                               
+
                               <c:forEach var="menu" varStatus="vs"
                                          items="${navNodes}">
                                 <li id="vLine">
@@ -92,8 +92,8 @@
                                                  items="#{menu.children}">
                                         <li>
                                           <a href="${contextRoot}${child.goLinkPrettyUrl}">
-                                            ${child.title} ${child.selected}
-                                            
+                                            ${child.title}
+
                                              <af:clientListener method="refreshTF" type="click"/>
                                             </a>
                                         </li>
@@ -102,7 +102,7 @@
                                   </c:if>
                                 </li>
                               </c:forEach>
-                               
+
                            <af:commandToolbarButton id="pt_ctb1"
                             rendered="#{securityContext.authenticated}"
                             inlineStyle="background-image: none; border-style: none; font-size: 12px; margin-left: -6px; margin-top: -4px; padding: 0px 0px 0px 0px; height: 10px; width: 10px; background-color: #F3F3F3;"
@@ -116,8 +116,8 @@
                                 </af:menu>
                               </f:facet>
                               </af:commandToolbarButton>
-                               
-                             
+
+
                             </ul>
                             <!-- JMB End -->
                           </div>
@@ -135,7 +135,7 @@
       <af:panelGroupLayout id="pt_pgl13" layout="horizontal" halign="center">
         <af:panelGroupLayout id="pt_pgl12" layout="vertical"
                              >
-          
+
           <af:panelGroupLayout id="pt_pgl9" layout="horizontal"
                                styleClass="contentMargin">
             <af:facetRef facetName="content"/>
@@ -149,21 +149,21 @@
                              valign="bottom" halign="center"
                              >
           <af:spacer width="10" height="0" id="pt_s2"/>
-        
+
           <af:spacer width="10" height="10" id="pt_s5"/>
-          
-          
-          
-        
-          
-          
+
+
+
+
+
+
           <!--<af:panelGroupLayout id="pgl31" valign="bottom" layout="horizontal"
                                inlineStyle="width:955.0px;">
             <af:panelGroupLayout id="pgl32" layout="vertical" halign="left"
                                  inlineStyle="width:240px;">
               <af:panelGroupLayout id="pgl20" layout="horizontal" halign="left">
                 <af:spacer width="10" height="10" id="pt_s3"/>
-                <af:outputText value="#{sfr.COPYRIGHT}" 
+                <af:outputText value="#{sfr.COPYRIGHT}"
                                id="ot6574" styleClass="footerCopyright"/>
               </af:panelGroupLayout>
             </af:panelGroupLayout>
@@ -210,26 +210,26 @@
             </af:panelGroupLayout>--><!--
             </af:panelGroupLayout>
           </af:panelGroupLayout>-->
-          
-          
-          
-          
-          
+
+
+
+
+
         </af:panelGroupLayout>
-      </af:panelGroupLayout> 
-      
+      </af:panelGroupLayout>
+
       <!--<af:spacer height="15" width="100" id="pt_s3" rendered="#{(facesContext.externalContext.request.localAddr) eq '10.101.53.58'}"/>-->
-     
+
        <!--<af:outputText value="#{facesContext.externalContext.request.localAddr}"
                                        id="ot65714"
                                        styleClass="footerCopyright"/>--><!-- #{facesContext.externalContext.request.localName}-#{sessionScope['lang']}-->
-      
+
     </af:panelGroupLayout>
-   
-    
-   
-    
-     
+
+
+
+
+
     <af:xmlContent>
       <component xmlns="http://xmlns.oracle.com/adf/faces/rich/component">
         <display-name>Webshop Template</display-name>
