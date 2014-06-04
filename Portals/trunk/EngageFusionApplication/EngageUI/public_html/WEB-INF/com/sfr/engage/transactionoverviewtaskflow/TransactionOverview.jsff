@@ -594,7 +594,7 @@
                          id="ot87"/>
           </af:panelGroupLayout>
           </af:column>
-          <af:column sortProperty="OdometerPortal" filterable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
+          <af:column sortProperty="OdometerPortal" filterable="false" width="70" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                      sortable="false" align="left"
                      headerText="#{sfr.ODOMETER}"
                      id="c19">
