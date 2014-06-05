@@ -1287,6 +1287,16 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

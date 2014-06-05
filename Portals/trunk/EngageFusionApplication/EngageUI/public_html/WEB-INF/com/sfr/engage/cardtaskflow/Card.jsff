@@ -262,18 +262,18 @@
               </af:inputText>
             </af:column>
            
-            <af:column headerText="#{sfr.STATUS}" sortProperty="BlockAction" filterable="true"  width="110px"
+            <af:column headerText="#{sfr.STATUS}" sortProperty="Status" filterable="true"  width="110px"
                        id="c4">
                   
-              <af:inputText value="#{row.bindings.BlockAction.inputValue}"
-                            label="#{bindings.PrtViewCardsVO11.hints.BlockAction.label}"
-                            required="#{bindings.PrtViewCardsVO11.hints.BlockAction.mandatory}"
-                            columns="#{bindings.PrtViewCardsVO11.hints.BlockAction.displayWidth}"
-                            maximumLength="#{bindings.PrtViewCardsVO11.hints.BlockAction.precision}"
-                            shortDesc="#{bindings.PrtViewCardsVO11.hints.BlockAction.tooltip}"
+              <af:inputText value="#{row.bindings.Status.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.Status.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.Status.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.Status.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.Status.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.Status.tooltip}"
                             id="it4">
                            
-                <f:validator binding="#{row.bindings.BlockAction.validator}"/>
+                <f:validator binding="#{row.bindings.Status.validator}"/>
               </af:inputText>
             
             </af:column>

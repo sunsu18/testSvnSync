@@ -1153,7 +1153,7 @@ public class CardBean implements Serializable {
 
                     showErrorMsgEditFlag=true;
                  
-                    warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString());
+                    warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
                 }
 
             }

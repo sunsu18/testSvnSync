@@ -868,6 +868,16 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                 obj.setRegistrationDate((Date)value);
             }
         }
+        ,
+        Status {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getStatus();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setStatus((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -895,6 +905,8 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+    ResourceBundle resourceBundle;
+
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int BLOCKACTION = AttributesEnum.BlockAction.index();
     public static final int CARDEXPIRY = AttributesEnum.CardExpiry.index();
@@ -980,7 +992,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int BRAND = AttributesEnum.Brand.index();
     public static final int YEAR = AttributesEnum.Year.index();
     public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
-    ResourceBundle resourceBundle; 
+    public static final int STATUS = AttributesEnum.Status.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1009,32 +1021,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * @return the BlockAction
      */
     public String getBlockAction() {
-    
-        resourceBundle = new EngageResourceBundle();
-                if(getAttributeInternal(BLOCKACTION).equals("0"))
-                {
-                  
-                        
-                    if (resourceBundle.containsKey("UNBLOCKED"))
-                        
-               return  resourceBundle.getObject("UNBLOCKED").toString().trim() ;
-                }
-                else      
-                if(getAttributeInternal(BLOCKACTION).equals("1"))
-                {
-                    
-                   
-                    if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
-               return resourceBundle.getObject("TEMPORARY_BLOCKED").toString().trim() ;
-                }
-                else
-                    if(getAttributeInternal(BLOCKACTION).equals("2"))
-                {
-                    
-                    if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
-               return resourceBundle.getObject("PERMANENT_BLOCKED").toString().trim() ;   
-                }
-                return null;
+                return (String)getAttributeInternal(BLOCKACTION);
 
     }
 
@@ -2372,6 +2359,51 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setRegistrationDate(Date value) {
         setAttributeInternal(REGISTRATIONDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Status.
+     * @return the Status
+     */
+    public String getStatus() { 
+                String result="";
+                    if(getBlockAction()!=null){                
+            
+                resourceBundle = new EngageResourceBundle();
+                if("0".equalsIgnoreCase(getBlockAction().toString().trim()))
+                {                 
+                        
+                    if (resourceBundle.containsKey("UNBLOCKED"))
+                    {                        
+                    result= resourceBundle.getObject("UNBLOCKED").toString().trim() ;
+                     }
+                }else if("1".equalsIgnoreCase(getBlockAction().toString().trim()))
+                {  
+                    if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
+                    {
+                   result=resourceBundle.getObject("TEMPORARY_BLOCKED").toString().trim() ;
+                    }
+                }else
+                {
+                    if("2".equalsIgnoreCase(getBlockAction().toString().trim()))
+                     {                    
+                         if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
+                        {
+                        result=resourceBundle.getObject("PERMANENT_BLOCKED").toString().trim() ;   
+                         }
+                    }
+                }                
+            }
+         return result;
+        //return (String) getAttributeInternal(STATUS);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Status.
+     * @param value value to set the  Status
+     */
+    public void setStatus(String value) {
+        setAttributeInternal(STATUS, value);
     }
 
     /**

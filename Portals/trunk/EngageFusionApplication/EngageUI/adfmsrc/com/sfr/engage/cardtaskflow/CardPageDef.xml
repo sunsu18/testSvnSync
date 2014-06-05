@@ -49,6 +49,7 @@
           <Item Value="ModifiedDate"/>
           <Item Value="VehicleModifiedBy"/>
           <Item Value="VehicleModifiedDate"/>
+          <Item Value="Status"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
