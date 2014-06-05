@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!--//==========================================================================
+#-// Custom SFR Development - 2012 - <SPECIFIC SUB COMPANY>
+#-// $Id:$            <Needed for VSS version to be inserted>
+#-//============================================================================
+#-// File Name    ::  build_interface.xml
+#-//
+#-// Parameters   ::  <LIST ALL PARAMETERS USED IN THE SCRIPT>
+#-//
+#-// Description  ::  It contains all the targets for the compile, build
+#-//                  ,deploy and undeployment of the SOA/AIA interface
+#-//                  This file is read by the ANT script
+#-//
+#-// Version Control
+#-//============================================================================
+#-// Vers  Author        Date              Description
+#-//____________________________________________________________________________
+#-// 1.0   Rajan.Grover 27/08/2012       build_interface.xml file created
+#-// 2.0   Rajan.Grover 27/08/2012       Multiple Configuraion plans are added
+#-// 3.0   Rajan.Grover 27/08/2012       Target for Undeployment is added
+#-// 4.0   Sunil.Mewada 19/12/2012       Partion Name is included in User prompt
+#-//=========================================================================-->
+
+<project name="E008TransactionDetailPALStoPortalApp" default="build.src.zip">
+ 
+<!--Initializing the oracle.home variable-->
+<property environment="env"/> 
+<property name="oracle.home" value="${env.ANT_UTL_HOME}/OracleHome"/>
+
+<!-- importing the ant_servers_details.properties file --> 
+<property file="${env.ANT_UTL_HOME}/ant_servers_details.properties"/>
+
+<!-- importing interface_build.properties file --> 
+<property file="interface_build.properties"/>
+
+<!-- Writing the Interface Level Log file -->
+<tstamp>
+  <format property="TimeStamp" pattern="yyyyMMddHHmmss" locale="en"/>
+</tstamp>
+<record name="${env.ANT_UTL_HOME}/logs/${interface.name}_${TimeStamp}.log" loglevel="info" append="false"/>
+
+<property name="oracle.home"      value="$(oracle.home)"/>
+<property name="output.file.name" value="${ant.project.name}_Source_${fod.version}.jar"/> 
+ 
+<!-- Target for clean all projects in preparation to zip up the source distribution -->
+<target     name="clean"       description="cleans up the Complete Build Application app"  depends="init">
+  <echo>... cleaning up sources ..</echo>
+  <delete file="../${output.file.name}"/>
+  <delete dir="results"                     includeemptydirs="true"            includes="*/**"/>
+  <delete dir="util/classes"                includeemptydirs="true"            includes="*/**"/>
+  <ant    antfile="build_sca_composite.xml" target="clean"                     
+          inheritall="true"                 dir="${synchronousproject.composite.home}/${bin.sub.dir}/">
+    <property name="oracle.home" value="${oracle.home}"/>
+  </ant>    
+  <ant    antfile="build_sca_composite.xml" target="clean" 
+          inheritall="true"                 dir="${asynchronousproject.composite.home}/${bin.sub.dir}/">
+    <property name="oracle.home" value="${oracle.home}"/>
+  </ant>            
+</target>
+    
+<!--Target for jar up all sources into the main jar file -->  
+<target name="build.src.zip" depends="clean" description="creates the source distribution">
+  <echo>Creating the source distribution for CompleteBuildApplication</echo>
+  <jar basedir=".." destfile="../${output.file.name}">
+    <include name="*/**"/>
+    <include name="*/**/*"/>
+    <exclude name="${ant.project.name}*.jar"/>
+    <exclude name="*.zip"/>
+    <exclude name="*/*svn*/*"/>
+    <exclude name="*/**/classes/**"/>
+    <exclude name="*/**/*.war"/>
+    <exclude name="*/**/deploy"/>
+    <exclude name="*/**/*.lck"/>
+    <exclude name="*/**/*.lock"/>
+    <exclude name="*/**/*.jdb"/>
+    <exclude name="*/**/*was*"/>        
+    <exclude name="*/*was*"/>
+  </jar>
+</target>
+
+<!--Target for deploying interface -->
+<target name="compile-deploy-interface"     description="builds all artifacts and deploys them">
+
+  <!--User prompts for the Environment name-->
+  <input     message="Please enter the deployment environment name in Upper Case ( For E.g. DEV,PYT,QAT,PRD......etc):"   addproperty="env.name"/>
+  
+  <!-- Adding Inherited property values to get server details from ant_servers_details.properties file -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+  <!-- defining for managed.server.host-->
+  <macrodef    name="resolveProperty_server.host"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.host" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.host    property="managed.server.host" value="${env.name}" /> 
+ 
+  <!-- defining for managed.server.port-->
+  <macrodef    name="resolveProperty_server.port"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.port" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.port    property="managed.server.port" value="${env.name}" />
+
+  <!-- defining for deploymentplan.name-->
+  <macrodef    name="resolveProperty_deploymentplan.name"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.deploymentplan.name" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_deploymentplan.name property="deploymentplan.name" value="${env.name}" />
+  
+  <!--User prompts for the server username, password and Partition-->
+  <input message="Please enter User Name:"     			addproperty="server.user"/>
+  <input message="Please enter User Password:" 			addproperty="server.password"> 
+    <handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+  </input>
+  <input message="Please enter Server Partition Name:"  addproperty="soa.partition.name"/> 
+  <echo>Deploying CompleteBuildApplication</echo>
+  
+  <!--##############  Editable section of build_interface.xml file Begins  #################-->
+  
+  <!-- Appending Target Service -->
+  <ant  antfile="../${target.composite.home}/${bin.sub.dir}/build_sca_composite.xml" 
+        target="deploy-composite"      	inheritall="false">
+    <property name="env.name"          	value="${env.name}"/>
+    <property name="server.user"       	value="${server.user}"/>
+    <property name="server.password"   	value="${server.password}"/>
+	<property name="soa.partition.name" value="${soa.partition.name}"/>
+  </ant>
+  
+  <!--Displaying each composite inside interface-->
+<echo>#############################################################################################</echo>
+<echo>Successfully deployed the following composites under Partion : [${soa.partition.name}] in Environment : [${env.name}]</echo>
+<echo>${target.composite.home}</echo>
+<echo>#############################################################################################</echo>
+  
+  <!--##############  Editable section of build_interface.xml file Ends  #################-->
+  
+</target>
+<target name="init">
+  <echo>SOA Suite 11g version: </echo>
+  
+  <!-- dump the build info -->
+  <java classname="com.collaxa.cube.util.BuildInfo">
+    <classpath>
+      <pathelement location="${oracle.home}/soa/modules/oracle.soa.bpel_11.1.1/orabpel.jar"/>
+      <pathelement location="${oracle.home}/soa/modules/oracle.soa.bpel_11.1.1/orabpel-common.jar"/>
+      <pathelement location="${oracle.home}/soa/modules/oracle.soa.fabric_11.1.1/fabric-runtime.jar"/>
+    </classpath>
+  </java>
+  
+  <!-- compile the utility classes -->
+  <echo>soa infra mgmt home: ${oracle.soa.mgmt.home} </echo> 
+</target>
+</project>
