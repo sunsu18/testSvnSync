@@ -353,6 +353,9 @@
         </assign>
       </sequence>
     </scope>
+<!--        <while name="WhileEachBatch"
+           condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')">
+-->
     <while name="WhileEachBatch" condition="bpws:getVariableData('Count') &lt; 5" id="BpWhl0">
       <sequence name="Sequence" id="BpSeq6">
         <scope name="GetPALSdataScope" variableAccessSerializable="no" id="BpScp2">
@@ -461,7 +464,7 @@
           <faultHandlers id="BpFhs2">
             <catch faultName="bpelx:bindingFault" id="BpCFt3">
               <switch name="Switch2" id="BpSwt2">
-                <case condition="contains(ora:getFaultAsString(),'integrity constraint')">
+                <case condition="contains(ora:getFaultAsString(),'IntegrityConstraint')">
                   <bpelx:annotation>
                     <bpelx:general>
                       <bpelx:property name="userLabel">If Fault String equals 'integrity constraint'</bpelx:property>
@@ -763,7 +766,7 @@
         </assign>
       </sequence>
     </while>
-    <switch name="RecordExistsSwitch" id="BpSwt3">
+    <switch name="ErrorSwitch" id="BpSwt3">
       <case condition="bpws:getVariableData('ErrorFlag') = 'YES'">
         <bpelx:annotation>
           <bpelx:general>

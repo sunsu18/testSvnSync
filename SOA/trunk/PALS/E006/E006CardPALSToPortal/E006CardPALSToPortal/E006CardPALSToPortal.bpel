@@ -715,7 +715,7 @@
           <faultHandlers>
             <catch faultName="bpelx:bindingFault">
               <switch name="Switch2">
-                <case condition="contains(ora:getFaultAsString(),'integrity constraint')">
+                <case condition="contains(ora:getFaultAsString(),'IntegrityConstraint')">
                   <bpelx:annotation>
                     <bpelx:general>
                       <bpelx:property name="userLabel">If Fault String equals 'integrity constraint'</bpelx:property>
@@ -1171,7 +1171,7 @@
         </assign>
       </sequence>
     </while>
-    <switch name="RecordExistsSwitch">
+    <switch name="ErrorSwitch">
       <case condition="bpws:getVariableData('ErrorFlag') = 'YES'">
         <bpelx:annotation>
           <bpelx:general>

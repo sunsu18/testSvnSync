@@ -1,6 +1,6 @@
 <adapter-config name="InsertPALSDataToTempCardPortalDBAdapter" adapter="Database Adapter" wsdlLocation="InsertPALSDataToTempCardPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
   <endpoint-interaction portType="InsertPALSDataToTempCardPortalDBAdapter_ptt" operation="insert">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="InsertPALSDataToTempCardPortalDBAdapter.SoaPrtCardTemp"/>

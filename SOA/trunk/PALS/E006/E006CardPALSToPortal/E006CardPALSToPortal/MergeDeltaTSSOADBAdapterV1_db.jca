@@ -1,6 +1,6 @@
 <adapter-config name="MergeDeltaTSSOADBAdapterV1" adapter="Database Adapter" wsdlLocation="MergeDeltaTSSOADBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="MergeDeltaTSSOADBAdapterV1_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeDeltaTSSOADBAdapterV1.EngageSoaDeltatable"/>

@@ -4,7 +4,7 @@
    <class-mapping-descriptors>
       <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
          <class>PALSDB2DBAdapter.Cc073Vs1CssksiDta</class>
-         <alias>DHDTOCSS.CC073VS1_CSSKSI_DTA</alias>
+         <alias>CC073VS1_CSSKSI_DTA</alias>
          <primary-key>
             <field table="CC073VS1_CSSKSI_DTA" name="DELTA_TS" xsi:type="column"/>
             <field table="CC073VS1_CSSKSI_DTA" name="KJOPSALG_ID" xsi:type="column"/>
@@ -48,7 +48,7 @@
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP FROM ( SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP,  ROW_NUMBER() OVER() as rownumber FROM DHDTOCSS.CC073VS1_CSSKSI_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Account WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                     <sql>SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP FROM ( SELECT DELTA_TS, KJOPSALG_ID, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KJOPSALG_TP, BEVIS_TP, EKSTERN_ID, PREGE_ID, FAKTURA_TX, GYLDIGTOM_DT, BEVSPERRE_TP, BEVSPERRE_KD, BEVSPERREAKSJON, BEVSPERRE_DT, BEVSPERRE_TID, BEVSPERRENIVA_KD, PRODUSERT_DT, RTXKND_NR, FAKADRESSE_1, FAKADRESSE_2, FAKADRPOST_NR, FAKADRPOSTSTED, FAKADRLOPE_NR, FAKADRLAND_KD, FAKADRNIVA_KD, FAKADRESSE_TP,  ROW_NUMBER() OVER() as rownumber FROM CC073VS1_CSSKSI_DTA WHERE DELTA_TS > #DeltaTimeStamp  order by DELTA_TS asc ) Account WHERE (DELTA_TS > #DeltaTimeStamp AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
                   </call>
                   <reference-class>PALSDB2DBAdapter.Cc073Vs1CssksiDta</reference-class>
                   <container xsi:type="list-container-policy">
@@ -212,7 +212,7 @@
          <instantiation/>
          <copying xsi:type="instantiation-copy-policy"/>
          <tables>
-            <table name="DHDTOCSS.CC073VS1_CSSKSI_DTA"/>
+            <table name="CC073VS1_CSSKSI_DTA"/>
          </tables>
          <structure>structureName</structure>
       </class-mapping-descriptor>
