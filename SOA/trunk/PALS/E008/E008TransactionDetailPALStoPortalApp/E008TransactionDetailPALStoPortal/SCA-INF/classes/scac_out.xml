@@ -3,7 +3,17 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>573</line>
+      <line>509</line>
+      <col/>
+      <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
+      <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}integer"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>591</line>
       <col/>
       <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
       <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>
@@ -13,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>847</line>
+      <line>865</line>
       <col/>
       <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
       <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>
@@ -23,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>847</line>
+      <line>865</line>
       <col/>
       <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
       <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>
@@ -33,7 +43,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>847</line>
+      <line>865</line>
       <col/>
       <file>E008TransactionDetailPALStoPortalBPEL.bpel</file>
       <name>E008TransactionDetailPALStoPortalBPEL.bpel</name>

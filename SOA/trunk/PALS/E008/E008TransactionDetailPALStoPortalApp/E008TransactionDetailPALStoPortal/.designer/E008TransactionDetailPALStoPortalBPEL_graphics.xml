@@ -19,7 +19,7 @@
       <partnerlink name="SOAErrorHandlerJMSQAdapter" x="2190" y="1774" side="right"/>
       <partnerlink name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" x="2190" y="5082" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="159,1050,493,494" show_swimlanes="true">
+   <graph_layout viewport="218,1050,493,395" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>

@@ -500,7 +500,7 @@
           <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
         </invoke>
         <switch name="Switch5">
-          <case condition="(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount') &lt; ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DatabaseAdapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns8:SelectCountPALSDB2DatabaseAdapterV1Output/ns8:_1') div bpws:getVariableData('BatchSize') )))">
+          <case condition="(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount'))&lt;ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:_1') div bpws:getVariableData('BatchSize')))">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">If batch count is sent</bpelx:property>
