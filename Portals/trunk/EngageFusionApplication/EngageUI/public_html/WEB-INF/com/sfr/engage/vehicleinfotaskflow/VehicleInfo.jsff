@@ -5,7 +5,8 @@
           xmlns:h="http://java.sun.com/jsf/html"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
   <af:panelGroupLayout id="pgl3" styleClass="spacerStyle" layout="vertical">
-    <af:panelGroupLayout id="pgl41" layout="vertical">
+    <af:panelGroupLayout id="pgl41" layout="vertical"
+                         inlineStyle="width: 365px;">
      <af:spacer width="10" height="20" id="s9ghgh"/>
       <af:panelGroupLayout id="printPanel1" layout="horizontal">
         <af:outputText value="#{sfr.VEHICLE_INFO}" id="ot1"
@@ -16,19 +17,46 @@
       <af:panelGroupLayout id="pgl2" layout="horizontal">
         <af:separator id="s4"/>
       </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s44"/>
       <!--<af:spacer width="10" height="15" id="s17"/>-->
-      <af:panelGroupLayout id="pgl1"
+      <!--<af:panelGroupLayout id="pgl1"
                            binding="#{pageFlowScope.VehicleInfoBean.bindings.searchPanelGroupLayout}"
-                           layout="vertical" inlineStyle="width:440.0px;">
-        <af:panelGroupLayout id="pgl9" halign="right">
-          <h:panelGrid columns="6" id="pg1">
-
-          <af:outputText value="*" id="gff"/>
-            <af:outputText value="#{sfr.PARTNER_ENG}" id="colon"/>
-           <af:spacer width="20" height="10" id="s18"/>
-            <af:outputText value=":" id="col"/>
-        <af:spacer width="20" height="50" id="s45"/>
-            <af:selectOneChoice id="partnerSOC"
+                           layout="vertical" inlineStyle="width:440.0px;">-->
+        <af:panelGroupLayout id="pgl9" halign="right"
+                             inlineStyle="width:330px;">
+         <h:panelGrid columns="3" id="pg1" cellpadding="3"
+                                     cellspacing="2"
+                                     style="text-align:left; vertical-align:top;"
+                                     >
+ <af:panelGroupLayout id="pgl36"
+                      inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;"
+                                               layout="vertical">
+          <af:outputText value="*#{sfr.PARTNER_ENG}" id="gff"/>
+        <af:spacer width="20" height="20" id="s45"/>
+       <af:outputText value="*#{sfr.ACCOUNT}" id="ot11"/>
+           <af:spacer width="20" height="20" id="s20"/>
+        <af:outputText value="*#{sfr.FILTER_REGISTRATION_NUMBER}" id="colon1"/>
+        <af:spacer width="20" height="20" id="s37"/>
+            </af:panelGroupLayout>
+ <af:panelGroupLayout id="pgl12"
+                      inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":" id="col"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s21"/>
+                                                          <af:outputText value=":"
+                                                                         id="ot14"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s18"/>
+                                                          <af:outputText value=":"
+                                                                         id="ot18"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s19"/>
+                                               </af:panelGroupLayout>
+<af:panelGroupLayout id="pgl1"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
+              <af:selectOneChoice id="partnerSOC"
                                 binding="#{pageFlowScope.VehicleInfoBean.bindings.linkedPartner}"
                                 contentStyle="width: 175px;"
                                 autoSubmit="true"
@@ -41,19 +69,8 @@
                                value="#{listItem.value}" id="select_item_partner"/>
               </af:forEach>
             </af:selectOneChoice>
-            <!--<af:spacer height="10" id="s24"/>
-            <af:spacer height="10" id="s20"/>
-            <af:spacer height="10" id="s21"/>
-            <af:spacer height="10" id="s22"/>
-            <af:spacer height="10" id="s2ewe2"/>-->
-
-
-
-            <af:outputText value="" id="str"/>
-            <af:outputText value="#{sfr.ACCOUNT}" id="ot11"/>
-           <af:spacer width="20" height="10" id="s37"/>
-            <af:outputText value=":" id="ot14"/>
-            <af:spacer width="20" height="20" id="s20"/>
+            <af:spacer width="20" height="20"
+                                                          id="s41"/>
             <af:selectManyChoice id="smc1"
                                  binding="#{pageFlowScope.VehicleInfoBean.bindings.linkedAccount}"
 
@@ -65,28 +82,24 @@
                                value="#{listItem.value}" id="select_item"/>
               </af:forEach>
             </af:selectManyChoice>
-            <!--<af:spacer height="10" id="s42"/>
-            <af:spacer height="10" id="s43"/>
-            <af:spacer height="10" id="s44"/>
-            <af:spacer height="10" id="s23"/>
-            <af:spacer height="10" id="sdf23"/>
-          <af:spacer height="10" id="dfdsdf23"/>-->
-             <af:outputText value="" id="ot18"/>
-            <af:outputText value="#{sfr.FILTER_REGISTRATION_NUMBER}"
-                           id="colon1"/>
-            <af:spacer width="20" height="10" id="s19"/>
-            <af:outputText value=":" id="coll3"/>
-            <af:spacer width="20" height="50" id="s21"/>
-            <af:inputText id="it7" autoSubmit="true"
+            <af:spacer width="20" height="20"
+                                                          id="s42"/>
+             <af:inputText id="it7" autoSubmit="true"
                           binding="#{pageFlowScope.VehicleInfoBean.bindings.registerNumber}"
                           value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"
                           contentStyle="width: 165px;"/>
+                          <af:spacer width="20" height="20"
+                                                          id="s43"/>
+                                               
+                                               
+                                               
+                                               </af:panelGroupLayout>
+                          
           </h:panelGrid>
-        </af:panelGroupLayout>
+        <!--</af:panelGroupLayout>-->
         <af:spacer width="12" height="10" id="s2"/>
         <af:panelGroupLayout id="pgal1"
-                             halign="right" layout="horizontal"
-                             inlineStyle="padding-right: 50px;">
+                             halign="right" layout="horizontal">
           <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                             action="#{pageFlowScope.VehicleInfoBean.searchAction}"
                             partialTriggers="it7"></af:commandButton>
