@@ -506,12 +506,31 @@
                     bpelx:invokeAsDetail="no">
                     <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
                     </invoke>
+        <switch name="Switch1">
+          <case condition="(bpws:getVariableData('ReceiveInvocationMsg_IV','part1','/ns5:invocationMsg/ns5:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvocationMsg_IV','part1','/ns5:invocationMsg/ns5:BatchCount') &lt; ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapterOV','GetCountPALSDB2DBAdapterOutput','/ns8:GetCountPALSDB2DBAdapterOutput/ns8:count')div bpws:getVariableData('BatchSize'))))
+">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">Batch Count Given</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="ReceiveInvocationMsg_IV" part="part1"
+                      query="/ns5:invocationMsg/ns5:BatchCount"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
             <assign name="CalculateBatchCount">
               <copy>
                 <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapterOV','GetCountPALSDB2DBAdapterOutput','/ns8:GetCountPALSDB2DBAdapterOutput/ns8:count')div bpws:getVariableData('BatchSize'))"/>
                 <to variable="BatchCount"/>
               </copy>
             </assign>
+          </otherwise>
+        </switch>
           </sequence>
         </scope>
         <while name="WhileEachBatch"

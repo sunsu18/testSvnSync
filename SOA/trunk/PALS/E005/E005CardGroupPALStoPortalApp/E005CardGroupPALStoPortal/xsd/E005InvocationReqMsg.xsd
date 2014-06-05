@@ -17,6 +17,7 @@
         <xsd:element name="BatchSize" type="xsd:integer"/>
         <xsd:element name="DatabaseJNDI" type="xsd:string"/>
         <xsd:element name="InterfaceID" type="xsd:string"/>
+        <xsd:element name="BatchCount" type="xsd:string" minOccurs="0"/>
         <xsd:element name="UserName" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
