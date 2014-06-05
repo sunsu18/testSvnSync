@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="E005CardGroupPALStoPortal">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="E005CardGroupPALStoPortalClient">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://oracle.com/sca/soapservice/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/E005CardGroupPALStoPortalClient#wsdl.endpoint(E005CardGroupPALStoPortalClient/execute_pt)</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>NEVER</replace>
+            </property>
+         </binding>
+      </service>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="E005CardGroupPALStoPortalBPEL">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+      </component>
+      <!--Add search and replace rules for the reference properties
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888
+		<replace>8889</replace>
+	<searchReplace>
+	or provide a new replace value like:
+	<replace>http://my-new-server:8889/myservice</replace>-->
+      <reference name="SelectPALSDB2DBAdaptorV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectDeltaTSDBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeDeltaTSDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="GetCountPALSDB2DBAdapter">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeCardGroupPortalDatabaseAdaptorV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeCardGroupErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectSOACardGroupTempDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeCardGroupTempDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectValidCardGroupTempDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="TruncSOACardGroupDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SOAErrorHandlerJMSQAdapterV1">
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="UpdateEmailFlagErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for JMS adapter: 
+	<jca:property name="DestinationName"><replace>jms/DemoSupplierTopic</replace></jca:property>
+	<jca:property name="TimeToLive"><replace>0</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="E005CardGroupPALStoPortalClient.wsdl|E005CardGroupPALStoPortalClientWrapper.wsdl|GetCountPALSDB2DBAdapter.wsdl|GetCountPALSDB2DBAdapter_db.jca|MergeCardGroupErrorLogDatabaseAdapterV1.wsdl|MergeCardGroupErrorLogDatabaseAdapterV1_db.jca|MergeCardGroupPortalDatabaseAdaptorV1.wsdl|MergeCardGroupPortalDatabaseAdaptorV1_db.jca|MergeCardGroupTempDatabaseAdapterV1.wsdl|MergeCardGroupTempDatabaseAdapterV1_db.jca|MergeDeltaTSDatabaseAdapterV1.wsdl|MergeDeltaTSDatabaseAdapterV1_db.jca|SelectDeltaTSDBAdapterV1.wsdl|SelectDeltaTSDBAdapterV1_db.jca|SelectNoEamilCardGroupErrorLogDatabaseAdapterV1.wsdl|SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_db.jca|SelectPALSDB2DBAdaptorV1.wsdl|SelectPALSDB2DBAdaptorV1_db.jca|SelectSOACardGroupTempDatabaseAdapterV1.wsdl|SelectSOACardGroupTempDatabaseAdapterV1_db.jca|SelectValidCardGroupTempDatabaseAdapterV1.wsdl|SelectValidCardGroupTempDatabaseAdapterV1_db.jca|SOAErrorHandlerJMSQAdapterV1.wsdl|SOAErrorHandlerJMSQAdapterV1_jms.jca|TruncSOACardGroupDatabaseAdapterV1.wsdl|TruncSOACardGroupDatabaseAdapterV1_db.jca|UpdateEmailFlagErrorLogDatabaseAdapterV1.wsdl|UpdateEmailFlagErrorLogDatabaseAdapterV1_db.jca|xsd/E005InvocationReqMsg.xsd|xsd/ErrorHandling.xsd|xsd/GetCountPALSDB2DBAdapter.xsd|xsd/MergeCardGroupErrorLogDatabaseAdapterV1_table.xsd|xsd/MergeCardGroupPortalDatabaseAdaptorV1_table.xsd|xsd/MergeCardGroupTempDatabaseAdapterV1_table.xsd|xsd/MergeCardGroupValidate.xsd|xsd/MergeDeltaTSDatabaseAdapterV1_table.xsd|xsd/MergreCardGroupTempDatabaseAdapterV1_table.xsd|xsd/SelectDeltaTSDBAdapterV1_table.xsd|xsd/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1.xsd|xsd/SelectPALSDB2DBAdaptorV1_table.xsd|xsd/SelectSOACardGroupTempDatabaseAdapterV1.xsd|xsd/SelectValidCardGroupTempDatabaseAdapterV1.xsd|xsd/TruncSOACardGroupDatabaseAdapterV1.xsd|xsd/UpdateEmailFlagErrorLogDatabaseAdapterV1_table.xsd">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!--//==========================================================================
+#-// Custom SFR Development - 2012 - <SPECIFIC SUB COMPANY>
+#-// $Id:$            <Needed for VSS version to be inserted>
+#-//============================================================================
+#-// File Name    ::  build_sca_composite.xml
+#-//
+#-// Parameters   ::  <LIST ALL PARAMETERS USED IN THE SCRIPT>
+#-//
+#-// Description  ::  It contains all the targets for the compile, build
+#-//                  ,deploy and undeployment of the SOA/AIA composite
+#-//                  This file is read by the ANT script
+#-//
+#-// Version Control
+#-//============================================================================
+#-// Vers  Author        Date              Description
+#-//____________________________________________________________________________
+#-// 1.0   Rajan.Grover 27/08/2012        build_sca_composite.xml file created
+#-// 2.0   Rajan.Grover 27/08/2012        Multiple Configuraion plans are added
+#-// 3.0   Rajan.Grover 27/08/2012        Target for Undeployment is added
+#-// 4.0   Sunil.Mewada 19/12/2012        Partion Name is included in User prompt
+#-//=========================================================================-->
+
+<project name="E005CardGroupPALStoPortal" default="create-deployable-composite">
+
+<!--Initializing the oracle.home variable-->
+<property environment="env"/> 
+<property name="oracle.home" value="${env.ANT_UTL_HOME}/OracleHome"/>
+
+<!-- importing the ant_servers_details.properties file --> 
+<property file="${env.ANT_UTL_HOME}/ant_servers_details.properties"/>
+
+<!-- importing the sca-build.properties file -->
+<property file="sca-build.properties"/>
+
+<!-- Writing the Composite Level Log file -->
+<tstamp>
+  <format property="TimeStamp" pattern="yyyyMMddHHmmss" locale="en"/>
+</tstamp>     
+<record name="${env.ANT_UTL_HOME}/logs/${composite.name}_${TimeStamp}.log" loglevel="info" append="false"/> 
+
+<!-- classpath for spring libs and standalone testcase-->
+<path id="classpath">
+  <pathelement location="${oracle.home}/wlserver_10.3/server/lib/weblogic.jar"/>
+  <pathelement location="${oracle.home}/lib/aia.jar"/>
+  <pathelement location="${oracle.common.home}/modules/org.apache.commons.logging_1.0.4.jar"/>
+  <path        location="${sca-inf.classes.dir}"/>
+</path>
+
+<!--Target for cleanup -->  
+<target name="clean">
+  <property name="sca-inf.classes.dir"       value="../SCA-INF/classes"/>
+  <echo     message="Deleting contents of ${sca-inf.classes.dir}"/>
+  <delete   dir="${sca-inf.classes.dir}"     includeemptydirs="true" includes="*/**"/>
+  <delete   dir="${test.results.dir}"        includeemptydirs="true" includes="*/**"/>
+  <property name="deploy.composite.filename" value="${deploy.dir}/sca_${composite.name}_rev${composite.revision}.jar"/>
+  <echo     message="Deleting ${deploy.composite.filename}"/>
+  <delete   file="${deploy.composite.filename}"/>
+</target>
+
+<!--Target for Class path details -->
+<target name="compile-classes">
+  <mkdir dir="${sca-inf.classes.dir}"/>
+  <javac destdir="${sca-inf.classes.dir}"   classpathref="classpath"
+         debug="on"                         nowarn="${javac.nowarn}"
+         deprecation="${javac.deprecation}" encoding="Cp1252" 
+         source="1.6"                       target="1.6">
+    <src path="${src.dir}"/>
+  </javac>  
+</target> 
+ 
+<!--Target for creating the composite -->
+<target name="create-deployable-composite">
+  <mkdir   dir="${sca-inf.classes.dir}"/>
+  <antcall target="set-aia-classpath"></antcall>
+  <ant     antfile="${oracle.home}/bin/ant-sca-package.xml" target="package" inheritall="false">
+    <property name="oracle.home"           value="${oracle.home}"/>
+    <property name="compositeDir"          value="${basedir}/../"/>
+    <property name="scac.application.home" value="${basedir}/../.."/>
+    <property name="compositeName"         value="${composite.name}"/>
+    <property name="revision"              value="${composite.revision}"/>
+    <property name="java.passed.home"      value="${java.home}"/>
+  </ant>
+</target>
+ 
+<!-- Target for Deploying the composite -->
+<target name="deploy-composite" >
+
+  <!-- user prompts for the Environment Name -->
+  <input     message="Please enter the deployment environment name in Upper Case ( For E.g. DEV,PYT,QAT,PRD......etc):"   addproperty="env.name"/>
+  
+  <!-- Adding Inherited property values to get server details from ant_servers_details.properties file -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+ 
+  <!-- defining for managed.server.host-->
+  <macrodef    name="resolveProperty_server.host"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.host" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.host    property="managed.server.host" value="${env.name}" /> 
+ 
+  <!-- defining for managed.server.port-->
+  <macrodef    name="resolveProperty_server.port"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.port" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.port    property="managed.server.port" value="${env.name}" />
+  
+  <!-- defining for deploymentplan.name-->
+  <macrodef    name="resolveProperty_deploymentplan.name"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.deploymentplan.name" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_deploymentplan.name property="deploymentplan.name" value="${env.name}" />
+  
+  <!--user prompts for the server username and password-->
+  
+  <input     message="Please enter User Name:"              addproperty="server.user"/>
+  <input     message="Please enter User Password:"          addproperty="server.password"> 
+    <handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+  </input>
+  <input 	 message="Please enter Server Partition Name:"  addproperty="soa.partition.name"/>
+  
+  <condition property="deploymentplan.name"        value="null">
+    <not>
+      <isset property="${deploymentplan.name}"/>
+    </not>
+  </condition>
+   
+  <!-- Reading the deployment plan and ant_servers_details.properties file-->
+  <mkdir     dir="${sca-inf.classes.dir}"/>
+  <antcall   target="set-aia-classpath"></antcall>
+  <ant       antfile="${oracle.home}/bin/ant-sca-package.xml" target="package" inheritall="false">
+  <property  name="oracle.home"           value="${oracle.home}"/>
+  <property  name="compositeDir"          value="${basedir}/../"/>
+  <property  name="scac.application.home" value="${basedir}/../.."/>
+  <property  name="compositeName"         value="${composite.name}"/>
+  <property  name="revision"              value="${composite.revision}"/>
+  <property  name="java.passed.home"      value="${java.home}"/>
+  </ant>
+  <ant    antfile="${oracle.home}/bin/ant-sca-compile.xml" target="attachplan" inheritall="false">
+    <property name="oracle.home"         value="${oracle.home}"/>
+    <property name="java.passed.home"    value="${java.home}"/>
+    <property name="scac.input"          value="../"/>
+    <property name="scac.sar"            value="${basedir}/../${deploy.dir}/sca_${composite.name}_rev${composite.revision}.jar"/>
+    <property name="scac.plan"           value="${basedir}/${deploymentplan.name}"/>
+  </ant> 
+  <echo>Deploying to http://${managed.server.host}:${managed.server.port}/soa-infra/deployer</echo>
+  <ant antfile="${oracle.home}/bin/ant-sca-deploy.xml" target="deploy" 
+       inheritall="false" output="deployResult.dat">
+    <property name="user"                value="${server.user}"/>
+    <property name="password"            value="${server.password}"/>
+	<property name="partition"  		 value="${soa.partition.name}"/> 
+    <property name="serverURL"           value="http://${managed.server.host}:${managed.server.port}/soa-infra/deployer"/>
+    <property name="sarLocation"         value="${basedir}/../${deploy.dir}/sca_${composite.name}_rev${composite.revision}.jar"/>
+    <property name="overwrite"           value="true"/>      
+  </ant>
+  <loadfile property="deploylog" srcfile="deployResult.dat"></loadfile>
+  <fail     message="Deployment failed, please check above exception">
+  <condition>
+    <not>
+      <contains string="${deploylog}"    substring="200"/>
+    </not>
+      </condition>
+  </fail>
+  <delete   file="deployResult.dat"/> 
+<echo>=============================================================================================</echo>
+<echo>Successfully deployed the composite : ${composite.name} with revision no : ${composite.revision}
+under Partition : ${soa.partition.name} in Environment : ${env.name}</echo>
+<echo>=============================================================================================</echo>  
+</target>
+
+<!-- Target for Undeploying the composite -->
+<target name="undeploy-composite" >
+
+  <!-- user prompts for the Environment Name -->
+  <input     message="Please enter the deployment environment name in Upper Case ( For E.g. DEV,PYT,QAT,PRD......etc):"   addproperty="env.name"/>
+  
+  <!-- Adding Inherited property values to get server details from ant_servers_details.properties file -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+ 
+  <!-- defining for managed.server.host-->
+  <macrodef    name="resolveProperty_server.host"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.host" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.host    property="managed.server.host" value="${env.name}" /> 
+ 
+  <!-- defining for managed.server.port-->
+  <macrodef    name="resolveProperty_server.port"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="tmp1.@{property}" value="@{value}.managed.server.port" /> 
+      <resolveProperty2 property="@{property}"  value="${tmp1.@{property}}"/> 
+    </sequential> 
+  </macrodef>
+  <macrodef    name="resolveProperty2"> 
+    <attribute name="property" /> 
+    <attribute name="value" /> 
+    <sequential> 
+      <property         name="@{property}"      value="${@{value}}" /> 
+    </sequential> 
+  </macrodef> 
+  <resolveProperty_server.port    property="managed.server.port" value="${env.name}" />
+  
+  <!--user prompts for the server username and password-->
+
+  <input     message="Please enter User Name:"              addproperty="server.user"/>
+  <input     message="Please enter User Password:"          addproperty="server.password"> 
+    <handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+  </input>
+  <input 	 message="Please enter Server Partition Name:"  addproperty="soa.partition.name"/> 
+  
+  <echo>Undeploying the composite : ${composite.name} with revision no : ${composite.revision} from http://${managed.server.host}:${managed.server.port}</echo>
+  <ant antfile="${oracle.home}/bin/ant-sca-deploy.xml" target="undeploy" 
+       inheritall="false" output="undeployResult.dat">
+    <property name="user"                value="${server.user}"/>
+    <property name="password"            value="${server.password}"/>
+	<property name="partition"           value="${soa.partition.name}"/> 
+    <property name="serverURL"           value="http://${managed.server.host}:${managed.server.port}/soa-infra/deployer"/>
+    <property name="sarLocation"         value="${basedir}/../${deploy.dir}/sca_${composite.name}_rev${composite.revision}.jar"/>
+    <property name="overwrite"           value="true"/>
+    <property  name="compositeName"      value="${composite.name}"/>
+    <property  name="revision"           value="${composite.revision}"/>
+  </ant>
+  <loadfile property="undeploylog" srcfile="undeployResult.dat"></loadfile>
+  <fail     message="Un-Deployment failed, please check above exception">
+  <condition>
+    <not>
+      <contains string="${undeploylog}"    substring="200"/>
+    </not>
+      </condition>
+  </fail>
+  <delete   file="undeployResult.dat"/>
+<echo>=============================================================================================</echo>
+<echo>Successfully undeployed the composite : ${composite.name} with revision no : ${composite.revision}
+from Partition : ${soa.partition.name} in Environment : ${env.name}</echo>
+<echo>=============================================================================================</echo>  
+</target>
+
+<!--Target for setting classpath-->
+<target name="set-aia-classpath">
+  <mkdir    dir="${sca-inf.lib.dir}"/>
+  <copy     file="${oracle.home}/lib/aia.jar" todir="${sca-inf.lib.dir}"/>
+</target>
+</project>
