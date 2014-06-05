@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="E003AccountSummaryPALStoPortal">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="E003ACcountSummaryPalstoPortalService">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://oracle.com/sca/soapservice/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003ACcountSummaryPalstoPortalService#wsdl.endpoint(E003ACcountSummaryPalstoPortalService/execute_pt)</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>NEVER</replace>
+            </property>
+         </binding>
+      </service>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="E003AccountSummaryPalstoPortalBPEL">
+         <property name="bpel.config.transaction">
+            <replace>requiresNew</replace>
+         </property>
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+      </component>
+      <!--Add search and replace rules for the reference properties
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888
+		<replace>8889</replace>
+	<searchReplace>
+	or provide a new replace value like:
+	<replace>http://my-new-server:8889/myservice</replace>-->
+      <reference name="SelectPALSDB2DBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectDeltaTSDBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="GetPALSDB2CountDBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="InsertDeltaTSSOADBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergePortalDataDBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="InsertSOAPartnerErrorLogDBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SOAErrorHandlingJMSQueue">
+         <binding type="jca"/>
+      </reference>
+      <reference name="GetErrorRecordsSOADBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="UpdateEmailFlagSOADBAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for JMS adapter: 
+	<jca:property name="DestinationName"><replace>jms/DemoSupplierTopic</replace></jca:property>
+	<jca:property name="TimeToLive"><replace>0</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="E003ACcountSummaryPalstoPortalService.wsdl|E003ACcountSummaryPalstoPortalServiceWrapper.wsdl|GetErrorRecordsSOADBAdapterV1.wsdl|GetErrorRecordsSOADBAdapterV1_db.jca|GetPALSDB2CountDBAdapterV1.wsdl|GetPALSDB2CountDBAdapterV1_db.jca|InsertDeltaTSSOADBAdapterV1.wsdl|InsertDeltaTSSOADBAdapterV1_db.jca|InsertSOAPartnerErrorLogDBAdapterV1.wsdl|InsertSOAPartnerErrorLogDBAdapterV1_db.jca|MergePortalDataDBAdapterV1.wsdl|MergePortalDataDBAdapterV1_db.jca|SelectDeltaTSDBAdapterV1.wsdl|SelectDeltaTSDBAdapterV1_db.jca|SelectPALSDB2DBAdapterV1.wsdl|SelectPALSDB2DBAdapterV1_db.jca|SOAErrorHandlingJMSQueue.wsdl|SOAErrorHandlingJMSQueue_jms.jca|UpdateEmailFlagSOADBAdapterV1.wsdl|UpdateEmailFlagSOADBAdapterV1_db.jca|xsd/AccountSummaryPartnerValidate.xsd|xsd/E003InvocationReqMsg.xsd|xsd/ErrorHandling.xsd|xsd/GetErrorRecordsSOADBAdapterV1.xsd|xsd/GetPALSDB2CountDBAdapterV1.xsd|xsd/InsertDeltaTSSOADBAdapterV1_table.xsd|xsd/InsertSOAPartnerErrorLogDBAdapterV1_table.xsd|xsd/MergePortalDataDBAdapterV1_table.xsd|xsd/SelectDeltaTSDBAdapterV1_table.xsd|xsd/SelectPALSDataDB2DBAdapterV1.xsd|xsd/SelectPALSDB2DBAdapterV1_table.xsd|xsd/UpdateEmailFlagSOADBAdapterV1_table.xsd">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>
