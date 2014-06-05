@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="E009PALSInvoicetoPortal">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="E009PALSInvoicetoPortal">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://oracle.com/sca/soapservice/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/E009PALSInvoicetoPortal#wsdl.endpoint(E009PALSInvoicetoPortal/execute_pt)</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>NEVER</replace>
+            </property>
+         </binding>
+      </service>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="E009PALSInvoicetoPortalBPEL">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+      </component>
+      <!--Add search and replace rules for the reference properties
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888
+		<replace>8889</replace>
+	<searchReplace>
+	or provide a new replace value like:
+	<replace>http://my-new-server:8889/myservice</replace>-->
+      <reference name="SelectCountPALSDB2DatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectDeltaTSDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectPALSDB2DatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeInvoiceDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeInvoiceErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="MergeDeltaTSDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SelectInvoiceErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+      <reference name="SOAErrorHandlerJMSQAdapterV1">
+         <binding type="jca"/>
+      </reference>
+      <reference name="UpdateInvoiceErrorLogDatabaseAdapterV1">
+         <property name="jca.retry.count">
+            <replace>4</replace>
+         </property>
+         <property name="jca.retry.interval">
+            <replace>1</replace>
+         </property>
+         <property name="jca.retry.backoff">
+            <replace>2</replace>
+         </property>
+         <property name="jca.retry.maxInterval">
+            <replace>120</replace>
+         </property>
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for JMS adapter: 
+	<jca:property name="DestinationName"><replace>jms/DemoSupplierTopic</replace></jca:property>
+	<jca:property name="TimeToLive"><replace>0</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="E009PALSInvoicetoPortal.wsdl|E009PALSInvoicetoPortalWrapper.wsdl|MergeDeltaTSDatabaseAdapterV1.wsdl|MergeDeltaTSDatabaseAdapterV1_db.jca|MergeInvoiceDatabaseAdapterV1.wsdl|MergeInvoiceDatabaseAdapterV1_db.jca|MergeInvoiceErrorLogDatabaseAdapterV1.wsdl|MergeInvoiceErrorLogDatabaseAdapterV1_db.jca|SelectCountPALSDB2DatabaseAdapterV1.wsdl|SelectCountPALSDB2DatabaseAdapterV1_db.jca|SelectDeltaTSDatabaseAdapterV1.wsdl|SelectDeltaTSDatabaseAdapterV1_db.jca|SelectInvoiceErrorLogDatabaseAdapterV1.wsdl|SelectInvoiceErrorLogDatabaseAdapterV1_db.jca|SelectPALSDB2DatabaseAdapterV1.wsdl|SelectPALSDB2DatabaseAdapterV1_db.jca|SOAErrorHandlerJMSQAdapterV1.wsdl|SOAErrorHandlerJMSQAdapterV1_jms.jca|UpdateInvoiceErrorLogDatabaseAdapterV1.wsdl|UpdateInvoiceErrorLogDatabaseAdapterV1_db.jca|xsd/E009InvocationReqMsg.xsd|xsd/ErrorHandling.xsd|xsd/MergeDeltaTSDatabaseAdapterV1_table.xsd|xsd/MergeInvoiceDatabaseAdapterV1_table.xsd|xsd/MergeInvoiceErrorLogDatabaseAdapterV1_table.xsd|xsd/MergeTransacionErrorLogDatabaseAdapterV1_table.xsd|xsd/SelectCountPALSDB2DatabaseAdapterV1.xsd|xsd/SelectDeltaTSDatabaseAdapterV1_table.xsd|xsd/SelectInvoiceErrorLogDatabaseAdapterV1_table.xsd|xsd/SelectPALSDB2DatabaseAdapterV1_table.xsd|xsd/UpdateInvoiceErrorLogDatabaseAdapterV1_table.xsd|xsd/ValidateDB2Data.xsd">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>
