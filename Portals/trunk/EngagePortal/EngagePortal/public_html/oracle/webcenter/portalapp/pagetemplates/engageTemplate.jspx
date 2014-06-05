@@ -28,7 +28,7 @@
   <af:pageTemplateDef var="attrs">
  <!-- add scroll to pgl11-->
     <af:panelGroupLayout id="pt_pgl11"
-                         inlineStyle="height:auto;overflow-x:hidden;">
+                         inlineStyle="height:auto;overflow-x:hidden;" layout="scroll">
       <af:panelGroupLayout id="pt_pgl4"
                            styleClass="marginIE AFStretchWidth headerBGColor secondaryMenu"
                            layout="horizontal">
