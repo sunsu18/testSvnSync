@@ -21,7 +21,7 @@
       <af:panelGroupLayout id="pgl3" layout="horizontal"
                            inlineStyle="width:960.0px;">
         <af:panelGroupLayout id="pgl4" layout="vertical"
-                             inlineStyle="width:400px; height:211.0px;"
+                             inlineStyle="width:350px; height:211.0px;"
                              valign="top">
           <h:panelGrid columns="6" id="pg1">
 
@@ -112,48 +112,60 @@
         <af:panelGroupLayout id="pgl6">
       <af:separator id="s2" styleClass="vertical_seprator_trans"/>
     </af:panelGroupLayout>
-        <af:spacer width="60" height="10" id="s40"/>
+        <af:spacer width="40" height="10" id="s40"/>
 
           <af:panelGroupLayout id="pgl7" layout="vertical" valign="top"
                                inlineStyle="width:500px; height:206.0px;">
 
               <!-- <af:panelGroupLayout id="pgl28" layout="vertical">
                 <af:panelGroupLayout id="pgl29" layout="horizontal">-->
-                 <h:panelGrid columns="6" id="pg2">
-                <af:outputText value="*" id="ot12" />
-
-                 <!-- <af:panelGroupLayout id="pgl31"> !-->
-                  <af:outputText value="#{sfr.FROM_DATE}" id="ot7"/>
-               <af:spacer width="5" height="15" id="s15s"/>
-                    <af:outputText value=":" id="ot7s"/>
-                      <af:spacer width="10" height="30" id="s13"/>
-
-                  <af:inputDate id="id1"
+                 
+                 
+                  <h:panelGrid columns="3" id="pg2" cellpadding="3"
+               cellspacing="2" style="text-align:left; vertical-align:top;">
+ <af:panelGroupLayout id="pgl36"
+                      inlineStyle="height:auto; text-align:justify; width:125.0px;overflow:hidden;"
+                                               layout="vertical">
+          <af:outputText value="*#{sfr.FROM_DATE}" id="ot12" />
+        <af:spacer width="20" height="20" id="s45"/>
+         <af:outputText value="*#{sfr.TO_DATE}" id="ot7"/>
+           <af:spacer width="20" height="20" id="s20"/>
+         <af:outputText value="*#{sfr.PLEASE_SELECT_ENG}" id="ot41"/>
+        
+            </af:panelGroupLayout>
+ <af:panelGroupLayout id="pgl12"
+                      inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":" id="col"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s21"/>
+                                                          <af:outputText value=":"
+                                                                         id="ot14"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s18"/>
+                                                          <af:outputText value=":"
+                                                                         id="ot18"/>
+                                              
+                                               </af:panelGroupLayout>
+<af:panelGroupLayout id="pgl18"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
+              <af:inputDate id="id1"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.fromDate}"
                                 inlineStyle="margin-left: 13px"
                                 contentStyle="width: 150px;">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
-
-                  <af:outputText value="*" id="ot13"/>
-           <af:outputText value="#{sfr.TO_DATE}" id="ot8"/>
-                   <af:spacer width="5" height="15" id="s152s"/>
-                    <af:outputText value=":" id="ot27s"/>
-                      <af:spacer width="10" height="40" id="s14"/>
-
-                  <af:inputDate id="id2"
+            <af:spacer width="20" height="20"
+                                                          id="s41"/>
+            <af:inputDate id="id2"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.toDate}"
                                 inlineStyle="margin-left: 13px"
                                 contentStyle="width: 150px;">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
-
-                <af:outputText value="*" id="ot41"/>
-                <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
-           <af:spacer width="10" height="15" id="s4"/>
-                    <af:outputText value=":" id="ot42"/>
-                      <af:spacer width="10" height="30" id="s15"/>
-            <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
+            <af:spacer width="20" height="20" id="s42"/>
+             <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
                                binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}"
                                contentStyle="margin-left: -5px;">
@@ -165,26 +177,33 @@
               <!--<f:selectItems value="#{pageFlowScope.ledgerBean.searchItemCriteriaLOV}"
                              id="si1"/>-->
             </af:selectOneRadio>
-
-
-
-            </h:panelGrid>
-
-           <af:spacer width="10" height="10" id="spacer7"/>
+                         
+                                               
+            </af:panelGroupLayout>
+                          
+          </h:panelGrid>
+                 
+         <af:spacer width="10" height="10" id="spacer7"/>
             <af:panelGroupLayout id="pgl27" layout="horizontal">
             <af:panelGroupLayout id="pgl10"
                                  visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardNoPGL}">
-            <h:panelGrid columns="6" id="pg3">
+            <h:panelGrid columns="3" id="pg3">
             <!--<af:spacer width="10" height="10" id="spacer5"/>-->
-             <af:spacer width="5" height="10" id="spadfsdcer5"/>
-            <af:outputText value="#{sfr.CARD}" id="ot6"/>
-            <af:spacer width="66" height="10" id="spacer6"/>
-             <af:outputText value=":" id="ot6d"/>
-              <af:spacer width="25" height="10" id="spacerd6"/>
-            <!--<af:selectOneChoice id="soc5">
-            <af:selectItem label="test" value="test" id="si9"/>
-            </af:selectOneChoice>-->
+              <af:panelGroupLayout id="pgl38"
+                      inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;"
+                                               layout="vertical">
+                <af:outputText value="#{sfr.CARD}" id="ot6"/>
+            </af:panelGroupLayout>
+             <af:panelGroupLayout id="pgl39"
+                      inlineStyle="height:auto; text-align:justify; width:25.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":"
+                                                              id="ot38"/>
+             </af:panelGroupLayout>                               
+            <af:panelGroupLayout id="pgl40"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
               <af:selectManyChoice id="smc3"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.card}"
                                    valuePassThru="true"
@@ -196,18 +215,27 @@
                     id="select_item_card"/>
             </af:forEach>
               </af:selectManyChoice>
+              </af:panelGroupLayout>
               </h:panelGrid>
               </af:panelGroupLayout>
                <af:panelGroupLayout id="pgl11"
                                     visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL}"
                                     binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroupPGL}">
-              <h:panelGrid columns="6" id="pg5">
-              <!--<af:spacer width="10" height="10" id="scvcv9"/>-->
-               <af:spacer width="5" height="10" id="spacesdr5"/>
-            <af:outputText value="#{sfr.CARDGROUP}" id="ot5"/>
-            <af:spacer width="27" height="10" id="s12"/>
-             <af:outputText value=":" id="otd6d"/>
-              <af:spacer width="25" height="10" id="spacderd6"/>
+              <h:panelGrid columns="3" id="pg5">
+             <af:panelGroupLayout id="pgl41"
+                      inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;"
+                                               layout="vertical">
+                                               <af:outputText value="#{sfr.CARDGROUP}" id="ot5"/>
+                                               </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl43"
+                      inlineStyle="height:auto; text-align:justify; width:25.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":"
+                                                              id="ot40"/>
+             </af:panelGroupLayout>
+              <af:panelGroupLayout id="pgl45"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
             <!--<af:selectOneChoice id="soc5">
             <af:selectItem label="test" value="test" id="si9"/>
             </af:selectOneChoice>-->
@@ -222,18 +250,27 @@
                     id="select_item_card_group"/>
             </af:forEach>
               </af:selectManyChoice>
+              </af:panelGroupLayout>
               </h:panelGrid>
               </af:panelGroupLayout>
-              <af:panelGroupLayout id="pgl12"
+              <af:panelGroupLayout id="pgl19"
                                    visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL}"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.driverNamePGL}">
-              <h:panelGrid columns="6" id="pg6">
-               <!--<af:spacer width="10" height="10" id="spacedsdr5"/>-->
-              <af:spacer width="5" height="10" id="s19"/>
-            <af:outputText value="#{sfr.DRIVER}" id="ot9"/>
-            <af:spacer width="57" height="10" id="s20"/>
-             <af:outputText value=":" id="ot6dg"/>
-              <af:spacer width="25" height="10" id="spacergd6"/>
+              <h:panelGrid columns="3" id="pg6">
+               <af:panelGroupLayout id="pgl46"
+                      inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;"
+                                               layout="vertical">
+                                               <af:outputText value="#{sfr.DRIVER}" id="ot9"/>
+                                               </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl47"
+                      inlineStyle="height:auto; text-align:justify; width:25.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":"
+                                                              id="ot42"/>
+             </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl48"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
             <!--<af:selectOneChoice id="soc5">
             <af:selectItem label="test" value="test" id="si9"/>
             </af:selectOneChoice>-->
@@ -248,22 +285,28 @@
                     id="select_item_driver"/>
             </af:forEach>
               </af:selectManyChoice>
+              </af:panelGroupLayout>
               </h:panelGrid>
               </af:panelGroupLayout>
 
               <af:panelGroupLayout id="pgl13"
                                    visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL}"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.vhNumberPGL}">
-              <h:panelGrid columns="6" id="pg7">
-              <!--<af:spacer width="10" height="10" id="s21"/>-->
-               <af:spacer width="5" height="10" id="s2sdsd1"/>
-            <af:outputText value="#{sfr.VEHICLE}" id="ot14"/>
-            <af:spacer width="49" height="10" id="s22"/>
-             <af:outputText value=":" id="otf6d"/>
-              <af:spacer width="25" height="10" id="spafcerd6"/>
-            <!--<af:selectOneChoice id="soc5">
-            <af:selectItem label="test" value="test" id="si9"/>
-            </af:selectOneChoice>-->
+              <h:panelGrid columns="3" id="pg7">
+              <af:panelGroupLayout id="pgl49"
+                      inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;"
+                                               layout="vertical">
+                                                <af:outputText value="#{sfr.VEHICLE}" id="ot8"/>
+                                               </af:panelGroupLayout>
+           <af:panelGroupLayout id="pgl50"
+                      inlineStyle="height:auto; text-align:justify; width:25.0px;"
+                                               layout="vertical">  
+                                               <af:outputText value=":"
+                                                              id="ot45"/>
+             </af:panelGroupLayout>
+           <af:panelGroupLayout id="pgl51"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
               <af:selectManyChoice id="smc6"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.vehicleNumber}"
                                    valuePassThru="true"
@@ -275,12 +318,13 @@
                     id="select_item_vehicle"/>
             </af:forEach>
               </af:selectManyChoice>
+              </af:panelGroupLayout>
             </h:panelGrid>
             </af:panelGroupLayout>
              </af:panelGroupLayout>
             <af:spacer width="10" height="20" id="s10"/>
             <af:panelGroupLayout id="pgl8" layout="horizontal"
-                                 inlineStyle="width:305.0px;" halign="right">
+                                 inlineStyle="width:348.0px;" halign="right">
 
               <af:spacer width="190" height="10" id="s5"/>
               <af:commandButton text="#{sfr.SEARCH}" id="cb2"
@@ -345,7 +389,7 @@
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="2" id="spacer2"/>
-      <af:panelGroupLayout id="pgl36" layout="scroll">
+      <af:panelGroupLayout id="pgl21" layout="scroll">
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
                   var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
@@ -388,7 +432,7 @@
                              styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
 
               </af:outputText>
-               <af:spacer width="0" height="0" id="s37"/>
+               <af:spacer width="0" height="0" id="s14"/>
               </af:panelGroupLayout>
             </f:facet>
         </af:column>
@@ -833,7 +877,7 @@
               <af:outputText value=":" id="ot23171"/>
              <af:spacer width="10" height="25" id="s30712"/>
             <af:outputText value="#{bindings.InvoiceDiscountAmount.inputValue}"
-                           id="ot18">
+                           id="ot13">
              <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.TransactionOverviewBean.locale}"
@@ -907,7 +951,7 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteAllDriver_scroll"
                                  styleClass="WCPanelMargin">
-               <af:separator id="s18"
+               <af:separator id="s15"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.shuttleExcel}"
                                     value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}"
@@ -921,7 +965,7 @@
                     id="si1"/>
             </af:forEach>
               </af:selectManyShuttle>
-              <af:spacer width="4" height="10" id="s41"/>
+              <af:spacer width="4" height="10" id="s53"/>
               <h:panelGrid columns="6">
                <af:outputText value="*" id="ot68"/>
                 <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot69"/>
@@ -953,7 +997,7 @@
             <af:toolbar id="t3"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="pgl5" layout="horizontal">
-              <af:spacer width="4" height="10" id="s42"/>
+              <af:spacer width="4" height="10" id="s57"/>
                 <af:commandButton text="#{sfr.YES}" id="cb6"
                                   action="#{pageFlowScope.TransactionOverviewBean.excelDownLoad}">
                   <af:clientListener method="exitFromPopupConfirmation" type="action"/>
@@ -961,7 +1005,7 @@
                                          filename="#{pageFlowScope.TransactionOverviewBean.fileName}"
                                         method="#{pageFlowScope.TransactionOverviewBean.specificExportExcelListener}"/>
                 </af:commandButton>
-                 <af:spacer width="10" height="10" id="s43"/>
+                 <af:spacer width="10" height="10" id="s58"/>
                 <af:commandButton text="#{sfr.NO}" id="cb7"
                                  action="#{pageFlowScope.TransactionOverviewBean.confirmationCancelAction}"/>
                 </af:panelGroupLayout>
@@ -981,9 +1025,9 @@
     <af:dialog id="editOdometer" title="#{sfr.EDIT_ODOMETER}" type="none"
                  contentWidth="700"
                  closeIconVisible="false">
-                  <af:separator id="s21"
+                  <af:separator id="s59"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-        <af:spacer width="10" height="10" id="s45"/>
+        <af:spacer width="10" height="10" id="s60"/>
         <af:panelStretchLayout id="psl3"
                                dimensionsFrom="children">
           <f:facet name="bottom">
