@@ -1,0 +1,14 @@
+<adapter-config name="SelectDeltaTSDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectDeltaTSDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="SOA_QAT" adapterRef=""/>
+  <endpoint-interaction portType="SelectDeltaTSDatabaseAdapterV1_ptt" operation="SelectDeltaTSDatabaseAdapterV1Select">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="SelectDeltaTSDatabaseAdapterV1.EngageSoaDeltatable"/>
+      <property name="QueryName" value="SelectDeltaTSDatabaseAdapterV1Select"/>
+      <property name="MappingsMetaDataURL" value="SelectDeltaTSDatabaseAdapterV1-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

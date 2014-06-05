@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="E009PALSInvoicetoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/E009PALSInvoicetoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/E009PALSInvoicetoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/E009PALSInvoicetoPortal" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectCountPALSDB2DatabaseAdapterV1" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectDeltaTSDatabaseAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectPALSDB2DatabaseAdapterV1" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/MergeInvoiceDatabaseAdapterV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns7="http://www.statoilfuelretail.com/integration/E009/E009InvocationReqMsg" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDatabaseAdapterV1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/SelectCountPALSDB2DatabaseAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DatabaseAdapterV1" xmlns:ns10="http://www.statoilfuelretail.com/integration/E009/ValidateDB2Data" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/MergeTransacionErrorLogDatabaseAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/MergeInvoiceErrorLogDatabaseAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/MergeDeltaTSDatabaseAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSDatabaseAdapterV1" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SelectInvoiceErrorLogDatabaseAdapterV1" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/jms/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SOAErrorHandlerJMSQAdapterV1" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoiceErrorLogDatabaseAdapterV1" xmlns:ns18="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeInvoiceErrorLogDatabaseAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/UpdateInvoiceErrorLogDatabaseAdapterV1" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="E009PALSInvoicetoPortal" partnerLinkType="ns1:E009PALSInvoicetoPortal" myRole="execute_ptt"/>
+    <partnerLink name="SelectCountPALSDB2DatabaseAdapterV1" partnerLinkType="ns2:SelectCountPALSDB2DatabaseAdapterV1_plt" partnerRole="SelectCountPALSDB2DatabaseAdapterV1_role"/>
+    <partnerLink name="SelectDeltaTSDatabaseAdapterV1" partnerLinkType="ns3:SelectDeltaTSDatabaseAdapterV1_plt" partnerRole="SelectDeltaTSDatabaseAdapterV1_role"/>
+    <partnerLink name="SelectPALSDB2DatabaseAdapterV1" partnerLinkType="ns4:SelectPALSDB2DatabaseAdapterV1_plt" partnerRole="SelectPALSDB2DatabaseAdapterV1_role"/>
+    <partnerLink name="MergeInvoiceDatabaseAdapterV1" partnerLinkType="ns5:MergeInvoiceDatabaseAdapterV1_plt" partnerRole="MergeInvoiceDatabaseAdapterV1_role"/>
+    <partnerLink name="MergeInvoiceErrorLogDatabaseAdapterV1" partnerLinkType="ns12:MergeInvoiceErrorLogDatabaseAdapterV1_plt" partnerRole="MergeInvoiceErrorLogDatabaseAdapterV1_role"/>
+    <partnerLink name="MergeDeltaTSDatabaseAdapterV1" partnerLinkType="ns13:MergeDeltaTSDatabaseAdapterV1_plt" partnerRole="MergeDeltaTSDatabaseAdapterV1_role"/>
+    <partnerLink name="SelectInvoiceErrorLogDatabaseAdapterV1" partnerLinkType="ns15:SelectInvoiceErrorLogDatabaseAdapterV1_plt" partnerRole="SelectInvoiceErrorLogDatabaseAdapterV1_role"/>
+    <partnerLink name="SOAErrorHandlerJMSQAdapterV1" partnerLinkType="ns16:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+    <partnerLink name="UpdateInvoiceErrorLogDatabaseAdapterV1" partnerLinkType="ns20:UpdateInvoiceErrorLogDatabaseAdapterV1_plt" partnerRole="UpdateInvoiceErrorLogDatabaseAdapterV1_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="ReceiveInvoiceInvocationMsg_IV" messageType="ns1:requestMessage"/>
+    <variable name="InvokeSelectDeltaTSDBAdapter_IV" messageType="ns3:SelectDeltaTSDatabaseAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectDeltaTSDBAdapter_OV" messageType="ns3:EngageSoaDeltatableCollection_msg"/>
+    <variable name="PALSJNDI" type="xsd:string"/>
+    <variable name="DELTA_TS" type="xsd:string"/>
+    <variable name="BatchSize" type="xsd:integer"/>
+    <variable name="ErrorFlag" type="xsd:string"/>
+    <variable name="InvokeSelectCountPALSDB2DatabaseAdapterV1_IV" messageType="ns2:SelectCountPALSDB2DatabaseAdapterV1Input_msg"/>
+    <variable name="InvokeSelectCountPALSDB2DatabaseAdapterV1_OV" messageType="ns2:SelectCountPALSDB2DatabaseAdapterV1Output_msg"/>
+    <variable name="BatchCount" type="xsd:integer"/>
+    <variable name="InvokeSelectPALSDB2DBAdapterV1_IV" messageType="ns4:SelectPALSDB2DatabaseAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectPALSDB2DBAdapterV1_OV" messageType="ns4:Cc074Vs1CssfakDtaCollection_msg"/>
+    <variable name="DataCount" type="xsd:integer"/>
+    <variable name="InvokeInvoiceErrorLogDBAdapter_IV" messageType="ns12:EngageSoaInvoiceErrorlogCollection_msg"/>
+    <variable name="InvokeMergeInvoiceDBAdapterV1_IV" messageType="ns5:PrtCardInvoiceCollection_msg"/>
+    <variable name="InvokeMergeDeltaTSDBAdapterV1_IV" messageType="ns13:EngageSoaDeltatableCollection_msg"/>
+    <variable name="InvokeSelectInvoiceErrorLogDBAdapterV1_IV" messageType="ns15:SelectInvoiceErrorLogDatabaseAdapterV1Select_inputParameters"/>
+    <variable name="InvokeSelectInvoiceErrorLogDBAdapterV1_OV" messageType="ns15:EngageSoaInvoiceErrorlogCollection_msg"/>
+    <variable name="InvokeSOAErrorhandlerJMSQ_IV" messageType="ns16:Produce_Message_msg"/>
+    <variable name="InvokeUpdateInvoiceErrorLogDBAdapterV1_IV" messageType="ns20:EngageSoaInvoiceErrorlogCollection_msg"/>
+    <variable name="ValidatePALSDB2" element="ns10:ValidationPayload"/>
+  </variables>
+  <faultHandlers id="BpFhs0">
+    <catch faultName="bpelx:remoteFault" id="BpCFt0">
+      <sequence name="Sequence12" id="BpSeq0">
+        <assign name="AssignRemoteFault" id="BpAss0">
+        <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E009PALSInvoicetoPortal'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:SenderSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:UserName"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-002'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Remote Fault in Interface ID: E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E009_TE'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Remote Fault in E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOARemoteErrorHandlerJMSQAdapterV1" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns16:Produce_Message_ptt" operation="Produce_Message" inputVariable="InvokeSOAErrorhandlerJMSQ_IV" bpelx:invokeAsDetail="no" id="BpInv0"/>
+      </sequence>
+    </catch>
+    <catch faultName="bpelx:bindingFault" id="BpCFt1">
+      <sequence name="Sequence11" id="BpSeq1">
+        <assign name="AssignBindingFault" id="BpAss1">
+          <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E009PALSInvoicetoPortal'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:SenderSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:UserName"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-001'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Binding Fault in Interface ID: E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E009_TE'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Binding Fault in E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOABindingErrorJMSAdapterV1" inputVariable="InvokeSOAErrorhandlerJMSQ_IV" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns16:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv1"/>
+      </sequence>
+    </catch>
+    <catchAll id="BpCAl0">
+      <sequence name="Sequence13" id="BpSeq2">
+        <assign name="AssignTechnicalFault" id="BpAss2">
+        <copy>
+            <from expression="ora:getCompositeInstanceId()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
+          </copy>
+          <copy>
+            <from expression="ora:getComponentName()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
+          </copy>
+          <copy>
+            <from expression="'E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
+          </copy>
+          <copy>
+            <from expression="'E009PALSInvoicetoPortal'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:SenderSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:UserName"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
+          </copy>
+          <copy>
+            <from expression="'TE-003'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
+          </copy>
+          <copy>
+            <from expression="'Technical Fault in Interface ID: E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
+          </copy>
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
+          </copy>
+          <copy>
+            <from expression="'E009_TE'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
+          </copy>
+          <copy>
+            <from expression="'Technical Fault in E009'"/>
+            <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOAtechnicalErrorHandlerJMSQAdapterV1" inputVariable="InvokeSOAErrorhandlerJMSQ_IV" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns16:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv2"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <sequence name="main" id="BpSeq3">
+    <receive name="ReceiveInvoiceinvocationMsg" createInstance="yes" variable="ReceiveInvoiceInvocationMsg_IV" partnerLink="E009PALSInvoicetoPortal" portType="ns1:execute_ptt" operation="execute" id="BpRcv0"/>
+    <assign name="AssignInitialValues" id="BpAss3">
+      <copy>
+        <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:DatabaseJNDI"/>
+        <to variable="PALSJNDI"/>
+      </copy>
+      <copy>
+        <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:BatchSize"/>
+        <to variable="BatchSize"/>
+      </copy>
+      <copy>
+        <from expression="'NO'"/>
+        <to variable="ErrorFlag"/>
+      </copy>
+    </assign>
+    <scope name="GetDeltaTSScope" variableAccessSerializable="no" id="BpScp0">
+      <sequence name="GetDeltaTSSequence" id="BpSeq4">
+        <assign name="AssignDeltaTSInputValues" id="BpAss4">
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:InterfaceID"/>
+            <to variable="InvokeSelectDeltaTSDBAdapter_IV" part="SelectDeltaTSDatabaseAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDatabaseAdapterV1Select_InterfaceID_CountrycodeInputParameters/ns6:InterfaceID"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:CountryCode"/>
+            <to variable="InvokeSelectDeltaTSDBAdapter_IV" part="SelectDeltaTSDatabaseAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDatabaseAdapterV1Select_InterfaceID_CountrycodeInputParameters/ns6:Countrycode"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectDeltaTSDBAdapter" inputVariable="InvokeSelectDeltaTSDBAdapter_IV" outputVariable="InvokeSelectDeltaTSDBAdapter_OV" partnerLink="SelectDeltaTSDatabaseAdapterV1" portType="ns3:SelectDeltaTSDatabaseAdapterV1_ptt" operation="SelectDeltaTSDatabaseAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv3"/>
+      </sequence>
+    </scope>
+    <switch name="Switch1" id="BpSwt0">
+      <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapter_OV','EngageSoaDeltatableCollection','/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable'))>0">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">Delta_TS exists</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="Sequence1" id="BpSeq5">
+          <assign name="AssignDeltaTS" id="BpAss5">
+            <copy>
+              <from variable="InvokeSelectDeltaTSDBAdapter_OV" part="EngageSoaDeltatableCollection" query="/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable/ns6:palsDeltaTimestamp"/>
+              <to variable="DELTA_TS"/>
+            </copy>
+          </assign>
+          <assign name="ConvertDeltaTS" id="BpAss6">
+            <copy>
+              <from expression="substring-before(bpws:getVariableData('DELTA_TS'),'+')"/>
+              <to variable="DELTA_TS"/>
+            </copy>
+            <copy>
+              <from expression="concat(substring-before(bpws:getVariableData('DELTA_TS'),'T'),' ',substring-after(bpws:getVariableData('DELTA_TS'),'T'))"/>
+              <to variable="DELTA_TS"/>
+            </copy>
+          </assign>
+        </sequence>
+      </case>
+      <otherwise>
+        <assign name="AssignDefaultDeltaTS" id="BpAss7">
+          <copy>
+            <from expression="'0001-01-01 00:00:00.000000'"/>
+            <to variable="DELTA_TS"/>
+          </copy>
+        </assign>
+      </otherwise>
+    </switch>
+    <scope name="GetCountfromPALSScope" variableAccessSerializable="no" id="BpScp1">
+      <sequence name="Sequence2" id="BpSeq6">
+        <assign name="AssignDeltaTS" id="BpAss8">
+          <copy>
+            <from variable="DELTA_TS"/>
+            <to variable="InvokeSelectCountPALSDB2DatabaseAdapterV1_IV" part="SelectCountPALSDB2DatabaseAdapterV1Input_msg" query="/ns8:SelectCountPALSDB2DatabaseAdapterV1Input/ns8:deltats"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSelectCountPALSDB2DatabaseAdapterV1" inputVariable="InvokeSelectCountPALSDB2DatabaseAdapterV1_IV" outputVariable="InvokeSelectCountPALSDB2DatabaseAdapterV1_OV" partnerLink="SelectCountPALSDB2DatabaseAdapterV1" portType="ns2:SelectCountPALSDB2DatabaseAdapterV1_ptt" operation="SelectCountPALSDB2DatabaseAdapterV1" bpelx:invokeAsDetail="no" id="BpInv4">
+                <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
+                </invoke>
+        <switch name="Switch4" id="BpSwt1">
+          <case condition="(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount') &lt; ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DatabaseAdapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns8:SelectCountPALSDB2DatabaseAdapterV1Output/ns8:_1') div bpws:getVariableData('BatchSize') )))">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">Batch count given</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount" id="BpAss9">
+              <copy>
+                <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:BatchCount"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="CalculateBatchCount" id="BpAss10">
+              <copy>
+                <from expression="ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DatabaseAdapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns8:SelectCountPALSDB2DatabaseAdapterV1Output/ns8:_1') div bpws:getVariableData('BatchSize') )"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
+      </sequence>
+    </scope>
+    <while name="WhileEachBatch" condition="bpws:getVariableData('BatchCount')>0" id="BpWhl0">
+      <sequence name="Sequence3" id="BpSeq7">
+        <scope name="GetLatestDeltaTSScope" variableAccessSerializable="no" id="BpScp2">
+          <sequence id="BpSeq8">
+            <assign name="AssignDeltaTSInputValues" id="BpAss11">
+              <copy>
+                <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:InterfaceID"/>
+                <to variable="InvokeSelectDeltaTSDBAdapter_IV" part="SelectDeltaTSDatabaseAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDatabaseAdapterV1Select_InterfaceID_CountrycodeInputParameters/ns6:InterfaceID"/>
+              </copy>
+              <copy>
+                <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:CountryCode"/>
+                <to variable="InvokeSelectDeltaTSDBAdapter_IV" part="SelectDeltaTSDatabaseAdapterV1Select_inputParameters" query="/ns6:SelectDeltaTSDatabaseAdapterV1Select_InterfaceID_CountrycodeInputParameters/ns6:Countrycode"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeSelectDeltaTSDatabaseAdapter" inputVariable="InvokeSelectDeltaTSDBAdapter_IV" outputVariable="InvokeSelectDeltaTSDBAdapter_OV" partnerLink="SelectDeltaTSDatabaseAdapterV1" portType="ns3:SelectDeltaTSDatabaseAdapterV1_ptt" operation="SelectDeltaTSDatabaseAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv5"/>
+          </sequence>
+        </scope>
+        <switch name="Switch2" id="BpSwt2">
+          <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapter_OV','EngageSoaDeltatableCollection','/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable'))>0">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">Delta_TS exists</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence name="Sequence5" id="BpSeq9">
+              <assign name="AssignDeltaTS" id="BpAss12">
+              <copy>
+              <from variable="InvokeSelectDeltaTSDBAdapter_OV" part="EngageSoaDeltatableCollection" query="/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable/ns6:palsDeltaTimestamp"/>
+              <to variable="DELTA_TS"/>
+            </copy>
+              </assign>
+              <assign name="ConvertDeltaTS" id="BpAss13">
+                <copy>
+                  <from expression="substring-before(bpws:getVariableData('DELTA_TS'),'+')"/>
+                  <to variable="DELTA_TS"/>
+                </copy>
+                <copy>
+                  <from expression="concat(substring-before(bpws:getVariableData('DELTA_TS'),'T'),' ',substring-after(bpws:getVariableData('DELTA_TS'),'T'))"/>
+                  <to variable="DELTA_TS"/>
+                </copy>
+              </assign>
+            </sequence>
+          </case>
+          <otherwise>
+            <assign name="AssignDefaultDeltaTS" id="BpAss14">
+            <copy>
+            <from expression="'0001-01-01 00:00:00.000000'"/>
+            <to variable="DELTA_TS"/>
+          </copy>
+            </assign>
+          </otherwise>
+        </switch>
+        <scope name="GetDataFromPALSScope" variableAccessSerializable="no" id="BpScp3">
+          <sequence name="Sequence6" id="BpSeq10">
+            <assign name="AssignSelectPALSDB2Input" id="BpAss15">
+              <copy>
+                <from variable="BatchSize"/>
+                <to variable="InvokeSelectPALSDB2DBAdapterV1_IV" part="SelectPALSDB2DatabaseAdapterV1Select_inputParameters" query="/ns9:SelectPALSDB2DatabaseAdapterV1Select_BatchSize_DeltaTimeStampInputParameters/ns9:BatchSize"/>
+              </copy>
+              <copy>
+                <from variable="DELTA_TS"/>
+                <to variable="InvokeSelectPALSDB2DBAdapterV1_IV" part="SelectPALSDB2DatabaseAdapterV1Select_inputParameters" query="/ns9:SelectPALSDB2DatabaseAdapterV1Select_BatchSize_DeltaTimeStampInputParameters/ns9:DeltaTimeStamp"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeSelectPALSDB2DBAdapterV1" inputVariable="InvokeSelectPALSDB2DBAdapterV1_IV" outputVariable="InvokeSelectPALSDB2DBAdapterV1_OV" partnerLink="SelectPALSDB2DatabaseAdapterV1" portType="ns4:SelectPALSDB2DatabaseAdapterV1_ptt" operation="SelectPALSDB2DatabaseAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv6">
+                    <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
+                    </invoke>
+            <assign name="GetDataCount" id="BpAss16">
+              <copy>
+                <from expression="count(bpws:getVariableData('InvokeSelectPALSDB2DBAdapterV1_OV','Cc074Vs1CssfakDtaCollection','/ns9:Cc074Vs1CssfakDtaCollection/ns9:Cc074Vs1CssfakDta'))"/>
+                <to variable="DataCount"/>
+              </copy>
+            </assign>
+          </sequence>
+        </scope>
+        <scope name="SelectDB2ValidateScope" variableAccessSerializable="no" id="BpScp4">
+          <faultHandlers id="BpFhs1">
+            <catch faultName="bpelx:invalidVariables" id="BpCFt2">
+              <sequence name="Sequence8" id="BpSeq11">
+                <assign name="xformPALSDB2ValidatetoInvoiceErrorLog" id="BpAss17">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/ValidatePALSDB2_to_InvoiceErrorLog.xsl', $ReceiveInvoiceInvocationMsg_IV.InvocationBody, 'InvokeSelectPALSDB2DBAdapterV1_OV.Cc074Vs1CssfakDtaCollection', $InvokeSelectPALSDB2DBAdapterV1_OV.Cc074Vs1CssfakDtaCollection)"/>
+                    <to variable="InvokeInvoiceErrorLogDBAdapter_IV" part="EngageSoaInvoiceErrorlogCollection"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeInvoiceErrorLogDBAdapter" inputVariable="InvokeInvoiceErrorLogDBAdapter_IV" partnerLink="MergeInvoiceErrorLogDatabaseAdapterV1" portType="ns12:MergeInvoiceErrorLogDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
+                <assign name="AssignErrorFlag" id="BpAss18">
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="ErrorFlag"/>
+                  </copy>
+                </assign>
+              </sequence>
+            </catch>
+          </faultHandlers>
+          <sequence name="Sequence7" id="BpSeq12">
+            <assign name="xformPALSDB2toInvoiceValidate" id="BpAss19">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/SelectPALSDB2_to_ValidateDB2Data.xsl', $InvokeSelectPALSDB2DBAdapterV1_OV.Cc074Vs1CssfakDtaCollection)"/>
+                <to variable="ValidatePALSDB2"/>
+              </copy>
+            </assign>
+            <bpelx:validate name="ValidatePALSDB2Data" variables="ValidatePALSDB2" id="BpVal0"/>
+          </sequence>
+        </scope>
+        <scope name="MergeInvoicePortalScope" variableAccessSerializable="no" id="BpScp5">
+          <sequence name="Sequence9" id="BpSeq13">
+            <assign name="xformSelectPALSDB2toMergeInvoice" id="BpAss20">
+              <bpelx:annotation>
+                <bpelx:pattern>transformation</bpelx:pattern>
+              </bpelx:annotation>
+              <copy>
+                <from expression="ora:doXSLTransformForDoc('xsl/SelectPALSDB2_to_MergeInvoice.xsl', $InvokeSelectPALSDB2DBAdapterV1_OV.Cc074Vs1CssfakDtaCollection, 'ReceiveInvoiceInvocationMsg_IV.InvocationBody', $ReceiveInvoiceInvocationMsg_IV.InvocationBody)"/>
+                <to variable="InvokeMergeInvoiceDBAdapterV1_IV" part="PrtCardInvoiceCollection"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeMergeInvoiceDBAdapterV1" inputVariable="InvokeMergeInvoiceDBAdapterV1_IV" partnerLink="MergeInvoiceDatabaseAdapterV1" portType="ns5:MergeInvoiceDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv8"/>
+          </sequence>
+        </scope>
+        <assign name="AssignMergeDeltaTSInputvalues" id="BpAss21">
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:InterfaceID"/>
+            <to variable="InvokeMergeDeltaTSDBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:interfaceid"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:CountryCode"/>
+            <to variable="InvokeMergeDeltaTSDBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:countrycode"/>
+          </copy>
+          <copy>
+            <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:UserName"/>
+            <to variable="InvokeMergeDeltaTSDBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:updatedby"/>
+          </copy>
+          <copy>
+            <from expression="xp20:current-dateTime()"/>
+            <to variable="InvokeMergeDeltaTSDBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:modifiedbytimestamp"/>
+          </copy>
+          <copy>
+            <from expression="bpws:getVariableData('InvokeSelectPALSDB2DBAdapterV1_OV','Cc074Vs1CssfakDtaCollection','/ns9:Cc074Vs1CssfakDtaCollection/ns9:Cc074Vs1CssfakDta[$DataCount]/ns9:deltaTs')"/>
+            <to variable="InvokeMergeDeltaTSDBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns14:EngageSoaDeltatableCollection/ns14:EngageSoaDeltatable/ns14:palsDeltaTimestamp"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeMergeDeltaTSDBAdapterV1" inputVariable="InvokeMergeDeltaTSDBAdapterV1_IV" partnerLink="MergeDeltaTSDatabaseAdapterV1" portType="ns13:MergeDeltaTSDatabaseAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv9"/>
+        <assign name="DecrementBatchCount" id="BpAss22">
+          <copy>
+            <from expression="bpws:getVariableData('BatchCount')-1"/>
+            <to variable="BatchCount"/>
+          </copy>
+        </assign>
+      </sequence>
+    </while>
+    <switch name="Switch3" id="BpSwt3">
+      <case condition="bpws:getVariableData('ErrorFlag')='YES'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">if error occured</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="Sequence10" id="BpSeq14">
+          <invoke name="InvokeSelectInvoiceErrorLogDBAdapterV1" inputVariable="InvokeSelectInvoiceErrorLogDBAdapterV1_IV" outputVariable="InvokeSelectInvoiceErrorLogDBAdapterV1_OV" partnerLink="SelectInvoiceErrorLogDatabaseAdapterV1" portType="ns15:SelectInvoiceErrorLogDatabaseAdapterV1_ptt" operation="SelectInvoiceErrorLogDatabaseAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv10"/>
+          <assign name="xormErrorLogtoErrorDesc" id="BpAss23">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/SelectInvoiceErrorlog_to_ErrorDesc.xsl', $InvokeSelectInvoiceErrorLogDBAdapterV1_OV.EngageSoaInvoiceErrorlogCollection)"/>
+              <to variable="InvokeInvoiceErrorLogDBAdapter_IV" part="EngageSoaInvoiceErrorlogCollection"/>
+            </copy>
+          </assign>
+          <assign name="AssignSOAErrorInfo" id="BpAss24">
+            <copy>
+              <from expression="ora:getCompositeInstanceId()"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
+            </copy>
+            <copy>
+              <from expression="ora:getNodeValue(bpws:getVariableData('InvokeInvoiceErrorLogDBAdapter_IV','EngageSoaInvoiceErrorlogCollection','/ns19:EngageSoaInvoiceErrorlogCollection'))"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
+            </copy>
+            <copy>
+              <from expression="ora:getComponentName()"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
+            </copy>
+            <copy>
+              <from expression="'E009'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
+            </copy>
+            <copy>
+              <from expression="'E009PALSInvoicetoPortal'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
+            </copy>
+            <copy>
+              <from expression="xp20:current-dateTime()"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:SenderSystem"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
+            </copy>
+            <copy>
+              <from variable="ReceiveInvoiceInvocationMsg_IV" part="InvocationBody" query="/ns7:InvocationMessage/ns7:UserName"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
+            </copy>
+            <copy>
+              <from expression="'BE-026'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
+            </copy>
+            <copy>
+              <from expression="'Unable to process some recoreds for InterfaceID: E009, records moved to errorlog.'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
+            </copy>
+            <copy>
+              <from expression="'E009_BE'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
+            </copy>
+            <copy>
+              <from expression="'Business Error in Interface ID: E009'"/>
+              <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body" query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeSOAErrorhandlerJMSQ" inputVariable="InvokeSOAErrorhandlerJMSQ_IV" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns16:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv11"/>
+          <assign name="xformSelectinvoiceErrorLogtoUpdateInvoiceErrorLog" id="BpAss25">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/SelectInvoiceErrorlog_to_UpdateErrorLog.xsl', $InvokeSelectInvoiceErrorLogDBAdapterV1_OV.EngageSoaInvoiceErrorlogCollection)"/>
+              <to variable="InvokeUpdateInvoiceErrorLogDBAdapterV1_IV" part="EngageSoaInvoiceErrorlogCollection"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeUpdateInvoiceErrorLogDBAdapterV1" inputVariable="InvokeUpdateInvoiceErrorLogDBAdapterV1_IV" partnerLink="UpdateInvoiceErrorLogDatabaseAdapterV1" portType="ns20:UpdateInvoiceErrorLogDatabaseAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv12"/>
+        </sequence>
+      </case>
+      <otherwise>
+        <empty name="Empty1" id="BpEmp0"/>
+      </otherwise>
+    </switch>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed May 21 14:49:51 IST 2014
+  Author:  10608609
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

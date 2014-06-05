@@ -1,0 +1,14 @@
+<adapter-config name="SelectPALSDB2DatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectPALSDB2DatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="DYNAMICJNDI" UIConnectionName="PALS_DB_DEV" adapterRef=""/>
+  <endpoint-interaction portType="SelectPALSDB2DatabaseAdapterV1_ptt" operation="SelectPALSDB2DatabaseAdapterV1Select">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="SelectPALSDB2DatabaseAdapterV1.Cc074Vs1CssfakDta"/>
+      <property name="QueryName" value="SelectPALSDB2DatabaseAdapterV1Select"/>
+      <property name="MappingsMetaDataURL" value="SelectPALSDB2DatabaseAdapterV1-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.3.1.v20111018-r10243">
+   <name>MergeInvoiceDatabaseAdapterV1-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>MergeInvoiceDatabaseAdapterV1.PrtCardInvoice</class>
+         <alias>PRT_CARD_INVOICE</alias>
+         <primary-key>
+            <field table="PRT_CARD_INVOICE" name="COUNTRY_CODE" xsi:type="column"/>
+            <field table="PRT_CARD_INVOICE" name="INVOICE_NUMBER" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="MergeInvoiceDatabaseAdapterV1Select" xsi:type="read-all-query">
+                  <reference-class>MergeInvoiceDatabaseAdapterV1.PrtCardInvoice</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>countryCode</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceNumber</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>collectiveInvoiceNumber</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="COLLECTIVE_INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceDate</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INVOICE_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoicedCard</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INVOICED_CARD" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>cardType</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CARD_TYPE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>magneticCode</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="MAGNETIC_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>routexVatInvoiceNumber</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="ROUTEX_VAT_INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceInformation</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INVOICE_INFORMATION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invoiceDeliveryAddress</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INVOICE_DELIVERY_ADDRESS" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>netInvoiceCode</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="NET_INVOICE_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>originalInvoiceNumber</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="ORIGINAL_INVOICE_NUMBER" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>correctionPresentation</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CORRECTION_PRESENTATION" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invTotalGrossAmtForeign</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INV_TOTAL_GROSS_AMT_FOREIGN" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invTotalNetVatMandatory</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INV_TOTAL_NET_VAT_MANDATORY" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invTotalNetVatFree</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INV_TOTAL_NET_VAT_FREE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invTotalVatAmt</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INV_TOTAL_VAT_AMT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>invTotalGrossAmt</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="INV_TOTAL_GROSS_AMT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currTotalNetVatMandatory</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CURR_TOTAL_NET_VAT_MANDATORY" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currTotalNetVatFree</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CURR_TOTAL_NET_VAT_FREE" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currTotalVatAmt</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CURR_TOTAL_VAT_AMT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currTotalGrossAmt</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CURR_TOTAL_GROSS_AMT" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>currTotalGrossAmtForeign</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="CURR_TOTAL_GROSS_AMT_FOREIGN" xsi:type="column"/>
+               <attribute-classification>java.lang.Double</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedBy</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="MODIFIED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>modifiedDate</attribute-name>
+               <field table="PRT_CARD_INVOICE" name="MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="PRT_CARD_INVOICE"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>

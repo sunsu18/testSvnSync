@@ -1,0 +1,21 @@
+<?binding.jca UpdateInvoiceErrorLogDatabaseAdapterV1_db.jca?>
+<wsdl:definitions name="UpdateInvoiceErrorLogDatabaseAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/UpdateInvoiceErrorLogDatabaseAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/UpdateInvoiceErrorLogDatabaseAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateInvoiceErrorLogDatabaseAdapterV1">
+    <plt:partnerLinkType name="UpdateInvoiceErrorLogDatabaseAdapterV1_plt">
+        <plt:role name="UpdateInvoiceErrorLogDatabaseAdapterV1_role">
+            <plt:portType name="tns:UpdateInvoiceErrorLogDatabaseAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateInvoiceErrorLogDatabaseAdapterV1" schemaLocation="xsd/UpdateInvoiceErrorLogDatabaseAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EngageSoaInvoiceErrorlogCollection_msg">
+        <wsdl:part name="EngageSoaInvoiceErrorlogCollection" element="top:EngageSoaInvoiceErrorlogCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateInvoiceErrorLogDatabaseAdapterV1_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:EngageSoaInvoiceErrorlogCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
