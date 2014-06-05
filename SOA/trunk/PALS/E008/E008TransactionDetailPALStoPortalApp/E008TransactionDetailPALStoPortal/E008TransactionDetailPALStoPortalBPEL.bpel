@@ -499,12 +499,30 @@
                 bpelx:invokeAsDetail="no">
           <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
         </invoke>
-        <assign name="CalculateBatchCount">
-          <copy>
-            <from expression="ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:_1') div bpws:getVariableData('BatchSize'))"/>
-            <to variable="BatchCount"/>
-          </copy>
-        </assign>
+        <switch name="Switch5">
+          <case condition="(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount') &lt; ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DatabaseAdapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns8:SelectCountPALSDB2DatabaseAdapterV1Output/ns8:_1') div bpws:getVariableData('BatchSize') )))">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">If batch count is sent</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="ReceiveInvocationMsgIV" part="invocationPayload"
+                      query="/ns6:invocationMsg/ns6:BatchCount"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="CalculateBatchCount">
+              <copy>
+                <from expression="ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:_1') div bpws:getVariableData('BatchSize'))"/>
+                <to variable="BatchCount"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch"

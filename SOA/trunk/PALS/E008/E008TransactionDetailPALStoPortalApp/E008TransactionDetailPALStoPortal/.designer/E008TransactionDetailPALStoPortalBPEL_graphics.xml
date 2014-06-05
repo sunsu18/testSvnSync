@@ -5,21 +5,21 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="E008TransactionDetailPALStoPortalClient" x="0" y="90" side="left"/>
-      <partnerlink name="MergeTransactionDetailErrorLogDatabaseAdapterV1" x="0" y="2894" side="left"/>
-      <partnerlink name="MergeSOADeltaTSDatabaseAdapterV1" x="0" y="4120" side="left"/>
-      <partnerlink name="MergeTransactionDetailDatabaseAdapterV1" x="0" y="3231" side="left"/>
-      <partnerlink name="SelectDeltaTSDatabaseAdapterV1" x="2190" y="950" side="right"/>
+      <partnerlink name="MergeTransactionDetailErrorLogDatabaseAdapterV1" x="0" y="3055" side="left"/>
+      <partnerlink name="MergeSOADeltaTSDatabaseAdapterV1" x="0" y="4281" side="left"/>
+      <partnerlink name="MergeTransactionDetailDatabaseAdapterV1" x="0" y="3392" side="left"/>
+      <partnerlink name="SelectDeltaTSDatabaseAdapterV1" x="2190" y="1013" side="right"/>
       <partnerlink name="SelectCountPALSDB2DatabaseAdapterV1" x="2190" y="1070" side="right"/>
-      <partnerlink name="SelectPALSDB2DatabaseAdapterV1" x="2190" y="2027" side="right"/>
-      <partnerlink name="MergeTransactionDetailsTempDatabaseAdapterV1" x="2190" y="3059" side="right"/>
-      <partnerlink name="SelectErrorTransactionDetailTemp" x="2190" y="3153" side="right"/>
-      <partnerlink name="SelectValidTransactionDetailtemp" x="2190" y="3430" side="right"/>
-      <partnerlink name="DeleteTransactionDetailsTemp" x="2190" y="3707" side="right"/>
-      <partnerlink name="SelectTransactionDetailErrorLogDatabsaeAdapterV1" x="2190" y="4466" side="right"/>
-      <partnerlink name="SOAErrorHandlerJMSQAdapter" x="2190" y="1710" side="right"/>
-      <partnerlink name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" x="2190" y="4921" side="right"/>
+      <partnerlink name="SelectPALSDB2DatabaseAdapterV1" x="2190" y="2188" side="right"/>
+      <partnerlink name="MergeTransactionDetailsTempDatabaseAdapterV1" x="2190" y="3220" side="right"/>
+      <partnerlink name="SelectErrorTransactionDetailTemp" x="2190" y="3314" side="right"/>
+      <partnerlink name="SelectValidTransactionDetailtemp" x="2190" y="3591" side="right"/>
+      <partnerlink name="DeleteTransactionDetailsTemp" x="2190" y="3868" side="right"/>
+      <partnerlink name="SelectTransactionDetailErrorLogDatabsaeAdapterV1" x="2190" y="4627" side="right"/>
+      <partnerlink name="SOAErrorHandlerJMSQAdapter" x="2190" y="1774" side="right"/>
+      <partnerlink name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" x="2190" y="5082" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,4425,594,357" show_swimlanes="true">
+   <graph_layout viewport="159,1050,493,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -34,6 +34,7 @@
       <layout_item collapsed="false" xpath="/process/sequence/switch[1]/case/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/while" type="while"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch" type="switch"/>
