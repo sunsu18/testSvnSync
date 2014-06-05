@@ -502,7 +502,7 @@ public class DriverInfoBean implements Serializable {
         System.out.println("is it coming inside the newDriverSave method===============>");
 
         if (getBindings().getAddPartnerNumberId().getValue() != null && getBindings().getAddAccountId().getValue() != null 
-            && getBindings().getAddDriverName().getValue() != null && getBindings().getAddDriverNumber().getValue() != null) {
+            && getBindings().getAddDriverName().getValue() != null && getBindings().getAddDriverNumber().getValue() != null &&  getBindings().getAddDriverName().getValue().toString().trim() != null && getBindings().getAddDriverNumber().getValue().toString().trim() != null ) {
             System.out.println("is it coming inside the newDriverSave method++++++++++===============>");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -581,6 +581,8 @@ public class DriverInfoBean implements Serializable {
                     driverInfoRow.setAttribute("CardNumber","");
                 }
                 driverInfoRow.setAttribute("CountryCode", countryParam);
+                driverInfoRow.setAttribute("DriverNumber", getBindings().getAddDriverNumber().getValue().toString().trim());
+                driverInfoRow.setAttribute("DriverName",  getBindings().getAddDriverName().getValue().toString().trim());
                 OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                 newDriverOpn.execute();
                 if(newDriverOpn.getErrors().isEmpty()){
@@ -676,7 +678,7 @@ public class DriverInfoBean implements Serializable {
     public String editDriverSave() {
 
         if (getBindings().getEditPartnerNumberId().getValue() != null && getBindings().getEditAccountId().getValue() != null 
-            && getBindings().getEditDriverName().getValue() != null && getBindings().getEditDriverNumber().getValue() != null) {
+            && getBindings().getEditDriverName().getValue() != null && getBindings().getEditDriverNumber().getValue() != null && getBindings().getEditDriverName().getValue().toString().trim() != null && getBindings().getEditDriverNumber().getValue().toString().trim() != null ) {
 
             System.out.println("cardid value inside edit driver save11111======>"+getBindings().getEditCardId().getValue());
 
@@ -786,6 +788,8 @@ public class DriverInfoBean implements Serializable {
                     driverInfoRow.setAttribute("CardNumber","");
                 }
                 driverInfoRow.setAttribute("CountryCode", countryParam);
+                driverInfoRow.setAttribute("DriverNumber", getBindings().getEditDriverNumber().getValue().toString().trim());
+                driverInfoRow.setAttribute("DriverName", getBindings().getEditDriverName().getValue().toString().trim());
                 OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                 newDriverOpn.execute();
                 if(newDriverOpn.getErrors().isEmpty()){
