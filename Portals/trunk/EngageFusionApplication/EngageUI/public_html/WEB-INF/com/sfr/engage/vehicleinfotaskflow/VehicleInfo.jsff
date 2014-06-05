@@ -25,9 +25,7 @@
         <af:panelGroupLayout id="pgl9" halign="right"
                              inlineStyle="width:330px;">
          <h:panelGrid columns="3" id="pg1" cellpadding="3"
-                                     cellspacing="2"
-                                     style="text-align:left; vertical-align:top;"
-                                     >
+               cellspacing="2" style="text-align:left; vertical-align:top;">
  <af:panelGroupLayout id="pgl36"
                       inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;"
                                                layout="vertical">
@@ -88,12 +86,9 @@
                           binding="#{pageFlowScope.VehicleInfoBean.bindings.registerNumber}"
                           value="#{pageFlowScope.VehicleInfoBean.registrationNumber}"
                           contentStyle="width: 165px;"/>
-                          <af:spacer width="20" height="20"
-                                                          id="s43"/>
+                          <af:spacer width="20" height="20" id="s43"/>
                                                
-                                               
-                                               
-                                               </af:panelGroupLayout>
+            </af:panelGroupLayout>
                           
           </h:panelGrid>
         <!--</af:panelGroupLayout>-->
@@ -133,23 +128,31 @@
                           action="#{pageFlowScope.VehicleInfoBean.vehicleDeleteAction}"/>
                           </af:panelGroupLayout>
       </af:panelGroupLayout>
-      <af:panelGroupLayout id="pgl4">
+      <af:panelGroupLayout id="pgl4" inlineStyle="width:962.0px;">
         <af:spacer width="10" height="25" id="s6"/>
         <af:forEach items="#{pageFlowScope.VehicleInfoBean.myAccountList}"
                     var="var">
           <!-- <c:if test="${not empty var.vehicleInfoList}">-->
-          <af:panelGroupLayout id="pgl5" layout="horizontal">
-            <af:outputText value="#{sfr.ACCOUNT} : " id="ot2"
+         <af:panelGroupLayout id="pgl5" layout="horizontal"  inlineStyle="width:948.0px;">
+         <af:outputText value="#{sfr.ACCOUNT} : #{var.accountNumber}" id="ot2"
                            styleClass="boldtext"/>
-            <af:spacer width="1" height="10" id="s31"/>
-            <af:outputText value="#{var.accountNumber}" id="ot3"
-                           styleClass="boldtext"/>
-            <af:spacer width="690" height="10" id="s27"/>
+        <af:spacer width="650" height="10" id="s27"/>
+        <af:spacer width="10" height="10" id="s31"/>
+        <af:panelGroupLayout id="pgl13" halign="right">
         <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb8"
                           action="#{pageFlowScope.VehicleInfoBean.deleteAllRecordsAction}" styleClass="buttonback buttontext">
         <af:setPropertyListener from="#{var.accountNumber}" to="#{pageFlowScope.accountNumber}" type="action"/>
         </af:commandButton>
-          </af:panelGroupLayout>
+                          </af:panelGroupLayout>
+      </af:panelGroupLayout>
+            
+            
+        
+        
+
+        
+       
+          
           <af:spacer width="10" height="5" id="s25"/>
           <af:panelGroupLayout id="pgl6">
             <af:table var="row" rowBandingInterval="1" id="t1"
