@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAConfigPlan xmlns:jca="http://platform.integration.oracle/blocks/adapter/fw/metadata" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy" xmlns:edl="http://schemas.oracle.com/events/edl" xmlns="http://schemas.oracle.com/soa/configplan">
+   <composite name="E001SyncPortalBalanceChecktoCGI">
+      <!--Add search and replace rules for the import section of a composite
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>-->
+      <import>
+         <searchReplace>
+            <search/>
+            <replace/>
+         </searchReplace>
+      </import>
+      <service name="e001portalbalancecheckbpel_client_ep">
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://xmlns.oracle.com/E001SyncPortalBalanceChecktoCGIApp/E001SyncPortalBalanceChecktoCGI/E001PortalBalanceCheckBPEL#wsdl.endpoint(e001portalbalancecheckbpel_client_ep/E001PortalBalanceCheckBPEL_pt)</replace>
+            </attribute>
+         </binding>
+      </service>
+      <!--Add search and replace rules for the component properties
+	For components and service/reference bindings, you can add policy references.
+	Example:
+	<component name="*">
+		<wsp:PolicyReference orawsp:category="management" orawsp:status="enabled" URI="oracle/log_policy"/>
+	</component>-->
+      <component name="E001PortalBalanceCheckBPEL">
+         <property name="bpel.config.oneWayDeliveryPolicy">
+            <replace>async.persist</replace>
+         </property>
+      </component>
+      <reference name="CGIWebServiceV1">
+         <!--Add search and replace rules for the binding properties-->
+         <binding type="ws">
+            <attribute name="port">
+               <replace>http://www.logica.no/card/sms/soap#wsdl.endpoint(smsService/smsSoap11)</replace>
+            </attribute>
+            <attribute name="location">
+               <replace>sms.wsdl</replace>
+            </attribute>
+            <property name="weblogic.wsee.wsat.transaction.flowOption">
+               <replace>WSDLDriven</replace>
+            </property>
+            <property name="oracle.webservices.auth.password">
+               <replace>rns23JK#</replace>
+            </property>
+            <property name="oracle.webservices.auth.username">
+               <replace>sms</replace>
+            </property>
+         </binding>
+      </reference>
+      <reference name="SOA_ErrorInfo_JMSQ">
+         <binding type="jca"/>
+      </reference>
+   </composite>
+   <!--To configure monitor.config: 
+	<property name="enabled"><replace>true</replace></property>
+	<property name="dataObjectsFolder"><searchReplace><search>mydev</search><replace>myproduction</replace></searchReplace></property>
+	
+	sample properties to configure for JMS adapter: 
+	<jca:property name="DestinationName"><replace>jms/DemoSupplierTopic</replace></jca:property>
+	<jca:property name="TimeToLive"><replace>0</replace></jca:property>
+	
+	To add search and replace rules for wsdls, xsd and jca files
+	Example:
+	<searchReplace>
+		<search>http://my-dev-server</search>
+		<replace>http://my-test-server</replace>
+	<searchReplace>
+	<searchReplace>
+		<search>8888</search>
+		<replace>8889</replace>
+	<searchReplace>
+	-->
+   <wsdlAndSchema name="E001PortalBalanceCheckBPEL.wsdl|NotificationService.xsd|sms.wsdl|smsWrapper.wsdl|SOA_ErrorInfo_JMSQ.wsdl|SOA_ErrorInfo_JMSQ_jms.jca|xsd/E001InstanceId.xsd|xsd/E001PortalBalanceCheck.xsd|xsd/ErrorHandling.xsd">
+      <searchReplace>
+         <search/>
+         <replace/>
+      </searchReplace>
+   </wsdlAndSchema>
+</SOAConfigPlan>
