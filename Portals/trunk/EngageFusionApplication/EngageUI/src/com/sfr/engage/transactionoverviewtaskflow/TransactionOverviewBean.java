@@ -2892,23 +2892,23 @@ public class TransactionOverviewBean implements Serializable {
             if (strCardGroup != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue(null);
+                getBindings().getSelectionExportOneRadio().setValue("xls");
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else if (strCard != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue(null);
+                getBindings().getSelectionExportOneRadio().setValue("xls");
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else if (strVehicle != null) {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                 result = true;
-                getBindings().getSelectionExportOneRadio().setValue(null);
+                getBindings().getSelectionExportOneRadio().setValue("xls");
                 getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
             } else {
                 if (strDriver != null) {
                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
                     result = true;
-                    getBindings().getSelectionExportOneRadio().setValue(null);
+                    getBindings().getSelectionExportOneRadio().setValue("xls");
                     getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
                 }
             }
