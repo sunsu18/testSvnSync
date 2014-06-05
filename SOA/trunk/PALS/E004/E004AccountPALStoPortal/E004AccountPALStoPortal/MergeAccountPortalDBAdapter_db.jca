@@ -1,6 +1,6 @@
 <adapter-config name="MergeAccountPortalDBAdapter" adapter="Database Adapter" wsdlLocation="MergeAccountPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="Engage-PortalDB-QA" adapterRef=""/>
   <endpoint-interaction portType="MergeAccountPortalDBAdapter_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeAccountPortalDBAdapter.PrtAccount"/>

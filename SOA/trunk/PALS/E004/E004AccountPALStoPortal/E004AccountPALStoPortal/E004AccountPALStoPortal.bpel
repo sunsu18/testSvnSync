@@ -477,6 +477,11 @@
       </copy>
     </assign>
     <scope name="GetDeltaTSScope" variableAccessSerializable="no">
+      <bpelx:annotation>
+        <bpelx:general>
+          <bpelx:property name="userLabel">GetDeltaTSScope</bpelx:property>
+        </bpelx:general>
+      </bpelx:annotation>
       <sequence name="GetDeltaTSSequence">
         <assign name="AssignSelectDeltaTSInputValues">
           <copy>
@@ -501,7 +506,7 @@
                 portType="ns1:SelectDeltaTSDBAdapter_ptt"
                 operation="SelectDeltaTSDBAdapterSelect"
                 bpelx:invokeAsDetail="no"/>
-        <switch name="Switch1">
+        <switch name="DeltaTSExists">
           <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp')) > 0">
             <bpelx:annotation>
               <bpelx:general>
@@ -531,6 +536,11 @@
       </sequence>
     </scope>
     <scope name="GetCountFromPALSScope" variableAccessSerializable="no">
+      <bpelx:annotation>
+        <bpelx:general>
+          <bpelx:property name="userLabel">GetCountFromPALSScope</bpelx:property>
+        </bpelx:general>
+      </bpelx:annotation>
       <sequence name="GetCountFromPALSSequence">
         <assign name="AssignDeltaTSValue">
           <copy>
@@ -561,6 +571,11 @@
            condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')">
       <sequence name="Sequence">
         <scope name="GetPALSdataScope" variableAccessSerializable="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">GetPALSdataScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <sequence name="GetPALSdataSequence">
             <assign name="GetLatestDeltaTS">
               <copy>
@@ -643,6 +658,11 @@
           </sequence>
         </scope>
         <scope name="ValidatePALSDataScope" variableAccessSerializable="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">ValidatePALSDataScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <faultHandlers>
             <catch faultName="bpelx:invalidVariables">
               <sequence name="PALSDataErrorHandlingSequence">
@@ -686,6 +706,11 @@
         </scope>
         <scope name="InsertPALSDataInPortalDBScope"
                variableAccessSerializable="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">InsertPALSDataInPortalDBScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <faultHandlers>
             <catch faultName="bpelx:bindingFault">
               <switch name="Switch3">

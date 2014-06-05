@@ -280,6 +280,11 @@
       </copy>
     </assign>
     <scope name="GetDeltaTSScope" variableAccessSerializable="no" id="BpScp0">
+      <bpelx:annotation>
+        <bpelx:general>
+          <bpelx:property name="userLabel">GetDeltaTSScope</bpelx:property>
+        </bpelx:general>
+      </bpelx:annotation>
       <sequence name="GetDeltaTSSequence" id="BpSeq4">
         <assign name="AssignSelectDeltaTSInputValues" id="BpAss4">
           <copy>
@@ -292,7 +297,7 @@
           </copy>
         </assign>
         <invoke name="InvokeSOADeltaTS" inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable" outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable" partnerLink="SelectDeltaTSDBAdapter" portType="ns1:SelectDeltaTSDBAdapter_ptt" operation="SelectDeltaTSDBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv3"/>
-        <switch name="Switch1" id="BpSwt0">
+        <switch name="DeltaTSExists" id="BpSwt0">
           <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp')) > 0">
             <bpelx:annotation>
               <bpelx:general>
@@ -322,6 +327,11 @@
       </sequence>
     </scope>
     <scope name="GetCountFromPALSScope" variableAccessSerializable="no" id="BpScp1">
+      <bpelx:annotation>
+        <bpelx:general>
+          <bpelx:property name="userLabel">GetCountFromPALSScope</bpelx:property>
+        </bpelx:general>
+      </bpelx:annotation>
       <sequence name="GetCountFromPALSSequence" id="BpSeq5">
         <assign name="AssignDeltaTSValue" id="BpAss7">
           <copy>
@@ -343,6 +353,11 @@
     <while name="WhileEachBatch" condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')" id="BpWhl0">
       <sequence name="Sequence" id="BpSeq6">
         <scope name="GetPALSdataScope" variableAccessSerializable="no" id="BpScp2">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">GetPALSdataScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <sequence name="GetPALSdataSequence" id="BpSeq7">
             <assign name="GetLatestDeltaTS" id="BpAss9">
               <copy>
@@ -404,6 +419,11 @@
           </sequence>
         </scope>
         <scope name="ValidatePALSDataScope" variableAccessSerializable="no" id="BpScp3">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">ValidatePALSDataScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <faultHandlers id="BpFhs1">
             <catch faultName="bpelx:invalidVariables" id="BpCFt2">
               <sequence name="PALSDataErrorHandlingSequence" id="BpSeq8">
@@ -440,6 +460,11 @@
           </sequence>
         </scope>
         <scope name="InsertPALSDataInPortalDBScope" variableAccessSerializable="no" id="BpScp4">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">InsertPALSDataInPortalDBScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
           <faultHandlers id="BpFhs2">
             <catch faultName="bpelx:bindingFault" id="BpCFt3">
               <switch name="Switch3" id="BpSwt2">
