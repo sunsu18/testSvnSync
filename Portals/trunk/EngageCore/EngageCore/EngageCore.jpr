@@ -137,7 +137,7 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <value n="id" v="EngageUtility.jar"/>
+            <value n="id" v="UtilityJAR.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -145,18 +145,18 @@
          <list n="libraryDefinitions">
             <hash>
                <list n="classPath">
-                  <url path="../../libraries/jar/EngageUtility.jar" jar-entry=""/>
+                  <url path="../../libraries/jar/utilityJAR.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="EngageUtility.jar"/>
-               <value n="id" v="EngageUtility.jar"/>
+               <value n="description" v="UtilityJAR.jar"/>
+               <value n="id" v="UtilityJAR.jar"/>
                <value n="locked" v="true"/>
             </hash>
          </list>
       </hash>
       <list n="libraryReferences">
          <hash>
-            <value n="id" v="EngageUtility.jar"/>
+            <value n="id" v="UtilityJAR.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
