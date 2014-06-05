@@ -912,7 +912,9 @@
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.shuttleExcel}"
                                     value="#{pageFlowScope.TransactionOverviewBean.shuttleValue}"
                                     partialTriggers="cb4"
-                                    contentStyle="height:200.0px;">
+                                    contentStyle="height:200.0px;"
+                                    leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
+                                    trailingHeader="#{sfr.REPORT_SELECTED_VALUES}">
                   <af:forEach items="#{pageFlowScope.TransactionOverviewBean.shuttleList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
