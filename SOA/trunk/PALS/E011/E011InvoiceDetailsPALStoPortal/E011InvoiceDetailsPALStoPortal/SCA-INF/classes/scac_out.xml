@@ -2,6 +2,26 @@
 <Faults>
    <Fault>
       <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
+      <line>143</line>
+      <col>72</col>
+      <file>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
+      <name>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "E011InvoiceDetailsPALStoPortalWebservice":"{http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL}E011InvoiceDetailsPALStoPortalBPEL_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
+      <line>143</line>
+      <col>72</col>
+      <file>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
+      <name>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "E011InvoiceDetailsPALStoPortalWebservice":"{http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL}E011InvoiceDetailsPALStoPortalBPEL_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
       <loc/>
       <line>738</line>
       <col/>
