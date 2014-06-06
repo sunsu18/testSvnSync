@@ -130,6 +130,7 @@ public class TransactionOverviewBean implements Serializable {
 
     public TransactionOverviewBean() {
         conversionUtility = new Conversion();
+        valueList = new ValueListSplit();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
