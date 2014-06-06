@@ -21,9 +21,8 @@ import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
+
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl;
-
-
 import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVOImpl;
 
 import java.sql.Connection;
@@ -453,15 +452,6 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
 
 
     /**
-     * Container's getter for PrtViewCardsVO1.
-     * @return PrtViewCardsVO1
-     */
-    public ViewObjectImpl getPrtViewCardsVO1() {
-        return (ViewObjectImpl)findViewObject("PrtViewCardsVO1");
-    }
-
-
-    /**
      * Container's getter for PrtViewVehicleDriverVO1.
      * @return PrtViewVehicleDriverVO1
      */
@@ -475,5 +465,13 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
      */
     public PrtCardVOImpl getPrtCardVO1() {
         return (PrtCardVOImpl)findViewObject("PrtCardVO1");
+    }
+
+    /**
+     * Container's getter for PrtViewCardsVO1.
+     * @return PrtViewCardsVO1
+     */
+    public PrtViewCardsVOImpl getPrtViewCardsVO1() {
+        return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
     }
 }
