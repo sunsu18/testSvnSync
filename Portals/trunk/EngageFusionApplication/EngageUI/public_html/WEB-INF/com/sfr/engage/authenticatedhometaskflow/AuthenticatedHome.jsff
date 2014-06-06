@@ -79,7 +79,7 @@
           </af:panelGroupLayout>
           <af:spacer width="10" height="5" id="s18"/>
         <af:panelGroupLayout id="pgl8" inlineStyle="width:940px;" layout="horizontal">
-                             <af:spacer width="5" height="10" id="s22"/>
+                             <af:spacer width="10" height="10" id="s22"/>
         <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"
                    styleClass="home_text"
                    binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>

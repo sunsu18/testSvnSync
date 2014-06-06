@@ -31,9 +31,9 @@
                                                layout="vertical">
           <af:outputText value="*#{sfr.PARTNER_ENG}" id="gff"/>
         <af:spacer width="20" height="20" id="s45"/>
-       <af:outputText value="*#{sfr.ACCOUNT}" id="ot11"/>
+       <af:outputText value=" #{sfr.ACCOUNT}" id="ot11"/>
            <af:spacer width="20" height="20" id="s20"/>
-        <af:outputText value="*#{sfr.FILTER_REGISTRATION_NUMBER}" id="colon1"/>
+        <af:outputText value=" #{sfr.FILTER_REGISTRATION_NUMBER}" id="colon1"/>
         <af:spacer width="20" height="20" id="s37"/>
             </af:panelGroupLayout>
  <af:panelGroupLayout id="pgl12"
@@ -174,7 +174,7 @@
                 </af:selectBooleanCheckbox>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.VEHICLE_NUMBER}"
-                         id="c1">
+                         id="c1"  width="105">
                 <af:outputText value="#{row.vehicleNumber}" id="ot4"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}"
@@ -205,7 +205,7 @@
                 <af:outputText value="#{row.odoMeter}" id="ot15"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
-                         id="c14" width="95" align="center">
+                         id="c14" width="85" align="center">
                      <af:commandImageLink id="cil1"
                                      action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                      icon="/images/edit.png">
@@ -794,7 +794,8 @@
               binding="#{pageFlowScope.VehicleInfoBean.bindings.deleteVehicle}"
               autoCancel="disabled">
       <af:dialog id="deleteVehicle" title="#{sfr.VEHICLEINFO_DELETEVEHICLE}"
-                 type="none" closeIconVisible="false">
+                 type="none" closeIconVisible="false"
+                 inlineStyle="width:200px; height:300.0px;">
         <af:panelStretchLayout id="psal6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="delete_vehicle_panel_toolbar"
