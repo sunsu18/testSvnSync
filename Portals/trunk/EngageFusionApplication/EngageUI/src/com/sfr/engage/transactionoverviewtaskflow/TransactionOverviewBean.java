@@ -351,7 +351,7 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         } else {
-            showErrorMessage("ENGAGE_NO_ACCOUNT_CHECK");
+            showErrorMessage("LINKED_PARTNER");
         }
         if (isTableVisible) {
             isTableVisible = false;
