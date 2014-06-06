@@ -18,21 +18,6 @@ public class PrtCardTransactionOverviewRVOImpl extends ViewObjectImpl {
     public PrtCardTransactionOverviewRVOImpl() {
     }
 
-    /**
-     * Returns the bind variable value for accountId.
-     * @return bind variable value for accountId
-     */
-    public String getaccountId() {
-        return (String)getNamedWhereClauseParam("accountId");
-    }
-
-    /**
-     * Sets <code>value</code> for bind variable accountId.
-     * @param value value to bind as accountId
-     */
-    public void setaccountId(String value) {
-        setNamedWhereClauseParam("accountId", value);
-    }
 
     /**
      * Returns the bind variable value for countryCd.
@@ -97,5 +82,53 @@ public class PrtCardTransactionOverviewRVOImpl extends ViewObjectImpl {
     public long getQueryHitCount(ViewRowSetImpl viewRowSet) {
         long value = super.getQueryHitCount(viewRowSet);
         return value;
+    }
+
+    /**
+     * Returns the bind variable value for fromDate.
+     * @return bind variable value for fromDate
+     */
+    public String getfromDate() {
+        return (String)getNamedWhereClauseParam("fromDate");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable fromDate.
+     * @param value value to bind as fromDate
+     */
+    public void setfromDate(String value) {
+        setNamedWhereClauseParam("fromDate", value);
+    }
+
+    /**
+     * Returns the bind variable value for toDate.
+     * @return bind variable value for toDate
+     */
+    public String gettoDate() {
+        return (String)getNamedWhereClauseParam("toDate");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable toDate.
+     * @param value value to bind as toDate
+     */
+    public void settoDate(String value) {
+        setNamedWhereClauseParam("toDate", value);
+    }
+
+    /**
+     * Returns the bind variable value for type.
+     * @return bind variable value for type
+     */
+    public String gettype() {
+        return (String)getNamedWhereClauseParam("type");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable type.
+     * @param value value to bind as type
+     */
+    public void settype(String value) {
+        setNamedWhereClauseParam("type", value);
     }
 }

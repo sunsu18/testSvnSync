@@ -155,6 +155,28 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        CardId2Info {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardId2Info();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardId2Info((String)value);
+            }
+        }
+        ,
+        Card2Id {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCard2Id();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCard2Id((String)value);
+            }
+        }
+        ,
         TransactionDt {
             public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
                 return obj.getTransactionDt();
@@ -645,6 +667,8 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int CARD1ID = AttributesEnum.Card1Id.index();
     public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
     public static final int ODOMETER = AttributesEnum.Odometer.index();
+    public static final int CARDID2INFO = AttributesEnum.CardId2Info.index();
+    public static final int CARD2ID = AttributesEnum.Card2Id.index();
     public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
     public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
     public static final int STATIONNAME = AttributesEnum.StationName.index();
@@ -851,6 +875,38 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setOdometer(String value) {
         setAttributeInternal(ODOMETER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardId2Info.
+     * @return the CardId2Info
+     */
+    public String getCardId2Info() {
+        return (String) getAttributeInternal(CARDID2INFO);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardId2Info.
+     * @param value value to set the  CardId2Info
+     */
+    public void setCardId2Info(String value) {
+        setAttributeInternal(CARDID2INFO, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Card2Id.
+     * @return the Card2Id
+     */
+    public String getCard2Id() {
+        return (String) getAttributeInternal(CARD2ID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Card2Id.
+     * @param value value to set the  Card2Id
+     */
+    public void setCard2Id(String value) {
+        setAttributeInternal(CARD2ID, value);
     }
 
     /**
