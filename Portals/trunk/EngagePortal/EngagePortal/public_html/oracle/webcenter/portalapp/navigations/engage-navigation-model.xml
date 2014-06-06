@@ -19,7 +19,7 @@
                        value="#{MenuVisibleHelperBean.menuHome}"/>
           </attributes>
         </url>
-        <url visible="#{true}" id="account"
+        <url visible="#{MenuVisibleHelperBean.visibleAccount}" id="account"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/accounts.jspx">
           <attributes>
@@ -27,7 +27,7 @@
                        value="#{MenuVisibleHelperBean.menuAccount}"/>
           </attributes>
           <contents>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleAccountSummary}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="accountsummary"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx">
@@ -36,7 +36,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleVehicles}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="vehicles"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx">
@@ -45,7 +45,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleDrivers}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="drivers"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx">
@@ -64,7 +64,7 @@
             </url>
           </contents>
         </url>
-        <url visible="#{true}" id="transaction"
+        <url visible="#{MenuVisibleHelperBean.visibleTransactions}" id="transaction"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/transactions.jspx">
           <attributes>
@@ -72,7 +72,7 @@
                        value="#{MenuVisibleHelperBean.menuTransactions}"/>
           </attributes>
           <contents>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleTransactionOverview}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="transactions"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/transactions.jspx">
@@ -81,7 +81,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleInvoiceOverview}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="invoiceoverview"
                  url="page://oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx">
@@ -101,7 +101,7 @@
             </url>
           </contents>
         </url>
-        <url visible="#{true}" id="cardservices"
+        <url visible="#{MenuVisibleHelperBean.visibleCardServices}" id="cardservices"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx">
           <attributes>
@@ -109,7 +109,7 @@
                        value="#{MenuVisibleHelperBean.menuCardServices}"/>
           </attributes>
           <contents>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleViewCards}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="viewcard"
                  url="page://oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx">
@@ -137,7 +137,7 @@
             </url>
           </contents>
         </url>
-        <url visible="#{true}" id="pricing"
+        <url visible="#{MenuVisibleHelperBean.visiblePricing}" id="pricing"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/pricing.jspx">
           <attributes>
@@ -154,7 +154,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleListPrice}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="listprices"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx">
@@ -165,7 +165,7 @@
             </url>
           </contents>
         </url>
-        <url visible="#{true}" id="setup"
+        <url visible="#{MenuVisibleHelperBean.visibleSetup}" id="setup"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/setup.jspx">
           <attributes>
@@ -173,7 +173,7 @@
                        value="#{MenuVisibleHelperBean.menuSetup}"/>
           </attributes>
           <contents>
-            <url visible="#{true}" id="changepassword" factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+            <url visible="#{MenuVisibleHelperBean.visibleChangePassword}" id="changepassword" factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  url="page://oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx">
               <attributes>
                 <attribute value="#{MenuVisibleHelperBean.menuChangePassword}" isKey="false" attributeId="Title"/>

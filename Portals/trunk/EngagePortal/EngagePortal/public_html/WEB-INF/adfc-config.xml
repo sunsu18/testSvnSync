@@ -10,4 +10,9 @@
     <managed-bean-class id="__7">com.sfr.engage.util.HomeCarouselBean</managed-bean-class>
     <managed-bean-scope id="__5">request</managed-bean-scope>
   </managed-bean>
+  <managed-bean id="__11">
+    <managed-bean-name id="__12">MenuVisibleHelperBean</managed-bean-name>
+    <managed-bean-class id="__10">com.sfr.engage.util.MenuVisibleHelper</managed-bean-class>
+    <managed-bean-scope id="__9">session</managed-bean-scope>
+  </managed-bean>
 </adfc-config>

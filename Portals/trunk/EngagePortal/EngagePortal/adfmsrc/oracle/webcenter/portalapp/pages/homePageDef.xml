@@ -33,6 +33,9 @@
               DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
     <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">
@@ -184,6 +187,12 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+                     id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
               target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/home.jspx"

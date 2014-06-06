@@ -1,6 +1,30 @@
 package com.sfr.engage.util;
 
+import com.sfr.core.bean.User;
+import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
+
+import com.sfr.util.ADFUtils;
+import com.sfr.util.constants.Constants;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCBindingContainer;
+import oracle.adf.model.binding.DCIteratorBinding;
+import oracle.adf.share.ADFContext;
+import oracle.adf.share.security.SecurityContext;
+
+import oracle.jbo.ViewObject;
 /* TODO : ASHTHA - 02, May, 2014 :
  *  1. ADD Class level and complete method level JAVA DOC
  *  2. Override toString() method
@@ -8,41 +32,74 @@ import com.sfr.engage.model.resources.EngageResourceBundle;
  */
 public class MenuVisibleHelper {
 
-    String menuHome = "Home";
-    String menuAccount = "Account";
-    String menuAccountSummary = "Account Summary";
-    String menuVehicles = "Vehicles";
-    String menuDrivers = "Drivers";
-    String menuMessages = "Messages";
-    String menuTransactions = "Transactions";
-    String menuTransactionOverview = "Transaction Overview";
-    String menuInvoiceOverview = "Invoice Overview";
-    String menuAROverview = "AR Overview";
-    String menuCardServices = "Card Services";
-    String menuViewCards = "View Cards";
-    String menuNewCard = "New Cards";
-    String menuProfiles = "Profiles";
-    String menuPricing = "Pricing";
-    String menuAgreements = "Agreements";
-    String menuListPrice = "List Prices";
-    String menuSetup = "Setup";
-    String menuWebProfiles = "Web Profiles";
-    String menuReportSetup = "Report Setup";
-    String menuAlerts = "Alerts";
-    String menuManageUsers = "Manage Users";
-    String menuWebAssist = "Web Assit";
-    String menuSupport = "Support";
-    String menuChangeAccount = "Change Account";
-    String menuContact = "Contact";
-    String menuFAQ = "FAQ";
-    String menuSelectAccount = "Select Account";
-    String menuChangePassword = "Change Password";
-    String menuCustomerView = "Customer View";
+    private String menuHome = "Home";
+    private String menuAccount = "Account";
+    private String menuAccountSummary = "Account Summary";
+    private String menuVehicles = "Vehicles";
+    private String menuDrivers = "Drivers";
+    private String menuMessages = "Messages";
+    private String menuTransactions = "Transactions";
+    private String menuTransactionOverview = "Transaction Overview";
+    private String menuInvoiceOverview = "Invoice Overview";
+    private String menuAROverview = "AR Overview";
+    private String menuCardServices = "Card Services";
+    private String menuViewCards = "View Cards";
+    private String menuNewCard = "New Cards";
+    private String menuProfiles = "Profiles";
+    private String menuPricing = "Pricing";
+    private String menuAgreements = "Agreements";
+    private String menuListPrice = "List Prices";
+    private String menuSetup = "Setup";
+    private String menuWebProfiles = "Web Profiles";
+    private String menuReportSetup = "Report Setup";
+    private String menuAlerts = "Alerts";
+    private String menuManageUsers = "Manage Users";
+    private String menuWebAssist = "Web Assit";
+    private String menuSupport = "Support";
+    private String menuChangeAccount = "Change Account";
+    private String menuContact = "Contact";
+    private String menuFAQ = "FAQ";
+    private String menuSelectAccount = "Select Account";
+    private String menuChangePassword = "Change Password";
+    private String menuCustomerView = "Customer View";
     EngageResourceBundle sfr = new EngageResourceBundle();
 
+
+    private boolean visibleAccount = true;
+    private boolean visibleAccountSummary = false;
+    private boolean visibleVehicles = false;
+    private boolean visibleDrivers = false;
+    private boolean visibleTransactions = false;
+    private boolean visibleTransactionOverview = false;
+    private boolean visibleInvoiceOverview = false;
+    private boolean visibleCardServices = false;
+    private boolean visibleViewCards = false;
+    private boolean visiblePricing = false;
+    private boolean visibleListPrice = false;
+    private boolean visibleSetup = false;
+    private boolean visibleChangePassword = false;
+    
+    private User user = null;
+    SecurityContext securityContext;
+    private HttpSession session;
+    private ExternalContext ectx;
+    private HttpServletRequest request;
+    private String customerTypeValue;
+    
     public MenuVisibleHelper() {
         super();
-        sfr = new EngageResourceBundle();
+        sfr = new EngageResourceBundle();   
+        ectx = FacesContext.getCurrentInstance().getExternalContext();
+        request = (HttpServletRequest)ectx.getRequest();
+        session = request.getSession(false);
+        securityContext = ADFContext.getCurrent().getSecurityContext();
+        if (user == null && session.getAttribute(Constants.SESSION_USER_INFO) != null) {
+            user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            System.out.println("user role list" + user.getRolelist());
+        }
+        
+        
+        
     }
 
     public void setMenuHome(String menuHome) {
@@ -62,6 +119,7 @@ public class MenuVisibleHelper {
     public String getMenuAccount() {
         if (sfr.containsKey("ACCOUNT"))
             menuAccount = (String)sfr.getObject("ACCOUNT");
+    
         return menuAccount;
     }
 
@@ -72,6 +130,7 @@ public class MenuVisibleHelper {
     public String getMenuAccountSummary() {
         if (sfr.containsKey("ACCOUNT_SUMMARY"))
             menuAccountSummary = (String)sfr.getObject("ACCOUNT_SUMMARY");
+      
         return menuAccountSummary;
     }
 
@@ -343,5 +402,274 @@ public class MenuVisibleHelper {
         if (sfr.containsKey("CUSTOMER_VIEW"))
             menuCustomerView = (String)sfr.getObject("CUSTOMER_VIEW");
         return menuCustomerView;
+    }
+
+
+
+
+
+
+    public void setVisibleAccount(boolean visibleAccount) {
+        this.visibleAccount = visibleAccount;
+    }
+
+    public boolean isVisibleAccount() {
+        if(securityContext.isAuthenticated()){
+            visibleAccount = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleAccount = false;
+            }
+        }
+        return visibleAccount;
+    }
+
+    public void setVisibleAccountSummary(boolean visibleAccountSummary) {
+        this.visibleAccountSummary = visibleAccountSummary;
+    }
+
+    public boolean isVisibleAccountSummary() {
+        if(securityContext.isAuthenticated()){
+            visibleAccountSummary = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleAccountSummary = false;
+            }
+        }
+        return visibleAccountSummary;
+    }
+
+    public void setVisibleVehicles(boolean visibleVehicles) {
+        this.visibleVehicles = visibleVehicles;
+    }
+
+    public boolean isVisibleVehicles() {
+        if(securityContext.isAuthenticated()){
+            visibleVehicles = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)){
+                visibleVehicles = false;
+            }
+        }
+        return visibleVehicles;
+    }
+
+    public void setVisibleDrivers(boolean visibleDrivers) {
+        this.visibleDrivers = visibleDrivers;
+    }
+
+    public boolean isVisibleDrivers() {
+        if(securityContext.isAuthenticated()){
+            visibleDrivers = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)){
+                visibleDrivers = false;
+            }
+        }
+        return visibleDrivers;
+    }
+
+    public void setVisibleTransactions(boolean visibleTransactions) {
+        this.visibleTransactions = visibleTransactions;
+    }
+
+    public boolean isVisibleTransactions() {
+        if(securityContext.isAuthenticated()){
+            visibleTransactions = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleTransactions = false;
+            }
+        }
+        return visibleTransactions;
+    }
+
+    public void setVisibleTransactionOverview(boolean visibleTransactionOverview) {
+        this.visibleTransactionOverview = visibleTransactionOverview;
+    }
+
+    public boolean isVisibleTransactionOverview() {
+        if(securityContext.isAuthenticated()){
+            visibleTransactionOverview = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleTransactionOverview = false;
+            }
+        }
+        return visibleTransactionOverview;
+    }
+
+    public void setVisibleInvoiceOverview(boolean visibleInvoiceOverview) {
+        this.visibleInvoiceOverview = visibleInvoiceOverview;
+    }
+
+    public boolean isVisibleInvoiceOverview() {
+        if(securityContext.isAuthenticated()){
+            visibleInvoiceOverview = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)){
+                visibleInvoiceOverview = false;
+            }
+        }
+        return visibleInvoiceOverview;
+    }
+
+    public void setVisibleCardServices(boolean visibleCardServices) {
+        this.visibleCardServices = visibleCardServices;
+    }
+
+    public boolean isVisibleCardServices() {
+        if(securityContext.isAuthenticated()){
+            visibleCardServices = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleCardServices = false;
+            }
+        }
+        return visibleCardServices;
+    }
+
+    public void setVisibleViewCards(boolean visibleViewCards) {
+        this.visibleViewCards = visibleViewCards;
+    }
+
+    public boolean isVisibleViewCards() {
+        if(securityContext.isAuthenticated()){
+            visibleViewCards = true;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                visibleViewCards = false;
+            }
+        }
+        return visibleViewCards;
+    }
+
+    public void setVisiblePricing(boolean visiblePricing) {
+        this.visiblePricing = visiblePricing;
+    }
+
+    public boolean isVisiblePricing() {
+        if(securityContext.isAuthenticated()){
+            visiblePricing = false;
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || 
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO)){
+                visiblePricing = false;
+            }
+            
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)){
+                   Set<String> cardTypeSet = new HashSet<String>();
+                   List<String> customerTypeList=new ArrayList<String>();
+                   if(session.getAttribute("cardTypeList")!=null){
+                       cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
+                   }
+                   
+                   List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
+                   String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");   
+                   
+                   //            String customerTypeValue;
+                   DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry(); 
+                   //DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                   DCIteratorBinding iter1;
+                   if (bindings != null) {
+                       iter1 = bindings.findIteratorBinding("PrtCustomerCardMapRVO1_1Iterator");
+                     
+                   }
+                   else{
+//                     log.severe(accessDC.getDisplayRecord() + this.getClass() + "bindings is null for customer card map");
+                      
+                       iter1 = null;
+                   }
+                   
+                   if (iter1 != null) {
+                       ViewObject prtCustomerCardMapVO = iter1.getViewObject();
+
+//                   ViewObject prtCustomerCardMapVO = ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
+                   if(cardTypeList != null){
+                        prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
+                   }
+                   prtCustomerCardMapVO.executeQuery();
+                   
+                   if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
+                       while (prtCustomerCardMapVO.hasNext()) {
+                           PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                           if (currRow != null) {
+                               customerTypeList.add(currRow.getCustomerType());
+                             
+                               if(customerTypeList.toString().contains("B2B TRUCK")){
+                                  
+                                   visiblePricing = true;
+                                
+                               }
+                           }
+                       }
+                   }
+                   }
+               }
+        }
+        return visiblePricing;
+    }
+
+    public void setVisibleListPrice(boolean visibleListPrice) {
+        this.visibleListPrice = visibleListPrice;
+    }
+
+    public boolean isVisibleListPrice() {
+        if(securityContext.isAuthenticated()){
+//            visibleListPrice = true;
+//            System.out.println("user role list" + user.getRolelist() + "list pric visible");
+//            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) || 
+//               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) || 
+//               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+//               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+//               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)){
+//                visibleListPrice = false;
+//                System.out.println("user role list" + user.getRolelist() + "list pric not visible");
+//            }
+            if(visiblePricing){
+                visibleListPrice = true;
+            }
+            else{
+                visibleListPrice = false;
+            }
+        }
+        return visibleListPrice;
+    }
+
+    public void setVisibleSetup(boolean visibleSetup) {
+        this.visibleSetup = visibleSetup;
+    }
+
+    public boolean isVisibleSetup() {
+        if(securityContext.isAuthenticated()){
+            visibleSetup = true;
+           
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
+                   visibleSetup = false;
+               }
+        }
+        return visibleSetup;
+    }
+
+    public void setVisibleChangePassword(boolean visibleChangePassword) {
+        this.visibleChangePassword = visibleChangePassword;
+    }
+
+    public boolean isVisibleChangePassword() {
+        if(securityContext.isAuthenticated()){
+            visibleChangePassword = true;
+        }
+        return visibleChangePassword;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
