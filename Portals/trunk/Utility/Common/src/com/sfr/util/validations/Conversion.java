@@ -40,6 +40,8 @@ public class Conversion {
             return "no_NO";
         if(countryCode.equalsIgnoreCase("SE"))
             return "se_SE";
+        if(countryCode.equalsIgnoreCase("DK"))
+            return "da_DK";
         else
 
     return "no_NO";
