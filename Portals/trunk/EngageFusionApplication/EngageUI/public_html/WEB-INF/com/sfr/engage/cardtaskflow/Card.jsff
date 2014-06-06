@@ -493,7 +493,9 @@
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.CardBean.bindings.shuttleExcel}"
                                     value="#{pageFlowScope.CardBean.shuttleValue}"
-                                    partialTriggers="cb1">
+                                    partialTriggers="cb1" 
+                                    leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
+                                    trailingHeader="#{sfr.REPORT_SELECTED_VALUES}">
                   <af:forEach items="#{pageFlowScope.CardBean.shuttleList}"
                     var="listItem">
                     <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="sms2"/>
