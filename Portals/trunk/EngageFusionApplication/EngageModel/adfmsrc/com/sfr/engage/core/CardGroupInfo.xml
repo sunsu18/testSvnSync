@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
-          id="CardGroupInfo" Package="com.sfr.engage.core"
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="CardGroupInfo" Package="com.sfr.engage.core"
           BeanClass="com.sfr.engage.core.CardGroupInfo" isJavaBased="true">
   <Attribute Name="cardGroupID" Type="java.lang.String"/>
   <Attribute Name="cardGroupMainType" Type="java.lang.String"/>
   <Attribute Name="cardGroupSubType" Type="java.lang.String"/>
   <Attribute Name="cardGroupSeq" Type="java.lang.String"/>
   <Attribute Name="cardGroupName" Type="java.lang.String"/>
-  <AccessorAttribute id="card" IsCollection="true"
-                     BeanClass="com.sfr.engage.core.CardInfo"
-                     CollectionBeanClass="UpdateableCollection"/>
-  <MethodAccessor IsCollection="false" Type="void" id="setCardGroupOverview"
-                  ReturnNodeName="Return">
+  <AccessorAttribute id="card" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="unblockedCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setCardGroupOverview" ReturnNodeName="Return">
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>
-  <MethodAccessor IsCollection="false" Type="boolean" id="isCardGroupOverview"
-                  ReturnNodeName="Return"/>
-  <ConstructorMethod IsCollection="true"
-                     Type="com.sfr.engage.core.CardGroupInfo"
-                     BeanClass="com.sfr.engage.core.CardGroupInfo"
-                     id="CardGroupInfo"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isCardGroupOverview" ReturnNodeName="Return"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.CardGroupInfo" BeanClass="com.sfr.engage.core.CardGroupInfo" id="CardGroupInfo"/>
 </JavaBean>

@@ -55,14 +55,16 @@
        PrtCardEO.INVOICE_ADDR2, 
        PrtCardEO.INVOICE_CITY, 
        PrtCardEO.INVOICE_COUNTRY, 
-       PrtCardEO.INVOICE_POSTAL_CODE"
+       PrtCardEO.INVOICE_POSTAL_CODE, 
+       PrtCardEO.BLOCK_LEVEL, 
+       PrtCardEO.BLOCK_ACTION"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
-  RowClass="com.sfr.engage.model.queries.uvo.PrtCardVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.uvo.PrtCardVOImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.uvo.PrtCardVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.uvo.PrtCardVOImpl">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -384,4 +386,16 @@
     EntityAttrName="InvoicePostalCode"
     EntityUsage="PrtCardEO"
     AliasName="INVOICE_POSTAL_CODE"/>
+  <ViewAttribute
+    Name="BlockLevel"
+    PrecisionRule="true"
+    EntityAttrName="BlockLevel"
+    EntityUsage="PrtCardEO"
+    AliasName="BLOCK_LEVEL"/>
+  <ViewAttribute
+    Name="BlockAction"
+    PrecisionRule="true"
+    EntityAttrName="BlockAction"
+    EntityUsage="PrtCardEO"
+    AliasName="BLOCK_ACTION"/>
 </ViewObject>

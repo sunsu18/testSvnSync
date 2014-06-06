@@ -63,6 +63,7 @@ public class MyPageListener implements PagePhaseListener {
     List<AccountInfo> accountlist = new ArrayList<AccountInfo>();
     List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     List<CardInfo> cardlist = new ArrayList<CardInfo>();
+    List<CardInfo> unblockedcardlist = new ArrayList<CardInfo>();
     List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
     List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
@@ -1276,6 +1277,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         accountlist = new ArrayList<AccountInfo>();
         cardgrouplist = new ArrayList<CardGroupInfo>();
         cardlist = new ArrayList<CardInfo>();
+        unblockedcardlist = new ArrayList<CardInfo>();
 
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + "  partIndex ----> " + partIndex);
         String Partnerid = partnerlist.get(partIndex).getPartnerValue();
@@ -1371,6 +1373,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     while (cardGroupVO.hasNext()) {
                         cardgrp = new CardGroupInfo();
                         cardlist = new ArrayList<CardInfo>();
+                        unblockedcardlist = new ArrayList<CardInfo>();
                         PrtCardgroupVORowImpl currRowcardgrp = (PrtCardgroupVORowImpl)cardGroupVO.next();
 
                         if (currRowcardgrp != null) {
@@ -1455,6 +1458,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         }
                         if (!addflagcardgroup) {
                             cardgrp.setCard(cardlist);
+                            cardgrp.setUnblockedCardList(unblockedcardlist);
+                            System.out.println("unblockedcardlist size " + unblockedcardlist.size());
                             cardgrouplist.add(cardgrp);
                         }
                     }
@@ -1471,7 +1476,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         if (session != null) {
             if (session.getAttribute("executePartnerObjLogic") == null) {
                 session.setAttribute("Partner_Object_List", partnerListSession);
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner object added in session");
+                System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Partner object added in session");
             }
         }
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Exit from execute Admin function");
@@ -1483,6 +1488,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             card = new CardInfo();
             PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)cardVO.next();
             if (currRowcard != null) {
+
                 if (currRowcard.getPrtCardPk() != null) {
                     //                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() +  this.getClass() + " Result from Card Vo : Card id is " +
                     //                                                           currRowcard.getPrtCardPk());
@@ -1513,6 +1519,21 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 //                        break;
                 //                    }
                 //                }
+
+
+                if(currRowcard.getBlockAction() != null && currRowcard.getBlockLevel()!= null) {
+//                System.out.println("block level " + currRowcard.getBlockLevel().toString() );
+//                System.out.println("block action " + currRowcard.getBlockAction().toString());
+                    if(currRowcard.getBlockLevel().toString().equalsIgnoreCase("KSI") && currRowcard.getBlockAction().toString().equalsIgnoreCase("2")) {
+                       System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Hardblocked card found so dont add in unblocked cardlist");
+                    }
+                    else {
+                        unblockedcardlist.add(card);
+                    }
+                }
+                else {
+                    unblockedcardlist.add(card);
+                }
 
             }
             if (!addflagcard)
@@ -1623,21 +1644,21 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                idString = new ArrayList<String>();
         rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         idString.add("NOPP26773218");
-        idString.add("NOPP26773219");
+        //idString.add("NOPP26773219");
         rr.setIdString(idString);
         listrole.add(rr);
 
 
-        rr = new Roles();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
-        idString = new ArrayList<String>();
-        idString.add("NOPP26773218CGSLUTRX00001");
-        //////
-        idString.add("NOPP26773219CGSLUTRX00003");
-        idString.add("NOPP26773219AC0022883799");
-        idString.add("NOPP26773218CGSLUTRX00006");
-        rr.setIdString(idString);
-        listrole.add(rr);
+//        rr = new Roles();
+//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_MGR);
+//        idString = new ArrayList<String>();
+//        idString.add("NOPP26773218CGSLUTRX00001");
+//        //////
+//        idString.add("NOPP26773219CGSLUTRX00003");
+//        idString.add("NOPP26773219AC0022883799");
+//        idString.add("NOPP26773218CGSLUTRX00006");
+//        rr.setIdString(idString);
+//        listrole.add(rr);
 
         //
 
@@ -1672,16 +1693,16 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                rr.setIdString(idString);
         //                listrole.add(rr);
         //
-        rr = new Roles();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
-        idString = new ArrayList<String>();
-        //////
-        idString.add("NOPP26773218CC0058589246");
-        ////                idString.add("NOPP26773218CC0058589248");
-        idString.add("NOPP26773219CC0058589215");
-        ////                idString.add("NOPP26773218CC0058589003");
-        rr.setIdString(idString);
-        listrole.add(rr);
+//        rr = new Roles();
+//        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_EMP);
+//        idString = new ArrayList<String>();
+//        //////
+//        idString.add("NOPP26773218CC0058589246");
+//        ////                idString.add("NOPP26773218CC0058589248");
+//        idString.add("NOPP26773219CC0058589215");
+//        ////                idString.add("NOPP26773218CC0058589003");
+//        rr.setIdString(idString);
+//        listrole.add(rr);
 
         //        rr = new Roles();
         //                rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
@@ -1699,7 +1720,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_MGR);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         user.setUserID("B2BMgr1@test.com");
 
         return user;

@@ -1360,7 +1360,33 @@
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
-        </h:panelGrid>
+    <af:outputText value="#{sfr.STATUS}" id="ot25"/>
+          <af:outputText value=":" id="ot58"/>
+          <af:spacer width="10" height="10" id="s17"/>
+              <af:inputText value="#{bindings.BlockAction.inputValue =='1' and bindings.BlockLevel.inputValue =='KSI' ? (sfr.TEMPORARY_BLOCKED) : (sfr.UNBLOCKED)}"
+                            simple="true"  readOnly="true"
+                            required="#{bindings.InvoiceCountry.hints.mandatory}"
+                            columns="#{bindings.InvoiceCountry.hints.displayWidth}"
+                            maximumLength="#{bindings.InvoiceCountry.hints.precision}"
+                            shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
+                            id="it17">
+                <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
+              </af:inputText>
+              <af:spacer width="25" height="10"/>
+               <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+               <af:spacer width="10" height="10"/>
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+               <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+ </h:panelGrid>
     </af:panelFormLayout>
 
     <!--<af:outputText value="#{sfr.CARD_ADDRESS_1}" id="ot6"/>

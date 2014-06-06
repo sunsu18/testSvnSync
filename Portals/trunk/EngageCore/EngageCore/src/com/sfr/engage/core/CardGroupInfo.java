@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.List;
 
+
 /**
  * TODO : ASHTHA - 30, Apr, 2014 :
  *  1. ADD Class level and complete method level JAVA DOC toString() method
@@ -14,11 +15,12 @@ public class CardGroupInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardGroupID;
-    
+
     private String cardGroupMainType;
     private String cardGroupSubType;
     private String cardGroupSeq;
     private List<CardInfo> card;
+    private List<CardInfo> unblockedCardList;
     private String cardGroupName;
     private boolean cardGroupOverview;
 
@@ -119,5 +121,13 @@ public class CardGroupInfo implements Serializable {
 
     public String getCardGroupName() {
         return cardGroupName;
+    }
+
+    public void setUnblockedCardList(List<CardInfo> unblockedCardList) {
+        this.unblockedCardList = unblockedCardList;
+    }
+
+    public List<CardInfo> getUnblockedCardList() {
+        return unblockedCardList;
     }
 }

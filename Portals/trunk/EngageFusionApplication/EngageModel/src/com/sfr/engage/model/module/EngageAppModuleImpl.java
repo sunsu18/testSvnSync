@@ -427,13 +427,6 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
         return (PrtCardgroupVOImpl)findViewObject("PrtCardgroupVO1");
     }
 
-    /**
-     * Container's getter for PrtCardVO1.
-     * @return PrtCardVO1
-     */
-    public PrtCardVOImpl getPrtCardVO1() {
-        return (PrtCardVOImpl)findViewObject("PrtCardVO1");
-    }
 
     /**
      * Container's getter for PrtDriverInformationVO3.
@@ -474,5 +467,13 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
      */
     public PrtViewVehicleDriverVOImpl getPrtViewVehicleDriverVO1() {
         return (PrtViewVehicleDriverVOImpl)findViewObject("PrtViewVehicleDriverVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardVO1.
+     * @return PrtCardVO1
+     */
+    public PrtCardVOImpl getPrtCardVO1() {
+        return (PrtCardVOImpl)findViewObject("PrtCardVO1");
     }
 }
