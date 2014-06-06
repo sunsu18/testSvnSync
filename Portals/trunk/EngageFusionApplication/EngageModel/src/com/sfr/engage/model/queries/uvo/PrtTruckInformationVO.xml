@@ -22,7 +22,8 @@
        PrtTruckInformationEO.REMARKS, 
        PrtTruckInformationEO.MODIFIED_BY, 
        PrtTruckInformationEO.MODIFIED_DATE, 
-       PrtTruckInformationEO.COUNTRY_CODE"
+       PrtTruckInformationEO.COUNTRY_CODE, 
+       PrtTruckInformationEO.REFERENCE_NUMBER"
   FromList="PRT_TRUCK_INFORMATION PrtTruckInformationEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -151,4 +152,10 @@
     EntityAttrName="CountryCode"
     EntityUsage="PrtTruckInformationEO"
     AliasName="COUNTRY_CODE"/>
+  <ViewAttribute
+    Name="ReferenceNumber"
+    PrecisionRule="true"
+    EntityAttrName="ReferenceNumber"
+    EntityUsage="PrtTruckInformationEO"
+    AliasName="REFERENCE_NUMBER"/>
 </ViewObject>

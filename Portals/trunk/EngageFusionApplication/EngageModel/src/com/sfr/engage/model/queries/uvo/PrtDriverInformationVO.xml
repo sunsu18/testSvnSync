@@ -22,7 +22,8 @@
        PrtDriverInformationEO.EMPLOY_END, 
        PrtDriverInformationEO.MODIFIED_BY, 
        PrtDriverInformationEO.MODIFIED_DATE, 
-       PrtDriverInformationEO.COUNTRY_CODE"
+       PrtDriverInformationEO.COUNTRY_CODE, 
+       PrtDriverInformationEO.REFERENCE_NUMBER"
   FromList="PRT_DRIVER_INFORMATION PrtDriverInformationEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -152,4 +153,10 @@
     EntityAttrName="CountryCode"
     EntityUsage="PrtDriverInformationEO"
     AliasName="COUNTRY_CODE"/>
+  <ViewAttribute
+    Name="ReferenceNumber"
+    PrecisionRule="true"
+    EntityAttrName="ReferenceNumber"
+    EntityUsage="PrtDriverInformationEO"
+    AliasName="REFERENCE_NUMBER"/>
 </ViewObject>

@@ -188,6 +188,16 @@ public class PrtTruckInformationVORowImpl extends ViewRowImpl {
                 obj.setCountryCode((String)value);
             }
         }
+        ,
+        ReferenceNumber {
+            public Object get(PrtTruckInformationVORowImpl obj) {
+                return obj.getReferenceNumber();
+            }
+
+            public void put(PrtTruckInformationVORowImpl obj, Object value) {
+                obj.setReferenceNumber((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -217,6 +227,7 @@ public class PrtTruckInformationVORowImpl extends ViewRowImpl {
         }
     }
 
+
     public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
     public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
     public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
@@ -234,6 +245,7 @@ public class PrtTruckInformationVORowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+    public static final int REFERENCENUMBER = AttributesEnum.ReferenceNumber.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -519,6 +531,22 @@ public class PrtTruckInformationVORowImpl extends ViewRowImpl {
      */
     public void setCountryCode(String value) {
         setAttributeInternal(COUNTRYCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for REFERENCE_NUMBER using the alias name ReferenceNumber.
+     * @return the REFERENCE_NUMBER
+     */
+    public String getReferenceNumber() {
+        return (String) getAttributeInternal(REFERENCENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for REFERENCE_NUMBER using the alias name ReferenceNumber.
+     * @param value value to set the REFERENCE_NUMBER
+     */
+    public void setReferenceNumber(String value) {
+        setAttributeInternal(REFERENCENUMBER, value);
     }
 
     /**

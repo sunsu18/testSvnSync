@@ -1,5 +1,7 @@
 package com.sfr.engage.model.queries.uvo;
 
+import com.sfr.engage.model.entities.PrtDriverInformationEOImpl;
+
 import oracle.jbo.domain.DBSequence;
 import oracle.jbo.domain.Date;
 import oracle.jbo.domain.Number;
@@ -187,6 +189,16 @@ public class PrtDriverInformationVORowImpl extends ViewRowImpl {
                 obj.setCountryCode((String)value);
             }
         }
+        ,
+        ReferenceNumber {
+            public Object get(PrtDriverInformationVORowImpl obj) {
+                return obj.getReferenceNumber();
+            }
+
+            public void put(PrtDriverInformationVORowImpl obj, Object value) {
+                obj.setReferenceNumber((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -215,6 +227,7 @@ public class PrtDriverInformationVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int PRTDRIVERINFORMATIONPK = AttributesEnum.PrtDriverInformationPk.index();
     public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
     public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
@@ -232,6 +245,7 @@ public class PrtDriverInformationVORowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+    public static final int REFERENCENUMBER = AttributesEnum.ReferenceNumber.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -243,8 +257,8 @@ public class PrtDriverInformationVORowImpl extends ViewRowImpl {
      * Gets PrtDriverInformationEO entity object.
      * @return the PrtDriverInformationEO
      */
-    public EntityImpl getPrtDriverInformationEO() {
-        return (EntityImpl)getEntity(0);
+    public PrtDriverInformationEOImpl getPrtDriverInformationEO() {
+        return (PrtDriverInformationEOImpl)getEntity(0);
     }
 
     /**
@@ -517,6 +531,22 @@ public class PrtDriverInformationVORowImpl extends ViewRowImpl {
      */
     public void setCountryCode(String value) {
         setAttributeInternal(COUNTRYCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for REFERENCE_NUMBER using the alias name ReferenceNumber.
+     * @return the REFERENCE_NUMBER
+     */
+    public String getReferenceNumber() {
+        return (String) getAttributeInternal(REFERENCENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for REFERENCE_NUMBER using the alias name ReferenceNumber.
+     * @param value value to set the REFERENCE_NUMBER
+     */
+    public void setReferenceNumber(String value) {
+        setAttributeInternal(REFERENCENUMBER, value);
     }
 
     /**

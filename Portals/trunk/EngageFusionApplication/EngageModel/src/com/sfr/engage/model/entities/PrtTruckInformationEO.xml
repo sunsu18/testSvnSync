@@ -235,6 +235,18 @@
       <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="ReferenceNumber"
+    Precision="10"
+    ColumnName="REFERENCE_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_TRUCK_INFORMATION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="PrtTruckInformationPk1"
     PrimaryKey="true">

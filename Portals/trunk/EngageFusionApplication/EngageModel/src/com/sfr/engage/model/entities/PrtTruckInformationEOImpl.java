@@ -196,6 +196,16 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
                 obj.setCountryCode((String)value);
             }
         }
+        ,
+        ReferenceNumber {
+            public Object get(PrtTruckInformationEOImpl obj) {
+                return obj.getReferenceNumber();
+            }
+
+            public void put(PrtTruckInformationEOImpl obj, Object value) {
+                obj.setReferenceNumber((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -224,6 +234,7 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
             return vals;
         }
     }
+
     public static final int PRTTRUCKINFORMATIONPK = AttributesEnum.PrtTruckInformationPk.index();
     public static final int ACCOUNTNUMBER = AttributesEnum.AccountNumber.index();
     public static final int CARDNUMBER = AttributesEnum.CardNumber.index();
@@ -241,11 +252,22 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+    public static final int REFERENCENUMBER = AttributesEnum.ReferenceNumber.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtTruckInformationEOImpl() {
+    }
+
+    /**
+     * @return the definition object for this instance class.
+     */
+    public static synchronized EntityDefImpl getDefinitionObject() {
+        if (mDefinitionObject == null) {
+            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtTruckInformationEO");
+        }
+        return mDefinitionObject;
     }
 
     /**
@@ -513,6 +535,22 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for ReferenceNumber, using the alias name ReferenceNumber.
+     * @return the ReferenceNumber
+     */
+    public String getReferenceNumber() {
+        return (String)getAttributeInternal(REFERENCENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ReferenceNumber.
+     * @param value value to set the ReferenceNumber
+     */
+    public void setReferenceNumber(String value) {
+        setAttributeInternal(REFERENCENUMBER, value);
+    }
+
+    /**
      * getAttrInvokeAccessor: generated method. Do not modify.
      * @param index the index identifying the attribute
      * @param attrDef the attribute
@@ -545,6 +583,7 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
         super.setAttrInvokeAccessor(index, value, attrDef);
     }
 
+
     /**
      * @param prtTruckInformationPk key constituent
 
@@ -552,16 +591,6 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
      */
     public static Key createPrimaryKey(DBSequence prtTruckInformationPk) {
         return new Key(new Object[]{prtTruckInformationPk});
-    }
-
-    /**
-     * @return the definition object for this instance class.
-     */
-    public static synchronized EntityDefImpl getDefinitionObject() {
-        if (mDefinitionObject == null) {
-            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtTruckInformationEO");
-        }
-        return mDefinitionObject;
     }
 
     /**
@@ -602,7 +631,7 @@ public class PrtTruckInformationEOImpl extends EntityImpl {
                     {
                         System.out.println("Comming");
                         //setModifiedDate(getSysDate());
-                        setModifiedBy("PurnaChandraRao");
+                        //setModifiedBy("PurnaChandraRao");
                         break;
                     }
                 case DML_UPDATE:

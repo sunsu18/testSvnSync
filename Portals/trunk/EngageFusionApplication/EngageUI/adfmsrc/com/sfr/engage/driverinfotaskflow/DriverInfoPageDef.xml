@@ -122,5 +122,11 @@
       <NamedData NDName="countryCd" NDType="java.lang.String"/>
       <NamedData NDName="regDriverValue" NDType="java.lang.String"/>
     </methodAction>
+    <attributeValues IterBinding="PrtDriverInformationVO2Iterator"
+                     id="ReferenceNumber">
+      <AttrNames>
+        <Item Value="ReferenceNumber"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

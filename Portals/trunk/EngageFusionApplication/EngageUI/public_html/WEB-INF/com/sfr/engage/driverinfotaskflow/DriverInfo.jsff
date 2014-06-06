@@ -338,8 +338,21 @@
                             binding="#{pageFlowScope.DriverInfoBean.bindings.addDriverName}">
                 <f:validator binding="#{bindings.DriverName.validator}"/>
               </af:inputText>
-
               <af:spacer width="25" height="10" id="colnSpace2"/>
+              <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid245"/>
+                <af:outputText value=":" id="colonpop424"/>
+                <af:spacer width="15" height="30" id="s21227"/>
+                <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              required="#{bindings.ReferenceNumber.hints.mandatory}"
+                              columns="#{bindings.ReferenceNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.ReferenceNumber.hints.precision}"
+                              shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
+                              id="it3">
+                  <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
+                </af:inputText>
+                
+                
                <af:outputText value="#{sfr.NATIONALITY}" id="Acctid4"/>
           <af:outputText value=":" id="colonpop4"/>
           <af:spacer width="15" height="30" id="s18564"/>
@@ -351,7 +364,7 @@
                             contentStyle="width:158px;height:14.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.Nationality.validator}"/>
               </af:inputText>
-
+                <af:spacer width="25" height="10" id="colnSpace3"/>
                <af:outputText value="#{sfr.MOBILE_NUMBER}" id="Acctid5"/>
           <af:outputText value=":" id="colonpop5"/>
           <af:spacer width="15" height="30" id="s18565"/>
@@ -366,7 +379,7 @@
                                   pattern="#{bindings.MobileNumber.format}"/>
               </af:inputText>
 
-              <af:spacer width="25" height="10" id="colnSpace3"/>
+              
                  <af:outputText value="#{sfr.PASSPORT_NUMBER}" id="Acctid7"/>
 
           <af:outputText value=":" id="colonpop6"/>
@@ -380,7 +393,7 @@
                             contentStyle="width:158px;height:14.0px;padding-top: 4px">
                 <f:validator binding="#{bindings.PassportNumber.validator}"/>
               </af:inputText>
-
+                <af:spacer width="25" height="10" id="colnSpace4"/>
              <af:outputText value="#{sfr.LICENSE_NUMBER}" id="Acctid9"/>
           <af:outputText value=":" id="colonpop7"/>
           <af:spacer width="15" height="30" id="s18567"/>
@@ -394,7 +407,7 @@
                 <f:validator binding="#{bindings.LicenseNumber.validator}"/>
               </af:inputText>
 
-              <af:spacer width="25" height="10" id="colnSpace4"/>
+              
                <af:outputText value="#{sfr.PASSPORT_EXPIRY}" id="Acctid8"/>
           <af:outputText value=":" id="colonpop8"/>
           <af:spacer width="15" height="30" id="s18568"/>
@@ -406,7 +419,7 @@
                 <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
               </af:inputDate>
 
-
+                <af:spacer width="25" height="10" id="colnSpace5"/>
 
                    <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Acctid10"/>
           <af:outputText value=":" id="colonpop9"/>
@@ -419,7 +432,7 @@
                 <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
               </af:inputDate>
 
-              <af:spacer width="25" height="10" id="colnSpace5"/>
+              
                       <af:outputText value="#{sfr.EMPLOY_START}" id="Acctid11"/>
           <af:outputText value=":" id="colonpop12"/>
           <af:spacer width="15" height="30" id="s185612"/>
@@ -431,7 +444,7 @@
                 <f:validator binding="#{bindings.EmployStart.validator}"/>
                 <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
               </af:inputDate>
-
+                <af:spacer width="25" height="10" id="s24"/>
 
                  <af:outputText value="#{sfr.EMPLOY_END}" id="Acctid12"/>
           <af:outputText value=":" id="colonpop11"/>
@@ -445,7 +458,7 @@
                 <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
               </af:inputDate>
 
-              <af:spacer width="25" height="10" id="s24"/>
+              
                <af:outputText value="#{sfr.REMARKS}" id="Acctid6"/>
           <af:outputText value=":" id="colonpop10"/>
           <af:spacer width="15" height="30" id="s185610"/>
@@ -610,6 +623,20 @@
                 </af:inputText>
 
                 <af:spacer width="25" height="10" id="DrivSpac3"/>
+                
+                <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid2456"/>
+                <af:outputText value=":" id="colonpop4245"/>
+                <af:spacer width="15" height="30" id="s212278"/>
+                <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              required="#{bindings.ReferenceNumber.hints.mandatory}"
+                              columns="#{bindings.ReferenceNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.ReferenceNumber.hints.precision}"
+                              shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
+                              id="it4">
+                  <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
+                </af:inputText>
+                
                   <af:outputText value="#{sfr.NATIONALITY}" id="Driv15"/>
           <af:outputText value=":" id="Driv25"/>
           <af:spacer width="15" height="30" id="Driv35"/>
@@ -621,7 +648,7 @@
                               contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.Nationality.validator}"/>
                 </af:inputText>
-
+                <af:spacer width="25" height="10" id="DrivSpac4"/>
                   <af:outputText value="#{sfr.MOBILE_NUMBER}" id="Driv16"/>
           <af:outputText value=":" id="Driv26"/>
           <af:spacer width="15" height="30" id="Driv36"/>
@@ -635,7 +662,7 @@
                   <af:convertNumber groupingUsed="false"
                                     pattern="#{bindings.MobileNumber.format}"/>
                 </af:inputText>
-           <af:spacer width="25" height="10" id="DrivSpac4"/>
+           
                  <af:outputText value="#{sfr.PASSPORT_NUMBER}" id="Driv18"/>
           <af:outputText value=":" id="Driv28"/>
           <af:spacer width="15" height="30" id="Driv38"/>
@@ -647,7 +674,7 @@
                               contentStyle="width:158px;height:14.0px;padding-top: 4px">
                   <f:validator binding="#{bindings.PassportNumber.validator}"/>
                 </af:inputText>
-
+                    <af:spacer width="25" height="10" id="DrivSpac5"/>
                      <af:outputText value="#{sfr.LICENSE_NUMBER}" id="Driv10"/>
           <af:outputText value=":" id="Driv20"/>
           <af:spacer width="15" height="30" id="Driv30"/>
@@ -659,7 +686,7 @@
                               id="it10">
                   <f:validator binding="#{bindings.LicenseNumber.validator}"/>
                 </af:inputText>
-                <af:spacer width="25" height="10" id="DrivSpac5"/>
+                
 
                     <af:outputText value="#{sfr.PASSPORT_EXPIRY}" id="Driv19"/>
           <af:outputText value=":" id="Driv29"/>
@@ -671,7 +698,7 @@
                   <f:validator binding="#{bindings.PassportExpiry.validator}"/>
                   <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
                 </af:inputDate>
-
+         <af:spacer width="25" height="10" id="DrivSpac6"/>
 
                   <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Driv111"/>
           <af:outputText value=":" id="Driv211"/>
@@ -684,7 +711,7 @@
                   <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
                 </af:inputDate>
 
-                 <af:spacer width="25" height="10" id="DrivSpac6"/>
+                
                     <af:outputText value="#{sfr.EMPLOY_START}" id="Driv122"/>
           <af:outputText value=":" id="Driv222"/>
           <af:spacer width="15" height="30" id="Driv322"/>
@@ -696,7 +723,7 @@
                   <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
                 </af:inputDate>
 
-
+                    <af:spacer width="25" height="10" id="s17"/>
                  <af:outputText value="#{sfr.EMPLOY_END}" id="Driv133"/>
           <af:outputText value=":" id="Driv233"/>
           <af:spacer width="15" height="30" id="Driv333"/>
@@ -707,7 +734,7 @@
                   <f:validator binding="#{bindings.EmployEnd.validator}"/>
                   <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
                 </af:inputDate>
-                 <af:spacer width="25" height="10" id="s17"/>
+                 
                  <af:outputText value="#{sfr.REMARKS}" id="Driv17"/>
           <af:outputText value=":" id="Driv27"/>
           <af:spacer width="15" height="30" id="Driv37"/>
