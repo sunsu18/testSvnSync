@@ -222,14 +222,22 @@
                         <af:spacer width="10" height="10" id="s18"/>
                       </af:panelGroupLayout>
                       <af:spacer width="10" height="20" id="spacer15"/>
-                      <af:panelGroupLayout id="pgl9" layout="horizontal">
-                        <af:outputText value="#{sfr.NEW_TO_CARD}"
+                      
+                      
+                        <af:panelGroupLayout id="pgl23" layout="horizontal"  inlineStyle="width:327.0px;">
+     <af:outputText value="#{sfr.NEW_TO_CARD}"
                                        id="outputText5"
                                        styleClass="contenttext"/>
-                        <af:spacer width="85" height="10" id="s12"/>
-                        <af:goLink text="#{sfr.REGISTER_HERE}" id="gl1"
+                                      
+        <af:spacer width="50" height="10" id="s27"/>
+        <af:spacer width="10" height="10" id="s31"/>
+        <af:panelGroupLayout id="pgl13" halign="right">
+        <af:goLink text="#{sfr.REGISTER_HERE}" id="gl1"
                                    styleClass="links"/>
-                      </af:panelGroupLayout>
+                          </af:panelGroupLayout>
+      </af:panelGroupLayout>
+                      
+                   
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
@@ -280,7 +288,7 @@
                                          value="#{requestScope.homeCarousalBean.card_desc1}"
                                          styleClass="contenttext"/>
                         </af:panelGroupLayout>
-                            <af:spacer width="10" height="10" id="s27"/>
+                            <af:spacer width="10" height="10" id="s12"/>
                             <af:panelGroupLayout id="pgl26" layout="horizontal"
                                                  inlineStyle="width:280px;">
                               <af:panelGroupLayout id="pgl16"
@@ -316,7 +324,7 @@
                   </af:panelGroupLayout>
                    <af:panelGroupLayout id="pgl_10" layout="horizontal" inlineStyle="width:481px;"
                                         valign="top">
-                    <af:panelGroupLayout id="pgl13" layout="horizontal"
+                    <af:panelGroupLayout id="pgl9" layout="horizontal"
                                          valign="top">
                       <af:image source="/images/Cards/#{homeCarousalBean.card2}.png"
                                 shortDesc="engage banner" id="i5"/>
@@ -350,7 +358,7 @@
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/>
                               </af:panelGroupLayout>
-                              <af:spacer height="10" id="spacer3" width="90"/>
+                              <!--<af:spacer width="10" height="100" id="s32"/>-->
                               <!--<af:panelGroupLayout id="panelGroupLayout7"
                                                    layout="horizontal"
                                                    halign="start">
@@ -365,6 +373,7 @@
                                                      layout="vertical"/>
                               </af:panelGroupLayout>-->
                             </af:panelGroupLayout>
+                            <af:spacer width="10" height="10" id="s30"/>
                           </af:panelGroupLayout>
 
                     </af:panelGroupLayout>
