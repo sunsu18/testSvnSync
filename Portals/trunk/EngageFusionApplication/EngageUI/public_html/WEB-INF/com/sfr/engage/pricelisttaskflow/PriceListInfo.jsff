@@ -22,14 +22,16 @@
 
     <af:panelGroupLayout id="printPanel2" halign="left" layout="vertical" inlineStyle="border-style:none;">
     <af:panelGroupLayout layout="vertical" id="pgl4" inlineStyle="width:315px;">
-     <af:panelGroupLayout id="pgl1" layout="horizontal">
-        <af:spacer width="2" height="1" id="s3"/>
-        <af:outputText value="#{sfr.LATEST_UPDATE_ENG}" id="ot4"
+      <af:panelGroupLayout id="pgl5" layout="horizontal"  inlineStyle="width:363px;">
+        <!--<af:spacer width="2" height="1" id="s3"/>-->
+        <af:outputText value="#{sfr.LATEST_UPDATE_ENG}:" id="ot4"
                        inlineStyle="font-weight:bold;"/>
-        <af:spacer width="85" height="10" id="s5"/>
+        <!--<af:spacer width="50" height="10" id="s5"/>-->
+         <af:panelGroupLayout id="pgl13" halign="right">
         <af:outputText value="#{bindings.ModifiedDate.inputValue}" id="ot2">
-        <af:convertDateTime pattern="dd-MMM-yyyy  HH:mm:ss"/>
+        <af:convertDateTime pattern="dd-MMM-yyyy   HH:mm:ss"/>
         </af:outputText>
+        </af:panelGroupLayout>
         </af:panelGroupLayout>
 
         <af:spacer width="10" height="10" id="s7"/>
@@ -50,7 +52,7 @@
                      inlineStyle="vertical-align:middle;">
 
 
-            <af:panelGroupLayout id="pgl5" layout="vertical">
+            <af:panelGroupLayout id="pgl1" layout="vertical">
                 <af:panelGroupLayout id="pgl6" layout="horizontal">
                     <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
                               id="i1" styleClass="pricelistimage"/>
