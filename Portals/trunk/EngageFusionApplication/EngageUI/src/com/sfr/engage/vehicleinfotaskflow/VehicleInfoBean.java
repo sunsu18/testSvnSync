@@ -1,6 +1,7 @@
 package com.sfr.engage.vehicleinfotaskflow;
 
 
+import com.sfr.core.bean.User;
 import com.sfr.engage.core.Account;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.VehicleInfo;
@@ -9,6 +10,8 @@ import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
+
+import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
@@ -93,6 +96,8 @@ public class VehicleInfoBean implements Serializable {
     HashMap<String, String> cardNumberMap = new HashMap<String, String>();
     private String addPartnerIdVal = null;
     private String editPartnerIdVal = null;
+    
+
 
     /**
      * @return bindings Object
@@ -499,7 +504,15 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String newVehicleSave() {
-
+        User user         = null;
+        String modifiedBy = null;
+        user              = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            if(user!= null){
+            modifiedBy        = user.getFirstName().concat(" ").concat(user.getLastName());
+                if(modifiedBy == null){
+                modifiedBy = user.getUserID();
+                }
+            }
         if (getBindings().getAddPartnerNumberId().getValue() !=null && getBindings().getAddAccountId().getValue() != null 
             && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null 
             && getBindings().getAddVehicleNumber().getValue().toString().trim() != null && getBindings().getAddInternalName().getValue().toString().trim() != null  ) {
@@ -584,6 +597,12 @@ public class VehicleInfoBean implements Serializable {
                 }else{
                     vehicleInfoRow.setAttribute("CardNumber","");
                 }
+                if(getBindings().getAddReferenceNumber().getValue() != null){
+                    String refNumber       = getBindings().getAddReferenceNumber().getValue().toString().trim();
+                    String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                    vehicleInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
+                }
+                vehicleInfoRow.setAttribute("ModifiedBy", modifiedBy);
                 vehicleInfoRow.setAttribute("CountryCode", countryParam);
                 vehicleInfoRow.setAttribute("VehicleNumber", getBindings().getAddVehicleNumber().getValue().toString().trim());
                 vehicleInfoRow.setAttribute("InternalName", getBindings().getAddInternalName().getValue().toString().trim());
@@ -676,7 +695,15 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String editVehicleSave() {
-
+        User user         = null;
+        String modifiedBy = null;
+        user              = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            if(user!= null){
+            modifiedBy        = user.getFirstName().concat(" ").concat(user.getLastName());
+                if(modifiedBy == null){
+                modifiedBy = user.getUserID();
+                }
+            }
         if (getBindings().getEditPartnerNumberId().getValue()!= null && getBindings().getEditAccountId().getValue() != null 
             && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null && getBindings().getEditInternalName().getValue().toString().trim() != null && getBindings().getEditVehicleNumber().getValue().toString().trim()!= null   ) {
 
@@ -794,6 +821,12 @@ public class VehicleInfoBean implements Serializable {
                 }else{
                     vehicleInfoRow.setAttribute("CardNumber","");
                 }
+                if(getBindings().getEditReferenceNumber().getValue()!= null){
+                    String refNumber = getBindings().getEditReferenceNumber().getValue().toString().trim();
+                    String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                    vehicleInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
+                }
+                vehicleInfoRow.setAttribute("ModifiedBy", modifiedBy);
                 vehicleInfoRow.setAttribute("CountryCode", countryParam);
                 vehicleInfoRow.setAttribute("VehicleNumber",getBindings().getEditVehicleNumber().getValue().toString().trim());
                 vehicleInfoRow.setAttribute("InternalName",getBindings().getEditInternalName().getValue().toString().trim());
@@ -1629,7 +1662,9 @@ public class VehicleInfoBean implements Serializable {
         private RichInputText addRegistrationNumber;
         private RichSelectOneChoice addPartnerNumberId;
         private RichSelectOneChoice editPartnerNumberId;
-
+        private RichInputText addReferenceNumber;
+        private RichInputText editReferenceNumber;
+        
         /**
          * @param linkedAccount
          */
@@ -1861,6 +1896,22 @@ public class VehicleInfoBean implements Serializable {
 
         public RichSelectOneChoice getEditPartnerNumberId() {
             return editPartnerNumberId;
+        }
+        
+        public void setAddReferenceNumber(RichInputText addReferenceNumber) {
+            this.addReferenceNumber = addReferenceNumber;
+        }
+
+        public RichInputText getAddReferenceNumber() {
+            return addReferenceNumber;
+        }
+        
+        public void setEditReferenceNumber(RichInputText editReferenceNumber) {
+            this.editReferenceNumber = editReferenceNumber;
+        }
+
+        public RichInputText getEditReferenceNumber() {
+            return editReferenceNumber;
         }
     }
 }

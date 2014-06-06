@@ -1,5 +1,6 @@
 package com.sfr.engage.driverinfotaskflow;
 
+import com.sfr.core.bean.User;
 import com.sfr.engage.core.Account;
 
 import com.sfr.engage.core.DriverInfo;
@@ -9,6 +10,8 @@ import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
+
+import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
@@ -94,7 +97,7 @@ public class DriverInfoBean implements Serializable {
     HashMap<String, String> cardNumberMap = new HashMap<String, String>();
     private String addPartnerIdVal = null;
     private String editPartnerIdVal = null;
-
+    
 
 
     /**
@@ -500,6 +503,15 @@ public class DriverInfoBean implements Serializable {
     public String newDriverSave() {
         // Add event code here...
         System.out.println("is it coming inside the newDriverSave method===============>");
+        User user         = null;
+        String modifiedBy = null;
+        user              = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            if(user!= null){
+            modifiedBy        = user.getFirstName().concat(" ").concat(user.getLastName());
+                if(modifiedBy == null){
+                modifiedBy = user.getUserID();
+                }
+            }
 
         if (getBindings().getAddPartnerNumberId().getValue() != null && getBindings().getAddAccountId().getValue() != null 
             && getBindings().getAddDriverName().getValue() != null && getBindings().getAddDriverNumber().getValue() != null &&  getBindings().getAddDriverName().getValue().toString().trim() != null && getBindings().getAddDriverNumber().getValue().toString().trim() != null ) {
@@ -579,6 +591,11 @@ public class DriverInfoBean implements Serializable {
                 driverInfoRow.setAttribute("CardNumber",getBindings().getAddCardId().getValue().toString());
                 }else{
                     driverInfoRow.setAttribute("CardNumber","");
+                }
+                if(getBindings().getAddReferenceNumber().getValue()!= null){
+                    String refNumber = getBindings().getAddReferenceNumber().getValue().toString().trim();
+                    String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                    driverInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
                 }
                 driverInfoRow.setAttribute("CountryCode", countryParam);
                 driverInfoRow.setAttribute("DriverNumber", getBindings().getAddDriverNumber().getValue().toString().trim());
@@ -676,7 +693,15 @@ public class DriverInfoBean implements Serializable {
      * @return
      */
     public String editDriverSave() {
-
+        User user         = null;
+        String modifiedBy = null;
+        user              = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            if(user!= null){
+            modifiedBy        = user.getFirstName().concat(" ").concat(user.getLastName());
+                if(modifiedBy == null){
+                modifiedBy = user.getUserID();
+                }
+            }
         if (getBindings().getEditPartnerNumberId().getValue() != null && getBindings().getEditAccountId().getValue() != null 
             && getBindings().getEditDriverName().getValue() != null && getBindings().getEditDriverNumber().getValue() != null && getBindings().getEditDriverName().getValue().toString().trim() != null && getBindings().getEditDriverNumber().getValue().toString().trim() != null ) {
 
@@ -787,6 +812,11 @@ public class DriverInfoBean implements Serializable {
                 }else{
                     driverInfoRow.setAttribute("CardNumber","");
                 }
+                    if(getBindings().getEditReferenceNumber().getValue()!= null){
+                        String refNumber = getBindings().getEditReferenceNumber().getValue().toString().trim();
+                        String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                        driverInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
+                    }
                 driverInfoRow.setAttribute("CountryCode", countryParam);
                 driverInfoRow.setAttribute("DriverNumber", getBindings().getEditDriverNumber().getValue().toString().trim());
                 driverInfoRow.setAttribute("DriverName", getBindings().getEditDriverName().getValue().toString().trim());
@@ -1609,7 +1639,7 @@ public class DriverInfoBean implements Serializable {
         return linkedEditAccountList;
     }
 
-    public class Bindings {
+   public class Bindings {
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
         private RichPopup newDriver;
@@ -1631,6 +1661,8 @@ public class DriverInfoBean implements Serializable {
         private RichInputText editDriverNumber;
         private RichInputText editDriverName;
         private RichSelectOneChoice editPartnerNumberId;
+        private RichInputText addReferenceNumber;
+        private RichInputText editReferenceNumber;
 
 
         /**
@@ -1835,6 +1867,22 @@ public class DriverInfoBean implements Serializable {
 
         public RichSelectOneChoice getEditPartnerNumberId() {
             return editPartnerNumberId;
+        }
+        
+        public void setAddReferenceNumber(RichInputText addReferenceNumber) {
+            this.addReferenceNumber = addReferenceNumber;
+        }
+
+        public RichInputText getAddReferenceNumber() {
+            return addReferenceNumber;
+        }
+
+        public void setEditReferenceNumber(RichInputText editReferenceNumber) {
+            this.editReferenceNumber = editReferenceNumber;
+        }
+
+        public RichInputText getEditReferenceNumber() {
+            return editReferenceNumber;
         }
     }
 }

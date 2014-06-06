@@ -356,7 +356,8 @@
                               columns="#{bindings.ReferenceNumber.hints.displayWidth}"
                               maximumLength="#{bindings.ReferenceNumber.hints.precision}"
                               shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
-                              id="it3">
+                              id="it3"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.addReferenceNumber}">
                   <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
                 </af:inputText>
                 
@@ -641,7 +642,8 @@
                               columns="#{bindings.ReferenceNumber.hints.displayWidth}"
                               maximumLength="#{bindings.ReferenceNumber.hints.precision}"
                               shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
-                              id="it4">
+                              id="it4"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editReferenceNumber}">
                   <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
                 </af:inputText>
                 
