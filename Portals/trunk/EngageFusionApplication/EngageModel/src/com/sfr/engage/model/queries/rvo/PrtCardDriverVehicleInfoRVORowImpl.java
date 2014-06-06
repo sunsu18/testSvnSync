@@ -45,6 +45,17 @@ public class PrtCardDriverVehicleInfoRVORowImpl extends ViewRowImpl {
                 obj.setPrtCardPk((String)value);
             }
         }
+        ,
+        ReferenceNumber {
+            public Object get(PrtCardDriverVehicleInfoRVORowImpl obj) {
+                return obj.getReferenceNumber();
+            }
+
+            public void put(PrtCardDriverVehicleInfoRVORowImpl obj,
+                            Object value) {
+                obj.setReferenceNumber((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -78,6 +89,7 @@ public class PrtCardDriverVehicleInfoRVORowImpl extends ViewRowImpl {
     public static final int DRIVERNAME = AttributesEnum.DriverName.index();
     public static final int VEHICLENUMBER = AttributesEnum.VehicleNumber.index();
     public static final int PRTCARDPK = AttributesEnum.PrtCardPk.index();
+    public static final int REFERENCENUMBER = AttributesEnum.ReferenceNumber.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -131,6 +143,22 @@ public class PrtCardDriverVehicleInfoRVORowImpl extends ViewRowImpl {
      */
     public void setPrtCardPk(String value) {
         setAttributeInternal(PRTCARDPK, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute ReferenceNumber.
+     * @return the ReferenceNumber
+     */
+    public String getReferenceNumber() {
+        return (String) getAttributeInternal(REFERENCENUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute ReferenceNumber.
+     * @param value value to set the  ReferenceNumber
+     */
+    public void setReferenceNumber(String value) {
+        setAttributeInternal(REFERENCENUMBER, value);
     }
 
     /**

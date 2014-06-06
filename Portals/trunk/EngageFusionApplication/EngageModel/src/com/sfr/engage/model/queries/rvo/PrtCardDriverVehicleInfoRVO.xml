@@ -43,6 +43,7 @@
     <![CDATA[SELECT PDI.DRIVER_NAME || '-' || PC.CARD_EMBOSS_NUM AS DRIVER_NAME
        ,null as VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
+      ,PDI.REFERENCE_NUMBER
 FROM PRT_CARD PC
     ,PRT_DRIVER_INFORMATION PDI
 WHERE PC.ACCOUNT_ID          = trim(PDI.ACCOUNT_NUMBER)
@@ -58,6 +59,7 @@ UNION
 SELECT null as DRIVER_NAME 
       ,PTI.VEHICLE_NUMBER || '-' || PC.CARD_EMBOSS_NUM AS VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
+      ,PTI.REFERENCE_NUMBER
 FROM PRT_CARD PC
     ,PRT_TRUCK_INFORMATION PTI
 WHERE PC.ACCOUNT_ID            = trim(PTI.ACCOUNT_NUMBER)
@@ -107,6 +109,21 @@ AND   'Vehicle'                = :paramValue]]>
     ColumnType="VARCHAR2"
     AliasName="PRT_CARD_PK"
     Expression="PRT_CARD_PK"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferenceNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="REFERENCE_NUMBER"
+    Expression="REFERENCE_NUMBER"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
