@@ -51,10 +51,9 @@
       <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtHomeInvoiceRVO"
                       Name="PrtHomeInvoiceRVO10">
         <AttrNames>
-          <Item Value="InvoiceNumber"/>
-          <Item Value="InvoiceDate"/>
-          <Item Value="TotalAmount"/>
-          <Item Value="InvoiceDueDate"/>
+          <Item Value="InvoiceDocNumber"/>
+          <Item Value="InvGrossAmt"/>
+          <Item Value="InvoicingDueDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

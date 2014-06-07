@@ -17,7 +17,9 @@ import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 
@@ -379,14 +381,6 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
 
 
     /**
-     * Container's getter for PrtHomeInvoiceRVO1.
-     * @return PrtHomeInvoiceRVO1
-     */
-    public ViewObjectImpl getPrtHomeInvoiceRVO1() {
-        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO1");
-    }
-
-    /**
      * Container's getter for PrtHomeInvoiceRVO2.
      * @return PrtHomeInvoiceRVO2
      */
@@ -473,5 +467,38 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
      */
     public PrtViewCardsVOImpl getPrtViewCardsVO1() {
         return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
+    }
+
+
+    /**
+     * Container's getter for PrtNewInvoiceVO2.
+     * @return PrtNewInvoiceVO2
+     */
+    public PrtNewInvoiceVOImpl getPrtNewInvoiceVO2() {
+        return (PrtNewInvoiceVOImpl)findViewObject("PrtNewInvoiceVO2");
+    }
+
+    /**
+     * Container's getter for PrtInvoiceDetailVo1.
+     * @return PrtInvoiceDetailVo1
+     */
+    public PrtInvoiceDetailVoImpl getPrtInvoiceDetailVo1() {
+        return (PrtInvoiceDetailVoImpl)findViewObject("PrtInvoiceDetailVo1");
+    }
+
+    /**
+     * Container's getter for PrtHomeInvoiceRVO1.
+     * @return PrtHomeInvoiceRVO1
+     */
+    public ViewObjectImpl getPrtHomeInvoiceRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtHomeInvoiceRVO1");
+    }
+
+    /**
+     * Container's getter for PrtNewInvoiceVO1.
+     * @return PrtNewInvoiceVO1
+     */
+    public PrtNewInvoiceVOImpl getPrtNewInvoiceVO1() {
+        return (PrtNewInvoiceVOImpl)findViewObject("PrtNewInvoiceVO1");
     }
 }

@@ -7,6 +7,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
 import com.sfr.engage.services.client.ucm.type.Property;
@@ -29,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +48,8 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import oracle.adf.model.BindingContext;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
@@ -58,6 +62,9 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.binding.BindingContainer;
+
+import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
 
 import org.apache.myfaces.trinidad.event.SelectionEvent;
@@ -99,10 +106,15 @@ public class InvoiceOverviewBean implements Serializable {
     private List<PartnerInfo> partnerInfoList;
     private ArrayList<SelectItem> partnerList = null;
     private String partnerValue = null;
-    
-    
-    
-
+    private RichSelectOneRadio radioBtnPopUp;
+    private RichPanelGroupLayout transactionPanel;
+    private RichPanelGroupLayout invoiceCollectionPanel;
+    private String defaultSelection="Transactions";
+    private boolean isTransactionVisible= true;
+    private boolean isInvoiceCollectionVisible= false;
+    private RichOutputText collectiveInvoNoOt;
+    private  Date fromDate;
+    private  Date toDate; 
     public InvoiceOverviewBean() {
         super();
         conversionUtility = new Conversion(); 
@@ -241,8 +253,8 @@ public class InvoiceOverviewBean implements Serializable {
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
         if(getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null) {
-            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
+             fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+             toDate = (java.util.Date)getBindings().getToDate().getValue();
             if (toDate.before(fromDate)) {
                 if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {                    
                     FacesMessage msg =
@@ -264,26 +276,17 @@ public class InvoiceOverviewBean implements Serializable {
             else {
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "AccountValue="+getBindings().getAccount().getValue());
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+getBindings().getFromDate().getValue());
-                ViewObject invoiceVO =
-                    ADFUtils.getViewObject("PrtInvoiceVO1Iterator"); 
-                if ("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardPK,PRT_CARD_PK)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
-                    invoiceVO.removeNamedWhereClauseParam("countryCode");
-                    invoiceVO.removeNamedWhereClauseParam("partnerId");
-                    invoiceVO.removeNamedWhereClauseParam("accountId");
-                    invoiceVO.removeNamedWhereClauseParam("fromDateBV");
-                    invoiceVO.removeNamedWhereClauseParam("toDateBV");
-                    invoiceVO.removeNamedWhereClauseParam("invoiceType");
+                ViewObject invoiceVO =ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator"); 
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Before Query="+invoiceVO.getQuery());
+                
+                if ("INSTR(:cardPK,INVOICED_CARD)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                
                     invoiceVO.removeNamedWhereClauseParam("cardPK");
                     invoiceVO.setWhereClause("");
                     invoiceVO.executeQuery();
                 }else {
-                    if ("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
-                        invoiceVO.removeNamedWhereClauseParam("countryCode");
-                        invoiceVO.removeNamedWhereClauseParam("partnerId");
-                        invoiceVO.removeNamedWhereClauseParam("accountId");
-                        invoiceVO.removeNamedWhereClauseParam("fromDateBV");
-                        invoiceVO.removeNamedWhereClauseParam("toDateBV");
-                        invoiceVO.removeNamedWhereClauseParam("invoiceType");
+                    if ("INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
+                        
                         invoiceVO.removeNamedWhereClauseParam("cardGroupMainType");
                         invoiceVO.removeNamedWhereClauseParam("cardGroupSubType");
                         invoiceVO.removeNamedWhereClauseParam("cardGroupSeqType");
@@ -291,29 +294,29 @@ public class InvoiceOverviewBean implements Serializable {
                         invoiceVO.executeQuery();
                     }
                 }
-                invoiceVO.setWhereClause("COUNTRY_CODE =:countryCode AND PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICE_DATE >=: fromDateBV AND INVOICE_DATE <=: toDateBV AND INVOICE_TYPE LIKE CONCAT(:invoiceType,'%')");
+//                invoiceVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV");
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.defineNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()),null);
-                invoiceVO.defineNamedWhereClauseParam("countryCode",lang,null);
-                invoiceVO.defineNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue(),null);
-                invoiceVO.defineNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString(),null);
-                invoiceVO.defineNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString(),null);
-                if(getBindings().getInvoiceType().getValue()!=null) {
-                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
-                }else {
-                    invoiceVO.defineNamedWhereClauseParam("invoiceType",null,null);
-                }
-                String baseWhereClause=invoiceVO.getWhereClause();
+                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
+                invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
+                invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
+//                if(getBindings().getInvoiceType().getValue()!=null) {
+//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
+//                }else {
+//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",null,null);
+//                }
+//                String baseWhereClause=invoiceVO.getWhereClause();
                 
                 if(getBindings().getCardGpCardList().getValue()!=null) {
                     if("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside card");             
-                         invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardPK,PRT_CARD_PK)<>0");
+                         invoiceVO.setWhereClause("INSTR(:cardPK,INVOICED_CARD)<>0");
                          String cardValuesList=populateStringValues(getBindings().getCard().getValue().toString());
                           invoiceVO.defineNamedWhereClauseParam("cardPK",cardValuesList,null);
                     }else {
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Inside cardgroup");                
-                            invoiceVO.setWhereClause(baseWhereClause+"AND INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0");                    
+                            invoiceVO.setWhereClause("INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0");                    
                             populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString()));                            
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group main type======>"+cardGroupMaintypePassValue);
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
@@ -402,6 +405,8 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceDetailsCancel() {
+        defaultSelection="Transactions";
+        AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator"); 
         if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
@@ -419,27 +424,27 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceNumberAction() {
-        ViewObject invoiceVO =
-            ADFUtils.getViewObject("PrtInvoiceVO2Iterator");        
+
+        String invoiceGroupingValue =null;   
+        defaultSelection="Transactions";
+        AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
+        BindingContainer bindings =
+            BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding itr =
+            (DCIteratorBinding)bindings.get("PrtNewInvoiceVO1Iterator");
+        Row row =    itr.getCurrentRow();
+        if (row != null) {
+
+            invoiceGroupingValue = (String)row.getAttribute("InvoiceDocType");
+        }
+
         String invoiceNumberValue =
             (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("invoiceNumberValue");
-        String invoiceGroupingValue =null;            
-        invoiceVO.setWhereClause("INVOICE_NUMBER =:invoiceNumber");
-        invoiceVO.defineNamedWhereClauseParam("invoiceNumber",invoiceNumberValue,null);
-        invoiceVO.executeQuery();
-        if(invoiceVO.getEstimatedRowCount()==1) {
-            while (invoiceVO.hasNext()) {
-                PrtInvoiceVORowImpl currRow =
-                    (PrtInvoiceVORowImpl)invoiceVO.next();
-                if (currRow != null) {
-                    invoiceGroupingValue = currRow.getInvoiceGrouping();
-                }
-            }
-        }
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "InvoiceNumber ="+invoiceNumberValue);
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "InvoiceGroupingValue ="+invoiceGroupingValue);
+
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");  
+        
+        
         if(invoiceGroupingValue!=null) {
             if(invoiceGroupingValue.equals("FAK")) {
                 cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo");
@@ -694,8 +699,8 @@ public class InvoiceOverviewBean implements Serializable {
     public void getUCMService(FacesContext facesContext,OutputStream outputStream) throws IOException {  
         
         ViewObject invoiceVO =
-            ADFUtils.getViewObject("PrtInvoiceVO1Iterator");     
-        PrtInvoiceVORowImpl row=(PrtInvoiceVORowImpl)invoiceVO.getCurrentRow();
+            ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");     
+        PrtNewInvoiceVORowImpl row=(PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getInvoiceNumber(); 
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "invoice number"+invoiceNumberValuePdf);        
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PartnerId "+partnerId);
@@ -901,6 +906,102 @@ public class InvoiceOverviewBean implements Serializable {
         return partnerValue;
     }
 
+    public void setRadioBtnPopUp(RichSelectOneRadio radioBtnPopUp) {
+        this.radioBtnPopUp = radioBtnPopUp;
+    }
+
+    public RichSelectOneRadio getRadioBtnPopUp() {
+        return radioBtnPopUp;
+    }
+
+    public void radioBtnPopUpVCE(ValueChangeEvent valueChangeEvent) {
+        if(valueChangeEvent !=null && valueChangeEvent.getNewValue()!=null && valueChangeEvent.getNewValue().equals("Transactions")){
+            isTransactionVisible=true;
+            isInvoiceCollectionVisible=false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);   
+            AdfFacesContext.getCurrentInstance().addPartialTarget(transactionPanel);   
+        }
+        else{
+            isTransactionVisible=false;
+            isInvoiceCollectionVisible=true; 
+//            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+//            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
+            String invoiceNo= collectiveInvoNoOt.getValue().toString();
+            
+            
+            ViewObject invoiceDetailVO =ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
+            invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
+            System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
+            invoiceDetailVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
+            invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
+            invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
+            invoiceDetailVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
+            invoiceDetailVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
+            invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed for detail is="+invoiceDetailVO.getQuery());
+                            invoiceDetailVO.executeQuery();
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count of details=="+invoiceDetailVO.getEstimatedRowCount());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(transactionPanel);   
+            AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);   
+        }
+    }
+
+    public void setTransactionPanel(RichPanelGroupLayout transactionPanel) {
+        this.transactionPanel = transactionPanel;
+    }
+
+    public RichPanelGroupLayout getTransactionPanel() {
+        return transactionPanel;
+    }
+
+    public void setInvoiceCollectionPanel(RichPanelGroupLayout invoiceCollectionPanel) {
+        this.invoiceCollectionPanel = invoiceCollectionPanel;
+    }
+
+    public RichPanelGroupLayout getInvoiceCollectionPanel() {
+        return invoiceCollectionPanel;
+    }
+
+    public void setDefaultSelection(String defaultSelection) {
+        this.defaultSelection = defaultSelection;
+    }
+
+    public String getDefaultSelection() {
+        return defaultSelection;
+    }
+
+    public void setIsTransactionVisible(boolean isTransactionVisible) {
+        this.isTransactionVisible = isTransactionVisible;
+    }
+
+    public boolean isIsTransactionVisible() {
+        return isTransactionVisible;
+    }
+
+    public void setIsInvoiceCollectionVisible(boolean isInvoiceCollectionVisible) {
+        this.isInvoiceCollectionVisible = isInvoiceCollectionVisible;
+    }
+
+    public boolean isIsInvoiceCollectionVisible() {
+        return isInvoiceCollectionVisible;
+    }
+
+    public void setCollectiveInvoNoOt(RichOutputText collectiveInvoNoOt) {
+        this.collectiveInvoNoOt = collectiveInvoNoOt;
+    }
+
+    public RichOutputText getCollectiveInvoNoOt() {
+        return collectiveInvoNoOt;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
     public class Bindings {
         private RichSelectManyChoice account;
         private RichSelectOneChoice invoiceType;
@@ -926,7 +1027,19 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
         public void setFromDate(RichInputDate fromDate) {
+            System.out.println("Date should be setted to sys date -1 month");
+            Date dateNow = new java.util.Date();
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(dateNow);
+            gc.add(GregorianCalendar.MONTH, -1);
+            Date dateBefore = gc.getTime();
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            String tmp = dateformat.format(dateBefore);
+            fromDate.setValue(tmp);
+
             this.fromDate = fromDate;
+
+                      
         }
 
         public RichInputDate getFromDate() {
@@ -934,7 +1047,13 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
         public void setToDate(RichInputDate toDate) {
+            System.out.println("Date should be setted to sys date");
+            Date dateNow = new java.util.Date();
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            String tmp = dateformat.format(dateNow);
+            toDate.setValue(tmp);
             this.toDate = toDate;
+
         }
 
         public RichInputDate getToDate() {

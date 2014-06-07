@@ -77,8 +77,8 @@
                          binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGpCardList}"
                          valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.cgValueChangeListener}"
                           inlineStyle="margin-left: -15px;">
-       <af:selectItem label="CardGroup" value="CardGroup" id="si11"/>
-       <af:selectItem label="Card" value="Card" id="si10"/>
+       <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si11"/>
+       <af:selectItem label="#{sfr.CARD}" value="Card" id="si10"/>
       </af:selectOneRadio>
       </h:panelGrid>    
      <af:panelGroupLayout id="pgl20">
@@ -145,7 +145,7 @@
         <af:spacer width="10" height="15" id="s3"/>
       <af:outputText value=":" id="ot40"/>
       <af:spacer width="10" height="30" id="s32"/>
-      <af:selectOneChoice id="soc1" unselectedLabel="ALL"
+      <af:selectOneChoice id="soc1" unselectedLabel="CARD" disabled="true"
                           binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceType}"
                           value="#{pageFlowScope.InvoiceOverviewBean.invoiceTypeValue}"
                           contentStyle="width: 168px;">
@@ -205,70 +205,76 @@
     <af:panelGroupLayout id="pgl24" layout="vertical"
                                halign="right"
                                inlineStyle="width:680.0px; height:15.0px;">    
-     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}" id="ot22" styleClass="popupoutputText"/>      
+     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.InvoiceCurrency.inputValue} " id="ot22" styleClass="popupoutputText"/>      
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">
      <af:spacer width="10" height="10" id="s7"/>
-     <af:table value="#{bindings.PrtInvoiceVO1.collectionModel}" var="row" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
-               rows="#{bindings.PrtInvoiceVO1.rangeSize}" width="962px"
-               emptyText="#{bindings.PrtInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-               fetchSize="#{bindings.PrtInvoiceVO1.rangeSize}"
-               rowBandingInterval="1" id="t1" rowSelection="single" disableColumnReordering="true" columnResizing="disabled"
-               selectionListener="#{bindings.PrtInvoiceVO1.collectionModel.makeCurrent}">
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" id="c5">
-       <af:commandLink text="#{row.InvoiceNumber}" id="cl1"
+     <af:table value="#{bindings.PrtNewInvoiceVO1.collectionModel}" var="row" width="962px"
+               rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
+               emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+               fetchSize="#{bindings.PrtNewInvoiceVO1.rangeSize}" rowSelection="single" disableColumnReordering="true" columnResizing="disabled"
+               rowBandingInterval="0" id="t1" selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}">
+      <af:column sortProperty="InvoiceNumber" sortable="false"
+                 headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                 id="c5">
+                        <af:commandLink text="#{row.Finalinvoice}" id="cl1"
                        action="#{pageFlowScope.InvoiceOverviewBean.invoiceNumberAction}">
-        <af:setPropertyListener from="#{row.InvoiceNumber}"
+        <af:setPropertyListener from="#{row.Finalinvoice}"
                                 to="#{pageFlowScope.invoiceNumberValue}"
                                 type="action"/>       
        </af:commandLink>
-       <!--<af:outputText value="#{row.InvoiceNumber}" id="ot14"/>-->
+      
       </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}" id="c7">
-       <af:outputText value="#{row.InvoiceDate}" id="ot13">
-        <af:convertDateTime pattern="#{bindings.PrtInvoiceVO1.hints.InvoiceDate.format}"/>
+      <af:column sortProperty="InvoiceDate" sortable="false"
+                 headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}" 
+                 id="c4">
+      
+       <af:outputText value="#{row.InvoiceDate}" id="ot15">
+        <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}" id="c3">
-       <af:outputText value="#{row.InvoiceDueDate}" id="ot15">
-        <af:convertDateTime pattern="#{bindings.PrtInvoiceVO1.hints.InvoiceDueDate.format}"/>
+      <af:column sortProperty="InvoicingDueDate" sortable="false"
+                 headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}" 
+                 id="c2">
+     
+       <af:outputText value="#{row.DueDate}" id="ot17">
+         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
       <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c1">
-       <af:outputText value="#{row.InvoiceType}" id="ot18"/>
+       <af:outputText value="CARD" id="ot16"/>
       </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_NET}" id="c4">
-       <af:outputText value="#{row.Net}" id="ot19">
+    
+      <af:column sortProperty="InvVatAmt" sortable="false"
+                 headerText="#{sfr.ENGAGE_INVOICE_VAT}"
+                 id="c3">
+     
+       <af:outputText value="#{row.Vat}" id="ot18">
+          <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                                minFractionDigits="2"/>  
+       </af:outputText>
+      </af:column>
+        <af:column sortProperty="Gross" sortable="false"
+                 headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                 id="c6">
+      
+       <af:outputText value="#{row.Gross}" id="ot44">
         <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
                                 minFractionDigits="2"/>  
        </af:outputText>
       </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_VAT}" id="c2">
-       <af:outputText value="#{row.Vat}" id="ot16">
-        <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
-       </af:outputText>
-      </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="c6">
-       <af:outputText value="#{row.TotalAmount}" id="ot17">
-        <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
-       </af:outputText>
-      </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8">
+        <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8">
       <af:panelGroupLayout id="pgl18" layout="horizontal">
         <af:commandImageLink id="cil1" styleClass="pdf_icon"
                             icon="/images/pdf1.jpg">
         <af:fileDownloadActionListener contentType="application/pdf"
                               method="#{pageFlowScope.InvoiceOverviewBean.getUCMService}"
-                                                  filename="#{row.InvoiceNumber}.pdf"/>        
+                                                  filename="#{row.Finalinvoice}.pdf"/>        
         </af:commandImageLink>
         <af:spacer width="10" height="10" id="ss26"/>
        <af:commandImageLink id="cil2" styleClass="mail_icon"
@@ -276,6 +282,7 @@
         </af:panelGroupLayout>
       </af:column>
      </af:table>
+     
     </af:panelGroupLayout>
    </af:panelGroupLayout>
    <af:popup id="invoice_details" contentDelivery="immediate"
@@ -291,47 +298,51 @@
         <af:panelGroupLayout id="pgl0" layout="horizontal">
          <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_1}:" id="ot14"
                         styleClass="subheading"/>
+                        
          <af:spacer width="10" height="10" id="sa15"/>
-         <af:outputText value="#{bindings.InvoiceNumber1.inputValue}" id="ot23"/>
+         
+         <af:outputText value="#{bindings.Finalinvoice1.inputValue}" id="ot13"
+                        binding="#{pageFlowScope.InvoiceOverviewBean.collectiveInvoNoOt}"/>
+         
          <af:spacer width="10" height="10" id="ss15"/>
+         
          <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_2}:" id="ot28"
                         styleClass="subheading"/>
+                        
          <af:spacer width="10" height="10" id="sd15"/>
-         <af:outputText value="#{bindings.InvoiceDate1.inputValue}" id="ot25"/>
+         
+         <af:outputText value="#{bindings.InvoiceDate.inputValue}" id="ot19">
+          <af:convertDateTime pattern="dd.MM.yyyy"/>
+         </af:outputText>
+         
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl16" layout="horizontal">
          <af:panelGroupLayout id="pgl17" layout="horizontal">
           <h:panelGrid columns="5" id="pg2">
            <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}" id="ot20"/>
            <af:outputText value=":" id="ot21"/>
-           <af:spacer width="15" height="30" id="s15"/>            
-             <af:outputText value="#{bindings.Net1.inputValue}" id="ot43">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
-             </af:outputText>
+           <af:spacer width="15" height="30" id="s15"/> 
+           <af:spacer width="15" height="30" id="s19"/> <!--to be removed after net price addition-->
+           
+         
+             
+             
              <af:spacer width="0" height="10" id="s146"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}" id="ot29"/>
            <af:outputText value=":" id="ot30"/>
            <af:spacer width="15" height="30" id="s16"/>
-            <af:outputText value="#{bindings.Vat1.inputValue}" id="ot44">           
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
-            </af:outputText>
+           <af:outputText value="#{bindings.Vat.inputValue}" id="ot23">
+            <!--<af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.Vat.format}"/>-->
+           </af:outputText>
            <af:spacer width="0" height="30" id="s116"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="ot31"/>
            <af:outputText value=":" id="ot32"/>
            <af:spacer width="15" height="10" id="s17"/>
-             <af:outputText value="#{bindings.TotalAmount1.inputValue}"
-                            id="ot45">    
-            <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
-         </af:outputText>
+           <af:outputText value="#{bindings.Gross.inputValue}" id="ot25">
+            <!--<af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.Gross.format}"/>-->
+           </af:outputText>
            <af:spacer width="0" height="30" id="s176"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE}" id="ot35"/>
            <af:outputText value=":" id="ot36"/>
@@ -341,40 +352,50 @@
                                 icon="/images/pdf1.jpg">
               <af:fileDownloadActionListener contentType="application/pdf"
                               method="#{pageFlowScope.InvoiceOverviewBean.getUCMService}"
-                                                  filename="#{bindings.InvoiceNumber1.inputValue}.pdf"/>     
+                                                  filename="#{bindings.Finalinvoice1.inputValue}.pdf"/>     
          </af:commandImageLink>
             <af:spacer width="10" height="10" id="s26"/>
            <af:commandImageLink id="cil4" styleClass="mail_icon"
                                 icon="/images/mail_send.png"/>
             </af:panelGroupLayout>
+           <af:spacer width="10" height="10" id="spacer3"/>
+           <af:outputText value="#{sfr.VIEW}" id="ot43"/>
+           <af:spacer width="10" height="15" id="s37"/>
+           <af:outputText value=":" id="ot45"/>
+           <af:spacer height="10" id="s38" width="10"/>
+           <af:selectOneRadio id="selectOneRadio1" layout="horizontal"
+                              value="#{pageFlowScope.InvoiceOverviewBean.defaultSelection}"
+                              autoSubmit="true"
+                              inlineStyle="margin-left: -15px;"
+                              binding="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUp}"
+                              valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUpVCE}">
+            <af:selectItem label="#{sfr.TRANSACTIONS}" value="Transactions"
+                           id="selectItem1"/>
+            <af:selectItem label="#{INVOICE_COLLECTIONS}"
+                           value="InvoiceCollections" id="selectItem2"/>
+           </af:selectOneRadio>
           </h:panelGrid>
          </af:panelGroupLayout>
-         <!--  <af:panelGroupLayout id="pgl18" layout="horizontal">
-           <h:panelGrid columns="4" id="pg3">
-          <af:outputText value="#{sfr.ENGAGE_INVOICE_ADDRESS_1}" id="ot33"/>
-          <af:outputText value=":" id="ot34"/>
-          <af:spacer width="15" height="10" id="s19"/> 
-            <af:outputText value="#{bindings.InvoiceAddress.inputValue}"
-                           id="ot27"/>
-          </h:panelGrid>
-       </af:panelGroupLayout>  -->
+       
         </af:panelGroupLayout>
-        <af:spacer width="10" height="20" id="s22"/>
+        <af:spacer width="10" height="10" id="s22"/>
+        <af:panelGroupLayout id="pgl22" layout="horizontal"/>
+        <af:spacer width="10" height="10" id="spacer1"/>
         <af:panelGroupLayout id="pgl19">
-         <af:panelGroupLayout id="pgl22"/>
          <af:separator id="s21" inlineStyle="width:852.0px;"/>
          </af:panelGroupLayout>
         <af:spacer width="10" height="20" id="s23"/>
-        <af:panelGroupLayout id="pgl126" layout="horizontal">
-        <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
-                        styleClass="subheading"/>
-         <af:panelGroupLayout id="pgl26" layout="vertical"
-                               halign="right"
-                               inlineStyle="width:712.0px; height:15.0px;">    
-        <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
-                       id="ot27" styleClass="popupoutputText"/>      
+        <af:panelGroupLayout id="pgl27" layout="vertical" visible="#{pageFlowScope.InvoiceOverviewBean.isTransactionVisible}"
+                             binding="#{pageFlowScope.InvoiceOverviewBean.transactionPanel}">
+         <af:panelGroupLayout id="pgl126" layout="horizontal">
+          <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}:" id="ot37"
+                         styleClass="subheading"/>
+          <af:panelGroupLayout id="pgl26" layout="vertical" halign="right"
+                               inlineStyle="width:712.0px; height:15.0px;">
+           <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{bindings.InvoiceCurrency.inputValue}"
+                          id="ot27" styleClass="popupoutputText"/>
+          </af:panelGroupLayout>
          </af:panelGroupLayout>
-        </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s25"/>
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="840px"
@@ -383,55 +404,131 @@
                    fetchSize="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
                    rowBandingInterval="0" id="t3" varStatus="vs"
                    columnResizing="disabled" disableColumnReordering="true">
-            <af:column headerText="#{sfr.INVOICE_LINENO}"
-                     id="c114">
+          <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114">
            <af:outputText value="#{vs.index+1}" id="ot42"/>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_PRODUCT_NAME}"
-                     id="c19">
+        
+          <af:column headerText="#{sfr.INVOICE_PRODUCT_NAME}" id="c19">
+           <!--<af:outputText value="#{row.ProductName}" id="ot50"/>-->
            <af:outputText value="#{row.ProductName}" id="ot50"/>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_QUANTITY}"
-                     id="c21">
+          <af:column headerText="#{sfr.INVOICE_QUANTITY}" id="c21">
+           <!--<af:outputText value="#{row.Quantity}" id="ot24">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>-->
            <af:outputText value="#{row.Quantity}" id="ot24">
-            <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
+             <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
            </af:outputText>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_STATION}"
-                     id="c16">
+          <af:column headerText="#{sfr.INVOICE_STATION}" id="c16">
+           <!--<af:outputText value="#{row.StationName}" id="ot49"/>-->
            <af:outputText value="#{row.StationName}" id="ot49"/>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_RECEIPT_NO}"
-                     id="c17">
+          <!--<af:column headerText="#{sfr.INVOICE_RECEIPT_NO}" id="c17">
            <af:outputText value="#{row.RecieptNo}" id="ot46"/>
+          </af:column>-->
+          <af:column headerText="#{sfr.INVOICE_CARD}" id="c22">
+           <!--<af:outputText value="#{row.Card1Id}" id="ot48"/>-->
+           <af:outputText value="#{row.Card1Id}" id="ot46"/>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_CARD}"
-                     id="c22">
-           <af:outputText value="#{row.Card1Id}" id="ot48"/>
-          </af:column>
-          <af:column headerText="#{sfr.INVOICE_NET}"
-                     id="c20">
+          <af:column headerText="#{sfr.INVOICE_NET}" id="c20">
+           <!--<af:outputText value="#{row.InvoicedNetAmount}" id="ot26">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>-->
            <af:outputText value="#{row.InvoicedNetAmount}" id="ot26">
-            <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
            </af:outputText>
           </af:column>
-          <af:column headerText="#{sfr.INVOICE_GROSS_AMOUNT}"
-                     id="c18">
+          <af:column headerText="#{sfr.INVOICE_GROSS_AMOUNT}" id="c18">
+           <!--<af:outputText value="#{row.InvoicedGrossAmount}" id="ot47">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>-->
            <af:outputText value="#{row.InvoicedGrossAmount}" id="ot47">
-            <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>            
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
            </af:outputText>
           </af:column>
          </af:table>
-         <af:panelGroupLayout id="pgl15" layout="horizontal">
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="panelGroupLayout1" layout="vertical" visible="#{pageFlowScope.InvoiceOverviewBean.isInvoiceCollectionVisible}"
+                             binding="#{pageFlowScope.InvoiceOverviewBean.invoiceCollectionPanel}">
+         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
+          <af:outputText value="#{COLLECTION_DETAILS}"
+                         id="outputText1" styleClass="subheading"/>
+          <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
+                               halign="right"
+                               inlineStyle="width:712.0px; height:15.0px;">
+           <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
+                          id="outputText2" styleClass="popupoutputText"/>
+          </af:panelGroupLayout>
+         </af:panelGroupLayout>
+         <af:spacer width="10" height="10" id="spacer2"/>
+         <af:table value="#{bindings.PrtInvoiceDetailVo1.collectionModel}"
+                   var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}" width="640px"
+                   emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
+                   rowBandingInterval="0" id="t2">
+          <af:column sortProperty="InvoiceNumber" sortable="false"
+                     headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                     id="c10">
+           <af:outputText value="#{row.InvoiceNumber}" id="ot57"/>
+          </af:column>
+         
+          <af:column sortProperty="InvoiceDate" sortable="false"
+                     headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}" 
+                     id="c7">
+           <af:outputText value="#{row.InvoiceDate}" id="ot60">
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
+           </af:outputText>
+          </af:column>
+          <af:column sortProperty="InvoicingDueDate" sortable="false"
+                      headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
+                     id="c13">
+           <af:outputText value="#{row.InvoicingDueDate}" id="ot58">
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
+           </af:outputText>
+          </af:column>
+           <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c9">
+       <af:outputText value="CARD" id="ot56"/>
+      </af:column>
+          <af:column sortProperty="InvTotalGrossAmt" sortable="false"
+                     headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                     id="c12">
+           <af:outputText value="#{row.InvTotalGrossAmt}" id="ot59">
+            <!--<af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtInvoiceDetailVo1.hints.InvTotalGrossAmt.format}"/>-->
+                              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                                minFractionDigits="2"/> 
+           </af:outputText>
+          </af:column>
+          <af:column sortProperty="InvTotalVatAmt" sortable="false"
+                     headerText="#{sfr.ENGAGE_INVOICE_VAT}"
+                     id="c11">
+           <af:outputText value="#{row.InvTotalVatAmt}" id="ot55">
+            <!--<af:convertNumber groupingUsed="false"
+                              pattern="#{bindings.PrtInvoiceDetailVo1.hints.InvTotalVatAmt.format}"/>-->
+                              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                                minFractionDigits="2"/> 
+           </af:outputText>
+          </af:column>
+         </af:table>
+        </af:panelGroupLayout>
+        <af:panelGroupLayout id="pgl15" layout="horizontal">
          <af:spacer width="762" height="10" id="ss5"/>
           <af:commandButton text="#{sfr.ENGAGE_CANCEL}" id="cb5"
                             immediate="true"

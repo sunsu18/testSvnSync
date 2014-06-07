@@ -19,47 +19,17 @@
     <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardTransactionInvoiceRVO1Iterator"/>
+    <iterator Binds="PrtNewInvoiceVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtNewInvoiceVO1Iterator"/>
+    <iterator Binds="PrtNewInvoiceVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtNewInvoiceVO2Iterator"/>
+    <iterator Binds="PrtInvoiceDetailVo1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtInvoiceDetailVo1Iterator"/>
   </executables>
   <bindings>
-    <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceVO"
-                      Name="PrtInvoiceVO10">
-        <AttrNames>
-          <Item Value="InvoiceNumber"/>
-          <Item Value="InvoiceDate"/>
-          <Item Value="InvoiceDueDate"/>
-          <Item Value="InvoiceType"/>
-          <Item Value="Net"/>
-          <Item Value="Vat"/>
-          <Item Value="TotalAmount"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceNumber">
-      <AttrNames>
-        <Item Value="InvoiceNumber"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceDate">
-      <AttrNames>
-        <Item Value="InvoiceDate"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="Net">
-      <AttrNames>
-        <Item Value="Net"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="Vat">
-      <AttrNames>
-        <Item Value="Vat"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="TotalAmount">
-      <AttrNames>
-        <Item Value="TotalAmount"/>
-      </AttrNames>
-    </attributeValues>
     <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
           id="PrtCardTransactionOverviewRVO1">
       <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
@@ -75,41 +45,6 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="InvoiceGrouping">
-      <AttrNames>
-        <Item Value="InvoiceGrouping"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="Net1">
-      <AttrNames>
-        <Item Value="Net"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="Vat1">
-      <AttrNames>
-        <Item Value="Vat"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="TotalAmount1">
-      <AttrNames>
-        <Item Value="TotalAmount"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="InvoiceNumber1">
-      <AttrNames>
-        <Item Value="InvoiceNumber"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="InvoiceDate1">
-      <AttrNames>
-        <Item Value="InvoiceDate"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="CountryCode">
-      <AttrNames>
-        <Item Value="CountryCode"/>
-      </AttrNames>
-    </attributeValues>
     <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
           id="PrtCardTransactionInvoiceRVO1">
       <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
@@ -118,21 +53,65 @@
           <Item Value="ProductName"/>
           <Item Value="Quantity"/>
           <Item Value="StationName"/>
-          <Item Value="RecieptNo"/>
           <Item Value="Card1Id"/>
           <Item Value="InvoicedNetAmount"/>
           <Item Value="InvoicedGrossAmount"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="InvoiceNumberNonCollective"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <attributeValues IterBinding="PrtInvoiceVO1Iterator" id="CurrencyCode">
+    <tree IterBinding="PrtNewInvoiceVO1Iterator" id="PrtNewInvoiceVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO"
+                      Name="PrtNewInvoiceVO10">
+        <AttrNames>
+         
+          <Item Value="InvoiceDate"/>
+          
+          <Item Value="Finalinvoice"/>
+          <Item Value="DueDate"/>
+          <Item Value="Vat"/>
+          <Item Value="Gross"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="Finalinvoice1">
       <AttrNames>
-        <Item Value="CurrencyCode"/>
+        <Item Value="Finalinvoice"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="PrtInvoiceVO2Iterator" id="CurrencyCode1">
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoiceDate">
       <AttrNames>
-        <Item Value="CurrencyCode"/>
+        <Item Value="InvoiceDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="Vat">
+      <AttrNames>
+        <Item Value="Vat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="Gross">
+      <AttrNames>
+        <Item Value="Gross"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
+                      Name="PrtInvoiceDetailVo10">
+        <AttrNames>
+          <Item Value="InvoiceNumber"/>
+          <Item Value="CollectiveInvoiceNumber"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoicingDueDate"/>
+          <Item Value="InvTotalGrossAmt"/>
+          <Item Value="InvTotalVatAmt"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator"
+                     id="InvoiceCurrency">
+      <AttrNames>
+        <Item Value="InvoiceCurrency"/>
       </AttrNames>
     </attributeValues>
   </bindings>

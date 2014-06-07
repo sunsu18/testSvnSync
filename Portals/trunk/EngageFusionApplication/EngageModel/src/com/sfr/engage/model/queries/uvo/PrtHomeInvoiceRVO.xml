@@ -28,361 +28,74 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT * from (SELECT * from PRT_INVOICE where PRT_INVOICE.country_code =: countryCode
-and INSTR(:partnerId,PARTNER_ID)<>0 order by INVOICE_DATE DESC) WHERE ROWNUM <=5]]>
+    <![CDATA[select * from(select prt_card_payment_doc.invoice_doc_number, prt_card_payment_doc.invoicing_date, prt_card_payment_doc.invoicing_due_date,prt_card_invoice_details.INV_GROSS_AMT
+
+from prt_card_payment_doc join prt_card_invoice_details ON 
+
+(prt_card_payment_doc.invoice_doc_number = prt_card_invoice_details.invoice_doc_number and prt_card_payment_doc.country_code = prt_card_invoice_details.country_code)
+
+Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID) <> 0 
+
+order by prt_card_payment_doc.invoicing_date DESC) where rownum <=5]]>
   </SQLQuery>
   <ViewAttribute
-    Name="InvoiceNumber"
+    Name="InvoiceDocNumber"
     IsUpdateable="false"
     IsPersistent="false"
     IsNotNull="true"
     PrecisionRule="true"
-    Precision="255"
+    Precision="9"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="INVOICE_NUMBER"
-    Expression="INVOICE_NUMBER"
+    AliasName="INVOICE_DOC_NUMBER"
+    Expression="INVOICE_DOC_NUMBER"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
+      <Attr Name="_DisplaySize" Value="9"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="CountryCode"
+    Name="InvoicingDate"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="COUNTRY_CODE"
-    Expression="COUNTRY_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CurrencyCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CURRENCY_CODE"
-    Expression="CURRENCY_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    AliasName="INVOICE_DATE"
-    Expression="INVOICE_DATE"
+    AliasName="INVOICING_DATE"
+    Expression="INVOICING_DATE"
     SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceType"
+    Name="InvoicingDueDate"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_TYPE"
-    Expression="INVOICE_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceSubType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="15"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_SUB_TYPE"
-    Expression="INVOICE_SUB_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="15"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceDueDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    AliasName="INVOICE_DUE_DATE"
-    Expression="INVOICE_DUE_DATE"
+    AliasName="INVOICING_DUE_DATE"
+    Expression="INVOICING_DUE_DATE"
     SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="Net"
+    Name="InvGrossAmt"
     IsUpdateable="false"
     IsPersistent="false"
-    IsNotNull="true"
     PrecisionRule="true"
+    Precision="126"
+    Scale="0"
     Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="NET"
-    Expression="NET"
+    ColumnType="FLOAT"
+    AliasName="INV_GROSS_AMT"
+    Expression="INV_GROSS_AMT"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Vat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="VAT"
-    Expression="VAT"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="TotalAmount"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="TOTAL_AMOUNT"
-    Expression="TOTAL_AMOUNT"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="AccountId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ACCOUNT_ID"
-    Expression="ACCOUNT_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceUcmType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="15"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_UCM_TYPE"
-    Expression="INVOICE_UCM_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="15"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceGrouping"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_GROUPING"
-    Expression="INVOICE_GROUPING"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PartnerId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PARTNER_ID"
-    Expression="PARTNER_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupMainType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_MAIN_TYPE"
-    Expression="CARDGROUP_MAIN_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupSubType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_SUB_TYPE"
-    Expression="CARDGROUP_SUB_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupSeq"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="5"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_SEQ"
-    Expression="CARDGROUP_SEQ"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Address1"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ADDRESS_1"
-    Expression="ADDRESS_1"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicePayRef"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
-    AliasName="INVOICE_PAY_REF"
-    Expression="INVOICE_PAY_REF"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PrtCardPk"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PRT_CARD_PK"
-    Expression="PRT_CARD_PK"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Address2"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="ADDRESS_2"
-    Expression="ADDRESS_2"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="City"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CITY"
-    Expression="CITY"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="PostalCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="POSTAL_CODE"
-    Expression="POSTAL_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ResourceBundle>

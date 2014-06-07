@@ -397,13 +397,17 @@
                              id="c3"
                              headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                              width="95">
-                    <af:outputText value="#{row.InvoiceNumber}" id="ot6"/>
+                    <!--<af:outputText value="#{row.InvoiceNumber}" id="ot6"/>-->
+                    <af:outputText value="#{row.InvoiceDocNumber}" id="ot6"/>
                   </af:column>
                   <af:column sortProperty="InvoiceDate" sortable="false"
                              headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
                                  width="93" id="c2" align="center">
-                    <af:outputText value="#{row.InvoiceDueDate}" id="ot10">
+                    <!--<af:outputText value="#{row.InvoiceDueDate}" id="ot10">
                       <af:convertDateTime pattern="dd.MM.yyyy"/>
+                    </af:outputText>-->
+                    <af:outputText value="#{row.InvoicingDueDate}" id="ot10">
+                     <af:convertDateTime pattern="dd.MM.yyyy"/>
                     </af:outputText>
                   </af:column>
                   <!--<af:column headerText="#{bindings.PrtHomeInvoiceRVO1.hints.InvoiceDueDate.label}"
@@ -416,8 +420,13 @@
                              width="95"
                              headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                              id="c1" align="right">
-                    <af:outputText value="#{row.TotalAmount}" id="ot9">
+                    <!--<af:outputText value="#{row.TotalAmount}" id="ot9">
                       <af:convertNumber groupingUsed="true" pattern="##.##"
+                                        locale="#{pageFlowScope.AuthenticatedHomeBean.locale}"
+                                        minFractionDigits="2"/>
+                    </af:outputText>-->
+                    <af:outputText value="#{row.InvGrossAmt}" id="ot9">
+                     <af:convertNumber groupingUsed="true" pattern="##.##"
                                         locale="#{pageFlowScope.AuthenticatedHomeBean.locale}"
                                         minFractionDigits="2"/>
                     </af:outputText>
