@@ -874,11 +874,7 @@ public class TransactionOverviewBean implements Serializable {
            //mapListValue=valueList.callValueList(arg0, arg1);
                 
             ViewObject vo =
-                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
-            System.out.println("Account Query"+accountQuery+"Size ="+accountQuery.length());
-            System.out.println("Card Query"+cardQuery+"Size ="+cardQuery.length());
-            System.out.println("CardGroup Query"+cardGroupQuery+"Size ="+cardGroupQuery.length());
-            
+                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");            
             if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
             System.out.println("Coming inside for card");
             System.out.println("Wher Clause ="+vo.getWhereClause());
@@ -1025,6 +1021,7 @@ public class TransactionOverviewBean implements Serializable {
                         accountQuery=accountQuery+")";
                         
             }else {
+                    mapAccountListValue=null;
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                   " " + "Account Values < 250 ");
                 accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
@@ -1069,6 +1066,7 @@ public class TransactionOverviewBean implements Serializable {
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
+                            mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                              vo.defineNamedWhereClauseParam("card", cardNumberPasingValues,null);
@@ -1112,6 +1110,7 @@ public class TransactionOverviewBean implements Serializable {
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
+                            mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery);
                              vo.defineNamedWhereClauseParam("card", cardNumberPasingValues,null);
@@ -1147,6 +1146,7 @@ public class TransactionOverviewBean implements Serializable {
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
+                            mapCardGroupListValue=null;
                             cardGroupQuery="INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                              vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
@@ -1177,6 +1177,7 @@ public class TransactionOverviewBean implements Serializable {
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
+                            mapCardGroupListValue=null;
                             cardGroupQuery="(INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
                              vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
