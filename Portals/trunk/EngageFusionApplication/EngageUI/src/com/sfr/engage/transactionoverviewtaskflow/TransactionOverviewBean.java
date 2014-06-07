@@ -1042,17 +1042,16 @@ public class TransactionOverviewBean implements Serializable {
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
                                 cardQuery=cardQuery+"INSTR(:"+values+",KSID)<>0 OR ";
-                                }
-                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
-                                   cardQuery=cardQuery.substring(0, cardQuery.length()-3);
-                                    cardQuery=cardQuery+") OR ("; 
+                                }                                 
+                            cardQuery=cardQuery.substring(0, cardQuery.length()-3);
+                            cardQuery=cardQuery+") OR ("; 
                             for(int i=0;i<mapCardListValue.size();i++) {
                              String values="card2id"+i;
                             cardQuery=cardQuery+"INSTR(:"+values+",CARD_2_ID)<>0 OR ";
                             }     
                             cardQuery=cardQuery.substring(0, cardQuery.length()-3);
                             cardQuery=cardQuery+") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";   
-                                    
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
                             vo.setWhereClause(accountQuery+"AND "+cardQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");        
                             for(int i=0;i<mapCardListValue.size();i++) {
                             String values="card"+i;
@@ -1085,9 +1084,15 @@ public class TransactionOverviewBean implements Serializable {
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
                                 cardQuery=cardQuery+"INSTR(:"+values+",KSID)<>0 OR ";
-                                }
-                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
-                                   cardQuery=cardQuery.substring(0, cardQuery.length()-3);
+                                }                                 
+                                cardQuery=cardQuery.substring(0, cardQuery.length()-3);
+                            cardQuery=cardQuery+") OR (";
+                             for(int i=0;i<mapCardListValue.size();i++) {
+                              String values="card2id"+i;
+                              cardQuery=cardQuery+"INSTR(:"+values+",CARD_2_ID)<>0 OR ";
+                               }     
+                            cardQuery=cardQuery.substring(0, cardQuery.length()-3);
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
                             cardQuery=cardQuery+") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";  
                             vo.setWhereClause(accountQuery+"AND "+cardQuery);        
                             for(int i=0;i<mapCardListValue.size();i++) {
