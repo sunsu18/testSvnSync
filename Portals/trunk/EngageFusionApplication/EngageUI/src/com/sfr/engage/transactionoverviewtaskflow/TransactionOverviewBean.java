@@ -151,10 +151,32 @@ public class TransactionOverviewBean implements Serializable {
                     selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
                     selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
                     partnerIdList.add(selectItem);
-                    System.out.println("partner list" +
-                                       partnerInfoList.get(k).getPartnerValue().toString());
                 }
             }
+        }
+        if(session!=null) {
+            if(session.getAttribute("account_Query")!=null)
+            {            
+            accountQuery=session.getAttribute("account_Query").toString().trim();
+            mapAccountListValue= (Map<String,String>)session.getAttribute("map_Account_List");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "account Query & mapAccountList is found");
+            }
+            if(session.getAttribute("cardGroup_Query")!=null)
+            {
+            cardGroupQuery=session.getAttribute("cardGroup_Query").toString().trim();
+            mapCardGroupListValue= (Map<String,String>)session.getAttribute("map_CardGroup_List");
+             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "CardGroup Query & mapCardGroupList is found");
+            }
+            if(session.getAttribute("account_Query")!=null)
+            {
+            cardQuery=session.getAttribute("card_Query").toString().trim();
+            mapCardListValue= (Map<String,String>)session.getAttribute("map_Card_List");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "card Query & mapCardList is found");
+            }
+            
         }
 
 
@@ -876,9 +898,6 @@ public class TransactionOverviewBean implements Serializable {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");            
             if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
-            System.out.println("Coming inside for card");
-            System.out.println("Wher Clause ="+vo.getWhereClause());
-            System.out.println(accountQuery+"AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                 if((accountQuery+"AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card where removal with purchase code class");
@@ -908,8 +927,8 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     vo.removeNamedWhereClauseParam("purchaseCountryCode");
                     vo.setWhereClause("");
-                    vo.executeQuery();                    
-                }else{
+                    vo.executeQuery();    
+            }else{
                 if((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card with out purchase code where removal class");
@@ -938,12 +957,11 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();         
-                }
+                }               
             }
                 
-            }else {
-               
-                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {  
+            }else {               
+                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {                 
                     if((accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                             " " + "inside cardGroup with purchase code where removal class");
@@ -968,7 +986,7 @@ public class TransactionOverviewBean implements Serializable {
                         vo.removeNamedWhereClauseParam("purchaseCountryCode");
                         vo.setWhereClause("");
                         vo.executeQuery(); 
-                    }else{
+                }else{                    
                     if((accountQuery + "AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                     " " + "inside  cardGroup with out purchase code where removal class");
@@ -992,7 +1010,7 @@ public class TransactionOverviewBean implements Serializable {
                         }
                         vo.setWhereClause("");
                         vo.executeQuery(); 
-                    }                    
+                    }  
                 }
             }
                 
@@ -1213,8 +1231,14 @@ public class TransactionOverviewBean implements Serializable {
                          "where clause of view object=====>" +
                          vo.getWhereClause());
              vo.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Initializing queries");
-            
+                      
+                session.setAttribute("account_Query",accountQuery);
+                session.setAttribute("map_Account_List",mapAccountListValue);
+                session.setAttribute("cardGroup_Query",cardGroupQuery);
+                session.setAttribute("map_CardGroup_List",mapCardGroupListValue);
+                session.setAttribute("card_Query",cardQuery);
+                session.setAttribute("map_Card_List",mapCardListValue);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
             isTableVisible = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());            
             sum = 0.000f;
@@ -1223,13 +1247,10 @@ public class TransactionOverviewBean implements Serializable {
             if (vo.getEstimatedRowCount() != 0) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "Inside Estimated row count" +
-                             vo.getEstimatedRowCount());
-                System.out.println("Summ ==" + sum);
+                             vo.getEstimatedRowCount());                
                 while (iterator.hasNext()) {
                     PrtCardTransactionOverviewRVORowImpl row =
-                        (PrtCardTransactionOverviewRVORowImpl)iterator.next();
-                    System.out.println("Temp =" +
-                                       row.getInvoicedGrossAmountRebated().floatValue());
+                        (PrtCardTransactionOverviewRVORowImpl)iterator.next();                    
                     Float temp =
                         row.getInvoicedGrossAmountRebated().floatValue();
                     sum = sum + temp;
@@ -2520,8 +2541,7 @@ public class TransactionOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(++rowVal);
             XLS_SH_R = XLS_SH.createRow(++rowVal);
 
-            if (val) {
-                System.out.println("Inside Value");
+            if (val) {                
                 XLS_SH_R = XLS_SH.createRow(++rowVal);
                 XLS_SH_R_C = XLS_SH_R.createCell(0);
                 XLS_SH_R_C.setCellStyle(cs);
@@ -3360,8 +3380,7 @@ public class TransactionOverviewBean implements Serializable {
         ViewObject prtCardTransactionOverViewRVO =
             ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
         RowSetIterator iterator =
-            prtCardTransactionOverViewRVO.createRowSetIterator(null);
-        System.out.println("Summ ==" + sum);
+            prtCardTransactionOverViewRVO.createRowSetIterator(null);        
         iterator.reset();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Estimated Row Count =" +
@@ -3369,12 +3388,10 @@ public class TransactionOverviewBean implements Serializable {
         sum = 0.000f;
         while (iterator.hasNext()) {
             PrtCardTransactionOverviewRVORowImpl row =
-                (PrtCardTransactionOverviewRVORowImpl)iterator.next();
-            System.out.println("Temp =" + row.getInvoicedGrossAmountRebated());
+                (PrtCardTransactionOverviewRVORowImpl)iterator.next();            
             Float temp = row.getInvoicedGrossAmountRebated();
             sum = sum + temp;
-        }
-        System.out.println("Summ ==" + sum);
+        }        
     }
 
     public void selectionExport(ValueChangeEvent valueChangeEvent) {
