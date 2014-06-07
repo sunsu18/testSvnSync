@@ -15,10 +15,7 @@
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <searchRegion Binds="PrtCardTransactionOverviewRVO1Iterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="PrtCardTransactionOverviewRVO12Query"/>
-    <iterator Binds="PrtCardTransactionInvoiceRVO1" RangeSize="25"
-              DataControl="EngageAppModuleDataControl"
-              id="PrtCardTransactionInvoiceRVO1Iterator"/>
+                  id="PrtCardTransactionOverviewRVO12Query"/>    
     <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
@@ -253,15 +250,9 @@
           <Item Value="TotalAmount"/>
         </AttrNames>
       </nodeDefinition>
-    </tree>
-    <attributeValues IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
-                     id="PurchaseCurrency">
-      <AttrNames>
-        <Item Value="PurchaseCurrency"/>
-      </AttrNames>
-    </attributeValues>
+    </tree>    
     <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
-                     id="PurchaseCurrency1">
+                     id="PurchaseCurrency">
       <AttrNames>
         <Item Value="PurchaseCurrency"/>
       </AttrNames>
