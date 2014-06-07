@@ -756,14 +756,27 @@
                                 locale="#{pageFlowScope.TransactionOverviewBean.locale}"
                                 minFractionDigits="2"/>
             </af:outputText>
-
-           <af:outputText value="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
+            
+            <af:outputText value="#{sfr.ENGAGE_GROSS_AMOUNT}"
                                    id="ot237"/>
             <af:spacer width="10" height="1" id="s370"/>
              <af:outputText value=":" id="ot2731"/>
              <af:spacer width="10" height="25" id="s3071"/>
-           <af:outputText value="#{bindings.CurrencyUnitPriceRebated.inputValue}"
+           <af:outputText value="#{bindings.CurrencyGrossAmount.inputValue}" visible="false"
                            id="ot176">
+             <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
+            </af:outputText>
+
+           <af:outputText value="#{sfr.ENGAGE_DISCOUNTED_PRICE}" visible="false"
+                                   id="ot48"/>
+            <af:spacer width="10" height="1" id="s4" visible="false"/>
+             <af:outputText value=":" id="ot58" visible="false"/>
+             <af:spacer width="10" height="25" id="s12" visible="false"/>
+           <af:outputText value="#{bindings.CurrencyUnitPriceRebated.inputValue}" visible="false"
+                           id="ot60">
              <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.TransactionOverviewBean.locale}"
@@ -784,22 +797,22 @@
                                 minFractionDigits="2"/>
             </af:outputText>
 
-          <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}"
+          <af:outputText value="#{sfr.ENGAGE_INVOICE_VAT}" visible="false"
                                    id="plam1"/>
-            <af:spacer width="10" height="1" id="s26"/>
-              <af:outputText value=":" id="ot23113"/>
-             <af:spacer width="10" height="25" id="s30123"/>
-            <af:outputText value="#{bindings.CurrencyVat.inputValue}" id="ot22">
+            <af:spacer width="10" height="1" id="s26" visible="false"/>
+              <af:outputText value=":" id="ot23113" visible="false"/>
+             <af:spacer width="10" height="25" id="s30123" visible="false"/>
+            <af:outputText value="#{bindings.CurrencyVat.inputValue}" id="ot22" visible="false">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.CurrencyVat.format}"/>
             </af:outputText>
 
-          <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}"
+          <af:outputText value="#{sfr.ENGAGE_INVOICE_NET}" visible="false"
                                    id="plam8"/>
-           <af:spacer width="10" height="1" id="s25"/>
-             <af:outputText value=":" id="ot23114"/>
-             <af:spacer width="10" height="25" id="s30124"/>
-            <af:outputText value="#{bindings.CurrencyNetAmount.inputValue}"
+           <af:spacer width="10" height="1" id="s25" visible="false"/>
+             <af:outputText value=":" id="ot23114" visible="false"/>
+             <af:spacer width="10" height="25" id="s30124" visible="false"/>
+            <af:outputText value="#{bindings.CurrencyNetAmount.inputValue}" visible="false"
                            id="ot15">
               <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
@@ -844,7 +857,7 @@
                   <h:panelGrid columns="5">
 
 
-          <af:outputText value="#{sfr.ENGAGE_PRICE}"
+          <af:outputText value="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
                                    id="plam9"/>
            <af:spacer width="10" height="1" id="s32"/>
              <af:outputText value=":" id="ot23115"/>
@@ -857,12 +870,12 @@
                                 minFractionDigits="2"/>
             </af:outputText>
 
-           <af:outputText value="#{sfr.ENGAGE_GROSS_AMOUNT}"
+           <af:outputText value="#{sfr.ENGAGE_GROSS_AMOUNT}" visible="false"
                                    id="plam5"/>
-            <af:spacer width="10" height="1" id="s24"/>
-              <af:outputText value=":" id="ot23161"/>
-             <af:spacer width="10" height="25" id="s30162"/>
-            <af:outputText value="#{bindings.InvoicedGrossAmount.inputValue}"
+            <af:spacer width="10" height="1" id="s24" visible="false"/>
+              <af:outputText value=":" id="ot23161" visible="false"/>
+             <af:spacer width="10" height="25" id="s30162" visible="false"/>
+            <af:outputText value="#{bindings.InvoicedGrossAmount.inputValue}" visible="false"
                            id="ot19">
               <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
@@ -871,12 +884,12 @@
 
             </af:outputText>
 
-          <af:outputText value="#{sfr.ENGAGE_DISCOUNT}"
+          <af:outputText value="#{sfr.ENGAGE_DISCOUNT}" visible="false"
                                    id="plam7"/>
-            <af:spacer width="10" height="1" id="s33"/>
-              <af:outputText value=":" id="ot23171"/>
-             <af:spacer width="10" height="25" id="s30712"/>
-            <af:outputText value="#{bindings.InvoiceDiscountAmount.inputValue}"
+            <af:spacer width="10" height="1" id="s33" visible="false"/>
+              <af:outputText value=":" id="ot23171" visible="false"/>
+             <af:spacer width="10" height="25" id="s30712" visible="false"/>
+            <af:outputText value="#{bindings.InvoiceDiscountAmount.inputValue}" visible="false"
                            id="ot13">
              <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
