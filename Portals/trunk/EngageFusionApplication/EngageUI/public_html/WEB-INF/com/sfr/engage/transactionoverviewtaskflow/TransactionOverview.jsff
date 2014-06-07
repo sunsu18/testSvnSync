@@ -783,13 +783,13 @@
                                 minFractionDigits="2"/>
             </af:outputText>
 
-          <af:outputText value="#{sfr.ENGAGE_AMOUNT}"
+          <af:outputText value="#{sfr.ENGAGE_AMOUNT}" visible="false"
                                    id="plam4"/>
-             <af:spacer width="10" height="1" id="s27"/>
+             <af:spacer width="10" height="1" id="s27" visible="false"/>
 
-             <af:outputText value=":" id="ot2311"/>
-             <af:spacer width="10" height="25" id="s3012"/>
-            <af:outputText value="#{bindings.CurrencyGrossAmountRebated.inputValue}"
+             <af:outputText value=":" id="ot2311" visible="false"/>
+             <af:spacer width="10" height="25" id="s3012" visible="false"/>
+            <af:outputText value="#{bindings.CurrencyGrossAmountRebated.inputValue}" visible="false"
                            id="ot29">
              <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
