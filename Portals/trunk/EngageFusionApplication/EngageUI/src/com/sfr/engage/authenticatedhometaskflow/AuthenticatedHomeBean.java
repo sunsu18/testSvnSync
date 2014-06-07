@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
@@ -79,6 +78,8 @@ public class AuthenticatedHomeBean implements Serializable {
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
+    private String profileSession = "";
+    private String langSession = "";
     SecurityContext securityContext = null;
     ADFContext adfCtx = null;
     private List<PartnerInfo> partnerListDefault = new ArrayList<PartnerInfo>();
@@ -122,10 +123,25 @@ public class AuthenticatedHomeBean implements Serializable {
                 }
             }
 
+            langSession =(String)session.getAttribute(Constants.userLang);
+            System.out.println("langSession" + langSession);
+
+            if (user == null) {
+                user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            }
+
+
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR)) {
+                profileSession = "business"; }
+            else
+            {  profileSession = "private"; }
+
+
 
 
             Conversion conv = new Conversion();
             lang = (String)session.getAttribute("lang");
+            System.out.println("lang" + lang);
             profile = (String)session.getAttribute("profile");
             if(profile.equalsIgnoreCase("business"))
                 { customerType = "B2B";}
@@ -144,7 +160,7 @@ public class AuthenticatedHomeBean implements Serializable {
             // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
             vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
             vo.setNamedWhereClauseParam("catalogType", "PP");
-            vo.setNamedWhereClauseParam("customerType", customerType);
+            vo.setNamedWhereClauseParam("customerType", profileSession);
             vo.executeQuery();
             System.out.println(" vo.estimated rowcount " + vo.getEstimatedRowCount());
         }
@@ -154,13 +170,13 @@ public class AuthenticatedHomeBean implements Serializable {
         Set<String> cardTypeSet = new HashSet<String>();
         List<String> customerTypeList=new ArrayList<String>();
         if(session.getAttribute("cardTypeList")!=null){
-            
+
             cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
         }
-        
+
         List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-        String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");   
-        
+        String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");
+
         ViewObject prtCustomerCardMapVO =
             ADFUtils.getViewObject("PrtCustomerCardMapRVO1_1Iterator");
         prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
@@ -171,7 +187,7 @@ public class AuthenticatedHomeBean implements Serializable {
                     (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                 if (currRow != null) {
                     customerTypeList.add(currRow.getCustomerType());
-                    customerTypeValue=customerTypeList.toString().substring(1, customerTypeList.toString().length()-1).replace("", "");  
+                    customerTypeValue=customerTypeList.toString().substring(1, customerTypeList.toString().length()-1).replace("", "");
                 }
             }
             customerTypeValue=customerTypeValue + ",ALL";
@@ -180,6 +196,7 @@ public class AuthenticatedHomeBean implements Serializable {
         //TODO : Check if the below queries can be merged and make it one, otherwise okay.
 
         try {
+            System.out.println("lang passed in PRTPCMFEEDS is "+ conversionUtility.getCustomerCountryCode(langSession));
             if (customerTypeValue != null) {
                 ViewObject prtPCMFeedsVO =
                     ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
@@ -191,7 +208,7 @@ public class AuthenticatedHomeBean implements Serializable {
                                                           "INFO_STATOIL",
                                                           null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                          lang, null);
+                                                          conversionUtility.getCustomerCountryCode(langSession), null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
                                                           passedDate, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
@@ -232,7 +249,7 @@ public class AuthenticatedHomeBean implements Serializable {
                 prtPCMFeedsVO.defineNamedWhereClauseParam("infoType",
                                                           "MESSAGES", null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("countryCode",
-                                                          lang, null);
+                                                          conversionUtility.getCustomerCountryCode(langSession), null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("fromDate",
                                                           passedDate, null);
                 prtPCMFeedsVO.defineNamedWhereClauseParam("toDate", passedDate,
@@ -660,6 +677,22 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
 
+    }
+
+    public void setProfileSession(String profileSession) {
+        this.profileSession = profileSession;
+    }
+
+    public String getProfileSession() {
+        return profileSession;
+    }
+
+    public void setLangSession(String langSession) {
+        this.langSession = langSession;
+    }
+
+    public String getLangSession() {
+        return langSession;
     }
 
 
