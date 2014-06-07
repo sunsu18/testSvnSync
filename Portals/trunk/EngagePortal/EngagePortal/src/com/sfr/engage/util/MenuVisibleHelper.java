@@ -65,7 +65,7 @@ public class MenuVisibleHelper {
     EngageResourceBundle sfr = new EngageResourceBundle();
 
 
-    private boolean visibleAccount = true;
+    private boolean visibleAccount = false;
     private boolean visibleAccountSummary = false;
     private boolean visibleVehicles = false;
     private boolean visibleDrivers = false;
