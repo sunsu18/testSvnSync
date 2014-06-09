@@ -893,8 +893,8 @@ border-right: 1px solid #FFFFFF !important;
 }
 
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
-    padding-right:8px;
-    padding-left:8px;
+    /*padding-right:8px;*/
+    /*padding-left:8px;*/
     color: #524e4f;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
