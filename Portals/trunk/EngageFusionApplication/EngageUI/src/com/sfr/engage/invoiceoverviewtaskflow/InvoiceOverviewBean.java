@@ -1282,7 +1282,7 @@ public class InvoiceOverviewBean implements Serializable {
             try{
             emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
             email_recipient_popup.getValue().toString(),
-             "Statoilfuelretail : Invoice Delivery", email2, "smtp", "172.25.15.4",cc,responseByteArr,env,invoice_req);
+             "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
                     
 
                 }
