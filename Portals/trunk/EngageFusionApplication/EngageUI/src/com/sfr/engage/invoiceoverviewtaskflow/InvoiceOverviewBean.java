@@ -160,14 +160,9 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
 
-        if(lang=="NO")
-        {
         currencyCode=conversionUtility.getCurrencyCode(lang);
         locale=conversionUtility.getLocaleFromCountryCode(lang);
-        }else if(lang=="SE") {
-            currencyCode=conversionUtility.getCurrencyCode(lang);
-            locale=conversionUtility.getLocaleFromCountryCode(lang);
-        }
+        
     }
 
     public ArrayList<SelectItem> getAccountList() {
@@ -297,7 +292,7 @@ public class InvoiceOverviewBean implements Serializable {
 //                invoiceVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV");
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
                 invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
@@ -701,7 +696,7 @@ public class InvoiceOverviewBean implements Serializable {
         ViewObject invoiceVO =
             ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
         PrtNewInvoiceVORowImpl row=(PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
-        String invoiceNumberValuePdf = row.getInvoiceNumber();
+        String invoiceNumberValuePdf = row.getFinalinvoice();
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "invoice number"+invoiceNumberValuePdf);
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PartnerId "+partnerId);
         byte[] responseByteArr = null;

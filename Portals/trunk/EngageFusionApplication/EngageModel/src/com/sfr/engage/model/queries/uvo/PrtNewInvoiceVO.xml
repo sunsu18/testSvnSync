@@ -44,21 +44,30 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) as finalInvoice , prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number,prt_card_invoice_details.INVOICE_DOC_TYPE, 
-prt_card_invoice.invoice_date Invoice_Date,prt_card_payment_doc.invoicing_due_date Due_Date,prt_card_invoice_details.inv_gross_amt Gross,prt_card_invoice_details.inv_vat_amt VAT,prt_card_invoice_details.invoice_currency,
-prt_card_payment_doc.cardgroup_main_type,prt_card_payment_doc.cardgroup_sub_type,prt_card_payment_doc.cardgroup_seq,
+    <![CDATA[select distinct decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) as finalInvoice ,
+prt_card_invoice.invoice_date,
+prt_card_payment_doc.invoicing_due_date,
+prt_card_payment_doc.partner_id,
+prt_card_payment_doc.account_id,
+prt_card_payment_doc.cardgroup_main_type
+,prt_card_payment_doc.cardgroup_sub_type,
+prt_card_payment_doc.cardgroup_seq,
+prt_card_invoice_details.inv_gross_amt
+,prt_card_invoice_details.inv_vat_amt,
+prt_card_payment_doc.invoice_doc_type,
+prt_card_payment_doc.invoice_level,
 prt_card_invoice.invoiced_card
 from prt_card_invoice join prt_card_payment_doc ON 
-
-( (prt_card_payment_doc.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
-or
-prt_card_invoice.invoice_number like '1%'
-) and prt_card_payment_doc.country_code=prt_card_invoice.country_code)
-
-left join prt_card_invoice_details on ( prt_card_invoice.collective_invoice_number = prt_card_invoice_details.invoice_doc_number and prt_card_invoice. country_code = prt_card_invoice_details. country_code)
+(prt_card_payment_doc.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
+)
+left join prt_card_invoice_details on 
+(prt_card_invoice_details.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
+and prt_card_invoice. country_code = prt_card_invoice_details. country_code
+)
 Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
 prt_card_payment_doc.PARTNER_ID =:partnerId AND INSTR(:accountId,prt_card_payment_doc.ACCOUNT_ID) <> 0 
-AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=: toDateBV]]>
+AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=: toDateBV
+order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
   <ViewAttribute
     Name="Finalinvoice"
@@ -76,52 +85,6 @@ AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="9"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_NUMBER"
-    Expression="INVOICE_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="9"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CollectiveInvoiceNumber"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="9"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="COLLECTIVE_INVOICE_NUMBER"
-    Expression="COLLECTIVE_INVOICE_NUMBER"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="9"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceDocType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICE_DOC_TYPE"
-    Expression="INVOICE_DOC_TYPE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="InvoiceDate"
     IsUpdateable="false"
     IsPersistent="false"
@@ -136,64 +99,48 @@ AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="DueDate"
+    Name="InvoicingDueDate"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    AliasName="DUE_DATE"
-    Expression="DUE_DATE"
+    AliasName="INVOICING_DUE_DATE"
+    Expression="INVOICING_DUE_DATE"
     SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="Gross"
+    Name="PartnerId"
     IsUpdateable="false"
     IsPersistent="false"
+    IsNotNull="true"
     PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="FLOAT"
-    AliasName="GROSS"
-    Expression="GROSS"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Vat"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="126"
-    Scale="0"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="FLOAT"
-    AliasName="VAT"
-    Expression="VAT"
-    SQLType="NUMERIC">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="39"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoiceCurrency"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="3"
+    Precision="8"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="INVOICE_CURRENCY"
-    Expression="INVOICE_CURRENCY"
+    AliasName="PARTNER_ID"
+    Expression="PARTNER_ID"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_ID"
+    Expression="ACCOUNT_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -242,6 +189,69 @@ AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="InvGrossAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="INV_GROSS_AMT"
+    Expression="INV_GROSS_AMT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvVatAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="INV_VAT_AMT"
+    Expression="INV_VAT_AMT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceDocType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_DOC_TYPE"
+    Expression="INVOICE_DOC_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceLevel"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_LEVEL"
+    Expression="INVOICE_LEVEL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="InvoicedCard"
     IsUpdateable="false"
     IsPersistent="false"
@@ -256,6 +266,16 @@ AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
+  <ViewAttribute
+    Name="netAmount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
