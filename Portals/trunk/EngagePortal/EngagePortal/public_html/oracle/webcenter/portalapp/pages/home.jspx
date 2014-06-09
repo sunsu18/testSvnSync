@@ -39,8 +39,8 @@
                                    styleClass="portalbackground"
                                    visible="#{not securityContext.authenticated}">
 
-                  <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:300px;">
-                    <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}.png"
+                  <af:panelGroupLayout id="pgl_02" layout="vertical" inlineStyle="width:962px; height:250px;">
+                    <af:image source="/images/Banner_images/Banner-#{homeCarousalBean.lang}-#{homeCarousalBean.profile}.png"
                               id="i1"/>
                   </af:panelGroupLayout>
                   <af:spacer id="sp01" width="10" height="5"/>
