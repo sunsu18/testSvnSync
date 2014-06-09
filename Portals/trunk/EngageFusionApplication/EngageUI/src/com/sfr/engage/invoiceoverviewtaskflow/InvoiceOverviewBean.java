@@ -454,11 +454,13 @@ public class InvoiceOverviewBean implements Serializable {
             cardTransactionVO.executeQuery();
             log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransactionVO estimatedRow:"+cardTransactionVO.getEstimatedRowCount());
         }
-
+        radioBtnPopUp.setSubmittedValue(null);
+        radioBtnPopUp.setValue(null);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
         isTransactionVisible= false;
         isInvoiceCollectionVisible=false;
-        radioBtnPopUp.setSubmittedValue(null);
+       
         return null;
     }
 
