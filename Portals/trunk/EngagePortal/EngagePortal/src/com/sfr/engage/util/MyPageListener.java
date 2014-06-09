@@ -1285,12 +1285,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
 
         DCIteratorBinding iter1;
-        if (bindings != null) {
+        if (bindings != null && bindings.findIteratorBinding("PrtAccountVO1Iterator") != null) {
             iter1 = bindings.findIteratorBinding("PrtAccountVO1Iterator");
-        } else {
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " PrtAccountVO1Iterator Bindings is null in my page listner for Admin role");
-            iter1 = null;
-        }
+
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner id passed in Account VO is " + Partnerid);
 
         part.setPartnerValue(Partnerid);
@@ -1479,6 +1476,12 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Partner object added in session");
             }
         }
+
+    }
+        else {
+                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " PrtAccountVO1Iterator Bindings is null in my page listner for Admin role");
+                    iter1 = null;
+                }
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Exit from execute Admin function");
     }
 
@@ -1722,6 +1725,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
         user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         user.setUserID("B2BMgr1@test.com");
+        user.setEmailID("hiten.karamchandani@lntinfotech.com");
 
         return user;
     }
