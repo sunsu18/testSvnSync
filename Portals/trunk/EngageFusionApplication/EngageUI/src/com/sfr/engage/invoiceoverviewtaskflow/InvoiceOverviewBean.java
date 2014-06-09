@@ -822,11 +822,11 @@ public class InvoiceOverviewBean implements Serializable {
 
         Property invoiceNo = new Property();
         invoiceNo.setName("xInvoiceNo");
-        invoiceNo.setValue(invoiceNumber.toString().trim());
+        invoiceNo.setValue("29091991");
 
         Property partnerId = new Property();
         partnerId.setName("xPartnerId");
-        partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
+        partnerId.setValue("RON04031991");
 
         Property docType = new Property();
         docType.setName("xDocumentType");
@@ -834,19 +834,18 @@ public class InvoiceOverviewBean implements Serializable {
 
         Property contentType = new Property();
         contentType.setName("xContentType");
-        //TODO : To be read from Property file
-        contentType.setValue("FCP");
+        contentType.setValue("O2C");
 
         Property subType = new Property();
         subType.setName("xSubType");
         //TODO : To be read from Property file
-        //subType.setValue("Self_Billing_Print_Reports");
-        subType.setValue("Invoice");
+        subType.setValue("Self_Billing_Print_Reports");
+        //subType.setValue("Invoice");
 
 
-        Property country = new Property();
-        country.setName("xCountry");
-        country.setValue("DK");
+//        Property country = new Property();
+//        country.setName("xCountry");
+//        country.setValue("DK");
 
 
 
@@ -855,7 +854,7 @@ public class InvoiceOverviewBean implements Serializable {
         searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
         System.out.println(searchInputVO.getSearchInputQueryProperty().add(invoiceNo));
         searchInputVO.getSearchInputQueryProperty().add(partnerId);
-        System.out.println(searchInputVO.getSearchInputQueryProperty().add(partnerId););
+        System.out.println(searchInputVO.getSearchInputQueryProperty().add(partnerId));
         searchInputVO.getSearchInputQueryProperty().add(docType);
         searchInputVO.getSearchInputQueryProperty().add(contentType);
         searchInputVO.getSearchInputQueryProperty().add(subType);
@@ -1117,7 +1116,8 @@ public class InvoiceOverviewBean implements Serializable {
                      System.out.println("Day name: " + dayOfMonth);
 
 
-                   String env = "/u01/WCP_DEV/stores/images/statoil_logo.jpg";
+                   //String env = "/u01/WCP_DEV/stores/images/statoil_logo.jpg";
+                   String env = "C:\\Users\\10604129\\Desktop\\IMG_3380.jpg";
 
 
 
