@@ -1504,6 +1504,13 @@ font-weight:bold;
     font-weight:bold;     
     font-family:Lucida Sans,Georgia,Serif !important;     
     }
+    
+    .infoOutputText{     
+    color:green;      
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important;     
+    }
 
 .sign_in{
 	background-position: -32px -57px ;

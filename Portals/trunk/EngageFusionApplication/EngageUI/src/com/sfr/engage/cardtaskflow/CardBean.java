@@ -117,6 +117,7 @@ public class CardBean implements Serializable {
     private String vehicleNumber = null;
     private RichSelectOneChoice driverNameAssociation;
     private String warningMsg = null;
+    private String infoMsg = null;
     private boolean showErrorMsgEditFlag = false;
     private String internalCardNumber = null;
     private String cardEmbossNum = null;
@@ -132,7 +133,7 @@ public class CardBean implements Serializable {
         private boolean vehicleModifiedDateVisible =false;
         private boolean driverModifiedByVisible =false;
         private boolean  driverModifiedDateVisible =false; 
-        
+        private boolean  showEditInfoMessage =false;
         
    public CardBean() {
         super();
@@ -1163,9 +1164,11 @@ public class CardBean implements Serializable {
                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
                     {
                         
-                        
+                        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().equals(getBindings().getVehicleNumber().toString()))
+                            getBindings().getTruckdriverDetails().hide();
+                       else     
                     checkVehicleAssociation();
-                   // getBindings().getTruckdriverDetails().hide();
+                 
 
 
                     }
@@ -1713,22 +1716,67 @@ else
         //this.getBindings().getVehicleNumber().setValue(null);
         this.displayDriverName=null;
         this.displayVehicleName = null;
-        if(getBindings().getVehicleDriverRadio().getValue() == null) {
-          
-            getBindings().getVehicleDriverRadio().setValue(null);
-        }
-        getBindings().getVehicleDriverRadio().setValue(null);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
+//        if(getBindings().getVehicleDriverRadio().getValue() == null) {
+//          
+//            getBindings().getVehicleDriverRadio().setValue(null);
+//        }
+        
+//        getBindings().getVehicleDriverRadio().setValue("");
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNumber());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleNumber());        
         getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
+        
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null || AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null ) {
+            
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null) {
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null)
+                vehicleModifiedBy=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null)
+                vehicleModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
+                
+                
+                if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
+
+                    showEditInfoMessage = true;
+             
+                    infoMsg = resourceBundle.getObject("CARD_ASSOCIATED_VEHICLE").toString().concat(" "+VehicleNumber+" ").concat(" ")+resourceBundle.getObject("MODIFIED_BY").toString().concat(" "+vehicleModifiedBy+" ")+resourceBundle.getObject("MODIFIED_DATE").toString().concat(" "+vehicleModifiedDate+" ");
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditInfoMessage());
+                }
+            }
+            else {
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null) {
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null)
+                    driverModifiedBy=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null)
+                    driverModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
+                    
+                    
+                    if (resourceBundle.containsKey("DRIVER_CARD_ALREADY_EXIST")) {
+
+                        showEditInfoMessage = true;
+                      
+                        infoMsg =resourceBundle.getObject("CARD_ASSOCIATED_DRIVER").toString().concat(" "+DriverNumber+" ").concat("")+resourceBundle.getObject("MODIFIED_BY").toString().concat(" "+driverModifiedBy+" ")+resourceBundle.getObject("MODIFIED_DATE").toString().concat(" "+driverModifiedDate+" ");
+                        System.out.println("warningMsg" + infoMsg);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditInfoMessage());
+                    }
+                    
+                }
+             }
+           
+        }else{
+            showEditInfoMessage = false;
+            getBindings().getVehicleDriverRadio().setSubmittedValue(null);
+            getBindings().getVehicleDriverRadio().setValue(null);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
+        }
     }
 
     public void closePopUpListener(ActionEvent actionEvent) {
-       
+        getBindings().getVehicleDriverRadio().setSubmittedValue(null);
         getBindings().getVehicleDriverRadio().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
-        getBindings().getTruckdriverDetails().cancel();
+        getBindings().getTruckdriverDetails().hide();
     }
 
     public void setVehicleModifiedBy(String vehicleModifiedBy) {
@@ -1795,6 +1843,22 @@ else
         return driverModifiedDateVisible;
     }
 
+    public void setInfoMsg(String infoMsg) {
+        this.infoMsg = infoMsg;
+    }
+
+    public String getInfoMsg() {
+        return infoMsg;
+    }
+
+    public void setShowEditInfoMessage(boolean showEditInfoMessage) {
+        this.showEditInfoMessage = showEditInfoMessage;
+    }
+
+    public boolean isShowEditInfoMessage() {
+        return showEditInfoMessage;
+    }
+
 
     public class Bindings {
         private RichSelectOneChoice partner;
@@ -1809,6 +1873,9 @@ else
         private RichSelectManyShuttle shuttleExcel;
         private RichPopup specificColumns;
         private RichPopup confirmationExcel;
+            private RichPanelGroupLayout driverPgl;
+                        private RichPanelGroupLayout vehiclePgl;
+        private RichOutputText showEditInfoMessage;
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
         }
@@ -1907,6 +1974,31 @@ else
 
         public RichPopup getConfirmationExcel() {
             return confirmationExcel;
-        }    }
+        }
+
+        public void setDriverPgl(RichPanelGroupLayout driverPgl) {
+            this.driverPgl = driverPgl;
+        }
+
+        public RichPanelGroupLayout getDriverPgl() {
+            return driverPgl;
+        }
+
+        public void setVehiclePgl(RichPanelGroupLayout vehiclePgl) {
+            this.vehiclePgl = vehiclePgl;
+        }
+
+        public RichPanelGroupLayout getVehiclePgl() {
+            return vehiclePgl;
+        }
+
+        public void setShowEditInfoMessage(RichOutputText showEditInfoMessage) {
+            this.showEditInfoMessage = showEditInfoMessage;
+        }
+
+        public RichOutputText getShowEditInfoMessage() {
+            return showEditInfoMessage;
+        }
+    }
     }
 
