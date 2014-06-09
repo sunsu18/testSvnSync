@@ -426,16 +426,17 @@
            <af:outputText value=":" id="ot45"/>
            <af:spacer height="10" id="s38" width="0"/>
            <af:selectOneRadio id="selectOneRadio1" layout="horizontal"
-                              value="#{pageFlowScope.InvoiceOverviewBean.defaultSelection}"
+                              
                               autoSubmit="true"
                               inlineStyle="margin-left: -15px;"
                               binding="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUp}"
                               valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUpVCE}">
             <af:selectItem label="#{sfr.TRANSACTIONS}" value="Transactions"
                            id="selectItem1"/>
-            <af:selectItem label="#{sfr.INVOICE_COLLECTIONS}"
+            <af:selectItem label="#{sfr.INVOICE_COLLECTIONS}" rendered="#{(bindings.InvoiceDocType.inputValue eq 'FAK' and bindings.InvoiceLevel.inputValue eq 'SEP')? false: true}"
                            value="InvoiceCollections" id="selectItem2"/>
-           </af:selectOneRadio>          
+           </af:selectOneRadio>    
+           
           </h:panelGrid>
          </af:panelGroupLayout>
 

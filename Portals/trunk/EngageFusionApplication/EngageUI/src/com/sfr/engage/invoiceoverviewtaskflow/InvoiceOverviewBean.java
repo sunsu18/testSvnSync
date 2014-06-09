@@ -456,6 +456,9 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
+        isTransactionVisible= false;
+        isInvoiceCollectionVisible=false;
+        radioBtnPopUp.setSubmittedValue(null);
         return null;
     }
 
