@@ -733,8 +733,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9300', end
 .af_goButton {
 
    background: transparent url("/images/Buttons/login_private.png") !important;
-
-   font-family : Lucida Sans,Georgia,Serif !important;
+    font-family : Lucida Sans,Georgia,Serif !important;
    font-size:30px !important; 
    text-align:left !important; 
    vertical-align:top;
@@ -745,6 +744,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9300', end
    font-style:normal;
    color: #656364 !important;
     /*background-color:#f2ad00;*/
+}
+
+.af_goButton:hover{
+    background: transparent url("/images/Buttons/login_private_hover.png") !important;
+   font-family : Lucida Sans,Georgia,Serif !important;
+   font-size:30px !important; 
+   text-align:left !important; 
+   vertical-align:top;
+   text-decoration:none; 
+   width:327px; 
+   height:60px; 
+   font-weight:bold !important; 
+   font-style:normal;
+   color: #DF8C04 !important;
+   background-color:#3CB6CE ;
 }
 
 .boldtext{
