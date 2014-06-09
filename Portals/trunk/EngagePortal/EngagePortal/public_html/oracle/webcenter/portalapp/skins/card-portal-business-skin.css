@@ -710,6 +710,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#259cba', end
    font-style:normal;
    color: #656364 !important;
    background-color:#f2ad00;
+   outline-color: transparent !important;
 }
 
 
@@ -726,6 +727,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#259cba', end
    font-style:normal;
    color: #00A1C0 !important;
    background-color:#3CB6CE ;
+   outline-color: transparent !important;
 }
 
 .boldtext{
@@ -1502,8 +1504,13 @@ font-weight:bold;
     color:red;      
     font-size:11px;     
     font-weight:bold;     
-    font-family:Lucida Sans,Georgia,Serif !important;     
+   font-family: Arial,Helvetica,sans-serif !important;
     }
+    
+.errorPanel{
+background-color: #fef5f1;
+border-color: #ed541d;
+}
     
     .infoOutputText{     
     color:green;      

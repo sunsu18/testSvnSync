@@ -744,6 +744,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9300', end
    font-style:normal;
    color: #656364 !important;
     /*background-color:#f2ad00;*/
+    outline-color: transparent !important;
 }
 
 .af_goButton:hover{
@@ -759,6 +760,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9300', end
    font-style:normal;
    color: #DF8C04 !important;
    background-color:#3CB6CE ;
+   outline-color: transparent !important;
 }
 
 .boldtext{
@@ -1645,8 +1647,13 @@ font-weight:bold;
     color:red;      
     font-size:12px;     
     font-weight:normal;     
-    font-family:Lucida Sans,Georgia,Serif !important;     
+     font-family: Arial,Helvetica,sans-serif !important;
     }
+    
+.errorPanel{
+background-color: #fef5f1;
+border-color: #ed541d;
+}
 
 
 
