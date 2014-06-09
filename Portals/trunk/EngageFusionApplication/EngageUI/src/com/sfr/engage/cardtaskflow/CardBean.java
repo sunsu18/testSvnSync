@@ -1143,9 +1143,19 @@ public class CardBean implements Serializable {
                 
                 
                 }
-              
+         else       if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null && getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber")))
+                                            {
+                                        System.out.println("entered same vehicle.");
+                                        getBindings().getTruckdriverDetails().hide();
+                                            }
+                                       else  
+                                        {
+                                            System.out.println("check vehicle association");
+                                    checkVehicleAssociation();
+                                        }
+                            
                 
-            else    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
+          if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
                 {
  
                
@@ -1158,21 +1168,7 @@ public class CardBean implements Serializable {
                 }
 
             }
-                else
-                {
-                    
-                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
-                    {
-                        
-                        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().equals(getBindings().getVehicleNumber().toString()))
-                            getBindings().getTruckdriverDetails().hide();
-                       else     
-                    checkVehicleAssociation();
-                 
-
-
-                    }
-                }
+              
             }
         else
             {
@@ -1185,10 +1181,19 @@ public class CardBean implements Serializable {
                 {
                 showErrorMsgEditFlag = true;
                     warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
-               
-                
+  
                 }
-     else       if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
+                
+                
+       else         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null && getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber")))
+                    {
+                getBindings().getTruckdriverDetails().hide();
+                    }
+                else
+                {
+                checkDriverAssociation();
+                }
+      if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
             {
             
               
@@ -1201,14 +1206,7 @@ public class CardBean implements Serializable {
             }
 
             }
-            else
-            {
-                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
-                    {
-                checkDriverAssociation();
-               // getBindings().getTruckdriverDetails().hide();
-            }
-            }
+          
             }
         }
         }
@@ -1256,7 +1254,10 @@ else
         }
         }
         
-     
+        showEditInfoMessage = false;
+        getBindings().getVehicleDriverRadio().setSubmittedValue(null);
+        getBindings().getVehicleDriverRadio().setValue(null);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
 
         return null;
     }
