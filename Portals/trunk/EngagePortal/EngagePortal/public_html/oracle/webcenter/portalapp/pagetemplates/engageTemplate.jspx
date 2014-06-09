@@ -28,7 +28,7 @@
   <af:pageTemplateDef var="attrs">
  <!-- add scroll to pgl11-->
     <af:panelGroupLayout id="pt_pgl11"
-                         inlineStyle="height:auto;overflow-x:hidden;" layout="vertical">
+                         inlineStyle="height:auto;overflow-x:hidden;">
       <af:panelGroupLayout id="pt_pgl4"
                            styleClass="marginIE AFStretchWidth headerBGColor secondaryMenu"
                            layout="horizontal">
@@ -86,7 +86,7 @@
                                      href="${contextRoot}${menu.goLinkPrettyUrl}">
                                     ${menu.title}</a>
 
-  
+
 
                                   <c:if test="${not empty menu.children}">
                                     <ul>
