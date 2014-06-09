@@ -1,6 +1,7 @@
 package com.sfr.engage.invoiceoverviewtaskflow;
 
 
+import com.sfr.core.bean.EngageEmaiUtilityl;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
@@ -30,7 +31,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ResourceBundle;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -38,6 +44,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -114,19 +132,24 @@ public class InvoiceOverviewBean implements Serializable {
     private String to_recipient = null;
     private RichInputText email_recipient_popup;
     private RichOutputText invoice_form;
+    private  emailbean email;
     User global_user = new User();
     String invoice_req;
     private RichSpacer spacerFetchUserEmail;
     private String mailRecipient;
+    EngageEmaiUtilityl emailutility;
 
     public InvoiceOverviewBean() {
         super();
+        email = new emailbean();
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         resourceBundle = new EngageResourceBundle();
         partnerList    = new ArrayList<SelectItem>();
+         emailutility = new EngageEmaiUtilityl();
+        
 
 
         if(session.getAttribute("Partner_Object_List") != null){
@@ -852,9 +875,9 @@ public class InvoiceOverviewBean implements Serializable {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
 
         searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
-        System.out.println(searchInputVO.getSearchInputQueryProperty().add(invoiceNo));
+        
         searchInputVO.getSearchInputQueryProperty().add(partnerId);
-        System.out.println(searchInputVO.getSearchInputQueryProperty().add(partnerId));
+        
         searchInputVO.getSearchInputQueryProperty().add(docType);
         searchInputVO.getSearchInputQueryProperty().add(contentType);
         searchInputVO.getSearchInputQueryProperty().add(subType);
@@ -1071,10 +1094,12 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String triggermail() {
+        
+        
 
         System.out.println("In mail meethod");
 
-            emailbean email=new emailbean();
+            
 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
                 request = (HttpServletRequest)ectx.getRequest();
@@ -1088,19 +1113,11 @@ public class InvoiceOverviewBean implements Serializable {
         invoice_req = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
         System.out.println("invoice req = " + invoice_req);
         }
-
-    //            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-    //                global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-    //                System.out.println("Invoice bean : "+"user first name in my invoice bean while triggering mail" + global_user.getFirstName());
-    //                first_name = global_user.getFirstName();
-    //            }
-    //            else
-    //            first_name = "Customer";
-
         }
 
+ 
 
-            try{
+           
                      String[] months = {"January", "February",
                        "March", "April", "May", "June", "July",
                        "August", "September", "October", "November",
@@ -1204,10 +1221,6 @@ public class InvoiceOverviewBean implements Serializable {
 
                String cc="Hiten.Karamchandani@lntinfotech.com";
 
-        //        String result=email.sendEmail(from.getValue(), emailId.getValue(), subject.getValue(), content.getValue(), "smtp", "172.25.15.4", cc);
-
-            //code to search the file in UCM and pass it to bean for attachment
-
             byte[] responseByteArr = null;
             UCMCustomWeb uCMCustomWeb = null;
             try {
@@ -1227,9 +1240,9 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }
                 else {
-                    byte[] result=searchGetFile(invoice_req);
-                    if(result!=null && result.length!=0) {
-                      System.out.println(result.length);
+                    responseByteArr = searchGetFile(invoice_req);
+                    if(responseByteArr!=null && responseByteArr.length!=0) {
+                      System.out.println(responseByteArr.length);
                     }else
                     {
                     //isError = true;
@@ -1240,9 +1253,9 @@ public class InvoiceOverviewBean implements Serializable {
             }
                 else{
                    log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is null");
-                    byte[] result=searchGetFile(invoice_req);
-                   if(result!=null && result.length!=0) {
-                       System.out.println(result.length);
+                     responseByteArr=searchGetFile(invoice_req);
+                   if(responseByteArr!=null && responseByteArr.length!=0) {
+                       System.out.println(responseByteArr.length);
                    }else {
                    System.out.println("Eoorororoodddd");
                    }
@@ -1252,67 +1265,45 @@ public class InvoiceOverviewBean implements Serializable {
 
 
 
-//                uCMCustomWeb = new DAOFactory().getUCMService();
-//                if (uCMCustomWeb != null) {
-//
-//                    if(invoice_req.equalsIgnoreCase("812017785"))
-//                    {System.out.println("Content id " + "D_FCP_000000707774");
-//                    responseByteArr = uCMCustomWeb.getFileFromUCM("weblogic", "weblogic1","D_FCP_000000707774");}
-//                    else
-//                    {   if(invoice_req.equalsIgnoreCase("811862601"))
-//                            {System.out.println("Content id " + "D_FCP_000000707775");
-//                            responseByteArr = uCMCustomWeb.getFileFromUCM("weblogic", "weblogic1","D_FCP_000000707775");}
-//                        else
-//                        if(invoice_req.equalsIgnoreCase("812017771"))
-//                        {System.out.println("Content id " + "D_FCP_000000707776");
-//                        responseByteArr = uCMCustomWeb.getFileFromUCM("weblogic", "weblogic1","D_FCP_000000707776");}
-//                        else
-//                            {System.out.println("Content id " + "D_FCP_000000707777");
-//                            responseByteArr = uCMCustomWeb.getFileFromUCM("weblogic", "weblogic1","D_FCP_000000707777");}
-//
-//                        }
-//
-//                    if (responseByteArr == null || responseByteArr.length == 0) {
-//                        System.out.println("Error ");
-//                    } else
-//                    {
-//                        System.out.println("Length "+ responseByteArr.length);
-//                      //  outputStream.write(responseByteArr);
-//                    }
-//
-//                }
-//                else {
-//                    System.out.println("UCM problem");
-//                }
+
             } catch (Exception e) {
                 System.out.println("fileDownload : " + "Exception");
                 e.printStackTrace();
             }
-
-            email.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
-             email_recipient_popup.getValue().toString(),
-             "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
-
-    //                    email.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
-    //                     "krister.asvik@statoilfuelretail.com",
-    //                     "My Transactions ",
-    //                    email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env);
+            
+            
+            
+            
+            
+            System.out.println("sending email to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
+                
+            System.out.println("hiten");  
+            
+            try{
+            emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
+            email_recipient_popup.getValue().toString(),
+             "Statoilfuelretail : Invoice Delivery", email2, "smtp", "172.25.15.4",cc,responseByteArr,env,invoice_req);
+                    
 
                 }
             catch(Exception e) {
                 System.out.println("error in mail");
+                e.printStackTrace();
+              
             }
 
 
+        
+   
         return null;
+        
     }
-
     public void setTo_recipient(String to_recipient) {
         this.to_recipient = to_recipient;
     }
 
     public String getTo_recipient() {
-        System.out.println("inside getTo_recipient");
+//        System.out.println("inside getTo_recipient");
 //        if (session != null) {
 //            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
 //                global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
