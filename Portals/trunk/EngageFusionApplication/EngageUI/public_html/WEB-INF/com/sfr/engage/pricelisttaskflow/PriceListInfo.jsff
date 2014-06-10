@@ -6,7 +6,7 @@
     <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="printPanel1" layout="horizontal"
                         >
-      <af:outputText value="#{sfr.PRICES}" id="ot1" styleClass="heading"/>
+      <af:outputText value="#{sfr.LIST_PRICES}" id="ot1" styleClass="heading"/>
       <af:spacer width="20" height="1" id="s1"/>
       <!--<input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
              style="border-color:White; border-style:none;"
