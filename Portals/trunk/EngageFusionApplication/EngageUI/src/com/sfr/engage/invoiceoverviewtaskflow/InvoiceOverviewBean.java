@@ -31,12 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -44,18 +39,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -149,7 +132,7 @@ public class InvoiceOverviewBean implements Serializable {
         resourceBundle = new EngageResourceBundle();
         partnerList    = new ArrayList<SelectItem>();
          emailutility = new EngageEmaiUtilityl();
-        
+
 
 
         if(session.getAttribute("Partner_Object_List") != null){
@@ -185,7 +168,7 @@ public class InvoiceOverviewBean implements Serializable {
 
         currencyCode=conversionUtility.getCurrencyCode(lang);
         locale=conversionUtility.getLocaleFromCountryCode(lang);
-        
+
     }
 
     public ArrayList<SelectItem> getAccountList() {
@@ -483,7 +466,7 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
         isTransactionVisible= false;
         isInvoiceCollectionVisible=false;
-       
+
         return null;
     }
 
@@ -845,11 +828,11 @@ public class InvoiceOverviewBean implements Serializable {
 
         Property invoiceNo = new Property();
         invoiceNo.setName("xInvoiceNo");
-        invoiceNo.setValue("29091991");
+        invoiceNo.setValue(invoiceNumber.toString().trim());
 
         Property partnerId = new Property();
         partnerId.setName("xPartnerId");
-        partnerId.setValue("RON04031991");
+        partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
 
         Property docType = new Property();
         docType.setName("xDocumentType");
@@ -857,27 +840,28 @@ public class InvoiceOverviewBean implements Serializable {
 
         Property contentType = new Property();
         contentType.setName("xContentType");
-        contentType.setValue("O2C");
+        //TODO : To be read from Property file
+        contentType.setValue("FCP");
 
         Property subType = new Property();
         subType.setName("xSubType");
         //TODO : To be read from Property file
-        subType.setValue("Self_Billing_Print_Reports");
-        //subType.setValue("Invoice");
+        //subType.setValue("Self_Billing_Print_Reports");
+        subType.setValue("Invoice");
 
 
-//        Property country = new Property();
-//        country.setName("xCountry");
-//        country.setValue("DK");
+        Property country = new Property();
+        country.setName("xCountry");
+        country.setValue(lang);
 
 
 
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
 
         searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
-        
+
         searchInputVO.getSearchInputQueryProperty().add(partnerId);
-        
+
         searchInputVO.getSearchInputQueryProperty().add(docType);
         searchInputVO.getSearchInputQueryProperty().add(contentType);
         searchInputVO.getSearchInputQueryProperty().add(subType);
@@ -1093,13 +1077,35 @@ public class InvoiceOverviewBean implements Serializable {
         }
     }
 
+    private String getLocalizedString(String Key, String countryCode) {
+                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass() + "invoiceOverviewBean.getLocalizedString : "+"in getLocalizedString");
+                HashMap paramList = new HashMap();
+
+                paramList.put("translationkey", Key);
+                paramList.put("ccCode", countryCode);
+                String value=accessDC.callDCForErrorMsg("getTranslation", paramList);
+                if(value!=null)
+                    return value;
+                else
+                    return "";
+                }
+
     public String triggermail() {
-        
-        
+
+        DAOFactory daoFactory = new DAOFactory();
+
+
+        if(session!= null) {
+        lang = (String)session.getAttribute(Constants.userLang);
+        System.out.println("lang "+lang);
+        }
+        String contact_Link=daoFactory.getPropertyValue("CONTACT_STATOIL"+"_"+lang);
+        String engagePortalLink=daoFactory.getPropertyValue("WSPORTAL_LINK"+"_"+lang);
 
         System.out.println("In mail meethod");
+        boolean sendEmail = false;
 
-            
+
 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
                 request = (HttpServletRequest)ectx.getRequest();
@@ -1115,9 +1121,9 @@ public class InvoiceOverviewBean implements Serializable {
         }
         }
 
- 
 
-           
+
+
                      String[] months = {"January", "February",
                        "March", "April", "May", "June", "July",
                        "August", "September", "October", "November",
@@ -1188,9 +1194,11 @@ public class InvoiceOverviewBean implements Serializable {
                 "<div style=\"font-size:16px;\"><br>\n" +
                     "<i>  Dear Customer, <br><br>" +
                 //"<i>  Dear " + first_name + ",<br><br>" +
-                "Please find the attached copy of your requested invoice." +
-                " For more transaction details, please log on to <a href=\"http://10.24.240.12:11014/EngagePortal\"><font Color=\"#F89518\">Engage Portal.</font></a> <br><br>" +
-                "Sincerely,<br>SFR Engage Portal Team" +
+                getLocalizedString("ENCLOSED", lang) +
+                "<a href=" + engagePortalLink +"><font Color=\"#F89518\">"+ getLocalizedString("ENGAGE_PORTAL", lang)+ "</font></a>"+"."+ getLocalizedString("HESITATE", lang) +"<br>" +
+                getLocalizedString("AUTOGENERATED", lang) + "<br>"+
+                getLocalizedString("CONTACTDETAILS", lang) + "<a href=" + contact_Link + "><font Color=\"#F89518\">here.</font></a>"+
+                //"Sincerely,<br>SFR Engage Portal Team" +
         //            "TWe look forward to serve you better on your every online shopping experience. Do visit us soon!<br><br>"+
     //                "<a href=\"http://www.statoilfuelretail.com\"><font Color=\"#F89518\">www.statoilfuelretail.com</a></font>"+
         //            "<a href=\\\"http://10.24.240.6:11104/WsPortal\"><font Color=\"#73D2EE\">Click Here</font></a>" +
@@ -1206,7 +1214,7 @@ public class InvoiceOverviewBean implements Serializable {
                 "        <td align=\"left\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(243,243,243); \"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"15\">\n" +
                 "          <tr>\n" +
                 "            <td align=\"left\" valign=\"top\" style=\"color:#7F7F7F; font-family:gerogia; font-size:16px; \">Copyright © 2013 Statoil Fuel & Retail<br>" +
-                "     <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><a href=\"http://www.statoil.com/en/About/Siteinfo/Pages/Termsandconditions.aspx\"><font Color=\"##F89518\">Terms and Conditions</font></a><b><font Color=\"#7F7F7F\"> . </font></b><a href=\"http://www.statoil.com/en/About/Siteinfo/Pages/Privacypolicy.aspx\"><font Color=\"#F89518\">Privacy Policy</font></a><b><font Color=\"#7F7F7F\"> . </font></b><a href=\"http://www.statoil.com/en/About/Siteinfo/Pages/Feedback.aspx\"><font Color=\"#F89518\">Feedback</font></a><b><font Color=\"#7F7F7F\"> . </font></b><a href=\"http://www.statoil.com/en/About/Siteinfo/Pages/Contact.aspx\"><font Color=\"#F89518\">Contact Statoil</font></a></td>" +
+                "     <td align=\"right\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\"><a href=" + contact_Link +"><font Color=\"#F89518\">Contact Statoil</font></a></td>" +
                 "          </tr>\n" +
                 "        </table></td>\n" +
                 "      </tr>\n" +
@@ -1236,6 +1244,7 @@ public class InvoiceOverviewBean implements Serializable {
                                                         UCMInvoiceContentId);
                     if (responseByteArr == null || responseByteArr.length == 0) {
     //                        isError = true;
+                        sendEmail = false;
                         System.out.println("Error");
                     }
                 }
@@ -1243,9 +1252,11 @@ public class InvoiceOverviewBean implements Serializable {
                     responseByteArr = searchGetFile(invoice_req);
                     if(responseByteArr!=null && responseByteArr.length!=0) {
                       System.out.println(responseByteArr.length);
+                        sendEmail = true;
                     }else
                     {
                     //isError = true;
+                    sendEmail = false;
                         System.out.println("Eoorororoo");
                     }
 
@@ -1256,7 +1267,9 @@ public class InvoiceOverviewBean implements Serializable {
                      responseByteArr=searchGetFile(invoice_req);
                    if(responseByteArr!=null && responseByteArr.length!=0) {
                        System.out.println(responseByteArr.length);
+                       sendEmail = true;
                    }else {
+                       sendEmail=false;
                    System.out.println("Eoorororoodddd");
                    }
 
@@ -1270,33 +1283,38 @@ public class InvoiceOverviewBean implements Serializable {
                 System.out.println("fileDownload : " + "Exception");
                 e.printStackTrace();
             }
-            
-            
-            
-            
-            
-            System.out.println("sending email to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
-                
-            System.out.println("hiten");  
-            
+
+
+
+
+
+            System.out.println("sending email" + sendEmail +" to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
+
+            System.out.println("hiten");
+
             try{
+                if(sendEmail)
+                {
             emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
             email_recipient_popup.getValue().toString(),
              "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
-                    
+                }
+                else {
+                    System.out.println("Throw adf message of mail can not be send");
+                }
 
                 }
             catch(Exception e) {
                 System.out.println("error in mail");
                 e.printStackTrace();
-              
+
             }
 
 
-        
-   
+
+
         return null;
-        
+
     }
     public void setTo_recipient(String to_recipient) {
         this.to_recipient = to_recipient;

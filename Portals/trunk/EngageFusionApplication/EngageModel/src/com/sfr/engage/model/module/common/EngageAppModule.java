@@ -17,4 +17,6 @@ public interface EngageAppModule extends ApplicationModule {
     void updateVehicleDriver(String cardNumber, String type, String countryCd,
                              String vehicleDriverValue,
                              String associatedAccount);
+
+    String getTranslation(String translationkey, String ccCode);
 }

@@ -127,5 +127,11 @@
         <Item Value="InvoiceDocType"/>
       </AttrNames>
     </attributeValues>
+    <methodAction id="getTranslation" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="getTranslation" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.getTranslation_EngageAppModuleDataControl_dataProvider_getTranslation_result">
+      <NamedData NDName="translationkey" NDType="java.lang.String"/>
+      <NamedData NDName="ccCode" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>
