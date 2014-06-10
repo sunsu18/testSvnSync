@@ -50,21 +50,6 @@ public class PrtCardDriverVehicleInfoRVOImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("countryCd", value);
     }
 
-    /**
-     * Returns the bind variable value for partnerValue.
-     * @return bind variable value for partnerValue
-     */
-    public String getpartnerValue() {
-        return (String)getNamedWhereClauseParam("partnerValue");
-    }
-
-    /**
-     * Sets <code>value</code> for bind variable partnerValue.
-     * @param value value to bind as partnerValue
-     */
-    public void setpartnerValue(String value) {
-        setNamedWhereClauseParam("partnerValue", value);
-    }
 
     /**
      * Returns the bind variable value for paramValue.

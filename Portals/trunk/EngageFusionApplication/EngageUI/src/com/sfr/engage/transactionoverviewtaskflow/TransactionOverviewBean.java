@@ -713,7 +713,7 @@ public class TransactionOverviewBean implements Serializable {
                                                     populateStringValues(getBindings().account.getValue().toString()));
                     }
                     vo.setNamedWhereClauseParam("countryCd", lang);
-                    vo.setNamedWhereClauseParam("partnerValue", partnerId);
+                    //vo.setNamedWhereClauseParam("partnerValue", partnerId);
                     vo.setNamedWhereClauseParam("paramValue", paramType);
                     vo.executeQuery();
                     if (vo.getEstimatedRowCount() > 0) {

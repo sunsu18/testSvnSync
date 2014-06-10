@@ -32,43 +32,40 @@
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="partnerValue"
-    Kind="where"
-    Type="java.lang.String"/>
-  <Variable
     Name="paramValue"
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT PDI.DRIVER_NAME || '-' || PC.CARD_EMBOSS_NUM AS DRIVER_NAME
-       ,null as VEHICLE_NUMBER
+    <![CDATA[SELECT PDI.DRIVER_NAME || '-' || DECODE(PC.CARD_EMBOSS_NUM,NULL,PDI.REFERENCE_NUMBER,PC.CARD_EMBOSS_NUM) AS DRIVER_NAME
+      ,null as VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
       ,PDI.REFERENCE_NUMBER
-FROM PRT_CARD PC
-    ,PRT_DRIVER_INFORMATION PDI
-WHERE PC.ACCOUNT_ID          = trim(PDI.ACCOUNT_NUMBER)
-AND   PC.COUNTRY_CODE        = PDI.COUNTRY_CODE
-AND   PC.PRT_CARD_PK        = PDI.CARD_NUMBER
+FROM PRT_DRIVER_INFORMATION PDI
+LEFT JOIN PRT_CARD PC
+ON    (PDI.CARD_NUMBER        = PC.PRT_CARD_PK
+AND    PDI.ACCOUNT_NUMBER     = PC.ACCOUNT_ID
+AND    PDI.COUNTRY_CODE       = PC.COUNTRY_CODE)
+WHERE  PDI.COUNTRY_CODE       = :countryCd
+--AND   PC.PARTNER_ID         = :partnerValue
+AND   'Driver'                = :paramValue
 AND   INSTR(:accountValue,PDI.ACCOUNT_NUMBER)<>0
-AND   PDI.COUNTRY_CODE       = :countryCd
-AND   PC.PARTNER_ID          = :partnerValue
-AND   'Driver'               = :paramValue
 
 UNION
 
+
 SELECT null as DRIVER_NAME 
-      ,PTI.VEHICLE_NUMBER || '-' || PC.CARD_EMBOSS_NUM AS VEHICLE_NUMBER
+      ,PTI.VEHICLE_NUMBER || '-' || DECODE(PC.CARD_EMBOSS_NUM,NULL,PTI.REFERENCE_NUMBER,PC.CARD_EMBOSS_NUM) AS VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
       ,PTI.REFERENCE_NUMBER
-FROM PRT_CARD PC
-    ,PRT_TRUCK_INFORMATION PTI
-WHERE PC.ACCOUNT_ID            = trim(PTI.ACCOUNT_NUMBER)
-AND   PC.COUNTRY_CODE          = PTI.COUNTRY_CODE
-AND   PC.PRT_CARD_PK          = PTI.CARD_NUMBER
-AND   INSTR(:accountValue,PTI.ACCOUNT_NUMBER)<>0
-AND   PTI.COUNTRY_CODE         = :countryCd
-AND   PC.PARTNER_ID            = :partnerValue
-AND   'Vehicle'                = :paramValue]]>
+FROM PRT_TRUCK_INFORMATION PTI
+LEFT JOIN PRT_CARD PC
+ON    (PTI.CARD_NUMBER        = PC.PRT_CARD_PK
+AND    PTI.ACCOUNT_NUMBER     = PC.ACCOUNT_ID
+AND    PTI.COUNTRY_CODE       = PC.COUNTRY_CODE)
+WHERE PTI.COUNTRY_CODE         = :countryCd
+--AND   PC.PARTNER_ID            = :partnerValue
+AND   'Vehicle'                = :paramValue
+AND   INSTR(:accountValue,PTI.ACCOUNT_NUMBER)<>0]]>
   </SQLQuery>
   <ViewAttribute
     Name="DriverName"

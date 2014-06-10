@@ -347,7 +347,7 @@
                 <f:validator binding="#{bindings.DriverName.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10" id="colnSpace2"/>
-              <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid245"/>
+              <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid245"/>
                 <af:outputText value=":" id="colonpop424"/>
                 <af:spacer width="15" height="30" id="s21227"/>
                 <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
@@ -633,7 +633,7 @@
 
                 <af:spacer width="25" height="10" id="DrivSpac3"/>
                 
-                <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid2456"/>
+                <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid2456"/>
                 <af:outputText value=":" id="colonpop4245"/>
                 <af:spacer width="15" height="30" id="s212278"/>
                 <af:inputText value="#{bindings.ReferenceNumber.inputValue}"

@@ -375,7 +375,7 @@
                 </af:inputText>
                 <af:spacer width="25" height="10" id="sp31"/>
                 
-                <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid243"/>
+                <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid243"/>
                 <af:outputText value=":" id="colonpop423"/>
                 <af:spacer width="15" height="30" id="s21225"/>
                 <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
@@ -657,7 +657,7 @@
                 
                 <af:spacer width="25" height="10" id="colnSpace41"/>
                 
-                <af:outputText value="#{sfr.REFERENCE_NNUMBER}" id="Acctid245"/>
+                <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid245"/>
                 <af:outputText value=":" id="colonpop424"/>
                 <af:spacer width="15" height="30" id="s21227"/>
                 <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
