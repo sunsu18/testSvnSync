@@ -1133,8 +1133,8 @@ public class InvoiceOverviewBean implements Serializable {
                      System.out.println("Day name: " + dayOfMonth);
 
 
-                   //String env = "/u01/WCP_DEV/stores/images/statoil_logo.jpg";
-                   String env = "C:\\Users\\10604129\\Desktop\\IMG_3380.jpg";
+                   String env = "/u01/WCP_DEV/stores/images/statoil_logo.jpg";
+                   //String env = "C:\\Users\\10604129\\Desktop\\IMG_3380.jpg";
 
 
 
