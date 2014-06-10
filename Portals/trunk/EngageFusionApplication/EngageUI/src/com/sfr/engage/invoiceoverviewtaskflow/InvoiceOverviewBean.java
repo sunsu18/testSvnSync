@@ -1548,18 +1548,20 @@ public class InvoiceOverviewBean implements Serializable {
 
 
 
-            System.out.println("sending email" + sendEmail +" to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
 
-            System.out.println("hiten");
+
+            //System.out.println("hiten");
 
             try{
                 if(sendEmail)
                 {
+            System.out.println("sending email" + sendEmail +" to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
             emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
             email_recipient_popup.getValue().toString(),
              "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
                 }
                 else {
+
                     System.out.println("Throw adf message of mail can not be send");
                 }
 
