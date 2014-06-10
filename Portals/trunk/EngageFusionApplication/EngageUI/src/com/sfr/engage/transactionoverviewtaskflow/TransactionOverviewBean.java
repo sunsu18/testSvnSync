@@ -120,6 +120,8 @@ public class TransactionOverviewBean implements Serializable {
     private String strDriverExtra;
     private boolean shuttleStatus=false;
     private boolean noteVisible=true;
+    private boolean fromDateInitial=true;
+    private boolean toDateInitial=true;
 
     private String vehicleNumberOdometer = "";
     private String odometerPortal = null;
@@ -173,7 +175,7 @@ public class TransactionOverviewBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "CardGroup "+cardGroupQuery);
             }
-            if(session.getAttribute("account_Query")!=null)
+            if(session.getAttribute("card_Query")!=null)
             {
             cardQuery=session.getAttribute("card_Query").toString().trim();
             mapCardListValue= (Map<String,String>)session.getAttribute("map_Card_List");
@@ -3753,14 +3755,18 @@ public class TransactionOverviewBean implements Serializable {
         }
 
         public void setFromDate(RichInputDate fromDate) {
+            if(fromDateInitial)
+            {
             Date dateNow = new java.util.Date();
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateNow);
             gc.add(GregorianCalendar.MONTH, -1);
             Date dateBefore = gc.getTime();
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateBefore);
             fromDate.setValue(tmp);
+                fromDateInitial=false;
+            }
             this.fromDate = fromDate;
         }
 
@@ -3769,10 +3775,14 @@ public class TransactionOverviewBean implements Serializable {
         }
 
         public void setToDate(RichInputDate toDate) {
+            if(toDateInitial)
+            {
             Date dateNow = new java.util.Date();
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateNow);
             toDate.setValue(tmp);
+                toDateInitial=false;
+            }
             this.toDate = toDate;
         }
 
