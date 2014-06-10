@@ -179,28 +179,28 @@ public class InvoiceOverviewBean implements Serializable {
 
         //*Added for 1000 card isssue
         if(session!=null) {
-            if(session.getAttribute("account_Query")!=null)
+            if(session.getAttribute("account_Query_Invoice_overview")!=null)
             {            
-            accountQuery=session.getAttribute("account_Query").toString().trim();
-            mapAccountListValue= (Map<String,String>)session.getAttribute("map_Account_List");
+            accountQuery=session.getAttribute("account_Query_Invoice_overview").toString().trim();
+            mapAccountListValue= (Map<String,String>)session.getAttribute("map_Account_List_Invoice_overview");
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                  "account Query & mapAccountList is found");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "account "+accountQuery);
             }
-            if(session.getAttribute("cardGroup_Query")!=null)
+            if(session.getAttribute("cardGroup_Query_Invoice_overview")!=null)
             {
-            cardGroupQuery=session.getAttribute("cardGroup_Query").toString().trim();
-            mapCardGroupListValue= (Map<String,String>)session.getAttribute("map_CardGroup_List");
+            cardGroupQuery=session.getAttribute("cardGroup_Query_Invoice_overview").toString().trim();
+            mapCardGroupListValue= (Map<String,String>)session.getAttribute("map_CardGroup_List_Invoice_overview");
              _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                  "CardGroup Query & mapCardGroupList is found");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "CardGroup "+cardGroupQuery);
             }
-            if(session.getAttribute("account_Query")!=null)
+            if(session.getAttribute("account_Query_Invoice_overview")!=null)
             {
-            cardQuery=session.getAttribute("card_Query").toString().trim();
-            mapCardListValue= (Map<String,String>)session.getAttribute("map_Card_List");
+            cardQuery=session.getAttribute("card_Query_Invoice_overview").toString().trim();
+            mapCardListValue= (Map<String,String>)session.getAttribute("map_Card_List_Invoice_overview");
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                  "card Query & mapCardList is found");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -451,7 +451,7 @@ public class InvoiceOverviewBean implements Serializable {
                 cardQuery="((";
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
                 invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
@@ -583,12 +583,12 @@ public class InvoiceOverviewBean implements Serializable {
                 }
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed is="+invoiceVO.getQuery());
                 invoiceVO.executeQuery();
-                session.setAttribute("account_Query",accountQuery);
-                session.setAttribute("map_Account_List",mapAccountListValue);
-                session.setAttribute("cardGroup_Query",cardGroupQuery);
-                session.setAttribute("map_CardGroup_List",mapCardGroupListValue);
-                session.setAttribute("card_Query",cardQuery);
-                session.setAttribute("map_Card_List",mapCardListValue);
+                session.setAttribute("account_Query_Invoice_overview",accountQuery);
+                session.setAttribute("map_Account_List_Invoice_overview",mapAccountListValue);
+                session.setAttribute("cardGroup_Query_Invoice_overview",cardGroupQuery);
+                session.setAttribute("map_CardGroup_List_Invoice_overview",mapCardGroupListValue);
+                session.setAttribute("card_Query_Invoice_overview",cardQuery);
+                session.setAttribute("map_Card_List_Invoice_overview",mapCardListValue);
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count=="+invoiceVO.getEstimatedRowCount());
                 searchResults=true;
