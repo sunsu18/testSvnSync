@@ -5,23 +5,23 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="e006cardpalstoportal_client" x="0" y="90" side="left"/>
-      <partnerlink name="SelectDeltaTSDBAdapter" x="0" y="2293" side="left"/>
-      <partnerlink name="GetPALSDB2CountDBAdapter" x="0" y="3094" side="left"/>
-      <partnerlink name="PALSDB2DBAdapter" x="0" y="1834" side="left"/>
-      <partnerlink name="MergeCardPortalDBAdapter" x="0" y="3192" side="left"/>
-      <partnerlink name="SOAErrorDBAdapter" x="0" y="2861" side="left"/>
-      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="3976" side="left"/>
-      <partnerlink name="InsertPALSDataToTempCardPortalDBAdapter" x="0" y="2918" side="left"/>
-      <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="3009" side="left"/>
-      <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="3286" side="left"/>
-      <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="3563" side="left"/>
-      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="1652" side="left"/>
-      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4322" side="left"/>
-      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4777" side="left"/>
-      <partnerlink name="CardPortalProcDBAdapter" x="0" y="2804" side="left"/>
-      <partnerlink name="CardPALSToPOrtalService" x="0" y="5630" side="left"/>
+      <partnerlink name="SelectDeltaTSDBAdapter" x="0" y="2353" side="left"/>
+      <partnerlink name="GetPALSDB2CountDBAdapter" x="0" y="3139" side="left"/>
+      <partnerlink name="PALSDB2DBAdapter" x="0" y="1924" side="left"/>
+      <partnerlink name="MergeCardPortalDBAdapter" x="0" y="3282" side="left"/>
+      <partnerlink name="SOAErrorDBAdapter" x="0" y="2951" side="left"/>
+      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="4066" side="left"/>
+      <partnerlink name="InsertPALSDataToTempCardPortalDBAdapter" x="0" y="3008" side="left"/>
+      <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="3082" side="left"/>
+      <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="3376" side="left"/>
+      <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="3653" side="left"/>
+      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="1688" side="left"/>
+      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4412" side="left"/>
+      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4867" side="left"/>
+      <partnerlink name="CardPortalProcDBAdapter" x="0" y="2894" side="left"/>
+      <partnerlink name="CardPALSToPOrtalService" x="0" y="5720" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="31,1657,797,414" show_swimlanes="true">
+   <graph_layout viewport="40,1200,741,367" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -35,6 +35,7 @@
       <layout_item collapsed="false" xpath="/process/sequence/scope[1]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence" type="sequence"/>
+      <layout_item collapsed="true" xpath="/process/sequence/scope[2]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/while" type="while"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]" type="scope" showhandlers="true"/>

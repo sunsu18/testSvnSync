@@ -39,4 +39,7 @@
       </persistence-config>
     </mds-config>
   </adf-mds-config>
+  <adf-controller-config xmlns="http://xmlns.oracle.com/adf/controller/config">
+    <detect-metadata-changes>true</detect-metadata-changes>
+  </adf-controller-config>
 </adf-config>

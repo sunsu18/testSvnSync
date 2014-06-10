@@ -2,8 +2,28 @@
 <Faults>
    <Fault>
       <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='CardPALSToPOrtalService']</loc>
+      <line>216</line>
+      <col>58</col>
+      <file>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
+      <name>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "CardPALSToPOrtalService":"{http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal}E006CardPALSToPortal_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/ns:composite/ns:reference[@name='CardPALSToPOrtalService']</loc>
+      <line>216</line>
+      <col>58</col>
+      <file>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
+      <name>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
+      <fix/>
+      <msg>Failed to Find Binding "CardPALSToPOrtalService":"{http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal}E006CardPALSToPortal_pt" in WSDL Manager</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
       <loc/>
-      <line>641</line>
+      <line>660</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
@@ -13,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1125</line>
+      <line>1144</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
@@ -23,7 +43,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1125</line>
+      <line>1144</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
@@ -33,7 +53,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1125</line>
+      <line>1144</line>
       <col/>
       <file>E006CardPALSToPortal.bpel</file>
       <name>E006CardPALSToPortal.bpel</name>
