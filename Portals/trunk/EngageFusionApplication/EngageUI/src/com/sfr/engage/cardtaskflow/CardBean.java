@@ -151,6 +151,7 @@ public class CardBean implements Serializable {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         statusValue = new ArrayList<String>();
+        valueList = new ValueListSplit();
 
         resourceBundle = new EngageResourceBundle();
         partnerId=null;
@@ -751,13 +752,10 @@ public class CardBean implements Serializable {
                 driverModifiedDateVisible=false;
                 populateValue(valueChangeEvent.getNewValue().toString());
 
-                 if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
-                 {
-                   
-                    
-                      driverNameValue=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
-                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null  )
-                     {
+                 if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null){
+                    driverNameValue=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy") != null &&
+                       AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null){
                          vehicleModifiedByVisible=false;
                          vehicleModifiedDateVisible=false;
                          driverModifiedByVisible=true;
@@ -765,47 +763,33 @@ public class CardBean implements Serializable {
                          driverModifiedBy= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
                          driverModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
                      } 
-                      
                  }
-                
                  
-   
-                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName") != null)
-                     {
-                         displayDriverName=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString().trim();  
-                     }
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName") != null){
+                    displayDriverName=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString().trim();  
+                }
                      
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNumber());
-               
-
-            } else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
+            }
+            else if (valueChangeEvent.getNewValue().equals("Vehicle")) {
                 this.getBindings().getDriverNumber().setValue(null);
                 showErrorMsgEditFlag = false;
                 this.displayDriverName = null;
                 driverPGL = false;
                 vehiclePGL = true;
                 populateValue(valueChangeEvent.getNewValue().toString());
-
-                
-                                 if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
-                                 {
-                    
-                                   
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null){
                     vehicleNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString().trim();
-                    
-                    
-                                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null  )
-                                     {
-                                         
-                                         driverModifiedByVisible=false;
-                                         driverModifiedDateVisible=false;
-                                         vehicleModifiedByVisible=true;
-                                         vehicleModifiedDateVisible=true;
-                                         vehicleModifiedBy= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
-                                         vehicleModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
-                                     } 
-                                     
-                                 }
+                    if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy") != null &&
+                       AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null ){
+                        driverModifiedByVisible=false;
+                        driverModifiedDateVisible=false;
+                        vehicleModifiedByVisible=true;
+                        vehicleModifiedDateVisible=true;
+                        vehicleModifiedBy= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
+                        vehicleModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
+                    } 
+                }
                      
                      if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("InternalName") != null)
                      {
@@ -856,25 +840,18 @@ public class CardBean implements Serializable {
       
         if (paramType != null) {
             associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
-           
             if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
                 if (vehiclePGL) {
-                   
                     vehicleNumberList = new ArrayList<SelectItem>();
                 }
                 if (driverPGL) {
-        driverNameList = new ArrayList<SelectItem>();
-
+                    driverNameList = new ArrayList<SelectItem>();
                 }
                 ViewObject vo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
-             
                 if (associatedAccount != null) {
-                  
                     vo.setNamedWhereClauseParam("accountValue", associatedAccount);
                 }
-            
                 vo.setNamedWhereClauseParam("countryCd", lang);
-
                 vo.setNamedWhereClauseParam("paramValue", paramType);
                 if (paramType == "Driver") {
                     vo.setNamedWhereClauseParam("driverNumber", null);
@@ -889,27 +866,18 @@ public class CardBean implements Serializable {
                             PrtViewVehicleDriverVORowImpl currRow = (PrtViewVehicleDriverVORowImpl)vo.next();
                             if (currRow != null) {
                                 if (paramType.equals("Vehicle")) {
-
                                     SelectItem selectItem = new SelectItem();
-
                                     if (currRow.getAttribute("VehicleNumber") != null) {
-
                                         selectItem.setLabel(currRow.getVehicleNumber().toString().trim());
                                         selectItem.setValue(currRow.getVehicleNumber().toString().trim());
-                                       
                                         truckDriverList.put(currRow.getVehicleNumber().toString(), currRow.getInternalName());
-
                                     }
                                     vehicleNumberList.add(selectItem);
                                 } else {
-                                   
                                     SelectItem selectItem = new SelectItem();
-
                                     if (currRow.getAttribute("DriverNumber") != null) {
-                                       
                                         selectItem.setLabel(currRow.getDriverNumber().toString().trim());
                                         selectItem.setValue(currRow.getDriverNumber().toString().trim());
-                                        
                                         truckDriverList.put(currRow.getDriverNumber().toString(), currRow.getDriverName());
                                     }
                                     driverNameList.add(selectItem);
