@@ -139,8 +139,8 @@ public class InvoiceOverviewBean implements Serializable {
         session = request.getSession(false);
         resourceBundle = new EngageResourceBundle();
         partnerList    = new ArrayList<SelectItem>();
-         emailutility = new EngageEmaiUtilityl();
-
+        emailutility = new EngageEmaiUtilityl();
+        valueList = new ValueListSplit();
 
 
         if(session.getAttribute("Partner_Object_List") != null){
@@ -451,7 +451,7 @@ public class InvoiceOverviewBean implements Serializable {
                 cardQuery="((";
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
                 invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
@@ -670,13 +670,15 @@ public class InvoiceOverviewBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
-        if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+        if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
+            cardTransactionVO.removeNamedWhereClauseParam("country_code");
             cardTransactionVO.setWhereClause("");
             cardTransactionVO.executeQuery();
         }
-        if ("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+        if ("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
             cardTransactionVO.removeNamedWhereClauseParam("nonCollecInvNo");
+            cardTransactionVO.removeNamedWhereClauseParam("country_code");
             cardTransactionVO.setWhereClause("");
             cardTransactionVO.executeQuery();
         }
@@ -705,15 +707,20 @@ public class InvoiceOverviewBean implements Serializable {
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
 
-
+        
         if(invoiceGroupingValue!=null) {
             if(invoiceGroupingValue.equals("FAK")) {
-                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo");
+                               
+                
+                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
                 cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",invoiceNumberValue,null);
+                cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
             }else {
                 if(invoiceGroupingValue.equals("SAM")) {
-                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo");
+                   
+                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
                     cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",invoiceNumberValue,null);
+                    cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
                 }
             }
             log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransaction Query="+cardTransactionVO.getQuery());

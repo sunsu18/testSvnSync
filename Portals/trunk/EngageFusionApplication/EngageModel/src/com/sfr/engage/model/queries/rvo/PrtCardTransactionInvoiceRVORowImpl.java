@@ -47,6 +47,17 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        InvoiceNumberNonCollective {
+            public Object get(PrtCardTransactionInvoiceRVORowImpl obj) {
+                return obj.getInvoiceNumberNonCollective();
+            }
+
+            public void put(PrtCardTransactionInvoiceRVORowImpl obj,
+                            Object value) {
+                obj.setInvoiceNumberNonCollective((String)value);
+            }
+        }
+        ,
         InvoiceNumberCollective {
             public Object get(PrtCardTransactionInvoiceRVORowImpl obj) {
                 return obj.getInvoiceNumberCollective();
@@ -58,14 +69,14 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        InvoiceNumberNonCollective {
+        PalsCountryCode {
             public Object get(PrtCardTransactionInvoiceRVORowImpl obj) {
-                return obj.getInvoiceNumberNonCollective();
+                return obj.getPalsCountryCode();
             }
 
             public void put(PrtCardTransactionInvoiceRVORowImpl obj,
                             Object value) {
-                obj.setInvoiceNumberNonCollective((String)value);
+                obj.setPalsCountryCode((String)value);
             }
         }
         ,
@@ -134,8 +145,9 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
     public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
     public static final int QUANTITY = AttributesEnum.Quantity.index();
     public static final int STATIONNAME = AttributesEnum.StationName.index();
-    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
     public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
+    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
+    public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
     public static final int CARD1ID = AttributesEnum.Card1Id.index();
     public static final int INVOICEDGROSSAMOUNT = AttributesEnum.InvoicedGrossAmount.index();
     public static final int INVOICEDNETAMOUNT = AttributesEnum.InvoicedNetAmount.index();
@@ -208,6 +220,22 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
      */
     public void setInvoiceNumberCollective(String value) {
         setAttributeInternal(INVOICENUMBERCOLLECTIVE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PalsCountryCode.
+     * @return the PalsCountryCode
+     */
+    public String getPalsCountryCode() {
+        return (String) getAttributeInternal(PALSCOUNTRYCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PalsCountryCode.
+     * @param value value to set the  PalsCountryCode
+     */
+    public void setPalsCountryCode(String value) {
+        setAttributeInternal(PALSCOUNTRYCODE, value);
     }
 
     /**

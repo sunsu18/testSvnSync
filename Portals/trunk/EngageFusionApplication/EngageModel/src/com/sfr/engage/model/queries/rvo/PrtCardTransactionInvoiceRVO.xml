@@ -24,8 +24,8 @@
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
-    <![CDATA[SELECT PRT_CARD_TRANSACTION_DETAIL.product_NAME,PRT_CARD_TRANSACTION_DETAIL.quantity,PRT_CARD_TRANSACTION_HEADER.station_NAME,PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_COLLECTIVE,
-PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_NON_COLLECTIVE ,prt_card_transaction_header.card_1_id,
+    <![CDATA[SELECT PRT_CARD_TRANSACTION_DETAIL.product_NAME,PRT_CARD_TRANSACTION_DETAIL.quantity,PRT_CARD_TRANSACTION_HEADER.station_NAME,PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_NON_COLLECTIVE,PRT_CARD_TRANSACTION_HEADER.INVOICE_NUMBER_COLLECTIVE,PRT_CARD_TRANSACTION_HEADER.pals_country_code,
+prt_card_transaction_header.card_1_id,
 PRT_CARD_TRANSACTION_DETAIL.invoiced_gross_amount,PRT_CARD_TRANSACTION_DETAIL.invoiced_net_amount FROM 
 PRT_CARD_TRANSACTION_HEADER inner join PRT_CARD_TRANSACTION_DETAIL ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID 
 and prt_card_transaction_header.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)]]>
@@ -77,6 +77,21 @@ and prt_card_transaction_header.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pa
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="InvoiceNumberNonCollective"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICE_NUMBER_NON_COLLECTIVE"
+    Expression="INVOICE_NUMBER_NON_COLLECTIVE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="InvoiceNumberCollective"
     IsUpdateable="false"
     IsPersistent="false"
@@ -92,18 +107,19 @@ and prt_card_transaction_header.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pa
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceNumberNonCollective"
+    Name="PalsCountryCode"
     IsUpdateable="false"
     IsPersistent="false"
+    IsNotNull="true"
     PrecisionRule="true"
-    Precision="9"
+    Precision="2"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="INVOICE_NUMBER_NON_COLLECTIVE"
-    Expression="INVOICE_NUMBER_NON_COLLECTIVE"
+    AliasName="PALS_COUNTRY_CODE"
+    Expression="PALS_COUNTRY_CODE"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="9"/>
+      <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
