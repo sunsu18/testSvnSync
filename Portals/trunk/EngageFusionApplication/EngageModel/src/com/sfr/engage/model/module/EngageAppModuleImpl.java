@@ -6,15 +6,20 @@ import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
+import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
+import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
@@ -518,5 +523,13 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
      */
     public PrtNewInvoiceVOImpl getPrtNewInvoiceVO1() {
         return (PrtNewInvoiceVOImpl)findViewObject("PrtNewInvoiceVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardTransactionVehicleInfoRVO1.
+     * @return PrtCardTransactionVehicleInfoRVO1
+     */
+    public PrtCardTransactionVehicleInfoRVOImpl getPrtCardTransactionVehicleInfoRVO1() {
+        return (PrtCardTransactionVehicleInfoRVOImpl)findViewObject("PrtCardTransactionVehicleInfoRVO1");
     }
 }
