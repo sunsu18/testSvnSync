@@ -891,8 +891,10 @@
              <af:spacer width="10" height="3" id="s19"/>
               <af:outputText value="#{bindings.InvoivedVatRebated.inputValue}"
                            id="ot20">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.InvoivedVatRebated.format}"/>
+             <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
             </af:outputText>
             <af:spacer width="10" height="3" id="s22"/>
             <af:outputText value="#{bindings.InvoicedNetAmountRebated.inputValue}"
