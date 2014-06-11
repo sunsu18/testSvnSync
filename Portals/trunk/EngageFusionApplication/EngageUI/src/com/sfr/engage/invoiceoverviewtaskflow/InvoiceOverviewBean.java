@@ -5,6 +5,7 @@ import com.sfr.core.bean.EngageEmaiUtilityl;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.ValueListSplit;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
@@ -298,313 +299,380 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
-        if(getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null) {
-             fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-             toDate = (java.util.Date)getBindings().getToDate().getValue();
+        if (getBindings().getPartnerNumber().getValue() != null &&
+            getBindings().getAccount().getValue() != null &&
+            getBindings().getFromDate().getValue() != null &&
+            getBindings().getToDate().getValue() != null &&
+            getBindings().getCardGpCardList().getValue() != null) {
+            fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+            toDate = (java.util.Date)getBindings().getToDate().getValue();
             if (toDate.before(fromDate)) {
                 if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                     FacesMessage msg =
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                          (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
                                          "");
-                    FacesContext.getCurrentInstance().addMessage(null,
-                                                                 msg);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
-          }
+            }
 
 
             else {
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "AccountValue="+getBindings().getAccount().getValue());
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+getBindings().getFromDate().getValue());
-                ViewObject invoiceVO =ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Before Query="+invoiceVO.getQuery());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "AccountValue=" +
+                         getBindings().getAccount().getValue());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "FromDate =" +
+                         getBindings().getFromDate().getValue());
+                ViewObject invoiceVO =
+                    ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Before Query=" + invoiceVO.getQuery());
 
 
-                if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
-                    if(((accountQuery+"AND "+ cardQuery ).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))  || ((accountQuery+" AND "+ cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                    " " + "inside  card where removal with purchase code class");
-                        if(mapAccountListValue!=null)
-                        {
-                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                String values="account"+i;
+                if (cardQuery.length() > 2 && cardQuery != null &&
+                    cardGroupQuery.length() <= 2) {
+                    if (((accountQuery + "AND " +
+                          cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                        ((accountQuery + " AND " +
+                          cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                        _logger.info(accessDC.getDisplayRecord() +
+                                     this.getClass() + " " +
+                                     "inside  card where removal with purchase code class");
+                        if (mapAccountListValue != null) {
+                            for (int i = 0; i < mapAccountListValue.size();
+                                 i++) {
+                                String values = "account" + i;
                                 invoiceVO.removeNamedWhereClauseParam(values);
-                        }
-                        }else{
+                            }
+                        } else {
                             invoiceVO.removeNamedWhereClauseParam("account");
                         }
 
-                        if(mapCardListValue!=null)
-                        {
-                        for(int i=0;i< mapCardListValue.size();i++) {
-                                String values="card"+i;
+                        if (mapCardListValue != null) {
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = "card" + i;
                                 invoiceVO.removeNamedWhereClauseParam(values);
-                        }
+                            }
 
-                        }else{
+                        } else {
                             invoiceVO.removeNamedWhereClauseParam("card");
                         }
                         invoiceVO.setWhereClause("");
                         invoiceVO.executeQuery();
-                }else{
-                    if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                    " " + "inside  card with out purchase code where removal class");
-                        if(mapAccountListValue!=null)
-                        {
-                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                String values="account"+i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                        }
-                        }else {
-                            invoiceVO.removeNamedWhereClauseParam("account");
-                        }
-                        if(mapCardListValue!=null)
-                        {
-                        for(int i=0;i< mapCardListValue.size();i++) {
-                                String values="card"+i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                        }
+                    } else {
+                        if (((accountQuery + "AND " +
+                              cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                            ((accountQuery + " AND " +
+                              cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "inside  card with out purchase code where removal class");
+                            if (mapAccountListValue != null) {
+                                for (int i = 0; i < mapAccountListValue.size();
+                                     i++) {
+                                    String values = "account" + i;
+                                    invoiceVO.removeNamedWhereClauseParam(values);
+                                }
+                            } else {
+                                invoiceVO.removeNamedWhereClauseParam("account");
+                            }
+                            if (mapCardListValue != null) {
+                                for (int i = 0; i < mapCardListValue.size();
+                                     i++) {
+                                    String values = "card" + i;
+                                    invoiceVO.removeNamedWhereClauseParam(values);
+                                }
 
-                        }else{
-                            invoiceVO.removeNamedWhereClauseParam("card");
+                            } else {
+                                invoiceVO.removeNamedWhereClauseParam("card");
+                            }
+                            invoiceVO.setWhereClause("");
+                            invoiceVO.executeQuery();
                         }
-                        invoiceVO.setWhereClause("");
-                        invoiceVO.executeQuery();
                     }
-                }
-                }
-                else {
-                                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {
-                                    if(((accountQuery+"AND "+cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                            " " + "inside cardGroup with purchase code where removal class");
-                                        if(mapAccountListValue!=null)
-                                        {
-                                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                                String values="account"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else {
-                                            invoiceVO.removeNamedWhereClauseParam("account");
-                                        }
-                                        if(mapCardGroupListValue!=null)
-                                        {
-                                        for(int i=0;i< mapCardGroupListValue.size();i++) {
-                                                String values="cardGroup"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else {
-                                            invoiceVO.removeNamedWhereClauseParam("cardGroup");
-                                        }
-                                        invoiceVO.setWhereClause("");
-                                        invoiceVO.executeQuery();
-                                }else{
-                                    if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                                    " " + "inside  cardGroup with out purchase code where removal class");
-                                        if(mapAccountListValue!=null)
-                                        {
-                                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                                String values="account"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else{
-                                            invoiceVO.removeNamedWhereClauseParam("account");
-                                        }
-                                        if(mapCardGroupListValue!=null)
-                                        {
-                                        for(int i=0;i< mapCardGroupListValue.size();i++) {
-                                                String values="cardGroup"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else{
-                                            invoiceVO.removeNamedWhereClauseParam("cardGroup");
-                                        }
-                                        invoiceVO.setWhereClause("");
-                                        invoiceVO.executeQuery();
+                } else {
+                    if (cardGroupQuery.length() > 1 &&
+                        cardGroupQuery != null && cardQuery.length() <= 2) {
+                        if (((accountQuery + "AND " +
+                              cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                            ((accountQuery + " AND " +
+                              cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "inside cardGroup with purchase code where removal class");
+                            if (mapAccountListValue != null) {
+                                for (int i = 0; i < mapAccountListValue.size();
+                                     i++) {
+                                    String values = "account" + i;
+                                    invoiceVO.removeNamedWhereClauseParam(values);
+                                }
+                            } else {
+                                invoiceVO.removeNamedWhereClauseParam("account");
+                            }
+                            if (mapCardGroupListValue != null) {
+                                for (int i = 0;
+                                     i < mapCardGroupListValue.size(); i++) {
+                                    String values = "cardGroup" + i;
+                                    invoiceVO.removeNamedWhereClauseParam(values);
+                                }
+                            } else {
+                                invoiceVO.removeNamedWhereClauseParam("cardGroup");
+                            }
+                            invoiceVO.setWhereClause("");
+                            invoiceVO.executeQuery();
+                        } else {
+                            if (((accountQuery + "AND " +
+                                  cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " +
+                                  cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
+                                _logger.info(accessDC.getDisplayRecord() +
+                                             this.getClass() + " " +
+                                             "inside  cardGroup with out purchase code where removal class");
+                                if (mapAccountListValue != null) {
+                                    for (int i = 0;
+                                         i < mapAccountListValue.size(); i++) {
+                                        String values = "account" + i;
+                                        invoiceVO.removeNamedWhereClauseParam(values);
                                     }
+                                } else {
+                                    invoiceVO.removeNamedWhereClauseParam("account");
                                 }
-                            }
-
-                            }
-
-
-//                if ("INSTR(:cardPK,INVOICED_CARD)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
-//
-//                    invoiceVO.removeNamedWhereClauseParam("cardPK");
-//                    invoiceVO.setWhereClause("");
-//                    invoiceVO.executeQuery();
-//                }else {
-//                    if ("INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0".equalsIgnoreCase(invoiceVO.getWhereClause())) {
-//
-//                        invoiceVO.removeNamedWhereClauseParam("cardGroupMainType");
-//                        invoiceVO.removeNamedWhereClauseParam("cardGroupSubType");
-//                        invoiceVO.removeNamedWhereClauseParam("cardGroupSeqType");
-//                        invoiceVO.setWhereClause("");
-//                        invoiceVO.executeQuery();
-//                    }
-//                }
-//                invoiceVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV");
-                accountQuery="(";
-                cardGroupQuery="(";
-                cardQuery="((";
-                System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
-//                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
-                invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
-                invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
-                invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
-//                if(getBindings().getInvoiceType().getValue()!=null) {
-//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
-//                }else {
-//                    invoiceVO.defineNamedWhereClauseParam("invoiceType",null,null);
-//                }
-//                String baseWhereClause=invoiceVO.getWhereClause();
-
-
-                            if(accountValue.size()>250) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
-                mapAccountListValue=valueList.callValueList(accountValue.size(), accountValue);
-                     for(int i=0;i<mapAccountListValue.size();i++) {
-                      String values="account"+i;
-                    accountQuery=accountQuery+"INSTR(:"+values+",ACCOUNT_ID)<>0 OR ";
-                    }
-                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Account Query Values ="+accountQuery);
-                       accountQuery=accountQuery.substring(0, accountQuery.length()-3);
-                        accountQuery=accountQuery+")";
-
-            }else {
-                    mapAccountListValue=null;
-                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
-                accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";
-            }
-
-
-                if(getBindings().getCardGpCardList().getValue()!=null) {
-                    if("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
-
-
-                        if(cardValue.size()>250) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Card Values > 250 ");
-                            mapCardListValue=valueList.callValueList(cardValue.size(), cardValue);
-                                 for(int i=0;i<mapCardListValue.size();i++) {
-                                  String values="card"+i;
-                                cardQuery=cardQuery+"INSTR(:"+values+",INVOICED_CARD)<>0 OR ";
+                                if (mapCardGroupListValue != null) {
+                                    for (int i = 0;
+                                         i < mapCardGroupListValue.size();
+                                         i++) {
+                                        String values = "cardGroup" + i;
+                                        invoiceVO.removeNamedWhereClauseParam(values);
+                                    }
+                                } else {
+                                    invoiceVO.removeNamedWhereClauseParam("cardGroup");
                                 }
-                            cardQuery=cardQuery.substring(0, cardQuery.length()-3);
-                            cardQuery=cardQuery+")";
-//                            "OR (";
-//                            for(int i=0;i<mapCardListValue.size();i++) {
-//                             String values="card2id"+i;
-//                            cardQuery=cardQuery+"INSTR(:"+values+",CARD_2_ID)<>0 OR ";
-//                            }
-//                            cardQuery=cardQuery.substring(0, cardQuery.length()-3);
-//                            cardQuery=cardQuery+") AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
-                            invoiceVO.setWhereClause(accountQuery+"AND "+cardQuery);
-                            for(int i=0;i<mapCardListValue.size();i++) {
-                            String values="card"+i;
-                            String listName="listName"+i;
-                            invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(listName),
-                                                                               null);
+                                invoiceVO.setWhereClause("");
+                                invoiceVO.executeQuery();
                             }
-//                            for(int i=0;i<mapCardListValue.size();i++) {
-//                            String values="card2id"+i;
-//                            String listName="listName"+i;
-//                            invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(listName),
-//                                                                               null);
-//                            }
-
-                        }else {
-                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
-                            mapCardListValue=null;
-                            cardQuery="(INSTR(:card,INVOICED_CARD)<>0)";
-                            invoiceVO.setWhereClause(accountQuery+"AND "+cardQuery);
-                            String cardValuesList=populateStringValues(getBindings().getCard().getValue().toString());
-                             invoiceVO.defineNamedWhereClauseParam("card", cardValuesList,null);
                         }
-                    }else {
+                    }
 
-                        if(cardGroupValue.size()>250) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "CardGroup Values > 250 ");
-                            mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);
-                                 for(int i=0;i<mapCardGroupListValue.size();i++) {
-                                  String values="cardGroup"+i;
-                                cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
-                                }
-                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARDGROUP Query Values ="+cardGroupQuery);
-                                   cardGroupQuery=cardGroupQuery.substring(0, cardGroupQuery.length()-3);
-                                    cardGroupQuery=cardGroupQuery+")";
-                            invoiceVO.setWhereClause(accountQuery+"AND "+cardGroupQuery);
-                            for(int i=0;i<mapCardGroupListValue.size();i++) {
-                            String values="cardGroup"+i;
-                            String listName="listName"+i;
-                            invoiceVO.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName),
-                                                                               null);
+                }
+
+
+                accountQuery = "(";
+                cardGroupQuery = "(";
+                cardQuery = "((";
+                System.out.println(" Value of account Id=================>" +
+                                   populateStringValues(getBindings().getAccount().getValue().toString()));
+                //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
+                invoiceVO.setNamedWhereClauseParam("countryCode", "lang");
+                invoiceVO.setNamedWhereClauseParam("partnerId",
+                                                   getBindings().getPartnerNumber().getValue());
+                invoiceVO.setNamedWhereClauseParam("fromDateBV",
+                                                   formatConversion(fromDate).toString());
+                invoiceVO.setNamedWhereClauseParam("toDateBV",
+                                                   formatConversion(toDate).toString());
+
+
+                if (accountValue.size() > 250) {
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " +
+                                 "Account Values > 250 ");
+                    mapAccountListValue =
+                            valueList.callValueList(accountValue.size(),
+                                                    accountValue);
+                    for (int i = 0; i < mapAccountListValue.size(); i++) {
+                        String values = "account" + i;
+                        accountQuery =
+                                accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+                    }
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + "Account Query Values =" +
+                                 accountQuery);
+                    accountQuery =
+                            accountQuery.substring(0, accountQuery.length() -
+                                                   3);
+                    accountQuery = accountQuery + ")";
+
+                } else {
+                    mapAccountListValue = null;
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " +
+                                 "Account Values < 250 ");
+                    accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
+                }
+
+
+                if (getBindings().getCardGpCardList().getValue() != null) {
+                    if ("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
+
+
+                        if (cardValue.size() > 250) {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "Card Values > 250 ");
+                            mapCardListValue =
+                                    valueList.callValueList(cardValue.size(),
+                                                            cardValue);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = "card" + i;
+                                cardQuery =
+                                        cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
+                            }
+                            cardQuery =
+                                    cardQuery.substring(0, cardQuery.length() -
+                                                        3);
+                            cardQuery = cardQuery + ")";
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         "CARD Query Values =" + cardQuery);
+                            invoiceVO.setWhereClause(accountQuery + "AND " +
+                                                     cardQuery);
+                            for (int i = 0; i < mapCardListValue.size(); i++) {
+                                String values = "card" + i;
+                                String listName = "listName" + i;
+                                invoiceVO.defineNamedWhereClauseParam(values,
+                                                                      mapCardListValue.get(listName),
+                                                                      null);
                             }
 
-                        }else {
-                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
-                            mapCardGroupListValue=null;
-                            cardGroupQuery="INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
-//                            cardGroupQuery="INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0";
-                            invoiceVO.setWhereClause(accountQuery+"AND "+cardGroupQuery);
-                            invoiceVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
-//                            invoiceVO.defineNamedWhereClauseParam("cardGroup",(cardGroupMaintypePassValue.toString()+cardGroupSubtypePassValues.toString()+cardGroupSeqPassValues.toString()).toString().trim());
-//                            invoiceVO.defineNamedWhereClauseParam("cardGroupSubType",cardGroupSubtypePassValues,null);
-//                            invoiceVO.defineNamedWhereClauseParam("cardGroupSeqType",cardGroupSeqPassValues,null);
+                        } else {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "CARD Values < 250 ");
+                            mapCardListValue = null;
+                            cardQuery = "(INSTR(:card,INVOICED_CARD)<>0)";
+                            invoiceVO.setWhereClause(accountQuery + "AND " +
+                                                     cardQuery);
+                            String cardValuesList =
+                                populateStringValues(getBindings().getCard().getValue().toString());
+                            invoiceVO.defineNamedWhereClauseParam("card",
+                                                                  cardValuesList,
+                                                                  null);
+                        }
+                    } else {
+
+                        if (cardGroupValue.size() > 250) {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "CardGroup Values > 250 ");
+                            mapCardGroupListValue =
+                                    valueList.callValueList(cardGroupValue.size(),
+                                                            cardGroupValue);
+                            for (int i = 0; i < mapCardGroupListValue.size();
+                                 i++) {
+                                String values = "cardGroup" + i;
+                                cardGroupQuery =
+                                        cardGroupQuery + "INSTR(:" + values +
+                                        ",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                            }
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         "CARDGROUP Query Values =" +
+                                         cardGroupQuery);
+                            cardGroupQuery =
+                                    cardGroupQuery.substring(0, cardGroupQuery.length() -
+                                                             3);
+                            cardGroupQuery = cardGroupQuery + ")";
+                            invoiceVO.setWhereClause(accountQuery + "AND " +
+                                                     cardGroupQuery);
+                            for (int i = 0; i < mapCardGroupListValue.size();
+                                 i++) {
+                                String values = "cardGroup" + i;
+                                String listName = "listName" + i;
+                                invoiceVO.defineNamedWhereClauseParam(values,
+                                                                      mapCardGroupListValue.get(listName),
+                                                                      null);
+                            }
+
+                        } else {
+                            _logger.info(accessDC.getDisplayRecord() +
+                                         this.getClass() + " " +
+                                         "CARD Values < 250 ");
+                            mapCardGroupListValue = null;
+                            cardGroupQuery =
+                                    "INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
+                            invoiceVO.setWhereClause(accountQuery + "AND " +
+                                                     cardGroupQuery);
+                            invoiceVO.defineNamedWhereClauseParam("cardGroup",
+                                                                  populateStringValues(getBindings().getCardGroup().getValue().toString()),
+                                                                  null);
                         }
 
                     }
 
                 }
-                if(accountValue.size()>250) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                     " " + "Account Values > 250 ");
-                    mapAccountListValue=valueList.callValueList(accountValue.size(), accountValue);
-                    for(int i=0;i<mapAccountListValue.size();i++) {
-                    String values="account"+i;
-                    String listName="listName"+i;
-                    invoiceVO.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName),
-                                                                       null);
+                if (accountValue.size() > 250) {
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " +
+                                 "Account Values > 250 ");
+                    mapAccountListValue =
+                            valueList.callValueList(accountValue.size(),
+                                                    accountValue);
+                    for (int i = 0; i < mapAccountListValue.size(); i++) {
+                        String values = "account" + i;
+                        String listName = "listName" + i;
+                        invoiceVO.defineNamedWhereClauseParam(values,
+                                                              mapAccountListValue.get(listName),
+                                                              null);
                     }
 
-                }else {
-                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                      " " + "Account Values < 250 ");
-                     invoiceVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                } else {
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " +
+                                 "Account Values < 250 ");
+                    invoiceVO.defineNamedWhereClauseParam("account",
+                                                          populateStringValues(getBindings().getAccount().getValue().toString()),
+                                                          null);
                 }
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed is="+invoiceVO.getQuery());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Query Formed is=" + invoiceVO.getQuery());
                 invoiceVO.executeQuery();
-                session.setAttribute("account_Query_Invoice_overview",accountQuery);
-                session.setAttribute("map_Account_List_Invoice_overview",mapAccountListValue);
-                session.setAttribute("cardGroup_Query_Invoice_overview",cardGroupQuery);
-                session.setAttribute("map_CardGroup_List_Invoice_overview",mapCardGroupListValue);
-                session.setAttribute("card_Query_Invoice_overview",cardQuery);
-                session.setAttribute("map_Card_List_Invoice_overview",mapCardListValue);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count=="+invoiceVO.getEstimatedRowCount());
-                searchResults=true;
+                session.setAttribute("account_Query_Invoice_overview",
+                                     accountQuery);
+                session.setAttribute("map_Account_List_Invoice_overview",
+                                     mapAccountListValue);
+                session.setAttribute("cardGroup_Query_Invoice_overview",
+                                     cardGroupQuery);
+                session.setAttribute("map_CardGroup_List_Invoice_overview",
+                                     mapCardGroupListValue);
+                session.setAttribute("card_Query_Invoice_overview", cardQuery);
+                session.setAttribute("map_Card_List_Invoice_overview",
+                                     mapCardListValue);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Queries are saved in session");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Estimated Row count==" +
+                         invoiceVO.getEstimatedRowCount());
+//                searchResults = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Where condition:"+invoiceVO.getWhereClause());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Where condition:" + invoiceVO.getWhereClause());
+                
+                
+                if (invoiceVO.getEstimatedRowCount() != 0) {
+                    searchResults=true;
+
+                } else {
+                    searchResults = false;
+                    if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                             (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                }
 
             }
 
-        }else {
+        } else {
+            searchResults = false;
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      (String)resourceBundle.getObject("INVOICE_MANDATORY_CHECK"),
                                      "");
-                FacesContext.getCurrentInstance().addMessage(null,
-                                                             msg);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
 
@@ -666,7 +734,7 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public String invoiceDetailsCancel() {
-        defaultSelection="Transactions";
+        defaultSelection = "Transactions";
         AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
@@ -688,14 +756,14 @@ public class InvoiceOverviewBean implements Serializable {
 
     public String invoiceNumberAction() {
 
-        String invoiceGroupingValue =null;
-        defaultSelection="Transactions";
+        String invoiceGroupingValue = null;
+        defaultSelection = "Transactions";
         AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         BindingContainer bindings =
             BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding itr =
             (DCIteratorBinding)bindings.get("PrtNewInvoiceVO1Iterator");
-        Row row =    itr.getCurrentRow();
+        Row row = itr.getCurrentRow();
         if (row != null) {
 
             invoiceGroupingValue = (String)row.getAttribute("InvoiceDocType");
@@ -707,32 +775,41 @@ public class InvoiceOverviewBean implements Serializable {
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
 
-        
-        if(invoiceGroupingValue!=null) {
-            if(invoiceGroupingValue.equals("FAK")) {
-                               
-                
+
+        if (invoiceGroupingValue != null) {
+            if (invoiceGroupingValue.equals("FAK")) {
+
+
                 cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
-                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",invoiceNumberValue,null);
-                cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
-            }else {
-                if(invoiceGroupingValue.equals("SAM")) {
-                   
+                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
+                                                              invoiceNumberValue,
+                                                              null);
+                cardTransactionVO.defineNamedWhereClauseParam("country_code",
+                                                              lang, null);
+            } else {
+                if (invoiceGroupingValue.equals("SAM")) {
+
                     cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
-                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",invoiceNumberValue,null);
-                    cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
+                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
+                                                                  invoiceNumberValue,
+                                                                  null);
+                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
+                                                                  lang, null);
                 }
             }
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransaction Query="+cardTransactionVO.getQuery());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "cardTransaction Query=" + cardTransactionVO.getQuery());
             cardTransactionVO.executeQuery();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "cardTransactionVO estimatedRow:"+cardTransactionVO.getEstimatedRowCount());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "cardTransactionVO estimatedRow:" +
+                     cardTransactionVO.getEstimatedRowCount());
         }
         radioBtnPopUp.setSubmittedValue(null);
         radioBtnPopUp.setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(radioBtnPopUp);
         getBindings().getInvoiceDetails().show(new RichPopup.PopupHints());
-        isTransactionVisible= false;
-        isInvoiceCollectionVisible=false;
+        isTransactionVisible = false;
+        isInvoiceCollectionVisible = false;
 
         return null;
     }
@@ -954,6 +1031,10 @@ public class InvoiceOverviewBean implements Serializable {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
 
+            }
+            else{
+                searchResults=false;
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }
     }
 
@@ -1242,32 +1323,43 @@ public class InvoiceOverviewBean implements Serializable {
     }
 
     public void radioBtnPopUpVCE(ValueChangeEvent valueChangeEvent) {
-        if(valueChangeEvent !=null && valueChangeEvent.getNewValue()!=null && valueChangeEvent.getNewValue().equals("Transactions")){
-            isTransactionVisible=true;
-            isInvoiceCollectionVisible=false;
+        if (valueChangeEvent != null &&
+            valueChangeEvent.getNewValue() != null &&
+            valueChangeEvent.getNewValue().equals("Transactions")) {
+            isTransactionVisible = true;
+            isInvoiceCollectionVisible = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);
             AdfFacesContext.getCurrentInstance().addPartialTarget(transactionPanel);
-        }
-        else{
-            isTransactionVisible=false;
-            isInvoiceCollectionVisible=true;
-//            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-//            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
-            String invoiceNo= collectiveInvoNoOt.getValue().toString();
+        } else {
+            isTransactionVisible = false;
+            isInvoiceCollectionVisible = true;
+            //            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+            //            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
+            String invoiceNo = collectiveInvoNoOt.getValue().toString();
 
 
-            ViewObject invoiceDetailVO =ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
+            ViewObject invoiceDetailVO =
+                ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
             invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
-            System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
-            invoiceDetailVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-            invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
-            invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
-            invoiceDetailVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
-            invoiceDetailVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
-            invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed for detail is="+invoiceDetailVO.getQuery());
-                            invoiceDetailVO.executeQuery();
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count of details=="+invoiceDetailVO.getEstimatedRowCount());
+            System.out.println(" Value of account Id=================>" +
+                               populateStringValues(getBindings().getAccount().getValue().toString()));
+            invoiceDetailVO.setNamedWhereClauseParam("accountId",
+                                                     populateStringValues(getBindings().getAccount().getValue().toString()));
+            invoiceDetailVO.setNamedWhereClauseParam("countryCode", lang);
+            invoiceDetailVO.setNamedWhereClauseParam("partnerId",
+                                                     getBindings().getPartnerNumber().getValue());
+            invoiceDetailVO.setNamedWhereClauseParam("fromDateBV",
+                                                     formatConversion(fromDate).toString());
+            invoiceDetailVO.setNamedWhereClauseParam("toDateBV",
+                                                     formatConversion(toDate).toString());
+            invoiceDetailVO.setNamedWhereClauseParam("invoiceNo", invoiceNo);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "Query Formed for detail is=" +
+                     invoiceDetailVO.getQuery());
+            invoiceDetailVO.executeQuery();
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "Estimated Row count of details==" +
+                     invoiceDetailVO.getEstimatedRowCount());
             AdfFacesContext.getCurrentInstance().addPartialTarget(transactionPanel);
             AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);
         }
