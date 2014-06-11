@@ -146,13 +146,16 @@ public class TransactionOverviewBean implements Serializable {
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList =
                     (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-            if (partnerInfoList != null) {
+            if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 partnerIdList = new ArrayList<SelectItem>();
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     SelectItem selectItem = new SelectItem();
+                    if(partnerInfoList.get(k).getPartnerName()!=null && partnerInfoList.get(k).getPartnerValue()!=null)
+                    {
                     selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
                     selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
                     partnerIdList.add(selectItem);
+                    }
                 }
             }
         }
