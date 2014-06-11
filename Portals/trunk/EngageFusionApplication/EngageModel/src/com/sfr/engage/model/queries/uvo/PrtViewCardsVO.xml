@@ -25,10 +25,6 @@
     </SchemaBasedProperties>
   </Properties>
   <Variable
-    Name="accountID"
-    Kind="where"
-    Type="java.lang.String"/>
-  <Variable
     Name="countryCd"
     Kind="where"
     Type="java.lang.String"/>
@@ -40,51 +36,29 @@
     Name="status"
     Kind="where"
     Type="java.lang.String"/>
-  <Variable
-    Name="cgMain"
-    Kind="where"
-    Type="java.lang.String"/>
-  <Variable
-    Name="cgSub"
-    Kind="where"
-    Type="java.lang.String"/>
-  <Variable
-    Name="cgSeq"
-    Kind="where"
-    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,pdi.driver_number,pdi.modified_by,pdi.modified_date,t1.cardgroup_description,pc.prt_card_pk
+    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
+pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
+pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,pc.cardgroup_sub_type,pc.cardgroup_seq
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
-    (select cardgroup_description,cardgroup_main_type,cardgroup_sub_type,cardgroup_seq,account_id
-     from  prt_cardgroup 
-     where INSTR(:cgMain,cardgroup_main_type)<>0
-     and country_code = :countryCd
-     and partner_id = :partnerId 
-     and INSTR(:cgSub,cardgroup_sub_type)<>0
-     and INSTR(:cgSeq,cardgroup_seq)<>0
-     and INSTR(:accountID,account_id)<>0) t1
-     
-where pc.account_id = pdi.account_number(+)
+    prt_cardgroup pcg
+where  pc.cardgroup_main_type = pcg.cardgroup_main_type
+and pc.cardgroup_sub_type = pcg.cardgroup_sub_type
+and pc.cardgroup_seq = pcg.cardgroup_seq
+and pc.account_id    = pcg.account_id
+and pc.country_code  = pcg.country_code
+and pc.partner_id    = pcg.partner_id 
+and pc.account_id = pdi.account_number(+)
 and pc.country_code = pdi.country_code(+)
 and pc.prt_card_pk  = pdi.card_number(+)
-
 and pc.account_id   = pti.account_number(+)
 and pc.country_code = pti.country_code(+)
 and pc.prt_card_pk  = pti.card_number(+)
-
-and pc.cardgroup_main_type = t1.cardgroup_main_type
-and pc.cardgroup_sub_type = t1.cardgroup_sub_type
-and pc.cardgroup_seq = t1.cardgroup_seq
-
-and INSTR(:accountID,pc.account_id)<>0
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
-and INSTR(:status,pc.block_action)<>0
-and INSTR(:cgMain,pc.cardgroup_main_type)<>0
-and INSTR(:cgSub,pc.cardgroup_sub_type)<>0
-and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
+and INSTR(:status,pc.block_action)<>0]]>
   </SQLQuery>
   <ViewAttribute
     Name="AccountId"
@@ -382,7 +356,8 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_MAIN_TYPE"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_MAIN_TYPE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -397,7 +372,8 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_SUB_TYPE"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_SUB_TYPE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -412,7 +388,8 @@ and INSTR(:cgSeq,pc.cardgroup_seq)<>0]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="CARDGROUP_SEQ"
-    SQLType="VARCHAR">
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_SEQ">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="5"/>
     </DesignTime>

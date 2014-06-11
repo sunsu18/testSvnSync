@@ -2,6 +2,7 @@ package com.sfr.engage.cardtaskflow;
 
 import com.sfr.engage.core.PartnerInfo;
 
+import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
@@ -21,6 +22,9 @@ import java.io.Serializable;
 
 import java.sql.SQLException;
 
+import java.sql.Timestamp;
+
+import java.text.Format;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -134,6 +138,12 @@ public class CardBean implements Serializable {
         private boolean driverModifiedByVisible =false;
         private boolean  driverModifiedDateVisible =false; 
         private boolean  showEditInfoMessage =false;
+        private ValueListSplit valueList;
+        private String accountQuery="(";
+        private String cardGroupQuery="(";
+        private Map<String,String> mapAccountListValue; 
+        private Map<String,String> mapCardGroupListValue;      
+       
         
    public CardBean() {
         super();
@@ -141,22 +151,45 @@ public class CardBean implements Serializable {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         statusValue = new ArrayList<String>();
-        partnerIdList= new ArrayList<SelectItem>();
+
         resourceBundle = new EngageResourceBundle();
         partnerId=null;
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if(partnerInfoList!=null && partnerInfoList.size()>0){
-
+                partnerIdList = new ArrayList<SelectItem>();
                 for(int k=0;k<partnerInfoList.size();k++){
                     SelectItem selectItem = new SelectItem();
+                    if(partnerInfoList.get(k).getPartnerName()!=null && partnerInfoList.get(k).getPartnerValue()!=null)
+                    {
                     selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
                     selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
                     partnerIdList.add(selectItem);
+                    }
                 }
             }
         }
-
+        
+        if(session!=null) {
+            if(session.getAttribute("view_card_account_Query")!=null)
+            {            
+            accountQuery=session.getAttribute("view_card_account_Query").toString().trim();
+            mapAccountListValue= (Map<String,String>)session.getAttribute("map_Account_List");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "account Query & mapAccountList is found");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                     "account "+accountQuery);
+            }
+            if(session.getAttribute("view_card_cardGroup_Query")!=null)
+            {
+            cardGroupQuery=session.getAttribute("view_card_cardGroup_Query").toString().trim();
+            mapCardGroupListValue= (Map<String,String>)session.getAttribute("map_CardGroup_List");
+             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "CardGroup Query & mapCardGroupList is found");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                     "CardGroup "+cardGroupQuery);
+            }            
+        }
 
         statusValue.add("0");
         
@@ -484,13 +517,13 @@ public class CardBean implements Serializable {
 
     public String searchResults() {
         isTableVisible = false;
-        String accountPassingValues = null;
+//        String accountPassingValues = null;
         String statusPassingValues = null;
-        String cardGroupPassingValues = null;
+//        String cardGroupPassingValues = null;
         try {
             if (getBindings().getPartner().getValue() != null) {
                 if (getBindings().getAccount().getValue() != null) {
-                    accountPassingValues = populateStringValues(getBindings().getAccount().getValue().toString());
+//                    accountPassingValues = populateStringValues(getBindings().getAccount().getValue().toString());
                 } else {
                     showErrorMessage("ENGAGE_NO_ACCOUNT");
                     return null;
@@ -504,25 +537,153 @@ public class CardBean implements Serializable {
                 }
 
                 if (getBindings().getCardGroup().getValue() != null) {
-                    cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
-                    populateCardGroupValues(cardGroupPassingValues);
+//                    cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
+//                    populateCardGroupValues(cardGroupPassingValues);
 
                 } else {
                     showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     return null;
                 }
+                
+                
+                
 
+
+                
+                
                 if (getBindings().getPartner().getValue() != null) {
                     ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
-                    vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+                    
+                    //remove acc & cardgroup
+                    
+                    if(accountQuery.length()>1 && accountQuery != null && cardGroupQuery.length() > 1){
+                        if(vo.getWhereClause() != null){
+                            if(((accountQuery+"AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || 
+                               ((accountQuery+" AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                                if(mapAccountListValue!=null){
+                                    for(int i=0;i< mapAccountListValue.size();i++) {
+                                            String values="account"+i;                            
+                                            vo.removeNamedWhereClauseParam(values);
+                                    }
+                                }else{
+                                    vo.removeNamedWhereClauseParam("account");
+                                }
+                                if(mapCardGroupListValue!=null){
+                                    for(int i=0;i< mapCardGroupListValue.size();i++) {
+                                            String values="cardGroup"+i;                            
+                                            vo.removeNamedWhereClauseParam(values);
+                                    }
+                                }else{
+                                    vo.removeNamedWhereClauseParam("cardGroup");
+                                }
+                                
+                                vo.setWhereClause("");
+                                vo.executeQuery();
+                            }
+                        }                        
+                    }
+                    accountQuery="(";
+                    cardGroupQuery="(";
+                    
+                    //account query
+                    
+                    if(accountIdValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "Account Values > 250 ");
+                        mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue);         
+                        for(int i=0;i<mapAccountListValue.size();i++) {
+                            String values="account"+i;
+                            accountQuery=accountQuery+"INSTR(:"+values+",ACCOUNT_ID)<>0 OR ";
+                        }
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Account Query Values ="+accountQuery);
+                        accountQuery=accountQuery.substring(0, accountQuery.length()-3);
+                        accountQuery=accountQuery+")";        
+                    }
+                    else {
+                        mapAccountListValue=null;
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                          " " + "Account Values < 250 ");
+                        accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
+                    } 
+                    
+                    
+                    //cardgroup query
+                    
+                    
+                    if(cardGroupValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "CardGroup Values > 250 ");
+                        mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);         
+                        for(int i=0;i<mapCardGroupListValue.size();i++) {
+                            String values="cardGroup"+i;
+                            cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                        }
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARDGROUP Query Values ="+cardGroupQuery);
+                        cardGroupQuery=cardGroupQuery.substring(0, cardGroupQuery.length()-3);
+                        cardGroupQuery=cardGroupQuery+")"; 
+                    }
+                    else {
+                        mapCardGroupListValue=null;
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "CardGroup Values < 250 ");
+                        cardGroupQuery="(INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";                 
+                    } 
+                    
+                    
+                    
+//                    vo.setNamedWhereClauseParam("accountID", accountPassingValues);
                     vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
                     vo.setNamedWhereClauseParam("status", statusPassingValues);
-                    vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
-                    vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
-                    vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+//                    vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
+//                    vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
+//                    vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
                     vo.setNamedWhereClauseParam("countryCd", lang);
+                    
+                    vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
+                    
+                    if(accountIdValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "Account Values > 250 ");
+                        mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
+                        for(int i=0;i<mapAccountListValue.size();i++) {
+                            String values="account"+i;
+                            String listName="listName"+i;
+                            vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName),
+                                                                            null);
+                        } 
+                    }
+                    else {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                          " " + "Account Values < 250 ");
+                        vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                    }
+                    
+                    
+                    if(cardGroupValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                          " " + "CardGroup Values > 250 ");
+                        mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue); 
+                        for(int i=0;i<mapCardGroupListValue.size();i++) {
+                            String values="cardGroup"+i;
+                            String listName="listName"+i;
+                            vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName),
+                                                                                    null);
+                        }
+                    }
+                    else{
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "CardGroup Values < 250 ");
+                        vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
+                    }
+                    
                     vo.executeQuery();
-
+                    
+                    session.setAttribute("view_card_account_Query",accountQuery);
+                    session.setAttribute("view_card_map_Account_List",mapAccountListValue);
+                    session.setAttribute("view_card_cardGroup_Query",cardGroupQuery);
+                    session.setAttribute("view_card_map_CardGroup_List",mapCardGroupListValue);
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
+                    
                     isTableVisible = true;
                 }
             } else {
@@ -936,13 +1097,67 @@ public class CardBean implements Serializable {
 
                             if (getBindings().getPartner().getValue() != null) {
                                 ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
-                                vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+                                
+                                
+                                
+                                if(session.getAttribute("view_card_account_Query")!=null)
+                                {            
+                                accountQuery=session.getAttribute("view_card_account_Query").toString().trim();
+                                }
+                                if(session.getAttribute("view_card_cardGroup_Query")!=null)
+                                {
+                                cardGroupQuery=session.getAttribute("view_card_cardGroup_Query").toString().trim();
+                                }
+                                
+                                
+                                
+//                                vo.setNamedWhereClauseParam("accountID", accountPassingValues);
                                 vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
                                 vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
-                                vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
-                                vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+//                                vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
+//                                vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
+//                                vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
                                 vo.setNamedWhereClauseParam("countryCd", lang);
+                                
+                                 vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
+                    
+                    if(accountIdValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "Account Values > 250 ");
+                        mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
+                        for(int i=0;i<mapAccountListValue.size();i++) {
+                            String values="account"+i;
+                            String listName="listName"+i;
+                            vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName),
+                                                                            null);
+                        } 
+                    }
+                    else {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                          " " + "Account Values < 250 ");
+                        vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                    }
+                    
+                    
+                    if(cardGroupValue.size()>250) {      
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                          " " + "CardGroup Values > 250 ");
+                        mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue); 
+                        for(int i=0;i<mapCardGroupListValue.size();i++) {
+                            String values="cardGroup"+i;
+                            String listName="listName"+i;
+                            vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName),
+                                                                                    null);
+                        }
+                    }
+                    else{
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                         " " + "CardGroup Values < 250 ");
+                        vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
+                    }
+                    
+                    
+                                
                                 vo.executeQuery();
 
                                 isTableVisible = true;
@@ -1061,13 +1276,69 @@ public class CardBean implements Serializable {
 
                                     if (getBindings().getPartner().getValue() != null) {
                                         ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
-                                        vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+                                        
+                                        
+                                        
+                                        if(session.getAttribute("view_card_account_Query")!=null)
+                                        {            
+                                        accountQuery=session.getAttribute("view_card_account_Query").toString().trim();
+                                        }
+                                        if(session.getAttribute("view_card_cardGroup_Query")!=null)
+                                        {
+                                        cardGroupQuery=session.getAttribute("view_card_cardGroup_Query").toString().trim();
+                                        }
+                                        
+                                        
+                                        
+                                        //                                vo.setNamedWhereClauseParam("accountID", accountPassingValues);
                                         vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
                                         vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                        vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
-                                        vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
-                                        vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+                                        //                                vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
+                                        //                                vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
+                                        //                                vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
                                         vo.setNamedWhereClauseParam("countryCd", lang);
+                                        
+                                                            vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
+                                        
+                                        if(accountIdValue.size()>250) {
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                 " " + "Account Values > 250 ");
+                                        mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue);
+                                        for(int i=0;i<mapAccountListValue.size();i++) {
+                                        String values="account"+i;
+                                        String listName="listName"+i;
+                                        vo.defineNamedWhereClauseParam(values, mapAccountListValue.get(listName),
+                                                                                    null);
+                                        }
+                                        }
+                                        else {
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                  " " + "Account Values < 250 ");
+                                        vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                                        }
+                                        
+                                        
+                                        if(cardGroupValue.size()>250) {
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                  " " + "CardGroup Values > 250 ");
+                                        mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+                                        for(int i=0;i<mapCardGroupListValue.size();i++) {
+                                        String values="cardGroup"+i;
+                                        String listName="listName"+i;
+                                        vo.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName),
+                                                                                            null);
+                                        }
+                                        }
+                                        else{
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                                 " " + "CardGroup Values < 250 ");
+                                        vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
+                                        }
+                                        
+                                        
+                                        
+                                        
+
                                         vo.executeQuery();
 
                                         isTableVisible = true;
@@ -1143,7 +1414,22 @@ public class CardBean implements Serializable {
                 
                 
                 }
-         else       if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null && getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber")))
+                
+                
+    else            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
+                      {
+                
+                     
+                      if (resourceBundle.containsKey("DRIVER_CARD_EXIST"))
+                      {
+
+                          showErrorMsgEditFlag=true;
+                       
+                          warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
+                      }
+
+                  }
+         else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null && getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber")))
                                             {
                                         System.out.println("entered same vehicle.");
                                         getBindings().getTruckdriverDetails().hide();
@@ -1155,19 +1441,7 @@ public class CardBean implements Serializable {
                                         }
                             
                 
-          if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
-                {
- 
-               
-                if (resourceBundle.containsKey("DRIVER_CARD_EXIST"))
-                {
-
-                    showErrorMsgEditFlag=true;
-                 
-                    warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
-                }
-
-            }
+         
               
             }
         else
@@ -1175,14 +1449,32 @@ public class CardBean implements Serializable {
 
             if(driverPGL)
             {
-         
-            
+                
                 if(getBindings().getDriverNumber().getValue() == null)
                 {
                 showErrorMsgEditFlag = true;
                     warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
-  
+                
                 }
+                
+                
+            else    if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
+                      {
+                      
+                        
+
+                      if (resourceBundle.containsKey("TRUCK_CARD_EXIST"))
+                      {
+                        
+                          showErrorMsgEditFlag=true;
+                          warningMsg =  resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
+                      }
+
+                      }
+                
+         
+            
+               
                 
                 
        else         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null && getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber")))
@@ -1193,19 +1485,7 @@ public class CardBean implements Serializable {
                 {
                 checkDriverAssociation();
                 }
-      if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
-            {
-            
-              
-
-            if (resourceBundle.containsKey("TRUCK_CARD_EXIST"))
-            {
-              
-                showErrorMsgEditFlag=true;
-                warningMsg =  resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
-            }
-
-            }
+     
           
             }
         }
@@ -1735,7 +2015,7 @@ else
                 vehicleModifiedBy=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedBy").toString().trim();
                 if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate") != null)
                 vehicleModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
-                
+//                vehicleModifiedDate = formatConversion(new Date(vehicleModifiedDate));
                 
                 if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
 
@@ -1751,7 +2031,7 @@ else
                     driverModifiedBy=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedBy").toString().trim();
                     if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate") != null)
                     driverModifiedDate=AdfFacesContext.getCurrentInstance().getPageFlowScope().get("driverModifiedDate").toString().trim();
-                    
+//                    driverModifiedDate = formatConversion(new Date(driverModifiedDate));
                     
                     if (resourceBundle.containsKey("DRIVER_CARD_ALREADY_EXIST")) {
 
@@ -1773,6 +2053,9 @@ else
         }
     }
 
+
+
+    
     public void closePopUpListener(ActionEvent actionEvent) {
         getBindings().getVehicleDriverRadio().setSubmittedValue(null);
         getBindings().getVehicleDriverRadio().setValue(null);
