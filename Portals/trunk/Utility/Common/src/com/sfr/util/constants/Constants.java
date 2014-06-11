@@ -6,8 +6,8 @@ public class Constants {
     public Constants() {
         super();
     }
-    
-    
+
+
     // Constants required for Values sent by OIM WS
     public static final String NO = "No";
     public static final String YES = "No";
@@ -39,17 +39,22 @@ public class Constants {
     public static final String ROLE_WCP_MARSUP="WCP_Marine_Support";
     public static final String ROLE_WCP_RESSUP="WCP_Reseller_Support";
     public static final String ROLE_WCP_DSSCIT="WCP_DSS_CIT";
-    
-    
+
+
     // for UCM
     public static final String UCM_USERNAME="UCM_USERNAME";
     public static final String UCM_PASSWORD="UCM_PASSWORD";
-    
+
     public static final String WSPORTAL_LINK="WSPORTAL_LINK";
     public static final String STATOILFUELRETAIL_LINK="STATOILFUELRETAIL_LINK";
+
+    public static final String ENGAGE_XCONTENTTYPE = "XCONTENTTYPE";
+    public static final String ENGAGE_XSUBTYPE = "XSUBTYPE";
+
+
     //for PDF path
     public static final String TEMP_PDF_PATH="TEMP_PDF_PATH";
-    
+
     //Constants to hold the ParameterValue for OPSS call.
     public static final String OPSS_MAIL="mail";
     public static final String OPSS_ORCL_IS_ENABLED="orclIsEnabled";
@@ -99,18 +104,18 @@ public class Constants {
     public static final String SESSION_RESSUP_CUSTOMER="SESSION_RESSUP_CUSTOMER";
     public static final String SESSION_MARSUP_CUSTOMER="SESSION_MARSUP_CUSTOMER";
     public static final String SESSION_AVISUP_CUSTOMER="SESSION_AVISUP_CUSTOMER";
-    
-    
+
+
      public static final String SESSION_ERROR_SOLDTOVALIDATE="SESSION_ERROR_SOLDTOVALIDATE";
     public static final String SESSION_HASMORE="HASMORERECORDS";
     public static final String  SESSION_HASMORE_BILLTOADDRESS="HASMOREBILLTOADDRESS";
-    
+
     public static final String IS_MULTIPLE="IS_MULTIPLE";
     public static final String SELECTION_DONE="SELECTION_DONE";
-    
+
 
     public static final String SESSION_USER_NAME = "USER_NAME"; // This string is used for fetching the transaction originator string from IDM
-    public static final String SESSION_USER_DISPLAY_NAME = "USER_DISPLAY_NAME"; // This string is used to display name 
+    public static final String SESSION_USER_DISPLAY_NAME = "USER_DISPLAY_NAME"; // This string is used to display name
 
 
 
@@ -125,28 +130,28 @@ public class Constants {
     public static final String VALUE_CHAIN_SS_ARRP_INQUIRY = "RS";
 
     public static final String SESSION_USER_INFO = "USER_INFO";
-    
+
     public static final String SESSION_CUSTOMER_INFO = "CUSTOMER_INFO";
     public static final String SESSION_CUSTOMER_LIST = "CUSTOMER_LIST";
     public static final String SESSION_SELECTED_CUSTOMER = "SELECTED_CUSTOMER";
-    
+
     public static final String SESSION_LANGUAGE = "lang";
     public static final String SESSION_ORIGINAL_LANGUAGE = "originalLanguage";
     public static final String SESSION_PROFILE = "profile";
-   
+
     public static final String SESSION_AIRPORT_LIST = "airport_list";
     public static final String SESSION_TEXT_LOGGED_IN_AIRPORT = "LOGGED_IN_AIRPORT";
     public static final String SESSION_TEXT_LOGGED_IN_AP_COUNTRY = "LOGGED_IN_AP_COUNTRY";
-    
+
     public static final String SESSION_SELECTED_BRANCH_PLANT="SELECTED_BRANCH_PLANT";
     public static final String SESSION_BRANCH_PLANT_LIST="BRANCH_PLANT_LIST";
     public static final String SESSION_BRANCH_PLANT_BEAN_LIST="BRANCH_PLANT_BEAN_LIST";
-    
-    
+
+
     public static final String SESSION_HAS_ERROR_OCCURED="HAS_ERROR_OCCURED";
     public static final String SESSION_USER_INFO_BEAN="userInfoBean";
     public static final String SESSION_USER_ERROR="SESSION_USER_ERROR";
-    
+
     public static final String LANGUAGE_ENGLISH = "en_US";
     public static final String LANGUAGE_NORWEGIAN = "no_NO";
     public static final String LANGUAGE_SWEDISH = "se_SE";
@@ -157,7 +162,7 @@ public class Constants {
     public static final String LANGUAGE_ESTONIA = "et_EE";
     public static final String LANGUAGE_ETHIOPIA = "et-EE";
 
-    // Credit Card 
+    // Credit Card
     public static final String MERCHANT = "MERCHANT";
     public static final String PAYTYPE = "PAYTYPE";
     public static final String TEST = "TEST";
@@ -170,7 +175,7 @@ public class Constants {
     public static final String CAPTURE_DIBS_WSDL_URL="CAPTURE_DIBS_WSDL_URL";
     public static final String CANCEL_DIBS_WSDL_URL="CANCEL_DIBS_WSDL_URL";
     public static final String REFUND_DIBS_WSDL_URL="REFUND_DIBS_WSDL_URL";
-   
+
 
     //public static final String LANGUAGE_EN = "en_US";
     //public static final String LANGUAGE_EN = "en_US";
@@ -259,7 +264,7 @@ public class Constants {
     public static final String REPRISING_PRODUCT_CODE = "55";
     public static final String REPRISING_USER_DEFINED_CODES = "PH";
     public static final String MR_TRANSACTION_TYPE = "ALREADY DELIVERED";
-    
+
 
     public static final String METHOD_GET_LOV_STRING_VALUES = "getLOVStringValues";
     public static final String METHOD_SEARCH_CUSTOMER_INVOICES = "searchCustomerInvoices";
@@ -277,8 +282,8 @@ public class Constants {
     public static final String SEARCH_CUST_FORM_ADD="SEARCH_CUST_FORM_ADD";
     public static final String MAIL="MAIL";
     //public static final String RESELLER="RESELLER";
-    
-    
+
+
     /*Customer Creation Strings*/
     public static final String EXECUTE_WITH_ORGANIZATION_ID_FORMAT = "EWOrganizationIDFormat";
     public static final String EXECUTE_WITH_ORGANIZATION_ID_FORMAT_VALIDATION_RVO_ITERATOR = "EWOrganizationIDFormatValidationRVO1Iterator";
@@ -456,8 +461,8 @@ public class Constants {
     public static final String LUBESORDER = "LUBESORDER";
     public static final String FUELORDER = "FUELORDER";
     public static final String getTranslation = "getTranslation";
-    public static final String getGeneralErrorMessage = "getGeneralErrorMessage"; 
-    public static final String getErrorMessage = "getErrorMessage"; 
+    public static final String getGeneralErrorMessage = "getGeneralErrorMessage";
+    public static final String getErrorMessage = "getErrorMessage";
     public static final String ORDER_CANNOT_BE_VALIDATED_DUE_TO_ERROR = "ORDER_CANNOT_BE_VALIDATED_DUE_TO_ERROR";
     //Fuels
   public static final String PanelFuels = "PanelFuels";
@@ -491,7 +496,7 @@ public class Constants {
   public static final String PanelnetFuels = "PanelnetFuels";
   public static final String PanelvatFuels = "PanelvatFuels";
   public static final String PanelgrossFuels = "PanelgrossFuels";
-    
+
     /*Lubes*/
     public static final String PanelLubes = "PanelLubes";
     public static final String spacer1Lubes = "spacer1Lubes";
@@ -505,7 +510,7 @@ public class Constants {
     public static final String spacer5Lubes = "spacer5Lubes";
     public static final String OrderCodeSOCLubes = "OrderCodeSOCLubes";
     public static final String spacer6Lubes = "spacer6Lubes";
-   
+
     public static final String spacer7Lubes = "spacer7Lubes";
     public static final String SpecialTreatmentSOCLubes = "SpecialTreatmentSOCLubes";
     public static final String spacer8Lubes = "spacer8Lubes";
@@ -513,18 +518,18 @@ public class Constants {
     public static final String spacer9Lubes = "spacer9Lubes";
     public static final String CompleteDeliveryLubes = "CompleteDeliveryLubes";
     public static final String spacer10Lubes = "spacer10Lubes";
-    public static final String addLinkLubes = "addLinkLubes";   
+    public static final String addLinkLubes = "addLinkLubes";
     public static final String deleteLinkLubes = "deleteLinkLubes";
     public static final String PaneluomLubes = "PaneluomLubes";
     public static final String newLine = "newLine";
-    
+
     public static final String netValueOTDynamic = "netValueOTDynamic";
     public static final String vatOTDynamic = "vatOTDynamic";
     public static final String grossValueOTDynamic = "grossValueOTDynamic";
     public static final String UnitPriceOTDynamic = "UnitPriceOTDynamic";
     public static final String RebateOTDynamic = "RebateOTDynamic";
     public static final String ItemAvailabilityOTDynamic="ItemAvailabilityOTDynamic";
-    /* in aviation 
+    /* in aviation
     netValue1OTDynamic = "netValue1OTDynamic";
         public static final String spacer1Dynamic = "spacer1Dynamic";
         public static final String vat1OTDynamic = "vat1OTDynamic";
@@ -532,7 +537,7 @@ public class Constants {
         public static final String grossValue1OTDynamic = "grossValue1OTDynamic";
         public static final String spacer3Dynamic = "spacer3Dynamic";
      */
-    
+
     public static final String validateResellerOrder = "validateResellerOrder";
     public static final String saveResellerOrder = "saveResellerOrder";
     public static final String searchResellerOrders = "searchResellerOrders";
@@ -553,8 +558,8 @@ public class Constants {
 //    public static final String spacer3Dynamic = "spacer3Dynamic";
 //    public static final String spacer3Dynamic = "spacer3Dynamic";
 //    public static final String spacer3Dynamic = "spacer3Dynamic";
-    
-    
+
+
     /*Reseller Ends*/
     public static final String QUESTION_PREFIX = "Q";
     public static final String ANSWER_PREFIX = "A";
@@ -584,7 +589,7 @@ public class Constants {
     public static final String MENU = "MENU";
     public static final String RESELLER = "RESELLER";
     public static final String MARINE = "MARINE";
-    
+
     public static final String SOLIDITAT_FLAG_PRODUCT_CODE = "55";
     public static final String SOLIDITAT_FLAG_USER_DEFINE_CODE = "P3";
     public static final String SOLIDITAT_FLAG_CREDIT_CHECK = "CC";
@@ -617,7 +622,7 @@ public class Constants {
     public static final String CATALOG_ITEMS_UPDATE_FAILED = "Catalog item list modification failed. Please try again.";
 
     // Constants to hold user roles for Engage Portal Users
-    
+
     public static final String ROLE_WCP_CARD_B2C_SFR="WCP_CARD_B2C_SFR";
     public static final String ROLE_WCP_CARD_B2C_JET="WCP_CARD_B2C_JET";
     public static final String ROLE_WCP_CARD_B2B_ADMIN="WCP_CARD_B2B_ADMIN";
@@ -627,11 +632,11 @@ public class Constants {
     public static final String ROLE_WCP_CARD_ADMIN="WCP_CARD_ADMIN";
     public static final String ROLE_WCP_CARD_CSR="WCP_CARD_CSR";
     public static final String ROLE_WCP_CARD_SALES_REP="WCP_CARD_SALES_REP";
-    
-    
-    //Constants to hold the ParameterValue of Engage Portal for OPSS call 
-    
-   
+
+
+    //Constants to hold the ParameterValue of Engage Portal for OPSS call
+
+
     public static final String OPSS_WCP_CARD_B2C_SFR="CARD_B2C_SFR";
     public static final String OPSS_WCP_CARD_B2C_JET="CARD_B2C_JET";
     public static final String OPSS_WCP_CARD_B2B_ADMIN="CARD_B2B_ADMIN";
@@ -641,12 +646,12 @@ public class Constants {
     public static final String OPSS_WCP_CARD_ADMIN="CARD_ADMIN";
     public static final String OPSS_WCP_CARD_CSR="CARD_CSR";
     public static final String OPSS_WCP_CARD_SALES_REP="CARD_SALES_REP";
-    
-    
-    //Engage Portal constants    
+
+
+    //Engage Portal constants
     public static final String ENGAGE_UCM_WSDL_URL = "ENGAGE_UCM_WSDL_URL";
     public static final String ENGAGE_UCM_USERNAME="ENGAGE_UCM_USERNAME";
     public static final String ENGAGE_UCM_PASSWORD="ENGAGE_UCM_PASSWORD";
-    
+
 
 }
