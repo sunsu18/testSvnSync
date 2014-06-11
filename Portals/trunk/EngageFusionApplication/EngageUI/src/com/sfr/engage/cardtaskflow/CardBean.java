@@ -1401,143 +1401,81 @@ public class CardBean implements Serializable {
 
     public String saveVehicleDriver() {
 
-        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null || AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null )
-        {
-
-     if(vehiclePGL) {
-     
-     
-                if(getBindings().getVehicleNumber().getValue() == null)
-                {
-                showErrorMsgEditFlag = true;
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null ||
+           AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null ){
+            if(vehiclePGL){
+                if(getBindings().getVehicleNumber().getValue() == null){
+                    showErrorMsgEditFlag = true;
                     warningMsg =  resourceBundle.getObject("VEHICLE_EMPTY").toString();
-                
-                
                 }
-                
-                
-    else            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null)
-                      {
-                
-                     
-                      if (resourceBundle.containsKey("DRIVER_CARD_EXIST"))
-                      {
-
-                          showErrorMsgEditFlag=true;
-                       
-                          warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
-                      }
-
-                  }
-         else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null && getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber")))
-                                            {
-                                        System.out.println("entered same vehicle.");
-                                        getBindings().getTruckdriverDetails().hide();
-                                            }
-                                       else  
-                                        {
-                                            System.out.println("check vehicle association");
-                                    checkVehicleAssociation();
-                                        }
-                            
-                
-         
-              
-            }
-        else
-            {
-
-            if(driverPGL)
-            {
-                
-                if(getBindings().getDriverNumber().getValue() == null)
-                {
-                showErrorMsgEditFlag = true;
-                    warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
-                
-                }
-                
-                
-            else    if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null)
-                      {
-                      
-                        
-
-                      if (resourceBundle.containsKey("TRUCK_CARD_EXIST"))
-                      {
-                        
-                          showErrorMsgEditFlag=true;
-                          warningMsg =  resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
-                      }
-
-                      }
-                
-         
-            
-               
-                
-                
-       else         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null && getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber")))
-                    {
-                getBindings().getTruckdriverDetails().hide();
+                 else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null){
+                    if (resourceBundle.containsKey("DRIVER_CARD_EXIST")){
+                        showErrorMsgEditFlag=true;
+                        warningMsg =  resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverName").toString());
                     }
-                else
-                {
-                checkDriverAssociation();
                 }
-     
-          
-            }
-        }
-        }
-
-        else
-        {
-
-
-        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") == null && AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") == null )
-        {
-            if(vehiclePGL)
-            {
-               
-                if(getBindings().getVehicleNumber().getValue() == null)
-                {
-                showErrorMsgEditFlag = true;
-                    warningMsg =  resourceBundle.getObject("VEHICLE_EMPTY").toString();
-               
-                
+                else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null &&
+                        getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber"))){
+                            System.out.println("entered same vehicle.");
+                            getBindings().getTruckdriverDetails().hide();
                 }
-else
-                {
-                checkVehicleAssociation();
+                else{
+                    System.out.println("check vehicle association");
+                    checkVehicleAssociation();
                 }
             }
-            else
-            {
-                
-        if(driverPGL)
-        {
-          
-            if(getBindings().getDriverNumber().getValue() == null)
-            {
-            showErrorMsgEditFlag = true;
-            warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
-           
-            
-            }
-            else
-            {
-        checkDriverAssociation();
+            else{
+                if(driverPGL){  
+                    if(getBindings().getDriverNumber().getValue() == null){
+                        showErrorMsgEditFlag = true;
+                        warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
+                    }
+                    else if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null){
+                        if (resourceBundle.containsKey("TRUCK_CARD_EXIST")){
+                            showErrorMsgEditFlag=true;
+                            warningMsg =  resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber").toString());
+                        }
+                    }
+                    else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null &&
+                            getBindings().getDriverNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber"))){
+                        getBindings().getTruckdriverDetails().hide();
+                    }
+                    else{
+                        checkDriverAssociation();
+                    }
+                }
             }
         }
+        else{
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") == null &&
+               AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") == null ){
+                    if(vehiclePGL){
+                        if(getBindings().getVehicleNumber().getValue() == null){
+                            showErrorMsgEditFlag = true;
+                            warningMsg =  resourceBundle.getObject("VEHICLE_EMPTY").toString();
+                        }
+                        else{
+                            checkVehicleAssociation();
+                        }
+                    }
+                    else{
+                        if(driverPGL){
+                            if(getBindings().getDriverNumber().getValue() == null){
+                                showErrorMsgEditFlag = true;
+                                warningMsg =  resourceBundle.getObject("DRIVER_EMPTY").toString();
+                            }
+                            else{
+                                checkDriverAssociation();
+                            }
+                        }
+                    }
             }
-        }
         }
         
         showEditInfoMessage = false;
-        getBindings().getVehicleDriverRadio().setSubmittedValue(null);
-        getBindings().getVehicleDriverRadio().setValue(null);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
+//        getBindings().getVehicleDriverRadio().setSubmittedValue(null);
+//        getBindings().getVehicleDriverRadio().setValue(null);
+//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
 
         return null;
     }
