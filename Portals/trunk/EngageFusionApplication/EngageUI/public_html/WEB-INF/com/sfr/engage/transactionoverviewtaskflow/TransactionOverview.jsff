@@ -470,7 +470,7 @@
             <af:outputText value="#{row.PurchaseCountryCode}" id="ot39" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="PurchaseCurrency" filterable="true"
-                     sortable="false" align="left" visible="#{pageFlowScope.TransactionOverviewBean.reportInternationalTx}"
+                     sortable="false" align="left" visible="#{pageFlowScope.TransactionOverviewBean.reportInternationalTx or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.CURRENCY}"
                      id="c14">
             <af:outputText value="#{row.PurchaseCurrency}" id="ot32" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
@@ -525,6 +525,19 @@
                                 minFractionDigits="2"/>
             </af:outputText>
           </af:column>
+          
+          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true"
+                     sortable="false" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
+                     headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
+                     id="c4">
+            <af:outputText value="#{row.InvoicedUnitPriceRebated}" id="ot73" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
+            </af:outputText>
+          </af:column>
+          
           <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="false" width="90" align="left"
                      headerText="#{sfr.VEHICLE_NUMBER}"
@@ -601,6 +614,32 @@
             </af:panelGroupLayout>
             </f:facet>
           </af:column>
+          
+          
+           <af:column sortProperty="InvoivedVatRebated" filterable="true"
+                     sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
+                     headerText="#{sfr.ENGAGE_INVOICE_VAT}"
+                     id="c8">
+            <af:outputText value="#{row.InvoivedVatRebated}" id="ot74" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
+            </af:outputText>
+          </af:column>
+          
+           <af:column sortProperty="InvoicedNetAmountRebated" filterable="true"
+                     sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
+                     headerText="#{sfr.ENGAGE_INVOICE_NET}"
+                     id="c9">
+            <af:outputText value="#{row.InvoicedNetAmountRebated}" id="ot75" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
+            </af:outputText>
+          </af:column>
+          
           <!--  <af:column sortProperty="InvoiceDiscountAmount" filterable="true"
                      sortable="false"
                      headerText="#{sfr.INVOICED_DISCOUNT}"
@@ -674,7 +713,7 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.VatRate.format}"/>
             </af:outputText>
           </af:column>-->
-          <af:column sortProperty="kmTotal" filterable="false" sortable="false"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportInternationalTx }"
+          <af:column sortProperty="kmTotal" filterable="false" sortable="false"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right"
                      id="c26">
             <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -683,7 +722,7 @@
             </af:outputText>
           </af:column>
 
-          <af:column sortProperty="kmPerLt" filterable="false" sortable="false" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportInternationalTx}"
+          <af:column sortProperty="kmPerLt" filterable="false" sortable="false" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_PER_LT}" align="right"
                      id="c3">
             <af:outputText value="#{row.kmPerLt}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -691,7 +730,7 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.kmPerLt.format}"/>
             </af:outputText>
           </af:column>
-          <af:column sortProperty="ltPerHundred" filterable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportInternationalTx}"
+          <af:column sortProperty="ltPerHundred" filterable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                    sortable="false" align="right"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                      id="c21">

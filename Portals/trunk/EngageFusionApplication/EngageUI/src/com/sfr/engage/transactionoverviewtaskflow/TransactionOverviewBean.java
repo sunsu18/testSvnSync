@@ -908,9 +908,7 @@ public class TransactionOverviewBean implements Serializable {
                 
             ViewObject vo =
                 ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
-            if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
-            if(vo.getWhereClause()!=null)
-            {
+            if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {            
                 if(((accountQuery+"AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))  || ((accountQuery+" AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card where removal with purchase code class");
@@ -940,11 +938,8 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     vo.removeNamedWhereClauseParam("purchaseCountryCode");
                     vo.setWhereClause("");
-                    vo.executeQuery();    
-                }
-            }else{    
-                if(vo.getWhereClause()!=null)
-                {
+                    vo.executeQuery();  
+            }else{   
                 if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card with out purchase code where removal class");
@@ -973,13 +968,10 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();         
-                }     
-              }
+                }    
             }                
             }else {   
-                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {
-                    if(vo.getWhereClause()!=null)
-                    {
+                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {                  
                     if(((accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery+" AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                             " " + "inside cardGroup with purchase code where removal class");
@@ -1003,11 +995,8 @@ public class TransactionOverviewBean implements Serializable {
                         }
                         vo.removeNamedWhereClauseParam("purchaseCountryCode");
                         vo.setWhereClause("");
-                        vo.executeQuery(); 
-                    }
-                }else{   
-                    if(vo.getWhereClause()!=null)
-                    {
+                        vo.executeQuery();                     
+                }else{  
                     if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                     " " + "inside  cardGroup with out purchase code where removal class");
@@ -1032,7 +1021,6 @@ public class TransactionOverviewBean implements Serializable {
                         vo.setWhereClause("");
                         vo.executeQuery(); 
                     }  
-                }
               }
             }
                 
@@ -2660,7 +2648,28 @@ public class TransactionOverviewBean implements Serializable {
                                     XLS_SH_R_C.setCellValue(row.getInvoiceNumberNonCollective().toString());
                                 }
                             }
-                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C.setCellStyle(csRight);
+                            if (row.getInvoicedUnitPriceRebated() != null) {
+                                XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedUnitPriceRebated(),
+                                                                         locale));
+                            } 
+                        }else if ("Vat".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C.setCellStyle(csRight);
+                            if (row.getInvoivedVatRebated() != null) {
+                                XLS_SH_R_C.setCellValue(formatConversion(row.getInvoivedVatRebated(),
+                                                                         locale));
+                            } 
+                        }else if ("Net".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C.setCellStyle(csRight);
+                            if (row.getInvoicedNetAmountRebated() != null) {
+                                XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedNetAmountRebated(),
+                                                                         locale));
+                            } 
+                        }else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCard1Id() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2889,7 +2898,32 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        }  else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                          
+                            if (row.getInvoicedUnitPriceRebated() != null) {
+                                out.print(formatConversion(row.getInvoicedUnitPriceRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Vat".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            
+                            if (row.getInvoivedVatRebated() != null) {
+                                out.print(formatConversion(row.getInvoivedVatRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Net".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                           
+                            if (row.getInvoicedNetAmountRebated() != null) {
+                                out.print(formatConversion(row.getInvoicedNetAmountRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCard1Id() != null) {
                                 out.print(row.getCard1Id().toString());
                             }
@@ -3070,7 +3104,32 @@ public class TransactionOverviewBean implements Serializable {
                                  if (cellValue != headerValues.length - 1) {
                                      out.print("|");
                                  }
-                             }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                             }else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                          
+                            if (row.getInvoicedUnitPriceRebated() != null) {
+                                out.print(formatConversion(row.getInvoicedUnitPriceRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print("|");
+                            }
+                        }else if ("Vat".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            
+                            if (row.getInvoivedVatRebated() != null) {
+                                out.print(formatConversion(row.getInvoivedVatRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print("|");
+                            }
+                        }else if ("Net".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                           
+                            if (row.getInvoicedNetAmountRebated() != null) {
+                                out.print(formatConversion(row.getInvoicedNetAmountRebated(),
+                                                                         locale));
+                            } 
+                            if (cellValue != headerValues.length - 1) {
+                                out.print("|");
+                            }
+                        }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCurrencyUnitPrice() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())),
                                                                locale));
