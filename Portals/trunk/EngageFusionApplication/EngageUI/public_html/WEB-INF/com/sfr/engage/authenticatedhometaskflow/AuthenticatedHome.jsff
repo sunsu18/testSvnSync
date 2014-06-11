@@ -73,7 +73,7 @@
 
 
 
-<af:panelGroupLayout id="pgl10">
+<af:panelGroupLayout id="pgl10" inlineStyle="padding-left: 10px;">
             <af:outputText value="#{sfr.IMPORTANT_NOTE}:" id="ot20"
                            styleClass="contenttext important_notice"/>
           </af:panelGroupLayout>
