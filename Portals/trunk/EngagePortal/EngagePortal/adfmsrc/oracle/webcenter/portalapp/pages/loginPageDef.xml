@@ -13,8 +13,180 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}"
           id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <iterator Binds="PrtAccountVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtAccountVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardgroupVO1Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <iterator Binds="ProductsDisplayRVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="ProductsDisplayRVO1Iterator"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
+                  <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="PrtAccountVO1Iterator" id="PrtAccountVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtAccountVO" Name="PrtAccountVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccountBlockDate"/>
+          <Item Value="AccountBlockTime"/>
+          <Item Value="AccountDesc"/>
+          <Item Value="AccountGroup"/>
+          <Item Value="AccountId"/>
+          <Item Value="AccountReconCode"/>
+          <Item Value="AccountStmtCode"/>
+          <Item Value="BlockCode"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreditBlockCode"/>
+          <Item Value="CreditBlockDate"/>
+          <Item Value="CreditBlockTime"/>
+          <Item Value="DunningLevelCode"/>
+          <Item Value="DunningProcId"/>
+          <Item Value="GiroNumber"/>
+          <Item Value="InterestCode"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="PartnerId"/>
+          <Item Value="VersionNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardgroupVO1Iterator" id="PrtCardgroupVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardgroupVO" Name="PrtCardgroupVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccountId"/>
+          <Item Value="ArchiveRef"/>
+          <Item Value="BlockCode"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="BusiRelationDesc"/>
+          <Item Value="BusiRelationGroup"/>
+          <Item Value="BusiRelationNace"/>
+          <Item Value="CardgroupDescription"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardType"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitRefNumber"/>
+          <Item Value="DeleteCode"/>
+          <Item Value="EstbGroup"/>
+          <Item Value="MarketingCode"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NotAvgFrom"/>
+          <Item Value="NotAvgTo"/>
+          <Item Value="PartnerId"/>
+          <Item Value="PayDocLevel"/>
+          <Item Value="PayProof"/>
+          <Item Value="PurchaseLimitCode"/>
+          <Item Value="VersionNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardVO1Iterator" id="PrtCardVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardVO" Name="PrtCardVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccountId"/>
+          <Item Value="BlockAction"/>
+          <Item Value="BlockCode"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockLevel"/>
+          <Item Value="BlockTime"/>
+          <Item Value="CardAppId"/>
+          <Item Value="CardCopies"/>
+          <Item Value="CardCreatedBy"/>
+          <Item Value="CardDesignCode"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardIssueDate"/>
+          <Item Value="CardRemarks"/>
+          <Item Value="CardRenewBlock"/>
+          <Item Value="CardRenewDate"/>
+          <Item Value="CardReturnDate"/>
+          <Item Value="CardSearchId"/>
+          <Item Value="CardStatusCode"/>
+          <Item Value="CardType"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CustomerGroup"/>
+          <Item Value="DebitAgreeRef"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DeletionCode"/>
+          <Item Value="ExtCardNum"/>
+          <Item Value="GeoUseRef"/>
+          <Item Value="InvoiceAddr1"/>
+          <Item Value="InvoiceAddr2"/>
+          <Item Value="InvoiceCity"/>
+          <Item Value="InvoiceCountry"/>
+          <Item Value="InvoicePostalCode"/>
+          <Item Value="MagneticCode"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NumPrintlines"/>
+          <Item Value="PartnerId"/>
+          <Item Value="PhysicalCardId"/>
+          <Item Value="PinOffset"/>
+          <Item Value="PrevCardId"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="PurchaseProfileCode"/>
+          <Item Value="SperrebehKd"/>
+          <Item Value="SperrelisteDt"/>
+          <Item Value="SpesialbestJn"/>
+          <Item Value="VersionNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+
+    <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO" Name="ProductsDisplayRVO10">
+        <AttrNames>
+          <Item Value="Itemno"/>
+          <Item Value="ArticleName"/>
+          <Item Value="B2bItemPriceUnit"/>
+          <Item Value="B2cItemPriceUnit"/>
+          <Item Value="CategCode10"/>
+          <Item Value="CategCode6"/>
+          <Item Value="CategCode7"/>
+          <Item Value="CategCode8"/>
+          <Item Value="CategCode9"/>
+          <Item Value="DescLine1"/>
+          <Item Value="DescLine2"/>
+          <Item Value="PackageDescription"/>
+          <Item Value="SalesCategCode3"/>
+          <Item Value="SalesCategCode4"/>
+          <Item Value="SalesCategCode5"/>
+          <Item Value="SalesCatSelection"/>
+          <Item Value="SalesText"/>
+          <Item Value="SubSection"/>
+          <Item Value="UnspscCode"/>
+          <Item Value="Uom"/>
+          <Item Value="UserResRef"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+
+    <attributeValues IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+                     id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
               target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/login.jspx"
               xmlns="http://xmlns.oracle.com/adf/security">
