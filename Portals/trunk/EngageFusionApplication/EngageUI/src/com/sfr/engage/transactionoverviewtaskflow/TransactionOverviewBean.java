@@ -922,8 +922,8 @@ public class TransactionOverviewBean implements Serializable {
                                                 SelectItem selectItem =new SelectItem();
                                                 selectItem.setLabel(currRow.getAttribute("DriverName").toString());
                                                 selectItem.setValue(currRow.getReferenceNumber());
-                                                vehicleNumberList.add(selectItem);
-                                                vehicleNumberValue.add(currRow.getReferenceNumber());
+                                                driverNameList.add(selectItem);
+                                                driverNameValue.add(currRow.getReferenceNumber());
                                             }
                                         }
                                     }
