@@ -909,6 +909,8 @@ public class TransactionOverviewBean implements Serializable {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
             if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
+            if(vo.getWhereClause()!=null)
+            {
                 if(((accountQuery+"AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))  || ((accountQuery+" AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card where removal with purchase code class");
@@ -939,7 +941,10 @@ public class TransactionOverviewBean implements Serializable {
                     vo.removeNamedWhereClauseParam("purchaseCountryCode");
                     vo.setWhereClause("");
                     vo.executeQuery();    
-            }else{                    
+                }
+            }else{    
+                if(vo.getWhereClause()!=null)
+                {
                 if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                 " " + "inside  card with out purchase code where removal class");
@@ -968,10 +973,13 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     vo.setWhereClause("");
                     vo.executeQuery();         
-                }               
+                }     
+              }
             }                
-            }else {               
-                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {                 
+            }else {   
+                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {
+                    if(vo.getWhereClause()!=null)
+                    {
                     if(((accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery+" AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                             " " + "inside cardGroup with purchase code where removal class");
@@ -996,7 +1004,10 @@ public class TransactionOverviewBean implements Serializable {
                         vo.removeNamedWhereClauseParam("purchaseCountryCode");
                         vo.setWhereClause("");
                         vo.executeQuery(); 
-                }else{                    
+                    }
+                }else{   
+                    if(vo.getWhereClause()!=null)
+                    {
                     if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                     " " + "inside  cardGroup with out purchase code where removal class");
@@ -1022,6 +1033,7 @@ public class TransactionOverviewBean implements Serializable {
                         vo.executeQuery(); 
                     }  
                 }
+              }
             }
                 
             }
