@@ -32,10 +32,6 @@
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="accountId"
-    Kind="where"
-    Type="java.lang.String"/>
-  <Variable
     Name="fromDateBV"
     Kind="where"
     Type="java.lang.String"/>
@@ -65,7 +61,7 @@ left join prt_card_invoice_details on
 and prt_card_invoice. country_code = prt_card_invoice_details. country_code
 )
 Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
-prt_card_payment_doc.PARTNER_ID =:partnerId AND INSTR(:accountId,prt_card_payment_doc.ACCOUNT_ID) <> 0 
+prt_card_payment_doc.PARTNER_ID =:partnerId
 AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=: toDateBV
 order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
