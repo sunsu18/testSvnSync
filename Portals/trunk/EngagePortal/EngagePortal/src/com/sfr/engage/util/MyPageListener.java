@@ -371,7 +371,7 @@ public class MyPageListener implements PagePhaseListener {
 
                                                         part.setPartnerValue(partnerId);
                                                         part.setPartnerName(getPartnerName(partnerId));
-                                                        part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
+                                                        part.setCountry(user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
                                                         part.setCompanyOverview(false);
 
 
@@ -1292,14 +1292,18 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
         part.setPartnerValue(Partnerid);
         part.setPartnerName(getPartnerName(Partnerid));
-        part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
+        //part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
+        part.setCountry(user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
+        System.out.println(accessDC.getDisplayRecord()+this.getClass() + "Partner country setted as " + user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
+
         part.setCompanyOverview(true);
 
         ViewObject accountVO = iter1.getViewObject();
         accountVO.setWhereClause("PARTNER_ID =: pid");
         accountVO.defineNamedWhereClauseParam("pid", Partnerid, null);
-        accountVO.setNamedWhereClauseParam("countryCode", (conv.getLangForWERCSURL(user.getLang().toString())));
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+accountVO.getQuery());
+        //accountVO.setNamedWhereClauseParam("countryCode", (conv.getLangForWERCSURL(user.getLang().toString())));
+        accountVO.setNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
+        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accountVO.getQuery());
         accountVO.executeQuery();
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Account VO  " + accountVO.getEstimatedRowCount());
 
@@ -1442,7 +1446,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                            CardgroupSubType + CardgroupSeq);
 
                         cardVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
-                        cardVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+                        //cardVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+
+                        cardVO.defineNamedWhereClauseParam("cc", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
                         cardVO.defineNamedWhereClauseParam("cgmain", CardgroupMainType, null);
                         cardVO.defineNamedWhereClauseParam("cgsub", CardgroupSubType, null);
                         cardVO.defineNamedWhereClauseParam("acid", AccountID, null);
@@ -1555,7 +1561,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             partnerVO.setWhereClause("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode");
             //            System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner id passed in Partner VO is " + partnerid);
             partnerVO.defineNamedWhereClauseParam("pid", partnerid, null);
-            partnerVO.defineNamedWhereClauseParam("countryCode", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+            partnerVO.defineNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
             partnerVO.executeQuery();
             //            System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Partner VO  " + partnerVO.getEstimatedRowCount());
             if (partnerVO.getEstimatedRowCount() > 0) {
@@ -1600,7 +1606,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                CardgroupSubType + " " + CardgroupSeq);
 
             cardGroupVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
-            cardGroupVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+            cardGroupVO.defineNamedWhereClauseParam("cc", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
             cardGroupVO.defineNamedWhereClauseParam("cgmain", CardgroupMainType, null);
             cardGroupVO.defineNamedWhereClauseParam("cgsub", CardgroupSubType, null);
             cardGroupVO.executeQuery();
@@ -1647,7 +1653,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                idString = new ArrayList<String>();
         rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         idString.add("NOPP26773218");
-        //idString.add("NOPP26773219");
+        idString.add("DKPP26773219");
         rr.setIdString(idString);
         listrole.add(rr);
 
