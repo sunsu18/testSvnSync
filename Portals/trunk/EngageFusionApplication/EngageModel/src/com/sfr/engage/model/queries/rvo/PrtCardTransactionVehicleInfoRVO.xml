@@ -35,6 +35,7 @@
     <![CDATA[SELECT PTI.VEHICLE_NUMBER || '-' || DECODE(PC.CARD_EMBOSS_NUM,NULL,PTI.REFERENCE_NUMBER,PC.CARD_EMBOSS_NUM) AS VEHICLE_NUMBER
       ,PC.PRT_CARD_PK
       ,PTI.REFERENCE_NUMBER
+      ,ACCOUNT_NUMBER
 FROM PRT_TRUCK_INFORMATION PTI
 LEFT JOIN PRT_CARD PC
 ON    (PTI.CARD_NUMBER        = PC.PRT_CARD_PK
@@ -83,6 +84,22 @@ AND   'Vehicle'                = :paramValue]]>
     ColumnType="VARCHAR2"
     AliasName="REFERENCE_NUMBER"
     Expression="REFERENCE_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_NUMBER"
+    Expression="ACCOUNT_NUMBER"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>

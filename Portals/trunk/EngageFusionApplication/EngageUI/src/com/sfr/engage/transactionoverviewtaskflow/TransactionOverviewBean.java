@@ -97,9 +97,13 @@ public class TransactionOverviewBean implements Serializable {
     Conversion conversionUtility;
     private ValueListSplit valueList;
     private String accountQuery="(";
+    private String accountQueryVehicle="(";
+    private String accountQueryDriver="(";
     private String cardGroupQuery="(";
     private String cardQuery="((";
     private Map<String,String> mapAccountListValue; 
+    private Map<String,String> mapAccountDriverListValue;
+    private Map<String,String> mapAccountVehicleListValue;
     private Map<String,String> mapCardGroupListValue;      
     private Map<String,String> mapCardListValue; 
     private String lang;
@@ -187,6 +191,27 @@ public class TransactionOverviewBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "Card "+cardQuery);
             }
+            
+            if(session.getAttribute("account_Query_Driver")!=null)
+            {
+            accountQueryDriver        =session.getAttribute("account_Query_Driver").toString().trim();
+            mapAccountDriverListValue = (Map<String,String>)session.getAttribute("map_Account_List_Driver");
+             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "Account Query Driver & map_Account_List_Driver is found");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                     "Account Query Driver "+accountQueryDriver);
+            }
+            
+            if(session.getAttribute("account_Query_Vehicle")!=null)
+            {
+            accountQueryVehicle           = session.getAttribute("account_Query_Vehicle").toString().trim();
+            mapAccountVehicleListValue    = (Map<String,String>)session.getAttribute("map_Account_List_Vehicle");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "Account Query Vehicle & map_Account_List_Vehicle is found");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                     "Account Query Vehicle "+accountQueryVehicle);
+            }
+            
             
         }
 
@@ -701,68 +726,204 @@ public class TransactionOverviewBean implements Serializable {
                 }
 
             } else {
-                if (paramType.equals("Vehicle") ||
-                    paramType.equals("Driver")) {
-                    if (vNumberPGL) {
-                        vehicleNumberList = new ArrayList<SelectItem>();
-                        vehicleNumberValue = new ArrayList<String>();
-                    }
-                    if (dNamePGL) {
-                        driverNameList = new ArrayList<SelectItem>();
-                        driverNameValue = new ArrayList<String>();
-                    }
-                    ViewObject vo =
-                        ADFUtils.getViewObject("PrtCardDriverVehicleInfoRVO1Iterator");
-                    if (getBindings().account.getValue() != null) {
-                        vo.setNamedWhereClauseParam("accountValue",
-                                                    populateStringValues(getBindings().account.getValue().toString()));
-                    }
-                    vo.setNamedWhereClauseParam("countryCd", lang);
-                    //vo.setNamedWhereClauseParam("partnerValue", partnerId);
-                    vo.setNamedWhereClauseParam("paramValue", paramType);
-                    vo.executeQuery();
-                    if (vo.getEstimatedRowCount() > 0) {
-                        for (int n = 0; n < vo.getEstimatedRowCount(); n++) {
-                            while (vo.hasNext()) {
-                                PrtCardDriverVehicleInfoRVORowImpl currRow =
-                                    (PrtCardDriverVehicleInfoRVORowImpl)vo.next();
-                                if (currRow != null) {
-                                    if (paramType.equals("Vehicle")) {
-                                            if(currRow.getPrtCardPk()!=null)
-                                            {
-                                        SelectItem selectItem =
-                                            new SelectItem();
-                                        selectItem.setLabel(currRow.getAttribute("VehicleNumber").toString());
-                                        selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
-                                        vehicleNumberList.add(selectItem);
-                                        vehicleNumberValue.add(currRow.getAttribute("PrtCardPk").toString());
-                                            }else {
-                                                if(currRow.getReferenceNumber()!=null) {
-                                                    SelectItem selectItem =
-                                                        new SelectItem();
+                if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
+                    accountQueryDriver = "(";
+                    accountQueryVehicle = "(";
+                    ViewObject vehicleVo = ADFUtils.getViewObject("PrtCardTransactionVehicleInfoRVO1Iterator");
+                    ViewObject driverVo = ADFUtils.getViewObject("PrtCardDriverVehicleInfoRVO1Iterator");
+                    
+                    if(vNumberPGL){
+//                            ViewObject vehicleVo = ADFUtils.getViewObject("PrtCardTransactionVehicleInfoRVO1Iterator");
+                            
+                            if(accountQueryDriver.length() > 1 && accountQueryDriver!= null){
+                                if(accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())){
+                                    if(mapAccountDriverListValue!=null){  
+                                        for(int i=0;i< mapAccountDriverListValue.size();i++) {
+                                                String values="account"+i;                            
+                                                driverVo.removeNamedWhereClauseParam(values);
+                                        }
+                                    }else{
+                                                driverVo.removeNamedWhereClauseParam("account");
+                                        }
+                                    driverVo.setWhereClause("");
+                                    driverVo.executeQuery();
+                                }
+                            }
+                                
+                            if(accountQueryVehicle.length() > 1 && accountQueryVehicle!= null){
+                                if(accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())){
+                                    if(mapAccountVehicleListValue!=null){  
+                                        for(int i=0;i< mapAccountVehicleListValue.size();i++) {
+                                                String values="account"+i;                            
+                                                vehicleVo.removeNamedWhereClauseParam(values);
+                                        }
+                                    }else{
+                                                vehicleVo.removeNamedWhereClauseParam("account");
+                                        }
+                                    vehicleVo.setWhereClause("");
+                                    vehicleVo.executeQuery();
+                                }
+                            }
+                            
+                            vehicleNumberList = new ArrayList<SelectItem>();
+                            vehicleNumberValue = new ArrayList<String>();
+                            
+                            vehicleVo.setNamedWhereClauseParam("countryCd", lang);
+                            vehicleVo.setNamedWhereClauseParam("paramValue", paramType);
+                            
+                            if(accountIdValue.size()>250) { 
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 250 ");
+                                mapAccountVehicleListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                                for(int i=0;i<mapAccountVehicleListValue.size();i++) {
+                                  String values="account"+i;
+                                   accountQueryVehicle=accountQueryVehicle+"INSTR(:"+values+",ACCOUNT_NUMBER)<>0 OR ";
+                                }
+                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Account Query vehicle/driver Values ="+accountQueryVehicle);
+                                   accountQueryVehicle=accountQueryVehicle.substring(0, accountQueryVehicle.length()-3);
+                                   accountQueryVehicle=accountQueryVehicle+")";
+                            }else{
+                                mapAccountListValue=null;
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 250 ");
+                                accountQueryVehicle="(INSTR(:account,ACCOUNT_NUMBER)<>0)";
+                            }
+                            
+                            vehicleVo.setWhereClause(accountQueryVehicle);
+                            
+                            if(accountIdValue.size()>250) {      
+                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 250 ");
+                                            mapAccountVehicleListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
+                                            for(int i=0;i<mapAccountVehicleListValue.size();i++) {
+                                            String values="account"+i;
+                                            String listName="listName"+i;
+                                            vehicleVo.defineNamedWhereClauseParam(values, mapAccountVehicleListValue.get(listName),null);
+                                            }   
+                                                    
+                            }else {
+                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 250 ");
+                                    if (getBindings().getAccount().getValue() != null) {
+                                        vehicleVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                                    }
+                            }  
+                             vehicleVo.executeQuery();
+                             session.setAttribute("account_Query_Vehicle",accountQueryVehicle);
+                             session.setAttribute("map_Account_List_Vehicle",mapAccountVehicleListValue);
+                                if (vehicleVo.getEstimatedRowCount() > 0){
+                                    for (int n = 0; n < vehicleVo.getEstimatedRowCount(); n++) {
+                                        while (vehicleVo.hasNext()) {
+                                            PrtCardTransactionVehicleInfoRVORowImpl currRow =(PrtCardTransactionVehicleInfoRVORowImpl)vehicleVo.next();
+                                            if (currRow != null) {
+                                                if(currRow.getPrtCardPk()!=null){
+                                                    SelectItem selectItem =new SelectItem();
                                                     selectItem.setLabel(currRow.getAttribute("VehicleNumber").toString());
-                                                    selectItem.setValue(currRow.getReferenceNumber());
+                                                    selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
                                                     vehicleNumberList.add(selectItem);
-                                                    vehicleNumberValue.add(currRow.getReferenceNumber());
+                                                    vehicleNumberValue.add(currRow.getAttribute("PrtCardPk").toString());
+                                                }else{
+                                                    if(currRow.getReferenceNumber()!=null) {
+                                                        SelectItem selectItem = new SelectItem();
+                                                        selectItem.setLabel(currRow.getAttribute("VehicleNumber").toString());
+                                                        selectItem.setValue(currRow.getReferenceNumber());
+                                                        vehicleNumberList.add(selectItem);
+                                                        vehicleNumberValue.add(currRow.getReferenceNumber());
+                                                    }
                                                 }
                                             }
-                                    } else {
-                                        if(currRow.getPrtCardPk()!=null)
-                                        {
-                                        SelectItem selectItem =
-                                            new SelectItem();
+                                        }
+                                    }
+                                }
+                        }
+                    if (dNamePGL) {
+                        
+                        if(accountQueryDriver.length() > 1 && accountQueryDriver!= null){
+                            if(accountQueryDriver.equalsIgnoreCase(driverVo.getWhereClause())){
+                                if(mapAccountDriverListValue!=null){  
+                                    for(int i=0;i< mapAccountDriverListValue.size();i++) {
+                                            String values="account"+i;                            
+                                            driverVo.removeNamedWhereClauseParam(values);
+                                    }
+                                }else{
+                                            driverVo.removeNamedWhereClauseParam("account");
+                                    }
+                                driverVo.setWhereClause("");
+                                driverVo.executeQuery();
+                            }
+                        }
+                            
+                        if(accountQueryVehicle.length() > 1 && accountQueryVehicle!= null){
+                            if(accountQueryVehicle.equalsIgnoreCase(vehicleVo.getWhereClause())){
+                                if(mapAccountVehicleListValue!=null){  
+                                    for(int i=0;i< mapAccountVehicleListValue.size();i++) {
+                                            String values="account"+i;                            
+                                            vehicleVo.removeNamedWhereClauseParam(values);
+                                    }
+                                }else{
+                                            vehicleVo.removeNamedWhereClauseParam("account");
+                                    }
+                                vehicleVo.setWhereClause("");
+                                vehicleVo.executeQuery();
+                            }
+                        }
+                        
+//                      ViewObject vo = ADFUtils.getViewObject("PrtCardDriverVehicleInfoRVO1Iterator");
+                        driverNameList = new ArrayList<SelectItem>();
+                        driverNameValue = new ArrayList<String>();
+                        driverVo.setNamedWhereClauseParam("countryCd", lang);
+                        driverVo.setNamedWhereClauseParam("paramValue", paramType);
+                        
+                        if(accountIdValue.size()>250) { 
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 250 ");
+                            mapAccountDriverListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
+                            for(int i=0;i<mapAccountDriverListValue.size();i++) {
+                              String values="account"+i;
+                                accountQueryDriver=accountQueryDriver+"INSTR(:"+values+",ACCOUNT_NUMBER)<>0 OR ";
+                            }
+                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Account Query vehicle/driver Values ="+accountQueryDriver);
+                               accountQueryDriver=accountQueryDriver.substring(0, accountQueryDriver.length()-3);
+                               accountQueryDriver=accountQueryDriver+")";
+                        }else{
+                            mapAccountListValue=null;
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 250 ");
+                            accountQueryDriver="(INSTR(:account,ACCOUNT_NUMBER)<>0)";
+                        }
+                        
+                        driverVo.setWhereClause(accountQueryDriver);
+                        
+                        if(accountIdValue.size()>250) {      
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 250 ");
+                                        mapAccountDriverListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
+                                        for(int i=0;i<mapAccountDriverListValue.size();i++) {
+                                        String values="account"+i;
+                                        String listName="listName"+i;
+                                        driverVo.defineNamedWhereClauseParam(values, mapAccountDriverListValue.get(listName),null);
+                                        }   
+                                                
+                        }else {
+                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 250 ");
+                                    if (getBindings().getAccount().getValue() != null) {
+                                        driverVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+                                    }
+                        }  
+                    driverVo.executeQuery();
+                    session.setAttribute("account_Query_Driver",accountQueryDriver);
+                    session.setAttribute("map_Account_List_Driver",mapAccountDriverListValue);
+                    if (driverVo.getEstimatedRowCount() > 0) {
+                        for (int n = 0; n < driverVo.getEstimatedRowCount(); n++) {
+                            while (driverVo.hasNext()) {
+                                PrtCardDriverVehicleInfoRVORowImpl currRow =(PrtCardDriverVehicleInfoRVORowImpl)driverVo.next();
+                                if (currRow != null){
+                                    if(currRow.getPrtCardPk()!=null){
+                                        SelectItem selectItem =new SelectItem();
                                         selectItem.setLabel(currRow.getAttribute("DriverName").toString());
                                         selectItem.setValue(currRow.getAttribute("PrtCardPk").toString());
                                         driverNameList.add(selectItem);
                                         driverNameValue.add(currRow.getAttribute("PrtCardPk").toString());
-                                        }else {
-                                                if(currRow.getReferenceNumber()!=null) {
-                                                    SelectItem selectItem =
-                                                        new SelectItem();
-                                                    selectItem.setLabel(currRow.getAttribute("DriverName").toString());
-                                                    selectItem.setValue(currRow.getReferenceNumber());
-                                                    vehicleNumberList.add(selectItem);
-                                                    vehicleNumberValue.add(currRow.getReferenceNumber());
+                                        }else{
+                                            if(currRow.getReferenceNumber()!=null) {
+                                                SelectItem selectItem =new SelectItem();
+                                                selectItem.setLabel(currRow.getAttribute("DriverName").toString());
+                                                selectItem.setValue(currRow.getReferenceNumber());
+                                                vehicleNumberList.add(selectItem);
+                                                vehicleNumberValue.add(currRow.getReferenceNumber());
                                             }
                                         }
                                     }

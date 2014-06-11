@@ -18,6 +18,9 @@
                   id="PrtCardTransactionOverviewRVO12Query"/>    
     <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardTransactionVehicleInfoRVO1Iterator"
+              Binds="PrtCardTransactionVehicleInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <!--<tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"

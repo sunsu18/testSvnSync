@@ -35,6 +35,7 @@
     <![CDATA[SELECT PDI.DRIVER_NAME || '-' || DECODE(PC.CARD_EMBOSS_NUM,NULL,PDI.REFERENCE_NUMBER,PC.CARD_EMBOSS_NUM) AS DRIVER_NAME
       ,PC.PRT_CARD_PK
       ,PDI.REFERENCE_NUMBER
+      ,ACCOUNT_NUMBER
 FROM PRT_DRIVER_INFORMATION PDI
 LEFT JOIN PRT_CARD PC
 ON    (PDI.CARD_NUMBER        = PC.PRT_CARD_PK
@@ -82,6 +83,22 @@ AND   'Driver'                = :paramValue]]>
     ColumnType="VARCHAR2"
     AliasName="REFERENCE_NUMBER"
     Expression="REFERENCE_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_NUMBER"
+    Expression="ACCOUNT_NUMBER"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
