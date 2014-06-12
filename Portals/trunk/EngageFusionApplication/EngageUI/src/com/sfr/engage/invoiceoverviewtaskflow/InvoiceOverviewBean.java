@@ -298,7 +298,8 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
-        if(getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null) {
+        if(getBindings().getPartnerNumber().getValue()!=null && getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null
+        && getBindings().getCardGpCardList().getValue()!=null && getBindings().getCardGroup().getValue()!=null && getBindings().getCard().getValue()!=null) {
              fromDate = (java.util.Date)getBindings().getFromDate().getValue();
              toDate = (java.util.Date)getBindings().getToDate().getValue();
             if (toDate.before(fromDate)) {
@@ -321,32 +322,7 @@ public class InvoiceOverviewBean implements Serializable {
 
 
                 if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
-                    if(((accountQuery+"AND "+ cardQuery ).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))  || ((accountQuery+" AND "+ cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                    " " + "inside  card where removal with purchase code class");
-                        if(mapAccountListValue!=null)
-                        {
-                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                String values="account"+i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                        }
-                        }else{
-                            invoiceVO.removeNamedWhereClauseParam("account");
-                        }
-
-                        if(mapCardListValue!=null)
-                        {
-                        for(int i=0;i< mapCardListValue.size();i++) {
-                                String values="card"+i;
-                                invoiceVO.removeNamedWhereClauseParam(values);
-                        }
-
-                        }else{
-                            invoiceVO.removeNamedWhereClauseParam("card");
-                        }
-                        invoiceVO.setWhereClause("");
-                        invoiceVO.executeQuery();
-                }else{
+               
                     if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                     " " + "inside  card with out purchase code where removal class");
@@ -372,34 +348,10 @@ public class InvoiceOverviewBean implements Serializable {
                         invoiceVO.setWhereClause("");
                         invoiceVO.executeQuery();
                     }
-                }
-                }
+                }                
                 else {
                                 if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {
-                                    if(((accountQuery+"AND "+cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
-                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                            " " + "inside cardGroup with purchase code where removal class");
-                                        if(mapAccountListValue!=null)
-                                        {
-                                        for(int i=0;i< mapAccountListValue.size();i++) {
-                                                String values="account"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else {
-                                            invoiceVO.removeNamedWhereClauseParam("account");
-                                        }
-                                        if(mapCardGroupListValue!=null)
-                                        {
-                                        for(int i=0;i< mapCardGroupListValue.size();i++) {
-                                                String values="cardGroup"+i;
-                                                invoiceVO.removeNamedWhereClauseParam(values);
-                                        }
-                                        }else {
-                                            invoiceVO.removeNamedWhereClauseParam("cardGroup");
-                                        }
-                                        invoiceVO.setWhereClause("");
-                                        invoiceVO.executeQuery();
-                                }else{
+                              
                                     if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                                     " " + "inside  cardGroup with out purchase code where removal class");
@@ -424,7 +376,7 @@ public class InvoiceOverviewBean implements Serializable {
                                         invoiceVO.setWhereClause("");
                                         invoiceVO.executeQuery();
                                     }
-                                }
+                                
                             }
 
                             }
@@ -591,13 +543,27 @@ public class InvoiceOverviewBean implements Serializable {
                 session.setAttribute("map_Card_List_Invoice_overview",mapCardListValue);
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count=="+invoiceVO.getEstimatedRowCount());
+                if(invoiceVO.getEstimatedRowCount()>0){
                 searchResults=true;
+                }
+                else{
+                searchResults=false;
+                    if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                             (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                     msg);
+                    }
+                }
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Where condition:"+invoiceVO.getWhereClause());
 
             }
 
         }else {
+            searchResults=false;
             if (resourceBundle.containsKey("INVOICE_MANDATORY_CHECK")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
