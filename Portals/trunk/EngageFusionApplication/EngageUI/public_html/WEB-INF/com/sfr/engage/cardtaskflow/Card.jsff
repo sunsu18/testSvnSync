@@ -332,7 +332,7 @@
         
         <af:separator id="s29"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-        <af:spacer width="10" height="15" id="s33"/>
+        <af:spacer width="10" height="5" id="s33"/>
         
         <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
                        id="ot10"
@@ -340,14 +340,19 @@
                        rendered="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText"
                               partialTriggers="sor1 save t1:cil1"/>
-        
-         <af:outputText value="#{pageFlowScope.CardBean.infoMsg}"
+        <af:panelGroupLayout layout="vertical" id="pgl78" rendered="#{pageFlowScope.CardBean.showEditInfoMessage}">
+         <af:outputText value="#{pageFlowScope.CardBean.infoMsgAssociated}"
                        id="ot25"
                        binding="#{pageFlowScope.CardBean.bindings.showEditInfoMessage}"
-                       rendered="#{pageFlowScope.CardBean.showEditInfoMessage}"
                        styleClass="infoOutputText"
-                              partialTriggers="sor1 save t1:cil1"/>
-        <af:spacer width="10" height="10" id="s38"/>
+                       partialTriggers="sor1 save t1:cil1"/>
+        <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedBy}"
+                       id="ot6" partialTriggers="sor1 save t1:cil1"
+                       styleClass="infoOutputText"/>
+        <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedDate}"
+                       id="ot9" partialTriggers="sor1 save t1:cil1"
+                       styleClass="infoOutputText"/>
+        </af:panelGroupLayout>
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="new_vehicle_panel_toolbar"
