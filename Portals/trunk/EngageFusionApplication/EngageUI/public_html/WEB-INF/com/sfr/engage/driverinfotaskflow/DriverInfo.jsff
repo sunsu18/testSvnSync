@@ -145,7 +145,7 @@
           <af:panelGroupLayout id="pgl8">
 
       <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.driverInfoList}" width="945px"
-                         rows="5"  emptyText="#{not empty var.driverInfoList ? 'No data to display.' : 'No data to display.'}"
+                         rows="5"  emptyText="#{not empty var.driverInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                           fetchSize="10" columnResizing="disabled" disableColumnReordering="true"
                 autoHeightRows="5">
                   <af:column sortable="false" id="c13" width="28px" align="center">

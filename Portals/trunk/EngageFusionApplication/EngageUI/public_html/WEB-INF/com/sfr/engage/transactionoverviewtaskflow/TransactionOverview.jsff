@@ -393,7 +393,7 @@
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
                   var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
-                  emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                   fetchSize="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
                   rowBandingInterval="1"
                   filterModel="#{bindings.PrtCardTransactionOverviewRVO12Query.queryDescriptor}"
@@ -485,8 +485,10 @@
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
                      id="c35">
             <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.Quantity.format}"/>
+             <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
+                                minFractionDigits="2"/>
             </af:outputText>
           </af:column>
            <af:column sortProperty="UnitOfMeasure" filterable="false" sortable="false" width="80"

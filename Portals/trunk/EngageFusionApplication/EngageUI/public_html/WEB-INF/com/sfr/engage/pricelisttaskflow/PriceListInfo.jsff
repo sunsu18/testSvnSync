@@ -40,7 +40,7 @@
         <af:table value="#{bindings.PriceListRVO1.collectionModel}" var="row"
                   rows="#{bindings.PriceListRVO1.rangeSize}"
                   autoHeightRows="10"
-                  emptyText="#{bindings.PriceListRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                  emptyText="#{bindings.PriceListRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                   fetchSize="#{bindings.PriceListRVO1.rangeSize}"
                   rowBandingInterval="1" id="t1"
                   binding="#{pageFlowScope.PriceListInfoBean.pricelistinfotable}" disableColumnReordering="true" columnResizing="disabled"

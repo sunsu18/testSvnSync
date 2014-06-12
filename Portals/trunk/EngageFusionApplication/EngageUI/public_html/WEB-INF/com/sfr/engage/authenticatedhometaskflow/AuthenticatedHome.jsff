@@ -281,7 +281,7 @@
                   <af:table value="#{bindings.PrtHomeTransactionsRVO1.collectionModel}"
                             var="row" styleClass="home home_table"
                             rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
-                            emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                            emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                             fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
                             rowBandingInterval="1" id="t2" width="648"
                             summary="Latest Transactions"
@@ -319,8 +319,9 @@
 
                         <af:outputText value="#{row.Quantity}" id="ot17" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
                                        inlineStyle="text-align: right;">
-                          <af:convertNumber groupingUsed="false"
-                                            pattern="#{bindings.PrtHomeTransactionsRVO1.hints.Quantity.format}"/>
+                           <af:convertNumber groupingUsed="true" pattern="##.##"
+                                        locale="#{pageFlowScope.AuthenticatedHomeBean.locale}"
+                                        minFractionDigits="2"/>
                         </af:outputText>
                         <af:spacer width="4" id="s24"/>
                         <af:outputText value="#{row.UnitOfMeasure}" id="ot13" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>

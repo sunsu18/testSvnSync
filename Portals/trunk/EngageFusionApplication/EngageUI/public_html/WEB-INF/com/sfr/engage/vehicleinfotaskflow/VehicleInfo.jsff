@@ -158,7 +158,7 @@
             <af:table var="row" rowBandingInterval="1" id="t1"
                       value="#{var.vehicleInfoList}"  rows="5" width="962px"
 
-                      emptyText="#{not empty var.vehicleInfoList ? 'No data to display.' : 'No data to display.'}"
+                      emptyText="#{not empty var.vehicleInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                       fetchSize="10" columnResizing="disabled"
                       disableColumnReordering="true" autoHeightRows="5">
               <af:column sortable="false" id="c13" width="28px" align="center">

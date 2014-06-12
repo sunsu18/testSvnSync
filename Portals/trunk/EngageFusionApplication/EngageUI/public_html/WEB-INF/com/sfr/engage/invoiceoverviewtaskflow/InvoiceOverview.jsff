@@ -212,7 +212,7 @@
      <af:spacer width="10" height="10" id="s7"/>
      <af:table value="#{bindings.PrtNewInvoiceVO1.collectionModel}" var="row" width="962px"
                rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
-               emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+               emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                fetchSize="#{bindings.PrtNewInvoiceVO1.rangeSize}" rowSelection="single" disableColumnReordering="true" columnResizing="disabled"
                rowBandingInterval="0" id="t1" selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}">
       <af:column sortProperty="InvoiceNumber" sortable="false"
