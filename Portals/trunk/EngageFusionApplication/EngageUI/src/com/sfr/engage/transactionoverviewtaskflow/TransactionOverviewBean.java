@@ -329,7 +329,20 @@ public class TransactionOverviewBean implements Serializable {
                     }
                 }
             }
-            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
+        }else {
+                System.out.println("partner id is null");
+               accountIdList = new ArrayList<SelectItem>();
+               accountIdValue = new ArrayList<String>(); 
+               cardNumberList = new ArrayList<SelectItem>();
+               cardNumberValue = new ArrayList<String>();
+               cardGroupList = new ArrayList<SelectItem>();
+               cardGroupValue = new ArrayList<String>();
+               vehicleNumberList = new ArrayList<SelectItem>();
+               vehicleNumberValue = new ArrayList<String>(); 
+                driverNameList = new ArrayList<SelectItem>();
+                driverNameValue = new ArrayList<String>(); 
+            }
+            getBindings().getCardCardGrpDrVhOneRadio().setValue(null);            
             cardIdPGL = false;
             cardGPGL = false;
             vNumberPGL = false;
@@ -346,7 +359,7 @@ public class TransactionOverviewBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "account list is created");
-        }
+        
 
 
     }
