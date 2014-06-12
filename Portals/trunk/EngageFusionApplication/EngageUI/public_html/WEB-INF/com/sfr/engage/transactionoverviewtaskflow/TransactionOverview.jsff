@@ -528,7 +528,7 @@
             </af:outputText>
           </af:column>
           
-          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true"
+          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="false"
                      sortable="false" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
                      id="c4">
@@ -618,7 +618,7 @@
           </af:column>
           
           
-           <af:column sortProperty="InvoivedVatRebated" filterable="true"
+           <af:column sortProperty="InvoivedVatRebated" filterable="false"
                      sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_VAT}"
                      id="c8">
@@ -630,7 +630,7 @@
             </af:outputText>
           </af:column>
           
-           <af:column sortProperty="InvoicedNetAmountRebated" filterable="true"
+           <af:column sortProperty="InvoicedNetAmountRebated" filterable="false"
                      sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_NET}"
                      id="c9">
