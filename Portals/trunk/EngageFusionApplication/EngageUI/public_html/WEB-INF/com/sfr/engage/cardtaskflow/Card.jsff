@@ -337,14 +337,14 @@
         <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
                        id="ot10"
                        binding="#{pageFlowScope.CardBean.bindings.showEditErrorMessage}"
-                       visible="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
+                       rendered="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText"
                               partialTriggers="sor1 save t1:cil1"/>
-                              
+        
          <af:outputText value="#{pageFlowScope.CardBean.infoMsg}"
                        id="ot25"
                        binding="#{pageFlowScope.CardBean.bindings.showEditInfoMessage}"
-                       visible="#{pageFlowScope.CardBean.showEditInfoMessage}"
+                       rendered="#{pageFlowScope.CardBean.showEditInfoMessage}"
                        styleClass="infoOutputText"
                               partialTriggers="sor1 save t1:cil1"/>
         <af:spacer width="10" height="10" id="s38"/>
@@ -376,7 +376,9 @@
                 
                   
                   <h:panelGrid columns="5" id="pg3">
-<af:panelGroupLayout layout="vertical" id="pgl5" inlineStyle="width:120px;">
+<af:panelGroupLayout layout="vertical" id="pgl5"
+                     inlineStyle="width:120px; height:180px;"
+                     valign="top">
 <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
 <af:spacer width="10" height="20" id="s52"/>
 <af:panelGroupLayout layout="horizontal" id="both" >
@@ -426,8 +428,10 @@
 
 
 
-<af:panelGroupLayout layout="vertical" id="pgl56" inlineStyle="width:20px;">
- <af:spacer width="65" height="15" id="s39"/>
+<af:panelGroupLayout layout="vertical" id="pgl56"
+                     inlineStyle="width:20px; height:180px;"
+                     valign="top">
+<af:spacer height="20" width="10" id="s61"/>
 <af:panelGroupLayout layout="horizontal" id="pgl59" >
 <af:panelGroupLayout id="pgl60" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s9"/>
@@ -436,6 +440,7 @@
 <af:spacer width="10" height="20" id="s56"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s60"/>
 <af:panelGroupLayout layout="horizontal" id="pgl75" >
 <af:panelGroupLayout id="pgl76" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s54"/>
@@ -444,6 +449,7 @@
 <af:spacer width="10" height="20" id="s53"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s39"/>
 <af:panelGroupLayout layout="horizontal" id="pgl42" >
 <af:panelGroupLayout id="pgl41" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s50" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
@@ -452,6 +458,7 @@
 <af:spacer width="10" height="20" id="s49" visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s12"/>
 <af:panelGroupLayout layout="horizontal" id="pgl25" >
 <af:panelGroupLayout id="pgl24" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s46" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
@@ -469,7 +476,9 @@
 
 
 
-<af:panelGroupLayout layout="vertical" id="pgl57" inlineStyle="width:10px;">
+<af:panelGroupLayout layout="vertical" id="pgl57"
+                     inlineStyle="width:10px; height:180px;"
+                     valign="top">
 <af:outputText value=":" id="ot42"/>
 <af:spacer width="10" height="20" id="s21"/>
 <af:panelGroupLayout layout="horizontal" id="pgl62" >
@@ -504,7 +513,7 @@
 <af:outputText value=":" id="ot34" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl20" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
-<af:outputText value=":" id="ot26"/>
+<af:outputText value=":" id="ot26" visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -516,8 +525,10 @@
 
 
 
-<af:panelGroupLayout layout="vertical" id="pgl58" inlineStyle="width:20px;">
-<af:spacer width="7" height="30" id="s12"/>
+<af:panelGroupLayout layout="vertical" id="pgl58"
+                     inlineStyle="width:20px; height:180px;"
+                     valign="top">
+<af:spacer height="20" width="10" id="s63"/>
 <af:panelGroupLayout layout="horizontal" id="pgl65" >
 <af:panelGroupLayout id="pgl66" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s57"/>
@@ -526,6 +537,7 @@
 <af:spacer width="10" height="20" id="s58"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s64"/>
 <af:panelGroupLayout layout="horizontal" id="pgl51" >
 <af:panelGroupLayout id="pgl50" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s35"/>
@@ -534,6 +546,7 @@
 <af:spacer width="10" height="20" id="s51"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s65"/>
 <af:panelGroupLayout layout="horizontal" id="pgl33" >
 <af:panelGroupLayout id="pgl34" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s47" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
@@ -542,6 +555,7 @@
 <af:spacer width="10" height="20" id="s48" visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
+<af:spacer height="20" width="10" id="s66"/>
 <af:panelGroupLayout layout="horizontal" id="pgl19" >
 <af:panelGroupLayout id="pgl18" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s30" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
@@ -558,7 +572,8 @@
 
 
 
-<af:panelGroupLayout layout="vertical" id="pgl77">
+<af:panelGroupLayout layout="vertical" id="pgl77" valign="top"
+                     inlineStyle="height:180px;">
  <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"  partialTriggers="t1:cil1"
                                valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}" >
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
