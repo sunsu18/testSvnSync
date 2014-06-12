@@ -196,7 +196,7 @@ public class EngageResourceBundle extends ListResourceBundle{
     {"STATOIL_COMMERCIAL_CARD_LINK",""},{"STATOIL_BUSINESS_CARD_LINK",""} ,{"STATOIL_MASTER_CARD_LINK",""},{"STATOIL_EUROPE_CARD_LINK",""},
                                       {"LEARN_MORE_AND_APPLY",""},  {"PLEASE_SELECT_ENG",""}, {"LATEST_UPDATE_ENG",""}, {"MODIFIED_BY",""}, {"MODIFIED_DATE",""},{"VIEW",""},
                                       {"INVOICE_COLLECTIONS",""},{"COLLECTION_DETAILS",""},
-  {"REFERENCE_NUMBER",""} ,{"CARD_ASSOCIATED_VEHICLE",""},{"CARD_ASSOCIATED_DRIVER",""} };
+  {"REFERENCE_NUMBER",""} ,{"CARD_ASSOCIATED_VEHICLE",""},{"CARD_ASSOCIATED_DRIVER",""},{"COUNTRY_SWEDEN",""},{"COUNTRY_DENMARK",""},{"COUNTRY_NORWAY",""} };
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

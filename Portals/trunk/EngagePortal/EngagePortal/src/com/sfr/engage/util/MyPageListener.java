@@ -303,9 +303,14 @@ public class MyPageListener implements PagePhaseListener {
 
 
                                 if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " User contains Admin role");
+                                    System.out.println(accessDC.getDisplayRecord()+this.getClass() + " User contains Admin role");
+
 
                                     if (user.getRoleList().get(i).getIdString() != null) {
+                                        session.setAttribute("partnerLang", user.getRoleList().get(i).getIdString().get(0).toString().substring(0,2));
+                                        session.setAttribute(Constants.userLang, user.getRoleList().get(i).getIdString().get(0).toString().substring(0,2));
+                                        System.out.println(accessDC.getDisplayRecord()+this.getClass() + " partner lang in session setted as "+ session.getAttribute("partnerLang"));
+
                                         int partIndex = 0;
                                         do {
                                             executeAdmin(user, partIndex);
@@ -313,9 +318,9 @@ public class MyPageListener implements PagePhaseListener {
                                         } while (partIndex < user.getRoleList().get(i).getIdString().size());
                                     }
                                     // session.setAttribute("executePartnerObjLogic", "no");
-                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+(accessDC.getDisplayRecord() + this.getClass() +
+                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+(
                                                         " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
-                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord()+this.getClass()+"cardTypeHS size is " + cardTypeHS.size());
+                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+"cardTypeHS size is " + cardTypeHS.size());
                                     session.setAttribute("cardTypeList", cardTypeHS);
 
                                 }
@@ -326,7 +331,7 @@ public class MyPageListener implements PagePhaseListener {
                             if (session != null)
 
                             {
-                                System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord()+this.getClass()+"Session is not null & executePartnerObjLogic value is " + session.getAttribute("executePartnerObjLogic"));
+                                System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Session is not null & executePartnerObjLogic value is " + session.getAttribute("executePartnerObjLogic"));
 
                                 if (session.getAttribute("executePartnerObjLogic") == null) {
 
@@ -371,7 +376,12 @@ public class MyPageListener implements PagePhaseListener {
 
                                                         part.setPartnerValue(partnerId);
                                                         part.setPartnerName(getPartnerName(partnerId));
-                                                        part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
+                                                        if(session.getAttribute("partnerLang")!=null)
+                                                        {part.setCountry((String)session.getAttribute("partnerLang"));}
+                                                        else
+                                                        { System.out.println(accessDC.getDisplayRecord()+this.getClass() + " partner language null in session");
+                                                            part.setCountry(null);
+                                                        }
                                                         part.setCompanyOverview(false);
 
 
@@ -1292,8 +1302,15 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner id passed in Account VO is " + Partnerid);
 
         part.setPartnerValue(Partnerid);
+
         part.setPartnerName(getPartnerName(Partnerid));
-        part.setCountry(conv.getLangForWERCSURL(user.getLang().toString()));
+
+        if(session.getAttribute("partnerLang")!=null)
+        {part.setCountry((String)session.getAttribute("partnerLang"));}
+        else
+        { System.out.println(accessDC.getDisplayRecord()+this.getClass() + " partner language null in session");
+            part.setCountry(null);
+        }
         //part.setCountry(user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
         //System.out.println(accessDC.getDisplayRecord()+this.getClass() + "Partner country setted as " + user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
 
@@ -1302,7 +1319,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         ViewObject accountVO = iter1.getViewObject();
         accountVO.setWhereClause("PARTNER_ID =: pid");
         accountVO.defineNamedWhereClauseParam("pid", Partnerid, null);
-        accountVO.setNamedWhereClauseParam("countryCode", (conv.getLangForWERCSURL(user.getLang().toString())));
+        accountVO.setNamedWhereClauseParam("countryCode", (String)session.getAttribute("partnerLang"));
         //accountVO.setNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
         //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accountVO.getQuery());
         accountVO.executeQuery();
@@ -1447,7 +1464,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                            CardgroupSubType + CardgroupSeq);
 
                         cardVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
-                        cardVO.defineNamedWhereClauseParam("cc", (conv.getLangForWERCSURL(user.getLang().toString())), null);
+                        cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute("partnerLang"), null);
 
                         //cardVO.defineNamedWhereClauseParam("cc", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
                         cardVO.defineNamedWhereClauseParam("cgmain", CardgroupMainType, null);
@@ -1553,6 +1570,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
     }
 
     public String getPartnerName(String partnerid) {
+        SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
+        HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+        HttpSession session = request.getSession();
+
         String partnerName = "";
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
@@ -1563,7 +1584,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             //            System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner id passed in Partner VO is " + partnerid);
             partnerVO.defineNamedWhereClauseParam("pid", partnerid, null);
 
-            partnerVO.defineNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL(user.getLang().toString()), null);
+            partnerVO.defineNamedWhereClauseParam("countryCode", (String)session.getAttribute("partnerLang"), null);
             //partnerVO.defineNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
             partnerVO.executeQuery();
             //            System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Partner VO  " + partnerVO.getEstimatedRowCount());
@@ -1593,6 +1614,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
 
+        SecurityContext securityContext = ADFContext.getCurrent().getSecurityContext();
+        HttpServletRequest request = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+        HttpSession session = request.getSession();
+
         if (bindings != null) {
             iter1 = bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
             ViewObject cardGroupVO = iter1.getViewObject();
@@ -1610,7 +1635,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
             cardGroupVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
             //cardGroupVO.defineNamedWhereClauseParam("cc", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
-            cardGroupVO.defineNamedWhereClauseParam("cc", conv.getLangForWERCSURL(user.getLang().toString()), null);
+            cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute("partnerLang"), null);
             cardGroupVO.defineNamedWhereClauseParam("cgmain", CardgroupMainType, null);
             cardGroupVO.defineNamedWhereClauseParam("cgsub", CardgroupSubType, null);
             cardGroupVO.executeQuery();
