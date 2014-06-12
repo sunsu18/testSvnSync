@@ -529,6 +529,8 @@ public class VehicleInfoBean implements Serializable {
             }else{
                 driverVo.defineNamedWhereClauseParam("cardNo"," ", null);
             }
+            
+           
             driverVo.executeQuery();
             if(driverVo.getEstimatedRowCount() > 0){
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside vehicle method to check Existing driver for selected card:::::::::");
@@ -601,6 +603,10 @@ public class VehicleInfoBean implements Serializable {
                     vehicleInfoRow.setAttribute("CountryCode", countryParam);
                     vehicleInfoRow.setAttribute("VehicleNumber", getBindings().getAddVehicleNumber().getValue().toString().trim());
                     vehicleInfoRow.setAttribute("InternalName", getBindings().getAddInternalName().getValue().toString().trim());
+                    
+                    if(getBindings().getAddRegistrationNumber().getValue() != null) {
+                        vehicleInfoRow.setAttribute("RegistrationNumber", getBindings().getAddRegistrationNumber().getValue().toString().trim());
+                    }
                     OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                     newDriverOpn.execute();
                 if(newDriverOpn.getErrors().isEmpty()){
@@ -723,6 +729,7 @@ public class VehicleInfoBean implements Serializable {
                 }else{
                     driverVo.defineNamedWhereClauseParam("cardNo","", null);
                 }
+            
                 driverVo.executeQuery();
                 if(driverVo.getEstimatedRowCount() > 0){
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside of edit vehicle save method to check for existing driver :::::::::");
@@ -825,6 +832,9 @@ public class VehicleInfoBean implements Serializable {
                 vehicleInfoRow.setAttribute("CountryCode", countryParam);
                 vehicleInfoRow.setAttribute("VehicleNumber",getBindings().getEditVehicleNumber().getValue().toString().trim());
                 vehicleInfoRow.setAttribute("InternalName",getBindings().getEditInternalName().getValue().toString().trim());
+              if(getBindings().getEditRegistrationNumber().getValue() != null) {
+                  vehicleInfoRow.setAttribute("RegistrationNumber",getBindings().getEditRegistrationNumber().getValue().toString().trim());
+              }
                 OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                 newDriverOpn.execute();
                 if(newDriverOpn.getErrors().isEmpty()){
@@ -1684,6 +1694,7 @@ public class VehicleInfoBean implements Serializable {
         private RichSelectOneChoice editPartnerNumberId;
         private RichInputText addReferenceNumber;
         private RichInputText editReferenceNumber;
+        private RichInputText editRegistrationNumber;
         
         /**
          * @param linkedAccount
@@ -1932,6 +1943,14 @@ public class VehicleInfoBean implements Serializable {
 
         public RichInputText getEditReferenceNumber() {
             return editReferenceNumber;
+        }
+
+        public void setEditRegistrationNumber(RichInputText editRegistrationNumber) {
+            this.editRegistrationNumber = editRegistrationNumber;
+        }
+
+        public RichInputText getEditRegistrationNumber() {
+            return editRegistrationNumber;
         }
     }
 }

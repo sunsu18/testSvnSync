@@ -679,7 +679,8 @@
                               maximumLength="#{bindings.RegistrationNumber.hints.precision}"
                               shortDesc="#{bindings.RegistrationNumber.hints.tooltip}"
                               id="it17"
-                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.VehicleInfoBean.bindings.editRegistrationNumber}">
                   <f:validator binding="#{bindings.RegistrationNumber.validator}"/>
                 </af:inputText>
                 <af:spacer width="25" height="10" id="colnSpace51"/>
