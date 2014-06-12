@@ -1074,16 +1074,16 @@ public class InvoiceOverviewBean implements Serializable {
         searchInputVO.setSourceSystem("WebPortal");
 
         Property invoiceNo = new Property();
-        invoiceNo.setName("xInvoiceNo");
+        invoiceNo.setName("xDocumentNo");
         invoiceNo.setValue(invoiceNumber.toString().trim());
 
         Property partnerId = new Property();
         partnerId.setName("xPartnerId");
         partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
 
-        Property docType = new Property();
-        docType.setName("xDocumentType");
-        docType.setValue("PDF");
+//        Property docType = new Property();
+//        docType.setName("xDocumentType");
+//        docType.setValue("PDF");
 
         Property contentType = new Property();
         contentType.setName("xContentType");
@@ -1112,17 +1112,19 @@ public class InvoiceOverviewBean implements Serializable {
 
         searchInputVO.getSearchInputQueryProperty().add(partnerId);
 
-        searchInputVO.getSearchInputQueryProperty().add(docType);
+        //searchInputVO.getSearchInputQueryProperty().add(docType);
         searchInputVO.getSearchInputQueryProperty().add(contentType);
         searchInputVO.getSearchInputQueryProperty().add(subType);
 
-        searchInputVO.getSearchResultMetadata().add("dDocTitle");
-        searchInputVO.getSearchResultMetadata().add("dDocName");
+//        searchInputVO.getSearchResultMetadata().add("dDocTitle");
+//        searchInputVO.getSearchResultMetadata().add("dDocName");
 
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     if (uCMCustomWeb != null) {
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
+                        if(UCMInvoiceContentIdList.size()>0)
+                        {
                         ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Content id="+ucmContentId);
                         if (ucmContentId != null && ucmContentId.trim().length() > 0) {
@@ -1131,6 +1133,9 @@ public class InvoiceOverviewBean implements Serializable {
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "get file from ucm");
                             responseByteArr = uCMCustomWeb.getFileFromUCM(DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_USERNAME), DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_PASSWORD),
                                                                 ucmContentId);
+                        }
+                        }else {
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Content Id is not avialable in UCM");
                         }
                     }
                 } catch (Exception e) {
