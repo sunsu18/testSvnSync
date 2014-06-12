@@ -308,7 +308,7 @@
 
     </af:panelGroupLayout>
    </af:panelGroupLayout>
-    <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}">
+    <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}" autoCancel="disabled" animate="false">
       <af:dialog id="d1" title="Email confirmation"
                  dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}" shortDesc="Are you sure you want to send email" styleClass="textDialogs"
                  contentWidth="330" type="ok">
