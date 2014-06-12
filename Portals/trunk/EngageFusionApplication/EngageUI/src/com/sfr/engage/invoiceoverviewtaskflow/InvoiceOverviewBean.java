@@ -130,6 +130,13 @@ public class InvoiceOverviewBean implements Serializable {
     private Map<String,String> mapCardListValue;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private ValueListSplit valueList;
+    private RichOutputText mailResult;
+    private RichOutputText mailResultInvoiceNotFound;
+    private RichOutputText mailResultFailure;
+    private boolean invoiceNotFound;
+    private boolean successResult;
+    private boolean failureResult;
+
     public InvoiceOverviewBean() {
         super();
         email = new emailbean();
@@ -673,17 +680,17 @@ public class InvoiceOverviewBean implements Serializable {
         ViewObject cardTransactionVO =
             ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
 
-        
+
         if(invoiceGroupingValue!=null) {
             if(invoiceGroupingValue.equals("FAK")) {
-                               
-                
+
+
                 cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
                 cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",invoiceNumberValue,null);
                 cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
             }else {
                 if(invoiceGroupingValue.equals("SAM")) {
-                   
+
                     cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
                     cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",invoiceNumberValue,null);
                     cardTransactionVO.defineNamedWhereClauseParam("country_code",lang,null);
@@ -1040,6 +1047,13 @@ public class InvoiceOverviewBean implements Serializable {
 
 
         RichPopup.PopupHints ps = new RichPopup.PopupHints();
+
+
+        failureResult = false;
+        invoiceNotFound = false;
+        successResult = false;
+
+
         confirmation_mail_popup.show(ps);
 
         return null;
@@ -1305,6 +1319,94 @@ public class InvoiceOverviewBean implements Serializable {
         //
                String mail_result =  triggermail();
                System.out.println("Notification of Mail " + mail_result);
+               if(mail_result !=null && mail_result.equalsIgnoreCase("success")) {
+                   System.out.println("Mail send successfully");
+                   /*
+                   if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                   //                        FacesMessage msg =
+                   //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                   //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                   //                                             "");
+                       FacesMessage msg =
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                            "Mail send successfully",
+                                            "");
+                       FacesContext.getCurrentInstance().addMessage(null,
+                                                                    msg);
+                   }
+
+
+*/
+
+                   failureResult = false;
+                   invoiceNotFound = false;
+                   successResult = true;
+//                   mailResult.setVisible(true);
+//                   mailResultInvoiceNotFound.setVisible(false);
+//                   mailResultFailure.setVisible(false);
+//                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+//                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+//                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+               }
+                   if(mail_result !=null && mail_result.equalsIgnoreCase("failure")) {
+                        System.out.println("INVOICE_TODATE_LESSTHAN");
+         /*              if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                       //                        FacesMessage msg =
+                       //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                       //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                       //                                             "");
+                           FacesMessage msg =
+                               new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                "Sorry, Mail was not generated, please try after some time",
+                                                "");
+                           FacesContext.getCurrentInstance().addMessage(null,
+                                                                        msg);
+                       }  */
+
+         failureResult = true;
+         invoiceNotFound = false;
+         successResult = true;
+
+//         mailResult.setVisible(false);
+//         mailResultInvoiceNotFound.setVisible(false);
+//         mailResultFailure.setVisible(true);
+//                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+//                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+//                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+                   }
+                if(mail_result == null) {
+                    System.out.println("Invoice not Found");
+                /*
+                 if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                //                        FacesMessage msg =
+                //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                //                                             "");
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         "Invoice not Found",
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 msg);
+                }*/
+
+
+                failureResult = false;
+                invoiceNotFound = true;
+                successResult = false;
+
+
+//                mailResult.setVisible(false);
+//                mailResultInvoiceNotFound.setVisible(true);
+//                mailResultFailure.setVisible(false);
+//                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+//                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+//                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+
+                }
             }
         else
         {
@@ -1535,23 +1637,30 @@ public class InvoiceOverviewBean implements Serializable {
             emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
             email_recipient_popup.getValue().toString(),
              "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
+
+            return "success";
                 }
                 else {
 
                     System.out.println("Throw adf message of mail can not be send");
+
+
+
+                    return null;
                 }
 
                 }
             catch(Exception e) {
                 System.out.println("error in mail");
                 e.printStackTrace();
+                return "failure";
 
             }
 
 
 
 
-        return null;
+
 
     }
     public void setTo_recipient(String to_recipient) {
@@ -1718,6 +1827,54 @@ public class InvoiceOverviewBean implements Serializable {
 
     public Map<String, String> getMapCardListValue() {
         return mapCardListValue;
+    }
+
+    public void setMailResult(RichOutputText mailResult) {
+        this.mailResult = mailResult;
+    }
+
+    public RichOutputText getMailResult() {
+        return mailResult;
+    }
+
+    public void setMailResultInvoiceNotFound(RichOutputText mailResultInvoiceNotFound) {
+        this.mailResultInvoiceNotFound = mailResultInvoiceNotFound;
+    }
+
+    public RichOutputText getMailResultInvoiceNotFound() {
+        return mailResultInvoiceNotFound;
+    }
+
+    public void setMailResultFailure(RichOutputText mailResultFailure) {
+        this.mailResultFailure = mailResultFailure;
+    }
+
+    public RichOutputText getMailResultFailure() {
+        return mailResultFailure;
+    }
+
+    public void setInvoiceNotFound(boolean invoiceNotFound) {
+        this.invoiceNotFound = invoiceNotFound;
+    }
+
+    public boolean isInvoiceNotFound() {
+        return invoiceNotFound;
+    }
+
+    public void setSuccessResult(boolean successResult) {
+        this.successResult = successResult;
+    }
+
+    public boolean isSuccessResult() {
+        return successResult;
+    }
+
+    public void setFailureResult(boolean failureResult) {
+        this.failureResult = failureResult;
+    }
+
+    public boolean isFailureResult() {
+        return failureResult;
     }
 
     public class Bindings {
