@@ -29,7 +29,7 @@
         <!--<af:spacer width="50" height="10" id="s5"/>-->
          <af:panelGroupLayout id="pgl13" halign="right">
         <af:outputText value="#{bindings.ModifiedDate.inputValue}" id="ot2">
-        <af:convertDateTime pattern="dd-MMM-yyyy   HH:mm:ss"/>
+        <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
         </af:outputText>
         </af:panelGroupLayout>
         </af:panelGroupLayout>

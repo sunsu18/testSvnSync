@@ -519,7 +519,7 @@
           <af:outputText value=":" id="ot80"/>
           <af:spacer width="10" height="10" id="s64"/>
 
-               <af:inputText value="#{bindings.PartnerCountry.inputValue =='SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue == 'DK' ?  (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue =='NO' ? (sfr.COUNTRY_NORWAY) : 'ERR'}"
+               <af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : 'Error' }"
 
 
                             id="it38"
@@ -527,7 +527,10 @@
                              maximumLength="#{bindings.PartnerCountry.hints.precision}"
                              readOnly="true">
               </af:inputText>
-              <!--<af:inputText value="#{bindings.PartnerCountry.inputValue}"
+
+
+
+           <!--<af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? 'Sweden' : bindings.PartnerCountry.inputValue eq 'DK' ? 'Denmark' : bindings.PartnerCountry.inputValue eq 'NO' ? 'Norway' : 'Error' }"
                             simple="true"
                             required="#{bindings.PartnerCountry.hints.mandatory}"
                             columns="#{bindings.PartnerCountry.hints.displayWidth}"
@@ -1339,7 +1342,7 @@
                <af:outputText value="#{sfr.CARD_INV_COUNTRY}" id="ot14"/>
           <af:outputText value=":" id="ot15"/>
           <af:spacer width="10" height="10" id="s13"/>
-              <af:inputText value="#{bindings.PartnerCountry.inputValue =='SE' ? (sfr.COUNTRY_SWEDEN) : (bindings.PartnerCountry.inputValue) or bindings.PartnerCountry.inputValue =='DK' ? (sfr.COUNTRY_DENMARK) : (bindings.PartnerCountry.inputValue) or bindings.PartnerCountry.inputValue =='NO' ? (sfr.COUNTRY_NORWAY) : (bindings.PartnerCountry.inputValue)}"
+              <af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : 'Error' }"
 
                             simple="true"  readOnly="true"
                             required="#{bindings.InvoiceCountry.hints.mandatory}"
