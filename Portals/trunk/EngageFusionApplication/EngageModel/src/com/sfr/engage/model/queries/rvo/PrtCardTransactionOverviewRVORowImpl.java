@@ -1646,6 +1646,8 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                     locale = conversionUtility.getLocaleFromCountryCode(lang);
                 }else if (lang == "PL") {            
                     locale = conversionUtility.getLocaleFromCountryCode(lang);
+                }else {
+                    locale = conversionUtility.getLocaleFromCountryCode("SE");
                 }
             }
             if(locale!=null) {               

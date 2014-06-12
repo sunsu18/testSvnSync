@@ -153,6 +153,7 @@ public class TransactionOverviewBean implements Serializable {
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 partnerIdList = new ArrayList<SelectItem>();
                 for (int k = 0; k < partnerInfoList.size(); k++) {
+                    lang = partnerInfoList.get(0).getCountry().toString().trim();
                     SelectItem selectItem = new SelectItem();
                     if(partnerInfoList.get(k).getPartnerName()!=null && partnerInfoList.get(k).getPartnerValue()!=null)
                     {
@@ -225,9 +226,9 @@ public class TransactionOverviewBean implements Serializable {
 
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
 
-        if (session != null) {
-            lang = (String)session.getAttribute(Constants.userLang);
-        }
+//        if (session != null) {
+//            lang = (String)session.getAttribute(Constants.userLang);
+//        }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Language :" + lang);
 
@@ -243,6 +244,9 @@ public class TransactionOverviewBean implements Serializable {
         }else if (lang == "PL") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+        }else {
+            currencyCode = conversionUtility.getCurrencyCode("SE");
+            locale = conversionUtility.getLocaleFromCountryCode("SE");
         }
         
         reportFormatValue="Default";
