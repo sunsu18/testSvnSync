@@ -2774,8 +2774,9 @@ public class TransactionOverviewBean implements Serializable {
                         } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getQuantity() != null) {  
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getQuantity().toString());
+                                XLS_SH_R_C.setCellStyle(csRight);                                
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),
+                                                                                                         locale));
                             }
                         } else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getUnitOfMeasure() != null) {
@@ -2886,20 +2887,20 @@ public class TransactionOverviewBean implements Serializable {
                         } else if ("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getkmTotal() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getkmTotal().toString());
+                                XLS_SH_R_C.setCellStyle(csRight);                                
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getkmTotal().toString())),locale));
                             }
                         } else if ("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getkmPerLt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getkmPerLt().toString());
+                                XLS_SH_R_C.setCellStyle(csRight);                                
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getkmPerLt().toString())),locale));
                             }
                         } else if ("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getltPerHundred() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getltPerHundred().toString());
+                                XLS_SH_R_C.setCellStyle(csRight);                                
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),locale));
                             }
                         } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardGroupDesc() != null) {
@@ -3026,8 +3027,8 @@ public class TransactionOverviewBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getQuantity() != null) { 
-                                out.print(row.getQuantity().toString());
+                            if (row.getQuantity() != null) {                                 
+                                out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -3135,22 +3136,22 @@ public class TransactionOverviewBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getkmTotal() != null) {
-                                out.print(row.getkmTotal().toString());
+                            if (row.getkmTotal() != null) {                                
+                                out.print(formatConversion((Float.parseFloat(row.getkmTotal().toString())),locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getkmPerLt() != null) {
-                                out.print(row.getkmPerLt().toString());
+                            if (row.getkmPerLt() != null) {                                
+                                out.print(formatConversion((Float.parseFloat(row.getkmPerLt().toString())),locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getltPerHundred() != null) {
-                                out.print(row.getltPerHundred().toString());
+                            if (row.getltPerHundred() != null) {                                
+                                out.print(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -3265,12 +3266,8 @@ public class TransactionOverviewBean implements Serializable {
                                     out.print("|");
                                 }
                             } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getQuantity() != null) {
-                                    String unitOfMeasure = "";
-                                    if (row.getUnitOfMeasure() != null) {
-                                        unitOfMeasure = row.getUnitOfMeasure();
-                                    }
-                                    out.print(row.getQuantity().toString()+ " " +unitOfMeasure);
+                                if (row.getQuantity() != null) {                                    
+                                    out.print(formatConversion((Float.parseFloat(row.getQuantity().toString())),locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
@@ -3379,22 +3376,22 @@ public class TransactionOverviewBean implements Serializable {
                                     out.print("|");
                                 }
                             } else if ("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getkmTotal() != null) {
-                                    out.print(row.getkmTotal().toString());
+                                if (row.getkmTotal() != null) {                                    
+                                    out.print(formatConversion((Float.parseFloat(row.getkmTotal().toString())),locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getkmPerLt() != null) {
-                                    out.print(row.getkmPerLt().toString());
+                                if (row.getkmPerLt() != null) {                                    
+                                    out.print(formatConversion((Float.parseFloat(row.getkmPerLt().toString())),locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getltPerHundred() != null) {
-                                    out.print(row.getltPerHundred().toString());
+                                if (row.getltPerHundred() != null) {                                    
+                                    out.print(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
