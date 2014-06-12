@@ -124,7 +124,7 @@ public class InvoiceOverviewBean implements Serializable {
     EngageEmaiUtilityl emailutility;
     private String accountQuery="(";
     private String cardGroupQuery="(";
-    private String cardQuery="((";
+    private String cardQuery="(";
     private Map<String,String> mapAccountListValue;
     private Map<String,String> mapCardGroupListValue;
     private Map<String,String> mapCardListValue;
@@ -321,7 +321,7 @@ public class InvoiceOverviewBean implements Serializable {
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Before Query="+invoiceVO.getQuery());
 
 
-                if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {
+                if(cardQuery.length()>1 && cardQuery != null && cardGroupQuery.length()<=2) {
                
                     if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
@@ -350,7 +350,7 @@ public class InvoiceOverviewBean implements Serializable {
                     }
                 }                
                 else {
-                                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=2) {
+                                if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=1) {
                               
                                     if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
@@ -400,7 +400,7 @@ public class InvoiceOverviewBean implements Serializable {
 //                invoiceVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV");
                 accountQuery="(";
                 cardGroupQuery="(";
-                cardQuery="((";
+                cardQuery="(";
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("countryCode",lang);
