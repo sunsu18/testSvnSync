@@ -1080,10 +1080,10 @@
     <af:dialog closeIconVisible="true" type="none">
       <af:panelGroupLayout id="pgl33" layout="vertical" inlineStyle="width:300px;">
       <h:panelGrid columns="2" width="200">
-      <af:outputText value="Modified By:" id="ot64"/>
+      <af:outputText value="#{sfr.MODIFIED_BY}:" id="ot64"/>
           <af:outputText value="#{bindings.ModifiedBy.inputValue}" id="ot62"/>
 
-           <af:outputText value="Last modified date:"/>
+           <af:outputText value="#{sfr.MODIFIED_DATE}:"/>
            <af:outputText value="#{bindings.PortalModifiedDate.inputValue}"
                          id="ot63">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
