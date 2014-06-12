@@ -145,9 +145,9 @@
           <af:panelGroupLayout id="pgl8">
 
       <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.driverInfoList}" width="945px"
-                         rows="5"  emptyText="#{not empty var.driverInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
+                           emptyText="#{not empty var.driverInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                           fetchSize="10" columnResizing="disabled" disableColumnReordering="true"
-                autoHeightRows="5">
+                            autoHeightRows="10">
                   <af:column sortable="false" id="c13" width="28px" align="center">
                 <af:selectBooleanCheckbox id="sbc1"
                                           valueChangeListener="#{pageFlowScope.DriverInfoBean.deleteCheckBoxListener}"

@@ -190,7 +190,7 @@
                     selectionListener="#{bindings.PrtViewCardsVO11.collectionModel.makeCurrent}"
                     rowSelection="single" id="t1"
                     disableColumnReordering="true" columnResizing="disabled"
-                    autoHeightRows="25" contentDelivery="immediate">
+                    autoHeightRows="20" contentDelivery="immediate">
             <af:column sortProperty="AccountId" filterable="true"
                        headerText="#{sfr.ACCOUNT}" width="95px"
                        id="c1">

@@ -214,7 +214,8 @@
                rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
                emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                fetchSize="#{bindings.PrtNewInvoiceVO1.rangeSize}" rowSelection="single" disableColumnReordering="true" columnResizing="disabled"
-               rowBandingInterval="0" id="t1" selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}">
+               rowBandingInterval="0" id="t1" selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}"
+               autoHeightRows="20">
       <af:column sortProperty="InvoiceNumber" sortable="false"
                  headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                  id="c5">

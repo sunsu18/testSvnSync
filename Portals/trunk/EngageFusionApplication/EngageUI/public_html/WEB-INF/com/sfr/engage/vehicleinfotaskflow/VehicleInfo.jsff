@@ -156,11 +156,10 @@
           <af:spacer width="10" height="5" id="s25"/>
           <af:panelGroupLayout id="pgl6">
             <af:table var="row" rowBandingInterval="1" id="t1"
-                      value="#{var.vehicleInfoList}"  rows="5" width="962px"
-
+                      value="#{var.vehicleInfoList}" width="962px"
                       emptyText="#{not empty var.vehicleInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
                       fetchSize="10" columnResizing="disabled"
-                      disableColumnReordering="true" autoHeightRows="5">
+                      disableColumnReordering="true" autoHeightRows="10">
               <af:column sortable="false" id="c13" width="28px" align="center">
                 <af:selectBooleanCheckbox id="sbc1"
                                           valueChangeListener="#{pageFlowScope.VehicleInfoBean.deleteCheckBoxListener}"
@@ -235,7 +234,7 @@
               binding="#{pageFlowScope.VehicleInfoBean.bindings.newVehicle}"
               autoCancel="disabled">
       <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="740"
-                 type="none" closeIconVisible="false" >
+                 type="none" closeIconVisible="false">
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
