@@ -635,16 +635,25 @@ public class TransactionOverviewBean implements Serializable {
         if (typeList == null) {
             typeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            selectItem.setLabel("Preliminary");
-            selectItem.setValue("PRE");
+            if (resourceBundle.containsKey("PRELIMINARY")){
+                selectItem.setLabel(resourceBundle.getObject("PRELIMINARY").toString());
+                selectItem.setValue("PRE");
+                typeList.add(selectItem);
+            }
             typeList.add(selectItem);
             SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Priced");
-            selectItem1.setValue("PRI");
+            if (resourceBundle.containsKey("PRICED")){
+                selectItem.setLabel(resourceBundle.getObject("PRICED").toString());
+                selectItem.setValue("PRI");
+                typeList.add(selectItem1);
+            }
             typeList.add(selectItem1);
             SelectItem selectItem2 = new SelectItem();
-            selectItem2.setLabel("Invoice");
-            selectItem2.setValue("FAK");
+            if (resourceBundle.containsKey("INVOICE")){
+                selectItem.setLabel(resourceBundle.getObject("INVOICE").toString());
+                selectItem.setValue("FAK");
+                typeList.add(selectItem2);
+            }
             typeList.add(selectItem2);
         }
         return typeList;
@@ -1085,7 +1094,7 @@ public class TransactionOverviewBean implements Serializable {
            //mapListValue=valueList.callValueList(arg0, arg1);
                 
             ViewObject vo =
-                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");                
+                ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");            
             if(cardQuery.length()>2 && cardQuery != null && cardGroupQuery.length()<=2) {            
                 if(((accountQuery+"AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))  || ((accountQuery+" AND "+ cardQuery +"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)").trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
@@ -3890,21 +3899,29 @@ public class TransactionOverviewBean implements Serializable {
         if (reportFormatList == null) {
             reportFormatList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            selectItem.setLabel("Default");
-            selectItem.setValue("Default");
-            reportFormatList.add(selectItem);
+            if (resourceBundle.containsKey("DEFAULT")){
+                selectItem.setLabel(resourceBundle.getObject("DEFAULT").toString());
+                selectItem.setValue("Default");
+                reportFormatList.add(selectItem);
+            }
             SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Raw Data");
-            selectItem1.setValue("Raw Data");
-            reportFormatList.add(selectItem1);
+            if (resourceBundle.containsKey("RAW_DATA")){
+                selectItem.setLabel(resourceBundle.getObject("RAW_DATA").toString());
+                selectItem.setValue("Raw Data");
+                reportFormatList.add(selectItem1);
+            }
             SelectItem selectItem2 = new SelectItem();
-            selectItem2.setLabel("International");
-            selectItem2.setValue("International");
-            reportFormatList.add(selectItem2);
+            if (resourceBundle.containsKey("INTERNATIONAL")){
+                selectItem.setLabel(resourceBundle.getObject("INTERNATIONAL").toString());
+                selectItem.setValue("International");
+                reportFormatList.add(selectItem2);
+            }
             SelectItem selectItem3 = new SelectItem();
-            selectItem3.setLabel("Price Specification");
-            selectItem3.setValue("Price Specification");
-            reportFormatList.add(selectItem3);
+            if (resourceBundle.containsKey("PRICE_SPECIFICATION")){
+                selectItem.setLabel(resourceBundle.getObject("PRICE_SPECIFICATION").toString());
+                selectItem.setValue("Price Specification");
+                reportFormatList.add(selectItem3);
+            }
         }
         return reportFormatList;
     }
