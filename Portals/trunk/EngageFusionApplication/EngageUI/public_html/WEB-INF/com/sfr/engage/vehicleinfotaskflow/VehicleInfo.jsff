@@ -138,7 +138,7 @@
                            styleClass="boldtext"/>
         <af:spacer width="650" height="10" id="s27"/>
         <af:spacer width="10" height="10" id="s31"/>
-        <af:panelGroupLayout id="pgl13" halign="right">
+        <af:panelGroupLayout id="pgl13" halign="right" visible="#{(pageFlowScope.VehicleInfoBean.registrationNumber ne null and not empty pageFlowScope.VehicleInfoBean.registrationNumber)? false: true}">
         <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb8"
                           action="#{pageFlowScope.VehicleInfoBean.deleteAllRecordsAction}" styleClass="buttonback buttontext">
         <af:setPropertyListener from="#{var.accountNumber}" to="#{pageFlowScope.accountNumber}" type="action"/>

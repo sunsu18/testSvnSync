@@ -135,7 +135,7 @@
       <af:outputText value="#{sfr.ACCOUNT} : #{var.accountNumber}" id="ot2" styleClass="boldtext"/>
        <af:spacer width="650" height="10" id="s27"/>
         <af:spacer width="10" height="10" id="s31"/>
-       <af:panelGroupLayout id="pgl15" halign="right">
+       <af:panelGroupLayout id="pgl15" halign="right" visible="#{(pageFlowScope.DriverInfoBean.driverN ne null and not empty pageFlowScope.DriverInfoBean.driverN)? false: true}">
         <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb6" action="#{pageFlowScope.DriverInfoBean.deleteAllRecordsAction}" styleClass="buttonback buttontext">
         <af:setPropertyListener from="#{var.accountNumber}" to="#{pageFlowScope.accountNumber}" type="action"/>
         </af:commandButton>
