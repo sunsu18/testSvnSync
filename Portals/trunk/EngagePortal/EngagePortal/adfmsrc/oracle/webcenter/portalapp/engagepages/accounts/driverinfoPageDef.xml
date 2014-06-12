@@ -2,9 +2,9 @@
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.1.61.92" id="driverinfoPageDef"
                 Package="oracle.webcenter.portalapp.engagepages.accounts">
   <parameters>
-    <parameter id="page_parent" value="/oracle/webcenter/portalapp/pagehierarchy/engagepages/menus/accountsPages.xml"/>
+    <parameter id="page_parent" value="/oracle/webcenter/portalapp/pagehierarchy/engagepages/menus/cardservicesPages.xml"/>
     <parameter id="page_info"
-               value="title=driverinfo;desc=;keywords=;createdBy=weblogic;createDate=2014-03-11T15:41:55;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-11T15:41:55;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx;excluded=false;style="/>
+               value="title=driverinfo;desc=;keywords=;createdBy=weblogic;createDate=2014-06-12T01:34:19;lastUpdatedBy=weblogic;lastUpdateDate=2014-06-12T01:34:19;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx;excluded=false;style="/>
     <parameter id="page_title" value="driverinfo"/>
   </parameters>
   <executables>

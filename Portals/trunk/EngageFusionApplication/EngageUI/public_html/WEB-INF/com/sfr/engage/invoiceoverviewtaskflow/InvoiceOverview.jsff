@@ -204,8 +204,8 @@
                     styleClass="heading"/>
     <af:panelGroupLayout id="pgl24" layout="vertical"
                                halign="right"
-                               inlineStyle="width:700.0px; height:15.0px;">    
-     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}" id="ot22" styleClass="popupoutputText"/>      
+                               inlineStyle="width:700.0px; height:15.0px;">
+     <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}" id="ot22" styleClass="popupoutputText"/>
     </af:panelGroupLayout>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13">
@@ -247,7 +247,7 @@
       <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c1">
        <af:outputText value="CARD" id="ot16"/>
       </af:column>
-      
+
       <af:column sortProperty="InvVatAmt" sortable="false"
                  headerText="#{sfr.ENGAGE_INVOICE_VAT}"
                  id="c3">
@@ -262,7 +262,7 @@
        <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
+                                minFractionDigits="2"/>
        </af:outputText>
       </af:column>
         <af:column sortProperty="Gross" sortable="false"
@@ -279,7 +279,7 @@
         <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>  
+                                minFractionDigits="2"/>
        </af:outputText>
       </af:column>
       <af:column headerText="#{sfr.ENGAGE_INVOICE_NET}"
@@ -311,7 +311,7 @@
     <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}">
       <af:dialog id="d1" title="Email confirmation"
                  dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}" shortDesc="Are you sure you want to send email" styleClass="textDialogs"
-                 contentWidth="330">
+                 contentWidth="330" type="ok">
 
         <af:panelGroupLayout id="pgl28" layout="vertical">
           <af:spacer height="10" id="s39" />
@@ -322,6 +322,12 @@
                           binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}" contentStyle="width:250px;">
               <!--<af:validateRegExp pattern="[a-zA-Z0-9\._]+@[a-zA-Z0-9]+.com"/>-->
             </af:inputText>
+            <af:spacer id="s19" height="5"/>
+            <af:outputText id="ot63" value="Mail sent successfully" visible="#{pageFlowScope.InvoiceOverviewBean.successResult}"/>
+            <af:outputText id="ot64"  value="Invoice not found" visible="#{pageFlowScope.InvoiceOverviewBean.invoiceNotFound}"/>
+            <af:outputText id="ot65"  value="Sorry, Mail was not generated, please try after some time"
+                           visible="#{pageFlowScope.InvoiceOverviewBean.failureResult}"/>
+
 
             <af:spacer width="0" height="0" binding="#{pageFlowScope.InvoiceOverviewBean.spacerFetchUserEmail}" />
           </af:panelGroupLayout>
@@ -381,13 +387,13 @@
            <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/> 
+                                minFractionDigits="2"/>
            </af:outputText>-->
            <af:outputText value="#{bindings.InvVatAmt.inputValue}" id="ot23">
            <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/> 
+                                minFractionDigits="2"/>
            </af:outputText>
            <af:spacer width="0" height="30" id="s116"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="ot31"/>
@@ -397,13 +403,13 @@
            <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/> 
+                                minFractionDigits="2"/>
            </af:outputText>-->
            <af:outputText value="#{bindings.InvGrossAmt.inputValue}" id="ot25">
             <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/> 
+                                minFractionDigits="2"/>
            </af:outputText>
            <af:spacer width="0" height="30" id="s176"/>
            <af:outputText value="#{sfr.ENGAGE_INVOICE}" id="ot35"/>
@@ -418,7 +424,7 @@
          </af:commandImageLink>
             <af:spacer width="10" height="10" id="s26"/>
            <af:commandImageLink id="cil4" styleClass="mail_icon"
-                                icon="/images/mail_send.png"/>
+                                icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.open_popup}"/>
             </af:panelGroupLayout>
            <af:spacer width="10" height="30" id="spacer3"/>
            <af:outputText value="#{sfr.VIEW}" id="ot43"/>
@@ -426,7 +432,7 @@
            <af:outputText value=":" id="ot45"/>
            <af:spacer height="10" id="s38" width="0"/>
            <af:selectOneRadio id="selectOneRadio1" layout="horizontal"
-                              
+
                               autoSubmit="true"
                               inlineStyle="margin-left: -15px;"
                               binding="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUp}"
@@ -435,8 +441,8 @@
                            id="selectItem1"/>
             <af:selectItem label="#{sfr.INVOICE_COLLECTIONS}" rendered="#{(bindings.InvoiceDocType.inputValue eq 'FAK' and bindings.InvoiceLevel.inputValue eq 'SEP')? false: true}"
                            value="InvoiceCollections" id="selectItem2"/>
-           </af:selectOneRadio>    
-           
+           </af:selectOneRadio>
+
           </h:panelGrid>
          </af:panelGroupLayout>
 
@@ -474,8 +480,8 @@
                      id="c14">
            <af:outputText value="#{row.InvoiceNumberNonCollective}" id="ot48"/>
           </af:column>
-         
-          
+
+
           <af:column headerText="#{sfr.INVOICE_PRODUCT_NAME}" id="c19">
            <!--<af:outputText value="#{row.ProductName}" id="ot50"/>-->
            <af:outputText value="#{row.ProductName}" id="ot50"/>
