@@ -766,7 +766,7 @@
                   query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
             </copy>
             <copy>
-              <from/>
+              <from expression="ora:getComponentName()"/>
               <to variable="InvokeSOAErrorHandler_IV" part="body"
                   query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
             </copy>

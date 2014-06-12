@@ -3,18 +3,18 @@
   <!-- SPECIFICATION OF MAP SOURCES AND TARGETS, DO NOT MODIFY. -->
   <mapSources>
     <source type="WSDL">
-      <schema location="../../../../../PALS%20Interfaces/E010/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal.wsdl"/>
+      <schema location="E010PALSInvoicePaymentdoctoPortal.wsdl"/>
       <rootElement name="invocationMsg" namespace="http://www.statoilfuelretail.com/integration/E010/E010InvocationReqMsg"/>
     </source>
     <source type="WSDL">
-      <schema location="../../../../../PALS%20Interfaces/E010/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SelectInvoicePaymentPALSDB2DBAdapterV1.wsdl"/>
+      <schema location="SelectInvoicePaymentPALSDB2DBAdapterV1.wsdl"/>
       <rootElement name="Cc075Vs1CssbdokDtaCollection" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectInvoicePaymentPALSDB2DBAdapterV1"/>
       <param name="InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection" />
     </source>
   </mapSources>
   <mapTargets>
     <target type="WSDL">
-      <schema location="../../../../../PALS%20Interfaces/E010/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortalWrapper.wsdl"/>
+      <schema location="E010PALSInvoicePaymentdoctoPortalWrapper.wsdl"/>
       <rootElement name="PrtCardPaymentDocCollection" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/InvoicePaymentPortalValidation"/>
     </target>
   </mapTargets>
