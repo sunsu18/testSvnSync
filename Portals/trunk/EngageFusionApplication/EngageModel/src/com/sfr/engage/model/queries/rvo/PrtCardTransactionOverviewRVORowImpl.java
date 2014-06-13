@@ -627,6 +627,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setTotalAmount((String)value);
             }
         }
+        ,
+        InvoiceNo {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getInvoiceNo();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setInvoiceNo((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -710,6 +721,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int GRANDTOTAL = AttributesEnum.grandTotal.index();
     public static final int CARDGROUPDESC = AttributesEnum.CardGroupDesc.index();
     public static final int TOTALAMOUNT = AttributesEnum.TotalAmount.index();
+    public static final int INVOICENO = AttributesEnum.InvoiceNo.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1664,6 +1676,31 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setTotalAmount(String value) {
         setAttributeInternal(TOTALAMOUNT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute InvoiceNo.
+     * @return the InvoiceNo
+     */
+    public String getInvoiceNo() {
+        String result="";
+        if(getInvoiceNumberCollective()!=null) {
+            result=getInvoiceNumberCollective().toString().trim();
+        }else {
+            if(getInvoiceNumberNonCollective()!=null) {
+                result=getInvoiceNumberNonCollective().toString().trim();
+            }
+        }
+        return result;
+        //return (String) getAttributeInternal(INVOICENO);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvoiceNo.
+     * @param value value to set the  InvoiceNo
+     */
+    public void setInvoiceNo(String value) {
+        setAttributeInternal(INVOICENO, value);
     }
 
     /**

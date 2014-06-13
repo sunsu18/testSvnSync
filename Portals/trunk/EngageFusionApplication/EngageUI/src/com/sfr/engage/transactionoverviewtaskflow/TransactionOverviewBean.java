@@ -2857,14 +2857,9 @@ public class TransactionOverviewBean implements Serializable {
                         } else if ("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                             XLS_SH_R_C.setCellStyle(csData);
-                            if (row.getInvoiceNumberCollective() != null) {
-                                XLS_SH_R_C.setCellValue(row.getInvoiceNumberCollective().toString());
-                            } else {
-                                if (row.getInvoiceNumberNonCollective() !=
-                                    null) {
-                                    XLS_SH_R_C.setCellValue(row.getInvoiceNumberNonCollective().toString());
-                                }
-                            }
+                            if (row.getInvoiceNo() != null) {
+                                XLS_SH_R_C.setCellValue(row.getInvoiceNo().toString());
+                            } 
                         } else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                             XLS_SH_R_C.setCellStyle(csRight);
@@ -3103,15 +3098,10 @@ public class TransactionOverviewBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            if (row.getInvoiceNumberCollective() != null) {
-                                out.print(row.getInvoiceNumberCollective().toString());
-                            } else {
-                                if (row.getInvoiceNumberNonCollective() !=
-                                    null) {
-                                    out.print(row.getInvoiceNumberNonCollective().toString());
-                                }
-                            }
-
+                            if(row.getInvoiceNo()!=null)
+                            {
+                                out.print(row.getInvoiceNo().toString());
+                            }  
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
@@ -3368,15 +3358,9 @@ public class TransactionOverviewBean implements Serializable {
                                     out.print("|");
                                 }
                             } else if ("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                if (row.getInvoiceNumberCollective() != null) {
-                                    out.print(row.getInvoiceNumberCollective().toString());
-                                } else {
-                                    if (row.getInvoiceNumberNonCollective() !=
-                                        null) {
-                                        out.print(row.getInvoiceNumberNonCollective().toString());
-                                    }
-                                }
-
+                                if (row.getInvoiceNo() != null) {
+                                    out.print(row.getInvoiceNo().toString());
+                                } 
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }

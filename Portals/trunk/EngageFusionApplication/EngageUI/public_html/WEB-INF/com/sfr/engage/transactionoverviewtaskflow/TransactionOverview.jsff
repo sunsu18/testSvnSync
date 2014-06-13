@@ -690,13 +690,13 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedNetAmount.format}"/>
             </af:outputText>
           </af:column>-->
-           <af:column sortProperty="InvoiceNumberNonCollective" filterable="false"
+           <af:column sortProperty="InvoiceNo" filterable="true"
                      sortable="false" width="88" align="left"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                      id="c7">
             <af:panelGroupLayout id="pgl22">
               <af:spacer width="2" height="1" id="spacer17"/>
-          <af:outputText styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}" value="#{row.InvoiceNumberCollective eq null ? row.InvoiceNumberNonCollective : row.InvoiceNumberCollective}"
+          <af:outputText styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}" value="#{row.InvoiceNo}"
                          id="ot87"/>
           </af:panelGroupLayout>
           </af:column>
