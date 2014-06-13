@@ -176,6 +176,27 @@
             </af:panelGroupLayout>
             <af:spacer width="10" height="15" id="spacer2"/>
 
+
+            <af:panelGroupLayout id="pgl54" inlineStyle="width:930.0px;"
+                               layout="horizontal" halign="right">
+            
+           <af:panelGroupLayout id="pgl55" styleClass="filter_table"
+                             layout="horizontal"
+                                inlineStyle="margin-right: -5px; margin-bottom: 2px;">
+            <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
+            </af:panelGroupLayout>
+            <af:popup id="p3">
+          <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
+            <af:panelGroupLayout id="pgl56" layout="vertical">
+            <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot17" styleClass="outputText3"/>
+             
+           </af:panelGroupLayout>
+           </af:noteWindow>
+         </af:popup>
+         </af:panelGroupLayout>
+
+
+
         <af:panelGroupLayout id="pgl36" layout="scroll"
                              inlineStyle="width:945px;">
           <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
@@ -192,7 +213,7 @@
                     disableColumnReordering="true" columnResizing="disabled"
                     autoHeightRows="20" contentDelivery="immediate">
             <af:column sortProperty="AccountId" filterable="true"
-                       headerText="#{sfr.ACCOUNT}" width="95px"
+                       headerText="#{sfr.ACCOUNT}" width="100px"
                        id="c1">
               <af:inputText value="#{row.bindings.AccountId.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.AccountId.label}"
@@ -216,7 +237,7 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="CardType" filterable="true" width="45px"
+            <af:column sortProperty="CardType" filterable="true" width="55px"
                        headerText="#{sfr.CARD_TYPE}"
                        id="c6">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
@@ -328,7 +349,7 @@
              autoCancel="disabled"   partialTriggers="t1:cil1">
              
              
-        <af:dialog id="d1" type="none" closeIconVisible="false" title=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}" contentWidth="410">
+        <af:dialog id="d1" type="none" closeIconVisible="false" title=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}" contentWidth="406">
         
         <af:separator id="s29"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
@@ -370,6 +391,8 @@
                 <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
                                   immediate="true"
                                   actionListener="#{pageFlowScope.CardBean.closePopUpListener}"/>
+              <af:spacer width="18" height="10" id="s38"/>
+              
               </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:toolbar>
@@ -433,7 +456,7 @@
 
 
 
-<af:panelGroupLayout layout="vertical" id="pgl56"
+<af:panelGroupLayout layout="vertical" id="pgl79"
                      inlineStyle="width:20px; height:180px;"
                      valign="top">
 <af:spacer height="20" width="10" id="s61"/>
@@ -450,7 +473,7 @@
 <af:panelGroupLayout id="pgl76" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s54"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl55" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl81" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s53"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -495,7 +518,7 @@
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s22"/>
-<af:panelGroupLayout layout="horizontal" id="pgl54" >
+<af:panelGroupLayout layout="horizontal" id="pgl80" >
 <af:panelGroupLayout id="pgl53" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value=":" id="ot33"/>
 </af:panelGroupLayout>
