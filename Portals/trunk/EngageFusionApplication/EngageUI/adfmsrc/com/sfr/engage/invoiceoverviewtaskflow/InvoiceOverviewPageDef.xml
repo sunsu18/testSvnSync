@@ -25,6 +25,15 @@
     <iterator Binds="PrtInvoiceDetailVo1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtInvoiceDetailVo1Iterator"/>
+    <searchRegion Binds="PrtNewInvoiceVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtNewInvoiceVO11Query"/>
+    <searchRegion Binds="PrtInvoiceDetailVo1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtInvoiceDetailVo1Query"/>
+    <searchRegion Binds="PrtCardTransactionInvoiceRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtCardTransactionInvoiceRVO1Query"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
@@ -42,39 +51,6 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
-          id="PrtCardTransactionInvoiceRVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
-                      Name="PrtCardTransactionInvoiceRVO10">
-        <AttrNames>
-          <Item Value="ProductName"/>
-          <Item Value="Quantity"/>
-          <Item Value="StationName"/>
-          <Item Value="Card1Id"/>
-          <Item Value="InvoicedNetAmount"/>
-          <Item Value="InvoicedGrossAmount"/>
-          <Item Value="InvoiceNumberCollective"/>
-          <Item Value="InvoiceNumberNonCollective"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
-    <tree IterBinding="PrtNewInvoiceVO1Iterator" id="PrtNewInvoiceVO1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO"
-                      Name="PrtNewInvoiceVO10">
-        <AttrNames>
-         
-          <Item Value="InvoiceDate"/>
-          
-          <Item Value="Finalinvoice"/>
-        
-         
-          <Item Value="netAmount"/>
-          <Item Value="InvoicingDueDate"/>
-          <Item Value="InvVatAmt"/>
-          <Item Value="InvGrossAmt"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
     <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="Finalinvoice1">
       <AttrNames>
         <Item Value="Finalinvoice"/>
@@ -85,22 +61,6 @@
         <Item Value="InvoiceDate"/>
       </AttrNames>
     </attributeValues>
-   
-   
-  
-    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
-      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
-                      Name="PrtInvoiceDetailVo10">
-        <AttrNames>
-          <Item Value="InvoiceNumber"/>
-          <Item Value="CollectiveInvoiceNumber"/>
-          <Item Value="InvoiceDate"/>
-          <Item Value="InvoicingDueDate"/>
-          <Item Value="InvTotalGrossAmt"/>
-          <Item Value="InvTotalVatAmt"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
    
     <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="netAmount">
       <AttrNames>
@@ -133,5 +93,47 @@
       <NamedData NDName="translationkey" NDType="java.lang.String"/>
       <NamedData NDName="ccCode" NDType="java.lang.String"/>
     </methodAction>
+    <tree IterBinding="PrtNewInvoiceVO1Iterator" id="PrtNewInvoiceVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtNewInvoiceVO"
+                      Name="PrtNewInvoiceVO10">
+        <AttrNames>
+          <Item Value="Finalinvoice"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoicingDueDate"/>
+          <Item Value="InvVatAmt"/>
+          <Item Value="InvGrossAmt"/>
+          <Item Value="netAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtInvoiceDetailVo1Iterator" id="PrtInvoiceDetailVo1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVo"
+                      Name="PrtInvoiceDetailVo10">
+        <AttrNames>
+          <Item Value="CollectiveInvoiceNumber"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="InvoicingDueDate"/>
+          <Item Value="InvTotalVatAmt"/>
+          <Item Value="InvTotalGrossAmt"/>
+          <Item Value="InvNetAmount"/>
+          <Item Value="InvoiceNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
+          id="PrtCardTransactionInvoiceRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
+                      Name="PrtCardTransactionInvoiceRVO10">
+        <AttrNames>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="StationName"/>
+          <Item Value="Card1Id"/>
+          <Item Value="InvoicedNetAmount"/>
+          <Item Value="InvoicedGrossAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>
