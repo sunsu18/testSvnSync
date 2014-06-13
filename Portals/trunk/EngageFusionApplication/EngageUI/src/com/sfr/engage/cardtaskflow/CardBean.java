@@ -148,7 +148,10 @@ public class CardBean implements Serializable {
        
         
    public CardBean() {
+       
+ 
         super();
+     
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -169,6 +172,61 @@ public class CardBean implements Serializable {
                     partnerIdList.add(selectItem);
                     }
                 }
+                
+                System.out.println("size"+ partnerInfoList.size());
+                if(partnerInfoList.size() == 1){
+                  
+         this.partnerIdValue=partnerInfoList.get(0).getPartnerValue().toString();
+            
+                           accountIdList  = new ArrayList<SelectItem>();
+                           accountIdValue = new ArrayList<String>();
+                           cardGroupList = new ArrayList<SelectItem>();
+                           cardGroupValue = new ArrayList<String>();
+                           
+                    for(int i=0 ; i<partnerInfoList.size(); i++){
+                        
+                        if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
+                            
+                            
+                            for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
+
+                                if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
+
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    accountIdList.add(selectItem);
+                                    accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                
+                                }
+
+
+                                for(int k=0;k<partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();k++){
+                                if(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null){
+
+                                    SelectItem selectItem = new SelectItem();
+                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupName().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupList.add(selectItem);
+                                    cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                  
+                                }
+
+                            }
+                            }
+  
+                            
+                        }
+
+                        
+                    }
+                
+                
+                
+                
+                }
+                
+                
             }
         }
         
