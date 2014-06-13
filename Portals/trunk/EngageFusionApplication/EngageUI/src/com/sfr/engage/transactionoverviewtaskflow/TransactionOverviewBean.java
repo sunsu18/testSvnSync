@@ -174,6 +174,7 @@ public class TransactionOverviewBean implements Serializable {
                         selectItem.setValue(partnerInfoList.get(0).getPartnerValue().toString());
                         partnerIdList.add(selectItem);
                         partnerIdValue=partnerInfoList.get(0).getPartnerValue().toString();
+                            partnerId=partnerInfoList.get(0).getPartnerValue().toString().trim();
                         }
                     accountIdList = new ArrayList<SelectItem>();
                     accountIdValue = new ArrayList<String>();
