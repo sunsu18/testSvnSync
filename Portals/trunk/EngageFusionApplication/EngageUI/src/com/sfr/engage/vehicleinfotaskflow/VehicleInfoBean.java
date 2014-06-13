@@ -125,6 +125,9 @@ public class VehicleInfoBean implements Serializable {
 
         linkedPartnerLOVValues    = null;
         linkedPartnerList         = new ArrayList<SelectItem>();
+        
+         linkedAccountList      = new ArrayList<SelectItem>();
+         linkedAccountLOVValues = new ArrayList<String>();
 
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
@@ -155,7 +158,24 @@ public class VehicleInfoBean implements Serializable {
                         }
                     }
                 }
-            }
+                if(partnerInfoList.size() == 1 && partnerInfoList.get(0).getPartnerValue() != null){
+                    linkedPartnerLOVValues = partnerInfoList.get(0).getPartnerValue().toString().trim();
+                    for(int pa=0 ; pa<partnerInfoList.size(); pa++){
+                            if(partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
+                                for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null){
+                                        SelectItem selectItemAccount = new SelectItem();
+                                        selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                        selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                        linkedAccountList.add(selectItemAccount);
+                                        linkedAccountLOVValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
          _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Vehicle Info");
      }
 
