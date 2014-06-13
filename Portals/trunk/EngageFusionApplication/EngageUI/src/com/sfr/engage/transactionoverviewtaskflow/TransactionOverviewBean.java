@@ -150,7 +150,7 @@ public class TransactionOverviewBean implements Serializable {
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList =
                     (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
-            if (partnerInfoList != null && partnerInfoList.size() > 0) {
+            if (partnerInfoList != null && partnerInfoList.size() > 1) {
                 partnerIdList = new ArrayList<SelectItem>();
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     lang = partnerInfoList.get(0).getCountry().toString().trim();
@@ -162,6 +162,34 @@ public class TransactionOverviewBean implements Serializable {
                     partnerIdList.add(selectItem);
                     }
                 }
+            }else {
+                if (partnerInfoList != null && partnerInfoList.size() == 1) {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "partner List ="+partnerInfoList.size());
+                    partnerIdList = new ArrayList<SelectItem>();                    
+                        lang = partnerInfoList.get(0).getCountry().toString().trim();                        
+                        if(partnerInfoList.get(0).getPartnerName()!=null && partnerInfoList.get(0).getPartnerValue()!=null)
+                        {
+                        SelectItem selectItem = new SelectItem();
+                        selectItem.setLabel(partnerInfoList.get(0).getPartnerName().toString());
+                        selectItem.setValue(partnerInfoList.get(0).getPartnerValue().toString());
+                        partnerIdList.add(selectItem);
+                        partnerIdValue=partnerInfoList.get(0).getPartnerValue().toString();
+                        }
+                    accountIdList = new ArrayList<SelectItem>();
+                    accountIdValue = new ArrayList<String>();
+                    if (partnerInfoList.get(0).getAccountList() != null && partnerInfoList.get(0).getAccountList().size() >  0) {
+                        for (int ac = 0; ac < partnerInfoList.get(0).getAccountList().size(); ac++) {
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + partnerInfoList.get(0).getAccountList().get(ac).getAccountNumber().toString());
+                            SelectItem selectItem = new SelectItem();
+                            selectItem.setLabel(partnerInfoList.get(0).getAccountList().get(ac).getAccountNumber().toString());
+                            selectItem.setValue(partnerInfoList.get(0).getAccountList().get(ac).getAccountNumber().toString());
+                            accountIdList.add(selectItem);
+                            accountIdValue.add(partnerInfoList.get(0).getAccountList().get(ac).getAccountNumber().toString());
+                        }
+                    }
+                    
+                }
+                
             }
         }
         if(session!=null) {
@@ -249,7 +277,10 @@ public class TransactionOverviewBean implements Serializable {
             locale = conversionUtility.getLocaleFromCountryCode("SE");
         }
         
+       
         reportFormatValue="Default";
+        
+       
     }
 
     /**
@@ -635,26 +666,23 @@ public class TransactionOverviewBean implements Serializable {
         if (typeList == null) {
             typeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
-            if (resourceBundle.containsKey("PRELIMINARY")){
+            if (resourceBundle.containsKey("PRELIMINARY")){                
                 selectItem.setLabel(resourceBundle.getObject("PRELIMINARY").toString());
                 selectItem.setValue("PRE");
                 typeList.add(selectItem);
-            }
-            typeList.add(selectItem);
+            }            
             SelectItem selectItem1 = new SelectItem();
             if (resourceBundle.containsKey("PRICED")){
-                selectItem.setLabel(resourceBundle.getObject("PRICED").toString());
-                selectItem.setValue("PRI");
+                selectItem1.setLabel(resourceBundle.getObject("PRICED").toString());
+                selectItem1.setValue("PRI");
                 typeList.add(selectItem1);
-            }
-            typeList.add(selectItem1);
+            }            
             SelectItem selectItem2 = new SelectItem();
             if (resourceBundle.containsKey("INVOICE")){
-                selectItem.setLabel(resourceBundle.getObject("INVOICE").toString());
-                selectItem.setValue("FAK");
+                selectItem2.setLabel(resourceBundle.getObject("INVOICE").toString());
+                selectItem2.setValue("FAK");
                 typeList.add(selectItem2);
-            }
-            typeList.add(selectItem2);
+            }            
         }
         return typeList;
     }
@@ -3906,20 +3934,20 @@ public class TransactionOverviewBean implements Serializable {
             }
             SelectItem selectItem1 = new SelectItem();
             if (resourceBundle.containsKey("RAW_DATA")){
-                selectItem.setLabel(resourceBundle.getObject("RAW_DATA").toString());
-                selectItem.setValue("Raw Data");
+                selectItem1.setLabel(resourceBundle.getObject("RAW_DATA").toString());
+                selectItem1.setValue("Raw Data");
                 reportFormatList.add(selectItem1);
             }
             SelectItem selectItem2 = new SelectItem();
             if (resourceBundle.containsKey("INTERNATIONAL")){
-                selectItem.setLabel(resourceBundle.getObject("INTERNATIONAL").toString());
-                selectItem.setValue("International");
+                selectItem2.setLabel(resourceBundle.getObject("INTERNATIONAL").toString());
+                selectItem2.setValue("International");
                 reportFormatList.add(selectItem2);
             }
             SelectItem selectItem3 = new SelectItem();
             if (resourceBundle.containsKey("PRICE_SPECIFICATION")){
-                selectItem.setLabel(resourceBundle.getObject("PRICE_SPECIFICATION").toString());
-                selectItem.setValue("Price Specification");
+                selectItem3.setLabel(resourceBundle.getObject("PRICE_SPECIFICATION").toString());
+                selectItem3.setValue("Price Specification");
                 reportFormatList.add(selectItem3);
             }
         }
