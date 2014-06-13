@@ -1161,7 +1161,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 3 && success == false; i++) {
             //TODO : Amit - This will be removed when integrated with IDAM for OPSS call.
-            if (request.getServerName().contains("101") || request.getServerName().contains("localhost")) {
+            if (request.getServerName().contains("101") || request.getServerName().contains("localhost") || request.getServerName().contains("127.0")) {
                 //TODO : Amit - Users to be fetched from IDM for actual testing.
                 userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
             } else {

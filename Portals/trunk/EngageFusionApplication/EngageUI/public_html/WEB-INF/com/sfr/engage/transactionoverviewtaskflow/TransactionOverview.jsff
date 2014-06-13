@@ -375,14 +375,35 @@
                           partialSubmit="true">
         </af:commandButton>
         </af:panelGroupLayout>
-
-        </af:panelGroupLayout>
+ </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl17">
         <af:spacer width="500" height="25" id="s56"/>
         </af:panelGroupLayout>
-        <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
-                               halign="right"
-                               inlineStyle="width:930.0px; height:15.0px;">
+        <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
+                              inlineStyle="width:930.0px; height:25.0px;">
+
+ <af:panelGroupLayout id="pgl54" inlineStyle="width:650.0px;"
+                               layout="horizontal">
+            
+           <af:panelGroupLayout id="pgl55" styleClass="filter_table"
+                             layout="horizontal">
+            <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
+            </af:panelGroupLayout>
+            <af:popup id="p3">
+          <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
+            <af:panelGroupLayout id="pgl56" layout="vertical">
+            <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot13" styleClass="outputText3"/>
+             
+           </af:panelGroupLayout>
+           </af:noteWindow>
+         </af:popup>
+         </af:panelGroupLayout>
+         
+          <af:separator id="s28" styleClass="vertical_seprator_trans"
+                    inlineStyle="height:20.0px !important;" />
+
+
+
 
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteText}"
                            id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"/>
@@ -826,7 +847,7 @@
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl23" layout="vertical" inlineStyle="height:180.0px;"
                      valign="top">
- <af:separator id="s28" styleClass="vertical_seprator_trans"
+ <af:separator id="s25" styleClass="vertical_seprator_trans"
                     inlineStyle="height:470.0px !important;" />
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl24" layout="vertical"
