@@ -502,7 +502,7 @@
                      id="c28">
             <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-         <af:column sortProperty="Quantity" filterable="true" sortable="false" width="80"
+         <af:column sortProperty="Quantity" filterable="false" sortable="false" width="80"
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
                      id="c35">
             <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
