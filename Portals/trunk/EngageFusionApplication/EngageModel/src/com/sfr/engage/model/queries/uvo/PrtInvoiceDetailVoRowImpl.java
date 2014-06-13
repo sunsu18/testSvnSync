@@ -114,6 +114,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
                 obj.setInvTotalVatAmt((Number)value);
             }
         }
+        ,
+        InvNetAmount {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getInvNetAmount();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setInvNetAmount((Number)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -154,6 +164,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     public static final int INVTOTALGROSSAMT = AttributesEnum.InvTotalGrossAmt.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
     public static final int INVTOTALVATAMT = AttributesEnum.InvTotalVatAmt.index();
+    public static final int INVNETAMOUNT = AttributesEnum.InvNetAmount.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -319,6 +330,34 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      */
     public void setInvTotalVatAmt(Number value) {
         setAttributeInternal(INVTOTALVATAMT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute InvNetAmount.
+     * @return the InvNetAmount
+     */
+    public Number getInvNetAmount() {        
+        
+        //TODO : To be fetched from PALS
+        oracle.jbo.domain.Number num;
+        float net = 0.0f;
+        if (getInvTotalGrossAmt() != null && getInvTotalVatAmt() != null) {
+            net = getInvTotalGrossAmt().floatValue() - getInvTotalVatAmt().floatValue();
+            num = new oracle.jbo.domain.Number(net);
+        } else {
+            num = (Number) getAttributeInternal(INVNETAMOUNT);
+        }
+        return num;
+    }
+ 
+
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvNetAmount.
+     * @param value value to set the  InvNetAmount
+     */
+    public void setInvNetAmount(Number value) {
+        setAttributeInternal(INVNETAMOUNT, value);
     }
 
     /**

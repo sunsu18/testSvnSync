@@ -130,7 +130,7 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     ColumnType="DATE"
     AliasName="INVOICE_DATE"
     Expression="INVOICE_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -159,7 +159,7 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     ColumnType="DATE"
     AliasName="INVOICING_DUE_DATE"
     Expression="INVOICING_DUE_DATE"
-    SQLType="TIMESTAMP">
+    SQLType="DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -175,7 +175,7 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     ColumnType="FLOAT"
     AliasName="INV_TOTAL_GROSS_AMT"
     Expression="INV_TOTAL_GROSS_AMT"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -205,11 +205,21 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     ColumnType="FLOAT"
     AliasName="INV_TOTAL_VAT_AMT"
     Expression="INV_TOTAL_VAT_AMT"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
+  <ViewAttribute
+    Name="InvNetAmount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
