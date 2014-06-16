@@ -58,7 +58,7 @@
             <af:panelGroupLayout id="pgl18"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
-               <af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT}" autoSubmit="true"
+               <af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
                            contentStyle="width: 175px;"
                            value="#{pageFlowScope.InvoiceOverviewBean.partnerValue}"
                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.partnerValueChangeListener}"
@@ -389,7 +389,7 @@
        </af:outputText>
       </af:column>
          <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c1">
-       <af:outputText value="CARD" id="ot66"/>
+       <af:outputText value="#{sfr.CARD}" id="ot66"/>
       </af:column>
       <af:column sortProperty="InvVatAmt" filterable="true" sortable="false" align="right"
                  headerText="#{sfr.ENGAGE_INVOICE_VAT}"
