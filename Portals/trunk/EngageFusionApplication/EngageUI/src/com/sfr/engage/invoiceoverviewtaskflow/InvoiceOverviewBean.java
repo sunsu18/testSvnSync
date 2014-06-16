@@ -164,7 +164,33 @@ public class InvoiceOverviewBean implements Serializable {
                 selectItemPartner.setValue(partnerInfoList.get(i).getPartnerValue().toString());
                 partnerList.add(selectItemPartner);
             }
+if(partnerInfoList.size() == 1) {
+    this.partnerValue=partnerInfoList.get(0).getPartnerValue().toString();
+    
+    accountList    = new ArrayList<SelectItem>();
+    accountValue   = new ArrayList<String>();
+    
+    for(int i=0 ; i<partnerInfoList.size(); i++){
+    
+    if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
+    
+    for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
+    
+    
+    if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
 
+
+    SelectItem selectItem = new SelectItem();
+                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                        accountList.add(selectItem);
+                        accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+    }
+    }
+    }
+    }
+    
+}
 
 //            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
 //                log.info(accessDC.getDisplayRecord() + this.getClass() + " " + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
