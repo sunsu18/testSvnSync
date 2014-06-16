@@ -28,6 +28,7 @@ import javax.faces.model.*;
 import javax.servlet.http.*;
 
 import oracle.adf.model.*;
+import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.*;
 import oracle.adf.view.rich.component.rich.*;
 import oracle.adf.view.rich.component.rich.data.*;
@@ -128,6 +129,9 @@ public class TransactionOverviewBean implements Serializable {
     private boolean toDateInitial=true;
 
     private String vehicleNumberOdometer = "";
+    private String odometerPartner = "";
+    private String odometerAccount = "";
+    private String odometerKsid = "";
     private String odometerPortal = null;
     private String urefTransactionId = null;
     private String palsCountryCode = null;
@@ -3708,29 +3712,29 @@ public class TransactionOverviewBean implements Serializable {
     }
 
     public String odometerEditAction() {
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey") !=
-            null) {
-            vehicleNumberOdometer =
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey") != null) {
+            vehicleNumberOdometer =AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vnumberkey").toString().trim();
         }
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey") !=
-            null) {
-            odometerPortal =
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey").toString().trim();
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey") != null) {
+            odometerPortal =AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerportalkey").toString().trim();
         } else {
-            odometerPortal =
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
+            odometerPortal =AdfFacesContext.getCurrentInstance().getPageFlowScope().get("odometerkey").toString().trim();
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "uref id=================>" +
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"uref id=================>" +
                      AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey"));
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "pals country id=================>" +
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"pals country id=================>" +
                      AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey"));
-        urefTransactionId =
-                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
-        palsCountryCode =
-                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
+        urefTransactionId = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("ureftranskey").toString().trim();
+        palsCountryCode = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("palscountrykey").toString().trim();
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarycard") != null){
+            odometerKsid= AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarycard").toString().trim();
+        }
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("partnernumber") != null){
+            odometerPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("partnernumber").toString().trim();
+        }
+        if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountid") != null){
+            odometerAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountid").toString().trim();
+        }
         getBindings().getEditOdometerPopup().show(new RichPopup.PopupHints());
 
         return null;
@@ -3740,25 +3744,44 @@ public class TransactionOverviewBean implements Serializable {
         User user = null;
         String modifiedBy = null;
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-        modifiedBy =
-                user.getFirstName().concat(" ").concat(user.getLastName());
+        modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
 
-        BindingContainer bindings =
-            BindingContext.getCurrent().getCurrentBindingsEntry();
-        OperationBinding operationBinding =
-            bindings.getOperationBinding("updateOdometerPortal");
-        operationBinding.getParamsMap().put("urefTransactionId",
-                                            urefTransactionId);
-        operationBinding.getParamsMap().put("palsCountryCode",
-                                            palsCountryCode);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "odometer portal popup value=======>" +
+        BindingContainer bindings =BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding =bindings.getOperationBinding("updateOdometerPortal");
+        operationBinding.getParamsMap().put("urefTransactionId",urefTransactionId);
+        operationBinding.getParamsMap().put("palsCountryCode",palsCountryCode);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"odometer portal popup value=======>" +
                      getBindings().getOdometerPortalValue().getValue());
         operationBinding.getParamsMap().put("modifiedBy", modifiedBy);
-        operationBinding.getParamsMap().put("odoMeterPortalValue",
-                                            getBindings().getOdometerPortalValue().getValue());
+        operationBinding.getParamsMap().put("odoMeterPortalValue",getBindings().getOdometerPortalValue().getValue());
         Object result = operationBinding.execute();
         if (operationBinding.getErrors().isEmpty()) {
+            ViewObject transactionVo = ADFUtils.getViewObject("PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1Iterator");
+             if(odometerKsid != null && odometerPartner != null && odometerAccount != null){
+                    transactionVo.setNamedWhereClauseParam("urefTransId", urefTransactionId);
+                    transactionVo.setNamedWhereClauseParam("cardNumber", odometerKsid);
+                    transactionVo.setNamedWhereClauseParam("countryCode", palsCountryCode);
+                    transactionVo.setNamedWhereClauseParam("accountId", odometerAccount);
+                    transactionVo.setNamedWhereClauseParam("partnerId", odometerPartner);
+                }
+             transactionVo.executeQuery();
+             if(transactionVo.getEstimatedRowCount() >0){
+                 while (transactionVo.hasNext()) {
+                     PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl currRow = (PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl)transactionVo.next();
+                 if(currRow != null && currRow.getUrefTransactionId() != null){
+                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"uref transaction id of next record=======>" +
+                                  currRow.getUrefTransactionId());
+                 OperationBinding previousOdometerOpn =bindings.getOperationBinding("updatePreviousOdometer");
+                 previousOdometerOpn.getParamsMap().put("cardNumber",odometerKsid);
+                 previousOdometerOpn.getParamsMap().put("accountId",odometerAccount);
+                 previousOdometerOpn.getParamsMap().put("countryCd",palsCountryCode);
+                 previousOdometerOpn.getParamsMap().put("partnerId",odometerPartner);
+                 previousOdometerOpn.getParamsMap().put("transactionId",currRow.getUrefTransactionId());
+                 previousOdometerOpn.getParamsMap().put("previousOdometer",getBindings().getOdometerPortalValue().getValue());
+                 previousOdometerOpn.execute();
+                 }
+                 }
+             }
             getBindings().getEditOdometerPopup().hide();
             searchResults();
         }
@@ -3985,6 +4008,30 @@ public class TransactionOverviewBean implements Serializable {
 
     public boolean isNoteVisible() {
         return noteVisible;
+    }
+
+    public void setOdometerPartner(String odometerPartner) {
+        this.odometerPartner = odometerPartner;
+    }
+
+    public String getOdometerPartner() {
+        return odometerPartner;
+    }
+
+    public void setOdometerAccount(String odometerAccount) {
+        this.odometerAccount = odometerAccount;
+    }
+
+    public String getOdometerAccount() {
+        return odometerAccount;
+    }
+
+    public void setOdometerKsid(String odometerKsid) {
+        this.odometerKsid = odometerKsid;
+    }
+
+    public String getOdometerKsid() {
+        return odometerKsid;
     }
 
     public class Bindings {

@@ -4,6 +4,7 @@ package com.sfr.engage.model.module;
 import com.sfr.engage.model.module.common.EngageAppModule;
 import com.sfr.engage.model.queries.rvo.ProductsDisplayRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdometerRvoImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
@@ -141,101 +142,123 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (ViewObjectImpl)findViewObject("PrtGenHelpRVO1");
     }
 
-/**
-     * @param accountId
-     * @param type
-     * @param countryCd
-     * @param regDriverValue
-     * This method is used to delete Driver/Truck details for the Account.
-     */
-    public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue ){
-        System.out.println("Account Number in Application module===>"+accountId);
-        System.out.println("type in application module====>"+type);
-        System.out.println("countryCd in application module=====>"+countryCd);
-        System.out.println("regDriverValue in apppilcation module====>"+regDriverValue);
-
-        Connection con=null;
-        PreparedStatement pStmt = null;
-        String statement = null;
-                try {
-                    Statement stmt = getDBTransaction().createStatement(0);
-                    con = stmt.getConnection();
-                    if(type.equals("driver")){
-                        if(regDriverValue!= null){
-                        System.out.println("Inside this block of driver in application moule");
-                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
-                        }else{
-                            System.out.println("Inside else block of driver in application moule");
-                        statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
-                        }
-                    }else{
-                        if(regDriverValue!= null){
-                        System.out.println("Inside this block of vehicle in application moule");
-                        statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
-                        }else{
-                            System.out.println("Inside else block of vehilce in application moule");
-                        statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
-                        }
-                    }
-
-                    pStmt = con.prepareStatement(statement);
-                    pStmt.executeUpdate();
-                    con.commit();
-                } catch (SQLException sqle) {
-                    sqle.getMessage();
-                } finally {
+    /**
+         * @param accountId
+         * @param type
+         * @param countryCd
+         * @param regDriverValue
+         * This method is used to delete Driver/Truck details for the Account.
+         */
+            public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue ){
+            System.out.println("Account Number in Application module===>"+accountId);
+            
+            Connection con=null;
+            PreparedStatement pStmt = null;
+            String statement = null;
                     try {
-                        pStmt.close();
+                        Statement stmt = getDBTransaction().createStatement(0);
+                        con = stmt.getConnection();
+                        if(type.equals("driver")){
+                            if(regDriverValue!= null){
+                            System.out.println("Inside this block of driver in application moule");
+                            statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
+                            }else{
+                                System.out.println("Inside else block of driver in application moule");
+                            statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
+                            }
+                        }else{
+                            if(regDriverValue!= null){
+                            System.out.println("Inside this block of vehicle in application moule");
+                            statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
+                            }else{
+                                System.out.println("Inside else block of vehilce in application moule");
+                            statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
+                            }
+                        }
+    
+                        pStmt = con.prepareStatement(statement);
+                        pStmt.executeUpdate();
+                        con.commit();
                     } catch (SQLException sqle) {
                         sqle.getMessage();
+                    } finally {
+                        try {
+                            pStmt.close();
+                        } catch (SQLException sqle) {
+                            sqle.getMessage();
+                        }
+                    }
+            }
+
+        public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount) {
+            System.out.println("inside update vehicle driver");
+            System.out.println("cardNumber in Application module===>"+cardNumber);
+            System.out.println("type in application module====>"+type);
+            System.out.println("countryCd in application module=====>"+countryCd);
+            System.out.println("regDriverValue in apppilcation module====>"+vehicleDriverValue);
+            System.out.println("associatedAccount in apppilcation module====>"+associatedAccount);
+            Connection con=null;
+            PreparedStatement pStmt = null;
+            String statement = null;
+        
+            try {
+                Statement stmt = getDBTransaction().createStatement(0);
+                con = stmt.getConnection();
+                if(type.equals("Driver")){
+                    if(vehicleDriverValue!= null){
+                    System.out.println("Inside this block of driver in application moule");
+                    statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+                    }
+                }else{
+                    if(type.equals("Vehicle")){
+                    System.out.println("Inside this block of vehicle in application moule");
+                        statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
                     }
                 }
-    }
-
-public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount) {
-    System.out.println("inside update vehicle driver");
-    System.out.println("cardNumber in Application module===>"+cardNumber);
-    System.out.println("type in application module====>"+type);
-    System.out.println("countryCd in application module=====>"+countryCd);
-    System.out.println("regDriverValue in apppilcation module====>"+vehicleDriverValue);
-    System.out.println("associatedAccount in apppilcation module====>"+associatedAccount);
-    Connection con=null;
-    PreparedStatement pStmt = null;
-    String statement = null;
-
-    try {
-        Statement stmt = getDBTransaction().createStatement(0);
-        con = stmt.getConnection();
-        if(type.equals("Driver")){
-            if(vehicleDriverValue!= null){
-            System.out.println("Inside this block of driver in application moule");
-            statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
-            }
-        }else{
-            if(type.equals("Vehicle")){
-            System.out.println("Inside this block of vehicle in application moule");
-                statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+        
+                pStmt = con.prepareStatement(statement);
+                pStmt.executeUpdate();
+                con.commit();
+            } catch (SQLException sqle) {
+                sqle.getMessage();
+            } finally {
+                try {
+                    pStmt.close();
+                } catch (SQLException sqle) {
+                    sqle.getMessage();
+                }
             }
         }
 
-        pStmt = con.prepareStatement(statement);
-        pStmt.executeUpdate();
-        con.commit();
-    } catch (SQLException sqle) {
-        sqle.getMessage();
-    } finally {
-        try {
-            pStmt.close();
-        } catch (SQLException sqle) {
-            sqle.getMessage();
+        public void updatePreviousOdometer(String cardNumber, String accountId, String countryCd, String partnerId, String transactionId, String previousOdometer ) {
+            System.out.println("inside update previous odometer");
+            Connection con=null;
+            PreparedStatement pStmt = null;
+            String statement = null;
+    
+            try {
+                Statement stmt = getDBTransaction().createStatement(0);
+                con = stmt.getConnection();
+                
+                if(cardNumber != null && accountId != null && countryCd != null && partnerId != null && transactionId != null){
+                System.out.println("Inside this block of update previous odometer in application moule");
+                statement = "UPDATE PRT_CARD_TRANSACTION_HEADER SET PREVIOUS_ODOMETER = '"+previousOdometer+"' where PALS_COUNTRY_CODE ='"+countryCd+"' and KSID ='"+cardNumber+"' and ACCOUNT_ID ='"+accountId+"' and PARTNER_ID ='"+partnerId+"' and UREF_TRANSACTION_ID ='"+transactionId+"'";
+                }
+                pStmt = con.prepareStatement(statement);
+                pStmt.executeUpdate();
+                con.commit();
+            } catch (SQLException sqle) {
+                sqle.getMessage();
+            } finally {
+                try {
+                    pStmt.close();
+                } catch (SQLException sqle) {
+                    sqle.getMessage();
+                }
+            }
         }
-    }
 
-
-
-}
-
-    public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
+        public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
         System.out.println("transaction id in Application module===>"+urefTransactionId);
         System.out.println("countryCd in application module=====>"+palsCountryCode);
         System.out.println("odometer value in apppilcation module====>"+odoMeterPortalValue);
@@ -532,4 +555,13 @@ public void updateVehicleDriver(String cardNumber, String type, String countryCd
     public PrtCardTransactionVehicleInfoRVOImpl getPrtCardTransactionVehicleInfoRVO1() {
         return (PrtCardTransactionVehicleInfoRVOImpl)findViewObject("PrtCardTransactionVehicleInfoRVO1");
     }
+
+    /**
+     * Container's getter for PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1.
+     * @return PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1
+     */
+    public PrtCardTransactionHeaderUrefIdUpdateOdometerRvoImpl getPrtCardTransactionHeaderUrefIdUpdateOdometerRvo1() {
+        return (PrtCardTransactionHeaderUrefIdUpdateOdometerRvoImpl)findViewObject("PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1");
+    }
+
 }

@@ -21,6 +21,9 @@
     <iterator id="PrtCardTransactionVehicleInfoRVO1Iterator"
               Binds="PrtCardTransactionVehicleInfoRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1Iterator"
+              Binds="PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <!--<tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
@@ -255,6 +258,8 @@
           <Item Value="PalsCountryCode"/>
           <Item Value="CardGroupDesc"/>
           <Item Value="TotalAmount"/>
+          <Item Value="Ksid"/>
+          <Item Value="PartnerId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>    
@@ -300,5 +305,18 @@
         <Item Value="PortalModifiedDate"/>
       </AttrNames>
     </attributeValues>
+    <methodAction id="updatePreviousOdometer"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updatePreviousOdometer"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="cardNumber" NDType="java.lang.String"/>
+      <NamedData NDName="accountId" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="partnerId" NDType="java.lang.String"/>
+      <NamedData NDName="transactionId" NDType="java.lang.String"/>
+      <NamedData NDName="previousOdometer" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

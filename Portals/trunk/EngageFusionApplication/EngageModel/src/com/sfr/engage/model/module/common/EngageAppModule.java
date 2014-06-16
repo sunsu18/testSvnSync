@@ -19,4 +19,8 @@ public interface EngageAppModule extends ApplicationModule {
                              String associatedAccount);
 
     String getTranslation(String translationkey, String ccCode);
+
+    void updatePreviousOdometer(String cardNumber, String accountId,
+                                String countryCd, String partnerId,
+                                String transactionId, String previousOdometer);
 }

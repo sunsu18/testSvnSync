@@ -717,16 +717,23 @@
           <af:commandImageLink id="cil1"
                             action="#{pageFlowScope.TransactionOverviewBean.odometerEditAction}"
                             icon="/images/edit.png">
-          <af:setPropertyListener from="#{row.OdometerPortal}" type="action"
+           <af:setPropertyListener from="#{row.OdometerPortal}" type="action"
                                         to="#{pageFlowScope.odometerportalkey}"/>
-          <af:setPropertyListener from="#{row.UrefTransactionId}" type="action"
+           <af:setPropertyListener from="#{row.UrefTransactionId}" type="action"
                                         to="#{pageFlowScope.ureftranskey}"/>
-          <af:setPropertyListener from="#{row.PalsCountryCode}" type="action"
+           <af:setPropertyListener from="#{row.PalsCountryCode}" type="action"
                                         to="#{pageFlowScope.palscountrykey}"/>
-          <af:setPropertyListener from="#{row.VehicleNumber}" type="action"
+           <af:setPropertyListener from="#{row.VehicleNumber}" type="action"
                                         to="#{pageFlowScope.vnumberkey}"/>
-          <af:setPropertyListener from="#{row.Odometer}" type="action"
+           <af:setPropertyListener from="#{row.Odometer}" type="action"
                                         to="#{pageFlowScope.odometerkey}"/>
+           <af:setPropertyListener from="#{row.AccountId}" type="action"
+                                        to="#{pageFlowScope.accountid}"/>  
+           <af:setPropertyListener from="#{row.Ksid}" type="action"
+                                        to="#{pageFlowScope.primarycard}"/>
+           <af:setPropertyListener from="#{row.PartnerId}" type="action"
+                                        to="#{pageFlowScope.partnernumber}"/>
+                                        
           </af:commandImageLink>
             </h:panelGrid>
           </af:column>
