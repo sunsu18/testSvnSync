@@ -18,6 +18,7 @@ import com.sfr.util.constants.Constants;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 import java.sql.SQLException;
@@ -145,7 +146,8 @@ public class CardBean implements Serializable {
         private String cardGroupQuery="(";
         private Map<String,String> mapAccountListValue; 
         private Map<String,String> mapCardGroupListValue;      
-       
+        private String contentType;
+       private String fileName;
         
    public CardBean() {
        
@@ -1370,6 +1372,7 @@ public class CardBean implements Serializable {
             shuttleList.add(selectItem);
         }
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
+        getBindings().getSelectionExportOneRadio().setValue("xls");
         getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
         }else {
             if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
@@ -1551,23 +1554,50 @@ public class CardBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
-
-        if(shuttleValue == null) {
-            if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+        if(shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
+            if(shuttleValue == null){
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                    FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
                                      "");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }else {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             }
-        }else
-        {
-            if (shuttleValue.size() > 0) {
-                 shuttleStatus=true;
-                getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
+        }else{
+            if(getBindings().getSelectionExportOneRadio().getValue() != null){
+                if(shuttleValue == null) {
+                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                             (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                }else{
+                    if (shuttleValue.size() > 0 &&
+                        getBindings().getSelectionExportOneRadio().getValue() != null) {
+                        shuttleStatus=true;
+                        getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
+                    } 
+                }
+            }else{
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             }
-        }
-
+     }
     }
 
     public String excelDownLoad() {
@@ -1656,6 +1686,8 @@ public class CardBean implements Serializable {
       
         String selectedValues="";
         for (int i = 0; i <shuttleValue.size(); i++ ) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues = selectedValues + shuttleValue.get(i).toString().trim() + ",";
         }
         selectedValues=selectedValues.substring(0, selectedValues.length()-1);
@@ -1666,6 +1698,8 @@ public class CardBean implements Serializable {
             if((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartner().getValue().toString().trim())){
                 partnerCompanyName = partnerInfoList.get(z).getPartnerName();
                 partnerIndex = z;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Partner value:" + partnerCompanyName);
             }
         }
 
@@ -1696,170 +1730,367 @@ public class CardBean implements Serializable {
         }
         cardGroupDescName = (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length())-1);
 
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Report in Excel Format");
+            HSSFWorkbook XLS = new HSSFWorkbook();
+            HSSFRow XLS_SH_R=null;
+            HSSFCell XLS_SH_R_C=null;
+            int intRow=0;
+            HSSFCellStyle cs = XLS.createCellStyle();
+            HSSFFont f =XLS.createFont();
 
-        HSSFWorkbook XLS = new HSSFWorkbook();
-        HSSFRow XLS_SH_R=null;
-        HSSFCell XLS_SH_R_C=null;
-        int intRow=0;
-        HSSFCellStyle cs = XLS.createCellStyle();
-        HSSFFont f =XLS.createFont();
+            //create sheet
+            HSSFSheet XLS_SH=XLS.createSheet();
+            XLS.setSheetName(0,"CardReport");
 
-        //create sheet
-        HSSFSheet XLS_SH=XLS.createSheet();
-        XLS.setSheetName(0,"CardReport");
+            f.setFontHeightInPoints((short) 10);
+            f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            f.setColor((short)0);
+            cs.setFont(f);
 
-        f.setFontHeightInPoints((short) 10);
-        f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        f.setColor((short)0);
-        cs.setFont(f);
+            HSSFCellStyle csRight = XLS.createCellStyle();
+            HSSFFont fnumberData =XLS.createFont();
+            fnumberData.setFontHeightInPoints((short) 10);
+            fnumberData.setColor((short)0);
+            csRight.setFont(fnumberData);
+            csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT );
 
-        HSSFCellStyle csRight = XLS.createCellStyle();
-        HSSFFont fnumberData =XLS.createFont();
-        fnumberData.setFontHeightInPoints((short) 10);
-        fnumberData.setColor((short)0);
-        csRight.setFont(fnumberData);
-        csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT );
+            HSSFCellStyle csTotalAmt = XLS.createCellStyle();
+            HSSFFont fontTotal =XLS.createFont();
+            fontTotal.setFontHeightInPoints((short) 10);
+            fontTotal.setColor((short)0);
+            fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            csTotalAmt.setFont(fontTotal);
+            csTotalAmt.setAlignment(HSSFCellStyle.ALIGN_RIGHT );
 
-        HSSFCellStyle csTotalAmt = XLS.createCellStyle();
-        HSSFFont fontTotal =XLS.createFont();
-        fontTotal.setFontHeightInPoints((short) 10);
-        fontTotal.setColor((short)0);
-        fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        csTotalAmt.setFont(fontTotal);
-        csTotalAmt.setAlignment(HSSFCellStyle.ALIGN_RIGHT );
+            HSSFCellStyle csData = XLS.createCellStyle();
+            HSSFFont fData =XLS.createFont();
+            fData.setFontHeightInPoints((short) 10);
+            fData.setColor((short)0);
+            csData.setFont(fData);
 
-        HSSFCellStyle csData = XLS.createCellStyle();
-        HSSFFont fData =XLS.createFont();
-        fData.setFontHeightInPoints((short) 10);
-        fData.setColor((short)0);
-        csData.setFont(fData);
+            XLS_SH.setColumnWidth(50, 50);
 
-        XLS_SH.setColumnWidth(50, 50);
-
-        XLS_SH_R=XLS_SH.createRow(0);
-        XLS_SH_R_C=XLS_SH_R.createCell(0);
-        XLS_SH_R_C.setCellStyle(cs);
-        XLS_SH_R_C.setCellValue("Company: "+partnerCompanyName);
-
-
-        XLS_SH_R= XLS_SH.createRow(1);
-        XLS_SH_R_C=XLS_SH_R.createCell(0);
-        XLS_SH_R_C.setCellStyle(cs);
-        XLS_SH_R_C.setCellValue("Account: "+checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),"Account"));
-
-        XLS_SH_R= XLS_SH.createRow(2);
-        XLS_SH_R_C=XLS_SH_R.createCell(0);
-        XLS_SH_R_C.setCellStyle(cs);
-        XLS_SH_R_C.setCellValue("CardGroup: "+checkALL(cardGroupDescName,"CardGroup"));
+            XLS_SH_R=XLS_SH.createRow(0);
+            XLS_SH_R_C=XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Company: "+partnerCompanyName);
 
 
+            XLS_SH_R= XLS_SH.createRow(1);
+            XLS_SH_R_C=XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Account: "+checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),"Account"));
 
-//        populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString());
+            XLS_SH_R= XLS_SH.createRow(2);
+            XLS_SH_R_C=XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("CardGroup: "+checkALL(cardGroupDescName,"CardGroup"));
 
-        XLS_SH_R= XLS_SH.createRow(3);
-        XLS_SH_R_C=XLS_SH_R.createCell(0);
-        XLS_SH_R_C.setCellStyle(cs);
-      
-        XLS_SH_R_C.setCellValue("Status: "+checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),"Status"));
 
-        for(int row=4;row<=6;row++) {
-            XLS_SH_R= XLS_SH.createRow(row);
+
+            //        populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString());
+
+            XLS_SH_R= XLS_SH.createRow(3);
+            XLS_SH_R_C=XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            
+            XLS_SH_R_C.setCellValue("Status: "+checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),"Status"));
+
+            for(int row=4;row<=6;row++) {
+                XLS_SH_R= XLS_SH.createRow(row);
+            }
+
+            String[] headerValues=selectedValues.split(",");
+
+            HSSFCellStyle css = XLS.createCellStyle();
+            HSSFFont fcss =XLS.createFont();
+            fcss.setFontHeightInPoints((short) 10);
+            fcss.setItalic(true);
+            fcss.setColor((short)0);
+            css.setFont(fcss);
+            XLS_SH_R= XLS_SH.createRow(6);
+            for (int col = 0; col < headerValues.length; col++){
+                XLS_SH_R_C =XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(headerValues[col].toString());
+            }
+
+            int rowVal=6;
+
+            ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+            RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
+            iterator.reset();
+            while (iterator.hasNext()) {
+              PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
+                rowVal=rowVal+1;
+                XLS_SH_R= XLS_SH.createRow(rowVal);
+                if(row!=null) {
+                    for (int cellValue = 0; cellValue < headerValues.length; cellValue++){
+                        if("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getAccountId()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getAccountId().toString());
+                            }
+                        }
+                        else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardgroupDescription()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardgroupDescription());
+                            }
+                        }
+                        else if("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardType()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardType().toString());
+                            }
+                        }
+                        else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardEmbossNum()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardEmbossNum().toString());
+                            }
+                        }
+                        else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getVehicleNumber()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
+                            }
+                        }
+                        else if("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getDriverName()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getDriverName().toString());
+                            }
+                        }
+                        else if("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getBlockAction()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(statusConversion(row.getBlockAction().toString()));
+                            }
+                        }
+                        else if("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardExpiry()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                java.sql.Date date=row.getCardExpiry().dateValue();
+                                Date passedDate=new Date(date.getTime());
+                                XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+            //                            XLS_SH_R_C.setCellValue(row.getCardExpiry().toString().trim());
+                            }
+                        }
+                    }
+
+                }
+            }
+            iterator.closeRowSetIterator();
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Printing excel Data completed");
+            XLS.write(outputStream);
+            outputStream.close();
+
         }
-
-        String[] headerValues=selectedValues.split(",");
-
-        HSSFCellStyle css = XLS.createCellStyle();
-        HSSFFont fcss =XLS.createFont();
-        fcss.setFontHeightInPoints((short) 10);
-        fcss.setItalic(true);
-        fcss.setColor((short)0);
-        css.setFont(fcss);
-        XLS_SH_R= XLS_SH.createRow(6);
-        for (int col = 0; col < headerValues.length; col++){
-            XLS_SH_R_C =XLS_SH_R.createCell(col);
-            XLS_SH_R_C.setCellStyle(css);
-            XLS_SH_R_C.setCellValue(headerValues[col].toString());
+        else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Report in CSV Format");
+            PrintWriter out = new PrintWriter(outputStream);
+            String[] headerValues=selectedValues.split(",");
+            for (int col = 0; col < headerValues.length; col++) {
+                out.print(headerValues[col].toString());
+                if (col < headerValues.length - 1) {
+                    out.print(";");
+                }
+            }
+            out.println();
+            ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+            RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
+            iterator.reset();
+            while (iterator.hasNext()) {
+                PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
+                if (row != null) {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                "Printing Data");
+                    for (int cellValue = 0; cellValue < headerValues.length;cellValue++) {
+                        if("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getAccountId()!=null){
+                                out.print(row.getAccountId().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardgroupDescription()!=null){
+                                out.print(row.getCardgroupDescription());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardType()!=null){
+                                out.print(row.getCardType().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardEmbossNum()!=null){
+                                out.print(row.getCardEmbossNum().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getVehicleNumber()!=null){
+                                out.print(row.getVehicleNumber().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getDriverName()!=null){
+                                out.print(row.getDriverName().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getBlockAction()!=null){
+                                out.print(statusConversion(row.getBlockAction().toString()));
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        else if("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardExpiry()!=null){
+                                java.sql.Date date=row.getCardExpiry().dateValue();
+                                Date passedDate=new Date(date.getTime());
+                                out.print(formatConversion(passedDate));
+                        //                            XLS_SH_R_C.setCellValue(row.getCardExpiry().toString().trim());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }                        
+                    }
+                    out.println();
+                }
+            }
+            out.println();
+            iterator.closeRowSetIterator();
+            out.close();
         }
-
-        int rowVal=6;
-
-        ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
-        RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
-        iterator.reset();
-        while (iterator.hasNext()) {
-          PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
-            rowVal=rowVal+1;
-            XLS_SH_R= XLS_SH.createRow(rowVal);
-            if(row!=null) {
-                for (int cellValue = 0; cellValue < headerValues.length; cellValue++){
-                    if("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getAccountId()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getAccountId().toString());
-                        }
-                    }
-                    else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getCardgroupDescription()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getCardgroupDescription());
-                        }
-                    }
-                    else if("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getCardType()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getCardType().toString());
-                        }
-                    }
-                    else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getCardEmbossNum()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getCardEmbossNum().toString());
-                        }
-                    }
-                    else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getVehicleNumber()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
-                        }
-                    }
-                    else if("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getDriverName()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(row.getDriverName().toString());
-                        }
-                    }
-                    else if("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getBlockAction()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            XLS_SH_R_C.setCellValue(statusConversion(row.getBlockAction().toString()));
-                        }
-                    }
-                    else if("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                        if(row.getCardExpiry()!=null){
-                            XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
-                            XLS_SH_R_C.setCellStyle(csData);
-                            java.sql.Date date=row.getCardExpiry().dateValue();
-                            Date passedDate=new Date(date.getTime());
-                            XLS_SH_R_C.setCellValue(formatConversion(passedDate));
-//                            XLS_SH_R_C.setCellValue(row.getCardExpiry().toString().trim());
-                        }
+        else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Report in CSV2 Format");
+                PrintWriter out = new PrintWriter(outputStream);
+                String[] headerValues = selectedValues.split(",");
+                for (int col = 0; col < headerValues.length; col++) {
+                    out.print(headerValues[col].toString());
+                    if (col < headerValues.length - 1) {
+                        out.print("|");
                     }
                 }
-
+                out.println();
+                ViewObject prtViewCardsVO = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
+                RowSetIterator iterator = prtViewCardsVO.createRowSetIterator(null);
+                iterator.reset();
+                while (iterator.hasNext()) {
+                    PrtViewCardsVORowImpl row = (PrtViewCardsVORowImpl)iterator.next();
+                    if (row != null) {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                    "Printing Data");
+                        for (int cellValue = 0; cellValue < headerValues.length;cellValue++) {
+                            if("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getAccountId()!=null){
+                                    out.print(row.getAccountId().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardgroupDescription()!=null){
+                                    out.print(row.getCardgroupDescription());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardType()!=null){
+                                    out.print(row.getCardType().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardEmbossNum()!=null){
+                                    out.print(row.getCardEmbossNum().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getVehicleNumber()!=null){
+                                    out.print(row.getVehicleNumber().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getDriverName()!=null){
+                                    out.print(row.getDriverName().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getBlockAction()!=null){
+                                    out.print(statusConversion(row.getBlockAction().toString()));
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            else if("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardExpiry()!=null){
+                                    java.sql.Date date=row.getCardExpiry().dateValue();
+                                    Date passedDate=new Date(date.getTime());
+                                    out.print(formatConversion(passedDate));
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }                        
+                        }
+                        out.println();
+                    }
+                }
+                out.println();
+                iterator.closeRowSetIterator();
+                out.close();
             }
         }
-        iterator.closeRowSetIterator();
-        XLS.write(outputStream);
-        outputStream.close();
-
-
     }
 
 
@@ -2070,6 +2301,40 @@ public class CardBean implements Serializable {
         return infoMsgModifiedBy;
     }
 
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            contentType = "application/vnd.ms-excel";
+        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            contentType = "text/plain";
+        } else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                contentType = "text/plain";
+            }
+        }
+        return contentType;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            fileName = "Card_Report.xls";
+        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            fileName = "Card_Report.csv";
+        } else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                fileName = "Card_Report.csv";
+            }
+        }
+        return fileName;
+    }
+
 
     public class Bindings {
         private RichSelectOneChoice partner;
@@ -2087,6 +2352,7 @@ public class CardBean implements Serializable {
         private RichPanelGroupLayout driverPgl;
         private RichPanelGroupLayout vehiclePgl;
         private RichOutputText showEditInfoMessage;
+        private RichSelectOneRadio selectionExportOneRadio;
         
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
@@ -2210,6 +2476,14 @@ public class CardBean implements Serializable {
 
         public RichOutputText getShowEditInfoMessage() {
             return showEditInfoMessage;
+        }
+
+        public void setSelectionExportOneRadio(RichSelectOneRadio selectionExportOneRadio) {
+            this.selectionExportOneRadio = selectionExportOneRadio;
+        }
+
+        public RichSelectOneRadio getSelectionExportOneRadio() {
+            return selectionExportOneRadio;
         }
     }
     }
