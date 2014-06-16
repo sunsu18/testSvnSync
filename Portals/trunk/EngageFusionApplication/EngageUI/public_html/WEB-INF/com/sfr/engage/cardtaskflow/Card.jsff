@@ -650,7 +650,7 @@
 <af:outputText value="#{pageFlowScope.CardBean.displayVehicleName}" id="ot15"
                                        partialTriggers="soc2"/>
 </af:panelGroupLayout>
-<af:spacer height="13px" id="s38"/>
+<af:spacer height="13px" id="s70"/>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s55"/>
 <af:panelGroupLayout layout="horizontal" id="pgl32" >
