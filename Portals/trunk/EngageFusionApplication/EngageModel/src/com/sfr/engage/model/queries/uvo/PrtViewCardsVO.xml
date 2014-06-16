@@ -179,6 +179,14 @@ and INSTR(:status,pc.block_action)<>0]]>
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.VehicleModifiedDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.VehicleModifiedDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </ViewAttribute>
   <ViewAttribute
     Name="CardType"

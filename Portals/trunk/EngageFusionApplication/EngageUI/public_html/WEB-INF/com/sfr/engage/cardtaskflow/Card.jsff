@@ -610,7 +610,7 @@
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
-              <af:spacer width="10" height="20" id="s36"/>
+              <af:spacer width="10" height="19" id="s36"/>
 <af:panelGroupLayout layout="horizontal" id="pgl68" >
 <af:panelGroupLayout id="pgl69" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:selectOneChoice id="soc1" showRequired="false"
@@ -650,6 +650,7 @@
 <af:outputText value="#{pageFlowScope.CardBean.displayVehicleName}" id="ot15"
                                        partialTriggers="soc2"/>
 </af:panelGroupLayout>
+<af:spacer height="13px" id="s38"/>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s55"/>
 <af:panelGroupLayout layout="horizontal" id="pgl32" >
@@ -665,6 +666,7 @@
                                        partialTriggers="soc2"
                                        visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}" />
 </af:panelGroupLayout>
+<af:spacer height="13px" id="s67"/>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s59"/>
 <af:panelGroupLayout layout="horizontal" id="pgl16" >
@@ -680,6 +682,7 @@
                                        partialTriggers="soc2"
                                        visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}" /> 
 </af:panelGroupLayout>
+<af:spacer height="13px" id="s68"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 
