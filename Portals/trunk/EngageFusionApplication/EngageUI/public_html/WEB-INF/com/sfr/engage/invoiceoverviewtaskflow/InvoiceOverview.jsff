@@ -614,7 +614,7 @@
                                inlineStyle="width:610.0px; height:15.0px;">
                                
                                
-          <af:panelGroupLayout id="pgl50" inlineStyle="width:50.0px;"
+          <af:panelGroupLayout id="pgl59" inlineStyle="width:50.0px;"
                                layout="horizontal">
             
            <af:panelGroupLayout id="pgl51" styleClass="filter_table"
