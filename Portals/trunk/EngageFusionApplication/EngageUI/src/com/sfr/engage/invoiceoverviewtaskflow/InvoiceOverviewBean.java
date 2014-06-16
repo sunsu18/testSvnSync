@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -204,7 +205,7 @@ public class InvoiceOverviewBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "CardGroup "+cardGroupQuery);
             }
-            if(session.getAttribute("account_Query_Invoice_overview")!=null)
+            if(session.getAttribute("card_Query_Invoice_overview")!=null)
             {
             cardQuery=session.getAttribute("card_Query_Invoice_overview").toString().trim();
             mapCardListValue= (Map<String,String>)session.getAttribute("map_Card_List_Invoice_overview");
@@ -305,25 +306,50 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void searchResultsListener(ActionEvent actionEvent) {
         // Add event code here...
+        String newFromDate = null;
+        String newToDate = null;
         if(getBindings().getPartnerNumber().getValue()!=null && getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null
         && getBindings().getCardGpCardList().getValue()!=null && getBindings().getCardGroup().getValue()!=null && getBindings().getCard().getValue()!=null) {
-             fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-             toDate = (java.util.Date)getBindings().getToDate().getValue();
-            if (toDate.before(fromDate)) {
-                if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null,
-                                                                 msg);
+//             fromDate = (java.util.Date)getBindings().getFromDate().getValue();
+//             toDate = (java.util.Date)getBindings().getToDate().getValue();
+//            if (toDate.before(fromDate)) {
+//                if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+//                    FacesMessage msg =
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//                                         (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+//                                         "");
+//                    FacesContext.getCurrentInstance().addMessage(null,
+//                                                                 msg);
+//                }
+//          }
+        
+        
+        
+                 
+                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                Date fromDate =
+                    (java.util.Date)getBindings().getFromDate().getValue();
+                Date toDate =
+                    (java.util.Date)getBindings().getToDate().getValue();
+                newFromDate = sdf.format(fromDate);
+                newToDate = sdf.format(toDate);
+
+                if (toDate.before(fromDate)) {
+                    if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                                        FacesMessage msg =
+                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                                                             "");
+                                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                                     msg);
+                                    }
                 }
-          }
+           
 
 
             else {
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "AccountValue="+getBindings().getAccount().getValue());
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+getBindings().getFromDate().getValue());
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+newFromDate +"To Date = "+ newToDate);
                 ViewObject invoiceVO =ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Before Query="+invoiceVO.getQuery());
 
@@ -412,8 +438,8 @@ public class InvoiceOverviewBean implements Serializable {
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
-                invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
-                invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
+                invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
+                invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
 //                if(getBindings().getInvoiceType().getValue()!=null) {
 //                    invoiceVO.defineNamedWhereClauseParam("invoiceType",getBindings().getInvoiceType().getValue(),null);
 //                }else {
@@ -1244,19 +1270,15 @@ public class InvoiceOverviewBean implements Serializable {
         else{
             isTransactionVisible=false;
             isInvoiceCollectionVisible=true;
-//            Date fromDate = (java.util.Date)getBindings().getFromDate().getValue();
-//            Date toDate = (java.util.Date)getBindings().getToDate().getValue();
             String invoiceNo= collectiveInvoNoOt.getValue().toString();
-
+            
 
             ViewObject invoiceDetailVO =ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
-            invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
+            invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
             System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
             invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
-            invoiceDetailVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
-            invoiceDetailVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
             invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
             log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed for detail is="+invoiceDetailVO.getQuery());
                             invoiceDetailVO.executeQuery();
@@ -2027,7 +2049,7 @@ public class InvoiceOverviewBean implements Serializable {
             gc.setTime(dateNow);
             gc.add(GregorianCalendar.MONTH, -1);
             Date dateBefore = gc.getTime();
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateBefore);
             fromDate.setValue(tmp);
 
@@ -2043,7 +2065,7 @@ public class InvoiceOverviewBean implements Serializable {
         public void setToDate(RichInputDate toDate) {
             System.out.println("Date should be setted to sys date");
             Date dateNow = new java.util.Date();
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateNow);
             toDate.setValue(tmp);
             this.toDate = toDate;

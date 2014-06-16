@@ -31,37 +31,6 @@ public class PrtInvoiceDetailVoImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("partnerId", value);
     }
 
-    /**
-     * Returns the bind variable value for fromDateBV.
-     * @return bind variable value for fromDateBV
-     */
-    public String getfromDateBV() {
-        return (String)getNamedWhereClauseParam("fromDateBV");
-    }
-
-    /**
-     * Sets <code>value</code> for bind variable fromDateBV.
-     * @param value value to bind as fromDateBV
-     */
-    public void setfromDateBV(String value) {
-        setNamedWhereClauseParam("fromDateBV", value);
-    }
-
-    /**
-     * Returns the bind variable value for toDateBV.
-     * @return bind variable value for toDateBV
-     */
-    public String gettoDateBV() {
-        return (String)getNamedWhereClauseParam("toDateBV");
-    }
-
-    /**
-     * Sets <code>value</code> for bind variable toDateBV.
-     * @param value value to bind as toDateBV
-     */
-    public void settoDateBV(String value) {
-        setNamedWhereClauseParam("toDateBV", value);
-    }
 
     /**
      * Returns the bind variable value for countryCode.
