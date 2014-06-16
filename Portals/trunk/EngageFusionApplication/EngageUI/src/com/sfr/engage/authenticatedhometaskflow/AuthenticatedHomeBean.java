@@ -132,9 +132,9 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR)) {
-                profileSession = "business"; }
+                profileSession = "B2B"; }
             else
-            {  profileSession = "private"; }
+            {  profileSession = "B2C"; }
 
 
 

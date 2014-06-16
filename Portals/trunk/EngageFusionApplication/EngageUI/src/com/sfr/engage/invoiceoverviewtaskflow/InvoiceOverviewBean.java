@@ -329,7 +329,7 @@ public class InvoiceOverviewBean implements Serializable {
 
 
                 if(cardQuery.length()>1 && cardQuery != null && cardGroupQuery.length()<=2) {
-               
+
                     if(((accountQuery+"AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery+" AND "+cardQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                     " " + "inside  card with out purchase code where removal class");
@@ -355,10 +355,10 @@ public class InvoiceOverviewBean implements Serializable {
                         invoiceVO.setWhereClause("");
                         invoiceVO.executeQuery();
                     }
-                }                
+                }
                 else {
                                 if(cardGroupQuery.length()>1 && cardGroupQuery != null && cardQuery.length()<=1) {
-                              
+
                                     if(((accountQuery +"AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim())) || ((accountQuery +" AND "+ cardGroupQuery).trim().equalsIgnoreCase(invoiceVO.getWhereClause().trim()))) {
                                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                                     " " + "inside  cardGroup with out purchase code where removal class");
@@ -383,7 +383,7 @@ public class InvoiceOverviewBean implements Serializable {
                                         invoiceVO.setWhereClause("");
                                         invoiceVO.executeQuery();
                                     }
-                                
+
                             }
 
                             }
@@ -410,7 +410,7 @@ public class InvoiceOverviewBean implements Serializable {
                 cardQuery="(";
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",formatConversion(fromDate).toString());
                 invoiceVO.setNamedWhereClauseParam("toDateBV",formatConversion(toDate).toString());
@@ -1076,10 +1076,12 @@ public class InvoiceOverviewBean implements Serializable {
         Property invoiceNo = new Property();
         invoiceNo.setName("xDocumentNo");
         invoiceNo.setValue(invoiceNumber.toString().trim());
+        //invoiceNo.setValue("100192878");
 
         Property partnerId = new Property();
         partnerId.setName("xPartnerId");
         partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
+        //partnerId.setValue("01656214");
 
 //        Property docType = new Property();
 //        docType.setName("xDocumentType");
@@ -1103,6 +1105,7 @@ public class InvoiceOverviewBean implements Serializable {
         Property country = new Property();
         country.setName("xCountry");
         country.setValue(lang);
+        //country.setValue("DK");
 
 
 
@@ -1115,17 +1118,22 @@ public class InvoiceOverviewBean implements Serializable {
         //searchInputVO.getSearchInputQueryProperty().add(docType);
         searchInputVO.getSearchInputQueryProperty().add(contentType);
         searchInputVO.getSearchInputQueryProperty().add(subType);
+        searchInputVO.getSearchInputQueryProperty().add(country);
+        //searchInputVO.setSourceSystem("PORTAL");
 
 //        searchInputVO.getSearchResultMetadata().add("dDocTitle");
-//        searchInputVO.getSearchResultMetadata().add("dDocName");
+        searchInputVO.getSearchResultMetadata().add("dDocName");
 
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     if (uCMCustomWeb != null) {
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
+                        System.out.println("UCM LIST SIZE.get(0):"+UCMInvoiceContentIdList.get(0));
+                        System.out.println("UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +UCMInvoiceContentIdList.get(0).getSearchResultMetadata().size());
+                        System.out.println("content id "+ UCMInvoiceContentIdList.get(0).getContentID().toString());
                         if(UCMInvoiceContentIdList.size()>0)
                         {
-                        ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(1).getValue();
+                        ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(0).getValue();
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Content id="+ucmContentId);
                         if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber,ucmContentId);
@@ -1880,6 +1888,112 @@ public class InvoiceOverviewBean implements Serializable {
 
     public boolean isFailureResult() {
         return failureResult;
+    }
+
+
+
+    public void triggerMailProcess(ActionEvent actionEvent) {
+        // Add event code here...
+
+
+        //
+               String mail_result =  triggermail();
+               System.out.println("Notification of Mail " + mail_result);
+               if(mail_result !=null && mail_result.equalsIgnoreCase("success")) {
+                   System.out.println("Mail send successfully");
+                   /*
+                   if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                   //                        FacesMessage msg =
+                   //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                   //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                   //                                             "");
+                       FacesMessage msg =
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                            "Mail send successfully",
+                                            "");
+                       FacesContext.getCurrentInstance().addMessage(null,
+                                                                    msg);
+                   }
+
+
+        */
+
+                   failureResult = false;
+                   invoiceNotFound = false;
+                   successResult = true;
+        //                   mailResult.setVisible(true);
+        //                   mailResultInvoiceNotFound.setVisible(false);
+        //                   mailResultFailure.setVisible(false);
+        //                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+        //                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+        //                   AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+               }
+                   if(mail_result !=null && mail_result.equalsIgnoreCase("failure")) {
+                        System.out.println("INVOICE_TODATE_LESSTHAN");
+         /*              if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                       //                        FacesMessage msg =
+                       //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                       //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                       //                                             "");
+                           FacesMessage msg =
+                               new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                "Sorry, Mail was not generated, please try after some time",
+                                                "");
+                           FacesContext.getCurrentInstance().addMessage(null,
+                                                                        msg);
+                       }  */
+
+         failureResult = true;
+         invoiceNotFound = false;
+         successResult = true;
+
+        //         mailResult.setVisible(false);
+        //         mailResultInvoiceNotFound.setVisible(false);
+        //         mailResultFailure.setVisible(true);
+        //                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+        //                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+        //                       AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+                   }
+                if(mail_result == null) {
+                    System.out.println("Invoice not Found");
+                /*
+                 if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
+                //                        FacesMessage msg =
+                //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
+                //                                             "");
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         "Invoice not Found",
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null,
+                                                                 msg);
+                }*/
+
+
+                failureResult = false;
+                invoiceNotFound = true;
+                successResult = false;
+
+
+        //                mailResult.setVisible(false);
+        //                mailResultInvoiceNotFound.setVisible(true);
+        //                mailResultFailure.setVisible(false);
+        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
+        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
+        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
+
+
+                }
+
+                System.out.println("Result is " + failureResult + " " + invoiceNotFound + " " + successResult);
+
+
+
+
+
     }
 
     public class Bindings {
