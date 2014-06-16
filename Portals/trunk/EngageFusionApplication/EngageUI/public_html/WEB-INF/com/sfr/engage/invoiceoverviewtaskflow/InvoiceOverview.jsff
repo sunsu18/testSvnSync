@@ -273,8 +273,8 @@
  </h:panelGrid>
 
 <af:spacer width="10" height="30" id="s3"/>
-            <af:panelGroupLayout id="pgl8" layout="horizontal"
-                                 inlineStyle="width:330.0px;" halign="right">
+            <af:panelGroupLayout id="pgal1"
+                             halign="right" layout="horizontal">
 
 <af:spacer width="225" height="10" id="s5"/>
  <af:commandButton text="#{sfr.SEARCH}" id="cb1"
@@ -282,6 +282,7 @@
       <af:spacer width="10" height="10" id="s11"/>
       <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
+       <af:spacer width="50" height="10" id="s33"/>                        
      </af:panelGroupLayout>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
@@ -290,7 +291,7 @@
   <af:separator id="s8"
                   inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
 </af:panelGroupLayout>
-   <af:spacer width="10" height="10" id="s33"/>
+   <af:spacer width="10" height="10" id="s58"/>
    <af:panelGroupLayout id="pgl20"
                         binding="#{pageFlowScope.InvoiceOverviewBean.bindings.searchResults}"
                         visible="#{pageFlowScope.InvoiceOverviewBean.searchResults}">
