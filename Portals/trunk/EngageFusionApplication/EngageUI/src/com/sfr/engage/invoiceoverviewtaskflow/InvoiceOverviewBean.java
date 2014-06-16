@@ -137,6 +137,8 @@ public class InvoiceOverviewBean implements Serializable {
     private boolean invoiceNotFound;
     private boolean successResult;
     private boolean failureResult;
+    private boolean resultFromTo=true;
+    private boolean resultToFrom=true;
 
     public InvoiceOverviewBean() {
         super();
@@ -436,7 +438,7 @@ public class InvoiceOverviewBean implements Serializable {
                 cardQuery="(";
                 System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
@@ -2043,6 +2045,8 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
         public void setFromDate(RichInputDate fromDate) {
+            if(resultFromTo)
+            {
             System.out.println("Date should be setted to sys date -1 month");
             Date dateNow = new java.util.Date();
             GregorianCalendar gc = new GregorianCalendar();
@@ -2052,6 +2056,8 @@ public class InvoiceOverviewBean implements Serializable {
             SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateBefore);
             fromDate.setValue(tmp);
+                resultFromTo=false;
+            }
 
             this.fromDate = fromDate;
 
@@ -2063,11 +2069,15 @@ public class InvoiceOverviewBean implements Serializable {
         }
 
         public void setToDate(RichInputDate toDate) {
+            if(resultToFrom)
+            {
             System.out.println("Date should be setted to sys date");
             Date dateNow = new java.util.Date();
             SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateNow);
             toDate.setValue(tmp);
+            resultToFrom=false;
+            }
             this.toDate = toDate;
 
         }
