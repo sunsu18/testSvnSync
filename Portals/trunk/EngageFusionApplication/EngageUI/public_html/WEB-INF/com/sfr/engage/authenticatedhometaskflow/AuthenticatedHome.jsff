@@ -253,7 +253,7 @@
                             <af:panelGroupLayout id="pgl17" styleClass="view_all">
                             <af:commandButton id="cb1"
                                     styleClass="view_all"
-                                    inlineStyle="width:12px; height:13.0px;background:none !important;"
+                                    inlineStyle="width:12px; height:20.0px;background:none !important;"
                                              actionListener="#{pageFlowScope.AuthenticatedHomeBean.viewAllTransactions}"/>
                 </af:panelGroupLayout>
                             <!--<af:goLink id="goLink1"
