@@ -176,13 +176,15 @@
             </af:panelGroupLayout>
             <af:spacer width="10" height="15" id="spacer2"/>
 
+<af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
+                              inlineStyle="width:930.0px; height:25.0px;"
+                        halign="right">
 
-            <af:panelGroupLayout id="pgl54" inlineStyle="width:930.0px;"
-                               layout="horizontal" halign="right">
+            <af:panelGroupLayout id="pgl54"
+                               layout="horizontal">
             
            <af:panelGroupLayout id="pgl55" styleClass="filter_table"
-                             layout="horizontal"
-                                inlineStyle="margin-right: -5px; margin-bottom: 2px;">
+                             layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
             </af:panelGroupLayout>
             <af:popup id="p3">
@@ -193,6 +195,7 @@
            </af:panelGroupLayout>
            </af:noteWindow>
          </af:popup>
+         </af:panelGroupLayout>
          </af:panelGroupLayout>
 
 
