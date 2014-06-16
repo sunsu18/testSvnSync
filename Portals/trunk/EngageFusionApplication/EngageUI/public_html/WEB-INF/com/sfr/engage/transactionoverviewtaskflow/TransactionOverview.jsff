@@ -380,10 +380,9 @@
         <af:spacer width="500" height="25" id="s56"/>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
-                              inlineStyle="width:930.0px; height:25.0px;"
-                               halign="right">
+                              inlineStyle="width:930.0px; height:25.0px;">
 
- <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
+ <af:panelGroupLayout id="pgl54" inlineStyle="width:650.0px;"
                                layout="horizontal">
             
            <af:panelGroupLayout id="pgl55" styleClass="filter_table"
@@ -393,7 +392,7 @@
             <af:popup id="p3">
           <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl56" layout="vertical">
-            <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot13" styleClass="outputText3" />
+            <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot13" styleClass="outputText3"/>
              
            </af:panelGroupLayout>
            </af:noteWindow>
@@ -407,8 +406,7 @@
 
 
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteText}"
-                           id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"
-                           noWrap="true"/>
+                           id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="2" id="spacer2"/>
@@ -426,7 +424,7 @@
                   selectionListener="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel.makeCurrent}"
                   rowSelection="single" id="t1" autoHeightRows="20">
         <af:column sortProperty="TransactionDt" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" width="125" align="center"
+                     sortable="true" width="125" align="center"
                      headerText="#{sfr.TRANSACTION_DATE}"
                      id="c32">
             <f:facet name="filter">
@@ -460,13 +458,13 @@
             </f:facet>
         </af:column>
 
-        <af:column sortProperty="AccountId" filterable="true" sortable="false" filterFeatures="caseInsensitive"
+        <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.ACCOUNT}" width="124"  align="left"
                      id="c30">
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left" width="150" filterFeatures="caseInsensitive"
+                     sortable="true" align="left" width="150" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARDGROUP}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
@@ -475,31 +473,31 @@
              <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
-           <af:column sortProperty="Card1Id" filterable="true" sortable="false" filterFeatures="caseInsensitive"
+           <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD}" align="left" width="150"
                      id="c31">
             <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
             <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" align="left"
+                     sortable="true" align="left"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"
                      id="c23">
             <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
           <af:column sortProperty="PurchaseCountryCode" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" width="65" align="left"
+                     sortable="true" width="65" align="left"
                      headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
                      id="c20">
             <af:outputText value="#{row.PurchaseCountryCode}" id="ot39" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="PurchaseCurrency" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" align="left" visible="#{pageFlowScope.TransactionOverviewBean.reportInternationalTx or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
+                     sortable="true" align="left" visible="#{pageFlowScope.TransactionOverviewBean.reportInternationalTx or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.CURRENCY}"
                      id="c14">
             <af:outputText value="#{row.PurchaseCurrency}" id="ot32" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
          <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" align="left"
+                     sortable="true" align="left"
                      headerText="#{sfr.ENGAGE_PRODUCT}"
                      id="c28">
             <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
@@ -564,25 +562,25 @@
           </af:column>
           
           <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" width="90" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.VEHICLE_NUMBER}"
                      id="c34">
             <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" width="100" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="100" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.INTERNAL_NAME}"
                      id="c25">
             <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
            <af:column sortProperty="DriverNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.DRIVER_NUMBER}"
                      id="c17">
             <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
           <af:column sortProperty="DriverName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="false" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.DRIVER_NAME}"
                      id="c18">
             <af:outputText value="#{row.DriverName}" id="ot86" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
@@ -693,7 +691,7 @@
             </af:outputText>
           </af:column>-->
            <af:column sortProperty="InvoiceNo" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="false" width="88" align="left"
+                     sortable="true" width="88" align="left"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                      id="c7">
             <af:panelGroupLayout id="pgl22">
