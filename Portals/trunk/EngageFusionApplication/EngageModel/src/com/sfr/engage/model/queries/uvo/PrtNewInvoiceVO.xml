@@ -65,7 +65,7 @@ Where prt_card_invoice.ROWID IN (SELECT MAX(prt_card_invoice.ROWID ) FROM prt_ca
 prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
 prt_card_payment_doc.PARTNER_ID =:partnerId
 AND prt_card_payment_doc.INVOICING_DATE >=:fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=:toDateBV
-order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_date]]>
+order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
   <ViewAttribute
     Name="Finalinvoice"

@@ -521,7 +521,7 @@
                                 minFractionDigits="2"/>
                                                </af:outputText>
                                                <af:spacer id="s29" width="5"/>
-                                               <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.lang eq "no_NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.lang eq "da_DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.lang eq "en_US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.lang eq "se_SE") ? "SEK":"-"}'
+                                               <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.langSession eq "NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.langSession eq "SE") ? "SEK":"-"}'
                                                               id="ot21" 
                                                               styleClass="productprice"/>
 
