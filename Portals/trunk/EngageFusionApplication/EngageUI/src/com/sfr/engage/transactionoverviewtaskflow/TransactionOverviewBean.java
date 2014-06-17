@@ -268,18 +268,28 @@ public class TransactionOverviewBean implements Serializable {
         if (lang == "NO") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
         } else if (lang == "SE") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
         }else if (lang == "DK") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
         }else if (lang == "PL") {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
         }else {
             currencyCode = conversionUtility.getCurrencyCode("SE");
             locale = conversionUtility.getLocaleFromCountryCode("SE");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:Locale :" + locale);
         }
         
        
