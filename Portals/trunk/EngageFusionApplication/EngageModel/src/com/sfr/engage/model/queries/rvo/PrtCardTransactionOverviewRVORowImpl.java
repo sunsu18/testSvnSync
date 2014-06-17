@@ -638,6 +638,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setInvoiceNo((String)value);
             }
         }
+        ,
+        CardTextLine2 {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardTextLine2();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardTextLine2((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -722,6 +733,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int CARDGROUPDESC = AttributesEnum.CardGroupDesc.index();
     public static final int TOTALAMOUNT = AttributesEnum.TotalAmount.index();
     public static final int INVOICENO = AttributesEnum.InvoiceNo.index();
+    public static final int CARDTEXTLINE2 = AttributesEnum.CardTextLine2.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1516,7 +1528,6 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                                 val=0.0f; 
                                }                   
                        }
-                       System.out.println("KMTotal Value ="+val);
                                return val;
         //return (Float) getAttributeInternal(KMTOTAL);
     }
@@ -1534,7 +1545,6 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the kmPerLt
      */
     public Float getkmPerLt() {
-        System.out.println("KM value ="+getkmTotal());
                        Float val;               
                        Float actualValue1=getkmTotal();
                        Float actualValue2=getQuantity();                
@@ -1556,17 +1566,12 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the ltPerHundred
      */
     public Float getltPerHundred() {
-        System.out.println("Get Per Hundered ="+getkmPerLt());
-                        
                         float val;                
                         Float actualValue1=getkmPerLt();
                         if(actualValue1>0)
                         {
-                        val=(float)1/actualValue1;
-                        System.out.println("Float ="+val);
+                        val=(float)1/actualValue1;                        
                         val=val*100;
-                        System.out.println("Actual Value ="+val);                 
-                        System.out.println("Get Lt per Houndered ="+val);
                         }else {
                             val=0.0f; 
                         }
@@ -1650,11 +1655,9 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         if (session != null) {
             lang = (String)session.getAttribute(Constants.userLang);
             if(lang!=null) {                      
-                    locale = conversionUtility.getLocaleFromCountryCode(lang);
-                System.out.println("Locale In RVO :" + locale);
+                    locale = conversionUtility.getLocaleFromCountryCode(lang);                
             }else {
-                locale = conversionUtility.getLocaleFromCountryCode("SE");
-                System.out.println("Locale In RVO :" + locale);
+                locale = conversionUtility.getLocaleFromCountryCode("SE");                
             }
             if(locale!=null) {               
                val=formatConversion(f,locale);
@@ -1695,6 +1698,52 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setInvoiceNo(String value) {
         setAttributeInternal(INVOICENO, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardTextLine2.
+     * @return the CardTextLine2
+     */
+    public String getCardTextLine2() {
+        String cardTextLine="";
+        if(session!=null) {
+            if (session.getAttribute("Partner_Object_List") != null) {
+                partnerInfoList =
+                        (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                String partnerId=getPartnerId();
+                String cardId=getKsid().toString().trim();
+                if (partnerInfoList != null) {
+                    for (int k = 0; k < partnerInfoList.size(); k++) {
+                        if (partnerId.equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {                           
+                                for (int ac = 0;ac < partnerInfoList.get(k).getAccountList().size();ac++) {                                    
+                                        for (int cg = 0;cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size();cg++) {
+                                            for (int cd = 0;cd < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();cd++) {
+                                            if(cardId.equalsIgnoreCase(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardID())) {                                                
+                                                if(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardTextline2() != null)
+                                                {
+                                               cardTextLine=  partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardTextline2().toString();                                              
+                                                }
+                                            }    
+                                          }                                            
+                                        }                                                          
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return cardTextLine;
+        //return (String) getAttributeInternal(CARDTEXTLINE2);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardTextLine2.
+     * @param value value to set the  CardTextLine2
+     */
+    public void setCardTextLine2(String value) {
+        setAttributeInternal(CARDTEXTLINE2, value);
     }
 
     /**

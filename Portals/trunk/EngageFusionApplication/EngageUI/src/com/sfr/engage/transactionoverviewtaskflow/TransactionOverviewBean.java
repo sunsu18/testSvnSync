@@ -2815,7 +2815,13 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),
                                                                                                          locale));
                             }
-                        } else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardTextLine2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardTextLine2() != null) {  
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);                                
+                                XLS_SH_R_C.setCellValue(row.getCardTextLine2().toString());
+                            }
+                        }else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getUnitOfMeasure() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -3051,7 +3057,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardTextLine2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardTextLine2() != null) {
+                                out.print(row.getCardTextLine2().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getProductName() != null) {
                                 out.print(row.getProductName().toString());
                             }
@@ -3306,7 +3319,14 @@ public class TransactionOverviewBean implements Serializable {
                                  if (cellValue != headerValues.length - 1) {
                                      out.print("|");
                                  }
-                             }else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                          
+                             } else if ("CardTextLine2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                    if (row.getCardTextLine2() != null) {
+                                        out.print(row.getCardTextLine2().toString());
+                                        }
+                                    if (cellValue != headerValues.length - 1) {
+                                        out.print("|");
+                                        }
+                            }else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                          
                             if (row.getInvoicedUnitPriceRebated() != null) {
                                 out.print(formatConversion(row.getInvoicedUnitPriceRebated(),
                                                                          locale));

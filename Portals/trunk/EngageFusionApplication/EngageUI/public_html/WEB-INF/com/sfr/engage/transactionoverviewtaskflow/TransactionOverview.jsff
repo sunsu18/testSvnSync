@@ -478,6 +478,11 @@
                      id="c31">
             <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
+           <af:column sortProperty="CardTextLine2" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.CARD_TEXTLINE_2}" align="left" width="150"
+                     id="c10">
+            <af:outputText value="#{row.CardTextLine2}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
             <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" align="left"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"

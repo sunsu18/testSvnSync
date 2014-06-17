@@ -243,6 +243,7 @@
           <Item Value="InvoivedVatRebated"/>
           <Item Value="InvoicedNetAmountRebated"/>
           <Item Value="InvoiceNo"/>
+          <Item Value="CardTextLine2"/>
           <!--<Item Value="InvoicedNetAmount"/>
           <Item Value="InvoiceDiscountAmount"/>-->
           <Item Value="DriverNumber"/>
