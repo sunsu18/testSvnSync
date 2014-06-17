@@ -1,6 +1,6 @@
 <adapter-config name="UpdateTxnHeaderPortalDBAdapterV1" adapter="Database Adapter" wsdlLocation="UpdateTxnHeaderPortalDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
   <endpoint-interaction portType="UpdateTxnHeaderPortalDBAdapterV1_ptt" operation="update">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="UpdateTxnHeaderPortalDBAdapterV1.PrtCardTransactionHeader"/>
