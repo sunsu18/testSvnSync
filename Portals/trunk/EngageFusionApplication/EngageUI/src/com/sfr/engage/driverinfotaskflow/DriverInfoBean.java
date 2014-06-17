@@ -137,9 +137,11 @@ public class DriverInfoBean implements Serializable {
             for(int pa=0 ; pa<partnerInfoList.size(); pa++){
                 countryParam = partnerInfoList.get(0).getCountry().toString();
                 SelectItem selectItemPartner = new SelectItem();
-                selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString());
-                selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString());
-                linkedPartnerList.add(selectItemPartner);
+                if(partnerInfoList.get(pa).getPartnerName() != null && partnerInfoList.get(pa).getPartnerValue() != null){
+                    selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString());
+                    selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString());
+                    linkedPartnerList.add(selectItemPartner);
+                }
                 if(partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0){
                     for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
                         if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size()>0){
