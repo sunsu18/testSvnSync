@@ -15,6 +15,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
+        CardEmbossNum {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getCardEmbossNum();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setCardEmbossNum((String)value);
+            }
+        }
+        ,
         PartnerId {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getPartnerId();
@@ -164,6 +174,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     }
 
 
+    public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int INVOICENUMBER = AttributesEnum.InvoiceNumber.index();
@@ -181,6 +192,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      * This is the default constructor (do not remove).
      */
     public PrtInvoiceDetailVoRowImpl() {
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardEmbossNum.
+     * @return the CardEmbossNum
+     */
+    public String getCardEmbossNum() {
+        return (String) getAttributeInternal(CARDEMBOSSNUM);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardEmbossNum.
+     * @param value value to set the  CardEmbossNum
+     */
+    public void setCardEmbossNum(String value) {
+        setAttributeInternal(CARDEMBOSSNUM, value);
     }
 
     /**

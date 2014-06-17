@@ -281,7 +281,7 @@
                   <af:table value="#{bindings.PrtHomeTransactionsRVO1.collectionModel}"
                             var="row" styleClass="home home_table"
                             rows="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
-                            emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
+                            emptyText="#{bindings.PrtHomeTransactionsRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                             fetchSize="#{bindings.PrtHomeTransactionsRVO1.rangeSize}"
                             rowBandingInterval="1" id="t2" width="648"
                             summary="Latest Transactions"

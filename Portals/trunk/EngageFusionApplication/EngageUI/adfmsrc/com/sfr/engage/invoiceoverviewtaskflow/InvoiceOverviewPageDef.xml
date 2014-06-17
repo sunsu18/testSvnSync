@@ -125,6 +125,7 @@
           <Item Value="InvoiceNumber"/>
           <Item Value="InvoicedCard"/>
           <Item Value="InvoicingDate"/>
+          <Item Value="CardEmbossNum"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

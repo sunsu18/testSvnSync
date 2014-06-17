@@ -414,7 +414,7 @@
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
                   var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
-                  emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
+                  emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                   fetchSize="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
                   rowBandingInterval="1"
                   filterModel="#{bindings.PrtCardTransactionOverviewRVO12Query.queryDescriptor}"

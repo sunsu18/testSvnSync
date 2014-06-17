@@ -201,7 +201,7 @@
                              inlineStyle="width:945px;">
           <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
                     var="row" width="940px" rows="#{bindings.PrtViewCardsVO11.rangeSize}"
-                    emptyText="#{bindings.PrtViewCardsVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
+                    emptyText="#{bindings.PrtViewCardsVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtViewCardsVO11.rangeSize}"
                     rowBandingInterval="1"
                     filterModel="#{bindings.PrtViewCardsVO11Query.queryDescriptor}"

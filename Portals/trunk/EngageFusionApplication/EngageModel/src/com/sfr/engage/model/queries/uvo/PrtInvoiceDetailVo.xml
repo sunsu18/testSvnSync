@@ -40,15 +40,30 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select prt_card_payment_doc.PARTNER_ID,prt_card_payment_doc.COUNTRY_CODE,prt_card_invoice.invoice_number, prt_card_invoice.collective_invoice_number,prt_card_invoice.invoice_date,prt_card_payment_doc.ACCOUNT_ID, prt_card_payment_doc.invoicing_due_date,
+    <![CDATA[select prt_card.card_emboss_num, prt_card_payment_doc.PARTNER_ID,prt_card_payment_doc.COUNTRY_CODE,prt_card_invoice.invoice_number, prt_card_invoice.collective_invoice_number,prt_card_invoice.invoice_date,prt_card_payment_doc.ACCOUNT_ID, prt_card_payment_doc.invoicing_due_date,
 prt_card_invoice.inv_total_gross_amt ,prt_card_payment_doc.INVOICING_DATE,prt_card_invoice.inv_total_vat_amt, prt_card_invoice.invoiced_card
 from prt_card_invoice join prt_card_payment_doc ON (prt_card_payment_doc.invoice_doc_number =prt_card_invoice.collective_invoice_number
 AND prt_card_payment_doc.country_code= prt_card_invoice.country_code)
-
+left join prt_card on (prt_card_invoice.invoiced_card = prt_card.prt_card_pk and prt_card_invoice.country_code=prt_card.country_code)
 where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
 prt_card_payment_doc.PARTNER_ID =:partnerId AND INSTR(:accountId,prt_card_payment_doc.ACCOUNT_ID) <> 0
 AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
   </SQLQuery>
+  <ViewAttribute
+    Name="CardEmbossNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_EMBOSS_NUM"
+    Expression="CARD_EMBOSS_NUM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="PartnerId"
     IsUpdateable="false"

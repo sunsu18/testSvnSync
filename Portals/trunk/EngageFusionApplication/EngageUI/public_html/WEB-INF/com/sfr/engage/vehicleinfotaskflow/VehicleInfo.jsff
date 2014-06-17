@@ -157,7 +157,7 @@
           <af:panelGroupLayout id="pgl6">
             <af:table var="row" rowBandingInterval="1" id="t1"
                       value="#{var.vehicleInfoList}" width="962px"
-                      emptyText="#{not empty var.vehicleInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED)}"
+                      emptyText="#{not empty var.vehicleInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                       fetchSize="10" columnResizing="disabled"
                       disableColumnReordering="true" autoHeightRows="10">
               <af:column sortable="false" id="c13" width="28px" align="center">

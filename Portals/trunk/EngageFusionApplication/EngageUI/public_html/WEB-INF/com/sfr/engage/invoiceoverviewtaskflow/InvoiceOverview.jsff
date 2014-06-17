@@ -344,7 +344,7 @@
     
      <af:table value="#{bindings.PrtNewInvoiceVO1.collectionModel}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
                rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" var="row" width="962px"
-               emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+               emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                fetchSize="#{bindings.PrtNewInvoiceVO1.rangeSize}"
                rowBandingInterval="1"
                filterModel="#{bindings.PrtNewInvoiceVO11Query.queryDescriptor}"
@@ -671,7 +671,7 @@
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="840px"
                    rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
-                   emptyText="#{bindings.PrtCardTransactionInvoiceRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   emptyText="#{bindings.PrtCardTransactionInvoiceRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                    fetchSize="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
                    rowBandingInterval="1"
                    filterModel="#{bindings.PrtCardTransactionInvoiceRVO1Query.queryDescriptor}"
@@ -780,7 +780,7 @@
         
          <af:table value="#{bindings.PrtInvoiceDetailVo1.collectionModel}"
                    var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
-                   emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                    fetchSize="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
                    rowBandingInterval="1" width="840px"
                    filterModel="#{bindings.PrtInvoiceDetailVo1Query.queryDescriptor}"
@@ -830,9 +830,10 @@
                          width="50">
        <af:outputText value="#{sfr.CARD}" id="ot70"/>
       </af:column>
-          <af:column sortProperty="InvoicedCard" filterable="true" headerText="#{sfr.CARD_NUMBER}"
+          <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD_NUMBER}"
                      id="c23"  align="left" width="110">
-           <af:outputText value="#{row.InvoicedCard}" id="ot73"/>
+           <!--<af:outputText value="#{row.InvoicedCard}" id="ot73"/>-->
+           <af:outputText value="#{row.CardEmbossNum}" id="ot73"/>
           </af:column>
           <af:column sortProperty="InvTotalVatAmt" filterable="true" align="right"
                      sortable="false"
