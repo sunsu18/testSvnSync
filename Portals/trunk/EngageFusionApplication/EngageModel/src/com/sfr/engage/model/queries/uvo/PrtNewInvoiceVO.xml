@@ -61,9 +61,10 @@ left join prt_card_invoice_details on
 (prt_card_invoice_details.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
 and prt_card_invoice. country_code = prt_card_invoice_details. country_code
 )
-Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
+Where prt_card_invoice.ROWID IN (SELECT MAX(prt_card_invoice.ROWID ) FROM prt_card_invoice GROUP BY decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) ) AND
+prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
 prt_card_payment_doc.PARTNER_ID =:partnerId
-AND prt_card_payment_doc.INVOICING_DATE >=: fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=: toDateBV
+AND prt_card_payment_doc.INVOICING_DATE >=:fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=:toDateBV
 order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
   <ViewAttribute
@@ -89,8 +90,8 @@ order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_d
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="INVOICING_DATE"
-    Expression="INVOICING_DATE"
-    SQLType="DATE">
+    SQLType="DATE"
+    Expression="INVOICING_DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
