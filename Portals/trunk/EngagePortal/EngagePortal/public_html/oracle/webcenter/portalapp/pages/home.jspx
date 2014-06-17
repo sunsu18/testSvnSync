@@ -280,7 +280,8 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText6"
                                        styleClass="cardheader"
-                                       value="#{requestScope.homeCarousalBean.card_name1}"/>
+                                       value="#{requestScope.homeCarousalBean.card_name1}"
+                                       noWrap="true"/>
                         <af:panelGroupLayout id="pgl15" layout="vertical"
                                              inlineStyle="width:280px;">
                           <af:spacer width="10" height="5" id="s9"/>
@@ -333,7 +334,7 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText7"
                                        value="#{homeCarousalBean.card_name2}"
-                                       styleClass="cardheader"/>
+                                       styleClass="cardheader" noWrap="true"/>
                         <af:panelGroupLayout id="panelGroupLayout5"
                                              layout="vertical"
                                              inlineStyle="width:280px;">

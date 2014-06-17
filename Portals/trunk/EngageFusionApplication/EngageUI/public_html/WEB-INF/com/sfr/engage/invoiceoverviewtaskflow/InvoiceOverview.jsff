@@ -276,7 +276,7 @@
             <af:panelGroupLayout id="pgal1"
                              halign="right" layout="horizontal">
 
-<af:spacer width="225" height="10" id="s5"/>
+<!--<af:spacer width="225" height="10" id="s5"/>-->
  <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.searchResultsListener}"/>
       <af:spacer width="10" height="10" id="s11"/>
