@@ -39,7 +39,7 @@
   <SQLQuery>
     <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
-pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,pc.cardgroup_sub_type,pc.cardgroup_seq
+pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -297,6 +297,69 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="CardgroupMainType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_MAIN_TYPE"
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_MAIN_TYPE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupSubType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_SUB_TYPE"
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_SUB_TYPE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardgroupSeq"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDGROUP_SEQ"
+    SQLType="VARCHAR"
+    Expression="CARDGROUP_SEQ">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardTextline2"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_TEXTLINE_2"
+    Expression="CARD_TEXTLINE_2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="BlockCode"
     IsUpdateable="false"
     IsPersistent="false"
@@ -352,54 +415,6 @@ and INSTR(:status,pc.block_action)<>0]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupMainType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_MAIN_TYPE"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_MAIN_TYPE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupSubType"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="3"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_SUB_TYPE"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_SUB_TYPE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardgroupSeq"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="5"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARDGROUP_SEQ"
-    SQLType="VARCHAR"
-    Expression="CARDGROUP_SEQ">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="5"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -526,7 +541,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -540,7 +555,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"

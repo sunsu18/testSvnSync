@@ -226,7 +226,7 @@
               </af:inputText>
             </af:column>
             <af:column headerText="#{sfr.CARDGROUP}" sortProperty="CardgroupDescription" filterable="true"
-                       id="c9" width="147px">
+                       id="c9" width="150px">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.mandatory}"
@@ -237,7 +237,7 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="CardType" filterable="true" width="55px"
+            <af:column sortProperty="CardType" filterable="true" width="150px"
                        headerText="#{sfr.CARD_TYPE}"
                        id="c6">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
@@ -260,6 +260,18 @@
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.tooltip}"
                             id="it1" >
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2"
+                       id="c10" width="130px">
+              <af:inputText value="#{row.bindings.CardTextline2.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardTextline2.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardTextline2.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.CardTextline2.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardTextline2.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardTextline2.tooltip}"
+                            id="it8">
+                <f:validator binding="#{row.bindings.CardTextline2.validator}"/>
               </af:inputText>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}"
@@ -608,7 +620,8 @@
 <af:panelGroupLayout layout="vertical" id="pgl77" valign="top"
                      inlineStyle="height:180px;">
  <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"  partialTriggers="t1:cil1"
-                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}" >
+                               valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
+                    inlineStyle="margin-left: -20px;">
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>

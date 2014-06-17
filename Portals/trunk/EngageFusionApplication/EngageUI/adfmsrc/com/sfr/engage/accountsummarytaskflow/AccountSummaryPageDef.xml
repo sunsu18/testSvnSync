@@ -212,5 +212,10 @@
         <Item Value="BlockLevel"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardTextline2">
+      <AttrNames>
+        <Item Value="CardTextline2"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

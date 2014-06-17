@@ -50,6 +50,7 @@
           <Item Value="VehicleModifiedBy"/>
           <Item Value="VehicleModifiedDate"/>
           <Item Value="Status"/>
+          <Item Value="CardTextline2"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

@@ -374,11 +374,16 @@
                              destination="#{navigationContext.currentNavigationModel.node['card/
                              /invoiceoverview'].goLinkPrettyUrl}&quot;/>"/>-->
                 </af:panelGroupLayout>
-
-
-
-
-          </af:panelGroupLayout>
+              <!--<af:inputText value="#{bindings.CustomerType.inputValue}"
+                            simple="true"
+                            required="#{bindings.CustomerType.hints.mandatory}"
+                            columns="#{bindings.CustomerType.hints.displayWidth}"
+                            maximumLength="#{bindings.CustomerType.hints.precision}"
+                            shortDesc="#{bindings.CustomerType.hints.tooltip}"
+                            id="it1">
+                <f:validator binding="#{bindings.CustomerType.validator}"/>
+              </af:inputText>-->
+            </af:panelGroupLayout>
             <!--<af:spacer width="7" height="5" id="s11"/>-->
             <af:panelGroupLayout id="pgl13" layout="horizontal" valign="top">
               <af:panelGroupLayout id="pgl35" layout="vertical"
@@ -508,14 +513,16 @@
 
                   </af:panelGroupLayout>!-->
            <af:panelGroupLayout id="pgl46" layout="horizontal" halign="center">
-   <af:commandLink text="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
-                                     id="cl3" styleClass="productprice"
-                   actionListener="#{pageFlowScope.AuthenticatedHomeBean.forCheckingPurpose}"
-                                               disabled="true">
-                                               </af:commandLink>
+   <af:outputText value="#{(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) ne null ?(bindings.ProductsDisplayRVO1.children[stat.index].B2bItemPriceUnit) : &quot;--&quot;}"
+                                     id="cl3" styleClass="productprice">
+              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.AuthenticatedHomeBean.locale}"
+                                minFractionDigits="2"/>
+                                               </af:outputText>
                                                <af:spacer id="s29" width="5"/>
                                                <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.lang eq "no_NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.lang eq "da_DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.lang eq "en_US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.lang eq "se_SE") ? "SEK":"-"}'
-                                                              id="ot21"
+                                                              id="ot21" 
                                                               styleClass="productprice"/>
 
 </af:panelGroupLayout>

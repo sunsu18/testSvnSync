@@ -150,10 +150,8 @@ public class CardBean implements Serializable {
        private String fileName;
         
    public CardBean() {
-       
- 
         super();
-     
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of View Cards");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
@@ -167,15 +165,14 @@ public class CardBean implements Serializable {
                 partnerIdList = new ArrayList<SelectItem>();
                 for(int k=0;k<partnerInfoList.size();k++){
                     SelectItem selectItem = new SelectItem();
-                    if(partnerInfoList.get(k).getPartnerName()!=null && partnerInfoList.get(k).getPartnerValue()!=null)
-                    {
-                    selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
-                    selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
-                    partnerIdList.add(selectItem);
+                    if(partnerInfoList.get(k).getPartnerName()!=null && partnerInfoList.get(k).getPartnerValue()!=null){
+                        selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
+                        selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
+                        partnerIdList.add(selectItem);
                     }
                 }
                 
-                System.out.println("size"+ partnerInfoList.size());
+//                System.out.println("size"+ partnerInfoList.size());
                 if(partnerInfoList.size() == 1){
                   
          this.partnerIdValue=partnerInfoList.get(0).getPartnerValue().toString();
@@ -189,46 +186,29 @@ public class CardBean implements Serializable {
                         
                         if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
                             
-                            
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                                 " Only 1 partner present");
                             for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
-
                                 if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
-
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                     accountIdList.add(selectItem);
                                     accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                
                                 }
-
-
                                 for(int k=0;k<partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();k++){
                                 if(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null){
-
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupName().toString());
                                     selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                     cardGroupList.add(selectItem);
                                     cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                  
                                 }
-
                             }
                             }
-  
-                            
                         }
-
-                        
                     }
-                
-                
-                
-                
                 }
-                
-                
             }
         }
         
@@ -259,7 +239,7 @@ public class CardBean implements Serializable {
         if(session!= null) {
             lang = (String)session.getAttribute(Constants.userLang);
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Constructor of View Cards");
     }
 
     /**
@@ -301,20 +281,23 @@ public class CardBean implements Serializable {
     }
 
     public String populateStringValues(String var){
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateStringValues method of View Cards");
         String passingValues = null;
         if(var != null){
             String lovValues = var.trim();
             String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
-
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateStringValues method of View Cards");
         return passingValues;
     }
 
     public String[] StringConversion(String passedVal) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside StringConversion method of View Cards");
         List<String> container;
 //        String tempString = passedVal.substring(1, passedVal.length() - 1);
         String[] val = passedVal.split(",");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting StringConversion method of View Cards");
         return val;
     }
 
@@ -322,6 +305,7 @@ public class CardBean implements Serializable {
      * @param valueChangeEvent
      */
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside accountValueChangeListener method of View Cards");
         isTableVisible = false;
         if(valueChangeEvent.getNewValue()!=null) {
 
@@ -358,6 +342,7 @@ public class CardBean implements Serializable {
             this.cardGroupValue=null;
             this.statusValue=null;
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting accountValueChangeListener method of View Cards");
 
     }
 
@@ -373,7 +358,7 @@ public class CardBean implements Serializable {
      * @return
      */
     public String showErrorMessage(String errorVar){
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside showErrorMessage method of View Cards");
         if(errorVar != null){
             if (resourceBundle.containsKey(errorVar)) {
                 FacesMessage msg =
@@ -384,7 +369,7 @@ public class CardBean implements Serializable {
                 return null;
             }
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting showErrorMessage method of View Cards");
         return null;
     }
 
@@ -453,10 +438,10 @@ public class CardBean implements Serializable {
     }
 
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent) {
-    isTableVisible = false;
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of View Cards");
+        isTableVisible = false;
         if(valueChangeEvent.getNewValue()!=null) {
-      accountIdList  = new ArrayList<SelectItem>();
+        accountIdList  = new ArrayList<SelectItem>();
         accountIdValue = new ArrayList<String>();
         cardGroupList = new ArrayList<SelectItem>();
         cardGroupValue = new ArrayList<String>();
@@ -509,11 +494,12 @@ public class CardBean implements Serializable {
             this.accountIdValue = null;
             this.accountIdList = null;
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting partnerValueChangeListener method of View Cards");
 
 
-
-}
+    }
     public void populateCardGroupValues(String cardGrpVar){
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateCardGroupValues method of View Cards");
         String[] cardGroupvalues;
         int cardGroupCount = 0;
 
@@ -554,6 +540,7 @@ public class CardBean implements Serializable {
               _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sub type===>"+cardGroupSubtypePassValues);
               _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " "   + "card group sequence value====>"+cardGroupSeqPassValues);
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateCardGroupValues method of View Cards");
     }
 
     public void setIsTableVisible(Boolean isTableVisible) {
@@ -569,8 +556,8 @@ public class CardBean implements Serializable {
         return null;
     }
 
-
     public String searchResults() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResults method of View Cards");
         isTableVisible = false;
 //        String accountPassingValues = null;
         String statusPassingValues = null;
@@ -599,13 +586,7 @@ public class CardBean implements Serializable {
                     showErrorMessage("ENGAGE_NO_CARD_GROUP");
                     return null;
                 }
-                
-                
-                
 
-
-                
-                
                 if (getBindings().getPartner().getValue() != null) {
                     ViewObject vo = ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
                     
@@ -661,9 +642,7 @@ public class CardBean implements Serializable {
                         accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
                     } 
                     
-                    
                     //cardgroup query
-                    
                     
                     if(cardGroupValue.size()>250) {      
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
@@ -683,8 +662,6 @@ public class CardBean implements Serializable {
                                                          " " + "CardGroup Values < 250 ");
                         cardGroupQuery="(INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";                 
                     } 
-                    
-                    
                     
 //                    vo.setNamedWhereClauseParam("accountID", accountPassingValues);
                     vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
@@ -748,7 +725,7 @@ public class CardBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting searchResults method of View Cards");
         return null;
     }
 
@@ -777,6 +754,7 @@ public class CardBean implements Serializable {
     }
 
     public void clearSearchListener(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of View Cards");
         getBindings().getPartner().setValue(null);
         getBindings().getStatus().setValue(null);
         this.partnerIdValue = null;
@@ -787,11 +765,11 @@ public class CardBean implements Serializable {
         statusValue = new ArrayList<String>();
         statusValue.add("0");
         isTableVisible=false;
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting clearSearchListener method of View Cards");
     }
 
     public void radioButtonValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside radioButtonValueChangeListener method of View Cards");
         if (valueChangeEvent.getNewValue() != null) {
             if (valueChangeEvent.getNewValue().equals("Driver")) {
                 this.getBindings().getVehicleNumber().setValue(null);
@@ -853,6 +831,7 @@ public class CardBean implements Serializable {
               
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting radioButtonValueChangeListener method of View Cards");
     }
 
     public void setDriverPGL(boolean driverPGL) {
@@ -890,7 +869,7 @@ public class CardBean implements Serializable {
   
 
     public void populateValue(String paramType){
-      
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateValue method of View Cards");
         if (paramType != null) {
             associatedAccount = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
             if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
@@ -906,7 +885,7 @@ public class CardBean implements Serializable {
                 }
                 vo.setNamedWhereClauseParam("countryCd", lang);
                 vo.setNamedWhereClauseParam("paramValue", paramType);
-                if (paramType == "Driver") {
+                if (paramType.equals("Driver")) {
                     vo.setNamedWhereClauseParam("driverNumber", null);
                 } else {
                     vo.setNamedWhereClauseParam("vehicleNumber", null);
@@ -941,6 +920,7 @@ public class CardBean implements Serializable {
                 }
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateValue method of View Cards");
     }
 
     public void setAssociatedAccount(String associatedAccount) {
@@ -1023,6 +1003,7 @@ public class CardBean implements Serializable {
     }
 
    public void checkVehicleAssociation() {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkVehicleAssociation method of View Cards");
         ViewObject vehicleVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
         vehicleVo.setNamedWhereClauseParam("countryCd", lang);
         vehicleVo.setNamedWhereClauseParam("paramValue", "Vehicle");
@@ -1157,39 +1138,24 @@ public class CardBean implements Serializable {
                 }
             }
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkVehicleAssociation method of View Cards");
     }
 
     public void checkDriverAssociation() {
-
-          
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkDriverAssociation method of View Cards");
             ViewObject driverVo = ADFUtils.getViewObject("PrtViewVehicleDriverVO1Iterator");
-
-          
-
             driverVo.setNamedWhereClauseParam("countryCd", lang);
-
             driverVo.setNamedWhereClauseParam("paramValue", "Driver");
-
-            if( getBindings().getDriverNumber().getValue() != null)
-            {
-              
-            driverVo.setNamedWhereClauseParam("driverNumber", getBindings().getDriverNumber().getValue());
-
+            if( getBindings().getDriverNumber().getValue() != null){
+                driverVo.setNamedWhereClauseParam("driverNumber", getBindings().getDriverNumber().getValue());
             }
             if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount") != null) {
-              
                 driverVo.setNamedWhereClauseParam("accountValue",AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim());
             }
             driverVo.executeQuery();
-          
-            if(driverVo.getEstimatedRowCount() > 0)
-            {
-               
+            if(driverVo.getEstimatedRowCount() > 0){
                 while (driverVo.hasNext()) {
-                  
                        PrtViewVehicleDriverVORowImpl currRow =(PrtViewVehicleDriverVORowImpl)driverVo.next();
-                  
                         if (currRow != null) {
                             if(currRow.getCardNumber() != null)
                             {
@@ -1341,11 +1307,12 @@ public class CardBean implements Serializable {
                         }
                 }
             }
-
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkDriverAssociation method of View Cards");
         }
 
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside exportExcelSpecificAction method of View Cards");
         shuttleStatus=false;
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
@@ -1380,10 +1347,11 @@ public class CardBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting exportExcelSpecificAction method of View Cards");
     }
 
     public String saveVehicleDriver() {
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside saveVehicleDriver method of View Cards");
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null ||
            AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null ){
             if(vehiclePGL){
@@ -1399,11 +1367,11 @@ public class CardBean implements Serializable {
                 }
                 else if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber") != null &&
                         getBindings().getVehicleNumber().getValue().equals(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("VehicleNumber"))){
-                            System.out.println("entered same vehicle.");
+//                            System.out.println("entered same vehicle.");
                             getBindings().getTruckdriverDetails().hide();
                 }
                 else{
-                    System.out.println("check vehicle association");
+//                    System.out.println("check vehicle association");
                     checkVehicleAssociation();
                 }
             }
@@ -1459,7 +1427,7 @@ public class CardBean implements Serializable {
 //        getBindings().getVehicleDriverRadio().setSubmittedValue(null);
 //        getBindings().getVehicleDriverRadio().setValue(null);
 //        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting saveVehicleDriver method of View Cards");
         return null;
     }
 
@@ -1527,8 +1495,7 @@ public class CardBean implements Serializable {
     }
 
     public List getShuttleValue() {
-        if(!shuttleStatus)
-        {
+        if(!shuttleStatus){
         shuttleValue= new ArrayList();
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
@@ -1554,6 +1521,7 @@ public class CardBean implements Serializable {
     }
 
     public void getValuesForExcel(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside getValuesForExcel method of View Cards");
         if(shuttleValue == null && getBindings().getSelectionExportOneRadio().getValue() == null) {
             if(shuttleValue == null){
                 if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
@@ -1598,6 +1566,7 @@ public class CardBean implements Serializable {
                 }
             }
      }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting getValuesForExcel method of View Cards");
     }
 
     public String excelDownLoad() {
@@ -1610,6 +1579,7 @@ public class CardBean implements Serializable {
     }
     
     public String checkALL(String selectedValues,String type) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside checkALL method of View Cards");
         String val="";
         String[] listValues=selectedValues.split(",");
         if(listValues.length>1) {
@@ -1636,11 +1606,12 @@ public class CardBean implements Serializable {
         }else {
             val=selectedValues;
         }
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting checkALL method of View Cards");
         return val;
     }
 
     public String statusConversion(String statusLabel){
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversion method of View Cards");
         if(statusLabel != null){
             statusLabel = statusLabel.trim();
 
@@ -1662,28 +1633,27 @@ public class CardBean implements Serializable {
                 return resourceBundle.getObject("PERMANENT_BLOCKED").toString() ; 
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversion method of View Cards");
         return null;
     }
 
     public String statusConversionList(String status){
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside statusConversionList method of View Cards");
         if(status != null){
             String statusValueList = "";
             String[] sta = status.split(",");
             for(int i=0; i < sta.length; i++){
-               
                 statusValueList = statusValueList + statusConversion(sta[i]) + ",";
             }
             statusValueList = statusValueList.substring(0, statusValueList.length() - 1);
             return statusValueList;
-
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting statusConversionList method of View Cards");
         return null;
     }
 
-
-
     public void specificExportExcelListener(FacesContext facesContext, OutputStream outputStream) throws IOException, SQLException {
-      
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside specificExportExcelListener method of View Cards");
         String selectedValues="";
         for (int i = 0; i <shuttleValue.size(); i++ ) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -1856,6 +1826,13 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(row.getCardEmbossNum().toString());
                             }
                         }
+                        else if("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardTextline2()!=null){
+                                XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardTextline2().toString());
+                            }
+                        }
                         else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if(row.getVehicleNumber()!=null){
                                 XLS_SH_R_C=XLS_SH_R.createCell(cellValue);
@@ -1951,6 +1928,14 @@ public class CardBean implements Serializable {
                                 out.print(";");
                             }
                         }
+                        else if("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if(row.getCardTextline2()!=null){
+                                out.print(row.getCardTextline2().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
                         else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if(row.getVehicleNumber()!=null){
                                 out.print(row.getVehicleNumber().toString());
@@ -1985,7 +1970,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        }                        
+                        }       
                     }
                     out.println();
                 }
@@ -2048,6 +2033,14 @@ public class CardBean implements Serializable {
                                     out.print("|");
                                 }
                             }
+                            else if("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if(row.getCardTextline2()!=null){
+                                    out.print(row.getCardTextline2().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
                             else if("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if(row.getVehicleNumber()!=null){
                                     out.print(row.getVehicleNumber().toString());
@@ -2091,6 +2084,7 @@ public class CardBean implements Serializable {
                 out.close();
             }
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of View Cards");
     }
 
 
@@ -2124,6 +2118,7 @@ public class CardBean implements Serializable {
     }
 
     public void editVehicleDriverListener(ActionEvent actionEvent) {        
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editVehicleDriverListener method of View Cards");
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation") != null)
             cardAssociation = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardAssociation").toString().trim();
         if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("internalCardNumber") != null)
@@ -2196,13 +2191,16 @@ public class CardBean implements Serializable {
             getBindings().getVehicleDriverRadio().setValue(null);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside editVehicleDriverListener method of View Cards");
     }
     
     public void closePopUpListener(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside closePopUpListener method of View Cards");
         getBindings().getVehicleDriverRadio().setSubmittedValue(null);
         getBindings().getVehicleDriverRadio().setValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         getBindings().getTruckdriverDetails().hide();
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting closePopUpListener method of View Cards");
     }
 
     public void setVehicleModifiedBy(String vehicleModifiedBy) {

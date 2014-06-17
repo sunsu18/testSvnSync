@@ -1171,7 +1171,6 @@
               <af:inputText value="#{bindings.CardEmbossNum.inputValue}"
                             id="it8"
                             contentStyle="width:200px;height:16.0px;padding-top: 4px"
-
                             columns="#{bindings.CardEmbossNum.hints.displayWidth}"
                             readOnly="true">
                 <f:validator binding="#{bindings.CardEmbossNum.validator}"/>
@@ -1200,7 +1199,34 @@
               <af:spacer width="10" height="10" id="s274"/>
               <af:spacer width="10" height="10" id="s275"/>
               <af:spacer width="10" height="10" id="s276"/>
-
+              
+              
+              <af:outputText value="#{sfr.CARD_TEXTLINE_2}" id="ot59"/>
+          <af:outputText value=":" id="ot60"/>
+          <af:spacer width="10" height="10" id="s18"/>
+              <af:inputText value="#{bindings.CardTextline2.inputValue}"
+                            readOnly="true"
+                            contentStyle="width:200px;height:16.0px;padding-top: 4px"
+                            columns="#{bindings.CardTextline2.hints.displayWidth}"
+                            id="it18">
+                <f:validator binding="#{bindings.CardTextline2.validator}"/>
+              </af:inputText>
+              <af:spacer width="10" height="10" id="s19"/>
+              <af:spacer width="10" height="10" id="s20"/>
+              <af:spacer width="10" height="10" id="s21"/>
+              <af:spacer width="10" height="10" id="s22"/>
+              <af:spacer width="10" height="10" id="s23"/>
+              
+              <af:spacer width="10" height="10" id="s98"/>
+              <af:spacer width="10" height="10" id="s290"/>
+              <af:spacer width="10" height="10" id="s291"/>
+              <af:spacer width="10" height="10" id="s292"/>
+              <af:spacer width="10" height="10" id="s293"/>
+              <af:spacer width="10" height="10" id="s50"/>
+              <af:spacer width="10" height="10" id="s51"/>
+              <af:spacer width="10" height="10" id="s289"/>
+              <af:spacer width="10" height="10" id="s288"/>
+              
               <af:outputText value="#{sfr.CARD_TYPE}" id="ot110"/>
           <af:outputText value=":" id="ot111"/>
           <af:spacer width="10" height="10" id="s96"/>
