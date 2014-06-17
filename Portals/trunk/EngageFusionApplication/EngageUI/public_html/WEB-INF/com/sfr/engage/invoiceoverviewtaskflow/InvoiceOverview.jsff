@@ -807,7 +807,7 @@
       </af:column>
           <af:column sortProperty="InvoicedCard" filterable="true" headerText="#{sfr.CARD_NUMBER}"
                      id="c23"  align="left" width="110">
-           <af:outputText value="#{row.InvoicedCard}" id="ot71"/>
+           <af:outputText value="#{row.InvoicedCard}" id="ot73"/>
           </af:column>
           <af:column sortProperty="InvTotalVatAmt" filterable="true" align="right"
                      sortable="false"
