@@ -1649,18 +1649,12 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         Float f=(Float)getInvoicedGrossAmountRebated();
         if (session != null) {
             lang = (String)session.getAttribute(Constants.userLang);
-            if(lang!=null) {
-                if (lang == "NO") {            
+            if(lang!=null) {                      
                     locale = conversionUtility.getLocaleFromCountryCode(lang);
-                } else if (lang == "SE") {           
-                    locale = conversionUtility.getLocaleFromCountryCode(lang);
-                }else if (lang == "DK") {            
-                    locale = conversionUtility.getLocaleFromCountryCode(lang);
-                }else if (lang == "PL") {            
-                    locale = conversionUtility.getLocaleFromCountryCode(lang);
-                }else {
-                    locale = conversionUtility.getLocaleFromCountryCode("SE");
-                }
+                System.out.println("Locale In RVO :" + locale);
+            }else {
+                locale = conversionUtility.getLocaleFromCountryCode("SE");
+                System.out.println("Locale In RVO :" + locale);
             }
             if(locale!=null) {               
                val=formatConversion(f,locale);
