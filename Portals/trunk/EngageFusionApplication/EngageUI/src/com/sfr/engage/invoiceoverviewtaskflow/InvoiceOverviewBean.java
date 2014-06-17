@@ -1127,56 +1127,73 @@ if(partnerInfoList.size() == 1) {
         searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setSourceSystem("WebPortal");
 
-        Property invoiceNo = new Property();
-        invoiceNo.setName("xDocumentNo");
-        invoiceNo.setValue(invoiceNumber.toString().trim());
-        //invoiceNo.setValue("100192878");
+        Property prop[]=new Property[];
 
-        Property partnerId = new Property();
-        partnerId.setName("xPartnerId");
-        partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
-        //partnerId.setValue("01656214");
+        prop[0]= new Property();
+        prop[0].setName("xDocumentNo");
+        prop[0].setValue(invoiceNumber.toString().trim());
 
-//        Property docType = new Property();
-//        docType.setName("xDocumentType");
-//        docType.setValue("PDF");
+        prop[1]= new Property();
+        prop[1].setName("xPartnerId");
+        prop[1].setValue(getBindings().getPartnerNumber().getValue().toString().trim());
 
-        Property contentType = new Property();
-        contentType.setName("xContentType");
-        //TODO : To be read from Property file
-        contentType.setValue(DAOFactory.getPropertyValue(Constants.ENGAGE_XCONTENTTYPE));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_XCONTENTTYPE is " + contentType.getValue());
+        prop[2]= new Property();
+        prop[2].setName("xContentType");
+        prop[2].setValue("FCP");
 
-        Property subType = new Property();
-        subType.setName("xSubType");
-        //TODO : To be read from Property file
-        //subType.setValue("Self_Billing_Print_Reports");
-        //subType.setValue("Invoice");
-        subType.setValue(DAOFactory.getPropertyValue(Constants.ENGAGE_XSUBTYPE));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_XSUBTYPE is " + subType.getValue());
+        prop[3]= new Property();
+        prop[3].setName("xSubType");
+        prop[3].setValue("Invoice");
+
+        prop[4]= new Property();
+        prop[4].setName("xCountry");
+        prop[4].setValue(lang);
 
 
-        Property country = new Property();
-        country.setName("xCountry");
-        country.setValue(lang);
-        //country.setValue("DK");
+
+//        Property invoiceNo = new Property();
+//        invoiceNo.setName("xDocumentNo");
+//        invoiceNo.setValue(invoiceNumber.toString().trim());
+//        //invoiceNo.setValue("100192878");
+//
+//        Property partnerId = new Property();
+//        partnerId.setName("xPartnerId");
+//        partnerId.setValue(getBindings().getPartnerNumber().getValue().toString().trim());
+//        //partnerId.setValue("01656214");
+//
+////        Property docType = new Property();
+////        docType.setName("xDocumentType");
+////        docType.setValue("PDF");
+//
+//        Property contentType = new Property();
+//        contentType.setName("xContentType");
+//        //TODO : To be read from Property file
+//        contentType.setValue(DAOFactory.getPropertyValue(Constants.ENGAGE_XCONTENTTYPE));
+//        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_XCONTENTTYPE is " + contentType.getValue());
+//
+//        Property subType = new Property();
+//        subType.setName("xSubType");
+//        //TODO : To be read from Property file
+//        //subType.setValue("Self_Billing_Print_Reports");
+//        //subType.setValue("Invoice");
+//        subType.setValue(DAOFactory.getPropertyValue(Constants.ENGAGE_XSUBTYPE));
+//        log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_XSUBTYPE is " + subType.getValue());
+//
+//
+//        Property country = new Property();
+//        country.setName("xCountry");
+//        country.setValue(lang);
+//        //country.setValue("DK");
 
 
 
         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ENGAGE_UCM_WSDL_URL-------------"+DAOFactory.getPropertyValue(Constants.ENGAGE_UCM_WSDL_URL));
 
-        searchInputVO.getSearchInputQueryProperty().add(invoiceNo);
+for(int i=0;i<prop.length;i++)
+{
+        searchInputVO.getSearchInputQueryProperty().add(prop[i]);
+}
 
-        searchInputVO.getSearchInputQueryProperty().add(partnerId);
-
-        //searchInputVO.getSearchInputQueryProperty().add(docType);
-        searchInputVO.getSearchInputQueryProperty().add(contentType);
-        searchInputVO.getSearchInputQueryProperty().add(subType);
-        searchInputVO.getSearchInputQueryProperty().add(country);
-        //searchInputVO.setSourceSystem("PORTAL");
-
-//        searchInputVO.getSearchResultMetadata().add("dDocTitle");
-        searchInputVO.getSearchResultMetadata().add("dDocName");
 
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
@@ -1191,7 +1208,7 @@ if(partnerInfoList.size() == 1) {
                         System.out.println("content id "+ UCMInvoiceContentIdList.get(0).getContentID());// toString ki wajeh se null pointer aata hai
                         if(UCMInvoiceContentIdList.size()>0)
                         {
-                        ucmContentId = UCMInvoiceContentIdList.get(0).getSearchResultMetadata().get(0).getValue();
+                        ucmContentId = UCMInvoiceContentIdList.get(0).getContentID();
                         log.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Content id="+ucmContentId);
                         if (ucmContentId != null && ucmContentId.trim().length() > 0) {
                         ucmInvoiceContentList.put(invoiceNumber,ucmContentId);
