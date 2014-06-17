@@ -33,6 +33,7 @@
        PrtCardEO.CARD_APP_ID, 
        PrtCardEO.GEO_USE_REF, 
        PrtCardEO.CARD_STATUS_CODE, 
+       PrtCardEO.CARD_TEXTLINE_2, 
        PrtCardEO.EXT_CARD_NUM, 
        PrtCardEO.CARD_RENEW_DATE, 
        PrtCardEO.CARD_EMBOSS_NUM, 
@@ -240,6 +241,12 @@
     EntityAttrName="CardStatusCode"
     EntityUsage="PrtCardEO"
     AliasName="CARD_STATUS_CODE"/>
+  <ViewAttribute
+    Name="CardTextline2"
+    PrecisionRule="true"
+    EntityAttrName="CardTextline2"
+    EntityUsage="PrtCardEO"
+    AliasName="CARD_TEXTLINE_2"/>
   <ViewAttribute
     Name="ExtCardNum"
     IsNotNull="true"
