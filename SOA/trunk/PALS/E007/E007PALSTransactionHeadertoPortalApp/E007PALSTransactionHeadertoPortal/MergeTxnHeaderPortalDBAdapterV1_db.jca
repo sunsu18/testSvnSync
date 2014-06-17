@@ -1,6 +1,6 @@
 <adapter-config name="MergeTxnHeaderPortalDBAdapterV1" adapter="Database Adapter" wsdlLocation="MergeTxnHeaderPortalDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
   <endpoint-interaction portType="MergeTxnHeaderPortalDBAdapterV1_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeTxnHeaderPortalDBAdapterV1.PrtCardTransactionHeader"/>
