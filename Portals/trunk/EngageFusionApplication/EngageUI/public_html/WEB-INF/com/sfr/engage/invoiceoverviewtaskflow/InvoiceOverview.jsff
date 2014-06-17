@@ -443,15 +443,41 @@
     <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}" autoCancel="disabled" animate="false">
       <af:dialog id="d1" title="#{sfr.EMAIL_CONFIRMATION}"
                  dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}" shortDesc="#{sfr.SURE_SEND_EMAIL}" styleClass="textDialogs"
-                 contentWidth="330" type="none" inlineStyle="width:330.0px;">
+                 contentWidth="330" type="none"
+                 inlineStyle="width:330px;">
+<af:panelGroupLayout id="pgl19">
+         <af:separator id="s24" inlineStyle="width: 325px; margin-left: 0px!important;"/>
+         </af:panelGroupLayout>
+       
+       
+        <af:panelGroupLayout id="pgl60" styleClass="successPanel" layout="horizontal" visible="#{pageFlowScope.InvoiceOverviewBean.successResult}"
+                                   inlineStyle="width:325.0px;">
+               <af:outputText id="ot63" value="#{sfr.MAIL_SUCCESSFUL}" 
+                              styleClass="successOutputText" noWrap="true"/>
+                </af:panelGroupLayout>
+                 <af:panelGroupLayout id="pgl8" styleClass="infoPanel" layout="horizontal" visible="#{pageFlowScope.InvoiceOverviewBean.invoiceNotFound}"
+                                      inlineStyle="width:325.0px;">
+                <af:outputText id="ot64"  value="#{sfr.INVOICE_NOT_FOUND}" 
+                               styleClass="infoOutputText" noWrap="true"/>
+                </af:panelGroupLayout>
+                 <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal"  visible="#{pageFlowScope.InvoiceOverviewBean.failureResult}"
+                                      inlineStyle="width:325.0px;">
+                <af:outputText id="ot65"  value="#{sfr.MAIL_NOT_FOUND}"
+                              
+                               noWrap="true" styleClass="errorOutputText"/>
+              </af:panelGroupLayout>
+              <af:spacer height="10" id="s13"/>
+              
+              
 
         <af:panelGroupLayout id="pgl28" layout="vertical">
           <af:spacer height="10" id="s39" />
-          <af:outputText value="#{sfr.CONFIRM_EMAIL_ID} :"/>
-          <af:spacer width="10" height="10" id="s6"/>
+          <af:outputText value="#{sfr.CONFIRM_EMAIL_ID} :"
+                         inlineStyle="padding-left: 5px;" noWrap="true"/>
+          <af:spacer width="10" height="2" id="s6"/>
           <af:panelGroupLayout id="pgl30" styleClass="AFStretchWidth" layout="horizontal">
-            <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}" id="it12" label="#{sfr.EMAIL}" readOnly="false"
-                          binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}" contentStyle="width:250px;">
+            <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}" id="it12" readOnly="false"
+                          binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}" contentStyle="width: 300px; margin-left: -2px;">
               <!--<af:validateRegExp pattern="[a-zA-Z0-9\._]+@[a-zA-Z0-9]+.com"/>-->
             </af:inputText>
             <af:spacer id="s19" height="5"/>
@@ -460,16 +486,15 @@
 
             <af:spacer width="0" height="0" binding="#{pageFlowScope.InvoiceOverviewBean.spacerFetchUserEmail}" />
           </af:panelGroupLayout>
-           <af:outputText id="ot63" value="#{sfr.MAIL_SUCCESSFUL}" visible="#{pageFlowScope.InvoiceOverviewBean.successResult}"/>
-            <af:outputText id="ot64"  value="#{sfr.INVOICE_NOT_FOUND}" visible="#{pageFlowScope.InvoiceOverviewBean.invoiceNotFound}"/>
-            <af:outputText id="ot65"  value="#{sfr.MAIL_NOT_FOUND}"
-                           visible="#{pageFlowScope.InvoiceOverviewBean.failureResult}"/>
-          <af:spacer height="15" id="s13"/>
+              
 
         </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right" styleClass="AFStretchWidth">
-
- <af:commandButton text="#{sfr.OK}" id="cb3" actionListener="#{pageFlowScope.InvoiceOverviewBean.triggerMailProcess}"/></af:panelGroupLayout>
+ <!--<af:spacer width="10" height="20" id="s61"/>-->
+ <af:commandButton text="#{sfr.OK}" id="cb3" actionListener="#{pageFlowScope.InvoiceOverviewBean.triggerMailProcess}"/>
+  <af:spacer width="20" height="20" id="s60" inlineStyle="margin-top: 13px;"/> 
+ </af:panelGroupLayout>
+    
       </af:dialog>
     </af:popup>
    <af:popup id="invoice_details" contentDelivery="immediate"
@@ -507,8 +532,8 @@
 
         </af:panelGroupLayout>
         
-         <af:panelGroupLayout id="pgl19">
-         <af:separator id="s24" inlineStyle="width:852.0px;"/>
+         <af:panelGroupLayout id="pgl62">
+         <af:separator id="s5" inlineStyle="width:852.0px;"/>
          </af:panelGroupLayout>
         
         <af:panelGroupLayout id="pgl16" halign="right"

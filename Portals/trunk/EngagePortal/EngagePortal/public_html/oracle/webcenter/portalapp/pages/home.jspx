@@ -86,7 +86,7 @@
    <af:commandLink  id="ot2" styleClass="carousalOT"
                                       actionListener="#{homeCarousalBean.goProductCatalogListener}" disabled="true">
                         <af:image source="/imageservlet?id=#{bindings.ProductsDisplayRVO1.children[stat.index].Itemno}&amp;categId=#{(bindings.ProductsDisplayRVO1.children[stat.index].CategCode9)}"
-                    id="i2" inlineStyle="width:100px; height:100px; text-align:center;margin-left:5px; border: 1px solid  #979796;"/>
+                    id="i2" inlineStyle="width:85px; height:85px; text-align:center;margin-left:5px; border: 1px solid  #979796;"/>
 
 
                               </af:commandLink>

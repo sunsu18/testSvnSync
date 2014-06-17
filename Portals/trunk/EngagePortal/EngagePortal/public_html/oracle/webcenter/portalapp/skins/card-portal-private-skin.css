@@ -1651,25 +1651,33 @@ font-weight:bold;
 }
 
 
-.errorOutputText{     
-    color:red;      
-    font-size:12px;     
-    font-weight:normal;     
-     font-family: Arial,Helvetica,sans-serif !important;
-    }
-    
-.errorPanel{
-background-color: #fef5f1;
-border-color: #ed541d;
-}
 
 
 
 /*SPRITE CSS*/
 
 
-.filter_table,.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.info_popup,.save,.error,.filter_table,.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style,.af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style,.af_treeTable_collapsed-icon-style,.sign_in,.card_back,.arrow_learn_more,.arrow_learn_more_white,.card_icon_ws,.category_icon,.mail_icon,.message_bell,.pdf_icon,.shop_categories,.arrow_grey,.card_back_blue,.sign_in_blue,.shop_categories_blue,.arrow_learn_more_blue,.category_icon_blue,.cart,.calendar, .closed,.open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
+}
+
+
+.info_popup{
+	background-position: -37px -198px ;
+	width: 14px;
+	height: 14px;
+}
+
+.save{
+	background-position: -37px -180px ;
+	width: 14px;
+	height: 13px;
+}
+
+.error{
+	background-position: -37px -162px ;
+	width: 14px;
+	height: 14px;
 }
 
 .filter_table{
@@ -2221,9 +2229,60 @@ border: 1px solid  #979796;
     vertical-align: 10%;
 }
 
- .infoOutputText{     
-    color:green;      
+    
+.infoPanel{
+background-color: rgba(255, 204, 0, 0.24);
+border-bottom: 1px solid #E4AE03 !important;
+border-left: 1px solid #E4AE03 !important;
+border-right: 1px solid #E4AE03 !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+    
+.infoOutputText{     
+   color: rgb(172, 137, 0);    
     font-size:11px;     
     font-weight:bold;     
-    font-family:Lucida Sans,Georgia,Serif !important;     
-    }
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.successOutputText{
+    color: rgb(2, 155, 20); 
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.successPanel{
+background-color: rgba(6, 158, 0, 0.13);
+border-bottom: 1px solid #15E403 !important;
+border-left: 1px solid #15E403 !important;
+border-right: 1px solid #15E403 !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+
+
+.errorOutputText{
+    color: rgb(223, 1, 10);
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.errorPanel{
+background-color: rgba(241, 2, 2, 0.13);
+border-bottom: 1px solid rgba(228, 3, 3, 0.52) !important;
+border-left: 1px solid rgba(228, 3, 3, 0.52) !important;
+border-right: 1px solid rgba(228, 3, 3, 0.52) !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+
+
+.af_panelWindow_header-content-center, .af_dialog_header-content-center {
+width: 94%;
+}

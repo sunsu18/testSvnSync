@@ -353,7 +353,7 @@
         
         <af:separator id="s29"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-        <af:spacer width="10" height="5" id="s33"/>
+        <!--<af:spacer width="10" height="5" id="s33"/>-->
         
         <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
                        id="ot10"
@@ -361,18 +361,23 @@
                        rendered="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText"
                               partialTriggers="sor1 save t1:cil1"/>
-        <af:panelGroupLayout layout="vertical" id="pgl78" rendered="#{pageFlowScope.CardBean.showEditInfoMessage}">
+        <af:panelGroupLayout layout="horizontal" id="pgl78" rendered="#{pageFlowScope.CardBean.showEditInfoMessage}"
+                             styleClass="infoPanel"
+                             inlineStyle="width:406.0px;">
+         <af:panelGroupLayout layout="vertical" id="pgl83">
          <af:outputText value="#{pageFlowScope.CardBean.infoMsgAssociated}"
                        id="ot25"
                        binding="#{pageFlowScope.CardBean.bindings.showEditInfoMessage}"
                        styleClass="infoOutputText"
-                       partialTriggers="sor1 save t1:cil1"/>
+                       partialTriggers="sor1 save t1:cil1" noWrap="true"/>
         <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedBy}"
                        id="ot6" partialTriggers="sor1 save t1:cil1"
-                       styleClass="infoOutputText"/>
+                       styleClass="infoOutputText" noWrap="true"/>
         <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedDate}"
                        id="ot9" partialTriggers="sor1 save t1:cil1"
-                       styleClass="infoOutputText"/>
+                       styleClass="infoOutputText" noWrap="true"/>
+        
+        </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">

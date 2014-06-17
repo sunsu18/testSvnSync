@@ -1430,8 +1430,26 @@ font-weight:bold;
 
 /*SPRITE CSS*/
 
-.filter_table,.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
+.info_popup,.save,.error,.filter_table,.af_panelWindow_close-icon-style, .af_dialog_close-icon-style,.af_panelWindow_close-icon-style:hover, .af_dialog_close-icon-style:hover,.view_all,.af_tree_expanded-icon-style, .af_treeTable_expanded-icon-style,.af_tree_collapsed-icon-style, .af_treeTable_collapsed-icon-style,.arrow_learn_more_white, .card_icon_ws, .mail_icon, .message_bell, .pdf_icon,.arrow_grey, .card_back, .sign_in, .shop_categories, .arrow_learn_more, .category_icon, .cart, .calendar, .closed, .open,.info_legend,.acc_summary,.transaction,.messages,.invoice,.info_statoil,.arrow{
 	background: url("/images/Sprite/sprites.png") no-repeat;
+}
+
+.info_popup{
+	background-position: -37px -198px ;
+	width: 14px;
+	height: 14px;
+}
+
+.save{
+	background-position: -37px -180px ;
+	width: 14px;
+	height: 13px;
+}
+
+.error{
+	background-position: -37px -162px ;
+	width: 14px;
+	height: 14px;
 }
 
 .filter_table{
@@ -1523,18 +1541,8 @@ font-weight:bold;
     font-weight:bold;     
    font-family: Arial,Helvetica,sans-serif !important;
     }
-    
-.errorPanel{
-background-color: #fef5f1;
-border-color: #ed541d;
-}
-    
-    .infoOutputText{     
-    color:green;      
-    font-size:11px;     
-    font-weight:bold;     
-    font-family:Lucida Sans,Georgia,Serif !important;     
-    }
+  
+   
 
 .sign_in{
 	background-position: -32px -57px ;
@@ -2019,3 +2027,62 @@ color: #524e4f;
     padding: 5px 3px 0px 15px !important;
     vertical-align: 10%;
 }
+
+
+    
+.infoPanel{
+background-color: rgba(255, 204, 0, 0.24);
+border-bottom: 1px solid #E4AE03 !important;
+border-left: 1px solid #E4AE03 !important;
+border-right: 1px solid #E4AE03 !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+    
+.infoOutputText{     
+   color: rgb(172, 137, 0);    
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.successOutputText{
+    color: rgb(2, 155, 20); 
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.successPanel{
+background-color: rgba(6, 158, 0, 0.13);
+border-bottom: 1px solid #15E403 !important;
+border-left: 1px solid #15E403 !important;
+border-right: 1px solid #15E403 !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+
+
+.errorOutputText{
+    color: rgb(223, 1, 10);
+    font-size:11px;     
+    font-weight:bold;     
+    font-family:Lucida Sans,Georgia,Serif !important; 
+    line-height: 1.6;
+}
+
+.errorPanel{
+background-color: rgba(241, 2, 2, 0.13);
+border-bottom: 1px solid rgba(228, 3, 3, 0.52) !important;
+border-left: 1px solid rgba(228, 3, 3, 0.52) !important;
+border-right: 1px solid rgba(228, 3, 3, 0.52) !important;
+padding-left: 6px;
+margin-top: -4px;
+}
+
+.af_panelWindow_header-content-center, .af_dialog_header-content-center {
+width: 94%;
+}
+
