@@ -352,8 +352,7 @@
                filterVisible="true" varStatus="vs"
                selectedRowKeys="#{bindings.PrtNewInvoiceVO1.collectionModel.selectedRow}"
                selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}"
-               rowSelection="single" id="t1"  disableColumnReordering="true" columnResizing="disabled"
-               >
+               rowSelection="single" id="t1"  disableColumnReordering="true" columnResizing="disabled" autoHeightRows="20">
       <af:column sortProperty="Finalinvoice" filterable="true" sortable="false" width="150"
                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
                  id="c4">
@@ -437,6 +436,7 @@
         </af:panelGroupLayout>
       </af:column>
      </af:table>
+     <af:spacer width="10" height="20" id="s59"/>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
     <af:popup id="p1" contentDelivery="immediate" binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}" autoCancel="disabled" animate="false">
