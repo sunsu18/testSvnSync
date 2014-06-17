@@ -368,14 +368,15 @@
                  headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}"
                  id="c6">
        <f:facet name="filter">
-        <af:inputDate value="#{vs.filterCriteria.InvoiceDate}" id="id3">
+        <af:inputDate value="#{vs.filterCriteria.InvoicingDate}" id="id3">
         <af:convertDateTime pattern="dd.MM.yyyy"/>
         </af:inputDate>
        </f:facet>
-       <af:outputText value="#{row.InvoiceDate}" id="ot61">
+       <af:outputText value="#{row.InvoicingDate}" id="ot61">
         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
+     
       <af:column sortProperty="InvoicingDueDate" filterable="true" width="125" align="center"
                  sortable="false"
                  headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
@@ -766,7 +767,7 @@
           <af:column sortProperty="InvoiceNumber" filterable="true"
                      sortable="false"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
-                     id="c13" width="150">
+                     id="c13" width="100">
            <af:outputText value="#{row.InvoiceNumber}" id="ot55"/>
           </af:column>
           <af:column sortProperty="InvoiceDate" filterable="true" align="center"
@@ -774,12 +775,15 @@
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}"
                      id="c10" width="110">
            <f:facet name="filter">
-            <af:inputDate value="#{vs.filterCriteria.InvoiceDate}" id="id5">
+            <af:inputDate value="#{vs.filterCriteria.InvoicingDate}" id="id5">
              <af:convertDateTime pattern="dd.MM.yyyy"/>
              </af:inputDate>
            </f:facet>
-           <af:outputText value="#{row.InvoiceDate}" id="ot58">
-             <af:convertDateTime pattern="dd.MM.yyyy"/>
+           <!--<af:outputText value="#{row.InvoiceDate}" id="ot58">
+             
+           </af:outputText>-->
+           <af:outputText value="#{row.InvoicingDate}" id="ot58">
+            <af:convertDateTime pattern="dd.MM.yyyy"/>
            </af:outputText>
           </af:column>
           <af:column sortProperty="InvoicingDueDate" filterable="true" align="center"
@@ -798,9 +802,13 @@
           </af:column>
           
               <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c9" align="left"
-                         width="110">
+                         width="50">
        <af:outputText value="#{sfr.CARD}" id="ot70"/>
       </af:column>
+          <af:column sortProperty="InvoicedCard" filterable="true" headerText="#{sfr.CARD_NUMBER}"
+                     id="c23"  align="left" width="110">
+           <af:outputText value="#{row.InvoicedCard}" id="ot71"/>
+          </af:column>
           <af:column sortProperty="InvTotalVatAmt" filterable="true" align="right"
                      sortable="false"
                      headerText="#{sfr.ENGAGE_INVOICE_VAT}"

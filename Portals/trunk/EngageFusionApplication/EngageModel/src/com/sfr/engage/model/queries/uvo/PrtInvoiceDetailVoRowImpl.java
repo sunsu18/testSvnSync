@@ -115,6 +115,16 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
             }
         }
         ,
+        InvoicedCard {
+            public Object get(PrtInvoiceDetailVoRowImpl obj) {
+                return obj.getInvoicedCard();
+            }
+
+            public void put(PrtInvoiceDetailVoRowImpl obj, Object value) {
+                obj.setInvoicedCard((String)value);
+            }
+        }
+        ,
         InvNetAmount {
             public Object get(PrtInvoiceDetailVoRowImpl obj) {
                 return obj.getInvNetAmount();
@@ -164,6 +174,7 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
     public static final int INVTOTALGROSSAMT = AttributesEnum.InvTotalGrossAmt.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
     public static final int INVTOTALVATAMT = AttributesEnum.InvTotalVatAmt.index();
+    public static final int INVOICEDCARD = AttributesEnum.InvoicedCard.index();
     public static final int INVNETAMOUNT = AttributesEnum.InvNetAmount.index();
 
     /**
@@ -330,6 +341,22 @@ public class PrtInvoiceDetailVoRowImpl extends ViewRowImpl {
      */
     public void setInvTotalVatAmt(Number value) {
         setAttributeInternal(INVTOTALVATAMT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute InvoicedCard.
+     * @return the InvoicedCard
+     */
+    public String getInvoicedCard() {
+        return (String) getAttributeInternal(INVOICEDCARD);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedCard.
+     * @param value value to set the  InvoicedCard
+     */
+    public void setInvoicedCard(String value) {
+        setAttributeInternal(INVOICEDCARD, value);
     }
 
     /**

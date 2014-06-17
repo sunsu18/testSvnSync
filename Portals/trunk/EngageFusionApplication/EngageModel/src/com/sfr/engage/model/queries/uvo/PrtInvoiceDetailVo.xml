@@ -41,7 +41,7 @@
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[select prt_card_payment_doc.PARTNER_ID,prt_card_payment_doc.COUNTRY_CODE,prt_card_invoice.invoice_number, prt_card_invoice.collective_invoice_number,prt_card_invoice.invoice_date,prt_card_payment_doc.ACCOUNT_ID, prt_card_payment_doc.invoicing_due_date,
-prt_card_invoice.inv_total_gross_amt ,prt_card_payment_doc.INVOICING_DATE,prt_card_invoice.inv_total_vat_amt 
+prt_card_invoice.inv_total_gross_amt ,prt_card_payment_doc.INVOICING_DATE,prt_card_invoice.inv_total_vat_amt, prt_card_invoice.invoiced_card
 from prt_card_invoice join prt_card_payment_doc ON (prt_card_payment_doc.invoice_doc_number =prt_card_invoice.collective_invoice_number
 AND prt_card_payment_doc.country_code= prt_card_invoice.country_code)
 
@@ -199,6 +199,21 @@ AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicedCard"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICED_CARD"
+    Expression="INVOICED_CARD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

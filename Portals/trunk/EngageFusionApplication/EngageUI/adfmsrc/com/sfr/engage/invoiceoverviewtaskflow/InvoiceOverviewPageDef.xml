@@ -87,6 +87,11 @@
         <Item Value="InvoiceDocType"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="PrtNewInvoiceVO1Iterator" id="InvoicingDate">
+      <AttrNames>
+        <Item Value="InvoicingDate"/>
+      </AttrNames>
+    </attributeValues>
     <methodAction id="getTranslation" InstanceName="EngageAppModuleDataControl.dataProvider" DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="getTranslation" IsViewObjectMethod="false"
                   ReturnName="data.EngageAppModuleDataControl.methodResults.getTranslation_EngageAppModuleDataControl_dataProvider_getTranslation_result">
@@ -103,6 +108,7 @@
           <Item Value="InvVatAmt"/>
           <Item Value="InvGrossAmt"/>
           <Item Value="netAmount"/>
+          <Item Value="InvoicingDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -117,6 +123,8 @@
           <Item Value="InvTotalGrossAmt"/>
           <Item Value="InvNetAmount"/>
           <Item Value="InvoiceNumber"/>
+          <Item Value="InvoicedCard"/>
+          <Item Value="InvoicingDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

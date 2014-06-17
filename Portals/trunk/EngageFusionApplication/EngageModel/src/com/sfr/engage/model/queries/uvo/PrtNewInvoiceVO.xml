@@ -41,6 +41,7 @@
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[select distinct decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) as finalInvoice ,
+prt_card_payment_doc.INVOICING_DATE,
 prt_card_invoice.invoice_date,
 prt_card_payment_doc.invoicing_due_date,
 prt_card_payment_doc.partner_id,
@@ -78,6 +79,20 @@ order by prt_card_invoice.invoice_date desc,prt_card_payment_doc.invoicing_due_d
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoicingDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="INVOICING_DATE"
+    Expression="INVOICING_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

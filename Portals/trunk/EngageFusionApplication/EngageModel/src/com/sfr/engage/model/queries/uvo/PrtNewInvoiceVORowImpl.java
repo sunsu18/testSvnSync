@@ -25,6 +25,16 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        InvoicingDate {
+            public Object get(PrtNewInvoiceVORowImpl obj) {
+                return obj.getInvoicingDate();
+            }
+
+            public void put(PrtNewInvoiceVORowImpl obj, Object value) {
+                obj.setInvoicingDate((Date)value);
+            }
+        }
+        ,
         InvoiceDate {
             public Object get(PrtNewInvoiceVORowImpl obj) {
                 return obj.getInvoiceDate();
@@ -182,7 +192,9 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
         }
     }
 
+
     public static final int FINALINVOICE = AttributesEnum.Finalinvoice.index();
+    public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
     public static final int INVOICEDATE = AttributesEnum.InvoiceDate.index();
     public static final int INVOICINGDUEDATE = AttributesEnum.InvoicingDueDate.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -217,6 +229,22 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
      */
     public void setFinalinvoice(String value) {
         setAttributeInternal(FINALINVOICE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute InvoicingDate.
+     * @return the InvoicingDate
+     */
+    public Date getInvoicingDate() {
+        return (Date) getAttributeInternal(INVOICINGDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicingDate.
+     * @param value value to set the  InvoicingDate
+     */
+    public void setInvoicingDate(Date value) {
+        setAttributeInternal(INVOICINGDATE, value);
     }
 
     /**
