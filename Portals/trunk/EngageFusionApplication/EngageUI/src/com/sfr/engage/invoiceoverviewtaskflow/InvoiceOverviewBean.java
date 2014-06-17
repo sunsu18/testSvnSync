@@ -1181,7 +1181,9 @@ if(partnerInfoList.size() == 1) {
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     if (uCMCustomWeb != null) {
-
+                        System.out.println("UCM input meta tags");
+                        for(int i=0;i<searchInputVO.getSearchInputQueryProperty().size();i++)
+                        {System.out.println(searchInputVO.getSearchInputQueryProperty().get(i));}
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
 
                         System.out.println("UCM LIST SIZE.get(0):"+UCMInvoiceContentIdList.get(0));// Instead of printing this, print what was the Invoice search criteria
