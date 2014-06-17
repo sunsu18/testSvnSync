@@ -1127,7 +1127,7 @@ if(partnerInfoList.size() == 1) {
         searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setSourceSystem("WebPortal");
 
-        Property prop[]=new Property[];
+        Property prop[]=new Property[5];
 
         prop[0]= new Property();
         prop[0].setName("xDocumentNo");
