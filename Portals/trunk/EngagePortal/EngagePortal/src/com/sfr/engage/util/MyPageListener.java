@@ -598,11 +598,15 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
 
                                                                                                     }
-                                                                                                    if (currRowcard.getCardEmbossNum() != null)
-                                                                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                                if (currRowcard.getCardEmbossNum() != null) {
+                                                                                                    card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                                }
 
+                                                                                                if (currRowcard.getCardTextline2() != null) {
+                                                                                                    card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                                                }
 
-                                                                                                    addflagcard = false;
+                                                                                                addflagcard = false;
                                                                                                     for (int k = 0; k < cardlist.size(); k++) {
                                                                                                         System.out.println(accessDC.getDisplayRecord()+this.getClass()+"cardgroup id value in cardgroup list " +
                                                                                                                            cardlist.get(k).getCardID());
@@ -776,8 +780,13 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                         //                                                                        accountId_cardVO =
                                                                                         //                                                                                currRowcard.getAccountId().toString();
                                                                                     }
-                                                                                    if (currRowcard.getCardEmbossNum() != null)
-                                                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                if (currRowcard.getCardEmbossNum() != null) {
+                                                                                    card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                }
+
+                                                                                if (currRowcard.getCardTextline2() != null) {
+                                                                                    card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                                }
 
                                                                                     if (currRowcard.getAccountId() != null) {
                                                                                         System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Account Id is " + currRowcard.getAccountId());
@@ -974,9 +983,17 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                             System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
 
                                                                             if (currRowcard.getPrtCardPk() != null) {
-                                                                                System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Card id is " + currRowcard.getPrtCardPk());
+                                                                                //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Card id is " + currRowcard.getPrtCardPk());
                                                                                 card.setCardID(currRowcard.getPrtCardPk().toString());
+
+                                                                            if (currRowcard.getCardEmbossNum() != null) {
                                                                                 card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                            }
+
+                                                                            if (currRowcard.getCardTextline2() != null) {
+                                                                                card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                            }
+
                                                                             }
                                                                             if (currRowcard.getCardgroupMainType() != null &&
                                                                                 currRowcard.getCardgroupSubType() != null &&
@@ -1530,6 +1547,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                 if (currRowcard.getCardEmbossNum() != null)
                     card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+
+                if (currRowcard.getCardTextline2() != null) {
+                    card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                }
                 addflagcard = false;
                 //Below logic is just to find out that card id is already present in cardgrouplist
                 //TODO : HITK : This can be avoided since at DB level we have already put the constraint to avoid duplicatre records.....
