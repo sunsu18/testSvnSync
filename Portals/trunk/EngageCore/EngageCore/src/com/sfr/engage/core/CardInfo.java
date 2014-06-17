@@ -12,6 +12,7 @@ public class CardInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cardID;
     private String externalCardID;
+    private String cardTextline2;
     private boolean cardOverview;
 
     /**
@@ -61,5 +62,19 @@ public class CardInfo implements Serializable {
      */
     public boolean isCardOverview() {
         return cardOverview;
+    }
+
+    /**
+     * @param cardTextline2
+     */
+    public void setCardTextline2(String cardTextline2) {
+        this.cardTextline2 = cardTextline2;
+    }
+
+    /**
+     * @return
+     */
+    public String getCardTextline2() {
+        return cardTextline2;
     }
 }
