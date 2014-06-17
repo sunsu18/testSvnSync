@@ -753,6 +753,18 @@
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CardTextline2"
+    Precision="30"
+    ColumnName="CARD_TEXTLINE_2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PrtPartnerEO1"
     Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
