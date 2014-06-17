@@ -1127,7 +1127,7 @@ if(partnerInfoList.size() == 1) {
         searchInputVO.setPassword(getPropertyValue(Constants.ENGAGE_UCM_PASSWORD));
         searchInputVO.setSourceSystem("WebPortal");
 
-        Property prop[]=new Property[5];
+        Property prop[]=new Property[3];
 
         prop[0]= new Property();
         prop[0].setName("xDocumentNo");
@@ -1137,17 +1137,17 @@ if(partnerInfoList.size() == 1) {
         prop[1].setName("xPartnerId");
         prop[1].setValue(getBindings().getPartnerNumber().getValue().toString().trim());
 
+//        prop[2]= new Property();
+//        prop[2].setName("xContentType");
+//        prop[2].setValue("FCP");
+//
+//        prop[3]= new Property();
+//        prop[3].setName("xSubType");
+//        prop[3].setValue("Invoice");
+
         prop[2]= new Property();
-        prop[2].setName("xContentType");
-        prop[2].setValue("FCP");
-
-        prop[3]= new Property();
-        prop[3].setName("xSubType");
-        prop[3].setValue("Invoice");
-
-        prop[4]= new Property();
-        prop[4].setName("xCountry");
-        prop[4].setValue(lang);
+        prop[2].setName("xCountry");
+        prop[2].setValue(lang);
 
 
 
@@ -1200,7 +1200,7 @@ for(int i=0;i<prop.length;i++)
                     if (uCMCustomWeb != null) {
                         System.out.println("UCM input meta tags");
                         for(int i=0;i<searchInputVO.getSearchInputQueryProperty().size();i++)
-                        {System.out.println(searchInputVO.getSearchInputQueryProperty().get(i));}
+                        {System.out.println(searchInputVO.getSearchInputQueryProperty().get(i).getValue());}
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
 
                         System.out.println("UCM LIST SIZE.get(0):"+UCMInvoiceContentIdList.get(0));// Instead of printing this, print what was the Invoice search criteria
