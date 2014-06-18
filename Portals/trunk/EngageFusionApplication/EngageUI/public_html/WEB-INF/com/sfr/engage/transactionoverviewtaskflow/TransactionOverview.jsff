@@ -482,7 +482,7 @@
            <af:column sortProperty="CardTextLine2" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD_TEXTLINE_2}" align="left" width="150"
                      id="c10">
-            <af:outputText value="#{row.CardTextLine2}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.CardTextLine2}" id="ot15"  truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
             <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" align="left"
@@ -510,7 +510,7 @@
             <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
                            truncateAt="15"/>
           </af:column>
-         <af:column sortProperty="Quantity" filterable="false" sortable="false" width="80"
+         <af:column sortProperty="Quantity" filterable="true" sortable="true" width="80"
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
                      id="c35">
             <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -520,13 +520,13 @@
                                 minFractionDigits="2"/>
             </af:outputText>
           </af:column>
-           <af:column sortProperty="UnitOfMeasure" filterable="false" sortable="false" width="80"
+           <af:column sortProperty="UnitOfMeasure" filterable="true" sortable="true" width="80"
                      headerText="#{sfr.ENGAGE_UNITOFMEASURE}" align="left"
                       id="c2">
             <af:outputText value="#{row.UnitOfMeasure}" id="ot35" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-          <af:column sortProperty="CurrencyUnitPrice" filterable="false"
-                     sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"
+          <af:column sortProperty="CurrencyUnitPrice" filterable="true"
+                     sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"
                      headerText="#{sfr.FOREGIN_UNIT_PRICE}"
                      id="c1">
             <af:outputText value="#{row.CurrencyUnitPrice}" id="ot79" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -545,8 +545,8 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyDiscountAmount.format}"/>
             </af:outputText>
           </af:column>-->
-           <af:column sortProperty="CurrencyGrossAmount" filterable="false"
-                     sortable="false" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportDefault}"
+           <af:column sortProperty="CurrencyGrossAmount" filterable="true"
+                     sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.FOREGIN_GROSS_AMOUNT}"
                      id="c5">
             <af:outputText value="#{row.CurrencyGrossAmount}" id="ot61" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -557,8 +557,8 @@
             </af:outputText>
           </af:column>
           
-          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="false"
-                     sortable="false" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
+          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true"
+                     sortable="true" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
                      id="c4">
             <af:outputText value="#{row.InvoicedUnitPriceRebated}" id="ot73" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -612,8 +612,8 @@
             </af:outputText>
           </af:column>-->
 
-           <af:column sortProperty="InvoicedGrossAmountRebated" filterable="false"
-                     sortable="false" align="right"
+           <af:column sortProperty="InvoicedGrossAmountRebated" filterable="true"
+                     sortable="true" align="right"
                      headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                      id="c6">
             <!--<af:outputText value="#{row.InvoicedGrossAmount}" id="ot30" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
@@ -647,8 +647,8 @@
           </af:column>
           
           
-           <af:column sortProperty="InvoivedVatRebated" filterable="false"
-                     sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
+           <af:column sortProperty="InvoivedVatRebated" filterable="true"
+                     sortable="true" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_VAT}"
                      id="c8">
             <af:outputText value="#{row.InvoivedVatRebated}" id="ot74" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -659,8 +659,8 @@
             </af:outputText>
           </af:column>
           
-           <af:column sortProperty="InvoicedNetAmountRebated" filterable="false"
-                     sortable="false" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
+           <af:column sortProperty="InvoicedNetAmountRebated" filterable="true"
+                     sortable="true" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_NET}"
                      id="c9">
             <af:outputText value="#{row.InvoicedNetAmountRebated}" id="ot75" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -708,8 +708,8 @@
                          id="ot87"/>
           </af:panelGroupLayout>
           </af:column>
-          <af:column sortProperty="OdometerPortal" filterable="false" width="100" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData }"
-                     sortable="false" align="left"
+          <af:column sortProperty="OdometerPortal" filterable="true" width="100" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData }"
+                     sortable="true" align="left"
                      headerText="#{sfr.ODOMETER}"
                      id="c19">
             <!--<af:outputText value="#{row.OdometerPortal}" id="ot76"/>-->
@@ -751,7 +751,7 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.VatRate.format}"/>
             </af:outputText>
           </af:column>-->
-          <af:column sortProperty="kmTotal" filterable="false" sortable="false"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right"
                      id="c26">
             <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -762,7 +762,7 @@
             </af:outputText>
           </af:column>
 
-          <af:column sortProperty="kmPerLt" filterable="false" sortable="false" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="kmPerLt" filterable="true" sortable="true" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_PER_LT}" align="right"
                      id="c3">
             <af:outputText value="#{row.kmPerLt}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
@@ -772,8 +772,8 @@
                                 minFractionDigits="2"/>
             </af:outputText>
           </af:column>
-          <af:column sortProperty="ltPerHundred" filterable="false" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                   sortable="false" align="right"
+          <af:column sortProperty="ltPerHundred" filterable="true" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                   sortable="true" align="right"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                      id="c21">
             <af:outputText value="#{row.ltPerHundred}" id="ot36" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
