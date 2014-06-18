@@ -1319,8 +1319,8 @@ font-style:normal;
 
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style,
 .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style{
-    margin-right:-15px !important;
-    margin-left:-3px !important;
+    margin-right:3px !important;
+    margin-left:-1px !important;
 }
 
 .af_panelAccordion_header .af_panelAccordion_header-start, .af_panelAccordion_header .af_panelAccordion_header-toolbar, .af_panelAccordion_header .af_panelAccordion_header-title, .af_panelAccordion_header .af_panelAccordion_header-end{
