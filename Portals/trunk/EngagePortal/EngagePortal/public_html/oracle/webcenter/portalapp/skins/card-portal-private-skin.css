@@ -1,3 +1,10 @@
+/*IE Double Scroller Fixed*/
+.p_AFMaximized.af_document{
+    position: inherit !important;
+}
+
+
+
 /*Remove Wrapping on Dropdowns*/
 .af_inputText.AFNoWrapMarker .af_inputText_label, .af_inputListOfValues.AFNoWrapMarker .af_inputListOfValues_label, .af_inputComboboxListOfValues.AFNoWrapMarker .af_inputComboboxListOfValues_label, .af_selectOneChoice.AFNoWrapMarker .af_selectOneChoice_label, .af_inputDate, .af_menu_child-container .af_menu_detachable-header, .af_selectManyChoice, .nowrap *, .af_inputListOfValues, .af_inputComboboxListOfValues, .NoLabelWrap .af_quickQuery_label, .NoLabelWrap .af_selectBooleanCheckbox_label, .NoLabelWrap .af_selectOneChoice_label, .NoLabelWrap .af_inputText_label, .NoLabelWrap .af_inputDate_label, .NoLabelWrap .af_panelLabelAndMessage_label, .af_commandLink.WCSearchResultsPrevNextLink {
 white-space: normal;
@@ -596,7 +603,7 @@ body {
     width: 962px;
    
 }
-/*@platform windows, linux, solaris{
+@platform windows, linux, solaris{
             .marginIEHeader{
                 margin-bottom:15px;
                             }
@@ -605,6 +612,7 @@ body {
         margin-left:7px;
         
     }
+}
 
 /*Dialog Box starts*/
 .af_dialog_content,.af_dialog_footer,.af_dialog_content-start,.af_dialog_content-end,.af_dialog_footer-start,.af_dialog_footer-end, .af_dialog_header-end,.af_dialog_header-start,.af_dialog_header{
