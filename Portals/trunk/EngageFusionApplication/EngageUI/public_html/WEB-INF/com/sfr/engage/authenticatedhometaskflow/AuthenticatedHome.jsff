@@ -304,11 +304,11 @@
                     </af:column>
                     <af:column sortProperty="StationName" sortable="false"
                                headerText="#{sfr.ENGAGE_STATION_NAME}" id="c9" width="129">
-<af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+<af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}" truncateAt="15"/>
                     </af:column>
                     <af:column sortProperty="ProductName" sortable="false"
                                headerText="#{sfr.ENGAGE_PRODUCT}" id="c4" width="106">
-                      <af:outputText value="#{row.ProductName}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+                      <af:outputText value="#{row.ProductName}" id="ot15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}" truncateAt="15"/>
                     </af:column>
                     <af:column sortProperty="Quantity" sortable="false"
                                headerText="#{sfr.ENGAGE_QUANTITY}" id="c6" width="102"
@@ -390,7 +390,7 @@
                                    inlineStyle="width:300.0px;">
                 <af:table value="#{bindings.PrtHomeInvoiceRVO1.collectionModel}"
                           var="row" styleClass="home"
-                          emptyText="#{pageFlowScope.AuthenticatedHomeBean.emptyText}"
+                          emptyText="#{bindings.PrtHomeInvoiceRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                           rows="#{bindings.PrtHomeInvoiceRVO1.rangeSize}"
                           autoHeightRows="5"
                           fetchSize="#{bindings.PrtHomeInvoiceRVO1.rangeSize}"
