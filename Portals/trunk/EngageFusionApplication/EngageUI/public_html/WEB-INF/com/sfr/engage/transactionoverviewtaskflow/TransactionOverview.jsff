@@ -469,7 +469,7 @@
                      headerText="#{sfr.CARDGROUP}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
-            <af:outputText value="#{row.CardGroupDesc}" id="ot37" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.CardGroupDesc}" id="ot37" truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
              <!--<af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
              <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
@@ -477,7 +477,7 @@
            <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD}" align="left" width="150"
                      id="c31">
-            <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.Card1Id}" id="ot85" truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           </af:column>
            <af:column sortProperty="CardTextLine2" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD_TEXTLINE_2}" align="left" width="150"
