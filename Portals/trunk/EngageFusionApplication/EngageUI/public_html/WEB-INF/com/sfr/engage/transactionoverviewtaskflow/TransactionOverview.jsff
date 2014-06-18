@@ -488,7 +488,8 @@
                      sortable="true" align="left"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"
                      id="c23">
-            <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
+                           truncateAt="15"/>
           </af:column>
           <af:column sortProperty="PurchaseCountryCode" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" width="65" align="left"
@@ -506,7 +507,8 @@
                      sortable="true" align="left"
                      headerText="#{sfr.ENGAGE_PRODUCT}"
                      id="c28">
-            <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
+                           truncateAt="15"/>
           </af:column>
          <af:column sortProperty="Quantity" filterable="false" sortable="false" width="80"
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
