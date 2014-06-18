@@ -208,7 +208,7 @@
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.card}"
                                    valuePassThru="true"
                                    value="#{pageFlowScope.TransactionOverviewBean.cardNumberValue}"
-                                   contentStyle="width:150.0px;height:14px;">
+                                   contentStyle="width:175.0px;height:14px;">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.cardNumberList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"

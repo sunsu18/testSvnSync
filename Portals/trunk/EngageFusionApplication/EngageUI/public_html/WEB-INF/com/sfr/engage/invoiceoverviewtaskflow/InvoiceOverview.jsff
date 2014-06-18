@@ -20,7 +20,7 @@
  <af:panelGroupLayout id="pgl6" layout="horizontal"
                            inlineStyle="width:960.0px;">
    <af:panelGroupLayout id="pgl9" layout="vertical"
-                             inlineStyle="width:350px; height:150.0px;"
+                             inlineStyle="width:380px; height:150.0px;"
                              valign="top">
       
        <h:panelGrid columns="4" id="pg2" cellpadding="3"
@@ -59,7 +59,7 @@
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
                <af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
-                           contentStyle="width: 175px;"
+                           contentStyle="width: 200px;"
                            value="#{pageFlowScope.InvoiceOverviewBean.partnerValue}"
                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.partnerValueChangeListener}"
                            binding="#{pageFlowScope.InvoiceOverviewBean.bindings.partnerNumber}">
@@ -75,7 +75,7 @@
                             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.account}"
                             value="#{pageFlowScope.InvoiceOverviewBean.accountValue}"
                             valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.accountValueChangeListener}"
-                            contentStyle="width: 150px;">
+                            contentStyle="width: 175px;">
             <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.accountList}"
                     var="listItem">
          <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -171,7 +171,7 @@
            <af:selectManyChoice id="soc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"
                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.card}"
                              value="#{pageFlowScope.InvoiceOverviewBean.cardValue}"
-                             contentStyle="width: 150px;">
+                             contentStyle="width: 175px;">
          <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.cardList}"
                     var="listItem">
          <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
