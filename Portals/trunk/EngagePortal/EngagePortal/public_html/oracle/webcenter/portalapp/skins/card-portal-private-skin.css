@@ -1,3 +1,9 @@
+/*Remove Wrapping on Dropdowns*/
+.af_inputText.AFNoWrapMarker .af_inputText_label, .af_inputListOfValues.AFNoWrapMarker .af_inputListOfValues_label, .af_inputComboboxListOfValues.AFNoWrapMarker .af_inputComboboxListOfValues_label, .af_selectOneChoice.AFNoWrapMarker .af_selectOneChoice_label, .af_inputDate, .af_menu_child-container .af_menu_detachable-header, .af_selectManyChoice, .nowrap *, .af_inputListOfValues, .af_inputComboboxListOfValues, .NoLabelWrap .af_quickQuery_label, .NoLabelWrap .af_selectBooleanCheckbox_label, .NoLabelWrap .af_selectOneChoice_label, .NoLabelWrap .af_inputText_label, .NoLabelWrap .af_inputDate_label, .NoLabelWrap .af_panelLabelAndMessage_label, .af_commandLink.WCSearchResultsPrevNextLink {
+white-space: normal;
+}
+
+
 /*Table On Click Color*/
 .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell,.af_table_datarow.p_AFHighlighted .af_column_data_cell,.af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_banded-data-cell, .af_selectOneListbox_item.p_AFDisabled.p_AFSelected, .af_showDetailFrame .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .WCContent > div > .af_region .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_selectManyChoice_item.p_AFSelected, .af_selectOrderShuttle_item.p_AFSelected, .af_selectManyShuttle_item.p_AFSelected{
     background-color: transparent !important;
