@@ -3,6 +3,16 @@
 white-space: normal;
 }
 
+.af_selectManyChoice_options {
+overflow-x: visible !important;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+border-width: 0px;
+margin: 0px;
+padding-right:30px;
+}
+
 
 
 /*Table On Click Color*/
