@@ -331,6 +331,7 @@ public class HomeCarouselBean {
                 card_name1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD");
             }
         } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
+           
             card_name1 = "STATOIL_BUSINESS_CARD";
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD")) {
                 card_name1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD");
@@ -357,9 +358,11 @@ public class HomeCarouselBean {
             if (resourceBundle.containsKey("STATOIL_MASTER_CARD")) {
                 card_name2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD");
             }
-        } else if (card1.equalsIgnoreCase("Europe-Card")) {
+        } else if (card2.equalsIgnoreCase("Europe-Card")) {
+           
             card_name2 = "STATOIL_EUROPE_CARD";
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD")) {
+               
                 card_name2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD");
             }
         }
