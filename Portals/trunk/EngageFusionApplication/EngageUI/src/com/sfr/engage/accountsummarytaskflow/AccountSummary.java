@@ -4,30 +4,21 @@ package com.sfr.engage.accountsummarytaskflow;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
-
 import com.sfr.engage.core.PartnerInfo;
-
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
-
-
 import com.sfr.util.AccessDataControl;
-
 import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
 import java.util.ArrayList;
-
-
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
@@ -36,11 +27,7 @@ import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTree;
-
-import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
-
-
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
@@ -49,13 +36,12 @@ import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 
-import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
-import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetImpl;
+
 
 public class AccountSummary implements Serializable {
     @SuppressWarnings("compatibility")
@@ -657,6 +643,7 @@ public class AccountSummary implements Serializable {
             rootNode = treeBinding.getRootNodeBinding();
             System.out.println("rootNode " + rootNode);
             dropNodeParent = nodeBinding1.getParent();
+            System.out.println("dropNodeParent " + dropNodeParent);
 
 
             for (Object ob : nodeBinding1.getParent().getAttributeValues()) {

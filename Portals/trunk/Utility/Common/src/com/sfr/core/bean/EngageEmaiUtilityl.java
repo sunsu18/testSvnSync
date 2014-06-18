@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+
 public class EngageEmaiUtilityl {
     public EngageEmaiUtilityl() {
         super();
@@ -60,7 +61,7 @@ public class EngageEmaiUtilityl {
     //                DataSource datasource = new FileDataSource(envProperty);
     //                messageBodyPart.setDataHandler(new DataHandler(datasource));
     //                messageBodyPart.setHeader("Content-ID", "statoil");
-                messageBodyPart.setContent(body, "text/html");
+                messageBodyPart.setContent(body, "text/html; charset=\"UTF-8\"");
 
                 // Create a multipar message
                 Multipart multipart = new MimeMultipart();
@@ -83,7 +84,7 @@ public class EngageEmaiUtilityl {
 
 
                 // Send the complete message parts
-                message.setContent(multipart,"text/html");
+                message.setContent(multipart,"text/html; charset=\"UTF-8\"");
 
 
                 messageBodyPart = new MimeBodyPart();
@@ -96,7 +97,7 @@ public class EngageEmaiUtilityl {
 
 
                     // Send the complete message parts
-                    message.setContent(multipart,"text/html");
+                    message.setContent(multipart,"text/html; charset=\"UTF-8\"");
 
 
     //message.setContent(body,"text/html");

@@ -138,6 +138,7 @@ public class InvoiceOverviewBean implements Serializable {
     private boolean failureResult;
     private boolean resultFromTo=true;
     private boolean resultToFrom=true;
+    private String mailLnag = "";
 
     public InvoiceOverviewBean() {
         super();
@@ -152,7 +153,11 @@ public class InvoiceOverviewBean implements Serializable {
         valueList = new ValueListSplit();
 
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Invoice overview bean");
-        
+
+        if(session.getAttribute("lang")!= null) {
+            mailLnag = (String)session.getAttribute("lang");
+        }
+
         if(session.getAttribute("Partner_Object_List") != null){
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
@@ -380,7 +385,7 @@ if(partnerInfoList.size() == 1) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "AccountValue="+getBindings().getAccount().getValue());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "getCardGpCardList="+getBindings().getCardGpCardList().getValue());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "getCardGroup="+getBindings().getCardGroup().getValue());
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "getCard="+getBindings().getCard().getValue());  
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "getCard="+getBindings().getCard().getValue());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "ToDate="+getBindings().getToDate().getValue());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "FromDate ="+newFromDate +"To Date = "+ newToDate);
                 ViewObject invoiceVO =ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
@@ -669,10 +674,10 @@ if(partnerInfoList.size() == 1) {
         getBindings().getToDate().setValue(null);
         accountList=new ArrayList<SelectItem>();
         accountValue=new ArrayList<String>();
-        cardGroupValue=new ArrayList<String>(); 
-        cardGroupList=   new ArrayList<SelectItem>(); 
-        cardValue=new ArrayList<String>(); 
-        cardList=    new ArrayList<SelectItem>();  
+        cardGroupValue=new ArrayList<String>();
+        cardGroupList=   new ArrayList<SelectItem>();
+        cardValue=new ArrayList<String>();
+        cardList=    new ArrayList<SelectItem>();
         searchResults=false;
         cGCardVisible=false;
         cardVisible=false;
@@ -683,7 +688,7 @@ if(partnerInfoList.size() == 1) {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getToDate());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceType());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-        
+
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting clearSearchListener for Invoices");
     }
 
@@ -1005,22 +1010,22 @@ if(partnerInfoList.size() == 1) {
                 cGCardVisible=false;
                 cardVisible=false;
                 cardGroupVisible=false;
-                
+
                 this.partnerValue = null;
-                
+
                 getBindings().getCardGpCardList().setSubmittedValue(null);
                 getBindings().getCardGpCardList().setValue(null);
                 accountList=new ArrayList<SelectItem>();
-                accountValue=new ArrayList<String>(); 
-                cardGroupValue=new ArrayList<String>(); 
-                cardGroupList=   new ArrayList<SelectItem>(); 
-                cardValue=new ArrayList<String>(); 
-                cardList=    new ArrayList<SelectItem>();  
-                
+                accountValue=new ArrayList<String>();
+                cardGroupValue=new ArrayList<String>();
+                cardGroupList=   new ArrayList<SelectItem>();
+                cardValue=new ArrayList<String>();
+                cardList=    new ArrayList<SelectItem>();
+
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());  
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting partnerValueChangeListner for Invoices");
     }
@@ -1111,7 +1116,7 @@ if(partnerInfoList.size() == 1) {
 
     public String open_popup() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside open_popup(Email functionality) for Invoices");
-        
+
         System.out.println("Inside popup");
 
 
@@ -1569,8 +1574,9 @@ for(int i=0;i<prop.length;i++)
         lang = (String)session.getAttribute(Constants.userLang);
         System.out.println("lang "+lang);
         }
-        String contact_Link=daoFactory.getPropertyValue("CONTACT_STATOIL"+"_"+lang);
-        String engagePortalLink=daoFactory.getPropertyValue("WSPORTAL_LINK"+"_"+lang);
+
+        String contact_Link=daoFactory.getPropertyValue("CONTACT_STATOIL"+"_"+mailLnag);
+        String engagePortalLink=daoFactory.getPropertyValue("WSPORTAL_LINK"+"_"+mailLnag);
 
         System.out.println("In mail meethod");
         boolean sendEmail = false;
@@ -1609,7 +1615,7 @@ for(int i=0;i<prop.length;i++)
                      System.out.println("Day name: " + dayOfMonth);
 
 
-                   String env = "/u01/WCP_DEV/stores/images/statoil__loggero.jpg";
+                   String env = "/u01/WCP_QAT/stores/images/statoil_logo.jpg";
                    //String env = "C:\\Users\\10604129\\Desktop\\IMG_3380.jpg";
 
 
@@ -1662,14 +1668,14 @@ for(int i=0;i<prop.length;i++)
         //            "            <div style=\"font-size:20px; font-family:gerogia; color:#73D2EE;\"><b>Welcome to Statoil </b></div>\n" +
         //            "              <div style=\"font-size:28px;\">consectetur adipiscing elit. Vestibulum magna enim, volutpat nec imperdiet id</div>\n" +
                 "<div style=\"font-size:16px;\"><br>\n" +
-                    "<i>  Dear Customer, <br><br>" +
+                  //  "<i>  Dear Customer, <br><br>" +
                 //"<i>  Dear " + first_name + ",<br><br>" +
-               // getLocalizedString("ENCLOSED", lang) +
+                getLocalizedString("ENCLOSED", mailLnag) +
                 //"<a href=" + engagePortalLink +"><font Color=\"#F89518\">"+ getLocalizedString("ENGAGE_PORTAL", lang)+ "</font></a>"+
 
-             //                 "."+ getLocalizedString("HESITATE", lang) +"<br>" +
-               // getLocalizedString("AUTOGENERATED", lang) + "<br>"+
-             //   getLocalizedString("CONTACTDETAILS", lang) + "<a href=" + contact_Link + "><font Color=\"#F89518\">"+getLocalizedString("HERE", lang)+"</font></a>"+
+                              "."+ getLocalizedString("HESITATE", mailLnag) +"<br>" +
+                getLocalizedString("AUTOGENERATED", mailLnag) + "<br>"+
+                getLocalizedString("CONTACTDETAILS", mailLnag) + "<a href=" + contact_Link + "><font Color=\"#F89518\">"+getLocalizedString("HERE", mailLnag)+"</font></a>"+
                 //"Sincerely,<br>SFR Engage Portal Team" +
         //            "TWe look forward to serve you better on your every online shopping experience. Do visit us soon!<br><br>"+
     //                "<a href=\"http://www.statoilfuelretail.com\"><font Color=\"#F89518\">www.statoilfuelretail.com</a></font>"+
@@ -1718,6 +1724,9 @@ for(int i=0;i<prop.length;i++)
     //                        isError = true;
                         sendEmail = false;
                         System.out.println("Error");
+                    }
+                    else {
+                        sendEmail = true;
                     }
                 }
                 else {
@@ -2115,6 +2124,14 @@ for(int i=0;i<prop.length;i++)
 
 
 
+    }
+
+    public void setMailLnag(String mailLnag) {
+        this.mailLnag = mailLnag;
+    }
+
+    public String getMailLnag() {
+        return mailLnag;
     }
 
     public class Bindings {

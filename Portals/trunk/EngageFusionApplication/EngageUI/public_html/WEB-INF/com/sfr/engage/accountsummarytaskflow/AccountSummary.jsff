@@ -519,7 +519,7 @@
           <af:outputText value=":" id="ot80"/>
           <af:spacer width="10" height="10" id="s64"/>
 
-               <af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : bindings.PartnerCountry.inputValue}"
+               <af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : bindings.PartnerCountry.inputValue eq 'HU' ? (sfr.COUNTRY_HUNGARY) : bindings.PartnerCountry.inputValue eq 'RO' ? (sfr.COUNTRY_ROMANIA) : bindings.PartnerCountry.inputValue eq 'BG' ? (sfr.COUNTRY_BULGARIA) : bindings.PartnerCountry.inputValue eq 'DE' ? (sfr.COUNTRY_GERMANY) :  bindings.PartnerCountry.inputValue eq 'BA' ? (sfr.COUNTRY_BOSNIA) : bindings.PartnerCountry.inputValue eq 'PL' ? (sfr.COUNTRY_POLAND) : bindings.PartnerCountry.inputValue}"
 
 
                             id="it38"
@@ -1199,8 +1199,8 @@
               <af:spacer width="10" height="10" id="s274"/>
               <af:spacer width="10" height="10" id="s275"/>
               <af:spacer width="10" height="10" id="s276"/>
-              
-              
+
+
               <af:outputText value="#{sfr.CARD_TEXTLINE_2}" id="ot59"/>
           <af:outputText value=":" id="ot60"/>
           <af:spacer width="10" height="10" id="s18"/>
@@ -1216,7 +1216,7 @@
               <af:spacer width="10" height="10" id="s21"/>
               <af:spacer width="10" height="10" id="s22"/>
               <af:spacer width="10" height="10" id="s23"/>
-              
+
               <af:spacer width="10" height="10" id="s98"/>
               <af:spacer width="10" height="10" id="s290"/>
               <af:spacer width="10" height="10" id="s291"/>
@@ -1226,7 +1226,7 @@
               <af:spacer width="10" height="10" id="s51"/>
               <af:spacer width="10" height="10" id="s289"/>
               <af:spacer width="10" height="10" id="s288"/>
-              
+
               <af:outputText value="#{sfr.CARD_TYPE}" id="ot110"/>
           <af:outputText value=":" id="ot111"/>
           <af:spacer width="10" height="10" id="s96"/>
@@ -1368,7 +1368,8 @@
                <af:outputText value="#{sfr.CARD_INV_COUNTRY}" id="ot14"/>
           <af:outputText value=":" id="ot15"/>
           <af:spacer width="10" height="10" id="s13"/>
-              <af:inputText value="#{bindings.PartnerCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.PartnerCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.PartnerCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : 'Error' }"
+
+              <af:inputText value="#{bindings.InvoiceCountry.inputValue eq 'SE' ? (sfr.COUNTRY_SWEDEN) : bindings.InvoiceCountry.inputValue eq 'DK' ? (sfr.COUNTRY_DENMARK) : bindings.InvoiceCountry.inputValue eq 'NO' ? (sfr.COUNTRY_NORWAY) : bindings.InvoiceCountry.inputValue eq 'HU' ? (sfr.COUNTRY_HUNGARY) : bindings.InvoiceCountry.inputValue eq 'RO' ? (sfr.COUNTRY_ROMANIA) : bindings.InvoiceCountry.inputValue eq 'BG' ? (sfr.COUNTRY_BULGARIA) : bindings.InvoiceCountry.inputValue eq 'DE' ? (sfr.COUNTRY_GERMANY) :  bindings.InvoiceCountry.inputValue eq 'BA' ? (sfr.COUNTRY_BOSNIA) : bindings.InvoiceCountry.inputValue eq 'PL' ? (sfr.COUNTRY_POLAND) : bindings.InvoiceCountry.inputValue}"
 
                             simple="true"  readOnly="true"
                             required="#{bindings.InvoiceCountry.hints.mandatory}"
