@@ -74,7 +74,7 @@ width: 75% !important;
 }
 
 .OraBGColorMedium, .af_tree_data-row.p_AFSelected.p_AFFocused .af_tree_node-stamp-text, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_table_data-row.p_AFSelected.p_AFFocused .af_column_banded-data-cell, .af_selectOneListbox_item.p_AFDisabled.p_AFSelected, .af_showDetailFrame .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .WCContent > div > .af_region .af_table_data-row.p_AFSelected.p_AFFocused .af_column_data-cell, .af_selectManyChoice_item.p_AFSelected, .af_selectOrderShuttle_item.p_AFSelected, .af_selectManyShuttle_item.p_AFSelected {
-background-color: rgba(196, 206, 224, 0);
+background-color: transparent !important;
 }
 
 .af_column_column-filter-cell {
