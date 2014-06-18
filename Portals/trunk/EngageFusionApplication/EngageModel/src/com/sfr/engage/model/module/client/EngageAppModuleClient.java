@@ -17,16 +17,6 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
     public EngageAppModuleClient() {
     }
 
-
-    public void updateVehicleDriver(String cardNumber, String type,
-                                    String countryCd,
-                                    String vehicleDriverValue) {
-        Object _ret =
-            this.riInvokeExportedMethod(this,"updateVehicleDriver",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, type, countryCd, vehicleDriverValue});
-        return;
-    }
-
-
     public void deleteAllForAccount(String accountId, String type,
                                     String countryCd, String regDriverValue) {
         Object _ret =
@@ -50,15 +40,6 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
         return;
     }
 
-    public void updateVehicleDriver(String cardNumber, String type,
-                                    String countryCd,
-                                    String vehicleDriverValue,
-                                    String associatedAccount) {
-        Object _ret =
-            this.riInvokeExportedMethod(this,"updateVehicleDriver",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, type, countryCd, vehicleDriverValue, associatedAccount});
-        return;
-    }
-
     public String getTranslation(String translationkey, String ccCode) {
         Object _ret =
             this.riInvokeExportedMethod(this,"getTranslation",new String [] {"java.lang.String","java.lang.String"},new Object[] {translationkey, ccCode});
@@ -71,6 +52,16 @@ public class EngageAppModuleClient extends ApplicationModuleImpl implements Enga
                                        String previousOdometer) {
         Object _ret =
             this.riInvokeExportedMethod(this,"updatePreviousOdometer",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, accountId, countryCd, partnerId, transactionId, previousOdometer});
+        return;
+    }
+
+    public void updateVehicleDriver(String cardNumber, String type,
+                                    String countryCd,
+                                    String vehicleDriverValue,
+                                    String associatedAccount,
+                                    String modifiedBy) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"updateVehicleDriver",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {cardNumber, type, countryCd, vehicleDriverValue, associatedAccount, modifiedBy});
         return;
     }
 }

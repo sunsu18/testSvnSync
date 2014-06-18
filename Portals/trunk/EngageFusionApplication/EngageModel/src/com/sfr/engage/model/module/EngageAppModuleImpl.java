@@ -33,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.GregorianCalendar;
@@ -43,6 +44,7 @@ import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.ViewObject;
 import oracle.jbo.domain.Date;
+
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
 
@@ -190,40 +192,49 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                     }
             }
 
-        public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount) {
-            System.out.println("inside update vehicle driver");
-            System.out.println("cardNumber in Application module===>"+cardNumber);
-            System.out.println("type in application module====>"+type);
-            System.out.println("countryCd in application module=====>"+countryCd);
-            System.out.println("regDriverValue in apppilcation module====>"+vehicleDriverValue);
-            System.out.println("associatedAccount in apppilcation module====>"+associatedAccount);
+        public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount,String modifiedBy ) {
+            System.out.println("inside update vehicle driver method in AM");
             Connection con=null;
             PreparedStatement pStmt = null;
             String statement = null;
-        
+            
+
             try {
+               String modifiedDate = null;
+                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                java.util.Date effectiveFromDate =(java.util.Date)GregorianCalendar.getInstance().getTime();;
+                modifiedDate = sdf.format(effectiveFromDate);
+                
                 Statement stmt = getDBTransaction().createStatement(0);
                 con = stmt.getConnection();
+                
+                if(cardNumber == null) {
+                    cardNumber=""; 
+                }
                 if(type.equals("Driver")){
                     if(vehicleDriverValue!= null){
                     System.out.println("Inside this block of driver in application moule");
-                    statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+                        statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+                    
                     }
-                }else{
-                    if(type.equals("Vehicle")){
+                 
+                }else if(type.equals("Vehicle")){
+                        if(vehicleDriverValue!= null ){
                     System.out.println("Inside this block of vehicle in application moule");
-                        statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+                        statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
+                        
+                        }
                     }
-                }
+                
         
                 pStmt = con.prepareStatement(statement);
                 pStmt.executeUpdate();
                 con.commit();
             } catch (SQLException sqle) {
                 sqle.getMessage();
-            } finally {
+                } finally {
                 try {
-                    pStmt.close();
+                        pStmt.close();
                 } catch (SQLException sqle) {
                     sqle.getMessage();
                 }
@@ -248,6 +259,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                 pStmt.executeUpdate();
                 con.commit();
             } catch (SQLException sqle) {
+                
                 sqle.getMessage();
             } finally {
                 try {
@@ -259,10 +271,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
 
         public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
-        System.out.println("transaction id in Application module===>"+urefTransactionId);
-        System.out.println("countryCd in application module=====>"+palsCountryCode);
-        System.out.println("odometer value in apppilcation module====>"+odoMeterPortalValue);
-
+        System.out.println("Inside UpdateOdometerPortal mehthod in application module" );
+        
         try {
             ViewObject rvo = getPrtCardTransactionHeaderVO1();
             ViewCriteria vc = rvo.createViewCriteria();
@@ -335,6 +345,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
         return translatedValue;
     }
+
 
 
 
@@ -416,6 +427,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         this.setSysDate(newJboDate);
         return newJboDate;
     }
+    
 
     /**
      * Container's getter for PrtLatestCardTransactionsRVO1.
