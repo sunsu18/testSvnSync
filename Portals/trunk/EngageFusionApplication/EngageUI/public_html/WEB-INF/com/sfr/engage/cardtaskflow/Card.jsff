@@ -621,7 +621,7 @@
                      inlineStyle="height:180px;">
  <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"  partialTriggers="t1:cil1"
                                valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
-                    inlineStyle="margin-left: -20px;">
+                    inlineStyle="margin-left: -20px !important;">
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
@@ -633,7 +633,8 @@
                                 value="#{pageFlowScope.CardBean.driverNameValue}"
                                 contentStyle="width: 175px;"
                                    valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}" autoSubmit="true"
-                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                   binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                    inlineStyle="margin-left: -5px !important;">
                     <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -642,7 +643,7 @@
                 </af:selectOneChoice>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl70" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
- <af:selectOneChoice id="soc2" showRequired="false"
+ <af:selectOneChoice id="soc2" showRequired="false" inlineStyle="margin-left: -5px !important;"
                                    partialTriggers="sor1 t1:cil1"
                                 value="#{pageFlowScope.CardBean.vehicleNumberValue}"
                                 contentStyle="width: 175px;" autoSubmit="true"
