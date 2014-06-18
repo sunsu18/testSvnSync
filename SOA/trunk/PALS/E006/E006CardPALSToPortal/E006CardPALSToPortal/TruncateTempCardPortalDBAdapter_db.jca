@@ -1,6 +1,6 @@
 <adapter-config name="TruncateTempCardPortalDBAdapter" adapter="Database Adapter" wsdlLocation="TruncateTempCardPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
   <endpoint-interaction portType="TruncateTempCardPortalDBAdapter_ptt" operation="TruncateTempCardPortalDBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
       <property name="SqlString" value="DELETE FROM SOA_PRT_CARD_TEMP"/>

@@ -712,6 +712,15 @@
                     <to variable="ErrorFlag"/>
                   </copy>
                 </assign>
+                <assign name="XformPALSvalidDataTovalidateCardData">
+                  <bpelx:annotation>
+                    <bpelx:pattern>transformation</bpelx:pattern>
+                  </bpelx:annotation>
+                  <copy>
+                    <from expression="ora:doXSLTransformForDoc('xsl/XformPALSvalidDataTovalidateCardData.xsl', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection, 'AccountSummaryCardReqMsg.invocationMsg', $AccountSummaryCardReqMsg.invocationMsg)"/>
+                    <to variable="ValidateCardData"/>
+                  </copy>
+                </assign>
               </sequence>
             </catch>
           </faultHandlers>
@@ -1323,6 +1332,7 @@
         <empty name="Empty"/>
       </otherwise>
     </switch>
+    <!--
           <sequence name="CheckRecordsIfExists">
         <assign name="AssignSelectDeltaTSInputValues">
           <copy>
@@ -1448,6 +1458,6 @@
           <empty name="Empty"/>
         </otherwise>
       </switch>
-    </sequence>
+    </sequence>-->
   </sequence>
 </process>

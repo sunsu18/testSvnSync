@@ -1,6 +1,6 @@
 <adapter-config name="CardPortalProcDBAdapter" adapter="Database Adapter" wsdlLocation="CardPortalProcDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
   <endpoint-interaction portType="CardPortalProcDBAdapter_ptt" operation="CardPortalProcDBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
       <property name="SchemaName" value="WCPCUSTOM"/>

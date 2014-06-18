@@ -1,6 +1,6 @@
 <adapter-config name="MergeCardPortalDBAdapter" adapter="Database Adapter" wsdlLocation="MergeCardPortalDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
   <endpoint-interaction portType="MergeCardPortalDBAdapter_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeCardPortalDBAdapter.PrtCard"/>
