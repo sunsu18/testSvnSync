@@ -379,10 +379,10 @@
         <af:panelGroupLayout id="pgl17">
         <af:spacer width="500" height="25" id="s56"/>
         </af:panelGroupLayout>
-        <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
-                              inlineStyle="width:930.0px; height:25.0px;">
+        <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal" halign="right"
+                              inlineStyle="height:25.0px;">
 
- <af:panelGroupLayout id="pgl54" inlineStyle="width:650.0px;"
+ <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
                                layout="horizontal">
             
            <af:panelGroupLayout id="pgl55" styleClass="filter_table"
@@ -406,7 +406,8 @@
 
 
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteText}"
-                           id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"/>
+                           id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"
+                           noWrap="true"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:spacer width="10" height="2" id="spacer2"/>
