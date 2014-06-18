@@ -1,6 +1,6 @@
 <adapter-config name="SelectJDEE1DBAdaptorV1" adapter="Database Adapter" wsdlLocation="SelectJDEE1DBAdaptorV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/JDEE1XA" UIConnectionName="JDE_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/JDEE1" UIConnectionName="JDE_DEV" adapterRef=""/>
   <endpoint-interaction portType="SelectJDEE1DBAdaptorV1_ptt" operation="SelectJDEE1DBAdaptorV1Select">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="SelectJDEE1DBAdaptorV1.F5542112"/>

@@ -4,7 +4,7 @@
    <class-mapping-descriptors>
       <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
          <class>SelectJDEE1DBAdaptorV1.F5542112</class>
-         <alias>CRPRDTA.F5542112</alias>
+         <alias>F5542112</alias>
          <primary-key>
             <field table="F5542112" name="TLDCTO" xsi:type="column"/>
             <field table="F5542112" name="TLDOCO" xsi:type="column"/>
@@ -627,7 +627,7 @@
          <instantiation/>
          <copying xsi:type="instantiation-copy-policy"/>
          <tables>
-            <table name="CRPRDTA.F5542112"/>
+            <table name="F5542112"/>
          </tables>
          <structure>structureName</structure>
       </class-mapping-descriptor>
