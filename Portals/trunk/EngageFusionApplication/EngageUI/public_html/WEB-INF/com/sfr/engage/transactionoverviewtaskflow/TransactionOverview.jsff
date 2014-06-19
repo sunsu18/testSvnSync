@@ -21,7 +21,7 @@
       <af:panelGroupLayout id="pgl3" layout="horizontal"
                            inlineStyle="width:960.0px;">
         <af:panelGroupLayout id="pgl4" layout="vertical"
-                             inlineStyle="width:350px; height:211.0px;"
+                             inlineStyle="width:380px; height:211.0px;"
                              valign="top">
           <h:panelGrid columns="6" id="pg1">
 
@@ -30,7 +30,7 @@
             <af:spacer width="10" height="15" id="s6"/>
                <af:outputText value=":" id="ot2a"/>
               <af:spacer width="10" height="35" id="s6a"/>
-            <af:selectOneChoice id="smc1" contentStyle="width: 175px;" partialTriggers="cb3"
+            <af:selectOneChoice id="smc1" contentStyle="width: 200px;" partialTriggers="cb3"
                                   unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
                                  value="#{pageFlowScope.TransactionOverviewBean.partnerIdValue}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.partner}"
@@ -47,7 +47,7 @@
              <af:spacer width="10" height="15" id="s8"/>
                <af:outputText value=":" id="ot2as"/>
               <af:spacer width="10" height="35" id="s6as"/>
-            <af:selectManyChoice id="soc3" contentStyle="width: 150px; height:14px;" showRequired="false"
+            <af:selectManyChoice id="soc3" contentStyle="width: 175px; height:14px;" showRequired="false"
                                 value="#{pageFlowScope.TransactionOverviewBean.accountIdValue}"
                                 binding="#{pageFlowScope.TransactionOverviewBean.bindings.account}"
                                 autoSubmit="true"
@@ -81,7 +81,7 @@
             <af:spacer width="10" height="15" id="s7"/>
               <af:outputText value=":" id="ot2a1"/>
               <af:spacer width="10" height="35" id="s6a1"/>
-            <af:selectManyChoice id="smc2" contentStyle="width:150px; height:14px;"
+            <af:selectManyChoice id="smc2" contentStyle="width:175px; height:14px;"
                                  value="#{pageFlowScope.TransactionOverviewBean.typeValue}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.transationType}">
               <af:forEach items="#{pageFlowScope.TransactionOverviewBean.typeList}"
@@ -96,7 +96,7 @@
             <af:spacer width="10" height="15" id="s54"/>
                <af:outputText value=":" id="ot72"/>
               <af:spacer width="10" height="35" id="s55"/>
-            <af:selectOneChoice id="smc7" contentStyle="width: 175px;" partialTriggers="cb3"
+            <af:selectOneChoice id="smc7" contentStyle="width: 200px;" partialTriggers="cb3"
                                  value="#{pageFlowScope.TransactionOverviewBean.reportFormatValue}" autoSubmit="true"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.reportFormat}"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.reportFormatValueChangeListener}">
@@ -153,7 +153,7 @@
               <af:inputDate id="id1"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.fromDate}"
                                 inlineStyle="margin-left: 13px"
-                                contentStyle="width: 150px;">
+                                contentStyle="width: 175px;">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             <af:spacer width="20" height="20"
@@ -161,7 +161,7 @@
             <af:inputDate id="id2"
                             binding="#{pageFlowScope.TransactionOverviewBean.bindings.toDate}"
                                 inlineStyle="margin-left: 13px"
-                                contentStyle="width: 150px;">
+                                contentStyle="width: 175px;">
               <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             <af:spacer width="20" height="20" id="s42"/>
@@ -243,7 +243,7 @@
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroup}"
                                    valuePassThru="true"
                                    value="#{pageFlowScope.TransactionOverviewBean.cardGroupValue}"
-                                   contentStyle="width:150px;height:14px;">
+                                   contentStyle="width:175px;height:14px;">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.cardGroupList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -278,7 +278,7 @@
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.driverName}"
                                    valuePassThru="true"
                                    value="#{pageFlowScope.TransactionOverviewBean.driverNameValue}"
-                                   contentStyle="width:150px;height:14px;">
+                                   contentStyle="width:175px;height:14px;">
                <af:forEach items="#{pageFlowScope.TransactionOverviewBean.driverNameList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -311,7 +311,7 @@
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.vehicleNumber}"
                                    valuePassThru="true"
                                    value="#{pageFlowScope.TransactionOverviewBean.vehicleNumberValue}"
-                                   contentStyle="width:150px;height:14px;">
+                                   contentStyle="width:175px;height:14px;">
                 <af:forEach items="#{pageFlowScope.TransactionOverviewBean.vehicleNumberList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -326,7 +326,7 @@
             <af:panelGroupLayout id="pgl8" layout="horizontal"
                                  inlineStyle="width:348.0px;" halign="right">
 
-              <af:spacer width="190" height="10" id="s5"/>
+              <af:spacer width="240" height="10" id="s5"/>
               <af:commandButton text="#{sfr.SEARCH}" id="cb2"
               actionListener="#{pageFlowScope.TransactionOverviewBean.searchTransactionAction_event}">
               </af:commandButton>

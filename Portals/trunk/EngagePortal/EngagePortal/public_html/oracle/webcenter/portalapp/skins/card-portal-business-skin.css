@@ -31,13 +31,8 @@ padding-right:30px;
 .af_dialog_main {
 position: relative;
 width: 100%;
-z-index: 2;
-opacity: 1 !important;
 border: 1px solid #3cb6ce;
-box-shadow: -2px 0px 12px #888888;
--webkit-box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
--moz-box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
-box-shadow: 0px 0px 16px 0px rgba(50, 50, 51, 0.69);
+
 }
 
 
@@ -773,7 +768,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#259cba', end
 }*/
 
 .outputText, .af_document,.af_panelFormLayout_content-cell{
-padding-top:15px !important;
+/*padding-top:15px !important;*/
 color:#524e4f; 
 font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
@@ -812,15 +807,14 @@ color: #524e4f;
 
 
 .af_panelWindow_title, .af_dialog_title {
-margin-top: 2px;
 cursor: default;
 white-space: nowrap;
 color: #3cb6ce;
 font-family: Lucida Sans,Georgia,Serif !important;
 font-size: 16px;
 font-weight: bolder;
-margin-left: 4px;
-margin-top: 10px;
+margin-left: 1px;
+margin-top: 5px;
 }
 
 /*******************************AF:Table***********************************/

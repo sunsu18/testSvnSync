@@ -132,7 +132,7 @@
              <af:selectManyChoice id="smc3" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"
                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGroup}"
                              value="#{pageFlowScope.InvoiceOverviewBean.cardGroupValue}"
-                             contentStyle="width: 150px;">
+                             contentStyle="width: 175px;">
         <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.cardGroupList}"
                     var="listItem">
          <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -245,7 +245,7 @@
               <af:selectOneChoice id="soc1" unselectedLabel="#{sfr.CARD}" disabled="true"
                           binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceType}"
                           value="#{pageFlowScope.InvoiceOverviewBean.invoiceTypeValue}"
-                          contentStyle="width: 168px;">
+                          contentStyle="width: 193px;">
        <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.invoiceTypeList}"
                    var="listItem">
         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -256,13 +256,13 @@
                                                           id="s31"/>
             <af:inputDate id="fromId"
                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.fromDate}"
-                    contentStyle="width: 144px;">
+                    contentStyle="width: 169px;">
        <af:convertDateTime pattern="dd.MM.yyyy"/>
       </af:inputDate>
             <af:spacer width="20" height="20" id="s32"/>
               <af:inputDate id="id1"
                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.toDate}"
-                    contentStyle="width: 144px;">
+                    contentStyle="width: 169px;">
        <af:convertDateTime pattern="dd.MM.yyyy"/>
       </af:inputDate>
                          
@@ -282,7 +282,7 @@
       <af:spacer width="10" height="10" id="s11"/>
       <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
-       <af:spacer width="50" height="10" id="s33"/>                        
+       <af:spacer width="28" height="10" id="s33"/>                        
      </af:panelGroupLayout>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
