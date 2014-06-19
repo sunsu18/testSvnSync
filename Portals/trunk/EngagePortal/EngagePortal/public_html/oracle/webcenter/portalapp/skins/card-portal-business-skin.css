@@ -549,7 +549,7 @@ body {
     border-right: 2px solid gray;
     
     margin: 0;
-   overflow-x:hidden;
+   /*overflow-x:hidden;*/
     width: 962px;
    
 }
@@ -1205,9 +1205,9 @@ font-style:normal;
      }
      .af_panelAccordion_header .af_panelAccordion_undisclosed-icon-style,
 .af_panelAccordion_header .af_panelAccordion_disclosed-icon-style{
-    margin-right:-15px !important;
-    margin-left:-2px !important;
-} 
+    margin-right:3px !important;
+    margin-left:0px !important;
+}
 
 .af_panelAccordion_header .af_panelAccordion_header-start, .af_panelAccordion_header .af_panelAccordion_header-toolbar, .af_panelAccordion_header .af_panelAccordion_header-title, .af_panelAccordion_header .af_panelAccordion_header-end{
     width:1 !important;
