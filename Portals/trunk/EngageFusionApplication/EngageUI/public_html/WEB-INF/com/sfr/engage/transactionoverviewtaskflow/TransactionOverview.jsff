@@ -412,7 +412,7 @@
         </af:panelGroupLayout>
         <af:spacer width="10" height="2" id="spacer2"/>
       <af:panelGroupLayout id="pgl21" layout="scroll">
-        <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}"
+        <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}" binding="#{pageFlowScope.TransactionOverviewBean.bindings.searchResultsTB}"
                   var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
                   rows="#{bindings.PrtCardTransactionOverviewRVO13.rangeSize}"
                   emptyText="#{bindings.PrtCardTransactionOverviewRVO13.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"

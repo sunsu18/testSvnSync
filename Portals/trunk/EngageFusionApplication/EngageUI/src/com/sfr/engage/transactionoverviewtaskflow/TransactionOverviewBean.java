@@ -37,6 +37,7 @@ import oracle.adf.view.rich.component.rich.layout.*;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.*;
 import oracle.adf.view.rich.event.*;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
 import oracle.adf.view.rich.util.*;
 
 import oracle.binding.BindingContainer;
@@ -989,6 +990,17 @@ public class TransactionOverviewBean implements Serializable {
             }
         }
     }
+    
+    public void resetTableFilter()
+        {
+            FilterableQueryDescriptor queryDescriptor =
+                (FilterableQueryDescriptor) getBindings().getSearchResultsTB().getFilterModel();
+            if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null)
+            {
+                queryDescriptor.getFilterCriteria().clear();
+                getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
+            }
+        }
 
     public String searchResults() {
         sum = 0.000f;
@@ -1240,7 +1252,7 @@ public class TransactionOverviewBean implements Serializable {
             }
                 
             }
-            
+            resetTableFilter();
             accountQuery="(";
             cardGroupQuery="(";
             cardQuery="((";
@@ -4077,6 +4089,7 @@ public class TransactionOverviewBean implements Serializable {
         private RichPopup odometer_PopUp;
         private RichTable searchTable;
         private RichOutputText noteText;
+        private RichTable searchResultsTB;
 
         public void setOdometer_PopUp(RichPopup odometer_PopUp) {
             this.odometer_PopUp = odometer_PopUp;
@@ -4313,6 +4326,14 @@ public class TransactionOverviewBean implements Serializable {
 
         public RichOutputText getNoteText() {
             return noteText;
+        }
+
+        public void setSearchResultsTB(RichTable searchResultsTB) {
+            this.searchResultsTB = searchResultsTB;
+        }
+
+        public RichTable getSearchResultsTB() {
+            return searchResultsTB;
         }
     }
 }
