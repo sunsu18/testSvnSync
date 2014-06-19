@@ -1199,7 +1199,7 @@ public class AccountSummary implements Serializable {
                     while (cardVO.hasNext()) {
                         PrtCardVORowImpl currRow = (PrtCardVORowImpl)cardVO.next();
                         if (currRow.getCardType() != null) {
-                            if (!cardTypeList.contains(currRow.getCardType())) {
+                            if (!cardTypeList.contains(currRow.getCardType()) && currRow.getBlockLevel().toString().equalsIgnoreCase("KSI") && !currRow.getBlockAction().toString().equalsIgnoreCase("2")) {
                                 cardTypeList.add(currRow.getCardType());
                             }
                             String card = cardTypeList.toString();
