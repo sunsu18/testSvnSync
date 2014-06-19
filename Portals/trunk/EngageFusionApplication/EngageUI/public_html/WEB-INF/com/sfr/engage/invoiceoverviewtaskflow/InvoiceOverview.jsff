@@ -16,24 +16,24 @@
                   inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
    </af:panelGroupLayout>
    <af:spacer width="10" height="15" id="s17"/>
-   
+
  <af:panelGroupLayout id="pgl6" layout="horizontal"
                            inlineStyle="width:960.0px;">
    <af:panelGroupLayout id="pgl9" layout="vertical"
                              inlineStyle="width:380px; height:150.0px;"
                              valign="top">
-      
+
        <h:panelGrid columns="4" id="pg2" cellpadding="3"
                cellspacing="2" style="text-align:left; vertical-align:top;">
                 <af:panelGroupLayout id="pgl12"
                       inlineStyle="height:auto; text-align:justify; width:8.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                    <af:outputText value="*" id="col"/>
                    <af:spacer width="20" height="25" id="s21"/>
                     <af:outputText value=" " id="ot14"/>
                    <af:spacer width="20" height="30" id="s18"/>
                    <af:outputText value="*" id="ot18"/>
-                                              
+
           </af:panelGroupLayout>
                <af:panelGroupLayout id="pgl36"
                       inlineStyle="height:auto; text-align:justify; width:130.0px;overflow:hidden;"
@@ -43,17 +43,17 @@
         <af:outputText value="#{sfr.ENGAGE_ACCOUNT}" id="ot54"/>
            <af:spacer width="20" height="20" id="s20"/>
        <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot34"/>
-        
+
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl34"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                    <af:outputText value=":" id="ot12"/>
                    <af:spacer width="20" height="20" id="s36"/>
                     <af:outputText value=":" id="ot33"/>
                    <af:spacer width="20" height="20" id="s43"/>
                    <af:outputText value=":" id="ot41"/>
-                                              
+
           </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl18"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
@@ -90,40 +90,40 @@
        <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si11"/>
        <af:selectItem label="#{sfr.CARD}" value="Card" id="si10"/>
       </af:selectOneRadio>
-            </af:panelGroupLayout>                 
-       </h:panelGrid>  
-      
+            </af:panelGroupLayout>
+       </h:panelGrid>
+
        <af:panelGroupLayout id="pgl27" layout="vertical"
         visible="#{pageFlowScope.InvoiceOverviewBean.CGCardVisible}"
         binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGroupPGL}" >
-       
-       
+
+
        <af:panelGroupLayout id="pgl10"
                                  >
             <h:panelGrid columns="4" id="pg3">
-            
+
               <af:panelGroupLayout id="pgl35"
                       inlineStyle="height:auto; text-align:justify; width:16.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                    <af:outputText value=" " id="ot51"/>
-                   
-                                              
+
+
           </af:panelGroupLayout>
               <af:panelGroupLayout id="pgl38"
                       inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;"
                                                layout="vertical">
                                                <af:spacer width="10" height="10" id="spacer5"/>
-                                                
+
                 <af:outputText value="#{sfr.ENGAGE_CARD_GROUP}" id="ot39" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
             </af:panelGroupLayout>
              <af:panelGroupLayout id="pgl39"
                       inlineStyle="height:auto; text-align:justify; width:15.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                                                 <af:spacer width="10" height="10"
                                                            id="s34"/>
                                                <af:outputText value=":"
                                                               id="ot38" visible="#{pageFlowScope.InvoiceOverviewBean.cardGroupVisible}"/>
-             </af:panelGroupLayout>                               
+             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl40"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
@@ -141,18 +141,18 @@
         </af:selectManyChoice>
               </af:panelGroupLayout>
               </h:panelGrid>
-             
+
                </af:panelGroupLayout>
-              
+
                <af:panelGroupLayout id="pgl11">
-       
+
               <h:panelGrid columns="4" id="pg5" style="margin-top: -6px !important;">
               <af:panelGroupLayout id="pgl37"
                       inlineStyle="height:auto; text-align:justify; width:16.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                    <af:outputText value=" " id="ot52"/>
-                   
-                                              
+
+
           </af:panelGroupLayout>
              <af:panelGroupLayout id="pgl41"
                       inlineStyle="height:auto; text-align:justify; width:132.0px;overflow:hidden;margin-bottom: 6px !important;"
@@ -161,7 +161,7 @@
                                                </af:panelGroupLayout>
               <af:panelGroupLayout id="pgl43"
                       inlineStyle="height:auto; text-align:justify; width:15.0px;margin-bottom: 12px !important;"
-                                               layout="vertical">  
+                                               layout="vertical">
                                                <af:outputText value=":"
                                                               id="ot40" visible="#{pageFlowScope.InvoiceOverviewBean.cardVisible}"/>
              </af:panelGroupLayout>
@@ -181,14 +181,14 @@
               </af:panelGroupLayout>
               </h:panelGrid>
               </af:panelGroupLayout>
-       
-       
-       
-                             
-                             
+
+
+
+
+
    </af:panelGroupLayout>
    </af:panelGroupLayout>
-   
+
         <af:panelGroupLayout id="pgl5">
       <af:separator id="s4" styleClass="vertical_seprator_trans"
                     inlineStyle="height: 150px !important;"/>
@@ -203,13 +203,13 @@
 
         <af:panelGroupLayout id="pgl42"
                       inlineStyle="height:auto; text-align:justify; width:8.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                    <af:outputText value=" " id="ot15"/>
                    <af:spacer width="20" height="35" id="s44"/>
                     <af:outputText value="*" id="ot67"/>
                    <af:spacer width="20" height="20" id="s46"/>
                    <af:outputText value="*" id="ot68"/>
-                                              
+
           </af:panelGroupLayout>
 
             <af:panelGroupLayout id="pgl31"
@@ -220,12 +220,12 @@
          <af:outputText value="#{sfr.ENGAGE_FROM}" id="ot4"/>
            <af:spacer width="20" height="20" id="s28"/>
           <af:outputText value="#{sfr.ENGAGE_TO}" id="ot6"/>
-        
+
             </af:panelGroupLayout>
-            
+
             <af:panelGroupLayout id="pgl32"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
                                                <af:outputText value=":"
                                                               id="ot5"/>
                                                <af:spacer width="20" height="20"
@@ -236,9 +236,9 @@
                                                           id="s30"/>
                                                           <af:outputText value=":"
                                                                          id="ot9"/>
-                                              
+
                                                </af:panelGroupLayout>
-                                               
+
         <af:panelGroupLayout id="pgl33"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
@@ -265,9 +265,9 @@
                     contentStyle="width: 169px;">
        <af:convertDateTime pattern="dd.MM.yyyy"/>
       </af:inputDate>
-                         
-                                               
-            </af:panelGroupLayout>                                       
+
+
+            </af:panelGroupLayout>
 
 
  </h:panelGrid>
@@ -282,7 +282,8 @@
       <af:spacer width="10" height="10" id="s11"/>
       <af:commandButton text="#{sfr.CLEAR}" id="cb2"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.clearSearchListener}"/>
-       <af:spacer width="28" height="10" id="s33"/>                        
+
+       <af:spacer width="28" height="10" id="s33"/>
      </af:panelGroupLayout>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
@@ -302,7 +303,7 @@
     <af:panelGroupLayout id="pgl14" layout="horizontal">
      <af:outputText value="#{sfr.ENGAGE_INVOICE_DETAILS} :" id="ot8"
                     styleClass="subheading" noWrap="true"/>
-                    
+
                     </af:panelGroupLayout>
                     <af:panelGroupLayout id="pgl17">
         <af:spacer width="500" height="2" id="s56"/>
@@ -310,10 +311,10 @@
    <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
                               inlineStyle="width:930.0px; height:25.0px;"
                         halign="right">
-                              
+
                               <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
                                layout="horizontal">
-            
+
            <af:panelGroupLayout id="pgl55" styleClass="filter_table"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
@@ -322,26 +323,26 @@
           <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl56" layout="vertical">
             <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot13" styleClass="outputText3"/>
-             
+
            </af:panelGroupLayout>
            </af:noteWindow>
          </af:popup>
          </af:panelGroupLayout>
-         
+
           <af:separator id="s47" styleClass="vertical_seprator_trans"
                     inlineStyle="height:20.0px !important;" />
-  
-        
-  
+
+
+
      <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}" id="ot22" styleClass="popupoutputText"
                     noWrap="true"/>
-   
+
     </af:panelGroupLayout>
-    
+
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl13" inlineStyle="width:962.0px;">
      <af:spacer width="10" height="10" id="s7"/>
-    
+
      <af:table value="#{bindings.PrtNewInvoiceVO1.collectionModel}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
                rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" var="row" width="962px"
                emptyText="#{bindings.PrtNewInvoiceVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
@@ -376,7 +377,7 @@
         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
-     
+
       <af:column sortProperty="InvoicingDueDate" filterable="true" width="125" align="center" filterFeatures="caseInsensitive"
                  sortable="true"
                  headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
@@ -394,7 +395,7 @@
                     sortable="true">
        <af:outputText value="#{sfr.CARD}" id="ot66"/>
       </af:column>
-      
+
       <af:column sortProperty="netAmount" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
                  headerText="#{sfr.ENGAGE_INVOICE_NET}"
                  id="c2">
@@ -447,41 +448,50 @@
       <af:dialog id="d1" title="#{sfr.EMAIL_CONFIRMATION}"
                  dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}" shortDesc="#{sfr.SURE_SEND_EMAIL}" styleClass="textDialogs"
                  contentWidth="330" type="none"
-                 inlineStyle="width:330px;">
+                 inlineStyle="width:330px;" closeIconVisible="false">
 <af:panelGroupLayout id="pgl19">
          <af:separator id="s24" inlineStyle="width: 325px; margin-left: 0px!important;"/>
          </af:panelGroupLayout>
-       
-       
-        <af:panelGroupLayout id="pgl60" styleClass="successPanel" layout="horizontal" visible="#{pageFlowScope.InvoiceOverviewBean.successResult}"
+
+<af:panelGroupLayout id="pgl63" binding="#{pageFlowScope.InvoiceOverviewBean.resultPanel}" partialTriggers="it12 cb3">
+<af:panelGroupLayout id="pgl60" styleClass="successPanel" layout="horizontal" visible="#{pageFlowScope.InvoiceOverviewBean.successResult}"
                                    inlineStyle="width:325.0px;">
-               <af:outputText id="ot63" value="#{sfr.MAIL_SUCCESSFUL}" 
+               <af:outputText id="ot63" value="#{sfr.MAIL_SUCCESSFUL}"
                               styleClass="successOutputText" noWrap="true"/>
                 </af:panelGroupLayout>
                  <af:panelGroupLayout id="pgl8" styleClass="infoPanel" layout="horizontal" visible="#{pageFlowScope.InvoiceOverviewBean.invoiceNotFound}"
                                       inlineStyle="width:325.0px;">
-                <af:outputText id="ot64"  value="#{sfr.INVOICE_NOT_FOUND}" 
+                <af:outputText id="ot64"  value="#{sfr.INVOICE_NOT_FOUND}"
                                styleClass="infoOutputText" noWrap="true"/>
                 </af:panelGroupLayout>
                  <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal"  visible="#{pageFlowScope.InvoiceOverviewBean.failureResult}"
                                       inlineStyle="width:325.0px;">
                 <af:outputText id="ot65"  value="#{sfr.MAIL_NOT_FOUND}"
-                              
+
                                noWrap="true" styleClass="errorOutputText"/>
               </af:panelGroupLayout>
+               <af:panelGroupLayout id="pgl64" styleClass="errorPanel" layout="horizontal"
+                                      inlineStyle="width:325.0px;" visible="#{pageFlowScope.InvoiceOverviewBean.validEmail}">
+                <af:outputText id="ot75"  value="Please Enter Valid Email id"
+
+                               noWrap="true" styleClass="errorOutputText"/>
+              </af:panelGroupLayout>
+              </af:panelGroupLayout>
               <af:spacer height="10" id="s13"/>
-              
-              
+
+
 
         <af:panelGroupLayout id="pgl28" layout="vertical">
           <af:spacer height="10" id="s39" />
           <af:outputText value="#{sfr.CONFIRM_EMAIL_ID} :"
-                         inlineStyle="padding-left: 5px;" noWrap="true"/>
+                         inlineStyle="padding-left: 5px;" noWrap="true" id="ot74"/>
           <af:spacer width="10" height="2" id="s6"/>
           <af:panelGroupLayout id="pgl30" styleClass="AFStretchWidth" layout="horizontal">
-            <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}" id="it12" readOnly="false"
-                          binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}" contentStyle="width: 300px; margin-left: -2px;">
-              <!--<af:validateRegExp pattern="[a-zA-Z0-9\._]+@[a-zA-Z0-9]+.com"/>-->
+            <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}" id="it12" readOnly="true"
+                          binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}" contentStyle="width: 300px; margin-left: -2px;"
+                          autoSubmit="true" valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.resetResults}">
+
+              <!--<af:validateRegExp pattern="[a-zA-Z0-9\._]+@[a-zA-Z0-9]+.com" hint="Email Validation" messageDetailNoMatch="Please enter valid email"/>-->
             </af:inputText>
             <af:spacer id="s19" height="5"/>
 
@@ -489,15 +499,17 @@
 
             <af:spacer width="0" height="0" binding="#{pageFlowScope.InvoiceOverviewBean.spacerFetchUserEmail}" />
           </af:panelGroupLayout>
-              
+
 
         </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right" styleClass="AFStretchWidth">
- <!--<af:spacer width="10" height="20" id="s61"/>-->
+
  <af:commandButton text="#{sfr.OK}" id="cb3" actionListener="#{pageFlowScope.InvoiceOverviewBean.triggerMailProcess}"/>
-  <af:spacer width="20" height="20" id="s60" inlineStyle="margin-top: 13px;"/> 
+      <af:spacer width="20" id="s61"/>
+ <af:commandButton text="#{sfr.CANCEL}" id="cb4" actionListener="#{pageFlowScope.InvoiceOverviewBean.closeEmailPopup}"/>
+  <af:spacer width="20" height="20" id="s60" inlineStyle="margin-top: 13px;"/>
  </af:panelGroupLayout>
-    
+
       </af:dialog>
     </af:popup>
    <af:popup id="invoice_details" contentDelivery="immediate"
@@ -534,17 +546,17 @@
          </af:outputText>
 
         </af:panelGroupLayout>
-        
+
          <af:panelGroupLayout id="pgl62">
          <af:separator id="s5" inlineStyle="width:852.0px;"/>
          </af:panelGroupLayout>
-        
+
         <af:panelGroupLayout id="pgl16" halign="right"
                              inlineStyle="width:330px;">
-                             
+
          <h:panelGrid columns="3" id="pg1" cellpadding="3"
                cellspacing="2" style="text-align:left; vertical-align:top;">
-         
+
          <af:panelGroupLayout id="pgl24"
                       inlineStyle="height:auto; text-align:justify; width:130.0px;overflow:hidden;"
                                                layout="vertical">
@@ -560,7 +572,7 @@
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl25"
                       inlineStyle="height:auto; text-align:justify; width:20.0px;"
-                                               layout="vertical">  
+                                               layout="vertical">
               <af:outputText value=":"  id="ot21"/>
               <af:spacer width="20" height="20" id="s16"/>
                <af:outputText value=":"  id="ot23"/>
@@ -571,8 +583,8 @@
               <af:spacer width="20" height="20" id="s48"/>
                <af:outputText value=":"  id="ot32"/>
               </af:panelGroupLayout>
-              
-              
+
+
                <af:panelGroupLayout id="pgl47"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
@@ -609,7 +621,7 @@
            <af:commandImageLink id="cil4" styleClass="mail_icon"
                                 icon="/images/mail_send.png" action="#{pageFlowScope.InvoiceOverviewBean.open_popup}"/>
             </af:panelGroupLayout>
-            <af:spacer width="20" height="20" id="s52"/>                                 
+            <af:spacer width="20" height="20" id="s52"/>
             <af:selectOneRadio id="selectOneRadio1" layout="horizontal"
 
                               autoSubmit="true"
@@ -622,9 +634,9 @@
                            value="InvoiceCollections" id="selectItem2"/>
            </af:selectOneRadio>
             </af:panelGroupLayout>
-         
-         
-         
+
+
+
          </h:panelGrid>
          </af:panelGroupLayout>
         <af:spacer width="10" height="10" id="s22"/>
@@ -642,11 +654,11 @@
                          styleClass="subheading"/>
           <af:panelGroupLayout id="pgl26" layout="horizontal" halign="right"
                                inlineStyle="width:610.0px; height:15.0px;">
-                               
-                               
+
+
           <af:panelGroupLayout id="pgl59" inlineStyle="width:50.0px;"
                                layout="horizontal">
-            
+
            <af:panelGroupLayout id="pgl51" styleClass="filter_table"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
@@ -655,22 +667,22 @@
           <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl52" layout="vertical">
             <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot71" styleClass="outputText3" />
-             
+
            </af:panelGroupLayout>
            </af:noteWindow>
          </af:popup>
          </af:panelGroupLayout>
-         
+
           <af:separator id="s55" styleClass="vertical_seprator_trans"
-                    inlineStyle="height:20.0px !important;" />                      
-                               
-                               
+                    inlineStyle="height:20.0px !important;" />
+
+
            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
                           id="ot27" styleClass="popupoutputText" noWrap="true"/>
           </af:panelGroupLayout>
          </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s25"/>
-     
+
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="840px"
                    rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
@@ -751,11 +763,11 @@
           <af:panelGroupLayout id="pgl46" layout="horizontal"
                                halign="right"
                                inlineStyle="width:600.0px; height:15.0px;">
-                               
-                               
+
+
            <af:panelGroupLayout id="pgl53" inlineStyle="width:50.0px;"
                                layout="horizontal">
-            
+
            <af:panelGroupLayout id="pgl57" styleClass="filter_table"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
@@ -764,23 +776,23 @@
           <af:noteWindow id="nw3" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl58" layout="vertical">
             <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot72" styleClass="outputText3" />
-             
+
            </af:panelGroupLayout>
            </af:noteWindow>
          </af:popup>
          </af:panelGroupLayout>
-         
+
           <af:separator id="s57" styleClass="vertical_seprator_trans"
-                    inlineStyle="height:20.0px !important;" />                     
-                               
-                               
+                    inlineStyle="height:20.0px !important;" />
+
+
            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
                           id="outputText2" styleClass="popupoutputText"
                           noWrap="true"/>
           </af:panelGroupLayout>
          </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="spacer2"/>
-        
+
          <af:table value="#{bindings.PrtInvoiceDetailVo1.collectionModel}"
                    var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
                    emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
@@ -808,7 +820,7 @@
              </af:inputDate>
            </f:facet>
            <!--<af:outputText value="#{row.InvoiceDate}" id="ot58">
-             
+
            </af:outputText>-->
            <af:outputText value="#{row.InvoicingDate}" id="ot58">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
@@ -828,7 +840,7 @@
              <af:convertDateTime pattern="dd.MM.yyyy"/>
            </af:outputText>
           </af:column>
-          
+
               <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c9" align="left" sortable="true"
                          width="50">
        <af:outputText value="#{sfr.CARD}" id="ot70"/>
@@ -838,8 +850,8 @@
            <!--<af:outputText value="#{row.InvoicedCard}" id="ot73"/>-->
            <af:outputText value="#{row.CardEmbossNum}" id="ot73" truncateAt="15"/>
           </af:column>
-         
-          <af:column sortProperty="InvNetAmount" filterable="true" align="right" filterFeatures="caseInsensitive" 
+
+          <af:column sortProperty="InvNetAmount" filterable="true" align="right" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_NET}"
                      id="c12">

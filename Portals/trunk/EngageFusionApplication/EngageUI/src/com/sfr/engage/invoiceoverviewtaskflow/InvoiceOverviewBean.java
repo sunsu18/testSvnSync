@@ -136,9 +136,12 @@ public class InvoiceOverviewBean implements Serializable {
     private boolean invoiceNotFound;
     private boolean successResult;
     private boolean failureResult;
+    private boolean validEmail;
     private boolean resultFromTo=true;
     private boolean resultToFrom=true;
     private String mailLnag = "";
+    private boolean setreceipent = true;
+    private RichPanelGroupLayout resultPanel;
 
     public InvoiceOverviewBean() {
         super();
@@ -472,9 +475,10 @@ if(partnerInfoList.size() == 1) {
                 accountQuery="(";
                 cardGroupQuery="(";
                 cardQuery="(";
-                System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
+
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
@@ -1117,7 +1121,10 @@ if(partnerInfoList.size() == 1) {
     public String open_popup() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside open_popup(Email functionality) for Invoices");
 
-        System.out.println("Inside popup");
+        successResult = false;
+         invoiceNotFound = false;
+         failureResult = false;
+         //validEmail = false;
 
 
         ViewObject invoiceVO =
@@ -1129,8 +1136,8 @@ if(partnerInfoList.size() == 1) {
 
         if(invoiceNumberValuePdf != null)
         {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice requested " + invoiceNumberValuePdf);
 
-            System.out.println("Invoice requested " + invoiceNumberValuePdf);
 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
                 request = (HttpServletRequest)ectx.getRequest();
@@ -1144,7 +1151,8 @@ if(partnerInfoList.size() == 1) {
 
         else
         {
-            System.out.println("Note able to find requested invoice");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Note able to find requested invoice");
+
 
         }
 
@@ -1163,6 +1171,7 @@ if(partnerInfoList.size() == 1) {
     }
 
     public byte[] searchGetFile(String invoiceNumber) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass()+ "Inside searchGetFile method");
 
         byte[] responseByteArr = null;
         Boolean isError=false;
@@ -1248,14 +1257,17 @@ for(int i=0;i<prop.length;i++)
                 try {
                     uCMCustomWeb = new DAOFactory().getUCMService();
                     if (uCMCustomWeb != null) {
-                        System.out.println("UCM input meta tags");
+
+
+
+
                         for(int i=0;i<searchInputVO.getSearchInputQueryProperty().size();i++)
-                        {System.out.println(searchInputVO.getSearchInputQueryProperty().get(i).getValue());}
+                        {_logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM input meta tags " +searchInputVO.getSearchInputQueryProperty().get(i).getValue());}
                         List<SearchResultVO> UCMInvoiceContentIdList = uCMCustomWeb.searchDocument(searchInputVO);
 
-                        System.out.println("UCM LIST SIZE.get(0):"+UCMInvoiceContentIdList.get(0));// Instead of printing this, print what was the Invoice search criteria
-                        System.out.println("UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +UCMInvoiceContentIdList.get(0).getSearchResultMetadata().size());
-                        System.out.println("content id "+ UCMInvoiceContentIdList.get(0).getContentID());// toString ki wajeh se null pointer aata hai
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):"+UCMInvoiceContentIdList.get(0));// Instead of printing this, print what was the Invoice search criteria
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +UCMInvoiceContentIdList.get(0).getSearchResultMetadata().size());
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "content id "+ UCMInvoiceContentIdList.get(0).getContentID());// toString ki wajeh se null pointer aata hai
                         if(UCMInvoiceContentIdList.size()>0)
                         {
                         ucmContentId = UCMInvoiceContentIdList.get(0).getContentID();
@@ -1275,6 +1287,8 @@ for(int i=0;i<prop.length;i++)
                     _logger.severe(accessDC.getDisplayRecord() + this.getClass()  + " " + ".fileDownload : " + "Exception");
                     e.printStackTrace();
                 }
+
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass()+ "Exiting searchGetFile method");
                 return responseByteArr;
 
     }
@@ -1375,7 +1389,7 @@ for(int i=0;i<prop.length;i++)
 
             ViewObject invoiceDetailVO =ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
             invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
-            System.out.println(" Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
             invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
@@ -1454,9 +1468,9 @@ for(int i=0;i<prop.length;i++)
             {
         //
                String mail_result =  triggermail();
-               System.out.println("Notification of Mail " + mail_result);
+               _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mail_result);
                if(mail_result !=null && mail_result.equalsIgnoreCase("success")) {
-                   System.out.println("Mail send successfully");
+                   _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Mail send successfully");
                    /*
                    if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                    //                        FacesMessage msg =
@@ -1486,7 +1500,7 @@ for(int i=0;i<prop.length;i++)
 
                }
                    if(mail_result !=null && mail_result.equalsIgnoreCase("failure")) {
-                        System.out.println("INVOICE_TODATE_LESSTHAN");
+
          /*              if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                        //                        FacesMessage msg =
                        //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -1513,7 +1527,7 @@ for(int i=0;i<prop.length;i++)
 
                    }
                 if(mail_result == null) {
-                    System.out.println("Invoice not Found");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice not Found");
                 /*
                  if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                 //                        FacesMessage msg =
@@ -1546,14 +1560,14 @@ for(int i=0;i<prop.length;i++)
             }
         else
         {
-            System.out.println("mail cancelled");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " mail cancelled");
         return;
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting confirmation_popup_value for Invoices");
     }
 
     private String getLocalizedString(String Key, String countryCode) {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass() + "invoiceOverviewBean.getLocalizedString : "+"in getLocalizedString");
+
                 HashMap paramList = new HashMap();
 
                 paramList.put("translationkey", Key);
@@ -1566,19 +1580,20 @@ for(int i=0;i<prop.length;i++)
                 }
 
     public String triggermail() {
-
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside Trigger Mail");
         DAOFactory daoFactory = new DAOFactory();
 
 
         if(session!= null) {
         lang = (String)session.getAttribute(Constants.userLang);
-        System.out.println("lang "+lang);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " lang "+lang);
         }
 
-        String contact_Link=daoFactory.getPropertyValue("CONTACT_STATOIL"+"_"+mailLnag);
-        String engagePortalLink=daoFactory.getPropertyValue("WSPORTAL_LINK"+"_"+mailLnag);
+        String contact_Link=daoFactory.getPropertyValue("CONTACT_STATOIL"+"_"+ conversionUtility.getLangForWERCSURL(mailLnag));
+        String engagePortalLink=daoFactory.getPropertyValue("WSPORTAL_LINK"+"_"+ conversionUtility.getLangForWERCSURL(mailLnag));
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Support link in Mail is " + contact_Link);
 
-        System.out.println("In mail meethod");
+
         boolean sendEmail = false;
 
 
@@ -1593,7 +1608,7 @@ for(int i=0;i<prop.length;i++)
         if(session.getAttribute("SESSION_USER_INVOICE_REQ") != null)
         {
         invoice_req = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
-        System.out.println("invoice req = " + invoice_req);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " invoice req = " + invoice_req);
         }
         }
 
@@ -1610,12 +1625,10 @@ for(int i=0;i<prop.length;i++)
                         int year =cal.get(Calendar.YEAR);
                      int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 
-                       System.out.println("Month name: " + month);
-                        System.out.println("year name: " + year);
-                     System.out.println("Day name: " + dayOfMonth);
 
 
-                   String env = "/u01/WCP_QAT/stores/images/statoil_logo.jpg";
+                  String env = DAOFactory.getPropertyValue("STATOIL_IMAGE_MAIL");
+                   //String env = "/u01/WCP_QAT/stores/images/statoil_logo.jpg";
                    //String env = "C:\\Users\\10604129\\Desktop\\IMG_3380.jpg";
 
 
@@ -1723,7 +1736,7 @@ for(int i=0;i<prop.length;i++)
                     if (responseByteArr == null || responseByteArr.length == 0) {
     //                        isError = true;
                         sendEmail = false;
-                        System.out.println("Error");
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Error");
                     }
                     else {
                         sendEmail = true;
@@ -1732,13 +1745,13 @@ for(int i=0;i<prop.length;i++)
                 else {
                     responseByteArr = searchGetFile(invoice_req);
                     if(responseByteArr!=null && responseByteArr.length!=0) {
-                      System.out.println(responseByteArr.length);
+                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                         sendEmail = true;
                     }else
                     {
                     //isError = true;
                     sendEmail = false;
-                        System.out.println("Eoorororoo");
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoo");
                     }
 
                 }
@@ -1747,11 +1760,11 @@ for(int i=0;i<prop.length;i++)
                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is null");
                      responseByteArr=searchGetFile(invoice_req);
                    if(responseByteArr!=null && responseByteArr.length!=0) {
-                       System.out.println(responseByteArr.length);
+                       _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                        sendEmail = true;
                    }else {
                        sendEmail=false;
-                   System.out.println("Eoorororoodddd");
+                   _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Eoorororoodddd");
                    }
 
                 }
@@ -1761,7 +1774,7 @@ for(int i=0;i<prop.length;i++)
 
 
             } catch (Exception e) {
-                System.out.println("fileDownload : " + "Exception");
+                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + "fileDownload : " + "Exception");
                 e.printStackTrace();
             }
 
@@ -1771,12 +1784,12 @@ for(int i=0;i<prop.length;i++)
 
 
 
-            //System.out.println("hiten");
+
 
             try{
                 if(sendEmail)
                 {
-            System.out.println("sending email" + sendEmail +" to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " sending email" + sendEmail +" to " + email_recipient_popup.getValue().toString() + "for invoice " + invoice_req +"having byte array size as"+ responseByteArr.length);
             emailutility.sendEmail("no-reply.SFR-Services@statoilfuelretail.com",
             email_recipient_popup.getValue().toString(),
              "Statoilfuelretail : Invoice Delivery", email2, "smtp", "smtp.statoilfuelretail.com",cc,responseByteArr,env,invoice_req);
@@ -1785,16 +1798,17 @@ for(int i=0;i<prop.length;i++)
                 }
                 else {
 
-                    System.out.println("Throw adf message of mail can not be send");
+                    _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Throw adf message of mail can not be send");
 
 
-
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
                     return null;
                 }
 
                 }
             catch(Exception e) {
-                System.out.println("error in mail");
+                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Error in mail");
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting Trigger Mail()");
                 e.printStackTrace();
                 return "failure";
 
@@ -1811,48 +1825,42 @@ for(int i=0;i<prop.length;i++)
     }
 
     public String getTo_recipient() {
-//        System.out.println("inside getTo_recipient");
-//        if (session != null) {
-//            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-//                global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-//                System.out.println("Invoice bean : "+"user first name in my profile bean " + global_user.getFirstName());
-//                to_recipient = global_user.getEmailID();
-//            }
-//            else
-//                to_recipient = "";
-//
-//
-//        }
-//        else
-//            System.out.println("No session found in constructor of InvoiceOverviewBean");
-//
-//        System.out.println("user det in cons" + global_user.getFirstName());
+
         return to_recipient;
     }
 
     public void setEmail_recipient_popup(RichInputText email_recipient_popup) {
-        System.out.println("inside setEmail_recipient_popup");
-        if (session != null) {
+
+        if(setreceipent){
+    if (session != null) {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
                 global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                 if(global_user.getEmailID()!= null) {
-                    System.out.println("Invoice bean : "+"user first name in my profile bean " + global_user.getEmailID());
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() +" Invoice bean : "+"user email id in my profile bean " + global_user.getEmailID());
                                     email_recipient_popup.setValue(global_user.getEmailID().trim());
+
                 }else
-                {System.out.println("Invoice bean : "+"user first name in my profile bean " + global_user.getFirstName());
-                email_recipient_popup.setValue(global_user.getFirstName().toString().trim());}
+                {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice bean : "+"user first name in my profile bean " + global_user.getFirstName());
+                email_recipient_popup.setValue(global_user.getFirstName().toString().trim());
+                }
+                }
 
 
             }
             else
-                email_recipient_popup.setValue("temp");
+            {
+                email_recipient_popup.setValue("");
+            }
+        setreceipent = false;
 
 
-        }
-        else
-            System.out.println("No session found in constructor of InvoiceOverviewBean");
+    }
 
-        System.out.println("user det in cons" + global_user.getFirstName());
+
+
+
+
         this.email_recipient_popup = email_recipient_popup;
     }
 
@@ -1869,24 +1877,6 @@ for(int i=0;i<prop.length;i++)
     }
 
     public void setSpacerFetchUserEmail(RichSpacer spacerFetchUserEmail) {
-        System.out.println("inside setSpacerFetchUserEmail");
-
-//        if (session != null) {
-//            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-//                global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-//                System.out.println("Invoice bean : "+"user first name in my profile bean " + global_user.getFirstName());
-//                to_recipient = global_user.getEmailID();
-//            }
-//            else
-//                to_recipient = "";
-//
-//
-//        }
-//        else
-//            System.out.println("No session found in constructor of InvoiceOverviewBean");
-//        AdfFacesContext.getCurrentInstance().addPartialTarget(email_recipient_popup);
-//
-//        System.out.println("user det in cons" + global_user.getFirstName());
         this.spacerFetchUserEmail = spacerFetchUserEmail;
     }
 
@@ -1897,30 +1887,12 @@ for(int i=0;i<prop.length;i++)
     }
 
     public void setMailRecipient(String mailRecipient) {
-    System.out.println("inside setMailRecipient");
-//        if (session != null) {
-//            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
-//                global_user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-//                System.out.println("Invoice bean : "+"user first name in my profile bean " + global_user.getFirstName());
-//                mailRecipient = global_user.getEmailID();
-//            }
-//            else
-//                mailRecipient = "";
-//
-//
-//        }
-//        else
-//            System.out.println("No session found in constructor of InvoiceOverviewBean");
-//
-//        System.out.println("user det in cons" + global_user.getFirstName());
-
-
 
         this.mailRecipient = mailRecipient;
     }
 
     public String getMailRecipient() {
-        System.out.println("inside getMailRecipient");
+
         return mailRecipient;
     }
 
@@ -2026,11 +1998,23 @@ for(int i=0;i<prop.length;i++)
         // Add event code here...
 
 
+
+
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Entering triggerMailProcess");
+
+//        Validations validObj = new Validations();
+//        boolean validemail = validObj.validateEmail(email_recipient_popup.getValue().toString());
+//        if(validemail)
+//        {
+       // validEmail = false;
+        failureResult = false;
+        invoiceNotFound = false;
+        successResult = false;
         //
                String mail_result =  triggermail();
-               System.out.println("Notification of Mail " + mail_result);
+                  _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Notification of Mail " + mail_result);
                if(mail_result !=null && mail_result.equalsIgnoreCase("success")) {
-                   System.out.println("Mail send successfully");
+                      _logger.info(accessDC.getDisplayRecord() + this.getClass() +" Mail send successfully");
                    /*
                    if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                    //                        FacesMessage msg =
@@ -2051,6 +2035,7 @@ for(int i=0;i<prop.length;i++)
                    failureResult = false;
                    invoiceNotFound = false;
                    successResult = true;
+                 //  validEmail = false;
         //                   mailResult.setVisible(true);
         //                   mailResultInvoiceNotFound.setVisible(false);
         //                   mailResultFailure.setVisible(false);
@@ -2060,7 +2045,7 @@ for(int i=0;i<prop.length;i++)
 
                }
                    if(mail_result !=null && mail_result.equalsIgnoreCase("failure")) {
-                        System.out.println("INVOICE_TODATE_LESSTHAN");
+                       _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Mail was not generated");
          /*              if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
                        //                        FacesMessage msg =
                        //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -2077,6 +2062,7 @@ for(int i=0;i<prop.length;i++)
          failureResult = true;
          invoiceNotFound = false;
          successResult = true;
+                      // validEmail = false;
 
         //         mailResult.setVisible(false);
         //         mailResultInvoiceNotFound.setVisible(false);
@@ -2087,42 +2073,34 @@ for(int i=0;i<prop.length;i++)
 
                    }
                 if(mail_result == null) {
-                    System.out.println("Invoice not Found");
-                /*
-                 if (resourceBundle.containsKey("INVOICE_TODATE_LESSTHAN")) {
-                //                        FacesMessage msg =
-                //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                //                                             (String)resourceBundle.getObject("INVOICE_TODATE_LESSTHAN"),
-                //                                             "");
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         "Invoice not Found",
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null,
-                                                                 msg);
-                }*/
+                    _logger.severe(accessDC.getDisplayRecord() + this.getClass() + " Invoice not Found");
+
+
 
 
                 failureResult = false;
                 invoiceNotFound = true;
                 successResult = false;
+                //validEmail = false;
 
 
-        //                mailResult.setVisible(false);
-        //                mailResultInvoiceNotFound.setVisible(true);
-        //                mailResultFailure.setVisible(false);
-        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResult);
-        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultInvoiceNotFound);
-        //                    AdfFacesContext.getCurrentInstance().addPartialTarget(mailResultFailure);
 
 
                 }
 
-                System.out.println("Result is " + failureResult + " " + invoiceNotFound + " " + successResult);
+                //_logger.info(accessDC.getDisplayRecord() + this.getClass() + "Result is " + failureResult + " " + invoiceNotFound + " " + successResult);
 
 
-
-
+   // }
+//        else {
+//
+//            validEmail = true;
+//            failureResult = false;
+//            invoiceNotFound = false;
+//            successResult = false;
+//
+//        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting ntering triggerMailProcess");
 
     }
 
@@ -2132,6 +2110,44 @@ for(int i=0;i<prop.length;i++)
 
     public String getMailLnag() {
         return mailLnag;
+    }
+
+    public void setSetreceipent(boolean setreceipent) {
+        this.setreceipent = setreceipent;
+    }
+
+    public boolean isSetreceipent() {
+        return setreceipent;
+    }
+
+    public void closeEmailPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        getConfirmation_mail_popup().hide();
+    }
+
+    public void setResultPanel(RichPanelGroupLayout resultPanel) {
+        this.resultPanel = resultPanel;
+    }
+
+    public RichPanelGroupLayout getResultPanel() {
+        return resultPanel;
+    }
+
+    public void setValidEmail(boolean validEmail) {
+        this.validEmail = validEmail;
+    }
+
+    public boolean isValidEmail() {
+        return validEmail;
+    }
+
+    public void resetResults(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        //System.out.println("value change listner");
+        successResult = false;
+        invoiceNotFound  = false;
+        failureResult  = false;
+        //validEmail  = false;
     }
 
     public class Bindings {
@@ -2161,7 +2177,7 @@ for(int i=0;i<prop.length;i++)
         public void setFromDate(RichInputDate fromDate) {
             if(resultFromTo)
             {
-            System.out.println("Date should be setted to sys date -1 month");
+
             Date dateNow = new java.util.Date();
             GregorianCalendar gc = new GregorianCalendar();
             gc.setTime(dateNow);
@@ -2185,7 +2201,7 @@ for(int i=0;i<prop.length;i++)
         public void setToDate(RichInputDate toDate) {
             if(resultToFrom)
             {
-            System.out.println("Date should be setted to sys date");
+
             Date dateNow = new java.util.Date();
             SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
             String tmp = dateformat.format(dateNow);
