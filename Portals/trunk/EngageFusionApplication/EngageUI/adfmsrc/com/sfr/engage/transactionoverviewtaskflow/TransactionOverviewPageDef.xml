@@ -319,5 +319,11 @@
       <NamedData NDName="transactionId" NDType="java.lang.String"/>
       <NamedData NDName="previousOdometer" NDType="java.lang.String"/>
     </methodAction>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="Odometer">
+      <AttrNames>
+        <Item Value="Odometer"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

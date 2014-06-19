@@ -1587,6 +1587,17 @@ font-weight:bold;
 }
 
 /*Links*/
+
+.links_odometer{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px;
+color: #0047F3 !important;
+font-weight: normal !important;
+text-decoration: underline !important;
+/*font-style:bold !important;*/
+cursor: auto;
+}
+
 .links,.greylinks{
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px;

@@ -716,7 +716,7 @@
              <h:panelGrid id="pg4" columns="3">
           <af:outputText value="#{row.Odometer}" id="ot76" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
-                          id="cl1"
+                          id="cl1" styleClass="links_odometer af_goLink "
                           actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
                           <!--<af:showPopupBehavior triggerType="click" popupId="::p1"/>-->
                           </af:commandLink>
@@ -1123,11 +1123,18 @@
               id="p1">
     <af:dialog closeIconVisible="true" type="none">
       <af:panelGroupLayout id="pgl33" layout="vertical" inlineStyle="width:300px;">
-      <h:panelGrid columns="2" width="200">
-      <af:outputText value="#{sfr.MODIFIED_BY}:" id="ot64"/>
-          <af:outputText value="#{bindings.ModifiedBy.inputValue}" id="ot62"/>
-
-           <af:outputText value="#{sfr.MODIFIED_DATE}:"/>
+      <h:panelGrid columns="3" width="300">
+      
+            <af:outputText value="#{sfr.PALS_ODOMETER}" id="ot19"/>
+            <af:outputText value=":" id="ot29"/>
+            <af:outputText value="#{bindings.Odometer.inputValue}" id="ot22"/>
+      
+           <af:outputText value="#{sfr.MODIFIED_BY}" id="ot64"/>
+           <af:outputText value=":" id="ot48"/>
+           <af:outputText value="#{bindings.ModifiedBy.inputValue}" id="ot62"/>
+          
+           <af:outputText value="#{sfr.MODIFIED_DATE}"/>
+           <af:outputText value=":" id="ot58"/>
            <af:outputText value="#{bindings.PortalModifiedDate.inputValue}"
                          id="ot63">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
