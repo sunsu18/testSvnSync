@@ -215,9 +215,9 @@ public class HelpInfoBean implements Serializable {
     }
 
     public RichSpacer getGetContactLink() {
-        System.out.println("inside getGetContactLink");
+
         if(countryPortal != null){
-            System.out.println("country Portal " + countryPortal);
+
             if(countryPortal.equalsIgnoreCase("SE"))
             {
               contactSELink.setDestination("http://www.statoil.se/sv_SE/pg1332347194333/Kontakt.html");}

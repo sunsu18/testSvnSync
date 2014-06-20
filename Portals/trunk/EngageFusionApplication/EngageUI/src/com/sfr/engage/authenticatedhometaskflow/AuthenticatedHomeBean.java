@@ -96,6 +96,7 @@ public class AuthenticatedHomeBean implements Serializable {
 
     //TODO : Add java docs for all methods.
     public AuthenticatedHomeBean() {
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " constructor of AuthenticatedHomeBean");
         conversionUtility = new Conversion();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
@@ -105,18 +106,18 @@ public class AuthenticatedHomeBean implements Serializable {
         if(securityContext.isAuthenticated()){
         if(session!=null)
         {
-            System.out.println("temp1----------------------> " +  "session not null");
+
             if(session.getAttribute("profile")!=null)
             {
-                System.out.println("temp1----------------------> " +  "session getAttribute(profile) not null");
+
                 profile = (String)session.getAttribute("profile");
-                System.out.println("temp1----------------------> " +  "profile from session " + profile);
+
                 if (profile.equalsIgnoreCase("business")) {
-                    System.out.println("temp1----------------------> " +  "profile from session is business");
+
                     businessProfile = true;
                     privateProfile = false;
                 }else if (profile.equalsIgnoreCase("private")) {
-                    System.out.println("temp1----------------------> " +  "profile from session is private");
+
                     businessProfile = false;
                     privateProfile = true;
 
@@ -124,7 +125,7 @@ public class AuthenticatedHomeBean implements Serializable {
             }
 
             langSession =(String)session.getAttribute(Constants.userLang);
-            System.out.println("langSession" + langSession);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " langSession" + langSession);
 
             if (user == null) {
                 user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -141,7 +142,7 @@ public class AuthenticatedHomeBean implements Serializable {
 
             Conversion conv = new Conversion();
             lang = (String)session.getAttribute("lang");
-            System.out.println("lang" + lang);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " lang" + lang);
             profile = (String)session.getAttribute("profile");
             if(profile.equalsIgnoreCase("business"))
                 { customerType = "B2B";}
@@ -151,9 +152,9 @@ public class AuthenticatedHomeBean implements Serializable {
             DCIteratorBinding iter;
             if (bindings != null) {
                 iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
-                System.out.println("ProductsDisplayRVO1Iterator Iterator bindings found");
+
             } else {
-                System.out.println("ProductsDisplayRVO1Iterator bindings is null");
+                log.severe(accessDC.getDisplayRecord() + this.getClass() + " ProductsDisplayRVO1Iterator bindings is null");
                 iter = null;
             }
             ViewObject vo = iter.getViewObject();
@@ -162,7 +163,7 @@ public class AuthenticatedHomeBean implements Serializable {
             vo.setNamedWhereClauseParam("catalogType", "PP");
             vo.setNamedWhereClauseParam("customerType", profileSession);
             vo.executeQuery();
-            System.out.println(" vo.estimated rowcount " + vo.getEstimatedRowCount());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Top products count is " + vo.getEstimatedRowCount());
         }
         resourceBundle = new EngageResourceBundle();
         Date date = new Date();
@@ -196,7 +197,7 @@ public class AuthenticatedHomeBean implements Serializable {
         //TODO : Check if the below queries can be merged and make it one, otherwise okay.
 
         try {
-            System.out.println("lang passed in PRTPCMFEEDS is "+ conversionUtility.getCustomerCountryCode(langSession));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " lang passed in PRTPCMFEEDS is "+ conversionUtility.getCustomerCountryCode(langSession));
             if (customerTypeValue != null) {
                 ViewObject prtPCMFeedsVO =
                     ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
@@ -338,7 +339,7 @@ public class AuthenticatedHomeBean implements Serializable {
                 String idList = partnerId.toString();
                 String partnerIdList =idList.substring(1, idList.length() - 1).replace(" ", "");
 
-                System.out.println("arraylist after conversion is " + partnerIdList);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " arraylist after conversion is " + partnerIdList);
 
                 if (session != null) {
                 user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -347,18 +348,18 @@ public class AuthenticatedHomeBean implements Serializable {
                 {
                 authenticatedPanelVisible = true;
                 invoicesPanel = true;
-                 System.out.println("Higher roles found");
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " Higher roles found");
 
                 }
                 else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP)) {
                 authenticatedPanelVisible = true;
                 invoicesPanel = false;
-                System.out.println("B2B Employee role found");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " B2B Employee role found");
 
                 }else if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) || user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 authenticatedPanelVisible = false;
                 invoicesPanel = false;
-                System.out.println("CSR role found");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " CSR role found");
                 }else if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET)|| user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO)){
                     authenticatedPanelVisible = true;
                     invoicesPanel = true;
@@ -369,14 +370,14 @@ public class AuthenticatedHomeBean implements Serializable {
 
                     //authenticatedPanel.setVisible(false);
                     //AdfFacesContext.getCurrentInstance().addPartialTarget(authenticatedPanel);
-                    System.out.println("Authenticated Panel should not be visible");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Authenticated Panel should not be visible");
                     //authenticatedPanelVisible = false;
 
 
 
                     }
                     else{
-                     System.out.println("Authenticated Panel should be visible");
+                     log.info(accessDC.getDisplayRecord() + this.getClass() + " Authenticated Panel should be visible");
 
                     searchInvoices(partnerIdList, country);
                     searchTransactions(partnerIdList, country);
@@ -394,6 +395,7 @@ public class AuthenticatedHomeBean implements Serializable {
 
 
     }
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " exiting constructor of AuthenticatedHomeBean");
 
     }
 
@@ -521,8 +523,8 @@ public class AuthenticatedHomeBean implements Serializable {
 
     private void searchTransactions(String partnerId, String country) {
         ViewObject latestTransactionVO = ADFUtils.getViewObject("PrtHomeTransactions1Iterator");
-        System.out.println("Country code in Transaction VO" + country);
-        System.out.println("Arraylist in Transaction VO " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " Country code in Transaction VO" + country);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " Arraylist in Transaction VO " + partnerId);
 
         //latestTransactionVO.setWhereClause("INSTR(:cards,KSID)<>0");
         latestTransactionVO.setNamedWhereClauseParam("countryCode", country);
@@ -668,7 +670,7 @@ public class AuthenticatedHomeBean implements Serializable {
         try {
             //System.out.println("Request Context ="+ ectx.getRequestContextPath());
             //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
-            System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+            //System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
             ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
 
         } catch (IOException e) {

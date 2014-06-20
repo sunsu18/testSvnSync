@@ -127,17 +127,17 @@ public class AccountSummary implements Serializable {
             session = request.getSession(false);
 
             if (session != null) {
-                System.out.println("temp1----------------------> " + "session not null");
+
                 if (session.getAttribute("profile") != null) {
-                    System.out.println("temp1----------------------> " + "session getAttribute(profile) not null");
+
                     profile = (String)session.getAttribute("profile");
-                    System.out.println("temp1----------------------> " + "profile from session " + profile);
+
                     if (profile.equalsIgnoreCase("business")) {
-                        System.out.println("temp1----------------------> " + "profile from session is business");
+
                         businessProfile = true;
                         privateProfile = false;
                     } else if (profile.equalsIgnoreCase("private")) {
-                        System.out.println("temp1----------------------> " + "profile from session is private");
+
                         businessProfile = false;
                         privateProfile = true;
 
@@ -590,7 +590,7 @@ public class AccountSummary implements Serializable {
 
     public void treeListner(SelectionEvent selectionEvent) {
         log.fine(accessDC.getDisplayRecord() + this.getClass() + " Entering in tree selection listner ");
-        System.out.println("Selection event " + selectionEvent.getSource());
+        //System.out.println("Selection event " + selectionEvent.getSource());
 
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
@@ -624,7 +624,8 @@ public class AccountSummary implements Serializable {
 
 
         RowKeySet rowKeySet1 = selectionEvent.getAddedSet();
-        System.out.println("RowKeySet " + rowKeySet1);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " RowKeySet " + rowKeySet1);
+
         Iterator rksIterator = rowKeySet1.iterator();
         while (rksIterator.hasNext()) {
             List key1 = (List)rksIterator.next();
@@ -635,20 +636,20 @@ public class AccountSummary implements Serializable {
             treeBinding2 = (JUCtrlHierBinding)collectionModel.getRowData();
             rksImpl = new RowKeySetImpl();
             nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
-            System.out.println("Node Binding 1 " + nodeBinding1);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding 1 " + nodeBinding1);
 
 
             rksImpl.add(key1);
 
             rootNode = treeBinding.getRootNodeBinding();
-            System.out.println("rootNode " + rootNode);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
             dropNodeParent = nodeBinding1.getParent();
-            System.out.println("dropNodeParent " + dropNodeParent);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
 
 
             for (Object ob : nodeBinding1.getParent().getAttributeValues()) {
                 if (ob != null) {
-                    System.out.println("dropNodeParent after conversion " + ob.toString());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
                 }
                 break;
             }
@@ -656,7 +657,7 @@ public class AccountSummary implements Serializable {
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 id = o.toString();
-                System.out.println(" id is " + id);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
                 break;
 
 
@@ -705,7 +706,7 @@ public class AccountSummary implements Serializable {
 
                 // id = o.toString();
                 cardGroupId = o.toString();
-                System.out.println(" inside cardgroup overview id is " + cardGroupId);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
                 //                break;
 
 
@@ -721,7 +722,7 @@ public class AccountSummary implements Serializable {
 
                 // id = o.toString();
                 cardId = o.toString();
-                System.out.println(" inside card overview id is " + id);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
                 //                break;
 
 
@@ -736,7 +737,7 @@ public class AccountSummary implements Serializable {
             for (Object o : nodeBinding1.getAttributeValues()) {
 
                 partnerIdName = o.toString();
-                System.out.println(" partnerIdName is " + id);
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerIdName is " + id);
                 //                break;
 
 
@@ -964,7 +965,7 @@ public class AccountSummary implements Serializable {
 
 
         partnerId = dropNodeParent.toString();
-        System.out.println("partnerId inside accountoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
 
         partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
 
@@ -976,7 +977,7 @@ public class AccountSummary implements Serializable {
         //        }
 
         partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        System.out.println("partnerId inside accountoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside accountoverview " + partnerId);
 
 
         accountId = id;
@@ -994,7 +995,7 @@ public class AccountSummary implements Serializable {
         for (int k = 0; k < AccountList.size(); k++) {
 
             if (AccountList.get(k).getAccountNumber().equalsIgnoreCase(id)) {
-                System.out.println("Account matched");
+                //System.out.println("Account matched");
                 displayAccountOverview = AccountList.get(k).isAccountOverview();
                 break;
             }
@@ -1066,7 +1067,7 @@ public class AccountSummary implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRestrictedAccess());
 
         partnerId = dropNodeParent.getParent().toString();
-        System.out.println("partnerId inside cardgroupoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
 
         partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
         //        for(Object ob : dropNodeParent.getParent().getAttributeValues()) {
@@ -1077,7 +1078,7 @@ public class AccountSummary implements Serializable {
         //        }
 
         partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        System.out.println("partnerId inside cardgroupoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardgroupoverview " + partnerId);
 
 
         //cardGroupId = id;
@@ -1199,7 +1200,8 @@ public class AccountSummary implements Serializable {
                     while (cardVO.hasNext()) {
                         PrtCardVORowImpl currRow = (PrtCardVORowImpl)cardVO.next();
                         if (currRow.getCardType() != null) {
-                            if (!cardTypeList.contains(currRow.getCardType()) && currRow.getBlockLevel().toString().equalsIgnoreCase("KSI") && !currRow.getBlockAction().toString().equalsIgnoreCase("2")) {
+                            if (!cardTypeList.contains(currRow.getCardType()) && currRow.getBlockLevel().toString().equalsIgnoreCase("KSI") &&
+                                !currRow.getBlockAction().toString().equalsIgnoreCase("2")) {
                                 cardTypeList.add(currRow.getCardType());
                             }
                             String card = cardTypeList.toString();
@@ -1251,7 +1253,7 @@ public class AccountSummary implements Serializable {
 
         for (Object ob : dropNodeParent.getAttributeValues()) {
             cardGroupId = ob.toString();
-            System.out.println("cardgroupID after conversion " + cardGroupId);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupID after conversion " + cardGroupId);
 
         }
 
@@ -1260,7 +1262,7 @@ public class AccountSummary implements Serializable {
         dropNodeParent = dropNodeParent.getParent();
         accountId = dropNodeParent.toString();
         partnerId = dropNodeParent.getParent().toString();
-        System.out.println("partnerId inside cardoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
         partnerIdName = partnerId.substring(partnerId.indexOf(" ") + 1);
 
         //        for(Object ob : dropNodeParent.getParent().getAttributeValues()) {
@@ -1271,7 +1273,7 @@ public class AccountSummary implements Serializable {
         //        }
 
         partnerId = partnerId.substring(0, partnerId.indexOf(" "));
-        System.out.println("partnerId inside cardoverview " + partnerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " partnerId inside cardoverview " + partnerId);
 
 
         log.info(accessDC.getDisplayRecord() + this.getClass() + " card node clicked for partner object" + partner.getPartnerValue() + " & cardid " + id);
@@ -1336,9 +1338,9 @@ public class AccountSummary implements Serializable {
         //
         if (bindings != null) {
             iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
-            System.out.println("DC Iterator bindings for Card found in mypagelistner");
+
         } else {
-            System.out.println("card bindings is null");
+            log.severe(accessDC.getDisplayRecord() + this.getClass() + " PrtPartnerVO1Iterator bindings is null");
             iter1 = null;
         }
         //

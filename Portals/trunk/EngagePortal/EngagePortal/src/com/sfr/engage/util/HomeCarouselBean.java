@@ -77,13 +77,13 @@ public class HomeCarouselBean {
         return null;
     }
 
-    // TODO : ASHTHA - 02, May, 2014 : Remove below method if not used. SOP not as per format
+
 
     /**
      * @param actionEvent
      */
     public void goProductCatalogListener(ActionEvent actionEvent) {
-        System.out.println("link again");
+
     }
 
     /**
@@ -145,13 +145,13 @@ public class HomeCarouselBean {
         DCIteratorBinding iter;
         if (bindings != null) {
             iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
-            //System.out.println("DC Iterator bindings found");
+
         } else {
-                 System.out.println(accessDC.getDisplayRecord() + this.getClass() + " ProductsDisplayRVO1Iterator bindings is null");
+                 System.out.println(accessDC.getDisplayRecord() + this.getClass() + " Error : ProductsDisplayRVO1Iterator bindings is null");
             iter = null;
         }
         ViewObject vo = iter.getViewObject();
-        // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
+
         vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
 
         vo.setNamedWhereClauseParam("catalogType", "PP");
@@ -183,49 +183,7 @@ public class HomeCarouselBean {
         this.banner = banner;
     }
 
-    // TODO : ASHTHA - 02, May, 2014 : Remove the below block comment if unnecessary
-    //    public String getBanner() {
-    //
-    //        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-    //        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-    //        HttpSession session = (HttpSession)request.getSession(false);
-    //        lang = (String)session.getAttribute("lang");
-    //        profile = (String)session.getAttribute("profile");
-    ////        profile=request.getParameter("profile");
-    ////        lang=request.getParameter("lang");
-    //
-    //        if(profile.equalsIgnoreCase("private")){
-    //            if(lang.equalsIgnoreCase("se_SE")){
-    //                banner="Banner2";
-    //            }
-    //            else if(lang.equalsIgnoreCase("en_US")){
-    //                banner="Banner2";
-    //            }
-    //            else if(lang.equalsIgnoreCase("da_UK")){
-    //                banner="Banner1";
-    //            }
-    //            else if(lang.equalsIgnoreCase("no_NO")){
-    //                banner="Banner3";
-    //            }
-    //        }
-    //
-    //        else if(profile.equalsIgnoreCase("business")){
-    //            if(lang.equalsIgnoreCase("se_SE")){
-    //                banner="Banner2";
-    //            }
-    //            else if(lang.equalsIgnoreCase("en_US")){
-    //                banner="Banner2";
-    //            }
-    //            else if(lang.equalsIgnoreCase("da_UK")){
-    //                banner="Banner1";
-    //            }
-    //            else if(lang.equalsIgnoreCase("no_NO")){
-    //                banner="Banner3";
-    //            }
-    //        }
-    //
-    //        return banner;
-    //    }
+
 
     /**
      * @param card1
@@ -331,7 +289,7 @@ public class HomeCarouselBean {
                 card_name1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD");
             }
         } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
-           
+
             card_name1 = "STATOIL_BUSINESS_CARD";
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD")) {
                 card_name1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD");
@@ -359,10 +317,10 @@ public class HomeCarouselBean {
                 card_name2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD");
             }
         } else if (card2.equalsIgnoreCase("Europe-Card")) {
-           
+
             card_name2 = "STATOIL_EUROPE_CARD";
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD")) {
-               
+
                 card_name2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD");
             }
         }
@@ -490,13 +448,13 @@ public class HomeCarouselBean {
         try {
             //System.out.println("Request Context ="+ ectx.getRequestContextPath());
             //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
-            System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+            //System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
             ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
 
 
 
         } catch (IOException e) {
-            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() +" Error while redirecting to Product Catalog overview page");
+            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() +" Error : while redirecting to Product Catalog overview page");
         }
     }
 

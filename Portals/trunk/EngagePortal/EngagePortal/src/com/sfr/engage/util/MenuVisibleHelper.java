@@ -1,10 +1,9 @@
 package com.sfr.engage.util;
 
+
 import com.sfr.core.bean.User;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
-
-import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oracle.adf.share.logging.ADFLogger;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -23,9 +22,12 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.ADFContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.share.security.SecurityContext;
 
 import oracle.jbo.ViewObject;
+
+
 /* TODO : ASHTHA - 02, May, 2014 :
  *  1. ADD Class level and complete method level JAVA DOC
  *  2. Override toString() method
@@ -78,31 +80,31 @@ public class MenuVisibleHelper {
     private boolean visibleListPrice = false;
     private boolean visibleSetup = false;
     private boolean visibleChangePassword = false;
-    
+
     private User user = null;
     SecurityContext securityContext;
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
-   
+
     AccessDataControl accessDC = new AccessDataControl();
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    
+
     public MenuVisibleHelper() {
         super();
-        sfr = new EngageResourceBundle();   
+        sfr = new EngageResourceBundle();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         securityContext = ADFContext.getCurrent().getSecurityContext();
         if (user == null && session.getAttribute(Constants.SESSION_USER_INFO) != null) {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-//            System.out.println("user role list" + user.getRolelist());
+
             log.info(accessDC.getDisplayRecord() + this.getClass() + "Inside menuVisible helper construstor. user role list is " +user.getRolelist());
         }
-        
-        
-        
+
+
+
     }
 
     public void setMenuHome(String menuHome) {
@@ -122,7 +124,7 @@ public class MenuVisibleHelper {
     public String getMenuAccount() {
         if (sfr.containsKey("ACCOUNT"))
             menuAccount = (String)sfr.getObject("ACCOUNT");
-    
+
         return menuAccount;
     }
 
@@ -133,7 +135,7 @@ public class MenuVisibleHelper {
     public String getMenuAccountSummary() {
         if (sfr.containsKey("ACCOUNT_SUMMARY"))
             menuAccountSummary = (String)sfr.getObject("ACCOUNT_SUMMARY");
-      
+
         return menuAccountSummary;
     }
 
@@ -459,7 +461,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                visibleVehicles = true; 
+                visibleVehicles = true;
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
             }
         }
@@ -476,7 +478,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                visibleDrivers = true; 
+                visibleDrivers = true;
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
             }
         }
@@ -500,7 +502,7 @@ public class MenuVisibleHelper {
                    visibleTransactions = true;
                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Tab Visible " );
                }
-            
+
         }
         return visibleTransactions;
     }
@@ -606,11 +608,11 @@ public class MenuVisibleHelper {
                        if(session.getAttribute("cardTypeList")!=null){
                            cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
                        }
-                       
+
                        List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-                       String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");   
-                       
-                       DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry(); 
+                       String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");
+
+                       DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                        DCIteratorBinding iter1;
                        if (bindings != null) {
                            iter1 = bindings.findIteratorBinding("PrtCustomerCardMapRVO1_1Iterator");
@@ -619,34 +621,34 @@ public class MenuVisibleHelper {
                            log.severe(accessDC.getDisplayRecord() + this.getClass() + "bindings is null for customer card map in menu visible helper");
                            iter1 = null;
                        }
-                       
+
                        if (iter1 != null) {
                            ViewObject prtCustomerCardMapVO = iter1.getViewObject();
                            if(cardTypeList != null){
                                 prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
                             }
                             prtCustomerCardMapVO.executeQuery();
-                       
+
                             if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
                                 while (prtCustomerCardMapVO.hasNext()) {
                                     PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
                                     if (currRow != null) {
                                         customerTypeList.add(currRow.getCustomerType());
                                         log.info(accessDC.getDisplayRecord() + this.getClass() + " card type list for user is " + cardTypeList);
-//                                        System.out.println("card type list for user is " + cardTypeList);
+
                                         log.info(accessDC.getDisplayRecord() + this.getClass() + " customer type list for user is " + customerTypeList);
-//                                        System.out.println("customer type list for user is " + customerTypeList);
+
                                         if(customerTypeList.toString().trim().contains("B2B TRUCK")){
                                             visiblePricing = true;
                                             log.info(accessDC.getDisplayRecord() + this.getClass() + " Pricing tab Visible " );
-//                                            System.out.println(" Pricing tab Visible ");
+
                                         }
                                     }
                                 }
                             }
                             session.setAttribute("ListPriceVisible", visiblePricing);
                             log.info(accessDC.getDisplayRecord() + this.getClass() + " pricing tab visibility set into session " + session.getAttribute("ListPriceVisible"));
-//                            System.out.println("pricing tab visibility set into session" + session.getAttribute("ListPriceVisible"));
+
                        }
                    }
             }

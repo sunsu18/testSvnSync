@@ -29,7 +29,7 @@ public class SkinHelper extends ThreadSerialization {
     String profile;
     AccessDataControl accessDC = new AccessDataControl();
 
-    //request.getSession(true); // TODO : ASHTHA - 02, May, 2014 : Remove if not needed
+
     private String currentSkin;
 
     /**
@@ -67,16 +67,16 @@ public class SkinHelper extends ThreadSerialization {
         if (request.getParameter("portal") != null &&
             (request.getParameter("portal").toString().equalsIgnoreCase("card") || request.getParameter("portal").toString().equalsIgnoreCase("jet") ||
              request.getParameter("portal").toString().equalsIgnoreCase("petro"))) {
-           //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"before setting in session portal is " + request.getParameter("portal"));
+
             session.setAttribute("portal", request.getParameter("portal"));
         } else {
             String default_profile = "card";
-           //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"PROFILE SET TO DEFAULT = " + default_profile);
+
             session.setAttribute("portal", default_profile);
         }
 
         portal = (String)session.getAttribute("portal");
-       //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"from session" + (String)session.getAttribute("portal")); // TODO : ASHTHA - 02, May, 2014 : Use logger
+
 
         if (portal == null) {
             currentSkin = skinStyleCardPrivate;

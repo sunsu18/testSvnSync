@@ -1,19 +1,17 @@
 package com.sfr.util;
 
+
 import com.sfr.core.bean.BranchPlantBean;
 import com.sfr.core.bean.User;
-
 import com.sfr.util.constants.Constants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -23,7 +21,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
-
 import javax.faces.context.FacesContext;
 
 import javax.naming.Context;
@@ -36,18 +33,12 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import oracle.adf.model.BindingContext;
-
-import oracle.binding.OperationBinding;
-
 import oracle.adf.model.binding.DCBindingContainer;
-import oracle.adf.model.binding.DCDataControl;
 import oracle.adf.model.binding.DCIteratorBinding;
-
-import oracle.adf.model.binding.DCUtil;
-
 import oracle.adf.share.logging.ADFLogger;
 
 import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
 
 import oracle.jbo.Row;
 import oracle.jbo.RowSetIterator;
@@ -71,21 +62,21 @@ public class AccessDataControl extends ThreadSerialization {
     public void callAppModuleMethod(String methodName, HashMap paramMap) throws Exception {
         OperationBinding operationBinding = bindClientMethodWithParameters(methodName, paramMap);
         operationBinding.execute();
-        if(!operationBinding.getErrors().isEmpty()){            
+        if(!operationBinding.getErrors().isEmpty()){
             List list=operationBinding.getErrors();
             Iterator itr=list.iterator();
             String error="";
             while(itr.hasNext()){
-                error=itr.next().toString();               
-                //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());  
+                error=itr.next().toString();
+                //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
             }
             System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethod : Error occured " +error);
-            throw new Exception(error);            
+            throw new Exception(error);
         } else {
             System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethod : No Error Occured while calling method :" +methodName);
         }
     }
-   
+
     /**
      *
      * @param methodName
@@ -97,7 +88,7 @@ public class AccessDataControl extends ThreadSerialization {
         operationBinding.execute();
         return (String)operationBinding.getResult();
     }
-   
+
     /**
      *
      * @return
@@ -105,7 +96,7 @@ public class AccessDataControl extends ThreadSerialization {
     public static BindingContainer getBindings() {
 
         if (BindingContext.getCurrent().getCurrentBindingsEntry() == null) {// This code added 'cause
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getBindings: null one");  // in Partner Portal phase listener sometimes it 
+            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getBindings: null one");  // in Partner Portal phase listener sometimes it
             DCBindingContainer container = null;                            // finds BindingContext.getCurrent().getCurrentBindingsEntry()==null.
             BindingContext bcx = BindingContext.getCurrent();               // This doesnot happen for WsPortal.
             if (bcx != null) {
@@ -118,7 +109,7 @@ public class AccessDataControl extends ThreadSerialization {
         }
         return BindingContext.getCurrent().getCurrentBindingsEntry();
     }
-    
+
     /**
      *
      * @param methodName
@@ -152,15 +143,15 @@ public class AccessDataControl extends ThreadSerialization {
         keyList = paramMap.keySet();
         Iterator itr;
         itr = keyList.iterator();
-        
+
         while(itr.hasNext()){
               String key = (String)itr.next();
-           
+
               operationBinding.getParamsMap().put(key, paramMap.get(key));
           }}
         return operationBinding;
     }
-    
+
     /**
      *
      * @param methodName
@@ -186,7 +177,7 @@ public class AccessDataControl extends ThreadSerialization {
         }
         return operationBinding;
     }
-    
+
     /**
      *
      * @param methodName
@@ -201,7 +192,7 @@ public class AccessDataControl extends ThreadSerialization {
         paramMap.put("countryCode", countryCode);
         Map<String, Object> valueKey = new LinkedHashMap<String, Object>();
         valueKey = populateComboBoxValues(methodName, paramMap);
-       
+
         return valueKey;
     }
 
@@ -217,13 +208,13 @@ public class AccessDataControl extends ThreadSerialization {
         HashMap paramList = new HashMap();
         paramList.put("countryCode",countryCode);
         Map<String, Object> valueKey= new LinkedHashMap<String, Object>();
-        valueKey=populateComboBoxValues(methodName,paramList);              
+        valueKey=populateComboBoxValues(methodName,paramList);
         return valueKey;
     }
-    
+
     /**
        * @description This method is created to get List of Bean from (Reseller) client
-       * @param methodName 
+       * @param methodName
        * @param paramMap
        * @return
        * @author Lopc
@@ -232,22 +223,22 @@ public class AccessDataControl extends ThreadSerialization {
           OperationBinding operationBinding=null;
           if(bindClientMethodWithParameters(methodName, paramMap)!=null)
            operationBinding = bindClientMethodWithParameters(methodName, paramMap);
-          
+
           if(operationBinding!=null){
           operationBinding.execute();
-          
-          if(!operationBinding.getErrors().isEmpty()){            
+
+          if(!operationBinding.getErrors().isEmpty()){
               List list=operationBinding.getErrors();
               Iterator itr=list.iterator();
               String error="";
               while(itr.hasNext()){
-                  error=itr.next().toString();               
-                  //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());  
+                  error=itr.next().toString();
+                  //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
               }
               System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethodWithResultSet : Error occured " +error);
-              throw new Exception(error);            
+              throw new Exception(error);
           }
-          
+
           return operationBinding.getResult();
           }else{
               return "";
@@ -262,7 +253,7 @@ public class AccessDataControl extends ThreadSerialization {
      * @return
      */
     public String getFeatureValueBySQL(String featureName, String featureValue, String controlAttr, String controlAttrValue) {
-        
+
         List<String> result = null;
         String value = null;
         List<String> params = new ArrayList<String>();
@@ -278,15 +269,15 @@ public class AccessDataControl extends ThreadSerialization {
         } catch (NamingException e) {
             e.printStackTrace();
         }
-        
+
         if (result != null && result.size() > 0) {
             value = result.get(0);
         }
-        return value;       
+        return value;
     }
-    
+
     public String getStringValueBySQL(String type, String typevalue, String keycode, String langcode) {
-        
+
         List<String> result = null;
         String keyvalue = null;
         List<String> params = new ArrayList<String>();
@@ -302,13 +293,13 @@ public class AccessDataControl extends ThreadSerialization {
         } catch (NamingException e) {
             e.printStackTrace();
         }
-        
+
         if (result != null && result.size() > 0) {
             keyvalue = result.get(0);
         }
-        return keyvalue;       
+        return keyvalue;
     }
-    
+
     public List<BranchPlantBean> getBranchPlantListBySQL(int managerID) {
         List<BranchPlantBean> branchPlantList = new ArrayList<BranchPlantBean>();
         List<String> params = new ArrayList<String>();
@@ -325,7 +316,7 @@ public class AccessDataControl extends ThreadSerialization {
         } catch (NamingException e) {
             e.printStackTrace();
         }
-        return branchPlantList;       
+        return branchPlantList;
     }
 
     public String getFeatureValue(String methodName, String featureName, String featureValue, String controlAttr, String controlAttrValue) {
@@ -356,62 +347,62 @@ public class AccessDataControl extends ThreadSerialization {
      * @return
      */
     public String getAirlineCustomerNo(String methodName,String airlineCode,String destinationCountry){
-                
-                HashMap paramMap = new HashMap();        
+
+                HashMap paramMap = new HashMap();
                 paramMap.put("airlineCode", airlineCode);
                 paramMap.put("destinationCountry",destinationCountry);
                 OperationBinding operationBinding = bindClientMethodWithParameters(methodName, paramMap);
                 operationBinding.execute();
                 return (String)operationBinding.getResult();
             }
-    
+
     public Map<String, Object> getLOVMap(String methodName) {
          HashMap paramList = new HashMap();
          Map<String, Object> valueKey= new LinkedHashMap<String, Object>();
-         valueKey=populateComboBoxValues(methodName,paramList);              
+         valueKey=populateComboBoxValues(methodName,paramList);
          return valueKey;
      }
-     
+
      public String populateAirportCountry(String methodName,String airportCode) {
-              
-                 HashMap paramMap = new HashMap();    
-                 
+
+                 HashMap paramMap = new HashMap();
+
                  paramMap.put("airportCode", airportCode);
-               
+
                  OperationBinding operationBinding = bindClientMethodWithParameters(methodName,paramMap);
                  operationBinding.execute();
                  return (String)operationBinding.getResult();
              }
-     
+
      public String getAirlineCode(String methodName,Integer shippingAddress){
-                 
-                 HashMap paramMap = new HashMap();        
+
+                 HashMap paramMap = new HashMap();
                  paramMap.put("shippingAddress", shippingAddress);
                  OperationBinding operationBinding = bindClientMethodWithParameters(methodName, paramMap);
                  operationBinding.execute();
                  return (String)operationBinding.getResult();
              }
-     
 
-     
+
+
      public String getShipToNo(String methodName,String airlineCode,String country){
-                 
-                 HashMap paramMap = new HashMap();        
+
+                 HashMap paramMap = new HashMap();
                  paramMap.put("airlineCode", airlineCode);
                  paramMap.put("country", country);
                  OperationBinding operationBinding = bindClientMethodWithParameters(methodName, paramMap);
                  operationBinding.execute();
                  return (String)operationBinding.getResult();
              }
-     
+
      public Map<String, Object> getLOVAirline(String methodName,String country) {
          HashMap paramList = new HashMap();
          paramList.put("country", country);
          Map<String, Object> valueKey= new LinkedHashMap<String, Object>();
-         valueKey=populateComboBoxValues(methodName,paramList);              
+         valueKey=populateComboBoxValues(methodName,paramList);
          return valueKey;
      }
-   
+
     public static ViewObject currentRowOfVO(String iterator) {
         DCBindingContainer dcCPVO = (DCBindingContainer)getBindings();
         DCIteratorBinding iterCPVO = dcCPVO.findIteratorBinding(iterator);
@@ -439,7 +430,7 @@ public class AccessDataControl extends ThreadSerialization {
 
             System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.executeWithParam : "+"Map Key = " +thisEntry.getKey() +" --  Map Value = " +thisEntry.getValue());
         }
-        
+
         callAppModuleMethod(executeParamsMethod, paramMap);
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
 
@@ -459,7 +450,7 @@ public class AccessDataControl extends ThreadSerialization {
         return rowSetItr;
     }
 
-     /** This method is used in PCM to call "execute with param" method with view criteria from data control for "Country dropdowns" or other LOVs    
+     /** This method is used in PCM to call "execute with param" method with view criteria from data control for "Country dropdowns" or other LOVs
      * @param executeParams
      * @param paramMap
      * @param iterator
@@ -469,17 +460,17 @@ public class AccessDataControl extends ThreadSerialization {
     public Map<String,Object> getLovValues(String executeParams,
                                                            HashMap paramMap,
                                                            String iterator) throws Exception {
-        Map<String,Object> map = new HashMap<String,Object>();        
+        Map<String,Object> map = new HashMap<String,Object>();
         RowSetIterator rowsAvailable =
-        executeWithParam(executeParams,paramMap,iterator);     
-       
+        executeWithParam(executeParams,paramMap,iterator);
+
         while (rowsAvailable.hasNext()) {
-            
+
             Row rr = rowsAvailable.next();
             if(rr.getAttribute("KeyValue") != null && rr.getAttribute("KeyCode") != null)
             map.put(rr.getAttribute("KeyValue").toString(), rr.getAttribute("KeyCode").toString());
-            
-        }        
+
+        }
         return map;
     }
 
@@ -488,14 +479,14 @@ public class AccessDataControl extends ThreadSerialization {
      * @return
      * @throws Exception
      */
-    public RowSetIterator getDataFromViewIterator(String iterator) throws Exception {      
-      
+    public RowSetIterator getDataFromViewIterator(String iterator) throws Exception {
+
         BindingContainer bindings =
             BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iterRVO = (DCIteratorBinding)bindings.get(iterator);
         ViewObject viewObjectRVO = iterRVO.getViewObject();
         RowSetIterator rowSetItr = viewObjectRVO.createRowSetIterator(null);
-        
+
         return rowSetItr;
     }
 
@@ -510,6 +501,10 @@ public class AccessDataControl extends ThreadSerialization {
         HttpServletRequest request;
         String emailId = null, sessionId = null;
         String portal = null;
+
+        java.util.Date date= new java.util.Date();
+        Timestamp t=new Timestamp(date.getTime());
+
         if (FacesContext.getCurrentInstance() != null) {
             ectx = FacesContext.getCurrentInstance().getExternalContext();
             request = (HttpServletRequest)ectx.getRequest();
@@ -530,10 +525,10 @@ public class AccessDataControl extends ThreadSerialization {
                 }
             }
         }
-        String result = "[" + portal+" : "+ emailId + " : "+sessionId+  "]";
+        String result = "[" + t + " : " + portal+" : "+ emailId + " : "+sessionId+  "]";
         return result;
     }
-    
+
     public static ADFLogger getSFRLogger() {
         HttpSession session = null;
         ExternalContext ectx;
@@ -553,7 +548,7 @@ public class AccessDataControl extends ThreadSerialization {
                 }
             }
         }
-        
+
         ADFLogger logger=null;
         if(portal==null){
             portal=Constants.WS_PORTAL;
@@ -567,24 +562,24 @@ public class AccessDataControl extends ThreadSerialization {
         }else{
             logger=ADFLogger.createADFLogger(ConfigurationUtility.getPropertyValue("LOGGER_WEBSHOP"));
         }
-        
+
         return logger;
     }
-    
+
     public ViewObject fetchVOForBindParams(String executeParamsMethod, HashMap paramMap, String iterator) throws Exception {
         //RowSetIterator rowSetItr = null;
         ViewObject viewObjectRVO = null;
-        
+
         System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"------------------ACCESSDATACONTROL-------------------"
                                                                 +" Execute Params Method Name : " +executeParamsMethod);
         Iterator entries = paramMap.entrySet().iterator();
         while (entries.hasNext()) {
           Map.Entry thisEntry = (Map.Entry) entries.next();
-            
+
             System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"Map Key = " +thisEntry.getKey()
                                                                                                             +"-- Map Value = " +thisEntry.getValue());
         }
-        
+
         callAppModuleMethod(executeParamsMethod, paramMap);
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
 
@@ -603,7 +598,7 @@ public class AccessDataControl extends ThreadSerialization {
 
         return viewObjectRVO;
     }
-    
+
     public static List<String> executeSqlStmt(String sqlQuery, List<String> params, String returnParam) throws SQLException, NamingException {
         PreparedStatement objPrepStmt = null;
         ResultSet objRS = null;
@@ -639,8 +634,8 @@ public class AccessDataControl extends ThreadSerialization {
         }
         return result;
     }
-    
-    
+
+
     public static List<BranchPlantBean> executeSqlStmtBranchplant(String sqlQuery, List<String> params) throws SQLException, NamingException {
         PreparedStatement objPrepStmt = null;
         ResultSet objRS = null;
@@ -655,7 +650,7 @@ public class AccessDataControl extends ThreadSerialization {
                         objPrepStmt.setString(j + 1, params.get(0));
                     }
                     objRS = objPrepStmt.executeQuery();
-                    
+
                     System.out.println("Inside executeSqlStmtBranchplant - objRS - :"+objRS);
                     if (null != objRS) {
                         while (objRS.next()) {
@@ -683,7 +678,7 @@ public class AccessDataControl extends ThreadSerialization {
         }
         return branchPlantList;
     }
-    
+
     public static Connection getJNDIConnection() throws SQLException, NamingException {
         Connection connection = null;
         InitialContext objinitialContext = null;
