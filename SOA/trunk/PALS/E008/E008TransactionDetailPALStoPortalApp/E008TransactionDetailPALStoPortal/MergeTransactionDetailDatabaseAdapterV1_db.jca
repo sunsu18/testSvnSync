@@ -1,6 +1,6 @@
 <adapter-config name="MergeTransactionDetailDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="MergeTransactionDetailDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/portal-nXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
   <endpoint-interaction portType="MergeTransactionDetailDatabaseAdapterV1_ptt" operation="merge">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="MergeTransactionDetailDatabaseAdapterV1.PrtCardTransactionDetail"/>

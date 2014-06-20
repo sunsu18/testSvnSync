@@ -48,6 +48,8 @@
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/UpdateTrxnDtlErrorLogDatabaseAdapterV1"
           location="UpdateTrxnDtlErrorLogDatabaseAdapterV1.wsdl"
           importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="E008TransactionDetailPALStoPortalClient"
            ui:wsdlLocation="E008TransactionDetailPALStoPortalClient.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/E008TransactionDetailPALStoPortalClient#wsdl.interface(execute_ptt)"/>
@@ -210,6 +212,11 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E008TransactionDetailPALStoPortalClient</source.uri>
     <target.uri>E008TransactionDetailPALStoPortalBPEL/E008TransactionDetailPALStoPortalClient</target.uri>
@@ -265,5 +272,9 @@
   <wire>
     <source.uri>E008TransactionDetailPALStoPortalBPEL/UpdateTrxnDtlErrorLogDatabaseAdapterV1</source.uri>
     <target.uri>UpdateTrxnDtlErrorLogDatabaseAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E008TransactionDetailPALStoPortalBPEL/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>

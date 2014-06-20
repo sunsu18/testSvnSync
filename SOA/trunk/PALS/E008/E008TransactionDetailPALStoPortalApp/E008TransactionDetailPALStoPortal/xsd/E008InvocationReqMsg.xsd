@@ -19,6 +19,7 @@
         <xsd:element name="DatabaseJNDI" type="xsd:string"/>
         <xsd:element name="InterfaceID" type="xsd:string"/>
         <xsd:element name="UserName" type="xsd:string"/>
+        <xsd:element name="LastInvokeFlag" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
