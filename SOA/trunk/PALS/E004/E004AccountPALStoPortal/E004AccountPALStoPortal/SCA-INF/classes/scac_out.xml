@@ -3,7 +3,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>630</line>
+      <line>637</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -13,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>910</line>
+      <line>917</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -23,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>910</line>
+      <line>917</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -33,11 +33,21 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>910</line>
+      <line>917</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
       <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
       <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1}updatedby anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>1185</line>
+      <col/>
+      <file>E004AccountPALStoPortal.bpel</file>
+      <name>E004AccountPALStoPortal.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter}palsDeltaTimestamp anonymous type" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}dateTime"</msg>
    </Fault>
 </Faults>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E004AccountPALStoPortal" targetNamespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectDeltaTSDBAdapter" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/GetPALSDB2CountDBAdapter" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/PALSDB2DBAdapter" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" xmlns:ns10="http://www.statoilfuelretail.com/integration/engage" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeAccountPortalDBAdapter" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectInValidDataTempAccountPortalDBAdapter" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/TruncateTempAccountPortalDBAdapter" xmlns:ns21="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter" xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter" xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter" xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter" id="BpPrc0">
+<process name="E004AccountPALStoPortal" targetNamespace="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.statoilfuelretail.com/integration/engage/E004AccountPALStoPortal/E004AccountPALStoPortal/E004AccountPALStoPortal" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectDeltaTSDBAdapter" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapter" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/GetPALSDB2CountDBAdapter" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapter" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PALSDB2DBAdapter" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/PALSDB2DBAdapter" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeDeltaTSSOADBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeDeltaTSSOADBAdapterV1" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/PALSDB2DBAdapter" xmlns:ns10="http://www.statoilfuelretail.com/integration/engage" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorDBAdapter" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/PartnerPortalDBAdapter" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/MergeAccountPortalDBAdapter" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/top/PartnerPortalDBAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeAccountPortalDBAdapter" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/InsertPALSDataToTempAccountPortalDBAdapter" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectValidDataTempAccountPortalDBAdapter" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SelectInValidDataTempAccountPortalDBAdapter" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/TruncateTempAccountPortalDBAdapter" xmlns:ns21="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorHandlerJMSAdapter" xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAErrorLogDBAdapter" xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorLogDBAdapter" xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter" xmlns:ns26="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter" xmlns:ns27="http://www.statoilfuelretail.com/integration/engage/PalsNotification" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,7 @@
     <partnerLink name="SOAErrorHandlerJMSAdapter" partnerLinkType="ns22:Produce_Message_plt" partnerRole="Produce_Message_role"/>
     <partnerLink name="SOAErrorLogDBAdapter" partnerLinkType="ns23:SOAErrorLogDBAdapter_plt" partnerRole="SOAErrorLogDBAdapter_role"/>
     <partnerLink name="UpdateSOAErrorDBAdapter" partnerLinkType="ns25:UpdateSOAErrorDBAdapter_plt" partnerRole="UpdateSOAErrorDBAdapter_role"/>
+    <partnerLink name="SOAPALSNotificationJMSAdapter" partnerLinkType="ns26:Produce_Message_plt" partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="AccountSummaryReqMsg" messageType="client:E004AccountPALStoPortalRequestMessage"/>
@@ -60,6 +61,7 @@
     <variable name="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable" messageType="ns23:EngagePalsAccDtaErrorlogCollection_msg"/>
     <variable name="InvokeUpdateSOAErrorDBAdapter_update_InputVariable" messageType="ns25:EngagePalsAccDtaErrorlogCollection_msg"/>
     <variable name="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" messageType="ns17:SoaAccountTempCollection_msg"/>
+    <variable name="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" messageType="ns26:Produce_Message_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0">
@@ -710,7 +712,183 @@
         </sequence>
       </case>
       <otherwise>
-        <empty name="Empty" id="BpEmp0"/>
+
+        <sequence name="DataTransferCompletionSequence" id="BpSeq14">
+          <switch name="IfLastInvocationFlag" id="BpSwt4">
+            <case condition="bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:LastInvokeFlag') = 'True'">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <switch name="IfDataExistsinPALS" id="BpSwt5">
+                <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:BatchSize')">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <sequence name="PALSNotificationSequence" id="BpSeq15">
+                    <switch name="DataCountexistsSwitch" id="BpSwt6">
+                      <case condition="bpws:getVariableData('DataCount') >= 1">
+                        <bpelx:annotation>
+                          <bpelx:general>
+                            <bpelx:property name="userLabel">DataCountGreaterthanZero</bpelx:property>
+                          </bpelx:general>
+                        </bpelx:annotation>
+                        <assign name="AssignSOAPALSNotificationData" id="BpAss28">
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc071Vs1CssktoDtaCollection','/ns9:Cc071Vs1CssktoDtaCollection/ns9:Cc071Vs1CssktoDta[$DataCount]/ns9:deltaTs')"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:ReceiverSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:TargetSystem"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:CountryCode"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:CountryCode"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:InterfaceID"/>
+                          </copy>
+                          <copy>
+                            <from expression="'E004AccountPALStoPortal'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:InterfaceName"/>
+                          </copy>
+                          <copy>
+                            <from expression="'CC071VS1_CSSKTO_DTA'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceTableName"/>
+                          </copy>
+                          <copy>
+                            <from expression="'PRT_ACCOUNT'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:TargetTableName"/>
+                          </copy>
+                          <copy>
+                            <from expression="xp20:current-dateTime()"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:NotificationDateTime"/>
+                          </copy>
+                        </assign>
+                      </case>
+                      <otherwise>
+                      
+
+                        <assign name="AssignSOAPALSNotificationDataOtherwise" id="BpAss29">
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:ReceiverSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:TargetSystem"/>
+                          </copy>
+                          <copy>
+                            <from variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable" part="EngageSoaDeltatableCollection" query="/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:CountryCode"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:CountryCode"/>
+                          </copy>
+                          <copy>
+                            <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:InterfaceID"/>
+                          </copy>
+                          <copy>
+                            <from expression="'E004AccountPALStoPortal'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:InterfaceName"/>
+                          </copy>
+                          <copy>
+                            <from expression="'CC071VS1_CSSKTO_DTA'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceTableName"/>
+                          </copy>
+                          <copy>
+                            <from expression="'PRT_ACCOUNT'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:TargetTableName"/>
+                          </copy>
+                          <copy>
+                            <from expression="xp20:current-dateTime()"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:NotificationDateTime"/>
+                          </copy>
+                        </assign>
+
+
+                      </otherwise>
+                    </switch>
+                    <invoke name="InvokeSOAPALSNotificationJMSAdapter" inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns26:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv20"/>
+                  </sequence>
+                </case>
+                <otherwise>
+                  <sequence name="ErrorCompletionSequence" id="BpSeq16">
+        <assign name="AssignStandardErrorData" id="BpAss30">
+                      <copy>
+                        <from expression="ora:getCompositeInstanceId()"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
+                      </copy>
+                      <copy>
+                        <from expression="ora:getComponentName()"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ComponentName"/>
+                      </copy>
+                      <copy>
+                        <from expression="'E004'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ProjectID"/>
+                      </copy>
+                      <copy>
+                        <from expression="'E004AccountPALStoPortal'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:ProjectName"/>
+                      </copy>
+                      <copy>
+                        <from expression="xp20:current-dateTime()"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Timestamp"/>
+                      </copy>
+                      <copy>
+                        <from expression="'PALS'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Source"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Portal'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:Target"/>
+                      </copy>
+                      <copy>
+                        <from expression="'SOAUSER'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:UserID"/>
+                      </copy>
+                      <copy>
+                        <from expression="'BE-027'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorCode"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Incomplete Data Transfer'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorDescription"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Incomplete Data Transfer'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorDetails/ns21:ErrorSummary"/>
+                      </copy>
+                      <copy>
+                        <from expression="'BE'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:LookupCriteria"/>
+                      </copy>
+                      <copy>
+                        <from expression="'DEV03:Incomplete Data Transfer from  SOA Composite E004AccountPALStoPortal For interface E004'"/>
+                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:ErrorNotification/ns21:Subject"/>
+                      </copy>
+                    </assign>
+                    <invoke name="InvokeSOAErrorHandlerJMSAdapter" inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" partnerLink="SOAErrorHandlerJMSAdapter" portType="ns22:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv21"/>
+                  </sequence>
+                </otherwise>
+              </switch>
+            </case>
+            <otherwise>
+              <empty name="Empty" id="BpEmp0"/>
+            </otherwise>
+          </switch>
+        </sequence>
       </otherwise>
     </switch>
   </sequence>

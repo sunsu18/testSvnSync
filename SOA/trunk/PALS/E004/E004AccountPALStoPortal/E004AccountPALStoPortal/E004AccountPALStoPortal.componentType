@@ -58,4 +58,8 @@
              ui:wsdlLocation="UpdateSOAErrorDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E004AccountPALStoPortal/E004AccountPALStoPortal/UpdateSOAErrorDBAdapter#wsdl.interface(UpdateSOAErrorDBAdapter_ptt)"/>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E004AccountPALStoPortal/E004AccountPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>
