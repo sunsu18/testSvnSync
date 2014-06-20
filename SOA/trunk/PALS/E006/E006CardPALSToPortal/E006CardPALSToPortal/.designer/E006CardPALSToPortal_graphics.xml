@@ -15,13 +15,14 @@
       <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="3348" side="left"/>
       <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="3625" side="left"/>
       <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="3902" side="left"/>
-      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="1788" side="left"/>
+      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2316" side="left"/>
       <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4661" side="left"/>
-      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="5116" side="left"/>
+      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="5061" side="left"/>
       <partnerlink name="CardPortalProcDBAdapter" x="0" y="3126" side="left"/>
       <partnerlink name="CardPALSToPOrtalService" x="0" y="1051" side="left"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5118" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,2475,1329,513" show_swimlanes="true">
+   <graph_layout viewport="492,4804,677,361" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -55,6 +56,12 @@
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch/case/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch/otherwise/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>
 </graphics>

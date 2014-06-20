@@ -43,6 +43,8 @@
           location="CardPortalProcDBAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
           location="E006CardPALSToPortal.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="e006cardpalstoportal_client_ep"
            ui:wsdlLocation="E006CardPALSToPortal.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.interface(E006CardPALSToPortal)"/>
@@ -217,6 +219,11 @@
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.interface(E006CardPALSToPortal)"/>
     <binding.ws port="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.endpoint(e006cardpalstoportal_client_ep/E006CardPALSToPortal_pt)" location="http://10.24.240.17:7122/soa-infra/services/PALS/E006CardPALSToPortal/e006cardpalstoportal_client_ep?WSDL"/>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>e006cardpalstoportal_client_ep</source.uri>
     <target.uri>E006CardPALSToPortal/e006cardpalstoportal_client</target.uri>
@@ -280,5 +287,9 @@
   <wire>
     <source.uri>E006CardPALSToPortal/CardPALSToPOrtalService</source.uri>
     <target.uri>CardPALSToPOrtalService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E006CardPALSToPortal/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>
