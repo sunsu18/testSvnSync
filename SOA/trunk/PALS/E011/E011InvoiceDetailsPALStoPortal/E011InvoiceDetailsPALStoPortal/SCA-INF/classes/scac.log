@@ -1,12 +1,12 @@
-Jun 5, 2014 5:39:44 PM oracle.mds
+Jun 19, 2014 7:43:50 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Jun 5, 2014 5:39:44 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Jun 19, 2014 7:43:51 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Jun 5, 2014 5:39:47 PM com.collaxa.cube.CubeLogger info
+Jun 19, 2014 7:43:53 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E011InvoiceDetailsPALStoPortalBPEL.bpel" ...
-Jun 5, 2014 5:39:47 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Jun 19, 2014 7:43:53 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Jun 5, 2014 5:39:47 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Jun 19, 2014 7:43:53 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -15,13 +15,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandl
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Jun 5, 2014 5:39:47 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E011InvoiceDetailsPALStoPortalBPEL" in 68.4 milliseconds [nodes 119=0+119, 1,740.1 nodes/sec]
-Jun 5, 2014 5:39:50 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E011InvoiceDetailsPALStoPortalBPEL" in 3.271 seconds
-Jun 5, 2014 5:39:50 PM com.collaxa.cube.CubeLogger info
+Jun 19, 2014 7:43:53 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E011InvoiceDetailsPALStoPortalBPEL" in 69.2 milliseconds [nodes 100=0+100, 1,446.1 nodes/sec]
+Jun 19, 2014 7:43:57 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E011InvoiceDetailsPALStoPortalBPEL" in 3.331 seconds
+Jun 19, 2014 7:43:57 PM com.collaxa.cube.CubeLogger info
 INFO: Gathered 3 files in 3.5 milliseconds
 
-Jun 5, 2014 5:39:50 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E011InvoiceDetailsPALStoPortalBPEL" in 19.9 milliseconds
+Jun 19, 2014 7:43:57 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E011InvoiceDetailsPALStoPortalBPEL" in 20.9 milliseconds
 

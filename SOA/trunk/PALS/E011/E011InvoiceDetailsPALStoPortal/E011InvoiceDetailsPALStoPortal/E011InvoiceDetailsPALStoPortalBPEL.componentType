@@ -46,4 +46,8 @@
              ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

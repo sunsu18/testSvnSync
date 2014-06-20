@@ -30,6 +30,8 @@
           location="SOAErrorHandlerJMSAdapter.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/UpdateSOAErrorDBAdapter"
           location="UpdateSOAErrorDBAdapter.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="e011invoicedetailspalstoportalbpel_client_ep"
            ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
@@ -142,7 +144,12 @@
   <reference name="E011InvoiceDetailsPALStoPortalWebservice"
              ui:wsdlLocation="E011InvoiceDetailsPALStoPortalBPEL.wsdl">
     <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.interface(E011InvoiceDetailsPALStoPortalBPEL)"/>
-    <binding.ws port="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.endpoint(e011invoicedetailspalstoportalbpel_client_ep/E011InvoiceDetailsPALStoPortalBPEL_pt)" location="http://http://10.24.240.17:7122/soa-infra/services/PALS/E011InvoiceDetailsPALStoPortal/e011invoicedetailspalstoportalbpel_client_ep?WSDL"/>
+    <binding.ws port="http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL#wsdl.endpoint(e011invoicedetailspalstoportalbpel_client_ep/E011InvoiceDetailsPALStoPortalBPEL_pt)" location="http://http://10.24.240.15:7021/soa-infra/services/PALS/E011InvoiceDetailsPALStoPortal/e011invoicedetailspalstoportalbpel_client_ep?WSDL"/>
+  </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
   </reference>
   <wire>
     <source.uri>e011invoicedetailspalstoportalbpel_client_ep</source.uri>
@@ -187,5 +194,9 @@
   <wire>
     <source.uri>E011InvoiceDetailsPALStoPortalBPEL/E011InvoiceDetailsPALStoPortalWebservice</source.uri>
     <target.uri>E011InvoiceDetailsPALStoPortalWebservice</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E011InvoiceDetailsPALStoPortalBPEL/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>

@@ -3,7 +3,7 @@
    <Fault>
       <severity>warning</severity>
       <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
-      <line>143</line>
+      <line>145</line>
       <col>72</col>
       <file>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
       <name>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
@@ -13,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
-      <line>143</line>
+      <line>145</line>
       <col>72</col>
       <file>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
       <name>C:\JDeveloper\mywork\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
@@ -23,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>738</line>
+      <line>747</line>
       <col/>
       <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
       <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
@@ -33,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>738</line>
+      <line>747</line>
       <col/>
       <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
       <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
@@ -43,7 +43,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>738</line>
+      <line>747</line>
       <col/>
       <file>E011InvoiceDetailsPALStoPortalBPEL.bpel</file>
       <name>E011InvoiceDetailsPALStoPortalBPEL.bpel</name>
