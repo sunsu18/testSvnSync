@@ -212,8 +212,14 @@
     <af:popup id="new_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
               autoCancel="disabled">
-      <af:dialog id="newDriver" title="#{sfr.ADD_DRIVER}" type="none" contentWidth="715"
+      <af:dialog id="newDriver" type="none" contentWidth="715"
                  closeIconVisible="false">
+                <af:panelGroupLayout id="pgl90" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.ADD_DRIVER}"
+                        id="ot31"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
@@ -493,9 +499,15 @@
   <af:popup id="edit_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.editDriver}"
               autoCancel="disabled">
-      <af:dialog id="editDriver" title="#{sfr.EDIT_DRIVER}" type="none"
+      <af:dialog id="editDriver" type="none"
                  contentWidth="700"
                 closeIconVisible="false">
+                <af:panelGroupLayout id="pgl16" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.EDIT_DRIVER}" 
+                        id="ot3"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
                   <af:separator id="s28"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
         <af:spacer width="10" height="10" id="s30"/>
@@ -767,7 +779,7 @@
     <af:popup id="delete_driver" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.deleteDriver}"
               autoCancel="disabled">
-      <af:dialog id="deleteDriver" title="#{sfr.DELETE_DRIVER}" type="none"
+      <af:dialog id="deleteDriver" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psal6"
                                dimensionsFrom="children">
@@ -790,6 +802,12 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteDriver_scroll"
                                  styleClass="WCPanelMargin">
+                                 <af:panelGroupLayout id="pgl17" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.DELETE_DRIVER}"
+                        id="ot12"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
                <af:separator id="s25"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
                 <af:panelFormLayout id="pfasl1" >
@@ -805,7 +823,7 @@
     <af:popup id="delete_all" contentDelivery="immediate"
               binding="#{pageFlowScope.DriverInfoBean.bindings.deleteAllInfoDriver}"
               autoCancel="disabled">
-      <af:dialog id="deleteAllDriver" title="#{sfr.DELETE_DRIVER}" type="none"
+      <af:dialog id="deleteAllDriver" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psl1"
                                dimensionsFrom="children">
@@ -828,6 +846,12 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteAllDriver_scroll"
                                  styleClass="WCPanelMargin">
+                        <af:panelGroupLayout id="pgl18" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.DELETE_DRIVER}"
+                        id="ot19"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
                <af:separator id="s34"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
                 <af:panelFormLayout id="pfasl2" >

@@ -233,8 +233,14 @@
     <af:popup id="new_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.newVehicle}"
               autoCancel="disabled">
-      <af:dialog id="newVehicle" title="#{sfr.VEHICLEINFO_ADDVEHICLE}" contentWidth="740"
+      <af:dialog id="newVehicle" contentWidth="740"
                  type="none" closeIconVisible="false">
+                 <af:panelGroupLayout id="pgl90" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.VEHICLEINFO_ADDVEHICLE}"
+                        id="ot31"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
                        <af:spacer width="10" height="10" id="s29"/>
@@ -519,8 +525,14 @@
     <af:popup id="edit_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.editVehicle}"
               autoCancel="disabled">
-      <af:dialog id="editVehicle" title="#{sfr.VEHICLEINFO_EDITVEHICLE}" contentWidth="750"
+      <af:dialog id="editVehicle" contentWidth="750"
                  type="none" closeIconVisible="false">
+                 <af:panelGroupLayout id="pgl14" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.VEHICLEINFO_EDITVEHICLE}"
+                        id="ot3"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
          <af:separator id="s28"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
         <af:spacer width="10" height="10" id="s30"/>
@@ -795,7 +807,7 @@
     <af:popup id="delete_vehicle" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.deleteVehicle}"
               autoCancel="disabled">
-      <af:dialog id="deleteVehicle" title="#{sfr.VEHICLEINFO_DELETEVEHICLE}"
+      <af:dialog id="deleteVehicle"
                  type="none" closeIconVisible="false"
                  inlineStyle="width:200px; height:300.0px;">
         <af:panelStretchLayout id="psal6" dimensionsFrom="children">
@@ -817,6 +829,12 @@
             </af:toolbar>
           </f:facet>
           <f:facet name="center">
+          <af:panelGroupLayout id="pgl15" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.VEHICLEINFO_DELETEVEHICLE}"
+                        id="ot20"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
             <af:panelGroupLayout id="deleteVehicle_scroll"
                                  styleClass="WCPanelMargin">
               <af:panelFormLayout id="pfasl1">
@@ -836,7 +854,7 @@
     <af:popup id="delete_all" contentDelivery="immediate"
               binding="#{pageFlowScope.VehicleInfoBean.bindings.deleteAllInfoVehicle}"
               autoCancel="disabled">
-      <af:dialog id="deleteAllVehicle" title="#{sfr.VEHICLEINFO_DELETEVEHICLE}" type="none"
+      <af:dialog id="deleteAllVehicle" type="none"
                  closeIconVisible="false">
         <af:panelStretchLayout id="psl1"
                                dimensionsFrom="children">
@@ -859,6 +877,12 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteAllDriver_scroll"
                                  styleClass="WCPanelMargin">
+                                 <af:panelGroupLayout id="pgl16" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value="#{sfr.VEHICLEINFO_DELETEVEHICLE}"
+                        id="ot21"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
                <af:separator id="s22"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
                 <af:panelFormLayout id="pfasl2" >

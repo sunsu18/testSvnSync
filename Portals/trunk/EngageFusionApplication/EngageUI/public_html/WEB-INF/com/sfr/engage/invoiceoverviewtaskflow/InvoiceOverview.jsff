@@ -695,7 +695,7 @@
                    selectedRowKeys="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel.selectedRow}"
                    selectionListener="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel.makeCurrent}"
                    rowSelection="single" id="t3" columnResizing="disabled" disableColumnReordering="true"
-                   inlineStyle="height:auto;" autoHeightRows="5">
+                   inlineStyle="height:100px;" autoHeightRows="5">
                      <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114"
                                 width="60" sortable="true">
            <af:outputText value="#{vs.index+1}" id="ot42"/>

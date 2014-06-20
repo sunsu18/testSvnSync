@@ -20,23 +20,47 @@
             <af:spacer width="10" height="15" id="s17"/>
 
 
-            <af:panelGroupLayout id="pgl3" layout="horizontal"
+            <af:panelGroupLayout id="pgl6" layout="horizontal"
                            inlineStyle="width:960.0px;">
-        <af:panelGroupLayout id="pgl4" layout="vertical"
-                             inlineStyle="width:330px; height:107.0px;"
+   <af:panelGroupLayout id="pgl3" layout="vertical"
+                             inlineStyle="width:380px; height:150.0px;"
                              valign="top">
-          <h:panelGrid columns="6" id="pg1">
 
-           <af:outputText value="*" id="op51"/>
+       <h:panelGrid columns="4" id="pg2" cellpadding="3"
+               cellspacing="2" style="text-align:left; vertical-align:top;">
+                <af:panelGroupLayout id="pgl12"
+                      inlineStyle="height:auto; text-align:justify; width:4.0px;"
+                                               layout="vertical">
+                   <af:outputText value="*" id="col"/>
+                   <af:spacer width="20" height="15" id="s21"/>
+                    <af:outputText value=" " id="ot14"/>
+                   <af:spacer width="20" height="25" id="s18"/>
+                   
 
-            <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
-            <af:spacer width="10" height="15" id="s6"/>
-               <af:outputText value=":" id="ot2a"/>
+          </af:panelGroupLayout>
+               <af:panelGroupLayout id="pgl36"
+                      inlineStyle="height:60px; text-align:justify; width:130.0px;overflow:hidden;"
+                                               layout="vertical">
+       <af:outputText value="#{sfr.PARTNER_ENG}" id="ot2"/>
+          <af:spacer width="20" height="20" id="s45"/>
+        <af:outputText value="#{sfr.ACCOUNT}" id="ot3"/>
+         
 
-              <af:spacer width="10" height="35" id="s6a"/>
-             <af:selectOneChoice id="soc3" showRequired="false"
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl34"
+                      inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                               layout="vertical">
+                   <af:outputText value=":" id="ot12"/>
+                   <af:spacer width="20" height="20" id="s36"/>
+                    <af:outputText value=":" id="ot33"/>
+
+          </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl18"
+                     inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                               layout="vertical">
+               <af:selectOneChoice id="soc3" showRequired="false"
                                 unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
-                                contentStyle="width: 175px;"
+                                contentStyle="width: 200px;"
                                  value="#{pageFlowScope.CardBean.partnerIdValue}"
                                   autoSubmit="true"
                                   partialTriggers="cb3"
@@ -49,15 +73,9 @@
                     id="select_item_account"/>
         </af:forEach>
             </af:selectOneChoice>
-
-            <af:outputText value="" id="ot11"/>
-
-            <af:outputText value="#{sfr.ACCOUNT}" id="ot3"/>
-            <af:spacer width="10" height="15" id="s7"/>
-              <af:outputText value=":" id="ot2a1"/>
-
-              <af:spacer width="10" height="35" id="s6a1"/>
-              <af:selectManyChoice id="smc2" contentStyle="width: 150px;"
+            <af:spacer width="20" height="20"
+                                                          id="s41"/>
+            <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
                                     value="#{pageFlowScope.CardBean.accountIdValue}"
                                    partialTriggers="soc3 cb3"
                                    valueChangeListener="#{pageFlowScope.CardBean.accountValueChangeListener}"
@@ -70,29 +88,54 @@
                             </af:selectItem>
                       </af:forEach>
             </af:selectManyChoice>
+            </af:panelGroupLayout>
+       </h:panelGrid>
+   </af:panelGroupLayout>
 
-
-          </h:panelGrid>
-        </af:panelGroupLayout>
-        <af:panelGroupLayout id="pgl6">
-      <af:separator id="s2" styleClass="vertical_seperator_view_cards"/>
+        <af:panelGroupLayout id="pgl5">
+      <af:separator id="s2" styleClass="vertical_seprator_trans"
+                    inlineStyle="height: 150px !important;"/>
     </af:panelGroupLayout>
-        <af:spacer width="40" height="10" id="s40"/>
+    <af:spacer width="30" height="10" id="s40"/>
 
           <af:panelGroupLayout id="pgl7" layout="vertical" valign="top"
-                               inlineStyle="width:500px; height:100.0px;">
+                               inlineStyle="width:400px; height:150.0px;">
 
+ <h:panelGrid columns="4" id="pg4" cellpadding="3"
+               cellspacing="2" style="text-align:left; vertical-align:top;">
 
-                 <h:panelGrid columns="6" id="pg2">
-                <af:outputText value="" id="ot12" />
+        <af:panelGroupLayout id="pgl42"
+                      inlineStyle="height:auto; text-align:justify; width:8.0px;"
+                                               layout="vertical">
+                   <af:spacer width="20" height="35" id="s44"/>
 
+          </af:panelGroupLayout>
 
-                  <af:outputText value="#{sfr.CARDGROUP}" id="ot7"/>
-               <af:spacer width="5" height="15" id="s15s"/>
-                    <af:outputText value=":" id="ot7s"/>
-                      <af:spacer width="10" height="30" id="s13"/>
+            <af:panelGroupLayout id="pgl31"
+                      inlineStyle="height:auto; text-align:justify; width:125.0px;overflow:hidden;"
+                                               layout="vertical">
+          <af:outputText value="#{sfr.CARDGROUP}" id="ot7"/>
+        <af:spacer width="20" height="20" id="s27"/>
+         <af:outputText value="#{sfr.STATUS}" id="ot8"/>
 
-                <af:selectManyChoice id="smc7" contentStyle="width:150px;"
+            </af:panelGroupLayout>
+
+            <af:panelGroupLayout id="pgl32"
+                      inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                               layout="vertical">
+                                               <af:outputText value=":"
+                                                              id="ot5"/>
+                                               <af:spacer width="20" height="20"
+                                                          id="s29"/>
+                                                          <af:outputText value=":"
+                                                                         id="ot11"/>
+
+                                               </af:panelGroupLayout>
+
+        <af:panelGroupLayout id="pgl33"
+                     inlineStyle="height:60px; text-align:justify; width:200.0px;"
+                                               layout="vertical">
+              <af:selectManyChoice id="smc7" contentStyle="width:175px;"
                                        value="#{pageFlowScope.CardBean.cardGroupValue}"
                                      partialTriggers="soc3 smc2 cb3"
                                      binding="#{pageFlowScope.CardBean.bindings.cardGroup}"
@@ -105,13 +148,9 @@
                             </af:selectItem>
                       </af:forEach>
                 </af:selectManyChoice>
-                  <af:outputText value="" id="ot13"/>
-           <af:outputText value="#{sfr.STATUS}" id="ot8"/>
-                   <af:spacer width="5" height="15" id="s152s"/>
-                    <af:outputText value=":" id="ot27s"/>
-                      <af:spacer width="10" height="30" id="s14"/>
-
-                   <af:selectManyChoice id="smc8" contentStyle="width: 150px;"
+            <af:spacer width="20" height="20"
+                                                          id="s31"/>
+            <af:selectManyChoice id="smc8" contentStyle="width: 175px;"
                                         value="#{pageFlowScope.CardBean.statusValue}"
                                         binding="#{pageFlowScope.CardBean.bindings.status}"
                                         partialTriggers="cb3" autoSubmit="true"
@@ -124,26 +163,29 @@
                     id="select_item_type"/>
             </af:forEach>
                 </af:selectManyChoice>
-            <af:spacer width="1" height="10" id="spacer7"/>
-            <af:spacer width="1" height="10" id="s24"/>
-            <af:spacer width="10" height="10" id="s25"/>
-            <af:spacer width="1" height="10" id="s26"/>
-            <af:spacer width="10" height="35" id="s27"/>
-             <af:panelGroupLayout id="pgl8" layout="horizontal"
-                                 halign="right" inlineStyle="width:180px;">
 
 
-              <af:commandButton text="#{sfr.SEARCH}" id="cb2"
+            </af:panelGroupLayout>
+
+
+ </h:panelGrid>
+
+<af:spacer width="10" height="30" id="s6"/>
+            <af:panelGroupLayout id="pgal1"
+                             halign="right" layout="horizontal">
+
+<!--<af:spacer width="225" height="10" id="s5"/>-->
+ <af:commandButton text="#{sfr.SEARCH}" id="cb2"
               actionListener="#{pageFlowScope.CardBean.searchViewCardAction_event}">
               </af:commandButton>
-              <af:spacer width="20" height="10" id="s23"/>
-              <af:commandButton text="#{sfr.CLEAR}" id="cb3"
+      <af:spacer width="10" height="10" id="s7"/>
+     <af:commandButton text="#{sfr.CLEAR}" id="cb3"
                                 actionListener="#{pageFlowScope.CardBean.clearSearchListener}"/>
-            </af:panelGroupLayout>
-          </h:panelGrid>
 
-          </af:panelGroupLayout>
-        </af:panelGroupLayout>
+       <af:spacer width="28" height="10" id="s33"/>
+     </af:panelGroupLayout>
+    </af:panelGroupLayout>
+   </af:panelGroupLayout>
 
 
     </af:panelGroupLayout>
@@ -197,7 +239,7 @@
 
 
 
-        <af:panelGroupLayout id="pgl36" layout="scroll"
+        <af:panelGroupLayout id="pgl4" layout="scroll"
                              inlineStyle="width:945px;">
           <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
                     var="row" width="940px" rows="#{bindings.PrtViewCardsVO11.rangeSize}"
@@ -361,9 +403,15 @@
              autoCancel="disabled"   partialTriggers="t1:cil1">
              
              
-        <af:dialog id="d1" type="none" closeIconVisible="false" title=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}" contentWidth="406">
+        <af:dialog id="d1" type="none" closeIconVisible="false" contentWidth="406">
+        <af:panelGroupLayout id="pgl90" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+         <af:outputText value=" #{sfr.CARD_ASSOCIATION}  : #{pageFlowScope.CardBean.cardEmbossNum}"
+                        id="ot31"
+                        styleClass="subheading"/>
+        </af:panelGroupLayout>
         
-        <af:separator id="s29"
+        <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
         <!--<af:spacer width="10" height="5" id="s33"/>-->
         
@@ -404,7 +452,7 @@
                                   action="#{pageFlowScope.CardBean.saveVehicleDriver}"
                                   visible="#{pageFlowScope.CardBean.driverPGL eq 'true' ? true : pageFlowScope.CardBean.vehiclePGL eq true ? true : false}"
                                   partialTriggers="sor1" />
-                 <af:spacer width="10" height="10" id="s41"/>
+                 <af:spacer width="10" height="10" id="s13"/>
                 <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
                                   immediate="true"
                                   actionListener="#{pageFlowScope.CardBean.closePopUpListener}"/>
@@ -425,7 +473,7 @@
                 
                   
                   <h:panelGrid columns="5" id="pg3">
-<af:panelGroupLayout layout="vertical" id="pgl5"
+<af:panelGroupLayout layout="vertical" id="pgl8"
                      inlineStyle="width:120px; height:180px;"
                      valign="top">
 <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
@@ -435,7 +483,7 @@
 <af:outputText value="#{sfr.DRIVER_NUMBER}" id="aot2"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="vehicle" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1" binding="#{pageFlowScope.CardBean.bindings.vehiclePgl}">
-<af:outputText value="#{sfr.VEHICLE_NUMBER}" id="ot5"/>
+<af:outputText value="#{sfr.VEHICLE_NUMBER}" id="ot13"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s20"/>
@@ -444,7 +492,7 @@
 <af:outputText value="#{sfr.DRIVER_NAME_ENG}" id="ot18"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl74" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
-<af:outputText value="#{sfr.INTERNAL_NAME}" id="ot14"
+<af:outputText value="#{sfr.INTERNAL_NAME}" id="ot19"
                                noWrap="true"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -458,7 +506,7 @@
                                noWrap="true"  visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
-<af:spacer width="10" height="20" id="s18"/>
+<af:spacer width="10" height="20" id="s14"/>
 <af:panelGroupLayout layout="horizontal" id="pgl29" >
 <af:panelGroupLayout id="pgl27" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value="#{sfr.MODIFIED_BY}" id="ot22" noWrap="true"    visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
@@ -499,7 +547,7 @@
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s39"/>
-<af:panelGroupLayout layout="horizontal" id="pgl42" >
+<af:panelGroupLayout layout="horizontal" id="pgl82" >
 <af:panelGroupLayout id="pgl41" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s50" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
 </af:panelGroupLayout>
@@ -513,7 +561,7 @@
 <af:spacer width="10" height="20" id="s46" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl23" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
-<af:spacer width="10" height="20" id="s45" />
+<af:spacer width="10" height="20" id="s23" />
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -529,7 +577,7 @@
                      inlineStyle="width:10px; height:180px;"
                      valign="top">
 <af:outputText value=":" id="ot42"/>
-<af:spacer width="10" height="20" id="s21"/>
+<af:spacer width="10" height="20" id="s24"/>
 <af:panelGroupLayout layout="horizontal" id="pgl62" >
 <af:panelGroupLayout id="pgl63" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value=":" id="ot4"/>
@@ -541,7 +589,7 @@
 <af:spacer width="10" height="20" id="s22"/>
 <af:panelGroupLayout layout="horizontal" id="pgl80" >
 <af:panelGroupLayout id="pgl53" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
-<af:outputText value=":" id="ot33"/>
+<af:outputText value=":" id="ot23"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl52" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value=":" id="ot32"/>
@@ -596,8 +644,8 @@
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s65"/>
-<af:panelGroupLayout layout="horizontal" id="pgl33" >
-<af:panelGroupLayout id="pgl34" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout layout="horizontal" id="pgl84" >
+<af:panelGroupLayout id="pgl85" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s47" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl35" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
@@ -606,7 +654,7 @@
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s66"/>
 <af:panelGroupLayout layout="horizontal" id="pgl19" >
-<af:panelGroupLayout id="pgl18" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl86" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s30" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl17" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
@@ -629,7 +677,7 @@
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
-              <af:spacer width="10" height="19" id="s36"/>
+              <af:spacer width="10" height="19" id="s25"/>
 <af:panelGroupLayout layout="horizontal" id="pgl68" >
 <af:panelGroupLayout id="pgl69" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:selectOneChoice id="soc1" showRequired="false"
@@ -673,8 +721,8 @@
 <af:spacer height="13px" id="s70"/>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s55"/>
-<af:panelGroupLayout layout="horizontal" id="pgl32" >
-<af:panelGroupLayout id="pgl31" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout layout="horizontal" id="pgl87" >
+<af:panelGroupLayout id="pgl88" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value="#{pageFlowScope.CardBean.driverModifiedDate}"
                                        visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"
                                        id="ot21"
@@ -734,7 +782,7 @@
           <f:facet name="center">
             <af:panelGroupLayout id="deleteAllDriver_scroll"
                                  styleClass="WCPanelMargin">
-               <af:separator id="s31"
+               <af:separator id="s75"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
               <af:selectManyShuttle id="sms1"  binding="#{pageFlowScope.CardBean.bindings.shuttleExcel}"
                                     value="#{pageFlowScope.CardBean.shuttleValue}"
@@ -792,13 +840,13 @@
           <f:facet name="center">
               <af:panelGroupLayout id="pgl28" layout="vertical">
               <af:outputText value="#{sfr.TRANSACTION_SPECIFIC_CONFIRMATION}?" id="ot43"/>
-             <af:spacer width="10" height="10" id="s44"/>
+             <af:spacer width="10" height="10" id="s76"/>
             </af:panelGroupLayout>
           </f:facet>
           <f:facet name="bottom">
             <af:toolbar id="t3"
                         styleClass="WCPanelColor">
-              <af:panelGroupLayout id="pgl12" layout="horizontal">
+              <af:panelGroupLayout id="pgl89" layout="horizontal">
               <af:spacer width="4" height="10" id="s42"/>
                 <af:commandButton text="#{sfr.YES}" id="cb6"
                                   action="#{pageFlowScope.CardBean.excelDownLoad}">
