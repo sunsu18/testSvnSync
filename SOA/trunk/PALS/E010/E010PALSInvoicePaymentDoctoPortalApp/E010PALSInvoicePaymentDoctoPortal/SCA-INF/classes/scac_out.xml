@@ -40,4 +40,14 @@
       <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
       <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1}updatedby anonymous type"</msg>
    </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>953</line>
+      <col/>
+      <file>E010PALSInvoicePaymentDoctoPrtalBPELProcess.bpel</file>
+      <name>E010PALSInvoicePaymentDoctoPrtalBPELProcess.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1}palsDeltaTimestamp anonymous type" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}dateTime"</msg>
+   </Fault>
 </Faults>
