@@ -9,7 +9,10 @@
   BindingStyle="OracleName"
   CustomQuery="true"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  FetchMode="FETCH_AS_NEEDED"
+  FetchSize="5"
+  RangeSize="5">
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
   </DesignTime>
@@ -33,9 +36,10 @@
 inner join PRT_CARD_TRANSACTION_HEADER
 ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
 and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
-where PRT_CARD_TRANSACTION_DETAIL.pals_country_code =: countryCode
+where PRT_CARD_TRANSACTION_DETAIL.pals_country_code =:countryCode
 and INSTR(:partnerId,PARTNER_ID)<>0
-ORDER by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT DESC)
+AND PRT_CARD_TRANSACTION_DETAIL.PRICE_ELEMENT_CODE IS NULL
+ORDER by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME DESC)
 where ROWNUM <=5]]>
   </SQLQuery>
   <ViewAttribute
