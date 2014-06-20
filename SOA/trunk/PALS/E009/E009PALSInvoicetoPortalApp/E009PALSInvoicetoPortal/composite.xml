@@ -36,6 +36,8 @@
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/UpdateInvoiceErrorLogDatabaseAdapterV1"
           location="UpdateInvoiceErrorLogDatabaseAdapterV1.wsdl"
           importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="E009PALSInvoicetoPortal"
            ui:wsdlLocation="E009PALSInvoicetoPortal.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/E009PALSInvoicetoPortal#wsdl.interface(execute_ptt)"/>
@@ -150,6 +152,11 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E009PALSInvoicetoPortalApp/E009PALSInvoicetoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E009PALSInvoicetoPortal</source.uri>
     <target.uri>E009PALSInvoicetoPortalBPEL/E009PALSInvoicetoPortal</target.uri>
@@ -189,5 +196,9 @@
   <wire>
     <source.uri>E009PALSInvoicetoPortalBPEL/UpdateInvoiceErrorLogDatabaseAdapterV1</source.uri>
     <target.uri>UpdateInvoiceErrorLogDatabaseAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E009PALSInvoicetoPortalBPEL/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>
