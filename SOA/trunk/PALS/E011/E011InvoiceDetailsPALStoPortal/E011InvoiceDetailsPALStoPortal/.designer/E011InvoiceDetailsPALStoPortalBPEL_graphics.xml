@@ -4,20 +4,20 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="e011invoicedetailspalstoportalbpel_client" x="0" y="90" side="left"/>
+      <partnerlink name="e011invoicedetailspalstoportalbpel_client" x="0" y="189" side="left"/>
       <partnerlink name="SelectDeltaTSDBAdapter" x="0" y="1031" side="left"/>
       <partnerlink name="GetPALSDB2CountDBAdapter" x="0" y="937" side="left"/>
       <partnerlink name="PALSDB2DBAdapter" x="0" y="2084" side="left"/>
       <partnerlink name="MergeInvoiceDetailsPortalDBAdapter" x="0" y="2955" side="left"/>
       <partnerlink name="SOAErrorDBAdapter" x="0" y="2558" side="left"/>
       <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="3282" side="left"/>
-      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="3482" side="left"/>
-      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="1657" side="left"/>
-      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="3937" side="left"/>
+      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="18" side="left"/>
+      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="246" side="left"/>
+      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="75" side="left"/>
       <partnerlink name="E011InvoiceDetailsPALStoPortalWebservice" x="0" y="706" side="left"/>
-      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="3778" side="left"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="132" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="305,3600,677,320" show_swimlanes="true">
+   <graph_layout viewport="65,3157,1329,513" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -43,13 +43,13 @@
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/otherwise/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/otherwise/sequence/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/otherwise/sequence/switch/case/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/otherwise/sequence/switch/case/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/switch/otherwise/sequence/switch/case/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="true" xpath="/process/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch/otherwise/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>
 </graphics>
