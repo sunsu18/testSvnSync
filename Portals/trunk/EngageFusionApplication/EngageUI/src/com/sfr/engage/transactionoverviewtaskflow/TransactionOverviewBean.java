@@ -86,6 +86,7 @@ public class TransactionOverviewBean implements Serializable {
     private HttpServletRequest request;
     private List<PartnerInfo> partnerInfoList;
     private Boolean isTableVisible = false;
+    private Boolean value=false;
     ResourceBundle resourceBundle;
     private Float sum = 0.000f;
     private String cardGroupSubtypePassValues;
@@ -361,8 +362,7 @@ public class TransactionOverviewBean implements Serializable {
                     }
                 }
             }
-        }else {
-                System.out.println("partner id is null");
+        }else {                
                accountIdList = new ArrayList<SelectItem>();
                accountIdValue = new ArrayList<String>(); 
                cardNumberList = new ArrayList<SelectItem>();
@@ -1657,12 +1657,12 @@ public class TransactionOverviewBean implements Serializable {
                 session.setAttribute("card_Query",cardQuery);
                 session.setAttribute("map_Card_List",mapCardListValue);
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
-            isTableVisible = true;
-            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());            
+            //isTableVisible = true;             
+            value=true;
             sum = 0.000f;
             RowSetIterator iterator = vo.createRowSetIterator(null);
             iterator.reset();
-            if (vo.getEstimatedRowCount() != 0) {
+            if (vo.getEstimatedRowCount() != 0) {                
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "Inside Estimated row count" +
                              vo.getEstimatedRowCount());                
@@ -1683,15 +1683,6 @@ public class TransactionOverviewBean implements Serializable {
                 //                            //                vo.getViewObject().next();
                 //                }
 
-            } else {
-                isTableVisible = false;
-                if (resourceBundle.containsKey("NO_RECORDS_FOUND_TRANSACTIONS")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                         (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS"),
-                                         "");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
             }
         } else {
             showErrorMessage("ENGAGE_SELECT_TRANSACTION_MANDATORY");
@@ -1726,7 +1717,7 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         }
-        searchResults();
+        searchResults();                
         return null;
     }
 
@@ -3895,12 +3886,30 @@ public class TransactionOverviewBean implements Serializable {
                      "Estimated Row Count =" +
                      prtCardTransactionOverViewRVO.getEstimatedRowCount());
         sum = 0.000f;
+        if(prtCardTransactionOverViewRVO.getEstimatedRowCount()>0)
+        {
+            isTableVisible=true;
         while (iterator.hasNext()) {
             PrtCardTransactionOverviewRVORowImpl row =
                 (PrtCardTransactionOverviewRVORowImpl)iterator.next();            
             Float temp = row.getInvoicedGrossAmountRebated();
             sum = sum + temp;
+        }     
+        }else {
+            isTableVisible=false;   
+        }
+        
+        if(!isTableVisible && value) {
+            if (resourceBundle.containsKey("NO_RECORDS_FOUND_TRANSACTIONS")) {
+                FacesMessage msg =
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                     (String)resourceBundle.getObject("NO_RECORDS_FOUND_TRANSACTIONS"),
+                                     "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG()); 
         }        
+        value=false;
     }
 
     public void selectionExport(ValueChangeEvent valueChangeEvent) {
