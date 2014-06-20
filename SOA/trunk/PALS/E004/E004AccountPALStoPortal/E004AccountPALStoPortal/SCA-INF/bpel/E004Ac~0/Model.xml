@@ -625,7 +625,7 @@
       </sequence>
     </while>
     <switch name="RecordsExistsSwitch" id="BpSwt3">
-      <case condition="bpws:getVariableData('ErrorFlag') = 'YES'">
+      <case condition="bpws:getVariableData('ErrorFlag') = 'yes'">
         <bpelx:annotation>
           <bpelx:general>
             <bpelx:property name="userLabel">If Error occured</bpelx:property>
