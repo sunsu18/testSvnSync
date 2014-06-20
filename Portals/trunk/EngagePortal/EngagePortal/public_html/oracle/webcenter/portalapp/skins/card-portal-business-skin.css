@@ -1,3 +1,14 @@
+/*Close Icon On Popup*/
+.af_panelWindow_close-icon-region, .af_dialog_close-icon-region {
+overflow: hidden;
+margin-top: 3px;
+margin-bottom: 0px;
+margin-left: 23px;
+width: 14px;
+height: 14px;
+}
+
+
 /*IE Double Scroller Fixed*/
 .p_AFMaximized.af_document{
     position: inherit !important;
@@ -223,11 +234,6 @@ padding-top: 2px;
 }
 
 
-.home .af_column_column-header-cell{
-    background-color: #DBDBDB !important ;
-    border-bottom: 1px solid #BEBDBD !important;
-    color: #4D4C4C !important;
-}
 /*------------------------------ADF tree---------------------------*/
 .af_tree_node-stamp-text{
     border-style: none ;
@@ -897,8 +903,10 @@ height:15px;
 }
 
 .portlet-table-header, .portlet-table-subheader, .af_column_column-header-cell{
+   background-color: #DBDBDB !important ;
+    border-bottom: 1px solid #BEBDBD !important;
+    color: #4D4C4C !important;
     background-color: #C9C9C9 ;
-    border-bottom: 1px solid #888888;
     border-right: 1px solid #F0EEEE;
     border-top: 0 solid #FFFFFF;
     font-family: Lucida Sans,Georgia,Serif !important;
@@ -906,8 +914,8 @@ height:15px;
     font-weight: bold;
     height: 30px;
     overflow: hidden;
-    padding: 1px 2px;
-    text-align: center;
+    padding: 1px 10px;
+    text-align: left;
     word-wrap: break-word;
 
 }
@@ -920,8 +928,7 @@ border-right: 1px solid #FFFFFF !important;
 }
 
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
-    /*padding-right:8px;*/
-    /*padding-left:8px;*/
+    /*padding-right: 6px;*/
     color: #524e4f;
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
