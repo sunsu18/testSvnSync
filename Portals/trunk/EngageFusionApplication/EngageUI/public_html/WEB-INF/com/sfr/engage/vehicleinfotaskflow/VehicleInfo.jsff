@@ -530,7 +530,7 @@
               autoCancel="disabled">
       <af:dialog id="editVehicle" contentWidth="750"
                  type="none" closeIconVisible="false">
-                 <af:panelGroupLayout id="pgl14" layout="horizontal"
+                 <af:panelGroupLayout id="pgl17" layout="horizontal"
                              inlineStyle="font-size:15.0px;">
          <af:outputText value="#{sfr.VEHICLEINFO_EDITVEHICLE}"
                         id="ot3"
@@ -835,14 +835,15 @@
             </af:toolbar>
           </f:facet>
           <f:facet name="center">
-          <af:panelGroupLayout id="pgl15" layout="horizontal"
+          
+            <af:panelGroupLayout id="deleteVehicle_scroll"
+                                 styleClass="WCPanelMargin">
+                                 <af:panelGroupLayout id="pgl15" layout="horizontal"
                              inlineStyle="font-size:15.0px;">
          <af:outputText value="#{sfr.VEHICLEINFO_DELETEVEHICLE}"
                         id="ot20"
                         styleClass="subheading"/>
         </af:panelGroupLayout>
-            <af:panelGroupLayout id="deleteVehicle_scroll"
-                                 styleClass="WCPanelMargin">
               <af:panelFormLayout id="pfasl1">
                 <af:separator id="s34"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
