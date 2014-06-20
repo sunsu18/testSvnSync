@@ -53,6 +53,7 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
@@ -61,6 +62,9 @@ import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
+
+import oracle.adf.view.rich.event.QueryEvent;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
 
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
@@ -699,6 +703,7 @@ public class CardBean implements Serializable {
                             }
                         }
                     }
+                    resetTableFilter();
                     accountQuery = "(";
                     cardGroupQuery = "(";
 
@@ -2915,6 +2920,16 @@ public class CardBean implements Serializable {
         return fileName;
     }
 
+    public void resetTableFilter()
+        {
+            FilterableQueryDescriptor queryDescriptor =
+                (FilterableQueryDescriptor) getBindings().getSearchResultsTB().getFilterModel();
+            if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null)
+            {
+                queryDescriptor.getFilterCriteria().clear();
+                getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
+            }
+        }
 
     public class Bindings {
         private RichSelectOneChoice partner;
@@ -2933,6 +2948,7 @@ public class CardBean implements Serializable {
         private RichPanelGroupLayout vehiclePgl;
         private RichOutputText showEditInfoMessage;
         private RichSelectOneRadio selectionExportOneRadio;
+        private RichTable searchResultsTB;
 
         public void setPartner(RichSelectOneChoice partner) {
             this.partner = partner;
@@ -3064,6 +3080,14 @@ public class CardBean implements Serializable {
 
         public RichSelectOneRadio getSelectionExportOneRadio() {
             return selectionExportOneRadio;
+        }
+
+        public void setSearchResultsTB(RichTable searchResultsTB) {
+            this.searchResultsTB = searchResultsTB;
+        }
+
+        public RichTable getSearchResultsTB() {
+            return searchResultsTB;
         }
     }
 }

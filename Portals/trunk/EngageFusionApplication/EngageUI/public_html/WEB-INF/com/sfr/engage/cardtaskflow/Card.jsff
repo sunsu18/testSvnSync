@@ -253,9 +253,9 @@
                     selectionListener="#{bindings.PrtViewCardsVO11.collectionModel.makeCurrent}"
                     rowSelection="single" id="t1"
                     disableColumnReordering="true" columnResizing="disabled"
-                    autoHeightRows="20" contentDelivery="immediate">
+                    autoHeightRows="20" contentDelivery="immediate" binding="#{pageFlowScope.CardBean.bindings.searchResultsTB}">
             <af:column sortProperty="AccountId" filterable="true" sortable="true"
-                       headerText="#{sfr.ACCOUNT}" width="100px"
+                       headerText="#{sfr.ACCOUNT}" width="100px" filterFeatures="caseInsensitive"
                        id="c1">
               <af:inputText value="#{row.bindings.AccountId.inputValue}" 
                             label="#{bindings.PrtViewCardsVO11.hints.AccountId.label}"
@@ -268,7 +268,7 @@
               </af:inputText>
             </af:column>
             <af:column headerText="#{sfr.CARDGROUP}" sortProperty="CardgroupDescription" filterable="true" sortable="true"
-                       id="c9" width="150px">
+                       id="c9" width="150px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.mandatory}"
@@ -280,7 +280,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardType" filterable="true" width="150px" sortable="true"
-                       headerText="#{sfr.CARD_TYPE}"
+                       headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
                        id="c6">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardType.label}"
@@ -293,7 +293,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}" sortable="true"
-                       id="c3"  width="155px">
+                       id="c3"  width="155px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
@@ -305,7 +305,7 @@
               </af:inputText>
             </af:column>
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
-                       id="c10" width="130px">
+                       id="c10" width="130px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.CardTextline2.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardTextline2.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardTextline2.mandatory}"
@@ -317,7 +317,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
-                       id="c8"  width="80px">
+                       id="c8"  width="80px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.mandatory}"
@@ -329,7 +329,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="DriverName" filterable="true" headerText="#{sfr.DRIVER}" sortable="true"
-                       id="c5" width="80px">
+                       id="c5" width="80px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.DriverName.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.DriverName.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.DriverName.mandatory}"
@@ -342,7 +342,7 @@
             </af:column>
            
             <af:column headerText="#{sfr.STATUS}" sortProperty="Status" filterable="true"  width="110px" sortable="true"
-                       id="c4">
+                       id="c4" filterFeatures="caseInsensitive">
                   
               <af:inputText value="#{row.bindings.Status.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.Status.label}"
@@ -358,7 +358,7 @@
             </af:column>
          
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}" sortable="true"
-                       id="c2" width="100px" align="center">
+                       id="c2" width="100px" align="center" filterFeatures="caseInsensitive">
               <f:facet name="filter">
                 <af:inputDate value="#{vs.filterCriteria.CardExpiry}" id="id1">
                 <af:convertDateTime pattern="dd.MM.yyyy"/>
@@ -376,7 +376,7 @@
             </af:column>
 
             <af:column headerText="#{sfr.MANAGE}"
-                       id="c7" align="center" width="65px">
+                       id="c7" align="center" width="65px" filterFeatures="caseInsensitive">
 
               <af:commandImageLink id="cil1" icon="/images/edit.png"
                                    actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">
