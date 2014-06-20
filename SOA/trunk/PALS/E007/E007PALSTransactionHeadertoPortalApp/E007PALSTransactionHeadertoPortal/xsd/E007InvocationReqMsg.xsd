@@ -17,7 +17,9 @@
         <xsd:element name="CountryCode" type="xsd:string"/>
         <xsd:element name="PALS_JNDI" type="xsd:string"/>
         <xsd:element name="BatchSize" type="xsd:integer"/>
+        <xsd:element name="BatchCount" type="xsd:string" minOccurs="0"/>
         <xsd:element name="UserName" type="xsd:string"/>
+        <xsd:element name="LastInvokeFlag" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

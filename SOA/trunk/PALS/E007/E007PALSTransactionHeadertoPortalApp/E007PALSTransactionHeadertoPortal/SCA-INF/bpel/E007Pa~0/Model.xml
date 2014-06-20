@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E007PalsTransactionHeadertoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalService" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E007/E007InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/MergeTxnHeaderPortalDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateTxnHeaderPortalDBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/CommonErrorHandlerJMSAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns:ns16="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" id="BpPrc0">
+<process name="E007PalsTransactionHeadertoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalService" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E007/E007InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/MergeTxnHeaderPortalDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateTxnHeaderPortalDBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/CommonErrorHandlerJMSAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns:ns16="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter" xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,7 @@
     <partnerLink name="CommonErrorHandlerJMSAdapter" partnerLinkType="ns14:Produce_Message_plt" partnerRole="Produce_Message_role"/>
     <partnerLink name="UpdateEmailErrorFlagSOADBAdapterV1" partnerLinkType="ns18:UpdateEmailErrorFlagSOADBAdapterV1_plt" partnerRole="UpdateEmailErrorFlagSOADBAdapterV1_role"/>
     <partnerLink name="InsertDeltaTSSOADBAdapterV1" partnerLinkType="ns19:InsertDeltaTSSOADBAdapterV1_plt" partnerRole="InsertDeltaTSSOADBAdapterV1_role"/>
+    <partnerLink name="SOAPALSNotificationJMSAdapter" partnerLinkType="ns21:Produce_Message_plt" partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveTransactionHeaderReqMsg_IV" messageType="ns1:requestMessage"/>
@@ -45,6 +46,7 @@
     <variable name="InvokeCommonErrorHandler_IV" messageType="ns14:Produce_Message_msg"/>
     <variable name="InvokeUpdateEmailErrorFlagSOADBAdapterV1_IV" messageType="ns18:EngageSoaTxnheaderErrorlogCollection_msg"/>
     <variable name="InvokeInsertDeltaTSSOADBAdapterV1_IV" messageType="ns19:EngageSoaDeltatableCollection_msg"/>
+    <variable name="InvokeSOAPALSNotifationJMSAdapter_IV" messageType="ns21:Produce_Message_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0"><sequence name="RemoteFaultSequence" id="BpSeq0"><assign name="AssignRemoteFault" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss0">
@@ -290,23 +292,40 @@
         <invoke name="InvokeGetPALSDB2RecordCountDBAdapterV1" inputVariable="InvokeGetPALSDB2RecordCountDBAdapterV1_IV" outputVariable="InvokeGetPALSDB2RecordCountDBAdapterV1_OV" partnerLink="GetPALSDB2RecordCountDBAdapterV1" portType="ns5:GetPALSDB2RecordCountDBAdapterV1_ptt" operation="GetPALSDB2RecordCountDBAdapterV1" bpelx:invokeAsDetail="no" id="BpInv4">
                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
         </invoke>
-        <assign name="CalcuteBatchCount" id="BpAss9">
-          <copy>
-            <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize')))"/>
-            <to variable="batchCount"/>
-          </copy>
-          <copy>
-            <from expression="1"/>
-            <to variable="batchCountIterator"/>
-          </copy>
-        </assign>
+        <switch name="Switch4" id="BpSwt1">
+          <case condition="((bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount')!='') and (number(bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount'))&lt;( ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize'))))))">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">Batch count given</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount" id="BpAss9">
+              <copy>
+                <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:BatchCount"/>
+                <to variable="batchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="CalcuteBatchCount" id="BpAss10">
+              <copy>
+                <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize')))"/>
+                <to variable="batchCount"/>
+              </copy>
+              <copy>
+                <from expression="1"/>
+                <to variable="batchCountIterator"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch" condition="bpws:getVariableData('batchCountIterator') &lt;= bpws:getVariableData('batchCount')" id="BpWhl0">
       <sequence name="BatchExecutionSequence" id="BpSeq7">
         <scope name="GetTransactionHeaderDataScope" variableAccessSerializable="no" id="BpScp2">
           <sequence name="GetTransactionHeaderDataSequence" id="BpSeq8">
-            <assign name="GetLatestDeltaTS" id="BpAss10">
+            <assign name="GetLatestDeltaTS" id="BpAss11">
               <copy>
                 <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
                 <to variable="InvokeSelectDeltaTSSOADBAdapterV1_IV" part="SelectDeltaTSSOADBAdapterV1Select_inputParameters" query="/ns4:SelectDeltaTSSOADBAdapterV1Select_Interface_ID_Country_CodeInputParameters/ns4:Interface_ID"/>
@@ -317,7 +336,7 @@
               </copy>
             </assign>
             <invoke name="InvokeSelectDeltaTSSOADBAdapterV1" inputVariable="InvokeSelectDeltaTSSOADBAdapterV1_IV" outputVariable="InvokeSelectDeltaTSSOADBAdapterV1_OV" partnerLink="SelectDeltaTSSOADBAdapterV1" portType="ns3:SelectDeltaTSSOADBAdapterV1_ptt" operation="SelectDeltaTSSOADBAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv5"/>
-            <switch name="Switch2" id="BpSwt1">
+            <switch name="Switch2" id="BpSwt2">
               <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable')) > 0">
                 <bpelx:annotation>
                   <bpelx:general>
@@ -325,13 +344,13 @@
                   </bpelx:general>
                 </bpelx:annotation>
                 <sequence name="GetDeltaTSSequence" id="BpSeq9">
-                  <assign name="AssignDeltaTS" id="BpAss11">
+                  <assign name="AssignDeltaTS" id="BpAss12">
                     <copy>
                       <from expression="substring-before(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable/ns4:palsDeltaTimestamp'),'+')"/>
                       <to variable="deltaDB2FormatTS"/>
                     </copy>
                   </assign>
-                  <assign name="FormatDeltaTS" id="BpAss12">
+                  <assign name="FormatDeltaTS" id="BpAss13">
                     <copy>
                       <from expression="concat(substring-before(bpws:getVariableData('deltaDB2FormatTS'),'T'), ' ', substring-after(bpws:getVariableData('deltaDB2FormatTS'),'T'))"/>
                       <to variable="deltaDB2FormatTS"/>
@@ -340,7 +359,7 @@
                 </sequence>
               </case>
               <otherwise>
-                <assign name="AssignDefaultTS" id="BpAss13">
+                <assign name="AssignDefaultTS" id="BpAss14">
                   <copy>
                     <from expression="'0001-01-01 00:00:00.000000'"/>
                     <to variable="deltaDB2FormatTS"/>
@@ -348,7 +367,7 @@
                 </assign>
               </otherwise>
             </switch>
-            <assign name="AssignSelectPalsTxnHearderRecordsInputParameters" id="BpAss14">
+            <assign name="AssignSelectPalsTxnHearderRecordsInputParameters" id="BpAss15">
               <copy>
                 <from variable="deltaDB2FormatTS"/>
                 <to variable="InvokeSelectPALSTxnRecordDBAdapterV1_IV" part="SelectPALSTxnHeaderRecordsDBAdapterV1Select_inputParameters" query="/ns8:SelectPALSTxnHeaderRecordsDBAdapterV1Select_DeltaTimeStamp_BatchSizeInputParameters/ns8:DeltaTimeStamp"/>
@@ -361,7 +380,7 @@
             <invoke name="InvokeSelectPALSTxnHeaderRecordDBAdapterV1" inputVariable="InvokeSelectPALSTxnRecordDBAdapterV1_IV" outputVariable="InvokeSelectPALSTxnRecordDBAdapterV1_OV" partnerLink="SelectPALSTxnHeaderRecordsDBAdapterV1" portType="ns7:SelectPALSTxnHeaderRecordsDBAdapterV1_ptt" operation="SelectPALSTxnHeaderRecordsDBAdapterV1Select" bpelx:invokeAsDetail="no" id="BpInv6">
                     <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
            </invoke>
-            <assign name="AssignDataCount" id="BpAss15">
+            <assign name="AssignDataCount" id="BpAss16">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta'))"/>
                 <to variable="dataCount"/>
@@ -371,7 +390,7 @@
               <faultHandlers id="BpFhs1">
                 <catch faultName="bpelx:invalidVariables" id="BpCFt2">
                   <sequence name="DataValidationSequence" id="BpSeq10">
-                    <assign name="Xform_ValidationPayload_to_SOATxnHeaderErrorLog" id="BpAss16">
+                    <assign name="Xform_ValidationPayload_to_SOATxnHeaderErrorLog" id="BpAss17">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -381,7 +400,7 @@
                       </copy>
                     </assign>
                     <invoke name="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1" inputVariable="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1_IV" partnerLink="InsertTxnHeaderSOAErrorLogDBAdapterV1" portType="ns10:InsertTxnHeaderSOAErrorLogDBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
-                    <assign name="EnableErrorFlag" id="BpAss17">
+                    <assign name="EnableErrorFlag" id="BpAss18">
                       <copy>
                         <from expression="'true'"/>
                         <to variable="errorFlag"/>
@@ -391,7 +410,7 @@
                 </catch>
               </faultHandlers>
               <sequence name="DataValidationSequence" id="BpSeq11">
-                <assign name="Xform_PalsTxnHeaderData_to_PayloadValidation" id="BpAss18">
+                <assign name="Xform_PalsTxnHeaderData_to_PayloadValidation" id="BpAss19">
                   <bpelx:annotation>
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
@@ -415,7 +434,7 @@
                         part="PrtCardTransactionHeaderCollection"/>
                   </copy>
                 </assign-->
-                <assign name="Xform_TxnHeaderPals_to_Portal" id="BpAss19">
+                <assign name="Xform_TxnHeaderPals_to_Portal" id="BpAss20">
                   <bpelx:annotation>
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
@@ -425,7 +444,7 @@
                   </copy>
                 </assign>
                 <invoke name="InvokeMergeTxnHeaderDataPortalDBAdapterV1" inputVariable="InvokeMergeTxnHeaderDataPortalDBAdapterV1_IV" partnerLink="MergeTxnHeaderPortalDBAdapterV1" portType="ns11:MergeTxnHeaderPortalDBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv8"/>
-                <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer" id="BpAss20">
+                <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer" id="BpAss21">
                   <bpelx:annotation>
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
@@ -439,7 +458,7 @@
             </scope>
           </sequence>
         </scope>
-        <assign name="AssignLatestDeltaTSSOADBAdapterV1" id="BpAss21">
+        <assign name="AssignLatestDeltaTSSOADBAdapterV1" id="BpAss22">
           <copy>
             <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
             <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns20:EngageSoaDeltatableCollection/ns20:EngageSoaDeltatable/ns20:interfaceid"/>
@@ -462,7 +481,7 @@
           </copy>
         </assign>
         <invoke name="InvokeInsertDeltaTSSOADBAdapterV1" inputVariable="InvokeInsertDeltaTSSOADBAdapterV1_IV" partnerLink="InsertDeltaTSSOADBAdapterV1" portType="ns19:InsertDeltaTSSOADBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv10"/>
-        <assign name="NextBatch" id="BpAss22">
+        <assign name="NextBatch" id="BpAss23">
           <copy>
             <from expression="bpws:getVariableData('batchCountIterator') + 1"/>
             <to variable="batchCountIterator"/>
@@ -470,7 +489,7 @@
         </assign>
       </sequence>
     </while>
-    <switch name="Switch3" id="BpSwt2">
+    <switch name="Switch3" id="BpSwt3">
       <case condition="bpws:getVariableData('errorFlag') = 'true'">
         <bpelx:annotation>
           <bpelx:general>
@@ -479,7 +498,7 @@
         </bpelx:annotation>
         <sequence name="Sequence3" id="BpSeq13">
           <invoke name="InvokeSelectErrorRecordsSOAAdapterV1" inputVariable="InvokeSelectErrorRecordsSOAAdapterV1_IV" outputVariable="InvokeSelectErrorRecordsSOAAdapterV1_OV" partnerLink="SelectErrorRecordsSOADBAdapterV1" portType="ns13:SelectErrorRecordsSOADBAdapterV1_ptt" operation="SelectErrorRecordsSOADBAdapterV1" bpelx:invokeAsDetail="no" id="BpInv11"/>
-          <assign name="Xform_ErrorData_to_ErrorDescription" id="BpAss23">
+          <assign name="Xform_ErrorData_to_ErrorDescription" id="BpAss24">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -488,7 +507,7 @@
               <to variable="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1_IV" part="EngageSoaTxnheaderErrorlogCollection"/>
             </copy>
           </assign>
-          <assign name="AssignCommonErrorHandlerValues" id="BpAss24">
+          <assign name="AssignCommonErrorHandlerValues" id="BpAss25">
             <copy>
               <from expression="ora:getCompositeInstanceId()"/>
               <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:InstanceID"/>
@@ -543,7 +562,7 @@
             </copy>
           </assign>
           <invoke name="InvokeCommonErrorHandler" inputVariable="InvokeCommonErrorHandler_IV" partnerLink="CommonErrorHandlerJMSAdapter" portType="ns14:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv12"/>
-          <assign name="Xform_SOAErrorREcords_to_EmailFlagUpdate" id="BpAss25">
+          <assign name="Xform_SOAErrorREcords_to_EmailFlagUpdate" id="BpAss26">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -556,7 +575,105 @@
         </sequence>
       </case>
       <otherwise>
-        <empty name="SendDeltaReports" id="BpEmp0"/>
+        <switch name="Switch5" id="BpSwt4">
+          <case condition="bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:LastInvokeFlag')='True'">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">If last invocation flag is set</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence name="Sequence4" id="BpSeq14">
+              <switch name="Switch6" id="BpSwt5">
+                <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable')) > 0">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">If records are selected</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <assign name="AssignPALSJMSNotificationDelta" id="BpAss27">
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC077VS1_CSSORD_DTA'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_CARD_TRANSACTION_HEADER'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:CountryCode"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from variable="deltaDB2FormatTS"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E007PALSTransactionHeadertoPortal'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                  </assign>
+                </case>
+                <otherwise>
+                  <assign name="AssignPALSJMSNotification" id="BpAss28">
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC077VS1_CSSORD_DTA'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_CARD_TRANSACTION_HEADER'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from expression="bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta[$dataCount]/ns8:deltaTs')"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:CountryCode"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E007PALSTransactionHeadertoPortal'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                  </assign>
+                </otherwise>
+              </switch>
+              <invoke name="InvokeSOAPALSNotifationJMSAdapter" inputVariable="InvokeSOAPALSNotifationJMSAdapter_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns21:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv14"/>
+            </sequence>
+          </case>
+        </switch>
       </otherwise>
     </switch>
   </sequence>

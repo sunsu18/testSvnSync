@@ -48,4 +48,8 @@
              ui:wsdlLocation="InsertDeltaTSSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1#wsdl.interface(InsertDeltaTSSOADBAdapterV1_ptt)"/>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

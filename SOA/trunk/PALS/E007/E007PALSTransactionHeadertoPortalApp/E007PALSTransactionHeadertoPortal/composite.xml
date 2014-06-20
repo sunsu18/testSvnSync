@@ -38,6 +38,8 @@
           location="UpdateEmailErrorFlagSOADBAdapterV1.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1"
           location="InsertDeltaTSSOADBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="E007PalsTransactionHeadertoPortalService"
            ui:wsdlLocation="E007PalsTransactionHeadertoPortalService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalService#wsdl.interface(execute_ptt)"/>
@@ -164,6 +166,11 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E007PalsTransactionHeadertoPortalService</source.uri>
     <target.uri>E007PalsTransactionHeadertoPortalBPEL/E007PalsTransactionHeadertoPortalService</target.uri>
@@ -207,5 +214,9 @@
   <wire>
     <source.uri>E007PalsTransactionHeadertoPortalBPEL/InsertDeltaTSSOADBAdapterV1</source.uri>
     <target.uri>InsertDeltaTSSOADBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E007PalsTransactionHeadertoPortalBPEL/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>

@@ -48,7 +48,9 @@
          xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertTxnHeaderSOAErrorLogDBAdapterV1"
          xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1"
          xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1"
-         xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1">
+         xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1"
+         xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter"
+         xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +93,9 @@
     <partnerLink name="InsertDeltaTSSOADBAdapterV1"
                  partnerLinkType="ns19:InsertDeltaTSSOADBAdapterV1_plt"
                  partnerRole="InsertDeltaTSSOADBAdapterV1_role"/>
+    <partnerLink name="SOAPALSNotificationJMSAdapter"
+                 partnerLinkType="ns21:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveTransactionHeaderReqMsg_IV"
@@ -130,6 +135,8 @@
               messageType="ns18:EngageSoaTxnheaderErrorlogCollection_msg"/>
     <variable name="InvokeInsertDeltaTSSOADBAdapterV1_IV"
               messageType="ns19:EngageSoaDeltatableCollection_msg"/>
+    <variable name="InvokeSOAPALSNotifationJMSAdapter_IV"
+              messageType="ns21:Produce_Message_msg"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault"><sequence name="RemoteFaultSequence"><assign name="AssignRemoteFault"
@@ -475,16 +482,34 @@
                 bpelx:invokeAsDetail="no">
                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
         </invoke>
-        <assign name="CalcuteBatchCount">
-          <copy>
-            <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize')))"/>
-            <to variable="batchCount"/>
-          </copy>
-          <copy>
-            <from expression="1"/>
-            <to variable="batchCountIterator"/>
-          </copy>
-        </assign>
+        <switch name="Switch4">
+          <case condition="((bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount')!='') and (number(bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount'))&lt;( ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize'))))))">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">Batch count given</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1"
+                      query="/ns2:invocationMsg/ns2:BatchCount"/>
+                <to variable="batchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="CalcuteBatchCount">
+              <copy>
+                <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count'))  div number(bpws:getVariableData('batchSize')))"/>
+                <to variable="batchCount"/>
+              </copy>
+              <copy>
+                <from expression="1"/>
+                <to variable="batchCountIterator"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch"
@@ -831,7 +856,161 @@
         </sequence>
       </case>
       <otherwise>
-        <empty name="SendDeltaReports"/>
+        <switch name="Switch5">
+          <case condition="bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:LastInvokeFlag')='True'">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">If last invocation flag is set</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <sequence name="Sequence4">
+              <switch name="Switch6">
+                <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable')) > 0">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">If records are selected</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <assign name="AssignPALSJMSNotificationDelta">
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC077VS1_CSSORD_DTA'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_CARD_TRANSACTION_HEADER'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:CountryCode"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from variable="deltaDB2FormatTS"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E007PALSTransactionHeadertoPortal'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                  </assign>
+                </case>
+                <otherwise>
+                  <assign name="AssignPALSJMSNotification">
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC077VS1_CSSORD_DTA'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_CARD_TRANSACTION_HEADER'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from expression="bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta[$dataCount]/ns8:deltaTs')"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:CountryCode"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E007PALSTransactionHeadertoPortal'"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveTransactionHeaderReqMsg_IV"
+                            part="part1"
+                            query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                      <to variable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                  </assign>
+                </otherwise>
+              </switch>
+              <invoke name="InvokeSOAPALSNotifationJMSAdapter"
+                      inputVariable="InvokeSOAPALSNotifationJMSAdapter_IV"
+                      partnerLink="SOAPALSNotificationJMSAdapter"
+                      portType="ns21:Produce_Message_ptt"
+                      operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+            </sequence>
+          </case>
+        </switch>
       </otherwise>
     </switch>
   </sequence>
