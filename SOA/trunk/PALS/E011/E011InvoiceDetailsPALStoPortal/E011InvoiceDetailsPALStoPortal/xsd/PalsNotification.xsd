@@ -20,6 +20,7 @@
       <xsd:element name="SourceTableName" type="xsd:string"/>
       <xsd:element name="TargetTableName" type="xsd:string"/>
       <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
+      <xsd:element name="CountryCode" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>

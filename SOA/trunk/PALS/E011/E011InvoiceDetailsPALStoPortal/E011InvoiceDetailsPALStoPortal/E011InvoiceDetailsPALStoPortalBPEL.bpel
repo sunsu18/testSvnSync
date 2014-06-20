@@ -947,6 +947,14 @@
                                 query="/ns18:Notification/ns18:SourceSystem"/>
                           </copy>
                           <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:CountryCode"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:CountryCode"/>
+                          </copy>
+                          <copy>
                             <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta[$DataCount]/ns7:deltaTs')"/>
                             <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
                                 part="body"
