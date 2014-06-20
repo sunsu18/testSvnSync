@@ -921,7 +921,191 @@
             </sequence>
           </case>
           <otherwise>
-            <empty name="Empty"/>
+            <sequence name="DataTransferCompletionSequence">
+              <switch name="IfLastInvocationFlag">
+                <case condition="bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:LastInvokeFlag') = 'True'">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <switch name="IfDataExistsinPALS">
+                    <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
+                      <bpelx:annotation>
+                        <bpelx:general>
+                          <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
+                        </bpelx:general>
+                      </bpelx:annotation>
+                      <sequence name="PALSNotificationSequence">
+                        <assign name="AssignSOAPALSNotificationData">
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:SourceSystem"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta[$DataCount]/ns7:deltaTs')"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:LastDeltaTimeStamp"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:TargetSystem"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:InterfaceID"/>
+                          </copy>
+                          <copy>
+                            <from expression="'E011InvoiceDetailsPALStoPortal'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:InterfaceName"/>
+                          </copy>
+                          <copy>
+                            <from expression="xp20:current-dateTime()"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:NotificationDateTime"/>
+                          </copy>
+                          <copy>
+                            <from expression="'PRT_CARD_INVOICE_DETAILS'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:TargetTableName"/>
+                          </copy>
+                          <copy>
+                            <from expression="'CC076VS1_CSSBDET_DTA'"/>
+                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns18:Notification/ns18:SourceTableName"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeSOAPALSNotificationJMSAdapter"
+                                bpelx:invokeAsDetail="no"
+                                inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                                partnerLink="SOAPALSNotificationJMSAdapter"
+                                portType="ns17:Produce_Message_ptt"
+                                operation="Produce_Message"/>
+                      </sequence>
+                    </case>
+                    <otherwise>
+                      <sequence name="ErrorCompletionSequence">
+                        <assign name="AssignStandardErrorData">
+                          <copy>
+                            <from expression="ora:getInstanceId()"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:InstanceID"/>
+                          </copy>
+                          <copy>
+                            <from expression="'Data Transfer not completed for the given database table.'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorDescription"/>
+                          </copy>
+                          <copy>
+                            <from expression="'BE'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:LookupCriteria"/>
+                          </copy>
+                          <copy>
+                            <from expression="'DEV03: Error in SOA composite E011InvoiceDetailsPALStoPortal For interface E011 Incomplete data transfer'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:Subject"/>
+                          </copy>
+                          <copy>
+                            <from expression="'BE-027'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="'Incomplete Data Transfer'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorSummary"/>
+                          </copy>
+                          <copy>
+                            <from expression="ora:getComponentName()"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ComponentName"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:InterfaceID"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ProjectID"/>
+                          </copy>
+                          <copy>
+                            <from expression="'E011InvoiceDetailsPALStoPortal'"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ProjectName"/>
+                          </copy>
+                          <copy>
+                            <from expression="xp20:current-dateTime()"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Timestamp"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:SenderSystem"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Source"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Target"/>
+                          </copy>
+                          <copy>
+                            <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
+                                  part="payload"
+                                  query="/ns2:invocationMsg/ns2:UserName"/>
+                            <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                part="body"
+                                query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:UserID"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeSOAErrorHandlerJMSAdapter"
+                                bpelx:invokeAsDetail="no"
+                                inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
+                                partnerLink="SOAErrorHandlerJMSAdapter"
+                                portType="ns14:Produce_Message_ptt"
+                                operation="Produce_Message"/>
+                      </sequence>
+                    </otherwise>
+                  </switch>
+                </case>
+                <otherwise>
+                  <empty name="Empty"/>
+                </otherwise>
+              </switch>
+            </sequence>
           </otherwise>
         </switch>
         <assign name="NextBatch">
@@ -1116,185 +1300,5 @@
     </scope>
     </sequence>
     -->
-    <switch name="IfLastInvocationFlag">
-      <case condition="bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:LastInvokeFlag') = 'True'">
-        <bpelx:annotation>
-          <bpelx:general>
-            <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
-          </bpelx:general>
-        </bpelx:annotation>
-        <switch name="IfDataExistsinPALS">
-          <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
-            <bpelx:annotation>
-              <bpelx:general>
-                <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
-              </bpelx:general>
-            </bpelx:annotation>
-            <sequence name="PALSNotificationSequence">
-              <assign name="AssignSOAPALSNotificationData">
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:SenderSystem"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body" query="/ns18:Notification/ns18:SourceSystem"/>
-                </copy>
-                <copy>
-                  <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OV','Cc076Vs1CssbdetDtaCollection','/ns7:Cc076Vs1CssbdetDtaCollection/ns7:Cc076Vs1CssbdetDta[$DataCount]/ns7:deltaTs')"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns18:Notification/ns18:LastDeltaTimeStamp"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body" query="/ns18:Notification/ns18:TargetSystem"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:InterfaceID"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body" query="/ns18:Notification/ns18:InterfaceID"/>
-                </copy>
-                <copy>
-                  <from expression="'E011InvoiceDetailsPALStoPortal'"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns18:Notification/ns18:InterfaceName"/>
-                </copy>
-                <copy>
-                  <from expression="xp20:current-dateTime()"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns18:Notification/ns18:NotificationDateTime"/>
-                </copy>
-                <copy>
-                  <from expression="'PRT_CARD_INVOICE_DETAILS'"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns18:Notification/ns18:TargetTableName"/>
-                </copy>
-                <copy>
-                  <from expression="'CC076VS1_CSSBDET_DTA'"/>
-                  <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns18:Notification/ns18:SourceTableName"/>
-                </copy>
-              </assign>
-              <invoke name="InvokeSOAPALSNotificationJMSAdapter"
-                      bpelx:invokeAsDetail="no"
-                      inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                      partnerLink="SOAPALSNotificationJMSAdapter"
-                      portType="ns17:Produce_Message_ptt"
-                      operation="Produce_Message"/>
-            </sequence>
-          </case>
-          <otherwise>
-            <sequence name="ErrorCompletionSequence">
-
-                     <assign name="AssignStandardErrorData">
-                <copy>
-                  <from expression="ora:getInstanceId()"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:InstanceID"/>
-                </copy>
-                <copy>
-                  <from expression="'Data Transfer not completed for the given database table.'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorDescription"/>
-                </copy>
-                <copy>
-                  <from expression="'BE'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:LookupCriteria"/>
-                </copy>
-                <copy>
-                  <from expression="'DEV03: Error in SOA composite E011InvoiceDetailsPALStoPortal For interface E011 Incomplete data transfer'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:Subject"/>
-                </copy>
-                <copy>
-                  <from expression="'BE-027'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorCode"/>
-                </copy>
-                <copy>
-                  <from expression="'Incomplete Data Transfer'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorSummary"/>
-                </copy>
-                <copy>
-                  <from expression="ora:getComponentName()"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ComponentName"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:InterfaceID"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ProjectID"/>
-                </copy>
-                <copy>
-                  <from expression="'E011InvoiceDetailsPALStoPortal'"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:ProjectName"/>
-                </copy>
-                <copy>
-                  <from expression="xp20:current-dateTime()"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Timestamp"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:SenderSystem"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Source"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload"
-                        query="/ns2:invocationMsg/ns2:ReceiverSystem"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:Target"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveInvoiceDetailsReqMsg_process_IV"
-                        part="payload" query="/ns2:invocationMsg/ns2:UserName"/>
-                  <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      part="body"
-                      query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:UserID"/>
-                </copy>
-              </assign>
-              <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                      bpelx:invokeAsDetail="no"
-                      inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_IV"
-                      partnerLink="SOAErrorHandlerJMSAdapter"
-                      portType="ns14:Produce_Message_ptt"
-                      operation="Produce_Message"/>
-            </sequence>
-          </otherwise>
-        </switch>
-      </case>
-      <otherwise>
-        <empty name="Empty"/>
-      </otherwise>
-    </switch>
   </sequence>
 </process>
