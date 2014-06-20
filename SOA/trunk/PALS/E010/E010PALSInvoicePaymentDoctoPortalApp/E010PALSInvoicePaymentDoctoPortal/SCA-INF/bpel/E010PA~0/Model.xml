@@ -611,6 +611,10 @@
                         <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
                       </copy>
                       <copy>
+                        <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:CountryCode"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns22:Notification/ns22:CountryCode"/>
+                      </copy>
+                      <copy>
                         <from expression="bpws:getVariableData('InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV','Cc075Vs1CssbdokDtaCollection','/ns8:Cc075Vs1CssbdokDtaCollection/ns8:Cc075Vs1CssbdokDta[$dataCount]/ns8:deltaTs')"/>
                         <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
                       </copy>

@@ -2,8 +2,8 @@
      name="SOAPALSNotificationJMSAdapter"
      targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAPALSNotificationJMSAdapter"
      xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
-     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
      xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAPALSNotificationJMSAdapter"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
      xmlns:imp1="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
      xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
     >
