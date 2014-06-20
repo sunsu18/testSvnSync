@@ -27,7 +27,7 @@
     <iterator Binds="root" RangeSize="25" DataControl="PartnerInfoListClient"
               id="PartnerInfoListClientIterator"/>
     <accessorIterator MasterBinding="PartnerInfoListClientIterator"
-                      Binds="partnerlist" RangeSize="25"
+                      Binds="partnerlist" RangeSize="500"
                       DataControl="PartnerInfoListClient"
                       BeanClass="com.sfr.engage.core.PartnerInfo"
                       id="partnerlistIterator"/>
