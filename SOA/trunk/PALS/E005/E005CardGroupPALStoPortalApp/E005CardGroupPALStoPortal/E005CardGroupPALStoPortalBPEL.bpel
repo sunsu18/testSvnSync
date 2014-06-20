@@ -52,7 +52,9 @@
          xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
          xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/db/SelectNoEamilCardGroupErrorLogDatabaseAdapterV1"
          xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/top/MergeCardGroupErrorLogDatabaseAdapterV1"
-         xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/UpdateEmailFlagErrorLogDatabaseAdapterV1">
+         xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/UpdateEmailFlagErrorLogDatabaseAdapterV1"
+         xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/jms/E005CardGroupPALStoPortalApp/E005CardGroupPALStoPortal/SOAPALSNotificationJMSAdapterV1"
+         xmlns:ns26="http://www.statoilfuelretail.com/integration/engage/PalsNotification">
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -103,6 +105,9 @@
     <partnerLink name="UpdateEmailFlagErrorLogDatabaseAdapterV1"
                  partnerLinkType="ns24:UpdateEmailFlagErrorLogDatabaseAdapterV1_plt"
                  partnerRole="UpdateEmailFlagErrorLogDatabaseAdapterV1_role"/>
+    <partnerLink name="SOAPALSNotificationJMSAdapterV1"
+                 partnerLinkType="ns25:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveInvocationMsg_IV" messageType="ns1:requestMessage"/>
@@ -162,6 +167,8 @@
     <variable name="ErrorFlag" type="xsd:string"/>
     <variable name="CardGroupValidate" element="ns12:CardGroup"/>
     <variable name="PALSJNDI" type="xsd:string"/>
+    <variable name="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+              messageType="ns25:Produce_Message_msg"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault">
@@ -1057,7 +1064,154 @@
             </sequence>
           </case>
           <otherwise>
-            <empty name="Empty1"/>
+            <switch name="Switch2">
+              <case condition="bpws:getVariableData('ReceiveInvocationMsg_IV','part1','/ns5:invocationMsg/ns5:LastInvocationFlag')='True'">
+                <bpelx:annotation>
+                  <bpelx:general>
+                    <bpelx:property name="userLabel">If last invocation flag is set</bpelx:property>
+                  </bpelx:general>
+                </bpelx:annotation>
+                <sequence name="Sequence1">
+                  <switch name="Switch3">
+                    <case condition="count(bpws:getVariableData('InvokeSelectSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns6:EngageSoaDeltatableCollection/ns6:EngageSoaDeltatable')) >0">
+                      <bpelx:annotation>
+                        <bpelx:general>
+                          <bpelx:property name="userLabel">if data is selected from pals</bpelx:property>
+                        </bpelx:general>
+                      </bpelx:annotation>
+                      <assign name="AssignPALSJMSNotificationDelta">
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:SenderSystem"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:SourceSystem"/>
+                        </copy>
+                        <copy>
+                          <from expression="'CC072VS1_CSSFFO_DTA'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:SourceTableName"/>
+                        </copy>
+                        <copy>
+                          <from expression="'PRT_CARDGROUP'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:TargetTableName"/>
+                        </copy>
+                        <copy>
+                          <from expression="xp20:current-dateTime()"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:NotificationDateTime"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:CountryCode"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:CountryCode"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:ReceiverSystem"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:TargetSystem"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:InterfaceID"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:InterfaceID"/>
+                        </copy>
+                        <copy>
+                          <from expression="'E005CardGroupPALStoPortal'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:InterfaceName"/>
+                        </copy>
+                        <copy>
+                          <from variable="DeltaTS"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
+                        </copy>
+                      </assign>
+                    </case>
+                    <otherwise>
+                      <assign name="AssignPALSNotification">
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:SenderSystem"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:SourceSystem"/>
+                        </copy>
+                        <copy>
+                          <from expression="'CC072VS1_CSSFFO_DTA'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:SourceTableName"/>
+                        </copy>
+                        <copy>
+                          <from expression="'PRT_CARDGROUP'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:TargetTableName"/>
+                        </copy>
+                        <copy>
+                          <from expression="xp20:current-dateTime()"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:NotificationDateTime"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:CountryCode"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:CountryCode"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:ReceiverSystem"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:TargetSystem"/>
+                        </copy>
+                        <copy>
+                          <from variable="ReceiveInvocationMsg_IV" part="part1"
+                                query="/ns5:invocationMsg/ns5:InterfaceID"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:InterfaceID"/>
+                        </copy>
+                        <copy>
+                          <from expression="'E005CardGroupPALStoPortal'"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:InterfaceName"/>
+                        </copy>
+                        <copy>
+                          <from expression="bpws:getVariableData('InvokeSelectPALSDB2Adapter_OV','Cc072Vs1CssffoDtaCollection','/ns9:Cc072Vs1CssffoDtaCollection/ns9:Cc072Vs1CssffoDta[$DataCount]/ns9:deltaTs')"/>
+                          <to variable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                              part="body"
+                              query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
+                        </copy>
+                      </assign>
+                    </otherwise>
+                  </switch>
+                  <invoke name="InvokeSOAPALSNotificationJMSAdapterV1"
+                          inputVariable="InvokeSOAPALSNotificationJMSAdapterV1_IV"
+                          partnerLink="SOAPALSNotificationJMSAdapterV1"
+                          portType="ns25:Produce_Message_ptt"
+                          operation="Produce_Message"
+                          bpelx:invokeAsDetail="no"/>
+                </sequence>
+              </case>
+            </switch>
           </otherwise>
         </switch>
       </sequence>

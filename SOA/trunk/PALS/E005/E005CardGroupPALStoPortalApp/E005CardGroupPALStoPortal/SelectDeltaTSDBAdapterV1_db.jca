@@ -1,6 +1,6 @@
 <adapter-config name="SelectDeltaTSDBAdapterV1" adapter="Database Adapter" wsdlLocation="SelectDeltaTSDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="SelectDeltaTSDBAdapterV1_ptt" operation="SelectDeltaTSDBAdapterV1Select">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="SelectDeltaTSDBAdapterV1.EngageSoaDeltatable"/>

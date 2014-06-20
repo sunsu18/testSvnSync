@@ -1,6 +1,6 @@
 <adapter-config name="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1_ptt" operation="SelectNoEamilCardGroupErrorLogDatabaseAdapterV1">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
       <property name="SqlString" value="SELECT DELTA_TS, PARTNER_ID, KONTO_ID, SOA_ERROR_DESC ,SOA_ERROR_CODE FROM ENGAGE_SOA_CARDGROUP_ERRORLOG WHERE EMAILFLAG = 0 AND DELTA_RECIPT_FLAG=0"/>
