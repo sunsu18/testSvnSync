@@ -222,12 +222,16 @@
         </af:panelGroupLayout>
                   <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-                       <af:spacer width="10" height="10" id="s29"/>
+                       <!--<af:spacer width="10" height="10" id="s29"/>-->
+          <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal"   visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
+                                      inlineStyle="width:715.0px;">             
+                       
                        <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot10"
                        binding="#{pageFlowScope.DriverInfoBean.bindings.showErrorMsg}"
                        visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
                        styleClass="errorOutputText" partialTriggers="soc3"/>
-                       <af:spacer width="10" height="10" id="s36"/>
+                       <!--<af:spacer width="10" height="10" id="s36"/>-->
+                       </af:panelGroupLayout>
         <af:panelStretchLayout id="psl6"
                                dimensionsFrom="children">
           <f:facet name="bottom">
@@ -436,7 +440,8 @@
 
                 <af:spacer width="25" height="10" id="colnSpace5"/>
 
-                   <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Acctid10"/>
+                   <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Acctid10"
+                                 />
           <af:outputText value=":" id="colonpop9"/>
           <af:spacer width="15" height="30" id="s18569"/>
               <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
@@ -461,7 +466,8 @@
               </af:inputDate>
                 <af:spacer width="25" height="10" id="s24"/>
 
-                 <af:outputText value="#{sfr.EMPLOY_END}" id="Acctid12"/>
+                 <af:outputText value="#{sfr.EMPLOY_END}" id="Acctid12"
+                               />
           <af:outputText value=":" id="colonpop11"/>
           <af:spacer width="15" height="30" id="s185611"/>
 
@@ -510,12 +516,16 @@
         </af:panelGroupLayout>
                   <af:separator id="s28"
                               inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-        <af:spacer width="10" height="10" id="s30"/>
+        <!--<af:spacer width="10" height="10" id="s30"/>-->
+        <af:panelGroupLayout id="pgl16" styleClass="errorPanel" layout="horizontal"   visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
+                                      inlineStyle="width:715.0px;">
+        
         <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}" id="ot11"
                        binding="#{pageFlowScope.DriverInfoBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText" partialTriggers="soc4"/>
-          <af:spacer width="10" height="10" id="s40"/>
+          <!--<af:spacer width="10" height="10" id="s40"/>-->
+          </af:panelGroupLayout>
         <af:panelStretchLayout id="pssl6"
                                dimensionsFrom="children">
           <f:facet name="bottom">

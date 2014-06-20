@@ -243,12 +243,15 @@
         </af:panelGroupLayout>
         <af:separator id="s26"
                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-                       <af:spacer width="10" height="10" id="s29"/>
+                       <!--<af:spacer width="10" height="10" id="s29"/>-->
+        <af:panelGroupLayout id="pgl14" styleClass="errorPanel" layout="horizontal"  visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgFlag}"
+                                      inlineStyle="width:740.0px;">
         <af:outputText value="#{pageFlowScope.VehicleInfoBean.warningMsg}" id="ot9"
                        binding="#{pageFlowScope.VehicleInfoBean.bindings.showErrorMsg}"
                        visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgFlag}"
                        styleClass="errorOutputText" partialTriggers="soc3"/>
-        <af:spacer width="10" height="10" id="s39"/>
+                       </af:panelGroupLayout>
+        <!--<af:spacer width="10" height="10" id="s39"/>-->
         <af:panelStretchLayout id="psl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="new_vehicle_panel_toolbar"
@@ -535,13 +538,16 @@
         </af:panelGroupLayout>
          <af:separator id="s28"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
-        <af:spacer width="10" height="10" id="s30"/>
+        <!--<af:spacer width="10" height="10" id="s30"/>-->
+        <af:panelGroupLayout id="pgl61" styleClass="errorPanel" layout="horizontal"   visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgEditFlag}"
+                                      inlineStyle="width:740.0px;">
         <af:outputText value="#{pageFlowScope.VehicleInfoBean.warningMsg}"
                        id="ot10"
                        binding="#{pageFlowScope.VehicleInfoBean.bindings.showEditErrorMessage}"
                        visible="#{pageFlowScope.VehicleInfoBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText" partialTriggers="soc4"/>
-          <af:spacer width="10" height="10" id="s40"/>
+          <!--<af:spacer width="10" height="10" id="s40"/>-->
+          </af:panelGroupLayout>
         <af:panelStretchLayout id="pssl6" dimensionsFrom="children">
           <f:facet name="bottom">
             <af:toolbar id="edit_vehicle_panel_toolbar"

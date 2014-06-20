@@ -1,3 +1,7 @@
+
+
+
+
 /*Close Icon On Popup*/
 .af_panelWindow_close-icon-region, .af_dialog_close-icon-region {
 overflow: hidden;
@@ -1118,7 +1122,7 @@ font-weight: bold;
     height: 30px;
     overflow: hidden;
     padding: 1px 2px;
-    text-align: left;
+    text-align: center;
     word-wrap: break-word;
 
 }
@@ -1616,7 +1620,7 @@ font-weight:bold;
 .links_odometer{
 font-family : Lucida Sans,Georgia,Serif !important;
 font-size: 13px;
-color: #0047F3 !important;
+color: #003BCA !important;
 font-weight: normal !important;
 text-decoration: underline !important;
 /*font-style:bold !important;*/
