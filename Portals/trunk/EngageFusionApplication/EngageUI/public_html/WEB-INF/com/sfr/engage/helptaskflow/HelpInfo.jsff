@@ -43,7 +43,7 @@
                                inlineStyle="height:auto !important;">
             <af:spacer width="10" height="10" id="s2"/>
             <af:outputText value="#{var.answer}" id="otj1"
-                           inlineStyle="background-color: white;"/>
+                           inlineStyle="background-color: white;" escape="false"/>
            <af:spacer width="10" height="10" id="s7"/>
             </af:showDetailItem>
 
