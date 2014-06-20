@@ -4,7 +4,7 @@
    <class-mapping-descriptors>
       <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
          <class>SelectInvoicePaymentPALSDB2DBAdapterV1.Cc075Vs1CssbdokDta</class>
-         <alias>DHDTOCSS.CC075VS1_CSSBDOK_DTA</alias>
+         <alias>CC075VS1_CSSBDOK_DTA</alias>
          <primary-key>
             <field table="CC075VS1_CSSBDOK_DTA" name="DELTA_TS" xsi:type="column"/>
          </primary-key>
@@ -160,7 +160,7 @@
          <instantiation/>
          <copying xsi:type="instantiation-copy-policy"/>
          <tables>
-            <table name="DHDTOCSS.CC075VS1_CSSBDOK_DTA"/>
+            <table name="CC075VS1_CSSBDOK_DTA"/>
          </tables>
          <structure>structureName</structure>
       </class-mapping-descriptor>

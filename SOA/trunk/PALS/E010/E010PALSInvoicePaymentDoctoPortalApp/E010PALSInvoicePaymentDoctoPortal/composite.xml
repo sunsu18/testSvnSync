@@ -37,6 +37,8 @@
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1"
           location="SOAErrorHanderJMSAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAPALSNotificationJMSAdapter"
+          location="SOAPALSNotificationJMSAdapter.wsdl" importType="wsdl"/>
   <service name="E010PALSInvoicePaymentdoctoPortal"
            ui:wsdlLocation="E010PALSInvoicePaymentdoctoPortal.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/E010PALSInvoicePaymentdoctoPortal#wsdl.interface(execute_ptt)"/>
@@ -151,6 +153,11 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAErrorHanderJMSAdapterV1#wsdl.interface(Produce_Message_ptt)"/>
     <binding.jca config="SOAErrorHanderJMSAdapterV1_jms.jca"/>
   </reference>
+  <reference name="SOAPALSNotificationJMSAdapter"
+             ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E010PALSInvoicePaymentDoctoPortalApp/E010PALSInvoicePaymentDoctoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOAPALSNotificationJMSAdapter_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E010PALSInvoicePaymentdoctoPortal</source.uri>
     <target.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/E010PALSInvoicePaymentdoctoPortal</target.uri>
@@ -190,5 +197,9 @@
   <wire>
     <source.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/SOAErrorHanderJMSAdapterV1</source.uri>
     <target.uri>SOAErrorHanderJMSAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E010PALSInvoicePaymentDoctoPrtalBPELProcess/SOAPALSNotificationJMSAdapter</source.uri>
+    <target.uri>SOAPALSNotificationJMSAdapter</target.uri>
   </wire>
 </composite>
