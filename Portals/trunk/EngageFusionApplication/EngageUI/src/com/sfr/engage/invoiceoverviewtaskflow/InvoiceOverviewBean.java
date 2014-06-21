@@ -821,8 +821,7 @@ if(partnerInfoList.size() == 1) {
                 }
 
                 if(valueChangeEvent.getNewValue()!=null && accountCount > 0){
-                    for(int acCount=0 ; acCount<accountCount; acCount++){
-                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Value ="+valueChangeEvent.getNewValue());
+                    for(int acCount=0 ; acCount<accountCount; acCount++){                        
                         if(valueChangeEvent.getNewValue().equals("CardGroup")) {
                             populateValue(valueChangeEvent.getNewValue().toString(),accountNumberValues[acCount].trim());
                             cGCardVisible=true;
