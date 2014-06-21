@@ -11,12 +11,6 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
-    <taskFlow id="PriceListTaskflow1" taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow.xml#PriceListTaskflow" activation="deferred"
-              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
-    <taskFlow id="PriceListTaskflow_new1"
-              taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListTaskflow_new.xml#PriceListTaskflow_new"
-              activation="deferred"
-              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
     <taskFlow id="PriceListInfoTaskFlow1"
               taskFlowId="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfoTaskFlow.xml#PriceListInfoTaskFlow"
               activation="deferred"
