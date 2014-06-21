@@ -31,7 +31,9 @@
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl"
   ComponentClass="com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl"
-  Where="PrtTruckInformationEO.COUNTRY_CODE =: countryCd">
+  Where="PrtTruckInformationEO.COUNTRY_CODE =: countryCd"
+  FetchMode="FETCH_ALL"
+  FetchSize="26">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>

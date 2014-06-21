@@ -456,21 +456,31 @@ public class VehicleInfoBean implements Serializable {
         }
             myAccountList = new ArrayList<Account>();
             if (myAccount.size() > 0) {
-                if(getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length()>0){
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block of new account list");
-                    for (int k = 0; k < myAccount.size(); k++) {
-                        if (myAccount.get(k).getVehicleInfoList().size() > 0) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block to create new Account list");
-                            myAccountList.add(myAccount.get(k));
+            if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length() > 0) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block of new account list");
+                for (int k = 0; k < myAccount.size(); k++) {
+                    if (myAccount.get(k).getVehicleInfoList().size() > 0) {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block to create new Account list");
+                        myAccountList.add(myAccount.get(k));
+                    }
+                }
+            } else {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of new account list");
+                if (myAccount.size() > 50) {
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of for list size greater than 50");
+                    for (int m = 0; m < myAccount.size(); m++) {
+                        if (myAccount.get(m).getVehicleInfoList().size() > 0) {
+                            myAccountList.add(myAccount.get(m));
                         }
                     }
-                }else{
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of new account list");
-                    for(int m = 0; m < myAccount.size(); m++) {
+                } else {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of for list size greater than 50");
+                        for (int m = 0; m < myAccount.size(); m++) {
                         myAccountList.add(myAccount.get(m));
                     }
                 }
             }
+        }
 
             if (myAccountList.size() > 0) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside if block of the show condition of panel");

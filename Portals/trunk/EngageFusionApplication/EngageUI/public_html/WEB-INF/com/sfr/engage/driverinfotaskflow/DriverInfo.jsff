@@ -146,7 +146,7 @@
 
       <af:table var="row" rowBandingInterval="1" id="t1" value="#{var.driverInfoList}" width="945px"
                            emptyText="#{not empty var.driverInfoList ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
-                          fetchSize="10" columnResizing="disabled" disableColumnReordering="true"
+                          fetchSize="-1" columnResizing="disabled" disableColumnReordering="true"
                             autoHeightRows="10">
                   <af:column sortable="false" id="c13" width="28px" align="center">
                 <af:selectBooleanCheckbox id="sbc1"

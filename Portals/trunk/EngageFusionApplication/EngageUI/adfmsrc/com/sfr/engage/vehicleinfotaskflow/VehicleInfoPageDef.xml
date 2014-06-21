@@ -6,7 +6,7 @@
   <executables>
     <variableIterator id="variables"/>
     <iterator id="PrtTruckInformationVO1Iterator" Binds="PrtTruckInformationVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+              DataControl="EngageAppModuleDataControl" RangeSize="-1"/>
     <iterator Binds="PrtTruckInformationVO2" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtTruckInformationVO2Iterator"/>

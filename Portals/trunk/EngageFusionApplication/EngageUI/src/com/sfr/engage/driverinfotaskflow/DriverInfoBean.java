@@ -460,8 +460,17 @@ public class DriverInfoBean implements Serializable {
                 }
             } else {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of new account list");
-                for (int m = 0; m < myAccount.size(); m++) {
-                    myAccountDriver.add(myAccount.get(m));
+                    if (myAccount.size() > 50) {
+                        for (int m = 0; m < myAccount.size(); m++) {
+                            if (myAccount.get(m).getDriverInfoList().size() > 0) {
+                                myAccountDriver.add(myAccount.get(m));
+                            }
+                        }
+                    }
+                else{
+                    for (int m = 0; m < myAccount.size(); m++) {
+                        myAccountDriver.add(myAccount.get(m));
+                    }
                 }
             }
         }
