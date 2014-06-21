@@ -189,7 +189,11 @@ public class MyPageListener implements PagePhaseListener {
                         else {
                             System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".beforePhase : " +
                                                "Request is for login however Authorization enabled = " +
-                                               ADFContext.getCurrent().getSecurityContext().isAuthorizationEnabled() + "user is " + user);
+                                               ADFContext.getCurrent().getSecurityContext().isAuthorizationEnabled() + "user in class is " + user);
+                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".beforePhase : " +
+                                               "User in session =<" + session.getAttribute(Constants.SESSION_USER_INFO)+ ">");
+//                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+ ".beforePhase : " +
+//                                               "CRITICAL ERROR IF VALUE IS FALSE IN HERE =<" +user.getUserID().equals(((User)session.getAttribute(Constants.SESSION_USER_INFO)).getUserID()) +">");
                         }
                     }
 
