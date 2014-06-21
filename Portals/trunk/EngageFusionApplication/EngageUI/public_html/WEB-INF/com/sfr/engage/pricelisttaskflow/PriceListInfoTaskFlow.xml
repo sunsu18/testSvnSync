@@ -5,7 +5,7 @@
     <managed-bean id="__4">
       <managed-bean-name id="__3">PriceListInfoBean</managed-bean-name>
       <managed-bean-class id="__5">com.sfr.engage.pricelisttaskflow.PriceListInfoBean</managed-bean-class>
-      <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
+      <managed-bean-scope id="__2">request</managed-bean-scope>
     </managed-bean>
     <view id="PriceListInfo">
       <page>/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfo.jsff</page>

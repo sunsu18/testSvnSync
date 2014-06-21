@@ -43,7 +43,7 @@
                   emptyText="#{bindings.PriceListRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                   fetchSize="#{bindings.PriceListRVO1.rangeSize}"
                   rowBandingInterval="1" id="t1"
-                  binding="#{pageFlowScope.PriceListInfoBean.pricelistinfotable}" disableColumnReordering="true" columnResizing="disabled"
+                  binding="#{PriceListInfoBean.pricelistinfotable}" disableColumnReordering="true" columnResizing="disabled"
                   contentDelivery="immediate">
 
           <af:column sortProperty="DescLine1" sortable="false"
@@ -73,7 +73,7 @@
             <af:outputText value="#{row.UnitPrice}" id="ot15">
               <af:convertNumber groupingUsed="true"
                                 pattern="##.##"
-                                locale="#{pageFlowScope.PriceListInfoBean.locale}"
+                                locale="#{PriceListInfoBean.locale}"
                                 minFractionDigits="2"/>
             </af:outputText>
             <af:spacer width="10" height="1" id="s2"/>
