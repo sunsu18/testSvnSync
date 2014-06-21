@@ -1271,7 +1271,7 @@
                             columns="#{bindings.InvoiceAddr1.hints.displayWidth}"
                             maximumLength="#{bindings.InvoiceAddr1.hints.precision}"
                             shortDesc="#{bindings.InvoiceAddr1.hints.tooltip}"
-                            id="it5">
+                            id="it5" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoiceAddr1.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>
@@ -1323,7 +1323,7 @@
                             columns="#{bindings.InvoicePostalCode.hints.displayWidth}"
                             maximumLength="#{bindings.InvoicePostalCode.hints.precision}"
                             shortDesc="#{bindings.InvoicePostalCode.hints.tooltip}"
-                            id="it14">
+                            id="it14" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoicePostalCode.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>
@@ -1349,7 +1349,7 @@
                             columns="#{bindings.InvoiceCity.hints.displayWidth}"
                             maximumLength="#{bindings.InvoiceCity.hints.precision}"
                             shortDesc="#{bindings.InvoiceCity.hints.tooltip}"
-                            id="it15">
+                            id="it15" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoiceCity.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>
@@ -1377,7 +1377,7 @@
                             columns="#{bindings.InvoiceCountry.hints.displayWidth}"
                             maximumLength="#{bindings.InvoiceCountry.hints.precision}"
                             shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
-                            id="it16">
+                            id="it16" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>
@@ -1403,7 +1403,7 @@
                             columns="#{bindings.InvoiceCountry.hints.displayWidth}"
                             maximumLength="#{bindings.InvoiceCountry.hints.precision}"
                             shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
-                            id="it17">
+                            id="it17" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>

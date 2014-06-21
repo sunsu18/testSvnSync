@@ -73,8 +73,7 @@
                     id="select_item_account"/>
         </af:forEach>
             </af:selectOneChoice>
-            <af:spacer width="20" height="20"
-                                                          id="s41"/>
+            <af:spacer width="20" height="17" id="s41"/>
             <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
                                     value="#{pageFlowScope.CardBean.accountIdValue}"
                                    partialTriggers="soc3 cb3"
@@ -148,7 +147,7 @@
                             </af:selectItem>
                       </af:forEach>
                 </af:selectManyChoice>
-            <af:spacer width="20" height="16"
+            <af:spacer width="20" height="13"
                                                           id="s31"/>
             <af:selectManyChoice id="smc8" contentStyle="width: 175px;"
                                         value="#{pageFlowScope.CardBean.statusValue}"
@@ -182,7 +181,7 @@
      <af:commandButton text="#{sfr.CLEAR}" id="cb3"
                                 actionListener="#{pageFlowScope.CardBean.clearSearchListener}"/>
 
-       <af:spacer width="28" height="10" id="s33"/>
+       <af:spacer width="24" height="10" id="s33"/>
      </af:panelGroupLayout>
     </af:panelGroupLayout>
    </af:panelGroupLayout>
