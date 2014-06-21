@@ -129,7 +129,7 @@
                     contextMenuSelect="false"
                      binding="#{pageFlowScope.AuthenticatedHomeBean.adfTree}"
                      initiallyExpanded="false"
-                     inlineStyle="height:405px; width:295.0px;padding-left: 5px;padding-top: 5px;">
+                     inlineStyle="height:405px; width:295.0px;padding-left: 5px;padding-top: 5px;" fetchSize="500">
               <f:facet name="nodeStamp">
             <af:switcher id="s17"
                  facetName="#{node.hierTypeBinding.viewDefName}">
@@ -522,7 +522,7 @@
                                                </af:outputText>
                                                <af:spacer id="s29" width="5"/>
                                                <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.langSession eq "NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.langSession eq "SE") ? "SEK":"-"}'
-                                                              id="ot21" 
+                                                              id="ot21"
                                                               styleClass="productprice"/>
 
 </af:panelGroupLayout>
@@ -548,7 +548,7 @@
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
  actionListener="#{pageFlowScope.AuthenticatedHomeBean.redirectToProductCatalog}">
- 
+
                             <af:clientListener method="redirect2" type="click"/>
                           </af:commandButton>
 
@@ -559,7 +559,7 @@
               <!--<af:spacer width="350" height="10" id="s27"/>-->
 
               <!--<af:spacer width="7" height="5" id="s28"/>-->
-             
+
         </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>

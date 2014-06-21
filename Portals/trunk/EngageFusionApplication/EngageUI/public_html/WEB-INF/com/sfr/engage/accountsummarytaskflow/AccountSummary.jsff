@@ -65,7 +65,7 @@
                  rowSelection="single" id="t1" summary="Partner_Tree" binding="#{pageFlowScope.AccountSummaryBean.bindings.adfTree}"
                  contentDelivery="immediate" immediate="true"
 
-                 contextMenuSelect="false">
+                 contextMenuSelect="false" fetchSize="500">
                     <f:facet name="nodeStamp">
            <af:switcher id="s1"
                  facetName="#{node.hierTypeBinding.viewDefName}">
