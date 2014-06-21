@@ -803,7 +803,7 @@
                    filterVisible="true" varStatus="vs"
                    selectedRowKeys="#{bindings.PrtInvoiceDetailVo1.collectionModel.selectedRow}"
                    selectionListener="#{bindings.PrtInvoiceDetailVo1.collectionModel.makeCurrent}"
-                   rowSelection="single" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled">
+                   rowSelection="single" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled" autoHeightRows="5">
           <af:column sortProperty="InvoiceNumber" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
