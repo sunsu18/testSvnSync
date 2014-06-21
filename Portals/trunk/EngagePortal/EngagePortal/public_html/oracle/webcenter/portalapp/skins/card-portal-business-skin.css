@@ -1415,7 +1415,14 @@ font-weight: bold ;
 .af_goLink{
     font-size: 13px !important;
 }
-
+.cardtype{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px;
+color: #003BCA !important;
+font-weight: normal !important;
+text-decoration: none !important;
+cursor: auto;
+}
 .faqlink
 {
 font-family : Lucida Sans,Georgia,Serif !important;

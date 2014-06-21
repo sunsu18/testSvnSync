@@ -2339,7 +2339,14 @@ border-right: 1px solid rgba(228, 3, 3, 0.52) !important;
 padding-left: 6px;
 margin-top: -4px;
 }
-
+.cardtype{
+font-family : Lucida Sans,Georgia,Serif !important;
+font-size: 13px;
+color: #003BCA !important;
+font-weight: normal !important;
+text-decoration: none !important;
+cursor: auto;
+}
 
 .af_panelWindow_header-content-center, .af_dialog_header-content-center {
 width: 94%;

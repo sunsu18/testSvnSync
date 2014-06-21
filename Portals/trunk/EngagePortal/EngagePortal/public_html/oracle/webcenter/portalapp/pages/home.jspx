@@ -13,7 +13,7 @@
 
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
-    <af:document id="d1" title="#{portalResource['home_title']}">
+    <af:document id="d1" title="#{sfr.HOME}">
     <af:clientListener type="load" method="refreshCarousal"/>
 
       <af:form id="f1">

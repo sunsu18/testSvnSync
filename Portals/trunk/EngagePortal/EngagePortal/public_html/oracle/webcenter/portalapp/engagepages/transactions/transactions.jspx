@@ -4,7 +4,7 @@
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
-    <af:document id="d1">
+    <af:document id="d1" title="#{sfr.TRANSACTION_OVERVIEW}">
      <af:resource type="javascript">        
         function exitFromPopup(event) {        
         var popup = AdfPage.PAGE.findComponent("pt1:r1:0:show_columns");

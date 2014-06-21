@@ -4,7 +4,7 @@
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
-    <af:document id="d1">
+    <af:document id="d1" title="#{sfr.FAQ_ENG}">
       <af:messages id="m1"/>
        <af:resource type="javascript" source="/js/jquery.min.js"/>
       <!--<af:resource type="javascript">

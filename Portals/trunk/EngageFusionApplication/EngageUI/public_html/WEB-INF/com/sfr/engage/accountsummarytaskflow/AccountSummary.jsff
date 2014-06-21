@@ -945,7 +945,8 @@
                               />
           <af:outputText value=":" id="ot36" />
           <af:spacer width="10" height="10" id="s29"/>
-          <af:commandLink text="#{sfr.SHOW_ALL}" >
+          <af:commandLink text="#{sfr.SHOW_ALL}" inlineStyle="margin-left:7px;"
+                          styleClass="cardtype">
           <af:showPopupBehavior triggerType="mouseOver" popupId="p1"/>
           </af:commandLink>
 
