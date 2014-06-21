@@ -28,7 +28,8 @@
 prt_card_transaction_header.card_1_id,
 PRT_CARD_TRANSACTION_DETAIL.invoiced_gross_amount,PRT_CARD_TRANSACTION_DETAIL.invoiced_net_amount FROM 
 PRT_CARD_TRANSACTION_HEADER inner join PRT_CARD_TRANSACTION_DETAIL ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID 
-and prt_card_transaction_header.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)]]>
+and prt_card_transaction_header.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
+AND PRT_CARD_TRANSACTION_DETAIL.PRICE_ELEMENT_CODE IS NULL]]>
   </SQLQuery>
   <ViewAttribute
     Name="ProductName"
