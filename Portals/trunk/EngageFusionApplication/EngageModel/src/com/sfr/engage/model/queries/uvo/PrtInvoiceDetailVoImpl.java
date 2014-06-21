@@ -64,19 +64,5 @@ public class PrtInvoiceDetailVoImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("invoiceNo", value);
     }
 
-    /**
-     * Returns the bind variable value for accountId.
-     * @return bind variable value for accountId
-     */
-    public String getaccountId() {
-        return (String)getNamedWhereClauseParam("accountId");
-    }
 
-    /**
-     * Sets <code>value</code> for bind variable accountId.
-     * @param value value to bind as accountId
-     */
-    public void setaccountId(String value) {
-        setNamedWhereClauseParam("accountId", value);
-    }
 }
