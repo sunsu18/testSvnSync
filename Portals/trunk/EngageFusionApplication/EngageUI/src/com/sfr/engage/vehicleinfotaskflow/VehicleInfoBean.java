@@ -5,12 +5,10 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.Account;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.VehicleInfo;
-import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
-
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
@@ -100,7 +98,7 @@ public class VehicleInfoBean implements Serializable {
     private String editPartnerIdVal = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
-    
+
 
 
     /**
@@ -125,7 +123,7 @@ public class VehicleInfoBean implements Serializable {
 
         linkedPartnerLOVValues    = null;
         linkedPartnerList         = new ArrayList<SelectItem>();
-        
+
          linkedAccountList      = new ArrayList<SelectItem>();
          linkedAccountLOVValues = new ArrayList<String>();
 
@@ -174,7 +172,7 @@ public class VehicleInfoBean implements Serializable {
                                     }
                                 }
                             }
-                            
+
                         }
                     }
                 }
@@ -206,10 +204,10 @@ public class VehicleInfoBean implements Serializable {
     /*public void searchAction(ActionEvent actionEvent) {
         searchResults(true);
     }*/
-    
+
     /**
      * This method performs search functionality in VehicleInfo Page.
-     * 
+     *
      */
     public String searchAction(){
         searchResults(true);
@@ -364,14 +362,14 @@ public class VehicleInfoBean implements Serializable {
             vo.setWhereClause("");
             vo.executeQuery();
         }
-        
+
         if("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())){
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Removing dynamic where caluse for Account");
             vo.removeNamedWhereClauseParam("accountNumber");
             vo.setWhereClause("");
             vo.executeQuery();
         }
-        
+
         int count = 0;
         String[] values;
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "+ " Select account number:::::::: "+getBindings().getLinkedAccount().getValue());
@@ -533,8 +531,8 @@ public class VehicleInfoBean implements Serializable {
                 modifiedBy = user.getUserID();
                 }
             }
-        if (getBindings().getAddPartnerNumberId().getValue() !=null && getBindings().getAddAccountId().getValue() != null 
-            && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null 
+        if (getBindings().getAddPartnerNumberId().getValue() !=null && getBindings().getAddAccountId().getValue() != null
+            && getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null
             && getBindings().getAddVehicleNumber().getValue().toString().trim() != null && getBindings().getAddInternalName().getValue().toString().trim() != null  ) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Add new vehicle save method after null check condition");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
@@ -551,8 +549,8 @@ public class VehicleInfoBean implements Serializable {
             }else{
                 driverVo.defineNamedWhereClauseParam("cardNo"," ", null);
             }
-            
-           
+
+
             driverVo.executeQuery();
             if(driverVo.getEstimatedRowCount() > 0){
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside vehicle method to check Existing driver for selected card:::::::::");
@@ -625,7 +623,7 @@ public class VehicleInfoBean implements Serializable {
                     vehicleInfoRow.setAttribute("CountryCode", countryParam);
                     vehicleInfoRow.setAttribute("VehicleNumber", getBindings().getAddVehicleNumber().getValue().toString().trim());
                     vehicleInfoRow.setAttribute("InternalName", getBindings().getAddInternalName().getValue().toString().trim());
-                    
+
                     if(getBindings().getAddRegistrationNumber().getValue() != null) {
                         vehicleInfoRow.setAttribute("RegistrationNumber", getBindings().getAddRegistrationNumber().getValue().toString().trim());
                     }
@@ -717,7 +715,7 @@ public class VehicleInfoBean implements Serializable {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new vehicle add action method :::::::::");
         getBindings().getNewVehicle().show(new RichPopup.PopupHints());
-       
+
         return null;
     }
 
@@ -736,7 +734,7 @@ public class VehicleInfoBean implements Serializable {
                     modifiedBy = user.getUserID();
                 }
             }
-        if (getBindings().getEditPartnerNumberId().getValue()!= null && getBindings().getEditAccountId().getValue() != null 
+        if (getBindings().getEditPartnerNumberId().getValue()!= null && getBindings().getEditAccountId().getValue() != null
             && getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue()!= null && getBindings().getEditInternalName().getValue().toString().trim() != null && getBindings().getEditVehicleNumber().getValue().toString().trim()!= null   ) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle edit save method after null check :::::::::");
                 ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
@@ -751,7 +749,7 @@ public class VehicleInfoBean implements Serializable {
                 }else{
                     driverVo.defineNamedWhereClauseParam("cardNo","", null);
                 }
-            
+
                 driverVo.executeQuery();
                 if(driverVo.getEstimatedRowCount() > 0){
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside of edit vehicle save method to check for existing driver :::::::::");
@@ -999,7 +997,7 @@ public class VehicleInfoBean implements Serializable {
             while (iter.hasNext()) {
                 String key = (String)iter.next();
                 String vals = val.get(key);
-                System.out.println("key,val: " + key + "," + vals);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass()+ "key,val: " + key + "," + vals);
                 ViewObject vo =
                     ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
                 vo.setNamedWhereClauseParam("countryCd", countryParam);
@@ -1043,7 +1041,7 @@ public class VehicleInfoBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
-                System.out.println("Error while commiting");
+                _logger.severe(accessDC.getDisplayRecord() + this.getClass()+ "Error while commiting");
             }
         } catch (JboException ex) {
             FacesMessage msg =
@@ -1113,14 +1111,14 @@ public class VehicleInfoBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Inside Vehicle Search cancel method");
         ViewObject vo =
             ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
-        
+
             if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
                 vo.removeNamedWhereClauseParam("accountNumber");
                 vo.removeNamedWhereClauseParam("registrationNumber");
                 vo.setWhereClause("");
                 vo.executeQuery();
             }
-            
+
             if("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())){
                 vo.removeNamedWhereClauseParam("accountNumber");
                 vo.setWhereClause("");
@@ -1325,7 +1323,7 @@ public class VehicleInfoBean implements Serializable {
             cardId = null;
             populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit",getBindings().getEditPartnerNumberId().getValue().toString());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
-            System.out.println("editAccountNumber =" + editAccountNumberVal);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass()+ "editAccountNumber =" + editAccountNumberVal);
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Exiting editAccountNumberValueChangeListener method");
     }
@@ -1398,7 +1396,7 @@ public class VehicleInfoBean implements Serializable {
             this.cardId = null;
             this.cardId = "";
             editCardNumberList    = new ArrayList<SelectItem>();
-            
+
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }
@@ -1717,7 +1715,7 @@ public class VehicleInfoBean implements Serializable {
         private RichInputText addReferenceNumber;
         private RichInputText editReferenceNumber;
         private RichInputText editRegistrationNumber;
-        
+
         /**
          * @param linkedAccount
          */
@@ -1907,7 +1905,7 @@ public class VehicleInfoBean implements Serializable {
         }
 
         public RichInputText getAddVehicleNumber() {
-    
+
             return addVehicleNumber;
         }
 
@@ -1950,7 +1948,7 @@ public class VehicleInfoBean implements Serializable {
         public RichSelectOneChoice getEditPartnerNumberId() {
             return editPartnerNumberId;
         }
-        
+
         public void setAddReferenceNumber(RichInputText addReferenceNumber) {
             this.addReferenceNumber = addReferenceNumber;
         }
@@ -1958,7 +1956,7 @@ public class VehicleInfoBean implements Serializable {
         public RichInputText getAddReferenceNumber() {
             return addReferenceNumber;
         }
-        
+
         public void setEditReferenceNumber(RichInputText editReferenceNumber) {
             this.editReferenceNumber = editReferenceNumber;
         }

@@ -22,6 +22,8 @@ import javax.sql.DataSource;
 
 import javax.xml.ws.BindingProvider;
 
+import oracle.adf.share.logging.ADFLogger;
+
 import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
 
@@ -35,6 +37,7 @@ public class DAOFactory implements Serializable {
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
 
     /**
      */
@@ -72,7 +75,7 @@ public class DAOFactory implements Serializable {
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
 
         } catch (Exception e) {
-            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
+            log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + ".getUCMService : " + "Exception");
             e.printStackTrace();
 
         }
@@ -120,9 +123,9 @@ public class DAOFactory implements Serializable {
             if (datasource != null) {
                 connection = datasource.getConnection();
                 // TODO : ASHTHA - 02, May, 2014 : SOP Format not followed
-                System.out.println("datasource found");
+               // System.out.println("datasource found");
             } else
-                System.out.println("No data source"); // TODO : ASHTHA - 02, May, 2014 : SOP Format not followed
+                 log.severe(AccessDataControl.getDisplayRecord() + "getJNDIConnection : No data source"); // TODO : ASHTHA - 02, May, 2014 : SOP Format not followed
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();

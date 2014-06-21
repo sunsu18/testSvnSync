@@ -1344,7 +1344,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //accountVO.setNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2));
         //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accountVO.getQuery());
         accountVO.executeQuery();
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Account VO  " + accountVO.getEstimatedRowCount());
+        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Account VO  " + accountVO.getEstimatedRowCount());
 
         if (accountVO.getEstimatedRowCount() != 0) {
             while (accountVO.hasNext()) {
@@ -1353,8 +1353,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 PrtAccountVORowImpl currRow = (PrtAccountVORowImpl)accountVO.next();
                 if (currRow != null) {
                     if (currRow.getAccountId() != null) {
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Result from Execution of Account VO : account id is " +
-                                           currRow.getAccountId());
+                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Result from Execution of Account VO : account id is " +
+                                          // currRow.getAccountId());
                         acc.setAccountNumber(currRow.getAccountId().toString());
                         acc.setAccountOverview(true);
                     }
@@ -1389,7 +1389,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     iter2 = null;
                 }
                 ViewObject cardGroupVO = iter2.getViewObject();
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+" checkinng cardgroup query " + cardGroupVO.getWhereClause());
+                //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" checkinng cardgroup query " + cardGroupVO.getWhereClause());
 
                 if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(cardGroupVO.getWhereClause())) {
 
@@ -1407,7 +1407,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
 
                 cardGroupVO.executeQuery();
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Row count from Cardgroup vo" + cardGroupVO.getEstimatedRowCount());
+                //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Row count from Cardgroup vo" + cardGroupVO.getEstimatedRowCount());
 
                 if (cardGroupVO.getEstimatedRowCount() != 0) {
                     while (cardGroupVO.hasNext()) {
@@ -1481,8 +1481,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                         cardVO = iter3.getViewObject();
                         cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " CardGroup id passed in Card VO is " + CardgroupMainType +
-                                           CardgroupSubType + CardgroupSeq);
+                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " CardGroup id passed in Card VO is " + CardgroupMainType +
+                         //                  CardgroupSubType + CardgroupSeq);
 
                         cardVO.defineNamedWhereClauseParam("cgid", CardgroupSeq, null);
                         cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute("partnerLang"), null);
@@ -1494,14 +1494,14 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
 
                         cardVO.executeQuery();
-                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Row count from Card vo" + cardVO.getEstimatedRowCount());
+                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Row count from Card vo" + cardVO.getEstimatedRowCount());
                         if (cardVO.getEstimatedRowCount() != 0) {
                             cardViewObject(cardVO);
                         }
                         if (!addflagcardgroup) {
                             cardgrp.setCard(cardlist);
                             cardgrp.setUnblockedCardList(unblockedcardlist);
-                            System.out.println("unblockedcardlist size " + unblockedcardlist.size());
+                            //System.out.println("unblockedcardlist size " + unblockedcardlist.size());
                             cardgrouplist.add(cardgrp);
                         }
                     }
@@ -1591,7 +1591,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             if (!addflagcard)
                 cardlist.add(card);
         }
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Exit from cardViewObject function");
+        //System.out.println(accessDC.getDisplayRecord()+this.getClass() + " Exit from cardViewObject function");
     }
 
     public String getPartnerName(String partnerid) {

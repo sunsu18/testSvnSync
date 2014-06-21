@@ -1,16 +1,14 @@
 package com.sfr.engage.driverinfotaskflow;
 
+
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.Account;
-
 import com.sfr.engage.core.DriverInfo;
 import com.sfr.engage.core.PartnerInfo;
-import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
-
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -28,7 +25,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
-
 import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +97,7 @@ public class DriverInfoBean implements Serializable {
     private String editPartnerIdVal = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
-    
+
 
 
     /**
@@ -125,7 +121,7 @@ public class DriverInfoBean implements Serializable {
         linkedCardValues          = new ArrayList<String>();
         linkedPartnerLOVValues    = null;
         linkedPartnerList         = new ArrayList<SelectItem>();
-        
+
         linkedAccountList      = new ArrayList<SelectItem>();
         linkedAccountLOVValues = new ArrayList<String>();
 
@@ -151,7 +147,7 @@ public class DriverInfoBean implements Serializable {
                                          if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID()!= null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID()!= null){
                                              linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
                                              cardNumberMap.put(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString(), partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
-//                                             System.out.println("value of cards in constructor=========>"+linkedCardValues);
+//
                                          }
                                      }
                                  }
@@ -174,7 +170,7 @@ public class DriverInfoBean implements Serializable {
                                 }
                             }
                         }
-                        
+
                     }
                 }
         }
@@ -206,16 +202,16 @@ public class DriverInfoBean implements Serializable {
     /*public void searchAction(ActionEvent actionEvent) {
         searchResults(true);
     }*/
-    
+
     /**
          * This method performs search functionality in VehicleInfo Page.
-         * 
+         *
          */
     public String searchAction() {
         searchResults(true);
         return null;
     }
-       
+
 
     /**
      * This method is reusable for different scenario's in DriverInfo Page to show searchResults.
@@ -380,7 +376,7 @@ public class DriverInfoBean implements Serializable {
             ViewObject vo =ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
             vo.setNamedWhereClauseParam("countryCd", countryParam);
             vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'");
-            System.out.println("values of i" + values[i]);
+            //System.out.println("values of i" + values[i]);
             vo.defineNamedWhereClauseParam("accountId", values[i].trim(),
                                            null);
             if (getBindings().getDriverName().getValue() != null && getBindings().getDriverName().getValue().toString().length()>0) {
@@ -478,7 +474,7 @@ public class DriverInfoBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside else block of the show condition of panel");
             searchResultsShow = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
-            
+
             if (resourceBundle.containsKey("NO_RECORDS_FOUND_DRIVER")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DRIVER"),
@@ -486,7 +482,7 @@ public class DriverInfoBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
-           
+
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting SearchResultsExecution method");
         return null;
@@ -532,7 +528,7 @@ public class DriverInfoBean implements Serializable {
                 }
             }
 
-        if (getBindings().getAddPartnerNumberId().getValue() != null && getBindings().getAddAccountId().getValue() != null 
+        if (getBindings().getAddPartnerNumberId().getValue() != null && getBindings().getAddAccountId().getValue() != null
             && getBindings().getAddDriverName().getValue() != null && getBindings().getAddDriverNumber().getValue() != null &&  getBindings().getAddDriverName().getValue().toString().trim() != null && getBindings().getAddDriverNumber().getValue().toString().trim() != null ) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Add new driver save method after null check condition");
             ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
@@ -598,7 +594,7 @@ public class DriverInfoBean implements Serializable {
             BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding driverInfoItr = (DCIteratorBinding)bindings.get("PrtDriverInformationVO2Iterator");
             Row driverInfoRow = driverInfoItr.getCurrentRow();
-            System.out.println("Before new driver save current row is not null+++++++++++");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Before new driver save current row is not null+++++++++++");
                 if(driverInfoRow != null){
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside new driver save current row is not null:::::::::");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "+ "Value of add account id:::::::::"+getBindings().getAddAccountId().getValue().toString());
@@ -708,7 +704,7 @@ public class DriverInfoBean implements Serializable {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new driver add action method :::::::::");
         getBindings().getNewDriver().show(new RichPopup.PopupHints());
-        
+
         return null;
     }
 
@@ -727,7 +723,7 @@ public class DriverInfoBean implements Serializable {
                 modifiedBy = user.getUserID();
                 }
             }
-        if (getBindings().getEditPartnerNumberId().getValue() != null && getBindings().getEditAccountId().getValue() != null 
+        if (getBindings().getEditPartnerNumberId().getValue() != null && getBindings().getEditAccountId().getValue() != null
             && getBindings().getEditDriverName().getValue() != null && getBindings().getEditDriverNumber().getValue() != null && getBindings().getEditDriverName().getValue().toString().trim() != null && getBindings().getEditDriverNumber().getValue().toString().trim() != null ) {
 
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new driver edit save method after null check :::::::::");
@@ -751,7 +747,7 @@ public class DriverInfoBean implements Serializable {
                         while (driverVo.hasNext()) {
                         PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
                              if (currRow != null) {
-                                 
+
                                 if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
                                     warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                                     showErrorMsgEditFlag = true;
@@ -782,7 +778,7 @@ public class DriverInfoBean implements Serializable {
                     while (driverVo.hasNext()) {
                     PrtDriverInformationVORowImpl currRow =(PrtDriverInformationVORowImpl)driverVo.next();
                          if (currRow != null) {
-                         
+
                             if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
                                 warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                                 showErrorMsgEditFlag = true;
@@ -829,7 +825,7 @@ public class DriverInfoBean implements Serializable {
            BindingContainer bindings       = BindingContext.getCurrent().getCurrentBindingsEntry();
             DCIteratorBinding driverInfoItr = (DCIteratorBinding)bindings.get("PrtDriverInformationVO2Iterator");
             Row driverInfoRow = driverInfoItr.getCurrentRow();
-            
+
                 if(driverInfoRow != null){
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new driver save current row is not null:::::::::");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "+ "Value of edit account number :::::::::"+getBindings().getEditAccountId().getValue());
@@ -866,7 +862,7 @@ public class DriverInfoBean implements Serializable {
                 return null;
             }
         }
-        
+
         searchResults(false);
         if (resourceBundle.containsKey("DRIVER_EDIT")) {
             FacesMessage msg =
@@ -1186,13 +1182,13 @@ public class DriverInfoBean implements Serializable {
             ViewObject vo =
                 ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
                 if ("trim(ACCOUNT_ID) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'".equalsIgnoreCase(vo.getWhereClause())) {
-                    System.out.println("Is it coming inside remove where clause");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Is it coming inside remove where clause");
                     vo.removeNamedWhereClauseParam("accountId");
                     vo.removeNamedWhereClauseParam("driverName");
                     vo.setWhereClause("");
                     vo.executeQuery();
                 }
-                
+
 
             this.linkedPartnerLOVValues = null;
             this.linkedAccountLOVValues = null;
@@ -1311,7 +1307,7 @@ public class DriverInfoBean implements Serializable {
              editCardNumberList = new ArrayList<SelectItem>();
              cardId = null;
              populateCardNumberList(valueChangeEvent.getNewValue().toString() ,"Edit",getBindings().getEditPartnerNumberId().getValue().toString());
-             System.out.println("editAccountNumber =" + editAccountIdVal);
+             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "editAccountNumber =" + editAccountIdVal);
              AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Exiting editAccountNumberValueChangeListener method");
@@ -1916,7 +1912,7 @@ public class DriverInfoBean implements Serializable {
         public RichSelectOneChoice getEditPartnerNumberId() {
             return editPartnerNumberId;
         }
-        
+
         public void setAddReferenceNumber(RichInputText addReferenceNumber) {
             this.addReferenceNumber = addReferenceNumber;
         }
