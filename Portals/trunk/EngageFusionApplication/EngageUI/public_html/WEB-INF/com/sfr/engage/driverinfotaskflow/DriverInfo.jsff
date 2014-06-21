@@ -238,7 +238,7 @@
             <af:toolbar id="new_driver_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="vertical"
-                                   halign="right" inlineStyle="width:672.0px;">
+                                   halign="right" inlineStyle="width:705.0px;">
               <af:spacer width="479" height="10" id="s5"/>
                 <af:panelGroupLayout id="pgl11" halign="right">
                 <af:commandButton text="#{sfr.SAVE}" id="save"

@@ -257,7 +257,7 @@
             <af:toolbar id="new_vehicle_panel_toolbar"
                         styleClass="WCPanelColor">
               <af:panelGroupLayout id="new_footer_panel" layout="vertical"
-                                   inlineStyle="width:712.0px;" halign="right">
+                                   inlineStyle="width:685.0px;" halign="right">
                 <af:spacer width="300" height="10" id="s5"/>
                 <af:panelGroupLayout id="pgl10"  halign="right"
                                      layout="horizontal">
