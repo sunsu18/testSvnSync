@@ -1548,8 +1548,13 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         Float qty = getQuantity();
         if (qty == null || qty == 0) {
             return 0.0f;
-        }
-        avgKMperLTR = (Float)totalKm / qty;
+        }else {
+            if(totalKm == null || totalKm ==0) {
+                return 0.0f; 
+            }else {
+                avgKMperLTR = (Float)totalKm / qty;       
+            }
+        }        
         return avgKMperLTR;
         //return (Float) getAttributeInternal(KMPERLT);
     }
