@@ -125,7 +125,7 @@
                                                layout="vertical">
                                                <af:outputText value=":"
                                                               id="ot5"/>
-                                               <af:spacer width="20" height="20"
+                                               <af:spacer width="20" height="23"
                                                           id="s29"/>
                                                           <af:outputText value=":"
                                                                          id="ot11"/>
@@ -148,7 +148,7 @@
                             </af:selectItem>
                       </af:forEach>
                 </af:selectManyChoice>
-            <af:spacer width="20" height="20"
+            <af:spacer width="20" height="16"
                                                           id="s31"/>
             <af:selectManyChoice id="smc8" contentStyle="width: 175px;"
                                         value="#{pageFlowScope.CardBean.statusValue}"
