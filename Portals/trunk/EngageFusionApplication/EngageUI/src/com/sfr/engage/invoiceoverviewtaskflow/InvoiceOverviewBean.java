@@ -122,9 +122,11 @@ public class InvoiceOverviewBean implements Serializable {
     private RichSpacer spacerFetchUserEmail;
     private String mailRecipient;
     EngageEmaiUtilityl emailutility;
+    private String accountQueryDetail="(";
     private String accountQuery="(";
     private String cardGroupQuery="(";
     private String cardQuery="(";
+    private Map<String,String> mapAccountDetailListValue;
     private Map<String,String> mapAccountListValue;
     private Map<String,String> mapCardGroupListValue;
     private Map<String,String> mapCardListValue;
@@ -231,6 +233,15 @@ if(partnerInfoList.size() == 1) {
                                  "account Query & mapAccountList is found");
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                      "account "+accountQuery);
+            }
+            if(session.getAttribute("account_Query_Invoice_detail_overview")!=null)
+            {
+            accountQueryDetail=session.getAttribute("account_Query_Invoice_detail_overview").toString().trim();
+            mapAccountDetailListValue= (Map<String,String>)session.getAttribute("map_Account_List_Invoice_detail_overview");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "account Detail Query & mapAccountList is found");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                     "account "+accountQueryDetail);
             }
             if(session.getAttribute("cardGroup_Query_Invoice_overview")!=null)
             {
@@ -1388,19 +1399,80 @@ for(int i=0;i<prop.length;i++)
 
 
             ViewObject invoiceDetailVO =ADFUtils.getViewObject("PrtInvoiceDetailVo1Iterator");
-            invoiceDetailVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND COLLECTIVE_INVOICE_NUMBER =: invoiceNo");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
-            invoiceDetailVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
+            
+            if(accountQueryDetail.length()>1) {            
+                if(accountQueryDetail.trim().equalsIgnoreCase(invoiceDetailVO.getWhereClause().trim())){
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                " " + "inside  accountdetail query where removal");
+                    if(mapAccountDetailListValue!=null)
+                    {  
+                    for(int i=0;i< mapAccountDetailListValue.size();i++) {
+                            String values="account"+i;                            
+                            invoiceDetailVO.removeNamedWhereClauseParam(values);
+                    }
+                    }else{
+                        invoiceDetailVO.removeNamedWhereClauseParam("account");
+                    }
+                    invoiceDetailVO.setWhereClause("");
+                    invoiceDetailVO.executeQuery();  
+                 }
+            }
+            
+            accountQueryDetail="(";
             invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
             invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
             invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
+            
+            
+            if(accountValue.size()>250) {      
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                 " " + "Account Values > 250 ");
+                mapAccountDetailListValue=valueList.callValueList(accountValue.size(), accountValue);         
+                     for(int i=0;i<mapAccountDetailListValue.size();i++) {
+                      String values="account"+i;
+                    accountQueryDetail=accountQueryDetail+"INSTR(:"+values+",ACCOUNT_ID)<>0 OR ";
+                    }
+                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Account Query Values ="+accountQueryDetail);
+                       accountQueryDetail=accountQueryDetail.substring(0, accountQueryDetail.length()-3);
+                        accountQueryDetail=accountQueryDetail+")";
+                        
+            }else {
+                    mapAccountDetailListValue=null;
+                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                  " " + "Account Values < 250 ");
+                accountQueryDetail="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
+            }    
+            
+            invoiceDetailVO.setWhereClause(accountQueryDetail);
+            
+            if(accountValue.size()>250) {      
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                 " " + "Account Values > 250 ");
+                mapAccountDetailListValue=valueList.callValueList(accountValue.size(), accountValue); 
+                for(int i=0;i<mapAccountDetailListValue.size();i++) {
+                String values="account"+i;
+                String listName="listName"+i;
+                invoiceDetailVO.defineNamedWhereClauseParam(values, mapAccountDetailListValue.get(listName),
+                                                                   null);
+                }   
+                        
+            }else {
+                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                                                  " " + "Account Values < 250 ");
+                 invoiceDetailVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
+            }   
+                       
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed for detail is="+invoiceDetailVO.getQuery());
-                            invoiceDetailVO.executeQuery();
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count of details=="+invoiceDetailVO.getEstimatedRowCount());
+            invoiceDetailVO.executeQuery();
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Estimated Row count of details=="+invoiceDetailVO.getEstimatedRowCount());
             AdfFacesContext.getCurrentInstance().addPartialTarget(transactionPanel);
-            AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(invoiceCollectionPanel);             
+            session.setAttribute("account_Query_Invoice_detail_overview",accountQueryDetail);
+            session.setAttribute("map_Account_List_Invoice_detail_overview",mapAccountDetailListValue);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
+            
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting radioBtnPopUpVCE for Invoices");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting radioBtnPopUpVCE for Invoices");
     }
 
     public void setTransactionPanel(RichPanelGroupLayout transactionPanel) {
