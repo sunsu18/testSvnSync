@@ -306,7 +306,7 @@
             </af:column>
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
                        id="c10" width="130px" filterFeatures="caseInsensitive">
-              <af:inputText value="#{row.bindings.CardTextline2.inputValue}"
+              <!--<af:inputText value="#{row.bindings.CardTextline2.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardTextline2.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardTextline2.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.CardTextline2.displayWidth}"
@@ -314,7 +314,8 @@
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.CardTextline2.tooltip}"
                             id="it8">
                 <f:validator binding="#{row.bindings.CardTextline2.validator}"/>
-              </af:inputText>
+              </af:inputText>-->
+              <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="12"/>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
                        id="c8"  width="80px" filterFeatures="caseInsensitive">
@@ -358,7 +359,7 @@
             </af:column>
          
             <af:column sortProperty="CardExpiry" filterable="true" headerText="#{sfr.CARD_EXPIRY}" sortable="true"
-                       id="c2" width="100px" align="center" filterFeatures="caseInsensitive">
+                       id="c2" width="125px" align="center" filterFeatures="caseInsensitive">
               <f:facet name="filter">
                 <af:inputDate value="#{vs.filterCriteria.CardExpiry}" id="id1">
                 <af:convertDateTime pattern="dd.MM.yyyy"/>
