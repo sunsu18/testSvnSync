@@ -478,7 +478,7 @@
                   selectionListener="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel.makeCurrent}"
                   rowSelection="single" id="t1" autoHeightRows="20">
         <af:column sortProperty="TransactionDt" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true" width="140" align="center"
+                     sortable="true" width="160" align="center"
                      headerText="#{sfr.TRANSACTION_DATE}"
                      id="c32">
             <f:facet name="filter">
@@ -494,7 +494,7 @@
             </af:outputText>
             <af:spacer width="4" height="1" id="s29"/>
             <af:outputText value="#{row.TransactionTime}" id="ot47" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertDateTime pattern="hh:mm"/>
+             <af:convertDateTime pattern="hh:mm:ss a"/>
              <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionTime.format}"/>-->
             </af:outputText>
             </af:panelGroupLayout>

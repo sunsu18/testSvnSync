@@ -2026,7 +2026,7 @@ public class TransactionOverviewBean implements Serializable {
     public String getTimeHour(Timestamp timeStamp) {
         String val = "";
         java.util.Date date = new Date(timeStamp.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss a");
         val = format.format(date);
         return val;
     }
