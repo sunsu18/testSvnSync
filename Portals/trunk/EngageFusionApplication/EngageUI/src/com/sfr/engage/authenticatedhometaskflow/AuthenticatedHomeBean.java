@@ -226,13 +226,15 @@ public class AuthenticatedHomeBean implements Serializable {
                     while (prtPCMFeedsVO.hasNext()) {
                         PrtPcmFeedsRVORowImpl currRow =
                             (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
-
+                        
                         if (currRow != null) {
-                            if (currRow.getMessageLang() != null) {
+                            if (currRow.getMessageLang().trim() != null) {
+                           
+                                if(!infoValue.toLowerCase().trim().contains(currRow.getMessageLang().toLowerCase().trim()))
                                 infoValue =
                                         infoValue + currRow.getMessageLang();
                             } else {
-                                if (currRow.getMessageEnglish() != null) {
+                                if (currRow.getMessageEnglish().trim() != null && !infoValue.toLowerCase().trim().contains(currRow.getMessageLang().toLowerCase().trim())) {
                                     infoValue =
                                             infoValue + currRow.getMessageLang();
                                 }
@@ -268,17 +270,17 @@ public class AuthenticatedHomeBean implements Serializable {
                             (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                         if (currRow != null) {
-                            Messages message = new Messages();
-                            if (currRow.getMessageLang() != null) {
-                                message.setMessage(currRow.getMessageLang());
-                            } else {
-                                if (currRow.getMessageEnglish() != null) {
-                                    message.setMessage(currRow.getMessageEnglish());
+                                Messages message = new Messages();
+                                if (currRow.getMessageLang() != null) {
+                                        message.setMessage(currRow.getMessageLang());
+                                } else {
+                                    if (currRow.getMessageEnglish() != null) {
+                                            message.setMessage(currRow.getMessageEnglish());
+                                    }
                                 }
-                            }
-                            if (message.getMessage() != null) {
-                                messages.add(message);
-                            }
+                                if (message.getMessage() != null) {
+                                    messages.add(message);
+                                }
                         }
                     }
                 }

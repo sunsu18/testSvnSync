@@ -807,7 +807,7 @@
           <af:column sortProperty="InvoiceNumber" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
-                     id="c13" width="100">
+                     id="c13" width="90">
            <af:outputText value="#{row.InvoiceNumber}" id="ot55"/>
           </af:column>
           <af:column sortProperty="InvoiceDate" filterable="true" align="center" filterFeatures="caseInsensitive"
