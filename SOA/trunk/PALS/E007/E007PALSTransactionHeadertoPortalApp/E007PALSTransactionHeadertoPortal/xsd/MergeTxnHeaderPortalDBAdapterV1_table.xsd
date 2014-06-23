@@ -180,7 +180,7 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="modifiedBy" minOccurs="0">
+         <xs:element name="modifiedBy" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="50"/>
@@ -286,7 +286,15 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="portalModifiedDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="portalModifiedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="soaModifiedDate" type="xs:dateTime" minOccurs="0"/>
+         <xs:element name="soaModifiedBy" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="50"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

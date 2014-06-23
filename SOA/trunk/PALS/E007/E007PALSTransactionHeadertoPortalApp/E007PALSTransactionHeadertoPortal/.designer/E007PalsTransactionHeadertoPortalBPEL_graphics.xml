@@ -17,7 +17,7 @@
       <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="0" y="3489" side="left"/>
       <partnerlink name="SOAPALSNotificationJMSAdapter" x="1950" y="4186" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="401,3924,486,369" show_swimlanes="true">
+   <graph_layout viewport="82,2799,987,513" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
