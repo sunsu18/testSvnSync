@@ -8,6 +8,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdom
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
@@ -519,14 +520,6 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtCardVOImpl)findViewObject("PrtCardVO1");
     }
 
-    /**
-     * Container's getter for PrtViewCardsVO1.
-     * @return PrtViewCardsVO1
-     */
-    public PrtViewCardsVOImpl getPrtViewCardsVO1() {
-        return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
-    }
-
 
     /**
      * Container's getter for PrtNewInvoiceVO2.
@@ -576,4 +569,20 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         return (PrtCardTransactionHeaderUrefIdUpdateOdometerRvoImpl)findViewObject("PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1");
     }
 
+
+    /**
+     * Container's getter for PrtCardTypeNameMap1.
+     * @return PrtCardTypeNameMap1
+     */
+    public ViewObjectImpl getPrtCardTypeNameMap1() {
+        return (ViewObjectImpl)findViewObject("PrtCardTypeNameMap1");
+    }
+
+    /**
+     * Container's getter for PrtViewCardsVO1.
+     * @return PrtViewCardsVO1
+     */
+    public ViewObjectImpl getPrtViewCardsVO1() {
+        return (ViewObjectImpl)findViewObject("PrtViewCardsVO1");
+    }
 }

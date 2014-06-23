@@ -175,22 +175,8 @@
             </af:panelGroupLayout>
 
        <af:panelGroupLayout id="p023" layout="vertical"/>
-
-
-
-
-
-
-
-
-
-
     </af:panelFormLayout>
-
-
-
  </af:panelGroupLayout>
-
    <af:panelGroupLayout id="CompanyOverview" layout="vertical" visible="false"
                        binding="#{pageFlowScope.AccountSummaryBean.bindings.companyOverview}">
      <af:panelGroupLayout id="CompanyOverviewText" layout="horizontal" >
@@ -1590,12 +1576,8 @@
 
 
  </af:panelGroupLayout>
-
-
-
-
-
-    </af:panelGroupLayout>
+   
+  </af:panelGroupLayout>
   <af:popup contentDelivery="immediate"
               autoCancel="disabled" id="p1"
             binding="#{pageFlowScope.AccountSummaryBean.bindings.showAllPopUp}">
@@ -1606,8 +1588,8 @@
 </af:panelGroupLayout>
               <af:panelGroupLayout layout="vertical">
           <af:spacer height="10"/>
-                 <af:outputText value="#{pageFlowScope.AccountSummaryBean.cardType}" id="ot57" inlineStyle="font-weight:bold"
-                                binding="#{pageFlowScope.AccountSummaryBean.bindings.cardTypeOT}"/>
+                 <af:outputText value="#{pageFlowScope.AccountSummaryBean.cardTypeName}" id="ot57" inlineStyle="font-weight:bold"
+                                binding="#{pageFlowScope.AccountSummaryBean.bindings.cardTypeOT}" escape="false"/>
 
                 </af:panelGroupLayout>
                 </af:noteWindow>

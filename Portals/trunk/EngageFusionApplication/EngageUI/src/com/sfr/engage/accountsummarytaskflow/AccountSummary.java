@@ -5,7 +5,9 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.PartnerInfo;
+import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
+import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 
@@ -52,6 +54,7 @@ public class AccountSummary implements Serializable {
     private String id;
 
     private ArrayList<String> cardTypeList = new ArrayList<String>();
+    private ArrayList<String> cardTypeNameList = new ArrayList<String>();
 
     private String accountId;
     private String cardGroupId;
@@ -79,7 +82,7 @@ public class AccountSummary implements Serializable {
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
-
+    String cardTypeName = "";
     String cardType = "";
     private User userInfo;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
@@ -465,6 +468,21 @@ public class AccountSummary implements Serializable {
         return isManagerCg;
     }
 
+    public void setCardTypeNameList(ArrayList<String> cardTypeNameList) {
+        this.cardTypeNameList = cardTypeNameList;
+    }
+
+    public ArrayList<String> getCardTypeNameList() {
+        return cardTypeNameList;
+    }
+
+    public void setCardTypeName(String cardTypeName) {
+        this.cardTypeName = cardTypeName;
+    }
+
+    public String getCardTypeName() {
+        return cardTypeName;
+    }
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
@@ -1205,18 +1223,29 @@ public class AccountSummary implements Serializable {
                                 cardTypeList.add(currRow.getCardType());
                             }
                             String card = cardTypeList.toString();
-                            cardType = card.substring(1, card.length() - 1).replace("", "");
-
+                            cardType = card.substring(1, card.length() - 1).replace(" ", "");
                         }
                     }
-
-
+                }
+                ViewObject vo = ADFUtils.getViewObject("PrtCardTypeNameMap1Iterator");
+                vo.setNamedWhereClauseParam("country",(String)session.getAttribute(Constants.userLang));
+                vo.setNamedWhereClauseParam("cardType",cardType);
+                vo.executeQuery();
+                if (vo.getEstimatedRowCount() != 0) {
+                    cardTypeNameList = new ArrayList<String>();
+                    while (vo.hasNext()) {
+                        PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
+                        if (currRow.getTypeName() != null) {
+                            cardTypeNameList.add(currRow.getTypeName());
+//                            System.out.println("cardTypeNameList------------------------->" + cardTypeNameList);
+                        }
+                        cardTypeName = cardTypeNameList.toString().substring(1,cardTypeNameList.toString().length() - 1 ).replace(", ", "<br/>");
+//                        System.out.println("cardTypeName--------------------------------> + cardTypeName");
+                    }
                 }
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
-
-
             }
 
             getBindings().getCardGroupOverview().setVisible(true);

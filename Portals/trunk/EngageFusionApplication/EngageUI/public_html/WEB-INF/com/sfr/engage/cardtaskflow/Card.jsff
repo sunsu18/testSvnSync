@@ -278,19 +278,31 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column sortProperty="CardType" filterable="true" width="150px" sortable="true"
+            <af:column sortProperty="CardType" filterable="true" width="100px" sortable="true"
                        headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
-                       id="c6">
+                       id="c11">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardType.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardType.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.CardType.displayWidth}"
                             maximumLength="#{bindings.PrtViewCardsVO11.hints.CardType.precision}"
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.CardType.tooltip}"
-                            id="it6">
+                            id="it9">
                 <f:validator binding="#{row.bindings.CardType.validator}"/>
               </af:inputText>
             </af:column>
+            <af:column sortProperty="TypeName" filterable="true" width="250px" sortable="true"
+                       headerText="#{sfr.CARD_TYPE_DESCRIPTION}"
+                       id="c6">
+              <af:inputText value="#{row.bindings.TypeName.inputValue}"
+                            required="#{bindings.PrtViewCardsVO11.hints.TypeName.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.TypeName.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.TypeName.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.TypeName.tooltip}"
+                            id="it6">
+                <f:validator binding="#{row.bindings.TypeName.validator}"/>
+              </af:inputText>
+              </af:column>
             <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}" sortable="true"
                        id="c3"  width="155px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"

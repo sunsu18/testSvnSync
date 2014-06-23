@@ -23,6 +23,9 @@
     <iterator Binds="PrtPartnerVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtPartnerVO1Iterator"/>
+    <iterator Binds="PrtCardTypeNameMap1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardTypeNameMap1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="partnerlistIterator" id="partnerlist">
@@ -215,6 +218,11 @@
     <attributeValues IterBinding="PrtCardVO4Iterator" id="CardTextline2">
       <AttrNames>
         <Item Value="CardTextline2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTypeNameMap1Iterator" id="CardType1">
+      <AttrNames>
+        <Item Value="CardType"/>
       </AttrNames>
     </attributeValues>
   </bindings>
