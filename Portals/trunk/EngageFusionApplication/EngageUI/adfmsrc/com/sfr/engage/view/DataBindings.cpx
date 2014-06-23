@@ -34,6 +34,7 @@
           usageId="com_sfr_engage_view_TransactionOverviewPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummary.jsff"
           usageId="com_sfr_engage_view_AccountSummaryPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/PricesListPage.jsff" usageId="com_sfr_engage_view_PricesListPagePageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -60,7 +61,7 @@
           path="com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewPageDef"/>
           <page id="com_sfr_engage_view_AccountSummaryPageDef" 
           path="com.sfr.engage.accountsummarytaskflow.AccountSummaryPageDef"/>
-          
+    <page id="com_sfr_engage_view_PricesListPagePageDef" path="com.sfr.engage.pricelisttaskflow.PricesListPagePageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
