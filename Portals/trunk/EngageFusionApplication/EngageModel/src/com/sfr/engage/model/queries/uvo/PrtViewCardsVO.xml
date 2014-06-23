@@ -58,8 +58,8 @@ and pc.prt_card_pk  = pdi.card_number(+)
 and pc.account_id   = pti.account_number(+)
 and pc.country_code = pti.country_code(+)
 and pc.prt_card_pk  = pti.card_number(+)
-and pctnm.country = pc.country_code
-and pctnm.card_type = pc.card_type
+and pc.country_code = pctnm.country(+)
+and pc.card_type = pctnm.card_type(+)
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
 and INSTR(:status,pc.block_action)<>0]]>
