@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="PricesList">
+    <default-activity id="__2">PricesListPage</default-activity>
+    <managed-bean id="__3">
+      <managed-bean-name id="__5">PricesListPageBean</managed-bean-name>
+      <managed-bean-class id="__4">com.sfr.engage.pricelisttaskflow.PriceListPageBean</managed-bean-class>
+      <managed-bean-scope id="__6">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="PricesListPage">
+      <page>/WEB-INF/com/sfr/engage/pricelisttaskflow/PricesListPage.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

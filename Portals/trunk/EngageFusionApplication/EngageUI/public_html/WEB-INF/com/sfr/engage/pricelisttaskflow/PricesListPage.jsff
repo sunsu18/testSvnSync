@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+ <af:panelGroupLayout id="printPanelInvoice" layout="vertical" styleClass="spacerStyle">
+    <af:spacer width="10" height="20" id="s9"/>
+    <af:panelGroupLayout id="printPanel1" layout="horizontal"
+                        >
+      <af:outputText value="#{sfr.LIST_PRICES}" id="ot1" styleClass="heading"/>
+      <af:spacer width="20" height="1" id="s1"/>
+      <!--<input onclick="printDiv('pt1:r1:0:printPanel2');" type="image" class="printButton"
+             style="border-color:White; border-style:none;"
+             src="../../../images/download.jpg"/>-->
+     </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s31"/>
+
+        <af:panelGroupLayout id="pgl2" layout="horizontal">
+      <af:separator id="s4" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s6"/>
+
+
+    <af:panelGroupLayout id="printPanel2" halign="left" layout="vertical" inlineStyle="border-style:none;">
+    <af:panelGroupLayout layout="vertical" id="pgl4" inlineStyle="width:315px;">
+      <af:panelGroupLayout id="pgl5" layout="horizontal"  inlineStyle="width:363px;">
+        <!--<af:spacer width="2" height="1" id="s3"/>-->
+        <af:outputText value="#{sfr.LATEST_UPDATE_ENG}:" id="ot4"
+                       inlineStyle="font-weight:bold;"/>
+        <!--<af:spacer width="50" height="10" id="s5"/>-->
+         <af:panelGroupLayout id="pgl13" halign="right">
+            <af:outputText value="#{bindings.ModifiedDate.inputValue}" id="ot2">
+                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
+            </af:outputText>
+            <!--<af:outputText value="#{bindings.ModifiedDate.inputValue}" id="ot2">
+        <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
+        </af:outputText>-->
+        </af:panelGroupLayout>
+        </af:panelGroupLayout>
+
+        <af:spacer width="10" height="10" id="s7"/>
+      <af:panelGroupLayout id="pgl3" layout="horizontal"
+                           inlineStyle="width:400px;">
+          <af:table value="#{bindings.PriceListRVO1.collectionModel}" var="row" rows="#{bindings.PriceListRVO1.rangeSize}" autoHeightRows="10"
+                    emptyText="#{bindings.PriceListRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}" fetchSize="#{bindings.PriceListRVO1.rangeSize}"
+                    rowBandingInterval="1" contentDelivery="immediate"
+                    disableColumnReordering="true" columnResizing="disabled" id="t1" binding="#{pageFlowScope.PricesListPageBean.pricelistinfotable}">
+            <!--<af:column sortProperty="ItmNum" sortable="false" headerText="#{bindings.PriceListRVO1.hints.ItmNum.label}" id="c8">
+              <af:outputText value="#{row.ItmNum}" id="ot15">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PriceListRVO1.hints.ItmNum.format}"/>
+              </af:outputText>
+            </af:column>-->
+            <!--<af:column sortProperty="ItemNum" sortable="false" headerText="#{bindings.PriceListRVO1.hints.ItemNum.label}" id="c7">
+              <af:outputText value="#{row.ItemNum}" id="ot12">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PriceListRVO1.hints.ItemNum.format}"/>
+              </af:outputText>
+            </af:column>-->
+            <af:column sortProperty="DescLine1" sortable="false" headerText="#{sfr.PRODUCTS}" id="c3" width="180"
+                     inlineStyle="vertical-align:middle;">
+                          <af:panelGroupLayout id="pgl1" layout="vertical">
+                <af:panelGroupLayout id="pgl6" layout="horizontal">
+                    <af:image source="/imagemapservlet?param1=LISTPRICE&amp;param2=CATEGORY&amp;param3=&amp;param4=#{row.SalesCategCode5}&amp;param5="
+                              id="i1" styleClass="pricelistimage"/>
+
+                    <af:spacer width="10" height="8" id="s10"/>
+                    <af:outputText value="#{row.DescLine1}" id="ot6"
+                                   styleClass="pricelisttext"/>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            </af:column>
+            <af:column sortProperty="UnitPrice" sortable="false" headerText="#{sfr.UNIT_PRICE_ENG}" id="c10" width="135">
+                <af:panelGroupLayout id="pgl0" layout="horizontal" halign="right"
+                                 styleClass="tablepanel">
+            <af:outputText value="#{row.UnitPrice}" id="ot15">
+              <af:convertNumber groupingUsed="true"
+                                pattern="##.##"
+                                locale="#{pageFlowScope.PricesListPageBean.locale}"
+                                minFractionDigits="2"/>
+            </af:outputText>
+            <af:spacer width="10" height="1" id="s2"/>
+              <af:outputText value="#{row.CurrencyCode}" id="ot5"/>
+              <af:outputText value="./" id="ot7"/>
+               <af:outputText value="#{row.Uom}" id="ot3"/>
+               <af:spacer width="10" height="1" id="s11"/>
+            </af:panelGroupLayout>
+            </af:column>
+            <!--<af:column sortProperty="ItemCategory" sortable="false" headerText="#{bindings.PriceListRVO1.hints.ItemCategory.label}" id="c12">
+              <af:outputText value="#{row.ItemCategory}" id="ot9"/>
+            </af:column>-->
+            <!--<af:column sortProperty="SalesCategCode5" sortable="false" headerText="#{bindings.PriceListRVO1.hints.SalesCategCode5.label}" id="c5">
+              <af:outputText value="#{row.SalesCategCode5}" id="ot14"/>
+            </af:column>-->
+            <!--<af:column sortProperty="Uom" sortable="false" headerText="#{bindings.PriceListRVO1.hints.Uom.label}" id="c9">
+              <af:outputText value="#{row.Uom}" id="ot12"/>
+            </af:column>-->
+            <!--<af:column sortProperty="CountryCode" sortable="false" headerText="#{bindings.PriceListRVO1.hints.CountryCode.label}" id="c11">
+              <af:outputText value="#{row.CountryCode}" id="ot8"/>
+            </af:column>-->
+            <!--<af:column sortProperty="CurrencyCode" sortable="false" headerText="#{bindings.PriceListRVO1.hints.CurrencyCode.label}" id="c6">
+              <af:outputText value="#{row.CurrencyCode}" id="ot10"/>
+            </af:column>-->
+            <!--<af:column sortProperty="UnitQty" sortable="false" headerText="#{bindings.PriceListRVO1.hints.UnitQty.label}" id="c4">
+              <af:outputText value="#{row.UnitQty}" id="ot16">
+                <af:convertNumber groupingUsed="false" pattern="#{bindings.PriceListRVO1.hints.UnitQty.format}"/>
+              </af:outputText>
+            </af:column>-->
+            <!--<af:column sortProperty="ModifiedDate" sortable="false" headerText="#{bindings.PriceListRVO1.hints.ModifiedDate.label}" id="c1">
+              <af:outputText value="#{row.ModifiedDate}" id="ot13">
+                <af:convertDateTime pattern="#{bindings.PriceListRVO1.hints.ModifiedDate.format}"/>
+              </af:outputText>
+            </af:column>-->
+            <!--<af:column sortProperty="PricingUom" sortable="false" headerText="#{bindings.PriceListRVO1.hints.PricingUom.label}" id="c2">
+              <af:outputText value="#{row.PricingUom}" id="ot11"/>
+            </af:column>-->
+          </af:table>
+        </af:panelGroupLayout>
+      <af:spacer width="10" height="10" id="s8"/>
+    </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    </af:panelGroupLayout>
+</jsp:root>
