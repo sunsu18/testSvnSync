@@ -10,5 +10,4 @@
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
   </endpoint-interaction>
-
 </adapter-config>
