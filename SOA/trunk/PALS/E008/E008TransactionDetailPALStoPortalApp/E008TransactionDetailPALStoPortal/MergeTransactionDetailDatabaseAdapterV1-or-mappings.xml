@@ -227,6 +227,16 @@
                <field table="PRT_CARD_TRANSACTION_DETAIL" name="VAT_REFUNDABLE_YN" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaModifiedDate</attribute-name>
+               <field table="PRT_CARD_TRANSACTION_DETAIL" name="SOA_MODIFIED_DATE" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>soaModifiedBy</attribute-name>
+               <field table="PRT_CARD_TRANSACTION_DETAIL" name="SOA_MODIFIED_BY" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>
          <caching>
