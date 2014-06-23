@@ -159,7 +159,7 @@ public class AuthenticatedHomeBean implements Serializable {
             }
             ViewObject vo = iter.getViewObject();
             // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
-            vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
+            vo.setNamedWhereClauseParam("countryCode", langSession);
             vo.setNamedWhereClauseParam("catalogType", "PP");
             vo.setNamedWhereClauseParam("customerType", profileSession);
             vo.executeQuery();
