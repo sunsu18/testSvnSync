@@ -825,16 +825,16 @@
                       part="body" query="/ns22:Notification/ns22:CountryCode"/>
                 </copy>
                 <copy>
-                  <from variable="deltaTS"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
-                </copy>
-                <copy>
                   <from variable="ReceiveAccountSummaryReqMsg" part="part1"
                         query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
                   <to variable="InvokePALSNotificationJMSAdapteV1_IV"
                       part="body" query="/ns22:Notification/ns22:TargetSystem"/>
+                </copy>
+                <copy>
+                  <from variable="deltaDB2FormatTS"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                      part="body"
+                      query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
                 </copy>
                 <copy>
                   <from variable="ReceiveAccountSummaryReqMsg" part="part1"
