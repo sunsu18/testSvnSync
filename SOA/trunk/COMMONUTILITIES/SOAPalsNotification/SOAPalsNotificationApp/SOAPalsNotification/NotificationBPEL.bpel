@@ -65,8 +65,11 @@
     <variable name="emailCCVar" type="xsd:string"/>
     <variable name="emailVar" type="xsd:string"/>
     <variable name="bodyVar" type="xsd:string"/>
+    <variable name="subjectVar" type="xsd:string"/>
   </variables>
-
+  <faultHandlers>
+    <catchAll/>
+  </faultHandlers>
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -99,11 +102,15 @@
         <to variable="emailVar"/>
       </copy>
       <copy>
-        <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable {	font-family: verdana,arial,sans-serif;	font-size:11px;	color:#333333;	border-width: 1px;	border-color: #a9c6c9;	border-collapse: collapse;}table.altrowstable th {	border-width: 1px;	padding: 8px;	border-style: solid;	border-color: #a9c6c9;}table.altrowstable td {	border-width: 1px;	padding: 8px;	border-style: solid;	border-color: #a9c6c9;}.oddrowcolor{	background-color:#d4e3e5;}.evenrowcolor{	background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr>	&lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr>	&lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr>	&lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr>	&lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
+        <from expression="concat (string('SOA Completion Notification for '),bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'))"/>
+        <to variable="subjectVar"/>
+      </copy>
+      <copy>
+        <from expression="ora:toCDATA(concat('&lt;HTML>&lt;HEAD>&lt;!-- CSS goes in the document HEAD or added to your external stylesheet -->&lt;style type=&quot;text/css&quot;>table.altrowstable { font-family: verdana,arial,sans-serif; font-size:11px; color:#333333; border-width: 1px; border-color: #a9c6c9; border-collapse: collapse;}table.altrowstable th { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}table.altrowstable td { border-width: 1px; padding: 8px; border-style: solid; border-color: #a9c6c9;}.oddrowcolor{ background-color:#d4e3e5;}.evenrowcolor{ background-color:#c3dde0;}&lt;/style>&lt;/HEAD>&lt;BODY>&lt;BR/>SOA has completed its execution for Interface E001 with below details:&lt;BR/>&lt;BR/>&lt;BR/>&lt;table class=&quot;altrowstable&quot; id=&quot;alternatecolor&quot;>&lt;tr> &lt;td>Interface Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Country Code:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),'&lt;/td>&lt;/tr>&lt;/tr>&lt;tr> &lt;td>Source Table Name:&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:SourceTableName'),'&lt;/td>&lt;/tr>&lt;tr> &lt;td>Last Delta Timestamp read&lt;/td>&lt;td>',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'),'&lt;/td>&lt;/tr>&lt;/table>&lt;/BODY>&lt;/HTML>'))"/>
         <to variable="bodyVar"/>
       </copy>
       <copy>
-        <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
+        <from expression="concat('SOA has completed its execution for Interface ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'),'-',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:CountryCode'),' up to Delta Timestamp - ',bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:LastDeltaTimeStamp'))"/>
         <to variable="bodyVar"/>
       </copy>
     </assign>
@@ -145,7 +152,7 @@
                 query="/EmailPayload/ns2:ReplyToAddress"/>
           </copy>
           <copy>
-            <from expression="concat (string('SOA Notification for '),bpws:getVariableData('SOAPalsNotificationJMSConsumerV1_IV','body','/ns3:Notification/ns3:InterfaceID'))"/>
+            <from expression="bpws:getVariableData('subjectVar')"/>
             <to variable="varNotificationReq" part="EmailPayload"
                 query="/EmailPayload/ns2:Subject"/>
           </copy>
