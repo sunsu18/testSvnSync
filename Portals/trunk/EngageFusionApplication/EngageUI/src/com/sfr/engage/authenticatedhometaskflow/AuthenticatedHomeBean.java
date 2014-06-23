@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -38,9 +39,12 @@ import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.share.security.SecurityContext;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.data.RichTree;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
+
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
@@ -54,6 +58,7 @@ public class AuthenticatedHomeBean implements Serializable {
     private String infoValue = "";
      //TODO : Message class in EngageCore is not seriliazed.Make it serilizable class
     private List<Messages> messages;
+    private List<Messages> infoFromStatoil;
     private boolean infoPanelVisible;
     private String customerTypeValue;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
@@ -84,6 +89,8 @@ public class AuthenticatedHomeBean implements Serializable {
     ADFContext adfCtx = null;
     private List<PartnerInfo> partnerListDefault = new ArrayList<PartnerInfo>();
     private User userInfo;
+    private String titleVisible=" ";
+    private String title = "";
     /**
      * @return bindings Object
      */
@@ -159,7 +166,7 @@ public class AuthenticatedHomeBean implements Serializable {
             }
             ViewObject vo = iter.getViewObject();
             // TODO : ASHTHA - 02, May, 2014 : Query hardcodes the params. Instead values fetched from session should be used
-            vo.setNamedWhereClauseParam("countryCode", langSession);
+            vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
             vo.setNamedWhereClauseParam("catalogType", "PP");
             vo.setNamedWhereClauseParam("customerType", profileSession);
             vo.executeQuery();
@@ -218,26 +225,51 @@ public class AuthenticatedHomeBean implements Serializable {
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Information Row Count " +
                          prtPCMFeedsVO.getEstimatedRowCount());
-
+                
                 if (prtPCMFeedsVO.getEstimatedRowCount() != 0) {
                     infoPanelVisible = true;
+                    infoFromStatoil = new ArrayList<Messages>();
                     log.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "coming inside INFORMATION block");
+                  
+                   
                     while (prtPCMFeedsVO.hasNext()) {
+                      
+                        
                         PrtPcmFeedsRVORowImpl currRow =
                             (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
-                        
+
                         if (currRow != null) {
-                            if (currRow.getMessageLang().trim() != null) {
-                           
-                                if(!infoValue.toLowerCase().trim().contains(currRow.getMessageLang().toLowerCase().trim()))
-                                infoValue =
-                                        infoValue + currRow.getMessageLang();
-                            } else {
-                                if (currRow.getMessageEnglish().trim() != null && !infoValue.toLowerCase().trim().contains(currRow.getMessageLang().toLowerCase().trim())) {
-                                    infoValue =
-                                            infoValue + currRow.getMessageLang();
+                            Messages infovalue = new Messages();
+                            if (currRow.getMessageLang() != null) {
+                                if(currRow.getTitle() != null)
+                                {
+                                   
+                                    infovalue.setTitle(currRow.getTitle() + ":");
+                               System.out.println("title"+currRow.getTitle());
                                 }
+                                else {
+                                    infovalue.setTitle(null);
+                                }
+                                    
+                                infovalue.setMessage(currRow.getMessageLang());
+                            } else {
+                                if (currRow.getMessageEnglish() != null) {
+                                    if(currRow.getTitle() != null)
+                                    {
+                                     
+                                        infovalue.setTitle(currRow.getTitle() + ":");
+                                        System.out.println("title"+currRow.getTitle());
+                                    }
+                                    
+                                    else {
+                                        infovalue.setTitle(null);
+                                    }
+                                    infovalue.setMessage(currRow.getMessageEnglish());
+                                }
+                            }
+                            if (infovalue.getMessage() != null) {
+                                infoFromStatoil.add(infovalue);
                             }
                         }
                     }
@@ -270,17 +302,37 @@ public class AuthenticatedHomeBean implements Serializable {
                             (PrtPcmFeedsRVORowImpl)prtPCMFeedsVO.next();
 
                         if (currRow != null) {
-                                Messages message = new Messages();
-                                if (currRow.getMessageLang() != null) {
-                                        message.setMessage(currRow.getMessageLang());
-                                } else {
-                                    if (currRow.getMessageEnglish() != null) {
-                                            message.setMessage(currRow.getMessageEnglish());
+                            Messages message = new Messages();
+                            if (currRow.getMessageLang() != null) {
+                                if(currRow.getTitle() != null)
+                                {
+                                   
+                                    message.setTitle(currRow.getTitle() + ":");
+                               System.out.println("title"+currRow.getTitle());
+                                }
+                                else {
+                                    message.setTitle(null);
+                                }
+                                    
+                                message.setMessage(currRow.getMessageLang());
+                            } else {
+                                if (currRow.getMessageEnglish() != null) {
+                                    if(currRow.getTitle() != null)
+                                    {
+                                     
+                                        message.setTitle(currRow.getTitle() + ":");
+                                        System.out.println("title"+currRow.getTitle());
                                     }
+                                    
+                                    else {
+                                        message.setTitle(null);
+                                    }
+                                    message.setMessage(currRow.getMessageEnglish());
                                 }
-                                if (message.getMessage() != null) {
-                                    messages.add(message);
-                                }
+                            }
+                            if (message.getMessage() != null) {
+                                messages.add(message);
+                            }
                         }
                     }
                 }
@@ -699,12 +751,39 @@ public class AuthenticatedHomeBean implements Serializable {
         return langSession;
     }
 
+   
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitleVisible(String titleVisible) {
+        this.titleVisible = titleVisible;
+    }
+
+    public String getTitleVisible() {
+        return titleVisible;
+    }
+
+    public void setInfoFromStatoil(List<Messages> infoFromStatoil) {
+        this.infoFromStatoil = infoFromStatoil;
+    }
+
+    public List<Messages> getInfoFromStatoil() {
+        return infoFromStatoil;
+    }
+
 
     public class Bindings {
         private RichOutputText infoText;
         private RichPanelGroupLayout infoPanel;
         private RichSpacer bindingSpacer;
         private RichTable invoiceTable;
+        private RichPanelGroupLayout infoFromStatoil;
         public void setInfoText(RichOutputText infoText) {
             this.infoText = infoText;
         }
@@ -728,6 +807,13 @@ public class AuthenticatedHomeBean implements Serializable {
             return invoiceTable;
         }
 
+        public void setInfoFromStatoil(RichPanelGroupLayout infoFromStatoil) {
+            this.infoFromStatoil = infoFromStatoil;
+        }
+
+        public RichPanelGroupLayout getInfoFromStatoil() {
+            return infoFromStatoil;
+        }
     }
 }
 

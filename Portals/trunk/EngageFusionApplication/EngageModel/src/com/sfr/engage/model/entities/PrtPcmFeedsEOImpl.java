@@ -133,6 +133,16 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
                 obj.setModifiedDate((Timestamp)value);
             }
         }
+        ,
+        Title {
+            public Object get(PrtPcmFeedsEOImpl obj) {
+                return obj.getTitle();
+            }
+
+            public void put(PrtPcmFeedsEOImpl obj, Object value) {
+                obj.setTitle((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -160,6 +170,7 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
             return vals;
         }
     }
+
     public static final int PRTPCMFEEDSPK = AttributesEnum.PrtPcmFeedsPk.index();
     public static final int CUSTOMERTYPE = AttributesEnum.CustomerType.index();
     public static final int INFORMATIONTYPE = AttributesEnum.InformationType.index();
@@ -171,11 +182,22 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int TITLE = AttributesEnum.Title.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtPcmFeedsEOImpl() {
+    }
+
+    /**
+     * @return the definition object for this instance class.
+     */
+    public static synchronized EntityDefImpl getDefinitionObject() {
+        if (mDefinitionObject == null) {
+            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtPcmFeedsEO");
+        }
+        return mDefinitionObject;
     }
 
     /**
@@ -355,6 +377,22 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for Title, using the alias name Title.
+     * @return the Title
+     */
+    public String getTitle() {
+        return (String)getAttributeInternal(TITLE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for Title.
+     * @param value value to set the Title
+     */
+    public void setTitle(String value) {
+        setAttributeInternal(TITLE, value);
+    }
+
+    /**
      * getAttrInvokeAccessor: generated method. Do not modify.
      * @param index the index identifying the attribute
      * @param attrDef the attribute
@@ -387,6 +425,7 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
         super.setAttrInvokeAccessor(index, value, attrDef);
     }
 
+
     /**
      * @param prtPcmFeedsPk key constituent
 
@@ -394,16 +433,6 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
      */
     public static Key createPrimaryKey(BigDecimal prtPcmFeedsPk) {
         return new Key(new Object[]{prtPcmFeedsPk});
-    }
-
-    /**
-     * @return the definition object for this instance class.
-     */
-    public static synchronized EntityDefImpl getDefinitionObject() {
-        if (mDefinitionObject == null) {
-            mDefinitionObject = EntityDefImpl.findDefObject("com.sfr.engage.model.entities.PrtPcmFeedsEO");
-        }
-        return mDefinitionObject;
     }
 
     /**

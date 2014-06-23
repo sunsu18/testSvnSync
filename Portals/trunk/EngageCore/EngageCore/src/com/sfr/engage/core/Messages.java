@@ -8,6 +8,7 @@ package com.sfr.engage.core;
  */
 public class Messages {
     private String message;
+    private String title;
 
     /**
      */
@@ -27,5 +28,13 @@ public class Messages {
      */
     public String getMessage() {
         return message;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

@@ -158,6 +158,18 @@
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="Title"
+    Precision="20"
+    ColumnName="TITLE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_PCM_FEEDS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="PrtPcmFeedsPk1"
     PrimaryKey="true">

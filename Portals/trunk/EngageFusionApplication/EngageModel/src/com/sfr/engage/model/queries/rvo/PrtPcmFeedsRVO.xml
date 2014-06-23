@@ -16,7 +16,8 @@
        PrtPcmFeedsEO.MESSAGE_ENGLISH, 
        PrtPcmFeedsEO.COUNTRY_CODE, 
        PrtPcmFeedsEO.MODIFIED_BY, 
-       PrtPcmFeedsEO.MODIFIED_DATE"
+       PrtPcmFeedsEO.MODIFIED_DATE, 
+       PrtPcmFeedsEO.TITLE"
   FromList="PRT_PCM_FEEDS PrtPcmFeedsEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -107,4 +108,10 @@
     EntityAttrName="ModifiedDate"
     EntityUsage="PrtPcmFeedsEO"
     AliasName="MODIFIED_DATE"/>
+  <ViewAttribute
+    Name="Title"
+    PrecisionRule="true"
+    EntityAttrName="Title"
+    EntityUsage="PrtPcmFeedsEO"
+    AliasName="TITLE"/>
 </ViewObject>

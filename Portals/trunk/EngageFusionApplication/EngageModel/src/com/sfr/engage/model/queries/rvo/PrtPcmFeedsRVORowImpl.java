@@ -129,6 +129,16 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
                 obj.setModifiedDate((Timestamp)value);
             }
         }
+        ,
+        Title {
+            public Object get(PrtPcmFeedsRVORowImpl obj) {
+                return obj.getTitle();
+            }
+
+            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
+                obj.setTitle((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -156,6 +166,7 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int PRTPCMFEEDSPK = AttributesEnum.PrtPcmFeedsPk.index();
     public static final int CUSTOMERTYPE = AttributesEnum.CustomerType.index();
     public static final int INFORMATIONTYPE = AttributesEnum.InformationType.index();
@@ -167,6 +178,7 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int TITLE = AttributesEnum.Title.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -356,6 +368,22 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
      */
     public void setModifiedDate(Timestamp value) {
         setAttributeInternal(MODIFIEDDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for TITLE using the alias name Title.
+     * @return the TITLE
+     */
+    public String getTitle() {
+        return (String) getAttributeInternal(TITLE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for TITLE using the alias name Title.
+     * @param value value to set the TITLE
+     */
+    public void setTitle(String value) {
+        setAttributeInternal(TITLE, value);
     }
 
     /**

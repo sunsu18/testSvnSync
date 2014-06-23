@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
-          xmlns:f="http://java.sun.com/jsf/core">
+          xmlns:f="http://java.sun.com/jsf/core"
+          >
                           <af:resource type="javascript">
       function expandNode(event)
       {
@@ -73,16 +74,34 @@
 
 
 
-<!--<af:panelGroupLayout id="pgl10" inlineStyle="padding-left: 10px;">
-            <af:outputText value="#{sfr.IMPORTANT_NOTE}:" id="ot20"
-                           styleClass="contenttext important_notice"/>
-          </af:panelGroupLayout>-->
-          <!--<af:spacer width="10" height="5" id="s18"/>-->
-        <af:panelGroupLayout id="pgl8" inlineStyle="width:940px;" layout="horizontal">
-                             <af:spacer width="10" height="10" id="s22"/>
-        <af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.infoValue}" id="ot1"
+
+         
+        <af:panelGroupLayout id="pgl8" inlineStyle="width:940px;" layout="horizontal" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoFromStatoil}">
+                            <af:spacer width="10" height="5" id="s22" />
+                        
+            <!--<af:outputText value="#{pageFlowScope.AuthenticatedHomeBean.title}" id="ot1"
                    styleClass="home_text"
-                   binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.infoText}"/>
+                    inlineStyle="font-weight:bold;" escape="false"/>-->                
+                               <!--<af:spacer width="5" height="10" id="s34" />-->  
+        <af:panelGroupLayout id="pgl42" layout="vertical">
+                     <af:forEach items="#{pageFlowScope.AuthenticatedHomeBean.infoFromStatoil}"
+                          var="var">
+                     <af:outputText value="#{var.title eq null ? var.message : var.title }" id="ot19" 
+                                 styleClass="home_text"
+                                   inlineStyle="padding-right:5px;" escape="false"
+                                   
+                                   />
+                      <af:spacer width="10" height="5" id="s28"/>
+                      <af:outputText value="#{var.message}" id="ot22"
+                                   styleClass="home_text"
+                                   inlineStyle="padding-right:5px;" rendered="#{var.title ne null ? true : false}" escape="false"/> 
+                                    <af:spacer width="10" height="15" id="s35"/>
+                                   </af:forEach>
+                      </af:panelGroupLayout>
+                       <!--<af:panelGroupLayout id="pgl43l">
+                    <af:spacer width="7" height="20" id="s7k"/>
+                    </af:panelGroupLayout>-->
+                      
             </af:panelGroupLayout>
             </af:panelGroupLayout>
     <!--<af:panelGroupLayout id="pgl2"
@@ -129,7 +148,7 @@
                     contextMenuSelect="false"
                      binding="#{pageFlowScope.AuthenticatedHomeBean.adfTree}"
                      initiallyExpanded="false"
-                     inlineStyle="height:405px; width:295.0px;padding-left: 5px;padding-top: 5px;" fetchSize="500">
+                     inlineStyle="height:405px; width:295.0px;padding-left: 5px;padding-top: 5px;">
               <f:facet name="nodeStamp">
             <af:switcher id="s17"
                  facetName="#{node.hierTypeBinding.viewDefName}">
@@ -217,14 +236,26 @@
                   <af:panelGroupLayout id="pgl9"
                                        inlineStyle="width:580px;"
                                        halign="start" layout="vertical">
-                     <af:panelGroupLayout id="pgl42">
-                    <af:outputText value="#{var.message}" id="ot19"
+                     <af:panelGroupLayout id="pgl44" layout="vertical">
+                     
+                     <af:outputText value="#{var.title eq null ? var.message : var.title }"
+                                    id="ot1" 
+                                   escape="false"
+                                   inlineStyle="padding-right:5px;"
+                                    styleClass="home_text"
+                                   />
+                      <af:spacer width="10" height="3" id="s34"/>
+                      <af:outputText value="#{var.message}" id="ot23"
                                    styleClass="home_text"
-                                   inlineStyle="padding-right:5px;"/>
-                                    </af:panelGroupLayout>
-                    <af:panelGroupLayout id="pgl43">
-                    <af:spacer width="7" height="20" id="s7"/>
-                    </af:panelGroupLayout>
+                                   inlineStyle="padding-right:5px; line-height:1.7;"
+                                     rendered="#{var.title ne null ? true : false}" escape="false"/>      
+                                    <af:spacer width="10" height="15" id="s7"/> 
+                      </af:panelGroupLayout>
+                   
+                                
+                    <!--<af:panelGroupLayout id="pgl43">
+                    <af:spacer width="7" height="20" id="s18"/>
+                    </af:panelGroupLayout>-->
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
               </af:forEach>
@@ -522,7 +553,7 @@
                                                </af:outputText>
                                                <af:spacer id="s29" width="5"/>
                                                <af:outputText value='#{(pageFlowScope.AuthenticatedHomeBean.langSession eq "NO" )?"NOK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "DK") ? "DKK":(pageFlowScope.AuthenticatedHomeBean.langSession eq "US") ? "USD":(pageFlowScope.AuthenticatedHomeBean.langSession eq "SE") ? "SEK":"-"}'
-                                                              id="ot21"
+                                                              id="ot21" 
                                                               styleClass="productprice"/>
 
 </af:panelGroupLayout>
@@ -548,7 +579,7 @@
                                      styleClass="gobutton1"/> !-->
                                      <af:commandButton text="#{sfr.VIEW_CATALOG}" id="cb3"
  actionListener="#{pageFlowScope.AuthenticatedHomeBean.redirectToProductCatalog}">
-
+ 
                             <af:clientListener method="redirect2" type="click"/>
                           </af:commandButton>
 
@@ -559,7 +590,7 @@
               <!--<af:spacer width="350" height="10" id="s27"/>-->
 
               <!--<af:spacer width="7" height="5" id="s28"/>-->
-
+             
         </af:panelGroupLayout>
       </af:panelGroupLayout>
     </af:panelGroupLayout>
