@@ -5,8 +5,8 @@
       <loc>/ns:composite/ns:reference[@name='CardPALSToPOrtalService']</loc>
       <line>218</line>
       <col>58</col>
-      <file>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
-      <name>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
+      <file>F:\SFR work\E006\SVN\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
+      <name>F:\SFR work\E006\SVN\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
       <fix/>
       <msg>Failed to Find Binding "CardPALSToPOrtalService":"{http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal}E006CardPALSToPortal_pt" in WSDL Manager</msg>
    </Fault>
@@ -15,8 +15,8 @@
       <loc>/ns:composite/ns:reference[@name='CardPALSToPOrtalService']</loc>
       <line>218</line>
       <col>58</col>
-      <file>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
-      <name>F:\SFR work\E006\E006(WithProcCall)\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
+      <file>F:\SFR work\E006\SVN\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</file>
+      <name>F:\SFR work\E006\SVN\E006CardPALSToPortal\E006CardPALSToPortal\composite.xml</name>
       <fix/>
       <msg>Failed to Find Binding "CardPALSToPOrtalService":"{http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal}E006CardPALSToPortal_pt" in WSDL Manager</msg>
    </Fault>

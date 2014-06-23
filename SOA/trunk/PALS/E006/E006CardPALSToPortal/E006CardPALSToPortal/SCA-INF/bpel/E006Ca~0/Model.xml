@@ -116,7 +116,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
           </copy>
           <copy>
-            <from expression="'TE'"/>
+            <from expression="'E006_TE'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
           </copy>
           <copy>
@@ -176,7 +176,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
           </copy>
           <copy>
-            <from expression="'TE'"/>
+            <from expression="'E006_TE'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
           </copy>
           <copy>
@@ -236,7 +236,7 @@
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
           </copy>
           <copy>
-            <from expression="'TE'"/>
+            <from expression="'E006_TE'"/>
             <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
           </copy>
           <copy>
@@ -561,7 +561,7 @@
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
                       </copy>
                       <copy>
-                        <from expression="'TE'"/>
+                        <from expression="'E006_TE'"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
                       </copy>
                       <copy>
@@ -1040,7 +1040,7 @@
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
                       </copy>
                       <copy>
-                        <from expression="'BE'"/>
+                        <from expression="'E006_BE'"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
                       </copy>
                       <copy>

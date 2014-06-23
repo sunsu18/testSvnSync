@@ -8,179 +8,179 @@
    </xs:complexType>
    <xs:complexType name="EngagePalsCardDtaErrorlog">
       <xs:sequence>
-         <xs:element name="deltaTs" nillable="true">
+         <xs:element name="deltaTs">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="40"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="countryCode" nillable="true">
+         <xs:element name="countryCode" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="2"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="partnerId" nillable="true">
+         <xs:element name="partnerId" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardgroupMainType" nillable="true">
+         <xs:element name="cardgroupMainType" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardgroupSubType" nillable="true">
+         <xs:element name="cardgroupSubType" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardgroupSeq" nillable="true">
+         <xs:element name="cardgroupSeq" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="prtCardPk" nillable="true">
+         <xs:element name="prtCardPk" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardIdentifier" nillable="true">
+         <xs:element name="cardIdentifier" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardType" nillable="true">
+         <xs:element name="cardType" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="magneticCode" nillable="true">
+         <xs:element name="magneticCode" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardEmbossNum" nillable="true">
+         <xs:element name="cardEmbossNum" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="50"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceInformation" nillable="true">
+         <xs:element name="invoiceInformation" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="200"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="cardExpiry" type="xs:dateTime" nillable="true"/>
-         <xs:element name="blockType" nillable="true">
+         <xs:element name="cardExpiry" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="blockType" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="blockCode" nillable="true">
+         <xs:element name="blockCode" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="blockAction" nillable="true">
+         <xs:element name="blockAction" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="blockDate" type="xs:dateTime" nillable="true"/>
-         <xs:element name="blockTime" type="xs:dateTime" nillable="true"/>
-         <xs:element name="blockLevel" nillable="true">
+         <xs:element name="blockDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="blockTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="blockLevel" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="manufacturedDate" type="xs:dateTime" nillable="true"/>
-         <xs:element name="routexCustomerNumber" nillable="true">
+         <xs:element name="manufacturedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
+         <xs:element name="routexCustomerNumber" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceAddr1" nillable="true">
+         <xs:element name="invoiceAddr1" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="200"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceAddr2" nillable="true">
+         <xs:element name="invoiceAddr2" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="200"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoicePostalCode" nillable="true">
+         <xs:element name="invoicePostalCode" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceCity" nillable="true">
+         <xs:element name="invoiceCity" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="200"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="addrSeq" nillable="true">
+         <xs:element name="addrSeq" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceCountry" nillable="true">
+         <xs:element name="invoiceCountry" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceAddrLevel" nillable="true">
+         <xs:element name="invoiceAddrLevel" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="invoiceAddrType" nillable="true">
+         <xs:element name="invoiceAddrType" minOccurs="0" nillable="true">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>
@@ -195,7 +195,7 @@
             </xs:simpleType>
          </xs:element>
          <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0" nillable="true"/>
-         <xs:element name="soaErrorCode" minOccurs="0" nillable="true">
+         <xs:element name="soaErrorCode">
             <xs:simpleType>
                <xs:restriction base="xs:string">
                   <xs:maxLength value="20"/>

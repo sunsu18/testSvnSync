@@ -7,47 +7,15 @@
          <alias>ENGAGE_PALS_CARD_DTA_ERRORLOG</alias>
          <primary-key>
             <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="DELTA_TS" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="PARTNER_ID" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARDGROUP_SEQ" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="PRT_CARD_PK" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARD_IDENTIFIER" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARD_TYPE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="MAGNETIC_CODE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARD_EMBOSS_NUM" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_INFORMATION" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="CARD_EXPIRY" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_TYPE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_CODE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_ACTION" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_DATE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_LEVEL" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="BLOCK_TIME" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="MANUFACTURED_DATE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_ADDR1" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_ADDR2" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_POSTAL_CODE" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_CITY" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="ADDR_SEQ" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_COUNTRY" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_ADDR_LEVEL" xsi:type="column"/>
-            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="INVOICE_ADDR_TYPE" xsi:type="column"/>
+            <field table="ENGAGE_PALS_CARD_DTA_ERRORLOG" name="SOA_ERROR_CODE" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>
             <queries>
                <query name="SOAErrorLogDBAdapterSelect" xsi:type="read-all-query">
-                  <criteria operator="equal" xsi:type="relation-expression">
-                     <left name="emailFlag" xsi:type="query-key-expression">
-                        <base xsi:type="base-expression"/>
-                     </left>
-                     <right xsi:type="constant-expression">
-                        <value xsi:type="xsd:int">0</value>
-                     </right>
-                  </criteria>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT DELTA_TS, COUNTRY_CODE, PARTNER_ID, CARDGROUP_MAIN_TYPE, CARDGROUP_SUB_TYPE, CARDGROUP_SEQ, PRT_CARD_PK, CARD_IDENTIFIER, CARD_TYPE, MAGNETIC_CODE, CARD_EMBOSS_NUM, INVOICE_INFORMATION, CARD_EXPIRY, BLOCK_TYPE, BLOCK_CODE, BLOCK_ACTION, BLOCK_DATE, BLOCK_TIME, BLOCK_LEVEL, MANUFACTURED_DATE, ROUTEX_CUSTOMER_NUMBER, INVOICE_ADDR1, INVOICE_ADDR2, INVOICE_POSTAL_CODE, INVOICE_CITY, ADDR_SEQ, INVOICE_COUNTRY, INVOICE_ADDR_LEVEL, INVOICE_ADDR_TYPE, MODIFIED_BY, MODIFIED_DATE, SOA_ERROR_CODE, SOA_ERROR_DESC, EMAIL_FLAG, DELTA_RECIPT_FLAG FROM ENGAGE_PALS_CARD_DTA_ERRORLOG WHERE (EMAIL_FLAG = 0)</sql>
+                  </call>
                   <reference-class>SOAErrorLogDBAdapter.EngagePalsCardDtaErrorlog</reference-class>
                   <container xsi:type="list-container-policy">
                      <collection-type>java.util.Vector</collection-type>
