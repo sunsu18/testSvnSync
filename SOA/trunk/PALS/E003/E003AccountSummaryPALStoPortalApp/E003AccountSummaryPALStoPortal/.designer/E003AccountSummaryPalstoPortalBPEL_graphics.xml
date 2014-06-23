@@ -12,10 +12,11 @@
       <partnerlink name="SOAErrorHandlingJMSQueue" x="0" y="1144" side="left"/>
       <partnerlink name="GetErrorRecordsSOADBAdapterV1" x="0" y="3553" side="left"/>
       <partnerlink name="UpdateEmailFlagSOADBAdapterV1" x="0" y="4008" side="left"/>
-      <partnerlink name="SelectPALSDB2DBAdapterV1" x="1818" y="2042" side="right"/>
-      <partnerlink name="GetPALSDB2CountDBAdapterV1" x="1818" y="1041" side="right"/>
+      <partnerlink name="SelectPALSDB2DBAdapterV1" x="1870" y="2042" side="right"/>
+      <partnerlink name="GetPALSDB2CountDBAdapterV1" x="1870" y="1041" side="right"/>
+      <partnerlink name="PALSNotificationJMSAdapteV1" x="1870" y="3803" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,2760,727,495" show_swimlanes="true">
+   <graph_layout viewport="360,3336,486,369" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -45,6 +46,8 @@
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch" type="switch"/>
    </graph_layout>
    <bookmarks/>
 </graphics>

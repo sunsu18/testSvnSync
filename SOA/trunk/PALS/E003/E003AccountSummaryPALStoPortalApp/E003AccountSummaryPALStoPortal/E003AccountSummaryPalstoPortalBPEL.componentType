@@ -44,4 +44,8 @@
              ui:wsdlLocation="UpdateEmailFlagSOADBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/UpdateEmailFlagSOADBAdapterV1#wsdl.interface(UpdateEmailFlagSOADBAdapterV1_ptt)"/>
   </reference>
+  <reference name="PALSNotificationJMSAdapteV1"
+             ui:wsdlLocation="PALSNotificationJMSAdapteV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/PALSNotificationJMSAdapteV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

@@ -35,6 +35,8 @@
           location="GetErrorRecordsSOADBAdapterV1.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/UpdateEmailFlagSOADBAdapterV1"
           location="UpdateEmailFlagSOADBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/PALSNotificationJMSAdapteV1"
+          location="PALSNotificationJMSAdapteV1.wsdl" importType="wsdl"/>
   <service name="E003ACcountSummaryPalstoPortalService"
            ui:wsdlLocation="E003ACcountSummaryPalstoPortalService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003ACcountSummaryPalstoPortalService#wsdl.interface(execute_ptt)"/>
@@ -150,6 +152,11 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="PALSNotificationJMSAdapteV1"
+             ui:wsdlLocation="PALSNotificationJMSAdapteV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/PALSNotificationJMSAdapteV1#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="PALSNotificationJMSAdapteV1_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>E003ACcountSummaryPalstoPortalService</source.uri>
     <target.uri>E003AccountSummaryPalstoPortalBPEL/E003ACcountSummaryPalstoPortalService</target.uri>
@@ -189,5 +196,9 @@
   <wire>
     <source.uri>E003AccountSummaryPalstoPortalBPEL/UpdateEmailFlagSOADBAdapterV1</source.uri>
     <target.uri>UpdateEmailFlagSOADBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>E003AccountSummaryPalstoPortalBPEL/PALSNotificationJMSAdapteV1</source.uri>
+    <target.uri>PALSNotificationJMSAdapteV1</target.uri>
   </wire>
 </composite>

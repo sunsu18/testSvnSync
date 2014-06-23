@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E003AccountSummaryPalstoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003AccountSummaryPalstoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003AccountSummaryPalstoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003ACcountSummaryPalstoPortalService" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://www.statoilfuelretail.com/integration/E003/E003InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectDeltaTSDBAdapterV1" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetPALSDB2CountDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapterV1" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDataDB2DBAdapterV1" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/SelectPALSDataDB2DBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/MergePortalDataDBAdapterV1" xmlns:ns14="http://www.statoilfuelretail.com/integration/E003/MergeCardGroupValidate" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SOAErrorHandlingJMSQueue" xmlns:ns17="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetErrorRecordsSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/UpdateEmailFlagSOADBAdapterV1" id="BpPrc0">
+<process name="E003AccountSummaryPalstoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003AccountSummaryPalstoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003AccountSummaryPalstoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/E003ACcountSummaryPalstoPortalService" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDB2DBAdapterV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://www.statoilfuelretail.com/integration/E003/E003InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectDeltaTSDBAdapterV1" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSDBAdapterV1" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSDB2DBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetPALSDB2CountDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2CountDBAdapterV1" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SelectPALSDataDB2DBAdapterV1" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/SelectPALSDataDB2DBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/MergePortalDataDBAdapterV1" xmlns:ns14="http://www.statoilfuelretail.com/integration/E003/MergeCardGroupValidate" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/SOAErrorHandlingJMSQueue" xmlns:ns17="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/GetErrorRecordsSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertSOAPartnerErrorLogDBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/UpdateEmailFlagSOADBAdapterV1" xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E003AccountSummaryPALStoPortalApp/E003AccountSummaryPALStoPortal/PALSNotificationJMSAdapteV1" xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
     <partnerLink name="SOAErrorHandlingJMSQueue" partnerLinkType="ns16:Produce_Message_plt" partnerRole="Produce_Message_role"/>
     <partnerLink name="GetErrorRecordsSOADBAdapterV1" partnerLinkType="ns18:GetErrorRecordsSOADBAdapterV1_plt" partnerRole="GetErrorRecordsSOADBAdapterV1_role"/>
     <partnerLink name="UpdateEmailFlagSOADBAdapterV1" partnerLinkType="ns20:UpdateEmailFlagSOADBAdapterV1_plt" partnerRole="UpdateEmailFlagSOADBAdapterV1_role"/>
+    <partnerLink name="PALSNotificationJMSAdapteV1" partnerLinkType="ns21:Produce_Message_plt" partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveAccountSummaryReqMsg" messageType="ns1:requestMessage"/>
@@ -46,6 +47,7 @@
     <variable name="InvokeGetErrorRecordsSOADBAdapterV1_IV" messageType="ns18:GetErrorRecordsSOADBAdapterV1Input_msg"/>
     <variable name="InvokeGetErrorRecordsSOADBAdapterV1_OV" messageType="ns18:GetErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
     <variable name="InvokeUpdateEmailFlagSOADBAdapterV1_IV" messageType="ns20:EngageSoaPartnerErrorlogCollection_msg"/>
+    <variable name="InvokePALSNotificationJMSAdapteV1_IV" messageType="ns21:Produce_Message_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0"><sequence name="RemoteFaultSequence" id="BpSeq0">
@@ -538,7 +540,96 @@
         </sequence>
       </case>
       <otherwise>
-        <empty name="sendDetaReceipt" id="BpEmp0"/>
+        <sequence name="Sequence3" id="BpSeq15">
+          <switch name="Switch4" id="BpSwt3">
+            <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns5:EngageSoaDeltatableCollection/ns5:EngageSoaDeltatable')) >0">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">If data is picked</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <assign name="AssignPALSNotificationDelta" id="BpAss25">
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:SenderSystem"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
+                </copy>
+                <copy>
+                  <from expression="'CC070VS1_CSSPAR_DTA'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:SourceTableName"/>
+                </copy>
+                <copy>
+                  <from expression="'PRT_PARTNER'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:TargetTableName"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:NotificationDateTime"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:CountryCode"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:CountryCode"/>
+                </copy>
+                <copy>
+                  <from variable="deltaTS"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:TargetSystem"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:InterfaceID"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:InterfaceID"/>
+                </copy>
+                <copy>
+                  <from expression="'E003AccountSummaryPALStoPortal'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:InterfaceName"/>
+                </copy>
+              </assign>
+            </case>
+            <otherwise>
+              <assign name="AssignPALSNotification" id="BpAss26">
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:SenderSystem"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
+                </copy>
+                <copy>
+                  <from expression="'CC070VS1_CSSPAR_DTA'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:SourceTableName"/>
+                </copy>
+                <copy>
+                  <from expression="'PRT_PARTNER'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:TargetTableName"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:NotificationDateTime"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:CountryCode"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:CountryCode"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:TargetSystem"/>
+                </copy>
+                <copy>
+                  <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_OV','Cc070Vs1CssparDtaCollection','/ns6:Cc070Vs1CssparDtaCollection/ns6:Cc070Vs1CssparDta[$DataCount]/ns6:deltaTs')"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveAccountSummaryReqMsg" part="part1" query="/ns3:invocationMsg/ns3:InterfaceID"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:InterfaceID"/>
+                </copy>
+                <copy>
+                  <from expression="'E003AccountSummaryPALStoPortal'"/>
+                  <to variable="InvokePALSNotificationJMSAdapteV1_IV" part="body" query="/ns22:Notification/ns22:InterfaceName"/>
+                </copy>
+              </assign>
+            </otherwise>
+          </switch>
+          <invoke name="InvokePALSNotificationJMSAdapteV1" inputVariable="InvokePALSNotificationJMSAdapteV1_IV" partnerLink="PALSNotificationJMSAdapteV1" portType="ns21:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv13"/>
+        </sequence>
       </otherwise>
     </switch>
   </sequence>
