@@ -102,6 +102,7 @@ public class AccountSummary implements Serializable {
     private boolean ismanager = false;
     private boolean isEmployee = false;
     private boolean isManagerCg = false;
+    private String displayCardTypeName = ""; 
 
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
@@ -482,6 +483,14 @@ public class AccountSummary implements Serializable {
 
     public String getCardTypeName() {
         return cardTypeName;
+    }
+
+    public void setDisplayCardTypeName(String displayCardTypeName) {
+        this.displayCardTypeName = displayCardTypeName;
+    }
+
+    public String getDisplayCardTypeName() {
+        return displayCardTypeName;
     }
 
     public class Bindings {
@@ -1237,16 +1246,18 @@ public class AccountSummary implements Serializable {
                         PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
                         if (currRow.getTypeName() != null) {
                             cardTypeNameList.add(currRow.getTypeName());
-//                            System.out.println("cardTypeNameList------------------------->" + cardTypeNameList);
                         }
                         cardTypeName = cardTypeNameList.toString().substring(1,cardTypeNameList.toString().length() - 1 ).replace(", ", "<br/>");
-//                        System.out.println("cardTypeName--------------------------------> + cardTypeName");
                     }
                 }
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
             }
+            for(int i = 0 ; i < cardTypeList.size() ; i++){
+                displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameList.get(i) + "<br/>";
+            }
+            displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
 
             getBindings().getCardGroupOverview().setVisible(true);
 

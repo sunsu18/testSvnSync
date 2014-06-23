@@ -1588,7 +1588,7 @@
 </af:panelGroupLayout>
               <af:panelGroupLayout layout="vertical">
           <af:spacer height="10"/>
-                 <af:outputText value="#{pageFlowScope.AccountSummaryBean.cardTypeName}" id="ot57" inlineStyle="font-weight:bold"
+                 <af:outputText value="#{pageFlowScope.AccountSummaryBean.displayCardTypeName}" id="ot57" inlineStyle="font-weight:bold"
                                 binding="#{pageFlowScope.AccountSummaryBean.bindings.cardTypeOT}" escape="false"/>
 
                 </af:panelGroupLayout>
