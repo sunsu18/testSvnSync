@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="CardPageDef"
+                Package="com.sfr.engage.cardtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtViewCardsVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewCardsVO1Iterator"/>
+    <searchRegion Binds="PrtViewCardsVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtViewCardsVO11Query"/>
+    <iterator Binds="PrtViewVehicleDriverVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO1Iterator"/>
+ <iterator Binds="PrtViewVehicleDriverVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtViewVehicleDriverVO2Iterator"/>
+ <iterator Binds="PrtPartnerVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPartnerVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>  
+  </executables>
+  <bindings>
+    <tree IterBinding="PrtViewCardsVO1Iterator" id="PrtViewCardsVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"
+                      Name="PrtViewCardsVO110">
+        <AttrNames>
+          <Item Value="AccountId"/>
+          <Item Value="CardType"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="DriverName"/>
+          <Item Value="BlockCode"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="CardIdentifier"/>
+          <Item Value="CardgroupDescription"/>
+          <Item Value="CardNumber"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="BlockAction"/>
+          <Item Value="InternalName"/>
+          <Item Value="DriverNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="VehicleModifiedBy"/>
+          <Item Value="VehicleModifiedDate"/>
+          <Item Value="Status"/>
+          <Item Value="CardTextline2"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO1Iterator"
+                     id="DriverName">
+      <AttrNames>
+        <Item Value="DriverName"/>
+      </AttrNames>
+    </attributeValues>
+<attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardNumber">
+      <AttrNames>
+        <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>
+ <attributeValues IterBinding="PrtCardgroupVO1Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtViewVehicleDriverVO2Iterator"
+                     id="CardEmbossNum">
+      <AttrNames>
+        <Item Value="CardEmbossNum"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updateVehicleDriver"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateVehicleDriver" IsViewObjectMethod="false"
+                  ReturnName="data.EngageAppModuleDataControl.methodResults.updateVehicleDriver_EngageAppModuleDataControl_dataProvider_updateVehicleDriver_result">
+      <NamedData NDName="cardNumber" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="vehicleDriverValue" NDType="java.lang.String"/>
+      <NamedData NDName="associatedAccount" NDType="java.lang.String"/>
+      <NamedData NDName="modifiedBy" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

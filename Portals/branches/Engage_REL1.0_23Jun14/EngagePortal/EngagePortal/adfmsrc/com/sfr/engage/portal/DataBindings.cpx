@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.61.92" id="DataBindings" SeparateXMLFiles="false"
+             Package="com.sfr.engage.portal" ClientType="Generic"
+             PageMapClass="oracle.jbo.uicli.mom.DynamicPageMapImpl"
+             BasePageDefPackageName="pageDefs">
+  <pageMap>
+    <page path="/oracle/webcenter/portalapp/pages/navigation-renderer.jspx"
+          usageId="portal_navigation_rendererPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/home.jspx"
+          usageId="portal_homePageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/login.jspx"
+          usageId="portal_loginPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pages/error.jspx"
+          usageId="portal_errorPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_globe.jspx"
+          usageId="portal_pageTemplate_globePageDef"/>
+    <page path="/oracle/webcenter/portalapp/pagetemplates/pageTemplate_swooshy.jspx"
+          usageId="portal_pageTemplate_swooshyPageDef"/>
+    
+    <page path="/oracle/webcenter/portalapp/engagepages/accounts/accountsummary.jspx"
+          usageId="com_sfr_engage_portal_accountsummaryPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/accounts/company.jspx"
+          usageId="com_sfr_engage_portal_companyPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/accounts/driverinfo.jspx"
+          usageId="com_sfr_engage_portal_driverinfoPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/accounts/messages.jspx"
+          usageId="com_sfr_engage_portal_messagesPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/accounts/vehicleinfo.jspx"
+          usageId="com_sfr_engage_portal_vehicleinfoPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/admintool/feeds.jspx"
+          usageId="com_sfr_engage_portal_feedsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/admintool/portalcost.jspx"
+          usageId="com_sfr_engage_portal_portalcostPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/cardservices/cardinfo.jspx"
+          usageId="com_sfr_engage_portal_cardinfoPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/cardservices/cardprofile.jspx"
+          usageId="com_sfr_engage_portal_cardprofilePageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/cardservices/ordernewcard.jspx"
+          usageId="com_sfr_engage_portal_ordernewcardPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx"
+          usageId="com_sfr_engage_portal_viewcardPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/accounts.jspx"
+          usageId="com_sfr_engage_portal_accountsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/admintool.jspx"
+          usageId="com_sfr_engage_portal_admintoolPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/cardservices.jspx"
+          usageId="com_sfr_engage_portal_cardservicesPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/pricing.jspx"
+          usageId="com_sfr_engage_portal_pricingPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/setup.jspx"
+          usageId="com_sfr_engage_portal_setupPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/support.jspx"
+          usageId="com_sfr_engage_portal_supportPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/transactions.jspx"
+          usageId="com_sfr_engage_portal_transactionsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/webassist.jspx"
+          usageId="com_sfr_engage_portal_webassistPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/pricing/agreements.jspx"
+          usageId="com_sfr_engage_portal_agreementsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx"
+          usageId="com_sfr_engage_portal_fuelpricesPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/setup/alerts.jspx"
+          usageId="com_sfr_engage_portal_alertsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx"
+          usageId="com_sfr_engage_portal_manageusersPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/setup/reportsetup.jspx"
+          usageId="com_sfr_engage_portal_reportsetupPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/setup/webprofile.jspx"
+          usageId="com_sfr_engage_portal_webprofilePageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/support/contact.jspx"
+          usageId="com_sfr_engage_portal_contactPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/support/faq.jspx"
+          usageId="com_sfr_engage_portal_faqPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/transactions/aroverview.jspx"
+          usageId="com_sfr_engage_portal_aroverviewPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/transactions/invoiceoverview.jspx"
+          usageId="com_sfr_engage_portal_invoiceoverviewPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/transactions/transactions.jspx"
+          usageId="com_sfr_engage_portal_transactionsPageDef1"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/webassist/customerview.jspx"
+          usageId="com_sfr_engage_portal_customerviewPageDef"/>
+    <page path="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx"
+          usageId="com_sfr_engage_portal_engageTemplatePageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"
+          usageId="com_sfr_engage_portal_changeaccountPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/changeaccount/selectaccount.jspx"
+          usageId="com_sfr_engage_portal_selectaccountPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/admintool/requests.jspx"
+          usageId="com_sfr_engage_portal_requestsPageDef"/>
+    <page path="/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx"
+          usageId="com_sfr_engage_portal_changepasswordPageDef"/>
+  </pageMap>
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/portlet/bindings"
+             className="oracle.adf.model.portlet.binding.PortletBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adfdtinternal.view.faces.portlet.PortletDefinitionDTFactory"/>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageDefinitionUsages>
+    <page id="portal_navigation_rendererPageDef"
+          path="oracle.webcenter.portalapp.pages.navigation_rendererPageDef"/>
+    <page id="portal_homePageDef"
+          path="oracle.webcenter.portalapp.pages.homePageDef"/>
+    <page id="portal_loginPageDef"
+          path="oracle.webcenter.portalapp.pages.loginPageDef"/>
+    <page id="portal_errorPageDef"
+          path="oracle.webcenter.portalapp.pages.errorPageDef"/>
+    <page id="portal_pageTemplate_globePageDef"
+          path="oracle.webcenter.portalapp.pagetemplates.pageTemplate_globePageDef"/>
+    <page id="portal_pageTemplate_swooshyPageDef"
+          path="oracle.webcenter.portalapp.pagetemplates.pageTemplate_swooshyPageDef"/>
+    
+    <page id="com_sfr_engage_portal_accountsummaryPageDef"
+          path="oracle.webcenter.portalapp.engagepages.accounts.accountsummaryPageDef"/>
+    <page id="com_sfr_engage_portal_companyPageDef"
+          path="oracle.webcenter.portalapp.engagepages.accounts.companyPageDef"/>
+    <page id="com_sfr_engage_portal_driverinfoPageDef"
+          path="oracle.webcenter.portalapp.engagepages.accounts.driverinfoPageDef"/>
+    <page id="com_sfr_engage_portal_messagesPageDef"
+          path="oracle.webcenter.portalapp.engagepages.accounts.messagesPageDef"/>
+    <page id="com_sfr_engage_portal_vehicleinfoPageDef"
+          path="oracle.webcenter.portalapp.engagepages.accounts.vehicleinfoPageDef"/>
+    <page id="com_sfr_engage_portal_feedsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.admintool.feedsPageDef"/>
+    <page id="com_sfr_engage_portal_portalcostPageDef"
+          path="oracle.webcenter.portalapp.engagepages.admintool.portalcostPageDef"/>
+    <page id="com_sfr_engage_portal_cardinfoPageDef"
+          path="oracle.webcenter.portalapp.engagepages.cardservices.cardinfoPageDef"/>
+    <page id="com_sfr_engage_portal_cardprofilePageDef"
+          path="oracle.webcenter.portalapp.engagepages.cardservices.cardprofilePageDef"/>
+    <page id="com_sfr_engage_portal_ordernewcardPageDef"
+          path="oracle.webcenter.portalapp.engagepages.cardservices.ordernewcardPageDef"/>
+    <page id="com_sfr_engage_portal_viewcardPageDef"
+          path="oracle.webcenter.portalapp.engagepages.cardservices.viewcardPageDef"/>
+    <page id="com_sfr_engage_portal_accountsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.accountsPageDef"/>
+    <page id="com_sfr_engage_portal_admintoolPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.admintoolPageDef"/>
+    <page id="com_sfr_engage_portal_cardservicesPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.cardservicesPageDef"/>
+    <page id="com_sfr_engage_portal_pricingPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.pricingPageDef"/>
+    <page id="com_sfr_engage_portal_setupPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.setupPageDef"/>
+    <page id="com_sfr_engage_portal_supportPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.supportPageDef"/>
+    <page id="com_sfr_engage_portal_transactionsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.transactionsPageDef"/>
+    <page id="com_sfr_engage_portal_webassistPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.webassistPageDef"/>
+    <page id="com_sfr_engage_portal_agreementsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.pricing.agreementsPageDef"/>
+    <page id="com_sfr_engage_portal_fuelpricesPageDef"
+          path="oracle.webcenter.portalapp.engagepages.pricing.fuelpricesPageDef"/>
+    <page id="com_sfr_engage_portal_alertsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.setup.alertsPageDef"/>
+    <page id="com_sfr_engage_portal_manageusersPageDef"
+          path="oracle.webcenter.portalapp.engagepages.setup.manageusersPageDef"/>
+    <page id="com_sfr_engage_portal_reportsetupPageDef"
+          path="oracle.webcenter.portalapp.engagepages.setup.reportsetupPageDef"/>
+    <page id="com_sfr_engage_portal_webprofilePageDef"
+          path="oracle.webcenter.portalapp.engagepages.setup.webprofilePageDef"/>
+    <page id="com_sfr_engage_portal_contactPageDef"
+          path="oracle.webcenter.portalapp.engagepages.support.contactPageDef"/>
+    <page id="com_sfr_engage_portal_faqPageDef"
+          path="oracle.webcenter.portalapp.engagepages.support.faqPageDef"/>
+    <page id="com_sfr_engage_portal_aroverviewPageDef"
+          path="oracle.webcenter.portalapp.engagepages.transactions.aroverviewPageDef"/>
+    <page id="com_sfr_engage_portal_invoiceoverviewPageDef"
+          path="oracle.webcenter.portalapp.engagepages.transactions.invoiceoverviewPageDef"/>
+    <page id="com_sfr_engage_portal_transactionsPageDef1"
+          path="oracle.webcenter.portalapp.engagepages.transactions.transactionsPageDef"/>
+    <page id="com_sfr_engage_portal_customerviewPageDef"
+          path="oracle.webcenter.portalapp.engagepages.webassist.customerviewPageDef"/>
+    <page id="com_sfr_engage_portal_TempPageDef" path="oracle.webcenter.portalapp.pages.TempPageDef"/>
+    <page id="com_sfr_engage_portal_PriceSamplePageDef" path="oracle.webcenter.portalapp.pages.PriceSamplePageDef"/>
+    <page id="com_sfr_engage_portal_untitled1PageDef" path="oracle.webcenter.portalapp.pages.untitled1PageDef"/>
+    <page id="com_sfr_engage_portal_untitled1PageDef1" path="oracle.webcenter.portalapp.pages.untitled1PageDef1"/>
+    <page id="com_sfr_engage_portal_engageTemplatePageDef"
+          path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"/>
+    <page id="com_sfr_engage_portal_changeaccountPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.changeaccountPageDef"/>
+    <page id="com_sfr_engage_portal_selectaccountPageDef"
+          path="oracle.webcenter.portalapp.engagepages.changeaccount.selectaccountPageDef"/>
+    <page id="com_sfr_engage_portal_requestsPageDef"
+          path="oracle.webcenter.portalapp.engagepages.admintool.requestsPageDef"/>
+    <page id="com_sfr_engage_portal_changepasswordPageDef"
+          path="oracle.webcenter.portalapp.engagepages.menus.changepasswordPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="EngageAppModuleDataControl"
+                     Package="com.sfr.engage.model.module"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="EngageAppModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

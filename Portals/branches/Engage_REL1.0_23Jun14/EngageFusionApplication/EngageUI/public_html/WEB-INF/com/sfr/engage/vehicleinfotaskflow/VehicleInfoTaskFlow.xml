@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="VehicleInfoTaskFlow">
+    <default-activity id="__9">VehicleInfo</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name id="__8">VehicleInfoBean</managed-bean-name>
+      <managed-bean-class id="__6">com.sfr.engage.vehicleinfotaskflow.VehicleInfoBean</managed-bean-class>
+      <managed-bean-scope id="__7">pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="VehicleInfo">
+      <page>/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfo.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

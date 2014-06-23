@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_CARD"
+  AliasName="PrtCardEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="CountryCode"
+    IsNotNull="true"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PartnerId"
+    IsNotNull="true"
+    Precision="8"
+    ColumnName="PARTNER_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AccountId"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="ACCOUNT_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupMainType"
+    IsNotNull="true"
+    Precision="3"
+    ColumnName="CARDGROUP_MAIN_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSubType"
+    IsNotNull="true"
+    Precision="3"
+    ColumnName="CARDGROUP_SUB_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardgroupSeq"
+    IsNotNull="true"
+    Precision="5"
+    ColumnName="CARDGROUP_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PrtCardPk"
+    IsNotNull="true"
+    Precision="10"
+    ColumnName="PRT_CARD_PK"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreatedDate"
+    ColumnName="CREATED_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CreatedBy"
+    Precision="6"
+    ColumnName="CREATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ChangeDate"
+    ColumnName="CHANGE_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ChangeBy"
+    Precision="6"
+    ColumnName="CHANGE_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockCode"
+    Precision="3"
+    ColumnName="BLOCK_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="VersionNumber"
+    Precision="38"
+    Scale="0"
+    ColumnName="VERSION_NUMBER"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedBy"
+    IsNotNull="true"
+    Precision="25"
+    ColumnName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    IsNotNull="true"
+    ColumnName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardType"
+    IsNotNull="true"
+    Precision="3"
+    ColumnName="CARD_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CustomerGroup"
+    Precision="2"
+    ColumnName="CUSTOMER_GROUP"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PrevCardId"
+    Precision="10"
+    ColumnName="PREV_CARD_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PhysicalCardId"
+    Precision="10"
+    ColumnName="PHYSICAL_CARD_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardIssueDate"
+    ColumnName="CARD_ISSUE_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardReturnDate"
+    ColumnName="CARD_RETURN_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardExpiry"
+    ColumnName="CARD_EXPIRY"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PurchaseProfileCode"
+    Precision="3"
+    ColumnName="PURCHASE_PROFILE_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="NumPrintlines"
+    Precision="38"
+    Scale="0"
+    ColumnName="NUM_PRINTLINES"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardAppId"
+    Precision="7"
+    ColumnName="CARD_APP_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="GeoUseRef"
+    Precision="10"
+    ColumnName="GEO_USE_REF"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardStatusCode"
+    Precision="3"
+    ColumnName="CARD_STATUS_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ExtCardNum"
+    Precision="20"
+    ColumnName="EXT_CARD_NUM"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardRenewDate"
+    ColumnName="CARD_RENEW_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardEmbossNum"
+    IsNotNull="true"
+    Precision="20"
+    ColumnName="CARD_EMBOSS_NUM"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardRenewBlock"
+    Precision="1"
+    ColumnName="CARD_RENEW_BLOCK"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PinOffset"
+    Precision="4"
+    Scale="0"
+    ColumnName="PIN_OFFSET"
+    SQLType="NUMERIC"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardDesignCode"
+    Precision="6"
+    ColumnName="CARD_DESIGN_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardCreatedBy"
+    Precision="6"
+    ColumnName="CARD_CREATED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardCopies"
+    Precision="38"
+    Scale="0"
+    ColumnName="CARD_COPIES"
+    SQLType="NUMERIC"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardSearchId"
+    Precision="20"
+    ColumnName="CARD_SEARCH_ID"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="MagneticCode"
+    Precision="3"
+    ColumnName="MAGNETIC_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DebitBankAccount"
+    Precision="16"
+    ColumnName="DEBIT_BANK_ACCOUNT"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="16"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DebitAgreeRef"
+    Precision="15"
+    ColumnName="DEBIT_AGREE_REF"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockDate"
+    ColumnName="BLOCK_DATE"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockTime"
+    ColumnName="BLOCK_TIME"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DeletionCode"
+    Precision="3"
+    ColumnName="DELETION_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SperrebehKd"
+    Precision="3"
+    ColumnName="SPERREBEH_KD"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SperrelisteDt"
+    ColumnName="SPERRELISTE_DT"
+    SQLType="TIMESTAMP"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SpesialbestJn"
+    Precision="1"
+    ColumnName="SPESIALBEST_JN"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardRemarks"
+    IsPersistent="false"
+    Precision="255"
+    ColumnName='"Synchronize:Fix_SQL"'
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardIdentifier"
+    Precision="3"
+    ColumnName="CARD_IDENTIFIER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceInformation"
+    Precision="90"
+    ColumnName="INVOICE_INFORMATION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="90"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockType"
+    Precision="3"
+    ColumnName="BLOCK_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockAction"
+    Precision="1"
+    ColumnName="BLOCK_ACTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BlockLevel"
+    Precision="3"
+    ColumnName="BLOCK_LEVEL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ManufacturedDate"
+    ColumnName="MANUFACTURED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RoutexCustomerNumber"
+    Precision="6"
+    ColumnName="ROUTEX_CUSTOMER_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddr1"
+    Precision="60"
+    ColumnName="INVOICE_ADDR1"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddr2"
+    Precision="60"
+    ColumnName="INVOICE_ADDR2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoicePostalCode"
+    Precision="10"
+    ColumnName="INVOICE_POSTAL_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceCity"
+    Precision="60"
+    ColumnName="INVOICE_CITY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="60"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AddrSeq"
+    Precision="5"
+    ColumnName="ADDR_SEQ"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceCountry"
+    Precision="2"
+    ColumnName="INVOICE_COUNTRY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddrLevel"
+    Precision="3"
+    ColumnName="INVOICE_ADDR_LEVEL"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="InvoiceAddrType"
+    Precision="3"
+    ColumnName="INVOICE_ADDR_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CardTextline2"
+    Precision="30"
+    ColumnName="CARD_TEXTLINE_2"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtPartnerEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtAccountEO"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO1"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtPartnerEO2"
+    Association="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtPartnerEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtPartnerFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtAccountEO1"
+    Association="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtAccountEO1"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtAccountFk1Assoc.PrtCardEO1"
+    Type="com.sfr.engage.model.entities.PrtAccountEOImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="PrtCardgroupEO2"
+    Association="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardgroupEO2"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardPrtCardgroupFk1Assoc.PrtCardEO2"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PrtCardPk1"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.PrtCardPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055906">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055906"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055907">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055907"/>
+      <Attr Name="_checkCondition" Value='"PARTNER_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.PartnerId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055908">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055908"/>
+      <Attr Name="_checkCondition" Value='"ACCOUNT_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055909">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055909"/>
+      <Attr Name="_checkCondition" Value='"CARDGROUP_MAIN_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupMainType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055910">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055910"/>
+      <Attr Name="_checkCondition" Value='"CARDGROUP_SUB_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSubType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055911">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055911"/>
+      <Attr Name="_checkCondition" Value='"CARDGROUP_SEQ" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSeq"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055912">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055912"/>
+      <Attr Name="_checkCondition" Value='"PRT_CARD_PK" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.PrtCardPk"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055913">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055913"/>
+      <Attr Name="_checkCondition" Value='"CARD_TYPE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardType"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055914">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055914"/>
+      <Attr Name="_checkCondition" Value='"CARD_EMBOSS_NUM" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardEmbossNum"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055915">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055915"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0055916">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0055916"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtCardPrtAccountFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_ACCOUNT_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_PRT_ACCOUNT_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.AccountId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtCardPrtCardgroupFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_CARDGROUP_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_PRT_CARDGROUP_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.PartnerId"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupMainType"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSubType"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CardgroupSeq"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtCardPrtPartnerFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_PARTNER_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_PRT_PARTNER_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.CountryCode"/>
+      <Item Value="com.sfr.engage.model.entities.PrtCardEO.PartnerId"/>
+    </AttrArray>
+  </Key>
+</Entity>

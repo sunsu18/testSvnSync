@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.55.96" id="homePageDef"
+                Package="oracle.webcenter.portalapp.pages">
+  <parameters>
+    <parameter id="page_info"
+               value="title=Home;desc=;keywords=;createdBy=weblogic;createDate=2010-06-08T10:12:28;lastUpdatedBy=weblogic;lastUpdateDate=2010-06-08T16:07:52;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/home.jspx;excluded=false;style="/>
+    <parameter id="page_title" value="Home"/>
+    <parameter id="page_parent"
+               value="/oracle/webcenter/portalapp/pagehierarchy/pages.xml"/>
+  </parameters>
+  <executables>
+    <variableIterator id="variables"/>
+    <page viewId="${preferenceBean.defaultPageTemplate}"
+          id="pageTemplateBinding" Refresh="ifNeeded"/>
+    <taskFlow id="pageeditorpanel"
+              taskFlowId="#{pageEditorBean.pageEditorPanel}"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <iterator Binds="ProductsDisplayRVO1" RangeSize="10"
+              DataControl="EngageAppModuleDataControl"
+              id="ProductsDisplayRVO1Iterator"/>
+    <taskFlow id="AuthenticatedHomeTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <iterator Binds="PrtAccountVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtAccountVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO1Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ProductsDisplayRVO1Iterator" id="ProductsDisplayRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.ProductsDisplayRVO"
+                      Name="ProductsDisplayRVO10">
+        <AttrNames>
+          <Item Value="Itemno"/>
+          <Item Value="ArticleName"/>
+          <Item Value="B2bItemPriceUnit"/>
+          <Item Value="B2cItemPriceUnit"/>
+          <Item Value="CategCode10"/>
+          <Item Value="CategCode6"/>
+          <Item Value="CategCode7"/>
+          <Item Value="CategCode8"/>
+          <Item Value="CategCode9"/>
+          <Item Value="DescLine1"/>
+          <Item Value="DescLine2"/>
+          <Item Value="PackageDescription"/>
+          <Item Value="SalesCategCode3"/>
+          <Item Value="SalesCategCode4"/>
+          <Item Value="SalesCategCode5"/>
+          <Item Value="SalesCatSelection"/>
+          <Item Value="SalesText"/>
+          <Item Value="SubSection"/>
+          <Item Value="UnspscCode"/>
+          <Item Value="Uom"/>
+          <Item Value="UserResRef"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtAccountVO1Iterator" id="PrtAccountVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtAccountVO"
+                      Name="PrtAccountVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="AccountId"/>
+          <Item Value="PartnerId"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="AccountReconCode"/>
+          <Item Value="AccountStmtCode"/>
+          <Item Value="InterestCode"/>
+          <Item Value="AccountGroup"/>
+          <Item Value="BlockCode"/>
+          <Item Value="AccountDesc"/>
+          <Item Value="CreditBlockCode"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="DunningLevelCode"/>
+          <Item Value="CreditBlockDate"/>
+          <Item Value="CreditBlockTime"/>
+          <Item Value="AccountBlockDate"/>
+          <Item Value="AccountBlockTime"/>
+          <Item Value="DunningProcId"/>
+          <Item Value="GiroNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardgroupVO1Iterator" id="PrtCardgroupVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardgroupVO"
+                      Name="PrtCardgroupVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="EstbGroup"/>
+          <Item Value="BusiRelationGroup"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="PayProof"/>
+          <Item Value="DeleteCode"/>
+          <Item Value="MarketingCode"/>
+          <Item Value="ArchiveRef"/>
+          <Item Value="NotAvgFrom"/>
+          <Item Value="NotAvgTo"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="CardType"/>
+          <Item Value="PayDocLevel"/>
+          <Item Value="BusiRelationNace"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitRefNumber"/>
+          <Item Value="BusiRelationDesc"/>
+          <Item Value="PurchaseLimitCode"/>
+          <Item Value="BlockCode"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardVO1Iterator" id="PrtCardVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardVO"
+                      Name="PrtCardVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="PrtCardPk"/>
+          <Item Value="CreatedDate"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="ChangeDate"/>
+          <Item Value="ChangeBy"/>
+          <Item Value="BlockCode"/>
+          <Item Value="VersionNumber"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="CardType"/>
+          <Item Value="CustomerGroup"/>
+          <Item Value="PrevCardId"/>
+          <Item Value="PhysicalCardId"/>
+          <Item Value="CardIssueDate"/>
+          <Item Value="CardReturnDate"/>
+          <Item Value="CardExpiry"/>
+          <Item Value="PurchaseProfileCode"/>
+          <Item Value="NumPrintlines"/>
+          <Item Value="CardAppId"/>
+          <Item Value="GeoUseRef"/>
+          <Item Value="CardStatusCode"/>
+          <Item Value="ExtCardNum"/>
+          <Item Value="CardRenewDate"/>
+          <Item Value="CardEmbossNum"/>
+          <Item Value="CardRenewBlock"/>
+          <Item Value="PinOffset"/>
+          <Item Value="CardDesignCode"/>
+          <Item Value="CardCreatedBy"/>
+          <Item Value="CardCopies"/>
+          <Item Value="CardSearchId"/>
+          <Item Value="MagneticCode"/>
+          <Item Value="DebitBankAccount"/>
+          <Item Value="DebitAgreeRef"/>
+          <Item Value="BlockDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="DeletionCode"/>
+          <Item Value="SperrebehKd"/>
+          <Item Value="SperrelisteDt"/>
+          <Item Value="SpesialbestJn"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+                     id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+  <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
+              target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/pages/home.jspx"
+              xmlns="http://xmlns.oracle.com/adf/security">
+    <privilege-map operation="create" privilege="create"/>
+    <privilege-map operation="delete" privilege="delete"/>
+    <privilege-map operation="edit" privilege="update"/>
+    <privilege-map operation="personalize" privilege="personalize"/>
+    <privilege-map operation="view" privilege="view"/>
+  </permission>
+</pageDefinition>

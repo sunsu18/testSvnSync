@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="AccountSummaryPageDef"
+                Package="com.sfr.engage.accountsummarytaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="root" RangeSize="25" DataControl="PartnerInfoListClient"
+              id="PartnerInfoListClientIterator"/>
+    <accessorIterator MasterBinding="PartnerInfoListClientIterator"
+                      Binds="partnerlist" RangeSize="500"
+                      DataControl="PartnerInfoListClient"
+                      BeanClass="com.sfr.engage.core.PartnerInfo"
+                      id="partnerlistIterator"/>
+    <iterator Binds="PrtAccountVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtAccountVO2Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl" id="PrtCardVO4Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardgroupVO3Iterator"/>
+    <iterator Binds="PrtPartnerVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtPartnerVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="partnerlistIterator" id="partnerlist">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist0">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist1">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist2">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="unblockedCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist3">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PrtAccountVO2Iterator" id="AccountId">
+      <AttrNames>
+        <Item Value="AccountId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
+                     id="CardgroupMainType">
+      <AttrNames>
+        <Item Value="CardgroupMainType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="FirstLastName">
+      <AttrNames>
+        <Item Value="FirstLastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CompanyType">
+      <AttrNames>
+        <Item Value="CompanyType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerId">
+      <AttrNames>
+        <Item Value="PartnerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CreditLimit">
+      <AttrNames>
+        <Item Value="CreditLimit"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PhoneNumber">
+      <AttrNames>
+        <Item Value="PhoneNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="MobileNumber">
+      <AttrNames>
+        <Item Value="MobileNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardStatusCode">
+      <AttrNames>
+        <Item Value="CardStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardType">
+      <AttrNames>
+        <Item Value="CardType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
+                     id="CardgroupSubType">
+      <AttrNames>
+        <Item Value="CardgroupSubType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardRemarks">
+      <AttrNames>
+        <Item Value="CardRemarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerAddr1">
+      <AttrNames>
+        <Item Value="PartnerAddr1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerAddr2">
+      <AttrNames>
+        <Item Value="PartnerAddr2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerPostalCode">
+      <AttrNames>
+        <Item Value="PartnerPostalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerCity">
+      <AttrNames>
+        <Item Value="PartnerCity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="PartnerCountry">
+      <AttrNames>
+        <Item Value="PartnerCountry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="OrgId">
+      <AttrNames>
+        <Item Value="OrgId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator" id="CardgroupSeq">
+      <AttrNames>
+        <Item Value="CardgroupSeq"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardgroupVO3Iterator"
+                     id="CardgroupDescription">
+      <AttrNames>
+        <Item Value="CardgroupDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceAddr1">
+      <AttrNames>
+        <Item Value="InvoiceAddr1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceAddr2">
+      <AttrNames>
+        <Item Value="InvoiceAddr2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="ModifiedBy">
+      <AttrNames>
+        <Item Value="ModifiedBy"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceCity">
+      <AttrNames>
+        <Item Value="InvoiceCity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoiceCountry">
+      <AttrNames>
+        <Item Value="InvoiceCountry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="InvoicePostalCode">
+      <AttrNames>
+        <Item Value="InvoicePostalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardEmbossNum">
+      <AttrNames>
+        <Item Value="CardEmbossNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtPartnerVO1Iterator" id="CompanyName">
+      <AttrNames>
+        <Item Value="CompanyName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="BlockAction">
+      <AttrNames>
+        <Item Value="BlockAction"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="BlockLevel">
+      <AttrNames>
+        <Item Value="BlockLevel"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardTextline2">
+      <AttrNames>
+        <Item Value="CardTextline2"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
