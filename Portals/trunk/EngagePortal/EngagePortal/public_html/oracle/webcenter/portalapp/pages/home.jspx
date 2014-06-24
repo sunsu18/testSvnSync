@@ -14,7 +14,8 @@
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
     <af:document id="d1" title="#{sfr.HOME}">
-    <af:clientListener type="load" method="refreshCarousal"/>
+      <af:messages id="m1"/>
+      <af:clientListener type="load" method="refreshCarousal"/>
 
       <af:form id="f1">
 
@@ -185,6 +186,15 @@
                     <af:panelGroupLayout id="pgl_05" layout="vertical"
                                          >
                           <af:spacer width="10" height="10" id="s22"/>
+                          <!--<af:inputText value="#{bindings.CustomerType.inputValue}"
+                                        simple="true"
+                                        required="#{bindings.CustomerType.hints.mandatory}"
+                                        columns="#{bindings.CustomerType.hints.displayWidth}"
+                                        maximumLength="#{bindings.CustomerType.hints.precision}"
+                                        shortDesc="#{bindings.CustomerType.hints.tooltip}"
+                                        id="it1">
+                            <f:validator binding="#{bindings.CustomerType.validator}"/>
+                          </af:inputText>-->
                           <af:outputText value="#{sfr.CARD_SERVICES_WHENEVER_YOU_WANT}"
                                      id="ot3" styleClass="contentheader"/>
                       <af:spacer width="10" height="17" id="s11"/>
@@ -224,7 +234,7 @@
                       <af:spacer width="10" height="20" id="spacer15"/>
                       
                       
-                        <af:panelGroupLayout id="pgl23" layout="horizontal"  inlineStyle="width:327.0px;">
+                        <af:panelGroupLayout id="pgl23" layout="horizontal"  inlineStyle="width:327.0px;" visible="false">
      <af:outputText value="#{sfr.NEW_TO_CARD}"
                                        id="outputText5"
                                        styleClass="contenttext"/>
