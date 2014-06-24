@@ -1,6 +1,6 @@
 <adapter-config name="UpdateInvoiceErrorLogDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="UpdateInvoiceErrorLogDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="UpdateInvoiceErrorLogDatabaseAdapterV1_ptt" operation="update">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="UpdateInvoiceErrorLogDatabaseAdapterV1.EngageSoaInvoiceErrorlog"/>

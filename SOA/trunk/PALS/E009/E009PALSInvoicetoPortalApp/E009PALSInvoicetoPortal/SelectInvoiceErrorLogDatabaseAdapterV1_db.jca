@@ -1,6 +1,6 @@
 <adapter-config name="SelectInvoiceErrorLogDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectInvoiceErrorLogDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="SelectInvoiceErrorLogDatabaseAdapterV1_ptt" operation="SelectInvoiceErrorLogDatabaseAdapterV1Select">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="SelectInvoiceErrorLogDatabaseAdapterV1.EngageSoaInvoiceErrorlog"/>
