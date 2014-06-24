@@ -1,6 +1,6 @@
 <adapter-config name="SOAErrorLogDBAdapter" adapter="Database Adapter" wsdlLocation="SOAErrorLogDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/EngageSOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
   <endpoint-interaction portType="SOAErrorLogDBAdapter_ptt" operation="SOAErrorLogDBAdapterSelect">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="SOAErrorLogDBAdapter.EngagePalsCardDtaErrorlog"/>
