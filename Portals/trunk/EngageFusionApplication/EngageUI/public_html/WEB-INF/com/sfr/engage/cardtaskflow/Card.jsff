@@ -316,7 +316,7 @@
               </af:inputText>
             </af:column>
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
-                       id="c10" width="150px" filterFeatures="caseInsensitive">
+                       id="c10" width="175px" filterFeatures="caseInsensitive">
               <!--<af:inputText value="#{row.bindings.CardTextline2.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardTextline2.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardTextline2.mandatory}"
@@ -326,7 +326,7 @@
                             id="it8">
                 <f:validator binding="#{row.bindings.CardTextline2.validator}"/>
               </af:inputText>-->
-              <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="25"/>
+              <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="22"/>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
                        id="c8"  width="80px" filterFeatures="caseInsensitive">
