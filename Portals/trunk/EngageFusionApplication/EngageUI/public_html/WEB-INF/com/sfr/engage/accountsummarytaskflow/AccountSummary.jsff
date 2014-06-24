@@ -1580,10 +1580,10 @@
 
 
  </af:panelGroupLayout>
-   
+
   </af:panelGroupLayout>
   <af:popup contentDelivery="immediate"
-              autoCancel="disabled" id="p1"
+              autoCancel="disabled" id="p2"
             binding="#{pageFlowScope.AccountSummaryBean.bindings.showAllPopUp}">
               <af:noteWindow inlineStyle="width:350.0px;">
 
