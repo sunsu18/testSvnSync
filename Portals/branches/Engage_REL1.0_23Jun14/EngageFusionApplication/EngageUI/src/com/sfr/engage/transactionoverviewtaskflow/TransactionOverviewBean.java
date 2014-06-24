@@ -81,6 +81,7 @@ public class TransactionOverviewBean implements Serializable {
     private boolean reportRawData = false;
     private boolean reportInternationalTx = false;
     private boolean reportPriceSpecification = false;
+    private boolean noteInternational=false;
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
@@ -115,6 +116,7 @@ public class TransactionOverviewBean implements Serializable {
     private String strCard;
     private String strVehicle;
     private String strDriver;
+    private String noteInternationalVal;
 
     private String strCardGroupPrePopulated;
     private String strCardPrePopulated;
@@ -2017,7 +2019,6 @@ public class TransactionOverviewBean implements Serializable {
 
     public String formatConversion(Float passedValue, Locale countryLocale) {
         String val = "";
-
         NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
         val = numberFormat.format(passedValue);
         return val;
@@ -2026,7 +2027,7 @@ public class TransactionOverviewBean implements Serializable {
     public String getTimeHour(Timestamp timeStamp) {
         String val = "";
         java.util.Date date = new Date(timeStamp.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss a");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         val = format.format(date);
         return val;
     }
@@ -2708,13 +2709,18 @@ public class TransactionOverviewBean implements Serializable {
                                     " to " +
                                     formatConversion((Date)getBindings().getToDate().getValue()));
 
-            for (int row = 5; row <= 7; row++) {
+            for (int row = 5; row <= 6; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Passed String =" + passedString);
             String[] headerValues = passedString.split(",");
-          
+            
+            XLS_SH_R = XLS_SH.createRow(7);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("International transactions are updated once in 5 days. As part of the development of the new portal, we are working on improving this."); 
+            
             XLS_SH_R = XLS_SH.createRow(8);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
@@ -2722,7 +2728,7 @@ public class TransactionOverviewBean implements Serializable {
                 if ("Total Amount".equalsIgnoreCase(headerValues[i].toString().trim())) {
                     if(getBindings().getReportFormat().getValue()!=null) {
                         if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {
-                            XLS_SH_R_C.setCellValue("");
+                            XLS_SH_R_C.setCellValue("");                           
                         }else {
                             XLS_SH_R_C.setCellValue("*Note : All prices below are in " +
                                                     currencyCode);
@@ -3909,7 +3915,8 @@ public class TransactionOverviewBean implements Serializable {
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG()); 
         }        
-        value=false;
+        value=false;        
+                                                                                                        
     }
 
     public void selectionExport(ValueChangeEvent valueChangeEvent) {
@@ -4070,6 +4077,22 @@ public class TransactionOverviewBean implements Serializable {
         return odometerKsid;
     }
 
+    public void setNoteInternational(boolean noteInternational) {
+        this.noteInternational = noteInternational;
+    }
+
+    public boolean isNoteInternational() {
+        return noteInternational;
+    }
+
+    public void setNoteInternationalVal(String noteInternationalVal) {
+        this.noteInternationalVal = noteInternationalVal;
+    }
+
+    public String getNoteInternationalVal() {
+        return noteInternationalVal;
+    }
+
     public class Bindings {
         private RichSelectManyChoice account;
         private RichSelectOneChoice partner;
@@ -4098,6 +4121,7 @@ public class TransactionOverviewBean implements Serializable {
         private RichPopup odometer_PopUp;
         private RichTable searchTable;
         private RichOutputText noteText;
+        private RichOutputText noteInternationalText;
         private RichTable searchResultsTB;
 
         public void setOdometer_PopUp(RichPopup odometer_PopUp) {
@@ -4343,6 +4367,14 @@ public class TransactionOverviewBean implements Serializable {
 
         public RichTable getSearchResultsTB() {
             return searchResultsTB;
+        }
+
+        public void setNoteInternationalText(RichOutputText noteInternationalText) {
+            this.noteInternationalText = noteInternationalText;
+        }
+
+        public RichOutputText getNoteInternationalText() {
+            return noteInternationalText;
         }
     }
 }

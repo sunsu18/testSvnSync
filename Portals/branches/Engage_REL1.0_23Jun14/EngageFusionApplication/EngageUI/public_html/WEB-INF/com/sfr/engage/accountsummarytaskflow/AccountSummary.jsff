@@ -66,6 +66,10 @@
                  contentDelivery="immediate" immediate="true"
 
                  contextMenuSelect="false" fetchSize="500">
+                 <f:facet name="contextMenu">
+<af:popup id="p1"/>
+</f:facet>
+
                     <f:facet name="nodeStamp">
            <af:switcher id="s1"
                  facetName="#{node.hierTypeBinding.viewDefName}">

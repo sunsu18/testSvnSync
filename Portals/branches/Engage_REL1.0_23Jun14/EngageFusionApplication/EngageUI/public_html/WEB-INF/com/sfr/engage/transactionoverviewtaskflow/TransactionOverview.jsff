@@ -432,10 +432,18 @@
         <af:panelGroupLayout id="pgl17">
         <af:spacer width="500" height="25" id="s56"/>
         </af:panelGroupLayout>
+        <af:panelGroupLayout id="noteInternal" layout="vertical" halign="right"
+                              inlineStyle="height:25.0px;">  
+         <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE}" id="ot99" styleClass="popupoutputText"
+                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteInternationalText}" noWrap="true"/>  
+            <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE_1}" id="ot299" styleClass="popupoutputText"
+                           noWrap="true"/>             
+            </af:panelGroupLayout>        
+        <af:spacer width="500" height="25" id="sa56"/>
         <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal" halign="right"
-                              inlineStyle="height:25.0px;">
-
- <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
+                              inlineStyle="height:25.0px;">     
+                
+          <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
                                layout="horizontal">
 
            <af:panelGroupLayout id="pgl55" styleClass="filter_table"
@@ -456,8 +464,7 @@
                     inlineStyle="height:20.0px !important;" />
 
 
-
-
+             
             <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.TransactionOverviewBean.currencyCode}"  binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteText}"
                            id="ot59" styleClass="popupoutputText"  visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"
                            noWrap="true"/>
@@ -488,13 +495,13 @@
                             </af:inputDate>
             </f:facet>
              <af:panelGroupLayout id="pgl14" layout="horizontal">
-            <af:outputText value="#{row.TransactionDt}" id="ot33" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+            <af:outputText value="#{row.TransactionDt}" id="ot33" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
               <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionDt.format}"/>-->
             </af:outputText>
             <af:spacer width="4" height="1" id="s29"/>
-            <af:outputText value="#{row.TransactionTime}" id="ot47" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertDateTime pattern="hh:mm:ss a"/>
+            <af:outputText value="#{row.TransactionTime}" id="ot47" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+             <af:convertDateTime pattern="HH:mm:ss"/>
              <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionTime.format}"/>-->
             </af:outputText>
             </af:panelGroupLayout>
@@ -504,7 +511,7 @@
              <af:spacer width="0" height="0" id="s38"/>
               <af:outputText value="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" id="outpt2"
                              inlineStyle="font-weight:bold;"
-                             styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+                             styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
 
               </af:outputText>
                <af:spacer width="0" height="0" id="s14"/>
@@ -513,87 +520,81 @@
         </af:column>
 
         <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                     headerText="#{sfr.ACCOUNT}" width="124"  align="left"
+                     headerText="#{sfr.ACCOUNT}" width="110"  align="left"
                      id="c30">
-            <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" align="left" width="150" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARDGROUP}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
-            <af:outputText value="#{row.CardGroupDesc}" id="ot37" truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-             <!--<af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
-             <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>-->
+            <af:outputText value="#{row.CardGroupDesc}" id="ot37" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+             <!--<af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+             <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
            <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                     headerText="#{sfr.CARD}" align="left" width="150"
+                     headerText="#{sfr.CARD}" align="left" width="152"
                      id="c31">
-            <af:outputText value="#{row.Card1Id}" id="ot85" truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.Card1Id}" id="ot85" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
            <af:column sortProperty="CardTextLine2" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD_TEXTLINE_2}" align="left" width="150"
                      id="c10">
-            <af:outputText value="#{row.CardTextLine2}" id="ot15"  truncateAt="15" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.CardTextLine2}" id="ot15"  truncateAt="25" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
             <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true" align="left"
+                     sortable="true" align="left" width="115"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"
                      id="c23">
-            <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
-                           truncateAt="15"/>
+            <af:outputText value="#{row.StationName}" id="ot84" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"
+                           truncateAt="20"/>
           </af:column>
           <af:column sortProperty="PurchaseCountryCode" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" width="65" align="left"
                      headerText="#{sfr.ENGAGE_PALS_COUNTRY_CODE}"
                      id="c20">
-            <af:outputText value="#{row.PurchaseCountryCode}" id="ot39" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.PurchaseCountryCode}" id="ot39" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="PurchaseCurrency" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" align="left" visible="#{pageFlowScope.TransactionOverviewBean.reportInternationalTx or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.CURRENCY}"
                      id="c14">
-            <af:outputText value="#{row.PurchaseCurrency}" id="ot32" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.PurchaseCurrency}" id="ot32" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
          <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true" align="left" width="100"
+                     sortable="true" align="left" width="105"
                      headerText="#{sfr.ENGAGE_PRODUCT}"
                      id="c28">
-            <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"
+            <af:outputText value="#{row.ProductName}" id="ot50" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"
                            truncateAt="15"/>
           </af:column>
          <af:column sortProperty="Quantity" filterable="true" sortable="true" width="80"
                      headerText="#{sfr.ENGAGE_QUANTITY}" align="right"
                      id="c35">
-            <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.Quantity}" id="ot80" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
            <af:column sortProperty="UnitOfMeasure" filterable="true" sortable="true" width="80"
                      headerText="#{sfr.ENGAGE_UNITOFMEASURE}" align="left"
                       id="c2">
-            <af:outputText value="#{row.UnitOfMeasure}" id="ot35" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.UnitOfMeasure}" id="ot35" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
           <af:column sortProperty="CurrencyUnitPrice" filterable="true"
                      sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"
                      headerText="#{sfr.FOREGIN_UNIT_PRICE}"
                      id="c1">
-            <af:outputText value="#{row.CurrencyUnitPrice}" id="ot79" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.CurrencyUnitPrice}" id="ot79" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
         <!--<af:column sortProperty="CurrencyDiscountAmount" filterable="true"
                      sortable="false"
                      headerText="#{sfr.FOREGIN_DISCOUNTED_PRICE}"
                      id="c27">
-            <af:outputText value="#{row.CurrencyDiscountAmount}" id="ot81" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.CurrencyDiscountAmount}" id="ot81" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyDiscountAmount.format}"/>
             </af:outputText>
@@ -602,11 +603,8 @@
                      sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.FOREGIN_GROSS_AMOUNT}"
                      id="c5">
-            <af:outputText value="#{row.CurrencyGrossAmount}" id="ot61" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.CurrencyGrossAmount}" id="ot61" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
 
@@ -614,11 +612,8 @@
                      sortable="true" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
                      id="c4">
-            <af:outputText value="#{row.InvoicedUnitPriceRebated}" id="ot73" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.InvoicedUnitPriceRebated}" id="ot73" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
 
@@ -626,7 +621,7 @@
                      sortable="false"
                      headerText="#{sfr.FOREGIN_VAT}"
                      id="c12">
-            <af:outputText value="#{row.CurrencyVat}" id="ot82" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.CurrencyVat}" id="ot82" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyVat.format}"/>
             </af:outputText>
@@ -635,7 +630,7 @@
                      sortable="false"
                      headerText="#{sfr.FOREGIN_NET}"
                      id="c2">
-            <af:outputText value="#{row.CurrencyNetAmount}" id="ot77" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.CurrencyNetAmount}" id="ot77" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyNetAmount.format}"/>
             </af:outputText>
@@ -645,14 +640,14 @@
                      sortable="true" align="right"
                      headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                      id="c6">
-            <!--<af:outputText value="#{row.InvoicedGrossAmount}" id="ot30" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <!--<af:outputText value="#{row.InvoicedGrossAmount}" id="ot30" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedGrossAmount.format}"/>
             </af:outputText>-->
              <af:panelGroupLayout id="pgl20">
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedGrossAmountRebated.tooltip}"
                               id="it3"
-                              text="#{row.TotalAmount}" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
+                              text="#{row.TotalAmount}" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
 
                 <af:showPopupBehavior triggerType="click" popupId="::pp1"/>
 
@@ -664,10 +659,7 @@
                  <af:panelGroupLayout id="pgl44" layout="horizontal" halign="right" >
                   <af:outputText value="#{pageFlowScope.TransactionOverviewBean.sum}"
                                  id="ot30">
-                    <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+                  <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
                   </af:outputText>
                   <af:spacer width="2" height="1" id="s39"/>
                 </af:panelGroupLayout>
@@ -680,11 +672,8 @@
                      sortable="true" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_VAT}"
                      id="c8">
-            <af:outputText value="#{row.InvoivedVatRebated}" id="ot74" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.InvoivedVatRebated}" id="ot74" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
 
@@ -692,11 +681,8 @@
                      sortable="true" align="right" visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification or pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.ENGAGE_INVOICE_NET}"
                      id="c9">
-            <af:outputText value="#{row.InvoicedNetAmountRebated}" id="ot75" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.InvoicedNetAmountRebated}" id="ot75" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
 
@@ -704,7 +690,7 @@
                      sortable="false"
                      headerText="#{sfr.INVOICED_DISCOUNT}"
                      id="c8">
-            <af:outputText value="#{row.InvoiceDiscountAmount}" id="ot60" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.InvoiceDiscountAmount}" id="ot60" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoiceDiscountAmount.format}"/>
             </af:outputText>
@@ -713,7 +699,7 @@
                      sortable="false"
                      headerText="#{sfr.INVOICED_VAT}"
                      id="c9">
-            <af:outputText value="#{row.InvoicedVat}" id="ot75" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.InvoicedVat}" id="ot75" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedVat.format}"/>
             </af:outputText>
@@ -722,7 +708,7 @@
                      sortable="false"
                      headerText="#{sfr.INVOICED_NET}"
                      id="c24">
-            <af:outputText value="#{row.InvoicedNetAmount}" id="ot40" styleClass="#{(row.TransactionType)=='PRI' ? 'transaction_italic' : 'transaction_regular'}">
+            <af:outputText value="#{row.InvoicedNetAmount}" id="ot40" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedNetAmount.format}"/>
             </af:outputText>
@@ -733,7 +719,7 @@
                      id="c7">
             <af:panelGroupLayout id="pgl22">
               <af:spacer width="2" height="1" id="spacer17"/>
-          <af:outputText styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}" value="#{row.InvoiceNo}"
+          <af:outputText styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}" value="#{row.InvoiceNo}"
                          id="ot87"/>
           </af:panelGroupLayout>
           </af:column>
@@ -742,25 +728,25 @@
                      sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.VEHICLE_NUMBER}"
                      id="c34">
-            <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" width="100" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.INTERNAL_NAME}"
                      id="c25">
-            <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
            <af:column sortProperty="DriverNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.DRIVER_NUMBER}"
                      id="c17">
-            <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.DriverNumber}" id="ot46" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
           <af:column sortProperty="DriverName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.DNamePGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.DRIVER_NAME}"
                      id="c18">
-            <af:outputText value="#{row.DriverName}" id="ot86" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+            <af:outputText value="#{row.DriverName}" id="ot86" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
 
           <af:column sortProperty="OdometerPortal" filterable="true" width="100" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData }"
@@ -769,7 +755,7 @@
                      id="c19">
             <!--<af:outputText value="#{row.OdometerPortal}" id="ot76"/>-->
              <h:panelGrid id="pg4" columns="3">
-          <af:outputText value="#{row.Odometer}" id="ot76" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}"/>
+          <af:outputText value="#{row.Odometer}" id="ot76" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
                           id="cl1" styleClass="links_odometer af_goLink "
                           actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
@@ -809,33 +795,24 @@
           <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right"
                      id="c26">
-            <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
 
           <af:column sortProperty="kmPerLt" filterable="true" sortable="true" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_PER_LT}" align="right"
                      id="c3">
-            <af:outputText value="#{row.kmPerLt}" id="ot51" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.kmPerLt}" id="ot51" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
           <af:column sortProperty="ltPerHundred" filterable="true" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                    sortable="true" align="right"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                      id="c21">
-            <af:outputText value="#{row.ltPerHundred}" id="ot36" styleClass="#{(row.TransactionType)=='PRI' ? 'faqlink' : 'af_document'}">
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:outputText value="#{row.ltPerHundred}" id="ot36" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+            <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
         </af:table>
@@ -913,18 +890,12 @@
                                         layout="vertical">
 <af:outputText value="#{bindings.CurrencyUnitPrice.inputValue}"
                            id="ot82">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
             <af:spacer width="10" height="15" id="s12"/>
              <af:outputText value="#{bindings.CurrencyGrossAmount.inputValue}"
                            id="ot176">
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
 </af:panelGroupLayout>
       </h:panelGrid>
@@ -945,10 +916,7 @@
                      valign="top">
 <af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
                                    id="ot24">
-                                   <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+                                  <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
                                    </af:outputText>
 
                   <!--<af:panelGroupLayout id="pgl15" layout="horizontal" inlineStyle="width:50px;">
@@ -1006,34 +974,22 @@
                                         layout="vertical">
 <af:outputText value="#{bindings.InvoicedUnitPriceRebated.inputValue}"
                            id="ot17">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
             <af:spacer width="10" height="15" id="s22"/>
             <af:outputText value="#{bindings.InvoicedGrossAmountRebated.inputValue}"
                            id="ot88">
-              <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+             <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
             <af:spacer width="10" height="15" id="s64"/>
             <af:outputText value="#{bindings.InvoivedVatRebated.inputValue}"
                            id="ot91">
-             <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+            <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
             <af:spacer width="10" height="15" id="s63"/>
             <af:outputText value="#{bindings.InvoicedNetAmountRebated.inputValue}"
                            id="ot27">
-               <af:convertNumber groupingUsed="true"
-                                pattern="##.##"
-                                locale="#{pageFlowScope.TransactionOverviewBean.locale}"
-                                minFractionDigits="2"/>
+               <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
 </af:panelGroupLayout>
       </h:panelGrid>

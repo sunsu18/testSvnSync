@@ -684,7 +684,7 @@
          <af:spacer width="10" height="10" id="s25"/>
 
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
-                   var="row" width="840px"
+                   var="row" width="835px"
                    rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
                    emptyText="#{bindings.PrtCardTransactionInvoiceRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                    fetchSize="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
@@ -703,17 +703,17 @@
           <af:column sortProperty="InvoiceNumberNonCollective" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
-                     id="c21" width="115">
+                     id="c21" width="95">
            <af:outputText value="#{row.InvoiceNumberNonCollective}" id="ot26"/>
           </af:column>
           <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.INVOICE_PRODUCT_NAME}"
                      id="c20">
-           <af:outputText value="#{row.ProductName}" id="ot48" truncateAt="15"/>
+           <af:outputText value="#{row.ProductName}" id="ot48" truncateAt="20"/>
           </af:column>
           <af:column sortProperty="Quantity" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                    headerText="#{sfr.INVOICE_QUANTITY}"
+                    headerText="#{sfr.INVOICE_QUANTITY}" width="75"
                      id="c18">
            <af:outputText value="#{row.Quantity}" id="ot24">
            <af:convertNumber groupingUsed="true" pattern="##.##"
@@ -728,14 +728,14 @@
            <af:outputText value="#{row.StationName}" id="ot46" truncateAt="15"/>
           </af:column>
           <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                      headerText="#{sfr.INVOICE_CARD}"
+                      headerText="#{sfr.INVOICE_CARD}" width="140"
                      id="c19">
-           <af:outputText value="#{row.Card1Id}" id="ot50" truncateAt="15"/>
+           <af:outputText value="#{row.Card1Id}" id="ot50"/>
           </af:column>
           <af:column sortProperty="InvoicedNetAmount" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.INVOICE_NET}"
-                     id="c22" width="105">
+                     id="c22" width="118">
            <af:outputText value="#{row.InvoicedNetAmount}" id="ot49">
           <af:convertNumber groupingUsed="true" pattern="##.##"
                               locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
@@ -743,7 +743,7 @@
            </af:outputText>
           </af:column>
           <af:column sortProperty="InvoicedGrossAmount" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true"
+                     sortable="true" width="98"
                      headerText="#{sfr.INVOICE_GROSS_AMOUNT}"
                      id="c14">
            <af:outputText value="#{row.InvoicedGrossAmount}" id="ot47">
@@ -797,7 +797,7 @@
                    var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
                    emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                    fetchSize="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
-                   rowBandingInterval="1" width="840px"
+                   rowBandingInterval="1" width="844px"
                    filterModel="#{bindings.PrtInvoiceDetailVo1Query.queryDescriptor}"
                    queryListener="#{bindings.PrtInvoiceDetailVo1Query.processQuery}"
                    filterVisible="true" varStatus="vs"
@@ -841,14 +841,14 @@
            </af:outputText>
           </af:column>
 
-              <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c9" align="left" sortable="true"
+              <!--<af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c9" align="left" sortable="true"
                          width="50">
        <af:outputText value="#{sfr.CARD}" id="ot70"/>
-      </af:column>
+      </af:column>-->
           <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD_NUMBER}" filterFeatures="caseInsensitive" sortable="true"
-                     id="c23"  align="left" width="110">
+                     id="c23"  align="left" width="160">
            <!--<af:outputText value="#{row.InvoicedCard}" id="ot73"/>-->
-           <af:outputText value="#{row.CardEmbossNum}" id="ot73" truncateAt="15"/>
+           <af:outputText value="#{row.CardEmbossNum}" id="ot73"/>
           </af:column>
 
           <af:column sortProperty="InvNetAmount" filterable="true" align="right" filterFeatures="caseInsensitive"
