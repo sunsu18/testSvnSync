@@ -697,7 +697,7 @@
                    rowSelection="single" id="t3" columnResizing="disabled" disableColumnReordering="true"
                    inlineStyle="height:100px;" autoHeightRows="5">
                      <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114"
-                                width="60" sortable="true">
+                                width="50" sortable="true">
            <af:outputText value="#{vs.index+1}" id="ot42"/>
           </af:column>
           <af:column sortProperty="InvoiceNumberNonCollective" filterable="true" filterFeatures="caseInsensitive"
@@ -707,7 +707,7 @@
            <af:outputText value="#{row.InvoiceNumberNonCollective}" id="ot26"/>
           </af:column>
           <af:column sortProperty="ProductName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true"
+                     sortable="true" width="85"
                      headerText="#{sfr.INVOICE_PRODUCT_NAME}"
                      id="c20">
            <af:outputText value="#{row.ProductName}" id="ot48" truncateAt="20"/>
@@ -722,13 +722,13 @@
            </af:outputText>
           </af:column>
           <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
-                     sortable="true"
+                     sortable="true" width="110"
                      headerText="#{sfr.INVOICE_STATION}"
                      id="c16">
            <af:outputText value="#{row.StationName}" id="ot46" truncateAt="15"/>
           </af:column>
           <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                      headerText="#{sfr.INVOICE_CARD}" width="140"
+                      headerText="#{sfr.INVOICE_CARD}" width="147"
                      id="c19">
            <af:outputText value="#{row.Card1Id}" id="ot50"/>
           </af:column>
