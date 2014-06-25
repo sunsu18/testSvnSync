@@ -14,8 +14,11 @@ import com.sfr.util.constants.Constants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -54,8 +57,7 @@ public class AccountSummary implements Serializable {
     private String id;
 
     private ArrayList<String> cardTypeList = new ArrayList<String>();
-    private ArrayList<String> cardTypeNameList = new ArrayList<String>();
-
+    
     private String accountId;
     private String cardGroupId;
     private String cardId;
@@ -82,7 +84,6 @@ public class AccountSummary implements Serializable {
     private boolean businessProfile = false;
     private boolean privateProfile = false;
     private String profile = "private";
-    String cardTypeName = "";
     String cardType = "";
     private User userInfo;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
@@ -103,7 +104,7 @@ public class AccountSummary implements Serializable {
     private boolean isEmployee = false;
     private boolean isManagerCg = false;
     private String displayCardTypeName = ""; 
-
+    private Map<String,String> cardTypeNameMap;
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
 
@@ -469,28 +470,20 @@ public class AccountSummary implements Serializable {
         return isManagerCg;
     }
 
-    public void setCardTypeNameList(ArrayList<String> cardTypeNameList) {
-        this.cardTypeNameList = cardTypeNameList;
-    }
-
-    public ArrayList<String> getCardTypeNameList() {
-        return cardTypeNameList;
-    }
-
-    public void setCardTypeName(String cardTypeName) {
-        this.cardTypeName = cardTypeName;
-    }
-
-    public String getCardTypeName() {
-        return cardTypeName;
-    }
-
     public void setDisplayCardTypeName(String displayCardTypeName) {
         this.displayCardTypeName = displayCardTypeName;
     }
 
     public String getDisplayCardTypeName() {
         return displayCardTypeName;
+    }
+
+    public void setCardTypeNameMap(Map<String, String> cardTypeNameMap) {
+        this.cardTypeNameMap = cardTypeNameMap;
+    }
+
+    public Map<String, String> getCardTypeNameMap() {
+        return cardTypeNameMap;
     }
 
     public class Bindings {
@@ -1241,13 +1234,16 @@ public class AccountSummary implements Serializable {
                 vo.setNamedWhereClauseParam("cardType",cardType);
                 vo.executeQuery();
                 if (vo.getEstimatedRowCount() != 0) {
-                    cardTypeNameList = new ArrayList<String>();
+                    cardTypeNameMap = new HashMap<String,String>();
+//                    cardTypeNameList = new ArrayList<String>();
                     while (vo.hasNext()) {
                         PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
-                        if (currRow.getTypeName() != null) {
-                            cardTypeNameList.add(currRow.getTypeName());
+                        if (currRow.getTypeName() != null && currRow.getCardType() != null) {
+                            cardTypeNameMap.put(currRow.getCardType(), currRow.getTypeName());
+//                            cardTypeNameList.add(currRow.getTypeName());
                         }
-                        cardTypeName = cardTypeNameList.toString().substring(1,cardTypeNameList.toString().length() - 1 ).replace(", ", "<br/>");
+//                        displayCardTypeName = "<br/>";
+//                        cardTypeName = cardTypeNameList.toString().substring(1,cardTypeNameList.toString().length() - 1 ).replace(", ", "<br/>");
                     }
                 }
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
@@ -1255,7 +1251,14 @@ public class AccountSummary implements Serializable {
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
             }
             for(int i = 0 ; i < cardTypeList.size() ; i++){
-                displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameList.get(i) + "<br/>";
+                if(cardTypeNameMap.get(cardTypeList.get(i)) != null){
+                    displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameMap.get(cardTypeList.get(i)) + "<br/>";
+                    System.out.println("displayCardTypeName-------------->" + displayCardTypeName);
+                }
+                else{
+                    displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + "<br/>";
+                    System.out.println("displayCardTypeName-------------->" + displayCardTypeName);
+                }
             }
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
 
