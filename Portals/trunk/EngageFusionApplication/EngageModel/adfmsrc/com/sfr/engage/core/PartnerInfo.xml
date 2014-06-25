@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="PartnerInfo" Package="com.sfr.engage.core"
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
+          id="PartnerInfo" Package="com.sfr.engage.core"
           BeanClass="com.sfr.engage.core.PartnerInfo" isJavaBased="true">
   <Attribute Name="partnerValue" Type="java.lang.String"/>
   <Attribute Name="country" Type="java.lang.String"/>
   <Attribute Name="partnerName" Type="java.lang.String"/>
-  <AccessorAttribute id="accountList" IsCollection="true" BeanClass="com.sfr.engage.core.AccountInfo" CollectionBeanClass="UpdateableCollection"/>
-  <MethodAccessor IsCollection="false" Type="void" id="setCompanyOverview" ReturnNodeName="Return">
+  <AccessorAttribute id="accountList" IsCollection="true"
+                     BeanClass="com.sfr.engage.core.AccountInfo"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <MethodAccessor IsCollection="false" Type="void" id="setCompanyOverview"
+                  ReturnNodeName="Return">
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>
-  <MethodAccessor IsCollection="false" Type="boolean" id="isCompanyOverview" ReturnNodeName="Return"/>
-  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.PartnerInfo" BeanClass="com.sfr.engage.core.PartnerInfo" id="PartnerInfo"/>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isCompanyOverview"
+                  ReturnNodeName="Return"/>
+  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.PartnerInfo"
+                     BeanClass="com.sfr.engage.core.PartnerInfo"
+                     id="PartnerInfo"/>
 </JavaBean>

@@ -7,6 +7,7 @@ import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
 import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
@@ -156,6 +157,7 @@ public class CardBean implements Serializable {
     private String contentType;
     private String fileName;
     private boolean reset = false;
+    private ArrayList<String> cardTypeNameList = new ArrayList<String>();
 
     public CardBean() {
         super();
@@ -221,7 +223,7 @@ public class CardBean implements Serializable {
                                         null) {
                                         SelectItem selectItem =
                                             new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupName().toString());
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
                                         selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         cardGroupList.add(selectItem);
                                         cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
@@ -266,6 +268,19 @@ public class CardBean implements Serializable {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Exiting Constructor of View Cards");
+        
+//        ViewObject vo = ADFUtils.getViewObject("PrtCardTypeNameMap1Iterator");
+//        vo.setNamedWhereClauseParam("country",(String)session.getAttribute(Constants.userLang));
+//        vo.removeNamedWhereClauseParam("cardType");
+//        vo.executeQuery();
+//        if (vo.getEstimatedRowCount() != 0) {
+//            cardTypeNameList = new ArrayList<String>();
+//            PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
+//            if (currRow.getTypeName() != null) {
+//                cardTypeNameList.add(currRow.getTypeName());
+//            }
+//        }
+//        session.setAttribute("cardTypeNameList", cardTypeNameList);
     }
 
     /**
@@ -368,7 +383,7 @@ public class CardBean implements Serializable {
                                             null) {
                                             SelectItem selectItem =
                                                 new SelectItem();
-                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupName().toString());
+                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
                                             selectItem.setValue(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
                                             cardGroupValue.add(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
@@ -525,7 +540,7 @@ public class CardBean implements Serializable {
 
                                         SelectItem selectItem =
                                             new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupName().toString());
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
                                         selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         cardGroupList.add(selectItem);
                                         cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
@@ -2037,7 +2052,7 @@ public class CardBean implements Serializable {
                                             if ((partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
                                                 cardGroupDescName =
                                                         cardGroupDescName +
-                                                        partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupName() +
+                                                        partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
                                                         ",";
                                             }
                                         }
@@ -2930,6 +2945,11 @@ public class CardBean implements Serializable {
                 getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
             }
         }
+
+    public ArrayList<String> getCardTypeNameList() {
+        return cardTypeNameList;
+    }
+
 
     public class Bindings {
         private RichSelectOneChoice partner;

@@ -12,6 +12,7 @@ public class CardInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String cardID;
     private String externalCardID;
+    private String displayCardNumber;
     private String cardTextline2;
     private boolean cardOverview;
 
@@ -76,5 +77,13 @@ public class CardInfo implements Serializable {
      */
     public String getCardTextline2() {
         return cardTextline2;
+    }
+
+    public void setDisplayCardNumber(String displayCardNumber) {
+        this.displayCardNumber = displayCardNumber;
+    }
+
+    public String getDisplayCardNumber() {
+        return displayCardNumber;
     }
 }

@@ -15,7 +15,7 @@ public class CardGroupInfo implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardGroupID;
-
+    private String displayCardGroupIdName;
     private String cardGroupMainType;
     private String cardGroupSubType;
     private String cardGroupSeq;
@@ -129,5 +129,13 @@ public class CardGroupInfo implements Serializable {
 
     public List<CardInfo> getUnblockedCardList() {
         return unblockedCardList;
+    }
+
+    public void setDisplayCardGroupIdName(String displayCardGroupIdName) {
+        this.displayCardGroupIdName = displayCardGroupIdName;
+    }
+
+    public String getDisplayCardGroupIdName() {
+        return displayCardGroupIdName;
     }
 }

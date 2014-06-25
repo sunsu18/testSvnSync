@@ -710,7 +710,7 @@ public class TransactionOverviewBean implements Serializable {
                                              cg++) {
                                             SelectItem selectItem =
                                                 new SelectItem();
-                                            selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupName().toString());
+                                            selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
                                             selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
                                             cardGroupValue.add(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
@@ -3482,7 +3482,6 @@ public class TransactionOverviewBean implements Serializable {
 
             }
         }
-
     }
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {

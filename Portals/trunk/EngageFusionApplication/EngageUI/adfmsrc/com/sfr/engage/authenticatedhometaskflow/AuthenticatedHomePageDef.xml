@@ -7,9 +7,6 @@
     <variableIterator id="variables"/>
     <iterator id="PrtPcmFeedsRVO1Iterator" Binds="PrtPcmFeedsRVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
-    <iterator id="PrtCustomerCardMapRVO1_1Iterator"
-              Binds="PrtCustomerCardMapRVO1_1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator Binds="PrtInvoiceVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtInvoiceVO1Iterator">
@@ -34,6 +31,9 @@
     <iterator Binds="ProductsDisplayRVO1" RangeSize="10"
               DataControl="EngageAppModuleDataControl"
               id="ProductsDisplayRVO1Iterator"/>
+    <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCustomerCardMapRVO1_1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -72,7 +72,8 @@
       </nodeDefinition>
     </tree>
     <tree IterBinding="partnerlistIterator" id="partnerlist">
-      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist0">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo"
+                      Name="partnerlist0">
         <AttrNames>
           <Item Value="partnerValue"/>
           <Item Value="partnerName"/>
@@ -81,7 +82,8 @@
           <Item Value="accountList"/>
         </Accessors>
       </nodeDefinition>
-      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist1">
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo"
+                      Name="partnerlist1">
         <AttrNames>
           <Item Value="accountNumber"/>
         </AttrNames>
@@ -89,19 +91,23 @@
           <Item Value="cardGroup"/>
         </Accessors>
       </nodeDefinition>
-      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist2">
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo"
+                      Name="partnerlist2">
         <AttrNames>
           <Item Value="cardGroupID"/>
           <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
         </AttrNames>
         <Accessors>
           <Item Value="unblockedCardList"/>
         </Accessors>
       </nodeDefinition>
-      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist3">
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo"
+                      Name="partnerlist3">
         <AttrNames>
           <Item Value="cardID"/>
           <Item Value="externalCardID"/>
+          <Item Value="displayCardNumber"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -133,5 +139,11 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtCustomerCardMapRVO1_1Iterator"
+                     id="CustomerType">
+      <AttrNames>
+        <Item Value="CustomerType"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

@@ -181,7 +181,7 @@
         <af:image shortDesc="" id="i2" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
         <af:image shortDesc="" id="i7" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
         <af:spacer width="4"  id="s325"/>
-         <af:outputText value="#{node.cardGroupName}" id="ot8" truncateAt="25"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot8" truncateAt="27"/>
         </af:group>
       </f:facet>
 
@@ -191,7 +191,7 @@
      <af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
     <af:image shortDesc="" id="i8" source="/images/private_card.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
        <af:spacer width="4"  id="s326"/>
-       <af:outputText value="#{node.externalCardID}" id="ot3" truncateAt="25">
+       <af:outputText value="#{node.displayCardNumber}" id="ot3" truncateAt="25">
        </af:outputText>
        </af:group>
       </f:facet>

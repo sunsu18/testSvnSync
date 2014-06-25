@@ -1427,8 +1427,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                 cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
                                 if (currRowcardgrp.getCardgroupDescription() != null) {
                                     cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
+                                    cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString())+"-"+currRowcardgrp.getCardgroupDescription().toString());
                                 } else {
                                     cardgrp.setCardGroupName(cardgrp.getCardGroupID());
+                                    cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
                                 }
 
                                 cardgrp.setCardGroupOverview(true);
@@ -1549,8 +1551,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     cardTypeHS.add(currRowcard.getCardType().toString());
                 }
 
-                if (currRowcard.getCardEmbossNum() != null)
+                if (currRowcard.getCardEmbossNum() != null){
                     card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                    card.setDisplayCardNumber("XXXXX" + currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length()-5, currRowcard.getCardEmbossNum().toString().length()));
+                }
 
                 if (currRowcard.getCardTextline2() != null) {
                     card.setCardTextline2(currRowcard.getCardTextline2().toString());

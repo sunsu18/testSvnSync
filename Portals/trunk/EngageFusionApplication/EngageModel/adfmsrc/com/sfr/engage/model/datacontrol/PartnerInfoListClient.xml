@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92" id="PartnerInfoListClient" Package="com.sfr.engage.model.datacontrol"
-          BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient" isJavaBased="true">
-  <AccessorAttribute id="partnerlist" IsCollection="true" BeanClass="com.sfr.engage.core.PartnerInfo" CollectionBeanClass="UpdateableCollection"/>
-  <AccessorAttribute id="request" IsCollection="false" BeanClass="javax.servlet.http.HttpServletRequest" CollectionBeanClass="UpdateableSingleValue"/>
-  <AccessorAttribute id="ectx" IsCollection="false" BeanClass="javax.faces.context.ExternalContext" CollectionBeanClass="UpdateableSingleValue"/>
-  <AccessorAttribute id="user" IsCollection="false" BeanClass="com.sfr.core.bean.User" CollectionBeanClass="UpdateableSingleValue"/>
-  <ConstructorMethod IsCollection="true" Type="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
-                     BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient" id="PartnerInfoListClient"/>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
+          id="PartnerInfoListClient" Package="com.sfr.engage.model.datacontrol"
+          BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
+          isJavaBased="true">
+  <AccessorAttribute id="partnerlist" IsCollection="true"
+                     BeanClass="com.sfr.engage.core.PartnerInfo"
+                     CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="request" IsCollection="false"
+                     BeanClass="javax.servlet.http.HttpServletRequest"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="ectx" IsCollection="false"
+                     BeanClass="javax.faces.context.ExternalContext"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="user" IsCollection="false"
+                     BeanClass="com.sfr.core.bean.User"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <ConstructorMethod IsCollection="true"
+                     Type="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
+                     BeanClass="com.sfr.engage.model.datacontrol.PartnerInfoListClient"
+                     id="PartnerInfoListClient"/>
 </JavaBean>
