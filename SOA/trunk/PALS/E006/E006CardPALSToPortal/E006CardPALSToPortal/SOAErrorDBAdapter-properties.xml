@@ -47,7 +47,7 @@
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.INVOICE_COUNTRY:db_column_size">20</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.PARTNER_ID:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.ROUTEX_CUSTOMER_NUMBER:db_column_type">VARCHAR2</entry>
-   <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.DELTA_TS:db_column_not_null">false</entry>
+   <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.DELTA_TS:db_column_not_null">true</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG:db_column_19">MANUFACTURED_DATE</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG:db_column_18">BLOCK_LEVEL</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.INVOICE_CITY:db_column_type">VARCHAR2</entry>
@@ -125,7 +125,7 @@
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.CARD_TYPE:db_column_not_null">false</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.BLOCK_ACTION:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.BLOCK_TYPE:db_column_type">VARCHAR2</entry>
-   <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.SOA_ERROR_CODE:db_column_not_null">false</entry>
+   <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.SOA_ERROR_CODE:db_column_not_null">true</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.PRT_CARD_PK:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.SOA_ERROR_DESC:db_column_size">300</entry>
    <entry key="ENGAGE_PALS_CARD_DTA_ERRORLOG.MAGNETIC_CODE:db_column_size">20</entry>

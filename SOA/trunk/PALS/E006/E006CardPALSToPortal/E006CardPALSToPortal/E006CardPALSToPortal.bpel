@@ -150,10 +150,6 @@
               messageType="ns10:EngageSoaDeltatableCollection_msg"/>
     <variable name="InvokeInsertPALSDataToTempCardPortal_insert_InputVariable"
               messageType="ns12:SoaPrtCardTempCollection_msg"/>
-    <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_InputVariable"
-              messageType="ns14:SelectInValidDataTempCardPortalDBAdapterInput_msg"/>
-    <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_OutputVariable"
-              messageType="ns14:SelectInValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
     <variable name="InvokeTruncateTempAccountPortalDBAdapter_TruncateTempCardPortalDBAdapter_InputVariable"
               messageType="ns15:TruncateTempCardPortalDBAdapterInput_msg"/>
     <variable name="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
@@ -176,6 +172,10 @@
               messageType="client:E006CardPALSToPortalRequestMessage"/>
     <variable name="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
               messageType="ns25:Produce_Message_msg"/>
+    <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_InputVariable"
+              messageType="ns14:SelectInValidDataTempCardPortalDBAdapterInput_msg"/>
+    <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_OutputVariable"
+              messageType="ns14:SelectInValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
   </variables>
 <faultHandlers>
     <catch faultName="bpelx:remoteFault">
