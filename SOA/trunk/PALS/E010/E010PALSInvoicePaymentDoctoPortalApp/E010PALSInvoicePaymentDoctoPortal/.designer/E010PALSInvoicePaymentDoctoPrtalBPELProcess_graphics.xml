@@ -5,18 +5,18 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="E010PALSInvoicePaymentdoctoPortal" x="0" y="90" side="left"/>
-      <partnerlink name="SelectDeltaTSSOADBAdapterV1" x="0" y="958" side="left"/>
-      <partnerlink name="SelectRecordCountPALSDBAdapterV1" x="0" y="1041" side="left"/>
-      <partnerlink name="SelectInvoicePaymentPALSDB2DBAdapterV1" x="0" y="2091" side="left"/>
-      <partnerlink name="MergeInvoicePaymentPortalDBAdapterV1" x="0" y="3464" side="left"/>
-      <partnerlink name="InsertInvoicePaymentSOAErrorLogDBAdapterV1" x="0" y="2813" side="left"/>
-      <partnerlink name="SelectErrorRecordsSOADBAdapterV1" x="0" y="3993" side="left"/>
-      <partnerlink name="UpdateEmailFlagSOAErrorLogDBAdapterV1" x="0" y="4393" side="left"/>
-      <partnerlink name="SOAErrorHanderJMSAdapterV1" x="0" y="1861" side="left"/>
-      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="4450" side="left"/>
-      <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="2413" y="3647" side="right"/>
+      <partnerlink name="SelectDeltaTSSOADBAdapterV1" x="0" y="1083" side="left"/>
+      <partnerlink name="SelectRecordCountPALSDBAdapterV1" x="0" y="1026" side="left"/>
+      <partnerlink name="SelectInvoicePaymentPALSDB2DBAdapterV1" x="0" y="2341" side="left"/>
+      <partnerlink name="MergeInvoicePaymentPortalDBAdapterV1" x="0" y="3714" side="left"/>
+      <partnerlink name="InsertInvoicePaymentSOAErrorLogDBAdapterV1" x="0" y="3063" side="left"/>
+      <partnerlink name="SelectErrorRecordsSOADBAdapterV1" x="0" y="4243" side="left"/>
+      <partnerlink name="UpdateEmailFlagSOAErrorLogDBAdapterV1" x="0" y="4643" side="left"/>
+      <partnerlink name="SOAErrorHanderJMSAdapterV1" x="0" y="1961" side="left"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="4700" side="left"/>
+      <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="2413" y="3897" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="502,4136,677,361" show_swimlanes="true">
+   <graph_layout viewport="0,900,1329,513" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -31,6 +31,7 @@
       <layout_item collapsed="false" xpath="/process/sequence/scope[1]/sequence/switch/case/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/while" type="while"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]" type="scope" showhandlers="true"/>

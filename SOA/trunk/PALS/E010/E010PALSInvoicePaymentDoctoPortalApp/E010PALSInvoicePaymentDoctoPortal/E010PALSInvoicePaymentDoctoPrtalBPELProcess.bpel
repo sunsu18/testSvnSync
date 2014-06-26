@@ -483,10 +483,35 @@
             <to variable="batchCount"/>
           </copy>
           <copy>
+            <from variable="InvokeSelectRecordCountPALSDBAdapterV1_OV"
+                  part="SelectRecordCountPALSDBAdapterV1Output"
+                  query="/ns6:SelectRecordCountPALSDBAdapterV1Output/ns6:count"/>
+            <to variable="dataCount"/>
+          </copy>
+          <copy>
             <from expression="1"/>
             <to variable="batchCountIterator"/>
           </copy>
         </assign>
+        <switch name="SwitchBatchCount">
+          <case condition="bpws:getVariableData('ReceiveInvoicePaymentReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount') &lt;= bpws:getVariableData('batchCount')">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">IfInputBatchCountLessThanCalculated</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignInputBatchCount">
+              <copy>
+                <from variable="ReceiveInvoicePaymentReqMsg_IV" part="part1"
+                      query="/ns2:invocationMsg/ns2:BatchCount"/>
+                <to variable="batchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <empty name="Empty"/>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch"
