@@ -3483,6 +3483,21 @@ public class TransactionOverviewBean implements Serializable {
             }
         }
     }
+    
+        
+    public void resetFilterTable(ActionEvent actionEvent) {
+        resetTableFilter();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
+
+    public void filterTable(ActionEvent actionEvent) {
+        FilterableQueryDescriptor qd =
+            (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
+        QueryEvent queryEvent =
+            new QueryEvent(getBindings().getSearchResultsTB(), qd);
+        getBindings().getSearchResultsTB().queueEvent(queryEvent);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
         shuttleStatus=false;
