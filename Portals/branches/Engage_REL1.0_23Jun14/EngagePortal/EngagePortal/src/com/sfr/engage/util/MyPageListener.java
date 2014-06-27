@@ -1573,17 +1573,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 //                }
 
 
-                if(currRowcard.getBlockAction() != null && currRowcard.getBlockLevel()!= null) {
-//                System.out.println("block level " + currRowcard.getBlockLevel().toString() );
-//                System.out.println("block action " + currRowcard.getBlockAction().toString());
-                    if(currRowcard.getBlockLevel().toString().equalsIgnoreCase("KSI") && currRowcard.getBlockAction().toString().equalsIgnoreCase("2")) {
-                      // System.out.println(accessDC.getDisplayRecord()+this.getClass()+ " Hardblocked card found so dont add in unblocked cardlist");
-                    }
-                    else {
-                        unblockedcardlist.add(card);
-                    }
-                }
-                else {
+                if (currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+
+                } else if (currRowcard.getCardExpiry() == null || currRowcard.getCardExpiry().after(new Date())) {
                     unblockedcardlist.add(card);
                 }
 
