@@ -40,7 +40,7 @@
     <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
 pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,
-pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name,pc.block_level
+pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -62,8 +62,7 @@ and pc.country_code = pctnm.country(+)
 and pc.card_type = pctnm.card_type(+)
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
-and INSTR(:status,pc.block_action)<>0
-and pc.block_level = 'KSI']]>
+and INSTR(:status,pc.block_action)<>0]]>
   </SQLQuery>
   <ViewAttribute
     Name="AccountId"
@@ -561,8 +560,7 @@ and pc.block_level = 'KSI']]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="BLOCK_LEVEL"
-    SQLType="VARCHAR"
-    Expression="BLOCK_LEVEL">
+    SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
