@@ -3152,9 +3152,9 @@ public class CardBean implements Serializable {
             }
         }
 
-    public ArrayList<String> getCardTypeNameList() {
-        return cardTypeNameList;
-    }
+//    public ArrayList<String> getCardTypeNameList() {
+//        return cardTypeNameList;
+//    }
 
     public void setLang(String lang) {
         this.lang = lang;
