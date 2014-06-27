@@ -582,7 +582,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      * Container's getter for PrtViewCardsVO1.
      * @return PrtViewCardsVO1
      */
-    public ViewObjectImpl getPrtViewCardsVO1() {
-        return (ViewObjectImpl)findViewObject("PrtViewCardsVO1");
+    public PrtViewCardsVOImpl getPrtViewCardsVO1() {
+        return (PrtViewCardsVOImpl)findViewObject("PrtViewCardsVO1");
     }
 }
