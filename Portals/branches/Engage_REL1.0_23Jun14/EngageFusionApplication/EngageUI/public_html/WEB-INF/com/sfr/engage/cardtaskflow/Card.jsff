@@ -329,8 +329,8 @@
               <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="22"/>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
-                       id="c8"  width="80px" filterFeatures="caseInsensitive">
-              <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
+                       id="c8"  width="80px" filterFeatures="caseInsensitive" rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
+                <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.mandatory}"
                             columns="#{bindings.PrtViewCardsVO11.hints.VehicleNumber.displayWidth}"
@@ -341,7 +341,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="DriverName" filterable="true" headerText="#{sfr.DRIVER}" sortable="true"
-                       id="c5" width="80px" filterFeatures="caseInsensitive">
+                       id="c5" width="80px" filterFeatures="caseInsensitive" rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
               <af:inputText value="#{row.bindings.DriverName.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.DriverName.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.DriverName.mandatory}"
@@ -388,7 +388,7 @@
             </af:column>
 
             <af:column headerText="#{sfr.MANAGE}"
-                       id="c7" align="center" width="65px" filterFeatures="caseInsensitive">
+                       id="c7" align="center" width="65px" rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
 
               <af:commandImageLink id="cil1" icon="/images/edit.png"
                                    actionListener="#{pageFlowScope.CardBean.editVehicleDriverListener}">

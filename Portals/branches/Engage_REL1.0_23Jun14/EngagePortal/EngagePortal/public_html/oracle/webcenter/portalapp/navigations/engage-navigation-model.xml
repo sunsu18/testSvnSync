@@ -131,7 +131,7 @@
             </url>
           </contents>
         </url>
-        <url visible="#{MenuVisibleHelperBean.visiblePricing}" id="pricing"
+        <url visible="#{false}" id="pricing"
              factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
              url="page://oracle/webcenter/portalapp/engagepages/menus/pricing.jspx">
           <attributes>
@@ -148,7 +148,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{MenuVisibleHelperBean.visibleListPrice}"
+            <url visible="#{false}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="listprices"
                  url="page://oracle/webcenter/portalapp/engagepages/pricing/fuelprices.jspx">

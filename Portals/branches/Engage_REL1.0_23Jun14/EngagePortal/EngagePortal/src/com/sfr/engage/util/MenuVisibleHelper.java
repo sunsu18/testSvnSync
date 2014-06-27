@@ -86,6 +86,7 @@ public class MenuVisibleHelper {
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
+    private String lang;
 
     AccessDataControl accessDC = new AccessDataControl();
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
@@ -103,7 +104,9 @@ public class MenuVisibleHelper {
             log.info(accessDC.getDisplayRecord() + this.getClass() + "Inside menuVisible helper construstor. user role list is " +user.getRolelist());
         }
 
-
+        if (session != null) {
+            lang = (String)session.getAttribute(Constants.userLang);
+        }
 
     }
 
@@ -457,12 +460,14 @@ public class MenuVisibleHelper {
 
     public boolean isVisibleVehicles() {
         if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                visibleVehicles = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
+            if(lang != null && !lang.equalsIgnoreCase("SE")){
+                if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+                    visibleVehicles = true;
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
+                }
             }
         }
         return visibleVehicles;
@@ -474,12 +479,14 @@ public class MenuVisibleHelper {
 
     public boolean isVisibleDrivers() {
         if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                visibleDrivers = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
+            if(lang != null && !lang.equalsIgnoreCase("SE")){
+                if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
+                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+                    visibleDrivers = true;
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
+                }
             }
         }
         return visibleDrivers;
