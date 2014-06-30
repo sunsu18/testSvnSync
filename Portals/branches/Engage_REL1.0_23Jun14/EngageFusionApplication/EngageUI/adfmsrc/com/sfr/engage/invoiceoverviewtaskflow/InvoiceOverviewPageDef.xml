@@ -109,6 +109,8 @@
           <Item Value="InvGrossAmt"/>
           <Item Value="netAmount"/>
           <Item Value="InvoicingDate"/>
+          <Item Value="InvoiceDocType"/>
+          <Item Value="InvoiceLevel"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

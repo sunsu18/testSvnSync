@@ -357,14 +357,23 @@
       <af:column sortProperty="Finalinvoice" filterable="true" sortable="true" width="150"
                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" filterFeatures="caseInsensitive"
                  id="c4">
-      <af:commandLink text="#{row.Finalinvoice}" id="cl1"
+      <af:commandLink text="#{row.Finalinvoice}" id="cl1" disabled="#{(row.InvoiceDocType eq 'FAK' and row.InvoiceLevel eq 'SEP')? true: false}"
                        action="#{pageFlowScope.InvoiceOverviewBean.invoiceNumberAction}"
                                         styleClass="links af_goLink ">
         <af:setPropertyListener from="#{row.Finalinvoice}"
                                 to="#{pageFlowScope.invoiceNumberValue}"
                                 type="action"/>
                                 </af:commandLink>
+                                
       </af:column>
+      <!--<af:column headerText="#{bindings.PrtNewInvoiceVO1.hints.InvoiceDocType.label}"
+                 id="c9">
+       <af:outputText value="#{row.InvoiceDocType}" id="ot70"/>
+      </af:column>-->
+      <!--<af:column headerText="#{bindings.PrtNewInvoiceVO1.hints.InvoiceLevel.label}"
+                 id="c9">
+       <af:outputText value="#{row.InvoiceLevel}" id="ot70"/>
+      </af:column>-->
       <af:column sortProperty="InvoiceDate" filterable="true" sortable="true" width="125" align="center"
                  headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}" filterFeatures="caseInsensitive"
                  id="c6">
@@ -628,7 +637,7 @@
                               inlineStyle="margin-left: -25px;"
                               binding="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUp}"
                               valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUpVCE}">
-            <af:selectItem label="#{sfr.TRANSACTIONS}" value="Transactions"
+            <af:selectItem label="#{sfr.TRANSACTIONS}" value="Transactions" rendered="false"
                            id="selectItem1"/>
             <af:selectItem label="#{sfr.INVOICE_COLLECTIONS}" rendered="#{(bindings.InvoiceDocType.inputValue eq 'FAK' and bindings.InvoiceLevel.inputValue eq 'SEP')? false: true}"
                            value="InvoiceCollections" id="selectItem2"/>
