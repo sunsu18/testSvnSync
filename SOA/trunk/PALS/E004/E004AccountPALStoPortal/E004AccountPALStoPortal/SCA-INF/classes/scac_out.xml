@@ -3,7 +3,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>637</line>
+      <line>656</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -13,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>917</line>
+      <line>936</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -23,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>917</line>
+      <line>936</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -33,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>917</line>
+      <line>936</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>
@@ -43,7 +43,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>1185</line>
+      <line>1204</line>
       <col/>
       <file>E004AccountPALStoPortal.bpel</file>
       <name>E004AccountPALStoPortal.bpel</name>

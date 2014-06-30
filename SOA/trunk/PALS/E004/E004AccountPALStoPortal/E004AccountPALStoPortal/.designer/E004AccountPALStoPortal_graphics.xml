@@ -5,22 +5,22 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="e004accountpalstoportal_client" x="0" y="90" side="left"/>
-      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="3976" side="left"/>
-      <partnerlink name="MergeAccountPortalDBAdapter" x="0" y="2948" side="left"/>
-      <partnerlink name="InsertPALSDataToTempAccountPortalDBAdapter" x="0" y="2891" side="left"/>
-      <partnerlink name="SelectValidDataTempAccountPortalDBAdapter" x="0" y="3009" side="left"/>
-      <partnerlink name="SelectInValidDataTempAccountPortalDBAdapter" x="0" y="3286" side="left"/>
-      <partnerlink name="TruncateTempAccountPortalDBAdapter" x="0" y="3563" side="left"/>
-      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2146" side="left"/>
-      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4722" side="left"/>
-      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="4779" side="left"/>
-      <partnerlink name="SelectDeltaTSDBAdapter" x="2466" y="880" side="right"/>
+      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="4226" side="left"/>
+      <partnerlink name="MergeAccountPortalDBAdapter" x="0" y="3198" side="left"/>
+      <partnerlink name="InsertPALSDataToTempAccountPortalDBAdapter" x="0" y="3141" side="left"/>
+      <partnerlink name="SelectValidDataTempAccountPortalDBAdapter" x="0" y="3259" side="left"/>
+      <partnerlink name="SelectInValidDataTempAccountPortalDBAdapter" x="0" y="3536" side="left"/>
+      <partnerlink name="TruncateTempAccountPortalDBAdapter" x="0" y="3813" side="left"/>
+      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2271" side="left"/>
+      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4972" side="left"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5029" side="left"/>
+      <partnerlink name="SelectDeltaTSDBAdapter" x="2466" y="1031" side="right"/>
       <partnerlink name="GetPALSDB2CountDBAdapter" x="2466" y="937" side="right"/>
-      <partnerlink name="PALSDB2DBAdapter" x="2466" y="1834" side="right"/>
-      <partnerlink name="SOAErrorDBAdapter" x="2466" y="2888" side="right"/>
-      <partnerlink name="SOAErrorLogDBAdapter" x="2466" y="4322" side="right"/>
+      <partnerlink name="PALSDB2DBAdapter" x="2466" y="2084" side="right"/>
+      <partnerlink name="SOAErrorDBAdapter" x="2466" y="3138" side="right"/>
+      <partnerlink name="SOAErrorLogDBAdapter" x="2466" y="4572" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,4018,1329,513" show_swimlanes="true">
+   <graph_layout viewport="453,1050,771,346" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -34,6 +34,7 @@
       <layout_item collapsed="false" xpath="/process/sequence/scope[1]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]" type="scope" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/scope[2]/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/while" type="while"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[1]" type="scope" showhandlers="true"/>

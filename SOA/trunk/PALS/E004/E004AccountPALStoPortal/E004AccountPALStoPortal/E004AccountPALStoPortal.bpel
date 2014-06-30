@@ -572,6 +572,25 @@
             <to variable="NumberOfBatches"/>
           </copy>
         </assign>
+        <switch name="SwitchBatchCount">
+          <case condition="bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:BatchCount') &lt;= bpws:getVariableData('NumberOfBatches')">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">IfBatchCountisLessThan</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="AccountSummaryReqMsg" part="payload"
+                      query="/client:invocationMsg/client:BatchCount"/>
+                <to variable="NumberOfBatches"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <empty name="Empty"/>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch"

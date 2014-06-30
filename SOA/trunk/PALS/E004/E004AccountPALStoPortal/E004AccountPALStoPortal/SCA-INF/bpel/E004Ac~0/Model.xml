@@ -350,6 +350,24 @@
             <to variable="NumberOfBatches"/>
           </copy>
         </assign>
+        <switch name="SwitchBatchCount" id="BpSwt1">
+          <case condition="bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:BatchCount') &lt;= bpws:getVariableData('NumberOfBatches')">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">IfBatchCountisLessThan</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount" id="BpAss9">
+              <copy>
+                <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:BatchCount"/>
+                <to variable="NumberOfBatches"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <empty name="Empty" id="BpEmp0"/>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch" condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')" id="BpWhl0">
@@ -361,7 +379,7 @@
             </bpelx:general>
           </bpelx:annotation>
           <sequence name="GetPALSdataSequence" id="BpSeq7">
-            <assign name="GetLatestDeltaTS" id="BpAss9">
+            <assign name="GetLatestDeltaTS" id="BpAss10">
               <copy>
                 <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
                 <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable" part="SelectDeltaTSDBAdapterSelect_inputParameters" query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:InterfaceID"/>
@@ -372,14 +390,14 @@
               </copy>
             </assign>
             <invoke name="InvokeSOADeltaTS" inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable" outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable" partnerLink="SelectDeltaTSDBAdapter" portType="ns1:SelectDeltaTSDBAdapter_ptt" operation="SelectDeltaTSDBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv5"/>
-            <switch name="Switch2" id="BpSwt1">
+            <switch name="Switch2" id="BpSwt2">
               <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp')) > 0">
                 <bpelx:annotation>
                   <bpelx:general>
                     <bpelx:property name="userLabel">DeltaTS Exists</bpelx:property>
                   </bpelx:general>
                 </bpelx:annotation>
-                <assign name="AssignDeltaTS" id="BpAss10">
+                <assign name="AssignDeltaTS" id="BpAss11">
                   <copy>
                     <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp'),'+')"/>
                     <to variable="DeltaTS"/>
@@ -391,7 +409,7 @@
                 </assign>
               </case>
               <otherwise>
-                <assign name="AssignDefaultTS" id="BpAss11">
+                <assign name="AssignDefaultTS" id="BpAss12">
                   <copy>
                     <from expression="'0001-01-01 00:00:00.000000'"/>
                     <to variable="DeltaTS"/>
@@ -399,7 +417,7 @@
                 </assign>
               </otherwise>
             </switch>
-            <assign name="AssignSelectPALSDB2DataInputValues" id="BpAss12">
+            <assign name="AssignSelectPALSDB2DataInputValues" id="BpAss13">
               <copy>
                 <from variable="DeltaTS"/>
                 <to variable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" part="PALSDB2DBAdapterSelect_inputParameters" query="/ns9:PALSDB2DBAdapterSelect_BatchSize_DeltaTimeStampInputParameters/ns9:DeltaTimeStamp"/>
@@ -412,7 +430,7 @@
             <invoke name="InvokePALSDB2DBAdapter" inputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_InputVariable" outputVariable="InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable" partnerLink="PALSDB2DBAdapter" portType="ns5:PALSDB2DBAdapter_ptt" operation="PALSDB2DBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv6">
                     <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
                     </invoke>
-            <assign name="GetDataCount" id="BpAss13">
+            <assign name="GetDataCount" id="BpAss14">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc071Vs1CssktoDtaCollection','/ns9:Cc071Vs1CssktoDtaCollection/ns9:Cc071Vs1CssktoDta/ns9:deltaTs'))"/>
                 <to variable="DataCount"/>
@@ -429,7 +447,7 @@
           <faultHandlers id="BpFhs1">
             <catch faultName="bpelx:invalidVariables" id="BpCFt2">
               <sequence name="PALSDataErrorHandlingSequence" id="BpSeq8">
-                <assign name="XformPALSToInvalidData" id="BpAss14">
+                <assign name="XformPALSToInvalidData" id="BpAss15">
                   <bpelx:annotation>
                     <bpelx:pattern>transformation</bpelx:pattern>
                   </bpelx:annotation>
@@ -439,7 +457,7 @@
                   </copy>
                 </assign>
                 <invoke name="InvokeMergeInvalidDataSOAErrorDBAdapter" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv7"/>
-                <assign name="AssignErrorFlag" id="BpAss15">
+                <assign name="AssignErrorFlag" id="BpAss16">
                   <copy>
                     <from expression="'YES'"/>
                     <to variable="ErrorFlag"/>
@@ -449,7 +467,7 @@
             </catch>
           </faultHandlers>
           <sequence name="ValidatePALSDataSequence" id="BpSeq9">
-            <assign name="XformPALSToValidateAccountData" id="BpAss16">
+            <assign name="XformPALSToValidateAccountData" id="BpAss17">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -469,7 +487,7 @@
           </bpelx:annotation>
           <faultHandlers id="BpFhs2">
             <catch faultName="bpelx:bindingFault" id="BpCFt3">
-              <switch name="Switch3" id="BpSwt2">
+              <switch name="Switch3" id="BpSwt3">
                 <case condition="contains(ora:getFaultAsString(),'integrity constraint')">
                   <bpelx:annotation>
                     <bpelx:general>
@@ -477,7 +495,7 @@
                     </bpelx:general>
                   </bpelx:annotation>
                   <sequence name="BindingExceptionHandlingSequence" id="BpSeq10">
-                    <assign name="XformPALSValidDataToTempAccountPortal" id="BpAss17">
+                    <assign name="XformPALSValidDataToTempAccountPortal" id="BpAss18">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -488,7 +506,7 @@
                     </assign>
                     <invoke name="InvokeInsertPALSDataToTempAccountPortal" inputVariable="InvokeInsertPALSDataToTempAccountPortal_insert_InputVariable" partnerLink="InsertPALSDataToTempAccountPortalDBAdapter" portType="ns17:InsertPALSDataToTempAccountPortalDBAdapter_ptt" operation="insert" bpelx:invokeAsDetail="no" id="BpInv8"/>
                     <invoke name="InvokeSelectValidDataTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_InputVariable" outputVariable="InvokeSelectValidDataTempAccountPortal_SelectValidDataTempAccountPortalDBAdapter_OutputVariable" partnerLink="SelectValidDataTempAccountPortalDBAdapter" portType="ns18:SelectValidDataTempAccountPortalDBAdapter_ptt" operation="SelectValidDataTempAccountPortalDBAdapter" id="BpInv9"/>
-                    <assign name="XformMergeTempValidDataToAccountPortal" id="BpAss18">
+                    <assign name="XformMergeTempValidDataToAccountPortal" id="BpAss19">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -499,7 +517,7 @@
                     </assign>
                     <invoke name="InvokeMergeTempValidDataToAccountPortalV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeAccountPortalDBAdapter_merge_InputVariable" partnerLink="MergeAccountPortalDBAdapter" portType="ns13:MergeAccountPortalDBAdapter_ptt" operation="merge" id="BpInv10"/>
                     <invoke name="InvokeSelectInValidDataTempAccountPortal" bpelx:invokeAsDetail="no" inputVariable="InvokeSelectInValidDataTempAccountPortal_SelectInValidDataTempAccountPortalDBAdapter_InputVariable" outputVariable="InvokeSelectInValidDataTempAccountPortal_SelectInValidDataTempAccountPortalDBAdapter_OutputVariable" partnerLink="SelectInValidDataTempAccountPortalDBAdapter" portType="ns19:SelectInValidDataTempAccountPortalDBAdapter_ptt" operation="SelectInValidDataTempAccountPortalDBAdapter" id="BpInv11"/>
-                    <assign name="XformInvalidTempDataToSOAErrorDBAdapter" id="BpAss19">
+                    <assign name="XformInvalidTempDataToSOAErrorDBAdapter" id="BpAss20">
                       <bpelx:annotation>
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
@@ -510,7 +528,7 @@
                     </assign>
                     <invoke name="InvokeMergeInvalidTempDataSOAErrorDBAdapter" inputVariable="InvokeInsertInvalidDataSOAErrorDBAdapter_insert_InputVariable" partnerLink="SOAErrorDBAdapter" portType="ns11:SOAErrorDBAdapter_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv12"/>
                     <invoke name="InvokeTruncateTempAccountPortalDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeTruncateTempAccountPortalDBAdapter_TruncateTempAccountPortalDBAdapter_InputVariable" partnerLink="TruncateTempAccountPortalDBAdapter" portType="ns20:TruncateTempAccountPortalDBAdapter_ptt" operation="TruncateTempAccountPortalDBAdapter" id="BpInv13"/>
-                    <assign name="AssignErrorFlag" id="BpAss20">
+                    <assign name="AssignErrorFlag" id="BpAss21">
                       <copy>
                         <from expression="'yes'"/>
                         <to variable="ErrorFlag"/>
@@ -520,7 +538,7 @@
                 </case>
                 <otherwise>
                   <sequence name="ErrorLogNotificationSequence" id="BpSeq11">
-                    <assign name="AssignStandardErrorData" id="BpAss21">
+                    <assign name="AssignStandardErrorData" id="BpAss22">
                       <copy>
                         <from expression="ora:getCompositeInstanceId()"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
@@ -581,7 +599,7 @@
             </catch>
           </faultHandlers>
           <sequence name="InsertPALSDataInPortalDBSequence" id="BpSeq12">
-          <assign name="XformPALSValidDataToMergeAccountPortal" id="BpAss22">
+          <assign name="XformPALSValidDataToMergeAccountPortal" id="BpAss23">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -593,7 +611,7 @@
             <invoke name="InvokeMergeAccountPortalDBAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeAccountPortalDBAdapter_merge_InputVariable" partnerLink="MergeAccountPortalDBAdapter" portType="ns13:MergeAccountPortalDBAdapter_ptt" operation="merge" id="BpInv15"/>
           </sequence>
         </scope>
-        <assign name="AssignInsertDeltaValues" id="BpAss23">
+        <assign name="AssignInsertDeltaValues" id="BpAss24">
           <copy>
             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:InterfaceID"/>
             <to variable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" part="EngageSoaDeltatableCollection" query="/ns8:EngageSoaDeltatableCollection/ns8:EngageSoaDeltatable/ns8:interfaceid"/>
@@ -616,7 +634,7 @@
           </copy>
         </assign>
         <invoke name="InvokeMergeDeltaTSSOADBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeMergeDeltaTSSOADBAdapterV1_merge_InputVariable" partnerLink="MergeDeltaTSSOADBAdapterV1" portType="ns7:MergeDeltaTSSOADBAdapterV1_ptt" operation="merge" id="BpInv16"/>
-        <assign name="NextBatch" id="BpAss24">
+        <assign name="NextBatch" id="BpAss25">
           <copy>
             <from expression="bpws:getVariableData('Count') + 1"/>
             <to variable="Count"/>
@@ -624,7 +642,7 @@
         </assign>
       </sequence>
     </while>
-    <switch name="RecordsExistsSwitch" id="BpSwt3">
+    <switch name="RecordsExistsSwitch" id="BpSwt4">
       <case condition="bpws:getVariableData('ErrorFlag') = 'yes'">
         <bpelx:annotation>
           <bpelx:general>
@@ -633,7 +651,7 @@
         </bpelx:annotation>
         <sequence name="ErrorLogForwardingSequence" id="BpSeq13">
           <invoke name="InvokeSOAErrorLogDBAdapter" inputVariable="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_InputVariable" outputVariable="InvokeSOAErrorLogDBAdapter_SOAErrorLogDBAdapterSelect_OutputVariable" partnerLink="SOAErrorLogDBAdapter" portType="ns23:SOAErrorLogDBAdapter_ptt" operation="SOAErrorLogDBAdapterSelect" bpelx:invokeAsDetail="no" id="BpInv17"/>
-          <assign name="XformSOAErrorLogToDummyVariable" id="BpAss25">
+          <assign name="XformSOAErrorLogToDummyVariable" id="BpAss26">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -643,7 +661,7 @@
             </copy>
           </assign>
           
-                    <assign name="AssignStandardErrorData" id="BpAss26">
+                    <assign name="AssignStandardErrorData" id="BpAss27">
             <copy>
               <from expression="ora:getCompositeInstanceId()"/>
               <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
@@ -699,7 +717,7 @@
           </assign>
 
           <invoke name="InvokeSOAErrorHandlerJMSAdapter" bpelx:invokeAsDetail="no" inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" partnerLink="SOAErrorHandlerJMSAdapter" portType="ns22:Produce_Message_ptt" operation="Produce_Message" id="BpInv18"/>
-          <assign name="XformErrorFlagUpdateSOAErrorDBAdapter" id="BpAss27">
+          <assign name="XformErrorFlagUpdateSOAErrorDBAdapter" id="BpAss28">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -714,14 +732,14 @@
       <otherwise>
 
         <sequence name="DataTransferCompletionSequence" id="BpSeq14">
-          <switch name="IfLastInvocationFlag" id="BpSwt4">
+          <switch name="IfLastInvocationFlag" id="BpSwt5">
             <case condition="bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:LastInvokeFlag') = 'True'">
               <bpelx:annotation>
                 <bpelx:general>
                   <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
                 </bpelx:general>
               </bpelx:annotation>
-              <switch name="IfDataExistsinPALS" id="BpSwt5">
+              <switch name="IfDataExistsinPALS" id="BpSwt6">
                 <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('AccountSummaryReqMsg','payload','/client:invocationMsg/client:BatchSize')">
                   <bpelx:annotation>
                     <bpelx:general>
@@ -729,14 +747,14 @@
                     </bpelx:general>
                   </bpelx:annotation>
                   <sequence name="PALSNotificationSequence" id="BpSeq15">
-                    <switch name="DataCountexistsSwitch" id="BpSwt6">
+                    <switch name="DataCountexistsSwitch" id="BpSwt7">
                       <case condition="bpws:getVariableData('DataCount') >= 1">
                         <bpelx:annotation>
                           <bpelx:general>
                             <bpelx:property name="userLabel">DataCountGreaterthanZero</bpelx:property>
                           </bpelx:general>
                         </bpelx:annotation>
-                        <assign name="AssignSOAPALSNotificationData" id="BpAss28">
+                        <assign name="AssignSOAPALSNotificationData" id="BpAss29">
                           <copy>
                             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
                             <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
@@ -778,7 +796,7 @@
                       <otherwise>
                       
 
-                        <assign name="AssignSOAPALSNotificationDataOtherwise" id="BpAss29">
+                        <assign name="AssignSOAPALSNotificationDataOtherwise" id="BpAss30">
                           <copy>
                             <from variable="AccountSummaryReqMsg" part="payload" query="/client:invocationMsg/client:SenderSystem"/>
                             <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV" part="body" query="/ns27:Notification/ns27:SourceSystem"/>
@@ -825,7 +843,7 @@
                 </case>
                 <otherwise>
                   <sequence name="ErrorCompletionSequence" id="BpSeq16">
-        <assign name="AssignStandardErrorData" id="BpAss30">
+        <assign name="AssignStandardErrorData" id="BpAss31">
                       <copy>
                         <from expression="ora:getCompositeInstanceId()"/>
                         <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable" part="body" query="/ns21:ErrorInfo/ns21:CommonErrorData/ns21:InstanceID"/>
@@ -885,7 +903,7 @@
               </switch>
             </case>
             <otherwise>
-              <empty name="Empty" id="BpEmp0"/>
+              <empty name="Empty" id="BpEmp1"/>
             </otherwise>
           </switch>
         </sequence>
