@@ -3156,16 +3156,14 @@ public class CardBean implements Serializable {
         return fileName;
     }
 
-    public void resetTableFilter()
-        {
-            FilterableQueryDescriptor queryDescriptor =
-                (FilterableQueryDescriptor) getBindings().getSearchResultsTB().getFilterModel();
-            if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null)
-            {
-                queryDescriptor.getFilterCriteria().clear();
-                getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
-            }
+    public void resetTableFilter(){
+        FilterableQueryDescriptor queryDescriptor =
+            (FilterableQueryDescriptor) getBindings().getSearchResultsTB().getFilterModel();
+        if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null){
+            queryDescriptor.getFilterCriteria().clear();
+            getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
         }
+    }
 
     public ArrayList<String> getCardTypeNameList() {
         return cardTypeNameList;
@@ -3178,7 +3176,20 @@ public class CardBean implements Serializable {
     public String getLang() {
         return lang;
     }
-
+    
+    public void filterTable(ActionEvent actionEvent) {
+        FilterableQueryDescriptor qd =
+            (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
+        QueryEvent queryEvent =
+            new QueryEvent(getBindings().getSearchResultsTB(), qd);
+        getBindings().getSearchResultsTB().queueEvent(queryEvent);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
+    
+    public void resetFilterTable(ActionEvent actionEvent) {
+        resetTableFilter();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
+    }
 
     public class Bindings {
         private RichSelectOneChoice partner;
