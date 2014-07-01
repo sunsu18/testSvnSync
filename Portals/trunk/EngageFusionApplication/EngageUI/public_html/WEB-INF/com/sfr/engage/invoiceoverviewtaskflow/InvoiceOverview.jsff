@@ -404,7 +404,7 @@
               <af:spacer width="4" height="10" id="s1sdf6"/>
                 <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}" id="exportall"
                                   actionListener="#{pageFlowScope.InvoiceOverviewBean.getValuesForExcel}">
-                     <!--<af:clientListener method="exitFromPopup" type="action"/>-->
+                     <af:clientListener method="exitFromPopup" type="action"/>
                 </af:commandButton>
               </af:panelGroupLayout>
               </af:panelGroupLayout>
@@ -434,7 +434,7 @@
               <af:spacer width="4" height="10" id="s42inv"/>
                 <af:commandButton text="#{sfr.YES}" id="cb6"
                                   action="#{pageFlowScope.InvoiceOverviewBean.excelDownLoad}">
-                  <!--<af:clientListener method="exitFromPopupConfirmation" type="action"/>-->
+                  <af:clientListener method="exitFromPopupConfirmation" type="action"/>
                   <af:fileDownloadActionListener contentType="#{pageFlowScope.InvoiceOverviewBean.contentType}"
                                          filename="#{pageFlowScope.InvoiceOverviewBean.fileName}"
                                         method="#{pageFlowScope.InvoiceOverviewBean.specificExportExcelListener}"/>
