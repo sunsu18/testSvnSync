@@ -33,6 +33,16 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        LastUpdated {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getLastUpdated();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setLastUpdated((Timestamp)value);
+            }
+        }
+        ,
         BlockAction {
             public Object get(PrtViewCardsVORowImpl obj) {
                 return obj.getBlockAction();
@@ -950,6 +960,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
         }
     }
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
+    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
     public static final int BLOCKACTION = AttributesEnum.BlockAction.index();
     public static final int CARDEXPIRY = AttributesEnum.CardExpiry.index();
     public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
@@ -1061,6 +1072,22 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setAccountId(String value) {
         setAttributeInternal(ACCOUNTID, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute LastUpdated.
+     * @return the LastUpdated
+     */
+    public Timestamp getLastUpdated() {
+        return (Timestamp) getAttributeInternal(LASTUPDATED);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LastUpdated.
+     * @param value value to set the  LastUpdated
+     */
+    public void setLastUpdated(Timestamp value) {
+        setAttributeInternal(LASTUPDATED, value);
     }
 
     /**

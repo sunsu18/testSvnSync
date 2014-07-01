@@ -37,7 +37,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
+    <![CDATA[select pc.account_id,pc.last_updated,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
 pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,
 pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name
@@ -78,6 +78,20 @@ and INSTR(:status,pc.block_action)<>0]]>
     Expression="ACCOUNT_ID">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LastUpdated"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="LAST_UPDATED"
+    Expression="LAST_UPDATED"
+    SQLType="TIMESTAMP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -593,7 +607,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -607,7 +621,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"

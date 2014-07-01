@@ -326,6 +326,12 @@
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
               </af:inputText>
             </af:column>
+            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="175px"
+                       id="c12">
+              <af:outputText value="#{row.LastUpdated}" id="ot36">
+              <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
+              </af:outputText>
+            </af:column>
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
                        id="c10" width="175px" filterFeatures="caseInsensitive">
               <!--<af:inputText value="#{row.bindings.CardTextline2.inputValue}"
