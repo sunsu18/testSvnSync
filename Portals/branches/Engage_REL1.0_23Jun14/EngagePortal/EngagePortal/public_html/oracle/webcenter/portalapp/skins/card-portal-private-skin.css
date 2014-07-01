@@ -1,4 +1,11 @@
+.af_column_column-header-cell-content.p_AFSorted {
+padding-right: 0px !important;
+}
 
+.af_column_sort-indicator {
+right: -8px !important;
+top: 11px !important;
+}
 
 
 
@@ -1901,8 +1908,8 @@ background-position: -16px -106px ;
 
 .info_legend{
 	background-position: -8px -359px ;
-	width: 15px;
-	height: 15px;
+	width: 17px;
+	height: 17px;
 }
 
 .view_all{

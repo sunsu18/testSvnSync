@@ -405,12 +405,14 @@
           <af:spacer height="10" id="spacer18" width="0"/>
           <af:panelGroupLayout id="pgl73" inlineStyle="width:948.0px;"
                                layout="horizontal">
-            <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS}:" id="outputText8"
-                           styleClass="heading heading_account "/>
+            <af:panelGroupLayout id="pgl14" layout="horizontal">
+            <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS} :" id="outputText8"
+                           styleClass="heading heading_account " noWrap="true"/>
+                          <af:spacer width="10" id="s74"/>  
+                           </af:panelGroupLayout>
         <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
            <af:panelGroupLayout id="pgl35" styleClass="info_legend"
-                             layout="horizontal"
-                                inlineStyle="padding-left: 610px;">
+                             layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
             </af:panelGroupLayout>
             <af:popup id="p2">
@@ -423,10 +425,13 @@
         </af:popup>
    <!--       </af:commandLink> -->
           <!--<af:spacer width="10" height="10" id="s53"/>-->
+          <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
+                        halign="right">
           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
                           actionListener="#{pageFlowScope.TransactionOverviewBean.exportExcelSpecificAction}"
                           partialSubmit="true">
         </af:commandButton>
+        </af:panelGroupLayout>
         </af:panelGroupLayout>
  </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl17">
@@ -440,7 +445,7 @@
                            noWrap="true"/>             
             </af:panelGroupLayout>        
         <af:spacer width="500" height="25" id="sa56"/>
-        <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal" halign="right"
+        <af:panelGroupLayout id="pgl75" layout="horizontal" halign="right"
                               inlineStyle="height:25.0px;">     
                 
           <af:panelGroupLayout id="pgl54" inlineStyle="width:50.0px;"
@@ -494,7 +499,7 @@
                             <af:convertDateTime pattern="dd.MM.yyyy"/>
                             </af:inputDate>
             </f:facet>
-             <af:panelGroupLayout id="pgl14" layout="horizontal">
+             <af:panelGroupLayout id="pgl77" layout="horizontal">
             <af:outputText value="#{row.TransactionDt}" id="ot33" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
               <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionDt.format}"/>-->

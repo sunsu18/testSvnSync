@@ -1,3 +1,11 @@
+.af_column_column-header-cell-content.p_AFSorted {
+padding-right: 0px !important;
+}
+
+.af_column_sort-indicator {
+right: -8px !important;
+top: 11px !important;
+}
 
 
 
@@ -1650,13 +1658,13 @@ background-position: -30px -106px ;
 	background-position: -6px -231px ;
 	width: 11px;
 	height: 6px;
-        outline-color: transparent !important;
+        outline-color:transparent !important;
 }
 
 .info_legend{
 	background-position: -31px -359px ;
-	width: 15px;
-	height: 15px;
+	width: 17px;
+	height: 17px;
         }
 
 .acc_summary{
