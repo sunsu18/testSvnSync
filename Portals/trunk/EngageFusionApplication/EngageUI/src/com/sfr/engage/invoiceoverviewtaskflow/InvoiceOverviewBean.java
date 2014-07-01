@@ -5,6 +5,7 @@ import com.sfr.core.bean.EngageEmaiUtilityl;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.core.ValueListSplit;
+import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
@@ -20,9 +21,13 @@ import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
+import java.sql.SQLException;
+
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -53,6 +58,7 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
+import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
@@ -61,10 +67,21 @@ import oracle.adf.view.rich.component.rich.output.RichSpacer;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.DialogEvent;
 
+import oracle.adf.view.rich.event.QueryEvent;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
+
 import oracle.binding.BindingContainer;
 
 import oracle.jbo.Row;
+import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 public class InvoiceOverviewBean implements Serializable {
@@ -144,6 +161,15 @@ public class InvoiceOverviewBean implements Serializable {
     private String mailLnag = "";
     private boolean setreceipent = true;
     private RichPanelGroupLayout resultPanel;
+    private boolean shuttleStatus=false;
+    private String strInvoicesPrepopulatedColumns = "";
+    private String strInvoicesTotalColumns = "";
+    private String strInvoicesExtraColumns = "";
+    private List shuttleValue;
+    private List shuttleList = new ArrayList();
+    private String contentType;
+    private String fileName;
+    private String reportType = "Card";    
 
     public InvoiceOverviewBean() {
         super();
@@ -489,7 +515,7 @@ if(partnerInfoList.size() == 1) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
@@ -2221,6 +2247,725 @@ for(int i=0;i<prop.length;i++)
         //validEmail  = false;
     }
 
+    public void exportExcelSpecificActionInvoices(ActionEvent actionEvent) {
+
+        shuttleStatus=false;
+       
+            ViewObject prtExportInfoRVO =
+                ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
+                                                      "INVOICES");
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Type","Default");
+            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria","Default");
+            prtExportInfoRVO.executeQuery();
+            
+        if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+            while (prtExportInfoRVO.hasNext()) {
+                PrtExportInfoRVORowImpl prtExportRow =
+                    (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                strInvoicesTotalColumns = prtExportRow.getTotalColumns();
+                strInvoicesExtraColumns = prtExportRow.getExtraColumns();
+
+            }
+        }
+       
+        if (strInvoicesTotalColumns != null) {
+            String[] strHead = strInvoicesTotalColumns.split(",");
+            shuttleList = new ArrayList<SelectItem>();
+            for (int col = 0; col < strHead.length; col++) {
+                SelectItem selectItem = new SelectItem();
+                selectItem.setLabel(strHead[col].toString());
+                selectItem.setValue(strHead[col].toString());
+                shuttleList.add(selectItem);
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
+            getBindings().getSelectionExportOneRadio().setValue("xls");
+            getBindings().getSpecificColumns().show(new RichPopup.PopupHints());
+        } 
+        else {
+                   if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_DB")) {
+                       FacesMessage msg =
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                            (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_DB"),
+                                            "");
+                       FacesContext.getCurrentInstance().addMessage(null, msg);
+                   }
+               }
+       
+        
+        
+    }
+
+    public void getValuesForExcel(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Inside getValuesForExcel method of Invoices");
+        System.out.println("Inside getValuesForExcel");
+        if (shuttleValue == null &&
+            getBindings().getSelectionExportOneRadio().getValue() == null) {
+            if (shuttleValue == null) {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
+        } else {
+            if (getBindings().getSelectionExportOneRadio().getValue() !=
+                null) {
+                if (shuttleValue == null) {
+                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
+                        FacesMessage msg =
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                             (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
+                                             "");
+                        FacesContext.getCurrentInstance().addMessage(null,
+                                                                     msg);
+                    }
+                } else {
+                    if (shuttleValue.size() > 0 &&
+                        getBindings().getSelectionExportOneRadio().getValue() !=
+                        null) {
+                        shuttleStatus = true;
+                        getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
+                    }
+                }
+            } else {
+                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
+                    FacesMessage msg =
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
+                                         "");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Exiting getValuesForExcel method of Invoices");
+    }
+
+    public String[] StringConversion(String passedVal) {
+
+        List<String> container;
+        //        String tempString = passedVal.substring(1, passedVal.length() - 1);
+        String[] val = passedVal.split(",");
+
+        return val;
+    }
+   
+    public String checkALL(String selectedValues, String type) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Inside checkALL method of Invoices");
+        String val = "";
+        String[] listValues = selectedValues.split(",");
+        if (listValues.length > 1) {
+            if ("Account".equalsIgnoreCase(type)) {
+                if (accountList.size() == listValues.length) {
+                    val = "All";
+                } else {
+                    val = selectedValues;
+                }
+            } 
+
+        } else {
+            val = selectedValues;
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Exiting checkALL method of Invoices");
+        return val;
+    }
+   
+        public void specificExportExcelListener(FacesContext facesContext,
+                                            OutputStream outputStream) throws IOException,
+                                                                              SQLException {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Inside specificExportExcelListener method of Invoices");
+          
+        String selectedValues = "";
+        for (int i = 0; i < shuttleValue.size(); i++) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Item =" + i + " value== " + shuttleValue.get(i));
+            selectedValues =
+                    selectedValues + shuttleValue.get(i).toString().trim() +
+                    ",";
+        }
+        selectedValues =
+                selectedValues.substring(0, selectedValues.length() - 1);
+
+        int partnerIndex = 0;
+        String partnerCompanyName = "";
+        for (int z = 0; z < partnerInfoList.size(); z++) {
+            if ((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartnerNumber().getValue().toString().trim())) {
+                partnerCompanyName = partnerInfoList.get(z).getPartnerName();
+                partnerIndex = z;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Partner value:" + partnerCompanyName);
+            }
+        }
+
+        String cardGroupDescName = "";
+        String[] cardGroupDescList =
+            StringConversion(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
+        String[] accountString =
+            StringConversion(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
+
+        if (partnerInfoList.get(partnerIndex).getAccountList() != null &&
+            partnerInfoList.get(partnerIndex).getAccountList().size() > 0) {
+            for (int i = 0;
+                 i < partnerInfoList.get(partnerIndex).getAccountList().size();
+                 i++) {
+                if (accountString.length > 0) {
+                    for (int j = 0; j < accountString.length; j++) {
+                        if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber() !=
+                            null &&
+                            partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
+                            if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup() !=
+                                null &&
+                                partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size() >
+                                0) {
+                                for (int k = 0;
+                                     k < partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size();
+                                     k++) {
+                                    if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
+                                        null && cardGroupDescList.length > 0) {
+                                        for (int cg = 0;
+                                             cg < cardGroupDescList.length;
+                                             cg++) {
+                                            if ((partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                cardGroupDescName =
+                                                        cardGroupDescName +
+                                                        partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
+                                                        ",";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        cardGroupDescName =
+                (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) -
+                                                      1);
+
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Report in Excel Format");
+            HSSFWorkbook XLS = new HSSFWorkbook();
+            HSSFRow XLS_SH_R = null;
+            HSSFCell XLS_SH_R_C = null;
+            int intRow = 0;
+            HSSFCellStyle cs = XLS.createCellStyle();
+            HSSFFont f = XLS.createFont();
+
+            //create sheet
+            HSSFSheet XLS_SH = XLS.createSheet();
+            XLS.setSheetName(0, "InvoiceReport");
+
+            f.setFontHeightInPoints((short)10);
+            f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            f.setColor((short)0);
+            cs.setFont(f);
+
+            HSSFCellStyle csRight = XLS.createCellStyle();
+            HSSFFont fnumberData = XLS.createFont();
+            fnumberData.setFontHeightInPoints((short)10);
+            fnumberData.setColor((short)0);
+            csRight.setFont(fnumberData);
+            csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+
+            HSSFCellStyle csTotalAmt = XLS.createCellStyle();
+            HSSFFont fontTotal = XLS.createFont();
+            fontTotal.setFontHeightInPoints((short)10);
+            fontTotal.setColor((short)0);
+            fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            csTotalAmt.setFont(fontTotal);
+            csTotalAmt.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+
+            HSSFCellStyle csData = XLS.createCellStyle();
+            HSSFFont fData = XLS.createFont();
+            fData.setFontHeightInPoints((short)10);
+            fData.setColor((short)0);
+            csData.setFont(fData);
+
+            XLS_SH.setColumnWidth(50, 50);
+
+            XLS_SH_R = XLS_SH.createRow(0);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Company: " + partnerCompanyName);
+
+
+            XLS_SH_R = XLS_SH.createRow(1);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Account: " +
+                                    checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
+                                             "Account"));
+
+            XLS_SH_R = XLS_SH.createRow(2);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Type: " + reportType);
+            
+            XLS_SH_R = XLS_SH.createRow(3);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            XLS_SH_R_C.setCellValue("Period: " +
+                                    formatConversion((Date)getBindings().getFromDate().getValue()) +
+                                    " to " +
+                                    formatConversion((Date)getBindings().getToDate().getValue()));
+
+            for (int row = 4; row <= 6; row++) {
+                XLS_SH_R = XLS_SH.createRow(row);
+            }
+
+            String[] headerValues = selectedValues.split(",");
+
+            HSSFCellStyle css = XLS.createCellStyle();
+            HSSFFont fcss = XLS.createFont();
+            fcss.setFontHeightInPoints((short)10);
+            fcss.setItalic(true);
+            fcss.setColor((short)0);
+            css.setFont(fcss);
+            XLS_SH_R = XLS_SH.createRow(6);
+            for (int col = 0; col < headerValues.length; col++) {
+                XLS_SH_R_C = XLS_SH_R.createCell(col);
+                XLS_SH_R_C.setCellStyle(css);
+                XLS_SH_R_C.setCellValue(headerValues[col].toString());
+            }
+
+            int rowVal = 6;
+
+            ViewObject prtNewInvoiceVO =
+                ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+            RowSetIterator iterator =
+                prtNewInvoiceVO.createRowSetIterator(null);
+            iterator.reset();
+            while (iterator.hasNext()) {
+                PrtNewInvoiceVORowImpl row =
+                    (PrtNewInvoiceVORowImpl)iterator.next();
+                rowVal = rowVal + 1;
+                XLS_SH_R = XLS_SH.createRow(rowVal);
+                if (row != null) {
+                    for (int cellValue = 0; cellValue < headerValues.length;
+                         cellValue++) {
+                        if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getFinalinvoice() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
+                            }
+                        } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvoicingDate() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getInvoicingDate().toString());
+                            }
+                        } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvoicingDueDate() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getInvoicingDueDate().toString());
+                            }
+                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                     
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue("Card");                           
+                        } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getnetAmount() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())),
+                                                                         locale));
+                            }
+                        } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvVatAmt() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())),
+                                                                         locale));
+                            }
+                        } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvGrossAmt() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())),
+                                                                         locale));
+                            }
+                        }
+                    }
+
+                }
+            }
+            iterator.closeRowSetIterator();
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Printing excel Data completed");
+            XLS.write(outputStream);
+            outputStream.close();
+
+        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Report in CSV Format");
+     
+            PrintWriter out = new PrintWriter(outputStream);
+            String[] headerValues = selectedValues.split(",");
+            for (int col = 0; col < headerValues.length; col++) {
+                out.print(headerValues[col].toString());
+                if (col < headerValues.length - 1) {
+                    out.print(";");
+                }
+            }
+            out.println();
+            ViewObject prtNewInvoiceVO =
+                ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+            RowSetIterator iterator =
+                prtNewInvoiceVO.createRowSetIterator(null);
+            iterator.reset();
+            while (iterator.hasNext()) {
+                PrtNewInvoiceVORowImpl row =
+                    (PrtNewInvoiceVORowImpl)iterator.next();
+                if (row != null) {
+                    _logger.info(accessDC.getDisplayRecord() +
+                                 this.getClass() + " " + "Printing Data");
+                    for (int cellValue = 0; cellValue < headerValues.length;
+                         cellValue++) {
+                        if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getFinalinvoice() != null) {
+                                out.print(row.getFinalinvoice().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvoiceDate() != null) {
+                                out.print(row.getInvoiceDate());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvoicingDueDate() != null) {
+                                out.print(row.getInvoicingDueDate().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                
+                             out.print("Card");                        
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getnetAmount() != null) {
+                                out.print(row.getnetAmount().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvVatAmt() != null) {
+                                out.print(row.getInvVatAmt().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getInvGrossAmt() != null) {
+                                out.print(row.getInvGrossAmt().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } 
+                    }
+                    out.println();
+                }
+            }
+            out.println();
+            iterator.closeRowSetIterator();
+            out.close();
+        } else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " " + "Report in CSV2 Format");
+             
+                PrintWriter out = new PrintWriter(outputStream);
+                String[] headerValues = selectedValues.split(",");
+                for (int col = 0; col < headerValues.length; col++) {
+                    out.print(headerValues[col].toString());
+                    if (col < headerValues.length - 1) {
+                        out.print("|");
+                    }
+                }
+                out.println();
+                ViewObject prtNewInvoiceVO =
+                    ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
+                RowSetIterator iterator =
+                    prtNewInvoiceVO.createRowSetIterator(null);
+                iterator.reset();
+                while (iterator.hasNext()) {
+                    PrtNewInvoiceVORowImpl row =
+                        (PrtNewInvoiceVORowImpl)iterator.next();
+                    if (row != null) {
+                        _logger.info(accessDC.getDisplayRecord() +
+                                     this.getClass() + " " + "Printing Data");
+                        for (int cellValue = 0;
+                             cellValue < headerValues.length; cellValue++) {
+                            if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                                if (row.getFinalinvoice() != null) {
+                                    out.print(row.getFinalinvoice().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getInvoiceDate() != null) {
+                                    out.print(row.getInvoiceDate());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getInvoicingDueDate() != null) {
+                                    out.print(row.getInvoicingDueDate().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                                out.print("Card");
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getnetAmount() != null) {
+                                    out.print(row.getnetAmount().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getInvVatAmt() != null) {
+                                    out.print(row.getInvVatAmt().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getInvGrossAmt() != null) {
+                                    out.print(row.getInvGrossAmt().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } 
+                        }
+                        out.println();
+                    }
+                }
+                out.println();
+                iterator.closeRowSetIterator();
+                out.close();
+            }
+        }
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                     " Exiting specificExportExcelListener method of Invoices");
+    }
+    
+    public String excelDownLoad() {
+        return null;
+    }
+        
+    public String formatConversion(Float passedValue, Locale countryLocale) {
+        String val = "";
+        NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
+        val = numberFormat.format(passedValue);
+        return val;
+    }    
+   
+    public void filterTable(ActionEvent actionEvent) {
+
+            FilterableQueryDescriptor qd =
+
+                (FilterableQueryDescriptor)getBindings().getInvoiceResults().getFilterModel();
+
+            QueryEvent queryEvent =
+
+                new QueryEvent(getBindings().getInvoiceResults(), qd);
+
+            getBindings().getInvoiceResults().queueEvent(queryEvent);
+
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+
+        }
+    
+    
+    public void resetFilterTable(ActionEvent actionEvent) {
+
+           resetTableFilter();
+
+           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+
+    }
+
+    
+
+       public void resetTableFilter()
+
+           {
+
+               FilterableQueryDescriptor queryDescriptor =
+
+                   (FilterableQueryDescriptor) getBindings().getInvoiceResults().getFilterModel();
+
+               if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null)
+
+               {
+
+                   queryDescriptor.getFilterCriteria().clear();
+
+                   getBindings().getInvoiceResults().queueEvent(new QueryEvent(getBindings().getInvoiceResults(), queryDescriptor));
+
+               }
+
+           }
+   
+    public String confirmationCancelAction() {
+     
+        getBindings().getConfirmationExcel().hide();
+        return null;
+    }
+
+
+    public void setShuttleStatus(boolean shuttleStatus) {
+        this.shuttleStatus = shuttleStatus;
+    }
+
+    public boolean isShuttleStatus() {
+        return shuttleStatus;
+    }
+
+    public void setStrInvoicesPrepopulatedColumns(String strInvoicesPrepopulatedColumns) {
+        this.strInvoicesPrepopulatedColumns = strInvoicesPrepopulatedColumns;
+    }
+
+    public String getStrInvoicesPrepopulatedColumns() {
+        return strInvoicesPrepopulatedColumns;
+    }
+
+    public void setStrInvoicesTotalColumns(String strInvoicesTotalColumns) {
+        this.strInvoicesTotalColumns = strInvoicesTotalColumns;
+    }
+
+    public String getStrInvoicesTotalColumns() {
+        return strInvoicesTotalColumns;
+    }
+
+    public void setStrInvoicesExtraColumns(String strInvoicesExtraColumns) {
+        this.strInvoicesExtraColumns = strInvoicesExtraColumns;
+    }
+
+    public String getStrInvoicesExtraColumns() {
+        return strInvoicesExtraColumns;
+    }
+
+    public void setShuttleValue(List shuttleValue) {
+        this.shuttleValue = shuttleValue;
+    }
+
+    public List getShuttleValue() {
+        
+        if (!shuttleStatus) {
+            shuttleValue = new ArrayList();
+            ViewObject prtExportInfoRVO =
+                ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
+                                                      "INVOICES");
+            prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
+                                                      "Default");
+            prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria",
+                                                      "Default");
+            prtExportInfoRVO.executeQuery();
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
+                         prtExportInfoRVO.getEstimatedRowCount());
+            if (prtExportInfoRVO.getEstimatedRowCount() > 0) {
+                while (prtExportInfoRVO.hasNext()) {
+                    PrtExportInfoRVORowImpl prtExportRow =
+                        (PrtExportInfoRVORowImpl)prtExportInfoRVO.next();
+                    strInvoicesPrepopulatedColumns =
+                            prtExportRow.getPrePopulatedColumns();
+                }
+            }
+            if (strInvoicesPrepopulatedColumns != null) {
+                String[] strHead = strInvoicesPrepopulatedColumns.split(",");
+                for (int col = 0; col < strHead.length; col++) {
+                    shuttleValue.add(strHead[col].toString());
+                }
+            }
+        }
+        return shuttleValue;
+    }
+
+    public void setShuttleList(List shuttleList) {
+        this.shuttleList = shuttleList;
+    }
+
+    public List getShuttleList() {
+        return shuttleList;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            contentType = "application/vnd.ms-excel";
+        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            contentType = "text/plain";
+        } else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                contentType = "text/plain";
+            }
+        }
+        
+        return contentType;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        
+        if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            fileName = "Invoice_Report.xls";
+        } else if ("csv".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+            fileName = "Invoice_Report.csv";
+        } else {
+            if ("csv2".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
+                fileName = "Invoice_Report.csv";
+            }
+        }
+        return fileName;
+    }
+
+
     public class Bindings {
         private RichSelectManyChoice account;
         private RichSelectOneChoice invoiceType;
@@ -2235,6 +2980,10 @@ for(int i=0;i<prop.length;i++)
         private RichPanelGroupLayout cardPGL;
         private RichTable invoiceResults;
         private RichSelectOneChoice partnerNumber;
+        private RichPopup confirmationExcel;
+        private RichSelectOneRadio selectionExportOneRadio;
+        private RichPopup specificColumns;
+        private RichSelectManyShuttle shuttleExcel;
 
 
        public void setInvoiceType(RichSelectOneChoice invoiceType) {
@@ -2365,6 +3114,38 @@ for(int i=0;i<prop.length;i++)
 
         public RichSelectManyChoice getAccount() {
             return account;
+        }
+
+        public void setSelectionExportOneRadio(RichSelectOneRadio selectionExportOneRadio) {
+            this.selectionExportOneRadio = selectionExportOneRadio;
+        }
+
+        public RichSelectOneRadio getSelectionExportOneRadio() {
+            return selectionExportOneRadio;
+        }
+
+        public void setSpecificColumns(RichPopup specificColumns) {
+            this.specificColumns = specificColumns;
+        }
+
+        public RichPopup getSpecificColumns() {
+            return specificColumns;
+        }
+
+        public void setShuttleExcel(RichSelectManyShuttle shuttleExcel) {
+            this.shuttleExcel = shuttleExcel;
+        }
+
+        public RichSelectManyShuttle getShuttleExcel() {
+            return shuttleExcel;
+        }
+
+        public void setConfirmationExcel(RichPopup confirmationExcel) {
+            this.confirmationExcel = confirmationExcel;
+        }
+
+        public RichPopup getConfirmationExcel() {
+            return confirmationExcel;
         }
     }
 }
