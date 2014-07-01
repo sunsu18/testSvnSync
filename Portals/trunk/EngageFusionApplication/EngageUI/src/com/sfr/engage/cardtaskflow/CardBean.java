@@ -2385,6 +2385,13 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardType().toString());
                             }
+                        }
+                            else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                                        if (row.getLastUpdated() != null) {
+                                                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                                            XLS_SH_R_C.setCellStyle(csData);
+                                                            XLS_SH_R_C.setCellValue(row.getLastUpdated().toString());
+                                                        }
                         } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
@@ -2489,7 +2496,16 @@ public class CardBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } 
+                        else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                                    if (row.getLastUpdated() != null) {
+                                                        out.print(row.getLastUpdated().toString());
+                                                    }
+                                                    if (cellValue != headerValues.length - 1) {
+                                                        out.print(";");
+                                                    }
+                                                } 
+                        else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString());
                             }
@@ -2597,7 +2613,17 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            }
+                            else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                                        if (row.getLastUpdated() != null) {
+                                                            out.print(row.getLastUpdated().toString());
+                                                        }
+                                                        if (cellValue != headerValues.length - 1) {
+                                                            out.print("|");
+                                                        }
+                                                    } 
+                            
+                            else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCardEmbossNum() != null) {
                                     out.print(row.getCardEmbossNum().toString());
                                 }

@@ -333,7 +333,7 @@
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="175px"
+            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
                        id="c13">
               <af:outputText value="#{row.LastUpdated}" id="ot36">
               <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
