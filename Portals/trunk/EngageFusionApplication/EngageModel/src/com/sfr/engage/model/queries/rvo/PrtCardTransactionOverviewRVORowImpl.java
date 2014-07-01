@@ -1156,7 +1156,13 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the Quantity
      */
     public Float getQuantity() {
+        
+        if(getUnitOfMeasure() != null && ("STK").equalsIgnoreCase(getUnitOfMeasure())){
+           return 1.0f;
+        }
+        else{
         return (Float) getAttributeInternal(QUANTITY);
+        }
     }
 
     /**
@@ -1364,6 +1370,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * @return the UnitOfMeasure
      */
     public String getUnitOfMeasure() {
+     
         return (String) getAttributeInternal(UNITOFMEASURE);
     }
 

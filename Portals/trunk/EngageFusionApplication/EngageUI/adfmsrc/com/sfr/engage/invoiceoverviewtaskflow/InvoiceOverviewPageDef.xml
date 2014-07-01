@@ -143,6 +143,7 @@
           <Item Value="Card1Id"/>
           <Item Value="InvoicedNetAmount"/>
           <Item Value="InvoicedGrossAmount"/>
+          <Item Value="UnitOfMeasure"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

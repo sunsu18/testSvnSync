@@ -927,7 +927,14 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      * @return the Quantity
      */
     public Number getQuantity() {
-        return (Number) getAttributeInternal(QUANTITY);
+        
+        if(getUnitOfMeasure() != null && ("STK").equalsIgnoreCase(getUnitOfMeasure())){
+            oracle.jbo.domain.Number num;
+            return new oracle.jbo.domain.Number(1);
+        }
+        else{
+            return (Number) getAttributeInternal(QUANTITY);
+        } 
     }
 
     /**

@@ -828,12 +828,16 @@
           <af:column sortProperty="Quantity" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                     headerText="#{sfr.INVOICE_QUANTITY}" width="75"
                      id="c18">
-           <af:outputText value="#{row.Quantity}" id="ot24">
+           <af:outputText value="#{row.Quantity} #{row.UnitOfMeasure}" id="ot24">
            <af:convertNumber groupingUsed="true" pattern="##.##"
                               locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
                               minFractionDigits="2"/>
            </af:outputText>
           </af:column>
+          <!--<af:column headerText="#{bindings.PrtCardTransactionInvoiceRVO1.hints.UnitOfMeasure.label}"
+                     id="c9">
+           <af:outputText value="#{row.UnitOfMeasure}" id="ot70"/>
+          </af:column>-->
           <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" width="110"
                      headerText="#{sfr.INVOICE_STATION}"
