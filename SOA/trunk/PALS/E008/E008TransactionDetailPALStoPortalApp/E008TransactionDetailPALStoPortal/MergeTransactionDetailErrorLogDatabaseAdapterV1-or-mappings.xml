@@ -176,6 +176,11 @@
                <field table="ENGAGE_SOA_TXNDTL_ERRORLOG" name="MODIFIED_DATETIME" xsi:type="column"/>
                <attribute-classification>java.sql.Timestamp</attribute-classification>
             </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>countryCode</attribute-name>
+               <field table="ENGAGE_SOA_TXNDTL_ERRORLOG" name="COUNTRY_CODE" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
          </attribute-mappings>
          <descriptor-type>independent</descriptor-type>
          <caching>

@@ -26,6 +26,7 @@
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.CURRENCY_UNIT_PRICE:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOICED_NET_UNIT_PRC_REBATED:db_column_precision">126</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOIVED_VAT_REBATED:db_column_precision">126</entry>
+   <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.COUNTRY_CODE:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.DELTA_TS:db_column_type">TIMESTAMP(6)</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOIVED_VAT_REBATED:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.FUEL_TRANS_FLAG:db_column_not_null">false</entry>
@@ -49,6 +50,7 @@
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.PRICE_ELEMENT_RATE:db_column_precision">126</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOICED_GROSS_AMOUNT_REBATED:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.UREF_TRANSACTION_ID:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG:db_column_31">COUNTRY_CODE</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG:db_column_30">MODIFIED_DATETIME</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOICED_UNIT_PRICE_REBATED:db_column_precision">126</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.DELTA_RECIPT_FLAG:db_column_precision">0</entry>
@@ -92,6 +94,7 @@
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.CUSTOMER_SERVICE_ID:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.INVOICED_UNIT_PRICE_REBATED:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.PALS_MODIFIED_DATE:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.COUNTRY_CODE:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.CUSTOMER_SERVICE_ID:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.QUANTITY:db_column_type">FLOAT</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.FUEL_TRANS_FLAG:db_column_size">20</entry>
@@ -113,6 +116,7 @@
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG:db_column_11">FUEL_TRANS_FLAG</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.PRELIM_ID:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG:db_column_10">PALS_P_GROUP_SUBGROUP_ID</entry>
+   <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.UNIT_OF_MEASURE:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.FUEL_TRANS_FLAG:db_column_type">VARCHAR2</entry>
    <entry key="ENGAGE_SOA_TXNDTL_ERRORLOG.MODIFIED_DATETIME:db_column_type">TIMESTAMP(6)</entry>

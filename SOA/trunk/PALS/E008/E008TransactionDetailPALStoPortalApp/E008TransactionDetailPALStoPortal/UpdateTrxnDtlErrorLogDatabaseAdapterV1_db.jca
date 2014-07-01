@@ -1,6 +1,6 @@
 <adapter-config name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="UpdateTrxnDtlErrorLogDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="EngageSOAcustom" adapterRef=""/>
   <endpoint-interaction portType="UpdateTrxnDtlErrorLogDatabaseAdapterV1_ptt" operation="update">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="UpdateTrxnDtlErrorLogDatabaseAdapterV1.EngageSoaTxndtlErrorlog"/>
