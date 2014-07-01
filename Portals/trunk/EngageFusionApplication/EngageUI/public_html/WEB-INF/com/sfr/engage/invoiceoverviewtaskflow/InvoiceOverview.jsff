@@ -300,11 +300,18 @@
  <af:panelGroupLayout id="pgl15" layout="vertical">
 
 
-    <af:panelGroupLayout id="pgl14" layout="horizontal">
+    <af:panelGroupLayout id="pgl14" layout="horizontal"
+                         inlineStyle="width:948.0px;">
      <af:outputText value="#{sfr.ENGAGE_INVOICE_DETAILS} :" id="ot8"
                     styleClass="subheading" noWrap="true"/>
-
+            <af:spacer width="10" height="10" id="spreport"/>    
+              <af:panelGroupLayout id="pgl14sp" layout="horizontal"
+                                   halign="right">
+    <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="reportButton"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.exportExcelSpecificActionInvoices}"/>
+                        </af:panelGroupLayout>
                     </af:panelGroupLayout>
+                      <af:spacer width="10" height="10" id="s56ht"/>
                     <af:panelGroupLayout id="pgl17">
         <af:spacer width="500" height="2" id="s56"/>
         </af:panelGroupLayout>
@@ -338,8 +345,111 @@
                     noWrap="true"/>
 
     </af:panelGroupLayout>
-
+     <af:panelGroupLayout id="ReportButtonPanel" halign="right">
+  
+      <!--<af:spacer width="10" height="10" id="spc67"/>-->
+      <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="filterTable"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTable}"/>
+      <af:spacer width="10" height="10" id="spc671"/>
+      <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="resetFilterTable"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.resetFilterTable}"/>
+     </af:panelGroupLayout>
     </af:panelGroupLayout>
+    
+    
+    <af:popup id="show_invoice_columns" contentDelivery="immediate" autoCancel="disabled"
+               binding="#{pageFlowScope.InvoiceOverviewBean.bindings.specificColumns}">
+      <af:dialog id="specificColumns" title="#{sfr.TRANSACTION_SPECIFIC}" type="none"
+                 closeIconVisible="true">
+       <af:panelStretchLayout id="psl1">       
+        <f:facet name="center">
+         <af:panelGroupLayout id="pgl65" styleClass="WCPanelMargin">
+           <af:separator id="s75inv"
+                              inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+          <af:selectManyShuttle id="sms1inv"
+                                binding="#{pageFlowScope.InvoiceOverviewBean.bindings.shuttleExcel}"
+                                value="#{pageFlowScope.InvoiceOverviewBean.shuttleValue}"
+                                    partialTriggers="reportButton" 
+                                    leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
+                                    trailingHeader="#{sfr.REPORT_SELECTED_VALUES}">
+                  <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.shuttleList}"
+                    var="listItem">
+                    <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="sms2"/>
+            </af:forEach>
+              </af:selectManyShuttle>
+                <af:spacer width="4" height="10" id="s73"/>
+                 <h:panelGrid columns="6">
+               <af:outputText value="*" id="ot68inv"/>
+                <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot69inv"/>
+           <af:spacer width="10" height="15" id="s72"/>
+                    <af:outputText value=":" id="ot67inv"/>
+                      <af:spacer width="10" height="15" id="s71"/>
+              <af:selectOneRadio id="sor2" autoSubmit="true"
+                                 binding="#{pageFlowScope.InvoiceOverviewBean.bindings.selectionExportOneRadio}"
+                                 layout="horizontal">
+                <af:selectItem label="xls" value="xls" id="si4"/>
+                <af:selectItem label="csv" value="csv" id="si6"/>
+                <af:selectItem label="csv2" value="csv2" id="si5"/>
+              </af:selectOneRadio>
+              </h:panelGrid>
+              <af:spacer width="10" height="15" id="s69"/>              
+         </af:panelGroupLayout>
+        </f:facet>  
+          <f:facet name="bottom">
+            <af:toolbar id="specific_columns_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout layout="vertical" id="pgl13inv">
+              <af:spacer width="4" height="10" id="s1sf6"/>
+              <af:panelGroupLayout id="specific_columns_footer_panel" layout="horizontal">
+              <af:spacer width="4" height="10" id="s1sdf6"/>
+                <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}" id="exportall"
+                                  actionListener="#{pageFlowScope.InvoiceOverviewBean.getValuesForExcel}">
+                     <!--<af:clientListener method="exitFromPopup" type="action"/>-->
+                </af:commandButton>
+              </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+       </af:panelStretchLayout>
+      </af:dialog>
+     </af:popup>
+     
+      <af:popup id="confirmation_columns" contentDelivery="immediate"
+              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.confirmationExcel}"
+              autoCancel="disabled">
+      <af:dialog id="confirmationColumns" type="none"
+                 closeIconVisible="false">
+        <af:panelStretchLayout id="psl2"
+                               dimensionsFrom="children">
+          <f:facet name="center">
+              <af:panelGroupLayout id="pgl28inv" layout="vertical">
+              <af:outputText value="#{sfr.TRANSACTION_SPECIFIC_CONFIRMATION}?" id="ot43inv"/>
+             <af:spacer width="10" height="10" id="s76"/>
+            </af:panelGroupLayout>
+          </f:facet>
+          <f:facet name="bottom">
+            <af:toolbar id="t3inv"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="pgl89" layout="horizontal">
+              <af:spacer width="4" height="10" id="s42inv"/>
+                <af:commandButton text="#{sfr.YES}" id="cb6"
+                                  action="#{pageFlowScope.InvoiceOverviewBean.excelDownLoad}">
+                  <!--<af:clientListener method="exitFromPopupConfirmation" type="action"/>-->
+                  <af:fileDownloadActionListener contentType="#{pageFlowScope.InvoiceOverviewBean.contentType}"
+                                         filename="#{pageFlowScope.InvoiceOverviewBean.fileName}"
+                                        method="#{pageFlowScope.InvoiceOverviewBean.specificExportExcelListener}"/>
+                </af:commandButton>
+                 <af:spacer width="10" height="10" id="s43inv"/>
+                <af:commandButton text="#{sfr.NO}" id="cb7"
+                                 action="#{pageFlowScope.InvoiceOverviewBean.confirmationCancelAction}"/>
+                </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    
+    
     <af:panelGroupLayout id="pgl13" inlineStyle="width:962.0px;">
      <af:spacer width="10" height="10" id="s7"/>
 
@@ -400,30 +510,33 @@
                  headerText="#{sfr.ENGAGE_INVOICE_NET}"
                  id="c2">
        <af:outputText value="#{row.netAmount}" id="ot44">
-       <af:convertNumber groupingUsed="true"
+       <!--<af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>
+                                minFractionDigits="2"/>-->
+       <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvVatAmt" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
                  headerText="#{sfr.ENGAGE_INVOICE_VAT}"
                  id="c15">
        <af:outputText value="#{row.InvVatAmt}" id="ot17">
-       <af:convertNumber groupingUsed="true"
+       <!--<af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>
+                                minFractionDigits="2"/>-->
+        <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvGrossAmt" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
                  headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                  id="c3">
        <af:outputText value="#{row.InvGrossAmt}" id="ot10">
-        <af:convertNumber groupingUsed="true"
+        <!--<af:convertNumber groupingUsed="true"
                                 pattern="##.##"
                                 locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
-                                minFractionDigits="2"/>
+                                minFractionDigits="2"/>-->
+       <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8" align="center"
