@@ -14,6 +14,17 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
+        UnitOfMeasure {
+            public Object get(PrtCardTransactionInvoiceRVORowImpl obj) {
+                return obj.getUnitOfMeasure();
+            }
+
+            public void put(PrtCardTransactionInvoiceRVORowImpl obj,
+                            Object value) {
+                obj.setUnitOfMeasure((String)value);
+            }
+        }
+        ,
         ProductName {
             public Object get(PrtCardTransactionInvoiceRVORowImpl obj) {
                 return obj.getProductName();
@@ -142,6 +153,7 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
     }
 
 
+    public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
     public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
     public static final int QUANTITY = AttributesEnum.Quantity.index();
     public static final int STATIONNAME = AttributesEnum.StationName.index();
@@ -156,6 +168,22 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
      * This is the default constructor (do not remove).
      */
     public PrtCardTransactionInvoiceRVORowImpl() {
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute UnitOfMeasure.
+     * @return the UnitOfMeasure
+     */
+    public String getUnitOfMeasure() {
+        return (String) getAttributeInternal(UNITOFMEASURE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute UnitOfMeasure.
+     * @param value value to set the  UnitOfMeasure
+     */
+    public void setUnitOfMeasure(String value) {
+        setAttributeInternal(UNITOFMEASURE, value);
     }
 
     /**
@@ -178,9 +206,16 @@ public class PrtCardTransactionInvoiceRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute Quantity.
      * @return the Quantity
      */
-    public Number getQuantity() {
-        return (Number) getAttributeInternal(QUANTITY);
-    }
+     public Number getQuantity() {
+           
+           if(getUnitOfMeasure() != null && ("STK").equalsIgnoreCase(getUnitOfMeasure())){
+               oracle.jbo.domain.Number num;
+               return new oracle.jbo.domain.Number(1);
+           }
+           else{
+               return (Number) getAttributeInternal(QUANTITY);
+           } 
+       }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute Quantity.

@@ -1143,9 +1143,15 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute Quantity.
      * @return the Quantity
      */
-    public Float getQuantity() {
-        return (Float) getAttributeInternal(QUANTITY);
-    }
+     public Float getQuantity() {
+             
+             if(getUnitOfMeasure() != null && ("STK").equalsIgnoreCase(getUnitOfMeasure())){
+                return 1.0f;
+             }
+             else{
+             return (Float) getAttributeInternal(QUANTITY);
+             }
+         }
 
     /**
      * Sets <code>value</code> as the attribute value for the calculated attribute Quantity.
