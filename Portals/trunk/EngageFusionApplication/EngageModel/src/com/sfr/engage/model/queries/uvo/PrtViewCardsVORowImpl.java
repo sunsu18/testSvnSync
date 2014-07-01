@@ -2533,7 +2533,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                }
            }else
            {
-               if("2".equalsIgnoreCase(getBlockAction().toString().trim()) || (getCardExpiry() != null && getCardExpiry().getValue().after(new java.util.Date())))
+               if("2".equalsIgnoreCase(getBlockAction().toString().trim()) || (getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date())))
                 {
                     if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
                    {
