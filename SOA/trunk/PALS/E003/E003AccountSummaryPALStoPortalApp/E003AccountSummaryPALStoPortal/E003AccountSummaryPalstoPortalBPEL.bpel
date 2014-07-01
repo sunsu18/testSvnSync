@@ -450,16 +450,34 @@
                 bpelx:invokeAsDetail="no">
                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
         </invoke>
-        <assign name="CalculateBatchCount">
-          <copy>
-            <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_OV','GetPALSDB2CountDBAdapterV1Output','/ns8:GetPALSDB2CountDBAdapterV1Output/ns8:count'))  div number(bpws:getVariableData('batchSize')))"/>
-            <to variable="batchCount"/>
-          </copy>
-          <copy>
-            <from expression="1"/>
-            <to variable="batchCountIterator"/>
-          </copy>
-        </assign>
+        <switch name="Switch5">
+          <case condition="bpws:getVariableData('ReceiveAccountSummaryReqMsg','part1','/ns3:invocationMsg/ns3:BatchCount')!=' ' and (bpws:getVariableData('ReceiveAccountSummaryReqMsg','part1','/ns3:invocationMsg/ns3:BatchCount') &lt; ( ceiling(number(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_OV','GetPALSDB2CountDBAdapterV1Output','/ns8:GetPALSDB2CountDBAdapterV1Output/ns8:count'))  div number(bpws:getVariableData('batchSize')))))">
+            <bpelx:annotation>
+              <bpelx:general>
+                <bpelx:property name="userLabel">BatchCount given</bpelx:property>
+              </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignBatchCount">
+              <copy>
+                <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                      query="/ns3:invocationMsg/ns3:BatchCount"/>
+                <to variable="batchCount"/>
+              </copy>
+            </assign>
+          </case>
+          <otherwise>
+            <assign name="CalculateBatchCount">
+              <copy>
+                <from expression="ceiling(number(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_OV','GetPALSDB2CountDBAdapterV1Output','/ns8:GetPALSDB2CountDBAdapterV1Output/ns8:count'))  div number(bpws:getVariableData('batchSize')))"/>
+                <to variable="batchCount"/>
+              </copy>
+              <copy>
+                <from expression="1"/>
+                <to variable="batchCountIterator"/>
+              </copy>
+            </assign>
+          </otherwise>
+        </switch>
       </sequence>
     </scope>
     <while name="WhileEachBatch"
@@ -786,128 +804,145 @@
       </case>
       <otherwise>
         <sequence name="Sequence3">
-          <switch name="Switch4">
-            <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns5:EngageSoaDeltatableCollection/ns5:EngageSoaDeltatable')) >0">
+          <switch name="Switch6">
+            <case condition="bpws:getVariableData('ReceiveAccountSummaryReqMsg','part1','/ns3:invocationMsg/ns3:LastInvocationFlag')='True'">
               <bpelx:annotation>
                 <bpelx:general>
-                  <bpelx:property name="userLabel">If data is picked</bpelx:property>
+                  <bpelx:property name="userLabel">If flag is set</bpelx:property>
                 </bpelx:general>
               </bpelx:annotation>
-              <assign name="AssignPALSNotificationDelta">
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:SenderSystem"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:SourceSystem"/>
-                </copy>
-                <copy>
-                  <from expression="'CC070VS1_CSSPAR_DTA'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:SourceTableName"/>
-                </copy>
-                <copy>
-                  <from expression="'PRT_PARTNER'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:TargetTableName"/>
-                </copy>
-                <copy>
-                  <from expression="xp20:current-dateTime()"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:NotificationDateTime"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:CountryCode"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:CountryCode"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:TargetSystem"/>
-                </copy>
-                <copy>
-                  <from variable="deltaDB2FormatTS"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:InterfaceID"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:InterfaceID"/>
-                </copy>
-                <copy>
-                  <from expression="'E003AccountSummaryPALStoPortal'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:InterfaceName"/>
-                </copy>
-              </assign>
+              <switch name="Switch4">
+                <case condition="count(bpws:getVariableData('InvokeSOADeltaTS_OV','EngageSoaDeltatableCollection','/ns5:EngageSoaDeltatableCollection/ns5:EngageSoaDeltatable')) >0">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">If data is picked</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <assign name="AssignPALSNotificationDelta">
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:SenderSystem"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC070VS1_CSSPAR_DTA'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_PARTNER'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:CountryCode"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from variable="deltaDB2FormatTS"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:InterfaceID"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E003AccountSummaryPALStoPortal'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                  </assign>
+                </case>
+                <otherwise>
+                  <assign name="AssignPALSNotification">
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:SenderSystem"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="'CC070VS1_CSSPAR_DTA'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:SourceTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="'PRT_PARTNER'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetTableName"/>
+                    </copy>
+                    <copy>
+                      <from expression="xp20:current-dateTime()"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:NotificationDateTime"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:CountryCode"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:CountryCode"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:TargetSystem"/>
+                    </copy>
+                    <copy>
+                      <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_OV','Cc070Vs1CssparDtaCollection','/ns6:Cc070Vs1CssparDtaCollection/ns6:Cc070Vs1CssparDta[$DataCount]/ns6:deltaTs')"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
+                    </copy>
+                    <copy>
+                      <from variable="ReceiveAccountSummaryReqMsg" part="part1"
+                            query="/ns3:invocationMsg/ns3:InterfaceID"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceID"/>
+                    </copy>
+                    <copy>
+                      <from expression="'E003AccountSummaryPALStoPortal'"/>
+                      <to variable="InvokePALSNotificationJMSAdapteV1_IV"
+                          part="body"
+                          query="/ns22:Notification/ns22:InterfaceName"/>
+                    </copy>
+                  </assign>
+                </otherwise>
+              </switch>
             </case>
-            <otherwise>
-              <assign name="AssignPALSNotification">
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:SenderSystem"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:SourceSystem"/>
-                </copy>
-                <copy>
-                  <from expression="'CC070VS1_CSSPAR_DTA'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:SourceTableName"/>
-                </copy>
-                <copy>
-                  <from expression="'PRT_PARTNER'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:TargetTableName"/>
-                </copy>
-                <copy>
-                  <from expression="xp20:current-dateTime()"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:NotificationDateTime"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:CountryCode"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:CountryCode"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:ReceiverSystem"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:TargetSystem"/>
-                </copy>
-                <copy>
-                  <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_OV','Cc070Vs1CssparDtaCollection','/ns6:Cc070Vs1CssparDtaCollection/ns6:Cc070Vs1CssparDta[$DataCount]/ns6:deltaTs')"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:LastDeltaTimeStamp"/>
-                </copy>
-                <copy>
-                  <from variable="ReceiveAccountSummaryReqMsg" part="part1"
-                        query="/ns3:invocationMsg/ns3:InterfaceID"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body" query="/ns22:Notification/ns22:InterfaceID"/>
-                </copy>
-                <copy>
-                  <from expression="'E003AccountSummaryPALStoPortal'"/>
-                  <to variable="InvokePALSNotificationJMSAdapteV1_IV"
-                      part="body"
-                      query="/ns22:Notification/ns22:InterfaceName"/>
-                </copy>
-              </assign>
-            </otherwise>
           </switch>
           <invoke name="InvokePALSNotificationJMSAdapteV1"
                   inputVariable="InvokePALSNotificationJMSAdapteV1_IV"
