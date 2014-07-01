@@ -136,12 +136,8 @@
     <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
     <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
     <!--variable name="CardGroupValidate" element="ns12:CardGroup"/-->
-    <variable name="InvokeMergeCardErrorLogDBAdapterIV"
-              messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
     <variable name="InvokeSOACardGroupTempDBAdapterV1_OtV"
               messageType="ns15:SelectSOACardGroupTempDatabaseAdapterV1OutputCollection_msg"/>
-    <variable name="InvokeMergeCardGroupErrorLogDBAdapterV2_IV"
-              messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
     <variable name="InvokeMergeCardGroupTempDBAdapter_IV"
               messageType="ns16:SoaCardgroupTempCollection_msg"/>
     <variable name="InvokeSelectValidcardGroupTempDBAdapterV1_OV"
@@ -169,6 +165,10 @@
     <variable name="PALSJNDI" type="xsd:string"/>
     <variable name="InvokeSOAPALSNotificationJMSAdapterV1_IV"
               messageType="ns25:Produce_Message_msg"/>
+    <variable name="InvokeMergeCardGroupErrorLogDBAdapterV2_IV"
+              messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
+    <variable name="InvokeMergeCardErrorLogDBAdapterIV"
+              messageType="ns13:EngageSoaCardgroupErrorlogCollection_msg"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault">
@@ -646,7 +646,7 @@
                         <bpelx:pattern>transformation</bpelx:pattern>
                       </bpelx:annotation>
                       <copy>
-                        <from expression="ora:doXSLTransformForDoc('xsl/CardGroupValidate_to_MergeCardGroupErrorLog.xsl', $CardGroupValidate)"/>
+                        <from expression="ora:doXSLTransformForDoc('xsl/CardGroupValidate_to_MergeCardGroupErrorLog.xsl', $CardGroupValidate, 'ReceiveInvocationMsg_IV.part1', $ReceiveInvocationMsg_IV.part1)"/>
                         <to variable="InvokeMergeCardErrorLogDBAdapterIV"
                             part="EngageSoaCardgroupErrorlogCollection"/>
                       </copy>

@@ -8,6 +8,7 @@
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_DATETIME:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_UTP:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_DESC:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.COUNTRY_CODE:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_RECIPT_FLAG:db_column_precision">0</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.KONTO_ID:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_CODE:db_column_size">20</entry>
@@ -17,7 +18,9 @@
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_BY:db_column_size">20</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_table_type">TABLE</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_HTP:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.COUNTRY_CODE:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.SOA_ERROR_DESC:db_column_size">500</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_13">COUNTRY_CODE</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_LNR:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_12">MODIFIED_DATETIME</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG:db_column_11">MODIFIED_BY</entry>
@@ -53,4 +56,5 @@
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.MODIFIED_BY:db_column_not_null">false</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.DELTA_RECIPT_FLAG:db_column_type">NUMBER</entry>
    <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.F_FORHOLD_UTP:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_CARDGROUP_ERRORLOG.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
 </properties>
