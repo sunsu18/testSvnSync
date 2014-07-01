@@ -15,6 +15,8 @@ import com.sfr.util.constants.Constants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -176,6 +178,8 @@ public class DriverInfoBean implements Serializable {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Driver Info");
     }
+    
+    
 
     public ArrayList<SelectItem> getLinkedAccountList() {
         return linkedAccountList;
@@ -651,6 +655,13 @@ public class DriverInfoBean implements Serializable {
         // AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
         return null;
     }
+
+    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+        @Override
+        public int compare(SelectItem s1, SelectItem s2) {
+            return s1.getLabel().compareTo(s2.getLabel());
+        }
+    };
 
     /**
      * @return
@@ -1277,6 +1288,12 @@ public class DriverInfoBean implements Serializable {
                                 }
                             }
                         }
+                    }
+                    if(type.equals("Add") || type.equals("newDriverAdd")){
+                        Collections.sort (cardNumberList,comparator);
+                    }
+                    else{
+                        Collections.sort (editCardNumberList,comparator);
                     }
                 }
             }

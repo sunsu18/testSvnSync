@@ -530,15 +530,16 @@
               </af:panelGroupLayout>
             </f:facet>
         </af:column>
-
+        
         <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.ACCOUNT}" width="110"  align="left"
                      id="c30">
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
+          
         <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" align="left" width="150" filterFeatures="caseInsensitive"
-                     headerText="#{sfr.CARDGROUP}"
+                     headerText="#{sfr.CARDGROUP_DESCRIPTION}"
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
             <af:outputText value="#{row.CardGroupDesc}" id="ot37" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
@@ -546,6 +547,14 @@
              <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
+          
+          <af:column sortProperty="CardgroupId" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="true" align="left" width="110" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.CARDGROUP_ID}" id="c11">
+                     <af:outputText value="#{row.CardgroupId}" id="ot100" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
+          
+          
            <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD}" align="left" width="152"
                      id="c31">

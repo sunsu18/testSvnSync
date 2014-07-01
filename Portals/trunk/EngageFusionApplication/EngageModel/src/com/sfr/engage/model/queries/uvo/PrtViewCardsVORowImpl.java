@@ -932,6 +932,16 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                 obj.setStatus((String)value);
             }
         }
+        ,
+        CardgroupId {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getCardgroupId();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setCardgroupId((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -959,6 +969,8 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+    ResourceBundle resourceBundle;
+
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
     public static final int BLOCKACTION = AttributesEnum.BlockAction.index();
@@ -1050,7 +1062,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int YEAR = AttributesEnum.Year.index();
     public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
     public static final int STATUS = AttributesEnum.Status.index();
-    ResourceBundle resourceBundle;
+    public static final int CARDGROUPID = AttributesEnum.CardgroupId.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -2541,6 +2553,26 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setStatus(String value) {
         setAttributeInternal(STATUS, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardgroupId.
+     * @return the CardgroupId
+     */
+    public String getCardgroupId() {
+        String result = "";
+        if(getCardgroupMainType() != null && getCardgroupSubType() != null && getCardgroupSeq() != null){
+            result = getCardgroupMainType().toString().trim()+getCardgroupSubType().toString().trim()+getCardgroupSeq().toString().trim();
+        }
+        return result;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardgroupId.
+     * @param value value to set the  CardgroupId
+     */
+    public void setCardgroupId(String value) {
+        setAttributeInternal(CARDGROUPID, value);
     }
 
     /**

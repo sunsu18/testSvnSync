@@ -34,6 +34,8 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -234,6 +236,7 @@ public class CardBean implements Serializable {
                             }
                         }
                     }
+                    Collections.sort (cardGroupList,comparator);
                 }
             }
         }
@@ -288,6 +291,14 @@ public class CardBean implements Serializable {
 //        session.setAttribute("cardTypeNameList", cardTypeNameList);
     }
 
+    
+    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+        @Override
+        public int compare(SelectItem s1, SelectItem s2) {
+            return s1.getLabel().compareTo(s2.getLabel());
+        }
+    };
+    
     /**
      * @return bindings Object
      */
@@ -398,8 +409,10 @@ public class CardBean implements Serializable {
                             }
                         }
                     }
+                    Collections.sort (cardGroupList,comparator);
                 }
             }
+            
         } else {
             getBindings().getCardGroup().setValue(null);
             getBindings().getStatus().setValue(null);
@@ -557,10 +570,12 @@ public class CardBean implements Serializable {
                         }
                     }
                 }
+                Collections.sort (cardGroupList,comparator);
             }
             statusValue.add("0");
             statusValue.add("1");
             statusValue.add("2");
+            
         } else {
             getBindings().getCardGroup().setValue(null);
             getBindings().getAccount().setValue(null);
@@ -2352,11 +2367,17 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
-                        } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupDescription());
+                            }
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardgroupId() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardgroupId());
                             }
                         } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardType() != null) {
@@ -2447,9 +2468,16 @@ public class CardBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 out.print(row.getCardgroupDescription());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardgroupId() != null) {
+                                out.print(row.getCardgroupId());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -2548,9 +2576,16 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCardgroupDescription() != null) {
                                     out.print(row.getCardgroupDescription());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getCardgroupId() != null) {
+                                    out.print(row.getCardgroupId());
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");

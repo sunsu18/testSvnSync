@@ -15,6 +15,8 @@ import com.sfr.util.constants.Constants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -1257,6 +1259,13 @@ public class VehicleInfoBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Exiting partnerNumberValueChangeLIstener method");
     }
 
+    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+        @Override
+        public int compare(SelectItem s1, SelectItem s2) {
+            return s1.getLabel().compareTo(s2.getLabel());
+        }
+    };
+
     public void populateCardNumberList(String accountNo , String type , String partnerNumber){
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Inside populateCardNumberList method");
         if(accountNo != null){
@@ -1295,6 +1304,12 @@ public class VehicleInfoBean implements Serializable {
                             }
                         }
                     }
+                }
+                if(type.equals("Add") || type.equals("newVehicleAdd")){
+                    Collections.sort (cardNumberList,comparator);
+                }
+                else{
+                    Collections.sort (editCardNumberList,comparator);
                 }
             }
         }

@@ -7,7 +7,7 @@ import java.io.Serializable;
  *  1. ADD Class level and complete method level JAVA DOC toString() method
  *  2. Override toString() method
  */
-public class CardInfo implements Serializable {
+public class CardInfo implements Comparable<CardInfo>,Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String cardID;
@@ -85,5 +85,14 @@ public class CardInfo implements Serializable {
 
     public String getDisplayCardNumber() {
         return displayCardNumber;
+    }
+    
+    /**
+     * To sort the list of Account objects based on Account number.
+     * @param o - Object with which the current Account has to be compared
+     * @return Returns
+     */
+    public int compareTo(CardInfo o) {
+        return this.getCardID().compareTo(o.getCardID());
     }
 }

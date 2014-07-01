@@ -32,6 +32,8 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -291,6 +293,13 @@ if(partnerInfoList.size() == 1) {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting constructor for invoice overview bean");
     }
+
+    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+        @Override
+        public int compare(SelectItem s1, SelectItem s2) {
+            return s1.getLabel().compareTo(s2.getLabel());
+        }
+    };
 
     public ArrayList<SelectItem> getAccountList() {
         return accountList;
@@ -974,6 +983,12 @@ if(partnerInfoList.size() == 1) {
                         }
                     }
                 }
+            }
+            if(paramType.equals("CardGroup")){
+                Collections.sort(cardGroupList,comparator);
+            }
+            else{
+                Collections.sort(cardList,comparator);
             }
         }
     }

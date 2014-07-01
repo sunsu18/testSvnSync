@@ -181,7 +181,7 @@
         <af:image shortDesc="" id="i2" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.businessProfile}"/>
         <af:image shortDesc="" id="i7" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AuthenticatedHomeBean.privateProfile}"/>
         <af:spacer width="4"  id="s325"/>
-         <af:outputText value="#{node.displayCardGroupIdName}" id="ot8" truncateAt="27"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot8" truncateAt="25"/>
         </af:group>
       </f:facet>
 
@@ -321,7 +321,7 @@
                             inlineStyle="height:204px;">
                     <af:column sortProperty="TransactionDt" sortable="false"
                                 headerText="#{sfr.TRANSACTION_DATE}" id="c8" width="106" align="center">
- <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
+                        <af:outputText value="#{row.TransactionDt}" id="ot11" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
 
                         <af:convertDateTime pattern="dd.MM.yyyy"/>
 
@@ -330,12 +330,13 @@
                       <!--<af:outputText value="#{row.TransactionType}" id="ot20"/>-->
                     </af:column>
                     <af:column sortProperty="Card1Id" sortable="false"
-                               headerText="#{sfr.CARD}" id="c5" width="180">
-<af:outputText value="#{row.Card1Id}" id="ot16" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+                               headerText="#{sfr.CARD}" id="c5" width="100">
+                      <af:outputText value="#{row.Card}" id="ot16" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+                      <!--<af:outputText value="#{row.Card1Id}" id="ot16" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>-->
                     </af:column>
                     <af:column sortProperty="StationName" sortable="false"
-                               headerText="#{sfr.ENGAGE_STATION_NAME}" id="c9" width="129">
-<af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}" truncateAt="15"/>
+                               headerText="#{sfr.ENGAGE_STATION_NAME}" id="c9" width="209">
+                        <af:outputText value="#{row.StationName}" id="ot12" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}" truncateAt="15"/>
                     </af:column>
                     <af:column sortProperty="ProductName" sortable="false"
                                headerText="#{sfr.ENGAGE_PRODUCT}" id="c4" width="106">

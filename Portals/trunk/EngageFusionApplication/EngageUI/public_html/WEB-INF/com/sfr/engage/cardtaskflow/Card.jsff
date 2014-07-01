@@ -277,7 +277,7 @@
                 <f:validator binding="#{row.bindings.AccountId.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.CARDGROUP}" sortProperty="CardgroupDescription" filterable="true" sortable="true"
+            <af:column headerText="#{sfr.CARDGROUP_DESCRIPTION}" sortProperty="CardgroupDescription" filterable="true" sortable="true"
                        id="c9" width="150px" filterFeatures="caseInsensitive">
               <af:inputText value="#{row.bindings.CardgroupDescription.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardgroupDescription.label}"
@@ -289,9 +289,16 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
+            
+            <af:column sortProperty="CardgroupId" filterable="true" 
+                     sortable="true" align="left" width="110" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.CARDGROUP_ID}" id="c11">
+                     <af:outputText value="#{row.CardgroupId}" id="ot100"/>
+          </af:column>
+            
             <af:column sortProperty="CardType" filterable="true" width="70px" sortable="true"
                        headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
-                       id="c11">
+                       id="c12">
               <af:inputText value="#{row.bindings.CardType.inputValue}"
                             label="#{bindings.PrtViewCardsVO11.hints.CardType.label}"
                             required="#{bindings.PrtViewCardsVO11.hints.CardType.mandatory}"

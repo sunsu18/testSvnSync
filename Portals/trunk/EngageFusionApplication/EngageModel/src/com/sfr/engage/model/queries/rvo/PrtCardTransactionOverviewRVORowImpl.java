@@ -647,6 +647,17 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                 obj.setCardTextLine2((String)value);
             }
         }
+        ,
+        CardgroupId {
+            public Object get(PrtCardTransactionOverviewRVORowImpl obj) {
+                return obj.getCardgroupId();
+            }
+
+            public void put(PrtCardTransactionOverviewRVORowImpl obj,
+                            Object value) {
+                obj.setCardgroupId((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -732,6 +743,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
     public static final int TOTALAMOUNT = AttributesEnum.TotalAmount.index();
     public static final int INVOICENO = AttributesEnum.InvoiceNo.index();
     public static final int CARDTEXTLINE2 = AttributesEnum.CardTextLine2.index();
+    public static final int CARDGROUPID = AttributesEnum.CardgroupId.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1749,6 +1761,26 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public void setCardTextLine2(String value) {
         setAttributeInternal(CARDTEXTLINE2, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardgroupId.
+     * @return the CardgroupId
+     */
+    public String getCardgroupId() {
+        String result = "";
+        if(getCardgroupMainType() != null && getCardgroupSubType() != null && getCardgroupSeq() != null){
+            result = getCardgroupMainType().toString().trim()+getCardgroupSubType().toString().trim()+getCardgroupSeq().toString().trim();
+        }
+        return result;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardgroupId.
+     * @param value value to set the  CardgroupId
+     */
+    public void setCardgroupId(String value) {
+        setAttributeInternal(CARDGROUPID, value);
     }
 
     /**

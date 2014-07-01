@@ -10,7 +10,7 @@ import java.util.List;
  *  1. ADD Class level and complete method level JAVA DOC toString() method
  *  2. Override toString() method
  */
-public class CardGroupInfo implements Serializable {
+public class CardGroupInfo implements Comparable<CardGroupInfo>,Serializable {
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
@@ -137,5 +137,14 @@ public class CardGroupInfo implements Serializable {
 
     public String getDisplayCardGroupIdName() {
         return displayCardGroupIdName;
+    }
+    
+    /**
+     * To sort the list of Account objects based on Account number.
+     * @param o - Object with which the current Account has to be compared
+     * @return Returns
+     */
+    public int compareTo(CardGroupInfo o) {
+        return this.getDisplayCardGroupIdName().compareTo(o.getDisplayCardGroupIdName());
     }
 }

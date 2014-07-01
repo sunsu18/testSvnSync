@@ -664,6 +664,13 @@ public class TransactionOverviewBean implements Serializable {
     public void setShuttleValue(List shuttleValue) {
         this.shuttleValue = shuttleValue;
     }
+    
+    Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
+        @Override
+        public int compare(SelectItem s1, SelectItem s2) {
+            return s1.getLabel().compareTo(s2.getLabel());
+        }
+    };
 
     public ArrayList<SelectItem> getTypeList() {
         if (typeList == null) {
@@ -721,9 +728,8 @@ public class TransactionOverviewBean implements Serializable {
 
                             }
                         }
-
-
-                    }
+                    } 
+                    Collections.sort (cardGroupList,comparator);
                 }
             } else if (paramType.equals("Card")) {
                 cardNumberList = new ArrayList<SelectItem>();
@@ -778,10 +784,9 @@ public class TransactionOverviewBean implements Serializable {
 
                             }
                         }
-
                     }
+                    Collections.sort (cardNumberList,comparator);
                 }
-
             } else {
                 if (paramType.equals("Vehicle") || paramType.equals("Driver")) {
                     accountQueryDriver = "(";
@@ -888,6 +893,7 @@ public class TransactionOverviewBean implements Serializable {
                                         }
                                     }
                                 }
+                            Collections.sort (vehicleNumberList,comparator);
                         }
                     if (dNamePGL) {
                         
@@ -987,6 +993,7 @@ public class TransactionOverviewBean implements Serializable {
                                 }
                             }
                         }
+                        Collections.sort (driverNameList,comparator);
                     }
                 }
             }
@@ -2949,13 +2956,20 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),locale));
                             }
-                        } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardGroupDesc() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
-                        } else if ("DriverNumber".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardgroupId() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardgroupId().toString());
+                            }
+                        } 
+                        else if ("DriverNumber".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getDriverNumber() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -3205,9 +3219,16 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardGroupDesc() != null) {
                                 out.print(row.getCardGroupDesc().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getCardgroupId() != null) {
+                                out.print(row.getCardgroupId().toString());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -3446,9 +3467,16 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCardGroupDesc() != null) {
                                     out.print(row.getCardGroupDesc().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getCardgroupId() != null) {
+                                    out.print(row.getCardgroupId().toString());
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
@@ -4106,6 +4134,8 @@ public class TransactionOverviewBean implements Serializable {
     public String getNoteInternationalVal() {
         return noteInternationalVal;
     }
+
+    
 
     public class Bindings {
         private RichSelectManyChoice account;

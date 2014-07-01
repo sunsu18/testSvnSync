@@ -258,6 +258,7 @@
            <Item Value="UrefTransactionId"/>
           <Item Value="PalsCountryCode"/>
           <Item Value="CardGroupDesc"/>
+          <Item Value="CardgroupId"/>
           <Item Value="TotalAmount"/>
           <Item Value="Ksid"/>
           <Item Value="PartnerId"/>
