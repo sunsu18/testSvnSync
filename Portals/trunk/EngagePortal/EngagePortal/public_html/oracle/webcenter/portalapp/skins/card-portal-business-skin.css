@@ -791,7 +791,7 @@ color:#524e4f;
 font-size:13px;
 font-family : Lucida Sans,Georgia,Serif !important;
 background-image: none;
-background-color: rgba(199, 206, 218, 0);
+background-color:transparent;
 /*font-weight: bold;*/
 
 }
@@ -941,6 +941,7 @@ border-right: 1px solid #FFFFFF !important;
  .af_table_data-table-VH-lines .af_column_data-cell, .af_table_data-table-VH-lines .af_column_banded-data-cell{
     /*padding-right: 6px;*/
     color: #524e4f;
+    /*color:rgba(255, 255, 255, 0);*/
     cursor: default;
     font-family: Lucida Sans,Georgia,Serif !important;
     font-size: 12px;
