@@ -18,8 +18,7 @@ public class PrtCardTransactionVehicleInfoRVORowImpl extends ViewRowImpl {
                 return obj.getVehicleNumber();
             }
 
-            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj, Object value) {
                 obj.setVehicleNumber((String)value);
             }
         }
@@ -29,8 +28,7 @@ public class PrtCardTransactionVehicleInfoRVORowImpl extends ViewRowImpl {
                 return obj.getPrtCardPk();
             }
 
-            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj, Object value) {
                 obj.setPrtCardPk((String)value);
             }
         }
@@ -40,8 +38,7 @@ public class PrtCardTransactionVehicleInfoRVORowImpl extends ViewRowImpl {
                 return obj.getReferenceNumber();
             }
 
-            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj, Object value) {
                 obj.setReferenceNumber((String)value);
             }
         }
@@ -51,8 +48,7 @@ public class PrtCardTransactionVehicleInfoRVORowImpl extends ViewRowImpl {
                 return obj.getAccountNumber();
             }
 
-            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj,
-                            Object value) {
+            public void put(PrtCardTransactionVehicleInfoRVORowImpl obj, Object value) {
                 obj.setAccountNumber((String)value);
             }
         }
