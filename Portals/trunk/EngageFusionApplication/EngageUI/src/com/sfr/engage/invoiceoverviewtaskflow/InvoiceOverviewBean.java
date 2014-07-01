@@ -2299,8 +2299,7 @@ for(int i=0;i<prop.length;i++)
 
     public void getValuesForExcel(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside getValuesForExcel method of Invoices");
-        System.out.println("Inside getValuesForExcel");
+                     " Inside getValuesForExcel method of Invoices");      
         if (shuttleValue == null &&
             getBindings().getSelectionExportOneRadio().getValue() == null) {
             if (shuttleValue == null) {
