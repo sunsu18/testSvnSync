@@ -524,7 +524,7 @@ if(partnerInfoList.size() == 1) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
