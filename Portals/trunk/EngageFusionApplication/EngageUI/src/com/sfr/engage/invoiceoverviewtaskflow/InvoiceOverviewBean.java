@@ -2576,13 +2576,20 @@ for(int i=0;i<prop.length;i++)
                 if (row != null) {
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
-                        if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getAccountId() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getAccountId().toString());
+                            }
+                        }else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getFinalinvoice() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
                             }
-                        } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        }
+                        else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2656,14 +2663,24 @@ for(int i=0;i<prop.length;i++)
                                  this.getClass() + " " + "Printing Data");
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
-                        if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
-                            if (row.getFinalinvoice() != null) {
-                                out.print(row.getFinalinvoice().toString());
+                        
+                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getAccountId() != null) {
+                                out.print(row.getAccountId().toString());
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        }
+                        
+                        else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                                if (row.getFinalinvoice() != null) {
+                                    out.print(row.getFinalinvoice().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print(";");
+                                }
+                            } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvoiceDate() != null) {
                                 out.print(row.getInvoiceDate());
                             }
@@ -2738,14 +2755,24 @@ for(int i=0;i<prop.length;i++)
                                      this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0;
                              cellValue < headerValues.length; cellValue++) {
-                            if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                                if (row.getAccountId() != null) {
+                                    out.print(row.getAccountId().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } 
+                            
+                            else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                                 if (row.getFinalinvoice() != null) {
                                     out.print(row.getFinalinvoice().toString());
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } 
+                            else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getInvoiceDate() != null) {
                                     out.print(row.getInvoiceDate());
                                 }
