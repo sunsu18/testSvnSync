@@ -482,7 +482,7 @@
         <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="cb5"
                         actionListener="#{pageFlowScope.TransactionOverviewBean.resetFilterTable}"/>
     </af:panelGroupLayout>
-        <af:spacer width="10" height="2" id="spacer2"/>
+        <af:spacer width="10" height="10" id="spacer2"/>
       <af:panelGroupLayout id="pgl21" layout="scroll">
         <af:table value="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel}" binding="#{pageFlowScope.TransactionOverviewBean.bindings.searchResultsTB}"
                   var="row" width="945" disableColumnReordering="true" columnResizing="disabled"
@@ -536,7 +536,11 @@
                      id="c30">
             <af:outputText value="#{row.AccountId}" id="ot28" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-          
+          <af:column sortProperty="CardgroupId" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+                     sortable="true" align="left" width="110" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.CARDGROUP_ID}" id="c11">
+                     <af:outputText value="#{row.CardgroupId}" id="ot100" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
         <af:column sortProperty="CardGroupDesc" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      sortable="true" align="left" width="150" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARDGROUP_DESCRIPTION}"
@@ -547,14 +551,6 @@
              <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
-          
-          <af:column sortProperty="CardgroupId" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.cardGPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     sortable="true" align="left" width="110" filterFeatures="caseInsensitive"
-                     headerText="#{sfr.CARDGROUP_ID}" id="c11">
-                     <af:outputText value="#{row.CardgroupId}" id="ot100" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
-          </af:column>
-          
-          
            <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.CARD}" align="left" width="152"
                      id="c31">
