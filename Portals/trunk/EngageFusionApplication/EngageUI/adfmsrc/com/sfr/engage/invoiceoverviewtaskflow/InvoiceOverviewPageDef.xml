@@ -111,6 +111,7 @@
           <Item Value="InvGrossAmt"/>
           <Item Value="netAmount"/>
           <Item Value="InvoicingDate"/>
+          <Item Value="AccountId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
