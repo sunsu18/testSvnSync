@@ -53,7 +53,7 @@
           <Item Value="Status"/>
           <Item Value="CardTextline2"/>
           <Item Value="TypeName"/>
-          <Item Value="LastUpdated"/>
+          <Item Value="LastUsed"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

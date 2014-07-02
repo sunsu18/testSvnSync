@@ -333,9 +333,10 @@
             </af:column>
             <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
                        id="c13">
-              <af:outputText value="#{row.LastUpdated}" id="ot36">
-              <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
+              <af:outputText value="#{row.LastUsed}" id="ot36">
+                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
               </af:outputText>
+            
             </af:column>
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
                        id="c10" width="175px" filterFeatures="caseInsensitive">

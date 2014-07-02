@@ -2387,10 +2387,10 @@ public class CardBean implements Serializable {
                             }
                         }
                             else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                        if (row.getLastUpdated() != null) {
+                                                        if (row.getLastUsed() != null) {
                                                             XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                                             XLS_SH_R_C.setCellStyle(csData);
-                                                            XLS_SH_R_C.setCellValue(row.getLastUpdated().toString());
+                                                            XLS_SH_R_C.setCellValue(row.getLastUsed().toString());
                                                         }
                         } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
@@ -2498,8 +2498,8 @@ public class CardBean implements Serializable {
                             }
                         } 
                         else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                    if (row.getLastUpdated() != null) {
-                                                        out.print(row.getLastUpdated().toString());
+                                                    if (row.getLastUsed() != null) {
+                                                        out.print(row.getLastUsed().toString());
                                                     }
                                                     if (cellValue != headerValues.length - 1) {
                                                         out.print(";");
@@ -2615,8 +2615,8 @@ public class CardBean implements Serializable {
                                 }
                             }
                             else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                        if (row.getLastUpdated() != null) {
-                                                            out.print(row.getLastUpdated().toString());
+                                                        if (row.getLastUsed() != null) {
+                                                            out.print(row.getLastUsed().toString());
                                                         }
                                                         if (cellValue != headerValues.length - 1) {
                                                             out.print("|");

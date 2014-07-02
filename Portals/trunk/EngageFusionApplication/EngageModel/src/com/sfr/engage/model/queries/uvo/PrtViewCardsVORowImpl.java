@@ -33,13 +33,13 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        LastUpdated {
+        LastUsed {
             public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getLastUpdated();
+                return obj.getLastUsed();
             }
 
             public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setLastUpdated((Timestamp)value);
+                obj.setLastUsed((Timestamp)value);
             }
         }
         ,
@@ -972,7 +972,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     ResourceBundle resourceBundle;
 
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
-    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
+    public static final int LASTUSED = AttributesEnum.LastUsed.index();
     public static final int BLOCKACTION = AttributesEnum.BlockAction.index();
     public static final int CARDEXPIRY = AttributesEnum.CardExpiry.index();
     public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
@@ -1086,20 +1086,21 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
         setAttributeInternal(ACCOUNTID, value);
     }
 
+
     /**
-     * Gets the attribute value for the calculated attribute LastUpdated.
-     * @return the LastUpdated
+     * Gets the attribute value for the calculated attribute LastUsed.
+     * @return the LastUsed
      */
-    public Timestamp getLastUpdated() {
-        return (Timestamp) getAttributeInternal(LASTUPDATED);
+    public Timestamp getLastUsed() {
+        return (Timestamp) getAttributeInternal(LASTUSED);
     }
 
     /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute LastUpdated.
-     * @param value value to set the  LastUpdated
+     * Sets <code>value</code> as the attribute value for the calculated attribute LastUsed.
+     * @param value value to set the  LastUsed
      */
-    public void setLastUpdated(Timestamp value) {
-        setAttributeInternal(LASTUPDATED, value);
+    public void setLastUsed(Timestamp value) {
+        setAttributeInternal(LASTUSED, value);
     }
 
     /**
