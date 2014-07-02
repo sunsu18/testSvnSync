@@ -9,14 +9,14 @@
       <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="0" y="3368" side="left"/>
       <partnerlink name="MergePortalDataDBAdapterV1" x="0" y="3074" side="left"/>
       <partnerlink name="InsertSOAPartnerErrorLogDBAdapterV1" x="0" y="2677" side="left"/>
-      <partnerlink name="SOAErrorHandlingJMSQueue" x="0" y="1184" side="left"/>
+      <partnerlink name="SOAErrorHandlingJMSQueue" x="0" y="1882" side="left"/>
       <partnerlink name="GetErrorRecordsSOADBAdapterV1" x="0" y="3714" side="left"/>
       <partnerlink name="UpdateEmailFlagSOADBAdapterV1" x="0" y="4169" side="left"/>
-      <partnerlink name="SelectPALSDB2DBAdapterV1" x="1881" y="2203" side="right"/>
-      <partnerlink name="GetPALSDB2CountDBAdapterV1" x="1881" y="1041" side="right"/>
-      <partnerlink name="PALSNotificationJMSAdapteV1" x="1881" y="4125" side="right"/>
+      <partnerlink name="SelectPALSDB2DBAdapterV1" x="1919" y="2203" side="right"/>
+      <partnerlink name="GetPALSDB2CountDBAdapterV1" x="1919" y="1041" side="right"/>
+      <partnerlink name="PALSNotificationJMSAdapteV1" x="1919" y="5084" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="485,3643,483,373" show_swimlanes="true">
+   <graph_layout viewport="0,2432,987,513" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -47,9 +47,14 @@
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence/switch/case/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence/switch/case/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence/switch/otherwise/sequence/switch[1]" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/sequence/switch/otherwise/sequence/switch[2]" type="switch"/>
    </graph_layout>
    <bookmarks/>
 </graphics>
