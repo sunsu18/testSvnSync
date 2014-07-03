@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="windows-1252" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
-            targetNamespace="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
-            elementFormDefault="qualified">
-  <xsd:element name="Notification" type="NotificationType">
-    <xsd:annotation>
-      <xsd:documentation>
-        A sample element
-      </xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:complexType name="NotificationType">
-    <xsd:sequence>
-      <xsd:element name="SourceSystem" type="xsd:string"/>
-      <xsd:element name="TargetSystem" type="xsd:string"/>
-      <xsd:element name="InterfaceID" type="xsd:string"/>
-      <xsd:element name="InterfaceName" type="xsd:string"/>
-      <xsd:element name="LastDeltaTimeStamp" type="xsd:dateTime"/>
-      <xsd:element name="SourceTableName" type="xsd:string"/>
-      <xsd:element name="TargetTableName" type="xsd:string"/>
-      <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
-      <xsd:element name="CountryCode" type="xsd:string"/>
-    </xsd:sequence>
-  </xsd:complexType>
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
+     targetNamespace="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
+     elementFormDefault="qualified">
+    <xsd:element name="Notification" type="NotificationType">
+        <xsd:annotation>
+            <xsd:documentation>A sample element</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="NotificationType">
+        <xsd:sequence>
+            <xsd:element name="SourceSystem" type="xsd:string"/>
+            <xsd:element name="TargetSystem" type="xsd:string"/>
+            <xsd:element name="InterfaceID" type="xsd:string"/>
+            <xsd:element name="InterfaceName" type="xsd:string"/>
+            <xsd:element name="LastDeltaTimeStamp" type="xsd:string"/>
+            <xsd:element name="SourceTableName" type="xsd:string"/>
+            <xsd:element name="TargetTableName" type="xsd:string"/>
+            <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
+            <xsd:element name="CountryCode" type="xsd:string"/>
+            <xsd:element name="ErrorFlag" type="xsd:string"/>
+            <xsd:element name="Custom1" type="xsd:string"/>
+            <xsd:element name="Custom2" type="xsd:string"/>
+            <xsd:element name="Custom3" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:schema>
