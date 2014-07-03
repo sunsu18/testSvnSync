@@ -1553,7 +1553,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                 if (currRowcard.getCardEmbossNum() != null){
                     card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
-                    card.setDisplayCardNumber("XXXXX" + currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length()-5, currRowcard.getCardEmbossNum().toString().length()));
+                    card.setDisplayCardNumber("XXXX" + currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length()-4, currRowcard.getCardEmbossNum().toString().length()));
                 }
 
                 if (currRowcard.getCardTextline2() != null) {

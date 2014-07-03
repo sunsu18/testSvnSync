@@ -879,7 +879,7 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      * @return the Card1Id
      */
     public String getCard1Id() {
-        return (String) getAttributeInternal(CARD1ID);
+        return (String) getAttributeInternal(CARD1ID);        
     }
 
     /**
@@ -1991,7 +1991,7 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      */
     public String getCard() {
         String result="";
-        result = "XXXXX" + getCard1Id().toString().substring(getCard1Id().length()-5, getCard1Id().toString().length());
+        result = "XXXX" + getCard1Id().toString().substring(getCard1Id().length()-4, getCard1Id().toString().length());
         return result;
     }
 
