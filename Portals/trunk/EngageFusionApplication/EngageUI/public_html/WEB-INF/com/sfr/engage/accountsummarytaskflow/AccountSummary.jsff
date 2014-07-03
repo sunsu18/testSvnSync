@@ -49,7 +49,7 @@
         <af:spacer id="s294" width="20"/>
              <af:selectOneChoice label="Search in" id="sml1" autoSubmit="true"
                                  value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
-                                 unselectedLabel="Please Select">
+                                 unselectedLabel="#{sfr.PLEASE_SELECT}">
 <af:selectItem label="cardGroupName" value="displayCardGroupIdName" id="si6"/>
 <af:selectItem label="externalCardID" value="externalCardID" id="si1"/>
 <af:selectItem label="cardTextline2" value="cardTextline2" id="si2"/>

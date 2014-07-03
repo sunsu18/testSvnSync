@@ -374,21 +374,22 @@ public class AccountSummary implements Serializable {
     public void searchTraverse(ActionEvent actionEvent) {
         
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
-        {   System.out.println("inside searchTraverse CG level");
+        { 
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse CG level");
             searchAttributes.add("displayCardGroupIdName");
 
         }
         else if(searchLevel.equalsIgnoreCase("externalCardID")) {
-        System.out.println("inside searchTraverse externalCardID level");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse externalCardID level");
         searchAttributes.clear();
-        System.out.println("searchattributes size is " + searchAttributes.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
             searchAttributes.add("externalCardID");
 
         }
         else if(searchLevel.equalsIgnoreCase("cardTextline2")) {
-        System.out.println("inside searchTraverse cardtextline 2 level");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse cardtextline 2 level");
             searchAttributes.clear();
-            System.out.println("searchattributes size is " + searchAttributes.size());
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
                         searchAttributes.add("cardTextline2");
         }
 
@@ -401,11 +402,11 @@ public class AccountSummary implements Serializable {
             this.findTreeInView();
             if (tree1 == null) {
                 //tree not found
-                System.out.println(("The tree component could not be found in the view. Please check for naming containers. Search function cancelled"));
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " The tree component could not be found in the view. Please check for naming containers. Search function cancelled");
                 return;
             }
             else
-                System.out.println("tree not null");
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " tree not null");
         }
         //Get the JUCtrlHierbinding reference from the PageDef
         CollectionModel model = (CollectionModel)tree1.getValue();
@@ -444,10 +445,10 @@ public class AccountSummary implements Serializable {
 
         if(rksIterator!=null)
         {
-            System.out.println("iterator is " + rksIterator);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " iterator is " + rksIterator);
         }
         else
-            System.out.println("Iterator null ");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Iterator null ");
         while (rksIterator.hasNext()) {
             List key1 = (List)rksIterator.next();
             treeBinding = null;
@@ -495,11 +496,12 @@ public class AccountSummary implements Serializable {
 
 
                 if (rowType.contains("AccountInfo")) {
-                    System.out.println("aaaaaaaaaaaaaaaaaaaaaac");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Account");
                     }
                 else
                     if(rowType.contains("CardInfo"))
-                {System.out.println("caaaaaaaaaaaaaaaaaaaaaaaaa");
+                {
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Card");
                      getBindings().getDefaultPanel().setVisible(false);
                      AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
                      
@@ -516,7 +518,8 @@ public class AccountSummary implements Serializable {
                  
                  }
             else if(rowType.contains("CardGroupInfo"))
-                {System.out.println("cagggggggggg");
+                {
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is cardGroupInfo");
 
                     //hiding default panel
                     getBindings().getDefaultPanel().setVisible(false);
@@ -543,7 +546,7 @@ public class AccountSummary implements Serializable {
         
     }
     private void findTreeInView() {
-        System.out.println("search tree method called");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " search tree method called");
         FacesContext fctx = FacesContext.getCurrentInstance();
         UIViewRoot root = fctx.getViewRoot();
         //hard coding tree component Id with its surrounding naming container ID
@@ -578,16 +581,16 @@ public class AccountSummary implements Serializable {
 
         //Sanity checks
         if (node == null) {
-            System.out.println(("Node passed as NULL"));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Node passed as NULL");
             return rowKeys;
         }
         if (searchAttributes == null || searchAttributes.length < 1) {
-            System.out.println((node.getName() +
-                ": search attribute is NULL or has a ZERO length"));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() +
+                ": search attribute is NULL or has a ZERO length");
             return rowKeys;
         }
         if (searchString == null || searchString.length() < 1) {
-            System.out.println((node.getName() + ": Search string cannot be NULL or EMPTY"));
+            log.info(accessDC.getDisplayRecord() + this.getClass() + node.getName() + ": Search string cannot be NULL or EMPTY");
             return rowKeys;
         }
 
@@ -681,16 +684,16 @@ public class AccountSummary implements Serializable {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         SelectItem selectItem = new SelectItem();
-        System.out.println("cardgroupsSocList size " + cardgroupsSocList.size());
-        System.out.println("cardsSocList size " + cardsSocList.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
     //        for(int j=0; j<cardsSocList.size();j++)
     //            System.out.println(cardsSocList.get(j));
-        System.out.println("cardtextline2 size " + cardTextline2SocList.size());
-        System.out.println("searchLevel" + getSearchLevel().toString());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " searchLevel" + getSearchLevel().toString());
 
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
         {
-            System.out.println("cardgroup level selected");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroup level selected");
         for(int z=0;z<cardgroupsSocList.size();z++) {
         if(cardgroupsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
         {
@@ -704,7 +707,7 @@ public class AccountSummary implements Serializable {
         }
         }
         else if(searchLevel.equalsIgnoreCase("externalCardID")) {
-        System.out.println("embossed card no level selected");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " embossed card no level selected");
             for(int z=0;z<cardsSocList.size();z++) {
             if(cardsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
             {
@@ -718,7 +721,7 @@ public class AccountSummary implements Serializable {
             }
         }
         else if(searchLevel.equalsIgnoreCase("cardTextline2")){
-            System.out.println("cardtextline level selected");
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline level selected");
             for(int z=0;z<cardTextline2SocList.size();z++) {
             if(cardTextline2SocList.get(z).toUpperCase().contains(string.toUpperCase()))
             {
@@ -1617,8 +1620,7 @@ public class AccountSummary implements Serializable {
             }
 
         }
-        else
-            System.out.println("partner list null");
+      
 
 
         for (int k = 0; k < AccountList.size(); k++) {
@@ -1760,11 +1762,11 @@ public class AccountSummary implements Serializable {
             for(int i = 0 ; i < cardTypeList.size() ; i++){
                 if(cardTypeNameMap.get(cardTypeList.get(i)) != null){
                     displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameMap.get(cardTypeList.get(i)) + "<br/>";
-                    System.out.println("displayCardTypeName-------------->" + displayCardTypeName);
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
                 }
                 else{
                     displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + "<br/>";
-                    System.out.println("displayCardTypeName-------------->" + displayCardTypeName);
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
                 }
             }
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
