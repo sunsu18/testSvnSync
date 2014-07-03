@@ -361,7 +361,7 @@
                binding="#{pageFlowScope.InvoiceOverviewBean.bindings.specificColumns}">
       <af:dialog id="specificColumns" title="#{sfr.TRANSACTION_SPECIFIC}" type="none"
                  closeIconVisible="true">
-       <af:panelStretchLayout id="psl1">       
+       <af:panelStretchLayout id="psl1" inlineStyle="width:350.0px;">       
         <f:facet name="center">
          <af:panelGroupLayout id="pgl65" styleClass="WCPanelMargin">
            <af:separator id="s75inv"
@@ -451,7 +451,7 @@
     
     
     <af:panelGroupLayout id="pgl13" inlineStyle="width:962.0px;">
-     <af:spacer width="10" height="10" id="s7"/>
+     <af:spacer width="10" height="5" id="s7"/>
 
      <af:table value="#{bindings.PrtNewInvoiceVO1.collectionModel}" binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResults}"
                rows="#{bindings.PrtNewInvoiceVO1.rangeSize}" var="row" width="962px"

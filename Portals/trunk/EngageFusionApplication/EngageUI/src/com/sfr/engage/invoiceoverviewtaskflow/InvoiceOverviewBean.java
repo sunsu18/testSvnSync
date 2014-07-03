@@ -518,6 +518,7 @@ if(partnerInfoList.size() == 1) {
 //                    }
 //                }
 //                invoiceVO.setWhereClause("PARTNER_ID =:partnerId AND INSTR(:accountId,ACCOUNT_ID) <> 0 AND INVOICING_DATE >=: fromDateBV AND INVOICING_DATE <=: toDateBV");
+               resetTableFilter();      
                 accountQuery="(";
                 cardGroupQuery="(";
                 cardQuery="(";
