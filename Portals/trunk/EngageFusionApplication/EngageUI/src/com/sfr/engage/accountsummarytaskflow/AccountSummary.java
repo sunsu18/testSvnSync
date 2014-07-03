@@ -17,11 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,11 +45,14 @@ import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 
+import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetImpl;
+
 
 
 public class AccountSummary implements Serializable {
@@ -105,6 +112,17 @@ public class AccountSummary implements Serializable {
     private boolean isManagerCg = false;
     private String displayCardTypeName = ""; 
     private Map<String,String> cardTypeNameMap;
+    private String searchLevel;
+    private String searchString;
+    
+    private List<String> cardTextline2SocList = new ArrayList<String>();
+    private List<String> cardgroupsSocList = new ArrayList<String>();
+    private List<String> cardsSocList = new ArrayList<String>();
+    private List searchAttributes = new ArrayList();
+    private RichTree tree1 = null;
+    private String searchType = "CONTAIN";
+
+    
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
 
@@ -266,6 +284,32 @@ public class AccountSummary implements Serializable {
 
 
                         }
+                        
+                        
+                        if (partnerListDefault != null) {
+
+                            for(int a=0;a<partnerListDefault.size();a++) {
+                                if(partnerListDefault.get(a)!=null && partnerListDefault.get(a).getAccountList()!=null)
+                                    for(int b=0;b<partnerListDefault.get(a).getAccountList().size();b++) {
+                                        if(partnerListDefault.get(a).getAccountList().get(b)!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup()!=null)
+                                            for(int c=0; c < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().size();c++)
+                                            {
+                                                if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c)!= null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName()!= null)
+                                                {cardgroupsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName());
+                                                 if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
+                                                     for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++){
+                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
+                                                     cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
+                                                             cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
+
+                                                         }
+                                                 }
+                                            }
+                                    }
+                            }
+
+                        }
+
                     }
 
                 }
@@ -326,6 +370,372 @@ public class AccountSummary implements Serializable {
         }
 
 
+    }
+    public void searchTraverse(ActionEvent actionEvent) {
+        
+        if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
+        {   System.out.println("inside searchTraverse CG level");
+            searchAttributes.add("displayCardGroupIdName");
+
+        }
+        else if(searchLevel.equalsIgnoreCase("externalCardID")) {
+        System.out.println("inside searchTraverse externalCardID level");
+        searchAttributes.clear();
+        System.out.println("searchattributes size is " + searchAttributes.size());
+            searchAttributes.add("externalCardID");
+
+        }
+        else if(searchLevel.equalsIgnoreCase("cardTextline2")) {
+        System.out.println("inside searchTraverse cardtextline 2 level");
+            searchAttributes.clear();
+            System.out.println("searchattributes size is " + searchAttributes.size());
+                        searchAttributes.add("cardTextline2");
+        }
+
+        
+        JUCtrlHierBinding treeBinding = null;
+
+        //get handle to tree if it does not exist. If tree component cannot be
+        //found in view, exit this function
+        if (tree1 == null) {
+            this.findTreeInView();
+            if (tree1 == null) {
+                //tree not found
+                System.out.println(("The tree component could not be found in the view. Please check for naming containers. Search function cancelled"));
+                return;
+            }
+            else
+                System.out.println("tree not null");
+        }
+        //Get the JUCtrlHierbinding reference from the PageDef
+        CollectionModel model = (CollectionModel)tree1.getValue();
+        treeBinding = (JUCtrlHierBinding)model.getWrappedData();
+
+        //Read the attributes to search in from the SelectManyChoice component
+        String searchAttributeArray[] =
+            (String[])searchAttributes.toArray(new String[searchAttributes.size()]);
+
+        //Define a node to search in. In this example, the root node is used
+        JUCtrlHierNodeBinding root = treeBinding.getRootNodeBinding();
+
+        //However, if the user used the "Show as Top" context menu option to
+        //shorten the tree display, then we only search starting from this top
+        //mode
+
+        List topNode = (List)tree1.getFocusRowKey();
+        if (topNode != null) {
+            //make top node the root node for the search
+            root = treeBinding.findNodeByKeyPath(topNode);
+        }
+
+        //Select the tree items that match the search criteria and expand the
+        //tree to display them
+        RowKeySet resultRowKeySet =
+            searchTreeNode(root, searchAttributeArray, searchType,
+                           searchString);
+        RowKeySet disclosedRowKeySet =
+            buildDiscloseRowKeySet(treeBinding, resultRowKeySet);
+        tree1.setSelectedRowKeys(resultRowKeySet);
+        tree1.setDisclosedRowKeys(disclosedRowKeySet);
+
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+        
+        Iterator rksIterator = resultRowKeySet.iterator();
+
+        if(rksIterator!=null)
+        {
+            System.out.println("iterator is " + rksIterator);
+        }
+        else
+            System.out.println("Iterator null ");
+        while (rksIterator.hasNext()) {
+            List key1 = (List)rksIterator.next();
+            treeBinding = null;
+     
+            CollectionModel collectionModel = (CollectionModel)tree1.getValue();
+            treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
+     
+            RowKeySetImpl rksImpl;
+            rksImpl = new RowKeySetImpl();
+            JUCtrlHierNodeBinding nodeBinding1 = null;
+            nodeBinding1 = treeBinding.findNodeByKeyPath(key1);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " Node Binding is  " + nodeBinding1);
+                rksImpl.add(key1);
+
+                rootNode = treeBinding.getRootNodeBinding();
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " rootNode " + rootNode);
+                dropNodeParent = nodeBinding1.getParent();
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent " + dropNodeParent);
+
+                /* code added to expand and disclose the node from backing bean */
+
+
+
+
+                for (Object ob : nodeBinding1.getParent().getAttributeValues()) {
+                    if (ob != null) {
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " dropNodeParent after conversion " + ob.toString());
+                    }
+                    break;
+                }
+
+                for (Object o : nodeBinding1.getAttributeValues()) {
+
+                    id = o.toString();
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + "  id is " + id);
+                    break;
+
+
+                }
+                Row rw = null;
+                String rowType = "";
+                rw = nodeBinding1.getRow();
+                rowType = rw.getStructureDef().getDefName();
+
+
+
+                if (rowType.contains("AccountInfo")) {
+                    System.out.println("aaaaaaaaaaaaaaaaaaaaaac");
+                    }
+                else
+                    if(rowType.contains("CardInfo"))
+                {System.out.println("caaaaaaaaaaaaaaaaaaaaaaaaa");
+                     getBindings().getDefaultPanel().setVisible(false);
+                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
+                     
+                     for (Object o : nodeBinding1.getAttributeValues()) {
+
+                         // id = o.toString();
+                         cardId = o.toString();
+                         log.info(accessDC.getDisplayRecord() + this.getClass() + " inside card overview id is " + id);
+                         //                break;
+
+
+                     }
+                     cardOverview();
+                 
+                 }
+            else if(rowType.contains("CardGroupInfo"))
+                {System.out.println("cagggggggggg");
+
+                    //hiding default panel
+                    getBindings().getDefaultPanel().setVisible(false);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
+                    //clicked node belongs to cardGroup so execute cardGroup overview
+
+                    for (Object o : nodeBinding1.getAttributeValues()) {
+
+                        // id = o.toString();
+                        cardGroupId = o.toString();
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " inside cardgroup overview id is " + cardGroupId);
+                        //                break;
+
+
+                    }
+                    cardGroupOverview();
+                   
+                }
+
+
+
+
+            }
+        
+    }
+    private void findTreeInView() {
+        System.out.println("search tree method called");
+        FacesContext fctx = FacesContext.getCurrentInstance();
+        UIViewRoot root = fctx.getViewRoot();
+        //hard coding tree component Id with its surrounding naming container ID
+        //PanelCollection
+        root.invokeOnComponent(fctx, "pt1:r1:0:t1", new ContextCallback() {
+                public void invokeContextCallback(FacesContext facesContext,
+                                                  UIComponent uiComponent) {
+                    tree1 = (RichTree)uiComponent;
+                }
+            });
+    }
+    /**
+     * Method that parses an ADF bound ADF Faces tree component to find search string matches
+     * in one of the specified attribute names. Attribute names are ignored if they don't exist
+     * in the search node. The method performs a recursiv search and returns a RowKeySet with the
+     * row keys of all nodes that contain the search string
+     * @param  node The JUCtrlHierNodeBinding instance to search
+     * @param  searchAttributes An array of attribute names to search in
+     * @param  searchType defines where the search is started within the text. Valid values are
+     *         START, CONTAIN, END. If NULL the "CONTAIN" is set as the default
+     * @param  searchString  The search condition
+     * @return RowKeySet row keys
+     */
+    private RowKeySet searchTreeNode(JUCtrlHierNodeBinding node,
+                                     String[] searchAttributes,
+                                     String searchType, String searchString) {
+        RowKeySetImpl rowKeys = new RowKeySetImpl();
+        //set default search
+        String _searchType =
+            searchType == null ? "CONTAIN" : searchType.length() > 0 ?
+                                             searchType : "CONTAIN";
+
+        //Sanity checks
+        if (node == null) {
+            System.out.println(("Node passed as NULL"));
+            return rowKeys;
+        }
+        if (searchAttributes == null || searchAttributes.length < 1) {
+            System.out.println((node.getName() +
+                ": search attribute is NULL or has a ZERO length"));
+            return rowKeys;
+        }
+        if (searchString == null || searchString.length() < 1) {
+            System.out.println((node.getName() + ": Search string cannot be NULL or EMPTY"));
+            return rowKeys;
+        }
+
+        Row nodeRow = node.getRow();
+        if (nodeRow != null) {
+            for (int i = 0; i < searchAttributes.length; i++) {
+                String compareString = "";
+                try {
+                    Object attribute =
+                        nodeRow.getAttribute(searchAttributes[i]);
+                    if (attribute instanceof String) {
+                        compareString = (String)attribute;
+                    } else {
+                        //try the toString method as a simple fallback
+                        compareString = attribute.toString();
+                    }
+                } catch (oracle.jbo.JboException attributeNotFound) {
+                    //node does not have attribute. Exclude from search
+                }
+                //compare strings case insesitive.
+                if (_searchType.equalsIgnoreCase("CONTAIN") &&
+                    compareString.toUpperCase().indexOf(searchString.toUpperCase()) >
+                    -1) {
+                    //get row key
+                    rowKeys.add(node.getKeyPath());
+                } else if (_searchType.equalsIgnoreCase("START") &&
+                           compareString.toUpperCase().startsWith(searchString.toUpperCase())) {
+                    //get row key
+                    rowKeys.add(node.getKeyPath());
+                } else if (_searchType.equalsIgnoreCase("END") &&
+                           compareString.toUpperCase().endsWith(searchString.toUpperCase())) {
+                    //get row key
+                    rowKeys.add(node.getKeyPath());
+                }
+            }
+        }
+
+        List<JUCtrlHierNodeBinding> children;
+        children = node.getChildren();
+
+        if (children != null) {
+            for (JUCtrlHierNodeBinding _node : children) {
+                //Each child search returns a row key set that must be added to the
+                //row key set returned by the overall search
+                RowKeySet rks =
+                    searchTreeNode(_node, searchAttributes, this.searchType,
+                                   searchString);
+                if (rks != null && rks.size() > 0) {
+                    rowKeys.addAll(rks);
+                }
+            }
+        }
+        return rowKeys;
+    }
+
+    /**
+     * Helper method that returns a list of parent node for the RowKeySet passed
+     * as the keys argument. The RowKeySet can be used to disclose the folders in
+     * which the keys reside. Node that to disclose a full branch, all RowKeySet
+     * that are in the path must be defined
+     *
+     * @param  treeBinding ADF tree binding instance read from the PageDef file
+     * @param  keys  RowKeySet containing List entries of oracle.jbo.Key
+     * @return RowKeySet of parent keys to disclose
+     */
+    private RowKeySet buildDiscloseRowKeySet(JUCtrlHierBinding treeBinding,
+                                             RowKeySet keys) {
+        RowKeySetImpl discloseRowKeySet = new RowKeySetImpl();
+        Iterator iter = keys.iterator();
+        while (iter.hasNext()) {
+            List keyPath = (List)iter.next();
+            JUCtrlHierNodeBinding node =
+                treeBinding.findNodeByKeyPath(keyPath);
+            if (node != null && node.getParent() != null &&
+                !node.getParent().getKeyPath().isEmpty()) {
+                //store the parent path
+                discloseRowKeySet.add(node.getParent().getKeyPath());
+
+                //call method recursively until no parents are found
+                RowKeySetImpl parentKeySet = new RowKeySetImpl();
+                parentKeySet.add(node.getParent().getKeyPath());
+                RowKeySet rks =
+                    buildDiscloseRowKeySet(treeBinding, parentKeySet);
+                discloseRowKeySet.addAll(rks);
+            }
+        }
+        return discloseRowKeySet;
+    }
+    
+    public List suggesstedItemsResult(String string) {
+        // Add event code here...
+        ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
+        SelectItem selectItem = new SelectItem();
+        System.out.println("cardgroupsSocList size " + cardgroupsSocList.size());
+        System.out.println("cardsSocList size " + cardsSocList.size());
+    //        for(int j=0; j<cardsSocList.size();j++)
+    //            System.out.println(cardsSocList.get(j));
+        System.out.println("cardtextline2 size " + cardTextline2SocList.size());
+        System.out.println("searchLevel" + getSearchLevel().toString());
+
+        if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
+        {
+            System.out.println("cardgroup level selected");
+        for(int z=0;z<cardgroupsSocList.size();z++) {
+        if(cardgroupsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
+        {
+            selectItem = new SelectItem();
+            selectItem.setLabel(cardgroupsSocList.get(z));
+            selectItem.setValue(cardgroupsSocList.get(z));
+            selectItems.add(selectItem);
+        }
+           // else
+            //System.out.println("match not found");
+        }
+        }
+        else if(searchLevel.equalsIgnoreCase("externalCardID")) {
+        System.out.println("embossed card no level selected");
+            for(int z=0;z<cardsSocList.size();z++) {
+            if(cardsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
+            {
+                selectItem = new SelectItem();
+                selectItem.setLabel(cardsSocList.get(z));
+                selectItem.setValue(cardsSocList.get(z));
+                selectItems.add(selectItem);
+            }
+               // else
+                //System.out.println("match not found");
+            }
+        }
+        else if(searchLevel.equalsIgnoreCase("cardTextline2")){
+            System.out.println("cardtextline level selected");
+            for(int z=0;z<cardTextline2SocList.size();z++) {
+            if(cardTextline2SocList.get(z).toUpperCase().contains(string.toUpperCase()))
+            {
+                selectItem = new SelectItem();
+                selectItem.setLabel(cardTextline2SocList.get(z));
+                selectItem.setValue(cardTextline2SocList.get(z));
+                selectItems.add(selectItem);
+            }
+               // else
+                //System.out.println("match not found");
+            }
+
+        }
+
+
+
+        return selectItems;
     }
 
     public void setPartner(PartnerInfo partner) {
@@ -485,6 +895,74 @@ public class AccountSummary implements Serializable {
     public Map<String, String> getCardTypeNameMap() {
         return cardTypeNameMap;
     }
+
+    public void setSearchLevel(String searchLevel) {
+        this.searchLevel = searchLevel;
+    }
+
+    public String getSearchLevel() {
+        return searchLevel;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
+
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setCardTextline2SocList(List<String> cardTextline2SocList) {
+        this.cardTextline2SocList = cardTextline2SocList;
+    }
+
+    public List<String> getCardTextline2SocList() {
+        return cardTextline2SocList;
+    }
+
+    public void setCardgroupsSocList(List<String> cardgroupsSocList) {
+        this.cardgroupsSocList = cardgroupsSocList;
+    }
+
+    public List<String> getCardgroupsSocList() {
+        return cardgroupsSocList;
+    }
+
+    public void setCardsSocList(List<String> cardsSocList) {
+        this.cardsSocList = cardsSocList;
+    }
+
+    public List<String> getCardsSocList() {
+        return cardsSocList;
+    }
+
+    public void setSearchAttributes(List searchAttributes) {
+        this.searchAttributes = searchAttributes;
+    }
+
+    public List getSearchAttributes() {
+        return searchAttributes;
+    }
+
+    /**
+     * @param searchType
+     */
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setTree1(RichTree tree1) {
+        this.tree1 = tree1;
+    }
+
+    public RichTree getTree1() {
+        return tree1;
+    }
+
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
@@ -685,7 +1163,8 @@ public class AccountSummary implements Serializable {
             if (session != null) {
 
                 if (session.getAttribute("Partner_Object_List") != null) {
-
+                    
+                    //if(partnerList == null){
                     partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                     if (partnerList != null) {
                         for (int k = 0; k < partnerList.size(); k++) {
@@ -697,6 +1176,8 @@ public class AccountSummary implements Serializable {
                         }
 
                     }
+                    
+               // }
                 }
 
 
@@ -874,7 +1355,7 @@ public class AccountSummary implements Serializable {
     //            }
     //        }
 
-    public void processAttributeChange(AttributeChangeEvent event) {
+    public void processAttributeChange() {
 
     }
 
@@ -1056,7 +1537,7 @@ public class AccountSummary implements Serializable {
                 }
                 accountVO.setWhereClause("ACCOUNT_ID =: accid");
                 accountVO.defineNamedWhereClauseParam("accid", id, null);
-                accountVO.setNamedWhereClauseParam("countryCode", (String)session.getAttribute(Constants.userLang));
+                accountVO.setNamedWhereClauseParam("countryCode", session.getAttribute(Constants.userLang));
 
                 accountVO.executeQuery();
 
@@ -1103,6 +1584,28 @@ public class AccountSummary implements Serializable {
 
         //cardGroupId = id;
         accountId = dropNodeParent.toString();
+        
+        if (session != null) {
+
+            if (session.getAttribute("Partner_Object_List") != null) {
+                
+                //if(partnerList == null){
+                partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+                if (partnerList != null) {
+                    for (int k = 0; k < partnerList.size(); k++) {
+                        if (partnerList.get(k).getPartnerValue().toString().equals(id)) {
+                            partner = partnerList.get(k);
+                            AccountList = partner.getAccountList();
+                        }
+
+                    }
+
+                }
+           // }
+            }
+
+
+        }
 
         if (partnerList != null) {
             for (int k = 0; k < partnerList.size(); k++) {
@@ -1114,6 +1617,8 @@ public class AccountSummary implements Serializable {
             }
 
         }
+        else
+            System.out.println("partner list null");
 
 
         for (int k = 0; k < AccountList.size(); k++) {
@@ -1172,7 +1677,8 @@ public class AccountSummary implements Serializable {
 
                 cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                cardGroupVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                cardGroupVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang),
+                        null);
                 cardGroupVO.defineNamedWhereClauseParam("cgmain", maintype, null);
                 cardGroupVO.defineNamedWhereClauseParam("cgsub", subtype, null);
                 cardGroupVO.defineNamedWhereClauseParam("acid", accountId, null);
@@ -1207,7 +1713,8 @@ public class AccountSummary implements Serializable {
                 cardVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub AND ACCOUNT_ID=: acid");
                 cardVO.defineNamedWhereClauseParam("cgid", cardgroupseq, null);
 
-                cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+                cardVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang),
+                        null);
                 cardVO.defineNamedWhereClauseParam("cgmain", maintype, null);
                 cardVO.defineNamedWhereClauseParam("cgsub", subtype, null);
                 cardVO.defineNamedWhereClauseParam("acid", accountId, null);
@@ -1230,7 +1737,7 @@ public class AccountSummary implements Serializable {
                     }
                 }
                 ViewObject vo = ADFUtils.getViewObject("PrtCardTypeNameMap1Iterator");
-                vo.setNamedWhereClauseParam("country",(String)session.getAttribute(Constants.userLang));
+                vo.setNamedWhereClauseParam("country", session.getAttribute(Constants.userLang));
                 vo.setNamedWhereClauseParam("cardType",cardType);
                 vo.executeQuery();
                 if (vo.getEstimatedRowCount() != 0) {
@@ -1353,7 +1860,8 @@ public class AccountSummary implements Serializable {
 
             cardVO.defineNamedWhereClauseParam("cardid", id, null);
 
-            cardVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+            cardVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang),
+                    null);
 
 
             cardVO.executeQuery();
@@ -1393,7 +1901,8 @@ public class AccountSummary implements Serializable {
             partnerVO.setWhereClause("PARTNER_ID =: partid AND COUNTRY_CODE =: cc");
             partnerVO.defineNamedWhereClauseParam("partid", id, null);
 
-            partnerVO.defineNamedWhereClauseParam("cc", (String)session.getAttribute(Constants.userLang), null);
+            partnerVO.defineNamedWhereClauseParam("cc", session.getAttribute(Constants.userLang),
+                    null);
             //
 
             partnerVO.executeQuery();

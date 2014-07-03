@@ -46,6 +46,24 @@
                           visible="true"
                         >
       <af:outputText value="#{sfr.ACCOUNT_SUMMARY}" id="ot28" styleClass="heading"/>
+        <af:spacer id="s294" width="20"/>
+             <af:selectOneChoice label="Search in" id="sml1" autoSubmit="true"
+                                 value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
+                                 unselectedLabel="Please Select">
+<af:selectItem label="cardGroupName" value="displayCardGroupIdName" id="si6"/>
+<af:selectItem label="externalCardID" value="externalCardID" id="si1"/>
+<af:selectItem label="cardTextline2" value="cardTextline2" id="si2"/>
+</af:selectOneChoice>
+
+<af:inputText  id="it19"
+              value="#{pageFlowScope.AccountSummaryBean.searchString}">
+          <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.AccountSummaryBean.suggesstedItemsResult}"/>
+        </af:inputText>
+<af:spacer id="s295" width="20"/>
+      <af:commandButton id="cb10"
+                        actionListener="#{pageFlowScope.AccountSummaryBean.searchTraverse}"
+                        partialSubmit="true" text="Search"/>
+      
     </af:panelGroupLayout>
     </af:panelGroupLayout>
 
