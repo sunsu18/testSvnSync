@@ -1,12 +1,12 @@
-Jun 26, 2014 5:46:22 PM oracle.mds
+Jul 2, 2014 8:38:32 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Jun 26, 2014 5:46:23 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Jul 2, 2014 8:38:32 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Jun 26, 2014 5:46:23 PM com.collaxa.cube.CubeLogger info
+Jul 2, 2014 8:38:33 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E006CardPALSToPortal.bpel" ...
-Jun 26, 2014 5:46:24 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Jul 2, 2014 8:38:33 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Jun 26, 2014 5:46:24 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Jul 2, 2014 8:38:33 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -15,13 +15,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandl
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Jun 26, 2014 5:46:25 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "E006CardPALSToPortal" in 91.9 milliseconds [nodes 126=0+126, 1,371.0 nodes/sec]
-Jun 26, 2014 5:46:29 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E006CardPALSToPortal" in 3.269 seconds
-Jun 26, 2014 5:46:29 PM com.collaxa.cube.CubeLogger info
-INFO: Gathered 3 files in 3.8 milliseconds
+Jul 2, 2014 8:38:35 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E006CardPALSToPortal" in 107.6 milliseconds [nodes 131=0+131, 1,217.1 nodes/sec]
+Jul 2, 2014 8:38:38 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E006CardPALSToPortal" in 3.441 seconds
+Jul 2, 2014 8:38:38 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 4.0 milliseconds
 
-Jun 26, 2014 5:46:29 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E006CardPALSToPortal" in 22.3 milliseconds
+Jul 2, 2014 8:38:38 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E006CardPALSToPortal" in 24.3 milliseconds
 

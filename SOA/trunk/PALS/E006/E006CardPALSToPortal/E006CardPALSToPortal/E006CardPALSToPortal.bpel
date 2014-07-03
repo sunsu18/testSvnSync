@@ -54,7 +54,8 @@
          xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/top/SOAErrorDBAdapter"
          xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/sp/CardPortalProcDBAdapter"
          xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter"
-         xmlns:ns26="http://www.statoilfuelretail.com/integration/engage/PalsNotification">
+         xmlns:ns26="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
+         xmlns:ns27="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempCardPortalDBAdapter">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1336,274 +1337,7 @@
         </sequence>
       </case>
       <otherwise>
-
-        <sequence name="DataTransferCompletionSequence">
-          <switch name="IfLastInvocationFlag">
-            <case condition="bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:LastInvokeFlag') = 'True'">
-              <bpelx:annotation>
-                <bpelx:general>
-                  <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
-                </bpelx:general>
-              </bpelx:annotation>
-              <switch name="IfDataExistsinPALS">
-                <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:BatchSize')">
-                  <bpelx:annotation>
-                    <bpelx:general>
-                      <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
-                    </bpelx:general>
-                  </bpelx:annotation>
-                  <sequence name="PALSNotificationSequence">
-                    <switch name="DataCountexistsSwitch">
-                      <case condition="bpws:getVariableData('DataCount') >= 1">
-                        <bpelx:annotation>
-                          <bpelx:general>
-                            <bpelx:property name="userLabel">DataCountGreaterthanZero</bpelx:property>
-                          </bpelx:general>
-                        </bpelx:annotation>
-                        <assign name="AssignSOAPALSNotificationData">
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:SenderSystem"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:SourceSystem"/>
-                          </copy>
-                          <copy>
-                            <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta[$DataCount]/ns6:deltaTs')"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:ReceiverSystem"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:TargetSystem"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:CountryCode"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:CountryCode"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:InterfaceID"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:InterfaceID"/>
-                          </copy>
-                          <copy>
-                            <from expression="'E006CardPALStoPortal'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:InterfaceName"/>
-                          </copy>
-                          <copy>
-                            <from expression="'CC073VS1_CSSKSI_DTA'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:SourceTableName"/>
-                          </copy>
-                          <copy>
-                            <from expression="'PRT_CARD'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:TargetTableName"/>
-                          </copy>
-                          <copy>
-                            <from expression="xp20:current-dateTime()"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:NotificationDateTime"/>
-                          </copy>
-                        </assign>
-                      </case>
-                      <otherwise>
-                      
-
-                        <assign name="AssignSOAPALSNotificationDataOtherwise">
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:SenderSystem"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:SourceSystem"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:ReceiverSystem"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:TargetSystem"/>
-                          </copy>
-                          <copy>
-                            <from variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
-                                  part="EngageSoaDeltatableCollection"
-                                  query="/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:CountryCode"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:CountryCode"/>
-                          </copy>
-                          <copy>
-                            <from variable="AccountSummaryCardReqMsg"
-                                  part="invocationMsg"
-                                  query="/client:invocationMsg/client:InterfaceID"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:InterfaceID"/>
-                          </copy>
-                          <copy>
-                            <from expression="'E006CardPALStoPortal'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:InterfaceName"/>
-                          </copy>
-                          <copy>
-                            <from expression="'CC073VS1_CSSKSI_DTA'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:SourceTableName"/>
-                          </copy>
-                          <copy>
-                            <from expression="'PRT_CARD'"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:TargetTableName"/>
-                          </copy>
-                          <copy>
-                            <from expression="xp20:current-dateTime()"/>
-                            <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                                part="body"
-                                query="/ns26:Notification/ns26:NotificationDateTime"/>
-                          </copy>
-                        </assign>
-
-
-                      </otherwise>
-                    </switch>
-                    <invoke name="InvokeSOAPALSNotificationJMSAdapter"
-                            inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
-                            partnerLink="SOAPALSNotificationJMSAdapter"
-                            portType="ns25:Produce_Message_ptt"
-                            operation="Produce_Message"
-                            bpelx:invokeAsDetail="no"/>
-                  </sequence>
-                </case>
-                <otherwise>
-                  <sequence name="ErrorCompletionSequence">
-        <assign name="AssignStandardErrorData">
-                      <copy>
-                        <from expression="ora:getCompositeInstanceId()"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
-                      </copy>
-                      <copy>
-                        <from expression="ora:getComponentName()"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
-                      </copy>
-                      <copy>
-                        <from expression="'E006'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
-                      </copy>
-                      <copy>
-                        <from expression="'E006CardPALStoPortal'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
-                      </copy>
-                      <copy>
-                        <from expression="xp20:current-dateTime()"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
-                      </copy>
-                      <copy>
-                        <from expression="'PALS'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
-                      </copy>
-                      <copy>
-                        <from expression="'Portal'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
-                      </copy>
-                      <copy>
-                        <from expression="'SOAUSER'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
-                      </copy>
-                      <copy>
-                        <from expression="'BE-027'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
-                      </copy>
-                      <copy>
-                        <from expression="'Incomplete Data Transfer'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
-                      </copy>
-                      <copy>
-                        <from expression="'Incomplete Data Transfer'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
-                      </copy>
-                      <copy>
-                        <from expression="'E006_BE'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
-                      </copy>
-                      <copy>
-                        <from expression="'DEV03:Incomplete Data Transfer E006CardPALStoPortal For interface E006'"/>
-                        <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            part="body"
-                            query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
-                      </copy>
-                    </assign>
-
-                    <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                            inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
-                            partnerLink="SOAErrorHandlerJMSAdapter"
-                            portType="ns16:Produce_Message_ptt"
-                            operation="Produce_Message"
-                            bpelx:invokeAsDetail="no"/>
-                  </sequence>
-                </otherwise>
-              </switch>
-            </case>
-            <otherwise>
-              <empty name="Empty"/>
-            </otherwise>
-          </switch>
-        </sequence>
+        <empty name="Empty"/>
       </otherwise>
     </switch>
     <!--
@@ -1733,5 +1467,297 @@
         </otherwise>
       </switch>
     </sequence>-->
+    <sequence name="DataTransferCompletionSequence">
+      <switch name="IfLastInvocationFlag">
+        <case condition="bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:LastInvokeFlag') = 'True'">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">IfLastInvokeFlagisTrue</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <switch name="IfDataExistsinPALS">
+            <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:BatchSize')">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <sequence name="PALSNotificationSequence">
+                <switch name="DataCountexistsSwitch">
+                  <case condition="bpws:getVariableData('DataCount') >= 1">
+                    <bpelx:annotation>
+                      <bpelx:general>
+                        <bpelx:property name="userLabel">DataCountGreaterthanZero</bpelx:property>
+                      </bpelx:general>
+                    </bpelx:annotation>
+                    <assign name="AssignSOAPALSNotificationData">
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:SenderSystem"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:SourceSystem"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Success'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:ErrorFlag"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta[$DataCount]/ns6:deltaTs')"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:ReceiverSystem"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:TargetSystem"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:CountryCode"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:CountryCode"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:InterfaceID"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:InterfaceID"/>
+                      </copy>
+                      <copy>
+                        <from expression="'E006CardPALStoPortal'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:InterfaceName"/>
+                      </copy>
+                      <copy>
+                        <from expression="'CC073VS1_CSSKSI_DTA'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:SourceTableName"/>
+                      </copy>
+                      <copy>
+                        <from expression="'PRT_CARD'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:TargetTableName"/>
+                      </copy>
+                      <copy>
+                        <from expression="xp20:current-dateTime()"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:NotificationDateTime"/>
+                      </copy>
+                    </assign>
+                  </case>
+                  <otherwise>
+                    <assign name="AssignSOAPALSNotificationDataOtherwise">
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:SenderSystem"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:SourceSystem"/>
+                      </copy>
+                      <copy>
+                        <from expression="'Success'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:ErrorFlag"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:ReceiverSystem"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:TargetSystem"/>
+                      </copy>
+                      <copy>
+                        <from variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
+                              part="EngageSoaDeltatableCollection"
+                              query="/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:LastDeltaTimeStamp"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:CountryCode"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:CountryCode"/>
+                      </copy>
+                      <copy>
+                        <from variable="AccountSummaryCardReqMsg"
+                              part="invocationMsg"
+                              query="/client:invocationMsg/client:InterfaceID"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:InterfaceID"/>
+                      </copy>
+                      <copy>
+                        <from expression="'E006CardPALStoPortal'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:InterfaceName"/>
+                      </copy>
+                      <copy>
+                        <from expression="'CC073VS1_CSSKSI_DTA'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:SourceTableName"/>
+                      </copy>
+                      <copy>
+                        <from expression="'PRT_CARD'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:TargetTableName"/>
+                      </copy>
+                      <copy>
+                        <from expression="xp20:current-dateTime()"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:NotificationDateTime"/>
+                      </copy>
+                    </assign>
+                  </otherwise>
+                </switch>
+                <switch name="SwitchCheckErrorFlag">
+                  <case condition="bpws:getVariableData('ErrorFlag') = 'YES'">
+                    <bpelx:annotation>
+                      <bpelx:general>
+                        <bpelx:property name="userLabel">CheckErrorFlag</bpelx:property>
+                      </bpelx:general>
+                    </bpelx:annotation>
+                    <assign name="AssignPalsNotificationErrorFlag">
+                      <copy>
+                        <from expression="'Error'"/>
+                        <to variable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                            part="body"
+                            query="/ns26:Notification/ns26:ErrorFlag"/>
+                      </copy>
+                    </assign>
+                  </case>
+                  <otherwise>
+                    <empty name="Empty"/>
+                  </otherwise>
+                </switch>
+                <invoke name="InvokeSOAPALSNotificationJMSAdapter"
+                        inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
+                        partnerLink="SOAPALSNotificationJMSAdapter"
+                        portType="ns25:Produce_Message_ptt"
+                        operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+              </sequence>
+            </case>
+            <otherwise>
+              <sequence name="ErrorCompletionSequence">
+                <assign name="AssignStandardErrorData">
+                  <copy>
+                    <from expression="ora:getCompositeInstanceId()"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:InstanceID"/>
+                  </copy>
+                  <copy>
+                    <from expression="ora:getComponentName()"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ComponentName"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E006'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E006CardPALStoPortal'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:ProjectName"/>
+                  </copy>
+                  <copy>
+                    <from expression="xp20:current-dateTime()"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Timestamp"/>
+                  </copy>
+                  <copy>
+                    <from expression="'PALS'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Source"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Portal'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:Target"/>
+                  </copy>
+                  <copy>
+                    <from expression="'SOAUSER'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:CommonErrorData/ns17:UserID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'BE-027'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorCode"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Incomplete Data Transfer'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Incomplete Data Transfer'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E006_BE'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:LookupCriteria"/>
+                  </copy>
+                  <copy>
+                    <from expression="'DEV03:Incomplete Data Transfer E006CardPALStoPortal For interface E006'"/>
+                    <to variable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        part="body"
+                        query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeSOAErrorHandlerJMSAdapter"
+                        inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
+                        partnerLink="SOAErrorHandlerJMSAdapter"
+                        portType="ns16:Produce_Message_ptt"
+                        operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+              </sequence>
+            </otherwise>
+          </switch>
+        </case>
+        <otherwise>
+          <empty name="Empty"/>
+        </otherwise>
+      </switch>
+    </sequence>
   </sequence>
 </process>
