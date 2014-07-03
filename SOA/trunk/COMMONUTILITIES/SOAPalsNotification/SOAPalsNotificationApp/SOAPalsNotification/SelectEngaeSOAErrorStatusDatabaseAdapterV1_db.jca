@@ -1,0 +1,14 @@
+<adapter-config name="SelectEngaeSOAErrorStatusDatabaseAdapterV1" adapter="Database Adapter" wsdlLocation="SelectEngaeSOAErrorStatusDatabaseAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="EngageSOAcustom" adapterRef=""/>
+  <endpoint-interaction portType="SelectEngaeSOAErrorStatusDatabaseAdapterV1_ptt" operation="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="SelectEngaeSOAErrorStatusDatabaseAdapterV1.EngageSoaErrorstatus"/>
+      <property name="QueryName" value="SelectEngaeSOAErrorStatusDatabaseAdapterV1Select"/>
+      <property name="MappingsMetaDataURL" value="SelectEngaeSOAErrorStatusDatabaseAdapterV1-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

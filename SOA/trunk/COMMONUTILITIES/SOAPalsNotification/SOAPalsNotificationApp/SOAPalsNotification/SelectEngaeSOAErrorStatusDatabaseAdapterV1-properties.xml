@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">ENGAGE_SOA_ERRORSTATUS</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_9">CUSTOM5</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_8">CUSTOM4</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_7">CUSTOM3</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_6">CUSTOM2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_5">CUSTOM1</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_4">MODIFIEDBY</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.DATEMODIFIED:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_3">DATEMODIFIED</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.COUNTRY:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_2">ERRORFLAG</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_1">COUNTRY</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.MODIFIEDBY:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_column_0">INTERFACEID</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM5:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.ERRORFLAG:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM4:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.COUNTRY:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.DATEMODIFIED:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.INTERFACEID:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM3:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM2:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.ERRORFLAG:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM1:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM5:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.ERRORFLAG:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM4:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS:db_table_type">TABLE</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM3:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.INTERFACEID:db_column_size">20</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM2:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM1:db_column_size">200</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM5:db_column_not_null">false</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM4:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.INTERFACEID:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM3:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM2:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.COUNTRY:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.MODIFIEDBY:db_column_not_null">false</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.MODIFIEDBY:db_column_type">VARCHAR2</entry>
+   <entry key="ENGAGE_SOA_ERRORSTATUS.CUSTOM1:db_column_not_null">false</entry>
+</properties>
