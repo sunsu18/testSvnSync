@@ -467,6 +467,10 @@
                       query="/ns3:invocationMsg/ns3:BatchCount"/>
                 <to variable="batchCount"/>
               </copy>
+              <copy>
+                <from expression="1"/>
+                <to variable="batchCountIterator"/>
+              </copy>
             </assign>
           </case>
           <otherwise>
