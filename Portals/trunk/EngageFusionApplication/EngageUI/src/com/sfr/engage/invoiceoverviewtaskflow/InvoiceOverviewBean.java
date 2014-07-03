@@ -699,7 +699,7 @@ if(partnerInfoList.size() == 1) {
     }
 
     public String formatConversion(Date date) {
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMM-yy");
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
         return sdf.format(date);
     }
 
