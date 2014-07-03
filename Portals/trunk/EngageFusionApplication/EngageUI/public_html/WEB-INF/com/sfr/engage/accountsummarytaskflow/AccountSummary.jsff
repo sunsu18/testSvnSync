@@ -56,7 +56,8 @@
 </af:selectOneChoice>
 
 <af:inputText  id="it19"
-              value="#{pageFlowScope.AccountSummaryBean.searchString}">
+              value="#{pageFlowScope.AccountSummaryBean.searchString}"
+              binding="#{pageFlowScope.AccountSummaryBean.searchStringInputtext}">
           <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.AccountSummaryBean.suggesstedItemsResult}"/>
         </af:inputText>
 <af:spacer id="s295" width="20"/>

@@ -25,6 +25,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTree;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
@@ -121,8 +123,10 @@ public class AccountSummary implements Serializable {
     private List searchAttributes = new ArrayList();
     private RichTree tree1 = null;
     private String searchType = "CONTAIN";
+    private RichInputText searchStringInputtext;
+    private boolean executeSearch = false;
 
-    
+
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
 
@@ -314,6 +318,10 @@ public class AccountSummary implements Serializable {
                             }
 
                         }
+                        
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
 
                     }
 
@@ -376,29 +384,66 @@ public class AccountSummary implements Serializable {
 
 
     }
+    public void resetinputtext(ValueChangeEvent valueChangeEvent) {
+        System.out.println("Reseting inputtext ");
+        searchStringInputtext.resetValue();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
+    }
     public void searchTraverse(ActionEvent actionEvent) {
         
+        hideAll();
+        
+        if(searchLevel!=null  && searchLevel.trim()!=null)
+        if(searchLevel.equalsIgnoreCase("displayCardGroupIdName") || searchLevel.equalsIgnoreCase("externalCardID") || searchLevel.equalsIgnoreCase("cardTextline2"))
+        {
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
         { 
             log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse CG level");
+            searchAttributes.clear();
             searchAttributes.add("displayCardGroupIdName");
+            
+            for(int p=0;p<cardgroupsSocList.size() && searchString!=null ;p++)
+            {
+                if(searchString.toUpperCase().equalsIgnoreCase(cardgroupsSocList.get(p).toUpperCase()));
+                executeSearch = true;
+                //System.out.println("executeSearch in cardgroup level" + executeSearch);
+
+            }
+
 
         }
         else if(searchLevel.equalsIgnoreCase("externalCardID")) {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse externalCardID level");
         searchAttributes.clear();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
+       // log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
             searchAttributes.add("externalCardID");
+            for(int p=0;p<cardsSocList.size() && searchString!=null;p++)
+            {
+                if(searchString.toUpperCase().equalsIgnoreCase(cardsSocList.get(p).toUpperCase()));
+                executeSearch = true;
+               // System.out.println("executeSearch in externalCardID level" + executeSearch);
+
+            }
 
         }
         else if(searchLevel.equalsIgnoreCase("cardTextline2")) {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse cardtextline 2 level");
             searchAttributes.clear();
-            log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
+           // log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
                         searchAttributes.add("cardTextline2");
+                        
+            for(int p=0;p<cardTextline2SocList.size() && searchString!=null;p++)
+            {
+                if(searchString.toUpperCase().equalsIgnoreCase(cardTextline2SocList.get(p).toUpperCase()));
+                executeSearch = true;
+                //System.out.println("executeSearch in cardTextline2 level" + executeSearch);
+
+            }
         }
 
         
+        if(executeSearch)
+        {
         JUCtrlHierBinding treeBinding = null;
 
         //get handle to tree if it does not exist. If tree component cannot be
@@ -549,6 +594,10 @@ public class AccountSummary implements Serializable {
 
             }
         
+        }
+        
+    }
+        
     }
     private void findTreeInView() {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " search tree method called");
@@ -689,13 +738,15 @@ public class AccountSummary implements Serializable {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         SelectItem selectItem = new SelectItem();
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
+
     //        for(int j=0; j<cardsSocList.size();j++)
     //            System.out.println(cardsSocList.get(j));
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
+        
+        
+        
+        if(searchLevel!=null  && searchLevel.trim()!=null)
+        {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " searchLevel" + getSearchLevel().toString());
-
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
         {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroup level selected");
@@ -741,7 +792,7 @@ public class AccountSummary implements Serializable {
 
         }
 
-
+    }
 
         return selectItems;
     }
@@ -969,6 +1020,22 @@ public class AccountSummary implements Serializable {
 
     public RichTree getTree1() {
         return tree1;
+    }
+
+    public void setSearchStringInputtext(RichInputText searchStringInputtext) {
+        this.searchStringInputtext = searchStringInputtext;
+    }
+
+    public RichInputText getSearchStringInputtext() {
+        return searchStringInputtext;
+    }
+
+    public void setExecuteSearch(boolean executeSearch) {
+        this.executeSearch = executeSearch;
+    }
+
+    public boolean isExecuteSearch() {
+        return executeSearch;
     }
 
 
