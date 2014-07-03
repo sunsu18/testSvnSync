@@ -62,7 +62,7 @@
 <af:spacer id="s295" width="20"/>
       <af:commandButton id="cb10"
                         actionListener="#{pageFlowScope.AccountSummaryBean.searchTraverse}"
-                        partialSubmit="true" text="Search"/>
+                        partialSubmit="true" text="#{sfr.SEARCH}"/>
       
     </af:panelGroupLayout>
     </af:panelGroupLayout>
