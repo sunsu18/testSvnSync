@@ -58,6 +58,7 @@
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
+      <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="e008transactiondetailpalstoportal"/>
    <url n="E008TransactionDetailPALStoPortalBPEL_bpelFileURL" path="E008TransactionDetailPALStoPortalBPEL.bpel"/>
@@ -356,6 +357,16 @@
       <hash n="sca-content">
          <list n="url-path">
             <url path="."/>
+         </list>
+      </hash>
+   </hash>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="toplinkContentSet">
+         <list n="pattern-filters">
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="toplink/"/>
          </list>
       </hash>
    </hash>

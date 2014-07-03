@@ -55,7 +55,8 @@
          xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/UpdateTrxnDtlErrorLogDatabaseAdapterV1"
          xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/db/SelectTransactionDetailErrorLogDatabsaeAdapterV1"
          xmlns:ns26="http://xmlns.oracle.com/pcbpel/adapter/jms/E008TransactionDetailPALStoPortalApp/E008TransactionDetailPALStoPortal/SOAPALSNotificationJMSAdapter"
-         xmlns:ns27="http://www.statoilfuelretail.com/integration/engage/PalsNotification">
+         xmlns:ns27="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
+         xmlns:ns28="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateTrxnDtlErrorLogDatabaseAdapterV1">
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -1035,144 +1036,174 @@
         </sequence>
       </case>
       <otherwise>
-        <switch name="Switch6">
-          <case condition="bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:LastInvokeFlag')='True'">
-            <bpelx:annotation>
-              <bpelx:general>
-                <bpelx:property name="userLabel">If last invoke flag is set</bpelx:property>
-              </bpelx:general>
-            </bpelx:annotation>
-            <sequence name="Sequence1">
-              <switch name="Switch7">
-                <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapterV1_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable'))>0">
-                  <bpelx:annotation>
-                    <bpelx:general>
-                      <bpelx:property name="userLabel">If records are selected</bpelx:property>
-                    </bpelx:general>
-                  </bpelx:annotation>
-                  <assign name="AssignPALSJMSNotificationDelta">
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:SenderSystem"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:SourceSystem"/>
-                    </copy>
-                    <copy>
-                      <from variable="DeltaTS"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
-                    </copy>
-                    <copy>
-                      <from expression="'CC078VS1_CSSOLNJ_DTA'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:SourceTableName"/>
-                    </copy>
-                    <copy>
-                      <from expression="'PRT_CARD_TRANSACTION_DETAILS'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:TargetTableName"/>
-                    </copy>
-                    <copy>
-                      <from expression="xp20:current-dateTime()"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:NotificationDateTime"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:CountryCode"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:CountryCode"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:ReceiverSystem"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:TargetSystem"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:InterfaceID"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:InterfaceID"/>
-                    </copy>
-                    <copy>
-                      <from expression="'E008TransactionDetailPALStPortal'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:InterfaceName"/>
-                    </copy>
-                  </assign>
-                </case>
-                <otherwise>
-                  <assign name="AssignPALSJMSNotification">
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:SenderSystem"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:SourceSystem"/>
-                    </copy>
-                    <copy>
-                      <from expression="'CC078VS1_CSSOLNJ_DTA'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:SourceTableName"/>
-                    </copy>
-                    <copy>
-                      <from expression="bpws:getVariableData('Invoke_SelectPALSDB2DatabaseAdapterV1_OV','Cc078Vs1CssolnjDtaCollection','/ns8:Cc078Vs1CssolnjDtaCollection/ns8:Cc078Vs1CssolnjDta[$DataCount]/ns8:deltaTs')"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
-                    </copy>
-                    <copy>
-                      <from expression="'PRT_CARD_TRANSACTION_DETAILS'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:TargetTableName"/>
-                    </copy>
-                    <copy>
-                      <from expression="xp20:current-dateTime()"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:NotificationDateTime"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:CountryCode"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:CountryCode"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:ReceiverSystem"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:TargetSystem"/>
-                    </copy>
-                    <copy>
-                      <from variable="ReceiveInvocationMsgIV"
-                            part="invocationPayload"
-                            query="/ns6:invocationMsg/ns6:InterfaceID"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:InterfaceID"/>
-                    </copy>
-                    <copy>
-                      <from expression="'E008TransactionDetailPALStPortal'"/>
-                      <to variable="InvokePALSJMSNotification_IV" part="body"
-                          query="/ns27:Notification/ns27:InterfaceName"/>
-                    </copy>
-                  </assign>
-                </otherwise>
-              </switch>
-              <invoke name="InvokePALSJMSNotification"
-                      inputVariable="InvokePALSJMSNotification_IV"
-                      partnerLink="SOAPALSNotificationJMSAdapter"
-                      portType="ns26:Produce_Message_ptt"
-                      operation="Produce_Message" bpelx:invokeAsDetail="no"/>
-            </sequence>
-          </case>
-        </switch>
+        <empty name="Empty"/>
       </otherwise>
+    </switch>
+    <switch name="Switch6">
+      <case condition="bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:LastInvokeFlag')='True'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">If last invoke flag is set</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="Sequence1">
+          <switch name="Switch7">
+            <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSDBAdapterV1_OV','EngageSoaDeltatableCollection','/ns3:EngageSoaDeltatableCollection/ns3:EngageSoaDeltatable'))>0">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">If records are selected</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <assign name="AssignPALSJMSNotificationDelta">
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:SenderSystem"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:SourceSystem"/>
+                </copy>
+                <copy>
+                  <from expression="'Success'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:ErrorFlag"/>
+                </copy>
+                <copy>
+                  <from variable="DeltaTS"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
+                </copy>
+                <copy>
+                  <from expression="'CC078VS1_CSSOLNJ_DTA'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:SourceTableName"/>
+                </copy>
+                <copy>
+                  <from expression="'PRT_CARD_TRANSACTION_DETAILS'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:TargetTableName"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:NotificationDateTime"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:CountryCode"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:CountryCode"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:ReceiverSystem"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:TargetSystem"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:InterfaceID"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:InterfaceID"/>
+                </copy>
+                <copy>
+                  <from expression="'E008TransactionDetailPALStPortal'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:InterfaceName"/>
+                </copy>
+              </assign>
+            </case>
+            <otherwise>
+              <assign name="AssignPALSJMSNotification">
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:SenderSystem"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:SourceSystem"/>
+                </copy>
+                <copy>
+                  <from expression="'Success'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:ErrorFlag"/>
+                </copy>
+                <copy>
+                  <from expression="'CC078VS1_CSSOLNJ_DTA'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:SourceTableName"/>
+                </copy>
+                <copy>
+                  <from expression="bpws:getVariableData('Invoke_SelectPALSDB2DatabaseAdapterV1_OV','Cc078Vs1CssolnjDtaCollection','/ns8:Cc078Vs1CssolnjDtaCollection/ns8:Cc078Vs1CssolnjDta[$DataCount]/ns8:deltaTs')"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:LastDeltaTimeStamp"/>
+                </copy>
+                <copy>
+                  <from expression="'PRT_CARD_TRANSACTION_DETAILS'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:TargetTableName"/>
+                </copy>
+                <copy>
+                  <from expression="xp20:current-dateTime()"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:NotificationDateTime"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:CountryCode"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:CountryCode"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:ReceiverSystem"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:TargetSystem"/>
+                </copy>
+                <copy>
+                  <from variable="ReceiveInvocationMsgIV"
+                        part="invocationPayload"
+                        query="/ns6:invocationMsg/ns6:InterfaceID"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:InterfaceID"/>
+                </copy>
+                <copy>
+                  <from expression="'E008TransactionDetailPALStPortal'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:InterfaceName"/>
+                </copy>
+              </assign>
+            </otherwise>
+          </switch>
+          <switch name="Switch8">
+            <case condition="bpws:getVariableData('ErrorFlag')='YES'">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">ErrorCheck</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <assign name="AssignPALSErrorFLAG">
+                <copy>
+                  <from expression="'Error'"/>
+                  <to variable="InvokePALSJMSNotification_IV" part="body"
+                      query="/ns27:Notification/ns27:ErrorFlag"/>
+                </copy>
+              </assign>
+            </case>
+            <otherwise>
+              <empty name="Empty"/>
+            </otherwise>
+          </switch>
+          <invoke name="InvokePALSJMSNotification"
+                  inputVariable="InvokePALSJMSNotification_IV"
+                  partnerLink="SOAPALSNotificationJMSAdapter"
+                  portType="ns26:Produce_Message_ptt"
+                  operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+        </sequence>
+      </case>
     </switch>
   </sequence>
 </process>

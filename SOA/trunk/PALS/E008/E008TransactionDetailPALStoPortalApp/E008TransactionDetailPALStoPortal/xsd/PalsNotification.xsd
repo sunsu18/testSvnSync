@@ -18,6 +18,10 @@
             <xsd:element name="TargetTableName" type="xsd:string"/>
             <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
             <xsd:element name="CountryCode" type="xsd:string"/>
+            <xsd:element name="ErrorFlag" type="xsd:string"/>
+            <xsd:element name="Custom1" type="xsd:string"/>
+            <xsd:element name="Custom2" type="xsd:string"/>
+            <xsd:element name="Custom3" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>
