@@ -79,6 +79,7 @@ public class TransactionOverviewBean implements Serializable {
     private boolean vNumberPGL = false;
     private boolean reportDefault = false;
     private boolean reportRawData = false;
+    private boolean filterValue=false;
     private boolean reportInternationalTx = false;
     private boolean reportPriceSpecification = false;
     private boolean noteInternational=false;
@@ -3524,6 +3525,7 @@ public class TransactionOverviewBean implements Serializable {
         QueryEvent queryEvent =
             new QueryEvent(getBindings().getSearchResultsTB(), qd);
         getBindings().getSearchResultsTB().queueEvent(queryEvent);
+        filterValue=true;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
     }
 
@@ -3944,10 +3946,15 @@ public class TransactionOverviewBean implements Serializable {
             sum = sum + temp;
         }     
         }else {
-            isTableVisible=false;   
+            if(filterValue)
+            {
+            isTableVisible=true;   
+            }else {
+                isTableVisible=false;   
+            }
         }
         
-        if(!isTableVisible && value) {
+        if(!isTableVisible && value && !filterValue) {
             if (resourceBundle.containsKey("NO_RECORDS_FOUND_TRANSACTIONS")) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -3957,7 +3964,8 @@ public class TransactionOverviewBean implements Serializable {
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG()); 
         }        
-        value=false;        
+        value=false;  
+        filterValue=false;
                                                                                                         
     }
 
