@@ -299,7 +299,7 @@ public class AccountSummary implements Serializable {
                                                  if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
                                                      for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++){
                                                          if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
-                                                     cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
+                                                            cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
                                                              cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
 
                                                          }
@@ -1769,7 +1769,9 @@ public class AccountSummary implements Serializable {
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
                 }
             }
+            if(cardTypeList.size() > 0 )
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
+          
 
             getBindings().getCardGroupOverview().setVisible(true);
 

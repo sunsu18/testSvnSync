@@ -120,7 +120,7 @@
        <af:image shortDesc="" id="i2" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
         <af:image shortDesc="" id="i7" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
         <af:spacer width="4"  id="s325"/>
-         <af:outputText value="#{node.displayCardGroupIdName}" id="ot2" truncateAt="19"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot2" truncateAt="17"/>
         </af:group>
       </f:facet>
 
