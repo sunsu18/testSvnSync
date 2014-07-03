@@ -217,16 +217,29 @@
             <af:spacer width="10" height="15" id="spacer2"/>
 
 <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
-                              inlineStyle="width:930.0px; height:25.0px;"
+                              inlineStyle="width:940.0px; height:25.0px;"
                         halign="right">
 
             <af:panelGroupLayout id="pgl54"
                                layout="horizontal">
             
-           <af:panelGroupLayout id="pgl55" styleClass="filter_table"
-                             layout="horizontal">
+<af:panelGroupLayout id="pgl55" layout="horizontal">
+             <af:panelGroupLayout id="pgl92" styleClass="filter_table"
+                             layout="horizontal" inlineStyle="margin-right:25px;">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p3"/>
             </af:panelGroupLayout>
+            
+            
+             <af:separator id="s79" styleClass="vertical_seprator_trans"
+                    inlineStyle="height:20.0px !important;" />
+
+
+             
+            <af:outputText value="* #{sfr.ENG_VIEW_CARD_NOTE}" 
+                           id="ot59" styleClass="popupoutputText"
+                           noWrap="true"/>
+</af:panelGroupLayout>
+                           
             <af:popup id="p3">
           <af:noteWindow id="nw2" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl56" layout="vertical">
@@ -294,6 +307,25 @@
                 <f:validator binding="#{row.bindings.CardgroupDescription.validator}"/>
               </af:inputText>
             </af:column>
+             <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}" sortable="true"
+                       id="c3"  width="155px" filterFeatures="caseInsensitive">
+              <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
+                            label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
+                            required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
+                            columns="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.displayWidth}"
+                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.precision}"
+                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.tooltip}"
+                            id="it1" >
+                <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
+              </af:inputText>
+            </af:column>
+            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
+                       id="c13">
+              <af:outputText value="#{row.LastUsed}" id="ot36">
+                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm"/>
+              </af:outputText>
+            
+            </af:column>
             <af:column sortProperty="CardType" filterable="true" width="70px" sortable="true"
                        headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
                        id="c12">
@@ -319,25 +351,7 @@
                 <f:validator binding="#{row.bindings.TypeName.validator}"/>
               </af:inputText>
               </af:column>
-            <af:column sortProperty="CardEmbossNum" filterable="true" headerText="#{sfr.CARD}" sortable="true"
-                       id="c3"  width="155px" filterFeatures="caseInsensitive">
-              <af:inputText value="#{row.bindings.CardEmbossNum.inputValue}"
-                            label="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.label}"
-                            required="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.mandatory}"
-                            columns="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.displayWidth}"
-                            maximumLength="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.precision}"
-                            shortDesc="#{bindings.PrtViewCardsVO11.hints.CardEmbossNum.tooltip}"
-                            id="it1" >
-                <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
-              </af:inputText>
-            </af:column>
-            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
-                       id="c13">
-              <af:outputText value="#{row.LastUsed}" id="ot36">
-                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm:ss"/>
-              </af:outputText>
-            
-            </af:column>
+           
             <af:column headerText="#{sfr.CARD_TEXTLINE_2}" filterable="true" sortProperty="CardTextline2" sortable="true"
                        id="c10" width="175px" filterFeatures="caseInsensitive">
               <!--<af:inputText value="#{row.bindings.CardTextline2.inputValue}"
