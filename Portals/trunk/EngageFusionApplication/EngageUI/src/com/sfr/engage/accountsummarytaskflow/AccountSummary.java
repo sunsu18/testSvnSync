@@ -291,16 +291,21 @@ public class AccountSummary implements Serializable {
                             for(int a=0;a<partnerListDefault.size();a++) {
                                 if(partnerListDefault.get(a)!=null && partnerListDefault.get(a).getAccountList()!=null)
                                     for(int b=0;b<partnerListDefault.get(a).getAccountList().size();b++) {
-                                        if(partnerListDefault.get(a).getAccountList().get(b)!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup()!=null)
+                                        if(partnerListDefault.get(a).getAccountList().get(b)!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup() !=null)
                                             for(int c=0; c < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().size();c++)
                                             {
                                                 if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c)!= null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName()!= null)
                                                 {cardgroupsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName());
                                                  if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
-                                                     for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++){
-                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
+                                                     for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++)
+                                                     
+                                                     
+                                                     
+                                                     {
+                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null)
                                                             cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
-                                                             cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
+                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
+                                                            cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
 
                                                          }
                                                  }
