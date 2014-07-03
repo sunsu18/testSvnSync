@@ -13,7 +13,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>575</line>
+      <line>579</line>
       <col/>
       <file>E007PalsTransactionHeadertoPortalBPEL.bpel</file>
       <name>E007PalsTransactionHeadertoPortalBPEL.bpel</name>
@@ -23,7 +23,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>692</line>
+      <line>696</line>
       <col/>
       <file>E007PalsTransactionHeadertoPortalBPEL.bpel</file>
       <name>E007PalsTransactionHeadertoPortalBPEL.bpel</name>
@@ -33,7 +33,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>692</line>
+      <line>696</line>
       <col/>
       <file>E007PalsTransactionHeadertoPortalBPEL.bpel</file>
       <name>E007PalsTransactionHeadertoPortalBPEL.bpel</name>
@@ -43,7 +43,7 @@
    <Fault>
       <severity>warning</severity>
       <loc/>
-      <line>692</line>
+      <line>696</line>
       <col/>
       <file>E007PalsTransactionHeadertoPortalBPEL.bpel</file>
       <name>E007PalsTransactionHeadertoPortalBPEL.bpel</name>
