@@ -46,14 +46,27 @@
                           visible="true"
                         >
       <af:outputText value="#{sfr.ACCOUNT_SUMMARY}" id="ot28" styleClass="heading"/>
-        <af:spacer id="s294" width="20"/>
-             <af:selectOneChoice label="Search in" id="sml1" autoSubmit="true"
+     </af:panelGroupLayout>
+    </af:panelGroupLayout>
+
+    <af:spacer width="5" height="10" id="s31"/>
+
+    <af:panelGroupLayout id="pgl2" layout="horizontal">
+      <af:separator id="s4"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s6"/>
+     <af:panelGroupLayout id="pgl32" layout="horizontal">
+     <af:outputText value="Search In : " id="ot4"/>
+     <af:selectOneChoice id="sml1" autoSubmit="true"
                                  value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
-                                 unselectedLabel="#{sfr.PLEASE_SELECT}">
+                                 unselectedLabel="#{sfr.PLEASE_SELECT}"
+                         contentStyle="width:185.0px;">
+                        
 <af:selectItem label="cardGroupName" value="displayCardGroupIdName" id="si6"/>
 <af:selectItem label="externalCardID" value="externalCardID" id="si1"/>
 <af:selectItem label="cardTextline2" value="cardTextline2" id="si2"/>
 </af:selectOneChoice>
+ <af:spacer width="25" height="10" id="s296"/>  
 
 <af:inputText  id="it19"
               value="#{pageFlowScope.AccountSummaryBean.searchString}"
@@ -64,16 +77,13 @@
       <af:commandButton id="cb10"
                         actionListener="#{pageFlowScope.AccountSummaryBean.searchTraverse}"
                         partialSubmit="true" text="#{sfr.SEARCH}"/>
-      
-    </af:panelGroupLayout>
-    </af:panelGroupLayout>
-
-    <af:spacer width="5" height="10" id="s31"/>
-
-    <af:panelGroupLayout id="pgl2" layout="horizontal">
-      <af:separator id="s4"/>
-    </af:panelGroupLayout>
-    <af:spacer width="10" height="10" id="s6"/>
+                        </af:panelGroupLayout>
+         <af:spacer width="10" height="10" id="s297"/>      
+              
+      <af:panelGroupLayout id="pgl33" layout="horizontal">
+      <af:separator id="s294" inlineStyle="height: 0px;opacity: 0.30;"/>
+    </af:panelGroupLayout>                   
+                        
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
                           inlineStyle="width:240px; height:480px" valign="top">
@@ -111,7 +121,7 @@
      <af:image shortDesc="" id="i1" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
       <af:image shortDesc="" id="i6" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
        <af:spacer width="4"  id="s47"/>
-      <af:outputText value="#{node.accountNumber}" id="ot4"/>
+      <af:outputText value="#{node.accountNumber}" id="ot115"/>
       </af:group>
       </f:facet>
 
@@ -146,7 +156,8 @@
 
      </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl13">
-        <af:separator id="s324" styleClass="vertical_seperator_account"/>
+        <af:separator id="s324" styleClass="vertical_seperator_account"
+                      inlineStyle="opacity:0.30;"/>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="Overview" layout="vertical"  inlineStyle="height:480px;">
 

@@ -1,3 +1,65 @@
+/*Auto-Suggest UI*/
+
+.AFAutoSuggestBusyStyle {
+background-repeat:no-repeat;
+background-position:center center;
+background-image:url("/images/ajax-loader-new.gif");
+height:40px;
+min-width:40px;
+}
+
+.AFAutoSuggestItemsContainer 
+{
+background-color:#ffffff;
+border:0px;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0px;
+padding:0 0 1px 0;
+max-height:300px;
+overflow:auto
+}
+.AFAutoSuggestItem 
+{
+color:#524e4f;
+font-family: Lucida Sans,Georgia,Serif !important;
+font-weight:normal;
+font-size:13px;
+text-align:left;
+line-height:1.6;
+height:14px;
+padding:1px;
+border:1px transparent solid;
+background-color:transparent;
+vertical-align:baseline;
+white-space:pre;
+cursor:default
+}
+
+/*Auto-Suggest UI End*/
+
+
+/*Note Window*/
+.AFNoteWindow{
+background-color:white;
+font-family:Lucida Sans;
+font-weight:normal;
+font-size:11px;
+padding:3px 5px;
+z-index:2;
+background-position:top;
+background-repeat:no-repeat;
+background-image:none !important;
+border-left:0px solid #C2C7D3;
+border-right:1px solid #C2C7D3;
+border-bottom:1px solid #C2C7D3;
+border-top:1px solid #C2C7D3;
+-webkit-box-shadow:3px 3px 5px rgba(0,0,0s,0.5)
+}
+/*Note Window Ends*/
+
+
 .af_column_column-header-cell-content.p_AFSorted {
 padding-right: 0px !important;
 }
@@ -6,6 +68,7 @@ padding-right: 0px !important;
 right: -8px !important;
 top: 11px !important;
 }
+
 
 
 
@@ -560,7 +623,7 @@ body {
     background-image: none !important;
     border-left: 2px solid gray;
     border-right: 2px solid gray;
-
+    font-family : Lucida Sans,Georgia,Serif !important;
     margin: 0;
    /*overflow-x:hidden;*/
     width: 962px;
@@ -785,7 +848,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#259cba', end
     height:23.0px !important;
 }*/
 
-.outputText, .af_document,.af_panelFormLayout_content-cell{
+.outputText, .af_document,.af_panelFormLayout_content-cell,.af_selectOneChoice_label{
 /*padding-top:15px !important;*/
 color:#524e4f;
 font-size:13px;
@@ -971,7 +1034,7 @@ border-right: 1px solid #FFFFFF !important;
     font: bold 12px Arial, Helvetica, sans-serif;
     line-height: 1.4em;
     border: 1px solid #ffffff;
-    color: #000000;
+    color: #524E4F;
     background-color: rgba(253, 253, 250, 0) ;
     border: 1px solid rgba(255, 255, 255, 0) ;
 }
