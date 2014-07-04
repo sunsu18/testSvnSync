@@ -799,7 +799,16 @@
           </af:panelGroupLayout>
          </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s25"/>
-
+   <af:panelGroupLayout id="ReportButtonPanel2" halign="right">
+  
+      <!--<af:spacer width="10" height="10" id="spc67"/>-->
+      <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="filterTable2"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTablePopup}"/>
+      <af:spacer width="10" height="10" id="spc6712"/>
+      <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="resetFilterTable2"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.resetFilterTable}"/>
+     </af:panelGroupLayout>
+      <af:spacer width="10" height="5" id="s2fil5"/>
          <af:table value="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel}"
                    var="row" width="835px"
                    rows="#{bindings.PrtCardTransactionInvoiceRVO1.rangeSize}"
@@ -812,7 +821,8 @@
                    selectedRowKeys="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel.selectedRow}"
                    selectionListener="#{bindings.PrtCardTransactionInvoiceRVO1.collectionModel.makeCurrent}"
                    rowSelection="single" id="t3" columnResizing="disabled" disableColumnReordering="true"
-                   inlineStyle="height:100px;" autoHeightRows="5">
+                   inlineStyle="height:100px;" autoHeightRows="5"
+                   binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResultsPopup}">
                      <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114"
                                 width="50" sortable="true">
            <af:outputText value="#{vs.index+1}" id="ot42"/>

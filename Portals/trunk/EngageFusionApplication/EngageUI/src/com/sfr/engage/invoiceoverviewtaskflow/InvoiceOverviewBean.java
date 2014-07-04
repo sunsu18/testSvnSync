@@ -171,7 +171,8 @@ public class InvoiceOverviewBean implements Serializable {
     private List shuttleList = new ArrayList();
     private String contentType;
     private String fileName;
-    private String reportType = "Card";    
+    private String reportType = "Card";
+   
 
     public InvoiceOverviewBean() {
         super();
@@ -525,7 +526,7 @@ if(partnerInfoList.size() == 1) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
+                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
                 invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
@@ -2693,14 +2694,20 @@ for(int i=0;i<prop.length;i++)
                                 }
                             } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvoiceDate() != null) {
-                                out.print(row.getInvoiceDate());
+                                java.sql.Date date =
+                                    row.getInvoiceDate().dateValue();
+                                Date passedDate = new Date(date.getTime());                               
+                                out.print(formatConversion(passedDate));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDueDate() != null) {
-                                out.print(row.getInvoicingDueDate().toString());
+                                java.sql.Date date =
+                                    row.getInvoicingDueDate().dateValue();
+                                Date passedDate = new Date(date.getTime());                               
+                                out.print(formatConversion(passedDate));                              
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
@@ -2787,14 +2794,20 @@ for(int i=0;i<prop.length;i++)
                             } 
                             else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getInvoiceDate() != null) {
-                                    out.print(row.getInvoiceDate());
+                                    java.sql.Date date =
+                                        row.getInvoiceDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());                               
+                                    out.print(formatConversion(passedDate));                                   
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getInvoicingDueDate() != null) {
-                                    out.print(row.getInvoicingDueDate().toString());
+                                    java.sql.Date date =
+                                        row.getInvoicingDueDate().dateValue();
+                                    Date passedDate = new Date(date.getTime());                               
+                                    out.print(formatConversion(passedDate));                                     
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
@@ -2853,7 +2866,7 @@ for(int i=0;i<prop.length;i++)
     }    
    
     public void filterTable(ActionEvent actionEvent) {
-
+          
             FilterableQueryDescriptor qd =
 
                 (FilterableQueryDescriptor)getBindings().getInvoiceResults().getFilterModel();
@@ -2868,12 +2881,28 @@ for(int i=0;i<prop.length;i++)
 
         }
     
+    public void filterTablePopup(ActionEvent actionEvent) {
+        System.out.println("Inside filterTablePopup");
+        FilterableQueryDescriptor qd1 =
+
+            (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
+        
+
+        QueryEvent queryEvent2 =
+
+            new QueryEvent(getBindings().getInvoiceResultsPopup(), qd1);
+        
+        getBindings().getInvoiceResultsPopup().queueEvent(queryEvent2);
+
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
+    }
     
     public void resetFilterTable(ActionEvent actionEvent) {
-
+        System.out.println("Inside ResetFilter method");
            resetTableFilter();
-
+           resetTableFilterPopup();
            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
 
     }
 
@@ -2896,8 +2925,29 @@ for(int i=0;i<prop.length;i++)
                    getBindings().getInvoiceResults().queueEvent(new QueryEvent(getBindings().getInvoiceResults(), queryDescriptor));
 
                }
+               
+                              
 
            }
+
+       public void resetTableFilterPopup(){
+           
+           FilterableQueryDescriptor queryDescriptor2 =
+
+               (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
+
+           if (queryDescriptor2 != null &&
+               queryDescriptor2.getFilterCriteria() != null)
+
+           {
+
+               queryDescriptor2.getFilterCriteria().clear();
+
+               getBindings().getInvoiceResultsPopup().queueEvent(new QueryEvent(getBindings().getInvoiceResultsPopup(),
+                                                                                queryDescriptor2));
+
+           }
+       }
    
     public String confirmationCancelAction() {
      
@@ -3021,6 +3071,8 @@ for(int i=0;i<prop.length;i++)
         return fileName;
     }
 
+  
+
 
     public class Bindings {
         private RichSelectManyChoice account;
@@ -3035,6 +3087,7 @@ for(int i=0;i<prop.length;i++)
         private RichPanelGroupLayout cardGroupPGL;
         private RichPanelGroupLayout cardPGL;
         private RichTable invoiceResults;
+        private RichTable invoiceResultsPopup;
         private RichSelectOneChoice partnerNumber;
         private RichPopup confirmationExcel;
         private RichSelectOneRadio selectionExportOneRadio;
@@ -3202,6 +3255,14 @@ for(int i=0;i<prop.length;i++)
 
         public RichPopup getConfirmationExcel() {
             return confirmationExcel;
+        }
+
+        public void setInvoiceResultsPopup(RichTable invoiceResultsPopup) {
+            this.invoiceResultsPopup = invoiceResultsPopup;
+        }
+
+        public RichTable getInvoiceResultsPopup() {
+            return invoiceResultsPopup;
         }
     }
 }
