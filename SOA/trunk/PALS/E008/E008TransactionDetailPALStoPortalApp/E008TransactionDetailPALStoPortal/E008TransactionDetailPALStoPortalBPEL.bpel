@@ -130,8 +130,6 @@
     <variable name="Invoke_SelectPALSDB2DatabaseAdapterV1_OV"
               messageType="ns7:Cc078Vs1CssolnjDtaCollection_msg"/>
     <variable name="DataCount" type="xsd:integer"/>
-    <variable name="TransactionDetailValidate"
-              element="ns13:ValidationPayload"/>
     <variable name="InvokeMergeTrxnDtlErrorLogDBAdapter_IV"
               messageType="ns9:EngageSoaTxndtlErrorlogCollection_msg"/>
     <variable name="ErrorFlag" type="xsd:string"/>
@@ -163,6 +161,8 @@
               messageType="ns24:EngageSoaTxndtlErrorlogCollection_msg"/>
     <variable name="InvokePALSJMSNotification_IV"
               messageType="ns26:Produce_Message_msg"/>
+    <variable name="TransactionDetailValidate"
+              element="ns13:ValidationPayload"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault">
@@ -508,7 +508,7 @@
           <bpelx:inputProperty name="jca.jndi" variable="PALSJNDI"/>
         </invoke>
         <switch name="Switch5">
-          <case condition="(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount'))&lt;ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:_1') div bpws:getVariableData('BatchSize')))">
+          <case condition="(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount')!='') and (number(bpws:getVariableData('ReceiveInvocationMsgIV','invocationPayload','/ns6:invocationMsg/ns6:BatchCount'))&lt;ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:count') div bpws:getVariableData('BatchSize')))">
             <bpelx:annotation>
               <bpelx:general>
                 <bpelx:property name="userLabel">If batch count is sent</bpelx:property>
@@ -525,7 +525,7 @@
           <otherwise>
             <assign name="CalculateBatchCount">
               <copy>
-                <from expression="ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:_1') div bpws:getVariableData('BatchSize'))"/>
+                <from expression="ceiling(bpws:getVariableData('InvokeSelectCountPALSDB2DBadapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns5:SelectCountPALSDB2DatabaseAdapterV1Output/ns5:count') div bpws:getVariableData('BatchSize'))"/>
                 <to variable="BatchCount"/>
               </copy>
             </assign>

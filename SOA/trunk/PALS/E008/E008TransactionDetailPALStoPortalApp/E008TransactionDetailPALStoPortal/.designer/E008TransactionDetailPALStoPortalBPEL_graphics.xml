@@ -20,7 +20,7 @@
       <partnerlink name="UpdateTrxnDtlErrorLogDatabaseAdapterV1" x="2190" y="5082" side="right"/>
       <partnerlink name="SOAPALSNotificationJMSAdapter" x="2190" y="5852" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,5330,1031,494" show_swimlanes="true">
+   <graph_layout viewport="1367,1950,955,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
