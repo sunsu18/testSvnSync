@@ -1,18 +1,17 @@
 package com.sfr.services.core.dao;
 
 
-import com.sfr.services.client.proxy.user.OIMUserManagermentImpl;
-import com.sfr.services.client.proxy.user.type.Identity;
-import com.sfr.services.client.proxy.user.type.OimUserManagementResult;
 import com.sfr.core.bean.BaseBean;
 import com.sfr.core.bean.BusinessError;
 import com.sfr.core.bean.Roles;
 import com.sfr.core.bean.User;
+import com.sfr.services.client.proxy.user.OIMUserManagermentImpl;
+import com.sfr.services.client.proxy.user.type.Identity;
+import com.sfr.services.client.proxy.user.type.OimUserManagementResult;
 import com.sfr.services.core.dao.factory.DAOFactory;
+import com.sfr.services.core.dao.factory.EngageDAOFactory;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
-
-import java.sql.SQLException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,15 +22,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.naming.NamingException;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import oracle.adf.share.logging.ADFLogger;
-
-import oracle.security.idm.IMException;
 import oracle.security.idm.IdentityStore;
 import oracle.security.idm.Role;
 import oracle.security.idm.SearchParameters;
@@ -40,13 +34,13 @@ import oracle.security.idm.SimpleSearchFilter;
 import oracle.security.idm.UserProfile;
 import oracle.security.jps.JpsContext;
 import oracle.security.jps.JpsContextFactory;
-import oracle.security.jps.JpsException;
 import oracle.security.jps.service.idstore.IdentityStoreService;
+
 
 public class UserDAO {
     public UserDAO() {
     }
-    
+
     /**
      * Method for changing password that returns success if password is changed
      * and error codes incase of failure
@@ -58,7 +52,8 @@ public class UserDAO {
     public BaseBean changePasswordWS(String userID, String oldPassword, String newPassword) {
         System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePasswordWS : "+"UserDAO.chnagePasswordWS : userID=" + userID + " oldPassword=" + oldPassword + " newPassword=" + newPassword);
         long startTime = System.currentTimeMillis();
-        OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
+        OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
+        //OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.changePassword(userID, oldPassword, newPassword);
         long elapsedTime = System.currentTimeMillis() - startTime;
         System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePasswordWS : "+"  OIM Change Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
@@ -127,9 +122,9 @@ public class UserDAO {
         sb.append("--identity.getRemoveRoleList():<" + identity.getRemoveRoleList() + ">");
         sb.append("--identity.getDesignation():<" + identity.getDesignation() + ">");
         sb.append("--identity.getSiteIDs():<" + identity.getSiteIDs() + ">");
-        
+
         /* Engage Portal Starts here*/
-        
+
         sb.append("--identity.getCARDADMINID():<" + identity.getCARDADMINID() + ">");
         sb.append("--identity.getCARDB2BADMINID():<" + identity.getCARDB2BADMINID() + ">");
         sb.append("--identity.getCARDB2BEMPID():<" + identity.getCARDB2BEMPID() + ">");
@@ -139,8 +134,8 @@ public class UserDAO {
         sb.append("--identity.getCARDB2CSFRID():<" + identity.getCARDB2CSFRID() + ">");
         sb.append("--identity.getCARDCSRID():<" + identity.getCARDCSRID() + ">");
         sb.append("--identity.getCARDSALESREPID():<" + identity.getCARDSALESREPID() + ">");
-        
-        
+
+
         /*Engage Portal ends here*/
         sb.append("Displaying Identity ends::::::::::::");
         return sb.toString();
@@ -158,7 +153,7 @@ public class UserDAO {
         OimUserManagementResult oimResult = oIMUserManagermentImpl.deleteOIMUser(userID);
         long elapsedTime = System.currentTimeMillis() - startTime;
         System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".deleteUserWS : "+"  OIM delete User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
-       
+
         //parse response
         return parseOimUserManagementResult(oimResult);
     }
@@ -182,7 +177,7 @@ public class UserDAO {
                }
                catch(Exception e){
                        e.printStackTrace();
-               } 
+               }
 
         System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".updateUserWS : "+"Displaying Identity for Update User"+displayIdentity(identity));
         long startTime = System.currentTimeMillis();
@@ -209,7 +204,7 @@ public class UserDAO {
         OimUserManagementResult oimResult = oIMUserManagermentImpl.searchOIMUser(customerId);
         long elapsedTime = System.currentTimeMillis() - startTime;
         System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWS : "+"  OIM search User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
-       
+
         if (null != oimResult) {
             try {
                 return parseOimUserManagementResultToUsers(oimResult);
@@ -369,14 +364,14 @@ public class UserDAO {
                 if (null != profile.getPropertyVal(Constants.OPSS_LANG)) {
                     user.setLang((String)profile.getPropertyVal(Constants.OPSS_LANG));
                 }
-                
+
                 if (null != profile.getPropertyVal("designation")) {
                     user.setDesignation((String)profile.getPropertyVal("designation"));
                 }
                 if (null != profile.getPropertyVal("title")) {
                     user.setPrimarySiteID(Integer.parseInt((String)profile.getPropertyVal("title")));
                 }
-                
+
                 String roleList = getUserRoleList(idStore, id);
                 if (null != roleList) {
                     user.setRolelist(roleList);
@@ -410,16 +405,16 @@ public class UserDAO {
 //                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"designation:" + profile.getPropertyVal("designation"));
 //                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"title:" + profile.getPropertyVal("title"));
 //                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"SiteIDs:" + profile.getPropertyVal("sstation_ManagerExt"));
-                
+
                 /*Enage Portal starts here*/
-                
+
                 System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
                 System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
-                
-                
-                
+
+
+
                 /* Engage portal end here*/
-                
+
 
                 user.setRoleList(new ArrayList<Roles>());
 
@@ -463,28 +458,28 @@ public class UserDAO {
                 if (roleList.contains(Constants.ROLE_WCP_ICSR)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ICSR, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_ISSM) ) {
                     List<Integer> custID = converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSM, custID, null, user.getRoleList()));
                 }
-                    
+
                 if ( roleList.contains(Constants.ROLE_WCP_ESSM) ) {
                     List<Integer> custID = converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSM, custID, null, user.getRoleList()));
-                }    
+                }
                 if (roleList.contains(Constants.ROLE_WCP_ISSEMP) ) {
                     List<Integer> custID = converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSEMP, custID, null, user.getRoleList()));
                 }
-                    
+
                 if ( roleList.contains(Constants.ROLE_WCP_ESSEMP) ) {
                     List<Integer> custID = converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSEMP, custID, null, user.getRoleList()));
-                }   
-                    
-                                                
-               /* 
+                }
+
+
+               /*
                 if (roleList.contains(Constants.ROLE_WCP_ISSM)) {
                     List<Integer> li = new ArrayList<Integer>();
                     try {
@@ -501,11 +496,11 @@ public class UserDAO {
                     }
     //                    if (user.getWcp_ISSM_CustomerID() == null || user.getWcp_ISSM_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ISSM)));
-                    
+
                     List<Integer> custID=li;
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSM, custID, null, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_ESSM)) {
                     List<Integer> li = new ArrayList<Integer>();
                     try {
@@ -522,11 +517,11 @@ public class UserDAO {
                     }
     //                    if (user.getWcp_ESSM_CustomerID() == null || user.getWcp_ESSM_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM)));
-                    
+
                     List<Integer> custID=li;
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSM, custID, null, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_ISSEMP)) {
                     List<Integer> li = new ArrayList<Integer>();
                     try {
@@ -543,11 +538,11 @@ public class UserDAO {
                     }
     //                    if (user.getWcp_ISSEMP_CustomerID() == null || user.getWcp_ISSEMP_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP)));
-                    
+
                     List<Integer> custID=li;
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSEMP, custID, null, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_ESSEMP)) {
     //                    user.setWcp_ESSEMP_CustomerID(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP)));
                     List<Integer> custID=converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP));
@@ -578,63 +573,63 @@ public class UserDAO {
                 if (roleList.contains(Constants.ROLE_WCP_SSSUPP)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_SSSUPP, user.getRoleList()));
                 }
-                
+
                 if(user.getRolelist().contains(Constants.ROLE_WCP_WEBSUP)) {
-                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_WEBSUP, user.getRoleList()));  
-                      
-                }  
-                
-                
+                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_WEBSUP, user.getRoleList()));
+
+                }
+
+
                 if(user.getRolelist().contains(Constants.ROLE_WCP_AVISUP)) {
-                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVISUP, user.getRoleList()));     
+                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVISUP, user.getRoleList()));
                 }
-                
+
                 if(user.getRolelist().contains(Constants.ROLE_WCP_MARSUP)) {
-                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MARSUP, user.getRoleList()));     
+                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MARSUP, user.getRoleList()));
                 }
-                
+
                 if(user.getRolelist().contains(Constants.ROLE_WCP_RESSUP)) {
-                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESSUP, user.getRoleList()));     
+                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESSUP, user.getRoleList()));
                 }
-                
+
                 /* Engage Portal Roles List for OPSS*/
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2C_SFR)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_SFR));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_SFR, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2C_JET)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_JET));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_JET, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2B_ADMIN));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_ADMIN, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2B_MGR));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_MGR, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2C_PETRO)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_PETRO, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_B2B_EMP)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2B_EMP));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_EMP, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     System.out.println("property value of=====================>"+profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
@@ -642,31 +637,31 @@ public class UserDAO {
                     System.out.println("List of WCP card admin================================================================>"+custID);
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_CSR)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_CSR));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_CSR, null, custID, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 //                    user.setWcp_AVEMP_CustomerID(converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_AVEMP)));
                     List<String> custID=converttolistString(profile.getPropertyVal(Constants.OPSS_WCP_CARD_SALES_REP));
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, null, custID, user.getRoleList()));
                 }
-                
+
                 /*if (roleList.contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_CSR)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_CSR, user.getRoleList()));
                 }
-                
+
                 if (roleList.contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                     user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, user.getRoleList()));
                 }*/
-                
+
                 /* Engage Portal Roles List Ended for OPSS*/
             }
         }
@@ -724,7 +719,7 @@ public class UserDAO {
         //        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".methodName : "+"UserDAO.converttolist: User customer id " + custids.size());
         return custids;
     }
-    
+
     private List<String> converttolistString(Object cid) {
         List<String> custids = new ArrayList<String>();
         if (null != cid && !cid.toString().isEmpty() && cid.toString().contains("?")) {
@@ -842,7 +837,7 @@ public class UserDAO {
 
             long elapsedTime = System.currentTimeMillis() - startTime;
             System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".forgotPasswordWS : "+"  OIM Forgot Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
-           
+
         } catch (Exception r) {
             r.printStackTrace();
 
@@ -868,12 +863,12 @@ public class UserDAO {
             if (null != user.getPrimarySiteID())
             identity.setTitle(user.getPrimarySiteID().toString());
             identity.setDesignation(user.getDesignation());
-            
+
             if (null != user.getDob())
                 identity.setDOB(convertDateToXMLGregorianCal(user.getDob()));
             if (user.getEmployeeNumber() != null && user.getEmployeeNumber().size() != 0)
                 identity.setEmployeeNumber(convertListToString(user.getEmployeeNumber()));
-            
+
 
             List<Roles> rolelist = user.getRoleList();
             List<String> newRoleList = new ArrayList<String>();
@@ -1012,7 +1007,7 @@ public class UserDAO {
                         if (null != identityResult) {
                             user = new User();
                             System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Displaying identity for search users"+displayIdentity(identityResult));
-                            
+
                             if (null != identityResult.getEmail()) {
                                 user.setUserID(identityResult.getEmail().trim());
                             }
@@ -1020,39 +1015,39 @@ public class UserDAO {
                             if (null != identityResult.getEmail()) {
                                 user.setEmailID(identityResult.getEmail().trim());
                             }
-                            
+
                             if (null != identityResult.getFirstName()) {
                                 user.setFirstName(identityResult.getFirstName().trim());
                             }
-                            
+
                             if (null != identityResult.getLastName()) {
                                 user.setLastName(identityResult.getLastName().trim());
                             }
-                            
+
                             if (null != identityResult.getMiddleName()) {
                                 user.setMiddleName(identityResult.getMiddleName().trim());
                             }
-                            
+
                             if (null != identityResult.getDOB()) {
                                 user.setDob(identityResult.getDOB().toGregorianCalendar().getTime());
                             }
-                            
+
                             if (null != identityResult.getPosition()) {
                                 user.setPosition(identityResult.getPosition().trim());
                             }
-                            
+
                             if (null != identityResult.getPhoneNumber()) {
                                 user.setPhoneNumber(identityResult.getPhoneNumber().trim());
                             }
-                            
+
                             if (null != identityResult.getUserLang()) {
                                 user.setLang(identityResult.getUserLang().trim());
                             }
-                            
+
                             if (null != identityResult.getDesignation()) {
                                 user.setDesignation(identityResult.getDesignation().trim());
                             }
-                            
+
                             if (null != identityResult.getTitle() && !identityResult.getTitle().isEmpty()) {
                                 try{
                                 user.setPrimarySiteID(Integer.parseInt(identityResult.getTitle().trim()));
@@ -1067,22 +1062,22 @@ public class UserDAO {
                                 user.setRolelist("");
                             }
                             System.out.println("Rolelist after WSDL search:"+user.getRolelist());
-                            
+
                             if (null != identityResult.getExternalUSERTYPE() && !identityResult.getExternalUSERTYPE().equals("")) {
                                 if(identityResult.getExternalUSERTYPE().equalsIgnoreCase("internal")){
-                                    user.setInternal(true);    
+                                    user.setInternal(true);
                                 }else if(identityResult.getExternalUSERTYPE().equalsIgnoreCase("intext")){
-                                    user.setInternal(true);    
+                                    user.setInternal(true);
                                 }else if(identityResult.getExternalUSERTYPE().equalsIgnoreCase("external")){
-                                    user.setInternal(false);    
+                                    user.setInternal(false);
                                 }else{
-                                    user.setInternal(true);    
+                                    user.setInternal(true);
                                 }
                             }else{
-                                user.setInternal(true);    
+                                user.setInternal(true);
                             }
                             user.setRoleList(new ArrayList<Roles>());
-                    
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_AVSUP) && identityResult.getAssociatedAirportID() != null && !identityResult.getAssociatedAirportID().isEmpty()) {
     //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> airportID = converttolistString(identityResult.getAssociatedAirportID());
@@ -1091,7 +1086,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVSUP, null,airportID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_AVEMP) &&  identityResult.getAviationEmployeeID() != null && !identityResult.getAviationEmployeeID().isEmpty()) {
     //                                user.setWcp_AVEMP_CustomerID(converttolistString(identityResult.getAviationEmployeeID()));
                                 List<String> airportID = converttolistString(identityResult.getAviationEmployeeID());
@@ -1100,7 +1095,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVEMP, null,airportID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_B2BEMP) && identityResult.getB2BEmployeeCustomerID() != null) {
     //                                user.setWcp_B2BEMP_CustomerID(converttolist(identityResult.getB2BEmployeeCustomerID()));
                                 List<Integer> custID=converttolist(identityResult.getB2BEmployeeCustomerID());
@@ -1109,7 +1104,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_B2BEMP, custID,null, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_B2BM) && identityResult.getB2BManagerCustomerID() != null) {
     //                                user.setWcp_B2BM_CustomerID(converttolist(identityResult.getB2BManagerCustomerID()));
                                 List<Integer> custID=converttolist(identityResult.getB2BManagerCustomerID());
@@ -1118,7 +1113,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_B2BM, custID,null, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_B2C) && identityResult.getB2CCustomerID() != null) {
     //                                user.setWcp_B2C_CustomerID(converttolist(identityResult.getB2CCustomerID()));
                                 List<Integer> custID=converttolist(identityResult.getB2CCustomerID());
@@ -1127,27 +1122,27 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_B2C, custID,null, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ECSR)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ECSR, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ICSR)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ICSR, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_MREMP) && identityResult.getMarineEmployee() != null) {
     //                                user.setWcp_MREMP_CustomerID(converttolistString(identityResult.getMarineEmployee()));
                                 List<String> custID=converttolistString(identityResult.getMarineEmployee());
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MREMP, null, custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_MRSUP) && identityResult.getMarineManager() != null) {
     //                                user.setWcp_MRSUP_CustomerID(converttolistString(identityResult.getMarineManager()));
                                 List<String> custID=converttolistString(identityResult.getMarineManager());
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MRSUP, null, custID, user.getRoleList()));
                             }
-                            
+
 
                             if (user.getRolelist().contains(Constants.ROLE_WCP_RESM) && identityResult.getResellerCustomerID() != null) {
     //                                user.setWcp_RESM_CustomerID(converttolist(identityResult.getResellerCustomerID()));
@@ -1157,7 +1152,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESM, custID,null, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_RESEMP) && identityResult.getResellerEmployeeID() != null) {
     //                                user.setWcp_RESEMP_CustomerID(converttolist(identityResult.getResellerEmployeeID()));
                                 List<Integer> custID=converttolist(identityResult.getResellerEmployeeID());
@@ -1166,70 +1161,70 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESEMP, custID,null, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ISSM)) {
                                 List<Integer> tempList=converttolist(identityResult.getSiteIDs());
                                 if(tempList==null || tempList.size()<1){
                                     System.out.println("Role found"+Constants.ROLE_WCP_ISSM+"but Customer IDs not found");
                                 }
-                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSM, tempList,null, user.getRoleList()));  
+                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSM, tempList,null, user.getRoleList()));
                             }
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ESSM)) {
                                 List<Integer> tempList=converttolist(identityResult.getSiteIDs());
                                 if(tempList==null || tempList.size()<1){
                                     System.out.println("Role found"+Constants.ROLE_WCP_ESSM+"but Customer IDs not found");
                                 }
-                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSM, tempList,null, user.getRoleList()));  
+                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSM, tempList,null, user.getRoleList()));
                             }
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ISSEMP)) {
                                 List<Integer> tempList=converttolist(identityResult.getSiteIDs());
                                 if(tempList==null || tempList.size()<1){
                                     System.out.println("Role found"+Constants.ROLE_WCP_ISSEMP+"but Customer IDs not found");
                                 }
-                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSEMP, tempList,null, user.getRoleList()));  
-                            } 
+                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ISSEMP, tempList,null, user.getRoleList()));
+                            }
                             if (user.getRolelist().contains(Constants.ROLE_WCP_ESSEMP)) {
-                                
+
                                 List<Integer> tempList=converttolist(identityResult.getSiteIDs());
                                 if(tempList==null || tempList.size()<1){
                                     System.out.println("Role found"+Constants.ROLE_WCP_ESSEMP+"but Customer IDs not found");
                                 }
-                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSEMP, tempList,null, user.getRoleList()));  
+                                user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_ESSEMP, tempList,null, user.getRoleList()));
                             }
-                       
-                                                              
+
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_SUPP)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_SUPP, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_WSM)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_WSM, user.getRoleList()));
                             }
-                           
+
                             if(user.getRolelist().contains(Constants.ROLE_WCP_SSSUPP)) {
-                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_SSSUPP, user.getRoleList()));   
+                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_SSSUPP, user.getRoleList()));
                             }
 
 
                             if(user.getRolelist().contains(Constants.ROLE_WCP_WEBSUP)) {
-                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_WEBSUP, user.getRoleList()));    
-                            }  
-                            
-                            
+                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_WEBSUP, user.getRoleList()));
+                            }
+
+
                             if(user.getRolelist().contains(Constants.ROLE_WCP_AVISUP)) {
-                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVISUP, user.getRoleList()));     
+                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_AVISUP, user.getRoleList()));
                             }
-                            
+
                             if(user.getRolelist().contains(Constants.ROLE_WCP_MARSUP)) {
-                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MARSUP, user.getRoleList()));     
+                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_MARSUP, user.getRoleList()));
                             }
-                            
+
                             if(user.getRolelist().contains(Constants.ROLE_WCP_RESSUP)) {
-                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESSUP, user.getRoleList()));     
+                            user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_RESSUP, user.getRoleList()));
                             }
-                            
+
                             /* Engage Portal Specific added*/
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) && identityResult.getCARDB2CSFRID() != null && !identityResult.getCARDB2CSFRID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2CSFRID());
@@ -1238,7 +1233,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_SFR, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) && identityResult.getCARDB2CJETID() != null && !identityResult.getCARDB2CJETID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2CJETID());
@@ -1247,7 +1242,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_JET, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) && identityResult.getCARDB2BADMINID() != null && !identityResult.getCARDB2BADMINID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2BADMINID());
@@ -1256,7 +1251,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_ADMIN, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) && identityResult.getCARDB2BMGRID() != null && !identityResult.getCARDB2BMGRID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2BMGRID());
@@ -1265,7 +1260,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_MGR, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) && identityResult.getCARDB2CPETROID() != null && !identityResult.getCARDB2CPETROID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2CPETROID());
@@ -1274,7 +1269,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2C_PETRO, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) && identityResult.getCARDB2BEMPID() != null && !identityResult.getCARDB2BEMPID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDB2BEMPID());
@@ -1283,7 +1278,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_B2B_EMP, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) && identityResult.getCARDADMINID() != null && !identityResult.getCARDADMINID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDADMINID());
@@ -1292,7 +1287,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) && identityResult.getCARDCSRID() != null && !identityResult.getCARDCSRID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDCSRID());
@@ -1301,7 +1296,7 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_CSR, null,custID, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP) && identityResult.getCARDSALESREPID() != null && !identityResult.getCARDSALESREPID().isEmpty()) {
                             //                                user.setWcp_AVSUP_CustomerID(converttolistString(identityResult.getAssociatedAirportID()));
                                 List<String> custID = converttolistString(identityResult.getCARDSALESREPID());
@@ -1310,50 +1305,50 @@ public class UserDAO {
                                 }
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, null,custID, user.getRoleList()));
                             }
-                            
+
                             /*if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_ADMIN, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_CSR, user.getRoleList()));
                             }
-                            
+
                             if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                                 user.setRoleList(addRoleToRoleList(Constants.ROLE_WCP_CARD_SALES_REP, user.getRoleList()));
                             }*/
-                            
+
                             /* Added till here */
-                            
-                            
+
+
                             List<String> totalPortalRoles=new ArrayList<String>();
                             try {
                               totalPortalRoles= DAOFactory.getSingleColumnDataFromFeature("ROLE", "MANAGED_IN_PORTALS", null, null, "TRUE", "CONTROL_ATTR");
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            
+
                             List<String> roleslistofuser = convertRoleStringToList(user.getRolelist());
-                            
+
                             for(int i=0;i<roleslistofuser.size();i++){
                                 boolean covered=false;
                                 for(int j=0;j<user.getRoleList().size();j++)    {
                                     if(roleslistofuser.get(i).equals(user.getRoleList().get(j).getRoleName())){
                                             covered=true;
                                             break;
-                                    }    
+                                    }
                                 }
                                 if(!covered){
                                     for(int j=0;j<totalPortalRoles.size();j++){
                                         if(roleslistofuser.get(i).equals(totalPortalRoles.get(j))){
-                                            user.setRoleList(addRoleToRoleList(totalPortalRoles.get(j), user.getRoleList()));  
+                                            user.setRoleList(addRoleToRoleList(totalPortalRoles.get(j), user.getRoleList()));
                                             break;
-                                        }    
+                                        }
                                     }
                                 }
                             }
-                            
-                            
+
+
                             if (user != null && user.getFirstName() != null)
                                 userList.add(user);
                         }
@@ -1368,12 +1363,12 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
-        
+
         UserDAO dao = new UserDAO();
-     
-        
-        
-        
+
+
+
+
     //
     //        User u = new User();
     //        u.setFirstName("LNTFN5019120");
@@ -1445,7 +1440,7 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    
+
     private List<Roles> addRoleToRoleList(String roleName, List<Integer> customerID,List<String> AirportID, List<Roles> rolesList){
         Roles role=new Roles();
         role.setRoleName(roleName);
@@ -1454,8 +1449,8 @@ public class UserDAO {
         rolesList.add(role);
         return rolesList;
     }
-    
-    
+
+
     private List<Roles> addRoleToRoleList(String roleName, List<Roles> rolesList){
         Roles role=new Roles();
         role.setRoleName(roleName);
@@ -1494,13 +1489,13 @@ public class UserDAO {
             identity.setB2BManagerCustomerID(convertListToString(customerID));
         }
 
-        //SS user creation 4 types. 4 SS types are mutually exclusive. 
+        //SS user creation 4 types. 4 SS types are mutually exclusive.
         //So for a user only one of 4 SS roles can be present.
         if (rolename != null && (rolename.equals(Constants.ROLE_WCP_ISSM)||rolename.equals(Constants.ROLE_WCP_ESSM)||
             rolename.equals(Constants.ROLE_WCP_ISSEMP)|| rolename.equals(Constants.ROLE_WCP_ESSEMP))) {
             identity.setSiteIDs(convertListToString(customerID));
         }
-        
+
         //Reseller user creation 2 types.
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_RESM)) {
             identity.setResellerCustomerID(convertListToString(customerID));
@@ -1533,40 +1528,40 @@ public class UserDAO {
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_SUPP)) {
             identity.setSupplierID("SUPP");
         }
-        
+
         /* Engage Portal Related User Creation*/
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
             identity.setCARDB2BADMINID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2B_EMP)) {
             identity.setCARDB2BEMPID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
             identity.setCARDB2BMGRID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2C_JET)) {
             identity.setCARDB2CJETID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2C_PETRO)) {
             identity.setCARDB2CPETROID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_B2C_SFR)) {
             identity.setCARDB2CSFRID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_ADMIN)) {
             identity.setCARDADMINID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_CSR)) {
             identity.setCARDCSRID(convertListToString(idString));
         }
-        
+
         if (rolename != null && rolename.equals(Constants.ROLE_WCP_CARD_SALES_REP)) {
             identity.setCARDSALESREPID(convertListToString(idString));
         }
@@ -1599,9 +1594,9 @@ public class UserDAO {
                 for(int j=0;j<totalPortalRoles.size();j++){
                     if(previousRoles.get(i).equals(totalPortalRoles.get(j))){
                         revokedRoles.add(previousRoles.get(i));
-                    }    
+                    }
                 }
-            }       
+            }
         }
     }
 }

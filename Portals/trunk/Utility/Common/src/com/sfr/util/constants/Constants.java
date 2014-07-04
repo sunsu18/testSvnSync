@@ -454,6 +454,7 @@ public class Constants {
     public static final String INVOICE_INQ_WSDL_URL = "INVOICE_INQ_WSDL_URL";
     public static final String LEDGER_INQ_WSDL_URL = "LEDGER_INQ_WSDL_URL";
     public static final String OIM_WSDL_URL = "OIM_WSDL_URL";
+    public static final String ENGAGE_OIM_WSDL_URL = "ENGAGE_OIM_WSDL_URL";
     public static final String SS_INVOICE_INQ_WSDL_URL = "SS_INVOICE_INQ_WSDL_URL";
     /*Reseller constants */
     public static final String SELECTED_SHIP_TO_NUMBER = "SELECTED_SHIP_TO_NUMBER";
