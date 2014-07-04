@@ -2385,13 +2385,14 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardType().toString());
                             }
-                        }
-                            else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                        if (row.getLastUsed() != null) {
-                                                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                                            XLS_SH_R_C.setCellStyle(csData);
-                                                            XLS_SH_R_C.setCellValue(row.getLastUsed().toString());
-                                                        }
+                        } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getLastUsed() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                Date date = new Date(row.getLastUsed().dateValue().getTime());
+                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                XLS_SH_R_C.setCellValue(sdf.format(date));
+                            }
                         } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
@@ -2498,13 +2499,15 @@ public class CardBean implements Serializable {
                             }
                         } 
                         else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                    if (row.getLastUsed() != null) {
-                                                        out.print(row.getLastUsed().toString());
-                                                    }
-                                                    if (cellValue != headerValues.length - 1) {
-                                                        out.print(";");
-                                                    }
-                                                } 
+                            if (row.getLastUsed() != null) {
+                                Date date = new Date(row.getLastUsed().dateValue().getTime());
+                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                out.print(date);
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } 
                         else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString());
@@ -2615,13 +2618,15 @@ public class CardBean implements Serializable {
                                 }
                             }
                             else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                                                        if (row.getLastUsed() != null) {
-                                                            out.print(row.getLastUsed().toString());
-                                                        }
-                                                        if (cellValue != headerValues.length - 1) {
-                                                            out.print("|");
-                                                        }
-                                                    } 
+                                if (row.getLastUsed() != null) {
+                                    Date date = new Date(row.getLastUsed().dateValue().getTime());
+                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                    out.print(date);
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } 
                             
                             else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCardEmbossNum() != null) {
