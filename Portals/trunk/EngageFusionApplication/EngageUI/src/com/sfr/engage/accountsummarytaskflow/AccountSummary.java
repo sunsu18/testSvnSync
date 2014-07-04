@@ -390,7 +390,7 @@ public class AccountSummary implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
     }
     public void searchTraverse(ActionEvent actionEvent) {
-        
+        executeSearch = false;
         hideAll();
         
         if(searchLevel!=null  && searchLevel.trim()!=null)
