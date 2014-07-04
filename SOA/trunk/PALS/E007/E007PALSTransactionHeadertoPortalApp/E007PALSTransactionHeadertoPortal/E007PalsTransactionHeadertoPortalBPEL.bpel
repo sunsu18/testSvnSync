@@ -118,7 +118,6 @@
               messageType="ns7:Cc077Vs1CssordDtaCollection_msg"/>
     <variable name="dataCount" type="xsd:integer"/>
     <!--variable name="payloadValidate" element="ns9:TransactionHeader"/-->
-    <variable name="payloadValidate" element="ns9:TransactionHeader"/>
     <variable name="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1_IV"
               messageType="ns10:EngageSoaTxnheaderErrorlogCollection_msg"/>
     <variable name="InvokeMergeTxnHeaderDataPortalDBAdapterV1_IV"
@@ -137,6 +136,7 @@
               messageType="ns19:EngageSoaDeltatableCollection_msg"/>
     <variable name="InvokeSOAPALSNotifationJMSAdapter_IV"
               messageType="ns21:Produce_Message_msg"/>
+    <variable name="payloadValidate" element="ns9:TransactionHeader"/>
   </variables>
   <faultHandlers>
     <catch faultName="bpelx:remoteFault"><sequence name="RemoteFaultSequence"><assign name="AssignRemoteFault"
