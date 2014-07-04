@@ -2594,19 +2594,29 @@ for(int i=0;i<prop.length;i++)
                             if (row.getInvoicingDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getInvoicingDate().toString());
+                                java.sql.Date date =
+                                    row.getInvoicingDate().dateValue();
+                                Date passedDate = new Date(date.getTime());
+                                XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+//                                XLS_SH_R_C.setCellValue(row.getInvoicingDate().toString());
                             }
                         } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDueDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getInvoicingDueDate().toString());
+                                java.sql.Date date =
+                                    row.getInvoicingDueDate().dateValue();
+                                Date passedDate = new Date(date.getTime());
+                                XLS_SH_R_C.setCellValue(formatConversion(passedDate));
+//                                XLS_SH_R_C.setCellValue(row.getInvoicingDueDate().toString());
                             }
-                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                     
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue("Card");                           
-                        } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        }
+//                        else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                     
+//                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+//                                XLS_SH_R_C.setCellStyle(csData);
+//                                XLS_SH_R_C.setCellValue("Card");                           
+//                        } 
+                        else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getnetAmount() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2695,12 +2705,14 @@ for(int i=0;i<prop.length;i++)
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                
-                             out.print("Card");                        
-                            if (cellValue != headerValues.length - 1) {
-                                out.print(";");
-                            }
-                        } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        } 
+//                        else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {                
+//                             out.print("Card");                        
+//                            if (cellValue != headerValues.length - 1) {
+//                                out.print(";");
+//                            }
+//                        } 
+                        else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getnetAmount() != null) {
                                 out.print(row.getnetAmount().toString());
                             }
@@ -2787,12 +2799,14 @@ for(int i=0;i<prop.length;i++)
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
-                                out.print("Card");
-                                if (cellValue != headerValues.length - 1) {
-                                    out.print("|");
-                                }
-                            } else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } 
+//                            else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+//                                out.print("Card");
+//                                if (cellValue != headerValues.length - 1) {
+//                                    out.print("|");
+//                                }
+//                            }
+                            else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getnetAmount() != null) {
                                     out.print(row.getnetAmount().toString());
                                 }

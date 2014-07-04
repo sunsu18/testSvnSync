@@ -468,7 +468,7 @@
                  id="c9">
        <af:outputText value="#{row.AccountId}" id="ot70"/>
       </af:column>
-      <af:column sortProperty="Finalinvoice" filterable="true" sortable="true" width="100"
+      <af:column sortProperty="Finalinvoice" filterable="true" sortable="true" width="110"
                   headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" filterFeatures="caseInsensitive"
                  id="c4">
       <af:commandLink text="#{row.Finalinvoice}" id="cl1"
@@ -479,7 +479,7 @@
                                 type="action"/>
                                 </af:commandLink>
       </af:column>
-      <af:column sortProperty="InvoiceDate" filterable="true" sortable="true" width="110" align="center"
+      <af:column sortProperty="InvoiceDate" filterable="true" sortable="true" width="120" align="center"
                  headerText="#{sfr.ENGAGE_INVOICE_INVOICE_DATE}" filterFeatures="caseInsensitive"
                  id="c6">
        <f:facet name="filter">
@@ -492,7 +492,7 @@
        </af:outputText>
       </af:column>
 
-      <af:column sortProperty="InvoicingDueDate" filterable="true" width="110" align="center" filterFeatures="caseInsensitive"
+      <af:column sortProperty="InvoicingDueDate" filterable="true" width="120" align="center" filterFeatures="caseInsensitive"
                  sortable="true"
                  headerText="#{sfr.ENGAGE_INVOICE_DUE_DATE}"
                  id="c5">
@@ -505,13 +505,13 @@
         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
-         <af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c1"
+         <!--<af:column headerText="#{sfr.ENGAGE_INVOICE_TYPE_1}" id="c1"
                     sortable="true">
        <af:outputText value="#{sfr.CARD}" id="ot66"/>
-      </af:column>
+      </af:column>-->
 
       <af:column sortProperty="netAmount" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_NET}"
+                 headerText="#{sfr.ENGAGE_INVOICE_NET}" width="110"
                  id="c2">
        <af:outputText value="#{row.netAmount}" id="ot44">
        <!--<af:convertNumber groupingUsed="true"
@@ -522,7 +522,7 @@
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvVatAmt" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_VAT}"
+                 headerText="#{sfr.ENGAGE_INVOICE_VAT}" width="110"
                  id="c15">
        <af:outputText value="#{row.InvVatAmt}" id="ot17">
        <!--<af:convertNumber groupingUsed="true"
@@ -533,7 +533,7 @@
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvGrossAmt" filterable="true" sortable="true" align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
+                 headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" width="120"
                  id="c3">
        <af:outputText value="#{row.InvGrossAmt}" id="ot10">
         <!--<af:convertNumber groupingUsed="true"
@@ -543,7 +543,7 @@
        <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
-      <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8" align="center" width="80"
+      <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8" align="center" width="100"
                  >
       <af:panelGroupLayout id="pgl21" layout="horizontal">
         <af:commandImageLink id="cil1" styleClass="pdf_icon"
