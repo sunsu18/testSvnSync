@@ -3,7 +3,7 @@
   <connection-factory location="DynamicJNDIFromScheduler" UIConnectionName="PALS_DB2_DEV" adapterRef=""/>
   <endpoint-interaction portType="GetPALSDB2RecordCountDBAdapterV1_ptt" operation="GetPALSDB2RecordCountDBAdapterV1">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
-      <property name="SqlString" value="select count(*) from CC077VS1_CSSORD_DTA where delta_ts > #DeltaTimeStamp;"/>
+      <property name="SqlString" value="select count(*) from (select delta_ts from CC077VS1_CSSORD_DTA order by delta_ts) t1 where delta_ts > #DeltaTimeStamp"/>
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
     <input/>
