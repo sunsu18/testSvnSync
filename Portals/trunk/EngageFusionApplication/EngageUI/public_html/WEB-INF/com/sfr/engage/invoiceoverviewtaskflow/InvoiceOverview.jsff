@@ -803,7 +803,7 @@
   
       <!--<af:spacer width="10" height="10" id="spc67"/>-->
       <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="filterTable2"
-                        actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTablePopup}"/>
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTable}"/>
       <af:spacer width="10" height="10" id="spc6712"/>
       <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="resetFilterTable2"
                         actionListener="#{pageFlowScope.InvoiceOverviewBean.resetFilterTable}"/>
@@ -923,7 +923,16 @@
           </af:panelGroupLayout>
          </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="spacer2"/>
-
+ <af:panelGroupLayout id="ReportButtonPanel3" halign="right">
+  
+      <!--<af:spacer width="10" height="10" id="spc67"/>-->
+      <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="filterTable3"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTable}"/>
+      <af:spacer width="10" height="10" id="spc67123"/>
+      <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}" id="resetFilterTable3"
+                        actionListener="#{pageFlowScope.InvoiceOverviewBean.resetFilterTable}"/>
+     </af:panelGroupLayout>
+      <af:spacer width="10" height="5" id="s2fil53"/>
          <af:table value="#{bindings.PrtInvoiceDetailVo1.collectionModel}"
                    var="row" rows="#{bindings.PrtInvoiceDetailVo1.rangeSize}"
                    emptyText="#{bindings.PrtInvoiceDetailVo1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
@@ -934,7 +943,8 @@
                    filterVisible="true" varStatus="vs"
                    selectedRowKeys="#{bindings.PrtInvoiceDetailVo1.collectionModel.selectedRow}"
                    selectionListener="#{bindings.PrtInvoiceDetailVo1.collectionModel.makeCurrent}"
-                   rowSelection="single" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled" autoHeightRows="5">
+                   rowSelection="single" id="t2" inlineStyle="height:auto;" disableColumnReordering="true" columnResizing="disabled" autoHeightRows="5"
+                   binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResultsCollection}">
           <af:column sortProperty="InvoiceNumber" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"

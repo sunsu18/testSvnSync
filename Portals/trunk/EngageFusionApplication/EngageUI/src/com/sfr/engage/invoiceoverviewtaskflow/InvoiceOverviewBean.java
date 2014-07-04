@@ -174,6 +174,7 @@ public class InvoiceOverviewBean implements Serializable {
     private String reportType = "Card";
    
 
+
     public InvoiceOverviewBean() {
         super();
         email = new emailbean();
@@ -2878,31 +2879,45 @@ for(int i=0;i<prop.length;i++)
             getBindings().getInvoiceResults().queueEvent(queryEvent);
 
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+            
+            FilterableQueryDescriptor qd1 =
+
+                (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
+            
+
+            QueryEvent queryEvent2 =
+
+                new QueryEvent(getBindings().getInvoiceResultsPopup(), qd1);
+            
+            getBindings().getInvoiceResultsPopup().queueEvent(queryEvent2);
+
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
+            
+            
+            FilterableQueryDescriptor qd2 =
+
+                (FilterableQueryDescriptor)getBindings().getInvoiceResultsCollection().getFilterModel();
+            
+
+            QueryEvent queryEvent3 =
+
+                new QueryEvent(getBindings().getInvoiceResultsCollection(), qd2);
+            
+            getBindings().getInvoiceResultsCollection().queueEvent(queryEvent3);
+
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
+            
+            
 
         }
     
-    public void filterTablePopup(ActionEvent actionEvent) {
-        System.out.println("Inside filterTablePopup");
-        FilterableQueryDescriptor qd1 =
-
-            (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
-        
-
-        QueryEvent queryEvent2 =
-
-            new QueryEvent(getBindings().getInvoiceResultsPopup(), qd1);
-        
-        getBindings().getInvoiceResultsPopup().queueEvent(queryEvent2);
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
-    }
-    
+      
     public void resetFilterTable(ActionEvent actionEvent) {
-        System.out.println("Inside ResetFilter method");
            resetTableFilter();
-           resetTableFilterPopup();
+          
            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
+           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
 
     }
 
@@ -2925,30 +2940,42 @@ for(int i=0;i<prop.length;i++)
                    getBindings().getInvoiceResults().queueEvent(new QueryEvent(getBindings().getInvoiceResults(), queryDescriptor));
 
                }
+                                          
                
+               FilterableQueryDescriptor queryDescriptor2 =
+
+                   (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
+
+               if (queryDescriptor2 != null &&
+                   queryDescriptor2.getFilterCriteria() != null)
+
+               {
+
+                   queryDescriptor2.getFilterCriteria().clear();
+
+                   getBindings().getInvoiceResultsPopup().queueEvent(new QueryEvent(getBindings().getInvoiceResultsPopup(),
+                                                                                    queryDescriptor2));
+
+               }
                               
+               FilterableQueryDescriptor queryDescriptor3 =
 
+                   (FilterableQueryDescriptor)getBindings().getInvoiceResultsCollection().getFilterModel();
+
+               if (queryDescriptor3 != null &&
+                   queryDescriptor3.getFilterCriteria() != null)
+
+               {
+
+                   queryDescriptor3.getFilterCriteria().clear();
+
+                   getBindings().getInvoiceResultsCollection().queueEvent(new QueryEvent(getBindings().getInvoiceResultsCollection(),
+                                                                                    queryDescriptor3));
+
+               }
            }
 
-       public void resetTableFilterPopup(){
-           
-           FilterableQueryDescriptor queryDescriptor2 =
-
-               (FilterableQueryDescriptor)getBindings().getInvoiceResultsPopup().getFilterModel();
-
-           if (queryDescriptor2 != null &&
-               queryDescriptor2.getFilterCriteria() != null)
-
-           {
-
-               queryDescriptor2.getFilterCriteria().clear();
-
-               getBindings().getInvoiceResultsPopup().queueEvent(new QueryEvent(getBindings().getInvoiceResultsPopup(),
-                                                                                queryDescriptor2));
-
-           }
-       }
-   
+       
     public String confirmationCancelAction() {
      
         getBindings().getConfirmationExcel().hide();
@@ -3093,7 +3120,16 @@ for(int i=0;i<prop.length;i++)
         private RichSelectOneRadio selectionExportOneRadio;
         private RichPopup specificColumns;
         private RichSelectManyShuttle shuttleExcel;
+        private RichTable invoiceResultsCollection;
 
+
+        public void setInvoiceResultsCollection(RichTable invoiceResultsCollection) {
+            this.invoiceResultsCollection = invoiceResultsCollection;
+        }
+
+        public RichTable getInvoiceResultsCollection() {
+            return invoiceResultsCollection;
+        }
 
        public void setInvoiceType(RichSelectOneChoice invoiceType) {
             this.invoiceType = invoiceType;
