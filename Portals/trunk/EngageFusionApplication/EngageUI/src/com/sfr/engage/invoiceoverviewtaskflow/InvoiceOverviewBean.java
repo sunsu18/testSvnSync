@@ -2621,21 +2621,21 @@ for(int i=0;i<prop.length;i++)
                         else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getnetAmount() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())),
                                                                          locale));
                             }
                         } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvVatAmt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())),
                                                                          locale));
                             }
                         } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getInvGrossAmt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvGrossAmt().toString())),
                                                                          locale));
                             }
