@@ -60,13 +60,13 @@
      <af:selectOneChoice id="sml1" autoSubmit="true"
                                  value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
                                  unselectedLabel="#{sfr.PLEASE_SELECT}"
-                         contentStyle="width:185.0px;">
-                        
+                         contentStyle="width:185.0px;" valueChangeListener="#{pageFlowScope.AccountSummaryBean.resetinputtext}">
+
 <af:selectItem label="cardGroupName" value="displayCardGroupIdName" id="si6"/>
 <af:selectItem label="externalCardID" value="externalCardID" id="si1"/>
 <af:selectItem label="cardTextline2" value="cardTextline2" id="si2"/>
 </af:selectOneChoice>
- <af:spacer width="25" height="10" id="s296"/>  
+ <af:spacer width="25" height="10" id="s296"/>
 
 <af:inputText  id="it19"
               value="#{pageFlowScope.AccountSummaryBean.searchString}"
@@ -78,12 +78,12 @@
                         actionListener="#{pageFlowScope.AccountSummaryBean.searchTraverse}"
                         partialSubmit="true" text="#{sfr.SEARCH}"/>
                         </af:panelGroupLayout>
-         <af:spacer width="10" height="10" id="s297"/>      
-              
+         <af:spacer width="10" height="10" id="s297"/>
+
       <af:panelGroupLayout id="pgl33" layout="horizontal">
       <af:separator id="s294" inlineStyle="height: 0px;opacity: 0.30;"/>
-    </af:panelGroupLayout>                   
-                        
+    </af:panelGroupLayout>
+
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
                           inlineStyle="width:240px; height:480px" valign="top">
@@ -94,7 +94,7 @@
                  rowSelection="single" id="t1" summary="Partner_Tree" binding="#{pageFlowScope.AccountSummaryBean.bindings.adfTree}"
                  contentDelivery="immediate" immediate="true"
 
-                 contextMenuSelect="false" fetchSize="500">
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10">
                  <f:facet name="contextMenu">
 <af:popup id="p1"/>
 </f:facet>

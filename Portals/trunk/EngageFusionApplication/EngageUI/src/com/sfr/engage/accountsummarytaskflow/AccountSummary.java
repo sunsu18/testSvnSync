@@ -47,14 +47,10 @@ import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 
-import org.apache.myfaces.trinidad.component.UIXTree;
-import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
-import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetImpl;
-
 
 
 public class AccountSummary implements Serializable {
@@ -66,7 +62,7 @@ public class AccountSummary implements Serializable {
     private String id;
 
     private ArrayList<String> cardTypeList = new ArrayList<String>();
-    
+
     private String accountId;
     private String cardGroupId;
     private String cardId;
@@ -112,11 +108,11 @@ public class AccountSummary implements Serializable {
     private boolean ismanager = false;
     private boolean isEmployee = false;
     private boolean isManagerCg = false;
-    private String displayCardTypeName = ""; 
+    private String displayCardTypeName = "";
     private Map<String,String> cardTypeNameMap;
     private String searchLevel;
     private String searchString;
-    
+
     private List<String> cardTextline2SocList = new ArrayList<String>();
     private List<String> cardgroupsSocList = new ArrayList<String>();
     private List<String> cardsSocList = new ArrayList<String>();
@@ -288,12 +284,12 @@ public class AccountSummary implements Serializable {
 
 
                         }
-                        
-                        
-                    
+
+
+
 
                     }
-                    
+
                     if (partnerListDefault != null) {
 
                         for(int a=0;a<partnerListDefault.size();a++) {
@@ -306,9 +302,9 @@ public class AccountSummary implements Serializable {
                                             {cardgroupsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName());
                                              if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
                                                  for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++)
-                                                 
-                                                 
-                                                 
+
+
+
                                                  {
                                                      if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null)
                                                         cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
@@ -322,7 +318,7 @@ public class AccountSummary implements Serializable {
                         }
 
                     }
-                    
+
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
@@ -388,29 +384,31 @@ public class AccountSummary implements Serializable {
     }
     public void resetinputtext(ValueChangeEvent valueChangeEvent) {
         System.out.println("Reseting inputtext ");
-        searchStringInputtext.resetValue();
+        searchString = "";
+                searchStringInputtext.resetValue();
+                searchStringInputtext.setSubmittedValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
     }
     public void searchTraverse(ActionEvent actionEvent) {
         executeSearch = false;
         hideAll();
-        
+
         if(searchLevel!=null  && searchLevel.trim()!=null)
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName") || searchLevel.equalsIgnoreCase("externalCardID") || searchLevel.equalsIgnoreCase("cardTextline2"))
         {
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
-        { 
+        {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " inside searchTraverse CG level");
             searchAttributes.clear();
             searchAttributes.add("displayCardGroupIdName");
-            
+
             for(int p=0;p<cardgroupsSocList.size() && searchString!=null ;p++)
             {
                 if(searchString.toUpperCase().equalsIgnoreCase(cardgroupsSocList.get(p).toUpperCase()))
                 {
                     executeSearch = true;
-                 System.out.println("string matched");   
-                    
+                 System.out.println("string matched");
+
                 }
                 System.out.println("executeSearch in cardgroup level" + executeSearch);
 
@@ -426,9 +424,9 @@ public class AccountSummary implements Serializable {
             for(int p=0;p<cardsSocList.size() && searchString!=null;p++)
             {
                 if(searchString.toUpperCase().equalsIgnoreCase(cardsSocList.get(p).toUpperCase()))
-                {  
+                {
                     executeSearch = true;
-                    System.out.println("string matched");   
+                    System.out.println("string matched");
                 }
                 System.out.println("executeSearch in externalCardID level" + executeSearch);
 
@@ -440,20 +438,20 @@ public class AccountSummary implements Serializable {
             searchAttributes.clear();
            // log.info(accessDC.getDisplayRecord() + this.getClass() + " searchattributes size is " + searchAttributes.size());
                         searchAttributes.add("cardTextline2");
-                        
+
             for(int p=0;p<cardTextline2SocList.size() && searchString!=null;p++)
             {
                 if(searchString.toUpperCase().equalsIgnoreCase(cardTextline2SocList.get(p).toUpperCase()))
                 {
                     executeSearch = true;
-                    System.out.println("string matched");   
+                    System.out.println("string matched");
                 }
                 System.out.println("executeSearch in cardTextline2 level" + executeSearch);
 
             }
         }
 
-        
+
         if(executeSearch)
         {
         JUCtrlHierBinding treeBinding = null;
@@ -503,7 +501,7 @@ public class AccountSummary implements Serializable {
         tree1.setDisclosedRowKeys(disclosedRowKeySet);
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
-        
+
         Iterator rksIterator = resultRowKeySet.iterator();
 
         if(rksIterator!=null)
@@ -515,10 +513,10 @@ public class AccountSummary implements Serializable {
         while (rksIterator.hasNext()) {
             List key1 = (List)rksIterator.next();
             treeBinding = null;
-     
+
             CollectionModel collectionModel = (CollectionModel)tree1.getValue();
             treeBinding = (JUCtrlHierBinding)collectionModel.getWrappedData();
-     
+
             RowKeySetImpl rksImpl;
             rksImpl = new RowKeySetImpl();
             JUCtrlHierNodeBinding nodeBinding1 = null;
@@ -567,7 +565,7 @@ public class AccountSummary implements Serializable {
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " rowType is Card");
                      getBindings().getDefaultPanel().setVisible(false);
                      AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
-                     
+
                      for (Object o : nodeBinding1.getAttributeValues()) {
 
                          // id = o.toString();
@@ -578,7 +576,7 @@ public class AccountSummary implements Serializable {
 
                      }
                      cardOverview();
-                 
+
                  }
             else if(rowType.contains("CardGroupInfo"))
                 {
@@ -599,18 +597,18 @@ public class AccountSummary implements Serializable {
 
                     }
                     cardGroupOverview();
-                   
+
                 }
 
 
 
 
             }
-        
+
         }
         else {
             //clear the tree
-            
+
             if (tree1 != null) {
                 RowKeySet _disclosedRowKeys = tree1.getDisclosedRowKeys();
 
@@ -622,11 +620,13 @@ public class AccountSummary implements Serializable {
 
                 tree1.setDisclosedRowKeys(_disclosedRowKeys);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+                if(getBindings().getAdfTree()!=null)
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
             }
         }
-        
+
     }
-        
+
     }
     private void findTreeInView() {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " search tree method called");
@@ -762,7 +762,7 @@ public class AccountSummary implements Serializable {
         }
         return discloseRowKeySet;
     }
-    
+
     public List suggesstedItemsResult(String string) {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
@@ -772,9 +772,9 @@ public class AccountSummary implements Serializable {
 
     //        for(int j=0; j<cardsSocList.size();j++)
     //            System.out.println(cardsSocList.get(j));
-        
-        
-        
+
+
+
         if(searchLevel!=null  && searchLevel.trim()!=null)
         {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " searchLevel" + getSearchLevel().toString());
@@ -1273,7 +1273,7 @@ public class AccountSummary implements Serializable {
             if (session != null) {
 
                 if (session.getAttribute("Partner_Object_List") != null) {
-                    
+
                     //if(partnerList == null){
                     partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                     if (partnerList != null) {
@@ -1286,7 +1286,7 @@ public class AccountSummary implements Serializable {
                         }
 
                     }
-                    
+
                // }
                 }
 
@@ -1694,11 +1694,11 @@ public class AccountSummary implements Serializable {
 
         //cardGroupId = id;
         accountId = dropNodeParent.toString();
-        
+
         if (session != null) {
 
             if (session.getAttribute("Partner_Object_List") != null) {
-                
+
                 //if(partnerList == null){
                 partnerList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                 if (partnerList != null) {
@@ -1727,7 +1727,7 @@ public class AccountSummary implements Serializable {
             }
 
         }
-      
+
 
 
         for (int k = 0; k < AccountList.size(); k++) {
@@ -1878,7 +1878,7 @@ public class AccountSummary implements Serializable {
             }
             if(cardTypeList.size() > 0 )
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
-          
+
 
             getBindings().getCardGroupOverview().setVisible(true);
 
