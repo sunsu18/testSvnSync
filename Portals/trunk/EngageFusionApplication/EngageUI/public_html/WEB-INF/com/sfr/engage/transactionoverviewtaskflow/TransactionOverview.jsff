@@ -810,7 +810,7 @@
                                 pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.VatRate.format}"/>
             </af:outputText>
           </af:column>-->
-          <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="60" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right"
                      id="c26">
             <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
@@ -818,14 +818,14 @@
             </af:outputText>
           </af:column>
 
-          <af:column sortProperty="kmPerLt" filterable="true" sortable="true" width="45" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="kmPerLt" filterable="true" sortable="true" width="60" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_PER_LT}" align="right"
                      id="c3">
             <af:outputText value="#{row.kmPerLt}" id="ot51" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
-          <af:column sortProperty="ltPerHundred" filterable="true" width="47" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="ltPerHundred" filterable="true" width="60" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                    sortable="true" align="right"
                    headerText="#{sfr.ENGAGE_LT_PER_HUNDRED}"
                      id="c21">
