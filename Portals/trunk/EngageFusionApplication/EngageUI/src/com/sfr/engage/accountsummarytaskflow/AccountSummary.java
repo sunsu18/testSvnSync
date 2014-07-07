@@ -290,40 +290,42 @@ public class AccountSummary implements Serializable {
                         }
                         
                         
-                        if (partnerListDefault != null) {
-
-                            for(int a=0;a<partnerListDefault.size();a++) {
-                                if(partnerListDefault.get(a)!=null && partnerListDefault.get(a).getAccountList()!=null)
-                                    for(int b=0;b<partnerListDefault.get(a).getAccountList().size();b++) {
-                                        if(partnerListDefault.get(a).getAccountList().get(b)!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup() !=null)
-                                            for(int c=0; c < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().size();c++)
-                                            {
-                                                if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c)!= null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName()!= null)
-                                                {cardgroupsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName());
-                                                 if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
-                                                     for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++)
-                                                     
-                                                     
-                                                     
-                                                     {
-                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null)
-                                                            cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
-                                                         if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
-                                                            cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
-
-                                                         }
-                                                 }
-                                            }
-                                    }
-                            }
-
-                        }
-                        
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
-                        log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
+                    
 
                     }
+                    
+                    if (partnerListDefault != null) {
+
+                        for(int a=0;a<partnerListDefault.size();a++) {
+                            if(partnerListDefault.get(a)!=null && partnerListDefault.get(a).getAccountList()!=null)
+                                for(int b=0;b<partnerListDefault.get(a).getAccountList().size();b++) {
+                                    if(partnerListDefault.get(a).getAccountList().get(b)!=null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup() !=null)
+                                        for(int c=0; c < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().size();c++)
+                                        {
+                                            if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c)!= null && partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName()!= null)
+                                            {cardgroupsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getDisplayCardGroupIdName());
+                                             if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard()!=null)
+                                                 for(int d=0; d < partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().size();d++)
+                                                 
+                                                 
+                                                 
+                                                 {
+                                                     if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID()!=null)
+                                                        cardsSocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getExternalCardID());
+                                                     if(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2()!=null)
+                                                        cardTextline2SocList.add(partnerListDefault.get(a).getAccountList().get(b).getCardGroup().get(c).getCard().get(d).getCardTextline2());
+
+                                                     }
+                                             }
+                                        }
+                                }
+                        }
+
+                    }
+                    
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroupsSocList size " + cardgroupsSocList.size());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardsSocList size " + cardsSocList.size());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline2 size " + cardTextline2SocList.size());
 
                 }
 
@@ -764,7 +766,9 @@ public class AccountSummary implements Serializable {
     public List suggesstedItemsResult(String string) {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
-        SelectItem selectItem = new SelectItem();
+        //selectItems.clear();
+        //SelectItem selectItem = new SelectItem();
+
 
     //        for(int j=0; j<cardsSocList.size();j++)
     //            System.out.println(cardsSocList.get(j));
@@ -777,10 +781,11 @@ public class AccountSummary implements Serializable {
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName"))
         {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " cardgroup level selected");
+            System.out.println("list size " + cardgroupsSocList.size());
         for(int z=0;z<cardgroupsSocList.size();z++) {
         if(cardgroupsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
         {
-            selectItem = new SelectItem();
+            SelectItem selectItem = new SelectItem();
             selectItem.setLabel(cardgroupsSocList.get(z));
             selectItem.setValue(cardgroupsSocList.get(z));
             selectItems.add(selectItem);
@@ -788,13 +793,14 @@ public class AccountSummary implements Serializable {
            // else
             //System.out.println("match not found");
         }
+        System.out.println("selectItems size " + selectItems.size());
         }
         else if(searchLevel.equalsIgnoreCase("externalCardID")) {
         log.info(accessDC.getDisplayRecord() + this.getClass() + " embossed card no level selected");
             for(int z=0;z<cardsSocList.size();z++) {
             if(cardsSocList.get(z).toUpperCase().contains(string.toUpperCase()))
             {
-                selectItem = new SelectItem();
+                SelectItem selectItem = new SelectItem();
                 selectItem.setLabel(cardsSocList.get(z));
                 selectItem.setValue(cardsSocList.get(z));
                 selectItems.add(selectItem);
@@ -802,13 +808,14 @@ public class AccountSummary implements Serializable {
                // else
                 //System.out.println("match not found");
             }
+            System.out.println("selectItems size " + selectItems.size());
         }
         else if(searchLevel.equalsIgnoreCase("cardTextline2")){
             log.info(accessDC.getDisplayRecord() + this.getClass() + " cardtextline level selected");
             for(int z=0;z<cardTextline2SocList.size();z++) {
             if(cardTextline2SocList.get(z).toUpperCase().contains(string.toUpperCase()))
             {
-                selectItem = new SelectItem();
+                SelectItem selectItem = new SelectItem();
                 selectItem.setLabel(cardTextline2SocList.get(z));
                 selectItem.setValue(cardTextline2SocList.get(z));
                 selectItems.add(selectItem);
@@ -816,6 +823,7 @@ public class AccountSummary implements Serializable {
                // else
                 //System.out.println("match not found");
             }
+            System.out.println("selectItems size " + selectItems.size());
 
         }
 
