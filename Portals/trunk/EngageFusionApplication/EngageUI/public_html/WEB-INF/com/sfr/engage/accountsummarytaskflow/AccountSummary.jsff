@@ -62,9 +62,9 @@
                                  unselectedLabel="#{sfr.PLEASE_SELECT}"
                          contentStyle="width:185.0px;" valueChangeListener="#{pageFlowScope.AccountSummaryBean.resetinputtext}">
 
-<af:selectItem label="cardGroupName" value="displayCardGroupIdName" id="si6"/>
-<af:selectItem label="externalCardID" value="externalCardID" id="si1"/>
-<af:selectItem label="cardTextline2" value="cardTextline2" id="si2"/>
+<af:selectItem label="#{sfr.CARDGROUP}/#{sfr.CARDGROUP_NAME_1}" value="displayCardGroupIdName" id="si6"/>
+<af:selectItem label="#{sfr.CARD_NUMBER}" value="externalCardID" id="si1"/>
+<af:selectItem label="#{sfr.CARD_TEXTLINE_2}" value="cardTextline2" id="si2"/>
 </af:selectOneChoice>
  <af:spacer width="25" height="10" id="s296"/>
 
