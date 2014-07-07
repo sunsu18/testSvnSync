@@ -7,6 +7,7 @@ import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
+import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
@@ -122,7 +123,7 @@ public class AccountSummary implements Serializable {
     private RichInputText searchStringInputtext;
     private boolean executeSearch = false;
     private RichPanelGroupLayout noSearchResults;
-
+    EngageResourceBundle resourceBundle;
 
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
@@ -830,6 +831,23 @@ public class AccountSummary implements Serializable {
                 //System.out.println("match not found");
             }
             System.out.println("selectItems size " + selectItems.size());
+
+        }
+        if(selectItems.size() == 0)
+
+
+        {
+            resourceBundle = new EngageResourceBundle();
+
+
+            if (resourceBundle.containsKey("NO_DATA"))
+            {
+                 SelectItem selectItem = new SelectItem();
+                 selectItem.setLabel(resourceBundle.getObject("NO_DATA").toString().trim() );
+                 selectItem.setValue(resourceBundle.getObject("NO_DATA").toString().trim() );
+                 selectItems.add(selectItem);
+
+            }
 
         }
 

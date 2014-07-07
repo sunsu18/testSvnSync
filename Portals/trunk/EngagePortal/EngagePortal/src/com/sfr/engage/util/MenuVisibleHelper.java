@@ -427,7 +427,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                 visibleAccount = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Account tab Visible " );
+                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Account tab Visible " );
             }
         }
         return visibleAccount;
@@ -448,7 +448,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                 visibleAccountSummary = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Account Summary link Visible " );
+               // log.info(accessDC.getDisplayRecord() + this.getClass() + " Account Summary link Visible " );
             }
         }
         return visibleAccountSummary;
@@ -466,7 +466,7 @@ public class MenuVisibleHelper {
                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                     visibleVehicles = true;
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
+                    //log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
                 }
             }
         }
@@ -485,7 +485,7 @@ public class MenuVisibleHelper {
                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                     visibleDrivers = true;
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
+                    //log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
                 }
             }
         }
@@ -507,7 +507,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                    visibleTransactions = true;
-                   log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Tab Visible " );
+                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Tab Visible " );
                }
 
         }
@@ -529,7 +529,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                    visibleTransactionOverview = true;
-                   log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Overview link Visible " );
+                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Overview link Visible " );
                }
         }
         return visibleTransactionOverview;
@@ -549,7 +549,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                    visibleInvoiceOverview = true;
-                   log.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice Overview link Visible " );
+                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice Overview link Visible " );
                }
         }
         return visibleInvoiceOverview;
@@ -570,7 +570,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                 visibleCardServices = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Card Service tab Visible " );
+                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Card Service tab Visible " );
             }
         }
         return visibleCardServices;
@@ -591,7 +591,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                 visibleViewCards = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " View Cards link Visible " );
+               // log.info(accessDC.getDisplayRecord() + this.getClass() + " View Cards link Visible " );
             }
         }
         return visibleViewCards;
@@ -654,7 +654,7 @@ public class MenuVisibleHelper {
                                 }
                             }
                             session.setAttribute("ListPriceVisible", visiblePricing);
-                            log.info(accessDC.getDisplayRecord() + this.getClass() + " pricing tab visibility set into session " + session.getAttribute("ListPriceVisible"));
+                            //log.info(accessDC.getDisplayRecord() + this.getClass() + " pricing tab visibility set into session " + session.getAttribute("ListPriceVisible"));
 
                        }
                    }
@@ -691,7 +691,7 @@ public class MenuVisibleHelper {
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
                 visibleSetup = true;
-                log.info(accessDC.getDisplayRecord() + this.getClass() + " Setup Tab Visible " );
+                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Setup Tab Visible " );
             }
         }
         return visibleSetup;
