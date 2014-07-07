@@ -2274,21 +2274,6 @@ public class CardBean implements Serializable {
             f.setColor((short)0);
             cs.setFont(f);
 
-            HSSFCellStyle csRight = XLS.createCellStyle();
-            HSSFFont fnumberData = XLS.createFont();
-            fnumberData.setFontHeightInPoints((short)10);
-            fnumberData.setColor((short)0);
-            csRight.setFont(fnumberData);
-            csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-
-            HSSFCellStyle csTotalAmt = XLS.createCellStyle();
-            HSSFFont fontTotal = XLS.createFont();
-            fontTotal.setFontHeightInPoints((short)10);
-            fontTotal.setColor((short)0);
-            fontTotal.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-            csTotalAmt.setFont(fontTotal);
-            csTotalAmt.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
             fData.setFontHeightInPoints((short)10);
