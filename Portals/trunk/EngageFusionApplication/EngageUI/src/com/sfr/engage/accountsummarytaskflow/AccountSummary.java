@@ -404,9 +404,13 @@ public class AccountSummary implements Serializable {
             
             for(int p=0;p<cardgroupsSocList.size() && searchString!=null ;p++)
             {
-                if(searchString.toUpperCase().equalsIgnoreCase(cardgroupsSocList.get(p).toUpperCase()));
-                executeSearch = true;
-                //System.out.println("executeSearch in cardgroup level" + executeSearch);
+                if(searchString.toUpperCase().equalsIgnoreCase(cardgroupsSocList.get(p).toUpperCase()))
+                {
+                    executeSearch = true;
+                 System.out.println("string matched");   
+                    
+                }
+                System.out.println("executeSearch in cardgroup level" + executeSearch);
 
             }
 
@@ -419,9 +423,12 @@ public class AccountSummary implements Serializable {
             searchAttributes.add("externalCardID");
             for(int p=0;p<cardsSocList.size() && searchString!=null;p++)
             {
-                if(searchString.toUpperCase().equalsIgnoreCase(cardsSocList.get(p).toUpperCase()));
-                executeSearch = true;
-               // System.out.println("executeSearch in externalCardID level" + executeSearch);
+                if(searchString.toUpperCase().equalsIgnoreCase(cardsSocList.get(p).toUpperCase()))
+                {  
+                    executeSearch = true;
+                    System.out.println("string matched");   
+                }
+                System.out.println("executeSearch in externalCardID level" + executeSearch);
 
             }
 
@@ -434,9 +441,12 @@ public class AccountSummary implements Serializable {
                         
             for(int p=0;p<cardTextline2SocList.size() && searchString!=null;p++)
             {
-                if(searchString.toUpperCase().equalsIgnoreCase(cardTextline2SocList.get(p).toUpperCase()));
-                executeSearch = true;
-                //System.out.println("executeSearch in cardTextline2 level" + executeSearch);
+                if(searchString.toUpperCase().equalsIgnoreCase(cardTextline2SocList.get(p).toUpperCase()))
+                {
+                    executeSearch = true;
+                    System.out.println("string matched");   
+                }
+                System.out.println("executeSearch in cardTextline2 level" + executeSearch);
 
             }
         }
@@ -448,6 +458,7 @@ public class AccountSummary implements Serializable {
 
         //get handle to tree if it does not exist. If tree component cannot be
         //found in view, exit this function
+        System.out.println("executeSearch is " + executeSearch);
         if (tree1 == null) {
             this.findTreeInView();
             if (tree1 == null) {
@@ -594,6 +605,22 @@ public class AccountSummary implements Serializable {
 
             }
         
+        }
+        else {
+            //clear the tree
+            
+            if (tree1 != null) {
+                RowKeySet _disclosedRowKeys = tree1.getDisclosedRowKeys();
+
+                if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                    _disclosedRowKeys.clear();
+                    System.out.println("rows cleared from tree");
+                } else
+                    log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
+
+                tree1.setDisclosedRowKeys(_disclosedRowKeys);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+            }
         }
         
     }

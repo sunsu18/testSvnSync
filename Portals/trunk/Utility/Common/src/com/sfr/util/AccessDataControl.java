@@ -551,7 +551,7 @@ public class AccessDataControl extends ThreadSerialization {
 
         ADFLogger logger=null;
         if(portal==null){
-            portal=Constants.WS_PORTAL;
+            portal=Constants.EN_PORTAL;
         }
         if(portal.equals(Constants.EN_PORTAL)){
             logger=ADFLogger.createADFLogger(ConfigurationUtility.getPropertyValue("LOGGER_ENGAGE"));
