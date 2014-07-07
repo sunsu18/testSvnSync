@@ -319,13 +319,7 @@
                 <f:validator binding="#{row.bindings.CardEmbossNum.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
-                       id="c13">
-              <af:outputText value="#{row.LastUsed}" id="ot36">
-                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm"/>
-              </af:outputText>
-            
-            </af:column>
+           
             <af:column sortProperty="CardType" filterable="true" width="70px" sortable="true"
                        headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
                        id="c12">
@@ -364,6 +358,13 @@
                 <f:validator binding="#{row.bindings.CardTextline2.validator}"/>
               </af:inputText>-->
               <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="22"/>
+            </af:column>
+             <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
+                       id="c13">
+              <af:outputText value="#{row.LastUsed}" id="ot36">
+                <af:convertDateTime pattern="dd.MM.yyyy   HH:mm"/>
+              </af:outputText>
+            
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
                        id="c8"  width="80px" filterFeatures="caseInsensitive" rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">

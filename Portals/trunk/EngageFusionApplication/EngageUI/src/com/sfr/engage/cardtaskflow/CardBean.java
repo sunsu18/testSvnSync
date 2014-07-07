@@ -2385,6 +2385,12 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardType().toString());
                             }
+                        } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getTypeName() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(statusConversion(row.getTypeName().toString()));
+                            }
                         } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getLastUsed() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
@@ -2497,8 +2503,14 @@ public class CardBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } 
-                        else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getTypeName() != null) {
+                                out.print(row.getTypeName().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getLastUsed() != null) {
                                 Date date = new Date(row.getLastUsed().dateValue().getTime());
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
@@ -2616,8 +2628,14 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            }
-                            else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getTypeName() != null) {
+                                    out.print(row.getTypeName().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getLastUsed() != null) {
                                     Date date = new Date(row.getLastUsed().dateValue().getTime());
                                     SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
