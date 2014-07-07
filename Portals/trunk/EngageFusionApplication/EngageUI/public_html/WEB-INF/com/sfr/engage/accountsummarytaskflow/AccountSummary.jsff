@@ -1605,6 +1605,14 @@
        <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
     </af:panelGroupLayout>
         </af:panelGroupLayout>
+                <af:panelGroupLayout id="pgl34" layout="vertical"
+
+                             visible="false" binding="#{pageFlowScope.AccountSummaryBean.noSearchResults}">
+                              <af:panelGroupLayout id="pgl35" layout="horizontal">
+      <af:outputText value="#{sfr.NO_DATA}" id="ot120" styleClass="heading heading_account"/>
+       <!--<af:outputText value="#{sfr.RESTRICTED_ACCESS}" id="ot115" styleClass="heading"/>-->
+    </af:panelGroupLayout>
+        </af:panelGroupLayout>
       </af:panelGroupLayout>
 
 

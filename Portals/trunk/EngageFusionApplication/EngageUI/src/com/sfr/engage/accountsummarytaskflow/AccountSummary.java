@@ -121,6 +121,7 @@ public class AccountSummary implements Serializable {
     private String searchType = "CONTAIN";
     private RichInputText searchStringInputtext;
     private boolean executeSearch = false;
+    private RichPanelGroupLayout noSearchResults;
 
 
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
@@ -623,6 +624,11 @@ public class AccountSummary implements Serializable {
                 if(getBindings().getAdfTree()!=null)
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
             }
+
+            noSearchResults.setVisible(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(noSearchResults);
+            getBindings().getDefaultPanel().setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
         }
 
     }
@@ -1071,6 +1077,14 @@ public class AccountSummary implements Serializable {
 
     public boolean isExecuteSearch() {
         return executeSearch;
+    }
+
+    public void setNoSearchResults(RichPanelGroupLayout noSearchResults) {
+        this.noSearchResults = noSearchResults;
+    }
+
+    public RichPanelGroupLayout getNoSearchResults() {
+        return noSearchResults;
     }
 
 
@@ -1556,6 +1570,8 @@ public class AccountSummary implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardOverview());
         getBindings().getCardGroupOverview().setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
+        noSearchResults.setVisible(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(noSearchResults);
 
     }
 
