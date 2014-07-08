@@ -1582,9 +1582,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     card.setCardTextline2(currRowcard.getCardTextline2().toString());
                 }
 
-                if(currRowcard.getBlockAction() != null) {
-                    card.setBlockAction(currRowcard.getBlockAction().toString());
-                }
+//                if(currRowcard.getBlockAction() != null) {
+//                    card.setBlockAction(currRowcard.getBlockAction().toString());
+//                }
                 addflagcard = false;
                 //Below logic is just to find out that card id is already present in cardgrouplist
                 //TODO : HITK : This can be avoided since at DB level we have already put the constraint to avoid duplicatre records.....
