@@ -11,7 +11,7 @@
   </parameters>
   <executables>
     <variableIterator id="variables"/>
-    <page viewId="${preferenceBean.defaultPageTemplate}"
+    <page viewId="${preferenceBean.defaultPageTemplate}" path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
           id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel"
               taskFlowId="#{pageEditorBean.pageEditorPanel}"
@@ -31,8 +31,6 @@
               id="PrtCardgroupVO1Iterator"/>
     <iterator Binds="PrtCardVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
-    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCustomerCardMapRVO1_1Iterator"/>

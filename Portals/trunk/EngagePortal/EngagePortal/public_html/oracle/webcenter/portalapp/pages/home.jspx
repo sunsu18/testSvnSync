@@ -29,7 +29,8 @@
 
 
       </af:resource>
-	<af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1"          >
+	<af:pageTemplate value="#{bindings.pageTemplateBinding}" id="pt1"
+                         viewId="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx">
           <f:facet name="content">
             <pe:pageCustomizable id="hm_pgc1">
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
@@ -232,13 +233,13 @@
                         <af:spacer width="10" height="10" id="s18"/>
                       </af:panelGroupLayout>
                       <af:spacer width="10" height="20" id="spacer15"/>
-                      
-                      
+
+
                         <af:panelGroupLayout id="pgl23" layout="horizontal"  inlineStyle="width:327.0px;" visible="false">
      <af:outputText value="#{sfr.NEW_TO_CARD}"
                                        id="outputText5"
                                        styleClass="contenttext"/>
-                                      
+
         <af:spacer width="50" height="10" id="s27"/>
         <af:spacer width="10" height="10" id="s31"/>
         <af:panelGroupLayout id="pgl13" halign="right">
@@ -246,8 +247,8 @@
                                    styleClass="links"/>
                           </af:panelGroupLayout>
       </af:panelGroupLayout>
-                      
-                   
+
+
                     </af:panelGroupLayout>
                   </af:panelGroupLayout>
                 </af:panelGroupLayout>
