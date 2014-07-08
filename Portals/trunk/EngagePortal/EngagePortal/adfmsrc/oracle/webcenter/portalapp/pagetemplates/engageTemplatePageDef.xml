@@ -5,6 +5,8 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
+    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings/>
 </pageDefinition>

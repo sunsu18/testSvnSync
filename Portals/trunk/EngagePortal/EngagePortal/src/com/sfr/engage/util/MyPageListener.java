@@ -1559,6 +1559,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 if (currRowcard.getCardTextline2() != null) {
                     card.setCardTextline2(currRowcard.getCardTextline2().toString());
                 }
+
+                if(currRowcard.getBlockAction() != null) {
+                    card.setBlockAction(currRowcard.getBlockAction().toString());
+                }
                 addflagcard = false;
                 //Below logic is just to find out that card id is already present in cardgrouplist
                 //TODO : HITK : This can be avoided since at DB level we have already put the constraint to avoid duplicatre records.....
@@ -1596,7 +1600,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         HttpSession session = request.getSession();
 
         String partnerName = "";
-        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+        //DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtPartnerVO1Iterator") != null) {
             iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
