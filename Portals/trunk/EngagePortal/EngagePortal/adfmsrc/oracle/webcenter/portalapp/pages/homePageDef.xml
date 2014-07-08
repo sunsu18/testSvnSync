@@ -26,6 +26,8 @@
     <iterator Binds="PrtAccountVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtAccountVO1Iterator"/>
+    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator Binds="PrtCardgroupVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardgroupVO1Iterator"/>
