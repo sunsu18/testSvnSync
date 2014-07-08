@@ -1314,7 +1314,15 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + "  partIndex ----> " + partIndex);
         String Partnerid = partnerlist.get(partIndex).getPartnerValue();
 
-        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+
+        DCBindingContainer bindings;
+
+        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+        if(bindings == null || bindings.findIteratorBinding("PrtAccountVO1Iterator") == null)
+        {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+        else
+            System.out.println("bindings PrtAccountVO1Iterator found from template");
 
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtAccountVO1Iterator") != null) {
@@ -1378,7 +1386,14 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                 }
                 String AccountID = acc.getAccountNumber();
-                bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+                bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                        if(bindings == null || bindings.findIteratorBinding("PrtCardgroupVO1Iterator") == null)
+                        {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+                else
+                            System.out.println("PrtCardgroupVO1Iterator found from template");
+
+
                 DCIteratorBinding iter2;
                 if (bindings != null) {
                     iter2 = bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
@@ -1460,7 +1475,14 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         String CardgroupMainType = cardgrp.getCardGroupMainType().toString();
                         String CardgroupSubType = cardgrp.getCardGroupSubType().toString();
                         String CardgroupSeq = cardgrp.getCardGroupSeq().toString();
-                        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+
+                        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                if(bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null)
+                                {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+                        else
+                                    System.out.println("PrtCardVO1Iterator found from template");
+
                         DCIteratorBinding iter3;
                         if (bindings != null) {
                             iter3 = bindings.findIteratorBinding("PrtCardVO1Iterator");
@@ -1605,6 +1627,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
         if(bindings == null || bindings.findIteratorBinding("PrtPartnerVO1Iterator") == null)
         {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+        else
+            System.out.println("PrtPartnerVO1Iterator bindings found in template");
 
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtPartnerVO1Iterator") != null) {
