@@ -13,6 +13,8 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}"
           id="pageTemplateBinding" Refresh="ifNeeded"/>
+          <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
     <iterator Binds="PrtAccountVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtAccountVO1Iterator"/>
     <iterator Binds="PrtCardgroupVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardgroupVO1Iterator"/>
     <iterator Binds="PrtCardVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
@@ -20,8 +22,7 @@
     <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCustomerCardMapRVO1_1Iterator"/>
-                  <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
-              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+
   </executables>
   <bindings>
     <tree IterBinding="PrtAccountVO1Iterator" id="PrtAccountVO1">
