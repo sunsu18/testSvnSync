@@ -409,12 +409,13 @@
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS} :" id="outputText8"
                            styleClass="heading heading_account " noWrap="true"/>
                           <af:spacer width="10" id="s74"/>  
-                           </af:panelGroupLayout>
+                          
         <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
            <af:panelGroupLayout id="pgl35" styleClass="info_legend"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
             </af:panelGroupLayout>
+             </af:panelGroupLayout>
             <af:popup id="p2">
           <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
             <af:panelGroupLayout id="pgl34" layout="vertical">
