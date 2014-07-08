@@ -1600,8 +1600,12 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         HttpSession session = request.getSession();
 
         String partnerName = "";
-        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-        //DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer bindings;
+
+        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+        if(bindings == null || bindings.findIteratorBinding("PrtPartnerVO1Iterator") == null)
+        {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtPartnerVO1Iterator") != null) {
             iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
