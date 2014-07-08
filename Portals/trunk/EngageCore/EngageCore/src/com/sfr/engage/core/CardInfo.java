@@ -12,6 +12,7 @@ public class CardInfo implements Comparable<CardInfo>,Serializable {
     private static final long serialVersionUID = 1L;
     private String cardID;
     private String externalCardID;
+    private String blockAction;
     private String displayCardNumber;
     private String cardTextline2;
     private boolean cardOverview;
@@ -86,7 +87,7 @@ public class CardInfo implements Comparable<CardInfo>,Serializable {
     public String getDisplayCardNumber() {
         return displayCardNumber;
     }
-    
+
     /**
      * To sort the list of Account objects based on Account number.
      * @param o - Object with which the current Account has to be compared
@@ -94,5 +95,13 @@ public class CardInfo implements Comparable<CardInfo>,Serializable {
      */
     public int compareTo(CardInfo o) {
         return this.getCardID().compareTo(o.getCardID());
+    }
+
+    public void setBlockAction(String blockAction) {
+        this.blockAction = blockAction;
+    }
+
+    public String getBlockAction() {
+        return blockAction;
     }
 }
