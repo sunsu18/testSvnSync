@@ -5,11 +5,12 @@
     <parameter id="page_parent" value="/oracle/webcenter/portalapp/pagehierarchy/engagepages/menus/cardservicesPages.xml"/>
     <parameter id="page_info"
                value="title=viewcard;desc=;keywords=;createdBy=weblogic;createDate=2014-03-11T15:45:03;lastUpdatedBy=weblogic;lastUpdateDate=2014-03-11T15:45:03;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/cardservices/viewcard.jspx;excluded=false;style="/>
-    <parameter id="page_title" value="viewcard"/>  
+    <parameter id="page_title" value="viewcard"/>
   </parameters>
   <executables>
     <variableIterator id="variables"/>
-      <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
+          <page viewId="${preferenceBean.defaultPageTemplate}" path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
+          id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
     <taskFlow id="CardTaskFlow1"
               taskFlowId="/WEB-INF/com/sfr/engage/cardtaskflow/CardTaskFlow.xml#CardTaskFlow"

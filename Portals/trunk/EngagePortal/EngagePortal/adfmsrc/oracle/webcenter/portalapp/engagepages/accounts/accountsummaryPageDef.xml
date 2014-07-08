@@ -9,7 +9,8 @@
   </parameters>
   <executables>
     <variableIterator id="variables"/>
-    <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
+        <page viewId="${preferenceBean.defaultPageTemplate}" path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
+          id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
     <iterator Binds="PrtAccountVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"

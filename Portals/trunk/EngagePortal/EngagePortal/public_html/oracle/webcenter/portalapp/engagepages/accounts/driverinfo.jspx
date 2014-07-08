@@ -6,7 +6,8 @@
   <f:view>
     <af:document id="d1" title="#{sfr.DRIVERS}">
       <af:form id="f1">
-        <af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1">
+       <af:pageTemplate value="#{bindings.pageTemplateBinding}" id="pt1"
+                         viewId="/oracle/webcenter/portalapp/pagetemplates/engageTemplate.jspx">
           <f:facet name="content">
             <pe:pageCustomizable id="hm_pgc1">
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
