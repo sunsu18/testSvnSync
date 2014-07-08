@@ -7,6 +7,9 @@
     <variableIterator id="variables"/>
     <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
               DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+              <iterator Binds="PrtAccountVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtAccountVO1Iterator"/>
+    <iterator Binds="PrtCardgroupVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardgroupVO1Iterator"/>
+    <iterator Binds="PrtCardVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
   </executables>
   <bindings/>
 </pageDefinition>
