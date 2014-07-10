@@ -69,6 +69,9 @@
           <Item Value="UnitOfMeasure"/>
           <Item Value="TransactionType"/>
           <Item Value="Card"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="CardTextLine2"/>
+          <Item Value="CurrencyGrossAmount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

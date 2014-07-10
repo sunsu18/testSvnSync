@@ -1,5 +1,15 @@
 package com.sfr.engage.model.queries.rvo;
 
+import com.sfr.engage.core.PartnerInfo;
+
+import java.util.List;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import oracle.jbo.domain.Date;
 import oracle.jbo.domain.Number;
 import oracle.jbo.domain.Timestamp;
@@ -15,7 +25,41 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
     /**
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
+     private ExternalContext ectx=FacesContext.getCurrentInstance().getExternalContext();
+     private HttpServletRequest request=(HttpServletRequest)ectx.getRequest();
+     private HttpSession session=request.getSession(false);
+     private List<PartnerInfo> partnerInfoList;
     public enum AttributesEnum {
+        PartnerId {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getPartnerId();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setPartnerId((String)value);
+            }
+        }
+        ,
+        Ksid {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getKsid();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setKsid((String)value);
+            }
+        }
+        ,
+        TransactionTime {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getTransactionTime();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setTransactionTime((Timestamp)value);
+            }
+        }
+        ,
         TransactionDt {
             public Object get(PrtHomeTransactionsRVORowImpl obj) {
                 return obj.getTransactionDt();
@@ -66,6 +110,16 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        CurrencyGrossAmount {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getCurrencyGrossAmount();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setCurrencyGrossAmount((Number)value);
+            }
+        }
+        ,
         Quantity {
             public Object get(PrtHomeTransactionsRVORowImpl obj) {
                 return obj.getQuantity();
@@ -86,646 +140,6 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        DeltaTimestamp {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getDeltaTimestamp();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setDeltaTimestamp((Timestamp)value);
-            }
-        }
-        ,
-        UrefTransactionId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getUrefTransactionId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setUrefTransactionId((String)value);
-            }
-        }
-        ,
-        PalsCountryCode {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPalsCountryCode();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPalsCountryCode((String)value);
-            }
-        }
-        ,
-        DetailNo {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getDetailNo();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setDetailNo((String)value);
-            }
-        }
-        ,
-        PalsPGroupId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPalsPGroupId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPalsPGroupId((String)value);
-            }
-        }
-        ,
-        PalsPGroupSubgroupId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPalsPGroupSubgroupId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPalsPGroupSubgroupId((String)value);
-            }
-        }
-        ,
-        FuelYn {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getFuelYn();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setFuelYn((String)value);
-            }
-        }
-        ,
-        VatRate {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getVatRate();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setVatRate((Number)value);
-            }
-        }
-        ,
-        CurrencyVat {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyVat();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyVat((Number)value);
-            }
-        }
-        ,
-        InvoicedVat {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedVat();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedVat((Number)value);
-            }
-        }
-        ,
-        CurrencyUnitPrice {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyUnitPrice();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyUnitPrice((Number)value);
-            }
-        }
-        ,
-        InvoicedUnitPrice {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedUnitPrice();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedUnitPrice((Number)value);
-            }
-        }
-        ,
-        CurrencyGrossAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyGrossAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyGrossAmount((Number)value);
-            }
-        }
-        ,
-        InvoicedGrossAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedGrossAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedGrossAmount((Number)value);
-            }
-        }
-        ,
-        CurrencyNetAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyNetAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyNetAmount((Number)value);
-            }
-        }
-        ,
-        InvoicedNetAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedNetAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedNetAmount((Number)value);
-            }
-        }
-        ,
-        CurrencyDiscountAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyDiscountAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyDiscountAmount((Number)value);
-            }
-        }
-        ,
-        InvoiceDiscountAmount {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoiceDiscountAmount();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoiceDiscountAmount((Number)value);
-            }
-        }
-        ,
-        VatRefundableYn {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getVatRefundableYn();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setVatRefundableYn((String)value);
-            }
-        }
-        ,
-        SurchargeYn {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getSurchargeYn();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setSurchargeYn((String)value);
-            }
-        }
-        ,
-        AtIabf538aPrpslKd {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getAtIabf538aPrpslKd();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setAtIabf538aPrpslKd((String)value);
-            }
-        }
-        ,
-        AsIabf538aPrpslsats {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getAsIabf538aPrpslsats();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setAsIabf538aPrpslsats((Number)value);
-            }
-        }
-        ,
-        CurrencyVatRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyVatRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyVatRebated((Number)value);
-            }
-        }
-        ,
-        InvoivedVatRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoivedVatRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoivedVatRebated((Number)value);
-            }
-        }
-        ,
-        CurrencyUnitPriceRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyUnitPriceRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyUnitPriceRebated((Number)value);
-            }
-        }
-        ,
-        InvoicedUnitPriceRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedUnitPriceRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedUnitPriceRebated((Number)value);
-            }
-        }
-        ,
-        CurrencyGrossAmountRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyGrossAmountRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyGrossAmountRebated((Number)value);
-            }
-        }
-        ,
-        InvoicedGrossAmountRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedGrossAmountRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedGrossAmountRebated((Number)value);
-            }
-        }
-        ,
-        CurrencyNetAmountRebated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCurrencyNetAmountRebated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCurrencyNetAmountRebated((Number)value);
-            }
-        }
-        ,
-        InvoicedNetAmountRabeted {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicedNetAmountRabeted();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicedNetAmountRabeted((Number)value);
-            }
-        }
-        ,
-        DeltaTimestamp1_1_1_1_1 {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getDeltaTimestamp1_1_1_1_1();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setDeltaTimestamp1_1_1_1_1((Timestamp)value);
-            }
-        }
-        ,
-        LastUpdated {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getLastUpdated();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setLastUpdated((Date)value);
-            }
-        }
-        ,
-        UrefTransactionId1_1_1_1_1 {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getUrefTransactionId1_1_1_1_1();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setUrefTransactionId1_1_1_1_1((String)value);
-            }
-        }
-        ,
-        PalsCountryCode1_1_1_1_1 {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPalsCountryCode1_1_1_1_1();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPalsCountryCode1_1_1_1_1((String)value);
-            }
-        }
-        ,
-        PurchaseCountryCode {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPurchaseCountryCode();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPurchaseCountryCode((String)value);
-            }
-        }
-        ,
-        OrderId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getOrderId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setOrderId((String)value);
-            }
-        }
-        ,
-        PrelimId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPrelimId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPrelimId((String)value);
-            }
-        }
-        ,
-        Card2Id {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCard2Id();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCard2Id((String)value);
-            }
-        }
-        ,
-        CardId2Info {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCardId2Info();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCardId2Info((String)value);
-            }
-        }
-        ,
-        OdometerPortal {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getOdometerPortal();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setOdometerPortal((String)value);
-            }
-        }
-        ,
-        Odometer {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getOdometer();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setOdometer((String)value);
-            }
-        }
-        ,
-        TransactionTime {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getTransactionTime();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setTransactionTime((Timestamp)value);
-            }
-        }
-        ,
-        StationGroupId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getStationGroupId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setStationGroupId((String)value);
-            }
-        }
-        ,
-        StationGroupName {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getStationGroupName();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setStationGroupName((String)value);
-            }
-        }
-        ,
-        IccInvoiceNumber {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getIccInvoiceNumber();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setIccInvoiceNumber((String)value);
-            }
-        }
-        ,
-        InvoiceNumberNonCollective {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoiceNumberNonCollective();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoiceNumberNonCollective((String)value);
-            }
-        }
-        ,
-        InvoicingDate {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoicingDate();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoicingDate((Date)value);
-            }
-        }
-        ,
-        RecieptNo {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getRecieptNo();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setRecieptNo((String)value);
-            }
-        }
-        ,
-        PurchaseCurrency {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPurchaseCurrency();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPurchaseCurrency((String)value);
-            }
-        }
-        ,
-        ExchangeRate {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getExchangeRate();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setExchangeRate((Number)value);
-            }
-        }
-        ,
-        IccYn {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getIccYn();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setIccYn((String)value);
-            }
-        }
-        ,
-        PrelimStatusCode {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPrelimStatusCode();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPrelimStatusCode((String)value);
-            }
-        }
-        ,
-        InvoiceNumberCollective {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getInvoiceNumberCollective();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setInvoiceNumberCollective((String)value);
-            }
-        }
-        ,
-        Ksid {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getKsid();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setKsid((String)value);
-            }
-        }
-        ,
-        PartnerId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPartnerId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPartnerId((String)value);
-            }
-        }
-        ,
-        AccountId {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getAccountId();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setAccountId((String)value);
-            }
-        }
-        ,
-        CardgroupMainType {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCardgroupMainType();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCardgroupMainType((String)value);
-            }
-        }
-        ,
-        CardgroupSubType {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCardgroupSubType();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCardgroupSubType((String)value);
-            }
-        }
-        ,
-        CardgroupSeq {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getCardgroupSeq();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setCardgroupSeq((String)value);
-            }
-        }
-        ,
-        Terminal {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getTerminal();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setTerminal((String)value);
-            }
-        }
-        ,
-        ModifiedBy {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getModifiedBy();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setModifiedBy((String)value);
-            }
-        }
-        ,
-        LastModifiedDate {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getLastModifiedDate();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setLastModifiedDate((Date)value);
-            }
-        }
-        ,
-        PreviousOdometer {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getPreviousOdometer();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setPreviousOdometer((String)value);
-            }
-        }
-        ,
-        Dummy {
-            public Object get(PrtHomeTransactionsRVORowImpl obj) {
-                return obj.getDummy();
-            }
-
-            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
-                obj.setDummy((String)value);
-            }
-        }
-        ,
         Card {
             public Object get(PrtHomeTransactionsRVORowImpl obj) {
                 return obj.getCard();
@@ -733,6 +147,16 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
 
             public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
                 obj.setCard((String)value);
+            }
+        }
+        ,
+        CardTextLine2 {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getCardTextLine2();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setCardTextLine2((String)value);
             }
         }
         ;
@@ -763,83 +187,74 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
+    public static final int PARTNERID = AttributesEnum.PartnerId.index();
+    public static final int KSID = AttributesEnum.Ksid.index();
+    public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
     public static final int TRANSACTIONDT = AttributesEnum.TransactionDt.index();
     public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
     public static final int CARD1ID = AttributesEnum.Card1Id.index();
     public static final int STATIONNAME = AttributesEnum.StationName.index();
     public static final int PRODUCTNAME = AttributesEnum.ProductName.index();
+    public static final int CURRENCYGROSSAMOUNT = AttributesEnum.CurrencyGrossAmount.index();
     public static final int QUANTITY = AttributesEnum.Quantity.index();
     public static final int UNITOFMEASURE = AttributesEnum.UnitOfMeasure.index();
-    public static final int DELTATIMESTAMP = AttributesEnum.DeltaTimestamp.index();
-    public static final int UREFTRANSACTIONID = AttributesEnum.UrefTransactionId.index();
-    public static final int PALSCOUNTRYCODE = AttributesEnum.PalsCountryCode.index();
-    public static final int DETAILNO = AttributesEnum.DetailNo.index();
-    public static final int PALSPGROUPID = AttributesEnum.PalsPGroupId.index();
-    public static final int PALSPGROUPSUBGROUPID = AttributesEnum.PalsPGroupSubgroupId.index();
-    public static final int FUELYN = AttributesEnum.FuelYn.index();
-    public static final int VATRATE = AttributesEnum.VatRate.index();
-    public static final int CURRENCYVAT = AttributesEnum.CurrencyVat.index();
-    public static final int INVOICEDVAT = AttributesEnum.InvoicedVat.index();
-    public static final int CURRENCYUNITPRICE = AttributesEnum.CurrencyUnitPrice.index();
-    public static final int INVOICEDUNITPRICE = AttributesEnum.InvoicedUnitPrice.index();
-    public static final int CURRENCYGROSSAMOUNT = AttributesEnum.CurrencyGrossAmount.index();
-    public static final int INVOICEDGROSSAMOUNT = AttributesEnum.InvoicedGrossAmount.index();
-    public static final int CURRENCYNETAMOUNT = AttributesEnum.CurrencyNetAmount.index();
-    public static final int INVOICEDNETAMOUNT = AttributesEnum.InvoicedNetAmount.index();
-    public static final int CURRENCYDISCOUNTAMOUNT = AttributesEnum.CurrencyDiscountAmount.index();
-    public static final int INVOICEDISCOUNTAMOUNT = AttributesEnum.InvoiceDiscountAmount.index();
-    public static final int VATREFUNDABLEYN = AttributesEnum.VatRefundableYn.index();
-    public static final int SURCHARGEYN = AttributesEnum.SurchargeYn.index();
-    public static final int ATIABF538APRPSLKD = AttributesEnum.AtIabf538aPrpslKd.index();
-    public static final int ASIABF538APRPSLSATS = AttributesEnum.AsIabf538aPrpslsats.index();
-    public static final int CURRENCYVATREBATED = AttributesEnum.CurrencyVatRebated.index();
-    public static final int INVOIVEDVATREBATED = AttributesEnum.InvoivedVatRebated.index();
-    public static final int CURRENCYUNITPRICEREBATED = AttributesEnum.CurrencyUnitPriceRebated.index();
-    public static final int INVOICEDUNITPRICEREBATED = AttributesEnum.InvoicedUnitPriceRebated.index();
-    public static final int CURRENCYGROSSAMOUNTREBATED = AttributesEnum.CurrencyGrossAmountRebated.index();
-    public static final int INVOICEDGROSSAMOUNTREBATED = AttributesEnum.InvoicedGrossAmountRebated.index();
-    public static final int CURRENCYNETAMOUNTREBATED = AttributesEnum.CurrencyNetAmountRebated.index();
-    public static final int INVOICEDNETAMOUNTRABETED = AttributesEnum.InvoicedNetAmountRabeted.index();
-    public static final int DELTATIMESTAMP1_1_1_1_1 = AttributesEnum.DeltaTimestamp1_1_1_1_1.index();
-    public static final int LASTUPDATED = AttributesEnum.LastUpdated.index();
-    public static final int UREFTRANSACTIONID1_1_1_1_1 = AttributesEnum.UrefTransactionId1_1_1_1_1.index();
-    public static final int PALSCOUNTRYCODE1_1_1_1_1 = AttributesEnum.PalsCountryCode1_1_1_1_1.index();
-    public static final int PURCHASECOUNTRYCODE = AttributesEnum.PurchaseCountryCode.index();
-    public static final int ORDERID = AttributesEnum.OrderId.index();
-    public static final int PRELIMID = AttributesEnum.PrelimId.index();
-    public static final int CARD2ID = AttributesEnum.Card2Id.index();
-    public static final int CARDID2INFO = AttributesEnum.CardId2Info.index();
-    public static final int ODOMETERPORTAL = AttributesEnum.OdometerPortal.index();
-    public static final int ODOMETER = AttributesEnum.Odometer.index();
-    public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
-    public static final int STATIONGROUPID = AttributesEnum.StationGroupId.index();
-    public static final int STATIONGROUPNAME = AttributesEnum.StationGroupName.index();
-    public static final int ICCINVOICENUMBER = AttributesEnum.IccInvoiceNumber.index();
-    public static final int INVOICENUMBERNONCOLLECTIVE = AttributesEnum.InvoiceNumberNonCollective.index();
-    public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
-    public static final int RECIEPTNO = AttributesEnum.RecieptNo.index();
-    public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
-    public static final int EXCHANGERATE = AttributesEnum.ExchangeRate.index();
-    public static final int ICCYN = AttributesEnum.IccYn.index();
-    public static final int PRELIMSTATUSCODE = AttributesEnum.PrelimStatusCode.index();
-    public static final int INVOICENUMBERCOLLECTIVE = AttributesEnum.InvoiceNumberCollective.index();
-    public static final int KSID = AttributesEnum.Ksid.index();
-    public static final int PARTNERID = AttributesEnum.PartnerId.index();
-    public static final int ACCOUNTID = AttributesEnum.AccountId.index();
-    public static final int CARDGROUPMAINTYPE = AttributesEnum.CardgroupMainType.index();
-    public static final int CARDGROUPSUBTYPE = AttributesEnum.CardgroupSubType.index();
-    public static final int CARDGROUPSEQ = AttributesEnum.CardgroupSeq.index();
-    public static final int TERMINAL = AttributesEnum.Terminal.index();
-    public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
-    public static final int LASTMODIFIEDDATE = AttributesEnum.LastModifiedDate.index();
-    public static final int PREVIOUSODOMETER = AttributesEnum.PreviousOdometer.index();
-    public static final int DUMMY = AttributesEnum.Dummy.index();
     public static final int CARD = AttributesEnum.Card.index();
+    public static final int CARDTEXTLINE2 = AttributesEnum.CardTextLine2.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtHomeTransactionsRVORowImpl() {
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PartnerId.
+     * @return the PartnerId
+     */
+    public String getPartnerId() {
+        return (String) getAttributeInternal(PARTNERID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerId.
+     * @param value value to set the  PartnerId
+     */
+    public void setPartnerId(String value) {
+        setAttributeInternal(PARTNERID, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Ksid.
+     * @return the Ksid
+     */
+    public String getKsid() {
+        return (String) getAttributeInternal(KSID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Ksid.
+     * @param value value to set the  Ksid
+     */
+    public void setKsid(String value) {
+        setAttributeInternal(KSID, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute TransactionTime.
+     * @return the TransactionTime
+     */
+    public Timestamp getTransactionTime() {
+        return (Timestamp) getAttributeInternal(TRANSACTIONTIME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute TransactionTime.
+     * @param value value to set the  TransactionTime
+     */
+    public void setTransactionTime(Timestamp value) {
+        setAttributeInternal(TRANSACTIONTIME, value);
     }
 
     /**
@@ -923,6 +338,22 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute CurrencyGrossAmount.
+     * @return the CurrencyGrossAmount
+     */
+    public Number getCurrencyGrossAmount() {
+        return (Number) getAttributeInternal(CURRENCYGROSSAMOUNT);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyGrossAmount.
+     * @param value value to set the  CurrencyGrossAmount
+     */
+    public void setCurrencyGrossAmount(Number value) {
+        setAttributeInternal(CURRENCYGROSSAMOUNT, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute Quantity.
      * @return the Quantity
      */
@@ -961,1029 +392,6 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
         setAttributeInternal(UNITOFMEASURE, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute DeltaTimestamp.
-     * @return the DeltaTimestamp
-     */
-    public Timestamp getDeltaTimestamp() {
-        return (Timestamp) getAttributeInternal(DELTATIMESTAMP);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute DeltaTimestamp.
-     * @param value value to set the  DeltaTimestamp
-     */
-    public void setDeltaTimestamp(Timestamp value) {
-        setAttributeInternal(DELTATIMESTAMP, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute UrefTransactionId.
-     * @return the UrefTransactionId
-     */
-    public String getUrefTransactionId() {
-        return (String) getAttributeInternal(UREFTRANSACTIONID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute UrefTransactionId.
-     * @param value value to set the  UrefTransactionId
-     */
-    public void setUrefTransactionId(String value) {
-        setAttributeInternal(UREFTRANSACTIONID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PalsCountryCode.
-     * @return the PalsCountryCode
-     */
-    public String getPalsCountryCode() {
-        return (String) getAttributeInternal(PALSCOUNTRYCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PalsCountryCode.
-     * @param value value to set the  PalsCountryCode
-     */
-    public void setPalsCountryCode(String value) {
-        setAttributeInternal(PALSCOUNTRYCODE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute DetailNo.
-     * @return the DetailNo
-     */
-    public String getDetailNo() {
-        return (String) getAttributeInternal(DETAILNO);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute DetailNo.
-     * @param value value to set the  DetailNo
-     */
-    public void setDetailNo(String value) {
-        setAttributeInternal(DETAILNO, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PalsPGroupId.
-     * @return the PalsPGroupId
-     */
-    public String getPalsPGroupId() {
-        return (String) getAttributeInternal(PALSPGROUPID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PalsPGroupId.
-     * @param value value to set the  PalsPGroupId
-     */
-    public void setPalsPGroupId(String value) {
-        setAttributeInternal(PALSPGROUPID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PalsPGroupSubgroupId.
-     * @return the PalsPGroupSubgroupId
-     */
-    public String getPalsPGroupSubgroupId() {
-        return (String) getAttributeInternal(PALSPGROUPSUBGROUPID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PalsPGroupSubgroupId.
-     * @param value value to set the  PalsPGroupSubgroupId
-     */
-    public void setPalsPGroupSubgroupId(String value) {
-        setAttributeInternal(PALSPGROUPSUBGROUPID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute FuelYn.
-     * @return the FuelYn
-     */
-    public String getFuelYn() {
-        return (String) getAttributeInternal(FUELYN);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute FuelYn.
-     * @param value value to set the  FuelYn
-     */
-    public void setFuelYn(String value) {
-        setAttributeInternal(FUELYN, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute VatRate.
-     * @return the VatRate
-     */
-    public Number getVatRate() {
-        return (Number) getAttributeInternal(VATRATE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute VatRate.
-     * @param value value to set the  VatRate
-     */
-    public void setVatRate(Number value) {
-        setAttributeInternal(VATRATE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyVat.
-     * @return the CurrencyVat
-     */
-    public Number getCurrencyVat() {
-        return (Number) getAttributeInternal(CURRENCYVAT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyVat.
-     * @param value value to set the  CurrencyVat
-     */
-    public void setCurrencyVat(Number value) {
-        setAttributeInternal(CURRENCYVAT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedVat.
-     * @return the InvoicedVat
-     */
-    public Number getInvoicedVat() {
-        return (Number) getAttributeInternal(INVOICEDVAT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedVat.
-     * @param value value to set the  InvoicedVat
-     */
-    public void setInvoicedVat(Number value) {
-        setAttributeInternal(INVOICEDVAT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyUnitPrice.
-     * @return the CurrencyUnitPrice
-     */
-    public Number getCurrencyUnitPrice() {
-        return (Number) getAttributeInternal(CURRENCYUNITPRICE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyUnitPrice.
-     * @param value value to set the  CurrencyUnitPrice
-     */
-    public void setCurrencyUnitPrice(Number value) {
-        setAttributeInternal(CURRENCYUNITPRICE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedUnitPrice.
-     * @return the InvoicedUnitPrice
-     */
-    public Number getInvoicedUnitPrice() {
-        return (Number) getAttributeInternal(INVOICEDUNITPRICE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedUnitPrice.
-     * @param value value to set the  InvoicedUnitPrice
-     */
-    public void setInvoicedUnitPrice(Number value) {
-        setAttributeInternal(INVOICEDUNITPRICE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyGrossAmount.
-     * @return the CurrencyGrossAmount
-     */
-    public Number getCurrencyGrossAmount() {
-        return (Number) getAttributeInternal(CURRENCYGROSSAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyGrossAmount.
-     * @param value value to set the  CurrencyGrossAmount
-     */
-    public void setCurrencyGrossAmount(Number value) {
-        setAttributeInternal(CURRENCYGROSSAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedGrossAmount.
-     * @return the InvoicedGrossAmount
-     */
-    public Number getInvoicedGrossAmount() {
-        return (Number) getAttributeInternal(INVOICEDGROSSAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedGrossAmount.
-     * @param value value to set the  InvoicedGrossAmount
-     */
-    public void setInvoicedGrossAmount(Number value) {
-        setAttributeInternal(INVOICEDGROSSAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyNetAmount.
-     * @return the CurrencyNetAmount
-     */
-    public Number getCurrencyNetAmount() {
-        return (Number) getAttributeInternal(CURRENCYNETAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyNetAmount.
-     * @param value value to set the  CurrencyNetAmount
-     */
-    public void setCurrencyNetAmount(Number value) {
-        setAttributeInternal(CURRENCYNETAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedNetAmount.
-     * @return the InvoicedNetAmount
-     */
-    public Number getInvoicedNetAmount() {
-        return (Number) getAttributeInternal(INVOICEDNETAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedNetAmount.
-     * @param value value to set the  InvoicedNetAmount
-     */
-    public void setInvoicedNetAmount(Number value) {
-        setAttributeInternal(INVOICEDNETAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyDiscountAmount.
-     * @return the CurrencyDiscountAmount
-     */
-    public Number getCurrencyDiscountAmount() {
-        return (Number) getAttributeInternal(CURRENCYDISCOUNTAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyDiscountAmount.
-     * @param value value to set the  CurrencyDiscountAmount
-     */
-    public void setCurrencyDiscountAmount(Number value) {
-        setAttributeInternal(CURRENCYDISCOUNTAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoiceDiscountAmount.
-     * @return the InvoiceDiscountAmount
-     */
-    public Number getInvoiceDiscountAmount() {
-        return (Number) getAttributeInternal(INVOICEDISCOUNTAMOUNT);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoiceDiscountAmount.
-     * @param value value to set the  InvoiceDiscountAmount
-     */
-    public void setInvoiceDiscountAmount(Number value) {
-        setAttributeInternal(INVOICEDISCOUNTAMOUNT, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute VatRefundableYn.
-     * @return the VatRefundableYn
-     */
-    public String getVatRefundableYn() {
-        return (String) getAttributeInternal(VATREFUNDABLEYN);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute VatRefundableYn.
-     * @param value value to set the  VatRefundableYn
-     */
-    public void setVatRefundableYn(String value) {
-        setAttributeInternal(VATREFUNDABLEYN, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute SurchargeYn.
-     * @return the SurchargeYn
-     */
-    public String getSurchargeYn() {
-        return (String) getAttributeInternal(SURCHARGEYN);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute SurchargeYn.
-     * @param value value to set the  SurchargeYn
-     */
-    public void setSurchargeYn(String value) {
-        setAttributeInternal(SURCHARGEYN, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute AtIabf538aPrpslKd.
-     * @return the AtIabf538aPrpslKd
-     */
-    public String getAtIabf538aPrpslKd() {
-        return (String) getAttributeInternal(ATIABF538APRPSLKD);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute AtIabf538aPrpslKd.
-     * @param value value to set the  AtIabf538aPrpslKd
-     */
-    public void setAtIabf538aPrpslKd(String value) {
-        setAttributeInternal(ATIABF538APRPSLKD, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute AsIabf538aPrpslsats.
-     * @return the AsIabf538aPrpslsats
-     */
-    public Number getAsIabf538aPrpslsats() {
-        return (Number) getAttributeInternal(ASIABF538APRPSLSATS);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute AsIabf538aPrpslsats.
-     * @param value value to set the  AsIabf538aPrpslsats
-     */
-    public void setAsIabf538aPrpslsats(Number value) {
-        setAttributeInternal(ASIABF538APRPSLSATS, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyVatRebated.
-     * @return the CurrencyVatRebated
-     */
-    public Number getCurrencyVatRebated() {
-        return (Number) getAttributeInternal(CURRENCYVATREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyVatRebated.
-     * @param value value to set the  CurrencyVatRebated
-     */
-    public void setCurrencyVatRebated(Number value) {
-        setAttributeInternal(CURRENCYVATREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoivedVatRebated.
-     * @return the InvoivedVatRebated
-     */
-    public Number getInvoivedVatRebated() {
-        return (Number) getAttributeInternal(INVOIVEDVATREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoivedVatRebated.
-     * @param value value to set the  InvoivedVatRebated
-     */
-    public void setInvoivedVatRebated(Number value) {
-        setAttributeInternal(INVOIVEDVATREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyUnitPriceRebated.
-     * @return the CurrencyUnitPriceRebated
-     */
-    public Number getCurrencyUnitPriceRebated() {
-        return (Number) getAttributeInternal(CURRENCYUNITPRICEREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyUnitPriceRebated.
-     * @param value value to set the  CurrencyUnitPriceRebated
-     */
-    public void setCurrencyUnitPriceRebated(Number value) {
-        setAttributeInternal(CURRENCYUNITPRICEREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedUnitPriceRebated.
-     * @return the InvoicedUnitPriceRebated
-     */
-    public Number getInvoicedUnitPriceRebated() {
-        return (Number) getAttributeInternal(INVOICEDUNITPRICEREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedUnitPriceRebated.
-     * @param value value to set the  InvoicedUnitPriceRebated
-     */
-    public void setInvoicedUnitPriceRebated(Number value) {
-        setAttributeInternal(INVOICEDUNITPRICEREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyGrossAmountRebated.
-     * @return the CurrencyGrossAmountRebated
-     */
-    public Number getCurrencyGrossAmountRebated() {
-        return (Number) getAttributeInternal(CURRENCYGROSSAMOUNTREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyGrossAmountRebated.
-     * @param value value to set the  CurrencyGrossAmountRebated
-     */
-    public void setCurrencyGrossAmountRebated(Number value) {
-        setAttributeInternal(CURRENCYGROSSAMOUNTREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedGrossAmountRebated.
-     * @return the InvoicedGrossAmountRebated
-     */
-    public Number getInvoicedGrossAmountRebated() {
-        return (Number) getAttributeInternal(INVOICEDGROSSAMOUNTREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedGrossAmountRebated.
-     * @param value value to set the  InvoicedGrossAmountRebated
-     */
-    public void setInvoicedGrossAmountRebated(Number value) {
-        setAttributeInternal(INVOICEDGROSSAMOUNTREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CurrencyNetAmountRebated.
-     * @return the CurrencyNetAmountRebated
-     */
-    public Number getCurrencyNetAmountRebated() {
-        return (Number) getAttributeInternal(CURRENCYNETAMOUNTREBATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CurrencyNetAmountRebated.
-     * @param value value to set the  CurrencyNetAmountRebated
-     */
-    public void setCurrencyNetAmountRebated(Number value) {
-        setAttributeInternal(CURRENCYNETAMOUNTREBATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicedNetAmountRabeted.
-     * @return the InvoicedNetAmountRabeted
-     */
-    public Number getInvoicedNetAmountRabeted() {
-        return (Number) getAttributeInternal(INVOICEDNETAMOUNTRABETED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicedNetAmountRabeted.
-     * @param value value to set the  InvoicedNetAmountRabeted
-     */
-    public void setInvoicedNetAmountRabeted(Number value) {
-        setAttributeInternal(INVOICEDNETAMOUNTRABETED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute DeltaTimestamp1_1_1_1_1.
-     * @return the DeltaTimestamp1_1_1_1_1
-     */
-    public Timestamp getDeltaTimestamp1_1_1_1_1() {
-        return (Timestamp) getAttributeInternal(DELTATIMESTAMP1_1_1_1_1);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute DeltaTimestamp1_1_1_1_1.
-     * @param value value to set the  DeltaTimestamp1_1_1_1_1
-     */
-    public void setDeltaTimestamp1_1_1_1_1(Timestamp value) {
-        setAttributeInternal(DELTATIMESTAMP1_1_1_1_1, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute LastUpdated.
-     * @return the LastUpdated
-     */
-    public Date getLastUpdated() {
-        return (Date) getAttributeInternal(LASTUPDATED);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute LastUpdated.
-     * @param value value to set the  LastUpdated
-     */
-    public void setLastUpdated(Date value) {
-        setAttributeInternal(LASTUPDATED, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute UrefTransactionId1_1_1_1_1.
-     * @return the UrefTransactionId1_1_1_1_1
-     */
-    public String getUrefTransactionId1_1_1_1_1() {
-        return (String) getAttributeInternal(UREFTRANSACTIONID1_1_1_1_1);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute UrefTransactionId1_1_1_1_1.
-     * @param value value to set the  UrefTransactionId1_1_1_1_1
-     */
-    public void setUrefTransactionId1_1_1_1_1(String value) {
-        setAttributeInternal(UREFTRANSACTIONID1_1_1_1_1, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PalsCountryCode1_1_1_1_1.
-     * @return the PalsCountryCode1_1_1_1_1
-     */
-    public String getPalsCountryCode1_1_1_1_1() {
-        return (String) getAttributeInternal(PALSCOUNTRYCODE1_1_1_1_1);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PalsCountryCode1_1_1_1_1.
-     * @param value value to set the  PalsCountryCode1_1_1_1_1
-     */
-    public void setPalsCountryCode1_1_1_1_1(String value) {
-        setAttributeInternal(PALSCOUNTRYCODE1_1_1_1_1, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PurchaseCountryCode.
-     * @return the PurchaseCountryCode
-     */
-    public String getPurchaseCountryCode() {
-        return (String) getAttributeInternal(PURCHASECOUNTRYCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PurchaseCountryCode.
-     * @param value value to set the  PurchaseCountryCode
-     */
-    public void setPurchaseCountryCode(String value) {
-        setAttributeInternal(PURCHASECOUNTRYCODE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute OrderId.
-     * @return the OrderId
-     */
-    public String getOrderId() {
-        return (String) getAttributeInternal(ORDERID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute OrderId.
-     * @param value value to set the  OrderId
-     */
-    public void setOrderId(String value) {
-        setAttributeInternal(ORDERID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PrelimId.
-     * @return the PrelimId
-     */
-    public String getPrelimId() {
-        return (String) getAttributeInternal(PRELIMID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PrelimId.
-     * @param value value to set the  PrelimId
-     */
-    public void setPrelimId(String value) {
-        setAttributeInternal(PRELIMID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Card2Id.
-     * @return the Card2Id
-     */
-    public String getCard2Id() {
-        return (String) getAttributeInternal(CARD2ID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Card2Id.
-     * @param value value to set the  Card2Id
-     */
-    public void setCard2Id(String value) {
-        setAttributeInternal(CARD2ID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CardId2Info.
-     * @return the CardId2Info
-     */
-    public String getCardId2Info() {
-        return (String) getAttributeInternal(CARDID2INFO);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CardId2Info.
-     * @param value value to set the  CardId2Info
-     */
-    public void setCardId2Info(String value) {
-        setAttributeInternal(CARDID2INFO, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute OdometerPortal.
-     * @return the OdometerPortal
-     */
-    public String getOdometerPortal() {
-        return (String) getAttributeInternal(ODOMETERPORTAL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute OdometerPortal.
-     * @param value value to set the  OdometerPortal
-     */
-    public void setOdometerPortal(String value) {
-        setAttributeInternal(ODOMETERPORTAL, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Odometer.
-     * @return the Odometer
-     */
-    public String getOdometer() {
-        return (String) getAttributeInternal(ODOMETER);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Odometer.
-     * @param value value to set the  Odometer
-     */
-    public void setOdometer(String value) {
-        setAttributeInternal(ODOMETER, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute TransactionTime.
-     * @return the TransactionTime
-     */
-    public Timestamp getTransactionTime() {
-        return (Timestamp) getAttributeInternal(TRANSACTIONTIME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute TransactionTime.
-     * @param value value to set the  TransactionTime
-     */
-    public void setTransactionTime(Timestamp value) {
-        setAttributeInternal(TRANSACTIONTIME, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute StationGroupId.
-     * @return the StationGroupId
-     */
-    public String getStationGroupId() {
-        return (String) getAttributeInternal(STATIONGROUPID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute StationGroupId.
-     * @param value value to set the  StationGroupId
-     */
-    public void setStationGroupId(String value) {
-        setAttributeInternal(STATIONGROUPID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute StationGroupName.
-     * @return the StationGroupName
-     */
-    public String getStationGroupName() {
-        return (String) getAttributeInternal(STATIONGROUPNAME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute StationGroupName.
-     * @param value value to set the  StationGroupName
-     */
-    public void setStationGroupName(String value) {
-        setAttributeInternal(STATIONGROUPNAME, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute IccInvoiceNumber.
-     * @return the IccInvoiceNumber
-     */
-    public String getIccInvoiceNumber() {
-        return (String) getAttributeInternal(ICCINVOICENUMBER);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute IccInvoiceNumber.
-     * @param value value to set the  IccInvoiceNumber
-     */
-    public void setIccInvoiceNumber(String value) {
-        setAttributeInternal(ICCINVOICENUMBER, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoiceNumberNonCollective.
-     * @return the InvoiceNumberNonCollective
-     */
-    public String getInvoiceNumberNonCollective() {
-        return (String) getAttributeInternal(INVOICENUMBERNONCOLLECTIVE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoiceNumberNonCollective.
-     * @param value value to set the  InvoiceNumberNonCollective
-     */
-    public void setInvoiceNumberNonCollective(String value) {
-        setAttributeInternal(INVOICENUMBERNONCOLLECTIVE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoicingDate.
-     * @return the InvoicingDate
-     */
-    public Date getInvoicingDate() {
-        return (Date) getAttributeInternal(INVOICINGDATE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoicingDate.
-     * @param value value to set the  InvoicingDate
-     */
-    public void setInvoicingDate(Date value) {
-        setAttributeInternal(INVOICINGDATE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute RecieptNo.
-     * @return the RecieptNo
-     */
-    public String getRecieptNo() {
-        return (String) getAttributeInternal(RECIEPTNO);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RecieptNo.
-     * @param value value to set the  RecieptNo
-     */
-    public void setRecieptNo(String value) {
-        setAttributeInternal(RECIEPTNO, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PurchaseCurrency.
-     * @return the PurchaseCurrency
-     */
-    public String getPurchaseCurrency() {
-        return (String) getAttributeInternal(PURCHASECURRENCY);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PurchaseCurrency.
-     * @param value value to set the  PurchaseCurrency
-     */
-    public void setPurchaseCurrency(String value) {
-        setAttributeInternal(PURCHASECURRENCY, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute ExchangeRate.
-     * @return the ExchangeRate
-     */
-    public Number getExchangeRate() {
-        return (Number) getAttributeInternal(EXCHANGERATE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute ExchangeRate.
-     * @param value value to set the  ExchangeRate
-     */
-    public void setExchangeRate(Number value) {
-        setAttributeInternal(EXCHANGERATE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute IccYn.
-     * @return the IccYn
-     */
-    public String getIccYn() {
-        return (String) getAttributeInternal(ICCYN);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute IccYn.
-     * @param value value to set the  IccYn
-     */
-    public void setIccYn(String value) {
-        setAttributeInternal(ICCYN, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PrelimStatusCode.
-     * @return the PrelimStatusCode
-     */
-    public String getPrelimStatusCode() {
-        return (String) getAttributeInternal(PRELIMSTATUSCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PrelimStatusCode.
-     * @param value value to set the  PrelimStatusCode
-     */
-    public void setPrelimStatusCode(String value) {
-        setAttributeInternal(PRELIMSTATUSCODE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute InvoiceNumberCollective.
-     * @return the InvoiceNumberCollective
-     */
-    public String getInvoiceNumberCollective() {
-        return (String) getAttributeInternal(INVOICENUMBERCOLLECTIVE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute InvoiceNumberCollective.
-     * @param value value to set the  InvoiceNumberCollective
-     */
-    public void setInvoiceNumberCollective(String value) {
-        setAttributeInternal(INVOICENUMBERCOLLECTIVE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Ksid.
-     * @return the Ksid
-     */
-    public String getKsid() {
-        return (String) getAttributeInternal(KSID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Ksid.
-     * @param value value to set the  Ksid
-     */
-    public void setKsid(String value) {
-        setAttributeInternal(KSID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PartnerId.
-     * @return the PartnerId
-     */
-    public String getPartnerId() {
-        return (String) getAttributeInternal(PARTNERID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerId.
-     * @param value value to set the  PartnerId
-     */
-    public void setPartnerId(String value) {
-        setAttributeInternal(PARTNERID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute AccountId.
-     * @return the AccountId
-     */
-    public String getAccountId() {
-        return (String) getAttributeInternal(ACCOUNTID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute AccountId.
-     * @param value value to set the  AccountId
-     */
-    public void setAccountId(String value) {
-        setAttributeInternal(ACCOUNTID, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CardgroupMainType.
-     * @return the CardgroupMainType
-     */
-    public String getCardgroupMainType() {
-        return (String) getAttributeInternal(CARDGROUPMAINTYPE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CardgroupMainType.
-     * @param value value to set the  CardgroupMainType
-     */
-    public void setCardgroupMainType(String value) {
-        setAttributeInternal(CARDGROUPMAINTYPE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CardgroupSubType.
-     * @return the CardgroupSubType
-     */
-    public String getCardgroupSubType() {
-        return (String) getAttributeInternal(CARDGROUPSUBTYPE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CardgroupSubType.
-     * @param value value to set the  CardgroupSubType
-     */
-    public void setCardgroupSubType(String value) {
-        setAttributeInternal(CARDGROUPSUBTYPE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CardgroupSeq.
-     * @return the CardgroupSeq
-     */
-    public String getCardgroupSeq() {
-        return (String) getAttributeInternal(CARDGROUPSEQ);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CardgroupSeq.
-     * @param value value to set the  CardgroupSeq
-     */
-    public void setCardgroupSeq(String value) {
-        setAttributeInternal(CARDGROUPSEQ, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Terminal.
-     * @return the Terminal
-     */
-    public String getTerminal() {
-        return (String) getAttributeInternal(TERMINAL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Terminal.
-     * @param value value to set the  Terminal
-     */
-    public void setTerminal(String value) {
-        setAttributeInternal(TERMINAL, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute ModifiedBy.
-     * @return the ModifiedBy
-     */
-    public String getModifiedBy() {
-        return (String) getAttributeInternal(MODIFIEDBY);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute ModifiedBy.
-     * @param value value to set the  ModifiedBy
-     */
-    public void setModifiedBy(String value) {
-        setAttributeInternal(MODIFIEDBY, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute LastModifiedDate.
-     * @return the LastModifiedDate
-     */
-    public Date getLastModifiedDate() {
-        return (Date) getAttributeInternal(LASTMODIFIEDDATE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute LastModifiedDate.
-     * @param value value to set the  LastModifiedDate
-     */
-    public void setLastModifiedDate(Date value) {
-        setAttributeInternal(LASTMODIFIEDDATE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute PreviousOdometer.
-     * @return the PreviousOdometer
-     */
-    public String getPreviousOdometer() {
-        return (String) getAttributeInternal(PREVIOUSODOMETER);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute PreviousOdometer.
-     * @param value value to set the  PreviousOdometer
-     */
-    public void setPreviousOdometer(String value) {
-        setAttributeInternal(PREVIOUSODOMETER, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Dummy.
-     * @return the Dummy
-     */
-    public String getDummy() {
-        return (String) getAttributeInternal(DUMMY);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Dummy.
-     * @param value value to set the  Dummy
-     */
-    public void setDummy(String value) {
-        setAttributeInternal(DUMMY, value);
-    }
 
     /**
      * Gets the attribute value for the calculated attribute Card.
@@ -2001,6 +409,71 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      */
     public void setCard(String value) {
         setAttributeInternal(CARD, value);
+    }
+
+
+//    /**
+//     * Gets the attribute value for the calculated attribute CardTextLine2_1.
+//     * @return the CardTextLine2_1
+//     */
+//    public String getCardTextLine2() {
+//        return (String) getAttributeInternal(CARDTEXTLINE2_1);
+//    }
+//
+//    /**
+//     * Sets <code>value</code> as the attribute value for the calculated attribute CardTextLine2_1.
+//     * @param value value to set the  CardTextLine2_1
+//     */
+//    public void setCardTextLine2_1(String value) {
+//        setAttributeInternal(CARDTEXTLINE2_1, value);
+//    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardTextLine2.
+     * @return the CardTextLine2
+     */
+    public String getCardTextLine2() {
+        String cardTextLine="";
+        if(session!=null) {
+            if (session.getAttribute("Partner_Object_List") != null) {
+                partnerInfoList =
+                        (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+               
+                String partnerId=getPartnerId();
+                String cardId=getKsid().toString().trim();
+                if (partnerInfoList != null) {
+                    for (int k = 0; k < partnerInfoList.size(); k++) {
+                        if (partnerId.equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
+                                for (int ac = 0;ac < partnerInfoList.get(k).getAccountList().size();ac++) {
+                                        for (int cg = 0;cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size();cg++) {
+                                            for (int cd = 0;cd < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();cd++) {
+                                            if(cardId.equalsIgnoreCase(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardID())) {
+                                                if(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardTextline2() != null)
+                                                {
+                                               cardTextLine=  partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cd).getCardTextline2().toString();
+                                                }
+                                            }
+                                          }
+                                        }
+
+                            }
+                        }
+
+                    }
+                }
+            
+            }
+        }
+        return cardTextLine;
+    //        return (String) getAttributeInternal(CARDTEXTLINE2);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardTextLine2.
+     * @param value value to set the  CardTextLine2
+     */
+    public void setCardTextLine2(String value) {
+        setAttributeInternal(CARDTEXTLINE2, value);
     }
 
     /**
