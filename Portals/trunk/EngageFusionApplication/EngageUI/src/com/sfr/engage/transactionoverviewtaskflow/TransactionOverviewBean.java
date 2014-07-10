@@ -91,6 +91,9 @@ public class TransactionOverviewBean implements Serializable {
     private Boolean value=false;
     ResourceBundle resourceBundle;
     private Float sum = 0.000f;
+    private Float foreignGrossAmountSum = 0.000f;
+    private Float vatSum = 0.000f;
+    private Float netAmountSum = 0.000f;    
     private String cardGroupSubtypePassValues;
     private String cardGroupMaintypePassValue;
     private String cardGroupSeqPassValues;
@@ -1670,6 +1673,9 @@ public class TransactionOverviewBean implements Serializable {
             //isTableVisible = true;             
             value=true;
             sum = 0.000f;
+            foreignGrossAmountSum = 0.000f;
+            vatSum = 0.000f;
+            netAmountSum = 0.000f; 
             RowSetIterator iterator = vo.createRowSetIterator(null);
             iterator.reset();
             if (vo.getEstimatedRowCount() != 0) {                
@@ -1678,10 +1684,31 @@ public class TransactionOverviewBean implements Serializable {
                              vo.getEstimatedRowCount());                
                 while (iterator.hasNext()) {
                     PrtCardTransactionOverviewRVORowImpl row =
-                        (PrtCardTransactionOverviewRVORowImpl)iterator.next();                    
-                    Float temp =
+                        (PrtCardTransactionOverviewRVORowImpl)iterator.next(); 
+                    if(row.getInvoicedGrossAmountRebated()!=null)
+                    {
+                    Float tempTotal =
                         row.getInvoicedGrossAmountRebated().floatValue();
-                    sum = sum + temp;
+                    sum = sum + tempTotal;
+                    }
+                    if(row.getCurrencyGrossAmount()!=null)
+                    {
+                    Float tempForeignTotal =
+                        row.getCurrencyGrossAmount().floatValue();
+                    foreignGrossAmountSum = foreignGrossAmountSum + tempForeignTotal;
+                    }
+                    if(row.getInvoivedVatRebated()!=null)
+                    {
+                    Float tempVatTotal =
+                        row.getInvoivedVatRebated().floatValue();
+                    vatSum = vatSum + tempVatTotal;
+                    }
+                    if(row.getInvoicedNetAmountRebated()!=null)
+                    {
+                    Float tempNetTotal =
+                        row.getInvoicedNetAmountRebated().floatValue();
+                    netAmountSum = netAmountSum + tempNetTotal;
+                    }
                 }
 
                 //                for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
@@ -2754,16 +2781,37 @@ public class TransactionOverviewBean implements Serializable {
             fcss.setColor((short)0);
             css.setFont(fcss);
             XLS_SH_R = XLS_SH.createRow(9);
+            int cellValueSpace =0;            
+            for (int col = 0; col < headerValues.length; col++) {                
+                if("Total Amount".equalsIgnoreCase(headerValues[col].toString()) || "ForeginGrossAmount".equalsIgnoreCase(headerValues[col].toString().trim()) || "Vat".equalsIgnoreCase(headerValues[col].toString().trim()) || "Net".equalsIgnoreCase(headerValues[col].toString().trim())) {
+                    cellValueSpace=1;
+                }
+            } 
+            int dataHeaderColumn=0;
+            if(cellValueSpace>0) {
+                dataHeaderColumn=dataHeaderColumn+cellValueSpace;
+            }
             for (int col = 0; col < headerValues.length; col++) {
-                XLS_SH_R_C = XLS_SH_R.createCell(col);
+                XLS_SH_R_C = XLS_SH_R.createCell(dataHeaderColumn);
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col].toString());
+                if("Total Amount".equalsIgnoreCase(headerValues[col].toString()) || "ForeginGrossAmount".equalsIgnoreCase(headerValues[col].toString().trim()) || "Vat".equalsIgnoreCase(headerValues[col].toString().trim()) || "Net".equalsIgnoreCase(headerValues[col].toString().trim())) {
+                    cellValueSpace=1;
+                }
+                dataHeaderColumn=dataHeaderColumn+1;
             }
+            
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Created Header Data");
             int rowVal = 9;
             boolean val = false;
+            boolean valForeign=false;
+            boolean valVat=false;
+            boolean valNet=false;
             int valLoc = 0;
+            int valForeignLoc=0;
+            int valVatLoc=0;
+            int valNetLoc=0;
             ViewObject prtCardTransactionOverViewRVO =
                 ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
             RowSetIterator iterator =
@@ -2778,14 +2826,16 @@ public class TransactionOverviewBean implements Serializable {
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                                 "Printing excel Data");
-                    for (int cellValue = 0; cellValue < headerValues.length;
-                         cellValue++) {
-
-
+                                 "Printing excel Data");   
+                    int dataColumn=0;
+                    if(cellValueSpace>0) {
+                        dataColumn=dataColumn+cellValueSpace;
+                    }
+                    for (int cellValue=0; cellValue < headerValues.length;
+                         cellValue++) { 
                         if ("Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getTransactionDt() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 String time = "";
                                 if (row.getTransactionTime() != null) {
@@ -2797,56 +2847,56 @@ public class TransactionOverviewBean implements Serializable {
                             }
                         } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getAccountId() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
                         } else if ("Station".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getStationName() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getStationName().toString());
                             }
                         } else if ("Country".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getPurchaseCountryCode() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPurchaseCountryCode().toString());
                             }
                         } else if ("Currency".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getPurchaseCurrency() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPurchaseCurrency().toString());
                             }
                         } else if ("Product".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getProductName() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getProductName().toString());
                             }
                         } else if ("Vol".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getQuantity() != null) {  
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuantity().toString())),
                                                                                                          locale));
                             }
                         } else if ("CardTextLine2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardTextLine2() != null) {  
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);                                
                                 XLS_SH_R_C.setCellValue(row.getCardTextLine2().toString());
                             }
                         }else if ("UnitOfMeasure".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getUnitOfMeasure() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getUnitOfMeasure().toString());
                             }
                         }else if ("ForeginUnitPrice".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())),
                                                                          locale));
@@ -2854,7 +2904,9 @@ public class TransactionOverviewBean implements Serializable {
                         } else if ("ForeginGrossAmount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
 
                             if (row.getCurrencyGrossAmount() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                valForeign = true;
+                                valForeignLoc = dataColumn;
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())),
                                                                          locale));
@@ -2866,8 +2918,8 @@ public class TransactionOverviewBean implements Serializable {
                                          headerValues[cellValue].toString().trim());
                             if (row.getInvoicedGrossAmountRebated() != null) {
                                 val = true;
-                                valLoc = cellValue;
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                valLoc = dataColumn;
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 _logger.info(accessDC.getDisplayRecord() +
                                              this.getClass() + " " +
@@ -2877,35 +2929,39 @@ public class TransactionOverviewBean implements Serializable {
                                                                          locale));
                             }
                         } else if ("Invoice No".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csData);
                             if (row.getInvoiceNo() != null) {
                                 XLS_SH_R_C.setCellValue(row.getInvoiceNo().toString());
                             } 
                         } else if ("Discounted Price".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getInvoicedUnitPriceRebated() != null) {
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedUnitPriceRebated(),
                                                                          locale));
                             } 
                         }else if ("Vat".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getInvoivedVatRebated() != null) {
+                                valVat = true;
+                                valVatLoc = dataColumn;
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoivedVatRebated(),
                                                                          locale));
                             } 
                         }else if ("Net".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getInvoicedNetAmountRebated() != null) {
+                                valNet = true;
+                                valNetLoc = dataColumn;
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedNetAmountRebated(),
                                                                          locale));
                             } 
                         }else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCard1Id() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCard1Id().toString());
                             }
@@ -2915,7 +2971,7 @@ public class TransactionOverviewBean implements Serializable {
                                          "Vehicle Number =" +
                                          row.getVehicleNumber());
                             if (row.getVehicleNumber() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
                             }
@@ -2925,12 +2981,12 @@ public class TransactionOverviewBean implements Serializable {
                                          "Internal Name =" +
                                          row.getInternalName());
                             if (row.getInternalName() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getInternalName().toString());
                             }
                         } else if ("Odometer".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
-                            XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                            XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csRight);
                             if (row.getOdometerPortal() != null) {
                                 XLS_SH_R_C.setCellValue(row.getOdometerPortal().toString());
@@ -2941,38 +2997,38 @@ public class TransactionOverviewBean implements Serializable {
                             }
                         } else if ("TotalKM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getkmTotal() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getkmTotal().toString())),locale));
                             }
                         } else if ("KM/L".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getkmPerLt() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getkmPerLt().toString())),locale));
                             }
                         } else if ("L/100KM".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getltPerHundred() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),locale));
                             }
                         } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardGroupDesc() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
                         } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardgroupId() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupId().toString());
                             }
                         } 
                         else if ("DriverNumber".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getDriverNumber() != null) {
-                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverNumber().toString());
                             }
@@ -2980,12 +3036,13 @@ public class TransactionOverviewBean implements Serializable {
                             if ("Driver Name".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getDriverName() != null) {
                                     XLS_SH_R_C =
-                                            XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R.createCell(dataColumn);
                                     XLS_SH_R_C.setCellStyle(csData);
                                     XLS_SH_R_C.setCellValue(row.getDriverName().toString());
                                 }
                             }
                         }
+                        dataColumn=dataColumn+1;
                     }
                 }
             }
@@ -2994,18 +3051,52 @@ public class TransactionOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(++rowVal);
             XLS_SH_R = XLS_SH.createRow(++rowVal);
 
-            if (val) {                
+            if (val || valForeign || valVat || valNet) {                
                 XLS_SH_R = XLS_SH.createRow(++rowVal);
                 XLS_SH_R_C = XLS_SH_R.createCell(0);
                 XLS_SH_R_C.setCellStyle(cs);
                 XLS_SH_R_C.setCellValue("Total Price");
-                if (valLoc > 0) {
-                    XLS_SH_R_C = XLS_SH_R.createCell(valLoc);
-                    XLS_SH_R_C.setCellStyle(csTotalAmt);
-                    if (sum != null) {
-                        XLS_SH_R_C.setCellValue(formatConversion(sum, locale));
+                if (val) {
+                    if (valLoc > 0) {                        
+                        XLS_SH_R_C = XLS_SH_R.createCell(valLoc);
+                        XLS_SH_R_C.setCellStyle(csTotalAmt);
+                        if (sum != null) {
+                            XLS_SH_R_C.setCellValue(formatConversion(sum,
+                                                                     locale));
+                        }
                     }
                 }
+                if (valForeign) {                    
+                    if (valForeignLoc > 0) {
+                        XLS_SH_R_C = XLS_SH_R.createCell(valForeignLoc);
+                        XLS_SH_R_C.setCellStyle(csTotalAmt);
+                        if (foreignGrossAmountSum != null) {
+                            XLS_SH_R_C.setCellValue(formatConversion(foreignGrossAmountSum,
+                                                                     locale));
+                        }
+                    }
+                }
+                if (valVat) {                    
+                    if (valVatLoc > 0) {
+                        XLS_SH_R_C = XLS_SH_R.createCell(valVatLoc);
+                        XLS_SH_R_C.setCellStyle(csTotalAmt);
+                        if (vatSum != null) {
+                            XLS_SH_R_C.setCellValue(formatConversion(vatSum,
+                                                                     locale));
+                        }
+                    }
+                }
+                if (valNet) {
+                    if (valNetLoc > 0) {
+                        XLS_SH_R_C = XLS_SH_R.createCell(valNetLoc);
+                        XLS_SH_R_C.setCellStyle(csTotalAmt);
+                        if (netAmountSum != null) {
+                            XLS_SH_R_C.setCellValue(formatConversion(netAmountSum,
+                                                                     locale));
+                        }
+                    }
+                }
+                
             }
             iterator.closeRowSetIterator();
 
@@ -3936,14 +4027,39 @@ public class TransactionOverviewBean implements Serializable {
                      "Estimated Row Count =" +
                      prtCardTransactionOverViewRVO.getEstimatedRowCount());
         sum = 0.000f;
+        foreignGrossAmountSum = 0.000f;
+        vatSum = 0.000f;
+        netAmountSum = 0.000f; 
         if(prtCardTransactionOverViewRVO.getEstimatedRowCount()>0)
         {
             isTableVisible=true;
         while (iterator.hasNext()) {
             PrtCardTransactionOverviewRVORowImpl row =
-                (PrtCardTransactionOverviewRVORowImpl)iterator.next();            
-            Float temp = row.getInvoicedGrossAmountRebated();
-            sum = sum + temp;
+                (PrtCardTransactionOverviewRVORowImpl)iterator.next(); 
+            if(row.getInvoicedGrossAmountRebated()!=null)
+            {
+            Float tempTotal =
+                row.getInvoicedGrossAmountRebated().floatValue();
+            sum = sum + tempTotal;
+            }
+            if(row.getCurrencyGrossAmount()!=null)
+            {
+            Float tempForeignTotal =
+                row.getCurrencyGrossAmount().floatValue();
+            foreignGrossAmountSum = foreignGrossAmountSum + tempForeignTotal;
+            }
+            if(row.getInvoivedVatRebated()!=null)
+            {
+            Float tempVatTotal =
+                row.getInvoivedVatRebated().floatValue();
+            vatSum = vatSum + tempVatTotal;
+            }
+            if(row.getInvoicedNetAmountRebated()!=null)
+            {
+            Float tempNetTotal =
+                row.getInvoicedNetAmountRebated().floatValue();
+            netAmountSum = netAmountSum + tempNetTotal;
+            }
         }     
         }else {
             if(filterValue)
@@ -4143,7 +4259,30 @@ public class TransactionOverviewBean implements Serializable {
         return noteInternationalVal;
     }
 
-    
+    public void setForeignGrossAmountSum(Float foreignGrossAmountSum) {
+        this.foreignGrossAmountSum = foreignGrossAmountSum;
+    }
+
+    public Float getForeignGrossAmountSum() {
+        return foreignGrossAmountSum;
+    }
+
+    public void setVatSum(Float vatSum) {
+        this.vatSum = vatSum;
+    }
+
+    public Float getVatSum() {
+        return vatSum;
+    }
+
+    public void setNetAmountSum(Float netAmountSum) {
+        this.netAmountSum = netAmountSum;
+    }
+
+    public Float getNetAmountSum() {
+        return netAmountSum;
+    }
+
 
     public class Bindings {
         private RichSelectManyChoice account;

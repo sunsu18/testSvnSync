@@ -624,6 +624,17 @@
             <af:outputText value="#{row.CurrencyGrossAmount}" id="ot61" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
               <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
+             <f:facet name="footer">
+            <af:panelGroupLayout id="pgt42" halign="right" layout="horizontal">
+                 <af:panelGroupLayout id="pgt44" layout="horizontal" halign="right" >
+                  <af:outputText value="#{pageFlowScope.TransactionOverviewBean.foreignGrossAmountSum}"
+                                 id="otf30">
+                  <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
+                  </af:outputText>
+                  <af:spacer width="2" height="1" id="st39"/>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            </f:facet>
           </af:column>
 
           <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true"
@@ -693,6 +704,17 @@
             <af:outputText value="#{row.InvoivedVatRebated}" id="ot74" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
+            <f:facet name="footer">
+            <af:panelGroupLayout id="pgl78" halign="right" layout="horizontal">
+                 <af:panelGroupLayout id="pgl79" layout="horizontal" halign="right" >
+                  <af:outputText value="#{pageFlowScope.TransactionOverviewBean.vatSum}"
+                                 id="ot101">
+                  <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
+                  </af:outputText>
+                  <af:spacer width="2" height="1" id="s75"/>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            </f:facet>
           </af:column>
 
            <af:column sortProperty="InvoicedNetAmountRebated" filterable="true"
@@ -702,6 +724,17 @@
             <af:outputText value="#{row.InvoicedNetAmountRebated}" id="ot75" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
               <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
+             <f:facet name="footer">
+            <af:panelGroupLayout id="pgl80" halign="right" layout="horizontal">
+                 <af:panelGroupLayout id="pgl81" layout="horizontal" halign="right" >
+                  <af:outputText value="#{pageFlowScope.TransactionOverviewBean.netAmountSum}"
+                                 id="ot102">
+                  <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
+                  </af:outputText>
+                  <af:spacer width="2" height="1" id="s76"/>
+                </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            </f:facet>
           </af:column>
 
           <!--  <af:column sortProperty="InvoiceDiscountAmount" filterable="true"
