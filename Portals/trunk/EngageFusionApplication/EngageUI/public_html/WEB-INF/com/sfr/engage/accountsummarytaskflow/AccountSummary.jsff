@@ -582,7 +582,69 @@
               <af:spacer width="10" height="10" id="s167"/>
               <af:spacer width="10" height="10" id="s169"/>
               <af:spacer width="10" height="10" id="s166"/>
-
+            
+             <af:outputText value="Number of Active Cards" id="ot122"/>
+                <af:outputText value=":" visible="true" id="ot121"/>
+                <af:spacer width="10" height="10"/>
+             
+              <af:inputText value="#{bindings.Active.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Tempblock.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Expired.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
 
         </h:panelGrid>
     </af:panelFormLayout>
@@ -665,15 +727,79 @@
                             contentStyle="width:158px;height:16.0px;padding-top: 4px"
                             readOnly="true">
               </af:inputText>
-               <af:spacer width="10" height="10" id="s171" visible="false"/>
-              <af:spacer width="10" height="10" id="s172" visible="false"/>
-              <af:spacer width="10" height="10" id="s173" visible="false"/>
-              <af:spacer width="10" height="10" id="s174" visible="false"/>
-              <af:spacer width="10" height="10" id="s175" visible="false"/>
-              <af:spacer width="10" height="10" id="s176" visible="false"/>
-              <af:spacer width="10" height="10" id="s177" visible="false"/>
-              <af:spacer width="10" height="10" id="s179" visible="false"/>
-              <af:spacer width="10" height="10" id="s178" visible="false"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+
+                 <af:outputText value="Number of Active Cards" id="ot123"/>
+                <af:outputText value=":" visible="true" id="ot124"/>
+                <af:spacer width="10" height="10"/>
+             
+              <af:inputText value="#{bindings.Active.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Tempblock.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Expired.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+
 
               <af:outputText value="#{sfr.ACCOUNT_ADDRESS_1}" id="ot89"
                              visible="false"/>
@@ -817,7 +943,7 @@
                                 inlineStyle="margin-left:8px !important;"
                                 disabled="true" visible="false"/>
 
-
+               
 
         </h:panelGrid>
     </af:panelFormLayout>
@@ -970,22 +1096,84 @@
           <af:showPopupBehavior triggerType="mouseOver" popupId="p2"/>
           </af:commandLink>
 
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
-            <af:spacer/>
+            <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
 
-
+ <af:outputText value="Number of Active Cards" id="ot125"/>
+                <af:outputText value=":" visible="true" id="ot126"/>
+                <af:spacer width="10" height="10"/>
+             
+              <af:inputText value="#{bindings.Active.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Tempblock.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value=":" visible="true"/>
+                <af:spacer width="10" height="10"/>
+              
+              <af:inputText value="#{bindings.Expired.inputValue}" contentStyle="width:158px;height:16.0px;padding-top: 4px" readOnly="true"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
+                <af:spacer width="10" height="10"/>
 
 
               <af:outputText value="#{sfr.CARDGROUP_NAME_2}" id="ot37"

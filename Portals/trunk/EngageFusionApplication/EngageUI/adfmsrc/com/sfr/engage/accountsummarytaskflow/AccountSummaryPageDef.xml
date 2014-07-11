@@ -26,6 +26,9 @@
     <iterator Binds="PrtCardTypeNameMap1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardTypeNameMap1Iterator"/>
+    <iterator Binds="PrtCardsPerRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardsPerRVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="partnerlistIterator" id="partnerlist">
@@ -229,6 +232,21 @@
     <attributeValues IterBinding="PrtCardTypeNameMap1Iterator" id="CardType1">
       <AttrNames>
         <Item Value="CardType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardsPerRVO1Iterator" id="Active">
+      <AttrNames>
+        <Item Value="Active"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardsPerRVO1Iterator" id="Expired">
+      <AttrNames>
+        <Item Value="Expired"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardsPerRVO1Iterator" id="Tempblock">
+      <AttrNames>
+        <Item Value="Tempblock"/>
       </AttrNames>
     </attributeValues>
   </bindings>

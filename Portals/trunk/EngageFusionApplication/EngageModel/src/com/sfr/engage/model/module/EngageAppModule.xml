@@ -119,6 +119,9 @@
   <ViewUsage
     Name="PrtViewCardsVO1"
     ViewObjectName="com.sfr.engage.model.queries.uvo.PrtViewCardsVO"/>
+  <ViewUsage
+    Name="PrtCardsPerRVO1"
+    ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCardsPerRVO"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">

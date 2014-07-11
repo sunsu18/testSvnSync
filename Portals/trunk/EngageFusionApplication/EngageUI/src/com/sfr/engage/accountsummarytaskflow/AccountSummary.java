@@ -14,7 +14,11 @@ import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -1105,6 +1109,27 @@ public class AccountSummary implements Serializable {
         return noSearchResults;
     }
 
+    private void CallPrtCardsPerRVO(String paramValue, String id) {
+        String currentDate = "";
+        String nextMonth = "";
+        Date dateNow = new java.util.Date();
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+        currentDate = dateformat.format(dateNow);
+        Calendar cal = Calendar.getInstance();
+        nextMonth = dateformat.format(cal.getTime());
+        cal.add(Calendar.MONTH, 1);
+        nextMonth = dateformat.format(cal.getTime());
+        System.out.println("current date============>" + dateformat.format(dateNow));
+        System.out.println("next month date============>" + dateformat.format(cal.getTime()));
+        ViewObject perCardVO = ADFUtils.getViewObject("PrtCardsPerRVO1Iterator");
+        perCardVO.setNamedWhereClauseParam("countryCode", session.getAttribute(Constants.userLang));
+        perCardVO.setNamedWhereClauseParam("paramValue", paramValue);
+        perCardVO.setNamedWhereClauseParam("id", id);
+        perCardVO.setNamedWhereClauseParam("currentDate", currentDate);
+        perCardVO.setNamedWhereClauseParam("nextMonth", nextMonth);
+        perCardVO.executeQuery();
+    }
+
 
     public class Bindings {
         private RichPanelGroupLayout accountOverview;
@@ -1688,7 +1713,9 @@ public class AccountSummary implements Serializable {
             }
             getBindings().getAccountOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountOverview());
-
+            
+            CallPrtCardsPerRVO("account",id);
+           
 
         } else {
             hideAll();
@@ -1913,9 +1940,11 @@ public class AccountSummary implements Serializable {
             if(cardTypeList.size() > 0 )
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
 
+            
+            
+            CallPrtCardsPerRVO("cardgroup",id);
 
             getBindings().getCardGroupOverview().setVisible(true);
-
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
 
 
@@ -2053,7 +2082,9 @@ public class AccountSummary implements Serializable {
             partnerVO.executeQuery();
             //
         }
-
+        
+        CallPrtCardsPerRVO("partner",id);
+        
         if (session != null) {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " + partner.getPartnerValue());
         }
