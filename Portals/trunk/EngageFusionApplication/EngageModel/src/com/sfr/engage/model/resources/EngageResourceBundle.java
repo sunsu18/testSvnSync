@@ -202,7 +202,8 @@ public class EngageResourceBundle extends ListResourceBundle{
                                       {"MAIL_SUCCESSFUL",""},{"MAIL_NOT_FOUND",""},{"INVOICE_NOT_FOUND",""},
                                       {"CARD_TEXTLINE_2",""},{"VEHICLE_DISASSOCIATED",""},{"DRIVER_DISASSOCIATED",""},{"RESET",""},{"COUNTRY_HUNGARY",""},
                                       {"COUNTRY_ROMANIA",""},{"COUNTRY_BULGARIA",""},{"COUNTRY_GERMANY",""},{"COUNTRY_BOSNIA",""},{"COUNTRY_POLAND",""},
-                                      {"PALS_ODOMETER",""},{"CARD_TYPE_DESCRIPTION",""},{"ENG_LAST_USED",""},{"CARDGROUP_DESCRIPTION",""},{"CARDGROUP_ID",""},{"ENG_VIEW_CARD_NOTE",""}};
+                                      {"PALS_ODOMETER",""},{"CARD_TYPE_DESCRIPTION",""},{"ENG_LAST_USED",""},{"CARDGROUP_DESCRIPTION",""},{"CARDGROUP_ID",""},{"ENG_VIEW_CARD_NOTE",""},
+                                      {"NO_ACTIVE_CARDS",""},{"NO_TEMPORARY_CARDS",""},{"NO_EXPIRING_CARDS",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

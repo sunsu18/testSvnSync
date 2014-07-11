@@ -583,7 +583,7 @@
               <af:spacer width="10" height="10" id="s169"/>
               <af:spacer width="10" height="10" id="s166"/>
             
-             <af:outputText value="Number of Active Cards" id="ot122"/>
+             <af:outputText value="#{sfr.NO_ACTIVE_CARDS}" id="ot122"/>
                 <af:outputText value=":" visible="true" id="ot121"/>
                 <af:spacer width="10" height="10"/>
              
@@ -604,7 +604,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value="#{sfr.NO_TEMPORARY_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               
@@ -625,7 +625,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value="#{sfr.NO_EXPIRING_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               
@@ -737,7 +737,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
 
-                 <af:outputText value="Number of Active Cards" id="ot123"/>
+                 <af:outputText value="#{sfr.NO_ACTIVE_CARDS}" id="ot123"/>
                 <af:outputText value=":" visible="true" id="ot124"/>
                 <af:spacer width="10" height="10"/>
              
@@ -758,7 +758,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value="#{sfr.NO_TEMPORARY_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               
@@ -779,7 +779,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value="#{sfr.NO_EXPIRING_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               
@@ -1112,7 +1112,7 @@
                 <af:spacer width="10" height="10"/>
                 
 
- <af:outputText value="Number of Active Cards" id="ot125"/>
+ <af:outputText value="#{sfr.NO_ACTIVE_CARDS}" id="ot125"/>
                 <af:outputText value=":" visible="true" id="ot126"/>
                 <af:spacer width="10" height="10"/>
              
@@ -1133,7 +1133,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of temporary blocked cards"/>
+                <af:outputText value="#{sfr.NO_TEMPORARY_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               
@@ -1154,7 +1154,7 @@
                 <af:spacer width="10" height="10"/>
                 <af:spacer width="10" height="10"/>
                 
-                <af:outputText value="Number of cards expiring in next month"/>
+                <af:outputText value="#{sfr.NO_EXPIRING_CARDS}"/>
                 <af:outputText value=":" visible="true"/>
                 <af:spacer width="10" height="10"/>
               

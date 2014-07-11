@@ -45,13 +45,13 @@
     from prt_card 
     where country_code = :countryCode
     and block_action = '0'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and partner_id = :id) as active,
     (select count(block_action)
     from prt_card 
     where country_code = :countryCode
     and block_action = '1'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and partner_id = :id) as tempBlock,
     (select count(block_action)
     from prt_card 
@@ -72,13 +72,13 @@ select null as partner_id,account_id,null as CARDGROUP_MAIN_TYPE,null as CARDGRO
     from prt_card 
     where country_code = :countryCode
     and block_action = '0'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and account_id = :id) as active,
     (select count(block_action)
     from prt_card 
     where country_code = :countryCode
     and block_action = '1'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and account_id = :id) as tempBlock,
     (select count(block_action)
     from prt_card 
@@ -99,13 +99,13 @@ select null as partner_id,null as account_id,CARDGROUP_MAIN_TYPE,CARDGROUP_SUB_T
     from prt_card 
     where country_code = :countryCode
     and block_action = '0'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :id) as active,
     (select count(block_action)
     from prt_card 
     where country_code = :countryCode
     and block_action = '1'
-    and card_expiry > = sysdate
+    and card_expiry > = :currentDate
     and CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ = :id) as tempBlock,
     (select count(block_action)
     from prt_card 
