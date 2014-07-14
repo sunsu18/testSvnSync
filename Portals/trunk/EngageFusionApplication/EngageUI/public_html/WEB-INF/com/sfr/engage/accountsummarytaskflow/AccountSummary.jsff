@@ -141,7 +141,7 @@
       <af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
     <af:image shortDesc="" id="i8" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
        <af:spacer width="4"  id="s326"/>
-       <af:outputText value="#{node.displayCardNumber}" id="ot3" truncateAt="8">
+       <af:outputText value="#{node.displayCardNumber}" id="ot3" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : null}">
        </af:outputText>
        </af:group>
       </f:facet>

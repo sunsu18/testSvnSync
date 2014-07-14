@@ -8,7 +8,7 @@ height:40px;
 min-width:40px;
 }
 
-.AFAutoSuggestItemsContainer 
+.AFAutoSuggestItemsContainer
 {
 background-color:#ffffff;
 border:0px;
@@ -20,7 +20,7 @@ padding:0 0 1px 0;
 max-height:300px;
 overflow:auto
 }
-.AFAutoSuggestItem 
+.AFAutoSuggestItem
 {
 color:#524e4f;
 font-family: Lucida Sans,Georgia,Serif !important;
@@ -1504,6 +1504,23 @@ color: #524e4f !important;
 /*text-decoration: underline !important;*/
 font-style:italic !important;
 cursor: auto;
+}
+
+.permanentBlockCards
+{
+color: Red !important;
+/*font-weight: normal !important;*/
+/*text-decoration: underline !important;*/
+font-style:italic !important;
+
+}
+
+.tempBlockCards
+{
+color: Green !important;
+/*font-weight: normal !important;*/
+/*text-decoration: underline !important;*/
+font-style:italic !important;
 }
 
 
