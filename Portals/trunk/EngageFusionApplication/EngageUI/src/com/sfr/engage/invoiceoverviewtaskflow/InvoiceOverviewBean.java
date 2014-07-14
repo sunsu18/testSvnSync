@@ -1018,9 +1018,48 @@ if(partnerInfoList.size() == 1) {
         // Add event code here...
         if(valueChangeEvent.getNewValue()!=null) {
             getBindings().getCardGpCardList().setValue(null);
-            cGCardVisible    = false;
+            cGCardVisible    = true;
             cardGroupVisible = false;
             cardVisible      = false;
+            getBindings().getCardGpCardList().setValue("CardGroup");
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
+            
+            
+            if(getBindings().getAccount().getValue()!=null)
+                   {
+                       String accountNumberPassingValues = null;
+                       String[] accountNumberValues;
+                       int accountCount = 0;
+                       accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
+                       cardGroupList  = new ArrayList<SelectItem>();
+                       cardGroupValue = new ArrayList<String>();
+                       cardList       = new ArrayList<SelectItem>();
+                       cardValue      = new ArrayList<String>();
+                       if(accountNumberPassingValues != null){
+                           if(accountNumberPassingValues.contains(",")){
+                               accountNumberValues = accountNumberPassingValues.split(",");
+                               accountCount  = accountNumberValues.length;
+                           }else{
+                               accountCount  = 1;
+                               accountNumberValues = new String[1];
+                               accountNumberValues[0] = accountNumberPassingValues;
+                           }
+                                           
+                                if(accountCount > 0){
+                               for(int acCount=0 ; acCount<accountCount; acCount++){                        
+                                   
+                                       populateValue("CardGroup",accountNumberValues[acCount].trim());
+                                       cGCardVisible=true;
+                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                                       cardGroupVisible=true;
+                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+                                       cardVisible=false;
+                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+                                  
+                               }
+                           }
+                       }
+                   }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
@@ -1034,10 +1073,11 @@ if(partnerInfoList.size() == 1) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside partnerValueChangeListner for Invoices");
             if(valueChangeEvent.getNewValue()!=null) {
                 getBindings().getCardGpCardList().setValue(null);
-                cGCardVisible    = false;
+                cGCardVisible    = true;
                 cardGroupVisible = false;
                 cardVisible      = false;
-
+                getBindings().getCardGpCardList().setValue("CardGroup");
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
                 accountList    = new ArrayList<SelectItem>();
                 accountValue   = new ArrayList<String>();
                 if(partnerInfoList != null && partnerInfoList.size() > 0){
@@ -1052,6 +1092,43 @@ if(partnerInfoList.size() == 1) {
                                     accountList.add(selectItemAccount);
                                     accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
                                 }
+                                
+                                if(getBindings().getAccount().getValue()!=null)
+                                       {
+                                           String accountNumberPassingValues = null;
+                                           String[] accountNumberValues;
+                                           int accountCount = 0;
+                                           accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
+                                           cardGroupList  = new ArrayList<SelectItem>();
+                                           cardGroupValue = new ArrayList<String>();
+                                           cardList       = new ArrayList<SelectItem>();
+                                           cardValue      = new ArrayList<String>();
+                                           if(accountNumberPassingValues != null){
+                                               if(accountNumberPassingValues.contains(",")){
+                                                   accountNumberValues = accountNumberPassingValues.split(",");
+                                                   accountCount  = accountNumberValues.length;
+                                               }else{
+                                                   accountCount  = 1;
+                                                   accountNumberValues = new String[1];
+                                                   accountNumberValues[0] = accountNumberPassingValues;
+                                               }
+                                                               
+                                                    if(accountCount > 0){
+                                                   for(int acCount=0 ; acCount<accountCount; acCount++){                        
+                                                       
+                                                           populateValue("CardGroup",accountNumberValues[acCount].trim());
+                                                           cGCardVisible=true;
+                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                                                           cardGroupVisible=true;
+                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+                                                           cardVisible=false;
+                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+                                                      
+                                                   }
+                                               }
+                                           }
+                                       }
+                                
                             }
                         }
                     }
