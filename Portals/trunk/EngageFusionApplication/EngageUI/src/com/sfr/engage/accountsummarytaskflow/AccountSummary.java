@@ -7,6 +7,7 @@ import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -48,6 +49,7 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.Row;
+import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
@@ -1109,7 +1111,7 @@ public class AccountSummary implements Serializable {
         return noSearchResults;
     }
 
-    private void CallPrtCardsPerRVO(String paramValue, String id) {
+    private void CallPrtCardsPerRVO(String paramValue, String partnerid, String accountid, String cgid) {
         String currentDate = "";
         String nextMonth = "";
         Date dateNow = new java.util.Date();
@@ -1119,12 +1121,12 @@ public class AccountSummary implements Serializable {
         nextMonth = dateformat.format(cal.getTime());
         cal.add(Calendar.MONTH, 1);
         nextMonth = dateformat.format(cal.getTime());
-        System.out.println("current date============>" + dateformat.format(dateNow));
-        System.out.println("next month date============>" + dateformat.format(cal.getTime()));
         ViewObject perCardVO = ADFUtils.getViewObject("PrtCardsPerRVO1Iterator");
         perCardVO.setNamedWhereClauseParam("countryCode", session.getAttribute(Constants.userLang));
         perCardVO.setNamedWhereClauseParam("paramValue", paramValue);
-        perCardVO.setNamedWhereClauseParam("id", id);
+        perCardVO.setNamedWhereClauseParam("partnerid", partnerid);
+        perCardVO.setNamedWhereClauseParam("accountid", accountid);
+        perCardVO.setNamedWhereClauseParam("cgid", cgid);
         perCardVO.setNamedWhereClauseParam("currentDate", currentDate);
         perCardVO.setNamedWhereClauseParam("nextMonth", nextMonth);
         perCardVO.executeQuery();
@@ -1714,7 +1716,7 @@ public class AccountSummary implements Serializable {
             getBindings().getAccountOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountOverview());
             
-            CallPrtCardsPerRVO("account",id);
+            CallPrtCardsPerRVO("account",partnerId,id,"");
            
 
         } else {
@@ -1942,7 +1944,7 @@ public class AccountSummary implements Serializable {
 
             
             
-            CallPrtCardsPerRVO("cardgroup",id);
+            CallPrtCardsPerRVO("cardgroup",partnerId,accountId,id);
 
             getBindings().getCardGroupOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupOverview());
@@ -2083,7 +2085,7 @@ public class AccountSummary implements Serializable {
             //
         }
         
-        CallPrtCardsPerRVO("partner",id);
+        CallPrtCardsPerRVO("partner",id,"","");
         
         if (session != null) {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " + partner.getPartnerValue());
