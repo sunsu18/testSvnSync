@@ -10,12 +10,12 @@
   CustomQuery="true"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy='"ACCOUNT_ID"'
+  OrderBy='"PARTNER_ID","ACCOUNT_ID"'
   RowClass="com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl"
   ComponentClass="com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl">
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
@@ -37,7 +37,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.card_emboss_num,(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3),
+    <![CDATA[select pc.partner_id,pc.account_id,pc.card_emboss_num,(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3),
 pc.last_used,pc.block_action,pc.card_expiry,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
 pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,
@@ -82,15 +82,29 @@ and pc.card_type = pctnm.card_type(+)
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
 and INSTR(:status,pc.block_action)<>0 
-group by pc.account_id, pc.last_used, pc.block_action, pc.card_expiry, 
+group by pc.partner_id, pc.account_id, pc.last_used, pc.block_action, pc.card_expiry, 
 pc.card_emboss_num, pti.vehicle_number, pti.internal_name, pti.modified_by, 
 pti.modified_date, pc.card_type, pdi.driver_name, pdi.driver_number, pdi.modified_by, 
 pdi.modified_date, pcg.cardgroup_description, pc.prt_card_pk, pc.cardgroup_main_type, 
 pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctnm.card_type, pctnm.type_name,
-(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3)
-
-ORDER BY "ACCOUNT_ID"]]>
+(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3)]]>
   </SQLQuery>
+  <ViewAttribute
+    Name="PartnerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTNER_ID"
+    SQLType="VARCHAR"
+    Expression="PARTNER_ID">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="AccountId"
     IsUpdateable="false"
@@ -524,21 +538,6 @@ ORDER BY "ACCOUNT_ID"]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="PartnerId"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="8"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="PARTNER_ID"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="8"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="CardIdentifier"
     IsUpdateable="false"
     IsPersistent="false"
@@ -662,7 +661,7 @@ ORDER BY "ACCOUNT_ID"]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -676,7 +675,7 @@ ORDER BY "ACCOUNT_ID"]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr2"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"

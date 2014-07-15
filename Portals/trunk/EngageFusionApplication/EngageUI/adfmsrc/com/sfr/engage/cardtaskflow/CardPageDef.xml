@@ -136,8 +136,8 @@
           <Item Value="BlockLevel"/>
           <Item Value="ManufacturedDate"/>
           <Item Value="RoutexCustomerNumber"/>
-          <Item Value="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1_1_1"/>
-          <Item Value="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1_1_1"/>
+          <Item Value="InvoiceAddr1"/>
+          <Item Value="InvoiceAddr2"/>
           <Item Value="InvoicePostalCode"/>
           <Item Value="InvoiceCity"/>
           <Item Value="AddrSeq"/>
