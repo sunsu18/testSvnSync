@@ -11,11 +11,10 @@ import java.util.List;
  *  1. ADD Class level and complete method level JAVA DOC toString() method
  *  2. Override toString() method
  */
-public class PartnerInfo implements Serializable {
+public class PartnerInfo implements Comparable<PartnerInfo>,Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String partnerValue;
-
     private String country;
     private List<AccountInfo> accountList;
     private String partnerName;
@@ -97,5 +96,9 @@ public class PartnerInfo implements Serializable {
      */
     public String getPartnerName() {
         return partnerName;
+    }
+
+    public int compareTo(PartnerInfo o) {
+        return this.getPartnerName().compareTo(o.getPartnerName());
     }
 }
