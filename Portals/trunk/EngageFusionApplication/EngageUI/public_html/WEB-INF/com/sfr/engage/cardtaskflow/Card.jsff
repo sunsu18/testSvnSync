@@ -264,7 +264,10 @@
 
         <af:panelGroupLayout id="pgl4" layout="scroll"
                              inlineStyle="width:945px;">
-          <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
+        
+          <!--table-->
+          
+            <af:table value="#{bindings.PrtViewCardsVO11.collectionModel}"
                     var="row" width="940px" rows="#{bindings.PrtViewCardsVO11.rangeSize}"
                     emptyText="#{bindings.PrtViewCardsVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtViewCardsVO11.rangeSize}"
@@ -277,8 +280,8 @@
                     rowSelection="single" id="t1"
                     disableColumnReordering="true" columnResizing="disabled"
                     autoHeightRows="20" contentDelivery="immediate" binding="#{pageFlowScope.CardBean.bindings.searchResultsTB}">
-            <af:column sortProperty="AccountId" filterable="true" sortable="true"
-                       headerText="#{sfr.ACCOUNT}" width="100px" filterFeatures="caseInsensitive"
+            <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+                       headerText="#{sfr.ACCOUNT}" width="100px" 
                        id="c1">
               <af:inputText value="#{row.bindings.AccountId.inputValue}" 
                             label="#{bindings.PrtViewCardsVO11.hints.AccountId.label}"
@@ -360,12 +363,29 @@
               <af:outputText value="#{row.CardTextline2}" id="ot35" truncateAt="22"/>
             </af:column>
              <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
-                       id="c13">
+                       id="c13" align="center">
               <af:outputText value="#{row.LastUsed}" id="ot36">
                 <af:convertDateTime pattern="dd.MM.yyyy   HH:mm"/>
               </af:outputText>
             
             </af:column>
+             <af:column headerText="#{sfr.AVG_MONTHLY_USE}" sortProperty="QuaterlyFuelReportFuelThreeMonths3" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+                       id="c15" align="right">
+              <af:outputText value="#{row.QuaterlyTxReportTxThreeMonths3}"
+                             id="ot39">
+                <af:convertNumber groupingUsed="false" 
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyTxReportTxThreeMonths3.format}"/>
+              </af:outputText>
+            </af:column>
+             <af:column headerText="#{sfr.AVG_MONTHLY_FEULINGS}" sortProperty="QuaterlyTxReportTxThreeMonths3" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+                       id="c14" align="right">
+              <af:outputText value="#{row.QuaterlyFuelReportFuelThreeMonths3}"
+                             id="ot37">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyFuelReportFuelThreeMonths3.format}"/>
+              </af:outputText>
+            </af:column>
+           
             <af:column sortProperty="VehicleNumber" filterable="true" headerText="#{sfr.VEHICLE}" sortable="true"
                        id="c8"  width="80px" filterFeatures="caseInsensitive" rendered="#{pageFlowScope.CardBean.lang eq 'SE' ? false : true}">
                 <af:inputText value="#{row.bindings.VehicleNumber.inputValue}"
@@ -446,11 +466,12 @@
 
 
             </af:column>
+           
           </af:table>
-          
+         
           <af:popup id="p1" contentDelivery="immediate"
              binding="#{pageFlowScope.CardBean.bindings.truckdriverDetails}"
-             autoCancel="disabled"   partialTriggers="t1:cil1">
+             autoCancel="disabled"   > <!--partialTriggers="t1:cil1"-->
              
              
         <af:dialog id="d1" type="none" closeIconVisible="false" contentWidth="406">
@@ -466,11 +487,11 @@
         <!--<af:spacer width="10" height="5" id="s33"/>-->
         
         <af:outputText value="#{pageFlowScope.CardBean.warningMsg}"
-                       id="ot10"
+                       id="ot10" partialTriggers="sor1 save t1:cil1"
                        binding="#{pageFlowScope.CardBean.bindings.showEditErrorMessage}"
                        rendered="#{pageFlowScope.CardBean.showErrorMsgEditFlag}"
                        styleClass="errorOutputText"
-                              partialTriggers="sor1 save t1:cil1"/>
+                              /> 
         <af:panelGroupLayout layout="horizontal" id="pgl78" rendered="#{pageFlowScope.CardBean.showEditInfoMessage}"
                              styleClass="infoPanel"
                              inlineStyle="width:406.0px;">
@@ -478,14 +499,14 @@
          <af:outputText value="#{pageFlowScope.CardBean.infoMsgAssociated}"
                        id="ot25"
                        binding="#{pageFlowScope.CardBean.bindings.showEditInfoMessage}"
-                       styleClass="infoOutputText"
-                       partialTriggers="sor1 save t1:cil1" noWrap="true"/>
+                       styleClass="infoOutputText" partialTriggers="sor1 save t1:cil1"
+                        noWrap="true"/> 
         <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedBy}"
-                       id="ot6" partialTriggers="sor1 save t1:cil1"
-                       styleClass="infoOutputText" noWrap="true"/>
+                       id="ot6"  partialTriggers="sor1 save t1:cil1"
+                       styleClass="infoOutputText" noWrap="true"/> 
         <af:outputText value="#{pageFlowScope.CardBean.infoMsgModifiedDate}"
-                       id="ot9" partialTriggers="sor1 save t1:cil1"
-                       styleClass="infoOutputText" noWrap="true"/>
+                       id="ot9"  partialTriggers="sor1 save t1:cil1"
+                       styleClass="infoOutputText" noWrap="true"/> 
         
         </af:panelGroupLayout>
         </af:panelGroupLayout>
@@ -529,19 +550,19 @@
 <af:outputText value="#{sfr.PLEASE_SELECT_ENG}" id="ot38"/>
 <af:spacer width="10" height="20" id="s52"/>
 <af:panelGroupLayout layout="horizontal" id="both" >
-<af:panelGroupLayout id="driver" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" binding="#{pageFlowScope.CardBean.bindings.driverPgl}">
-<af:outputText value="#{sfr.DRIVER_NUMBER}" id="aot2"/>
+<af:panelGroupLayout id="driver" visible="#{pageFlowScope.CardBean.driverPGL}"  binding="#{pageFlowScope.CardBean.bindings.driverPgl}" partialTriggers="sor1 t1:cil1">
+<af:outputText value="#{sfr.DRIVER_NUMBER}" id="aot2" /> 
 </af:panelGroupLayout>
-<af:panelGroupLayout id="vehicle" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1" binding="#{pageFlowScope.CardBean.bindings.vehiclePgl}">
-<af:outputText value="#{sfr.VEHICLE_NUMBER}" id="ot13"/>
+<af:panelGroupLayout id="vehicle" visible="#{pageFlowScope.CardBean.vehiclePGL}"  binding="#{pageFlowScope.CardBean.bindings.vehiclePgl}" partialTriggers="sor1 t1:cil1">
+<af:outputText value="#{sfr.VEHICLE_NUMBER}" id="ot13" /> 
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s20"/>
 <af:panelGroupLayout layout="horizontal" id="pgl71" >
-<af:panelGroupLayout id="pgl72" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl72" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" >
 <af:outputText value="#{sfr.DRIVER_NAME_ENG}" id="ot18"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl74" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl74" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value="#{sfr.INTERNAL_NAME}" id="ot19"
                                noWrap="true"/>
 </af:panelGroupLayout>
@@ -558,7 +579,7 @@
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s14"/>
 <af:panelGroupLayout layout="horizontal" id="pgl29" >
-<af:panelGroupLayout id="pgl27" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl27" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" > 
 <af:outputText value="#{sfr.MODIFIED_BY}" id="ot22" noWrap="true"    visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl26" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
@@ -580,37 +601,37 @@
                      valign="top">
 <af:spacer height="20" width="10" id="s61"/>
 <af:panelGroupLayout layout="horizontal" id="pgl59" >
-<af:panelGroupLayout id="pgl60" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl60" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" > 
 <af:spacer width="10" height="20" id="s9"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl61" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl61" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s56"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s60"/>
 <af:panelGroupLayout layout="horizontal" id="pgl75" >
-<af:panelGroupLayout id="pgl76" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl76" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" >
 <af:spacer width="10" height="20" id="s54"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl81" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl81" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s53"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s39"/>
 <af:panelGroupLayout layout="horizontal" id="pgl82" >
-<af:panelGroupLayout id="pgl41" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl41" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" > 
 <af:spacer width="10" height="20" id="s50" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl40" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl40" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s49" visible="#{pageFlowScope.CardBean.vehicleModifiedDateVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s12"/>
 <af:panelGroupLayout layout="horizontal" id="pgl25" >
-<af:panelGroupLayout id="pgl24" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl24" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s46" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl23" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl23" visible="#{pageFlowScope.CardBean.vehiclePGL}"  partialTriggers="sor1 t1:cil1">
 <af:spacer width="10" height="20" id="s23" />
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -632,22 +653,22 @@
 <af:panelGroupLayout id="pgl63" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
 <af:outputText value=":" id="ot4"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl64" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl64" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value=":" id="ot47"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s22"/>
 <af:panelGroupLayout layout="horizontal" id="pgl80" >
-<af:panelGroupLayout id="pgl53" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl53" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value=":" id="ot23"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl52" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl52" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value=":" id="ot32"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s32"/>
 <af:panelGroupLayout layout="horizontal" id="pgl39" >
-<af:panelGroupLayout id="pgl38" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl38" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value=":" id="ot28" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl37" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
@@ -656,10 +677,10 @@
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s34"/>
 <af:panelGroupLayout layout="horizontal" id="pgl22" >
-<af:panelGroupLayout id="pgl21" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl21" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value=":" id="ot34" visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl20" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl20" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1" > 
 <af:outputText value=":" id="ot26" visible="#{pageFlowScope.CardBean.vehicleModifiedByVisible}"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
@@ -677,25 +698,25 @@
                      valign="top">
 <af:spacer height="20" width="10" id="s63"/>
 <af:panelGroupLayout layout="horizontal" id="pgl65" >
-<af:panelGroupLayout id="pgl66" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl66" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" > 
 <af:spacer width="10" height="20" id="s57"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl67" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl67" visible="#{pageFlowScope.CardBean.vehiclePGL}"  partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s58"/>
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s64"/>
 <af:panelGroupLayout layout="horizontal" id="pgl51" >
-<af:panelGroupLayout id="pgl50" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl50" visible="#{pageFlowScope.CardBean.driverPGL}"  partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s35"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl49" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
-<af:spacer width="10" height="20" id="s51"/>
+<af:panelGroupLayout id="pgl49" visible="#{pageFlowScope.CardBean.vehiclePGL}"  partialTriggers="sor1 t1:cil1">
+<af:spacer width="10" height="20" id="s51"/> 
 </af:panelGroupLayout>
 </af:panelGroupLayout>
 <af:spacer height="20" width="10" id="s65"/>
 <af:panelGroupLayout layout="horizontal" id="pgl84" >
-<af:panelGroupLayout id="pgl85" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl85" visible="#{pageFlowScope.CardBean.driverPGL}"  partialTriggers="sor1 t1:cil1"> 
 <af:spacer width="10" height="20" id="s47" visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"/>
 </af:panelGroupLayout>
 <af:panelGroupLayout id="pgl35" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
@@ -721,22 +742,22 @@
 
 <af:panelGroupLayout layout="vertical" id="pgl77" valign="top"
                      inlineStyle="height:180px;">
- <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"  partialTriggers="t1:cil1"
+ <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"  
                                valueChangeListener="#{pageFlowScope.CardBean.radioButtonValueChangeListener}" binding="#{pageFlowScope.CardBean.bindings.vehicleDriverRadio}"
-                    inlineStyle="margin-left: -20px !important;">
+                    inlineStyle="margin-left: -20px !important;" partialTriggers="t1:cil1"> 
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle" id="si10"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si13"/>
               </af:selectOneRadio>
               <af:spacer width="10" height="19" id="s25"/>
 <af:panelGroupLayout layout="horizontal" id="pgl68" >
-<af:panelGroupLayout id="pgl69" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl69" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1" >
 <af:selectOneChoice id="soc1" showRequired="false"
-                                   partialTriggers="sor1 t1:cil1"
+                                  
                                 value="#{pageFlowScope.CardBean.driverNameValue}"
                                 contentStyle="width: 175px;"
                                    valueChangeListener="#{pageFlowScope.CardBean.driverValueChangeListener}" autoSubmit="true"
                                    binding="#{pageFlowScope.CardBean.bindings.driverNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
-                    inlineStyle="margin-left: -5px !important;">
+                    inlineStyle="margin-left: -5px !important;" partialTriggers="sor1 t1:cil1"> 
                     <af:forEach items="#{pageFlowScope.CardBean.driverNameList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -744,12 +765,13 @@
             </af:forEach>
                 </af:selectOneChoice>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl70" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl70" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
  <af:selectOneChoice id="soc2" showRequired="false" inlineStyle="margin-left: -5px !important;"
-                                   partialTriggers="sor1 t1:cil1"
+                                   
                                 value="#{pageFlowScope.CardBean.vehicleNumberValue}"
                                 contentStyle="width: 175px;" autoSubmit="true"
-                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                                   valueChangeListener="#{pageFlowScope.CardBean.vehicleValueChangeListener}"  binding="#{pageFlowScope.CardBean.bindings.vehicleNumber}" 
+                                   unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" partialTriggers="sor1 t1:cil1"> 
                     <af:forEach items="#{pageFlowScope.CardBean.vehicleNumberList}"
                     var="listItem">
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
@@ -772,13 +794,13 @@
 </af:panelGroupLayout>
 <af:spacer width="10" height="20" id="s55"/>
 <af:panelGroupLayout layout="horizontal" id="pgl87" >
-<af:panelGroupLayout id="pgl88" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl88" visible="#{pageFlowScope.CardBean.driverPGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value="#{pageFlowScope.CardBean.driverModifiedDate}"
                                        visible="#{pageFlowScope.CardBean.driverModifiedDateVisible}"
                                        id="ot21"
                                        partialTriggers="soc1"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl30" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl30" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1" >
  <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedDate}"
                                        id="ot30"
                                        partialTriggers="soc2"
@@ -794,7 +816,7 @@
                                        visible="#{pageFlowScope.CardBean.driverModifiedByVisible}"
                                        partialTriggers="soc1"/> 
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl14" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1">
+<af:panelGroupLayout id="pgl14" visible="#{pageFlowScope.CardBean.vehiclePGL}" partialTriggers="sor1 t1:cil1"> 
 <af:outputText value="#{pageFlowScope.CardBean.vehicleModifiedBy}"
                                        id="ot271"
                                        partialTriggers="soc2"
