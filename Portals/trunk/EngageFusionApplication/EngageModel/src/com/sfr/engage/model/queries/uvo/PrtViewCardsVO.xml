@@ -15,7 +15,7 @@
   ComponentClass="com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl">
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
-    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
@@ -37,7 +37,8 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select pc.account_id,pc.last_used,pc.block_action,pc.card_expiry,pc.card_emboss_num,pti.vehicle_number,pti.internal_name, 
+    <![CDATA[select pc.account_id,pc.card_emboss_num,(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3),
+pc.last_used,pc.block_action,pc.card_expiry,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
 pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,
 pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name
@@ -45,8 +46,26 @@ from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
     prt_cardgroup pcg,
-    prt_card_type_name_map pctnm
-where  pc.cardgroup_main_type = pcg.cardgroup_main_type
+   prt_card_type_name_map pctnm,
+    (select PRT_CARD_TRANSACTION_HEADER.card_1_id as card_num,sum(PRT_CARD_TRANSACTION_DETAIL.INVOICED_GROSS_AMOUNT_REBATED) as tx_three_months
+FROM PRT_CARD_TRANSACTION_DETAIL,PRT_CARD_TRANSACTION_HEADER
+where prt_card_transaction_header.uref_transaction_id=prt_card_transaction_detail.uref_transaction_id
+and prt_card_transaction_header.pals_country_code = prt_card_transaction_detail.pals_country_code
+and prt_card_transaction_detail.price_element_code is null 
+and PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT  between  (SELECT TRUNC (ADD_MONTHS(SYSDATE,-3), 'MONTH') FROM DUAL)
+AND (SELECT TRUNC (LAST_DAY(ADD_MONTHS(SYSDATE,-1))) FROM DUAL) group by PRT_CARD_TRANSACTION_HEADER.card_1_id) Quaterly_Tx_Report,
+    (select PRT_CARD_TRANSACTION_HEADER.card_1_id as card_num,sum(PRT_CARD_TRANSACTION_DETAIL.INVOICED_GROSS_AMOUNT_REBATED) as fuel_three_months
+FROM PRT_CARD_TRANSACTION_DETAIL,PRT_CARD_TRANSACTION_HEADER
+where prt_card_transaction_header.uref_transaction_id=prt_card_transaction_detail.uref_transaction_id
+and prt_card_transaction_header.pals_country_code = prt_card_transaction_detail.pals_country_code
+and prt_card_transaction_detail.price_element_code is null 
+and PRT_CARD_TRANSACTION_DETAIL.FUEL_TRANS_FLAG = 'J'
+and PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT  between  (SELECT TRUNC (ADD_MONTHS(SYSDATE,-3), 'MONTH') FROM DUAL)
+AND (SELECT TRUNC (LAST_DAY(ADD_MONTHS(SYSDATE,-1))) FROM DUAL) group by PRT_CARD_TRANSACTION_HEADER.card_1_id) Quaterly_Fuel_Report
+
+where pc.card_emboss_num = Quaterly_Tx_Report.card_num
+and pc.card_emboss_num = Quaterly_Fuel_Report.card_num
+and pc.cardgroup_main_type = pcg.cardgroup_main_type
 and pc.cardgroup_sub_type = pcg.cardgroup_sub_type
 and pc.cardgroup_seq = pcg.cardgroup_seq
 and pc.account_id    = pcg.account_id
@@ -62,7 +81,15 @@ and pc.country_code = pctnm.country(+)
 and pc.card_type = pctnm.card_type(+)
 and pc.country_code = :countryCd
 and pc.partner_id = :partnerId
-and INSTR(:status,pc.block_action)<>0]]>
+and INSTR(:status,pc.block_action)<>0 
+group by pc.account_id, pc.last_used, pc.block_action, pc.card_expiry, 
+pc.card_emboss_num, pti.vehicle_number, pti.internal_name, pti.modified_by, 
+pti.modified_date, pc.card_type, pdi.driver_name, pdi.driver_number, pdi.modified_by, 
+pdi.modified_date, pcg.cardgroup_description, pc.prt_card_pk, pc.cardgroup_main_type, 
+pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctnm.card_type, pctnm.type_name,
+(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3)
+
+ORDER BY "ACCOUNT_ID"]]>
   </SQLQuery>
   <ViewAttribute
     Name="AccountId"
@@ -78,6 +105,50 @@ and INSTR(:status,pc.block_action)<>0]]>
     Expression="ACCOUNT_ID">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardEmbossNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_EMBOSS_NUM"
+    SQLType="VARCHAR"
+    Expression="CARD_EMBOSS_NUM">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="QuaterlyTxReportTxThreeMonths3"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="(QUATERLY_TX_REPORT.TX_THREE_MONTHS/3)"
+    Expression="(QUATERLY_TX_REPORT.TX_THREE_MONTHS/3)"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="QuaterlyFuelReportFuelThreeMonths3"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="(QUATERLY_FUEL_REPORT.FUEL_THREE_MONTHS/3)"
+    Expression="(QUATERLY_FUEL_REPORT.FUEL_THREE_MONTHS/3)"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -121,22 +192,6 @@ and INSTR(:status,pc.block_action)<>0]]>
     Expression="CARD_EXPIRY">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CardEmbossNum"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="20"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_EMBOSS_NUM"
-    SQLType="VARCHAR"
-    Expression="CARD_EMBOSS_NUM">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -607,7 +662,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr1_1_1_1_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
@@ -621,7 +676,7 @@ and INSTR(:status,pc.block_action)<>0]]>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1_1"
+    Name="InvoiceAddr2_1_1_1_1_1_1_1_1_1_1_1_1"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"

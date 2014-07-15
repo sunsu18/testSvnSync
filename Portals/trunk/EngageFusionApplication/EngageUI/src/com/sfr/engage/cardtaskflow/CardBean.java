@@ -2273,7 +2273,15 @@ public class CardBean implements Serializable {
             f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             f.setColor((short)0);
             cs.setFont(f);
-
+            
+            HSSFCellStyle csRight = XLS.createCellStyle();
+            HSSFFont fnumberData = XLS.createFont();
+            fnumberData.setFontHeightInPoints((short)10);
+            fnumberData.setColor((short)0);
+            csRight.setFont(fnumberData);
+            csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+            
+            
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
             fData.setFontHeightInPoints((short)10);
@@ -2384,7 +2392,22 @@ public class CardBean implements Serializable {
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
-                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csRight);                             
+                                XLS_SH_R_C.setCellValue(row.getQuaterlyTxReportTxThreeMonths3().toString());
+                            }
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csRight);
+                                XLS_SH_R_C.setCellValue(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                            }
+                        }
+                        
+                        
+                        else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2504,8 +2527,21 @@ public class CardBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } 
-                        else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                                out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                                out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }                          
+                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString());
                             }
@@ -2629,9 +2665,21 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } 
-                            
-                            else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                                    out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                                    out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getCardEmbossNum() != null) {
                                     out.print(row.getCardEmbossNum().toString());
                                 }
