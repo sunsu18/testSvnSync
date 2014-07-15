@@ -55,8 +55,20 @@
     <ns2:PrtCardPaymentDocCollection>
       <xsl:for-each select="$InvokeSelectInvoicePaymentsPALSDB2DBAdapterV1_OV.Cc075Vs1CssbdokDtaCollection/top:Cc075Vs1CssbdokDtaCollection/top:Cc075Vs1CssbdokDta">
         <!--xsl:if test='(string-length(/inp1:invocationMsg/inp1:CountryCode) = 2.0) and ((normalize-space(top:fakdokNr) != "") and ((normalize-space(/inp1:invocationMsg/inp1:CountryCode) != "") and (normalize-space(top:fakdokTp) != "")))'-->
-        <xsl:variable name="account_id"
-                      select="oraext:query-database(concat(&quot;select ACCOUNT_ID from PRT_CARDGROUP where CARDGROUP_MAIN_TYPE= '&quot;,normalize-space(top:fForholdHtp),&quot;' AND CARDGROUP_SUB_TYPE= '&quot;,normalize-space(top:fForholdUtp),&quot;' AND COUNTRY_CODE= '&quot;,/inp1:invocationMsg/inp1:CountryCode,&quot;' AND PARTNER_ID= '&quot;,normalize-space(top:partnerId),&quot;' AND CARDGROUP_SEQ= '&quot;,normalize-space(top:fForholdLnr),&quot;'&quot;),false(),false(),&quot;jdbc/ENGPortalXA&quot;)"/>
+        <!--xsl:variable name="account_id"
+                      select="oraext:query-database(concat(&quot;select ACCOUNT_ID from PRT_CARDGROUP where CARDGROUP_MAIN_TYPE= '&quot;,normalize-space(top:fForholdHtp),&quot;' AND CARDGROUP_SUB_TYPE= '&quot;,normalize-space(top:fForholdUtp),&quot;' AND COUNTRY_CODE= '&quot;,/inp1:invocationMsg/inp1:CountryCode,&quot;' AND PARTNER_ID= '&quot;,normalize-space(top:partnerId),&quot;' AND CARDGROUP_SEQ= '&quot;,normalize-space(top:fForholdLnr),&quot;'&quot;),false(),false(),&quot;jdbc/ENGPortalXA&quot;)"/-->
+         <xsl:variable name="account_id">
+         <!--START- Comment this part to open this mapping sheet-->
+         <xsl:choose>
+            <xsl:when test="normalize-space(top:betdoknivaKd) = ''">
+                <xsl:value-of select="'0000000000'"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="oraext:query-database(concat(&quot;select ACCOUNT_ID from PRT_CARDGROUP where CARDGROUP_MAIN_TYPE= '&quot;,normalize-space(top:fForholdHtp),&quot;' AND CARDGROUP_SUB_TYPE= '&quot;,normalize-space(top:fForholdUtp),&quot;' AND COUNTRY_CODE= '&quot;,/inp1:invocationMsg/inp1:CountryCode,&quot;' AND PARTNER_ID= '&quot;,normalize-space(top:partnerId),&quot;' AND CARDGROUP_SEQ= '&quot;,normalize-space(top:fForholdLnr),&quot;'&quot;),false(),false(),&quot;jdbc/ENGPortalXA&quot;)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+          <!--END- Comment this part to open this mapping sheet-->
+        </xsl:variable>
         <ns2:PrtCardPaymentDoc>
           <ns2:DeltaTS>
             <xsl:value-of select="top:deltaTs"/>
