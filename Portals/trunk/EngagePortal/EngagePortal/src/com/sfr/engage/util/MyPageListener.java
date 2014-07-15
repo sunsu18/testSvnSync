@@ -1582,8 +1582,13 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     card.setCardTextline2(currRowcard.getCardTextline2().toString());
                 }
 
-                if(currRowcard.getBlockAction() != null) {
-                    card.setBlockAction(currRowcard.getBlockAction().toString());
+                if(currRowcard.getBlockAction() != null)
+                card.setBlockAction(currRowcard.getBlockAction().toString());
+
+                if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("1") || currRowcard.getBlockAction().equalsIgnoreCase("0")) {
+                    if((currRowcard.getCardExpiry() != null && currRowcard.getCardExpiry().before(new Date())))
+                    card.setBlockAction("2");
+
                 }
                 addflagcard = false;
                 //Below logic is just to find out that card id is already present in cardgrouplist

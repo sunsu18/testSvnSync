@@ -128,6 +128,7 @@ public class AccountSummary implements Serializable {
     private String searchType = "CONTAIN";
     private RichInputText searchStringInputtext;
     private boolean executeSearch = false;
+    private boolean hideblockedcards = false;
     private RichPanelGroupLayout noSearchResults;
     EngageResourceBundle resourceBundle;
 
@@ -397,6 +398,15 @@ public class AccountSummary implements Serializable {
                 searchStringInputtext.setSubmittedValue(null);
         AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
     }
+
+    public void hideBlockedCards(ActionEvent actionEvent){
+        hideblockedcards = true;
+        if(getBindings().getAdfTree()!=null)
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
+
+        findTreeInView();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+    }
     public void searchTraverse(ActionEvent actionEvent) {
         executeSearch = false;
         hideAll();
@@ -622,6 +632,7 @@ public class AccountSummary implements Serializable {
 
                 if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
                     _disclosedRowKeys.clear();
+                   // _disclosedRowKeys=null;
                     System.out.println("rows cleared from tree");
                 } else
                     log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
@@ -1130,6 +1141,14 @@ public class AccountSummary implements Serializable {
         perCardVO.setNamedWhereClauseParam("currentDate", currentDate);
         perCardVO.setNamedWhereClauseParam("nextMonth", nextMonth);
         perCardVO.executeQuery();
+    }
+
+    public void setHideblockedcards(boolean hideblockedcards) {
+        this.hideblockedcards = hideblockedcards;
+    }
+
+    public boolean isHideblockedcards() {
+        return hideblockedcards;
     }
 
 
@@ -1715,9 +1734,9 @@ public class AccountSummary implements Serializable {
             }
             getBindings().getAccountOverview().setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccountOverview());
-            
+
             CallPrtCardsPerRVO("account",partnerId,id,"");
-           
+
 
         } else {
             hideAll();
@@ -1942,8 +1961,8 @@ public class AccountSummary implements Serializable {
             if(cardTypeList.size() > 0 )
             displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
 
-            
-            
+
+
             CallPrtCardsPerRVO("cardgroup",partnerId,accountId,id);
 
             getBindings().getCardGroupOverview().setVisible(true);
@@ -2084,9 +2103,9 @@ public class AccountSummary implements Serializable {
             partnerVO.executeQuery();
             //
         }
-        
+
         CallPrtCardsPerRVO("partner",id,"","");
-        
+
         if (session != null) {
             log.info(accessDC.getDisplayRecord() + this.getClass() + " partner value from session " + partner.getPartnerValue());
         }

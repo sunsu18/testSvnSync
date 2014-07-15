@@ -1,15 +1,14 @@
 .permanentBlockCards
 {
-color: Red !important;
+color: #db0000 !important;
 /*font-weight: normal !important;*/
 /*text-decoration: underline !important;*/
 font-style:italic !important;
-
 }
 
 .tempBlockCards
 {
-color: Green !important;
+color: #515d8d !important;
 /*font-weight: normal !important;*/
 /*text-decoration: underline !important;*/
 font-style:italic !important;
@@ -138,7 +137,7 @@ margin-top: 3px;
 text-overflow: ellipsis;
 color: #524e4f;
 
-
+}
 /*Popup Styling*/
 .af_dialog_main {
 position: relative;

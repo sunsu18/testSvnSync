@@ -1508,7 +1508,7 @@ cursor: auto;
 
 .permanentBlockCards
 {
-color: Red !important;
+color: #db0000 !important;
 /*font-weight: normal !important;*/
 /*text-decoration: underline !important;*/
 font-style:italic !important;
@@ -1517,7 +1517,7 @@ font-style:italic !important;
 
 .tempBlockCards
 {
-color: Green !important;
+color: #515d8d !important;
 /*font-weight: normal !important;*/
 /*text-decoration: underline !important;*/
 font-style:italic !important;
