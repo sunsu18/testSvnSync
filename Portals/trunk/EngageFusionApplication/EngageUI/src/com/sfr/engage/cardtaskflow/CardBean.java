@@ -2,57 +2,36 @@ package com.sfr.engage.cardtaskflow;
 
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
-
 import com.sfr.engage.core.ValueListSplit;
-import com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewBean;
-import com.sfr.engage.model.queries.rvo.PrtCardDriverVehicleInfoRVORowImpl;
-import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVORowImpl;
-import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
-
 import com.sfr.util.constants.Constants;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
-
 import java.sql.SQLException;
-
-import java.sql.Timestamp;
-
-import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
@@ -60,23 +39,16 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyChoice;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
-
 import oracle.adf.view.rich.component.rich.input.RichSelectOneRadio;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
-
 import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.model.FilterableQueryDescriptor;
-
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
-
-import oracle.javatools.marshal.StringConversion;
-
 import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -109,7 +81,7 @@ public class CardBean implements Serializable {
     private ArrayList<SelectItem> statusList;
     private List<String> statusValue;
     private ArrayList<SelectItem> partnerIdList;
-    private String partnerIdValue;
+    private List<String> partnerIdValue;
     ResourceBundle resourceBundle;
     private boolean driverPGL = false;
     private boolean vehiclePGL = false;
@@ -174,72 +146,61 @@ public class CardBean implements Serializable {
         valueList = new ValueListSplit();
         resourceBundle = new EngageResourceBundle();
         partnerId = null;
+        partnerIdValue = new ArrayList<String>();
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList =
                     (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 partnerIdList = new ArrayList<SelectItem>();
-                for (int k = 0; k < partnerInfoList.size(); k++) {
-                    SelectItem selectItem = new SelectItem();
-                    if (partnerInfoList.get(k).getPartnerName() != null &&
-                        partnerInfoList.get(k).getPartnerValue() != null) {
-                        selectItem.setLabel(partnerInfoList.get(k).getPartnerName().toString());
-                        selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString());
+                accountIdList = new ArrayList<SelectItem>();
+                accountIdValue = new ArrayList<String>();
+                cardGroupList = new ArrayList<SelectItem>();
+                cardGroupValue = new ArrayList<String>();
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    
+                    if (partnerInfoList.get(i).getPartnerName() != null &&
+                        partnerInfoList.get(i).getPartnerValue() != null) {
+                        SelectItem selectItem = new SelectItem();
+                        selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
+                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
                         partnerIdList.add(selectItem);
+                        partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
                     }
-                }
-
-
-                if (partnerInfoList.size() == 1) {
-
-                    this.partnerIdValue =
-                            partnerInfoList.get(0).getPartnerValue().toString();
-
-                    accountIdList = new ArrayList<SelectItem>();
-                    accountIdValue = new ArrayList<String>();
-                    cardGroupList = new ArrayList<SelectItem>();
-                    cardGroupValue = new ArrayList<String>();
-
-                    for (int i = 0; i < partnerInfoList.size(); i++) {
-
-                        if (partnerInfoList.get(i).getAccountList() != null &&
-                            partnerInfoList.get(i).getAccountList().size() >
-                            0) {
-
-                            _logger.info(accessDC.getDisplayRecord() +
-                                         this.getClass() + " " +
-                                         " Only 1 partner present");
-                            for (int j = 0;
-                                 j < partnerInfoList.get(i).getAccountList().size();
-                                 j++) {
-                                if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
+                    
+                    if (partnerInfoList.get(i).getAccountList() != null &&
+                        partnerInfoList.get(i).getAccountList().size() > 0) {
+                        for (int j = 0;
+                             j < partnerInfoList.get(i).getAccountList().size();
+                             j++) {
+                            if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
+                                null) {
+                                SelectItem selectItem = new SelectItem();
+                                selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                accountIdList.add(selectItem);
+                                accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                            }
+                            for (int k = 0;
+                                 k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
+                                 k++) {
+                                if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
                                     null) {
                                     SelectItem selectItem = new SelectItem();
-                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                    accountIdList.add(selectItem);
-                                    accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                }
-                                for (int k = 0;
-                                     k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
-                                     k++) {
-                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
-                                        null) {
-                                        SelectItem selectItem =
-                                            new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                        cardGroupList.add(selectItem);
-                                        cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                    }
+                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupList.add(selectItem);
+                                    cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                 }
                             }
                         }
                     }
-                    Collections.sort (cardGroupList,comparator);
                 }
+//                Collections.sort (partnerInfoList,comparator);
+                Collections.sort (accountIdList,comparator);
+                Collections.sort (cardGroupList,comparator);
             }
         }
+    
 
         if (session != null) {
             if (session.getAttribute("view_card_account_Query") != null) {
@@ -338,6 +299,7 @@ public class CardBean implements Serializable {
     }
 
     public String populateStringValues(String var) {
+        //removes  [ ] from list
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside populateStringValues method of View Cards");
         String passingValues = null;
@@ -353,6 +315,7 @@ public class CardBean implements Serializable {
     }
 
     public String[] StringConversion(String passedVal) {
+        // converts List to String
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside StringConversion method of View Cards");
         List<String> container;
@@ -409,6 +372,8 @@ public class CardBean implements Serializable {
                             }
                         }
                     }
+//                    Collections.sort (partnerInfoList,comparator);
+                    Collections.sort (accountIdList,comparator);
                     Collections.sort (cardGroupList,comparator);
                 }
             }
@@ -498,14 +463,6 @@ public class CardBean implements Serializable {
         return partnerIdList;
     }
 
-    public void setPartnerIdValue(String partnerIdValue) {
-        this.partnerIdValue = partnerIdValue;
-    }
-
-    public String getPartnerIdValue() {
-        return partnerIdValue;
-    }
-
     public void setPartnerInfoList(List<PartnerInfo> partnerInfoList) {
         this.partnerInfoList = partnerInfoList;
     }
@@ -524,52 +481,55 @@ public class CardBean implements Serializable {
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
 
-            String partnerSelected = valueChangeEvent.getNewValue().toString();
-            if (partnerSelected != null) {
+            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+
+            if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
-                    if (partnerInfoList.get(i).getPartnerValue().toString() !=
-                        null &&
-                        partnerInfoList.get(i).getPartnerValue().toString().equals(partnerSelected.trim())) {
-                        if (partnerInfoList.get(i).getAccountList() != null &&
-                            partnerInfoList.get(i).getAccountList().size() >
-                            0) {
+                    for(int p = 0 ; p < partnerString.length ; p++){
+                        if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
+                            if (partnerInfoList.get(i).getAccountList() != null &&
+                                partnerInfoList.get(i).getAccountList().size() > 0) {
 
-                            for (int j = 0;
-                                 j < partnerInfoList.get(i).getAccountList().size();
-                                 j++) {
+                                for (int j = 0;
+                                     j < partnerInfoList.get(i).getAccountList().size();
+                                     j++) {
 
-                                if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
-                                    null) {
-
-                                    SelectItem selectItem = new SelectItem();
-                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                    selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                                    accountIdList.add(selectItem);
-                                    accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-
-                                }
-
-
-                                for (int k = 0;
-                                     k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
-                                     k++) {
-                                    if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
                                         null) {
 
-                                        SelectItem selectItem =
-                                            new SelectItem();
-                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-                                        cardGroupList.add(selectItem);
-                                        cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        accountIdList.add(selectItem);
+                                        accountIdValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
 
                                     }
 
+
+                                    for (int k = 0;
+                                         k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
+                                         k++) {
+                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
+                                            null) {
+
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupList.add(selectItem);
+                                            cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+
+                                        }
+
+                                    }
                                 }
                             }
                         }
                     }
+                    
                 }
+//                Collections.sort (partnerInfoList,comparator);
+                Collections.sort (accountIdList,comparator);
                 Collections.sort (cardGroupList,comparator);
             }
             statusValue.add("0");
@@ -2197,50 +2157,59 @@ public class CardBean implements Serializable {
         selectedValues =
                 selectedValues.substring(0, selectedValues.length() - 1);
 
-        int partnerIndex = 0;
+        
         String partnerCompanyName = "";
-        for (int z = 0; z < partnerInfoList.size(); z++) {
-            if ((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartner().getValue().toString().trim())) {
-                partnerCompanyName = partnerInfoList.get(z).getPartnerName();
-                partnerIndex = z;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Partner value:" + partnerCompanyName);
-            }
-        }
-
+//        for (int z = 0; z < partnerInfoList.size(); z++) {
+//            if ((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartner().getValue().toString().trim())) {
+//                partnerCompanyName = partnerInfoList.get(z).getPartnerName();
+//                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+//                             " " + "Partner value:" + partnerCompanyName);
+//            }
+//        }
+        String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartner().getValue().toString().trim()));
         String cardGroupDescName = "";
         String[] cardGroupDescList =
             StringConversion(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
         String[] accountString =
             StringConversion(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
-
-        if (partnerInfoList.get(partnerIndex).getAccountList() != null &&
-            partnerInfoList.get(partnerIndex).getAccountList().size() > 0) {
-            for (int i = 0;
-                 i < partnerInfoList.get(partnerIndex).getAccountList().size();
-                 i++) {
-                if (accountString.length > 0) {
-                    for (int j = 0; j < accountString.length; j++) {
-                        if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber() !=
-                            null &&
-                            partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
-                            if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup() !=
-                                null &&
-                                partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size() >
-                                0) {
-                                for (int k = 0;
-                                     k < partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size();
-                                     k++) {
-                                    if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
-                                        null && cardGroupDescList.length > 0) {
-                                        for (int cg = 0;
-                                             cg < cardGroupDescList.length;
-                                             cg++) {
-                                            if ((partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
-                                                cardGroupDescName =
-                                                        cardGroupDescName +
-                                                        partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
-                                                        ",";
+        for (int z = 0; z < partnerInfoList.size(); z++) {
+            if(partnerCompanyNameList.length > 0){
+                for(int p = 0; p < partnerCompanyNameList.length; p++){
+                    if(partnerInfoList.get(z).getPartnerValue() != null && partnerCompanyNameList[p] != null){
+                        if(partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim())){
+                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerName().trim() + ",";
+                            if (partnerInfoList.get(z).getAccountList() != null &&
+                                partnerInfoList.get(z).getAccountList().size() > 0) {
+                                for (int i = 0;
+                                     i < partnerInfoList.get(z).getAccountList().size();
+                                     i++) {
+                                    if (accountString.length > 0) {
+                                        for (int j = 0; j < accountString.length; j++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() !=
+                                                null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
+                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() !=
+                                                    null &&
+                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() >
+                                                    0) {
+                                                    for (int k = 0;
+                                                         k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
+                                                         k++) {
+                                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
+                                                            null && cardGroupDescList.length > 0) {
+                                                            for (int cg = 0;
+                                                                 cg < cardGroupDescList.length;
+                                                                 cg++) {
+                                                                if ((partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                                    cardGroupDescName =
+                                                                            cardGroupDescName +
+                                                                            partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
+                                                                            ",";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -2251,9 +2220,8 @@ public class CardBean implements Serializable {
                 }
             }
         }
-        cardGroupDescName =
-                (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) -
-                                                      1);
+        partnerCompanyName = (String)partnerCompanyName.subSequence(0, (partnerCompanyName.length()) - 1);
+        cardGroupDescName = (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
 
         if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -2354,7 +2322,13 @@ public class CardBean implements Serializable {
                 if (row != null) {
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
-                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getPartnerId() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
+                            }
+                        } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2483,7 +2457,14 @@ public class CardBean implements Serializable {
                                  this.getClass() + " " + "Printing Data");
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
-                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if (row.getPartnerId() != null) {
+                                out.print(row.getPartnerId().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
@@ -2621,7 +2602,14 @@ public class CardBean implements Serializable {
                                      this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0;
                              cellValue < headerValues.length; cellValue++) {
-                            if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                                if (row.getPartnerId() != null) {
+                                    out.print(row.getPartnerId().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
@@ -3308,8 +3296,16 @@ public class CardBean implements Serializable {
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
     }
 
+    public void setPartnerIdValue(List<String> partnerIdValue) {
+        this.partnerIdValue = partnerIdValue;
+    }
+
+    public List<String> getPartnerIdValue() {
+        return partnerIdValue;
+    }
+
     public class Bindings {
-        private RichSelectOneChoice partner;
+        private RichSelectManyChoice partner;
         private RichSelectManyChoice cardGroup;
         private RichSelectManyChoice account;
         private RichSelectManyChoice status;
@@ -3327,11 +3323,11 @@ public class CardBean implements Serializable {
         private RichSelectOneRadio selectionExportOneRadio;
         private RichTable searchResultsTB;
 
-        public void setPartner(RichSelectOneChoice partner) {
+        public void setPartner(RichSelectManyChoice partner) {
             this.partner = partner;
         }
 
-        public RichSelectOneChoice getPartner() {
+        public RichSelectManyChoice getPartner() {
             return partner;
         }
 
