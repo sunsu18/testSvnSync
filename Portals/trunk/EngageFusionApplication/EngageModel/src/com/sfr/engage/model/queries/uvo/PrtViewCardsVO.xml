@@ -63,8 +63,8 @@ and PRT_CARD_TRANSACTION_DETAIL.FUEL_TRANS_FLAG = 'J'
 and PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT  between  (SELECT TRUNC (ADD_MONTHS(SYSDATE,-3), 'MONTH') FROM DUAL)
 AND (SELECT TRUNC (LAST_DAY(ADD_MONTHS(SYSDATE,-1))) FROM DUAL) group by PRT_CARD_TRANSACTION_HEADER.card_1_id) Quaterly_Fuel_Report
 
-where pc.card_emboss_num = Quaterly_Tx_Report.card_num
-and pc.card_emboss_num = Quaterly_Fuel_Report.card_num
+where pc.card_emboss_num = Quaterly_Tx_Report.card_num(+)
+and pc.card_emboss_num = Quaterly_Fuel_Report.card_num(+)
 and pc.cardgroup_main_type = pcg.cardgroup_main_type
 and pc.cardgroup_sub_type = pcg.cardgroup_sub_type
 and pc.cardgroup_seq = pcg.cardgroup_seq
@@ -80,7 +80,7 @@ and pc.prt_card_pk  = pti.card_number(+)
 and pc.country_code = pctnm.country(+)
 and pc.card_type = pctnm.card_type(+)
 and pc.country_code = :countryCd
-and pc.partner_id = :partnerId
+and INSTR(:partnerId,pc.partner_id)<>0 
 and INSTR(:status,pc.block_action)<>0 
 group by pc.partner_id, pc.account_id, pc.last_used, pc.block_action, pc.card_expiry, 
 pc.card_emboss_num, pti.vehicle_number, pti.internal_name, pti.modified_by, 
