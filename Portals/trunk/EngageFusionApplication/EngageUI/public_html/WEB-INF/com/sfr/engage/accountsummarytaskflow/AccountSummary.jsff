@@ -674,7 +674,7 @@
 
      <af:panelGroupLayout id="pgl12" layout="horizontal">
      <af:spacer width="10" id="s332"/>
-      <af:outputText value="#{sfr.ACCOUNT_SUMMARY}" id="ot27" styleClass="heading"/>
+      <af:outputText value="#{sfr.ACCOUNT_OVERVIEW}" id="ot27" styleClass="heading"/>
     </af:panelGroupLayout>
 
    <af:panelGroupLayout id="pgl26" inlineStyle="width:700px;">
