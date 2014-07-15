@@ -74,8 +74,8 @@
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
 
-        <af:selectOneChoice id="smc1" contentStyle="width: 200px;" partialTriggers="cb3"
-                                  unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
+        <af:selectManyChoice id="smc1" contentStyle="width: 200px;" partialTriggers="cb3"
+                                 autoSubmit="true"
                                  value="#{pageFlowScope.TransactionOverviewBean.partnerIdValue}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.partner}"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.partnerIdValueChangeListener}">
@@ -84,7 +84,7 @@
                 <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
                     id="select_item_terminal"/>
             </af:forEach>
-            </af:selectOneChoice>
+            </af:selectManyChoice>
        <af:spacer width="20" height="20" id="s43"/>
        <af:selectManyChoice id="soc3" contentStyle="width: 175px; height:14px;" showRequired="false"
                                 value="#{pageFlowScope.TransactionOverviewBean.accountIdValue}"
@@ -531,7 +531,11 @@
               </af:panelGroupLayout>
             </f:facet>
         </af:column>
-        
+         <af:column sortProperty="PartnerId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.PARTNER_ENG}" width="110"  align="left"
+                     id="cp30">
+            <af:outputText value="#{row.PartnerId}" id="otp28" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+          </af:column>         
         <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                      headerText="#{sfr.ACCOUNT}" width="110"  align="left"
                      id="c30">
@@ -775,13 +779,13 @@
           </af:panelGroupLayout>
           </af:column>
 
-          <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+          <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
                      sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.VEHICLE_NUMBER}"
                      id="c34">
             <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-        <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
+        <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
                      sortable="true" width="100" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.INTERNAL_NAME}"
                      id="c25">

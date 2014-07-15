@@ -195,7 +195,7 @@ public class EngageResourceBundle extends ListResourceBundle{
     {"STATOIL_COMMERCIAL_CARD_TEXT",""},{"STATOIL_BUSINESS_CARD_TEXT",""} ,{"STATOIL_MASTER_CARD_TEXT",""},{"STATOIL_EUROPE_CARD_TEXT",""},
     {"STATOIL_COMMERCIAL_CARD_LINK",""},{"STATOIL_BUSINESS_CARD_LINK",""} ,{"STATOIL_MASTER_CARD_LINK",""},{"STATOIL_EUROPE_CARD_LINK",""},
                                       {"LEARN_MORE_AND_APPLY",""},  {"PLEASE_SELECT_ENG",""}, {"LATEST_UPDATE_ENG",""}, {"MODIFIED_BY",""}, {"MODIFIED_DATE",""},{"VIEW",""},
-                                      {"INVOICE_COLLECTIONS",""},{"COLLECTION_DETAILS",""},
+                                      {"INVOICE_COLLECTIONS",""},{"COLLECTION_DETAILS",""},{"ENG_TRANSACTION_REPORT",""},{"ENG_COMPANY",""},{"ENG_ALL",""},{"ENG_PERIOD",""},
                                       {"REFERENCE_NUMBER",""} ,{"CARD_ASSOCIATED_VEHICLE",""},{"CARD_ASSOCIATED_DRIVER",""},{"COUNTRY_SWEDEN",""},{"COUNTRY_DENMARK",""},
                                       {"COUNTRY_NORWAY",""},{"NO_DATA",""} ,{"ACCESS_DENIED_ENG",""}, {"ACCESS_DENIED",""} , 
                                       {"ENGAGE_FILTER_MESSAGE",""},{"EMAIL_CONFIRMATION",""},{"SURE_SEND_EMAIL",""},{"CONFIRM_EMAIL_ID",""},{"EMAIL",""},{"OK",""},

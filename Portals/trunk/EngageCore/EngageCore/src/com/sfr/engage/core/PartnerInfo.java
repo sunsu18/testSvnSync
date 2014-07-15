@@ -17,8 +17,10 @@ public class PartnerInfo implements Comparable<PartnerInfo>,Serializable {
     private String partnerValue;
     private String country;
     private List<AccountInfo> accountList;
-    private String partnerName;
+    private String partnerName;    
     private boolean companyOverview;
+    private boolean consistsTwoCard;    
+    
 
     /**
      */
@@ -100,5 +102,13 @@ public class PartnerInfo implements Comparable<PartnerInfo>,Serializable {
 
     public int compareTo(PartnerInfo o) {
         return this.getPartnerName().compareTo(o.getPartnerName());
+    }
+
+    public void setConsistsTwoCard(boolean consistsTwoCard) {
+        this.consistsTwoCard = consistsTwoCard;
+    }
+
+    public boolean isConsistsTwoCard() {
+        return consistsTwoCard;
     }
 }

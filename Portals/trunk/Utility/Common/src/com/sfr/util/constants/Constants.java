@@ -653,6 +653,7 @@ public class Constants {
     public static final String ENGAGE_UCM_WSDL_URL = "ENGAGE_UCM_WSDL_URL";
     public static final String ENGAGE_UCM_USERNAME="ENGAGE_UCM_USERNAME";
     public static final String ENGAGE_UCM_PASSWORD="ENGAGE_UCM_PASSWORD";
+    public static final String ENGAGE_REPORT_DELIMITER="\\|";
 
 
 }

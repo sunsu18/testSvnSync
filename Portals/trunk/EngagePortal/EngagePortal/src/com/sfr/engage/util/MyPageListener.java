@@ -53,6 +53,7 @@ public class MyPageListener implements PagePhaseListener {
     AccessDataControl accessDC = new AccessDataControl();
     Conversion conv = new Conversion();
     private boolean passwordChangeRequired;
+    private boolean consistsTwoCardStatus=false;
     private User user = null;
 
     PartnerInfo part = new PartnerInfo();
@@ -1535,6 +1536,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     acc.setCardGroup(cardgrouplist);
                     accountlist.add(acc);
                     part.setAccountList(accountlist);
+                    System.out.println("Two Card System Value:"+part.getPartnerName()+"Status :"+consistsTwoCardStatus);
+                    part.setConsistsTwoCard(consistsTwoCardStatus);
                 }
             }
         }
@@ -1588,6 +1591,14 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("1") || currRowcard.getBlockAction().equalsIgnoreCase("0")) {
                     if((currRowcard.getCardExpiry() != null && currRowcard.getCardExpiry().before(new Date())))
                     card.setBlockAction("2");
+
+                }
+                
+                if (currRowcard.getCardType() != null) {
+                    if (currRowcard.getCardType().toString().startsWith("2") &&
+                        !consistsTwoCardStatus) {
+                        consistsTwoCardStatus = true;
+                    }
 
                 }
                 addflagcard = false;
@@ -1848,4 +1859,11 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         return partnerlist;
     }
 
+    public void setConsistsTwoCardStatus(boolean consistsTwoCardStatus) {
+        this.consistsTwoCardStatus = consistsTwoCardStatus;
+    }
+
+    public boolean isConsistsTwoCardStatus() {
+        return consistsTwoCardStatus;
+    }
 }
