@@ -58,21 +58,18 @@
             <af:panelGroupLayout id="pgl18"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
-               <af:selectOneChoice id="soc3" showRequired="false"
-                                unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
-                                contentStyle="width: 200px;"
+               <af:selectManyChoice id="soc3" showRequired="false"
+                                contentStyle="width: 175px;"
                                  value="#{pageFlowScope.CardBean.partnerIdValue}"
                                   autoSubmit="true"
                                   partialTriggers="cb3"
                                  valueChangeListener="#{pageFlowScope.CardBean.partnerValueChangeListener}"
                                  binding="#{pageFlowScope.CardBean.bindings.partner}">
-                <af:forEach
-                    var="listItem"
+                <af:forEach var="listItem"
                             items="#{pageFlowScope.CardBean.partnerIdList}">
-                <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
-                    id="select_item_account"/>
+                <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="select_item_account"/>
         </af:forEach>
-            </af:selectOneChoice>
+            </af:selectManyChoice>
             <af:spacer width="20" height="17" id="s41"/>
             <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
                                     value="#{pageFlowScope.CardBean.accountIdValue}"
@@ -280,6 +277,12 @@
                     rowSelection="single" id="t1"
                     disableColumnReordering="true" columnResizing="disabled"
                     autoHeightRows="20" contentDelivery="immediate" binding="#{pageFlowScope.CardBean.bindings.searchResultsTB}">
+
+        <af:column sortProperty="PartnerId" headerText="#{sfr.PARTNER_ENG}"
+                       id="c14" filterFeatures="caseInsensitive" filterable="true" sortable="true">
+              <af:outputText value="#{row.PartnerId}" id="ot37"/>
+            </af:column>
+
             <af:column sortProperty="AccountId" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                        headerText="#{sfr.ACCOUNT}" width="100px" 
                        id="c1">
@@ -378,9 +381,9 @@
               </af:outputText>
             </af:column>
              <af:column headerText="#{sfr.AVG_MONTHLY_FEULINGS}" sortProperty="QuaterlyTxReportTxThreeMonths3" filterable="true" sortable="true" filterFeatures="caseInsensitive"
-                       id="c14" align="right">
+                       id="c16" align="right">
               <af:outputText value="#{row.QuaterlyFuelReportFuelThreeMonths3}"
-                             id="ot37">
+                             id="ot40">
                 <af:convertNumber groupingUsed="false"
                                   pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyFuelReportFuelThreeMonths3.format}"/>
               </af:outputText>
