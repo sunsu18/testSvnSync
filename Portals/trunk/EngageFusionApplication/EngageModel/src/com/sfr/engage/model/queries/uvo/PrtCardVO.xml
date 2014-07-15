@@ -405,4 +405,14 @@
     EntityAttrName="BlockAction"
     EntityUsage="PrtCardEO"
     AliasName="BLOCK_ACTION"/>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
 </ViewObject>
