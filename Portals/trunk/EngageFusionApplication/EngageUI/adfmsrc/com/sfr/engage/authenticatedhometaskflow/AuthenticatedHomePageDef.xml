@@ -72,6 +72,7 @@
           <Item Value="TransactionTime"/>
           <Item Value="CardTextLine2"/>
           <Item Value="CurrencyGrossAmount"/>
+          <Item Value="PurchaseCurrency"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

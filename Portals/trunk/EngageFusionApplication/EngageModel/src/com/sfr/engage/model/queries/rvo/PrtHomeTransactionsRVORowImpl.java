@@ -30,6 +30,16 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      private HttpSession session=request.getSession(false);
      private List<PartnerInfo> partnerInfoList;
     public enum AttributesEnum {
+        PurchaseCurrency {
+            public Object get(PrtHomeTransactionsRVORowImpl obj) {
+                return obj.getPurchaseCurrency();
+            }
+
+            public void put(PrtHomeTransactionsRVORowImpl obj, Object value) {
+                obj.setPurchaseCurrency((String)value);
+            }
+        }
+        ,
         PartnerId {
             public Object get(PrtHomeTransactionsRVORowImpl obj) {
                 return obj.getPartnerId();
@@ -189,6 +199,9 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
     }
 
 
+
+
+    public static final int PURCHASECURRENCY = AttributesEnum.PurchaseCurrency.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int KSID = AttributesEnum.Ksid.index();
     public static final int TRANSACTIONTIME = AttributesEnum.TransactionTime.index();
@@ -207,6 +220,22 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
      * This is the default constructor (do not remove).
      */
     public PrtHomeTransactionsRVORowImpl() {
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PurchaseCurrency.
+     * @return the PurchaseCurrency
+     */
+    public String getPurchaseCurrency() {
+        return (String) getAttributeInternal(PURCHASECURRENCY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PurchaseCurrency.
+     * @param value value to set the  PurchaseCurrency
+     */
+    public void setPurchaseCurrency(String value) {
+        setAttributeInternal(PURCHASECURRENCY, value);
     }
 
     /**
