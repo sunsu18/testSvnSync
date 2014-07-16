@@ -20,7 +20,7 @@
       <partnerlink name="SOAErrorDBAdapter" x="2321" y="3138" side="right"/>
       <partnerlink name="SOAErrorLogDBAdapter" x="2321" y="4572" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="187,5650,628,341" show_swimlanes="true">
+   <graph_layout viewport="1428,1950,1016,379" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
