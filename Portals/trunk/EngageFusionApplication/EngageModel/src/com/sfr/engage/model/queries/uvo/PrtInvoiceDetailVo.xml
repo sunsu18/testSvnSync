@@ -42,7 +42,7 @@ from prt_card_invoice join prt_card_payment_doc ON (prt_card_payment_doc.invoice
 AND prt_card_payment_doc.country_code= prt_card_invoice.country_code)
 left join prt_card on (prt_card_invoice.invoiced_card = prt_card.prt_card_pk and prt_card_invoice.country_code=prt_card.country_code)
 where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
-prt_card_payment_doc.PARTNER_ID =:partnerId 
+INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID)<>0 
 AND prt_card_invoice.collective_invoice_number=: invoiceNo]]>
   </SQLQuery>
   <ViewAttribute

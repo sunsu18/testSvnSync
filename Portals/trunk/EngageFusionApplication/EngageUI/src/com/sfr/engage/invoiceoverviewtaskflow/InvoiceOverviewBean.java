@@ -121,7 +121,7 @@ public class InvoiceOverviewBean implements Serializable {
 
     private List<PartnerInfo> partnerInfoList;
     private ArrayList<SelectItem> partnerList = null;
-    private String partnerValue = null;
+    private List<String> partnerValue = null;
     private RichSelectOneRadio radioBtnPopUp;
     private RichPanelGroupLayout transactionPanel;
     private RichPanelGroupLayout invoiceCollectionPanel;
@@ -138,6 +138,7 @@ public class InvoiceOverviewBean implements Serializable {
     private  emailbean email;
     User global_user = new User();
     String invoice_req;
+    private String partner_req;
     private RichSpacer spacerFetchUserEmail;
     private String mailRecipient;
     EngageEmaiUtilityl emailutility;
@@ -184,6 +185,9 @@ public class InvoiceOverviewBean implements Serializable {
         session = request.getSession(false);
         resourceBundle = new EngageResourceBundle();
         partnerList    = new ArrayList<SelectItem>();
+        partnerValue   = new ArrayList<String>();
+        accountList    = new ArrayList<SelectItem>();
+        accountValue   = new ArrayList<String>();
         emailutility = new EngageEmaiUtilityl();
         valueList = new ValueListSplit();
 
@@ -199,50 +203,31 @@ public class InvoiceOverviewBean implements Serializable {
 
         if(partnerInfoList != null && partnerInfoList.size() > 0){
             for(int i=0 ; i<partnerInfoList.size() ; i++){
-                SelectItem selectItemPartner = new SelectItem();
-                selectItemPartner.setLabel(partnerInfoList.get(i).getPartnerName().toString());
-                selectItemPartner.setValue(partnerInfoList.get(i).getPartnerValue().toString());
-                partnerList.add(selectItemPartner);
+                if(partnerInfoList.get(i).getPartnerName()!=null && partnerInfoList.get(i).getPartnerValue()!=null)
+                {
+                    SelectItem selectItemPartner = new SelectItem();
+                    selectItemPartner.setLabel(partnerInfoList.get(i).getPartnerName().toString());
+                    selectItemPartner.setValue(partnerInfoList.get(i).getPartnerValue().toString());
+                    partnerList.add(selectItemPartner);
+                    partnerValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                }
+                
+                if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
+                    for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
+                        if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
+                            SelectItem selectItem = new SelectItem();
+                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                            selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                            accountList.add(selectItem);
+                            accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                
+                        }
+                    }
+                }
             }
-if(partnerInfoList.size() == 1) {
-    this.partnerValue=partnerInfoList.get(0).getPartnerValue().toString();
 
-    accountList    = new ArrayList<SelectItem>();
-    accountValue   = new ArrayList<String>();
-
-    for(int i=0 ; i<partnerInfoList.size(); i++){
-
-    if(partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0){
-
-    for(int j=0;j<partnerInfoList.get(i).getAccountList().size();j++){
-
-
-    if(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null){
-
-
-    SelectItem selectItem = new SelectItem();
-                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                        selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                        accountList.add(selectItem);
-                        accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-    }
-    }
-    }
-    }
-
-}
-
-//            if( partnerInfo.getAccountList() != null && partnerInfo.getAccountList().size() > 0){
-//                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "List of Account in partner info object=====>"+partnerInfo.getAccountList().size());
-//                for(int i=0 ; i<partnerInfo.getAccountList().size(); i++){
-//                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"value of Account Id===========>"+partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-//                    SelectItem selectItem = new SelectItem();
-//                    selectItem.setLabel(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-//                    selectItem.setValue(partnerInfo.getAccountList().get(i).getAccountNumber().toString());
-//                    accountList.add(selectItem);
-//                }
-//            }
         }
+        
         //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
 
         if(session!= null) {
@@ -528,7 +513,7 @@ if(partnerInfoList.size() == 1) {
 
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("countryCode","DK");
-                invoiceVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
+                invoiceVO.setNamedWhereClauseParam("partnerId",populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
 //                if(getBindings().getInvoiceType().getValue()!=null) {
@@ -950,32 +935,37 @@ if(partnerInfoList.size() == 1) {
     }
 
     public void popoluateCardCardgroupValues(String passingAccountNumber , String paramType){
-        if(passingAccountNumber != null && paramType != null){
-            if(partnerInfoList != null && partnerInfoList.size() > 0){
+        if(passingAccountNumber != null && paramType != null && getBindings().getPartnerNumber().getValue() != null){
+            String[] partnerString; 
+            partnerString = StringConversion(populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
+            if(partnerInfoList != null && partnerInfoList.size() > 0 && partnerString.length >0){
                 for(int pa=0 ; pa<partnerInfoList.size() ; pa++){
-                    if(partnerInfoList.get(pa).getPartnerValue() != null && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() >0){
-                        for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
-                            if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null && partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(passingAccountNumber)
-                              && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() >0){
-                                for(int cg=0 ; cg<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
-                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID() != null){
-                                        if(paramType.equals("CardGroup")){
-                                            SelectItem selectItemCardGroup = new SelectItem();
-                                            selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                            selectItemCardGroup.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
-                                            cardGroupList.add(selectItemCardGroup);
-                                            cardGroupValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
-                                        }else{
-                                            if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null
-                                               && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
-                                                for(int cc=0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
-                                                    if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null
-                                                       && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() != null){
-                                                           SelectItem selectItem = new SelectItem();
-                                                           selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
-                                                           selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
-                                                           cardList.add(selectItem);
-                                                           cardValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                    for(int p =0 ; p<partnerString.length ; p++){
+                        if(partnerInfoList.get(pa).getPartnerValue() != null && partnerString[p] != null && partnerInfoList.get(pa).getPartnerValue().equals(partnerString[p].trim())
+                           && partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() >0){
+                            for(int ac=0 ; ac<partnerInfoList.get(pa).getAccountList().size(); ac++){
+                                if(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null && partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(passingAccountNumber)
+                                  && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() >0){
+                                    for(int cg=0 ; cg<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++){
+                                        if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID() != null){
+                                            if(paramType.equals("CardGroup")){
+                                                SelectItem selectItemCardGroup = new SelectItem();
+                                                selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                                selectItemCardGroup.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                                cardGroupList.add(selectItemCardGroup);
+                                                cardGroupValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                            }else{
+                                                if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null
+                                                   && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
+                                                    for(int cc=0 ; cc<partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++){
+                                                        if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null
+                                                           && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() != null){
+                                                               SelectItem selectItem = new SelectItem();
+                                                               selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                               selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                                               cardList.add(selectItem);
+                                                               cardValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID());
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1072,6 +1062,8 @@ if(partnerInfoList.size() == 1) {
     public void partnerValueChangeListener(ValueChangeEvent valueChangeEvent){
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside partnerValueChangeListner for Invoices");
             if(valueChangeEvent.getNewValue()!=null) {
+                String[] partnerString; 
+                partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
                 getBindings().getCardGpCardList().setValue(null);
                 cGCardVisible    = true;
                 cardGroupVisible = false;
@@ -1081,54 +1073,58 @@ if(partnerInfoList.size() == 1) {
                 accountList    = new ArrayList<SelectItem>();
                 accountValue   = new ArrayList<String>();
                 if(partnerInfoList != null && partnerInfoList.size() > 0){
-                    for(int i=0 ; i<partnerInfoList.size() ; i++){
-                        if(partnerInfoList.get(i).getPartnerValue() != null && partnerInfoList.get(i).getPartnerValue().toString().equals(valueChangeEvent.getNewValue().toString())
-                           && partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() >0){
-                            for(int m=0 ; m<partnerInfoList.get(i).getAccountList().size(); m++){
-                                if(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber() != null){
-                                    SelectItem selectItemAccount = new SelectItem();
-                                    selectItemAccount.setLabel(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                    selectItemAccount.setValue(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                    accountList.add(selectItemAccount);
-                                    accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
-                                }
-                                
-                                if(getBindings().getAccount().getValue()!=null)
-                                       {
-                                           String accountNumberPassingValues = null;
-                                           String[] accountNumberValues;
-                                           int accountCount = 0;
-                                           accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
-                                           cardGroupList  = new ArrayList<SelectItem>();
-                                           cardGroupValue = new ArrayList<String>();
-                                           cardList       = new ArrayList<SelectItem>();
-                                           cardValue      = new ArrayList<String>();
-                                           if(accountNumberPassingValues != null){
-                                               if(accountNumberPassingValues.contains(",")){
-                                                   accountNumberValues = accountNumberPassingValues.split(",");
-                                                   accountCount  = accountNumberValues.length;
-                                               }else{
-                                                   accountCount  = 1;
-                                                   accountNumberValues = new String[1];
-                                                   accountNumberValues[0] = accountNumberPassingValues;
-                                               }
+                    if(partnerString.length > 0){
+                        for(int i=0 ; i<partnerInfoList.size() ; i++){
+                            for(int pa=0; pa<partnerString.length ;pa++){
+                                if(partnerInfoList.get(i).getPartnerValue() != null && partnerString[pa] != null
+                                   && partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[pa].trim())
+                                   && partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() >0){
+                                    for(int m=0 ; m<partnerInfoList.get(i).getAccountList().size(); m++){
+                                        if(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber() != null){
+                                            SelectItem selectItemAccount = new SelectItem();
+                                            selectItemAccount.setLabel(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                            selectItemAccount.setValue(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                            accountList.add(selectItemAccount);
+                                            accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
+                                        }
+                                        
+                                        if(getBindings().getAccount().getValue()!=null)
+                                        {
+                                                   String accountNumberPassingValues = null;
+                                                   String[] accountNumberValues;
+                                                   int accountCount = 0;
+                                                   accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
+                                                   cardGroupList  = new ArrayList<SelectItem>();
+                                                   cardGroupValue = new ArrayList<String>();
+                                                   cardList       = new ArrayList<SelectItem>();
+                                                   cardValue      = new ArrayList<String>();
+                                                   if(accountNumberPassingValues != null){
+                                                       if(accountNumberPassingValues.contains(",")){
+                                                           accountNumberValues = accountNumberPassingValues.split(",");
+                                                           accountCount  = accountNumberValues.length;
+                                                       }else{
+                                                           accountCount  = 1;
+                                                           accountNumberValues = new String[1];
+                                                           accountNumberValues[0] = accountNumberPassingValues;
+                                                       }
+                                                                       
+                                                            if(accountCount > 0){
+                                                           for(int acCount=0 ; acCount<accountCount; acCount++){                        
                                                                
-                                                    if(accountCount > 0){
-                                                   for(int acCount=0 ; acCount<accountCount; acCount++){                        
-                                                       
-                                                           populateValue("CardGroup",accountNumberValues[acCount].trim());
-                                                           cGCardVisible=true;
-                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                                                           cardGroupVisible=true;
-                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-                                                           cardVisible=false;
-                                                           AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-                                                      
+                                                                   populateValue("CardGroup",accountNumberValues[acCount].trim());
+                                                                   cGCardVisible=true;
+                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
+                                                                   cardGroupVisible=true;
+                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
+                                                                   cardVisible=false;
+                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
+                                                              
+                                                           }
+                                                       }
                                                    }
-                                               }
-                                           }
-                                       }
-                                
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1183,6 +1179,7 @@ if(partnerInfoList.size() == 1) {
             ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
         PrtNewInvoiceVORowImpl row=(PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
+        String partnerNumberValuePdf = row.getPartnerId(); // Added by siddharth
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "invoice number"+invoiceNumberValuePdf);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PartnerId "+partnerId);
         byte[] responseByteArr = null;
@@ -1208,7 +1205,7 @@ if(partnerInfoList.size() == 1) {
                             }
                         }
                         else {
-                            byte[] result=searchGetFile(invoiceNumberValuePdf);
+                            byte[] result=searchGetFile(invoiceNumberValuePdf,partnerNumberValuePdf);
                             if(result!=null && result.length!=0) {
                                outputStream.write(result);
                             }else
@@ -1228,7 +1225,7 @@ if(partnerInfoList.size() == 1) {
         }
         else{
            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is null");
-            byte[] result=searchGetFile(invoiceNumberValuePdf);
+            byte[] result=searchGetFile(invoiceNumberValuePdf,partnerNumberValuePdf);
            if(result!=null && result.length!=0) {
                outputStream.write(result);
            }else {
@@ -1255,6 +1252,7 @@ if(partnerInfoList.size() == 1) {
         successResult = false;
          invoiceNotFound = false;
          failureResult = false;
+        String partnerNumberValuePdf = "";
          //validEmail = false;
 
 
@@ -1262,10 +1260,11 @@ if(partnerInfoList.size() == 1) {
             ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
         PrtNewInvoiceVORowImpl row=(PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
+        partnerNumberValuePdf = row.getPartnerId();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "invoice number"+invoiceNumberValuePdf);
         //_logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "PartnerId "+partnerId);
 
-        if(invoiceNumberValuePdf != null)
+        if(invoiceNumberValuePdf != null && partnerNumberValuePdf != null)
         {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Invoice requested " + invoiceNumberValuePdf);
 
@@ -1276,6 +1275,7 @@ if(partnerInfoList.size() == 1) {
 
 
         session.setAttribute("SESSION_USER_INVOICE_REQ", invoiceNumberValuePdf);
+        session.setAttribute("SESSION_USER_PARTNER_REQ", partnerNumberValuePdf);
 
 
         }
@@ -1301,7 +1301,7 @@ if(partnerInfoList.size() == 1) {
         return null;
     }
 
-    public byte[] searchGetFile(String invoiceNumber) {
+    public byte[] searchGetFile(String invoiceNumber , String partnerNumber) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+ "Inside searchGetFile method");
 
         byte[] responseByteArr = null;
@@ -1324,7 +1324,8 @@ if(partnerInfoList.size() == 1) {
 
         prop[1]= new Property();
         prop[1].setName("xPartnerId");
-        prop[1].setValue(getBindings().getPartnerNumber().getValue().toString().trim());
+        prop[1].setValue(partnerNumber.toString().trim()); // Added by siddharth
+        //prop[1].setValue(getBindings().getPartnerNumber().getValue().toString().trim()); // Commented by siddharth
 
         prop[2]= new Property();
         prop[2].setName("xContentType");
@@ -1488,14 +1489,6 @@ for(int i=0;i<prop.length;i++)
         return accountValue;
     }
 
-    public void setPartnerValue(String partnerValue) {
-        this.partnerValue = partnerValue;
-    }
-
-    public String getPartnerValue() {
-        return partnerValue;
-    }
-
     public void setRadioBtnPopUp(RichSelectOneRadio radioBtnPopUp) {
         this.radioBtnPopUp = radioBtnPopUp;
     }
@@ -1540,7 +1533,7 @@ for(int i=0;i<prop.length;i++)
             
             accountQueryDetail="(";
             invoiceDetailVO.setNamedWhereClauseParam("countryCode",lang);
-            invoiceDetailVO.setNamedWhereClauseParam("partnerId",getBindings().getPartnerNumber().getValue());
+            invoiceDetailVO.setNamedWhereClauseParam("partnerId",populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
             invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
             
             
@@ -1795,13 +1788,15 @@ for(int i=0;i<prop.length;i++)
                 session = request.getSession(false);
 
         invoice_req = null;
+        partner_req = null;
 
         if (session != null) {
-        if(session.getAttribute("SESSION_USER_INVOICE_REQ") != null)
-        {
-        invoice_req = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " invoice req = " + invoice_req);
-        }
+            if(session.getAttribute("SESSION_USER_INVOICE_REQ") != null && session.getAttribute("SESSION_USER_PARTNER_REQ") != null)
+            {
+            invoice_req = session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
+            partner_req = session.getAttribute("SESSION_USER_PARTNER_REQ").toString(); // Added by Siddharth
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " invoice req = " + invoice_req);
+            }
         }
 
 
@@ -1935,7 +1930,7 @@ for(int i=0;i<prop.length;i++)
                     }
                 }
                 else {
-                    responseByteArr = searchGetFile(invoice_req);
+                    responseByteArr = searchGetFile(invoice_req,partner_req);
                     if(responseByteArr!=null && responseByteArr.length!=0) {
                      _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                         sendEmail = true;
@@ -1950,7 +1945,7 @@ for(int i=0;i<prop.length;i++)
             }
                 else{
                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "session is null");
-                     responseByteArr=searchGetFile(invoice_req);
+                     responseByteArr=searchGetFile(invoice_req,partner_req);
                    if(responseByteArr!=null && responseByteArr.length!=0) {
                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Response byte array length " + responseByteArr.length);
                        sendEmail = true;
@@ -2463,13 +2458,20 @@ for(int i=0;i<prop.length;i++)
         String val = "";
         String[] listValues = selectedValues.split(",");
         if (listValues.length > 1) {
+        
             if ("Account".equalsIgnoreCase(type)) {
                 if (accountList.size() == listValues.length) {
                     val = "All";
                 } else {
                     val = selectedValues;
                 }
-            } 
+            }else{
+                if(partnerList.size() == listValues.length) {
+                    val = "All";
+                }else{
+                    val = selectedValues;
+                }
+            }
 
         } else {
             val = selectedValues;
@@ -2496,50 +2498,64 @@ for(int i=0;i<prop.length;i++)
         selectedValues =
                 selectedValues.substring(0, selectedValues.length() - 1);
 
-        int partnerIndex = 0;
+        //int partnerIndex = 0;
         String partnerCompanyName = "";
-        for (int z = 0; z < partnerInfoList.size(); z++) {
-            if ((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartnerNumber().getValue().toString().trim())) {
-                partnerCompanyName = partnerInfoList.get(z).getPartnerName();
-                partnerIndex = z;
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Partner value:" + partnerCompanyName);
-            }
-        }
+        String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartnerNumber().getValue().toString().trim()));
+        
+        
+        
+//        for (int z = 0; z < partnerInfoList.size(); z++) {
+//            if ((partnerInfoList.get(z).getPartnerValue()).equalsIgnoreCase(getBindings().getPartnerNumber().getValue().toString().trim())) {
+//                partnerCompanyName = partnerInfoList.get(z).getPartnerName();
+//                partnerIndex = z;
+//                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
+//                             " " + "Partner value:" + partnerCompanyName);
+//            }
+//        }
 
         String cardGroupDescName = "";
         String[] cardGroupDescList =
             StringConversion(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
         String[] accountString =
             StringConversion(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
-
-        if (partnerInfoList.get(partnerIndex).getAccountList() != null &&
-            partnerInfoList.get(partnerIndex).getAccountList().size() > 0) {
-            for (int i = 0;
-                 i < partnerInfoList.get(partnerIndex).getAccountList().size();
-                 i++) {
-                if (accountString.length > 0) {
-                    for (int j = 0; j < accountString.length; j++) {
-                        if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber() !=
-                            null &&
-                            partnerInfoList.get(partnerIndex).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
-                            if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup() !=
-                                null &&
-                                partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size() >
-                                0) {
-                                for (int k = 0;
-                                     k < partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().size();
-                                     k++) {
-                                    if (partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
-                                        null && cardGroupDescList.length > 0) {
-                                        for (int cg = 0;
-                                             cg < cardGroupDescList.length;
-                                             cg++) {
-                                            if ((partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
-                                                cardGroupDescName =
-                                                        cardGroupDescName +
-                                                        partnerInfoList.get(partnerIndex).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
-                                                        ",";
+        
+        for (int z = 0; z < partnerInfoList.size(); z++) {
+            if(partnerCompanyNameList.length > 0 && partnerInfoList.get(z).getPartnerValue()!= null){  
+                for(int pa = 0; pa<partnerCompanyNameList.length;pa++){
+                    if(partnerCompanyNameList[pa].trim()!= null && partnerInfoList.get(z).getPartnerValue().toString().trim().equals(partnerCompanyNameList[pa].trim())){
+                        partnerCompanyName = partnerInfoList.get(z).getPartnerName();
+                      _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner value:" + partnerCompanyName);
+                         if (partnerInfoList.get(z).getAccountList() != null &&
+                            partnerInfoList.get(z).getAccountList().size() > 0) {
+                            for (int i = 0;
+                                 i < partnerInfoList.get(z).getAccountList().size();
+                                 i++) {
+                                if (accountString.length > 0) {
+                                    for (int j = 0; j < accountString.length; j++) {
+                                        if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() !=
+                                            null &&
+                                            partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() !=
+                                                null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() >
+                                                0) {
+                                                for (int k = 0;
+                                                     k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
+                                                     k++) {
+                                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
+                                                        null && cardGroupDescList.length > 0) {
+                                                        for (int cg = 0;
+                                                             cg < cardGroupDescList.length;
+                                                             cg++) {
+                                                            if ((partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                                cardGroupDescName =
+                                                                        cardGroupDescName +
+                                                                        partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
+                                                                        ",";
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -2550,9 +2566,8 @@ for(int i=0;i<prop.length;i++)
                 }
             }
         }
-        cardGroupDescName =
-                (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) -
-                                                      1);
+        
+        cardGroupDescName =(String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
 
         if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -2599,7 +2614,9 @@ for(int i=0;i<prop.length;i++)
             XLS_SH_R = XLS_SH.createRow(0);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Company: " + partnerCompanyName);
+            //XLS_SH_R_C.setCellValue("Company: " + partnerCompanyName);
+            XLS_SH_R_C.setCellValue("Company: " + checkALL((populateStringValues(getBindings().getPartnerNumber().getValue().toString())),
+                                             "Partner"));
 
 
             XLS_SH_R = XLS_SH.createRow(1);
@@ -2656,7 +2673,14 @@ for(int i=0;i<prop.length;i++)
                 if (row != null) {
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
-                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        if("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())){
+                            if (row.getPartnerId() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
+                            }
+                        }
+                        else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2754,7 +2778,16 @@ for(int i=0;i<prop.length;i++)
                     for (int cellValue = 0; cellValue < headerValues.length;
                          cellValue++) {
                         
-                        if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if (row.getPartnerId() != null) {
+                                out.print(row.getPartnerId().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }
+                        
+                        else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
@@ -2853,7 +2886,17 @@ for(int i=0;i<prop.length;i++)
                                      this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0;
                              cellValue < headerValues.length; cellValue++) {
-                            if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            
+                            if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                                if (row.getPartnerId() != null) {
+                                    out.print(row.getPartnerId().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }
+                            
+                            else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
@@ -3175,7 +3218,21 @@ for(int i=0;i<prop.length;i++)
         return fileName;
     }
 
-  
+    public void setPartnerValue(List<String> partnerValue) {
+        this.partnerValue = partnerValue;
+    }
+
+    public List<String> getPartnerValue() {
+        return partnerValue;
+    }
+
+    public void setPartner_req(String partner_req) {
+        this.partner_req = partner_req;
+    }
+
+    public String getPartner_req() {
+        return partner_req;
+    }
 
 
     public class Bindings {
@@ -3192,7 +3249,7 @@ for(int i=0;i<prop.length;i++)
         private RichPanelGroupLayout cardPGL;
         private RichTable invoiceResults;
         private RichTable invoiceResultsPopup;
-        private RichSelectOneChoice partnerNumber;
+        private RichSelectManyChoice partnerNumber;
         private RichPopup confirmationExcel;
         private RichSelectOneRadio selectionExportOneRadio;
         private RichPopup specificColumns;
@@ -3322,11 +3379,11 @@ for(int i=0;i<prop.length;i++)
             return invoiceResults;
         }
 
-        public void setPartnerNumber(RichSelectOneChoice partnerNumber) {
+        public void setPartnerNumber(RichSelectManyChoice partnerNumber) {
             this.partnerNumber = partnerNumber;
         }
 
-        public RichSelectOneChoice getPartnerNumber() {
+        public RichSelectManyChoice getPartnerNumber() {
             return partnerNumber;
         }
 

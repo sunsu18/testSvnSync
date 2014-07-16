@@ -58,7 +58,7 @@
             <af:panelGroupLayout id="pgl18"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
-               <af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
+               <!--<af:selectOneChoice id="smc1" unselectedLabel="#{sfr.PLEASE_SELECT_ENG}" autoSubmit="true"
                            contentStyle="width: 200px;"
                            value="#{pageFlowScope.InvoiceOverviewBean.partnerValue}"
                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.partnerValueChangeListener}"
@@ -68,9 +68,22 @@
          <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
                         id="select_item"/>
         </af:forEach>
-       </af:selectOneChoice>
-            <af:spacer width="20" height="20"
-                                                          id="s41"/>
+       </af:selectOneChoice>-->
+       
+       
+       <af:selectManyChoice id="smc45" autoSubmit="true"
+                            binding="#{pageFlowScope.InvoiceOverviewBean.bindings.partnerNumber}"
+                            value="#{pageFlowScope.InvoiceOverviewBean.partnerValue}"
+                            valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.partnerValueChangeListener}"
+                            contentStyle="width: 175px;">
+             <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.partnerList}"
+                    var="listItem">
+         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                        id="select_item_account1"/>
+        </af:forEach>
+       </af:selectManyChoice>
+       
+            <af:spacer width="20" height="20" id="s41"/>
             <af:selectManyChoice id="smc4" autoSubmit="true"
                             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.account}"
                             value="#{pageFlowScope.InvoiceOverviewBean.accountValue}"
@@ -464,6 +477,10 @@
                selectedRowKeys="#{bindings.PrtNewInvoiceVO1.collectionModel.selectedRow}"
                selectionListener="#{bindings.PrtNewInvoiceVO1.collectionModel.makeCurrent}"
                rowSelection="single" id="t1"  disableColumnReordering="true" columnResizing="disabled" autoHeightRows="20">
+      <af:column sortProperty="PartnerId" headerText="#{sfr.PARTNER_ENG}" filterable="true" sortable="true" filterFeatures="caseInsensitive" width="100"
+                 id="c91">
+       <af:outputText value="#{row.PartnerId}" id="ot95"/>
+      </af:column>         
       <af:column sortProperty="AccountId" headerText="#{sfr.ENGAGE_ACCOUNT}" filterable="true" sortable="true" filterFeatures="caseInsensitive" width="100"
                  id="c9">
        <af:outputText value="#{row.AccountId}" id="ot70"/>
