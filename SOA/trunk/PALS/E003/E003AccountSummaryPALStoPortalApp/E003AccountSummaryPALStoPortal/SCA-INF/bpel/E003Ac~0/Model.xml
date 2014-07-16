@@ -41,12 +41,12 @@
     <!--variable name="ValidationPayload" element="ns14:AccountSummaryPartner"/-->
     <variable name="InvokeSOAPartnerrErrorLogDBAdapter_IV" messageType="ns15:EngageSoaPartnerErrorlogCollection_msg"/>
     <variable name="InvokeErrorHandlingJMSAdapter_IV" messageType="ns16:Produce_Message_msg"/>
-    <variable name="ValidationPayload" element="ns14:AccountSummaryPartner"/>
     <variable name="errorFlag" type="xsd:string"/>
     <variable name="InvokeGetErrorRecordsSOADBAdapterV1_IV" messageType="ns18:GetErrorRecordsSOADBAdapterV1Input_msg"/>
     <variable name="InvokeGetErrorRecordsSOADBAdapterV1_OV" messageType="ns18:GetErrorRecordsSOADBAdapterV1OutputCollection_msg"/>
     <variable name="InvokeUpdateEmailFlagSOADBAdapterV1_IV" messageType="ns20:EngageSoaPartnerErrorlogCollection_msg"/>
     <variable name="InvokePALSNotificationJMSAdapteV1_IV" messageType="ns21:Produce_Message_msg"/>
+    <variable name="ValidationPayload" element="ns14:AccountSummaryPartner"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0">

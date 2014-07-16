@@ -1,12 +1,12 @@
-Jul 3, 2014 10:53:49 AM oracle.mds
+Jul 16, 2014 8:21:15 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Jul 3, 2014 10:53:49 AM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Jul 16, 2014 8:21:15 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Jul 3, 2014 10:53:49 AM com.collaxa.cube.CubeLogger info
+Jul 16, 2014 8:21:15 PM com.collaxa.cube.CubeLogger info
 INFO: validating "E003AccountSummaryPalstoPortalBPEL.bpel" ...
-Jul 3, 2014 10:53:50 AM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Jul 16, 2014 8:21:15 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Jul 3, 2014 10:53:50 AM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Jul 16, 2014 8:21:15 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
@@ -15,13 +15,13 @@ node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandl
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchFaultBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Jul 3, 2014 10:53:50 AM com.collaxa.cube.CubeLogger info
-INFO: Composed "E003AccountSummaryPalstoPortalBPEL" in 64.4 milliseconds [nodes 110=0+110, 1,707.4 nodes/sec]
-Jul 3, 2014 10:53:52 AM com.collaxa.cube.CubeLogger info
-INFO: Compiled "E003AccountSummaryPalstoPortalBPEL" in 1.955 seconds
-Jul 3, 2014 10:53:52 AM com.collaxa.cube.CubeLogger info
-INFO: Gathered 3 files in 2.9 milliseconds
+Jul 16, 2014 8:21:16 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "E003AccountSummaryPalstoPortalBPEL" in 70.5 milliseconds [nodes 110=0+110, 1,559.4 nodes/sec]
+Jul 16, 2014 8:21:19 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "E003AccountSummaryPalstoPortalBPEL" in 3.233 seconds
+Jul 16, 2014 8:21:19 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 4.1 milliseconds
 
-Jul 3, 2014 10:53:52 AM com.collaxa.cube.CubeLogger info
-INFO: Packaged "E003AccountSummaryPalstoPortalBPEL" in 17.6 milliseconds
+Jul 16, 2014 8:21:19 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "E003AccountSummaryPalstoPortalBPEL" in 21.1 milliseconds
 
