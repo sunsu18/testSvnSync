@@ -35,7 +35,7 @@ from prt_card_payment_doc join prt_card_invoice_details ON
 (prt_card_payment_doc.invoice_doc_number = prt_card_invoice_details.invoice_doc_number and prt_card_payment_doc.country_code = prt_card_invoice_details.country_code)
 
 Where prt_card_payment_doc.COUNTRY_CODE = :countryCode AND INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID) <> 0 
-
+AND prt_card_payment_doc.INVOICE_LEVEL is not null
 order by prt_card_payment_doc.invoicing_date DESC,prt_card_payment_doc.invoice_doc_number DESC) where rownum <=5]]>
   </SQLQuery>
   <ViewAttribute
