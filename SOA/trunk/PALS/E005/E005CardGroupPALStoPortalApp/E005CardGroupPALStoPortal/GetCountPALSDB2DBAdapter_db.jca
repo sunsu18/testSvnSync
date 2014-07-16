@@ -3,7 +3,7 @@
   <connection-factory location="DYNAMICJNDI" UIConnectionName="PALS_DB_DEV" adapterRef=""/>
   <endpoint-interaction portType="GetCountPALSDB2DBAdapter_ptt" operation="GetCountPALSDB2DBAdapter">
     <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
-      <property name="SqlString" value="select count(*) from CC072VS1_CSSFFO_DTA where DELTA_TS > #DeltaTS"/>
+      <property name="SqlString" value="select count(*) from (select DELTA_TS from CC072VS1_CSSFFO_DTA order by DELTA_TS) t1 where DELTA_TS > #DeltaTS"/>
       <property name="GetActiveUnitOfWork" value="false"/>
     </interaction-spec>
     <input/>

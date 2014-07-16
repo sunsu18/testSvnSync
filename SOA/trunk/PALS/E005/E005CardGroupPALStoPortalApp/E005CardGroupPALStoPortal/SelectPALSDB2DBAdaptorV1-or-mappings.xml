@@ -27,8 +27,7 @@
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>SELECT DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX FROM 
-(SELECT  DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX,ROW_NUMBER() OVER() as rownumber from CC072VS1_CSSFFO_DTA WHERE DELTA_TS >#DeltaTS  order by DELTA_TS asc ) CardGroup WHERE (DELTA_TS > #DeltaTS AND rownumber &lt;= cast(#BatchSize as INTEGER))</sql>
+                     <sql>SELECT DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX FROM (SELECT  DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX,ROW_NUMBER() OVER() as rownumber from (SELECT DELTA_TS, PARTNER_ID, F_FORHOLD_HTP, F_FORHOLD_UTP, F_FORHOLD_LNR, KONTO_ID, F_FORHOLD_TX FROM CC072VS1_CSSFFO_DTA order by DELTA_TS asc) T1 WHERE (DELTA_TS >#DeltaTS)) T2 where rownumber &lt;= cast(#BatchSize as INTEGER)</sql>
                   </call>
                   <reference-class>SelectPALSDB2DBAdaptorV1.Cc072Vs1CssffoDta</reference-class>
                   <container xsi:type="list-container-policy">
