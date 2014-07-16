@@ -3,11 +3,19 @@
 <!--Generated May 5, 2014 6:06:53 PM-->
 <project name="EngageCore" default="all" basedir=".">
   <property file="engagecore-build.properties"/>
+  
+ <path id="library.Oracle.JDBC">
+    <pathelement location="${oracle.home}/ide/macros/../../../oracle_common/modules/oracle.jdbc_11.1.1/ojdbc6dms.jar"/>
+    <pathelement location="${oracle.home}/ide/macros/../../../oracle_common/modules/oracle.nlsrtl_11.1.0/orai18n.jar"/>
+    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.odl_11.1.1\ojdl.jar"/>
+    <pathelement location="C:\Oracle\Middleware2013\oracle_common\modules\oracle.dms_11.1.1\dms.jar"/>
+ </path>
   <path id="library.UtilityJAR.jar">
     <pathelement location="../../libraries/jar/utilityJAR.jar"/>
   </path>
   <path id="classpath">
     <path refid="library.UtilityJAR.jar"/>
+    <path refid="library.Oracle.JDBC"/>
   </path>
   <target name="init">
     <tstamp/>
