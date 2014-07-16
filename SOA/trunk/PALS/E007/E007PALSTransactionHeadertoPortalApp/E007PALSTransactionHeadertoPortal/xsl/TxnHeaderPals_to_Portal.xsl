@@ -74,7 +74,7 @@
             <ns3:card1_Id>
               <xsl:value-of select="top:eksternId"/>
             </ns3:card1_Id>
-            <xsl:choose>
+            <!--xsl:choose>
               <xsl:when test="top:ekstrainputKd = 'V2'">
                 <ns3:card2_Id>
                   <xsl:value-of select="top:fakekspksId"/>
@@ -85,7 +85,10 @@
                   <xsl:value-of select="top:ekstrainputTx"/>
                 </ns3:card2_Id>
               </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose-->
+             <ns3:card2_Id>
+                  <xsl:value-of select="top:ekstrainputTx"/>
+                </ns3:card2_Id>
             <ns3:cardId2_Info>
               <xsl:value-of select="top:ekstrainputKd"/>
             </ns3:cardId2_Info>
