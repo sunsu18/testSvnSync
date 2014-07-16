@@ -16,7 +16,7 @@
       <partnerlink name="SelectInvoiceErrorLogDatabaseAdapterV1" x="2116" y="3888" side="right"/>
       <partnerlink name="SOAErrorHandlerJMSQAdapterV1" x="2116" y="1951" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,4560,748,494" show_swimlanes="true">
+   <graph_layout viewport="1233,2250,1016,273" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
