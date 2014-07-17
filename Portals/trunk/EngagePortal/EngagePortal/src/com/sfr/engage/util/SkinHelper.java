@@ -28,6 +28,7 @@ public class SkinHelper extends ThreadSerialization {
     String skinStylePetro = "sfrPetro";
     String profile;
     AccessDataControl accessDC = new AccessDataControl();
+    String locale;
 
 
     private String currentSkin;
@@ -110,5 +111,25 @@ public class SkinHelper extends ThreadSerialization {
      */
     public String getProfile() {
         return profile;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public String getLocale() {
+
+        HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+
+        if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("se_SE")) {
+            locale = "sv";
+        }
+        else
+        if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("no_NO") || session.getAttribute("lang").toString().equalsIgnoreCase("da_DK") || session.getAttribute("lang").toString().equalsIgnoreCase("hu_HU") || session.getAttribute("lang").toString().equalsIgnoreCase("ro_RO") || session.getAttribute("lang").toString().equalsIgnoreCase("bg_BG"))
+        {
+        locale = session.getAttribute("lang").toString().substring(0,2);
+        }
+
+        return locale;
     }
 }
