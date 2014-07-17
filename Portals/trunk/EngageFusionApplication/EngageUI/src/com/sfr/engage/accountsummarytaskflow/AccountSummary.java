@@ -7,7 +7,6 @@ import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
-import com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -49,7 +48,6 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.Row;
-import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
 import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
@@ -129,8 +127,22 @@ public class AccountSummary implements Serializable {
     private RichInputText searchStringInputtext;
     private boolean executeSearch = false;
     private boolean hideblockedcards = false;
+    private boolean displayactivecards = false;
+    private boolean displaytempblockedcards = false;
+    private boolean displayperblockedcards = false;
+    private boolean displayperblockedandactivecards = false;
+    private boolean displayperblockedandtempcards = false;
+    private boolean displayallcards = true;
     private RichPanelGroupLayout noSearchResults;
     EngageResourceBundle resourceBundle;
+    private RichPanelGroupLayout treePanel;
+    private List filterAttributes = new ArrayList();
+    private RichTree blockcardshiddentree;
+    private RichTree onlyactivecardstree;
+    private RichTree onlytempblockedcardstree;
+    private RichTree onlyblockedcardstree;
+    private RichTree permblockedandactivecardstree;
+    private RichTree permblockedandtempblockedcardstree;
 
     //    public static final ADFLogger log = ADFLogger.createADFLogger("Engage_Portal");
 
@@ -400,16 +412,243 @@ public class AccountSummary implements Serializable {
     }
 
     public void hideBlockedCards(ActionEvent actionEvent){
-        hideblockedcards = true;
-        if(getBindings().getAdfTree()!=null)
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
 
-        findTreeInView();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+
+                        searchString = "";
+                        searchStringInputtext.resetValue();
+                        searchStringInputtext.setSubmittedValue(null);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(searchStringInputtext);
+                        searchLevel="";
+
+        System.out.println("filterAttributes size is " + filterAttributes.size());
+
+        for(int j=0;j<filterAttributes.size();j++)
+        System.out.println(filterAttributes.get(j).toString());
+
+        String searchAttributeArray[] =
+            (String[])filterAttributes.toArray(new String[filterAttributes.size()]);
+
+        String listString = "";
+
+        for (String s : searchAttributeArray)
+        {
+            listString += s + ",";
+        }
+
+        System.out.println("listString " + listString);
+
+        if(listString.contains("Active Cards") && listString.contains("Softblock Cards") && listString.contains("Hardblock Cards")) {
+            hideblockedcards = false;
+            displayallcards = true;
+            displayactivecards = false;
+            displaytempblockedcards = false;
+            displayperblockedcards = false;
+            displayperblockedandactivecards = false;
+            displayperblockedandtempcards = false;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+        else
+        if(listString.contains("Active Cards") && listString.contains("Softblock Cards"))
+        {
+        hideblockedcards = true;
+        displayallcards = false;
+        displayactivecards = false;
+        displaytempblockedcards = false;
+        displayperblockedcards = false;
+        displayperblockedandactivecards = false;
+        displayperblockedandtempcards = false;
+        hideAll();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+        else
+            if(listString.contains("Active Cards") && listString.contains("Hardblock Cards"))
+        {
+            hideblockedcards = false;
+            displayallcards = false;
+            displayactivecards = false;
+            displaytempblockedcards = false;
+            displayperblockedcards = false;
+            displayperblockedandactivecards = true;
+            displayperblockedandtempcards = false;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+
+        }
+        else
+            if(listString.contains("Softblock Cards") && listString.contains("Hardblock Cards")) {
+
+            hideblockedcards = false;
+            displayallcards = false;
+            displayactivecards = false;
+            displaytempblockedcards = false;
+            displayperblockedcards = false;
+            displayperblockedandactivecards = false;
+            displayperblockedandtempcards = true;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+        else
+            if(listString.contains("Active Cards")) {
+            hideblockedcards = false;
+            displayallcards = false;
+            displayactivecards = true;
+            displaytempblockedcards = false;
+            displayperblockedcards = false;
+            displayperblockedandactivecards = false;
+            displayperblockedandtempcards = false;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+        else
+        if(listString.contains("Softblock Cards")) {
+            hideblockedcards = false;
+            displayallcards = false;
+            displayactivecards = false;
+            displaytempblockedcards = true;
+            displayperblockedcards = false;
+            displayperblockedandactivecards = false;
+            displayperblockedandtempcards = false;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+        else
+        if(listString.contains("Hardblock Cards")) {
+            hideblockedcards = false;
+            displayallcards = false;
+            displayactivecards = false;
+            displaytempblockedcards = false;
+            displayperblockedcards = true;
+            displayperblockedandactivecards = false;
+            displayperblockedandtempcards = false;
+            hideAll();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
+        }
+
+
+        RichTree treereset;
+        treereset = getBindings().getAdfTree();
+        if (treereset != null) {
+            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                _disclosedRowKeys.clear();
+            } else
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in adf tree");
+
+            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+        }
+
+       treereset = getBlockcardshiddentree();
+        if (treereset != null) {
+            RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+            if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                System.out.println("cleared for getBlockcardshiddentree");
+                _disclosedRowKeys.clear();
+            } else
+                log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getBlockcardshiddentree tree");
+
+            treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+        }
+
+        treereset = getOnlyactivecardstree();
+         if (treereset != null) {
+             RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                 System.out.println("cleared for getOnlyactivecardstree");
+                 _disclosedRowKeys.clear();
+             } else
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyactivecardstree tree");
+
+             treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+         }
+
+        treereset = getOnlytempblockedcardstree();
+         if (treereset != null) {
+             RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                 System.out.println("cleared for getOnlytempblockedcardstree");
+                 _disclosedRowKeys.clear();
+             } else
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlytempblockedcardstree tree");
+
+             treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+         }
+
+
+        treereset = getOnlyblockedcardstree();
+         if (treereset != null) {
+             RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                 System.out.println("cleared for getOnlyblockedcardstree");
+                 _disclosedRowKeys.clear();
+             } else
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getOnlyblockedcardstree tree");
+
+             treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+         }
+
+
+        treereset = getPermblockedandactivecardstree();
+         if (treereset != null) {
+             RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                 System.out.println("cleared for getPermblockedandactivecardstree");
+                 _disclosedRowKeys.clear();
+             } else
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandactivecardstree tree");
+
+             treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+         }
+
+        treereset = getPermblockedandtempblockedcardstree();
+         if (treereset != null) {
+             RowKeySet _disclosedRowKeys = treereset.getDisclosedRowKeys();
+
+             if (_disclosedRowKeys != null && _disclosedRowKeys.size() > 0) {
+                 System.out.println("cleared for getPermblockedandtempblockedcardstree");
+                 _disclosedRowKeys.clear();
+             } else
+                 log.info(accessDC.getDisplayRecord() + this.getClass() + " No key to disclose in getPermblockedandtempblockedcardstree tree");
+
+             treereset.setDisclosedRowKeys(_disclosedRowKeys);
+
+         }
+
+
+
+//        findTreeInView();
+//        AdfFacesContext.getCurrentInstance().addPartialTarget(tree1);
+//        if(getBindings().getAdfTree()!=null)
+//        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAdfTree());
+
+
     }
     public void searchTraverse(ActionEvent actionEvent) {
+        filterAttributes = null;
         executeSearch = false;
         hideAll();
+
+        hideblockedcards = false;
+        displayallcards = true;
+        displayactivecards = false;
+        displaytempblockedcards = false;
+        displayperblockedcards = false;
+        displayperblockedandactivecards = false;
+        displayperblockedandtempcards = false;
+        hideAll();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(treePanel);
 
         if(searchLevel!=null  && searchLevel.trim()!=null)
         if(searchLevel.equalsIgnoreCase("displayCardGroupIdName") || searchLevel.equalsIgnoreCase("externalCardID") || searchLevel.equalsIgnoreCase("cardTextline2"))
@@ -1149,6 +1388,118 @@ public class AccountSummary implements Serializable {
 
     public boolean isHideblockedcards() {
         return hideblockedcards;
+    }
+
+    public void setDisplayallcards(boolean displayallcards) {
+        this.displayallcards = displayallcards;
+    }
+
+    public boolean isDisplayallcards() {
+        return displayallcards;
+    }
+
+    public void setTreePanel(RichPanelGroupLayout treePanel) {
+        this.treePanel = treePanel;
+    }
+
+    public RichPanelGroupLayout getTreePanel() {
+        return treePanel;
+    }
+
+    public void setFilterAttributes(List filterAttributes) {
+        this.filterAttributes = filterAttributes;
+    }
+
+    public List getFilterAttributes() {
+        return filterAttributes;
+    }
+
+    public void setDisplayactivecards(boolean displayactivecards) {
+        this.displayactivecards = displayactivecards;
+    }
+
+    public boolean isDisplayactivecards() {
+        return displayactivecards;
+    }
+
+    public void setDisplaytempblockedcards(boolean displaytempblockedcards) {
+        this.displaytempblockedcards = displaytempblockedcards;
+    }
+
+    public boolean isDisplaytempblockedcards() {
+        return displaytempblockedcards;
+    }
+
+    public void setDisplayperblockedcards(boolean displayperblockedcards) {
+        this.displayperblockedcards = displayperblockedcards;
+    }
+
+    public boolean isDisplayperblockedcards() {
+        return displayperblockedcards;
+    }
+
+    public void setDisplayperblockedandactivecards(boolean displayperblockedandactivecards) {
+        this.displayperblockedandactivecards = displayperblockedandactivecards;
+    }
+
+    public boolean isDisplayperblockedandactivecards() {
+        return displayperblockedandactivecards;
+    }
+
+    public void setDisplayperblockedandtempcards(boolean displayperblockedandtempcards) {
+        this.displayperblockedandtempcards = displayperblockedandtempcards;
+    }
+
+    public boolean isDisplayperblockedandtempcards() {
+        return displayperblockedandtempcards;
+    }
+
+    public void setBlockcardshiddentree(RichTree blockcardshiddentree) {
+        this.blockcardshiddentree = blockcardshiddentree;
+    }
+
+    public RichTree getBlockcardshiddentree() {
+        return blockcardshiddentree;
+    }
+
+    public void setOnlyactivecardstree(RichTree onlyactivecardstree) {
+        this.onlyactivecardstree = onlyactivecardstree;
+    }
+
+    public RichTree getOnlyactivecardstree() {
+        return onlyactivecardstree;
+    }
+
+    public void setOnlytempblockedcardstree(RichTree onlytempblockedcardstree) {
+        this.onlytempblockedcardstree = onlytempblockedcardstree;
+    }
+
+    public RichTree getOnlytempblockedcardstree() {
+        return onlytempblockedcardstree;
+    }
+
+    public void setOnlyblockedcardstree(RichTree onlyblockedcardstree) {
+        this.onlyblockedcardstree = onlyblockedcardstree;
+    }
+
+    public RichTree getOnlyblockedcardstree() {
+        return onlyblockedcardstree;
+    }
+
+    public void setPermblockedandactivecardstree(RichTree permblockedandactivecardstree) {
+        this.permblockedandactivecardstree = permblockedandactivecardstree;
+    }
+
+    public RichTree getPermblockedandactivecardstree() {
+        return permblockedandactivecardstree;
+    }
+
+    public void setPermblockedandtempblockedcardstree(RichTree permblockedandtempblockedcardstree) {
+        this.permblockedandtempblockedcardstree = permblockedandtempblockedcardstree;
+    }
+
+    public RichTree getPermblockedandtempblockedcardstree() {
+        return permblockedandtempblockedcardstree;
     }
 
 

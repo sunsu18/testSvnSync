@@ -65,6 +65,11 @@ public class MyPageListener implements PagePhaseListener {
     List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
     List<CardInfo> cardlist = new ArrayList<CardInfo>();
     List<CardInfo> unblockedcardlist = new ArrayList<CardInfo>();
+    List<CardInfo> perBlockAndTempBlockCardList;
+    List<CardInfo> perBlockAndActiveCardList;
+    List<CardInfo> perBlockCardList;
+    List<CardInfo> tempBlockCardList;
+    List<CardInfo> activeCardList;
     List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
     List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
@@ -1309,8 +1314,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         part = new PartnerInfo();
         accountlist = new ArrayList<AccountInfo>();
         cardgrouplist = new ArrayList<CardGroupInfo>();
-        cardlist = new ArrayList<CardInfo>();
-        unblockedcardlist = new ArrayList<CardInfo>();
+        //cardlist = new ArrayList<CardInfo>();
+        //unblockedcardlist = new ArrayList<CardInfo>();
 
         //System.out.println(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + "  partIndex ----> " + partIndex);
         String Partnerid = partnerlist.get(partIndex).getPartnerValue();
@@ -1322,8 +1327,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
         if(bindings == null || bindings.findIteratorBinding("PrtAccountVO1Iterator") == null)
         {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
-        else
-            System.out.println("bindings PrtAccountVO1Iterator found from template");
+        //else
+            //System.out.println("bindings PrtAccountVO1Iterator found from template");
 
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtAccountVO1Iterator") != null) {
@@ -1391,8 +1396,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                 bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
                         if(bindings == null || bindings.findIteratorBinding("PrtCardgroupVO1Iterator") == null)
                         {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
-                else
-                            System.out.println("PrtCardgroupVO1Iterator found from template");
+//                else
+//                            System.out.println("PrtCardgroupVO1Iterator found from template");
 
 
                 DCIteratorBinding iter2;
@@ -1430,6 +1435,11 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         cardgrp = new CardGroupInfo();
                         cardlist = new ArrayList<CardInfo>();
                         unblockedcardlist = new ArrayList<CardInfo>();
+                        activeCardList = new ArrayList<CardInfo>();
+                        tempBlockCardList = new ArrayList<CardInfo>();
+                        perBlockCardList = new ArrayList<CardInfo>();
+                        perBlockAndActiveCardList = new ArrayList<CardInfo>();
+                        perBlockAndTempBlockCardList = new ArrayList<CardInfo>();
                         PrtCardgroupVORowImpl currRowcardgrp = (PrtCardgroupVORowImpl)cardGroupVO.next();
 
                         if (currRowcardgrp != null) {
@@ -1481,8 +1491,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
                                 if(bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null)
                                 {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
-                        else
-                                    System.out.println("PrtCardVO1Iterator found from template");
+//                        else
+//                                    System.out.println("PrtCardVO1Iterator found from template");
 
                         DCIteratorBinding iter3;
                         if (bindings != null) {
@@ -1526,7 +1536,19 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                         if (!addflagcardgroup) {
                             cardgrp.setCard(cardlist);
                             cardgrp.setUnblockedCardList(unblockedcardlist);
-                            //System.out.println("unblockedcardlist size " + unblockedcardlist.size());
+                            cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
+                            cardgrp.setPerBlockAndTempBlockCardList(perBlockAndTempBlockCardList);
+                            cardgrp.setPerBlockCardList(perBlockCardList);
+                            cardgrp.setTempBlockCardList(tempBlockCardList);
+                            cardgrp.setActiveCardList(activeCardList);
+
+                            System.out.println("tempBlockAndActiveCardList size "+unblockedcardlist.size());
+                            System.out.println("perBlockAndActiveCardList size " + perBlockAndActiveCardList.size());
+                            System.out.println("perBlockAndTempBlockCardList size " + perBlockAndTempBlockCardList.size());
+                            System.out.println("perBlockCardList size " + perBlockCardList.size());
+                            System.out.println("tempBlockCardList size " + tempBlockCardList.size());
+                            System.out.println("activeCardList size " + activeCardList.size());
+
                             cardgrouplist.add(cardgrp);
                         }
                     }
@@ -1590,10 +1612,14 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                 if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("1") || currRowcard.getBlockAction().equalsIgnoreCase("0")) {
                     if((currRowcard.getCardExpiry() != null && currRowcard.getCardExpiry().before(new Date())))
-                    card.setBlockAction("2");
+                    {
+                        card.setBlockAction("2");
+
+                    }
+
 
                 }
-                
+
                 if (currRowcard.getCardType() != null) {
                     if (currRowcard.getCardType().toString().startsWith("2") &&
                         !consistsTwoCardStatus) {
@@ -1625,6 +1651,46 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                     unblockedcardlist.add(card);
                 }
 
+                if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("0"))
+                {
+                    if(currRowcard.getCardExpiry().after(new Date()))
+                    activeCardList.add(card);
+                    else
+                    {
+                        perBlockCardList.add(card);
+                        perBlockAndTempBlockCardList.add(card);
+                    }
+
+
+                    perBlockAndActiveCardList.add(card);
+                }
+                else
+                    if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("1")) {
+
+                    if(currRowcard.getCardExpiry().after(new Date()))
+                    tempBlockCardList.add(card);
+                    else
+                    {
+                        perBlockCardList.add(card);
+                        perBlockAndActiveCardList.add(card);
+                    }
+
+                    perBlockAndTempBlockCardList.add(card);
+                }
+                else
+                    if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+                    perBlockCardList.add(card);
+                    perBlockAndActiveCardList.add(card);
+                    perBlockAndTempBlockCardList.add(card);
+                }
+
+
+//                perBlockAndActiveCardList.addAll(perBlockCardList);
+//                perBlockAndActiveCardList.addAll(activeCardList);
+//
+//                perBlockAndTempBlockCardList.addAll(perBlockCardList)
+//                perBlockAndTempBlockCardList.addAll(tempBlockCardList)
+
             }
             if (!addflagcard)
                 cardlist.add(card);
@@ -1643,8 +1709,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
         if(bindings == null || bindings.findIteratorBinding("PrtPartnerVO1Iterator") == null)
         {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
-        else
-            System.out.println("PrtPartnerVO1Iterator bindings found in template");
+//        else
+//            System.out.println("PrtPartnerVO1Iterator bindings found in template");
 
         DCIteratorBinding iter1;
         if (bindings != null && bindings.findIteratorBinding("PrtPartnerVO1Iterator") != null) {

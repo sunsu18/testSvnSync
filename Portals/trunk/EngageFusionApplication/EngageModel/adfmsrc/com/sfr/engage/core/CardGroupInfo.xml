@@ -9,6 +9,11 @@
   <Attribute Name="displayCardGroupIdName" Type="java.lang.String"/>
   <AccessorAttribute id="card" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
   <AccessorAttribute id="unblockedCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="activeCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="tempBlockCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="perBlockCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="perBlockAndActiveCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
+  <AccessorAttribute id="perBlockAndTempBlockCardList" IsCollection="true" BeanClass="com.sfr.engage.core.CardInfo" CollectionBeanClass="UpdateableCollection"/>
   <MethodAccessor IsCollection="false" Type="void" id="setCardGroupOverview" ReturnNodeName="Return">
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>

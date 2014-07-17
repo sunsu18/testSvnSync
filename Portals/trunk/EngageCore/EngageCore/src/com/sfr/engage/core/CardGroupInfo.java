@@ -19,8 +19,27 @@ public class CardGroupInfo implements Comparable<CardGroupInfo>,Serializable {
     private String cardGroupMainType;
     private String cardGroupSubType;
     private String cardGroupSeq;
+    //CardList constiting of all cards Active,Temp block and permanent block cards (including expired cards)
     private List<CardInfo> card;
+
+    //CardList constiting of all  Active,Temp block cards (excluding expired cards)
     private List<CardInfo> unblockedCardList;
+
+    //CardList constiting of all  Active cards (excluding expired cards)
+    private List<CardInfo> activeCardList;
+
+    //CardList constiting of all Temp block cards (excluding expired cards)
+    private List<CardInfo> tempBlockCardList;
+
+    //CardList constiting of all permanent block cards (including expired cards)
+    private List<CardInfo> perBlockCardList;
+
+    //CardList constiting of all Active and permanent block cards (including expired cards)
+    private List<CardInfo> perBlockAndActiveCardList;
+
+    //CardList constiting of allTemp block and permanent block cards (including expired cards)
+    private List<CardInfo> perBlockAndTempBlockCardList;
+
     private String cardGroupName;
     private boolean cardGroupOverview;
 
@@ -138,7 +157,7 @@ public class CardGroupInfo implements Comparable<CardGroupInfo>,Serializable {
     public String getDisplayCardGroupIdName() {
         return displayCardGroupIdName;
     }
-    
+
     /**
      * To sort the list of Account objects based on Account number.
      * @param o - Object with which the current Account has to be compared
@@ -146,5 +165,45 @@ public class CardGroupInfo implements Comparable<CardGroupInfo>,Serializable {
      */
     public int compareTo(CardGroupInfo o) {
         return this.getDisplayCardGroupIdName().compareTo(o.getDisplayCardGroupIdName());
+    }
+
+    public void setActiveCardList(List<CardInfo> activeCardList) {
+        this.activeCardList = activeCardList;
+    }
+
+    public List<CardInfo> getActiveCardList() {
+        return activeCardList;
+    }
+
+    public void setTempBlockCardList(List<CardInfo> tempBlockCardList) {
+        this.tempBlockCardList = tempBlockCardList;
+    }
+
+    public List<CardInfo> getTempBlockCardList() {
+        return tempBlockCardList;
+    }
+
+    public void setPerBlockCardList(List<CardInfo> perBlockCardList) {
+        this.perBlockCardList = perBlockCardList;
+    }
+
+    public List<CardInfo> getPerBlockCardList() {
+        return perBlockCardList;
+    }
+
+    public void setPerBlockAndActiveCardList(List<CardInfo> perBlockAndActiveCardList) {
+        this.perBlockAndActiveCardList = perBlockAndActiveCardList;
+    }
+
+    public List<CardInfo> getPerBlockAndActiveCardList() {
+        return perBlockAndActiveCardList;
+    }
+
+    public void setPerBlockAndTempBlockCardList(List<CardInfo> perBlockAndTempBlockCardList) {
+        this.perBlockAndTempBlockCardList = perBlockAndTempBlockCardList;
+    }
+
+    public List<CardInfo> getPerBlockAndTempBlockCardList() {
+        return perBlockAndTempBlockCardList;
     }
 }

@@ -255,5 +255,227 @@
         <Item Value="Status"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="partnerlistIterator" id="partnerlist1">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist10">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist11">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist12">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="unblockedCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist13">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist2">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist20">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist21">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist22">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="activeCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist23">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist3">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist30">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist31">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist32">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="tempBlockCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist33">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist4">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist40">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist41">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist42">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="perBlockCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist43">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist5">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist50">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist51">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist52">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="perBlockAndActiveCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist53">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="partnerlistIterator" id="partnerlist6">
+      <nodeDefinition DefName="com.sfr.engage.core.PartnerInfo" Name="partnerlist60">
+        <AttrNames>
+          <Item Value="partnerValue"/>
+          <Item Value="partnerName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="accountList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.AccountInfo" Name="partnerlist61">
+        <AttrNames>
+          <Item Value="accountNumber"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="cardGroup"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardGroupInfo" Name="partnerlist62">
+        <AttrNames>
+          <Item Value="cardGroupID"/>
+          <Item Value="cardGroupName"/>
+          <Item Value="displayCardGroupIdName"/>
+        </AttrNames>
+        <Accessors>
+          <Item Value="perBlockAndTempBlockCardList"/>
+        </Accessors>
+      </nodeDefinition>
+      <nodeDefinition DefName="com.sfr.engage.core.CardInfo" Name="partnerlist63">
+        <AttrNames>
+          <Item Value="cardID"/>
+          <Item Value="externalCardID"/>
+          <Item Value="blockAction"/>
+          <Item Value="displayCardNumber"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

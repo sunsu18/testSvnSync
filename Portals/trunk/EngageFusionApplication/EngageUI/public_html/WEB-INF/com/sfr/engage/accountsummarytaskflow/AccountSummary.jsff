@@ -59,7 +59,7 @@
      <af:outputText value="Search In : " id="ot4"/>
      <af:selectOneChoice id="sml1" autoSubmit="true"
                                  value="#{pageFlowScope.AccountSummaryBean.searchLevel}"
-                                 unselectedLabel="#{sfr.PLEASE_SELECT}"
+                                 unselectedLabel="#{sfr.PLEASE_SELECT}" partialTriggers="::cb11"
                          contentStyle="width:185.0px;" valueChangeListener="#{pageFlowScope.AccountSummaryBean.resetinputtext}">
 
 <af:selectItem label="#{sfr.CARDGROUP}/#{sfr.CARDGROUP_NAME_1}" value="displayCardGroupIdName" id="si6"/>
@@ -78,8 +78,15 @@
                         actionListener="#{pageFlowScope.AccountSummaryBean.searchTraverse}"
                         partialSubmit="true" text="#{sfr.SEARCH}"/>
                         </af:panelGroupLayout>
+                        <af:spacer height="10" id="s175"/>
                         <af:panelGroupLayout id="pgl36">
-      <!--<af:commandButton text="Hide blocked" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>-->
+                                      <af:selectManyChoice label="Include" id="smc1"
+                                   value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10">
+                <af:selectItem label="Hardblock Cards" value="Hardblock Cards" id="si4"/>
+                <af:selectItem label="Softblock Cards" value="Softblock Cards" id="si7"/>
+                <af:selectItem label="Active Cards" value="Active Cards" id="si8"/>
+              </af:selectManyChoice>
+      <af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>
     </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s297"/>
 
@@ -89,20 +96,20 @@
 
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
-                          inlineStyle="width:240px; height:480px" valign="top">
+                          inlineStyle="width:240px; height:480px" valign="top" binding="#{pageFlowScope.AccountSummaryBean.treePanel}">
 
 
         <af:tree value="#{bindings.partnerlist.treeModel}" var="node"
                  selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}"
                  rowSelection="single" id="t1" summary="Partner_Tree" binding="#{pageFlowScope.AccountSummaryBean.bindings.adfTree}"
-                 contentDelivery="immediate" immediate="true"
+                 contentDelivery="immediate" immediate="true" rendered="#{pageFlowScope.AccountSummaryBean.displayallcards}"
 
                  contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10">
                  <f:facet name="contextMenu">
 <af:popup id="p1"/>
 </f:facet>
 
-                    <f:facet name="nodeStamp">
+                <f:facet name="nodeStamp">
            <af:switcher id="s1"
                  facetName="#{node.hierTypeBinding.viewDefName}">
 
@@ -159,10 +166,411 @@
 </f:facet>
            <af:clientListener method="expandNode" type="click"/>
         </af:tree>
+        <af:tree value="#{bindings.partnerlist1.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+                 id="t2" summary="Partner_Tree"
+                 contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.hideblockedcards}"
+                 binding="#{pageFlowScope.AccountSummaryBean.blockcardshiddentree}">
+                                  <f:facet name="contextMenu">
+<af:popup id="p3"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s171"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g5">
+       <af:image shortDesc="" id="i4" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i12" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s172"/>
+        <af:outputText value="#{node.partnerName}" id="ot127" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g6">
+     <af:image shortDesc="" id="i13" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i14" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s173"/>
+      <af:outputText value="#{node.accountNumber}" id="ot128"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g7">
+       <af:image shortDesc="" id="i15" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i16" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s174"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot129" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g8">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i17" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i18" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i19" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i20" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s176"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot130" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
 
 
 
-     </af:panelGroupLayout>
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+          <!--<f:facet name="nodeStamp">
+            <af:outputText value="#{node}" id="ot127"/>
+          </f:facet>-->
+        </af:tree>
+
+    <af:tree value="#{bindings.partnerlist2.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+             id="active" summary="activecardsonly" contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayactivecards}"
+             binding="#{pageFlowScope.AccountSummaryBean.onlyactivecardstree}">
+                                                   <f:facet name="contextMenu">
+<af:popup id="p4"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s177"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g9">
+       <af:image shortDesc="" id="i21" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i22" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s178"/>
+        <af:outputText value="#{node.partnerName}" id="ot131" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g10">
+     <af:image shortDesc="" id="i23" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i24" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s179"/>
+      <af:outputText value="#{node.accountNumber}" id="ot136"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g11">
+       <af:image shortDesc="" id="i25" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i26" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s298"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot137" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g12">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i27" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i28" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i29" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i30" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s299"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot138" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+
+
+
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+
+    </af:tree>
+    <af:tree value="#{bindings.partnerlist3.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+             id="temp" summary="tempblockedcardsonly" contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displaytempblockedcards}"
+             binding="#{pageFlowScope.AccountSummaryBean.onlytempblockedcardstree}">
+                                                        <f:facet name="contextMenu">
+<af:popup id="p5"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s300"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g13">
+       <af:image shortDesc="" id="i31" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i32" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s301"/>
+        <af:outputText value="#{node.partnerName}" id="ot132" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g14">
+     <af:image shortDesc="" id="i33" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i34" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s302"/>
+      <af:outputText value="#{node.accountNumber}" id="ot139"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g15">
+       <af:image shortDesc="" id="i35" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i36" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s303"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot140" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g16">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i37" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i38" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i39" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i40" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s304"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot141" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+
+
+
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+    </af:tree>
+    <af:tree value="#{bindings.partnerlist4.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+             id="perbl" summary="permblockedcardsonly" contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10" rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedcards}"
+             binding="#{pageFlowScope.AccountSummaryBean.onlyblockedcardstree}">
+     <f:facet name="contextMenu">
+<af:popup id="p6"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s305"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g17">
+       <af:image shortDesc="" id="i41" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i42" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s306"/>
+        <af:outputText value="#{node.partnerName}" id="ot133" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g18">
+     <af:image shortDesc="" id="i43" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i44" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s307"/>
+      <af:outputText value="#{node.accountNumber}" id="ot142"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g19">
+       <af:image shortDesc="" id="i45" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i46" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s308"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot143" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g20">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i47" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i48" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i49" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i50" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s309"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot144" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+
+
+
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+    </af:tree>
+    <af:tree value="#{bindings.partnerlist5.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+             id="blact" summary="perblockedandactivecards" contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10"
+             rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedandactivecards}"
+             binding="#{pageFlowScope.AccountSummaryBean.permblockedandactivecardstree}">
+      <f:facet name="contextMenu">
+<af:popup id="p7"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s310"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g21">
+       <af:image shortDesc="" id="i51" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i60" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s311"/>
+        <af:outputText value="#{node.partnerName}" id="ot134" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g22">
+     <af:image shortDesc="" id="i52" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i53" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s312"/>
+      <af:outputText value="#{node.accountNumber}" id="ot145"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g23">
+       <af:image shortDesc="" id="i54" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i55" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s313"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot146" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g24">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i56" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i57" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i58" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i59" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s314"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot147" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+
+
+
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+    </af:tree>
+    <af:tree value="#{bindings.partnerlist6.treeModel}" var="node" selectionListener="#{pageFlowScope.AccountSummaryBean.treeListner}" rowSelection="single"
+             id="bltemp" summary="perblockedandtempblockedcards" contentDelivery="immediate" immediate="true"
+
+                 contextMenuSelect="false" fetchSize="500" partialTriggers="::cb10"
+             rendered="#{pageFlowScope.AccountSummaryBean.displayperblockedandtempcards}"
+             binding="#{pageFlowScope.AccountSummaryBean.permblockedandtempblockedcardstree}">
+       <f:facet name="contextMenu">
+<af:popup id="p8"/>
+</f:facet>
+
+                    <f:facet name="nodeStamp">
+           <af:switcher id="s315"
+                 facetName="#{node.hierTypeBinding.viewDefName}">
+
+
+     <f:facet name="com.sfr.engage.core.PartnerInfo">
+        <af:group id="g25">
+       <af:image shortDesc="" id="i61" source="/images/business_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+     <af:image shortDesc="" id="i62" source="/images/private_partner.png"
+               rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+    <af:spacer width="4"  id="s316"/>
+        <af:outputText value="#{node.partnerName}" id="ot135" truncateAt="18"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.AccountInfo">
+      <af:group id="g26">
+     <af:image shortDesc="" id="i63" source="/images/business_account.png"  rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+      <af:image shortDesc="" id="i64" source="/images/private_account.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+       <af:spacer width="4"  id="s317"/>
+      <af:outputText value="#{node.accountNumber}" id="ot148"/>
+      </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardGroupInfo">
+        <af:group id="g27">
+       <af:image shortDesc="" id="i65" source="/images/business_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.businessProfile}"/>
+        <af:image shortDesc="" id="i66" source="/images/private_cardgroup.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile}"/>
+        <af:spacer width="4"  id="s318"/>
+         <af:outputText value="#{node.displayCardGroupIdName}" id="ot149" truncateAt="17"/>
+        </af:group>
+      </f:facet>
+
+
+      <f:facet name="com.sfr.engage.core.CardInfo">
+      <af:group id="g28">
+      <!--<af:image shortDesc="" id="i4" source="/images/business_card.png" rendered="#{(node.blockAction)=='0'}"/>-->
+      <af:image shortDesc="" id="i67" source="/images/business_card_temp.png" rendered="#{(node.blockAction)=='1'}"/>
+      <af:image shortDesc="" id="i68" source="/images/business_card_perm.png" rendered="#{(node.blockAction)=='2'}"/>
+      <af:image shortDesc="" id="i69" source="/images/business_card.png"
+                rendered="#{pageFlowScope.AccountSummaryBean.businessProfile and (node.blockAction)=='0'}"/>
+    <af:image shortDesc="" id="i70" source="/images/private_card.png" rendered="#{pageFlowScope.AccountSummaryBean.privateProfile and (node.blockAction)=='0'}"/>
+       <af:spacer width="4"  id="s319"/>
+       <af:outputText value="#{node.displayCardNumber}" id="ot150" truncateAt="8" styleClass="#{(node.blockAction)=='1' ? 'tempBlockCards' : (node.blockAction)=='2' ? 'permanentBlockCards' : null}">
+       </af:outputText>
+       </af:group>
+      </f:facet>
+
+
+
+   </af:switcher>
+</f:facet>
+           <af:clientListener method="expandNode" type="click"/>
+    </af:tree>
+   </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl13">
         <af:separator id="s324" styleClass="vertical_seperator_account"
                       inlineStyle="opacity:0.30;"/>

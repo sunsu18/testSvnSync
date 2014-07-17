@@ -9,5 +9,12 @@
     <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
   </MethodAccessor>
   <MethodAccessor IsCollection="false" Type="boolean" id="isCompanyOverview" ReturnNodeName="Return"/>
+  <MethodAccessor IsCollection="false" Type="int" id="compareTo" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="com.sfr.engage.core.PartnerInfo" isStructured="true"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="void" id="setConsistsTwoCard" ReturnNodeName="Return">
+    <ParameterInfo id="p0" Type="boolean" isStructured="false"/>
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false" Type="boolean" id="isConsistsTwoCard" ReturnNodeName="Return"/>
   <ConstructorMethod IsCollection="true" Type="com.sfr.engage.core.PartnerInfo" BeanClass="com.sfr.engage.core.PartnerInfo" id="PartnerInfo"/>
 </JavaBean>
