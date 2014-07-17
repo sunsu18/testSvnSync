@@ -2680,7 +2680,7 @@ public class TransactionOverviewBean implements Serializable {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
                         if (partnerInfoList.get(k).getPartnerName() != null)
                             partnerCompanyName =
-                                    partnerCompanyName + partnerInfoList.get(k).getPartnerName().toString() +
+                                    partnerCompanyName + partnerInfoList.get(k).getPartnerValue().toString() +
                                     ",";
                     }
                 }
