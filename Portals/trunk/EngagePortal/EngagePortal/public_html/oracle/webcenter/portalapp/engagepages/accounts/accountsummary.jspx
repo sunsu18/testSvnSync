@@ -3,7 +3,6 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:pe="http://xmlns.oracle.com/adf/pageeditor"
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-  <f:view locale="#{SkinHelper.locale}"/>
   <f:view>
     <af:document id="d1" title="#{sfr.ACCOUNT_SUMMARY}">
       <af:messages id="m1"/>
