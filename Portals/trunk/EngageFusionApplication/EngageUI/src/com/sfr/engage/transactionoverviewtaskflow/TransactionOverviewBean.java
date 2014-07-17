@@ -559,6 +559,10 @@ public class TransactionOverviewBean implements Serializable {
                     for (int col = 0; col < strHead.length; col++) {
                         shuttleValue.add(strHead[col].toString());
                     }
+                    if(vehicleName) {
+                        shuttleValue.add("Fordonsnummer");
+                        shuttleValue.add("Namn");                        
+                    }
                 }
             } else if ("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                 shuttleValue = new ArrayList();
@@ -589,6 +593,10 @@ public class TransactionOverviewBean implements Serializable {
                     String[] strHead = strCardPrePopulated.split(Constants.ENGAGE_REPORT_DELIMITER);
                     for (int col = 0; col < strHead.length; col++) {
                         shuttleValue.add(strHead[col].toString());
+                    }
+                    if(vehicleName) {
+                        shuttleValue.add("Fordonsnummer");
+                        shuttleValue.add("Namn");                        
                     }
                 }
             } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
@@ -1745,15 +1753,19 @@ public class TransactionOverviewBean implements Serializable {
             for (int i = 0; i < partnerIdValues.size(); i++) {
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card"+partnerInfoList.get(k).isConsistsTwoCard());
                         if (partnerInfoList.get(k).isConsistsTwoCard()) {
                             vehicleName = true;
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card Vehicle Name"+vehicleName);
                         }
                     }
                 }
             }
         }else {
             vehicleName = false;   
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card Vehicle Name"+vehicleName);
         }
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card Vehicle Name"+vehicleName);
         searchResults();                
         return null;
     }
@@ -2652,7 +2664,8 @@ public class TransactionOverviewBean implements Serializable {
                          "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues =
                     selectedValues + shuttleValue.get(i).toString().trim() +"|";
-        }
+        }        
+      
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Formed String =" + selectedValues);
         String passedString =
