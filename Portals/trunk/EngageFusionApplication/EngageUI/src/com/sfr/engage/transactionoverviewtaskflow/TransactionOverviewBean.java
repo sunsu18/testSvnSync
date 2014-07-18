@@ -1748,8 +1748,9 @@ public class TransactionOverviewBean implements Serializable {
                 }
             }
         }
-
-        if (lang == "SE") {
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card"+partnerInfoList.get(0).isConsistsTwoCard());
+        if (lang == "SE" || "SE".equalsIgnoreCase(lang.trim())) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Partner ID 2-Card");
             for (int i = 0; i < partnerIdValues.size(); i++) {
                 for (int k = 0; k < partnerInfoList.size(); k++) {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
