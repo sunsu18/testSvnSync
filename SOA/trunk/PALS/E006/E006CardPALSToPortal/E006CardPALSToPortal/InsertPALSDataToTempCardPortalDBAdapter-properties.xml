@@ -62,7 +62,7 @@
    <entry key="SOA_PRT_CARD_TEMP.COUNTRY_CODE:db_column_type">VARCHAR2</entry>
    <entry key="SOA_PRT_CARD_TEMP.MAGNETIC_CODE:db_column_not_null">false</entry>
    <entry key="SOA_PRT_CARD_TEMP.CARDGROUP_SEQ:db_column_size">5</entry>
-   <entry key="SOA_PRT_CARD_TEMP.ACCOUNT_ID:db_column_not_null">true</entry>
+   <entry key="SOA_PRT_CARD_TEMP.ACCOUNT_ID:db_column_not_null">false</entry>
    <entry key="SOA_PRT_CARD_TEMP.BLOCK_CODE:db_column_type">VARCHAR2</entry>
    <entry key="SOA_PRT_CARD_TEMP.PRT_CARD_PK:db_column_size">10</entry>
    <entry key="SOA_PRT_CARD_TEMP.CARDGROUP_SEQ:db_column_not_null">true</entry>
@@ -77,7 +77,7 @@
    <entry key="SOA_PRT_CARD_TEMP.BLOCK_TYPE:db_column_not_null">false</entry>
    <entry key="SOA_PRT_CARD_TEMP.MODIFIED_BY:db_column_size">25</entry>
    <entry key="SOA_PRT_CARD_TEMP.INVOICE_POSTAL_CODE:db_column_not_null">false</entry>
-   <entry key="SOA_PRT_CARD_TEMP.MAGNETIC_CODE:db_column_size">3</entry>
+   <entry key="SOA_PRT_CARD_TEMP.MAGNETIC_CODE:db_column_size">20</entry>
    <entry key="SOA_PRT_CARD_TEMP.ROUTEX_CUSTOMER_NUMBER:db_column_size">6</entry>
    <entry key="SOA_PRT_CARD_TEMP.BLOCK_DATE:db_column_not_null">false</entry>
    <entry key="SOA_PRT_CARD_TEMP.CARDGROUP_SEQ:db_column_type">VARCHAR2</entry>

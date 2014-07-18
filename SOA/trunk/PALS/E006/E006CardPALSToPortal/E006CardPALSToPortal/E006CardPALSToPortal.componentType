@@ -62,10 +62,6 @@
              ui:wsdlLocation="CardPortalProcDBAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E006CardPALSToPortal/E006CardPALSToPortal/CardPortalProcDBAdapter#wsdl.interface(CardPortalProcDBAdapter_ptt)"/>
   </reference>
-  <reference name="CardPALSToPOrtalService"
-             ui:wsdlLocation="E006CardPALSToPortal.wsdl">
-    <interface.wsdl interface="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal#wsdl.interface(E006CardPALSToPortal)"/>
-  </reference>
   <reference name="SOAPALSNotificationJMSAdapter"
              ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>

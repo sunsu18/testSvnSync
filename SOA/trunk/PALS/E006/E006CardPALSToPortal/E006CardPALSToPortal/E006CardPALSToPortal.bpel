@@ -10,11 +10,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -->
 <process name="E006CardPALSToPortal"
-               targetNamespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
-               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
-               xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
-               xmlns:ora="http://schemas.oracle.com/xpath/extension"
-               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         targetNamespace="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+         xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:client="http://www.statoilfuelretail.com/integration/engage/E006CardPALSToPortal/E006CardPALSToPortal/E006CardPALSToPortal"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
          xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
          xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
@@ -56,20 +56,21 @@
          xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/jms/E006CardPALSToPortal/E006CardPALSToPortal/SOAPALSNotificationJMSAdapter"
          xmlns:ns26="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
          xmlns:ns27="http://xmlns.oracle.com/pcbpel/adapter/db/SelectInValidDataTempCardPortalDBAdapter">
-
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       PARTNERLINKS                                                      
       List of services participating in this BPEL process               
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  --> 
+  -->
   <partnerLinks>
     <!-- 
       The 'client' role represents the requester of this service. It is 
       used for callback. The location and correlation information associated
       with the client role are automatically set using WS-Addressing.
     -->
-    <partnerLink name="e006cardpalstoportal_client" partnerLinkType="client:E006CardPALSToPortal" myRole="E006CardPALSToPortalProvider"/>
+    <partnerLink name="e006cardpalstoportal_client"
+                 partnerLinkType="client:E006CardPALSToPortal"
+                 myRole="E006CardPALSToPortalProvider"/>
     <partnerLink name="SelectDeltaTSDBAdapter"
                  partnerLinkType="ns1:SelectDeltaTSDBAdapter_plt"
                  partnerRole="SelectDeltaTSDBAdapter_role"/>
@@ -79,18 +80,20 @@
     <partnerLink name="PALSDB2DBAdapter"
                  partnerLinkType="ns5:PALSDB2DBAdapter_plt"
                  partnerRole="PALSDB2DBAdapter_role"/>
-    <partnerLink name="MergeCardPortalDBAdapter"
+<!--    <partnerLink name="MergeCardPortalDBAdapter"
                  partnerLinkType="ns7:MergeCardPortalDBAdapter_plt"
                  partnerRole="MergeCardPortalDBAdapter_role"/>
+-->                 
     <partnerLink name="SOAErrorDBAdapter"
                  partnerLinkType="ns9:SOAErrorDBAdapter_plt"
                  partnerRole="SOAErrorDBAdapter_role"/>
     <partnerLink name="MergeDeltaTSSOADBAdapterV1"
                  partnerLinkType="ns10:MergeDeltaTSSOADBAdapterV1_plt"
                  partnerRole="MergeDeltaTSSOADBAdapterV1_role"/>
-    <partnerLink name="InsertPALSDataToTempCardPortalDBAdapter"
+<!--    <partnerLink name="InsertPALSDataToTempCardPortalDBAdapter"
                  partnerLinkType="ns12:InsertPALSDataToTempCardPortalDBAdapter_plt"
                  partnerRole="InsertPALSDataToTempCardPortalDBAdapter_role"/>
+
     <partnerLink name="SelectValidDataTempCardPortalDBAdapter"
                  partnerLinkType="ns13:SelectValidDataTempCardPortalDBAdapter_plt"
                  partnerRole="SelectValidDataTempCardPortalDBAdapter_role"/>
@@ -100,6 +103,7 @@
     <partnerLink name="TruncateTempCardPortalDBAdapter"
                  partnerLinkType="ns15:TruncateTempCardPortalDBAdapter_plt"
                  partnerRole="TruncateTempCardPortalDBAdapter_role"/>
+-->
     <partnerLink name="SOAErrorHandlerJMSAdapter"
                  partnerLinkType="ns16:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
@@ -112,15 +116,12 @@
     <partnerLink name="CardPortalProcDBAdapter"
                  partnerLinkType="ns22:CardPortalProcDBAdapter_plt"
                  partnerRole="CardPortalProcDBAdapter_role"/>
-    <partnerLink name="CardPALSToPOrtalService"
-                 partnerLinkType="client:E006CardPALSToPortal"
-                 partnerRole="E006CardPALSToPortalProvider"/>
     <partnerLink name="SOAPALSNotificationJMSAdapter"
                  partnerLinkType="ns25:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
-  <variable name="RowCount" type="xsd:integer"/>
+    <variable name="RowCount" type="xsd:integer"/>
     <variable name="DeltaTS" type="xsd:string"/>
     <variable name="BatchSize" type="xsd:integer"/>
     <variable name="ErrorFlag" type="xsd:string"/>
@@ -169,8 +170,6 @@
               messageType="ns13:SelectValidDataTempCardPortalDBAdapterInput_msg"/>
     <variable name="InvokeSelectValidDataTempCardPortal_SelectValidDataTempCardPortalDBAdapter_OutputVariable"
               messageType="ns13:SelectValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
-    <variable name="InvokeCardPALSToPortalService_process_InputVariable"
-              messageType="client:E006CardPALSToPortalRequestMessage"/>
     <variable name="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
               messageType="ns25:Produce_Message_msg"/>
     <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_InputVariable"
@@ -178,10 +177,9 @@
     <variable name="InvokeSelectInValidDataTempCardPortal_SelectInValidDataTempCardPortalDBAdapter_OutputVariable"
               messageType="ns14:SelectInValidDataTempCardPortalDBAdapterOutputCollection_msg"/>
   </variables>
-<faultHandlers>
+  <faultHandlers>
     <catch faultName="bpelx:remoteFault">
       <sequence name="Sequence2">
-
         <assign name="AssignStandardErrorData">
           <copy>
             <from expression="ora:getCompositeInstanceId()"/>
@@ -262,9 +260,7 @@
                 query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
           </copy>
         </assign>
-
-        <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                bpelx:invokeAsDetail="no"
+        <invoke name="InvokeSOAErrorHandlerJMSAdapter" bpelx:invokeAsDetail="no"
                 inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
                 partnerLink="SOAErrorHandlerJMSAdapter"
                 portType="ns16:Produce_Message_ptt"
@@ -353,8 +349,7 @@
                 query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
           </copy>
         </assign>
-        <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                bpelx:invokeAsDetail="no"
+        <invoke name="InvokeSOAErrorHandlerJMSAdapter" bpelx:invokeAsDetail="no"
                 inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
                 partnerLink="SOAErrorHandlerJMSAdapter"
                 portType="ns16:Produce_Message_ptt"
@@ -363,7 +358,6 @@
     </catch>
     <catchAll>
       <sequence name="Sequence3">
-
         <assign name="AssignStandardErrorData">
           <copy>
             <from expression="ora:getCompositeInstanceId()"/>
@@ -444,8 +438,7 @@
                 query="/ns17:ErrorInfo/ns17:ErrorNotification/ns17:Subject"/>
           </copy>
         </assign>
-        <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                bpelx:invokeAsDetail="no"
+        <invoke name="InvokeSOAErrorHandlerJMSAdapter" bpelx:invokeAsDetail="no"
                 inputVariable="InvokeSOAErrorHandlerJMSAdapter_Produce_Message_InputVariable"
                 partnerLink="SOAErrorHandlerJMSAdapter"
                 portType="ns16:Produce_Message_ptt"
@@ -459,7 +452,6 @@
       List of messages and XML documents used within this BPEL process 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
-
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -468,11 +460,11 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
   <sequence name="main">
-
     <!-- Receive input from requestor. (Note: This maps to operation defined in E006CardPALSToPortal.wsdl) -->
-    <receive name="ReceiveAccountSummaryReqMsg" partnerLink="e006cardpalstoportal_client" portType="client:E006CardPALSToPortal" operation="process"
+    <receive name="ReceiveAccountSummaryReqMsg"
+             partnerLink="e006cardpalstoportal_client"
+             portType="client:E006CardPALSToPortal" operation="process"
              variable="AccountSummaryCardReqMsg" createInstance="yes"/>
-             
     <assign name="AssignInitialValues">
       <copy>
         <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
@@ -566,15 +558,14 @@
                 query="/ns4:GetPALSDB2CountDBAdapterInput/ns4:DeltaTS"/>
           </copy>
         </assign>
-        <invoke name="InvokeGetPALSDB2CountDBAdapter"
-                bpelx:invokeAsDetail="no"
+        <invoke name="InvokeGetPALSDB2CountDBAdapter" bpelx:invokeAsDetail="no"
                 inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
                 outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable"
                 partnerLink="GetPALSDB2CountDBAdapter"
                 portType="ns3:GetPALSDB2CountDBAdapter_ptt"
                 operation="GetPALSDB2CountDBAdapter">
-                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
-                </invoke>
+          <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+        </invoke>
         <assign name="CalculateBatchCount">
           <copy>
             <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutput','/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')  div bpws:getVariableData('BatchSize'))"/>
@@ -602,14 +593,14 @@
         </switch>
       </sequence>
     </scope>
-<!--        <while name="WhileEachBatch"
+    <!--        <while name="WhileEachBatch"
            condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')">
 -->
     <while name="WhileEachBatch"
            condition="bpws:getVariableData('Count') &lt; bpws:getVariableData('NumberOfBatches')">
       <sequence name="Sequence">
         <scope name="GetPALSdataScope" variableAccessSerializable="no">
-                  <bpelx:annotation>
+          <bpelx:annotation>
             <bpelx:general>
               <bpelx:property name="userLabel">GetPALSdataScope</bpelx:property>
             </bpelx:general>
@@ -685,8 +676,8 @@
                     partnerLink="PALSDB2DBAdapter"
                     portType="ns5:PALSDB2DBAdapter_ptt"
                     operation="PALSDB2DBAdapterSelect">
-                     <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
-                     </invoke>
+              <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
+            </invoke>
             <assign name="GetDataCount">
               <copy>
                 <from expression="count(bpws:getVariableData('InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable','Cc073Vs1CssksiDtaCollection','/ns6:Cc073Vs1CssksiDtaCollection/ns6:Cc073Vs1CssksiDta/ns6:deltaTs'))"/>
@@ -714,12 +705,6 @@
                         portType="ns9:SOAErrorDBAdapter_ptt" operation="merge"
                         bpelx:invokeAsDetail="no"
                         inputVariable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"/>
-                <assign name="AssignErrorFlag">
-                  <copy>
-                    <from expression="'YES'"/>
-                    <to variable="ErrorFlag"/>
-                  </copy>
-                </assign>
                 <assign name="XformPALSvalidDataTovalidateCardData">
                   <bpelx:annotation>
                     <bpelx:pattern>transformation</bpelx:pattern>
@@ -727,6 +712,16 @@
                   <copy>
                     <from expression="ora:doXSLTransformForDoc('xsl/XformPALSvalidDataTovalidateCardData.xsl', $InvokePALSDB2DBAdapter_PALSDB2DBAdapterSelect_OutputVariable.Cc073Vs1CssksiDtaCollection, 'AccountSummaryCardReqMsg.invocationMsg', $AccountSummaryCardReqMsg.invocationMsg)"/>
                     <to variable="ValidateCardData"/>
+                  </copy>
+                </assign>
+                <assign name="AssignErrorFlag">
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="ErrorFlag"/>
+                  </copy>
+                  <copy>
+                    <from expression="ora:countNodes(bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails/ns8:countryCode'))"/>
+                    <to variable="DataCount"/>
                   </copy>
                 </assign>
               </sequence>
@@ -748,6 +743,7 @@
         </scope>
         <scope name="InsertPALSDataInPortalDBScope"
                variableAccessSerializable="no">
+          <!--               
           <faultHandlers>
             <catch faultName="bpelx:bindingFault">
               <switch name="Switch2">
@@ -931,9 +927,9 @@
               </switch>
             </catch>
           </faultHandlers>
-                  
+-->
           <sequence name="InsertPALSDataInPortalDBSequence">
-<!--            <assign name="XformPALSValidDataToMergeCardPortal">
+            <!--            <assign name="XformPALSValidDataToMergeCardPortal">
               <bpelx:annotation>
                 <bpelx:pattern>transformation</bpelx:pattern>
               </bpelx:annotation>
@@ -953,201 +949,440 @@
             <while name="WhileEachRow"
                    condition="bpws:getVariableData('RowCount')  &lt;= bpws:getVariableData('DataCount')">
               <sequence name="MergeCardDataToPortalSequence">
-              
-                <assign name="AssignRowDataToMergeCardPortal">
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:countryCode')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:COUNTRYCODE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardExpiry')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDEXPIRY"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockType')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKTYPE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockCode')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKCODE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockAction')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKACTION"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockDate')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKDATE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockTime')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKTIME"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockLevel')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:BLOCKLEVEL"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:manufacturedDate')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:MANUFACTUREDDATE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:routexCustomerNumber')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:ROUTEXCUSTOMERNUMBER"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr1')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICEADDR1"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr2')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICEADDR2"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoicePostalCode')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICEPOSTALCODE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCity')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICECITY"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:addrSeq')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:ADDRSEQ"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCountry')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICECOUNTRY"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrLevel')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INNVOICEADDRLEVEL"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrType')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INNVOICEADDRTYPE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedBy')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:MODIFIEDBY"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedDate')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:MODIFIEDDATE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:prtCardPk')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:PRTCARDPK"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardType')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDTYPE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:partnerId')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:PARTNERID"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupMainType')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDGROUPMAINTYPE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSubType')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDGROUPSUBTYPE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSeq')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDGROUPSEQ"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardEmbossNum')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDEMBOSSNO"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardIdentifier')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:CARDIDENTIFIER"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:magneticCode')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:MAGNETICCODE"/>
-                  </copy>
-                  <copy>
-                    <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceInformation')"/>
-                    <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        part="InputParameters"
-                        query="/ns24:InputParameters/ns24:INVOICEINFORMATION"/>
-                  </copy>
-                </assign>
-              <invoke name="InvokeMergeCardPortalProcDBAdapter"
-                        inputVariable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
-                        partnerLink="CardPortalProcDBAdapter"
-                                      portType="ns22:CardPortalProcDBAdapter_ptt"
-                        operation="CardPortalProcDBAdapter" bpelx:invokeAsDetail="no"
-                                      outputVariable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_OutputVariable"/>
-                <assign name="AssignRowCountIncrement">
-                  <copy>
-                    <from expression="bpws:getVariableData('RowCount') +1"/>
-                    <to variable="RowCount"/>
-                  </copy>
-                </assign>
+                <scope name="MergeCardPortalScope"
+                       variableAccessSerializable="no">
+                  <faultHandlers>
+                    <catch faultName="bpelx:bindingFault">
+                      <sequence name="Sequence5">
+                        <assign name="AssignErrorRowDataToSOAErr">
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:Delta_TS')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:deltaTs"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:countryCode')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:countryCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:partnerId')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:partnerId"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupMainType')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardgroupMainType"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSubType')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardgroupSubType"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSeq')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardgroupSeq"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:prtCardPk')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:prtCardPk"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardIdentifier')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardIdentifier"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardType')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardType"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:magneticCode')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:magneticCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardEmbossNum')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardEmbossNum"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceInformation')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceInformation"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardExpiry')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:cardExpiry"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockType')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockType"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockCode')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockAction')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockAction"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockDate')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockDate"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockTime')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockTime"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockLevel')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:blockLevel"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:manufacturedDate')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:manufacturedDate"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:routexCustomerNumber')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:routexCustomerNumber"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr1')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceAddr1"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr2')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceAddr2"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoicePostalCode')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoicePostalCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCity')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceCity"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:addrSeq')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:addrSeq"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCountry')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceCountry"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrLevel')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceAddrLevel"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrType')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:invoiceAddrType"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedBy')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:modifiedBy"/>
+                          </copy>
+                          <copy>
+                            <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedDate')"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:modifiedDate"/>
+                          </copy>
+                          <copy>
+                            <from expression="'BE-026'"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:soaErrorCode"/>
+                          </copy>
+                          <copy>
+                            <from expression="'Integrity Constraint Violation'"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:soaErrorDesc"/>
+                          </copy>
+                          <copy>
+                            <from expression="0"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:emailFlag"/>
+                          </copy>
+                          <copy>
+                            <from expression="0"/>
+                            <to variable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"
+                                part="EngagePalsCardDtaErrorlogCollection"
+                                query="/ns23:EngagePalsCardDtaErrorlogCollection/ns23:EngagePalsCardDtaErrorlog/ns23:deltaReciptFlag"/>
+                          </copy>
+                        </assign>
+                        <invoke name="InvokeMergeInvalidRowDataSOAErrorDBAdapter"
+                                partnerLink="SOAErrorDBAdapter"
+                                portType="ns9:SOAErrorDBAdapter_ptt"
+                                operation="merge" bpelx:invokeAsDetail="no"
+                                inputVariable="InvokeMergeInvalidDataSOAErrorDBAdapter_merge_InputVariable"/>
+                        <assign name="AssignRowCountInc"
+                                xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
+                          <copy>
+                            <from expression="bpws:getVariableData('RowCount') +1"/>
+                            <to variable="RowCount"/>
+                          </copy>
+                          <copy>
+                            <from expression="'YES'"/>
+                            <to variable="ErrorFlag"/>
+                          </copy>
+                        </assign>
+                      </sequence>
+                    </catch>
+                  </faultHandlers>
+                  <sequence>
+                    <assign name="AssignRowDataToMergeCardPortal">
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:countryCode')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:COUNTRYCODE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardExpiry')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDEXPIRY"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockType')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKTYPE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockCode')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKCODE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockAction')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKACTION"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockDate')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKDATE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockTime')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKTIME"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:blockLevel')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:BLOCKLEVEL"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:manufacturedDate')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:MANUFACTUREDDATE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:routexCustomerNumber')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:ROUTEXCUSTOMERNUMBER"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr1')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICEADDR1"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddr2')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICEADDR2"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoicePostalCode')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICEPOSTALCODE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCity')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICECITY"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:addrSeq')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:ADDRSEQ"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceCountry')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICECOUNTRY"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrLevel')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INNVOICEADDRLEVEL"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceAddrType')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INNVOICEADDRTYPE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedBy')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:MODIFIEDBY"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:modifiedDate')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:MODIFIEDDATE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:prtCardPk')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:PRTCARDPK"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardType')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDTYPE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:partnerId')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:PARTNERID"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupMainType')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDGROUPMAINTYPE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSubType')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDGROUPSUBTYPE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardgroupSeq')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDGROUPSEQ"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardEmbossNum')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDEMBOSSNO"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:cardIdentifier')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:CARDIDENTIFIER"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:magneticCode')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:MAGNETICCODE"/>
+                      </copy>
+                      <copy>
+                        <from expression="bpws:getVariableData('ValidateCardData','/ns8:Card/ns8:FieldsDetails[$RowCount]/ns8:invoiceInformation')"/>
+                        <to variable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            part="InputParameters"
+                            query="/ns24:InputParameters/ns24:INVOICEINFORMATION"/>
+                      </copy>
+                    </assign>
+                    <invoke name="InvokeMergeCardPortalProcDBAdapter"
+                            inputVariable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_InputVariable"
+                            partnerLink="CardPortalProcDBAdapter"
+                            portType="ns22:CardPortalProcDBAdapter_ptt"
+                            operation="CardPortalProcDBAdapter"
+                            bpelx:invokeAsDetail="no"
+                            outputVariable="InvokeMergeCardPortalProcDBAdapter_CardPortalProcDBAdapter_OutputVariable"/>
+                    <assign name="AssignRowCountIncrement">
+                      <copy>
+                        <from expression="bpws:getVariableData('RowCount') +1"/>
+                        <to variable="RowCount"/>
+                      </copy>
+                    </assign>
+                  </sequence>
+                </scope>
               </sequence>
             </while>
             <assign name="AssignIncrementRowCount">
@@ -1156,7 +1391,7 @@
                 <to variable="RowCount"/>
               </copy>
             </assign>
-          </sequence>          
+          </sequence>
         </scope>
         <assign name="AssignInsertDeltaValues">
           <copy>
@@ -1328,8 +1563,7 @@
                   part="EngagePalsCardDtaErrorlogCollection"/>
             </copy>
           </assign>
-          <invoke name="InvokeUpdateSOAErrorDBAdapter"
-                  bpelx:invokeAsDetail="no"
+          <invoke name="InvokeUpdateSOAErrorDBAdapter" bpelx:invokeAsDetail="no"
                   inputVariable="InvokeUpdateSOAErrorDBAdapter_update_InputVariable"
                   partnerLink="UpdateSOAErrorDBAdapter"
                   portType="ns19:UpdateSOAErrorDBAdapter_ptt"
@@ -1340,133 +1574,6 @@
         <empty name="Empty"/>
       </otherwise>
     </switch>
-    <!--
-          <sequence name="CheckRecordsIfExists">
-        <assign name="AssignSelectDeltaTSInputValues">
-          <copy>
-            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                  query="/client:invocationMsg/client:InterfaceID"/>
-            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
-                part="SelectDeltaTSDBAdapterSelect_inputParameters"
-                query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:InterfaceID"/>
-          </copy>
-          <copy>
-            <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                  query="/client:invocationMsg/client:CountryCode"/>
-            <to variable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
-                part="SelectDeltaTSDBAdapterSelect_inputParameters"
-                query="/ns2:SelectDeltaTSDBAdapterSelect_InterfaceID_CountryCodeInputParameters/ns2:CountryCode"/>
-          </copy>
-        </assign>
-        <invoke name="InvokeSOADeltaTS"
-                inputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_InputVariable"
-                outputVariable="InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable"
-                partnerLink="SelectDeltaTSDBAdapter"
-                portType="ns1:SelectDeltaTSDBAdapter_ptt"
-                operation="SelectDeltaTSDBAdapterSelect"
-                bpelx:invokeAsDetail="no"/>
-      <assign name="AssignDeltaTS">
-        <copy>
-          <from expression="substring-before(bpws:getVariableData('InvokeSOADeltaTS_SelectDeltaTSDBAdapterSelect_OutputVariable','EngageSoaDeltatableCollection','/ns2:EngageSoaDeltatableCollection/ns2:EngageSoaDeltatable/ns2:palsDeltaTimestamp'),'+')"/>
-          <to variable="DeltaTS"/>
-        </copy>
-        <copy>
-          <from expression="concat(substring-before(bpws:getVariableData('DeltaTS'),'T'),' ',substring-after(bpws:getVariableData('DeltaTS'),'T'))"/>
-          <to variable="DeltaTS"/>
-        </copy>
-                  <copy>
-            <from variable="DeltaTS"/>
-            <to variable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
-                part="GetPALSDB2CountDBAdapterInput_msg"
-                query="/ns4:GetPALSDB2CountDBAdapterInput/ns4:DeltaTS"/>
-          </copy>
-      </assign>
-        <invoke name="InvokeGetPALSDB2CountDBAdapter"
-                bpelx:invokeAsDetail="no"
-                inputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_InputVariable"
-                outputVariable="InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable"
-                partnerLink="GetPALSDB2CountDBAdapter"
-                portType="ns3:GetPALSDB2CountDBAdapter_ptt"
-                operation="GetPALSDB2CountDBAdapter">
-                 <bpelx:inputProperty name="jca.jndi" variable="JNDI"/>
-                </invoke>
-        <assign name="CalculateBatchCount">
-          <copy>
-            <from expression="ceiling(bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutput','/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')  div bpws:getVariableData('BatchSize'))"/>
-            <to variable="NumberOfBatches"/>
-          </copy>
-        </assign>
-      <switch name="SwitchRecordsExists">
-        <case condition="bpws:getVariableData('NumberOfBatches') >= 1">
-          <bpelx:annotation>
-            <bpelx:general>
-              <bpelx:property name="userLabel">IfRecordsExistsCreate NewInstance</bpelx:property>
-            </bpelx:general>
-          </bpelx:annotation>
-          <sequence name="ProcessRemainingRecordsSequence">
-            <assign name="AssignCardPALSToPortalIV">
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:SenderSystem"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:SenderSystem"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:ReceiverSystem"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:ReceiverSystem"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:CountryCode"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:CountryCode"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:BatchSize"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:BatchSize"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:DatabaseJNDI"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:DatabaseJNDI"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:InterfaceID"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:InterfaceID"/>
-              </copy>
-              <copy>
-                <from variable="AccountSummaryCardReqMsg" part="invocationMsg"
-                      query="/client:invocationMsg/client:UserName"/>
-                <to variable="InvokeCardPALSToPortalService_process_InputVariable"
-                    part="invocationMsg"
-                    query="/client:invocationMsg/client:UserName"/>
-              </copy>
-            </assign>
-            <invoke name="InvokeCardPALSToPortalService"
-                    inputVariable="InvokeCardPALSToPortalService_process_InputVariable"
-                    partnerLink="CardPALSToPOrtalService"
-                    portType="client:E006CardPALSToPortal" operation="process"
-                    bpelx:invokeAsDetail="no"/>
-          </sequence>
-        </case>
-        <otherwise>
-          <empty name="Empty"/>
-        </otherwise>
-      </switch>
-    </sequence>-->
     <sequence name="DataTransferCompletionSequence">
       <switch name="IfLastInvocationFlag">
         <case condition="bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:LastInvokeFlag') = 'True'">

@@ -7,37 +7,6 @@
          <alias>SOA_PRT_CARD_TEMP</alias>
          <primary-key>
             <field table="SOA_PRT_CARD_TEMP" name="DELTA_TS" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="COUNTRY_CODE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="PARTNER_ID" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="ACCOUNT_ID" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_MAIN_TYPE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SUB_TYPE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARDGROUP_SEQ" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="PRT_CARD_PK" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARD_TYPE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARD_IDENTIFIER" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="MAGNETIC_CODE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARD_EMBOSS_NUM" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_INFORMATION" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="CARD_EXPIRY" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TYPE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_CODE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_ACTION" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_DATE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_TIME" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="BLOCK_LEVEL" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="MANUFACTURED_DATE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="ROUTEX_CUSTOMER_NUMBER" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR1" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_POSTAL_CODE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR2" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_CITY" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="ADDR_SEQ" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_COUNTRY" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_LEVEL" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="INVOICE_ADDR_TYPE" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_BY" xsi:type="column"/>
-            <field table="SOA_PRT_CARD_TEMP" name="MODIFIED_DATE" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>

@@ -5,24 +5,22 @@
    <iconize/>
    <partnerlink_locations>
       <partnerlink name="e006cardpalstoportal_client" x="0" y="90" side="left"/>
-      <partnerlink name="SelectDeltaTSDBAdapter" x="0" y="994" side="left"/>
+      <partnerlink name="SelectDeltaTSDBAdapter" x="0" y="1031" side="left"/>
       <partnerlink name="GetPALSDB2CountDBAdapter" x="0" y="937" side="left"/>
       <partnerlink name="PALSDB2DBAdapter" x="0" y="2084" side="left"/>
-      <partnerlink name="MergeCardPortalDBAdapter" x="0" y="3531" side="left"/>
-      <partnerlink name="SOAErrorDBAdapter" x="0" y="3183" side="left"/>
-      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="4315" side="left"/>
-      <partnerlink name="InsertPALSDataToTempCardPortalDBAdapter" x="0" y="3254" side="left"/>
-      <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="3348" side="left"/>
-      <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="3625" side="left"/>
-      <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="3902" side="left"/>
-      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2425" side="left"/>
-      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4661" side="left"/>
-      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="5116" side="left"/>
-      <partnerlink name="CardPortalProcDBAdapter" x="0" y="3126" side="left"/>
-      <partnerlink name="CardPALSToPOrtalService" x="0" y="1051" side="left"/>
-      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="6026" side="left"/>
+      <partnerlink name="SOAErrorDBAdapter" x="0" y="2927" side="left"/>
+      <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="3844" side="left"/>
+      <partnerlink name="InsertPALSDataToTempCardPortalDBAdapter" x="0" y="432" side="left"/>
+      <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="499" side="left"/>
+      <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="566" side="left"/>
+      <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="633" side="left"/>
+      <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2021" side="left"/>
+      <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4190" side="left"/>
+      <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4645" side="left"/>
+      <partnerlink name="CardPortalProcDBAdapter" x="0" y="3187" side="left"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5555" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="1078,0,710,341" show_swimlanes="true">
+   <graph_layout viewport="0,214,799,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -47,13 +45,13 @@
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/faultHandlers/catch/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[2]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]" type="scope" showhandlers="true"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch" type="catch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/faultHandlers/catch/switch/otherwise/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while" type="while"/>
       <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence/scope/faultHandlers/catch" type="catch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence/scope/faultHandlers/catch/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/while/sequence/scope[3]/sequence/while/sequence/scope/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/switch/case/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/sequence" type="sequence"/>
