@@ -1756,7 +1756,12 @@ public class TransactionOverviewBean implements Serializable {
                     if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card"+partnerInfoList.get(k).isConsistsTwoCard());
                         if (partnerInfoList.get(k).isConsistsTwoCard()) {
+                              if("Default".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString()))
+                              {
                             vehicleName = true;
+                              }else {
+                                  vehicleName = false;
+                              }
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Partner ID 2-Card Vehicle Name"+vehicleName);
                         }
                     }
