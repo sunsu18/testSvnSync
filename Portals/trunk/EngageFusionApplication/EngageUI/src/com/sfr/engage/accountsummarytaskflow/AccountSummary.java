@@ -2282,8 +2282,9 @@ public class AccountSummary implements Serializable {
                 vo.setNamedWhereClauseParam("country", session.getAttribute(Constants.userLang));
                 vo.setNamedWhereClauseParam("cardType",cardType);
                 vo.executeQuery();
+                cardTypeNameMap = new HashMap<String,String>();
                 if (vo.getEstimatedRowCount() != 0) {
-                    cardTypeNameMap = new HashMap<String,String>();
+
 //                    cardTypeNameList = new ArrayList<String>();
                     while (vo.hasNext()) {
                         PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
@@ -2294,23 +2295,29 @@ public class AccountSummary implements Serializable {
 //                        displayCardTypeName = "<br/>";
 //                        cardTypeName = cardTypeNameList.toString().substring(1,cardTypeNameList.toString().length() - 1 ).replace(", ", "<br/>");
                     }
+
+
                 }
+
                 log.info(accessDC.getDisplayRecord() + this.getClass() + " CardType List size inside cardgroup Overview " + cardTypeList.size());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowAllPopUp());
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardTypeOT());
-            }
-            for(int i = 0 ; i < cardTypeList.size() ; i++){
-                if(cardTypeNameMap.get(cardTypeList.get(i)) != null){
-                    displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameMap.get(cardTypeList.get(i)) + "<br/>";
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
+
+                for(int i = 0 ; i < cardTypeList.size(); i++){
+                    if(cardTypeNameMap.size() > 0 && cardTypeNameMap.get(cardTypeList.get(i)) != null){
+                        displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + " - " + cardTypeNameMap.get(cardTypeList.get(i)) + "<br/>";
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
+                    }
+                    else{
+                        displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + "<br/>";
+                        log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
+                    }
                 }
-                else{
-                    displayCardTypeName = displayCardTypeName + cardTypeList.get(i) + "<br/>";
-                    log.info(accessDC.getDisplayRecord() + this.getClass() + " displayCardTypeName-------------->" + displayCardTypeName);
-                }
+                if(cardTypeList.size() > 0 )
+                displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
+
             }
-            if(cardTypeList.size() > 0 )
-            displayCardTypeName = displayCardTypeName.substring(0,displayCardTypeName.length()-5);
+
 
 
 

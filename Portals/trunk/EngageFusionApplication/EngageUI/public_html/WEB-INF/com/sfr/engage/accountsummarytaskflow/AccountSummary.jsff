@@ -79,21 +79,23 @@
                         partialSubmit="true" text="#{sfr.SEARCH}"/>
                         </af:panelGroupLayout>
                         <af:spacer height="10" id="s175"/>
-                        <af:panelGroupLayout id="pgl36">
-                                      <af:selectManyChoice label="Include" id="smc1"
-                                   value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10">
-                <af:selectItem label="Hardblock Cards" value="Hardblock Cards" id="si4"/>
-                <af:selectItem label="Softblock Cards" value="Softblock Cards" id="si7"/>
-                <af:selectItem label="Active Cards" value="Active Cards" id="si8"/>
-              </af:selectManyChoice>
-      <af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>
-    </af:panelGroupLayout>
+
          <af:spacer width="10" height="10" id="s297"/>
 
       <af:panelGroupLayout id="pgl33" layout="horizontal">
       <af:separator id="s294" inlineStyle="height: 0px;opacity: 0.30;"/>
     </af:panelGroupLayout>
-
+ <af:panelGroupLayout id="pgl36" layout="horizontal">
+                                      <af:selectManyChoice id="smc1"
+                                   value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10" inlineStyle="width:135.0px;">
+                <af:selectItem label="Hardblock Cards" value="Hardblock Cards" id="si4"/>
+                <af:selectItem label="Softblock Cards" value="Softblock Cards" id="si7"/>
+                <af:selectItem label="Active Cards" value="Active Cards" id="si8"/>
+              </af:selectManyChoice>
+   <af:spacer width="10" id="s320"/>
+   <!--<af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>-->
+      <af:commandImageLink icon="/images/filter_business.png" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>
+    </af:panelGroupLayout>
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
                           inlineStyle="width:240px; height:480px" valign="top" binding="#{pageFlowScope.AccountSummaryBean.treePanel}">
