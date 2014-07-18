@@ -1,22 +1,22 @@
-Jul 18, 2014 3:54:08 PM oracle.mds
+Jul 18, 2014 10:26:20 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-Jul 18, 2014 3:54:09 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+Jul 18, 2014 10:26:20 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-Jul 18, 2014 3:54:09 PM com.collaxa.cube.CubeLogger info
+Jul 18, 2014 10:26:20 PM com.collaxa.cube.CubeLogger info
 INFO: validating "GenerateTransactionReport.bpel" ...
-Jul 18, 2014 3:54:09 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+Jul 18, 2014 10:26:20 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-Jul 18, 2014 3:54:09 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+Jul 18, 2014 10:26:20 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
 node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCatchAllBlock
-Jul 18, 2014 3:54:09 PM com.collaxa.cube.CubeLogger info
-INFO: Composed "GenerateTransactionReport" in 43.3 milliseconds [nodes 6=0+6, 138.6 nodes/sec]
-Jul 18, 2014 3:54:11 PM com.collaxa.cube.CubeLogger info
-INFO: Compiled "GenerateTransactionReport" in 2.266 seconds
-Jul 18, 2014 3:54:11 PM com.collaxa.cube.CubeLogger info
-INFO: Gathered 3 files in 3.7 milliseconds
+Jul 18, 2014 10:26:20 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "GenerateTransactionReport" in 49.7 milliseconds [nodes 7=0+7, 140.9 nodes/sec]
+Jul 18, 2014 10:26:23 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "GenerateTransactionReport" in 2.531 seconds
+Jul 18, 2014 10:26:23 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 4 files in 3.7 milliseconds
 
-Jul 18, 2014 3:54:11 PM com.collaxa.cube.CubeLogger info
-INFO: Packaged "GenerateTransactionReport" in 17.9 milliseconds
+Jul 18, 2014 10:26:23 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "GenerateTransactionReport" in 19.9 milliseconds
 

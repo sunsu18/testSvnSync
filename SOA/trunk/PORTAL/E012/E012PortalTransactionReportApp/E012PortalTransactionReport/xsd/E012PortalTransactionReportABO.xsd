@@ -12,10 +12,11 @@
   </xsd:element>
   <xsd:complexType name="TransactionRequestType">
     <xsd:sequence>
-      <xsd:element name="RuleID" type="xsd:integer"/>
-      <xsd:element name="RuleSubscriptionID" type="xsd:integer"/>
-      <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
-      <xsd:element name="Parameter" type="ParametersType"/>
+      <xsd:element name="RuleID" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="RuleSubscriptionID" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="NotificationDateTime" type="xsd:dateTime"
+                   minOccurs="0"/>
+      <xsd:element name="Parameter" type="ParametersType" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="ParametersType">
