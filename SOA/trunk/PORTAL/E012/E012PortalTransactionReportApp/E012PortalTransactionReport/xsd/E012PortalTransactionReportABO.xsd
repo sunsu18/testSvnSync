@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
+            targetNamespace="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
+            elementFormDefault="unqualified">
+  <xsd:element name="TransactionRequest" type="TransactionRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="TransactionRequestType">
+    <xsd:sequence>
+      <xsd:element name="RuleID" type="xsd:integer"/>
+      <xsd:element name="RuleSubscriptionID" type="xsd:integer"/>
+      <xsd:element name="NotificationDateTime" type="xsd:dateTime"/>
+      <xsd:element name="Parameter" type="ParametersType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParametersType">
+    <xsd:sequence>
+      <xsd:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParameterType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TransactionReport" type="TransactionReportType"/>
+  <xsd:complexType name="TransactionReportType">
+    <xsd:sequence>
+      <xsd:element name="Transaction" type="TransactionType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TransactionType">
+    <xsd:sequence>
+      <xsd:element name="UREF_TRANSACTION_ID" type="xsd:string"/>
+      <xsd:element name="PARTNER_ID" type="xsd:string"/>
+      <xsd:element name="PALS_COUNTRY_CODE" type="xsd:string"/>
+      <xsd:element name="TRANSACTION_TYPE" type="xsd:string"/>
+      <xsd:element name="PURCHASE_CURRENCY" type="xsd:string"/>
+      <xsd:element name="KSID" type="xsd:string"/>
+      <xsd:element name="PURCHASE_COUNTRY_CODE" type="xsd:string"/>
+      <xsd:element name="CARD_1_ID" type="xsd:string"/>
+      <xsd:element name="ODOMETER_PORTAL" type="xsd:string"/>
+      <xsd:element name="ODOMETER" type="xsd:string"/>
+      <xsd:element name="TRANSACTION_DT" type="xsd:string"/>
+      <xsd:element name="TRANSACTION_TIME" type="xsd:string"/>
+      <xsd:element name="STATION_NAME" type="xsd:string"/>
+      <xsd:element name="INVOICE_NUMBER_NON_COLLECTIVE" type="xsd:string"/>
+      <xsd:element name="MODIFIED_BY" type="xsd:string"/>
+      <xsd:element name="PORTAL_MODIFIED_DATE" type="xsd:string"/>
+      <xsd:element name="INVOICE_NUMBER_COLLECTIVE" type="xsd:string"/>
+      <xsd:element name="ACCOUNT_ID" type="xsd:string"/>
+      <xsd:element name="CARDGROUP_MAIN_TYPE" type="xsd:string"/>
+      <xsd:element name="CARDGROUP_SUB_TYPE" type="xsd:string"/>
+      <xsd:element name="CARDGROUP_SEQ" type="xsd:string"/>
+      <xsd:element name="PREVIOUS_ODOMETER" type="xsd:string"/>
+      <xsd:element name="PRODUCT_NAME" type="xsd:string"/>
+      <xsd:element name="QUANTITY" type="xsd:string"/>
+      <xsd:element name="CURRENCY_UNIT_PRICE" type="xsd:string"/>
+      <xsd:element name="INVOICED_VAT" type="xsd:string"/>
+      <xsd:element name="INVOICED_NET_AMOUNT" type="xsd:string"/>
+      <xsd:element name="INVOICE_DISCOUNT_AMOUNT" type="xsd:string"/>
+      <xsd:element name="INVOICED_UNIT_PRICE" type="xsd:string"/>
+      <xsd:element name="INVOICED_GROSS_AMOUNT" type="xsd:string"/>
+      <xsd:element name="INVOICED_NET_AMOUNT_REBATED" type="xsd:string"/>
+      <xsd:element name="INVOIVED_VAT_REBATED" type="xsd:string"/>
+       <xsd:element name="INVOICED_UNIT_PRICE_REBATED" type="xsd:string"/>
+        <xsd:element name="CURRENCY_GROSS_AMOUNT_REBATED" type="xsd:string"/>
+         <xsd:element name="CURRENCY_UNIT_PRICE_REBATED" type="xsd:string"/>
+          <xsd:element name="CURRENCY_GROSS_AMOUNT" type="xsd:string"/>
+           <xsd:element name="UNIT_OF_MEASURE" type="xsd:string"/>
+            <xsd:element name="CURRENCY_VAT" type="xsd:string"/>
+             <xsd:element name="CURRENCY_DISCOUNT_AMOUNT" type="xsd:string"/>
+              <xsd:element name="CURRENCY_NET_AMOUNT" type="xsd:string"/>
+               <xsd:element name="INVOICED_GROSS_AMOUNT_REBATED" type="xsd:string"/>
+                <xsd:element name="DRIVER_NUMBER" type="xsd:string"/>
+                <xsd:element name="DRIVER_NAME" type="xsd:string"/>
+                <xsd:element name="VEHICLE_NUMBER" type="xsd:string"/>
+                 <xsd:element name="INTERNAL_NAME" type="xsd:string"/>
+
+      
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

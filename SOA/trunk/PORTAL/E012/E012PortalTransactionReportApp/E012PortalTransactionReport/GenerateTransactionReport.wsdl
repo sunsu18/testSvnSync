@@ -1,0 +1,31 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="GenerateTransactionReport"
+     targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
+     xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="GenerateTransactionReport">
+        <plnk:role name="GenerateTransactionReportProvider">
+            <plnk:portType name="client:GenerateTransactionReport"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
+                 schemaLocation="xsd/E012PortalTransactionReportABO.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="GenerateTransactionReportRequestMessage">
+        <wsdl:part name="payload" element="ns1:TransactionRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="GenerateTransactionReport">
+        <wsdl:operation name="generate">
+            <wsdl:input message="client:GenerateTransactionReportRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
