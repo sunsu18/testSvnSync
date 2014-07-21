@@ -88,9 +88,9 @@
  <af:panelGroupLayout id="pgl36" layout="horizontal">
                                       <af:selectManyChoice id="smc1"
                                    value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10" inlineStyle="width:135.0px;">
-                <af:selectItem label="Hardblock Cards" value="Hardblock Cards" id="si4"/>
-                <af:selectItem label="Softblock Cards" value="Softblock Cards" id="si7"/>
-                <af:selectItem label="Active Cards" value="Active Cards" id="si8"/>
+                <af:selectItem label="#{sfr.PERMANENT_BLOCKED}" value="Hardblock Cards" id="si4"/>
+                <af:selectItem label="#{sfr.TEMPORARY_BLOCKED}" value="Softblock Cards" id="si7"/>
+                <af:selectItem label="#{sfr.UNBLOCKED}" value="Active Cards" id="si8"/>
               </af:selectManyChoice>
    <af:spacer width="10" id="s320"/>
    <!--<af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>-->
