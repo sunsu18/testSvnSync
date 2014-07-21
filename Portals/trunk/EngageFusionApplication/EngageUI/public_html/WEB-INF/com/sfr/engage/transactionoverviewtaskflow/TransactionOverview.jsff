@@ -780,13 +780,13 @@
           </af:column>
 
           <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
-                     sortable="true" width="110" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="115" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.VEHICLE_NUMBER}"
                      id="c34" headerNoWrap="true">
             <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
-                     sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="110" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.INTERNAL_NAME}"
                      id="c25">
             <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
