@@ -1089,23 +1089,23 @@ public class AccountSummary implements Serializable {
             System.out.println("selectItems size " + selectItems.size());
 
         }
-        if(selectItems.size() == 0)
-
-
-        {
-            resourceBundle = new EngageResourceBundle();
-
-
-            if (resourceBundle.containsKey("NO_DATA"))
-            {
-                 SelectItem selectItem = new SelectItem();
-                 selectItem.setLabel(resourceBundle.getObject("NO_DATA").toString().trim() );
-                 selectItem.setValue(resourceBundle.getObject("NO_DATA").toString().trim() );
-                 selectItems.add(selectItem);
-
-            }
-
-        }
+//        if(selectItems.size() == 0)
+//
+//
+//        {
+//            resourceBundle = new EngageResourceBundle();
+//
+//
+//            if (resourceBundle.containsKey("NO_DATA"))
+//            {
+//                 SelectItem selectItem = new SelectItem();
+//                 selectItem.setLabel(resourceBundle.getObject("NO_DATA").toString().trim() );
+//                 selectItem.setValue(resourceBundle.getObject("NO_DATA").toString().trim() );
+//                 selectItems.add(selectItem);
+//
+//            }
+//
+//        }
 
     }
 
