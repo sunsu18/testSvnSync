@@ -2190,8 +2190,7 @@ public class CardBean implements Serializable {
                 selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb=new ReportBundle();
-        //Getting Resource Bundle Values from DB
-        reportLang=reportLang.toUpperCase();
+        //Getting Resource Bundle Values from DB        
         String columnsReport=rb.getContentsForReport("VIEWCARDS",(String)session.getAttribute("lang"),selectedValues);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"From Resource Bundle:"+columnsReport);
         
