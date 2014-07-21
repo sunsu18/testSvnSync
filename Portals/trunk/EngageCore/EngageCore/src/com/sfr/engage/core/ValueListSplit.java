@@ -20,7 +20,7 @@ public class ValueListSplit implements Serializable {
     
     public Map<String,String> callValueList(int size,List<String> passedList) {
         mapList = new HashMap<String,String>();
-        dividedValue=size/250;
+        dividedValue=size/110;
         loopValue=dividedValue+1;
         int count=250;
         int startIndex=0;
