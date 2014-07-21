@@ -91,10 +91,10 @@ public class TransactionOverviewBean implements Serializable {
     private Boolean isTableVisible = false;
     private Boolean value=false;
     ResourceBundle resourceBundle;
-    private Float sum = 0.000f;
-    private Float foreignGrossAmountSum = 0.000f;
-    private Float vatSum = 0.000f;
-    private Float netAmountSum = 0.000f;    
+    private Float sum = 0.00f;
+    private Float foreignGrossAmountSum = 0.00f;
+    private Float vatSum = 0.00f;
+    private Float netAmountSum = 0.00f;    
     private String cardGroupSubtypePassValues;
     private String cardGroupMaintypePassValue;
     private String cardGroupSeqPassValues;
@@ -1009,7 +1009,7 @@ public class TransactionOverviewBean implements Serializable {
         }
 
     public String searchResults() {
-        sum = 0.000f;
+        sum = 0.00f;
         //String terminalPassingValues  = null;
         String transTypePassingValues = null;
         String cardNumberPasingValues = null;
@@ -1664,10 +1664,10 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Queries are saved in session");
             //isTableVisible = true;             
             value=true;
-            sum = 0.000f;
-            foreignGrossAmountSum = 0.000f;
-            vatSum = 0.000f;
-            netAmountSum = 0.000f; 
+            sum = 0.00f;
+            foreignGrossAmountSum = 0.00f;
+            vatSum = 0.00f;
+            netAmountSum = 0.00f; 
             RowSetIterator iterator = vo.createRowSetIterator(null);
             iterator.reset();
             if (vo.getEstimatedRowCount() != 0) {                
@@ -4109,10 +4109,10 @@ public class TransactionOverviewBean implements Serializable {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Estimated Row Count =" +
                      prtCardTransactionOverViewRVO.getEstimatedRowCount());
-        sum = 0.000f;
-        foreignGrossAmountSum = 0.000f;
-        vatSum = 0.000f;
-        netAmountSum = 0.000f; 
+        sum = 0.00f;
+        foreignGrossAmountSum = 0.00f;
+        vatSum = 0.00f;
+        netAmountSum = 0.00f; 
         if(prtCardTransactionOverViewRVO.getEstimatedRowCount()>0)
         {
             isTableVisible=true;
