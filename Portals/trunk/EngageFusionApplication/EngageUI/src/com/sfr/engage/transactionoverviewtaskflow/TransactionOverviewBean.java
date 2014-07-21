@@ -193,8 +193,9 @@ public class TransactionOverviewBean implements Serializable {
                     }
                     
                 }
-            }                
-            
+            }  
+            Collections.sort (partnerIdList,comparator);
+            Collections.sort (accountIdList,comparator);            
         }
         if(session!=null) {
             if(session.getAttribute("account_Query")!=null)

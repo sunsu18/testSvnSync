@@ -604,7 +604,7 @@
                       id="c2">
             <af:outputText value="#{row.UnitOfMeasure}" id="ot35" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
-          <af:column sortProperty="CurrencyUnitPrice" filterable="true"
+          <af:column sortProperty="CurrencyUnitPrice" filterable="true" width="100"
                      sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportInternationalTx eq true ?  (pageFlowScope.TransactionOverviewBean.reportDefault eq true ? false : true) : false}"
                      headerText="#{sfr.FOREGIN_UNIT_PRICE}"
                      id="c1">
@@ -641,7 +641,7 @@
             </f:facet>
           </af:column>
 
-          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true"
+          <af:column sortProperty="InvoicedUnitPriceRebated" filterable="true" width="130"
                      sortable="true" align="right"   visible="#{pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.reportPriceSpecification}"
                      headerText="#{sfr.ENGAGE_DISCOUNTED_PRICE}"
                      id="c4">
@@ -780,13 +780,13 @@
           </af:column>
 
           <af:column sortProperty="VehicleNumber" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
-                     sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="110" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.VEHICLE_NUMBER}"
-                     id="c34">
+                     id="c34" headerNoWrap="true">
             <af:outputText value="#{row.VehicleNumber}" id="ot31" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
         <af:column sortProperty="InternalName" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData or pageFlowScope.TransactionOverviewBean.vehicleName}"
-                     sortable="true" width="100" align="left" filterFeatures="caseInsensitive"
+                     sortable="true" width="90" align="left" filterFeatures="caseInsensitive"
                      headerText="#{sfr.INTERNAL_NAME}"
                      id="c25">
             <af:outputText value="#{row.InternalName}" id="ot34" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
@@ -805,7 +805,7 @@
           </af:column>
 
           <af:column sortProperty="OdometerPortal" filterable="true" width="100" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData }"
-                     sortable="true" align="left"
+                     sortable="true" align="left" headerNoWrap="true"
                      headerText="#{sfr.ODOMETER}"
                      id="c19">
             <!--<af:outputText value="#{row.OdometerPortal}" id="ot76"/>-->
@@ -848,7 +848,7 @@
             </af:outputText>
           </af:column>-->
           <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="60" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
-                     headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right"
+                     headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right" headerNoWrap="true"
                      id="c26">
             <af:outputText value="#{row.kmTotal}" id="ot83" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
              <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
