@@ -338,10 +338,7 @@ public class TransactionOverviewBean implements Serializable {
             if (partnerInfoList != null) {
                 for (int i = 0; i < partnerIdValues.size(); i++) {
                     for (int k = 0; k < partnerInfoList.size(); k++) {
-                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
-                            _logger.info(accessDC.getDisplayRecord() +
-                                         this.getClass() + " " +
-                                         "Partner Id is found :K" + k);
+                        if (partnerIdValues.get(i).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {                          
                             if (partnerInfoList.get(k).getAccountList() !=
                                 null &&
                                 partnerInfoList.get(k).getAccountList().size() >
@@ -722,9 +719,9 @@ public class TransactionOverviewBean implements Serializable {
                                                 SelectItem selectItem =
                                                     new SelectItem();
                                                 selectItem.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                                selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                                selectItem.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim()+partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                                 cardGroupList.add(selectItem);
-                                                cardGroupValue.add(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                                cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim()+partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                             }
                                         }
 
@@ -1575,7 +1572,7 @@ public class TransactionOverviewBean implements Serializable {
                             mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);         
                                  for(int i=0;i<mapCardGroupListValue.size();i++) {
                                   String values="cardGroup"+i;
-                                cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                                cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                                 }
                                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARDGROUP Query Values ="+cardGroupQuery);
                                    cardGroupQuery=cardGroupQuery.substring(0, cardGroupQuery.length()-3);
@@ -1592,7 +1589,7 @@ public class TransactionOverviewBean implements Serializable {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
                             mapCardGroupListValue=null;
-                            cardGroupQuery="INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
+                            cardGroupQuery="INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
                              vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
                         }                         
@@ -1606,7 +1603,7 @@ public class TransactionOverviewBean implements Serializable {
                             mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);         
                                  for(int i=0;i<mapCardGroupListValue.size();i++) {
                                     String values="cardGroup"+i;
-                                    cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                                    cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                                 }
                                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARD Query Values ="+cardQuery);
                                    cardGroupQuery=cardGroupQuery.substring(0, cardGroupQuery.length()-3);
@@ -1623,7 +1620,7 @@ public class TransactionOverviewBean implements Serializable {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                               " " + "CARD Values < 250 ");
                             mapCardGroupListValue=null;
-                            cardGroupQuery="(INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
+                            cardGroupQuery="(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
                              vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
                         } 
@@ -2676,12 +2673,10 @@ public class TransactionOverviewBean implements Serializable {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Formed String =" + selectedValues);
         String passedString =
-            selectedValues.substring(0, selectedValues.length() - 1);        
-        ReportBundle rb=new ReportBundle();
-        String reportLang=(String)session.getAttribute("lang");
+            selectedValues.substring(0, selectedValues.length() - 1);  
         
-        //Getting Resource Bundle Values from DB
-        reportLang=reportLang.toUpperCase();
+        //Getting Resource Bundle Values from DB      
+        ReportBundle rb=new ReportBundle();       
         String columnsReport=rb.getContentsForReport("TRANSACTION",lang,passedString);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"From Resource Bundle:"+columnsReport);
         String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
