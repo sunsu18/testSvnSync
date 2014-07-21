@@ -11,6 +11,8 @@ import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -23,6 +25,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
@@ -134,10 +137,14 @@ public class CardBean implements Serializable {
     private String fileName;
     private boolean reset = false;
     private ArrayList<String> cardTypeNameList = new ArrayList<String>();
+    private String currencyCode;
+    Conversion conversionUtility;
+    private Locale locale;
     
 
     public CardBean() {
         super();
+        conversionUtility=new Conversion();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside Constructor of View Cards");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -158,7 +165,8 @@ public class CardBean implements Serializable {
                 cardGroupList = new ArrayList<SelectItem>();
                 cardGroupValue = new ArrayList<String>();
                 for (int i = 0; i < partnerInfoList.size(); i++) {
-                    
+                    lang = partnerInfoList.get(0).getCountry().toString().trim();
+//                    System.out.println("lang here is "+lang);
                     if (partnerInfoList.get(i).getPartnerName() != null &&
                         partnerInfoList.get(i).getPartnerValue() != null) {
                         SelectItem selectItem = new SelectItem();
@@ -232,10 +240,21 @@ public class CardBean implements Serializable {
 
         statusValue.add("0");
 
-
-        if (session != null) {
-            lang = (String)session.getAttribute(Constants.userLang);
+        if (lang != null) {
+            currencyCode = conversionUtility.getCurrencyCode(lang);
+            locale = conversionUtility.getLocaleFromCountryCode(lang);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
+        } else {
+            currencyCode = conversionUtility.getCurrencyCode("SE");
+            locale = conversionUtility.getLocaleFromCountryCode("SE");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:Locale :" + locale);
         }
+//        if (session != null) {
+//            lang = (String)session.getAttribute(Constants.userLang);
+//            currencyCode = conversionUtility.getCurrencyCode(lang);
+//        }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Exiting Constructor of View Cards");
         
@@ -3342,6 +3361,22 @@ public class CardBean implements Serializable {
 
     public List<String> getPartnerIdValue() {
         return partnerIdValue;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setConversionUtility(Conversion conversionUtility) {
+        this.conversionUtility = conversionUtility;
+    }
+
+    public Conversion getConversionUtility() {
+        return conversionUtility;
     }
 
     public class Bindings {
