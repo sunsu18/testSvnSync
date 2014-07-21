@@ -4,6 +4,7 @@ package com.sfr.engage.invoiceoverviewtaskflow;
 import com.sfr.core.bean.EngageEmaiUtilityl;
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
+import com.sfr.engage.core.ReportBundle;
 import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVORowImpl;
@@ -512,7 +513,7 @@ public class InvoiceOverviewBean implements Serializable {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Value of account Id=================>"+populateStringValues(getBindings().getAccount().getValue().toString()));
 
 //                invoiceVO.setNamedWhereClauseParam("accountId",populateStringValues(getBindings().getAccount().getValue().toString()));
-                invoiceVO.setNamedWhereClauseParam("countryCode","DK");
+                invoiceVO.setNamedWhereClauseParam("countryCode",lang);
                 invoiceVO.setNamedWhereClauseParam("partnerId",populateStringValues(getBindings().getPartnerNumber().getValue().toString()));
                 invoiceVO.setNamedWhereClauseParam("fromDateBV",newFromDate);
                 invoiceVO.setNamedWhereClauseParam("toDateBV",newToDate);
@@ -2361,7 +2362,7 @@ for(int i=0;i<prop.length;i++)
         }
        
         if (strInvoicesTotalColumns != null) {
-            String[] strHead = strInvoicesTotalColumns.split(",");
+            String[] strHead = strInvoicesTotalColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
             shuttleList = new ArrayList<SelectItem>();
             for (int col = 0; col < strHead.length; col++) {
                 SelectItem selectItem = new SelectItem();
@@ -2461,13 +2462,17 @@ for(int i=0;i<prop.length;i++)
         
             if ("Account".equalsIgnoreCase(type)) {
                 if (accountList.size() == listValues.length) {
-                    val = "All";
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
                 } else {
                     val = selectedValues;
                 }
             }else{
                 if(partnerList.size() == listValues.length) {
-                    val = "All";
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
                 }else{
                     val = selectedValues;
                 }
@@ -2483,7 +2488,8 @@ for(int i=0;i<prop.length;i++)
    
         public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException,
-                                                                              SQLException {
+                                                                              SQLException,
+                                                                              Exception {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside specificExportExcelListener method of Invoices");
           
@@ -2493,11 +2499,18 @@ for(int i=0;i<prop.length;i++)
                          "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues =
                     selectedValues + shuttleValue.get(i).toString().trim() +
-                    ",";
+                    "|";
         }
         selectedValues =
                 selectedValues.substring(0, selectedValues.length() - 1);
-
+        
+        ReportBundle rb=new ReportBundle();
+        String reportLang=(String)session.getAttribute("lang");
+        reportLang=reportLang.toUpperCase();
+        String columnsReport=rb.getContentsForReport("INVOICES",lang,selectedValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"From Resource Bundle:"+columnsReport);
+        String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
+        
         //int partnerIndex = 0;
         String partnerCompanyName = "";
         String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartnerNumber().getValue().toString().trim()));
@@ -2615,35 +2628,48 @@ for(int i=0;i<prop.length;i++)
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             //XLS_SH_R_C.setCellValue("Company: " + partnerCompanyName);
-            XLS_SH_R_C.setCellValue("Company: " + checkALL((populateStringValues(getBindings().getPartnerNumber().getValue().toString())),
+            if (resourceBundle.containsKey("ENG_COMPANY")) {  
+            
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_COMPANY")+": " + checkALL((populateStringValues(getBindings().getPartnerNumber().getValue().toString())),
                                              "Partner"));
-
+            }
+           
 
             XLS_SH_R = XLS_SH.createRow(1);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Account: " +
+            if (resourceBundle.containsKey("ACCOUNT")) {  
+            XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ACCOUNT") +": " +
                                     checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
                                              "Account"));
-
+            }
+            
             XLS_SH_R = XLS_SH.createRow(2);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Type: " + reportType);
-            
+            if (resourceBundle.containsKey("TYPE")) { 
+            XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE")+": " + reportType);
+            }
             XLS_SH_R = XLS_SH.createRow(3);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Period: " +
+            
+            if (resourceBundle.containsKey("ENG_PERIOD")) {  
+            
+            XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENG_PERIOD") +
+                                        ": " +
                                     formatConversion((Date)getBindings().getFromDate().getValue()) +
-                                    " to " +
+                                        " " +
+                                        resourceBundle.getObject("TO_DATE") +
+                                        " " +
                                     formatConversion((Date)getBindings().getToDate().getValue()));
+            }
 
             for (int row = 4; row <= 6; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
-            String[] headerValues = selectedValues.split(",");
+            String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
 
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
@@ -2671,29 +2697,29 @@ for(int i=0;i<prop.length;i++)
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
-                    for (int cellValue = 0; cellValue < headerValues.length;
+                    for (int cellValue = 0; cellValue < headerDataValues.length;
                          cellValue++) {
-                        if("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())){
+                        if("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())){
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
                             }
                         }
-                        else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
-                        }else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        }else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getFinalinvoice() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getFinalinvoice().toString());
                             }
                         }
-                        else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2703,7 +2729,7 @@ for(int i=0;i<prop.length;i++)
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
 //                                XLS_SH_R_C.setCellValue(row.getInvoicingDate().toString());
                             }
-                        } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDueDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2719,21 +2745,21 @@ for(int i=0;i<prop.length;i++)
 //                                XLS_SH_R_C.setCellStyle(csData);
 //                                XLS_SH_R_C.setCellValue("Card");                           
 //                        } 
-                        else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getnetAmount() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getnetAmount().toString())),
                                                                          locale));
                             }
-                        } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvVatAmt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getInvVatAmt().toString())),
                                                                          locale));
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvGrossAmt() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
@@ -2756,7 +2782,7 @@ for(int i=0;i<prop.length;i++)
                          "Report in CSV Format");
      
             PrintWriter out = new PrintWriter(outputStream);
-            String[] headerValues = selectedValues.split(",");
+            String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
             for (int col = 0; col < headerValues.length; col++) {
                 out.print(headerValues[col].toString());
                 if (col < headerValues.length - 1) {
@@ -2775,52 +2801,52 @@ for(int i=0;i<prop.length;i++)
                 if (row != null) {
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() + " " + "Printing Data");
-                    for (int cellValue = 0; cellValue < headerValues.length;
+                    for (int cellValue = 0; cellValue < headerDataValues.length;
                          cellValue++) {
                         
-                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         }
                         
-                        else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         }
                         
-                        else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                                 if (row.getFinalinvoice() != null) {
                                     out.print(row.getFinalinvoice().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print(";");
                                 }
-                            } else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvoiceDate() != null) {
                                 java.sql.Date date =
                                     row.getInvoiceDate().dateValue();
                                 Date passedDate = new Date(date.getTime());                               
                                 out.print(formatConversion(passedDate));
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvoicingDueDate() != null) {
                                 java.sql.Date date =
                                     row.getInvoicingDueDate().dateValue();
                                 Date passedDate = new Date(date.getTime());                               
                                 out.print(formatConversion(passedDate));                              
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         } 
@@ -2830,21 +2856,21 @@ for(int i=0;i<prop.length;i++)
 //                                out.print(";");
 //                            }
 //                        } 
-                        else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                        else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                             if (row.getnetAmount() != null) {
                                 out.print(row.getnetAmount().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvVatAmt() != null) {
                                 out.print(row.getInvVatAmt().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getInvGrossAmt() != null) {
                                 out.print(row.getInvGrossAmt().toString());
                             }
@@ -2865,7 +2891,7 @@ for(int i=0;i<prop.length;i++)
                              " " + "Report in CSV2 Format");
              
                 PrintWriter out = new PrintWriter(outputStream);
-                String[] headerValues = selectedValues.split(",");
+                String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < headerValues.length; col++) {
                     out.print(headerValues[col].toString());
                     if (col < headerValues.length - 1) {
@@ -2887,50 +2913,50 @@ for(int i=0;i<prop.length;i++)
                         for (int cellValue = 0;
                              cellValue < headerValues.length; cellValue++) {
                             
-                            if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             }
                             
-                            else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } 
                             
-                            else if ("Invoice Number".equalsIgnoreCase(headerValues[cellValue].toString().trim())) { 
+                            else if ("Invoice Number".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) { 
                                 if (row.getFinalinvoice() != null) {
                                     out.print(row.getFinalinvoice().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } 
-                            else if ("Invoice Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            else if ("Invoice Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getInvoiceDate() != null) {
                                     java.sql.Date date =
                                         row.getInvoiceDate().dateValue();
                                     Date passedDate = new Date(date.getTime());                               
                                     out.print(formatConversion(passedDate));                                   
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Due Date".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Due Date".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getInvoicingDueDate() != null) {
                                     java.sql.Date date =
                                         row.getInvoicingDueDate().dateValue();
                                     Date passedDate = new Date(date.getTime());                               
                                     out.print(formatConversion(passedDate));                                     
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } 
@@ -2940,25 +2966,25 @@ for(int i=0;i<prop.length;i++)
 //                                    out.print("|");
 //                                }
 //                            }
-                            else if ("NET".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            else if ("NET".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getnetAmount() != null) {
                                     out.print(row.getnetAmount().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("VAT".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("VAT".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getInvVatAmt() != null) {
                                     out.print(row.getInvVatAmt().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Total Amount".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getInvGrossAmt() != null) {
                                     out.print(row.getInvGrossAmt().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } 
@@ -3165,7 +3191,7 @@ for(int i=0;i<prop.length;i++)
                 }
             }
             if (strInvoicesPrepopulatedColumns != null) {
-                String[] strHead = strInvoicesPrepopulatedColumns.split(",");
+                String[] strHead = strInvoicesPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
                     shuttleValue.add(strHead[col].toString());
                 }
