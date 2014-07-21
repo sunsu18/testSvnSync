@@ -2,6 +2,7 @@ package com.sfr.engage.cardtaskflow;
 
 import com.sfr.core.bean.User;
 import com.sfr.engage.core.PartnerInfo;
+import com.sfr.engage.core.ReportBundle;
 import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVORowImpl;
@@ -480,7 +481,8 @@ public class CardBean implements Serializable {
             accountIdValue = new ArrayList<String>();
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
-
+            statusValue = new ArrayList<String>();
+            
             String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
 
             if (partnerString.length > 0) {
@@ -512,15 +514,12 @@ public class CardBean implements Serializable {
                                          k++) {
                                         if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
                                             null) {
-
                                             SelectItem selectItem = new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
                                             selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
                                             cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
-
                                         }
-
                                     }
                                 }
                             }
@@ -1776,7 +1775,7 @@ public class CardBean implements Serializable {
             }
         }
         if (strViewCardTotalColumns != null) {
-            String[] strHead = strViewCardTotalColumns.split(",");
+            String[] strHead = strViewCardTotalColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
             shuttleList = new ArrayList<SelectItem>();
             for (int col = 0; col < strHead.length; col++) {
                 SelectItem selectItem = new SelectItem();
@@ -1987,7 +1986,7 @@ public class CardBean implements Serializable {
                 }
             }
             if (strViewCardPrepopulatedColumns != null) {
-                String[] strHead = strViewCardPrepopulatedColumns.split(",");
+                String[] strHead = strViewCardPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
                     shuttleValue.add(strHead[col].toString());
                 }
@@ -2067,21 +2066,35 @@ public class CardBean implements Serializable {
         String val = "";
         String[] listValues = selectedValues.split(",");
         if (listValues.length > 1) {
-            if ("Account".equalsIgnoreCase(type)) {
+            if ("Partner".equalsIgnoreCase(type)) {
+                if (partnerInfoList.size() == listValues.length) {
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
+                } else {
+                    val = selectedValues;
+                }
+            }else if ("Account".equalsIgnoreCase(type)) {
                 if (accountIdList.size() == listValues.length) {
-                    val = "ALL";
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
                 } else {
                     val = selectedValues;
                 }
             } else if ("CardGroup".equalsIgnoreCase(type)) {
                 if (cardGroupList.size() == listValues.length) {
-                    val = "ALL";
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
                 } else {
                     val = selectedValues;
                 }
             } else if ("Status".equalsIgnoreCase(type)) {
                 if (statusList.size() == listValues.length) {
-                    val = "ALL";
+                    if (resourceBundle.containsKey("ENG_ALL")) {  
+                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    }
                 } else {
                     val = selectedValues;
                 }
@@ -2143,7 +2156,7 @@ public class CardBean implements Serializable {
 
     public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException,
-                                                                              SQLException {
+                                                                              SQLException,Exception {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside specificExportExcelListener method of View Cards");
         String selectedValues = "";
@@ -2152,11 +2165,16 @@ public class CardBean implements Serializable {
                          "Item =" + i + " value== " + shuttleValue.get(i));
             selectedValues =
                     selectedValues + shuttleValue.get(i).toString().trim() +
-                    ",";
+                    "|";
         }
         selectedValues =
                 selectedValues.substring(0, selectedValues.length() - 1);
 
+        ReportBundle rb=new ReportBundle();
+        //Getting Resource Bundle Values from DB
+        reportLang=reportLang.toUpperCase();
+        String columnsReport=rb.getContentsForReport("VIEWCARDS",(String)session.getAttribute("lang"),selectedValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"From Resource Bundle:"+columnsReport);
         
         String partnerCompanyName = "";
 //        for (int z = 0; z < partnerInfoList.size(); z++) {
@@ -2177,7 +2195,7 @@ public class CardBean implements Serializable {
                 for(int p = 0; p < partnerCompanyNameList.length; p++){
                     if(partnerInfoList.get(z).getPartnerValue() != null && partnerCompanyNameList[p] != null){
                         if(partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim())){
-                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerName().trim() + ",";
+                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerValue().toString().trim() + ",";
                             if (partnerInfoList.get(z).getAccountList() != null &&
                                 partnerInfoList.get(z).getAccountList().size() > 0) {
                                 for (int i = 0;
@@ -2222,7 +2240,9 @@ public class CardBean implements Serializable {
         }
         partnerCompanyName = (String)partnerCompanyName.subSequence(0, (partnerCompanyName.length()) - 1);
         cardGroupDescName = (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
-
+        String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
+        String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
+        
         if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Report in Excel Format");
@@ -2261,53 +2281,76 @@ public class CardBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(0);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Company: " + partnerCompanyName);
-
+//            XLS_SH_R_C.setCellValue("Company: " + checkALL(partnerCompanyName,"Partner"));
+            if (resourceBundle.containsKey("PARTNER_ENG")) {  
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("PARTNER_ENG")+": " + checkALL(partnerCompanyName,"Partner"));
+            }
 
             XLS_SH_R = XLS_SH.createRow(1);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("Account: " +
-                                    checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
-                                             "Account"));
+//            XLS_SH_R_C.setCellValue("Account: " +
+//                                    checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
+//                                             "Account"));
+            if (resourceBundle.containsKey("ACCOUNT")) {  
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ACCOUNT") +": " + 
+                                        checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
+                                                "Account"));
+            }
 
             XLS_SH_R = XLS_SH.createRow(2);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            XLS_SH_R_C.setCellValue("CardGroup: " +
-                                    checkALL(cardGroupDescName, "CardGroup"));
-
-
-            //        populateCardGroupValues(populateStringValues(getBindings().getCardGroup().getValue().toString());
+//            XLS_SH_R_C.setCellValue("CardGroup: " +
+//                                    checkALL(cardGroupDescName, "CardGroup"));
+            if (resourceBundle.containsKey("CARDGROUP")) {  
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("CARDGROUP") +": " + 
+                                        checkALL(cardGroupDescName, "CardGroup"));
+            }
 
             XLS_SH_R = XLS_SH.createRow(3);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
+//            XLS_SH_R_C.setCellValue("Status: " +
+//                                    checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
+//                                             "Status"));
+            if (resourceBundle.containsKey("STATUS")) {  
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("STATUS") +": " + 
+                                        checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
+                                                "Status"));
+            }
 
-            XLS_SH_R_C.setCellValue("Status: " +
-                                    checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
-                                             "Status"));
-
-            for (int row = 4; row <= 6; row++) {
+            for (int row = 4; row < 6; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
-            String[] headerValues = selectedValues.split(",");
-
+           
+            
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
             fcss.setFontHeightInPoints((short)10);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
+            
             XLS_SH_R = XLS_SH.createRow(6);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            if (resourceBundle.containsKey("ENG_VIEW_CARD_NOTE")) {  
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_VIEW_CARD_NOTE")); 
+            }
+            //ENG_VIEW_CARD_NOTE
+            
+            XLS_SH_R = XLS_SH.createRow(7);
+
+            XLS_SH_R = XLS_SH.createRow(8);
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col].toString());
             }
 
-            int rowVal = 6;
+            int rowVal = 8;
 
             ViewObject prtViewCardsVO =
                 ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
@@ -2320,45 +2363,45 @@ public class CardBean implements Serializable {
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
-                    for (int cellValue = 0; cellValue < headerValues.length;
+                    for (int cellValue = 0; cellValue < headerDataValues.length;
                          cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
                             }
-                        } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString());
                             }
-                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupDescription());
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardgroupId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupId());
                             }
-                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardType() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardType().toString());
                             }
-                        } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getTypeName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(statusConversion(row.getTypeName().toString()));
                             }
-                        } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getLastUsed() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2366,52 +2409,49 @@ public class CardBean implements Serializable {
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
-                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);                             
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyTxReportTxThreeMonths3().toString());
                             }
-                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                             }
-                        }
-                        
-                        
-                        else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardEmbossNum().toString());
                             }
-                        } else if ("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardTextline2() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardTextline2().toString());
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getVehicleNumber() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getDriverName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverName().toString());
                             }
-                        } else if ("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getBlockAction() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(statusConversion(row.getBlockAction().toString()));
                             }
-                        } else if ("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardExpiry() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2436,7 +2476,7 @@ public class CardBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Report in CSV Format");
             PrintWriter out = new PrintWriter(outputStream);
-            String[] headerValues = selectedValues.split(",");
+
             for (int col = 0; col < headerValues.length; col++) {
                 out.print(headerValues[col].toString());
                 if (col < headerValues.length - 1) {
@@ -2455,109 +2495,109 @@ public class CardBean implements Serializable {
                 if (row != null) {
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() + " " + "Printing Data");
-                    for (int cellValue = 0; cellValue < headerValues.length;
+                    for (int cellValue = 0; cellValue < headerDataValues.length;
                          cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 out.print(row.getCardgroupDescription());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        }else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        }else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardgroupId() != null) {
                                 out.print(row.getCardgroupId());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardType() != null) {
                                 out.print(row.getCardType().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getTypeName() != null) {
                                 out.print(row.getTypeName().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getLastUsed() != null) {
                                 Date date = new Date(row.getLastUsed().dateValue().getTime());
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
-                                out.print(date);
+                                out.print(sdf.format(date));
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
                                 out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
                                 out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }                          
-                        } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardTextline2() != null) {
                                 out.print(row.getCardTextline2().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getVehicleNumber() != null) {
                                 out.print(row.getVehicleNumber().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getDriverName() != null) {
                                 out.print(row.getDriverName().toString());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getBlockAction() != null) {
                                 out.print(statusConversion(row.getBlockAction().toString()));
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardExpiry() != null) {
                                 java.sql.Date date =
                                     row.getCardExpiry().dateValue();
@@ -2565,7 +2605,7 @@ public class CardBean implements Serializable {
                                 out.print(formatConversion(passedDate));
                                 //                            XLS_SH_R_C.setCellValue(row.getCardExpiry().toString().trim());
                             }
-                            if (cellValue != headerValues.length - 1) {
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         }
@@ -2581,7 +2621,7 @@ public class CardBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "Report in CSV2 Format");
                 PrintWriter out = new PrintWriter(outputStream);
-                String[] headerValues = selectedValues.split(",");
+
                 for (int col = 0; col < headerValues.length; col++) {
                     out.print(headerValues[col].toString());
                     if (col < headerValues.length - 1) {
@@ -2601,115 +2641,115 @@ public class CardBean implements Serializable {
                         _logger.info(accessDC.getDisplayRecord() +
                                      this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0;
-                             cellValue < headerValues.length; cellValue++) {
-                            if ("Partner".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                             cellValue < headerDataValues.length; cellValue++) {
+                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Account".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardgroupDescription() != null) {
                                     out.print(row.getCardgroupDescription());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            }else if ("CardGroup Id".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            }else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardgroupId() != null) {
                                     out.print(row.getCardgroupId());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Type".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardType() != null) {
                                     out.print(row.getCardType().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Type Description".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getTypeName() != null) {
                                     out.print(row.getTypeName().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Last Used".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getLastUsed() != null) {
                                     Date date = new Date(row.getLastUsed().dateValue().getTime());
                                     SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
-                                    out.print(date);
+                                    out.print(sdf.format(date));
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Avg Monthly Usage".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
                                     out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
                                     out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardEmbossNum() != null) {
                                     out.print(row.getCardEmbossNum().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card Textline 2".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardTextline2() != null) {
                                     out.print(row.getCardTextline2().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Vehicle".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getVehicleNumber() != null) {
                                     out.print(row.getVehicleNumber().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Driver".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getDriverName() != null) {
                                     out.print(row.getDriverName().toString());
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Status".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getBlockAction() != null) {
                                     out.print(statusConversion(row.getBlockAction().toString()));
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Expiry".equalsIgnoreCase(headerValues[cellValue].toString().trim())) {
+                            } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardExpiry() != null) {
                                     java.sql.Date date =
                                         row.getCardExpiry().dateValue();
                                     Date passedDate = new Date(date.getTime());
                                     out.print(formatConversion(passedDate));
                                 }
-                                if (cellValue != headerValues.length - 1) {
+                                if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             }
