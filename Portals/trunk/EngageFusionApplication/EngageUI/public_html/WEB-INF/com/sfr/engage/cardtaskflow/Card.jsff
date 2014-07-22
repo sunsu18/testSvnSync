@@ -372,7 +372,7 @@
               </af:outputText>
             
             </af:column>
-             <af:column headerText="#{sfr.AVG_MONTHLY_USE}" sortProperty="QuaterlyFuelReportFuelThreeMonths3" filterable="true" sortable="true" filterFeatures="caseInsensitive"
+             <af:column headerText="#{sfr.AVG_MONTHLY_USE} #{pageFlowScope.CardBean.currencyCode}" sortProperty="QuaterlyFuelReportFuelThreeMonths3" filterable="true" sortable="true" filterFeatures="caseInsensitive"
                        id="c15" align="right">
               <af:outputText value="#{row.QuaterlyTxReportTxThreeMonths3}"
                              id="ot39">
