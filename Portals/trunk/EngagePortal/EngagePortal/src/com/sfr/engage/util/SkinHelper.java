@@ -124,7 +124,11 @@ public class SkinHelper extends ThreadSerialization {
                     locale = "sv";
                 }
                 else
-                if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("no_NO") || session.getAttribute("lang").toString().equalsIgnoreCase("da_DK") || session.getAttribute("lang").toString().equalsIgnoreCase("hu_HU") || session.getAttribute("lang").toString().equalsIgnoreCase("ro_RO") || session.getAttribute("lang").toString().equalsIgnoreCase("bg_BG"))
+                    if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("ee_EE")) {
+                    locale = "et";
+                }
+                else
+                if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("no_NO") || session.getAttribute("lang").toString().equalsIgnoreCase("da_DK") || session.getAttribute("lang").toString().equalsIgnoreCase("lv_LV") || session.getAttribute("lang").toString().equalsIgnoreCase("lt_LT") || session.getAttribute("lang").toString().equalsIgnoreCase("pl_PL"))
                 {
                 locale = session.getAttribute("lang").toString().substring(0,2);
                 }
