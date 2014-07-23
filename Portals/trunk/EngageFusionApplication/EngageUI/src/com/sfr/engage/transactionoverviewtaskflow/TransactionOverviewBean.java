@@ -1702,6 +1702,10 @@ public class TransactionOverviewBean implements Serializable {
                     netAmountSum = netAmountSum + tempNetTotal;
                     }
                 }
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"sum ="+sum);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"foreignGrossAmountSum ="+foreignGrossAmountSum);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"vatSum ="+vatSum);
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"netAmountSum ="+netAmountSum);
 
                 //                for(int i=0;i<=vo.getEstimatedRowCount();i++ ){
                 //                    Row rw = vo.getRowAtRangeIndex(i);
@@ -2071,7 +2075,9 @@ public class TransactionOverviewBean implements Serializable {
     public String formatConversion(Float passedValue, Locale countryLocale) {
         String val = "";
         NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
-        val = numberFormat.format(passedValue);
+        numberFormat.setMaximumFractionDigits(2);
+        val = numberFormat.format(passedValue);        
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Returned Val ="+val);        
         return val;
     }
 
@@ -4162,7 +4168,11 @@ public class TransactionOverviewBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG()); 
-        }        
+        }    
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"sum ="+sum);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"foreignGrossAmountSum ="+foreignGrossAmountSum);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"vatSum ="+vatSum);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"netAmountSum ="+netAmountSum);
         value=false;  
         filterValue=false;
                                                                                                         
