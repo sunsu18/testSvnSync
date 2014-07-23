@@ -22,9 +22,9 @@ public class ValueListSplit implements Serializable {
         mapList = new HashMap<String,String>();
         dividedValue=size/150;
         loopValue=dividedValue+1;
-        int count=250;
+        int count=150;
         int startIndex=0;
-        int maxIndex=250;
+        int maxIndex=150;
           for(int i=0;i<loopValue;i++) {
              String valuesList="";
                 for(int j=startIndex;j<maxIndex;j++) { 
