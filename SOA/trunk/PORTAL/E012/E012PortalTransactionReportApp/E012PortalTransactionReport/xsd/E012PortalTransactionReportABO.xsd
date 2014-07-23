@@ -47,14 +47,8 @@
       <xsd:complexContent>
         <xsd:extension base="TransactionReportType">
           <xsd:sequence>
-            <xsd:element name="TransactionData">
-              <xsd:complexType>
-                <xsd:sequence>
-                  <xsd:element name="Transaction" type="TransactionType"
-                               maxOccurs="unbounded"/>
-                </xsd:sequence>
-              </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="Transaction" type="TransactionType"
+                         maxOccurs="unbounded"/>
           </xsd:sequence>
         </xsd:extension>
       </xsd:complexContent>

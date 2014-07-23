@@ -124,7 +124,7 @@
           <xsl:value-of select="'L/100KM'"/>
         </imp1:Lper100KM>
       </imp1:TransactionData>
-      <xsl:for-each select="/ns1:TransactionReport/TransactionData/Transaction">
+      <xsl:for-each select="/ns1:TransactionReport/Transaction">
         <imp1:TransactionData>
           <imp1:Date>
             <xsl:value-of select="TRANSACTION_TIME"/>
@@ -214,7 +214,7 @@
             </xsl:otherwise>
           </xsl:choose>
           <xsl:choose>
-            <xsl:when test='ODOMETER_PORTAL != "0"'>
+            <xsl:when test='ODOMETER_PORTAL != ""'>
               <imp1:TotalKM>
                 <xsl:value-of select="number(ODOMETER_PORTAL) - number(PREVIOUS_ODOMETER)"/>
               </imp1:TotalKM>
@@ -226,7 +226,7 @@
             </xsl:otherwise>
           </xsl:choose>
           <xsl:choose>
-            <xsl:when test='ODOMETER_PORTAL != "0"'>
+            <xsl:when test='ODOMETER_PORTAL != ""'>
               <xsl:choose>
                 <xsl:when test='QUANTITY != "0"'>
                   <imp1:KMperL>
@@ -242,7 +242,7 @@
             </xsl:when>
             <xsl:otherwise>
               <xsl:choose>
-                <xsl:when test='QUANTITY != "0"'>
+                <xsl:when test='QUANTITY != ""'>
                   <imp1:KMperL>
                     <xsl:value-of select="(number(ODOMETER) - number(PREVIOUS_ODOMETER)) div QUANTITY"/>
                   </imp1:KMperL>
@@ -256,7 +256,7 @@
             </xsl:otherwise>
           </xsl:choose>
           <xsl:choose>
-            <xsl:when test="ODOMETER_PORTAL != '0'">
+            <xsl:when test="ODOMETER_PORTAL != ''">
               <xsl:choose>
                 <xsl:when test="(number(ODOMETER_PORTAL) - number(PREVIOUS_ODOMETER)) != '0'">
                   <imp1:Lper100KM>

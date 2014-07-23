@@ -99,122 +99,244 @@
     <bpelx:exec import="org.w3c.dom.Text"/>
     <!--bpelx:exec/-->
     <bpelx:exec name="Java_Embedding" version="1.5" language="java">
-      <![CDATA[try {                    
-//output variable of TransactionReportInput type to set Txn Report input      
-TransactionReportInput input= new TransactionReportInput();    
+      <![CDATA[try {                        
+//output variable of TransactionReportInput type to set Txn Report input          
+TransactionReportInput input= new TransactionReportInput();        
+        
+//get input for Txn Report          
+input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));            
+input.setAccount((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Account")).getText()));                 
+input.setPartner((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Partner")).getText()));                 
+input.setType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Type")).getText()));                 
+input.setReportType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/ReportType")).getText()));                 
+input.setTransactionBasis((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasis")).getText()));                 
+input.setTransactionBasisValues((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasisValues")).getText()));                 
+input.setTransactionDateFrom((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateFrom")).getText()));                 
+input.setTransactionDateTo((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateTo")).getText()));           
+addAuditTrailEntry("Transaction Input created");            
+          
+//output variable of TransactionReportOutput type to get Txn Report output          
+TransactionReportOutput transaction = new TransactionReportOutput();                       
+ArrayList transactionArray = new ArrayList<TransactionReportOutput>();                       
+addAuditTrailEntry("Transaction output class initialised");           
+          
+//generate Txn Report          
+transactionArray=TransactionReport.GenerateTransactionReport(input);               
+addAuditTrailEntry("Transaction Report Generated");          
+          
+//Create Element of Txn type to return Transaction Report          
+Element elementTransactionReport;          
+elementTransactionReport = (Element)getVariableData("transactionReport");          
+Document txndoc = elementTransactionReport.getOwnerDocument();     
+     
+Element rootElement = txndoc.getDocumentElement();    
+          
+//to loop through resultset to set the xml element          
+for (int i = 0; i < transactionArray.size(); i++){            
+// to set the transaction type output for each iteration          
+transaction=(TransactionReportOutput)transactionArray.get(i);          
+       
+// to create transaction element from Class Array   
+Element txnElement = txndoc.createElement("Transaction");        
+rootElement.appendChild(txnElement);          
+//to get data from transaction into element      
+Element UREF_TRANSACTION_ID = txndoc.createElement("UREF_TRANSACTION_ID");       
+UREF_TRANSACTION_ID.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_ID()));       
+txnElement.appendChild(UREF_TRANSACTION_ID);          
     
-//get input for Txn Report      
-input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));        
-input.setAccount((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Account")).getText()));             
-input.setPartner((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Partner")).getText()));             
-input.setType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Type")).getText()));             
-input.setReportType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/ReportType")).getText()));             
-input.setTransactionBasis((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasis")).getText()));             
-input.setTransactionBasisValues((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasisValues")).getText()));             
-input.setTransactionDateFrom((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateFrom")).getText()));             
-input.setTransactionDateTo((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateTo")).getText()));       
-addAuditTrailEntry("Transaction Input created");        
+Element PARTNER_ID = txndoc.createElement("PARTNER_ID");       
+PARTNER_ID.appendChild(txndoc.createTextNode(transaction.getPARTNER_ID()));       
+txnElement.appendChild(PARTNER_ID);     
+    
+Element PALS_COUNTRY_CODE = txndoc.createElement("PALS_COUNTRY_CODE");       
+PALS_COUNTRY_CODE.appendChild(txndoc.createTextNode(transaction.getPALS_COUNTRY_CODE()));       
+txnElement.appendChild(PALS_COUNTRY_CODE);    
+    
+Element TRANSACTION_TYPE = txndoc.createElement("TRANSACTION_TYPE");       
+TRANSACTION_TYPE.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_TYPE()));       
+txnElement.appendChild(TRANSACTION_TYPE);    
+    
+Element PURCHASE_CURRENCY = txndoc.createElement("PURCHASE_CURRENCY");       
+PURCHASE_CURRENCY.appendChild(txndoc.createTextNode(transaction.getPURCHASE_CURRENCY()));       
+txnElement.appendChild(PURCHASE_CURRENCY);    
+    
+Element KSID = txndoc.createElement("KSID");       
+KSID.appendChild(txndoc.createTextNode(transaction.getKSID()));       
+txnElement.appendChild(KSID);    
+    
+Element PURCHASE_COUNTRY_CODE = txndoc.createElement("PURCHASE_COUNTRY_CODE");       
+PURCHASE_COUNTRY_CODE.appendChild(txndoc.createTextNode(transaction.getPURCHASE_COUNTRY_CODE()));       
+txnElement.appendChild(PURCHASE_COUNTRY_CODE);        
+    
+Element CARD_1_ID = txndoc.createElement("CARD_1_ID");       
+CARD_1_ID.appendChild(txndoc.createTextNode(transaction.getCARD_1_ID()));       
+txnElement.appendChild(CARD_1_ID);      
+        
+Element ODOMETER_PORTAL = txndoc.createElement("ODOMETER_PORTAL");       
+ODOMETER_PORTAL.appendChild(txndoc.createTextNode(transaction.getODOMETER_PORTAL()));       
+txnElement.appendChild(ODOMETER_PORTAL);      
+	    
+Element ODOMETER = txndoc.createElement("ODOMETER");       
+ODOMETER.appendChild(txndoc.createTextNode(transaction.getODOMETER()));       
+txnElement.appendChild(ODOMETER);     
+    
+Element TRANSACTION_DT = txndoc.createElement("TRANSACTION_DT");       
+TRANSACTION_DT.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_DT()));       
+txnElement.appendChild(TRANSACTION_DT);     
+    
+Element TRANSACTION_TIME = txndoc.createElement("TRANSACTION_TIME");       
+TRANSACTION_TIME.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_TIME()));       
+txnElement.appendChild(TRANSACTION_TIME);     
+    
+Element STATION_NAME = txndoc.createElement("STATION_NAME");       
+STATION_NAME.appendChild(txndoc.createTextNode(transaction.getSTATION_NAME()));       
+txnElement.appendChild(STATION_NAME);     
+    
+Element INVOICE_NUMBER_NON_COLLECTIVE = txndoc.createElement("INVOICE_NUMBER_NON_COLLECTIVE");       
+INVOICE_NUMBER_NON_COLLECTIVE.appendChild(txndoc.createTextNode(transaction.getINVOICE_NUMBER_NON_COLLECTIVE()));       
+txnElement.appendChild(INVOICE_NUMBER_NON_COLLECTIVE);     
+          
+Element MODIFIED_BY = txndoc.createElement("MODIFIED_BY");       
+MODIFIED_BY.appendChild(txndoc.createTextNode(transaction.getMODIFIED_BY()));       
+txnElement.appendChild(MODIFIED_BY);     
+	      
+Element PORTAL_MODIFIED_DATE = txndoc.createElement("PORTAL_MODIFIED_DATE");       
+PORTAL_MODIFIED_DATE.appendChild(txndoc.createTextNode(transaction.getPORTAL_MODIFIED_DATE()));       
+txnElement.appendChild(PORTAL_MODIFIED_DATE);     
+	      
+Element INVOICE_NUMBER_COLLECTIVE = txndoc.createElement("INVOICE_NUMBER_COLLECTIVE");       
+INVOICE_NUMBER_COLLECTIVE.appendChild(txndoc.createTextNode(transaction.getINVOICE_NUMBER_COLLECTIVE()));       
+txnElement.appendChild(INVOICE_NUMBER_COLLECTIVE);     
+	      
+Element ACCOUNT_ID = txndoc.createElement("ACCOUNT_ID");       
+ACCOUNT_ID.appendChild(txndoc.createTextNode(transaction.getACCOUNT_ID()));       
+txnElement.appendChild(ACCOUNT_ID);     
+	      
+Element CARDGROUP_MAIN_TYPE = txndoc.createElement("CARDGROUP_MAIN_TYPE");       
+CARDGROUP_MAIN_TYPE.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_MAIN_TYPE()));       
+txnElement.appendChild(CARDGROUP_MAIN_TYPE);     
+    
+Element CARDGROUP_SUB_TYPE = txndoc.createElement("CARDGROUP_SUB_TYPE");       
+CARDGROUP_SUB_TYPE.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_SUB_TYPE()));       
+txnElement.appendChild(CARDGROUP_SUB_TYPE);     
+       
+Element CARDGROUP_SEQ = txndoc.createElement("CARDGROUP_SEQ");       
+CARDGROUP_SEQ.appendChild(txndoc.createTextNode(transaction.getCARDGROUP_SEQ()));       
+txnElement.appendChild(CARDGROUP_SEQ);     
+       
+Element PREVIOUS_ODOMETER = txndoc.createElement("PREVIOUS_ODOMETER");       
+PREVIOUS_ODOMETER.appendChild(txndoc.createTextNode(transaction.getPREVIOUS_ODOMETER()));       
+txnElement.appendChild(PREVIOUS_ODOMETER);     
+       
+Element PRODUCT_NAME = txndoc.createElement("PRODUCT_NAME");       
+PRODUCT_NAME.appendChild(txndoc.createTextNode(transaction.getPRODUCT_NAME()));       
+txnElement.appendChild(PRODUCT_NAME);     
+       
+Element QUANTITY = txndoc.createElement("QUANTITY");       
+QUANTITY.appendChild(txndoc.createTextNode(transaction.getQUANTITY()));       
+txnElement.appendChild(QUANTITY);     
+       
+Element CURRENCY_UNIT_PRICE = txndoc.createElement("CURRENCY_UNIT_PRICE");       
+CURRENCY_UNIT_PRICE.appendChild(txndoc.createTextNode(transaction.getCURRENCY_UNIT_PRICE()));       
+txnElement.appendChild(CURRENCY_UNIT_PRICE);     
+       
+Element INVOICED_VAT = txndoc.createElement("INVOICED_VAT");       
+INVOICED_VAT.appendChild(txndoc.createTextNode(transaction.getINVOICED_VAT()));       
+txnElement.appendChild(INVOICED_VAT);     
+       
+Element INVOICED_NET_AMOUNT = txndoc.createElement("INVOICED_NET_AMOUNT");       
+INVOICED_NET_AMOUNT.appendChild(txndoc.createTextNode(transaction.getINVOICED_NET_AMOUNT()));       
+txnElement.appendChild(INVOICED_NET_AMOUNT);     
+       
+Element INVOICE_DISCOUNT_AMOUNT = txndoc.createElement("INVOICE_DISCOUNT_AMOUNT");       
+INVOICE_DISCOUNT_AMOUNT.appendChild(txndoc.createTextNode(transaction.getINVOICE_DISCOUNT_AMOUNT()));       
+txnElement.appendChild(INVOICE_DISCOUNT_AMOUNT);    
+       
+Element INVOICED_UNIT_PRICE = txndoc.createElement("INVOICED_UNIT_PRICE");       
+INVOICED_UNIT_PRICE.appendChild(txndoc.createTextNode(transaction.getINVOICED_UNIT_PRICE()));       
+txnElement.appendChild(INVOICED_UNIT_PRICE);    
+    
+Element INVOICED_GROSS_AMOUNT = txndoc.createElement("INVOICED_GROSS_AMOUNT");       
+INVOICED_GROSS_AMOUNT.appendChild(txndoc.createTextNode(transaction.getINVOICED_GROSS_AMOUNT()));       
+txnElement.appendChild(INVOICED_GROSS_AMOUNT);    
+    
+Element INVOICED_NET_AMOUNT_REBATED = txndoc.createElement("INVOICED_NET_AMOUNT_REBATED");       
+INVOICED_NET_AMOUNT_REBATED.appendChild(txndoc.createTextNode(transaction.getINVOICED_NET_AMOUNT_REBATED()));       
+txnElement.appendChild(INVOICED_NET_AMOUNT_REBATED);    
       
-//output variable of TransactionReportOutput type to get Txn Report output      
-TransactionReportOutput transaction = new TransactionReportOutput();                   
-ArrayList transactionArray = new ArrayList<TransactionReportOutput>();                   
-addAuditTrailEntry("Transaction output class initialised");       
-      
-//generate Txn Report      
-transactionArray=TransactionReport.GenerateTransactionReport(input);           
-addAuditTrailEntry("Transaction Report Generated");      
-      
-//Create Element of Txn type to return Transaction Report      
-Element elementTransactionReport;      
-elementTransactionReport = (Element)getVariableData("transactionReport");      
-Document txndoc = elementTransactionReport.getOwnerDocument();      
-      
-//to loop through resultset to set the xml element      
-for (int i = 0; i < transactionArray.size(); i++){        
-// to set the transaction type output for each iteration      
-transaction=(TransactionReportOutput)transactionArray.get(i);      
-   
-Element txnElement = txndoc.createElement("Transaction");   
-txndoc.appendChild(txnElement);   
-  
-//to get data from transaction into string variables   
-Element UREF_TRANSACTION_ID = txndoc.createElement("UREF_TRANSACTION_ID");   
-UREF_TRANSACTION_ID.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_ID()));   
-txnElement.appendChild(UREF_TRANSACTION_ID);   
+Element INVOIVED_VAT_REBATED = txndoc.createElement("INVOIVED_VAT_REBATED");       
+INVOIVED_VAT_REBATED.appendChild(txndoc.createTextNode(transaction.getINVOIVED_VAT_REBATED()));       
+txnElement.appendChild(INVOIVED_VAT_REBATED);    
+    
+Element INVOICED_UNIT_PRICE_REBATED = txndoc.createElement("INVOICED_UNIT_PRICE_REBATED");       
+INVOICED_UNIT_PRICE_REBATED.appendChild(txndoc.createTextNode(transaction.getINVOICED_UNIT_PRICE_REBATED()));       
+txnElement.appendChild(INVOICED_UNIT_PRICE_REBATED);    
+    
+Element CURRENCY_GROSS_AMOUNT_REBATED = txndoc.createElement("CURRENCY_GROSS_AMOUNT_REBATED");       
+CURRENCY_GROSS_AMOUNT_REBATED.appendChild(txndoc.createTextNode(transaction.getCURRENCY_GROSS_AMOUNT_REBATED()));       
+txnElement.appendChild(CURRENCY_GROSS_AMOUNT_REBATED);    
+          
+Element CURRENCY_UNIT_PRICE_REBATED = txndoc.createElement("CURRENCY_UNIT_PRICE_REBATED");       
+CURRENCY_UNIT_PRICE_REBATED.appendChild(txndoc.createTextNode(transaction.getCURRENCY_UNIT_PRICE_REBATED()));       
+txnElement.appendChild(CURRENCY_UNIT_PRICE_REBATED);    
+          
+Element CURRENCY_GROSS_AMOUNT = txndoc.createElement("CURRENCY_GROSS_AMOUNT");       
+CURRENCY_GROSS_AMOUNT.appendChild(txndoc.createTextNode(transaction.getCURRENCY_GROSS_AMOUNT()));       
+txnElement.appendChild(CURRENCY_GROSS_AMOUNT);    
+	      
+Element UNIT_OF_MEASURE = txndoc.createElement("UNIT_OF_MEASURE");       
+UNIT_OF_MEASURE.appendChild(txndoc.createTextNode(transaction.getUNIT_OF_MEASURE()));       
+txnElement.appendChild(UNIT_OF_MEASURE);    
+	      
+Element CURRENCY_VAT = txndoc.createElement("CURRENCY_VAT");       
+CURRENCY_VAT.appendChild(txndoc.createTextNode(transaction.getCURRENCY_VAT()));       
+txnElement.appendChild(CURRENCY_VAT);    
+    
+Element CURRENCY_DISCOUNT_AMOUNT = txndoc.createElement("CURRENCY_DISCOUNT_AMOUNT");       
+CURRENCY_DISCOUNT_AMOUNT.appendChild(txndoc.createTextNode(transaction.getCURRENCY_DISCOUNT_AMOUNT()));       
+txnElement.appendChild(CURRENCY_DISCOUNT_AMOUNT);    
+    
+Element CURRENCY_NET_AMOUNT = txndoc.createElement("CURRENCY_NET_AMOUNT");       
+CURRENCY_NET_AMOUNT.appendChild(txndoc.createTextNode(transaction.getCURRENCY_NET_AMOUNT()));       
+txnElement.appendChild(CURRENCY_NET_AMOUNT);    
          
-String PARTNER_ID=transaction.getPARTNER_ID();        
-String PALS_COUNTRY_CODE=transaction.getPALS_COUNTRY_CODE();       
-String TRANSACTION_TYPE=transaction.getTRANSACTION_TYPE();        
-String PURCHASE_CURRENCY=transaction.getPURCHASE_CURRENCY();        
-String KSID=transaction.getKSID();        
-String PURCHASE_COUNTRY_CODE=transaction.getPURCHASE_COUNTRY_CODE();        
-String CARD_1_ID=transaction.getCARD_1_ID();        
-String ODOMETER_PORTAL=transaction.getODOMETER_PORTAL();        
-String ODOMETER=transaction.getODOMETER();        
-String TRANSACTION_DT=transaction.getTRANSACTION_DT();        
-String TRANSACTION_TIME=transaction.getTRANSACTION_TIME();        
-String STATION_NAME=transaction.getSTATION_NAME();        
-String INVOICE_NUMBER_NON_COLLECTIVE=transaction.getINVOICE_NUMBER_NON_COLLECTIVE();        
-String MODIFIED_BY=transaction.getMODIFIED_BY();        
-String PORTAL_MODIFIED_DATE=transaction.getPORTAL_MODIFIED_DATE();        
-String INVOICE_NUMBER_COLLECTIVE=transaction.getINVOICE_NUMBER_COLLECTIVE();        
-String ACCOUNT_ID=transaction.getACCOUNT_ID();        
-String CARDGROUP_MAIN_TYPE=transaction.getCARDGROUP_MAIN_TYPE();        
-String CARDGROUP_SUB_TYPE=transaction.getCARDGROUP_SUB_TYPE();        
-String CARDGROUP_SEQ=transaction.getCARDGROUP_SEQ();        
-String PREVIOUS_ODOMETER=transaction.getPREVIOUS_ODOMETER();        
-String PRODUCT_NAME=transaction.getPRODUCT_NAME();        
-String QUANTITY=transaction.getQUANTITY();        
-String CURRENCY_UNIT_PRICE=transaction.getCURRENCY_UNIT_PRICE();        
-String INVOICED_VAT=transaction.getINVOICED_VAT();        
-String INVOICED_NET_AMOUNT=transaction.getINVOICED_NET_AMOUNT();        
-String INVOICE_DISCOUNT_AMOUNT=transaction.getINVOICE_DISCOUNT_AMOUNT();        
-String INVOICED_UNIT_PRICE=transaction.getINVOICED_UNIT_PRICE();        
-String INVOICED_GROSS_AMOUNT=transaction.getINVOICED_GROSS_AMOUNT();        
-String INVOICED_NET_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();        
-String INVOIVED_VAT_REBATED=transaction.getINVOIVED_VAT_REBATED();        
-String INVOICED_UNIT_PRICE_REBATED=transaction.getINVOICED_UNIT_PRICE_REBATED();        
-String CURRENCY_GROSS_AMOUNT_REBATED=transaction.getCURRENCY_GROSS_AMOUNT_REBATED();        
-String CURRENCY_UNIT_PRICE_REBATED=transaction.getCURRENCY_UNIT_PRICE_REBATED();        
-String CURRENCY_GROSS_AMOUNT=transaction.getCURRENCY_GROSS_AMOUNT();        
-String UNIT_OF_MEASURE=transaction.getUNIT_OF_MEASURE();        
-String CURRENCY_VAT=transaction.getCURRENCY_VAT();        
-String CURRENCY_DISCOUNT_AMOUNT=transaction.getCURRENCY_DISCOUNT_AMOUNT();        
-String CURRENCY_NET_AMOUNT=transaction.getCURRENCY_NET_AMOUNT();        
-String INVOICED_GROSS_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();        
-String DRIVER_NUMBER=transaction.getDRIVER_NUMBER();        
-String DRIVER_NAME=transaction.getDRIVER_NAME();      
-String VEHICLE_NUMBER=transaction.getVEHICLE_NUMBER();        
-String INTERNAL_NAME=transaction.getINTERNAL_NAME();    
-//addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());       
-}       
-setVariableData("transactionReport",elementTransactionReport);   
-//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[2]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());                 
-      
-//addAuditTrailEntry("XML Created: "+TransactionReport);      
-           
-//setVariableData("transactionString", transactionVal);             
-//setVariableData("output", "payload","/tns:rating", new Integer(rating));                   
-}                   
-catch (Exception re) {               
-addAuditTrailEntry("XML Faulted");         
+Element INVOICED_GROSS_AMOUNT_REBATED = txndoc.createElement("INVOICED_GROSS_AMOUNT_REBATED");       
+INVOICED_GROSS_AMOUNT_REBATED.appendChild(txndoc.createTextNode(transaction.getINVOICED_GROSS_AMOUNT_REBATED()));       
+txnElement.appendChild(INVOICED_GROSS_AMOUNT_REBATED);    
+	     
+Element DRIVER_NUMBER = txndoc.createElement("DRIVER_NUMBER");       
+DRIVER_NUMBER.appendChild(txndoc.createTextNode(transaction.getDRIVER_NUMBER()));       
+txnElement.appendChild(DRIVER_NUMBER);    
+	    
+Element DRIVER_NAME = txndoc.createElement("DRIVER_NAME");       
+DRIVER_NAME.appendChild(txndoc.createTextNode(transaction.getDRIVER_NAME()));       
+txnElement.appendChild(DRIVER_NAME);    
+        
+Element VEHICLE_NUMBER = txndoc.createElement("VEHICLE_NUMBER");       
+VEHICLE_NUMBER.appendChild(txndoc.createTextNode(transaction.getVEHICLE_NUMBER()));       
+txnElement.appendChild(VEHICLE_NUMBER);    
+        
+Element INTERNAL_NAME = txndoc.createElement("INTERNAL_NAME");       
+INTERNAL_NAME.appendChild(txndoc.createTextNode(transaction.getINTERNAL_NAME()));       
+txnElement.appendChild(INTERNAL_NAME);        
+}           
+//to assign transaction report generated to element  
+setVariableData("transactionReport",elementTransactionReport);       
+addAuditTrailEntry("XML Created");         
+  
+}                       
+catch (Exception ex) {                   
+addAuditTrailEntry("Exception: " + ex); 
 }]]>
-    </bpelx:exec><assign name="AssignTransactionReport"
+    </bpelx:exec>
+    <!--assign name="AssignTransactionReport"
                          xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
-      <!--bpelx:append>
-        <bpelx:from variable="transactionString"/>
-        <bpelx:to variable="transactionReport" query="/ns1:TransactionReport"/>
-      </bpelx:append>
-      <bpelx:append>
-        <bpelx:from expression="&lt;Transaction>&lt;UREF_TRANSACTION_ID>HI&lt;/UREF_TRANSACTION_ID>&lt;/Transaction>"/>
-        <bpelx:to variable="transactionReport" query="/ns1:TransactionReport"/>
-      </bpelx:append-->
       <copy>
         <from variable="transactionReport" query="/ns1:TransactionReport"/>
         <to variable="txnReport" query="/ns1:TransactionReport"/>
       </copy>
-    </assign>
-    <assign name="TransactionReport_to_TransactionReport">
+    </assign-->
+    <!--assign name="TransactionReport_to_TransactionReport">
       <bpelx:annotation>
         <bpelx:pattern>transformation</bpelx:pattern>
       </bpelx:annotation>
@@ -222,13 +344,14 @@ addAuditTrailEntry("XML Faulted");
         <from expression="ora:doXSLTransformForDoc('xsl/Transformation_1.xsl', $transactionReport)"/>
         <to variable="txnReport"/>
       </copy>
-    </assign>
-    <assign name="TrasnactionReportToWriteTrasnactionReport">
+    </assign-->
+    <assign name="TrasnactionReportToWriteTrasnactionReport"
+            bpelx:validate="yes">
       <bpelx:annotation>
         <bpelx:pattern>transformation</bpelx:pattern>
       </bpelx:annotation>
       <copy>
-        <from expression="ora:doXSLTransformForDoc('xsl/TransactionReport_to_WriteTransactionReport.xsl', $txnReport)"/>
+        <from expression="ora:doXSLTransformForDoc('xsl/TransactionReport_to_WriteTransactionReport.xsl', $transactionReport)"/>
         <to variable="InvokeWriteTransactionReport_IV" part="body"/>
       </copy>
     </assign>

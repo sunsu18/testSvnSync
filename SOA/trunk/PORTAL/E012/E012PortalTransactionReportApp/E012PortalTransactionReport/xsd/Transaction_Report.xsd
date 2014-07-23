@@ -23,57 +23,57 @@
           <xsd:complexType>
             <xsd:sequence>
               <xsd:element name="Date" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Account" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="CardGroup" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Card" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="CardTextLine2" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="VehicleNo" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="InternalName" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="DriverNumber" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="DriverName" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Station" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Country" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Product" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Vol" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="UnitOfMeasure" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Currency" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="ForeginUnitPrice" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="ForeginGrossAmount" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="DiscountedPrice" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="TotalAmount" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Vat" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Net" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="InvoiceNo" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Odometer" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="TotalKM" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="KMperL" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
               <xsd:element name="Lper100KM" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy="${eol}" nxsd:quotedBy="&quot;"
-                           minOccurs="0"/>
+                           minOccurs="1"/>
             </xsd:sequence>
           </xsd:complexType>
         </xsd:element>
