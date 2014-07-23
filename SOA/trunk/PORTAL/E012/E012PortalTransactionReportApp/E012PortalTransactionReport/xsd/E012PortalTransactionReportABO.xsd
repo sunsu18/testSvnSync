@@ -5,9 +5,7 @@
             elementFormDefault="unqualified">
   <xsd:element name="TransactionRequest" type="TransactionRequestType">
     <xsd:annotation>
-      <xsd:documentation>
-        A sample element
-      </xsd:documentation>
+      <xsd:documentation>A sample element</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="TransactionRequestType">
@@ -30,13 +28,39 @@
       <xsd:element name="Value" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:element name="TransactionReport" type="TransactionReportType"/>
-  <xsd:complexType name="TransactionReportType">
+  <xsd:element name="TransactionReportInput" type="TransactionReportInputType"/>
+  <xsd:complexType name="TransactionReportInputType">
     <xsd:sequence>
-      <xsd:element name="Transaction" type="TransactionType"
-                   maxOccurs="unbounded"/>
+      <xsd:element name="Country" type="xsd:string"/>
+      <xsd:element name="Account" type="xsd:string"/>
+      <xsd:element name="Partner" type="xsd:string"/>
+      <xsd:element name="Type" type="xsd:string"/>
+      <xsd:element name="ReportType" type="xsd:string"/>
+      <xsd:element name="TransactionBasis" type="xsd:string"/>
+      <xsd:element name="TransactionBasisValues" type="xsd:string"/>
+      <xsd:element name="TransactionDateFrom" type="xsd:string"/>
+      <xsd:element name="TransactionDateTo" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="TransactionReport">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="TransactionReportType">
+          <xsd:sequence>
+            <xsd:element name="TransactionData">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="Transaction" type="TransactionType"
+                               maxOccurs="unbounded"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="TransactionReportType"/>
   <xsd:complexType name="TransactionType">
     <xsd:sequence>
       <xsd:element name="UREF_TRANSACTION_ID" type="xsd:string"/>
@@ -71,21 +95,19 @@
       <xsd:element name="INVOICED_GROSS_AMOUNT" type="xsd:string"/>
       <xsd:element name="INVOICED_NET_AMOUNT_REBATED" type="xsd:string"/>
       <xsd:element name="INVOIVED_VAT_REBATED" type="xsd:string"/>
-       <xsd:element name="INVOICED_UNIT_PRICE_REBATED" type="xsd:string"/>
-        <xsd:element name="CURRENCY_GROSS_AMOUNT_REBATED" type="xsd:string"/>
-         <xsd:element name="CURRENCY_UNIT_PRICE_REBATED" type="xsd:string"/>
-          <xsd:element name="CURRENCY_GROSS_AMOUNT" type="xsd:string"/>
-           <xsd:element name="UNIT_OF_MEASURE" type="xsd:string"/>
-            <xsd:element name="CURRENCY_VAT" type="xsd:string"/>
-             <xsd:element name="CURRENCY_DISCOUNT_AMOUNT" type="xsd:string"/>
-              <xsd:element name="CURRENCY_NET_AMOUNT" type="xsd:string"/>
-               <xsd:element name="INVOICED_GROSS_AMOUNT_REBATED" type="xsd:string"/>
-                <xsd:element name="DRIVER_NUMBER" type="xsd:string"/>
-                <xsd:element name="DRIVER_NAME" type="xsd:string"/>
-                <xsd:element name="VEHICLE_NUMBER" type="xsd:string"/>
-                 <xsd:element name="INTERNAL_NAME" type="xsd:string"/>
-
-      
+      <xsd:element name="INVOICED_UNIT_PRICE_REBATED" type="xsd:string"/>
+      <xsd:element name="CURRENCY_GROSS_AMOUNT_REBATED" type="xsd:string"/>
+      <xsd:element name="CURRENCY_UNIT_PRICE_REBATED" type="xsd:string"/>
+      <xsd:element name="CURRENCY_GROSS_AMOUNT" type="xsd:string"/>
+      <xsd:element name="UNIT_OF_MEASURE" type="xsd:string"/>
+      <xsd:element name="CURRENCY_VAT" type="xsd:string"/>
+      <xsd:element name="CURRENCY_DISCOUNT_AMOUNT" type="xsd:string"/>
+      <xsd:element name="CURRENCY_NET_AMOUNT" type="xsd:string"/>
+      <xsd:element name="INVOICED_GROSS_AMOUNT_REBATED" type="xsd:string"/>
+      <xsd:element name="DRIVER_NUMBER" type="xsd:string"/>
+      <xsd:element name="DRIVER_NAME" type="xsd:string"/>
+      <xsd:element name="VEHICLE_NUMBER" type="xsd:string"/>
+      <xsd:element name="INTERNAL_NAME" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>

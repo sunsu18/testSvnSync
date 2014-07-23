@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="GenerateTransactionReport" targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" id="BpPrc0">
+<process name="GenerateTransactionReport" targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,6 +14,7 @@
       with the client role are automatically set using WS-Addressing.
     -->
     <partnerLink name="generatetransactionreport_client" partnerLinkType="client:GenerateTransactionReport" myRole="GenerateTransactionReportProvider"/>
+    <partnerLink name="WriteTransactionReport" partnerLinkType="ns2:Write_plt" partnerRole="Write_role"/>
   </partnerLinks>
 
   <!-- 
@@ -26,6 +27,10 @@
     <!-- Reference to the message passed as input during initiation -->
     <variable name="inputVariable" messageType="client:GenerateTransactionReportRequestMessage"/>
     <variable name="transactionReport" element="ns1:TransactionReport"/>
+    <variable name="transactionString" type="xsd:string"/>
+    <variable name="txnReport" element="ns1:TransactionReport"/>
+    <variable name="transactionReportInput" element="ns1:TransactionReportInput"/>
+    <variable name="InvokeWriteTransactionReport_IV" messageType="ns2:Write_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catchAll id="BpCAl0">
@@ -43,46 +48,158 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in GenerateTransactionReport.wsdl) -->
     <receive name="receiveInput" partnerLink="generatetransactionreport_client" portType="client:GenerateTransactionReport" operation="generate" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
-    
+    <assign name="XformInputToTxnInput" id="BpAss0">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/E012Input_to_TransactionReportInput.xsl', $inputVariable.payload)"/>
+        <to variable="transactionReportInput"/>
+      </copy>
+    </assign>
     <bpelx:exec import="e012portaltransactionreport.TransactionReport" id="BxExe0"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportInput" id="BxExe1"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportOutput" id="BxExe2"/>
     <bpelx:exec import="java.util.ArrayList" id="BxExe3"/>
+    <!--bpelx:exec/-->
     <bpelx:exec name="Java_Embedding" version="1.5" language="java" id="BxExe4">
-      <![CDATA[/*Write your java code below e.g.    
-	System.out.println("Hello, World");   
-*/   
-try {   
-           
-        //System.out.println(transaction.getTRANSACTION_ID());   
-        //System.out.println("Goodbye!");   
-TransactionReportInput input= new TransactionReportInput();   
-input.setCountry("DK");   
-input.setAccount("0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241");   
-input.setPartner("04942983");   
-input.setType("");   
-input.setReportType("");   
-input.setTransactionBasis("");   
-input.setTransactionBasisValues("0014860050,0014860068,0014860076,0014860084,0014860092,0014860100,0014860118,0014860126,0014860134,0014860142,0014860159,0014860167,0014860175,0014860183,0014860191,0014860209,0014860217,0014860225,0014860563,0014860571,0014860589,0014860597,0014860605,0014860613,0014860621,0014860639,0014860647,0014860654,0014860662,0014860670");   
-input.setTransactionDateFrom("18-JUN-2014");   
-input.setTransactionDateTo("18-JUL-2014");   
+      <![CDATA[/*Write your java code below e.g.              
+	System.out.println("Hello, World");             
+*/             
+try {             
+String transactionVal="<TransactionData>";      
+        //System.out.println(transaction.getTRANSACTION_ID());             
+        //System.out.println("Goodbye!");             
+TransactionReportInput input= new TransactionReportInput();             
+/*input.setCountry("DK");             
+input.setAccount("0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241");             
+input.setPartner("04942983");             
+input.setType("");             
+input.setReportType("");             
+input.setTransactionBasis("");             
+input.setTransactionBasisValues("0014860050,0014860068,0014860076,0014860084,0014860092,0014860100,0014860118,0014860126,0014860134,0014860142,0014860159,0014860167,0014860175,0014860183,0014860191,0014860209,0014860217,0014860225,0014860563,0014860571,0014860589,0014860597,0014860605,0014860613,0014860621,0014860639,0014860647,0014860654,0014860662,0014860670");             
+input.setTransactionDateFrom("18-JUN-2014");             
+input.setTransactionDateTo("18-JUL-2014");*/ 
+input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));  
+input.setAccount((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Account")).getText()));       
+input.setPartner((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Partner")).getText()));       
+input.setType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Type")).getText()));       
+input.setReportType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/ReportType")).getText()));       
+input.setTransactionBasis((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasis")).getText()));       
+input.setTransactionBasisValues((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasisValues")).getText()));       
+input.setTransactionDateFrom((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateFrom")).getText()));       
+input.setTransactionDateTo((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateTo")).getText())); 
+             
+TransactionReportOutput transaction = new TransactionReportOutput();             
+ArrayList transactionArray = new ArrayList<TransactionReportOutput>();             
+transactionArray=TransactionReport.GenerateTransactionReport(input);     
+     
+/*transactionVal=transactionVal +"<Transaction>";     
+transaction=(TransactionReportOutput)transactionArray.get(1);                   
+addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());          
+transactionVal=transactionVal +"<UREF_TRANSACTION_ID>"+transaction.getTRANSACTION_ID()+"</UREF_TRANSACTION_ID>";      
+transactionVal=transactionVal +"</Transaction>";    */  
+//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[1]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());           
+     
+for (int i = 0; i < transactionArray.size(); i++) {  
+transactionVal=transactionVal +"<Transaction>";     
+transaction=(TransactionReportOutput)transactionArray.get(i);        
+//addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());       
+transactionVal=transactionVal +"<UREF_TRANSACTION_ID>"+transaction.getTRANSACTION_ID()+"</UREF_TRANSACTION_ID>";      
+        transactionVal=transactionVal +"<PARTNER_ID>"+transaction.getPARTNER_ID()+"</PARTNER_ID>";  
+              transactionVal=transactionVal +"<PALS_COUNTRY_CODE>"+transaction.getPALS_COUNTRY_CODE()+"</PALS_COUNTRY_CODE>";  
+              transactionVal=transactionVal +"<TRANSACTION_TYPE>"+transaction.getTRANSACTION_TYPE()+"</TRANSACTION_TYPE>";  
+              transactionVal=transactionVal +"<PURCHASE_CURRENCY>"+transaction.getPURCHASE_CURRENCY()+"</PURCHASE_CURRENCY>";  
+              transactionVal=transactionVal +"<KSID>"+transaction.getKSID()+"</KSID>";  
+              transactionVal=transactionVal +"<PURCHASE_COUNTRY_CODE>"+transaction.getPURCHASE_COUNTRY_CODE()+"</PURCHASE_COUNTRY_CODE>";  
+              transactionVal=transactionVal +"<CARD_1_ID>"+transaction.getCARD_1_ID()+"</CARD_1_ID>";  
+              transactionVal=transactionVal +"<ODOMETER_PORTAL>"+transaction.getODOMETER_PORTAL()+"</ODOMETER_PORTAL>";  
+              transactionVal=transactionVal +"<ODOMETER>"+transaction.getODOMETER()+"</ODOMETER>";  
+              transactionVal=transactionVal +"<TRANSACTION_DT>"+transaction.getTRANSACTION_DT()+"</TRANSACTION_DT>";  
+              transactionVal=transactionVal +"<TRANSACTION_TIME>"+transaction.getTRANSACTION_TIME()+"</TRANSACTION_TIME>";  
+              transactionVal=transactionVal +"<STATION_NAME>"+transaction.getSTATION_NAME()+"</STATION_NAME>";  
+              transactionVal=transactionVal +"<INVOICE_NUMBER_NON_COLLECTIVE>"+transaction.getINVOICE_NUMBER_NON_COLLECTIVE()+"</INVOICE_NUMBER_NON_COLLECTIVE>";  
+              transactionVal=transactionVal +"<MODIFIED_BY>"+transaction.getMODIFIED_BY()+"</MODIFIED_BY>";  
+              transactionVal=transactionVal +"<PORTAL_MODIFIED_DATE>"+transaction.getPORTAL_MODIFIED_DATE()+"</PORTAL_MODIFIED_DATE>";  
+              transactionVal=transactionVal +"<INVOICE_NUMBER_COLLECTIVE>"+transaction.getINVOICE_NUMBER_COLLECTIVE()+"</INVOICE_NUMBER_COLLECTIVE>";  
+              transactionVal=transactionVal +"<ACCOUNT_ID>"+transaction.getACCOUNT_ID()+"</ACCOUNT_ID>";  
+              transactionVal=transactionVal +"<CARDGROUP_MAIN_TYPE>"+transaction.getCARDGROUP_MAIN_TYPE()+"</CARDGROUP_MAIN_TYPE>";  
+              transactionVal=transactionVal +"<CARDGROUP_SUB_TYPE>"+transaction.getCARDGROUP_SUB_TYPE()+"</CARDGROUP_SUB_TYPE>";  
+              transactionVal=transactionVal +"<CARDGROUP_SEQ>"+transaction.getCARDGROUP_SEQ()+"</CARDGROUP_SEQ>";  
+              transactionVal=transactionVal +"<PREVIOUS_ODOMETER>"+transaction.getPREVIOUS_ODOMETER()+"</PREVIOUS_ODOMETER>";  
+              transactionVal=transactionVal +"<PRODUCT_NAME>"+transaction.getPRODUCT_NAME()+"</PRODUCT_NAME>";  
+              transactionVal=transactionVal +"<QUANTITY>"+transaction.getQUANTITY()+"</QUANTITY>";  
+              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE>"+transaction.getCURRENCY_UNIT_PRICE()+"</CURRENCY_UNIT_PRICE>";  
+              transactionVal=transactionVal +"<INVOICED_VAT>"+transaction.getINVOICED_VAT()+"</INVOICED_VAT>";  
+              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT>"+transaction.getINVOICED_NET_AMOUNT()+"</INVOICED_NET_AMOUNT>";  
+              transactionVal=transactionVal +"<INVOICE_DISCOUNT_AMOUNT>"+transaction.getINVOICE_DISCOUNT_AMOUNT()+"</INVOICE_DISCOUNT_AMOUNT>";  
+              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE>"+transaction.getINVOICED_UNIT_PRICE()+"</INVOICED_UNIT_PRICE>";  
+              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT>"+transaction.getINVOICED_GROSS_AMOUNT()+"</INVOICED_GROSS_AMOUNT>";  
+              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_NET_AMOUNT_REBATED>";  
+              transactionVal=transactionVal +"<INVOIVED_VAT_REBATED>"+transaction.getINVOIVED_VAT_REBATED()+"</INVOIVED_VAT_REBATED>";  
+              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE_REBATED>"+transaction.getINVOICED_UNIT_PRICE_REBATED()+"</INVOICED_UNIT_PRICE_REBATED>";  
+              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT_REBATED>"+transaction.getCURRENCY_GROSS_AMOUNT_REBATED()+"</CURRENCY_GROSS_AMOUNT_REBATED>";  
+              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE_REBATED>"+transaction.getCURRENCY_UNIT_PRICE_REBATED()+"</CURRENCY_UNIT_PRICE_REBATED>";  
+              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT>"+transaction.getCURRENCY_GROSS_AMOUNT()+"</CURRENCY_GROSS_AMOUNT>";  
+              transactionVal=transactionVal +"<UNIT_OF_MEASURE>"+transaction.getUNIT_OF_MEASURE()+"</UNIT_OF_MEASURE>";  
+              transactionVal=transactionVal +"<CURRENCY_VAT>"+transaction.getCURRENCY_VAT()+"</CURRENCY_VAT>";  
+              transactionVal=transactionVal +"<CURRENCY_DISCOUNT_AMOUNT>"+transaction.getCURRENCY_DISCOUNT_AMOUNT()+"</CURRENCY_DISCOUNT_AMOUNT>";  
+              transactionVal=transactionVal +"<CURRENCY_NET_AMOUNT>"+transaction.getCURRENCY_NET_AMOUNT()+"</CURRENCY_NET_AMOUNT>";  
+              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_GROSS_AMOUNT_REBATED>";  
+              transactionVal=transactionVal +"<DRIVER_NUMBER>"+transaction.getDRIVER_NUMBER()+"</DRIVER_NUMBER>";  
+              transactionVal=transactionVal +"<DRIVER_NAME>"+transaction.getDRIVER_NAME()+"</DRIVER_NAME>";  
+              transactionVal=transactionVal +"<VEHICLE_NUMBER>"+transaction.getVEHICLE_NUMBER()+"</VEHICLE_NUMBER>";  
+              transactionVal=transactionVal +"<INTERNAL_NAME>"+transaction.getINTERNAL_NAME()+"</INTERNAL_NAME>";  
+transactionVal=transactionVal +"</Transaction>";  
+}  
+//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[2]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());           
    
-TransactionReportOutput transaction = new TransactionReportOutput();   
-ArrayList transactionArray = new ArrayList<TransactionReportOutput>();   
-transactionArray=TransactionReport.GenerateTransactionReport(input);   
-transaction=(TransactionReportOutput)transactionArray.get(1);   
-//System.out.println(transaction.getTRANSACTION_ID()); 
-addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());   
-// Element ssn =(Element)getVariableData("input","payload","/ssn");   
-   
-//int rating = ratingService.getRating( ssn.getNodeValue() );   
-//addAuditTrailEntry("Rating is: " + rating);   
-   
-//setVariableData("output", "payload","/tns:rating", new Integer(rating));   
-}   
-catch (Exception re) {   
+transactionVal=transactionVal +"</TransactionData>";    
+addAuditTrailEntry("XML Created: "+transactionVal);       
+     
+setVariableData("transactionString", transactionVal);       
+//setVariableData("output", "payload","/tns:rating", new Integer(rating));             
+}             
+catch (Exception re) {         
+addAuditTrailEntry("XML Faulted");   
 }]]>
-    </bpelx:exec>
+    </bpelx:exec><assign name="AssignTransactionReport" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss1">
+      <!--bpelx:append>
+        <bpelx:from variable="transactionString"/>
+        <bpelx:to variable="transactionReport" query="/ns1:TransactionReport"/>
+      </bpelx:append>
+      <bpelx:append>
+        <bpelx:from expression="&lt;Transaction>&lt;UREF_TRANSACTION_ID>HI&lt;/UREF_TRANSACTION_ID>&lt;/Transaction>"/>
+        <bpelx:to variable="transactionReport" query="/ns1:TransactionReport"/>
+      </bpelx:append-->
+      <bpelx:append>
+        <bpelx:from expression="oraext:parseEscapedXML(bpws:getVariableData('transactionString'))"/>
+        <bpelx:to variable="transactionReport" query="/ns1:TransactionReport"/>
+      </bpelx:append>
+      <copy>
+        <from variable="transactionReport" query="/ns1:TransactionReport"/>
+        <to variable="txnReport" query="/ns1:TransactionReport"/>
+      </copy>
+    </assign>
+    <assign name="TransactionReport_to_TransactionReport" id="BpAss2">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/Transformation_1.xsl', $transactionReport)"/>
+        <to variable="txnReport"/>
+      </copy>
+    </assign>
+    <assign name="TrasnactionReportToWriteTrasnactionReport" id="BpAss3">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/TransactionReport_to_WriteTransactionReport.xsl', $txnReport)"/>
+        <to variable="InvokeWriteTransactionReport_IV" part="body"/>
+      </copy>
+    </assign>
+    <invoke name="InvokeWriteTransactionReport" inputVariable="InvokeWriteTransactionReport_IV" partnerLink="WriteTransactionReport" portType="ns2:Write_ptt" operation="Write" bpelx:invokeAsDetail="no" id="BpInv0"/>
   </sequence>
 </process><!--
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

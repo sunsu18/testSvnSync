@@ -12,6 +12,8 @@
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
   <import namespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
           location="GenerateTransactionReport.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport"
+          location="WriteTransactionReport.wsdl" importType="wsdl"/>
   <service name="generatetransactionreport_client_ep"
            ui:wsdlLocation="GenerateTransactionReport.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport#wsdl.interface(GenerateTransactionReport)"/>
@@ -22,8 +24,17 @@
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
               many="false">async.persist</property>
   </component>
+  <reference name="WriteTransactionReport"
+             ui:wsdlLocation="WriteTransactionReport.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport#wsdl.interface(Write_ptt)"/>
+    <binding.jca config="WriteTransactionReport_file.jca"/>
+  </reference>
   <wire>
     <source.uri>generatetransactionreport_client_ep</source.uri>
     <target.uri>GenerateTransactionReport/generatetransactionreport_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>GenerateTransactionReport/WriteTransactionReport</source.uri>
+    <target.uri>WriteTransactionReport</target.uri>
   </wire>
 </composite>

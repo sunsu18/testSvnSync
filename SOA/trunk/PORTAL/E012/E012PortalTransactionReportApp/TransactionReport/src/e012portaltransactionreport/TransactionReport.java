@@ -23,7 +23,6 @@ public class TransactionReport {
     public static ArrayList<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
 {
     //TransactionReportInput input = new TransactionReportInput()
-    TransactionReportOutput transaction = new TransactionReportOutput();
     ArrayList transactionArray = new ArrayList<TransactionReportOutput>();
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -117,6 +116,7 @@ public class TransactionReport {
         //pstmt.setString(4, CustomerNo); // set input parameter 4
         ResultSet rs = pstmt.executeQuery(query);
         while (rs.next()) {
+                TransactionReportOutput transaction = new TransactionReportOutput();
                 transaction.setTRANSACTION_ID(rs.getString("UREF_TRANSACTION_ID"));
                 transaction.setPARTNER_ID(rs.getString("PARTNER_ID"));
                 transaction.setPALS_COUNTRY_CODE(rs.getString("PALS_COUNTRY_CODE"));
@@ -186,6 +186,7 @@ public class TransactionReport {
 
     public static void main(String[] args) throws SQLException 
     {
+        String transactionVal="";
         TransactionReportInput input= new TransactionReportInput();
         input.setCountry("DK");
         input.setAccount("0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241");
@@ -203,5 +204,49 @@ public class TransactionReport {
         transaction=(TransactionReportOutput)transactionArray.get(1);
         System.out.println(transaction.getTRANSACTION_ID());
         System.out.println("Goodbye!");
+        transactionVal=transactionVal +"<PARTNER_ID>"+transaction.getPARTNER_ID()+"</PARTNER_ID>";
+              transactionVal=transactionVal +"<PALS_COUNTRY_CODE>"+transaction.getPALS_COUNTRY_CODE()+"</PALS_COUNTRY_CODE>";
+              transactionVal=transactionVal +"<TRANSACTION_TYPE>"+transaction.getTRANSACTION_TYPE()+"</TRANSACTION_TYPE>";
+              transactionVal=transactionVal +"<PURCHASE_CURRENCY>"+transaction.getPURCHASE_CURRENCY()+"</PURCHASE_CURRENCY>";
+              transactionVal=transactionVal +"<KSID>"+transaction.getKSID()+"</KSID>";
+              transactionVal=transactionVal +"<PURCHASE_COUNTRY_CODE>"+transaction.getPURCHASE_COUNTRY_CODE()+"</PURCHASE_COUNTRY_CODE>";
+              transactionVal=transactionVal +"<CARD_1_ID>"+transaction.getCARD_1_ID()+"</CARD_1_ID>";
+              transactionVal=transactionVal +"<ODOMETER_PORTAL>"+transaction.getODOMETER_PORTAL()+"</ODOMETER_PORTAL>";
+              transactionVal=transactionVal +"<ODOMETER>"+transaction.getODOMETER()+"</ODOMETER>";
+              transactionVal=transactionVal +"<TRANSACTION_DT>"+transaction.getTRANSACTION_DT()+"</TRANSACTION_DT>";
+              transactionVal=transactionVal +"<TRANSACTION_TIME>"+transaction.getTRANSACTION_TIME()+"</TRANSACTION_TIME>";
+              transactionVal=transactionVal +"<STATION_NAME>"+transaction.getSTATION_NAME()+"</STATION_NAME>";
+              transactionVal=transactionVal +"<INVOICE_NUMBER_NON_COLLECTIVE>"+transaction.getINVOICE_NUMBER_NON_COLLECTIVE()+"</INVOICE_NUMBER_NON_COLLECTIVE>";
+              transactionVal=transactionVal +"<MODIFIED_BY>"+transaction.getMODIFIED_BY()+"</MODIFIED_BY>";
+              transactionVal=transactionVal +"<PORTAL_MODIFIED_DATE>"+transaction.getPORTAL_MODIFIED_DATE()+"</PORTAL_MODIFIED_DATE>";
+              transactionVal=transactionVal +"<INVOICE_NUMBER_COLLECTIVE>"+transaction.getINVOICE_NUMBER_COLLECTIVE()+"</INVOICE_NUMBER_COLLECTIVE>";
+              transactionVal=transactionVal +"<ACCOUNT_ID>"+transaction.getACCOUNT_ID()+"</ACCOUNT_ID>";
+              transactionVal=transactionVal +"<CARDGROUP_MAIN_TYPE>"+transaction.getCARDGROUP_MAIN_TYPE()+"</CARDGROUP_MAIN_TYPE>";
+              transactionVal=transactionVal +"<CARDGROUP_SUB_TYPE>"+transaction.getCARDGROUP_SUB_TYPE()+"</CARDGROUP_SUB_TYPE>";
+              transactionVal=transactionVal +"<CARDGROUP_SEQ>"+transaction.getCARDGROUP_SEQ()+"</CARDGROUP_SEQ>";
+              transactionVal=transactionVal +"<PREVIOUS_ODOMETER>"+transaction.getPREVIOUS_ODOMETER()+"</PREVIOUS_ODOMETER>";
+              transactionVal=transactionVal +"<PRODUCT_NAME>"+transaction.getPRODUCT_NAME()+"</PRODUCT_NAME>";
+              transactionVal=transactionVal +"<QUANTITY>"+transaction.getQUANTITY()+"</QUANTITY>";
+              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE>"+transaction.getCURRENCY_UNIT_PRICE()+"</CURRENCY_UNIT_PRICE>";
+              transactionVal=transactionVal +"<INVOICED_VAT>"+transaction.getINVOICED_VAT()+"</INVOICED_VAT>";
+              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT>"+transaction.getINVOICED_NET_AMOUNT()+"</INVOICED_NET_AMOUNT>";
+              transactionVal=transactionVal +"<INVOICE_DISCOUNT_AMOUNT>"+transaction.getINVOICE_DISCOUNT_AMOUNT()+"</INVOICE_DISCOUNT_AMOUNT>";
+              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE>"+transaction.getINVOICED_UNIT_PRICE()+"</INVOICED_UNIT_PRICE>";
+              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT>"+transaction.getINVOICED_GROSS_AMOUNT()+"</INVOICED_GROSS_AMOUNT>";
+              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_NET_AMOUNT_REBATED>";
+              transactionVal=transactionVal +"<INVOIVED_VAT_REBATED>"+transaction.getINVOIVED_VAT_REBATED()+"</INVOIVED_VAT_REBATED>";
+              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE_REBATED>"+transaction.getINVOICED_UNIT_PRICE_REBATED()+"</INVOICED_UNIT_PRICE_REBATED>";
+              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT_REBATED>"+transaction.getCURRENCY_GROSS_AMOUNT_REBATED()+"</CURRENCY_GROSS_AMOUNT_REBATED>";
+              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE_REBATED>"+transaction.getCURRENCY_UNIT_PRICE_REBATED()+"</CURRENCY_UNIT_PRICE_REBATED>";
+              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT>"+transaction.getCURRENCY_GROSS_AMOUNT()+"</CURRENCY_GROSS_AMOUNT>";
+              transactionVal=transactionVal +"<UNIT_OF_MEASURE>"+transaction.getUNIT_OF_MEASURE()+"</UNIT_OF_MEASURE>";
+              transactionVal=transactionVal +"<CURRENCY_VAT>"+transaction.getCURRENCY_VAT()+"</CURRENCY_VAT>";
+              transactionVal=transactionVal +"<CURRENCY_DISCOUNT_AMOUNT>"+transaction.getCURRENCY_DISCOUNT_AMOUNT()+"</CURRENCY_DISCOUNT_AMOUNT>";
+              transactionVal=transactionVal +"<CURRENCY_NET_AMOUNT>"+transaction.getCURRENCY_NET_AMOUNT()+"</CURRENCY_NET_AMOUNT>";
+              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_GROSS_AMOUNT_REBATED>";
+              transactionVal=transactionVal +"<DRIVER_NUMBER>"+transaction.getDRIVER_NUMBER()+"</DRIVER_NUMBER>";
+              transactionVal=transactionVal +"<DRIVER_NAME>"+transaction.getDRIVER_NAME()+"</DRIVER_NAME>";
+              transactionVal=transactionVal +"<VEHICLE_NUMBER>"+transaction.getVEHICLE_NUMBER()+"</VEHICLE_NUMBER>";
+              transactionVal=transactionVal +"<INTERNAL_NAME>"+transaction.getINTERNAL_NAME()+"</INTERNAL_NAME>";
     }
 }
