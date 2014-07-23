@@ -2076,8 +2076,7 @@ public class TransactionOverviewBean implements Serializable {
         String val = "";
         NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
         numberFormat.setMaximumFractionDigits(2);
-        val = numberFormat.format(passedValue);        
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Returned Val ="+val);        
+        val = numberFormat.format(passedValue); 
         return val;
     }
 
@@ -2669,9 +2668,7 @@ public class TransactionOverviewBean implements Serializable {
                      "Size ==" + shuttleValue.size());
         //StringBuilder text = new StringBuilder("Size = ").append(getSelectedEmployees().size()).append(", Items added are: ");
         for (int i = 0; i < shuttleValue.size(); i++) {
-            //text.append("Item ").append(i).append(" = ").append(l.get(i)).append(", ");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "Item =" + i + " value== " + shuttleValue.get(i));
+            //text.append("Item ").append(i).append(" = ").append(l.get(i)).append(", ");          
             selectedValues =
                     selectedValues + shuttleValue.get(i).toString().trim() +"|";
         }        
@@ -3038,21 +3035,13 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCard1Id().toString());
                             }
-                        } else if ("Vehicle No".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            _logger.info(accessDC.getDisplayRecord() +
-                                         this.getClass() + " " +
-                                         "Vehicle Number =" +
-                                         row.getVehicleNumber());
+                        } else if ("Vehicle No".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {                           
                             if (row.getVehicleNumber() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString());
                             }
                         } else if ("InternalName".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            _logger.info(accessDC.getDisplayRecord() +
-                                         this.getClass() + " " +
-                                         "Internal Name =" +
-                                         row.getInternalName());
                             if (row.getInternalName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
