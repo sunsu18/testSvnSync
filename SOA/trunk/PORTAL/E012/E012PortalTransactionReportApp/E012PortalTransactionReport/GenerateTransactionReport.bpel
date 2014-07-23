@@ -94,157 +94,110 @@
     <bpelx:exec import="e012portaltransactionreport.TransactionReportInput"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportOutput"/>
     <bpelx:exec import="java.util.ArrayList"/>
+    <bpelx:exec import="org.w3c.dom.Element"/>
+    <bpelx:exec import="org.w3c.dom.Document"/>
+    <bpelx:exec import="org.w3c.dom.Text"/>
     <!--bpelx:exec/-->
     <bpelx:exec name="Java_Embedding" version="1.5" language="java">
-      <![CDATA[/*Write your java code below e.g.               
-	System.out.println("Hello, World");              
-*/              
-try {              
-String transactionVal="<TransactionData>";       
-        //System.out.println(transaction.getTRANSACTION_ID());              
-        //System.out.println("Goodbye!"); 
-Element TransactionReport; 
-TransactionReport = (Element)getVariableData("transactionReport"); 
-TransactionReportInput input= new TransactionReportInput(); 
-Document txndoc = TransactionReport.getOwnerDocument(); 
-/*input.setCountry("DK");              
-input.setAccount("0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241;0004930889;0004930905;0004930913;0004930921;0004930939;0004930947;0004930954;0004930962;0004930970;0004930988;0004930996;0004955241");              
-input.setPartner("04942983");              
-input.setType("");              
-input.setReportType("");              
-input.setTransactionBasis("");              
-input.setTransactionBasisValues("0014860050,0014860068,0014860076,0014860084,0014860092,0014860100,0014860118,0014860126,0014860134,0014860142,0014860159,0014860167,0014860175,0014860183,0014860191,0014860209,0014860217,0014860225,0014860563,0014860571,0014860589,0014860597,0014860605,0014860613,0014860621,0014860639,0014860647,0014860654,0014860662,0014860670");              
-input.setTransactionDateFrom("18-JUN-2014");              
-input.setTransactionDateTo("18-JUL-2014");*/  
-input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));   
-input.setAccount((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Account")).getText()));        
-input.setPartner((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Partner")).getText()));        
-input.setType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Type")).getText()));        
-input.setReportType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/ReportType")).getText()));        
-input.setTransactionBasis((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasis")).getText()));        
-input.setTransactionBasisValues((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasisValues")).getText()));        
-input.setTransactionDateFrom((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateFrom")).getText()));        
-input.setTransactionDateTo((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateTo")).getText()));  
-              
-TransactionReportOutput transaction = new TransactionReportOutput();              
-ArrayList transactionArray = new ArrayList<TransactionReportOutput>();              
-transactionArray=TransactionReport.GenerateTransactionReport(input);      
-      
-/*transactionVal=transactionVal +"<Transaction>";      
-transaction=(TransactionReportOutput)transactionArray.get(1);                    
-addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());           
-transactionVal=transactionVal +"<UREF_TRANSACTION_ID>"+transaction.getTRANSACTION_ID()+"</UREF_TRANSACTION_ID>";       
-transactionVal=transactionVal +"</Transaction>";    */   
-//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[1]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());            
-//transactionVal=transactionVal +"<Transaction>";      
- 
-for (int i = 0; i < transactionArray.size(); i++){   
- 
-transaction=(TransactionReportOutput)transactionArray.get(i); 
- 
-String UREF_TRANSACTION_ID=transaction.getTRANSACTION_ID();       
-String PARTNER_ID=transaction.getPARTNER_ID();   
-String PALS_COUNTRY_CODE=;   
-String TRANSACTION_TYPE=transaction.getTRANSACTION_TYPE();   
-String PURCHASE_CURRENCY=transaction.getPURCHASE_CURRENCY();   
-String KSID=transaction.getKSID();   
-String PURCHASE_COUNTRY_CODE=transaction.getPURCHASE_COUNTRY_CODE();   
-String CARD_1_ID=transaction.getCARD_1_ID();   
-String ODOMETER_PORTAL=transaction.getODOMETER_PORTAL();   
-String ODOMETER=transaction.getODOMETER();   
-String TRANSACTION_DT=transaction.getTRANSACTION_DT();   
-String TRANSACTION_TIME=transaction.getTRANSACTION_TIME();   
-String STATION_NAME=transaction.getSTATION_NAME()";   
-String INVOICE_NUMBER_NON_COLLECTIVE=transaction.getINVOICE_NUMBER_NON_COLLECTIVE()";   
-String MODIFIED_BY=transaction.getMODIFIED_BY();   
-String PORTAL_MODIFIED_DATE=transaction.getPORTAL_MODIFIED_DATE();   
-String INVOICE_NUMBER_COLLECTIVE=transaction.getINVOICE_NUMBER_COLLECTIVE();   
-String ACCOUNT_ID=transaction.getACCOUNT_ID();   
-String CARDGROUP_MAIN_TYPE=transaction.getCARDGROUP_MAIN_TYPE();   
-String CARDGROUP_SUB_TYPE=transaction.getCARDGROUP_SUB_TYPE();   
-String CARDGROUP_SEQ=transaction.getCARDGROUP_SEQ();   
-String PREVIOUS_ODOMETER=transaction.getPREVIOUS_ODOMETER();   
-String PRODUCT_NAME=transaction.getPRODUCT_NAME();   
-String QUANTITY=transaction.getQUANTITY();   
-String CURRENCY_UNIT_PRICE=transaction.getCURRENCY_UNIT_PRICE();   
-String INVOICED_VAT=transaction.getINVOICED_VAT();   
-String INVOICED_NET_AMOUNT=transaction.getINVOICED_NET_AMOUNT();   
-String INVOICE_DISCOUNT_AMOUNT=transaction.getINVOICE_DISCOUNT_AMOUNT();   
-String INVOICED_UNIT_PRICE=transaction.getINVOICED_UNIT_PRICE();   
-String INVOICED_GROSS_AMOUNT=transaction.getINVOICED_GROSS_AMOUNT();   
-String INVOICED_NET_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();   
-String INVOIVED_VAT_REBATED=transaction.getINVOIVED_VAT_REBATED();   
-String INVOICED_UNIT_PRICE_REBATED=transaction.getINVOICED_UNIT_PRICE_REBATED()+;   
-String CURRENCY_GROSS_AMOUNT_REBATED=transaction.getCURRENCY_GROSS_AMOUNT_REBATED();   
-String CURRENCY_UNIT_PRICE_REBATED=transaction.getCURRENCY_UNIT_PRICE_REBATED();   
-String CURRENCY_GROSS_AMOUNT=transaction.getCURRENCY_GROSS_AMOUNT();   
-String UNIT_OF_MEASURE=transaction.getUNIT_OF_MEASURE();   
-String CURRENCY_VAT=transaction.getCURRENCY_VAT();   
-String CURRENCY_DISCOUNT_AMOUNT=transaction.getCURRENCY_DISCOUNT_AMOUNT();   
-String CURRENCY_NET_AMOUNT=transaction.getCURRENCY_NET_AMOUNT();   
-String INVOICED_GROSS_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();   
-String DRIVER_NUMBER=transaction.getDRIVER_NUMBER();   
-String DRIVER_NAME=transaction.getDRIVER_NAME();   
-String VEHICLE_NUMBER=transaction.getVEHICLE_NUMBER();   
-String INTERNAL_NAME=transaction.getINTERNAL_NAME(); 
-//addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());        
-/* transactionVal=transactionVal +"<UREF_TRANSACTION_ID>"+transaction.getTRANSACTION_ID()+"</UREF_TRANSACTION_ID>";       
-        transactionVal=transactionVal +"<PARTNER_ID>"+transaction.getPARTNER_ID()+"</PARTNER_ID>";   
-              String transactionVal=transactionVal +"<PALS_COUNTRY_CODE>"+transaction.getPALS_COUNTRY_CODE()+"</PALS_COUNTRY_CODE>";   
-              transactionVal=transactionVal +"<TRANSACTION_TYPE>"+transaction.getTRANSACTION_TYPE()+"</TRANSACTION_TYPE>";   
-              transactionVal=transactionVal +"<PURCHASE_CURRENCY>"+transaction.getPURCHASE_CURRENCY()+"</PURCHASE_CURRENCY>";   
-              transactionVal=transactionVal +"<KSID>"+transaction.getKSID()+"</KSID>";   
-              transactionVal=transactionVal +"<PURCHASE_COUNTRY_CODE>"+transaction.getPURCHASE_COUNTRY_CODE()+"</PURCHASE_COUNTRY_CODE>";   
-              transactionVal=transactionVal +"<CARD_1_ID>"+transaction.getCARD_1_ID()+"</CARD_1_ID>";   
-              transactionVal=transactionVal +"<ODOMETER_PORTAL>"+transaction.getODOMETER_PORTAL()+"</ODOMETER_PORTAL>";   
-              transactionVal=transactionVal +"<ODOMETER>"+transaction.getODOMETER()+"</ODOMETER>";   
-              transactionVal=transactionVal +"<TRANSACTION_DT>"+transaction.getTRANSACTION_DT()+"</TRANSACTION_DT>";   
-              transactionVal=transactionVal +"<TRANSACTION_TIME>"+transaction.getTRANSACTION_TIME()+"</TRANSACTION_TIME>";   
-              transactionVal=transactionVal +"<STATION_NAME>"+transaction.getSTATION_NAME()+"</STATION_NAME>";   
-              transactionVal=transactionVal +"<INVOICE_NUMBER_NON_COLLECTIVE>"+transaction.getINVOICE_NUMBER_NON_COLLECTIVE()+"</INVOICE_NUMBER_NON_COLLECTIVE>";   
-              transactionVal=transactionVal +"<MODIFIED_BY>"+transaction.getMODIFIED_BY()+"</MODIFIED_BY>";   
-              transactionVal=transactionVal +"<PORTAL_MODIFIED_DATE>"+transaction.getPORTAL_MODIFIED_DATE()+"</PORTAL_MODIFIED_DATE>";   
-              transactionVal=transactionVal +"<INVOICE_NUMBER_COLLECTIVE>"+transaction.getINVOICE_NUMBER_COLLECTIVE()+"</INVOICE_NUMBER_COLLECTIVE>";   
-              transactionVal=transactionVal +"<ACCOUNT_ID>"+transaction.getACCOUNT_ID()+"</ACCOUNT_ID>";   
-              transactionVal=transactionVal +"<CARDGROUP_MAIN_TYPE>"+transaction.getCARDGROUP_MAIN_TYPE()+"</CARDGROUP_MAIN_TYPE>";   
-              transactionVal=transactionVal +"<CARDGROUP_SUB_TYPE>"+transaction.getCARDGROUP_SUB_TYPE()+"</CARDGROUP_SUB_TYPE>";   
-              transactionVal=transactionVal +"<CARDGROUP_SEQ>"+transaction.getCARDGROUP_SEQ()+"</CARDGROUP_SEQ>";   
-              transactionVal=transactionVal +"<PREVIOUS_ODOMETER>"+transaction.getPREVIOUS_ODOMETER()+"</PREVIOUS_ODOMETER>";   
-              transactionVal=transactionVal +"<PRODUCT_NAME>"+transaction.getPRODUCT_NAME()+"</PRODUCT_NAME>";   
-              transactionVal=transactionVal +"<QUANTITY>"+transaction.getQUANTITY()+"</QUANTITY>";   
-              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE>"+transaction.getCURRENCY_UNIT_PRICE()+"</CURRENCY_UNIT_PRICE>";   
-              transactionVal=transactionVal +"<INVOICED_VAT>"+transaction.getINVOICED_VAT()+"</INVOICED_VAT>";   
-              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT>"+transaction.getINVOICED_NET_AMOUNT()+"</INVOICED_NET_AMOUNT>";   
-              transactionVal=transactionVal +"<INVOICE_DISCOUNT_AMOUNT>"+transaction.getINVOICE_DISCOUNT_AMOUNT()+"</INVOICE_DISCOUNT_AMOUNT>";   
-              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE>"+transaction.getINVOICED_UNIT_PRICE()+"</INVOICED_UNIT_PRICE>";   
-              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT>"+transaction.getINVOICED_GROSS_AMOUNT()+"</INVOICED_GROSS_AMOUNT>";   
-              transactionVal=transactionVal +"<INVOICED_NET_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_NET_AMOUNT_REBATED>";   
-              transactionVal=transactionVal +"<INVOIVED_VAT_REBATED>"+transaction.getINVOIVED_VAT_REBATED()+"</INVOIVED_VAT_REBATED>";   
-              transactionVal=transactionVal +"<INVOICED_UNIT_PRICE_REBATED>"+transaction.getINVOICED_UNIT_PRICE_REBATED()+"</INVOICED_UNIT_PRICE_REBATED>";   
-              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT_REBATED>"+transaction.getCURRENCY_GROSS_AMOUNT_REBATED()+"</CURRENCY_GROSS_AMOUNT_REBATED>";   
-              transactionVal=transactionVal +"<CURRENCY_UNIT_PRICE_REBATED>"+transaction.getCURRENCY_UNIT_PRICE_REBATED()+"</CURRENCY_UNIT_PRICE_REBATED>";   
-              transactionVal=transactionVal +"<CURRENCY_GROSS_AMOUNT>"+transaction.getCURRENCY_GROSS_AMOUNT()+"</CURRENCY_GROSS_AMOUNT>";   
-              transactionVal=transactionVal +"<UNIT_OF_MEASURE>"+transaction.getUNIT_OF_MEASURE()+"</UNIT_OF_MEASURE>";   
-              transactionVal=transactionVal +"<CURRENCY_VAT>"+transaction.getCURRENCY_VAT()+"</CURRENCY_VAT>";   
-              transactionVal=transactionVal +"<CURRENCY_DISCOUNT_AMOUNT>"+transaction.getCURRENCY_DISCOUNT_AMOUNT()+"</CURRENCY_DISCOUNT_AMOUNT>";   
-              transactionVal=transactionVal +"<CURRENCY_NET_AMOUNT>"+transaction.getCURRENCY_NET_AMOUNT()+"</CURRENCY_NET_AMOUNT>";   
-              transactionVal=transactionVal +"<INVOICED_GROSS_AMOUNT_REBATED>"+transaction.getINVOICED_GROSS_AMOUNT_REBATED()+"</INVOICED_GROSS_AMOUNT_REBATED>";   
-              transactionVal=transactionVal +"<DRIVER_NUMBER>"+transaction.getDRIVER_NUMBER()+"</DRIVER_NUMBER>";   
-              transactionVal=transactionVal +"<DRIVER_NAME>"+transaction.getDRIVER_NAME()+"</DRIVER_NAME>";   
-              transactionVal=transactionVal +"<VEHICLE_NUMBER>"+transaction.getVEHICLE_NUMBER()+"</VEHICLE_NUMBER>";   
-              transactionVal=transactionVal +"<INTERNAL_NAME>"+transaction.getINTERNAL_NAME()+"</INTERNAL_NAME>";  */ 
-//transactionVal=transactionVal +"</Transaction>";   
-}   
-//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[2]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());            
+      <![CDATA[try {                    
+//output variable of TransactionReportInput type to set Txn Report input      
+TransactionReportInput input= new TransactionReportInput();    
     
-//transactionVal=transactionVal +"</TransactionData>";     
-addAuditTrailEntry("XML Created: "+TransactionReport);        
+//get input for Txn Report      
+input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));        
+input.setAccount((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Account")).getText()));             
+input.setPartner((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Partner")).getText()));             
+input.setType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Type")).getText()));             
+input.setReportType((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/ReportType")).getText()));             
+input.setTransactionBasis((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasis")).getText()));             
+input.setTransactionBasisValues((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionBasisValues")).getText()));             
+input.setTransactionDateFrom((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateFrom")).getText()));             
+input.setTransactionDateTo((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/TransactionDateTo")).getText()));       
+addAuditTrailEntry("Transaction Input created");        
       
-setVariableData("transactionString", transactionVal);        
-//setVariableData("output", "payload","/tns:rating", new Integer(rating));              
-}              
-catch (Exception re) {          
-addAuditTrailEntry("XML Faulted");    
+//output variable of TransactionReportOutput type to get Txn Report output      
+TransactionReportOutput transaction = new TransactionReportOutput();                   
+ArrayList transactionArray = new ArrayList<TransactionReportOutput>();                   
+addAuditTrailEntry("Transaction output class initialised");       
+      
+//generate Txn Report      
+transactionArray=TransactionReport.GenerateTransactionReport(input);           
+addAuditTrailEntry("Transaction Report Generated");      
+      
+//Create Element of Txn type to return Transaction Report      
+Element elementTransactionReport;      
+elementTransactionReport = (Element)getVariableData("transactionReport");      
+Document txndoc = elementTransactionReport.getOwnerDocument();      
+      
+//to loop through resultset to set the xml element      
+for (int i = 0; i < transactionArray.size(); i++){        
+// to set the transaction type output for each iteration      
+transaction=(TransactionReportOutput)transactionArray.get(i);      
+   
+Element txnElement = txndoc.createElement("Transaction");   
+txndoc.appendChild(txnElement);   
+  
+//to get data from transaction into string variables   
+Element UREF_TRANSACTION_ID = txndoc.createElement("UREF_TRANSACTION_ID");   
+UREF_TRANSACTION_ID.appendChild(txndoc.createTextNode(transaction.getTRANSACTION_ID()));   
+txnElement.appendChild(UREF_TRANSACTION_ID);   
+         
+String PARTNER_ID=transaction.getPARTNER_ID();        
+String PALS_COUNTRY_CODE=transaction.getPALS_COUNTRY_CODE();       
+String TRANSACTION_TYPE=transaction.getTRANSACTION_TYPE();        
+String PURCHASE_CURRENCY=transaction.getPURCHASE_CURRENCY();        
+String KSID=transaction.getKSID();        
+String PURCHASE_COUNTRY_CODE=transaction.getPURCHASE_COUNTRY_CODE();        
+String CARD_1_ID=transaction.getCARD_1_ID();        
+String ODOMETER_PORTAL=transaction.getODOMETER_PORTAL();        
+String ODOMETER=transaction.getODOMETER();        
+String TRANSACTION_DT=transaction.getTRANSACTION_DT();        
+String TRANSACTION_TIME=transaction.getTRANSACTION_TIME();        
+String STATION_NAME=transaction.getSTATION_NAME();        
+String INVOICE_NUMBER_NON_COLLECTIVE=transaction.getINVOICE_NUMBER_NON_COLLECTIVE();        
+String MODIFIED_BY=transaction.getMODIFIED_BY();        
+String PORTAL_MODIFIED_DATE=transaction.getPORTAL_MODIFIED_DATE();        
+String INVOICE_NUMBER_COLLECTIVE=transaction.getINVOICE_NUMBER_COLLECTIVE();        
+String ACCOUNT_ID=transaction.getACCOUNT_ID();        
+String CARDGROUP_MAIN_TYPE=transaction.getCARDGROUP_MAIN_TYPE();        
+String CARDGROUP_SUB_TYPE=transaction.getCARDGROUP_SUB_TYPE();        
+String CARDGROUP_SEQ=transaction.getCARDGROUP_SEQ();        
+String PREVIOUS_ODOMETER=transaction.getPREVIOUS_ODOMETER();        
+String PRODUCT_NAME=transaction.getPRODUCT_NAME();        
+String QUANTITY=transaction.getQUANTITY();        
+String CURRENCY_UNIT_PRICE=transaction.getCURRENCY_UNIT_PRICE();        
+String INVOICED_VAT=transaction.getINVOICED_VAT();        
+String INVOICED_NET_AMOUNT=transaction.getINVOICED_NET_AMOUNT();        
+String INVOICE_DISCOUNT_AMOUNT=transaction.getINVOICE_DISCOUNT_AMOUNT();        
+String INVOICED_UNIT_PRICE=transaction.getINVOICED_UNIT_PRICE();        
+String INVOICED_GROSS_AMOUNT=transaction.getINVOICED_GROSS_AMOUNT();        
+String INVOICED_NET_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();        
+String INVOIVED_VAT_REBATED=transaction.getINVOIVED_VAT_REBATED();        
+String INVOICED_UNIT_PRICE_REBATED=transaction.getINVOICED_UNIT_PRICE_REBATED();        
+String CURRENCY_GROSS_AMOUNT_REBATED=transaction.getCURRENCY_GROSS_AMOUNT_REBATED();        
+String CURRENCY_UNIT_PRICE_REBATED=transaction.getCURRENCY_UNIT_PRICE_REBATED();        
+String CURRENCY_GROSS_AMOUNT=transaction.getCURRENCY_GROSS_AMOUNT();        
+String UNIT_OF_MEASURE=transaction.getUNIT_OF_MEASURE();        
+String CURRENCY_VAT=transaction.getCURRENCY_VAT();        
+String CURRENCY_DISCOUNT_AMOUNT=transaction.getCURRENCY_DISCOUNT_AMOUNT();        
+String CURRENCY_NET_AMOUNT=transaction.getCURRENCY_NET_AMOUNT();        
+String INVOICED_GROSS_AMOUNT_REBATED=transaction.getINVOICED_GROSS_AMOUNT_REBATED();        
+String DRIVER_NUMBER=transaction.getDRIVER_NUMBER();        
+String DRIVER_NAME=transaction.getDRIVER_NAME();      
+String VEHICLE_NUMBER=transaction.getVEHICLE_NUMBER();        
+String INTERNAL_NAME=transaction.getINTERNAL_NAME();    
+//addAuditTrailEntry("ID: "+transaction.getTRANSACTION_ID());       
+}       
+setVariableData("transactionReport",elementTransactionReport);   
+//setVariableData("transactionReport","/ns1:TransactionReport/Transaction[2]/UREF_TRANSACTION_ID", transaction.getTRANSACTION_ID());                 
+      
+//addAuditTrailEntry("XML Created: "+TransactionReport);      
+           
+//setVariableData("transactionString", transactionVal);             
+//setVariableData("output", "payload","/tns:rating", new Integer(rating));                   
+}                   
+catch (Exception re) {               
+addAuditTrailEntry("XML Faulted");         
 }]]>
     </bpelx:exec><assign name="AssignTransactionReport"
                          xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
