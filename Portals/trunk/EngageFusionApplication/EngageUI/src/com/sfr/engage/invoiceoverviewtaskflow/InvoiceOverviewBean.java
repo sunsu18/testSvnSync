@@ -174,6 +174,7 @@ public class InvoiceOverviewBean implements Serializable {
     private String contentType;
     private String fileName;
     private String reportType = "Card";
+    private String cardGroupRadio="CardGroup";
    
 
 
@@ -190,8 +191,11 @@ public class InvoiceOverviewBean implements Serializable {
         accountList    = new ArrayList<SelectItem>();
         accountValue   = new ArrayList<String>();
         emailutility = new EngageEmaiUtilityl();
+        cardGroupList  = new ArrayList<SelectItem>();
+        cardGroupValue = new ArrayList<String>();
         valueList = new ValueListSplit();
-
+        cGCardVisible    = true;
+//        getBindings().getCardGpCardList().setValue("CardGroup");
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Invoice overview bean");
 
         if(session.getAttribute("lang")!= null) {
@@ -221,7 +225,32 @@ public class InvoiceOverviewBean implements Serializable {
                             selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                             accountList.add(selectItem);
                             accountValue.add(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
-                
+                            if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup() !=
+                                null &&
+                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size() >
+                                0) {
+                                cGCardVisible = true;
+                                cardGroupVisible = false;
+                                cardVisible = false;
+
+                                for (int cg = 0;
+                                     cg < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size();
+                                     cg++) {
+
+                                    SelectItem selectItemCardGroup =
+                                        new SelectItem();
+                                    selectItemCardGroup.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                    selectItemCardGroup.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
+                                    cardGroupList.add(selectItemCardGroup);
+                                    cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
+                                    cGCardVisible = true;
+                                    cardGroupVisible = true;
+                                    cardVisible = false;
+                                    Collections.sort(cardGroupList,
+                                                     comparator);
+                                
+                                }
+                            }
                         }
                     }
                 }
@@ -381,7 +410,7 @@ public class InvoiceOverviewBean implements Serializable {
         String newFromDate = null;
         String newToDate = null;
         if(getBindings().getPartnerNumber().getValue()!=null && getBindings().getAccount().getValue()!=null && getBindings().getFromDate().getValue()!=null && getBindings().getToDate().getValue()!=null
-        && getBindings().getCardGpCardList().getValue()!=null && getBindings().getCardGroup().getValue()!=null && getBindings().getCard().getValue()!=null) {
+        && getBindings().getCardGpCardList().getValue()!=null && (getBindings().getCardGroup().getValue()!=null || getBindings().getCard().getValue()!=null)) {
 //             fromDate = (java.util.Date)getBindings().getFromDate().getValue();
 //             toDate = (java.util.Date)getBindings().getToDate().getValue();
 //            if (toDate.before(fromDate)) {
@@ -1008,11 +1037,12 @@ public class InvoiceOverviewBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside accountValueChangeListener for Invoices");
         // Add event code here...
         if(valueChangeEvent.getNewValue()!=null) {
-            getBindings().getCardGpCardList().setValue(null);
-            cGCardVisible    = true;
+
+            cGCardVisible    = false;
             cardGroupVisible = false;
             cardVisible      = false;
-            getBindings().getCardGpCardList().setValue("CardGroup");
+            getBindings().getCardGpCardList().setValue(null);
+            cardGroupRadio=null;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
             
             
@@ -1036,19 +1066,7 @@ public class InvoiceOverviewBean implements Serializable {
                                accountNumberValues[0] = accountNumberPassingValues;
                            }
                                            
-                                if(accountCount > 0){
-                               for(int acCount=0 ; acCount<accountCount; acCount++){                        
-                                   
-                                       populateValue("CardGroup",accountNumberValues[acCount].trim());
-                                       cGCardVisible=true;
-                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                                       cardGroupVisible=true;
-                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-                                       cardVisible=false;
-                                       AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-                                  
-                               }
-                           }
+
                        }
                    }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
@@ -1065,11 +1083,12 @@ public class InvoiceOverviewBean implements Serializable {
             if(valueChangeEvent.getNewValue()!=null) {
                 String[] partnerString; 
                 partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
-                getBindings().getCardGpCardList().setValue(null);
-                cGCardVisible    = true;
+
+                cGCardVisible    = false;
                 cardGroupVisible = false;
                 cardVisible      = false;
-                getBindings().getCardGpCardList().setValue("CardGroup");
+                cardGroupRadio=null;
+                getBindings().getCardGpCardList().setValue(null);
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGpCardList());
                 accountList    = new ArrayList<SelectItem>();
                 accountValue   = new ArrayList<String>();
@@ -1089,41 +1108,7 @@ public class InvoiceOverviewBean implements Serializable {
                                             accountValue.add(partnerInfoList.get(i).getAccountList().get(m).getAccountNumber().toString());
                                         }
                                         
-                                        if(getBindings().getAccount().getValue()!=null)
-                                        {
-                                                   String accountNumberPassingValues = null;
-                                                   String[] accountNumberValues;
-                                                   int accountCount = 0;
-                                                   accountNumberPassingValues =  populateStringValues(getBindings().getAccount().getValue().toString());
-                                                   cardGroupList  = new ArrayList<SelectItem>();
-                                                   cardGroupValue = new ArrayList<String>();
-                                                   cardList       = new ArrayList<SelectItem>();
-                                                   cardValue      = new ArrayList<String>();
-                                                   if(accountNumberPassingValues != null){
-                                                       if(accountNumberPassingValues.contains(",")){
-                                                           accountNumberValues = accountNumberPassingValues.split(",");
-                                                           accountCount  = accountNumberValues.length;
-                                                       }else{
-                                                           accountCount  = 1;
-                                                           accountNumberValues = new String[1];
-                                                           accountNumberValues[0] = accountNumberPassingValues;
-                                                       }
-                                                                       
-                                                            if(accountCount > 0){
-                                                           for(int acCount=0 ; acCount<accountCount; acCount++){                        
-                                                               
-                                                                   populateValue("CardGroup",accountNumberValues[acCount].trim());
-                                                                   cGCardVisible=true;
-                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
-                                                                   cardGroupVisible=true;
-                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroup());
-                                                                   cardVisible=false;
-                                                                   AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCard());
-                                                              
-                                                           }
-                                                       }
-                                                   }
-                                        }
+
                                     }
                                 }
                             }
@@ -3258,6 +3243,14 @@ for(int i=0;i<prop.length;i++)
 
     public String getPartner_req() {
         return partner_req;
+    }
+
+    public void setCardGroupRadio(String cardGroupRadio) {
+        this.cardGroupRadio = cardGroupRadio;
+    }
+
+    public String getCardGroupRadio() {
+        return cardGroupRadio;
     }
 
 

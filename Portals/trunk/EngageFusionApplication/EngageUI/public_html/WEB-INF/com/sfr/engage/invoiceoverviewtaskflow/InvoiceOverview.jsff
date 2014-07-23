@@ -99,7 +99,8 @@
             <af:selectOneRadio id="sor1" layout="horizontal" autoSubmit="true"
                          binding="#{pageFlowScope.InvoiceOverviewBean.bindings.cardGpCardList}"
                          valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.cgValueChangeListener}"
-                          inlineStyle="margin-left: -15px;">
+                          inlineStyle="margin-left: -15px;"
+                               value="#{pageFlowScope.InvoiceOverviewBean.cardGroupRadio}">
        <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si11"/>
        <af:selectItem label="#{sfr.CARD}" value="Card" id="si10"/>
       </af:selectOneRadio>
