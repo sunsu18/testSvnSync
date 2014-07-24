@@ -830,8 +830,8 @@ public class TransactionOverviewBean implements Serializable {
                             vehicleVo.setNamedWhereClauseParam("countryCd", lang);
                             vehicleVo.setNamedWhereClauseParam("paramValue", paramType);
                             
-                            if(accountIdValue.size()>250) { 
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 250 ");
+                            if(accountIdValue.size()>150) { 
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
                                 mapAccountVehicleListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
                                 for(int i=0;i<mapAccountVehicleListValue.size();i++) {
                                   String values="account"+i;
@@ -842,14 +842,14 @@ public class TransactionOverviewBean implements Serializable {
                                    accountQueryVehicle=accountQueryVehicle+")";
                             }else{
                                 mapAccountListValue=null;
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 250 ");
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
                                 accountQueryVehicle="(INSTR(:account,ACCOUNT_NUMBER)<>0)";
                             }
                             
                             vehicleVo.setWhereClause(accountQueryVehicle);
                             
-                            if(accountIdValue.size()>250) {      
-                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 250 ");
+                            if(accountIdValue.size()>150) {      
+                                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
                                             mapAccountVehicleListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
                                             for(int i=0;i<mapAccountVehicleListValue.size();i++) {
                                             String values="account"+i;
@@ -858,7 +858,7 @@ public class TransactionOverviewBean implements Serializable {
                                             }   
                                                     
                             }else {
-                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 250 ");
+                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
                                     if (getBindings().getAccount().getValue() != null) {
                                         vehicleVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
                                     }
@@ -930,8 +930,8 @@ public class TransactionOverviewBean implements Serializable {
                         driverVo.setNamedWhereClauseParam("countryCd", lang);
                         driverVo.setNamedWhereClauseParam("paramValue", paramType);
                         
-                        if(accountIdValue.size()>250) { 
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 250 ");
+                        if(accountIdValue.size()>150) { 
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver > 150 ");
                             mapAccountDriverListValue = valueList.callValueList(accountIdValue.size(), accountIdValue);
                             for(int i=0;i<mapAccountDriverListValue.size();i++) {
                               String values="account"+i;
@@ -942,14 +942,14 @@ public class TransactionOverviewBean implements Serializable {
                                accountQueryDriver=accountQueryDriver+")";
                         }else{
                             mapAccountListValue=null;
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 250 ");
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle/driver < 150 ");
                             accountQueryDriver="(INSTR(:account,ACCOUNT_NUMBER)<>0)";
                         }
                         
                         driverVo.setWhereClause(accountQueryDriver);
                         
-                        if(accountIdValue.size()>250) {      
-                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 250 ");
+                        if(accountIdValue.size()>150) {      
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle > 150 ");
                                         mapAccountDriverListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
                                         for(int i=0;i<mapAccountDriverListValue.size();i++) {
                                         String values="account"+i;
@@ -958,7 +958,7 @@ public class TransactionOverviewBean implements Serializable {
                                         }   
                                                 
                         }else {
-                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 250 ");
+                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values inside vehicle < 150 ");
                                     if (getBindings().getAccount().getValue() != null) {
                                         driverVo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
                                     }
@@ -1268,9 +1268,9 @@ public class TransactionOverviewBean implements Serializable {
             vo.setNamedWhereClauseParam("type", transTypePassingValues);
             vo.setNamedWhereClauseParam("fromDate", newFromDate);
             vo.setNamedWhereClauseParam("toDate", newToDate);
-            if(accountIdValue.size()>250) {      
+            if(accountIdValue.size()>150) {      
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
+                                                 " " + "Account Values > 150 ");
                 mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue);         
                      for(int i=0;i<mapAccountListValue.size();i++) {
                       String values="account"+i;
@@ -1283,7 +1283,7 @@ public class TransactionOverviewBean implements Serializable {
             }else {
                     mapAccountListValue=null;
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
+                                                  " " + "Account Values < 150 ");
                 accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
             }   
 
@@ -1293,9 +1293,9 @@ public class TransactionOverviewBean implements Serializable {
                 if(getBindings().getReportFormat().getValue()!=null) {
                       if("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())){
                           if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {                                            
-                        if(cardNumberValue.size()>250) {      
+                        if(cardNumberValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Card Values > 250 ");
+                                                             " " + "Card Values > 150 ");
                             mapCardListValue=valueList.callValueList(cardNumberValue.size(), cardNumberValue);         
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
@@ -1326,7 +1326,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
@@ -1336,9 +1336,9 @@ public class TransactionOverviewBean implements Serializable {
                         vo.defineNamedWhereClauseParam("purchaseCountryCode", lang,
                                                        null);
                     }else {                        
-                        if(cardNumberValue.size()>250) {      
+                        if(cardNumberValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Card Values > 250 ");
+                                                             " " + "Card Values > 150 ");
                             mapCardListValue=valueList.callValueList(cardNumberValue.size(), cardNumberValue);         
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
@@ -1370,7 +1370,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery);
@@ -1381,9 +1381,9 @@ public class TransactionOverviewBean implements Serializable {
                   }else if("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())){
                       _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Vehicle");
                           if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {                                            
-                        if(vehicleNumberValue.size()>250) {      
+                        if(vehicleNumberValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Vehicle Values > 250 ");
+                                                             " " + "Vehicle Values > 150 ");
                             mapCardListValue=valueList.callValueList(vehicleNumberValue.size(), vehicleNumberValue);         
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
@@ -1414,7 +1414,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "Vehicle Values < 250 ");
+                                                              " " + "Vehicle Values < 150 ");
                             mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
@@ -1424,9 +1424,9 @@ public class TransactionOverviewBean implements Serializable {
                         vo.defineNamedWhereClauseParam("purchaseCountryCode", lang,
                                                        null);
                     }else {                        
-                        if(vehicleNumberValue.size()>250) {      
+                        if(vehicleNumberValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Vehicle Values > 250 ");
+                                                             " " + "Vehicle Values > 150 ");
                             mapCardListValue=valueList.callValueList(vehicleNumberValue.size(), vehicleNumberValue);         
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
@@ -1458,7 +1458,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "Vehicle Values < 250 ");
+                                                              " " + "Vehicle Values < 150 ");
                             mapCardListValue=null;
                             cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                             vo.setWhereClause(accountQuery+"AND "+cardQuery);
@@ -1472,9 +1472,9 @@ public class TransactionOverviewBean implements Serializable {
                           if("Driver".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())){
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +"Driver");
                                               if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {                                            
-                                            if(driverNameValue.size()>250) {      
+                                            if(driverNameValue.size()>150) {      
                                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                                                 " " + "Driver Values > 250 ");
+                                                                                 " " + "Driver Values > 150 ");
                                                 mapCardListValue=valueList.callValueList(driverNameValue.size(), driverNameValue);         
                                                      for(int i=0;i<mapCardListValue.size();i++) {
                                                       String values="card"+i;
@@ -1505,7 +1505,7 @@ public class TransactionOverviewBean implements Serializable {
                                                         
                                             }else {
                                                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                                                  " " + "Driver Values < 250 ");
+                                                                                  " " + "Driver Values < 150 ");
                                                 mapCardListValue=null;
                                                 cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                                 vo.setWhereClause(accountQuery+"AND "+cardQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
@@ -1515,9 +1515,9 @@ public class TransactionOverviewBean implements Serializable {
                                             vo.defineNamedWhereClauseParam("purchaseCountryCode", lang,
                                                                            null);
                                         }else {                        
-                                            if(driverNameValue.size()>250) {      
+                                            if(driverNameValue.size()>150) {      
                                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                                                 " " + "Driver Values > 250 ");
+                                                                                 " " + "Driver Values > 150 ");
                                                 mapCardListValue=valueList.callValueList(driverNameValue.size(), driverNameValue);         
                                                      for(int i=0;i<mapCardListValue.size();i++) {
                                                       String values="card"+i;
@@ -1549,7 +1549,7 @@ public class TransactionOverviewBean implements Serializable {
                                                         
                                             }else {
                                                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                                                  " " + "Driver Values < 250 ");
+                                                                                  " " + "Driver Values < 150 ");
                                                 mapCardListValue=null;
                                                 cardQuery="((INSTR(:card,KSID)<>0 OR INSTR(:card2id,CARD_2_ID)<>0) AND ((CARD_ID_2_INFO ='V2' OR CARD_ID_2_INFO ='D' OR CARD_ID_2_INFO ='V') OR CARD_ID_2_INFO IS NULL))";
                                                 vo.setWhereClause(accountQuery+"AND "+cardQuery);
@@ -1566,9 +1566,9 @@ public class TransactionOverviewBean implements Serializable {
                              " " + "Coming inside card group block");
                 if(getBindings().getReportFormat().getValue()!=null) { 
                     if("International".equalsIgnoreCase(getBindings().getReportFormat().getValue().toString().trim())) {                    
-                        if(cardGroupValue.size()>250) {      
+                        if(cardGroupValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "CardGroup Values > 250 ");
+                                                             " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);         
                                  for(int i=0;i<mapCardGroupListValue.size();i++) {
                                   String values="cardGroup"+i;
@@ -1587,7 +1587,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardGroupListValue=null;
                             cardGroupQuery="INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery+"AND PURCHASE_COUNTRY_CODE NOT IN(:purchaseCountryCode)");
@@ -1597,9 +1597,9 @@ public class TransactionOverviewBean implements Serializable {
                                                        null);
                         
                     }else {
-                        if(cardGroupValue.size()>250) {      
+                        if(cardGroupValue.size()>150) {      
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "CardGroup Values > 250 ");
+                                                             " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);         
                                  for(int i=0;i<mapCardGroupListValue.size();i++) {
                                     String values="cardGroup"+i;
@@ -1618,7 +1618,7 @@ public class TransactionOverviewBean implements Serializable {
                                     
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardGroupListValue=null;
                             cardGroupQuery="(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                             vo.setWhereClause(accountQuery+"AND "+cardGroupQuery);
@@ -1631,9 +1631,9 @@ public class TransactionOverviewBean implements Serializable {
             }       
             
             
-            if(accountIdValue.size()>250) {      
+            if(accountIdValue.size()>150) {      
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
+                                                 " " + "Account Values > 150 ");
                 mapAccountListValue=valueList.callValueList(accountIdValue.size(), accountIdValue); 
                 for(int i=0;i<mapAccountListValue.size();i++) {
                 String values="account"+i;
@@ -1644,7 +1644,7 @@ public class TransactionOverviewBean implements Serializable {
                         
             }else {
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
+                                                  " " + "Account Values < 150 ");
                  vo.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
             }  
             
