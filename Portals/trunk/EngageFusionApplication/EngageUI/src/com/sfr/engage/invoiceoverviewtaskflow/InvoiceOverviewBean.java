@@ -240,9 +240,9 @@ public class InvoiceOverviewBean implements Serializable {
                                     SelectItem selectItemCardGroup =
                                         new SelectItem();
                                     selectItemCardGroup.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                    selectItemCardGroup.setValue(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
+                                    selectItemCardGroup.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
                                     cardGroupList.add(selectItemCardGroup);
-                                    cardGroupValue.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
+                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(cg).getCardGroupID().toString());
                                     cGCardVisible = true;
                                     cardGroupVisible = true;
                                     cardVisible = false;
@@ -263,7 +263,6 @@ public class InvoiceOverviewBean implements Serializable {
         if(session!= null) {
         lang = (String)session.getAttribute(Constants.userLang);
         }
-
 
         currencyCode=conversionUtility.getCurrencyCode(lang);
         locale=conversionUtility.getLocaleFromCountryCode(lang);
@@ -554,9 +553,9 @@ public class InvoiceOverviewBean implements Serializable {
 //                String baseWhereClause=invoiceVO.getWhereClause();
 
 
-                            if(accountValue.size()>250) {
+                            if(accountValue.size()>150) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
+                                                 " " + "Account Values > 150 ");
                 mapAccountListValue=valueList.callValueList(accountValue.size(), accountValue);
                      for(int i=0;i<mapAccountListValue.size();i++) {
                       String values="account"+i;
@@ -569,7 +568,7 @@ public class InvoiceOverviewBean implements Serializable {
             }else {
                     mapAccountListValue=null;
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
+                                                  " " + "Account Values < 150 ");
                 accountQuery="(INSTR(:account,ACCOUNT_ID)<>0 ) ";
             }
 
@@ -578,9 +577,9 @@ public class InvoiceOverviewBean implements Serializable {
                     if("Card".equalsIgnoreCase(getBindings().getCardGpCardList().getValue().toString())) {
 
 
-                        if(cardValue.size()>250) {
+                        if(cardValue.size()>150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "Card Values > 250 ");
+                                                             " " + "Card Values > 150 ");
                             mapCardListValue=valueList.callValueList(cardValue.size(), cardValue);
                                  for(int i=0;i<mapCardListValue.size();i++) {
                                   String values="card"+i;
@@ -612,7 +611,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardListValue=null;
                             cardQuery="(INSTR(:card,INVOICED_CARD)<>0)";
                             invoiceVO.setWhereClause(accountQuery+"AND "+cardQuery);
@@ -621,13 +620,13 @@ public class InvoiceOverviewBean implements Serializable {
                         }
                     }else {
 
-                        if(cardGroupValue.size()>250) {
+                        if(cardGroupValue.size()>150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                             " " + "CardGroup Values > 250 ");
+                                                             " " + "CardGroup Values > 150 ");
                             mapCardGroupListValue=valueList.callValueList(cardGroupValue.size(), cardGroupValue);
                                  for(int i=0;i<mapCardGroupListValue.size();i++) {
                                   String values="cardGroup"+i;
-                                cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+                                cardGroupQuery=cardGroupQuery+"INSTR(:"+values+",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
                                 }
                                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +"CARDGROUP Query Values ="+cardGroupQuery);
                                    cardGroupQuery=cardGroupQuery.substring(0, cardGroupQuery.length()-3);
@@ -642,9 +641,9 @@ public class InvoiceOverviewBean implements Serializable {
 
                         }else {
                              _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                              " " + "CARD Values < 250 ");
+                                                              " " + "CARD Values < 150 ");
                             mapCardGroupListValue=null;
-                            cardGroupQuery="INSTR(:cardGroup,CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
+                            cardGroupQuery="INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 ";
 //                            cardGroupQuery="INSTR(:cardGroupMainType,CARDGROUP_MAIN_TYPE)<>0 AND INSTR(:cardGroupSubType,CARDGROUP_SUB_TYPE)<>0 AND INSTR(:cardGroupSeqType,CARDGROUP_SEQ)<>0";
                             invoiceVO.setWhereClause(accountQuery+"AND "+cardGroupQuery);
                             invoiceVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()),null);
@@ -656,9 +655,9 @@ public class InvoiceOverviewBean implements Serializable {
                     }
 
                 }
-                if(accountValue.size()>250) {
+                if(accountValue.size()>150) {
                     _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                     " " + "Account Values > 250 ");
+                                                     " " + "Account Values > 150 ");
                     mapAccountListValue=valueList.callValueList(accountValue.size(), accountValue);
                     for(int i=0;i<mapAccountListValue.size();i++) {
                     String values="account"+i;
@@ -669,7 +668,7 @@ public class InvoiceOverviewBean implements Serializable {
 
                 }else {
                      _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                      " " + "Account Values < 250 ");
+                                                      " " + "Account Values < 150 ");
                      invoiceVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
                 }
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "   + "Query Formed is="+invoiceVO.getQuery());
@@ -981,9 +980,9 @@ public class InvoiceOverviewBean implements Serializable {
                                             if(paramType.equals("CardGroup")){
                                                 SelectItem selectItemCardGroup = new SelectItem();
                                                 selectItemCardGroup.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
-                                                selectItemCardGroup.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                                selectItemCardGroup.setValue(partnerInfoList.get(pa).getPartnerValue().toString().trim()+partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                                 cardGroupList.add(selectItemCardGroup);
-                                                cardGroupValue.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                                cardGroupValue.add(partnerInfoList.get(pa).getPartnerValue().toString().trim()+partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
                                             }else{
                                                 if(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null
                                                    && partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size()>0){
@@ -1523,9 +1522,9 @@ for(int i=0;i<prop.length;i++)
             invoiceDetailVO.setNamedWhereClauseParam("invoiceNo",invoiceNo);
             
             
-            if(accountValue.size()>250) {      
+            if(accountValue.size()>150) {      
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
+                                                 " " + "Account Values > 150 ");
                 mapAccountDetailListValue=valueList.callValueList(accountValue.size(), accountValue);         
                      for(int i=0;i<mapAccountDetailListValue.size();i++) {
                       String values="account"+i;
@@ -1538,15 +1537,15 @@ for(int i=0;i<prop.length;i++)
             }else {
                     mapAccountDetailListValue=null;
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
+                                                  " " + "Account Values < 150 ");
                 accountQueryDetail="(INSTR(:account,ACCOUNT_ID)<>0 ) ";                 
             }    
             
             invoiceDetailVO.setWhereClause(accountQueryDetail);
             
-            if(accountValue.size()>250) {      
+            if(accountValue.size()>150) {      
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                 " " + "Account Values > 250 ");
+                                                 " " + "Account Values > 150 ");
                 mapAccountDetailListValue=valueList.callValueList(accountValue.size(), accountValue); 
                 for(int i=0;i<mapAccountDetailListValue.size();i++) {
                 String values="account"+i;
@@ -1557,7 +1556,7 @@ for(int i=0;i<prop.length;i++)
                         
             }else {
                  _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                                                  " " + "Account Values < 250 ");
+                                                  " " + "Account Values < 150 ");
                  invoiceDetailVO.defineNamedWhereClauseParam("account", populateStringValues(getBindings().getAccount().getValue().toString()),null);
             }   
                        
