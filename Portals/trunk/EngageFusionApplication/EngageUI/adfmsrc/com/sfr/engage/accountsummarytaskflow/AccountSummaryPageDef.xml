@@ -477,5 +477,30 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="ManufacturedDate">
+      <AttrNames>
+        <Item Value="ManufacturedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="CardExpiry">
+      <AttrNames>
+        <Item Value="CardExpiry"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="Expirydate">
+      <AttrNames>
+        <Item Value="Expirydate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="BlockDate">
+      <AttrNames>
+        <Item Value="BlockDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardVO4Iterator" id="BlockTime">
+      <AttrNames>
+        <Item Value="BlockTime"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

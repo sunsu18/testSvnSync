@@ -577,6 +577,26 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 obj.setStatus((String)value);
             }
         }
+        ,
+        Expirydate {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getExpirydate();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setExpirydate((Date)value);
+            }
+        }
+        ,
+        ManufacturedDate {
+            public Object get(PrtCardVORowImpl obj) {
+                return obj.getManufacturedDate();
+            }
+
+            public void put(PrtCardVORowImpl obj, Object value) {
+                obj.setManufacturedDate((Date)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -661,6 +681,8 @@ public class PrtCardVORowImpl extends ViewRowImpl {
     public static final int BLOCKLEVEL = AttributesEnum.BlockLevel.index();
     public static final int BLOCKACTION = AttributesEnum.BlockAction.index();
     public static final int STATUS = AttributesEnum.Status.index();
+    public static final int EXPIRYDATE = AttributesEnum.Expirydate.index();
+    public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1583,6 +1605,45 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public void setStatus(String value) {
         setAttributeInternal(STATUS, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Expirydate.
+     * @return the Expirydate
+     */
+    public Date getExpirydate() {
+        
+        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
+        {
+            //System.out.println("card expiry should br visible " + getCardEmbossNum());
+        return (Date) getAttributeInternal(CARDEXPIRY);
+        }
+        //System.out.println("card expiry not visble for " + getCardEmbossNum());
+        return null;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Expirydate.
+     * @param value value to set the  Expirydate
+     */
+    public void setExpirydate(Date value) {
+        setAttributeInternal(EXPIRYDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for MANUFACTURED_DATE using the alias name ManufacturedDate.
+     * @return the MANUFACTURED_DATE
+     */
+    public Date getManufacturedDate() {
+        return (Date) getAttributeInternal(MANUFACTUREDDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for MANUFACTURED_DATE using the alias name ManufacturedDate.
+     * @param value value to set the MANUFACTURED_DATE
+     */
+    public void setManufacturedDate(Date value) {
+        setAttributeInternal(MANUFACTUREDDATE, value);
     }
 
     /**

@@ -2046,6 +2046,72 @@
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
+             
+              <af:outputText value="#{sfr.CARD_EXPIRY}" id="ot155" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+          <af:outputText value=":" id="ot156" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+          <af:spacer width="10" height="10" id="s323" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+                <af:inputText value="#{bindings.Expirydate.inputValue}"
+                              required="#{bindings.Expirydate.hints.mandatory}"
+                              columns="#{bindings.Expirydate.hints.displayWidth}"
+                              maximumLength="#{bindings.Expirydate.hints.precision}"
+                              shortDesc="#{bindings.Expirydate.hints.tooltip}"
+                              id="it23" rendered="#{bindings.Expirydate.inputValue ne null}">
+                  <f:validator binding="#{bindings.Expirydate.validator}"/>
+               <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+              
+              
+               <af:outputText value="#{sfr.BLOCKED_DATE_TIME}" id="ot151" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+          <af:outputText value=":" id="ot152" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+          <af:spacer width="10" height="10" id="s321" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:inputText value="#{bindings.BlockDate.inputValue}#{bindings.BlockTime.inputValue}"
+                            required="#{bindings.BlockDate.hints.mandatory}"
+                            columns="#{bindings.BlockDate.hints.displayWidth}"
+                            maximumLength="#{bindings.BlockDate.hints.precision}"
+                            shortDesc="#{bindings.BlockDate.hints.tooltip}"
+                            id="it21" rendered="#{bindings.Expirydate.inputValue eq null}">
+                <f:validator binding="#{bindings.BlockDate.validator}"/>
+               <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
+              </af:inputText>
+              <!--<af:inputText value="#{bindings.BlockTime.inputValue}"
+                            required="#{bindings.BlockTime.hints.mandatory}"
+                            columns="#{bindings.BlockTime.hints.displayWidth}"
+                            maximumLength="#{bindings.BlockTime.hints.precision}"
+                            shortDesc="#{bindings.BlockTime.hints.tooltip}"
+                            id="it24">
+                <f:validator binding="#{bindings.BlockTime.validator}"/>
+                <af:convertDateTime pattern="#{bindings.BlockTime.format}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              
+             
  </h:panelGrid>
     </af:panelFormLayout>
 

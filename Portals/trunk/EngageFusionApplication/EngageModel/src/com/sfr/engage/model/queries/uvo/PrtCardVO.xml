@@ -58,7 +58,8 @@
        PrtCardEO.INVOICE_COUNTRY, 
        PrtCardEO.INVOICE_POSTAL_CODE, 
        PrtCardEO.BLOCK_LEVEL, 
-       PrtCardEO.BLOCK_ACTION"
+       PrtCardEO.BLOCK_ACTION, 
+       PrtCardEO.MANUFACTURED_DATE"
   FromList="PRT_CARD PrtCardEO"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -415,4 +416,20 @@
     ColumnType="VARCHAR2"
     AliasName="VIEW_ATTR"
     SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="Expirydate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="ManufacturedDate"
+    PrecisionRule="true"
+    EntityAttrName="ManufacturedDate"
+    EntityUsage="PrtCardEO"
+    AliasName="MANUFACTURED_DATE"/>
 </ViewObject>
