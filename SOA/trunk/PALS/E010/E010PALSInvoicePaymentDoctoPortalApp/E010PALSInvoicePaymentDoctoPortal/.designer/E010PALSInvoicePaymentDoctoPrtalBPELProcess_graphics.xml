@@ -13,10 +13,10 @@
       <partnerlink name="SelectErrorRecordsSOADBAdapterV1" x="0" y="4243" side="left"/>
       <partnerlink name="UpdateEmailFlagSOAErrorLogDBAdapterV1" x="0" y="4698" side="left"/>
       <partnerlink name="SOAErrorHanderJMSAdapterV1" x="0" y="2093" side="left"/>
-      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5608" side="left"/>
-      <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="2251" y="3897" side="right"/>
+      <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5288" side="left"/>
+      <partnerlink name="InsertDeltaTSSOADBAdapterV1" x="2153" y="3897" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,2250,1016,273" show_swimlanes="true">
+   <graph_layout viewport="62,4886,942,494" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>
@@ -52,9 +52,9 @@
       <layout_item collapsed="false" xpath="/process/sequence/sequence/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/switch" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/switch/case/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/switch/case/sequence/switch[1]" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/switch/case/sequence/switch[2]" type="switch"/>
       <layout_item collapsed="false" xpath="/process/sequence/sequence/switch/case/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="true" xpath="/process/sequence/sequence/switch/case/switch/otherwise/sequence/switch[1]" type="switch"/>
+      <layout_item collapsed="true" xpath="/process/sequence/sequence/switch/case/switch/otherwise/sequence/switch[2]" type="switch"/>
    </graph_layout>
    <bookmarks/>
 </graphics>
