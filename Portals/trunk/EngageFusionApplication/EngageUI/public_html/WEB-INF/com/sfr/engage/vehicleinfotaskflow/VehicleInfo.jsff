@@ -173,11 +173,11 @@
                 </af:selectBooleanCheckbox>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.VEHICLE_NUMBER}"
-                         id="c1"  width="105">
+                         id="c1"  width="130" styleClass="tablenowrap">
                 <af:outputText value="#{row.vehicleNumber}" id="ot4"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}"
-                         id="c2" width="145">
+                         id="c2" width="150">
                 <af:outputText value="#{row.embossCardNumber}" id="ot5"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.INTERNAL_NAME}"
@@ -188,23 +188,23 @@
                          headerText="#{sfr.VEHICLEINFO_REGISTRATIONNUMBER}" id="c4">
                 <af:outputText value="#{row.registrationNumber}" id="ot7"/>
               </af:column>
-              <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c9">
+              <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c9" width="111">
                 <af:outputText value="#{row.remarks}" id="ot12"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.FUEL_TYPE}"
-                         id="c10" width="69">
+                         id="c10" width="115">
                 <af:outputText value="#{row.fuelType}" id="ot13"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MAX_FUEL}" id="c11"
-                         width="78">
+                         width="85">
                 <af:outputText value="#{row.maxFuel}" id="ot19"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.ODOMETER}" id="c12"
-                         width="78">
+                         width="111">
                 <af:outputText value="#{row.odoMeter}" id="ot15"/>
               </af:column>
               <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
-                         id="c14" width="85" align="center">
+                         id="c14" width="90" align="center">
                      <af:commandImageLink id="cil1"
                                      action="#{pageFlowScope.VehicleInfoBean.tableEditAction}"
                                      icon="/images/edit.png">

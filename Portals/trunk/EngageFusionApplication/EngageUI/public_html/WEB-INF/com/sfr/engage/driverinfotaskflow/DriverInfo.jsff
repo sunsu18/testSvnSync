@@ -161,15 +161,15 @@
                 </af:selectBooleanCheckbox>
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.DRIVER_NUMBER}" id="c1"
-                             width="140">
+                             width="135">
                     <af:outputText value="#{row.driverNumber}" id="ot4"/>
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}" id="c2"
-                             width="175">
+                             width="145">
                     <af:outputText value="#{row.embossCardNumber}" id="ot5"/>
                   </af:column>
                    <af:column sortable="false" headerText="#{sfr.DRIVER_NAME_ENG}" id="c3"
-                              width="140">
+                              width="135">
                     <af:outputText value="#{row.driverName}" id="ot6"/>
                   </af:column>
                    <af:column sortable="false" headerText="#{sfr.NATIONALITY}" id="c4"
@@ -180,11 +180,11 @@
                              width="120">
                     <af:outputText value="#{row.mobileNumber}" id="ot8"/>
                   </af:column>
-                  <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12">
+                  <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12" width="111">
                     <af:outputText value="#{row.remarks}" id="ot15"/>
                   </af:column>
                   <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}" id="c14"
-                             width="60" align="center">
+                             width="89" align="center">
                  <!--<af:commandButton id="cb5"
                                   action="#{pageFlowScope.DriverInfoBean.tableEditAction}"
                                   icon="/images/edit.png">
