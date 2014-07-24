@@ -935,7 +935,7 @@
                         query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorSummary"/>
                   </copy>
                   <copy>
-                    <from expression="'Unable to process all data from PALS'"/>
+                    <from expression="'Incomplete data transfer.'"/>
                     <to variable="InvokeCommonErrorHandler_IV" part="body"
                         query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorDescription"/>
                   </copy>
