@@ -862,13 +862,95 @@
             </bpelx:general>
           </bpelx:annotation>
           <switch name="IfDataExistsinPALS">
-            <case condition=" bpws:getVariableData('DataCount') &lt;=  bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchSize')">
+            <case condition="number(bpws:getVariableData('InvokeSelectCountPALSDB2DatabaseAdapterV1_OV','SelectCountPALSDB2DatabaseAdapterV1Output','/ns8:SelectCountPALSDB2DatabaseAdapterV1Output/ns8:_1'))-(number(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchSize'))*number(bpws:getVariableData('ReceiveInvoiceInvocationMsg_IV','InvocationBody','/ns7:InvocationMessage/ns7:BatchCount')))>0">
               <bpelx:annotation>
                 <bpelx:general>
                   <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
                 </bpelx:general>
               </bpelx:annotation>
               <sequence name="PALSNotificationSequence">
+                <assign name="AssignStandardErrorData">
+                  <copy>
+                    <from expression="ora:getCompositeInstanceId()"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
+                  </copy>
+                  <copy>
+                    <from expression="ora:getComponentName()"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E009'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E009PALSInvoicetoPortal'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
+                  </copy>
+                  <copy>
+                    <from expression="xp20:current-dateTime()"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
+                  </copy>
+                  <copy>
+                    <from variable="ReceiveInvoiceInvocationMsg_IV"
+                          part="InvocationBody"
+                          query="/ns7:InvocationMessage/ns7:SenderSystem"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
+                  </copy>
+                  <copy>
+                    <from variable="ReceiveInvoiceInvocationMsg_IV"
+                          part="InvocationBody"
+                          query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
+                  </copy>
+                  <copy>
+                    <from variable="ReceiveInvoiceInvocationMsg_IV"
+                          part="InvocationBody"
+                          query="/ns7:InvocationMessage/ns7:UserName"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'BE-027'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Incomplete Data Transfer'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Incomplete Data Transfer'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
+                  </copy>
+                  <copy>
+                    <from expression="'E009_BE'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Dev03: Incomplete Data Transfer for E009'"/>
+                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
+                        query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
+                  </copy>
+                </assign>
+                <invoke name="InvokeSOAErrorHandlerJMSAdapter"
+                        inputVariable="InvokeSOAErrorhandlerJMSQ_IV"
+                        partnerLink="SOAErrorHandlerJMSQAdapterV1"
+                        portType="ns16:Produce_Message_ptt"
+                        operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+              </sequence>
+            </case>
+            <otherwise>
+              <sequence name="ErrorCompletionSequence">
                 <switch name="DataCountExistsSwitch">
                   <case condition=" bpws:getVariableData('DataCount') >= 1">
                     <bpelx:annotation>
@@ -1022,7 +1104,7 @@
                     </assign>
                   </otherwise>
                 </switch>
-                <switch name="Switch5">
+                <switch name="CheckErrorSwitch">
                   <case condition="bpws:getVariableData('ErrorFlag')='YES'">
                     <bpelx:annotation>
                       <bpelx:general>
@@ -1046,88 +1128,6 @@
                         inputVariable="InvokeSOAPALSNotificationJMSAdapter_Produce_Message_IV"
                         partnerLink="SOAPALSNotificationJMSAdapter"
                         portType="ns21:Produce_Message_ptt"
-                        operation="Produce_Message" bpelx:invokeAsDetail="no"/>
-              </sequence>
-            </case>
-            <otherwise>
-              <sequence name="ErrorCompletionSequence">
-                <assign name="AssignStandardErrorData">
-                  <copy>
-                    <from expression="ora:getCompositeInstanceId()"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:InstanceID"/>
-                  </copy>
-                  <copy>
-                    <from expression="ora:getComponentName()"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ComponentName"/>
-                  </copy>
-                  <copy>
-                    <from expression="'E009'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectID"/>
-                  </copy>
-                  <copy>
-                    <from expression="'E009PALSInvoicetoPortal'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:ProjectName"/>
-                  </copy>
-                  <copy>
-                    <from expression="xp20:current-dateTime()"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Timestamp"/>
-                  </copy>
-                  <copy>
-                    <from variable="ReceiveInvoiceInvocationMsg_IV"
-                          part="InvocationBody"
-                          query="/ns7:InvocationMessage/ns7:SenderSystem"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Source"/>
-                  </copy>
-                  <copy>
-                    <from variable="ReceiveInvoiceInvocationMsg_IV"
-                          part="InvocationBody"
-                          query="/ns7:InvocationMessage/ns7:ReceiverSystem"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:Target"/>
-                  </copy>
-                  <copy>
-                    <from variable="ReceiveInvoiceInvocationMsg_IV"
-                          part="InvocationBody"
-                          query="/ns7:InvocationMessage/ns7:UserName"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:CommonErrorData/ns18:UserID"/>
-                  </copy>
-                  <copy>
-                    <from expression="'BE-027'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorCode"/>
-                  </copy>
-                  <copy>
-                    <from expression="'Incomplete Data Transfer'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorSummary"/>
-                  </copy>
-                  <copy>
-                    <from expression="'Incomplete Data Transfer'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:ErrorDetails/ns18:ErrorDescription"/>
-                  </copy>
-                  <copy>
-                    <from expression="'E009_BE'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:LookupCriteria"/>
-                  </copy>
-                  <copy>
-                    <from expression="'Dev03: Incomplete Data Transfer for E009'"/>
-                    <to variable="InvokeSOAErrorhandlerJMSQ_IV" part="body"
-                        query="/ns18:ErrorInfo/ns18:ErrorNotification/ns18:Subject"/>
-                  </copy>
-                </assign>
-                <invoke name="InvokeSOAErrorHandlerJMSAdapter"
-                        inputVariable="InvokeSOAErrorhandlerJMSQ_IV"
-                        partnerLink="SOAErrorHandlerJMSQAdapterV1"
-                        portType="ns16:Produce_Message_ptt"
                         operation="Produce_Message" bpelx:invokeAsDetail="no"/>
               </sequence>
             </otherwise>
