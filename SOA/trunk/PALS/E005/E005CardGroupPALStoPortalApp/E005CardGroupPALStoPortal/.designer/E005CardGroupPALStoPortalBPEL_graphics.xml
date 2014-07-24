@@ -20,7 +20,7 @@
       <partnerlink name="UpdateEmailFlagErrorLogDatabaseAdapterV1" x="2040" y="5219" side="right"/>
       <partnerlink name="SOAPALSNotificationJMSAdapterV1" x="2040" y="6095" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="844,2025,1329,513" show_swimlanes="true">
+   <graph_layout viewport="0,5473,783,370" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>

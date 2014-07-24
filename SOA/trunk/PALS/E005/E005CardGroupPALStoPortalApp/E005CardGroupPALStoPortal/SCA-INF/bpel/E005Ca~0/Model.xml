@@ -722,7 +722,7 @@
                         <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV" part="body" query="/ns20:ErrorInfo/ns20:CommonErrorData/ns20:InstanceID"/>
                       </copy>
                       <copy>
-                        <from expression="'Unable to process all data from PALS'"/>
+                        <from expression="'Incomplete data transfer.'"/>
                         <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV" part="body" query="/ns20:ErrorInfo/ns20:ErrorDetails/ns20:ErrorDescription"/>
                       </copy>
                       <copy>
@@ -770,7 +770,7 @@
                         <to variable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV" part="body" query="/ns20:ErrorInfo/ns20:ErrorDetails/ns20:ErrorSummary"/>
                       </copy>
                     </assign>
-                    <invoke name="InvokeSOAErrorHandlingJMSQueue" inputVariable="InvokeSOAErrorHandlerJMSAdapter_IV" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns19:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv20"/>
+                    <invoke name="InvokeSOAErrorHandlingJMSQueue" inputVariable="InvokeSOAErrorHandlerEmailJMSQAdapterV1_IV" partnerLink="SOAErrorHandlerJMSQAdapterV1" portType="ns19:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv20"/>
                   </sequence>
                 </case>
                 <otherwise>
