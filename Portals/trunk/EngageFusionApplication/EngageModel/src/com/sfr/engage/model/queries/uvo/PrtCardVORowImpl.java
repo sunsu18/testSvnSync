@@ -1359,6 +1359,18 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      * @return the BLOCK_TIME
      */
     public Timestamp getBlockTime() {
+        java.sql.Timestamp sq;
+        java.util.Date utilDate;
+        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) ||  "1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().before(new java.util.Date()))
+        {
+            //System.out.println("card expiry should br visible " + getCardEmbossNum());
+            utilDate = new java.util.Date();
+            utilDate = (Date) getAttributeInternal(CARDEXPIRY);
+            sq =  new java.sql.Timestamp(utilDate.getTime());
+        return sq;
+        }
+        //System.out.println("card expiry not visble for " + getCardEmbossNum());
+        
         return (Timestamp) getAttributeInternal(BLOCKTIME);
     }
 

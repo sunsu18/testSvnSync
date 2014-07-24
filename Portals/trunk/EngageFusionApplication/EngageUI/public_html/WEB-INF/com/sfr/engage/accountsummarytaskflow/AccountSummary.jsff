@@ -2092,7 +2092,8 @@
                             columns="#{bindings.BlockTime.hints.displayWidth}"
                             maximumLength="#{bindings.BlockTime.hints.precision}"
                             shortDesc="#{bindings.BlockTime.hints.tooltip}"
-                            id="it24">
+                            id="it24" rendered="#{bindings.Expirydate.inputValue eq null}"
+                            readOnly="true">
                 <f:validator binding="#{bindings.BlockTime.validator}"/>
               <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
               </af:inputText>
@@ -2119,7 +2120,7 @@
                             columns="#{bindings.ManufacturedDate.hints.displayWidth}"
                             maximumLength="#{bindings.ManufacturedDate.hints.precision}"
                             shortDesc="#{bindings.ManufacturedDate.hints.tooltip}"
-                            id="it24" readOnly="true">
+                            id="it21" readOnly="true">
                 <f:validator binding="#{bindings.ManufacturedDate.validator}"/>
                 <af:convertDateTime pattern="#{bindings.ManufacturedDate.format}"/>
               </af:inputText>
