@@ -2078,7 +2078,7 @@
                <af:outputText value="#{sfr.BLOCKED_DATE_TIME}" id="ot151" rendered="#{bindings.Expirydate.inputValue eq null}"/>
           <af:outputText value=":" id="ot152" rendered="#{bindings.Expirydate.inputValue eq null}"/>
           <af:spacer width="10" height="10" id="s321" rendered="#{bindings.Expirydate.inputValue eq null}"/>
-              <af:inputText value="#{bindings.BlockDate.inputValue}#{bindings.BlockTime.inputValue}"
+              <!--<af:inputText value="#{bindings.BlockDate.inputValue}#{bindings.BlockTime.inputValue}"
                             required="#{bindings.BlockDate.hints.mandatory}"
                             columns="#{bindings.BlockDate.hints.displayWidth}"
                             maximumLength="#{bindings.BlockDate.hints.precision}"
@@ -2086,16 +2086,16 @@
                             id="it21" rendered="#{bindings.Expirydate.inputValue eq null}">
                 <f:validator binding="#{bindings.BlockDate.validator}"/>
                <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
-              </af:inputText>
-              <!--<af:inputText value="#{bindings.BlockTime.inputValue}"
+              </af:inputText>-->
+              <af:inputText value="#{bindings.BlockTime.inputValue}"
                             required="#{bindings.BlockTime.hints.mandatory}"
                             columns="#{bindings.BlockTime.hints.displayWidth}"
                             maximumLength="#{bindings.BlockTime.hints.precision}"
                             shortDesc="#{bindings.BlockTime.hints.tooltip}"
                             id="it24">
                 <f:validator binding="#{bindings.BlockTime.validator}"/>
-                <af:convertDateTime pattern="#{bindings.BlockTime.format}"/>
-              </af:inputText>-->
+              <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
+              </af:inputText>
               <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
                <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
@@ -2110,6 +2110,42 @@
                <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
+              
+              <af:outputText value="#{sfr.MANUFACTURED_DATE}" id="ot153"/>
+          <af:outputText value=":" id="ot154"/>
+          <af:spacer width="10" height="10" id="s322"/>
+              <af:inputText value="#{bindings.ManufacturedDate.inputValue}"
+                            required="#{bindings.ManufacturedDate.hints.mandatory}"
+                            columns="#{bindings.ManufacturedDate.hints.displayWidth}"
+                            maximumLength="#{bindings.ManufacturedDate.hints.precision}"
+                            shortDesc="#{bindings.ManufacturedDate.hints.tooltip}"
+                            id="it24" readOnly="true">
+                <f:validator binding="#{bindings.ManufacturedDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.ManufacturedDate.format}"/>
+              </af:inputText>
+              <!--<af:inputText value="#{bindings.Status.inputValue}"
+                            simple="true"  readOnly="true"
+                            required="#{bindings.InvoiceCountry.hints.mandatory}"
+                            columns="#{bindings.InvoiceCountry.hints.displayWidth}"
+                            maximumLength="#{bindings.InvoiceCountry.hints.precision}"
+                            shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
+                            id="it17" inlineStyle="margin-left:5px;">
+                <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
+              </af:inputText>-->
+              <af:spacer width="25" height="10"/>
+               <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+               <af:spacer width="10" height="10"/>
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+               <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
+              <af:spacer width="10" height="10" />
               
              
  </h:panelGrid>
