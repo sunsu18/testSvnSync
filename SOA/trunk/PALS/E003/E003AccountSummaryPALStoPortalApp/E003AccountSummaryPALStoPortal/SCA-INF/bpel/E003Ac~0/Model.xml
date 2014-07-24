@@ -624,7 +624,7 @@
                       <to variable="InvokeErrorHandlingJMSAdapter_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorSummary"/>
                     </copy>
                     <copy>
-                      <from expression="'Unable to process all data from PALS'"/>
+                      <from expression="'Incomplete Data Transfer'"/>
                       <to variable="InvokeErrorHandlingJMSAdapter_IV" part="body" query="/ns17:ErrorInfo/ns17:ErrorDetails/ns17:ErrorDescription"/>
                     </copy>
                     <copy>
