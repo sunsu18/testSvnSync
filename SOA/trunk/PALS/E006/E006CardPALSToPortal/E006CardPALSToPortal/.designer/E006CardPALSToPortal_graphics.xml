@@ -10,17 +10,13 @@
       <partnerlink name="PALSDB2DBAdapter" x="0" y="2084" side="left"/>
       <partnerlink name="SOAErrorDBAdapter" x="0" y="2927" side="left"/>
       <partnerlink name="MergeDeltaTSSOADBAdapterV1" x="0" y="3844" side="left"/>
-      <partnerlink name="InsertPALSDataToTempCardPortalDBAdapter" x="0" y="432" side="left"/>
-      <partnerlink name="SelectValidDataTempCardPortalDBAdapter" x="0" y="499" side="left"/>
-      <partnerlink name="SelectInValidDataTempCardPortalDBAdapter" x="0" y="566" side="left"/>
-      <partnerlink name="TruncateTempCardPortalDBAdapter" x="0" y="633" side="left"/>
       <partnerlink name="SOAErrorHandlerJMSAdapter" x="0" y="2021" side="left"/>
       <partnerlink name="SOAErrorLogDBAdapter" x="0" y="4190" side="left"/>
       <partnerlink name="UpdateSOAErrorDBAdapter" x="0" y="4645" side="left"/>
       <partnerlink name="CardPortalProcDBAdapter" x="0" y="3187" side="left"/>
       <partnerlink name="SOAPALSNotificationJMSAdapter" x="0" y="5555" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,214,799,494" show_swimlanes="true">
+   <graph_layout viewport="471,4986,783,370" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]" type="catch"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catch[1]/sequence" type="sequence"/>

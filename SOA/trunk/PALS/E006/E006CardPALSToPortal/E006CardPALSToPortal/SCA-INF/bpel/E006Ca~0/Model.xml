@@ -1134,7 +1134,7 @@
             </bpelx:general>
           </bpelx:annotation>
           <switch name="IfDataExistsinPALS" id="BpSwt5">
-            <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:BatchSize')">
+            <case condition="(bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:BatchSize') * bpws:getVariableData('AccountSummaryCardReqMsg','invocationMsg','/client:invocationMsg/client:BatchCount')) >= bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OutputVariable','GetPALSDB2CountDBAdapterOutput','/ns4:GetPALSDB2CountDBAdapterOutput/ns4:count')">
               <bpelx:annotation>
                 <bpelx:general>
                   <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
