@@ -638,12 +638,20 @@
     Name="ManufacturedDate"
     ColumnName="MANUFACTURED_DATE"
     SQLType="TIMESTAMP"
-    Type="oracle.jbo.domain.Date"
+    Type="java.sql.Date"
     ColumnType="DATE"
     TableName="PRT_CARD">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.entities.PrtCardEO.ManufacturedDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.entities.PrtCardEO.ManufacturedDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </Attribute>
   <Attribute
     Name="RoutexCustomerNumber"
@@ -978,4 +986,8 @@
       <Item Value="com.sfr.engage.model.entities.PrtCardEO.PartnerId"/>
     </AttrArray>
   </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
 </Entity>
