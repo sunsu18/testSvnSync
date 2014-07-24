@@ -5,8 +5,8 @@
       <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
       <line>145</line>
       <col>72</col>
-      <file>F:\SFR work\E011\SVN\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
-      <name>F:\SFR work\E011\SVN\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
+      <file>C:\Users\10602239\Desktop\PALS24July\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
+      <name>C:\Users\10602239\Desktop\PALS24July\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
       <fix/>
       <msg>Failed to Find Binding "E011InvoiceDetailsPALStoPortalWebservice":"{http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL}E011InvoiceDetailsPALStoPortalBPEL_pt" in WSDL Manager</msg>
    </Fault>
@@ -15,8 +15,8 @@
       <loc>/ns:composite/ns:reference[@name='E011InvoiceDetailsPALStoPortalWebservice']</loc>
       <line>145</line>
       <col>72</col>
-      <file>F:\SFR work\E011\SVN\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
-      <name>F:\SFR work\E011\SVN\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
+      <file>C:\Users\10602239\Desktop\PALS24July\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</file>
+      <name>C:\Users\10602239\Desktop\PALS24July\E011\E011InvoiceDetailsPALStoPortal\E011InvoiceDetailsPALStoPortal\composite.xml</name>
       <fix/>
       <msg>Failed to Find Binding "E011InvoiceDetailsPALStoPortalWebservice":"{http://www.statoilfuelretail.com/integration/engage/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortal/E011InvoiceDetailsPALStoPortalBPEL}E011InvoiceDetailsPALStoPortalBPEL_pt" in WSDL Manager</msg>
    </Fault>

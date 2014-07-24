@@ -802,7 +802,7 @@
             </bpelx:general>
           </bpelx:annotation>
           <switch name="IfDataExistsinPALS" id="BpSwt5">
-            <case condition="bpws:getVariableData('DataCount') &lt;= bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize')">
+            <case condition="(bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:BatchSize') * bpws:getVariableData('ReceiveInvoiceDetailsReqMsg_process_IV','payload','/ns2:invocationMsg/ns2:NumberOfBatches')) >= bpws:getVariableData('InvokeGetPALSDB2CountDBAdapter_GetPALSDB2CountDBAdapter_OV','GetPALSDB2CountDBAdapterOutput','/ns5:GetPALSDB2CountDBAdapterOutput/ns5:count')">
               <bpelx:annotation>
                 <bpelx:general>
                   <bpelx:property name="userLabel">DataCountLessThanorEqualsBatchSize</bpelx:property>
