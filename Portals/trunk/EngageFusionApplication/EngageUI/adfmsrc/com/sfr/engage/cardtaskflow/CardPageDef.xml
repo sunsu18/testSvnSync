@@ -53,8 +53,14 @@
           <Item Value="Status"/>
           <Item Value="CardTextline2"/>
           <Item Value="TypeName"/>
-          <Item Value="LastUsed"/>		  <Item Value="PartnerId"/>          <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
+          <Item Value="LastUsed"/>
+          <Item Value="PartnerId"/>
+          <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
           <Item Value="QuaterlyTxReportTxThreeMonths3"/>
+          <Item Value="ManufacturedDate"/>
+          <Item Value="BlockTime"/>
+          <Item Value="CardBlockDateTime"/>
+          <Item Value="CardExpiryDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

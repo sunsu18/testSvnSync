@@ -280,6 +280,36 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        ManufacturedDate {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getManufacturedDate();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setManufacturedDate((Date)value);
+            }
+        }
+        ,
+        BlockDate {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getBlockDate();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setBlockDate((Date)value);
+            }
+        }
+        ,
+        BlockTime {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getBlockTime();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setBlockTime((Timestamp)value);
+            }
+        }
+        ,
         BlockCode {
             public Object get(PrtViewCardsVORowImpl obj) {
                 return obj.getBlockCode();
@@ -350,26 +380,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        BlockDate {
-            public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getBlockDate();
-            }
-
-            public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setBlockDate((Date)value);
-            }
-        }
-        ,
-        BlockTime {
-            public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getBlockTime();
-            }
-
-            public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setBlockTime((Timestamp)value);
-            }
-        }
-        ,
         BlockLevel {
             public Object get(PrtViewCardsVORowImpl obj) {
                 return obj.getBlockLevel();
@@ -377,16 +387,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
 
             public void put(PrtViewCardsVORowImpl obj, Object value) {
                 obj.setBlockLevel((String)value);
-            }
-        }
-        ,
-        ManufacturedDate {
-            public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getManufacturedDate();
-            }
-
-            public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setManufacturedDate((Date)value);
             }
         }
         ,
@@ -959,6 +959,26 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                 obj.setCardgroupId((String)value);
             }
         }
+        ,
+        CardExpiryDate {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getCardExpiryDate();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setCardExpiryDate((Date)value);
+            }
+        }
+        ,
+        CardBlockDateTime {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getCardBlockDateTime();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setCardBlockDateTime((Timestamp)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -986,6 +1006,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+    ResourceBundle resourceBundle;
+
+
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
@@ -1012,6 +1035,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int COUNTRY = AttributesEnum.Country.index();
     public static final int TYPE = AttributesEnum.Type.index();
     public static final int TYPENAME = AttributesEnum.TypeName.index();
+    public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
+    public static final int BLOCKDATE = AttributesEnum.BlockDate.index();
+    public static final int BLOCKTIME = AttributesEnum.BlockTime.index();
     public static final int BLOCKCODE = AttributesEnum.BlockCode.index();
     public static final int DUMMY = AttributesEnum.Dummy.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
@@ -1019,10 +1045,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int MAGNETICCODE = AttributesEnum.MagneticCode.index();
     public static final int INVOICEINFORMATION = AttributesEnum.InvoiceInformation.index();
     public static final int BLOCKTYPE = AttributesEnum.BlockType.index();
-    public static final int BLOCKDATE = AttributesEnum.BlockDate.index();
-    public static final int BLOCKTIME = AttributesEnum.BlockTime.index();
     public static final int BLOCKLEVEL = AttributesEnum.BlockLevel.index();
-    public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
     public static final int ROUTEXCUSTOMERNUMBER = AttributesEnum.RoutexCustomerNumber.index();
     public static final int INVOICEADDR1 = AttributesEnum.InvoiceAddr1.index();
     public static final int INVOICEADDR2 = AttributesEnum.InvoiceAddr2.index();
@@ -1080,8 +1103,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int REGISTRATIONDATE = AttributesEnum.RegistrationDate.index();
     public static final int STATUS = AttributesEnum.Status.index();
     public static final int CARDGROUPID = AttributesEnum.CardgroupId.index();
-    ResourceBundle resourceBundle;
-    
+    public static final int CARDEXPIRYDATE = AttributesEnum.CardExpiryDate.index();
+    public static final int CARDBLOCKDATETIME = AttributesEnum.CardBlockDateTime.index();
+
     /**
      * This is the default constructor (do not remove).
      */
@@ -2569,7 +2593,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
         String result="";
         if(getBlockAction()!=null){
             resourceBundle = new EngageResourceBundle();
-
             if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().getValue().after(new java.util.Date()))
             {
                 if (resourceBundle.containsKey("UNBLOCKED"))
@@ -2624,6 +2647,50 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setCardgroupId(String value) {
         setAttributeInternal(CARDGROUPID, value);
+    }
+
+
+    /**
+     * Gets the attribute value for the calculated attribute CardExpiryDate.
+     * @return the CardExpiryDate
+     */
+    public Date getCardExpiryDate() {
+        if(getBlockAction()!=null && "0".equalsIgnoreCase(getBlockAction().toString().trim())){   
+            return getCardExpiry();
+        }else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
+            return getCardExpiry();
+        }
+        return null;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardExpiryDate.
+     * @param value value to set the  CardExpiryDate
+     */
+    public void setCardExpiryDate(Date value) {
+        setAttributeInternal(CARDEXPIRYDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CardBlockDateTime.
+     * @return the CardBlockDateTime
+     */
+    public Timestamp getCardBlockDateTime() {
+        if(getBlockAction()!=null){
+            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
+                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){
+                return getBlockTime();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CardBlockDateTime.
+     * @param value value to set the  CardBlockDateTime
+     */
+    public void setCardBlockDateTime(Timestamp value) {
+        setAttributeInternal(CARDBLOCKDATETIME, value);
     }
 
     /**

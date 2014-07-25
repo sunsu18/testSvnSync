@@ -41,7 +41,7 @@
 pc.last_used,pc.block_action,pc.card_expiry,pti.vehicle_number,pti.internal_name, 
 pti.modified_by as vehicle_modified_by,pti.modified_date as vehicle_modified_date,pc.card_type,pdi.driver_name,
 pdi.driver_number,pdi.modified_by,pdi.modified_date,pcg.cardgroup_description,pc.prt_card_pk,pc.cardgroup_main_type,
-pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name
+pc.cardgroup_sub_type,pc.cardgroup_seq,pc.card_textline_2,pctnm.country,pctnm.card_type as type,pctnm.type_name,pc.manufactured_date,pc.block_time
 from prt_card pc,
     prt_truck_information pti,
     prt_driver_information pdi,
@@ -87,7 +87,7 @@ pc.card_emboss_num, pti.vehicle_number, pti.internal_name, pti.modified_by,
 pti.modified_date, pc.card_type, pdi.driver_name, pdi.driver_number, pdi.modified_by, 
 pdi.modified_date, pcg.cardgroup_description, pc.prt_card_pk, pc.cardgroup_main_type, 
 pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctnm.card_type, pctnm.type_name,
-(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3)]]>
+(Quaterly_Tx_Report.tx_three_months/3),(Quaterly_Fuel_Report.fuel_three_months/3),pc.manufactured_date,pc.block_time]]>
   </SQLQuery>
   <ViewAttribute
     Name="PartnerId"
@@ -495,6 +495,55 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="ManufacturedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="MANUFACTURED_DATE"
+    SQLType="DATE"
+    Expression="MANUFACTURED_DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.ManufacturedDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.ManufacturedDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BlockDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="BLOCK_DATE"
+    SQLType="DATE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BlockTime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="BLOCK_TIME"
+    SQLType="TIMESTAMP"
+    Expression="BLOCK_TIME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="BlockCode"
     IsUpdateable="false"
     IsPersistent="false"
@@ -594,32 +643,6 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="BlockDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Date"
-    ColumnType="DATE"
-    AliasName="BLOCK_DATE"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="BlockTime"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
-    AliasName="BLOCK_TIME"
-    SQLType="TIMESTAMP">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="BlockLevel"
     IsUpdateable="false"
     IsPersistent="false"
@@ -631,19 +654,6 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="ManufacturedDate"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="oracle.jbo.domain.Date"
-    ColumnType="DATE"
-    AliasName="MANUFACTURED_DATE"
-    SQLType="DATE">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -1427,6 +1437,35 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     ColumnType="VARCHAR2"
     AliasName="VIEW_ATTR"
     SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="CardExpiryDate"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.CardExpiryDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.CardExpiryDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CardBlockDateTime"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="VIEW_ATTR"
+    SQLType="TIMESTAMP"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
