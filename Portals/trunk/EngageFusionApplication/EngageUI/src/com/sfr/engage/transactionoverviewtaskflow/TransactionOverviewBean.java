@@ -526,12 +526,15 @@ public class TransactionOverviewBean implements Serializable {
         if (getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getReportFormat().getValue() != null) {
             if(!shuttleStatus)
             {
+            String langDB=(String)session.getAttribute("lang");
+            langDB=langDB.substring(langDB.length()-2, langDB.length());
+            langDB=langDB.toUpperCase();
             if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                 shuttleValue = new ArrayList();
                 ViewObject prtExportInfoRVO =
                     ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
                 prtExportInfoRVO.setNamedWhereClauseParam("country_Code",
-                                                          lang);
+                                                          langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                           "TRANSACTION");
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -567,7 +570,7 @@ public class TransactionOverviewBean implements Serializable {
                 ViewObject prtExportInfoRVO =
                     ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
                 prtExportInfoRVO.setNamedWhereClauseParam("country_Code",
-                                                          lang);
+                                                          langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                           "TRANSACTION");
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -602,7 +605,7 @@ public class TransactionOverviewBean implements Serializable {
                 ViewObject prtExportInfoRVO =
                     ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
                 prtExportInfoRVO.setNamedWhereClauseParam("country_Code",
-                                                          lang);
+                                                          langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                           "TRANSACTION");
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -633,7 +636,7 @@ public class TransactionOverviewBean implements Serializable {
                 ViewObject prtExportInfoRVO =
                     ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
                 prtExportInfoRVO.setNamedWhereClauseParam("country_Code",
-                                                          lang);
+                                                          langDB);
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                           "TRANSACTION");
                 prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -3705,10 +3708,13 @@ public class TransactionOverviewBean implements Serializable {
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
         shuttleStatus=false;
+        String langDB=(String)session.getAttribute("lang");
+        langDB=langDB.substring(langDB.length()-2, langDB.length());
+        langDB=langDB.toUpperCase();
         if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                       "TRANSACTION");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -3740,7 +3746,7 @@ public class TransactionOverviewBean implements Serializable {
         } else if ("Card".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                       "TRANSACTION");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -3772,7 +3778,7 @@ public class TransactionOverviewBean implements Serializable {
         } else if ("Vehicle".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                       "TRANSACTION");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -3804,7 +3810,7 @@ public class TransactionOverviewBean implements Serializable {
         } else {
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                       "TRANSACTION");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type",

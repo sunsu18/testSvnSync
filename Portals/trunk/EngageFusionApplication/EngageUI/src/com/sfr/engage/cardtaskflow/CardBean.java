@@ -1525,9 +1525,12 @@ public class CardBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside exportExcelSpecificAction method of View Cards");
         shuttleStatus = false;
+        String langDB=(String)session.getAttribute("lang");
+        langDB=langDB.substring(langDB.length()-2, langDB.length());
+        langDB=langDB.toUpperCase();
         ViewObject prtExportInfoRVO =
             ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-        prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+        prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "VIEWCARDS");
         prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
         prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria",
@@ -1733,10 +1736,13 @@ public class CardBean implements Serializable {
 
     public List getShuttleValue() {
         if (!shuttleStatus) {
+            String langDB=(String)session.getAttribute("lang");
+            langDB=langDB.substring(langDB.length()-2, langDB.length());
+            langDB=langDB.toUpperCase();
             shuttleValue = new ArrayList();
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page",
                                                       "VIEWCARDS");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type",
@@ -1986,7 +1992,7 @@ public class CardBean implements Serializable {
                                                             for (int cg = 0;
                                                                  cg < cardGroupDescList.length;
                                                                  cg++) {
-                                                                if ((partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                                if ((partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
                                                                     cardGroupDescName =
                                                                             cardGroupDescName +
                                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
