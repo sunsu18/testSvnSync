@@ -254,6 +254,14 @@
                 <attribute value="#{MenuVisibleHelperBean.menuContact}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
+            <url factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+                 visible="#{true}" id="selectAssociation"
+                 url="page://oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx">
+              <attributes>
+                <attribute value="selectAssociation" attributeId="Title"
+                           isKey="false"/>
+              </attributes>
+            </url>
           </contents>
         </url>
         <url url="page://oracle/webcenter/portalapp/engagepages/menus/changeaccount.jspx"

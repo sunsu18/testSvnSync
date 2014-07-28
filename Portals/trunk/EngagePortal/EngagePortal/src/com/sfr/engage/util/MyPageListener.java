@@ -85,6 +85,7 @@ public class MyPageListener implements PagePhaseListener {
     boolean skipOtherRoles = false;
     AccountInfo account_check = new AccountInfo();
     CardGroupInfo cardgrp_check = new CardGroupInfo();
+    boolean isChangeInRedirectionRequired = false;
 
 
     HashSet cardTypeHS = new HashSet();
@@ -204,8 +205,17 @@ public class MyPageListener implements PagePhaseListener {
                     }
 
                     //
+                    if (securityContext.isAuthenticated() && currentViewId.contains("home") && user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) && session.getAttribute("IS_SELECT_ASSOCIATION_DONE") == null) {
+                        session.setAttribute("IS_SELECT_ASSOCIATION_DONE", "true");
+                        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/support/selectAssociation");
+                        System.out.println("redirect to select association");
+                        String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+                        ectx.redirect(ectx.getRequestContextPath() + requestedPage);
+                        
+                    }
                     if (securityContext.isAuthenticated() && currentViewId.contains("home") && session.getAttribute("IS_HOME_REDIRECTION_DONE") == null) {
                         session.setAttribute("IS_HOME_REDIRECTION_DONE", "true");
+                        System.out.println("redirect to home page");
                         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/home");
                         String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
                         ectx.redirect(ectx.getRequestContextPath() + requestedPage);
@@ -1894,7 +1904,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN + "|" + Constants.ROLE_WCP_CARD_CSR);
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
 
