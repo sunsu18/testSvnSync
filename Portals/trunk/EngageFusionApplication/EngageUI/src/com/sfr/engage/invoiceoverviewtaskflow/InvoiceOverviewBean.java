@@ -2563,8 +2563,9 @@ for(int i=0;i<prop.length;i++)
                 }
             }
         }
-        
+        if(cardGroupDescName!=null && !cardGroupDescName.equals("")){
         cardGroupDescName =(String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
+        }
 
         if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
