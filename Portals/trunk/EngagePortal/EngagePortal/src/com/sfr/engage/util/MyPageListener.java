@@ -213,6 +213,7 @@ public class MyPageListener implements PagePhaseListener {
                         ectx.redirect(ectx.getRequestContextPath() + requestedPage);
                         
                     }
+                    else
                     if (securityContext.isAuthenticated() && currentViewId.contains("home") && session.getAttribute("IS_HOME_REDIRECTION_DONE") == null) {
                         session.setAttribute("IS_HOME_REDIRECTION_DONE", "true");
                         System.out.println("redirect to home page");
@@ -1904,7 +1905,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN + "|" + Constants.ROLE_WCP_CARD_CSR);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+//        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN + "|" + Constants.ROLE_WCP_CARD_CSR);
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
 
