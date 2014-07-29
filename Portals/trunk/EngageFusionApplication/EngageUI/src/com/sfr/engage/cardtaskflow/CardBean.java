@@ -442,8 +442,8 @@ public class CardBean implements Serializable {
             statusList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
 
-            if (resourceBundle.containsKey("UNBLOCKED")) {
-                selectItem.setLabel(resourceBundle.getObject("UNBLOCKED").toString());
+            if (resourceBundle.containsKey("UNBLOCKED_PLURAL")) {
+                selectItem.setLabel(resourceBundle.getObject("UNBLOCKED_PLURAL").toString());
                 selectItem.setValue("0");
                 statusList.add(selectItem);
             }
@@ -1892,9 +1892,9 @@ public class CardBean implements Serializable {
 
             if (statusLabel.equalsIgnoreCase("0")) {
 
-                if (resourceBundle.containsKey("UNBLOCKED"))
+                if (resourceBundle.containsKey("UNBLOCKED_PLURAL"))
 
-                    return resourceBundle.getObject("UNBLOCKED").toString();
+                    return resourceBundle.getObject("UNBLOCKED_PLURAL").toString();
             } else if (statusLabel.equalsIgnoreCase("1")) {
 
 
