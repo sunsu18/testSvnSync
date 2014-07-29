@@ -427,7 +427,7 @@
                             shortDesc="#{bindings.PrtViewCardsVO11.hints.ManufacturedDate.tooltip}"
                             id="id3">
                 <f:validator binding="#{row.bindings.ManufacturedDate.validator}"/>
-                <af:convertDateTime pattern="#{bindings.PrtViewCardsVO11.hints.ManufacturedDate.format}"/>
+                <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             </af:column>
             <af:column headerText="#{sfr.BLOCKED_DATE_TIME}" sortProperty="CardBlockDateTime" filterable="true"
