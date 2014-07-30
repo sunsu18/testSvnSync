@@ -364,6 +364,10 @@ public class UserDAO {
                 if (null != profile.getPropertyVal(Constants.OPSS_LANG)) {
                     user.setLang((String)profile.getPropertyVal(Constants.OPSS_LANG));
                 }
+                // Added by Siddharth to check
+                if (null != profile.getPropertyVal("c")) {
+                    user.setCountry((String)profile.getPropertyVal("c"));
+                }
 
                 if (null != profile.getPropertyVal("designation")) {
                     user.setDesignation((String)profile.getPropertyVal("designation"));

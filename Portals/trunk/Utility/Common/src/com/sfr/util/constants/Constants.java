@@ -654,6 +654,8 @@ public class Constants {
     public static final String ENGAGE_UCM_USERNAME="ENGAGE_UCM_USERNAME";
     public static final String ENGAGE_UCM_PASSWORD="ENGAGE_UCM_PASSWORD";
     public static final String ENGAGE_REPORT_DELIMITER="\\|";
+    public static final String DISPLAY_PORTAL_LANG="DISPLAY_PORTAL_LANG";
+    public static final String AUTHENTICATE_FLAG="AUTHENTICATE_FLAG";
 
 
 }

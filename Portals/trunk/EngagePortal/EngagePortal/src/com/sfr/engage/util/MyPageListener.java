@@ -41,6 +41,8 @@ import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.share.security.SecurityContext;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import oracle.javatools.resourcebundle.ResourceBundleManagerRT;
+
 import oracle.jbo.ViewObject;
 
 import oracle.webcenter.portalframework.sitestructure.SiteStructure;
@@ -165,6 +167,8 @@ public class MyPageListener implements PagePhaseListener {
                         if (usererror) {
                             return;
                         }
+                        ResourceBundleManagerRT rt = (ResourceBundleManagerRT)ResourceBundleManagerRT.getResourceBundleManager();
+                        rt.flush();
                     } else {
                         if (user == null) {
                             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -1238,6 +1242,13 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
             if (getUser() != null) {
                 session.setAttribute(Constants.SESSION_USER_INFO, user);
                 session.setAttribute(Constants.userLang, conv.getLangForWERCSURL(user.getLang().toString()));
+                if(user.getCountry() != null){
+                    System.out.println("Taking lang paramter from user object inside setUserInfoSession mehtod ");
+                    session.setAttribute(Constants.DISPLAY_PORTAL_LANG, user.getCountry().toString());
+                    session.setAttribute(Constants.AUTHENTICATE_FLAG, "true");// Added by siddharth
+                }
+                
+                
                 System.out.println(accessDC.getDisplayRecord()+this.getClass() + ".setUserInfoInSession : " + "user.getUserID = <" +
                                    user.getUserID() + ">");
                 session.setAttribute(Constants.SESSION_USER_DISPLAY_NAME, user.getFirstName());
@@ -1809,7 +1820,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         User user = new User();
         user.setFirstName("Hanif");
         user.setLastName("Merchant");
-        user.setLang("no_NO");
+        user.setLang("da_DK");
+        user.setCountry("dk");
         //        user.setEmailID("h.m@m.h");
         //  user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN);
         //user.setPosition(Constants.ROLE_WCP_B2BM);

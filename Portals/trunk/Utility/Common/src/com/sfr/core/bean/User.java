@@ -50,6 +50,7 @@ public class User extends BaseBean {
     private String designation;
     //The basic site ID for COCO/CODO Manager and COCO employee. CODO and DODO employees do not have primary site ID.
     private Integer primarySiteID;
+    private String country;
     
     public User() {
         super();
@@ -81,6 +82,7 @@ public class User extends BaseBean {
             this.rolesAssigned=new ArrayList<String>(newUser.getRolesAssigned());
         this.primarySiteID = newUser.getPrimarySiteID();
         this.designation = newUser.getDesignation();
+        this.country = newUser.getCountry();
     }
     
 
@@ -202,6 +204,7 @@ public class User extends BaseBean {
         sb.append("--DOB=<"+this.dob+">" );
         sb.append("--primarySiteID=<"+this.primarySiteID+">" );
         sb.append("--designation=<"+this.designation+">" );
+        sb.append("--Country=<"+this.country+">" );
         sb.append("--rolelist=<"+this.rolelist+">" );
         sb.append("--rolesAssigned=<"+this.rolesAssigned+">" );
         sb.append("--rolesRevoked=<"+this.rolesRevoked+">" );
@@ -282,5 +285,14 @@ public class User extends BaseBean {
 
     public Integer getPrimarySiteID() {
         return primarySiteID;
+    }
+
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }

@@ -4,6 +4,9 @@ package com.sfr.engage.model.resources;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
+import com.sfr.util.constants.Constants;
+import com.sfr.util.validations.Conversion;
+
 import java.sql.SQLException;
 
 import java.util.HashMap;
@@ -212,31 +215,45 @@ public class EngageResourceBundle extends ListResourceBundle{
             @Override
             protected Object[][] getContents() {
                 //_logger.info("Inside getContents() method,to fetch all keys and values for specific language.");
+                System.out.println("Inside getContents() method,to fetch all keys and values for specific language.");
                 long startTime = System.currentTimeMillis();
                 clearCache();
 
                 String langValue;
                 String key       = "";
                 String value     = "";
+                String authenticatedUser ="false";
 
                 ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
                 HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
                 HttpSession session = request.getSession();
+                Conversion conv = new Conversion();
+                
+                if(session.getAttribute(Constants.AUTHENTICATE_FLAG) != null){
+                    authenticatedUser = (String)session.getAttribute(Constants.AUTHENTICATE_FLAG);
+                }
+                
 
-                if (session.getAttribute("lang") != null) {
+                if (session.getAttribute("lang") != null && !authenticatedUser.equals("true")) {
                     langValue = (String)session.getAttribute("lang");
-                } else {
-                    //System.out.println("resouce bundle lang as EN_US");
+                    System.out.println("Resource bundle url lang===========>"+langValue);
+                }else if(session.getAttribute(Constants.DISPLAY_PORTAL_LANG) != null && authenticatedUser.equals("true")) {
+                    langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+                    System.out.println("resouce bundle user lang=======>"+langValue);
+                }else {
+                    System.out.println("resouce bundle lang as se_SE");
                     langValue = "se_SE";
                 }
 
                 try {
 
                     if (session.getAttribute("TRANSLATION_" + langValue) != null) {
+                        System.out.println("Is it checking transalated value from session===========>");
                         contents = (Object[][])session.getAttribute("TRANSLATION_" + langValue);
                         return contents;
                     }
-
+                    
+                    System.out.println("Is it not checking transalated value from session===========>");
                     HashMap<String, String> map = parseHashMap(contents);
 
                     String amDef = "com.sfr.engage.model.module.EngageAppModule";
