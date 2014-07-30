@@ -338,7 +338,7 @@
               </af:inputText>
             </af:column>
             <af:column sortProperty="TypeName" filterable="true" width="250px" sortable="true"
-                       headerText="#{sfr.CARD_TYPE_DESCRIPTION}"
+                       headerText="#{sfr.CARD_TYPE_DESCRIPTION}" filterFeatures="caseInsensitive"
                        id="c6">
               <af:inputText value="#{row.bindings.TypeName.inputValue}"
                             required="#{bindings.PrtViewCardsVO11.hints.TypeName.mandatory}"
@@ -356,6 +356,11 @@
             </af:column>
              <af:column headerText="#{sfr.ENG_LAST_USED}" filterable="true" sortable="true" sortProperty="LastUpdated" width="150px"
                        id="c13" align="center">
+                <f:facet name="filter">
+                <af:inputDate value="#{vs.filterCriteria.LastUpdated}" id="id2">
+                <af:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                </af:inputDate>
+              </f:facet>
               <af:outputText value="#{row.LastUsed}" id="ot36">
                 <af:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
               </af:outputText>
@@ -433,8 +438,8 @@
             <af:column headerText="#{sfr.BLOCKED_DATE_TIME}" sortProperty="CardBlockDateTime" filterable="true"
                        id="c17" align="center" filterFeatures="caseInsensitive" width="125px">
               <f:facet name="filter">
-                <af:inputDate value="#{vs.filterCriteria.CardBlockDateTime}" id="id2">
-                <af:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                <af:inputDate value="#{vs.filterCriteria.CardBlockDateTime}" id="id7">
+                  <af:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
                 </af:inputDate>
               </f:facet>
               <af:inputDate value="#{row.bindings.CardBlockDateTime.inputValue}"
@@ -445,6 +450,7 @@
                 <f:validator binding="#{row.bindings.CardBlockDateTime.validator}"/>
                 <af:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
               </af:inputDate>
+              
             </af:column>
             <af:column headerText="#{sfr.CARD_EXPIRY}" width="125px" sortProperty="CardExpiryDate" filterable="true"
                        id="c2" align="center" filterFeatures="caseInsensitive">

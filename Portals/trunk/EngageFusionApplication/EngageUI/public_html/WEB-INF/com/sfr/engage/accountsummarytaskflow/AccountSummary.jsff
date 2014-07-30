@@ -90,7 +90,7 @@
                                    value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10" inlineStyle="width:135.0px;">
                 <af:selectItem label="#{sfr.PERMANENT_BLOCKED}" value="Hardblock Cards" id="si4"/>
                 <af:selectItem label="#{sfr.TEMPORARY_BLOCKED}" value="Softblock Cards" id="si7"/>
-                <af:selectItem label="#{sfr.UNBLOCKED}" value="Active Cards" id="si8"/>
+                <af:selectItem label="#{sfr.UNBLOCKED_PLURAL}" value="Active Cards" id="si8"/>
               </af:selectManyChoice>
    <af:spacer width="10" id="s320"/>
    <!--<af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>-->
@@ -2020,17 +2020,19 @@
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
-    <af:outputText value="#{sfr.STATUS}" id="ot25"/>
-          <af:outputText value=":" id="ot58"/>
-          <af:spacer width="10" height="10" id="s17"/>
-              <af:inputText value="#{bindings.Status.inputValue}"
-                            simple="true"  readOnly="true"
-                            required="#{bindings.InvoiceCountry.hints.mandatory}"
-                            columns="#{bindings.InvoiceCountry.hints.displayWidth}"
-                            maximumLength="#{bindings.InvoiceCountry.hints.precision}"
-                            shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
-                            id="it17" inlineStyle="margin-left:5px;">
-                <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
+   
+              
+               <af:outputText value="#{sfr.MANUFACTURED_DATE}" id="ot153"/>
+          <af:outputText value=":" id="ot154"/>
+          <af:spacer width="10" height="10" id="s322"/>
+              <af:inputText value="#{bindings.ManufacturedDate.inputValue}"
+                            required="#{bindings.ManufacturedDate.hints.mandatory}"
+                            columns="#{bindings.ManufacturedDate.hints.displayWidth}"
+                            maximumLength="#{bindings.ManufacturedDate.hints.precision}"
+                            shortDesc="#{bindings.ManufacturedDate.hints.tooltip}"
+                            id="it21" readOnly="true">
+                <f:validator binding="#{bindings.ManufacturedDate.validator}"/>
+                <af:convertDateTime pattern="#{bindings.ManufacturedDate.format}"/>
               </af:inputText>
               <af:spacer width="25" height="10"/>
                <af:spacer width="10" height="10" />
@@ -2047,7 +2049,7 @@
               <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />
              
-              <af:outputText value="#{sfr.CARD_EXPIRY}" id="ot155" rendered="#{bindings.Expirydate.inputValue ne null}"/>
+            <af:outputText value="#{sfr.CARD_EXPIRY}" id="ot155" rendered="#{bindings.Expirydate.inputValue ne null}"/>
           <af:outputText value=":" id="ot156" rendered="#{bindings.Expirydate.inputValue ne null}"/>
           <af:spacer width="10" height="10" id="s323" rendered="#{bindings.Expirydate.inputValue ne null}"/>
                 <af:inputText value="#{bindings.Expirydate.inputValue}"
@@ -2059,6 +2061,7 @@
                   <f:validator binding="#{bindings.Expirydate.validator}"/>
                <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
                 </af:inputText>
+             
                 <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
                <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
@@ -2078,15 +2081,6 @@
                <af:outputText value="#{sfr.BLOCKED_DATE_TIME}" id="ot151" rendered="#{bindings.Expirydate.inputValue eq null}"/>
           <af:outputText value=":" id="ot152" rendered="#{bindings.Expirydate.inputValue eq null}"/>
           <af:spacer width="10" height="10" id="s321" rendered="#{bindings.Expirydate.inputValue eq null}"/>
-              <!--<af:inputText value="#{bindings.BlockDate.inputValue}#{bindings.BlockTime.inputValue}"
-                            required="#{bindings.BlockDate.hints.mandatory}"
-                            columns="#{bindings.BlockDate.hints.displayWidth}"
-                            maximumLength="#{bindings.BlockDate.hints.precision}"
-                            shortDesc="#{bindings.BlockDate.hints.tooltip}"
-                            id="it21" rendered="#{bindings.Expirydate.inputValue eq null}">
-                <f:validator binding="#{bindings.BlockDate.validator}"/>
-               <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
-              </af:inputText>-->
               <af:inputText value="#{bindings.BlockTime.inputValue}"
                             required="#{bindings.BlockTime.hints.mandatory}"
                             columns="#{bindings.BlockTime.hints.displayWidth}"
@@ -2111,20 +2105,12 @@
                <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
               <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
-              
-              <af:outputText value="#{sfr.MANUFACTURED_DATE}" id="ot153"/>
-          <af:outputText value=":" id="ot154"/>
-          <af:spacer width="10" height="10" id="s322"/>
-              <af:inputText value="#{bindings.ManufacturedDate.inputValue}"
-                            required="#{bindings.ManufacturedDate.hints.mandatory}"
-                            columns="#{bindings.ManufacturedDate.hints.displayWidth}"
-                            maximumLength="#{bindings.ManufacturedDate.hints.precision}"
-                            shortDesc="#{bindings.ManufacturedDate.hints.tooltip}"
-                            id="it21" readOnly="true">
-                <f:validator binding="#{bindings.ManufacturedDate.validator}"/>
-                <af:convertDateTime pattern="#{bindings.ManufacturedDate.format}"/>
-              </af:inputText>
-              <!--<af:inputText value="#{bindings.Status.inputValue}"
+                
+                
+                 <af:outputText value="#{sfr.STATUS}" id="ot25"/>
+          <af:outputText value=":" id="ot58"/>
+          <af:spacer width="10" height="10" id="s17"/>
+              <af:inputText value="#{bindings.Status.inputValue}"
                             simple="true"  readOnly="true"
                             required="#{bindings.InvoiceCountry.hints.mandatory}"
                             columns="#{bindings.InvoiceCountry.hints.displayWidth}"
@@ -2132,7 +2118,7 @@
                             shortDesc="#{bindings.InvoiceCountry.hints.tooltip}"
                             id="it17" inlineStyle="margin-left:5px;">
                 <f:validator binding="#{bindings.InvoiceCountry.validator}"/>
-              </af:inputText>-->
+              </af:inputText>
               <af:spacer width="25" height="10"/>
                <af:spacer width="10" height="10" />
               <af:spacer width="10" height="10" />

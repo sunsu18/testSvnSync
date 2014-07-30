@@ -1585,9 +1585,9 @@ public class PrtCardVORowImpl extends ViewRowImpl {
 
             if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
             {
-                if (resourceBundle.containsKey("UNBLOCKED"))
+                if (resourceBundle.containsKey("UNBLOCKED_SINGULAR"))
                 {
-                result= resourceBundle.getObject("UNBLOCKED").toString().trim() ;
+                result= resourceBundle.getObject("UNBLOCKED_SINGULAR").toString().trim() ;
                  }
             }else if("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().after(new java.util.Date()))
             {

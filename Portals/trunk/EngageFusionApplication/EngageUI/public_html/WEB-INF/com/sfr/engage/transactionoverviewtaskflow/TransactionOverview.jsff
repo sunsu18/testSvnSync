@@ -74,8 +74,8 @@
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
 
-        <af:selectManyChoice id="smc1" contentStyle="width: 200px;" partialTriggers="cb3"
-                                 autoSubmit="true"
+        <af:selectManyChoice id="smc1" partialTriggers="cb3"
+                                 autoSubmit="true" contentStyle="width: 175px;"
                                  value="#{pageFlowScope.TransactionOverviewBean.partnerIdValue}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.partner}"
                                 valueChangeListener="#{pageFlowScope.TransactionOverviewBean.partnerIdValueChangeListener}">
