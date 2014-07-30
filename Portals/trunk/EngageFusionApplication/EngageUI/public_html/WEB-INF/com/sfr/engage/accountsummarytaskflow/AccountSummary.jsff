@@ -2059,7 +2059,7 @@
                               shortDesc="#{bindings.Expirydate.hints.tooltip}"
                               id="it23" rendered="#{bindings.Expirydate.inputValue ne null}">
                   <f:validator binding="#{bindings.Expirydate.validator}"/>
-               <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
+               <af:convertDateTime pattern="dd.MM.yyyy"/>
                 </af:inputText>
              
                 <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue ne null}"/>
@@ -2089,7 +2089,7 @@
                             id="it24" rendered="#{bindings.Expirydate.inputValue eq null}"
                             readOnly="true">
                 <f:validator binding="#{bindings.BlockTime.validator}"/>
-              <af:convertDateTime pattern="dd.MM.yyyy  HH:mm:ss"/>
+              <af:convertDateTime pattern="dd.MM.yyyy  HH:mm"/>
               </af:inputText>
               <af:spacer width="25" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
                <af:spacer width="10" height="10" rendered="#{bindings.Expirydate.inputValue eq null}"/>
