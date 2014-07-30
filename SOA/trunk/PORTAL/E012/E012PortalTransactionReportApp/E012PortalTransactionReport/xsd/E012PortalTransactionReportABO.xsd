@@ -104,4 +104,42 @@
       <xsd:element name="INTERNAL_NAME" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="TransactionReportResponse"
+               type="TransactionReportResponseType"/>
+  <xsd:complexType name="TransactionReportResponseType">
+    <xsd:sequence>
+      <xsd:element name="TransactionData" type="TransactionDataType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TransactionDataType">
+    <xsd:sequence>
+      <xsd:element name="Date" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Account" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="CardGroup" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Card" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="CardTextLine2" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="VehicleNo" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="InternalName" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="DriverNumber" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="DriverName" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Station" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Country" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Product" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Vol" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Currency" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="ForeginUnitPrice" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="ForeginGrossAmount" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="DiscountedPrice" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="TotalAmount" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Vat" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Net" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="InvoiceNo" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Odometer" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="TotalKM" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="KMperL" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="Lper100KM" type="xsd:string" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
 </xsd:schema>

@@ -58,7 +58,8 @@
     <!-- Reference to the message passed as input during initiation -->
     <variable name="inputVariable" messageType="client:GenerateTransactionReportRequestMessage"/>
     <variable name="transactionReport" element="ns1:TransactionReport"/>
-    <variable name="transactionString" type="xsd:string"/>
+    <variable name="transactionReportOutput"
+              element="ns1:TransactionReportResponse"/>
     <variable name="txnReport" element="ns1:TransactionReport"/>
     <variable name="transactionReportInput"
               element="ns1:TransactionReportInput"/>
@@ -329,6 +330,43 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex); 
 }]]>
     </bpelx:exec>
+    <assign name="TxnReportToTxnReport">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/TxnReport_to_TxnReport.xsl', $transactionReport)"/>
+        <to variable="transactionReportOutput"/>
+      </copy>
+    </assign>
+    <switch name="Switch1">
+      <case condition="1=2">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">Convert to byte array</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <empty name="Empty1"/>
+      </case>
+      <otherwise>
+        <sequence>
+          <assign name="TrasnactionReportToWriteTrasnactionReport"
+                  bpelx:validate="yes">
+            <bpelx:annotation>
+              <bpelx:pattern>transformation</bpelx:pattern>
+            </bpelx:annotation>
+            <copy>
+              <from expression="ora:doXSLTransformForDoc('xsl/TransactionReport_to_WriteTransactionReport.xsl', $transactionReportOutput)"/>
+              <to variable="InvokeWriteTransactionReport_IV" part="body"/>
+            </copy>
+          </assign>
+          <invoke name="InvokeWriteTransactionReport"
+                  inputVariable="InvokeWriteTransactionReport_IV"
+                  partnerLink="WriteTransactionReport" portType="ns2:Write_ptt"
+                  operation="Write" bpelx:invokeAsDetail="no"/>
+        </sequence>
+      </otherwise>
+    </switch>
     <!--assign name="AssignTransactionReport"
                          xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
       <copy>
@@ -345,19 +383,5 @@ addAuditTrailEntry("Exception: " + ex);
         <to variable="txnReport"/>
       </copy>
     </assign-->
-    <assign name="TrasnactionReportToWriteTrasnactionReport"
-            bpelx:validate="yes">
-      <bpelx:annotation>
-        <bpelx:pattern>transformation</bpelx:pattern>
-      </bpelx:annotation>
-      <copy>
-        <from expression="ora:doXSLTransformForDoc('xsl/TransactionReport_to_WriteTransactionReport.xsl', $transactionReport)"/>
-        <to variable="InvokeWriteTransactionReport_IV" part="body"/>
-      </copy>
-    </assign>
-    <invoke name="InvokeWriteTransactionReport"
-            inputVariable="InvokeWriteTransactionReport_IV"
-            partnerLink="WriteTransactionReport" portType="ns2:Write_ptt"
-            operation="Write" bpelx:invokeAsDetail="no"/>
   </sequence>
 </process>
