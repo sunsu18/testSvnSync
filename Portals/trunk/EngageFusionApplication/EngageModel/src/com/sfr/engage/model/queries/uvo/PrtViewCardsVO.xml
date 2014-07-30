@@ -51,14 +51,16 @@ from prt_card pc,
 FROM PRT_CARD_TRANSACTION_DETAIL,PRT_CARD_TRANSACTION_HEADER
 where prt_card_transaction_header.uref_transaction_id=prt_card_transaction_detail.uref_transaction_id
 and prt_card_transaction_header.pals_country_code = prt_card_transaction_detail.pals_country_code
-and prt_card_transaction_detail.price_element_code is null 
+and prt_card_transaction_detail.price_element_code is null
+and ((PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NOT NULL AND PRT_CARD_TRANSACTION_HEADER.prelim_status_code !='EXP') OR PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NULL) 
 and PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT  between  (SELECT TRUNC (ADD_MONTHS(SYSDATE,-3), 'MONTH') FROM DUAL)
 AND (SELECT TRUNC (LAST_DAY(ADD_MONTHS(SYSDATE,-1))) FROM DUAL) group by PRT_CARD_TRANSACTION_HEADER.card_1_id) Quaterly_Tx_Report,
     (select PRT_CARD_TRANSACTION_HEADER.card_1_id as card_num,sum(PRT_CARD_TRANSACTION_DETAIL.QUANTITY) as fuel_three_months
 FROM PRT_CARD_TRANSACTION_DETAIL,PRT_CARD_TRANSACTION_HEADER
 where prt_card_transaction_header.uref_transaction_id=prt_card_transaction_detail.uref_transaction_id
 and prt_card_transaction_header.pals_country_code = prt_card_transaction_detail.pals_country_code
-and prt_card_transaction_detail.price_element_code is null 
+and prt_card_transaction_detail.price_element_code is null
+and ((PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NOT NULL AND PRT_CARD_TRANSACTION_HEADER.prelim_status_code !='EXP') OR PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NULL) 
 and PRT_CARD_TRANSACTION_DETAIL.FUEL_TRANS_FLAG = 'J'
 and PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT  between  (SELECT TRUNC (ADD_MONTHS(SYSDATE,-3), 'MONTH') FROM DUAL)
 AND (SELECT TRUNC (LAST_DAY(ADD_MONTHS(SYSDATE,-1))) FROM DUAL) group by PRT_CARD_TRANSACTION_HEADER.card_1_id) Quaterly_Fuel_Report
