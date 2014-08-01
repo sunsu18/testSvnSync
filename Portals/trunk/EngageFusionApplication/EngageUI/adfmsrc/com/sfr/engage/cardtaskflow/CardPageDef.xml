@@ -62,6 +62,8 @@
           <Item Value="ManufacturedDate"/>
           <Item Value="BlockTime"/>
           <Item Value="CardExpiryDate"/>
+          <Item Value="BlockDate"/>
+          <Item Value="LastUsedDate"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

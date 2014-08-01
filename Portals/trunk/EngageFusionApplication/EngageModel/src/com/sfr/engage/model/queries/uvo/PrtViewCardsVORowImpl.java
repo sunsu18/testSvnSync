@@ -991,6 +991,16 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                 obj.setQuaterlyFuelReport((String)value);
             }
         }
+        ,
+        LastUsedDate {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getLastUsedDate();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setLastUsedDate((Date)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -1118,6 +1128,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int CARDEXPIRYDATE = AttributesEnum.CardExpiryDate.index();
     public static final int QUATERLYTXREPORT = AttributesEnum.QuaterlyTxReport.index();
     public static final int QUATERLYFUELREPORT = AttributesEnum.QuaterlyFuelReport.index();
+    public static final int LASTUSEDDATE = AttributesEnum.LastUsedDate.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1658,7 +1669,19 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * @return the BlockDate
      */
     public Date getBlockDate() {
-        return (Date) getAttributeInternal(BLOCKDATE);
+        if(getBlockAction()!=null){
+            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
+                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){   
+                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
+                System.out.println("block date===============>" + date);
+                return date;
+            }else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
+                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
+                System.out.println("expiry date===============>" + date);
+                return date;
+            }
+        }
+        return null;
     }
 
     /**
@@ -2730,6 +2753,31 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setQuaterlyFuelReport(String value) {
         setAttributeInternal(QUATERLYFUELREPORT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute LastUsedDate.
+     * @return the LastUsedDate
+     */
+    public Date getLastUsedDate() {
+        if(getLastUsed()!= null){
+            try {
+                java.sql.Date d = getLastUsed().dateValue();
+                oracle.jbo.domain.Date date = new oracle.jbo.domain.Date(d);
+                return date;
+            } catch (SQLException e) {
+                System.out.println("inside catch of last used date");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LastUsedDate.
+     * @param value value to set the  LastUsedDate
+     */
+    public void setLastUsedDate(Date value) {
+        setAttributeInternal(LASTUSEDDATE, value);
     }
 
     /**
