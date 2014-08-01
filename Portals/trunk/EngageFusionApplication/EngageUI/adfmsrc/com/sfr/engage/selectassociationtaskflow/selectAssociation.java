@@ -37,8 +37,8 @@ public class selectAssociation {
         
         System.out.println("searched user list size is  " + userlist.size());
         
-        for(int b=0;b<userlist.size();b++)
-            System.out.println("user " + b + " -> " + userlist.get(b).getEmailID());
+//        for(int b=0;b<userlist.size();b++)
+//            System.out.println("user " + b + " -> " + userlist.get(b).getEmailID());
         
     }
 

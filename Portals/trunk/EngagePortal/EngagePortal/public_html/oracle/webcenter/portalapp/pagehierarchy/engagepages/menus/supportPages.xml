@@ -5,6 +5,6 @@
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/support/contact.jspx" hidden="false" shared="false" hasSubPages="false" id="contact"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/support/faq.jspx" hidden="false" shared="false" hasSubPages="false" id="faq"/>
   <pageDef contentMRef="/oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx"
-           hidden="false" shared="false" hasSubPages="false"
+           hidden="true" shared="false" hasSubPages="false"
            id="selectAssociation"/>
 </pagesDef>

@@ -252,7 +252,8 @@ public class MyPageListener implements PagePhaseListener {
 
                             partnerlist = new ArrayList<PartnerInfo>();
 
-
+                            user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                            System.out.println("useremail after selection " + user.getEmailID());
                             //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
                             for (int i = 0; i < user.getRoleList().size(); i++) {
 
@@ -1839,7 +1840,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
         //                rr= new Roles();
         //                idString = new ArrayList<String>();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
         idString.add("NOPP26773218");
         idString.add("DKPP26773219");
         rr.setIdString(idString);
@@ -1917,8 +1918,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-//        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN + "|" + Constants.ROLE_WCP_CARD_CSR);
+//        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
 

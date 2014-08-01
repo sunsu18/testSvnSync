@@ -254,12 +254,13 @@
                 <attribute value="#{MenuVisibleHelperBean.menuContact}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
-            <url factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
-                 visible="#{true}" id="selectAssociation"
-                 url="page://oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx">
+            <url visible="#{MenuVisibleHelperBean.visibleSelectAssociation}"
+                 url="page://oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx"
+                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
+                 id="selectAssociation">
               <attributes>
-                <attribute value="selectAssociation" attributeId="Title"
-                           isKey="false"/>
+                <attribute attributeId="Title" isKey="false"
+                           value="#{MenuVisibleHelperBean.selectAssociation}"/>
               </attributes>
             </url>
           </contents>
