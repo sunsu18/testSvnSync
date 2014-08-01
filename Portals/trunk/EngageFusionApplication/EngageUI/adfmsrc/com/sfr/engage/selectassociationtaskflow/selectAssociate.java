@@ -39,6 +39,7 @@ public class selectAssociate {
     public String selectedUser;
     private RichSelectBooleanRadio selectedBoolean;
     private RichTable searchUsersTable;
+    private boolean confirmvisible = false;
     //private String [][] myArr;
     
     
@@ -51,6 +52,7 @@ public class selectAssociate {
     private List<User> userlist = new ArrayList<User>();
     private List<UserDetails> userdetailslist = new ArrayList<UserDetails>();
     HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+    UserDetails userdetails;
 
     public void setSearchText(RichInputText searchText) {
         this.searchText = searchText;
@@ -70,7 +72,10 @@ public class selectAssociate {
     
     public void SearchIDMUsers(ActionEvent actionEvent) {
         // Add event code here...
-        
+        userdetailslist = new ArrayList<UserDetails>();
+        userlist = new ArrayList<User>();
+        userdetailslist.clear();
+        String finaluserid ="";
         System.out.println("searching");
         if(searchText.getValue()!=null)
         {
@@ -85,7 +90,7 @@ public class selectAssociate {
             System.out.println("appending lang");
             
             if(session!=null)
-            String finaluserid = session.getAttribute(Constants.userLang)+"PP"+ searchText.getValue().toString();
+            finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString());
             System.out.println("finaluserid " + finaluserid);
             operationBinding.getParamsMap().put("customerId", finaluserid);
             userlist = (List<User>)operationBinding.execute();
@@ -93,7 +98,7 @@ public class selectAssociate {
         
         System.out.println("searched user list size is  " + userlist.size());
        // myArr = new String [userlist.size()][2];
-       UserDetails userdetails;
+       
             for(int b=0;b<userlist.size();b++)
             {
                 System.out.println("user " + b + " -> " + userlist.get(b).getEmailID());
@@ -136,9 +141,15 @@ public class selectAssociate {
 //            System.out.println("user " + myArr[b][0]);
 //            System.out.println("ids " + myArr[b][1]);
 //        }
+            confirmvisible = true;
         searchResultsIdm.setVisible(true);  
     AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsIdm);
     
+        }
+        else {
+            searchResultsIdm.setVisible(false);  
+            AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsIdm);
+            confirmvisible = false;
         }
         
     }
@@ -232,5 +243,13 @@ public class selectAssociate {
 
     public List<UserDetails> getUserdetailslist() {
         return userdetailslist;
+    }
+
+    public void setConfirmvisible(boolean confirmvisible) {
+        this.confirmvisible = confirmvisible;
+    }
+
+    public boolean isConfirmvisible() {
+        return confirmvisible;
     }
 }

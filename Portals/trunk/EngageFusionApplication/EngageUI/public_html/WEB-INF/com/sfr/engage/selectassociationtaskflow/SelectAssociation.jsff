@@ -51,7 +51,7 @@
 
 <af:table var="row" rowBandingInterval="1" id="t1"
           value="#{pageFlowScope.selectAssBean.userdetailslist}" width="945px"
-                           emptyText="#{not empty var.userdetailslist ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}"
+                           emptyText="#{sfr.NO_DATA}"
                           fetchSize="-1" columnResizing="disabled" disableColumnReordering="true"
                             autoHeightRows="10" 
           binding="#{pageFlowScope.selectAssBean.searchUsersTable}"
@@ -88,7 +88,8 @@
                 </af:table>
                 <af:spacer height="20" id="s3"/>
    <af:commandButton text="#{sfr.CONFIRM}" id="cb2"
-                     actionListener="#{pageFlowScope.selectAssBean.userconfirmed}"/>
+                     actionListener="#{pageFlowScope.selectAssBean.userconfirmed}"
+                     />
   </af:panelGroupLayout>
  </af:panelGroupLayout>
 </jsp:root>
