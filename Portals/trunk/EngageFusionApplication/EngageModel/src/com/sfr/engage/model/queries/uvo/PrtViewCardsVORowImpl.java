@@ -2,6 +2,8 @@ package com.sfr.engage.model.queries.uvo;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
+import java.sql.SQLException;
+
 import java.util.ResourceBundle;
 
 import oracle.jbo.domain.Date;
@@ -970,13 +972,23 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        CardBlockDateTime {
+        QuaterlyTxReport {
             public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getCardBlockDateTime();
+                return obj.getQuaterlyTxReport();
             }
 
             public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setCardBlockDateTime((Timestamp)value);
+                obj.setQuaterlyTxReport((String)value);
+            }
+        }
+        ,
+        QuaterlyFuelReport {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getQuaterlyFuelReport();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setQuaterlyFuelReport((String)value);
             }
         }
         ;
@@ -1104,7 +1116,8 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int STATUS = AttributesEnum.Status.index();
     public static final int CARDGROUPID = AttributesEnum.CardgroupId.index();
     public static final int CARDEXPIRYDATE = AttributesEnum.CardExpiryDate.index();
-    public static final int CARDBLOCKDATETIME = AttributesEnum.CardBlockDateTime.index();
+    public static final int QUATERLYTXREPORT = AttributesEnum.QuaterlyTxReport.index();
+    public static final int QUATERLYFUELREPORT = AttributesEnum.QuaterlyFuelReport.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1661,7 +1674,18 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * @return the BlockTime
      */
     public Timestamp getBlockTime() {
-        return (Timestamp) getAttributeInternal(BLOCKTIME);
+        if(getBlockAction()!=null){
+            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
+                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){    
+                return (Timestamp) getAttributeInternal(BLOCKTIME);
+            }
+            else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
+                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
+                oracle.jbo.domain.Timestamp time = new oracle.jbo.domain.Timestamp(date);
+                return time;
+            }
+        }
+        return null;
     }
 
     /**
@@ -2655,9 +2679,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * @return the CardExpiryDate
      */
     public Date getCardExpiryDate() {
-        if(getBlockAction()!=null && "0".equalsIgnoreCase(getBlockAction().toString().trim())){   
-            return getCardExpiry();
-        }else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
+        if(getBlockAction()!=null && "0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().getValue().after(new java.util.Date()) ){   
             return getCardExpiry();
         }
         return null;
@@ -2671,26 +2693,43 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARDEXPIRYDATE, value);
     }
 
+
     /**
-     * Gets the attribute value for the calculated attribute CardBlockDateTime.
-     * @return the CardBlockDateTime
+     * Gets the attribute value for the calculated attribute QuaterlyTxReport.
+     * @return the QuaterlyTxReport
      */
-    public Timestamp getCardBlockDateTime() {
-        if(getBlockAction()!=null){
-            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
-                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){
-                return getBlockTime();
-            }
-        }
-        return null;
+    public String getQuaterlyTxReport() {
+        String result = "";
+        if(getQuaterlyTxReportTxThreeMonths3()!=null)
+            result = getQuaterlyTxReportTxThreeMonths3().toString().trim();
+        return result;
     }
 
     /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CardBlockDateTime.
-     * @param value value to set the  CardBlockDateTime
+     * Sets <code>value</code> as the attribute value for the calculated attribute QuaterlyTxReport.
+     * @param value value to set the  QuaterlyTxReport
      */
-    public void setCardBlockDateTime(Timestamp value) {
-        setAttributeInternal(CARDBLOCKDATETIME, value);
+    public void setQuaterlyTxReport(String value) {
+        setAttributeInternal(QUATERLYTXREPORT, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute QuaterlyFuelReport.
+     * @return the QuaterlyFuelReport
+     */
+    public String getQuaterlyFuelReport() {
+        String result = "";
+        if(getQuaterlyFuelReportFuelThreeMonths3()!=null)
+            result = getQuaterlyFuelReportFuelThreeMonths3().toString().trim();
+        return result;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute QuaterlyFuelReport.
+     * @param value value to set the  QuaterlyFuelReport
+     */
+    public void setQuaterlyFuelReport(String value) {
+        setAttributeInternal(QUATERLYFUELREPORT, value);
     }
 
     /**

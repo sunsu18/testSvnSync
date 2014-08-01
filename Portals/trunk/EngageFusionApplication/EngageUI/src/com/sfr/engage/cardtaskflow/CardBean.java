@@ -2243,10 +2243,10 @@ public class CardBean implements Serializable {
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
                             }
                         }else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getCardBlockDateTime() != null) {
+                            if (row.getBlockTime() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                Date date = new Date(row.getCardBlockDateTime().dateValue().getTime());
+                                Date date = new Date(row.getBlockTime().dateValue().getTime());
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
@@ -2403,8 +2403,8 @@ public class CardBean implements Serializable {
                                 out.print(";");
                             }
                         } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getCardBlockDateTime() != null) {
-                                Date date = new Date(row.getCardBlockDateTime().dateValue().getTime());
+                            if (row.getBlockTime() != null) {
+                                Date date = new Date(row.getBlockTime().dateValue().getTime());
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 out.print(sdf.format(date));
                             }
@@ -2562,8 +2562,8 @@ public class CardBean implements Serializable {
                                     out.print("|");
                                 }
                             } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                                if (row.getCardBlockDateTime() != null) {
-                                    Date date = new Date(row.getCardBlockDateTime().dateValue().getTime());
+                                if (row.getBlockTime() != null) {
+                                    Date date = new Date(row.getBlockTime().dateValue().getTime());
                                     SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                     out.print(sdf.format(date));
                                 }

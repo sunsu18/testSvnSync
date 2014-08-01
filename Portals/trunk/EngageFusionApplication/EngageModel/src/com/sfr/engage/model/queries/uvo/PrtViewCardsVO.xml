@@ -180,6 +180,14 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     <DesignTime>
       <Attr Name="_DisplaySize" Value="11"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.LastUsed_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="com.sfr.engage.model.queries.uvo.PrtViewCardsVO.LastUsed_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
   </ViewAttribute>
   <ViewAttribute
     Name="BlockAction"
@@ -1459,15 +1467,26 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     </Properties>
   </ViewAttribute>
   <ViewAttribute
-    Name="CardBlockDateTime"
+    Name="QuaterlyTxReport"
     IsUpdateable="false"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="oracle.jbo.domain.Timestamp"
-    ColumnType="TIMESTAMP"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
     AliasName="VIEW_ATTR"
-    SQLType="TIMESTAMP"/>
+    SQLType="VARCHAR"
+    Precision="255"/>
+  <ViewAttribute
+    Name="QuaterlyFuelReport"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

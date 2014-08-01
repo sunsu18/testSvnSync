@@ -57,9 +57,10 @@
           <Item Value="PartnerId"/>
           <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
           <Item Value="QuaterlyTxReportTxThreeMonths3"/>
+          <Item Value="QuaterlyTxReport"/>
+          <Item Value="QuaterlyFuelReport"/>
           <Item Value="ManufacturedDate"/>
           <Item Value="BlockTime"/>
-          <Item Value="CardBlockDateTime"/>
           <Item Value="CardExpiryDate"/>
         </AttrNames>
       </nodeDefinition>
@@ -108,6 +109,8 @@
           <Item Value="CardEmbossNum"/>
           <Item Value="QuaterlyTxReportTxThreeMonths3"/>
           <Item Value="QuaterlyFuelReportFuelThreeMonths3"/>
+          <Item Value="QuaterlyTxReport"/>
+          <Item Value="QuaterlyFuelReport"/>
           <Item Value="LastUsed"/>
           <Item Value="BlockAction"/>
           <Item Value="CardExpiry"/>
