@@ -1,0 +1,15 @@
+<adapter-config name="CustomerDetailsDBAdapter" adapter="Database Adapter" wsdlLocation="CustomerDetailsDBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="CustomerDetailsDBAdapter_ptt" operation="merge">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="CustomerDetailsDBAdapter.RuleengineCustomerMaster"/>
+      <property name="DmlType" value="merge"/>
+      <property name="MappingsMetaDataURL" value="CustomerDetailsDBAdapter-or-mappings.xml"/>
+      <property name="OptimizeMerge" value="true"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

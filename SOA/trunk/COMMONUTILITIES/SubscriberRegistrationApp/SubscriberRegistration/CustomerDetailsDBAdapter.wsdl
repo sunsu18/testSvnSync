@@ -1,0 +1,21 @@
+<?binding.jca CustomerDetailsDBAdapter_db.jca?>
+<wsdl:definitions name="CustomerDetailsDBAdapter" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SubscriberRegistrationApp/SubscriberRegistration/CustomerDetailsDBAdapter" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SubscriberRegistrationApp/SubscriberRegistration/CustomerDetailsDBAdapter" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/CustomerDetailsDBAdapter">
+    <plt:partnerLinkType name="CustomerDetailsDBAdapter_plt">
+        <plt:role name="CustomerDetailsDBAdapter_role">
+            <plt:portType name="tns:CustomerDetailsDBAdapter_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/CustomerDetailsDBAdapter" schemaLocation="xsd/CustomerDetailsDBAdapter_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="RuleengineCustomerMasterCollection_msg">
+        <wsdl:part name="RuleengineCustomerMasterCollection" element="top:RuleengineCustomerMasterCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="CustomerDetailsDBAdapter_ptt">
+        <wsdl:operation name="merge">
+            <wsdl:input message="tns:RuleengineCustomerMasterCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,8 @@
+Jul 7, 2014 11:10:00 AM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+Jul 7, 2014 11:10:01 AM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+Jul 7, 2014 11:10:01 AM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+Jul 7, 2014 11:10:01 AM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:res="http://www.statoilfuelretail.com/integration/engage/RuleEngineSubscribe"
+            targetNamespace="http://www.statoilfuelretail.com/integration/engage/RuleEngineSubscribe"
+            elementFormDefault="qualified">
+  <xsd:element name="SubscribeRequest" type="res:SubscribeRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="SubscribeResponse" type="res:SubscribeResponseType"/>
+  <xsd:complexType name="SubscribeRequestType">
+    <xsd:sequence>
+      <xsd:element name="RuleID" type="xsd:integer"/>
+      <xsd:element name="Customer" type="res:CustomerType"/>
+      <xsd:element name="SubscribeFrequency" type="res:SubscribeFrequencyType"/>
+      <xsd:element name="NotificationChannel"
+                   type="xsd:string"/>
+      <xsd:element name="NotificationFormat"
+                   type="xsd:string"/>
+      <xsd:element name="Parameters" type="res:ParametersType"/>
+      <xsd:element name="Custom1" type="xsd:string"/>
+      <xsd:element name="Custom2" type="xsd:string"/>
+      <xsd:element name="Custom3" type="xsd:string"/>
+      <xsd:element name="Custom4" type="xsd:string"/>
+      <xsd:element name="Custom5" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerType">
+    <xsd:sequence>
+      <xsd:element name="CustomerID" type="xsd:string"/>
+      <xsd:element name="FIrstName" type="xsd:string"/>
+      <xsd:element name="LastName" type="xsd:string"/>
+      <xsd:element name="EmailID" type="xsd:string"/>
+      <xsd:element name="MobileNumber" type="xsd:integer"/>
+      <xsd:element name="Custom1" type="xsd:string"/>
+      <xsd:element name="Custom2" type="xsd:string"/>
+      <xsd:element name="Custom3" type="xsd:string"/>
+      <xsd:element name="Custom4" type="xsd:string"/>
+      <xsd:element name="Custom5" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubscribeFrequencyType">
+    <xsd:sequence>
+      <xsd:element name="ScheduleFrequency" type="xsd:string"/>
+      <xsd:element name="ScheduleDay" type="xsd:string"/>
+      <xsd:element name="ScheduleDate" type="xsd:string"/>
+      <xsd:element name="ScheduleMonth" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParametersType">
+    <xsd:sequence>
+      <xsd:element name="Parameter" type="res:ParameterType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParameterType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubscribeResponseType">
+    <xsd:sequence>
+      <xsd:element name="Response" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
