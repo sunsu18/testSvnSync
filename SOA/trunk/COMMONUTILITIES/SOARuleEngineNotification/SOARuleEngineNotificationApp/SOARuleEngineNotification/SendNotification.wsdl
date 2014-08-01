@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SendNotification"
+             targetNamespace="http://xmlns.oracle.com/SOARuleEngineNotificationApp/SOARuleEngineNotification/SendNotification"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/SOARuleEngineNotificationApp/SOARuleEngineNotification/SendNotification"
+             xmlns:ns1="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.lntinfotech.com/integration/SOARuleEngineNotification" schemaLocation="xsd/SOARuleEngineNotification.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="SendNotificationRequestMessage">
+		<wsdl:part name="payload" element="ns1:NotificationRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="SendNotificationResponseMessage">
+		<wsdl:part name="payload" element="ns1:NotificationResponse" />
+	</wsdl:message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the SendNotification BPEL process -->
+	<wsdl:portType name="SendNotification">
+		<wsdl:operation name="process">
+			<wsdl:input message="client:SendNotificationRequestMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- portType implemented by the requester of SendNotification BPEL process
+	for asynchronous callback purposes
+	-->
+	<wsdl:portType name="SendNotificationCallback">
+		<wsdl:operation name="processResponse">
+			<wsdl:input message="client:SendNotificationResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the SendNotification partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="SendNotification">
+		<plnk:role name="SendNotificationProvider" portType="client:SendNotification"/>
+		<plnk:role name="SendNotificationRequester" portType="client:SendNotificationCallback"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">RULEENGINE_NOTIFICATIONHISTORY</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM5:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_11">RNH_CUSTOM5</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_10">RNH_CUSTOM4</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ID:db_column_type">NUMBER</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM4:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ID:db_column_precision">0</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM3:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_EMAIL:db_column_size">4000</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_BODY:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_RRS_ID:db_column_type">NUMBER</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM2:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM1:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_SENTTIME:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM5:db_column_size">200</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM5:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM4:db_column_size">200</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM3:db_column_size">200</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM4:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM2:db_column_size">200</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM1:db_column_size">200</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_RRS_ID:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_EMAIL:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_table_type">TABLE</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM3:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ID:db_column_not_null">true</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_RRS_ID:db_column_precision">0</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM2:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_BODY:db_column_type">CLOB</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_CUSTOM1:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_SUBJECT:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ATTACHMENT:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_9">RNH_CUSTOM3</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ATTACHMENT:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_8">RNH_CUSTOM2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_7">RNH_CUSTOM1</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_6">RNH_ATTACHMENT</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_5">RNH_BODY</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_4">RNH_SUBJECT</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_3">RNH_EMAIL</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_SUBJECT:db_column_size">4000</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_2">RNH_SENTTIME</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_1">RNH_RRS_ID</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_SUBJECT:db_column_not_null">false</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY:db_column_0">RNH_ID</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_SENTTIME:db_column_type">TIMESTAMP(6)</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_EMAIL:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_NOTIFICATIONHISTORY.RNH_ATTACHMENT:db_column_size">4000</entry>
+</properties>

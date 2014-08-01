@@ -1,0 +1,25 @@
+<adapter-config name="CreateNotificationHistorySOADBAdapter" adapter="Database Adapter" wsdlLocation="CreateNotificationHistorySOADBAdapter.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="DEV-SOA-ENGAGE" adapterRef=""/>
+  <endpoint-interaction portType="CreateNotificationHistorySOADBAdapter_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="CreateNotificationHistorySOADBAdapter.RuleengineNotificationhistory"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="CreateNotificationHistorySOADBAdapter-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="OutputCompletedXml" value="true"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+  <endpoint-interaction portType="CreateNotificationHistorySOADBAdapter_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="CreateNotificationHistorySOADBAdapter.RuleengineNotificationhistory"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="CreateNotificationHistorySOADBAdapter-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

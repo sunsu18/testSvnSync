@@ -1,0 +1,431 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Jul 28 15:02:54 IST 2014
+  Author:  292001
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="SendNotification"
+         targetNamespace="http://xmlns.oracle.com/SOARuleEngineNotificationApp/SOARuleEngineNotification/SendNotification"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/SOARuleEngineNotificationApp/SOARuleEngineNotification/SendNotification"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ns1="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns2="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineNotificationApp/SOARuleEngineNotification/CreateNotificationHistorySOADBAdapter"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/CreateNotificationHistorySOADBAdapter"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineNotificationApp/SOARuleEngineNotification/SOARuleEngineNotificationJMSConsumerV1"
+         xmlns:ns6="http://www.lntinfotech.com/integration/SOARuleEngineFormatGeneratorApp/SOARuleEngineFormatGenerator/GenerateFormat"
+         xmlns:ns7="http://www.lntinfotech.com/integration/SOARuleEngineFormatGenerator"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/file/SOARuleEngineNotificationApp/SOARuleEngineNotification/sa">
+    <import namespace="http://xmlns.oracle.com/SOARuleEngineNotificationApp/SOARuleEngineNotification/SendNotification"
+            location="SendNotification.wsdl"
+            importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="sendnotification_client"
+                     partnerLinkType="client:SendNotification"
+                     myRole="SendNotificationProvider"
+                     partnerRole="SendNotificationRequester"/>
+        <partnerLink name="NotificationService"
+                     partnerLinkType="ns1:NotificationServiceLink"
+                     partnerRole="NotificationServiceProvider"/>
+        <partnerLink name="CreateNotificationHistorySOADBAdapter"
+                     partnerLinkType="ns3:CreateNotificationHistorySOADBAdapter_plt"
+                     partnerRole="CreateNotificationHistorySOADBAdapter_role"/>
+        <partnerLink name="SOARuleEngineNotificationJMSConsumerV1"
+                     partnerLinkType="ns5:Consume_Message_plt"
+                     myRole="Consume_Message_role"/>
+        <partnerLink name="SOARuleEngineFormatGenerator"
+                     partnerLinkType="ns6:GenerateFormat"
+                     partnerRole="GenerateFormatProvider"/>
+        <partnerLink name="sa" partnerLinkType="ns8:Write_plt"
+                     partnerRole="Write_role"/>
+    </partnerLinks>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable"
+                  messageType="client:SendNotificationRequestMessage"/>
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable"
+                  messageType="client:SendNotificationResponseMessage"/>
+        <variable name="EmailID" type="xsd:string"/>
+        <variable name="Subject" type="xsd:string"/>
+        <variable name="Body" type="xsd:string"/>
+        <variable name="EmailCC" type="xsd:string"/>
+        <variable name="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"
+                  messageType="ns5:Consume_Message_msg"/>
+    </variables>
+    <faultHandlers>
+        <catchAll>
+            <sequence name="Sequence2">
+                <empty name="Empty"/>
+                <rethrow name="RethrowFault"/>
+            </sequence>
+        </catchAll>
+    </faultHandlers>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in SendNotification.wsdl) -->
+        <receive name="ReceiveSOARuleEngineNotificationJMSConsumerV1"
+                 createInstance="yes"
+                 partnerLink="SOARuleEngineNotificationJMSConsumerV1"
+                 portType="ns5:Consume_Message_ptt"
+                 operation="Consume_Message"
+                 variable="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"/>
+        <receive name="receiveInput" partnerLink="sendnotification_client"
+                 portType="client:SendNotification" operation="process"
+                 variable="inputVariable" createInstance="no">
+            <bpelx:skipCondition>true()</bpelx:skipCondition>
+        </receive>
+        <assign name="AssignNotificationData">
+            <copy>
+                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</from>
+                <to>$inputVariable.payload</to>
+            </copy>
+            <copy>
+                <from>'Harneet.kochhar@lntinfotech.com'</from>
+                <to>$EmailID</to>
+            </copy>
+            <copy>
+                <from>'RuleEngineTestMail'</from>
+                <to>$Subject</to>
+            </copy>
+            <copy>
+                <from>'RuleEngineTestBody'</from>
+                <to>$Body</to>
+            </copy>
+            <copy>
+                <from>'292001@lntinfotech.com'</from>
+                <to>$EmailCC</to>
+            </copy>
+        </assign>
+        <scope name="Scope1">
+            <bpelx:annotation>
+                <bpelx:general>
+                    <bpelx:property name="userLabel">InsertNotificationHistoryScope</bpelx:property>
+                </bpelx:general>
+            </bpelx:annotation>
+            <variables>
+                <variable name="InvokeCreateNotificationHistorySOADBAdapter_IV"
+                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
+                <variable name="InvokeCreateNotificationHistorySOADBAdapter_OV"
+                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
+            </variables>
+            <sequence name="Sequence6">
+                <assign name="AssignCreateNotificationHistorySOADBAdapter">
+                    <copy>
+                        <from>$inputVariable.payload/ns2:SubscriptionID</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhRrsId</to>
+                    </copy>
+                    <copy>
+                        <from>$Body</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhBody</to>
+                    </copy>
+                    <copy>
+                        <from>$Subject</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhSubject</to>
+                    </copy>
+                    <copy>
+                        <from>concat($EmailID,';',$EmailCC)</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhEmail</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeCreateNotificationHistorySOADBAdapter"
+                        partnerLink="CreateNotificationHistorySOADBAdapter"
+                        portType="ns3:CreateNotificationHistorySOADBAdapter_ptt"
+                        operation="insert"
+                        inputVariable="InvokeCreateNotificationHistorySOADBAdapter_IV"
+                        outputVariable="InvokeCreateNotificationHistorySOADBAdapter_OV"
+                        bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </scope>
+        <if name="NotificationChannel">
+            <documentation>Email</documentation>
+            <condition>xp20:upper-case(string($inputVariable.payload/ns2:NotificationChannel))='EMAIL'</condition>
+            <sequence name="SendEmail">
+                <scope name="Email1">
+                    <bpelx:annotation>
+                        <bpelx:pattern patternName="bpelx:email"/>
+                        <bpelx:general>
+                            <bpelx:property name="userLabel">SendEmail</bpelx:property>
+                        </bpelx:general>
+                    </bpelx:annotation>
+                    <variables>
+                        <variable name="varNotificationReq"
+                                  messageType="ns1:EmailNotificationRequest"/>
+                        <variable name="varNotificationResponse"
+                                  messageType="ns1:ArrayOfResponse"/>
+                        <variable name="NotificationServiceFaultVariable"
+                                  messageType="ns1:NotificationServiceErrorMessage"/>
+                    </variables>
+                    <sequence name="Sequence3">
+                        <assign name="EmailParamsAssign">
+                            <copy>
+                                <from>string('Default')</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:FromAccountName</to>
+                            </copy>
+                            <copy>
+                                <from>$EmailCC</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:Bcc</to>
+                            </copy>
+                            <copy>
+                                <from>$EmailCC</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:Cc</to>
+                            </copy>
+                            <copy>
+                                <from>string('')</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:ReplyToAddress</to>
+                            </copy>
+                            <copy>
+                                <from>$Subject</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:Subject</to>
+                            </copy>
+                            <copy>
+                                <from>$EmailID</from>
+                                <to>$varNotificationReq.EmailPayload/ns1:To</to>
+                            </copy>
+                        </assign>
+                        <if name="Attachment">
+                            <documentation>Found</documentation>
+                            <condition>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:base64BinaryData</condition>
+                            <sequence name="Sequence4">
+                                <assign name="EmailParamsAssign"
+                                        xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                                    <copy>
+                                        <from><literal><Content xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService">
+                  <MimeType xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService">multipart/mixed</MimeType>
+                  <ContentBody xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService">
+                     <MultiPart xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"> <BodyPart xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"><MimeType xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/><ContentBody xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/><BodyPartName xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/></BodyPart> <BodyPart xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"><MimeType xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/><ContentBody xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/><BodyPartName xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/></BodyPart></MultiPart>
+                  </ContentBody>
+                  <ContentEncoding xmlns="http://xmlns.oracle.com/ias/pcbpel/NotificationService"/>
+               </Content></literal></from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string('text/html; charset=UTF-8')</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[1]/ns1:MimeType</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($Body)</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[1]/ns1:ContentBody</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:AttachmentName</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:BodyPartName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'base64'</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentEncoding</to>
+                                    </copy>
+                                    <copy>
+                                        <from>ora:readFile('file:///u01/SOA_DEV/SOAFilestore/HOME/HAKOC/Report/report.xls')</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:ContentBody</to>
+                                    </copy>
+                                </assign>
+                                <if name="ConversionRequired">
+                                    <documentation>Yes</documentation>
+                                    <condition>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ConversionRequired='YES'</condition>
+                                    <scope name="Scope2">
+                                        <variables>
+                                            <variable name="InvokeSOARuleEngineFormatGenerator_IV"
+                                                      messageType="ns6:GenerateFormatRequestMessage"/>
+                                            <variable name="InvokeSOARuleEngineFormatGenerator_OV"
+                                                      messageType="ns6:GenerateFormatResponseMessage"/>
+                                            <variable name="Invoke1_Write_InputVariable"
+                                                      messageType="ns8:Write_msg"/>
+                                        </variables>
+                                        <sequence name="Sequence7">
+                                            <assign name="Assign1">
+                                                <copy>
+                                                    <from>'1'</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:RuleID</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'1'</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:SubscriptionID</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'EXCEL'</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:OutputFormatType</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'1'</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportHeader</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:base64BinaryData</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportData</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'2'</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportTrailer</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeSOARuleEngineFormatGenerator"
+                                                    partnerLink="SOARuleEngineFormatGenerator"
+                                                    portType="ns6:GenerateFormat"
+                                                    operation="process"
+                                                    inputVariable="InvokeSOARuleEngineFormatGenerator_IV"
+                                                    outputVariable="InvokeSOARuleEngineFormatGenerator_OV"
+                                                    bpelx:invokeAsDetail="no"/>
+                                            <assign name="Assign2">
+                                                <copy>
+                                                    <from>$InvokeSOARuleEngineFormatGenerator_OV.payload/ns7:ReportData</from>
+                                                    <to>$Invoke1_Write_InputVariable.opaque</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="Invoke1"
+                                                    partnerLink="sa"
+                                                    portType="ns8:Write_ptt"
+                                                    operation="Write"
+                                                    inputVariable="Invoke1_Write_InputVariable"
+                                                    bpelx:invokeAsDetail="no"/>
+                                            <assign name="EmailParamsAssign"
+                                                    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+   <copy>
+         <from>$InvokeSOARuleEngineFormatGenerator_OV.payload/ns7:ReportData</from>
+         <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:ContentBody</to>
+      </copy></assign>
+                                        </sequence>
+                                    </scope>
+                                    <else>
+                                        <documentation>No</documentation>
+                                        <assign name="EmailParamsAssign"
+                                                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+   <copy>
+         <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:base64BinaryData</from>
+         <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:ContentBody</to>
+      </copy></assign>
+                                    </else>
+                                </if>
+                                <if name="AttachmentType">
+                                    <documentation>Excel</documentation>
+                                    <condition>xp20:upper-case(string($ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ConversionType))='EXCEL'</condition>
+                                    <sequence name="Sequence5"><assign name="EmailParamsAssign"
+                                                                       xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+      
+   <copy>
+         <from>string('application/vnd.ms-excel;')</from>
+         <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:MimeType</to>
+      </copy></assign></sequence>
+                                    <elseif>
+                                        <documentation>PDF</documentation>
+                                        <condition>xp20:upper-case(string($ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ConversionType))='PDF'</condition><assign name="EmailParamsAssign"
+                                                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+      
+   <copy>
+         <from>string('application/pdf;')</from>
+         <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody/ns1:MultiPart/ns1:BodyPart[2]/ns1:MimeType</to>
+      </copy></assign></elseif>
+                                    <else>
+                                        <throw name="ThrowAttachmentTypeNotFound"
+                                               faultName="bpelx:timeout"/>
+                                    </else>
+                                </if>
+                            </sequence>
+                            <else>
+                                <documentation>NotFound</documentation>
+                                <assign name="EmailParamsAssign"
+                                        xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                                    <copy>
+                                        <from>$Body</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:ContentBody</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string('text/html; charset=UTF-8')</from>
+                                        <to>$varNotificationReq.EmailPayload/ns1:Content/ns1:MimeType</to>
+                                    </copy>
+                                </assign>
+                            </else>
+                        </if>
+                        <invoke name="InvokeNotificationService"
+                                portType="ns1:NotificationService"
+                                partnerLink="NotificationService"
+                                inputVariable="varNotificationReq"
+                                outputVariable="varNotificationResponse"
+                                operation="sendEmailNotification"/>
+                    </sequence>
+                </scope>
+            </sequence>
+            <else>
+                <documentation>ThrowFault</documentation>
+                <throw name="ThrowNotificationChannelNotFound"
+                       faultName="bpelx:timeout"/>
+            </else>
+        </if>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="sendnotification_client"
+                portType="client:SendNotificationCallback"
+                operation="processResponse" inputVariable="outputVariable"
+                bpelx:invokeAsDetail="no">
+            <bpelx:skipCondition>true()</bpelx:skipCondition>
+        </invoke>
+    </sequence>
+</process>

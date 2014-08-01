@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eclipselink="http://www.eclipse.org/eclipselink/xsds/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="Eclipse Persistence Services - 2.1.3.v20110304-r9073">
+   <name>CreateNotificationHistorySOADBAdapter-OR</name>
+   <class-mapping-descriptors>
+      <class-mapping-descriptor xsi:type="object-relational-class-mapping-descriptor">
+         <class>CreateNotificationHistorySOADBAdapter.RuleengineNotificationhistory</class>
+         <alias>RULEENGINE_NOTIFICATIONHISTORY</alias>
+         <primary-key>
+            <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_ID" xsi:type="column"/>
+         </primary-key>
+         <events/>
+         <querying>
+            <queries>
+               <query name="CreateNotificationHistorySOADBAdapterSelect" xsi:type="read-all-query">
+                  <reference-class>CreateNotificationHistorySOADBAdapter.RuleengineNotificationhistory</reference-class>
+                  <container xsi:type="list-container-policy">
+                     <collection-type>java.util.Vector</collection-type>
+                  </container>
+               </query>
+            </queries>
+         </querying>
+         <attribute-mappings>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhId</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhRrsId</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_RRS_ID" xsi:type="column"/>
+               <attribute-classification>java.math.BigDecimal</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhSenttime</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_SENTTIME" xsi:type="column"/>
+               <attribute-classification>java.sql.Timestamp</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhEmail</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_EMAIL" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhSubject</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_SUBJECT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhBody</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_BODY" xsi:type="column"/>
+               <attribute-classification>[C</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhAttachment</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_ATTACHMENT" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhCustom1</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_CUSTOM1" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhCustom2</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_CUSTOM2" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhCustom3</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_CUSTOM3" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhCustom4</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_CUSTOM4" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>rnhCustom5</attribute-name>
+               <field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_CUSTOM5" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+         </attribute-mappings>
+         <descriptor-type>independent</descriptor-type>
+         <sequencing>
+            <sequence-name>RNH_SEQ</sequence-name>
+            <sequence-field table="RULEENGINE_NOTIFICATIONHISTORY" name="RNH_ID"/>
+         </sequencing>
+         <caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+            <always-refresh>true</always-refresh>
+         </caching>
+         <remote-caching>
+            <cache-type>weak-reference</cache-type>
+            <cache-size>-1</cache-size>
+         </remote-caching>
+         <instantiation/>
+         <copying xsi:type="instantiation-copy-policy"/>
+         <tables>
+            <table name="RULEENGINE_NOTIFICATIONHISTORY"/>
+         </tables>
+         <structure>structureName</structure>
+      </class-mapping-descriptor>
+   </class-mapping-descriptors>
+   <login xsi:type="database-login">
+      <platform-class>org.eclipse.persistence.platform.database.oracle.Oracle9Platform</platform-class>
+      <user-name></user-name>
+      <connection-url></connection-url>
+   </login>
+</object-persistence>
