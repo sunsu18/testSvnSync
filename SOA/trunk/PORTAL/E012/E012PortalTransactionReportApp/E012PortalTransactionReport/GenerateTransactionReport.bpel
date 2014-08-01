@@ -29,7 +29,9 @@
          xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
-         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport">
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1"
+         xmlns:ns4="http://www.lntinfotech.com/integration/SOARuleEngineNotification">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +48,9 @@
     <partnerLink name="generatetransactionreport_client" partnerLinkType="client:GenerateTransactionReport" myRole="GenerateTransactionReportProvider"/>
     <partnerLink name="WriteTransactionReport" partnerLinkType="ns2:Write_plt"
                  partnerRole="Write_role"/>
+    <partnerLink name="SOARuleEngineNotificationJMSProducerV1"
+                 partnerLinkType="ns3:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
   </partnerLinks>
 
   <!-- 
@@ -65,6 +70,8 @@
               element="ns1:TransactionReportInput"/>
     <variable name="InvokeWriteTransactionReport_IV"
               messageType="ns2:Write_msg"/>
+    <variable name="byteArrayString" type="xsd:string"/>
+    <variable name="base64TxnData" type="xsd:base64Binary"/>
   </variables>
   <faultHandlers>
     <catchAll>
@@ -340,13 +347,152 @@ addAuditTrailEntry("Exception: " + ex);
       </copy>
     </assign>
     <switch name="Switch1">
-      <case condition="1=2">
+      <case condition="1=1">
         <bpelx:annotation>
           <bpelx:general>
-            <bpelx:property name="userLabel">Convert to byte array</bpelx:property>
+            <bpelx:property name="userLabel">Convert to base64</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <empty name="Empty1"/>
+        <scope name="Scope1">
+          <variables>
+            <variable name="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                      messageType="ns3:Produce_Message_msg"/>
+          </variables>
+          <sequence name="Sequence2">
+          <bpelx:exec import="java.io.ByteArrayOutputStream"/>
+          <bpelx:exec import="java.io.StringWriter"/>
+        <bpelx:exec import="javax.xml.transform.*"/>
+        <bpelx:exec import="javax.xml.transform.dom.*"/>
+        <bpelx:exec import="javax.xml.transform.stream.*"/>
+        <bpelx:exec import="javax.xml.transform.TransformerFactory"/>
+            <bpelx:exec name="Java_Embedding" version="1.5" language="java">
+              <![CDATA[/*Write your java code below e.g.          
+	System.out.println("Hello, World");         
+*/         
+try{         
+Element elementTransactionReport;                            
+elementTransactionReport = (Element)getVariableData("transactionReportOutput");         
+oracle.soa.common.util.Base64Encoder encoder = new oracle.soa.common.util.Base64Encoder();        
+String input_str = elementTransactionReport.getTextContent();          
+    
+DOMSource domSource = new DOMSource(elementTransactionReport);    
+StringWriter writer = new StringWriter();    
+StreamResult result = new StreamResult(writer);    
+TransformerFactory tf = TransformerFactory.newInstance();    
+Transformer transformer = tf.newTransformer();    
+transformer.transform(domSource, result);    
+    
+String EncodedString = encoder.encode(writer.toString());        
+setVariableData("base64TxnData",EncodedString);         
+addAuditTrailEntry("Base64 Transaction data generated");       
+}         
+catch (TransformerConfigurationException e) {       
+                    e.printStackTrace();       
+}     
+catch (Exception ex) {                            
+addAuditTrailEntry("Exception: " + ex);          
+}]]>
+            </bpelx:exec>
+            <assign name="Assign1">
+              <copy>
+                <from variable="inputVariable" part="payload"
+                      query="/ns1:TransactionRequest/RuleID"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
+              </copy>
+              <copy>
+                <from variable="inputVariable" part="payload"
+                      query="/ns1:TransactionRequest/RuleSubscriptionID"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:SubscriptionID"/>
+              </copy>
+              <copy>
+                <from expression="'EMAIL'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:NotificationChannel"/>
+              </copy>
+              <copy>
+                <from variable="inputVariable" part="payload"
+                      query="/ns1:TransactionRequest/NotificationDateTime"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:NotificationTime"/>
+              </copy>
+              <copy>
+                <from variable="base64TxnData"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
+              </copy>
+              <copy>
+                <from expression="'TransactionReport.xls'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
+              </copy>
+              <copy>
+                <from expression="'XML'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentType"/>
+              </copy>
+              <copy>
+                <from expression="'YES'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionRequired"/>
+              </copy>
+              <copy>
+                <from expression="'EXCEL'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionType"/>
+              </copy>
+            </assign>
+            <!--bpelx:exec import="java.io.ByteArrayOutputStream"/>
+        <bpelx:exec import="javax.xml.transform.*"/>
+        <bpelx:exec import="javax.xml.transform.dom.*"/>
+        <bpelx:exec import="javax.xml.transform.stream.*"/>
+        <bpelx:exec import="javax.xml.transform.TransformerFactory"/>
+          <bpelx:exec name="Java_Embedding" version="1.5" language="java">
+            <![CDATA[try {   
+// Load the document.         
+Element elementTransactionReport;                   
+elementTransactionReport = (Element)getVariableData("transactionReportOutput");                   
+Document txndoc = elementTransactionReport.getOwnerDocument();              
+         
+// Create a new memory stream.         
+ByteArrayOutputStream outStream = new ByteArrayOutputStream();         
+         
+// Save the document to stream.         
+Source source = new DOMSource(txndoc);      
+Result result = new StreamResult(outStream);      
+TransformerFactory factory = TransformerFactory.newInstance();    
+Transformer transformer = factory.newTransformer();   
+transformer.transform(source, result);      
+      
+// Convert the document to byte form.         
+byte[] docBytes = outStream.toByteArray();         
+   
+String byteArrayString = docBytes.toString();   
+byte[] temp = byteArrayString.getBytes(); 
+String byteArrrayString = new String(temp);      
+setVariableData("byteArrayString",byteArrayString);   
+                } catch (TransformerConfigurationException e) {   
+                    e.printStackTrace();   
+                } catch (TransformerException e) {   
+                    e.printStackTrace();   
+                }]]>
+          </bpelx:exec-->
+            <invoke name="InvokeSOARuleEngineNotificationJMSProducerV1"
+                    inputVariable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    partnerLink="SOARuleEngineNotificationJMSProducerV1"
+                    portType="ns3:Produce_Message_ptt"
+                    operation="Produce_Message" bpelx:invokeAsDetail="no"/>
+          </sequence>
+        </scope>
       </case>
       <otherwise>
         <sequence>

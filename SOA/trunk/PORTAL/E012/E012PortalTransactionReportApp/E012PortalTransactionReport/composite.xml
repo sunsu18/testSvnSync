@@ -14,6 +14,9 @@
           location="GenerateTransactionReport.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport"
           location="WriteTransactionReport.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1"
+          location="SOARuleEngineNotificationJMSProducerV1.wsdl"
+          importType="wsdl"/>
   <service name="generatetransactionreport_client_ep"
            ui:wsdlLocation="GenerateTransactionReport.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport#wsdl.interface(GenerateTransactionReport)"/>
@@ -29,6 +32,11 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport#wsdl.interface(Write_ptt)"/>
     <binding.jca config="WriteTransactionReport_file.jca"/>
   </reference>
+  <reference name="SOARuleEngineNotificationJMSProducerV1"
+             ui:wsdlLocation="SOARuleEngineNotificationJMSProducerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOARuleEngineNotificationJMSProducerV1_jms.jca"/>
+  </reference>
   <wire>
     <source.uri>generatetransactionreport_client_ep</source.uri>
     <target.uri>GenerateTransactionReport/generatetransactionreport_client</target.uri>
@@ -36,5 +44,9 @@
   <wire>
     <source.uri>GenerateTransactionReport/WriteTransactionReport</source.uri>
     <target.uri>WriteTransactionReport</target.uri>
+  </wire>
+  <wire>
+    <source.uri>GenerateTransactionReport/SOARuleEngineNotificationJMSProducerV1</source.uri>
+    <target.uri>SOARuleEngineNotificationJMSProducerV1</target.uri>
   </wire>
 </composite>

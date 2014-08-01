@@ -12,4 +12,8 @@
              ui:wsdlLocation="WriteTransactionReport.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport#wsdl.interface(Write_ptt)"/>
   </reference>
+  <reference name="SOARuleEngineNotificationJMSProducerV1"
+             ui:wsdlLocation="SOARuleEngineNotificationJMSProducerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>
