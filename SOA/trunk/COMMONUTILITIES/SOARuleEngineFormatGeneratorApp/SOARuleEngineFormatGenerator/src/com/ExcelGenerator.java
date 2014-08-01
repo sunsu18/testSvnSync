@@ -3,14 +3,9 @@ package com;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -34,8 +29,8 @@ public class ExcelGenerator {
     private DocumentBuilder db;
     private Document doc;
     
-    private NodeList parentNodeList, parentList, parentList1, children, childList;
-    private Node node, child, parent, parent1; 
+    private NodeList parentNodeList, parentList, children, childList;
+    private Node node, child, parent; 
     
     private HSSFWorkbook workbook;
     private HSSFSheet sheet;
@@ -46,19 +41,18 @@ public class ExcelGenerator {
     private FileOutputStream fileOut;
     private ByteArrayOutputStream baos;
    
-    private String RD, RN, str, filename;
+    private String RD, RN, str, filename, RowHeader;
     private InputSource is;
     private Integer rownum;
     
     private boolean flag;
     private char c;
-    private byte[] ab;
     
     public ExcelGenerator() {
         super();
     }
     
-    public void generateExcel(ExcelReportInput in)throws Exception
+    public void generateExcel()throws Exception
     {           
 //        try{
         rownum = 0;
@@ -67,35 +61,13 @@ public class ExcelGenerator {
         filename = "/u01/SOA_DEV/SOAFilestore/HOME/DEV/NewExcelFile.xls";
         decoder = new oracle.soa.common.util.Base64Decoder();
         is = new InputSource();
-        RD= decoder.decode(in.getRD());
-//        RD= decoder.decode(this.getRD());
-//        RD= (new String (RD.getBytes()));
-        //Below line added for byte array usage
-//        ab = this.getAb();
-//        String Bstr = new String(ab);
-//        RD= decoder.decode(Bstr);
-        this.setRD(RD);
-        
-        
-       
-        
-        //coding
+        RD= decoder.decode(RD);
+
         is.setCharacterStream(new StringReader(RD));
         dbf = DocumentBuilderFactory.newInstance();
         db = dbf.newDocumentBuilder();
         doc = db.parse(is);  
         
-            //new code not required further
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer;
-            transformer = tf.newTransformer();
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(doc), new StreamResult(writer)); 
-            String st = writer.getBuffer().toString();
-            this.setRD(st);
-            //end new
-        
-
         RN = doc.getDocumentElement().getNodeName();
         
         workbook=new HSSFWorkbook();
@@ -118,20 +90,28 @@ public class ExcelGenerator {
         parentNodeList = doc.getDocumentElement().getChildNodes();
         
         node = doc.getDocumentElement();
-//previous line below
-//        children = node.getChildNodes();
         
-        //lines changed below
+        
         parentList = node.getChildNodes();
         parent = parentList.item(0);
-//        parentList1 = parent.getChildNodes();
-//        parent1 = parentList1.item(0);
         children = node.getChildNodes();
+        //children = parent.getChildNodes();
         
         rowInformation = sheet.createRow(rownum);
         rownum = rownum + 1;
+//        for(int k=0; k < RowHeader.length;k++){
+            
+                rowInformation = sheet.createRow(rownum);
+                rownum = rownum + 1;
+                rowInformation.createCell(0).setCellValue(RowHeader);
+                rowInformation.getCell(0).setCellStyle(cs);                    
+//            }
+                rowInformation = sheet.createRow(rownum);
+                rownum = rownum + 1;
+        
         rowhead = sheet.createRow(rownum);
-        child = parentList.item(0);
+//        child = parentList.item(0);
+        child = children.item(0);
         childList = child.getChildNodes();
         
         for(int j=0; j< childList.getLength(); j++){
@@ -147,7 +127,7 @@ public class ExcelGenerator {
             
             if (children != null)
             {
-                for(int i=0; i < children.getLength(); i++){
+                for(int i=1; i < children.getLength(); i++){
                     child = children.item(i);
                     childList = child.getChildNodes();
                     rownum = rownum + 1;
@@ -170,25 +150,19 @@ public class ExcelGenerator {
                             }
                         else{                                
                                 row.createCell(j).setCellValue(childList.item(j).getTextContent());
-                            }
-                            
-                        
+                            }                        
                         }
                 }
             }
             baos = new ByteArrayOutputStream();
             workbook.write(baos);
-            RD = encoder.encode(new String(baos.toByteArray()));
+            RD = encoder.encode(new String(baos.toByteArray()));            
             setRD(RD);
-//            RD = encoder.encode(workbook.toString());
+            
+//            setRD(xmlData);
             fileOut = new FileOutputStream(filename);
             workbook.write(fileOut);
             fileOut.close();
-//        }catch(Exception e1)     
-//        {
-//            System.out.println("Exception : " + e1.getMessage());
-//            }
-
         }
 
     public String getRD() {
@@ -199,11 +173,11 @@ public class ExcelGenerator {
         this.RD = RD;
     }
 
-    public void setAb(byte[] ab) {
-        this.ab = ab;
+    public void setRowHeader(String RowHeader) {
+        this.RowHeader = RowHeader;
     }
 
-    public byte[] getAb() {
-        return ab;
+    public String getRowHeader() {
+        return RowHeader;
     }
 }

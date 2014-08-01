@@ -23,7 +23,7 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="ReportData" type="xsd:string"/>
+      <xsd:element name="ReportData" type="xsd:base64Binary"/>
       <xsd:element name="ReportTrailer" type="xsd:string" maxOccurs="unbounded">
         <xsd:annotation id="col">
           <xsd:documentation>

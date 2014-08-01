@@ -49,12 +49,12 @@
     <import location="javax.xml.transform.TransformerFactory" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="javax.xml.transform.dom.DOMSource" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="javax.xml.transform.stream.StreamResult" importType="http://schemas.oracle.com/bpel/extension/java"/>
-    <import location="org.apache.poi.hssf.usermodel.HSSFCellStyle" importType="http://schemas.oracle.com/bpel/extension/java"/>
-    <!--<import location="org.apache.poi.hssf.usermodel.HSSFFont" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <!--import location="org.apache.poi.hssf.usermodel.HSSFCellStyle" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="org.apache.poi.hssf.usermodel.HSSFFont" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="org.apache.poi.hssf.usermodel.HSSFRow" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="org.apache.poi.hssf.usermodel.HSSFSheet" importType="http://schemas.oracle.com/bpel/extension/java"/>
-    <import location="org.apache.poi.hssf.usermodel.HSSFWorkbook" importType="http://schemas.oracle.com/bpel/extension/java"/>
--->    <import location="org.w3c.dom.Document" importType="http://schemas.oracle.com/bpel/extension/java"/>
+    <import location="org.apache.poi.hssf.usermodel.HSSFWorkbook" importType="http://schemas.oracle.com/bpel/extension/java"/-->
+    <import location="org.w3c.dom.Document" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="org.w3c.dom.Node" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="org.w3c.dom.NodeList" importType="http://schemas.oracle.com/bpel/extension/java"/>
     <import location="org.xml.sax.InputSource" importType="http://schemas.oracle.com/bpel/extension/java"/>
@@ -89,6 +89,16 @@
         <variable name="outputVariable"
                   messageType="client:GenerateFormatResponseMessage"/>
     </variables>
+    <faultHandlers>
+        <catchAll>
+            <assign name="AssignFault">
+                <copy>
+                    <from>ora:getFaultAsString()</from>
+                    <to>$outputVariable.payload/ns1:RuleID</to>
+                </copy>
+            </assign>
+        </catchAll>
+    </faultHandlers>
     <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -116,6 +126,8 @@
                 <variable name="encodedReportData" type="xsd:string"/>
                 <variable name="encodedExcelFormatData"
                           type="xsd:base64Binary"/>
+                <variable name="headerRowCount" type="xsd:integer"/>
+                <variable name="reportHeader" type="xsd:string"/>
             </variables>
             <faultHandlers>
                 <catchAll>
@@ -127,51 +139,49 @@
                     </assign>
                 </catchAll>
             </faultHandlers>
-            <sequence name="Sequence1">
+            <sequence name="SequenceGenerateExcelReport">
                 <assign name="AssignInputReporttData">
                     <copy>
                         <from>$inputVariable.payload/ns1:ReportData</from>
                         <to>$encodedExcelFormatData</to>
                     </copy>
+                    <copy>
+                        <from>$inputVariable.payload/ns1:ReportHeader</from>
+                        <to>$reportHeader</to>
+                    </copy>
+                    <copy>
+                        <from>number(count($inputVariable.payload/ns1:ReportHeader))</from>
+                        <to>$headerRowCount</to>
+                    </copy>
                 </assign>
                 <extensionActivity>
                     <bpelx:exec name="Java_Embedding" language="java">
-                        <![CDATA[/*Write your java code below e.g.             
-	System.out.println("Hello, World");            
-*/            
-try {            
-            
-//XMLElement input = (XMLElement) getVariableData("inputVariable","payload","/ns1:ReportData");      
-        
-//oracle.xml.parser.v2.XMLElement input = (oracle.xml.parser.v2.XMLElement) getVariableData("inputVariable","payload","/ns1:ReportData");        
-//oracle.xml.parser.v2.XMLElement input = (oracle.xml.parser.v2.XMLElement) getVariableData("encodedExcelFormatData");        
-        
-//String RD = (String) (oracle.xml.parser.v2.XMLNode)((getVariableData("inputVariable","payload","/ns1:ReportData")));        
-//input.setCountry((String)(((oracle.xml.parser.v2.XMLNode)getVariableData("transactionReportInput","/ns1:TransactionReportInput/Country")).getText()));            
-String input = getVariableData("encodedExcelFormatData").toString();      
-byte[] inputdata = (input.toString()).getBytes();     
-//String RD = input.getTextContent();        
-ExcelReportInput tip = new ExcelReportInput();            
-ExcelGenerator tr = new ExcelGenerator();         
-tip.setRD(input.toString());    
-tr.setRD(input.toString());    
-tr.setAb(inputdata);    
-//tip.setRD((String)((oracle.xml.parser.v2.XMLNode)((getVariableData("inputVariable","payload","/ns1:ReportData")).getText())));           
-tr.generateExcel(tip);        
-//setVariableData("outputVariable","payload","/ns1:ReportData", RD);        
-setVariableData("encodedReportData", tr.getRD());      
-    
-//setVariableData("encodedReportData", input);      
-}           
-catch (Exception e)           
-{            
-//oracle.xml.parser.v2.XMLElement input = (oracle.xml.parser.v2.XMLElement) getVariableData("inputVariable","payload","/ns1:ReportData");        
-//String RD = input.getTextContent();        
-//String input = getVariableData("encodedExcelFormatData").toString();        
-//setVariableData("outputVariable","payload","/ns1:RuleID", e.getMessage());        
-//-setVariableData("outputVariable","payload","/ns1:SubscriptionID", input);        
-System.out.println("Exception :" + e.getMessage());      
-addAuditTrailEntry(e);            
+                        <![CDATA[/*Write your java code below e.g.                 
+	System.out.println("Hello, World");                
+*/                
+try {                
+String headerRows; 
+headerRows = null; 
+ 
+//Element headerData = (Element)getVariableData("inputVariable","payload","/ns1:ReportHeader"); 
+//int k = Integer.parseInt(getVariableData("headerRowCount").toString()); 
+//for(int i=0;i < 1;i++)  
+//{ 
+//System.out.println("Hello, World");                
+//    headerRows = headerData.getNodeValue(); 
+    headerRows = getVariableData("reportHeader").toString(); 
+//} 
+ 
+String input = getVariableData("encodedExcelFormatData").toString();          
+ExcelGenerator tr = new ExcelGenerator();             
+tr.setRD(input.toString());  
+tr.setRowHeader(headerRows); 
+tr.generateExcel();            
+setVariableData("encodedReportData", tr.getRD());          
+}               
+catch (Exception e)               
+{                
+addAuditTrailEntry(e);                
 }]]>
                     </bpelx:exec>
                 </extensionActivity>
@@ -179,10 +189,6 @@ addAuditTrailEntry(e);
                     <copy>
                         <from>$encodedReportData</from>
                         <to>$outputVariable.payload/ns1:ReportData</to>
-                    </copy>
-                    <copy>
-                        <from>$encodedReportData</from>
-                        <to>$outputVariable.payload/ns1:SubscriptionID</to>
                     </copy>
                 </assign>
             </sequence>

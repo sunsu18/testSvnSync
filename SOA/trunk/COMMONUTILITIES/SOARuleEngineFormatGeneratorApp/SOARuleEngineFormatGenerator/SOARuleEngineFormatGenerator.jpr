@@ -351,7 +351,7 @@
          <list n="libraryDefinitions">
             <hash>
                <list n="classPath">
-                  <url path="../../libraries/poi-3.10-FINAL-20140208.jar" jar-entry=""/>
+                  <url path="SCA-INF/lib/poi-3.10-FINAL-20140208.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Poi-3.10-FINAL-20140208.jar"/>
