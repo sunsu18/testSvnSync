@@ -77,7 +77,7 @@
                     <af:panelGroupLayout layout="vertical" id="pgl4">
                     <af:outputText value="#{row.firstname}  #{row.lastname}"
                                    id="ot5"
-                                   rendered="#{row.firstname ne null} or #{row.lastname ne null}"/>
+                                   />
                     <af:outputText value="#{row.useremail}" id="ot4"
                                    noWrap="false"/>
                     <af:outputText value="#{row.partnerids}" 
