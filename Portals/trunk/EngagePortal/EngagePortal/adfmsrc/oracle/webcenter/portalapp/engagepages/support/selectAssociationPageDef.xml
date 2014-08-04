@@ -14,8 +14,8 @@
     <page viewId="${preferenceBean.defaultPageTemplate}" path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
           id="pageTemplateBinding" Refresh="ifNeeded"/>
           <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
-    <taskFlow id="SelectAssociationTaskFlow1"
-              taskFlowId="/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow"
+    <taskFlow id="AssociationSelection1"
+              taskFlowId="/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection"
               activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
