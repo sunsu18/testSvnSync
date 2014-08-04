@@ -1822,7 +1822,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         user.setFirstName("Hanif");
         user.setLastName("Merchant");
         user.setLang("da_DK");
-        user.setCountry("dk");
+        user.setCountry("DK");
         //        user.setEmailID("h.m@m.h");
         //  user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN);
         //user.setPosition(Constants.ROLE_WCP_B2BM);

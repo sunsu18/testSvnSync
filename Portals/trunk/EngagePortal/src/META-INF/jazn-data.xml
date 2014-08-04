@@ -3506,7 +3506,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -3733,7 +3733,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -3931,7 +3931,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -4002,7 +4002,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -4059,7 +4059,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
@@ -4126,7 +4126,7 @@
                             </permission>
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
-                                <name>/WEB-INF/com/sfr/engage/selectassociationtaskflow/SelectAssociationTaskFlow.xml#SelectAssociationTaskFlow</name>
+                                <name>/WEB-INF/com/sfr/engage/AssociationSelection/AssociationSelection.xml#AssociationSelection</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>
