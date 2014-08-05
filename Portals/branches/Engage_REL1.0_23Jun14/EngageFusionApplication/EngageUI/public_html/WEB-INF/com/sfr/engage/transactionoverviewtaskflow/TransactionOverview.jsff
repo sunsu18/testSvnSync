@@ -441,7 +441,7 @@
         <af:panelGroupLayout id="noteInternal" layout="vertical" halign="right"
                               inlineStyle="height:25.0px;">  
          <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE}" id="ot99" styleClass="popupoutputText"
-                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteInternationalText}" noWrap="true"/>  
+                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteInternationalText}" noWrap="true" rendered="#{pageFlowScope.TransactionOverviewBean.reportFormatValue eq 'International' ? false : true}"/>  
             <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE_1}" id="ot299" styleClass="popupoutputText"
                            noWrap="true"/>             
             </af:panelGroupLayout>        
@@ -845,7 +845,7 @@
                      inlineStyle="width:250px;"
                      valign="top">
  <af:panelGroupLayout id="dfdf" layout="vertical" inlineStyle="width:250px; height:20px;" valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{pageFlowScope.TransactionOverviewBean.currencyCode}" styleClass="subheading"
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
                                    id="plam3"/>
 
        <!--<af:panelGroupLayout id="pgl14" layout="horizontal" inlineStyle="width:50px;">
@@ -920,7 +920,7 @@
 <af:panelGroupLayout id="tnjw" layout="vertical"
                      inlineStyle="width:250px; height:20px;"
                      valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{pageFlowScope.TransactionOverviewBean.currencyCode}" styleClass="subheading"
                                    id="ot24">
                                   <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
                                    </af:outputText>

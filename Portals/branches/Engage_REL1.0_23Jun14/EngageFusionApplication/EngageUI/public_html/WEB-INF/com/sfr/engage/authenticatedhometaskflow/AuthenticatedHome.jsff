@@ -48,7 +48,7 @@
                          visible="#{pageFlowScope.AuthenticatedHomeBean.infoPanelVisible}">
 
   <af:panelGroupLayout id="pgl1"
-                       inlineStyle="width:962.0px; height:140px;"
+                       inlineStyle="width:962.0px; height:120px;"
                        layout="vertical">
 
          <af:panelGroupLayout id="pgl0" layout="horizontal"
@@ -67,7 +67,7 @@
 
   <af:spacer width="700" height="10" id="s8"/>
 </af:panelGroupLayout>
-<af:panelGroupLayout id="pgl24" layout="scroll" inlineStyle="width:960px; height:130.0px;" styleClass="panelbackground box-shadow info" >
+<af:panelGroupLayout id="pgl24" layout="scroll" inlineStyle="width:960px; height:90.0px;" styleClass="panelbackground box-shadow info" >
 <af:spacer width="10" height="5" id="s2"/>
 <af:panelGroupLayout id="pgl36" layout="vertical">
 
