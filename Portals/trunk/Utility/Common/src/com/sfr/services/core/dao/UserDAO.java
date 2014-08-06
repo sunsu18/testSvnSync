@@ -26,6 +26,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import oracle.adf.share.logging.ADFLogger;
+
 import oracle.security.idm.IdentityStore;
 import oracle.security.idm.Role;
 import oracle.security.idm.SearchParameters;
@@ -38,6 +40,10 @@ import oracle.security.jps.service.idstore.IdentityStoreService;
 
 
 public class UserDAO {
+    
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
+    
     public UserDAO() {
     }
 
@@ -50,14 +56,14 @@ public class UserDAO {
      * @return BaseBean
      */
     public BaseBean changePasswordWS(String userID, String oldPassword, String newPassword) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePasswordWS : "+"UserDAO.chnagePasswordWS : userID=" + userID + " oldPassword=" + oldPassword + " newPassword=" + newPassword);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .changePasswordWS : "+"UserDAO.chnagePasswordWS : userID=" + userID + " oldPassword=" + oldPassword + " newPassword=" + newPassword);
         long startTime = System.currentTimeMillis();
         OIMUserManagermentImpl oIMUserManagermentImpl = EngageDAOFactory.getInstance().getEngOIMUserManagermentImpl();
         //OIMUserManagermentImpl oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.changePassword(userID, oldPassword, newPassword);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePasswordWS : "+"  OIM Change Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePasswordWS : "+"oimResult " + oimResult.getWServiceStatus());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .changePasswordWS : "+"  OIM Change Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .changePasswordWS : "+"oimResult " + oimResult.getWServiceStatus());
         //parse response
         return parseOimUserManagementResult(oimResult);
     }
@@ -71,7 +77,7 @@ public class UserDAO {
      */
     public BaseBean createUserWS(User user) throws DatatypeConfigurationException {
 
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".createUserWS : "+"UserDAO.createUserWS:-------->" + user);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .createUserWS : "+"UserDAO.createUserWS:-------->" + user);
         //create request object
         Identity identity =new Identity();
         try{
@@ -79,13 +85,13 @@ public class UserDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(this.getClass()+".createUserWS :"+displayIdentity(identity));
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .createUserWS :"+displayIdentity(identity));
 
         long startTime = System.currentTimeMillis();
         OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.createOIMUser(identity, "portal");
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".createUserWS : "+"  OIM create User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".createUserWS : "+"  OIM create User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
          //parse response
         return parseOimUserManagementResult(oimResult);
     }
@@ -147,12 +153,12 @@ public class UserDAO {
      * @return BaseBean
      */
     public BaseBean deleteUserWS(String userID) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".deleteUserWS : "+"UserDAO.deleteUserWS:   <" + userID + ">");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".deleteUserWS : "+"UserDAO.deleteUserWS:   <" + userID + ">");
         long startTime = System.currentTimeMillis();
         OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.deleteOIMUser(userID);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".deleteUserWS : "+"  OIM delete User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".deleteUserWS : "+"  OIM delete User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
 
         //parse response
         return parseOimUserManagementResult(oimResult);
@@ -169,7 +175,7 @@ public class UserDAO {
     public BaseBean updateUserWS(User user) throws DatatypeConfigurationException {
 
         //create request object
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".updateUserWS : "+"UserDAO.updateUserWS:  Printing User Object     ::::" + user);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".updateUserWS : "+"UserDAO.updateUserWS:  Printing User Object     ::::" + user);
 
         Identity identity =new Identity();
                try{
@@ -179,12 +185,12 @@ public class UserDAO {
                        e.printStackTrace();
                }
 
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".updateUserWS : "+"Displaying Identity for Update User"+displayIdentity(identity));
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".updateUserWS : "+"Displaying Identity for Update User"+displayIdentity(identity));
         long startTime = System.currentTimeMillis();
         OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.updateOIMUser(identity, "portal");
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".updateUserWS : "+"  OIM update User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".updateUserWS : "+"  OIM update User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
         //parse response
         return parseOimUserManagementResult(oimResult);
     }
@@ -197,13 +203,13 @@ public class UserDAO {
      * @throws NumberFormatException
      */
     public List<User> searchUserWS(String customerId) throws NumberFormatException {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWS : "+"userDAO cust id " + customerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWS : "+"userDAO cust id " + customerId);
 
         long startTime = System.currentTimeMillis();
         OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.searchOIMUser(customerId);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWS : "+"  OIM search User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWS : "+"  OIM search User  "+"Response Time: [" +elapsedTime +"] milliseconds ");
 
         if (null != oimResult) {
             try {
@@ -235,7 +241,7 @@ public class UserDAO {
             Date selectedDateFormat = sdf.parse(selectedDate);
             date = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).format(selectedDateFormat);
             dateInUTCFormat = formatter.parse(date);
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".convertDateValueToUTCFormat : "+"dateInUTCFormat " + dateInUTCFormat);
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".convertDateValueToUTCFormat : "+"dateInUTCFormat " + dateInUTCFormat);
         } catch (ParseException e) {
             e.printStackTrace();
             //throw e;
@@ -273,7 +279,7 @@ public class UserDAO {
      * @throws Exception
      */
     public User searchUserWithUserId(String userId) throws Exception {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : UserId=<" + userId + ">");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : UserId=<" + userId + ">");
         User user = new User();
         JpsContext jpsCtx;
         IdentityStoreService service;
@@ -285,10 +291,10 @@ public class UserDAO {
             idStore = service.getIdmStore();
             SimpleSearchFilter ssfilter;
             if (userId.contains("@")) {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"OPSS search using MAIL");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"OPSS search using MAIL");
                 ssfilter = idStore.getSimpleSearchFilter("mail", SimpleSearchFilter.TYPE_EQUAL, userId);
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"OPSS search using USER_NAME");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"OPSS search using USER_NAME");
                 ssfilter = idStore.getSimpleSearchFilter(UserProfile.USER_NAME, SimpleSearchFilter.TYPE_EQUAL, userId);
                 System.out.println("value of ssfilter======>"+ssfilter.getValue());
             }
@@ -297,7 +303,7 @@ public class UserDAO {
             SearchResponse response = idStore.searchProfiles(params);
 
             oracle.security.idm.Identity id = null;
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : Identity=<" + id + ">");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : Identity=<" + id + ">");
 
             while (response.hasNext()) {
 
@@ -307,60 +313,60 @@ public class UserDAO {
             user = new User();
             if (profile != null) {
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : Input UserId=<" + userId + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.USER_ID=<" + profile.USER_ID + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getUserID()=<" + profile.getUserID() + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.USER_NAME=<" + profile.USER_NAME + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getUserName()=<" + profile.getUserName() + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.MT_UID=<" + profile.MT_UID + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getAllUserProperties()=<" + profile.getAllUserProperties() + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile=<" + profile + ">");
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getPropertyVal(mail)=<" + profile.getPropertyVal("mail") + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : Input UserId=<" + userId + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.USER_ID=<" + profile.USER_ID + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getUserID()=<" + profile.getUserID() + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.USER_NAME=<" + profile.USER_NAME + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getUserName()=<" + profile.getUserName() + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.MT_UID=<" + profile.MT_UID + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getAllUserProperties()=<" + profile.getAllUserProperties() + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile=<" + profile + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"UserDAO.searchUserWithUserId : profile.getPropertyVal(mail)=<" + profile.getPropertyVal("mail") + ">");
 
 
                 if (null != userId) {
                     user.setUserID(userId.trim());
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"email ID:" + profile.getPropertyVal(Constants.OPSS_MAIL));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"email ID:" + profile.getPropertyVal(Constants.OPSS_MAIL));
                 if (null != profile.getPropertyVal(Constants.OPSS_MAIL)) {
                     user.setEmailID((String)profile.getPropertyVal(Constants.OPSS_MAIL));
                 }
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"IS CUSTOMER ACTIVE:" + profile.getPropertyVal(Constants.OPSS_ORCL_IS_ENABLED));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"IS CUSTOMER ACTIVE:" + profile.getPropertyVal(Constants.OPSS_ORCL_IS_ENABLED));
                 if (profile.getPropertyVal(Constants.OPSS_ORCL_IS_ENABLED) != null) {
                     user.setActive(profile.getPropertyVal(Constants.OPSS_ORCL_IS_ENABLED).toString().equalsIgnoreCase("enabled") ? true : false);
                 }
 
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"First name:" + profile.getFirstName());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"First name:" + profile.getFirstName());
                 if (null != profile.getFirstName()) {
                     user.setFirstName(profile.getFirstName().trim());
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Last name:" + profile.getLastName());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Last name:" + profile.getLastName());
                 if (null != profile.getLastName()) {
                     user.setLastName(profile.getLastName().trim());
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Middle name:" + profile.getPropertyVal(Constants.OPSS_MIDDLE_NAME));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Middle name:" + profile.getPropertyVal(Constants.OPSS_MIDDLE_NAME));
                 if (null != profile.getPropertyVal(Constants.OPSS_MIDDLE_NAME)) {
                     user.setMiddleName((String)profile.getPropertyVal(Constants.OPSS_MIDDLE_NAME));
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"DOB from OPSS:" + profile.getPropertyVal(Constants.OPSS_DOB));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"DOB from OPSS:" + profile.getPropertyVal(Constants.OPSS_DOB));
                 if (null != profile.getPropertyVal(Constants.OPSS_DOB)) {
                     user.setDob(convertDateValueFromISO8601Format((String)profile.getPropertyVal(Constants.OPSS_DOB)));
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"DOB from converted:" +
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"DOB from converted:" +
                                        convertDateValueFromISO8601Format((String)profile.getPropertyVal(Constants.OPSS_DOB)));
                 }
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"User Position " + profile.getEmployeeType());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"User Position " + profile.getEmployeeType());
                 if (null != profile.getEmployeeType()) {
                     user.setPosition(profile.getEmployeeType());
                 }
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Phone:" + profile.getBusinessMobile());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Phone:" + profile.getBusinessMobile());
                 if (null != profile.getBusinessMobile()) {
                     user.setPhoneNumber(profile.getBusinessMobile());
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"lang :" + profile.getPropertyVal(Constants.OPSS_LANG));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"lang :" + profile.getPropertyVal(Constants.OPSS_LANG));
                 if (null != profile.getPropertyVal(Constants.OPSS_LANG)) {
                     user.setLang((String)profile.getPropertyVal(Constants.OPSS_LANG));
                 }
@@ -388,32 +394,32 @@ public class UserDAO {
                     user.setInternal(true);
                 }
 
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"isInternal:" + profile.getPropertyVal(Constants.searchType));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"CustomerId:" + profile.getPropertyVal("customerId"));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"employeeNumber:" + profile.getPropertyVal("employeeNumber"));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Manager:" + profile.getPropertyVal(Constants.OPSS_WCP_B2BM));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Employee" + profile.getPropertyVal(Constants.OPSS_WCP_B2BEMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"B2B Customer:" + profile.getPropertyVal(Constants.OPSS_WCP_B2C));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Supervisor:" + profile.getPropertyVal(Constants.OPSS_WCP_AVSUP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_RESM));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"External SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSM));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Reseller Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_RESEMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Internal CSR:" + profile.getPropertyVal(Constants.OPSS_WCP_ICSR));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Aviation Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_AVEMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Sup:" + profile.getPropertyVal(Constants.OPSS_WCP_MRSUP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Marine Emp:" + profile.getPropertyVal(Constants.OPSS_WCP_MREMP));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Webshop mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_WSM));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"designation:" + profile.getPropertyVal("designation"));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"title:" + profile.getPropertyVal("title"));
-//                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"SiteIDs:" + profile.getPropertyVal("sstation_ManagerExt"));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"isInternal:" + profile.getPropertyVal(Constants.searchType));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"CustomerId:" + profile.getPropertyVal("customerId"));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"employeeNumber:" + profile.getPropertyVal("employeeNumber"));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"B2B Manager:" + profile.getPropertyVal(Constants.OPSS_WCP_B2BM));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"B2B Employee" + profile.getPropertyVal(Constants.OPSS_WCP_B2BEMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"B2B Customer:" + profile.getPropertyVal(Constants.OPSS_WCP_B2C));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Aviation Supervisor:" + profile.getPropertyVal(Constants.OPSS_WCP_AVSUP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Reseller Mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_RESM));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"External SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSM));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"External SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ESSEMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Internal SS mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSM));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Internal SS Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Reseller Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_RESEMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Internal CSR:" + profile.getPropertyVal(Constants.OPSS_WCP_ICSR));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Aviation Employee:" + profile.getPropertyVal(Constants.OPSS_WCP_AVEMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Marine Sup:" + profile.getPropertyVal(Constants.OPSS_WCP_MRSUP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Marine Emp:" + profile.getPropertyVal(Constants.OPSS_WCP_MREMP));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Webshop mgr:" + profile.getPropertyVal(Constants.OPSS_WCP_WSM));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"designation:" + profile.getPropertyVal("designation"));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"title:" + profile.getPropertyVal("title"));
+//                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"SiteIDs:" + profile.getPropertyVal("sstation_ManagerExt"));
 
                 /*Enage Portal starts here*/
 
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Card B2b mager" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_ADMIN));
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Card petro" + profile.getPropertyVal(Constants.OPSS_WCP_CARD_B2C_PETRO));
 
 
 
@@ -496,7 +502,7 @@ public class UserDAO {
                             }
                         }
                     } catch (Exception nfe) {
-                        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
                     }
     //                    if (user.getWcp_ISSM_CustomerID() == null || user.getWcp_ISSM_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ISSM)));
@@ -517,7 +523,7 @@ public class UserDAO {
                             }
                         }
                     } catch (Exception nfe) {
-                        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
                     }
     //                    if (user.getWcp_ESSM_CustomerID() == null || user.getWcp_ESSM_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ESSM)));
@@ -538,7 +544,7 @@ public class UserDAO {
                             }
                         }
                     } catch (Exception nfe) {
-                        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
+                        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"ERROR IN TYPE CAST:" + nfe.getCause() + ":" + nfe.getMessage());
                     }
     //                    if (user.getWcp_ISSEMP_CustomerID() == null || user.getWcp_ISSEMP_CustomerID().size() == 0)
                         li.addAll(converttolist(profile.getPropertyVal(Constants.OPSS_WCP_ISSEMP)));
@@ -689,8 +695,8 @@ public class UserDAO {
             user.setErrorList(li);
             // throw e;
         }
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+user);
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUserWithUserId : "+"Exiting searchUserWithUserId");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+user);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".searchUserWithUserId : "+"Exiting searchUserWithUserId");
         return user;
     }
 
@@ -714,13 +720,13 @@ public class UserDAO {
                 try {
                     customerID.add(Integer.parseInt(customerIDArr[iCount]));
                 } catch (Exception e) {
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".converttolist : "+"Number format exception-->" + e);
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".converttolist : "+"Number format exception-->" + e);
                 }
             }
 
             custids.addAll(customerID);
         }
-        //        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".methodName : "+"UserDAO.converttolist: User customer id " + custids.size());
+        //        log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"UserDAO.converttolist: User customer id " + custids.size());
         return custids;
     }
 
@@ -744,13 +750,13 @@ public class UserDAO {
                 try {
                     customerID.add(customerIDArr[iCount]);
                 } catch (Exception e) {
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".converttolist : "+" exception-->" + e);
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".converttolist : "+" exception-->" + e);
                 }
             }
 
             custids.addAll(customerID);
         }
-        //        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".methodName : "+"UserDAO.converttolist: User customer id " + custids.size());
+        //        log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"UserDAO.converttolist: User customer id " + custids.size());
         return custids;
     }
 
@@ -768,24 +774,24 @@ public class UserDAO {
                 try {
                     roleName.add(roleArray[iCount]);
                 } catch (Exception e) {
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".converttolist : "+" exception-->" + e);
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".converttolist : "+" exception-->" + e);
                 }
             }
 
             listOfRoles.addAll(roleName);
         }
-        //        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".methodName : "+"UserDAO.converttolist: User customer id " + listOfRoles.size());
+        //        log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"UserDAO.converttolist: User customer id " + listOfRoles.size());
         return listOfRoles;
     }
 
     private String getUserRoleList(IdentityStore idStore, oracle.security.idm.Identity id) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"Inside getUserRoleList");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"Inside getUserRoleList");
         Role role = null;
         String roleList = "";
         try{
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"id.getPrincipal()::" + id.getPrincipal());
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"id.getPrincipal()::" + id.getPrincipal());
             SearchResponse responseRoles = idStore.getRoleManager().getGrantedRoles(id.getPrincipal(), true);
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"id.getPrincipal()::" + id.getPrincipal());
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"id.getPrincipal()::" + id.getPrincipal());
             while (responseRoles.hasNext()) {
                 role = (Role)responseRoles.next();
                 if (roleList.equals("")) {
@@ -798,14 +804,14 @@ public class UserDAO {
                 roleList="|"+ roleList+"|";
             }
             if (null != roleList) {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"Rolelist " + roleList);
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"Rolelist " + roleList);
             }
         }catch(Exception e){
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"Exception Occured:<"+e.getCause()+"><"+e.getMessage()+">");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"Exception Occured:<"+e.getCause()+"><"+e.getMessage()+">");
             e.printStackTrace();
             roleList="";
         }
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getUserRoleList : "+"Exiting getUserRoleList");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".getUserRoleList : "+"Exiting getUserRoleList");
         return roleList;
     }
 
@@ -820,7 +826,7 @@ public class UserDAO {
         OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
         OimUserManagementResult oimResult = oIMUserManagermentImpl.isUserChangePasswordNextLogin(userId);
         long elapsedTime = System.currentTimeMillis() - startTime;
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".isPasswordChangeRequiredWS : "+"  OIM Password Required  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".isPasswordChangeRequiredWS : "+"  OIM Password Required  "+"Response Time: [" +elapsedTime +"] milliseconds ");
             //parse response
         return parseOimUserManagementResult(oimResult);
     }
@@ -834,13 +840,13 @@ public class UserDAO {
     public BaseBean forgotPasswordWS(String userId) {
         OimUserManagementResult oimResult = new OimUserManagementResult();
         try {
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".forgotPasswordWS : "+"Forgot Password called for USer id: " + userId);
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".forgotPasswordWS : "+"Forgot Password called for USer id: " + userId);
             long startTime = System.currentTimeMillis();
             OIMUserManagermentImpl  oIMUserManagermentImpl = DAOFactory.getInstance().getOIMUserManagermentImpl();
             oimResult = oIMUserManagermentImpl.forgotPassword(userId);
 
             long elapsedTime = System.currentTimeMillis() - startTime;
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".forgotPasswordWS : "+"  OIM Forgot Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".forgotPasswordWS : "+"  OIM Forgot Password  "+"Response Time: [" +elapsedTime +"] milliseconds ");
 
         } catch (Exception r) {
             r.printStackTrace();
@@ -853,7 +859,7 @@ public class UserDAO {
     }
 
     private Identity createIdentityFromUser(User user) throws DatatypeConfigurationException,NullPointerException {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".createIdentityFromUser : "+"USER Inside createIdentityFromUser::::::::::::::::");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".createIdentityFromUser : "+"USER Inside createIdentityFromUser::::::::::::::::");
         Identity identity = new Identity();
         if (null != user) {
             identity.setUserRoles(user.getRolelist());
@@ -904,10 +910,10 @@ public class UserDAO {
     private BaseBean parseOimUserManagementResult(OimUserManagementResult oimResult) {
 
         BaseBean baseBean = new BaseBean();
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+"control");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+"control");
 
         if (null != oimResult && null != oimResult.getWServiceStatus()) {
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult:  oimResult.getWServiceResult()" + oimResult.getWServiceResult());
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult:  oimResult.getWServiceResult()" + oimResult.getWServiceResult());
             if (oimResult.getWServiceStatus().equals("Error")) {
                 baseBean.setStatus("Error");
                 if (null != oimResult.getOIMwServiceError() && oimResult.getOIMwServiceError().size() > 0) {
@@ -915,13 +921,13 @@ public class UserDAO {
                     for (int iCount = 0; iCount < oimResult.getOIMwServiceError().size(); iCount++) {
                         BusinessError businessError = new BusinessError();
                         businessError.setErrorCode(oimResult.getOIMwServiceError().get(iCount));
-                        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+oimResult.getOIMwServiceError().get(iCount));
+                        log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+oimResult.getOIMwServiceError().get(iCount));
                         errorList.add(businessError);
                     }
                     baseBean.setErrorList(errorList);
                 }
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult:  Inside success");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult:  Inside success");
                 if (oimResult.getWServiceStatus().equals("Success") && oimResult.getWServiceResult().equals("NorecordFound")) {
                     baseBean.setStatus("No Records");
                 } else if (null != oimResult.getWServiceResult() && oimResult.getWServiceResult().equals("Change")) {
@@ -931,23 +937,23 @@ public class UserDAO {
                 } else {
                     baseBean.setStatus("Success");
                 }
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult: baseBean STATUS " + baseBean.getStatus());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+"UserDAO.parseOimUserManagementResult: baseBean STATUS " + baseBean.getStatus());
             }
         } else {
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResult : "+"oimResult is null");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResult : "+"oimResult is null");
         }
         return baseBean;
     }
 
 
     private String convertListToString(List list) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".convertListToString : "+"UserDAO.convertListToString: list to convert-- " + list);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".convertListToString : "+"UserDAO.convertListToString: list to convert-- " + list);
         String result = "" + list.get(0);
 
         for (int iCount = 1; iCount < list.size(); iCount++) {
             result = result + "|" + list.get(iCount);
         }
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".convertListToString : "+"UserDAO.convertListToString: resultant String -- " + result);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".convertListToString : "+"UserDAO.convertListToString: resultant String -- " + result);
         return result;
 
     }
@@ -965,13 +971,13 @@ public class UserDAO {
      * Method for parsing identity object into user object
      */
     private List<User> parseOimUserManagementResultToUsers(OimUserManagementResult oimResult) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"parseOimUserManagementResultToUsers");
+        log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"parseOimUserManagementResultToUsers");
         List<User> userList = new ArrayList<User>();
         User user = new User();
         if (null != oimResult && null != oimResult.getWServiceStatus()) {
             if (oimResult.getWServiceStatus().equals("Error")) {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"oimResult.getOIMwServiceError():::" + oimResult.getOIMwServiceError());
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Inside error");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"oimResult.getOIMwServiceError():::" + oimResult.getOIMwServiceError());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"Inside error");
                 user.setStatus("Error");
                 if (null != oimResult.getOIMwServiceError() && oimResult.getOIMwServiceError().size() > 0) {
 
@@ -992,17 +998,17 @@ public class UserDAO {
                 return userList;
 
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Inside success");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"Inside success");
 
                 if (oimResult.getWServiceStatus().equals("Success") && oimResult.getWServiceResult().equals("NorecordFound")) {
 
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Inside success but zero results");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"Inside success but zero results");
 
                     return userList;
 
                 } else {
 
-                    System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Inside success more than 0 results " + oimResult.getOIMwServiceIdentityResult().size());
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"Inside success more than 0 results " + oimResult.getOIMwServiceIdentityResult().size());
                     int numberofUsers = 0;
                     for (Identity identityResult : oimResult.getOIMwServiceIdentityResult()) {
                         numberofUsers++;
@@ -1010,12 +1016,12 @@ public class UserDAO {
 
                         if (null != identityResult) {
                             user = new User();
-                            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"Displaying identity for search users"+displayIdentity(identityResult));
+                            log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"Displaying identity for search users"+displayIdentity(identityResult));
 
                             if (null != identityResult.getEmail()) {
                                 user.setUserID(identityResult.getEmail().trim());
                             }
-                            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".parseOimUserManagementResultToUsers : "+"identityResult.getEmail():<" + identityResult.getEmail() + ">");
+                            log.info(accessDC.getDisplayRecord() + this.getClass() +".parseOimUserManagementResultToUsers : "+"identityResult.getEmail():<" + identityResult.getEmail() + ">");
                             if (null != identityResult.getEmail()) {
                                 user.setEmailID(identityResult.getEmail().trim());
                             }

@@ -10,6 +10,10 @@ import java.util.Set;
 
 import java.util.TreeSet;
 
+import java.util.logging.Logger;
+
+import oracle.adf.share.logging.ADFLogger;
+
 import oracle.javatools.parser.java.v2.internal.compiler.Obj;
 
 public class BranchPlantBean extends ThreadSerialization{
@@ -21,6 +25,8 @@ public class BranchPlantBean extends ThreadSerialization{
     Customer brCustomer;
     String userRole;
     Integer idmCustomerID;
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
     public void setSelectBranchPlant(boolean selectBranchPlant) {
         this.selectBranchPlant = selectBranchPlant;
@@ -82,7 +88,7 @@ public class BranchPlantBean extends ThreadSerialization{
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println(AccessDataControl.getDisplayRecord()+"BranchPlantBean.equals : "+"Inside equals");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " BranchPlantBean.equals : "+"Inside equals");
         if(obj!= null) {
             if(obj instanceof BranchPlantBean) {
                 BranchPlantBean bp = (BranchPlantBean)obj;
@@ -93,7 +99,8 @@ public class BranchPlantBean extends ThreadSerialization{
                 }
             }    
         }
-        System.out.println(AccessDataControl.getDisplayRecord()+"BranchPlantBean.equals : "+"obj!= null"+obj!= null);
+        log.info(accessDC.getDisplayRecord() + this.getClass() +" BranchPlantBean.equals : "+"obj!= null" + obj);
+        
         return false;
         
     }

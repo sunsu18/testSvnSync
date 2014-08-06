@@ -71,7 +71,7 @@ public class HeatingDeviceInfo extends ThreadSerialization{
     public static void main(String[] args)
     {
         HeatingDeviceInfo t=new HeatingDeviceInfo();
-  //      System.out.println(AccessDataControl.getDisplayRecord()+"HeatingDeviceInfo.main : "+t);
+  
     }
 
 }

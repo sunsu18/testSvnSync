@@ -48,6 +48,8 @@ import oracle.jbo.ViewObject;
 public class AccessDataControl extends ThreadSerialization {
 
     private static final long serialVersionUID = -2965850154831147949L;
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
     public AccessDataControl() {
         super();
@@ -68,12 +70,12 @@ public class AccessDataControl extends ThreadSerialization {
             String error="";
             while(itr.hasNext()){
                 error=itr.next().toString();
-                //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
             }
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethod : Error occured " +error);
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.callAppModuleMethod : Error occured " +error);
             throw new Exception(error);
         } else {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethod : No Error Occured while calling method :" +methodName);
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.callAppModuleMethod : No Error Occured while calling method :" +methodName);
         }
     }
 
@@ -94,16 +96,16 @@ public class AccessDataControl extends ThreadSerialization {
      * @return
      */
     public static BindingContainer getBindings() {
-
+        AccessDataControl accessDC = new AccessDataControl();
         if (BindingContext.getCurrent().getCurrentBindingsEntry() == null) {// This code added 'cause
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getBindings: null one");  // in Partner Portal phase listener sometimes it
+            log.info(AccessDataControl.getDisplayRecord()  +"AccessDataControl.getBindings: null one");  // in Partner Portal phase listener sometimes it
             DCBindingContainer container = null;                            // finds BindingContext.getCurrent().getCurrentBindingsEntry()==null.
             BindingContext bcx = BindingContext.getCurrent();               // This doesnot happen for WsPortal.
             if (bcx != null) {
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getBindings: bcx not null one");
+                log.info(accessDC.getDisplayRecord()  +"AccessDataControl.getBindings: bcx not null one");
                 container = bcx.findBindingContainer("portal_partnerTemplatePageDef");
 
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getBindings: container" + container);
+               log.info(accessDC.getDisplayRecord() +"AccessDataControl.getBindings: container" + container);
                 return container;
             }
         }
@@ -125,7 +127,7 @@ public class AccessDataControl extends ThreadSerialization {
             returnMap = (Map<String, Object>)operationBinding.getResult();
         }
         else {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.populateComboBoxValues : operationBinding is NULL for methodName=<" + methodName + "> and paramMap=<" + paramMap + ">");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.populateComboBoxValues : operationBinding is NULL for methodName=<" + methodName + "> and paramMap=<" + paramMap + ">");
         }
         return returnMap;
     }
@@ -165,15 +167,15 @@ public class AccessDataControl extends ThreadSerialization {
         if (bindings != null) {
             operationBinding = bindings.getOperationBinding(methodName);
             if (operationBinding == null) {
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.bindClientMethodWithParameters : operationBinding is NULL");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.bindClientMethodWithParameters : operationBinding is NULL");
             }
             if (paramMap != null) {
                 bindParamList(paramMap, operationBinding);
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.bindClientMethodWithParameters : paramMap is NULL");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.bindClientMethodWithParameters : paramMap is NULL");
             }
         } else {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.bindClientMethodWithParameters : ERROR: Could not find Bindings");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.bindClientMethodWithParameters : ERROR: Could not find Bindings");
         }
         return operationBinding;
     }
@@ -233,9 +235,9 @@ public class AccessDataControl extends ThreadSerialization {
               String error="";
               while(itr.hasNext()){
                   error=itr.next().toString();
-                  //System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
+                  //log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"---inside iterator callAppModuleMethod----"+itr.next());
               }
-              System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.callAppModuleMethodWithResultSet : Error occured " +error);
+              log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.callAppModuleMethodWithResultSet : Error occured " +error);
               throw new Exception(error);
           }
 
@@ -320,7 +322,7 @@ public class AccessDataControl extends ThreadSerialization {
     }
 
     public String getFeatureValue(String methodName, String featureName, String featureValue, String controlAttr, String controlAttrValue) {
-        System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getFeatureValue : methodName=<" + methodName + "> featureName" + featureName + "> featureValue=<" +
+        log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.getFeatureValue : methodName=<" + methodName + "> featureName" + featureName + "> featureValue=<" +
                            featureValue + "> controlAttr=<" + controlAttr + "> controlAttrValue=<" + controlAttrValue + ">");
         HashMap paramMap = new HashMap();
 
@@ -331,11 +333,11 @@ public class AccessDataControl extends ThreadSerialization {
 
         OperationBinding operationBinding = bindClientMethodWithParameters(methodName, paramMap);
         if(operationBinding == null) {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getFeatureValue : operationBinding is Null");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.getFeatureValue : operationBinding is Null");
             return "";
         }
         else{
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.getFeatureValue : operationBinding is NOT Null");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.getFeatureValue : operationBinding is NOT Null");
             operationBinding.execute();
         return (String)operationBinding.getResult();
         }
@@ -422,13 +424,13 @@ public class AccessDataControl extends ThreadSerialization {
         RowSetIterator rowSetItr = null;
         ViewObject viewObjectRVO = null;
 
-        System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.executeWithParam : "+"------------------ACCESSDATACONTROL------------------- "
+        log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.executeWithParam : "+"------------------ACCESSDATACONTROL------------------- "
                                                                 +"Execute Params Method Name : " +executeParamsMethod);
         Iterator entries = paramMap.entrySet().iterator();
         while (entries.hasNext()) {
           Map.Entry thisEntry = (Map.Entry) entries.next();
 
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.executeWithParam : "+"Map Key = " +thisEntry.getKey() +" --  Map Value = " +thisEntry.getValue());
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.executeWithParam : "+"Map Key = " +thisEntry.getKey() +" --  Map Value = " +thisEntry.getValue());
         }
 
         callAppModuleMethod(executeParamsMethod, paramMap);
@@ -439,12 +441,12 @@ public class AccessDataControl extends ThreadSerialization {
             if (iterRVO != null) {
                 viewObjectRVO = iterRVO.getViewObject();
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.executeWithParam : "+"ITERATOR NOT FOUND iterator=<" + iterator + "> in executeParamsMethod=<" + executeParamsMethod + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.executeWithParam : "+"ITERATOR NOT FOUND iterator=<" + iterator + "> in executeParamsMethod=<" + executeParamsMethod + ">");
             }
             if (viewObjectRVO != null)
                 rowSetItr = viewObjectRVO.createRowSetIterator(null);
         } else {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.executeWithParam : "+"NO BINDINGS FOUND for executeParamsMethod=<" + executeParamsMethod + ">");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.executeWithParam : "+"NO BINDINGS FOUND for executeParamsMethod=<" + executeParamsMethod + ">");
         }
 
         return rowSetItr;
@@ -511,7 +513,7 @@ public class AccessDataControl extends ThreadSerialization {
             if (request != null) {
                 session = request.getSession(false);
                 if (session != null) {
-                    // System.out.println(AccessDataControl.getDisplayRecord()+".methodName : "+"Session id is "+session.getId());
+                    // log.info(accessDC.getDisplayRecord() + this.getClass() +".methodName : "+"Session id is "+session.getId());
                     sessionId = session.getId().substring(session.getId().length() - 8);
                     if (session.getAttribute(Constants.SESSION_USER_INFO) != null) {
                         User userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -570,13 +572,13 @@ public class AccessDataControl extends ThreadSerialization {
         //RowSetIterator rowSetItr = null;
         ViewObject viewObjectRVO = null;
 
-        System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"------------------ACCESSDATACONTROL-------------------"
+        log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.fetchVOForBindParams : "+"------------------ACCESSDATACONTROL-------------------"
                                                                 +" Execute Params Method Name : " +executeParamsMethod);
         Iterator entries = paramMap.entrySet().iterator();
         while (entries.hasNext()) {
           Map.Entry thisEntry = (Map.Entry) entries.next();
 
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"Map Key = " +thisEntry.getKey()
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.fetchVOForBindParams : "+"Map Key = " +thisEntry.getKey()
                                                                                                             +"-- Map Value = " +thisEntry.getValue());
         }
 
@@ -588,12 +590,12 @@ public class AccessDataControl extends ThreadSerialization {
             if (iterRVO != null) {
                 viewObjectRVO = iterRVO.getViewObject();
             } else {
-                System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"ITERATOR NOT FOUND iterator=<" + iterator + "> in executeParamsMethod=<" + executeParamsMethod + ">");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.fetchVOForBindParams : "+"ITERATOR NOT FOUND iterator=<" + iterator + "> in executeParamsMethod=<" + executeParamsMethod + ">");
             }
             //if (viewObjectRVO != null)
                // rowSetItr = viewObjectRVO.createRowSetIterator(null);
         } else {
-            System.out.println(AccessDataControl.getDisplayRecord()+"AccessDataControl.fetchVOForBindParams : "+"NO BINDINGS FOUND for executeParamsMethod=<" + executeParamsMethod + ">");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +"AccessDataControl.fetchVOForBindParams : "+"NO BINDINGS FOUND for executeParamsMethod=<" + executeParamsMethod + ">");
         }
 
         return viewObjectRVO;

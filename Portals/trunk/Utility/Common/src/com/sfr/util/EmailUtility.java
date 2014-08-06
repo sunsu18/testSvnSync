@@ -21,14 +21,18 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import oracle.adf.share.logging.ADFLogger;
+
 
 public class EmailUtility {
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    
     public EmailUtility() {
         super();
     }
     public static String sendEmail(String from,String to,String subject,String body,String protocol,String smtphost,String envProperty) throws MessagingException {
     // Add event code here...
-
+    AccessDataControl accessDC = new AccessDataControl();
     Properties props = new Properties();
     props.setProperty("mail.transport.protocol", protocol);
     props.setProperty("mail.host", smtphost);
@@ -40,7 +44,7 @@ public class EmailUtility {
 
 
         try {
-            System.out.println(AccessDataControl.getDisplayRecord()+"EmailUtility.sendEmail : "+"entered email utility");
+            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"entered email utility");
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(mailSession);
 
@@ -62,18 +66,18 @@ public class EmailUtility {
 
             messageBodyPart = new MimeBodyPart();           
             File file = new File(envProperty);
-            System.out.println(AccessDataControl.getDisplayRecord()+"EmailUtility.sendEmail : "+"Checking if file at " + envProperty + " does really exists =" + file.exists());
+            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"Checking if file at " + envProperty + " does really exists =" + file.exists());
             DataSource datasource = new FileDataSource(envProperty);
             messageBodyPart.setDataHandler(new DataHandler(datasource));
             messageBodyPart.setHeader("Content-ID", "<statoil2>");
             multipart.addBodyPart(messageBodyPart);
             message.setContent(multipart);
 
-            System.out.println(AccessDataControl.getDisplayRecord()+"EmailUtility.sendEmail : "+"between sending email ");
+            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"between sending email ");
           
             // Send message
             Transport.send(message);
-            System.out.println(AccessDataControl.getDisplayRecord()+"EmailUtility.sendEmail : "+"Sent message successfully....");
+            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }

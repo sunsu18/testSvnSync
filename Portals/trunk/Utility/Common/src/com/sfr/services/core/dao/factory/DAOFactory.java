@@ -33,12 +33,16 @@ import javax.sql.DataSource;
 
 import javax.xml.ws.BindingProvider;
 
+import oracle.adf.share.logging.ADFLogger;
+
 import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
 public class DAOFactory {
     
     public static ResourceBundle resourceBundle = null;
     public static DAOFactory factory = null;
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     
     
     public DAOFactory() {
@@ -48,7 +52,7 @@ public class DAOFactory {
     
 
     public static void setEndpointAddress(Object port, String newAddress) {
-
+        AccessDataControl accessDC = new AccessDataControl();
         assert port instanceof BindingProvider : "Doesn't appear to be a valid port";
         assert newAddress != null : "Doesn't appear to be a valid address";
 
@@ -57,7 +61,7 @@ public class DAOFactory {
         Map<String, Object> context = bp.getRequestContext();
 
         Object oldAddress = context.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.setEndpointAddress : " +
+        log.info(accessDC.getDisplayRecord()  + "DAOFactory.setEndpointAddress : " +
                            "context.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)" + context.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
         String newAddressValue = getPropertyValue(newAddress);
 
@@ -142,7 +146,7 @@ public class DAOFactory {
 
 
    /* public ProcessCustomerLoginToJDEE1BSSV getProcessCustomerLoginToJDEE1BSSV() {
-        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".getProcessCustomerLoginToJDEE1BSSV : " +
+        log.info(accessDC.getDisplayRecord() + this.getClass() + this.getClass() + ".getProcessCustomerLoginToJDEE1BSSV : " +
                            "inside getProcessCustomerLoginToJDEE1BSSV");
         Class<ProcessCustomerLoginToJDEE1BSSV> serviceEndPoint = ProcessCustomerLoginToJDEE1BSSV.class;
         String wsdlUrl = new DAOFactory().getPropertyValue(Constants.CUSTOMER_INFO_WSDL_URL);
@@ -155,7 +159,7 @@ public class DAOFactory {
         try {
             WebServiceProxy client = new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
             processCustomerLoginToJDEE1BSSV = client.getServicePort(portName, serviceEndPoint);
-            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".getProcessCustomerLoginToJDEE1BSSV : " +
+            log.info(accessDC.getDisplayRecord() + this.getClass() + this.getClass() + ".getProcessCustomerLoginToJDEE1BSSV : " +
                                "processCustomerLoginToJDEE1BSSV " + processCustomerLoginToJDEE1BSSV);
         } catch (Exception e) {
             e.printStackTrace();
@@ -481,7 +485,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getUDCInfo(String productCode, String userDefinedCodes, String userDefinedCode) throws SQLException, NamingException {
-
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String description = null;
 
@@ -497,7 +501,7 @@ public class DAOFactory {
         }
         else
         {
-            System.out.println(AccessDataControl.getDisplayRecord() + ".getUDCInfo" + "found multiple records for same combination:" + "productCode:" + 
+            log.info(accessDC.getDisplayRecord() + ".getUDCInfo" + "found multiple records for same combination:" + "productCode:" + 
                                productCode +"userDefinedCodes:" + userDefinedCodes + "userDefinedCode:" +userDefinedCode);
         }
 
@@ -514,6 +518,7 @@ public class DAOFactory {
      */
     public static String getSpecialHandlingCodeFromUDCByDescription(String productCode, String userDefinedCodes,
                                                                     String description) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String userref = null;
         List<String> params = new ArrayList<String>();
@@ -526,9 +531,9 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             userref = result.get(0);
         }else{
-            System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getSpecialHandlingCodeFromUDC : userref is null or might contain more than one record.");
+            log.info(accessDC.getDisplayRecord()  + "DAOFactory.getSpecialHandlingCodeFromUDC : userref is null or might contain more than one record.");
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getSpecialHandlingCodeFromUDC : productCode:" + productCode +
+        log.info(accessDC.getDisplayRecord()  + "DAOFactory.getSpecialHandlingCodeFromUDC : productCode:" + productCode +
                            " userDefinedCodes:" + userDefinedCodes + " description:" + description + ". Responde from DB is:" + userref);
         return userref;
     }
@@ -544,6 +549,7 @@ public class DAOFactory {
      */
     public static String getUserDefinedCodeFromUDCByDescription(String productCode, String userDefinedCodes,
                                                                     String description) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String userDefinedCode = null;
         List<String> params = new ArrayList<String>();
@@ -556,9 +562,9 @@ public class DAOFactory {
         if (result != null && result.size()>0) {
             userDefinedCode = result.get(0);
         }else{
-            System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getUserDefinedCodeFromUDCByDescription : userDefinedCode is null or might contain more than one record.");
+            log.info(accessDC.getDisplayRecord()  + "DAOFactory.getUserDefinedCodeFromUDCByDescription : userDefinedCode is null or might contain more than one record.");
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getUserDefinedCodeFromUDCByDescription : productCode:" + productCode +
+        log.info(accessDC.getDisplayRecord() + "DAOFactory.getUserDefinedCodeFromUDCByDescription : productCode:" + productCode +
                            " userDefinedCodes:" + userDefinedCodes + " description:" + description + ". userDefinedCode from DB is:" + userDefinedCode);
         return userDefinedCode;
     }
@@ -573,6 +579,7 @@ public class DAOFactory {
      */
     public static String getSpecialHandlingCodeFromUDC(String productCode, String userDefinedCodes, String userDefinedCode) throws SQLException,
                                                                                                                                    NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         System.out.println();
         List<String> result = null;
         String userref = null;
@@ -586,7 +593,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             userref = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getSpecialHandlingCodeFromUDC : productCode:" + productCode +
+        log.info(accessDC.getDisplayRecord() + "DAOFactory.getSpecialHandlingCodeFromUDC : productCode:" + productCode +
                            " userDefinedCodes:" + userDefinedCodes + " userDefinedCode:" + userDefinedCode + ". Responde from DB is:" + userref);
         return userref;
     }
@@ -599,6 +606,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getBranchPlantCountry(String branchPlantCode) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String country = null;
 
@@ -609,7 +617,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             country = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getBranchPlantCountry : " + "country in DAOFactory:" + country);
+        log.info(accessDC.getDisplayRecord()  + "DAOFactory.getBranchPlantCountry : " + "country in DAOFactory:" + country);
         return country;
     }
 
@@ -620,6 +628,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getDestinationCountry(String destination) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String country = null;
 
@@ -630,7 +639,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             country = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getDestinationCountry : " + "country in DAOFactory:" + country);
+        log.info(accessDC.getDisplayRecord() + "DAOFactory.getDestinationCountry : " + "country in DAOFactory:" + country);
         return country;
     }
     //TODO: use <code></code>
@@ -643,6 +652,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getPaymentMethod(String paymentCode) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String paymentMethod = null;
 
@@ -657,7 +667,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             paymentMethod = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getPaymentMethod : " + "paymentMethod in DAOFactory:" + paymentMethod);
+        log.info(accessDC.getDisplayRecord()  + "DAOFactory.getPaymentMethod : " + "paymentMethod in DAOFactory:" + paymentMethod);
         return paymentMethod;
     }
 
@@ -670,6 +680,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getSpecialHandlingCode(String paymentCode) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String specialHandlingCode = null;
 
@@ -684,7 +695,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             specialHandlingCode = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getSpecialHandlingCode : " + "specialHandlingCode in DAOFactory:" +
+        log.info(accessDC.getDisplayRecord() + "DAOFactory.getSpecialHandlingCode : " + "specialHandlingCode in DAOFactory:" +
                            specialHandlingCode);
         return specialHandlingCode;
     }
@@ -697,6 +708,7 @@ public class DAOFactory {
      * @throws NamingException
      */
     public static String getAirlineNumber(String branchPlantCountry, String shippingAddressNo) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         String airlineNo = null;
 
@@ -709,7 +721,7 @@ public class DAOFactory {
         if (result != null && !result.isEmpty()) {
             airlineNo = result.get(0);
         }
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getAirlineNumber : " + "airlineNo in DAOFactory:" + airlineNo);
+        log.info(accessDC.getDisplayRecord() + "DAOFactory.getAirlineNumber : " + "airlineNo in DAOFactory:" + airlineNo);
         return airlineNo;
     }
     
@@ -731,7 +743,7 @@ public class DAOFactory {
             ((BindingProvider)uCMCustomWeb).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, ucmPassword);
            
         } catch (Exception e) {
-            System.out.println(AccessDataControl.getDisplayRecord() +this.getClass() + ".getUCMService : " +"Exception");
+            log.info(accessDC.getDisplayRecord() + this.getClass() +this.getClass() + ".getUCMService : " +"Exception");
             e.printStackTrace();
 
         }
@@ -776,6 +788,7 @@ public class DAOFactory {
     }
 
     public static List<String> getSingleColumnDataFromFeature(String FEATURE_NAME, String FEATURE_VALUE, String CONTROL_ATTR, String CONTROL_ATTR_VALUE, String VALUE, String columnName) throws SQLException, NamingException {
+        AccessDataControl accessDC = new AccessDataControl();
         List<String> result = null;
         System.out.println("DAOFactory.getSingleColumnDataFromFeature before mapping:FEATURE_NAME<"+FEATURE_NAME+">FEATURE_VALUE<"+FEATURE_VALUE+">CONTROL_ATTR<"+CONTROL_ATTR+">CONTROL_ATTR_VALUE<"+CONTROL_ATTR_VALUE+">VALUE<"+VALUE+">columnName<"+columnName);
 
@@ -798,7 +811,7 @@ public class DAOFactory {
         
         
         result = executeSqlStmt("select * from prt_gen_feature where feature_name like ? and feature_value like ? and control_attr like ? and control_attr_value like ? and value like ?", params, columnName);
-        System.out.println(AccessDataControl.getDisplayRecord() + "DAOFactory.getBranchPlantCountry : " + "country in DAOFactory:" + columnName);
+        log.info(accessDC.getDisplayRecord() +  "DAOFactory.getBranchPlantCountry : " + "country in DAOFactory:" + columnName);
         return result;
     }
     

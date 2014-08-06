@@ -27,7 +27,9 @@ public class BrowserUtility {
      * ADF Logger declaration
      * Author : CKH Balu
      */
-    public static final ADFLogger LOGGER = ADFLogger.createADFLogger(BrowserUtility.class);
+    //public static final ADFLogger LOGGER = ADFLogger.createADFLogger(BrowserUtility.class);
+    public static final ADFLogger LOGGER = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     
     
     
@@ -47,7 +49,7 @@ public class BrowserUtility {
     
     
     public static void checkUserBrowser() {         
-       
+        AccessDataControl accessDC = new AccessDataControl();
         LOGGER.info("CheckUserBrowser() method execution starts here......");
        
         RequestContext requestCtx = RequestContext.getCurrentInstance();
@@ -66,37 +68,37 @@ public class BrowserUtility {
          LOGGER.info("Browser Platform Version: "+platformVersion);
          LOGGER.info("===================================================");
         
-        System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : Your browser information: \n"
+        LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : Your browser information: \n"
         +"====== \n Browser: "+browser+"\n Browser Version : "+version
         +"\n Browser Platform: "+platform+"Browser Platform Version: "+platformVersion+"======");
         
         
         if ( "webkit".equalsIgnoreCase(browser) && (StringUtils.substringBefore(version, ".")).equalsIgnoreCase("535") ) {
             LOGGER.info("It is Chrome browser");
-            System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"It is Chrome browser");
+            LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"It is Chrome browser");
             refreshManually();
         }
         else if ("webkit".equalsIgnoreCase(browser) && (StringUtils.substringBefore(version, ".")).equalsIgnoreCase("534") ) {
             LOGGER.info("It is Safari browser");
-            System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"It is Safari browser");
+            LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"It is Safari browser");
             refreshManually();            
         }
         else if ("ie".equalsIgnoreCase(browser) ) {
             if ("7".equalsIgnoreCase(StringUtils.substringBefore(version, "."))) {
                 LOGGER.info("Internet Explorer 7");
-                System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 7");
+                LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 7");
             }
             else if ("8".equalsIgnoreCase(StringUtils.substringBefore(version, "."))) {
                 LOGGER.info("Internet Explorer 8");
-                System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 8");
+                LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 8");
             }
             else if ("9".equalsIgnoreCase(StringUtils.substringBefore(version, "."))) {
                 LOGGER.info("Internet Explorer 9");
-                System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 9");
+                LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"Internet Explorer 9");
             }
             else {
                 LOGGER.info("New version of IE");
-                System.out.println(AccessDataControl.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"New version of IE");
+                LOGGER.info(accessDC.getDisplayRecord()+"BrowserUtility.checkUserBrowser : "+"New version of IE");
             } 
             refreshManually();
         }

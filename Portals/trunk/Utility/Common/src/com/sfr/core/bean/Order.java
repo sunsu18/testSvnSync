@@ -13,6 +13,8 @@ import java.util.List;
 
 import java.util.Date;
 
+import oracle.adf.share.logging.ADFLogger;
+
 public class Order extends BaseBean {
 
     private static final long serialVersionUID = 1L;
@@ -68,12 +70,14 @@ public class Order extends BaseBean {
     private boolean transactionTypeCreditFlag;
     private String hasMoreRecords;
     private boolean extraCharges;// used for Reseller and Webshop
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     public Order() {
         super();
     }
 
     public Order(Integer orderNumber, Address deliveryAddress, List<OrderedProduct> orderedProductList) {
-        System.out.println(AccessDataControl.getDisplayRecord()+"Order.Order : "+"---size---" + orderedProductList.size());
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " Order.Order : "+"---size---" + orderedProductList.size());
         this.orderNumber = orderNumber;
         //this.deliveryAddress = deliveryAddress;
         this.orderedProductList = orderedProductList;

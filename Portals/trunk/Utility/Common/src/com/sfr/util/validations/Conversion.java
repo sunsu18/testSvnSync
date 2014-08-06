@@ -80,7 +80,7 @@ public class Conversion {
 
     public String getLangForWERCSURL(String countryCode) {
 
-//        System.out.println(AccessDataControl.getDisplayRecord()+"Conversion.getLangForWERCSURL : "+"countryCode::::"+countryCode);
+
         String lang = "";
 
        if (countryCode != null && !countryCode.isEmpty()){
@@ -105,8 +105,7 @@ public class Conversion {
     }
 
     public static String getLangFromCountryCode(String countryCode) {
-//        System.out.print("Conversion.getLangFromCountryCode : " +
-//                         "countryCode:<" + countryCode + ">");
+
         String lang = Constants.LANGUAGE_SWEDISH;
         if (countryCode != null && !countryCode.isEmpty()) {
             Map<String, String> paramMap = new HashMap<String, String>();
@@ -121,7 +120,7 @@ public class Conversion {
 
             lang = paramMap.get(countryCode);
         }
-//        System.out.println("lang=<" + lang + ">");
+
         return lang;
     }
 }

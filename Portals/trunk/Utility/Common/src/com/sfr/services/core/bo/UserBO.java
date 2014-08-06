@@ -13,13 +13,17 @@ import javax.naming.NamingException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
+import oracle.adf.share.logging.ADFLogger;
+
 public class UserBO {
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     public UserBO() {
     }
     
     public BaseBean changePassword(String userID, String oldPassword, String newPassword) {
         UserDAO userDAO = new UserDAO();
-        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".changePassword : " + "in change password of BO");
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .changePassword : " + "in change password of BO");
         return userDAO.changePasswordWS(userID, oldPassword, newPassword);
     }
 
@@ -39,7 +43,7 @@ public class UserBO {
     }
 
     public List<User> searchUser(String customerId) throws NumberFormatException {
-        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".searchUser : " + "UserBo cust id " + customerId);
+        log.info(accessDC.getDisplayRecord() + this.getClass() + " .searchUser : " + "UserBo cust id " + customerId);
         UserDAO userDAO = new UserDAO();
         return userDAO.searchUserWS(customerId);
     }
@@ -48,7 +52,7 @@ public class UserBO {
         UserDAO userDAO = new UserDAO();
         User userBean = new User();
         try {
-            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + ".searchUserWithUserId : " + "user id in BO " + userId);
+            log.info(accessDC.getDisplayRecord() + this.getClass() + " .searchUserWithUserId : " + "user id in BO " + userId);
             userBean = userDAO.searchUserWithUserId(userId);
         } catch (Exception e) {
             e.printStackTrace();

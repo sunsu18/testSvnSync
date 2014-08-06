@@ -233,6 +233,6 @@ public class TankInfo extends ThreadSerialization{
     public static void main(String[] args)
     {
         TankInfo t=new TankInfo();
-    //    System.out.println(AccessDataControl.getDisplayRecord()+"TankInfo.main : "+t);
+   
     }
 }

@@ -6,14 +6,19 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import oracle.adf.share.logging.ADFLogger;
+
 public class ConfigurationUtility {
+    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
+    
     public ConfigurationUtility() {
         super();
     }
     
     public static String getPropertyValue(String PName) {
             Properties propertiesFile = new Properties();
-//        System.out.println(System.getenv("ENV_PROPERTIES_PATH"));
+
         String key = "";
         try {
             if (System.getenv("ENV_PROPERTIES_PATH") != null) {
@@ -24,12 +29,12 @@ public class ConfigurationUtility {
                 while (e.hasMoreElements()) {
                     key = (String)e.nextElement();
                     if (key.equalsIgnoreCase(PName)) {
-//                        System.out.println(key + " = " + propertiesFile.getProperty(key));
+
                         return propertiesFile.getProperty(key);
                     }
                 }
             } else {
-                System.out.println("************************ CANNOT READ ENVIRONMENT PROPERTIES ******************");
+                log.info("************************ CANNOT READ ENVIRONMENT PROPERTIES ******************");
             }
         } catch (IOException e) {
             e.printStackTrace();
