@@ -8,7 +8,7 @@
     <default-activity id="__1">AccountSummary</default-activity>
     <managed-bean id="__4">
       <managed-bean-name id="__5">AccountSummaryBean</managed-bean-name>
-      <managed-bean-class id="__3">com.sfr.engage.accountsummarytaskflow.AccountSummary</managed-bean-class>
+      <managed-bean-class id="__3">com.sfr.engage.accountsummarytaskflow.AccountSummaryBean</managed-bean-class>
       <managed-bean-scope id="__2">pageFlow</managed-bean-scope>
     </managed-bean>
     <view id="AccountSummary">

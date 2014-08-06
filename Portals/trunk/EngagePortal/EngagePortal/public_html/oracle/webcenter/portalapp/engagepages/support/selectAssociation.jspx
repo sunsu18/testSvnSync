@@ -16,7 +16,11 @@
                 <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground">
                  <!--<af:region value="#{bindings.SelectAssociationTaskFlow1.regionModel}"
                    id="r1"/>-->
-                  <af:region value="#{bindings.AssociationSelection1.regionModel}"
+                  <!--<af:region value="#{bindings.AssociationSelection1.regionModel}"
+                             id="r1"/>-->
+                  <!--<af:region value="#{bindings.AssociationSelection2.regionModel}"
+                             id="r1"/>-->
+                  <af:region value="#{bindings.AssociationSelectionTaskFlow1.regionModel}"
                              id="r1"/>
                 </af:panelGroupLayout>
               </cust:panelCustomizable>

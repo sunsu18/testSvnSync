@@ -211,6 +211,7 @@ public class MyPageListener implements PagePhaseListener {
                     //
                     if (securityContext.isAuthenticated() && currentViewId.contains("home") && user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) && session.getAttribute("IS_SELECT_ASSOCIATION_DONE") == null) {
                         session.setAttribute("IS_SELECT_ASSOCIATION_DONE", "true");
+                        session.setAttribute("CSR", true);
                         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID, "/faces/card/support/selectAssociation");
                         System.out.println("redirect to select association");
                         String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
@@ -393,6 +394,14 @@ public class MyPageListener implements PagePhaseListener {
                                                         int idlist = 0;
                                                         System.out.println(accessDC.getDisplayRecord()+this.getClass()+" TEMP ------------->" + user.getRoleList().get(i).getIdString().size());
                                                         System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Partner id " + partid + " " + user.getRoleList().get(i).getIdString().get(idlist));
+                                                        
+                                                            if(session.getAttribute("partnerLang")== null)
+                                                            session.setAttribute("partnerLang", user.getRoleList().get(i).getIdString().get(0).toString().substring(0,2));
+                                                            if(session.getAttribute(Constants.userLang) == null)
+                                                            session.setAttribute(Constants.userLang, user.getRoleList().get(i).getIdString().get(0).toString().substring(0,2));
+                                                            
+                                                            System.out.println(accessDC.getDisplayRecord()+this.getClass() + " partner lang in session setted as "+ session.getAttribute("partnerLang"));
+                                                        
 
                                                         int pid_start = user.getRoleList().get(i).getIdString().get(partid).indexOf("PP");
                                                         //                                                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+"pid start index " + pid_start);
@@ -473,8 +482,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
 
                                                                             String AccountID = acc.getAccountNumber();
-                                                                            bindings =
-                                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                                            bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                            if(bindings == null || bindings.findIteratorBinding("PrtCardgroupVO1Iterator") == null)
+                                                                            {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
+                                                                            
                                                                             DCIteratorBinding iter2;
                                                                             if (bindings != null) {
                                                                                 iter2 = bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
@@ -483,6 +494,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                 System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Error : PrtCardgroupVO1Iterator is null");
                                                                                 iter2 = null;
                                                                             }
+                                                                            
+                                                                          if(iter2!=null)
+                                                                          {
                                                                             ViewObject vo2 = iter2.getViewObject();
 
 
@@ -516,10 +530,12 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                                                                                     cardgrp = new CardGroupInfo();
                                                                                     cardlist = new ArrayList<CardInfo>();
+                                                                                    unblockedcardlist = new ArrayList<CardInfo>();
+                                                                                    
                                                                                     PrtCardgroupVORowImpl currRowcardgrp = (PrtCardgroupVORowImpl)vo2.next();
 
                                                                                     if (currRowcardgrp != null) {
-                                                                                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
+                                                                                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
 
                                                                                         if (currRowcardgrp.getCardgroupSeq() != null) {
                                                                                             System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Cardgroup id is " +
@@ -528,7 +544,17 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                             cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
                                                                                             cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
                                                                                             cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
-                                                                                            cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
+                                                                                            
+                                                                                            if (currRowcardgrp.getCardgroupDescription() != null) {
+                                                                                                                              cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
+                                                                                                                              cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString())+"-"+ currRowcardgrp.getCardgroupDescription().toString());
+                                                                                                                              System.out.println("------->" + currRowcardgrp.getCardgroupDescription().toString());
+                                                                                                                          } else {
+                                                                                                                              cardgrp.setCardGroupName(cardgrp.getCardGroupID());
+                                                                                                                              cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                                                                                                          }
+                                                                                            
+                                                                                            
                                                                                             cardgrp.setCardGroupOverview(true);
 
                                                                                         }
@@ -558,8 +584,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                         String CardgroupMainType = cardgrp.getCardGroupMainType().toString();
                                                                                         String CardgroupSubType = cardgrp.getCardGroupSubType().toString();
                                                                                         String CardgroupSeq = cardgrp.getCardGroupSeq().toString();
-                                                                                        bindings =
-                                                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+                                                                                        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                                                if(bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null)
+                                                                                                {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
                                                                                         DCIteratorBinding iter3;
                                                                                         if (bindings != null) {
                                                                                             iter3 = bindings.findIteratorBinding("PrtCardVO1Iterator");
@@ -568,6 +596,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                             System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Error : PrtCardVO1Iterator is null");
                                                                                             iter3 = null;
                                                                                         }
+                                                                                        
+                                                                                        if(iter3!= null)
+                                                                                        {
                                                                                         ViewObject vo3 = iter3.getViewObject();
 
                                                                                         vo3 = iter3.getViewObject();
@@ -615,15 +646,22 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                                 PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)vo3.next();
 
                                                                                                 if (currRowcard != null) {
-                                                                                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
+                                                                                                    //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
 
                                                                                                     if (currRowcard.getPrtCardPk() != null) {
-                                                                                                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Card id is " +
-                                                                                                                           currRowcard.getPrtCardPk());
+                                                                                                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Card id is " +
+                                                                                                        //                   currRowcard.getPrtCardPk());
                                                                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
 
 
                                                                                                     }
+                                                                                                    
+                                                                                                    if (currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+
+                                                                                                                   } else if (currRowcard.getCardExpiry() == null || currRowcard.getCardExpiry().after(new Date())) {
+                                                                                                                       unblockedcardlist.add(card);
+                                                                                                                   }
+                                                                                                    
                                                                                                 if (currRowcard.getCardEmbossNum() != null) {
                                                                                                     card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
                                                                                                 }
@@ -656,11 +694,12 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                             }
 
                                                                                             cardgrp.setCard(cardlist);
+                                                                                            cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                                             cardgrouplist.add(cardgrp);
 
                                                                                         }
 
-
+                                                                                    }
                                                                                         //                                                                        cardgrp.setCard(cardlist);
                                                                                         //                                                                        cardgrouplist.add(cardgrp);
 
@@ -682,7 +721,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                 //  part.setAccountList(accountlist);
                                                                             }
 
-
+                                                                        }
                                                                             //acc.setCardGroup(cardgrouplist);
                                                                             //AccountInfo accountInterchange = new AccountInfo();
 
@@ -725,6 +764,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                                                                         cardgrp = new CardGroupInfo();
                                                                         cardlist = new ArrayList<CardInfo>();
+                                                                        unblockedcardlist = new ArrayList<CardInfo>();
+                                                                        
                                                                         String accountId_cardVO = "";
 
 
@@ -742,6 +783,15 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                         cardgrp.setCardGroupID((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
                                                                         cardgrp.setCardGroupName(getcardGroupName(CardgroupMainType, CardgroupSubType,
                                                                                                                   CardgroupSeq));
+                                                                        if(cardgrp.getCardGroupName()!=null)                                 
+                                                                        {
+                                                                        cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType)).concat(CardgroupSeq)+"-"+cardgrp.getCardGroupName());
+                                                                        }
+                                                                        else
+                                                                                                     
+                                                                        cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
+                                                                                                     
+                                                                       
                                                                         cardgrp.setCardGroupOverview(true);
 
 
@@ -751,7 +801,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
                                                                         //Execute CardgroupVO to fetch corresponding Account number
 
-                                                                        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+                                                                        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                                if(bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null)
+                                                                                {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
                                                                         DCIteratorBinding iter3;
                                                                         if (bindings != null) {
                                                                             iter3 = bindings.findIteratorBinding("PrtCardVO1Iterator");
@@ -760,6 +813,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                             System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Error : PrtCardVO1Iterator is null");
                                                                             iter3 = null;
                                                                         }
+                                                                        
+                                                                        
+                                                                       if(iter3!=null) {
                                                                         ViewObject vo3 = iter3.getViewObject();
 
                                                                         vo3 = iter3.getViewObject();
@@ -797,25 +853,45 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                 PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)vo3.next();
 
                                                                                 if (currRowcard != null) {
-                                                                                    System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
+                                                                                    //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
 
                                                                                     if (currRowcard.getPrtCardPk() != null) {
-                                                                                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Card id is " + currRowcard.getPrtCardPk());
+                                                                                        //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Card id is " + currRowcard.getPrtCardPk());
                                                                                         card.setCardID(currRowcard.getPrtCardPk().toString());
 
                                                                                         //                                                                        accountId_cardVO =
                                                                                         //                                                                                currRowcard.getAccountId().toString();
                                                                                     }
+                                                                                    
+                                                                                    if (currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+
+                                                                                                   } else if (currRowcard.getCardExpiry() == null || currRowcard.getCardExpiry().after(new Date())) {
+                                                                                                       unblockedcardlist.add(card);
+                                                                                                   }
                                                                                 if (currRowcard.getCardEmbossNum() != null) {
                                                                                     card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                    card.setDisplayCardNumber("XXXX" + currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length()-4, currRowcard.getCardEmbossNum().toString().length()));
                                                                                 }
 
                                                                                 if (currRowcard.getCardTextline2() != null) {
                                                                                     card.setCardTextline2(currRowcard.getCardTextline2().toString());
                                                                                 }
 
+                                                                                    if(currRowcard.getBlockAction() != null)
+                                                                                    card.setBlockAction(currRowcard.getBlockAction().toString());
+
+                                                                                    if(currRowcard.getBlockAction() != null && currRowcard.getBlockAction().equalsIgnoreCase("1") || currRowcard.getBlockAction().equalsIgnoreCase("0")) {
+                                                                                        if((currRowcard.getCardExpiry() != null && currRowcard.getCardExpiry().before(new Date())))
+                                                                                        {
+                                                                                            card.setBlockAction("2");
+
+                                                                                        }
+
+
+                                                                                    }
+
                                                                                     if (currRowcard.getAccountId() != null) {
-                                                                                        System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Account Id is " + currRowcard.getAccountId());
+                                                                                       // System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Account Id is " + currRowcard.getAccountId());
                                                                                         acc.setAccountNumber(currRowcard.getAccountId().toString());
                                                                                     }
 
@@ -847,6 +923,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                         if (!addflagaccount && accountlist.size() > 0) {
                                                                             if (createCardGroupList) {
                                                                                 cardgrp.setCard(cardlist);
+                                                                                System.out.println("unblocked list " + unblockedcardlist.size());
+                                                                                cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                                 cardgrp.setCardGroupOverview(true);
                                                                                 cardgrouplist = new ArrayList<CardGroupInfo>();
                                                                                 cardgrouplist.add(cardgrp);
@@ -919,6 +997,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                         if (accountlist.size() == 0)
                                                                         {
                                                                             cardgrp.setCard(cardlist);
+                                                                            System.out.println("unblocked list " + unblockedcardlist.size());
+                                                                            cardgrp.setUnblockedCardList(unblockedcardlist);
                                                                             cardgrp.setCardGroupOverview(true);
                                                                             cardgrouplist = new ArrayList<CardGroupInfo>();
                                                                             cardgrouplist.add(cardgrp);
@@ -929,6 +1009,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                             part.setCompanyOverview(false);
                                                                             //partnerListSession.add(part);
                                                                         }
+                                                                        
+                                                                                                                                                              }
                                                                     }
                                                                 }
                                                             idlist++;
@@ -949,6 +1031,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                         new ArrayList<CardInfo>();
 
                                                     System.out.println(accessDC.getDisplayRecord()+this.getClass()+"TEMP ------------->" + user.getRoleList().get(i).getIdString().size());
+                                                    DCBindingContainer bindings;
                                                     do {
                                                         executeEmp = false;
                                                         System.out.println(accessDC.getDisplayRecord()+this.getClass()+" User is B2B Employee");
@@ -971,8 +1054,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                         if (partnerId != null)
                                                             if (partnerId.equals(pid)) {
 
-                                                                DCBindingContainer bindings =
-                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+
+                                                                bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                        if(bindings == null || bindings.findIteratorBinding("PrtCardVO1Iterator") == null)
+                                                                        {bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();}
                                                                 DCIteratorBinding iter3;
                                                                 if (bindings != null) {
                                                                     iter3 = bindings.findIteratorBinding("PrtCardVO1Iterator");
@@ -981,6 +1066,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                     System.out.println(accessDC.getDisplayRecord()+this.getClass()+" Error : PrtCardVO1Iterator is null");
                                                                     iter3 = null;
                                                                 }
+                                                                
+                                                                
+                                                                if(iter3!=null){
                                                                 ViewObject vo3 = iter3.getViewObject();
 
                                                                 if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
@@ -1006,7 +1094,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                         card = new CardInfo();
                                                                         PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)vo3.next();
                                                                         if (currRowcard != null) {
-                                                                            System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
+                                                                            //System.out.println(accessDC.getDisplayRecord()+this.getClass()+" row != null");
 
                                                                             if (currRowcard.getPrtCardPk() != null) {
                                                                                 //System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Card id is " + currRowcard.getPrtCardPk());
@@ -1033,9 +1121,25 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                                 cardgrp.setCardGroupName(getcardGroupName(currRowcard.getCardgroupMainType().toString(),
                                                                                                                           currRowcard.getCardgroupSubType().toString(),
                                                                                                                           currRowcard.getCardgroupSeq().toString()));
+                                                                                
+                                                                                if(cardgrp.getCardGroupName()!=null)
+                                                                                    cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString())+"-"+cardgrp.getCardGroupName());
+                                                                                else
+                                                                                    cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString()));
+                                                                                
+                                                                                
                                                                                 acc.setAccountNumber(currRowcard.getAccountId().toString());
                                                                                 part.setPartnerValue(currRowcard.getPartnerId().toString());
                                                                                 part.setPartnerName(getPartnerName(currRowcard.getPartnerId().toString()));
+                                                                                if(session.getAttribute("partnerLang")!=null)
+                                                                                {part.setCountry((String)session.getAttribute("partnerLang"));}
+                                                                                else
+                                                                                { System.out.println(accessDC.getDisplayRecord()+this.getClass() + " partner language null in session");
+                                                                                    part.setCountry(null);
+                                                                                }
+                                                                                //TODO : Need to recheck why this was not present on first place 
+                                                                                //part.setCompanyOverview(false);
+                                                                                
                                                                             }
                                                                         }
                                                                     }
@@ -1138,6 +1242,7 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
                                                                         // partnerListSession.add(part);
                                                                     }
                                                                 }
+                                                            }
                                                             }
                                                         idlist++;
                                                     } while (idlist < user.getRoleList().get(i).getIdString().size());
@@ -1840,7 +1945,10 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
 
         //                rr= new Roles();
         //                idString = new ArrayList<String>();
-        rr.setRoleName(Constants.ROLE_WCP_CARD_CSR);
+        
+        
+        
+        rr.setRoleName(Constants.ROLE_WCP_CARD_ADMIN);
         idString.add("NOPP26773218");
         idString.add("DKPP26773219");
         rr.setIdString(idString);
@@ -1918,8 +2026,8 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2, pid
         //                user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN + "|" +
         //                               Constants.ROLE_WCP_CARD_B2B_EMP);
 
-//        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
-        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
+        user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN);
+//        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
 

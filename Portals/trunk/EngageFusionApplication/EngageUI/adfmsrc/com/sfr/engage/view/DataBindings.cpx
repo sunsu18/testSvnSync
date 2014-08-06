@@ -35,7 +35,7 @@
     <page path="/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummary.jsff"
           usageId="com_sfr_engage_view_AccountSummaryPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/PricesListPage.jsff" usageId="com_sfr_engage_view_PricesListPagePageDef"/>
-    <page path="/WEB-INF/com/sfr/engage/AssociationSelection/Association.jsff"
+    <page path="/WEB-INF/com/sfr/engage/associationselectiontaskflow/Association.jsff"
           usageId="com_sfr_engage_view_AssociationPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
@@ -65,7 +65,7 @@
           path="com.sfr.engage.accountsummarytaskflow.AccountSummaryPageDef"/>
     <page id="com_sfr_engage_view_PricesListPagePageDef" path="com.sfr.engage.pricelisttaskflow.PricesListPagePageDef"/>
     <page id="com_sfr_engage_view_AssociationPageDef"
-          path="com.sfr.engage.AssociationSelection.AssociationPageDef"/>
+          path="com.sfr.engage.associationselectiontaskflow.AssociationPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
