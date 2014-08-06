@@ -107,39 +107,81 @@
     -->
     <sequence name="main">
         <!-- Receive input from requestor. (Note: This maps to operation defined in SendNotification.wsdl) -->
-        <receive name="ReceiveSOARuleEngineNotificationJMSConsumerV1"
-                 createInstance="yes"
-                 partnerLink="SOARuleEngineNotificationJMSConsumerV1"
-                 portType="ns5:Consume_Message_ptt"
-                 operation="Consume_Message"
-                 variable="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"/>
-        <receive name="receiveInput" partnerLink="sendnotification_client"
-                 portType="client:SendNotification" operation="process"
-                 variable="inputVariable" createInstance="no">
+        <sequence name="Sequence8">
+            <receive name="ReceiveSOARuleEngineNotificationJMSConsumerV1"
+                     createInstance="yes"
+                     partnerLink="SOARuleEngineNotificationJMSConsumerV1"
+                     portType="ns5:Consume_Message_ptt"
+                     operation="Consume_Message"
+                     variable="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"/>
+            <assign name="AssignNotificationData">
+                <copy>
+                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</from>
+                    <to>$inputVariable.payload</to>
+                </copy>
+                <copy>
+                    <from>'Harneet.kochhar@lntinfotech.com'</from>
+                    <to>$EmailID</to>
+                </copy>
+                <copy>
+                    <from>'RuleEngineTestMail'</from>
+                    <to>$Subject</to>
+                </copy>
+                <copy>
+                    <from>'RuleEngineTestBody'</from>
+                    <to>$Body</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:EmailID</from>
+                    <to>$EmailID</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:NotificationSubject</from>
+                    <to>$Subject</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:NotificationBody</from>
+                    <to>$Body</to>
+                </copy>
+            </assign>
+        </sequence>
+        <sequence name="Sequence9">
             <bpelx:skipCondition>true()</bpelx:skipCondition>
-        </receive>
-        <assign name="AssignNotificationData">
-            <copy>
-                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</from>
-                <to>$inputVariable.payload</to>
-            </copy>
-            <copy>
-                <from>'Harneet.kochhar@lntinfotech.com'</from>
-                <to>$EmailID</to>
-            </copy>
-            <copy>
-                <from>'RuleEngineTestMail'</from>
-                <to>$Subject</to>
-            </copy>
-            <copy>
-                <from>'RuleEngineTestBody'</from>
-                <to>$Body</to>
-            </copy>
-            <copy>
-                <from>'292001@lntinfotech.com'</from>
-                <to>$EmailCC</to>
-            </copy>
-        </assign>
+            <receive name="receiveInput" partnerLink="sendnotification_client"
+                     portType="client:SendNotification" operation="process"
+                     variable="inputVariable" createInstance="no"/>
+            <assign name="AssignNotificationData"
+                    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                <copy>
+                    <from>$inputVariable.payload</from>
+                    <to>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</to>
+                </copy>
+                <copy>
+                    <from>'Harneet.kochhar@lntinfotech.com'</from>
+                    <to>$EmailID</to>
+                </copy>
+                <copy>
+                    <from>'RuleEngineTestMail'</from>
+                    <to>$Subject</to>
+                </copy>
+                <copy>
+                    <from>'RuleEngineTestBody'</from>
+                    <to>$Body</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:EmailID</from>
+                    <to>$EmailID</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:NotificationSubject</from>
+                    <to>$Subject</to>
+                </copy>
+                <copy ignoreMissingFromData="yes">
+                    <from>$inputVariable.payload/ns2:NotificationBody</from>
+                    <to>$Body</to>
+                </copy>
+            </assign>
+        </sequence>
         <scope name="Scope1">
             <bpelx:annotation>
                 <bpelx:general>
@@ -153,6 +195,7 @@
                           messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
             </variables>
             <sequence name="Sequence6">
+                <bpelx:skipCondition>not($inputVariable.payload/ns2:RuleID) or not($inputVariable.payload/ns2:SubscriptionID)</bpelx:skipCondition>
                 <assign name="AssignCreateNotificationHistorySOADBAdapter">
                     <copy>
                         <from>$inputVariable.payload/ns2:SubscriptionID</from>
@@ -278,27 +321,27 @@
                                         <sequence name="Sequence7">
                                             <assign name="Assign1">
                                                 <copy>
-                                                    <from>'1'</from>
+                                                    <from>$inputVariable.payload/ns2:RuleID</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:RuleID</to>
                                                 </copy>
                                                 <copy>
-                                                    <from>'1'</from>
+                                                    <from>$inputVariable.payload/ns2:SubscriptionID</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:SubscriptionID</to>
                                                 </copy>
                                                 <copy>
-                                                    <from>'EXCEL'</from>
+                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ConversionType</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:OutputFormatType</to>
                                                 </copy>
-                                                <copy>
-                                                    <from>'1'</from>
+                                                <copy ignoreMissingFromData="yes">
+                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ReportHeader</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportHeader</to>
                                                 </copy>
                                                 <copy>
                                                     <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:base64BinaryData</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportData</to>
                                                 </copy>
-                                                <copy>
-                                                    <from>'2'</from>
+                                                <copy ignoreMissingFromData="yes">
+                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ReportTrailer</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportTrailer</to>
                                                 </copy>
                                             </assign>
