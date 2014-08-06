@@ -47,7 +47,9 @@ public class PartnerInfo implements Comparable<PartnerInfo>,Serializable {
      * @param accountList
      */
     public void setAccountList(List<AccountInfo> accountList) {
-        Collections.sort(accountList); // Always sort the AccountList by Account Number
+        
+        /* Always sort the AccountList by Account Number */
+        Collections.sort(accountList); 
         this.accountList = accountList;
     }
 

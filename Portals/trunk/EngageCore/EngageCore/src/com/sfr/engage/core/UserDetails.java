@@ -1,30 +1,20 @@
 package com.sfr.engage.core;
 
-public class UserDetails {
+import java.io.Serializable;
+
+public class UserDetails implements Serializable {
+    @SuppressWarnings("compatibility:-2043160001042835794")
+    private static final long serialVersionUID = 1L;
+
     public UserDetails() {
         super();
     }
-    
-    public String firstname;
-    public String lastname;
-    public String useremail;
-    public String partnerids;
 
-    public void setUseremail(String useremail) {
-        this.useremail = useremail;
-    }
+    private String firstname;
+    private String lastname;
+    private String useremail;
+    private String partnerids;
 
-    public String getUseremail() {
-        return useremail;
-    }
-
-    public void setPartnerids(String partnerids) {
-        this.partnerids = partnerids;
-    }
-
-    public String getPartnerids() {
-        return partnerids;
-    }
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -40,5 +30,21 @@ public class UserDetails {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
+    }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public void setPartnerids(String partnerids) {
+        this.partnerids = partnerids;
+    }
+
+    public String getPartnerids() {
+        return partnerids;
     }
 }

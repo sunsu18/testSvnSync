@@ -11,7 +11,7 @@ import java.util.List;
  *  1. ADD Class level and complete method level JAVA DOC toString() method
  *  2. Override toString() method
  */
-public class Account implements Comparable<Account>,Serializable {
+public class Account implements Comparable<Account>, Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private String accountNumber;
