@@ -24,6 +24,10 @@
     <param-name>oracle.adf.view.rich.security.FRAME_BUSTING</param-name>
     <param-value>never</param-value>
   </context-param>
+   <context-param>
+     <param-name>com.sun.faces.sendPoweredByHeader</param-name>
+     <param-value>false</param-value>
+  </context-param>
   <context-param>
     <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS</param-name>
     <param-value>50</param-value>
