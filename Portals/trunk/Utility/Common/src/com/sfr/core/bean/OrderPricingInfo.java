@@ -2,7 +2,7 @@ package com.sfr.core.bean;
 
 import com.sfr.util.ThreadSerialization;
 
-public class OrderPricingInfo extends ThreadSerialization{ //class name is PricingInfo
+public class OrderPricingInfo extends ThreadSerialization { //class name is PricingInfo
 
     private static final long serialVersionUID = 1L;
     private Integer totalAmount; //16July with h,m,l--Double

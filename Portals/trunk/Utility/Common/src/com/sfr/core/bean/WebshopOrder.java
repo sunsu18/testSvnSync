@@ -1,6 +1,6 @@
 package com.sfr.core.bean;
 
-public class WebshopOrder extends ResellerOrder{
+public class WebshopOrder extends ResellerOrder {
     private static final long serialVersionUID = 1L;
     private String fillUp;
 

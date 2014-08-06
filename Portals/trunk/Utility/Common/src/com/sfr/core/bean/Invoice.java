@@ -34,12 +34,12 @@ public class Invoice extends BaseBean {
     private String ssInvoiceNumber; // verified - used for SS Invoice
     private Double netInvoiceAmount; // Verified - Not displayed
     private Address payerAddress; // Verified - Displayed in header
-//    private BigDecimal ssTotalAmount;//for service station total amount
+    //    private BigDecimal ssTotalAmount;//for service station total amount
     private List<OrderedProduct> orderedProductList;
     private String payStatus; //for service station display of status
-    private Integer nettingId; 
-    private Date ssInvoiceDueDate; 
-   
+    private Integer nettingId;
+    private Date ssInvoiceDueDate;
+
     public void setOrderedProductList(List<OrderedProduct> orderedProductList) {
         this.orderedProductList = orderedProductList;
     }

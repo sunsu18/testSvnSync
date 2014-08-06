@@ -11,7 +11,7 @@ public class Account extends BaseBean {
     private Integer payerId;
     private String payer;
     private Double openAmount;
-    private String referenceNumber; 
+    private String referenceNumber;
     private List<AccountDetail> accountDetailList;
     private Address AddressInfo;
     private String CurrrencyCode;
@@ -22,7 +22,7 @@ public class Account extends BaseBean {
     private Date toDate;
     private BigDecimal totalOpeningBalance;
     private BigDecimal totalClosingBalance;
-    
+
     public void setPayer(String payer) {
         this.payer = payer;
     }

@@ -4,9 +4,9 @@ import com.sfr.util.ThreadSerialization;
 
 import java.util.List;
 
-public class BaseBean extends ThreadSerialization{
+public class BaseBean extends ThreadSerialization {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private List<BusinessError> errorList;
     private String status;
 

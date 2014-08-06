@@ -16,7 +16,7 @@ import oracle.adf.share.logging.ADFLogger;
 
 import oracle.javatools.parser.java.v2.internal.compiler.Obj;
 
-public class BranchPlantBean extends ThreadSerialization{
+public class BranchPlantBean extends ThreadSerialization {
     private static final long serialVersionUID = 1L;
     boolean selectBranchPlant;
     String brBusinessUnit;
@@ -52,7 +52,6 @@ public class BranchPlantBean extends ThreadSerialization{
         return brDescription;
     }
 
- 
 
     public void setBrCustomer(Customer brCustomer) {
         this.brCustomer = brCustomer;
@@ -88,28 +87,30 @@ public class BranchPlantBean extends ThreadSerialization{
 
     @Override
     public boolean equals(Object obj) {
-        log.info(accessDC.getDisplayRecord() + this.getClass() + " BranchPlantBean.equals : "+"Inside equals");
-        if(obj!= null) {
-            if(obj instanceof BranchPlantBean) {
+        log.info(accessDC.getDisplayRecord() + this.getClass() +
+                 " BranchPlantBean.equals : " + "Inside equals");
+        if (obj != null) {
+            if (obj instanceof BranchPlantBean) {
                 BranchPlantBean bp = (BranchPlantBean)obj;
                 if (bp.getBrBusinessUnit() != null) {
                     if (bp.getBrBusinessUnit().equalsIgnoreCase(this.brBusinessUnit)) {
                         return true;
                     }
                 }
-            }    
+            }
         }
-        log.info(accessDC.getDisplayRecord() + this.getClass() +" BranchPlantBean.equals : "+"obj!= null" + obj);
-        
+        log.info(accessDC.getDisplayRecord() + this.getClass() +
+                 " BranchPlantBean.equals : " + "obj!= null" + obj);
+
         return false;
-        
+
     }
-    
+
     @Override
     public int hashCode() {
         int prime = 17;
         int result = 1;
-        
+
         if (this.brBusinessUnit != null) {
             result = result + this.brBusinessUnit.hashCode() * prime;
         }

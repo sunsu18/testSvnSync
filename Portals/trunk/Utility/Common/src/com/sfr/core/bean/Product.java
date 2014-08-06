@@ -39,7 +39,7 @@ public class Product extends BaseBean {
     private String DescLine2;
     private String PackageDescription;
     private Boolean favorite;
-    private String defaultQuantity="1";
+    private String defaultQuantity = "1";
     private BigDecimal discount;
 
     public void setProductNo(String productNo) {

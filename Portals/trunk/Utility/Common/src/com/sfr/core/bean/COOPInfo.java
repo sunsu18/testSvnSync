@@ -2,7 +2,7 @@ package com.sfr.core.bean;
 
 import com.sfr.util.ThreadSerialization;
 
-public class COOPInfo extends ThreadSerialization{
+public class COOPInfo extends ThreadSerialization {
 
 
     private static final long serialVersionUID = 1L;
@@ -39,15 +39,14 @@ public class COOPInfo extends ThreadSerialization{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String NEW_LINE = System.getProperty("line.separator");
-       
-        sb.append("<COOPInfo Begins" );
+
+        sb.append("<COOPInfo Begins");
         sb.append("actionType=<" + this.actionType + ">");
-        sb.append("COOPLineId=<" + this.COOPLineId + ">" );
-        sb.append("COOPNumber=<" + this.COOPNumber + ">" );
-       
+        sb.append("COOPLineId=<" + this.COOPLineId + ">");
+        sb.append("COOPNumber=<" + this.COOPNumber + ">");
 
 
-        sb.append("<COOPInfo Ends/>" );
+        sb.append("<COOPInfo Ends/>");
         return sb.toString();
     }
 }

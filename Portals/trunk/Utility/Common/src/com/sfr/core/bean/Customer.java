@@ -41,7 +41,7 @@ public class Customer extends BaseBean {
     private String deliveryInstrution2;
     private BigDecimal creditLimit;
     private BigInteger lastFetchedSoldToAddressNumber;
-    private String enableThirdPartyCall;   //This flag is contain Y/N, which will decide whether the JDE will call Thrid party Service or not.
+    private String enableThirdPartyCall; //This flag is contain Y/N, which will decide whether the JDE will call Thrid party Service or not.
     private Integer totalNumberofShipTo;
 
     public void setCustomerType(String customerType) {
@@ -205,7 +205,6 @@ public class Customer extends BaseBean {
     }
 
 
-
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
@@ -263,71 +262,77 @@ public class Customer extends BaseBean {
     }
 
 
-   @Override
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String NEW_LINE = System.getProperty("line.separator");
-        sb.append("Customer Printing Starts---------"+ NEW_LINE );
-        sb.append("actionType=<" + this.actionType + ">" );
-        sb.append("b2cDOB=<" + this.b2cDOB + ">" );
-        sb.append("b2cFirstName=<" + this.b2cFirstName + ">" );
+        sb.append("Customer Printing Starts---------" + NEW_LINE);
+        sb.append("actionType=<" + this.actionType + ">");
+        sb.append("b2cDOB=<" + this.b2cDOB + ">");
+        sb.append("b2cFirstName=<" + this.b2cFirstName + ">");
 
-        sb.append("b2cMiddleName=<" + this.b2cMiddleName + ">" );
-        sb.append("b2cLastName=<" + this.b2cLastName + ">" );
-        sb.append("billingFrequeny=<" + this.billingFrequeny + ">" );
+        sb.append("b2cMiddleName=<" + this.b2cMiddleName + ">");
+        sb.append("b2cLastName=<" + this.b2cLastName + ">");
+        sb.append("billingFrequeny=<" + this.billingFrequeny + ">");
 
 
-        sb.append("creditLimit=<" + this.creditLimit + ">" );
-        sb.append("creditStoppedFlag=<" + this.creditStoppedFlag + ">" );
+        sb.append("creditLimit=<" + this.creditLimit + ">");
+        sb.append("creditStoppedFlag=<" + this.creditStoppedFlag + ">");
 
-        sb.append("customerType=<" + this.customerType + ">" );
-        sb.append("customerTypeDescription=<" + this.customerTypeDescription + ">" );
-        sb.append("deliveryInstrution1=<" + this.deliveryInstrution1 + ">" );
+        sb.append("customerType=<" + this.customerType + ">");
+        sb.append("customerTypeDescription=<" + this.customerTypeDescription +
+                  ">");
+        sb.append("deliveryInstrution1=<" + this.deliveryInstrution1 + ">");
 
-        sb.append("deliveryInstrution2=<" + this.deliveryInstrution2 + ">" );
-        sb.append("duplicateFlag=<" + this.duplicateFlag + ">" );
-        sb.append("finalNote=<" + this.finalNote + ">" );
+        sb.append("deliveryInstrution2=<" + this.deliveryInstrution2 + ">");
+        sb.append("duplicateFlag=<" + this.duplicateFlag + ">");
+        sb.append("finalNote=<" + this.finalNote + ">");
 
-        sb.append("monthlyConsumption=<" + this.monthlyConsumption + ">" );
-        sb.append("organizationID=<" + this.organizationID + ">" );
-        sb.append("paymentTerms=<" + this.paymentTerms + ">" );
+        sb.append("monthlyConsumption=<" + this.monthlyConsumption + ">");
+        sb.append("organizationID=<" + this.organizationID + ">");
+        sb.append("paymentTerms=<" + this.paymentTerms + ">");
 
-        sb.append("paymentType=<" + this.paymentType + ">" );
+        sb.append("paymentType=<" + this.paymentType + ">");
 
-        sb.append("percentageTotalCreditApplied=<" + this.percentageTotalCreditApplied + ">" );
+        sb.append("percentageTotalCreditApplied=<" +
+                  this.percentageTotalCreditApplied + ">");
 
-        sb.append("profile=<" + this.profile + ">" );
-        sb.append("requestedCreditLimit=<" + this.requestedCreditLimit + ">" );
-        sb.append("taxID=<" + this.taxID + ">" );
-        sb.append("enableThirdPartyCall=<" + this.enableThirdPartyCall + ">" );
-        sb.append("vatID=<" + this.vatID + ">"+ NEW_LINE );
-        sb.append("totalNumberofShipTo=<" + this.totalNumberofShipTo + ">"+ NEW_LINE );
+        sb.append("profile=<" + this.profile + ">");
+        sb.append("requestedCreditLimit=<" + this.requestedCreditLimit + ">");
+        sb.append("taxID=<" + this.taxID + ">");
+        sb.append("enableThirdPartyCall=<" + this.enableThirdPartyCall + ">");
+        sb.append("vatID=<" + this.vatID + ">" + NEW_LINE);
+        sb.append("totalNumberofShipTo=<" + this.totalNumberofShipTo + ">" +
+                  NEW_LINE);
         sb.append("\tSold to Address begins:---------------->");
         if (this.soldToAddress != null) {
-            sb.append( this.soldToAddress );
-        } else {
-            sb.append("Address IS NULL" );
-        }
-        sb.append("<------------------Sold to Address ends."+NEW_LINE);
-        
-        sb.append("\tpayor Address begins:---------------->");
-        if (this.payor != null) {
-            sb.append( this.payor );
+            sb.append(this.soldToAddress);
         } else {
             sb.append("Address IS NULL");
         }
-        sb.append("<------------------Payor Address ends."+NEW_LINE);
+        sb.append("<------------------Sold to Address ends." + NEW_LINE);
+
+        sb.append("\tpayor Address begins:---------------->");
+        if (this.payor != null) {
+            sb.append(this.payor);
+        } else {
+            sb.append("Address IS NULL");
+        }
+        sb.append("<------------------Payor Address ends." + NEW_LINE);
 
         if (this.shippingInfoList != null) {
-            sb.append("\tshippingInfoList.size()=<" + shippingInfoList.size() + ">=" + NEW_LINE);
+            sb.append("\tshippingInfoList.size()=<" + shippingInfoList.size() +
+                      ">=" + NEW_LINE);
 
             for (int i = 0; i < this.shippingInfoList.size(); i++) {
-                sb.append("\t\tshippingInfoList object nubmer :-> " + i + NEW_LINE);
+                sb.append("\t\tshippingInfoList object nubmer :-> " + i +
+                          NEW_LINE);
                 ShippingInfo ship = shippingInfoList.get(i);
                 if (ship != null)
-                    sb.append( ship.toString());
+                    sb.append(ship.toString());
                 else
-                    sb.append("shippingInfoList.get(" + i + ") is null" + NEW_LINE);
+                    sb.append("shippingInfoList.get(" + i + ") is null" +
+                              NEW_LINE);
             }
         } else {
             sb.append("----->shippingInfoList IS NULL<---------" + NEW_LINE);
@@ -335,13 +340,13 @@ public class Customer extends BaseBean {
 
         sb.append("\tCoopinfo begins :----------------> ");
         if (this.coopInfo != null) {
-            sb.append(this.coopInfo );
+            sb.append(this.coopInfo);
         } else {
-            sb.append("Coopinfo IS NULL " );
+            sb.append("Coopinfo IS NULL ");
         }
-        sb.append("----------------<Coopinfo ends  "+NEW_LINE);
+        sb.append("----------------<Coopinfo ends  " + NEW_LINE);
 
-        sb.append("Customer printing ends---------" );
+        sb.append("Customer printing ends---------");
 
 
         return sb.toString();

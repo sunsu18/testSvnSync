@@ -14,22 +14,30 @@ import weblogic.wsee.jws.jaxws.owsm.SecurityPoliciesFeature;
 
 public class EngageDAOFactory {
     public static EngageDAOFactory factory = null;
+
     public EngageDAOFactory() {
         super();
     }
 
     public OIMUserManagermentImpl getEngOIMUserManagermentImpl() {
-        Class<OIMUserManagermentImpl> serviceEndPoint = OIMUserManagermentImpl.class;
-        String wsdlUrl = new EngageDAOFactory().getPropertyValue(Constants.ENGAGE_OIM_WSDL_URL);
+        Class<OIMUserManagermentImpl> serviceEndPoint =
+            OIMUserManagermentImpl.class;
+        String wsdlUrl =
+            new EngageDAOFactory().getPropertyValue(Constants.ENGAGE_OIM_WSDL_URL);
         String targetNamespace = "http://ws.oim.sfr.com/";
         String serviceName = "OIMUserManagermentImpl";
         String portName = "OIMUserManagermentImplPort";
 
         OIMUserManagermentImpl oIMUserManagermentImpl = null;
         try {
-            WebServiceProxy client = new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
-            SecurityPoliciesFeature securityFeatures = new SecurityPoliciesFeature(new String[] { "oracle/wss_username_token_client_policy" });
-            oIMUserManagermentImpl = client.getServicePortWithFeatures(portName, serviceEndPoint, securityFeatures);
+            WebServiceProxy client =
+                new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
+            SecurityPoliciesFeature securityFeatures =
+                new SecurityPoliciesFeature(new String[] { "oracle/wss_username_token_client_policy" });
+            oIMUserManagermentImpl =
+                    client.getServicePortWithFeatures(portName,
+                                                      serviceEndPoint,
+                                                      securityFeatures);
             ((BindingProvider)oIMUserManagermentImpl).getRequestContext().put(BindingProvider.USERNAME_PROPERTY,
                                                                               getPropertyValue("OIM_WSDL_USERNAME"));
             ((BindingProvider)oIMUserManagermentImpl).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY,

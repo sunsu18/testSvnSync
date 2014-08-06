@@ -41,7 +41,8 @@ public class DateCalculation {
      */
     public Map calculateDate(String selectedCriteria) {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd 00:00:00 zzz yyyy");
+        SimpleDateFormat dateFormat =
+            new SimpleDateFormat("E MMM dd 00:00:00 zzz yyyy");
         if (selectedCriteria.equals("SINCE_YESTERDAY")) {
             myMap.put("endDate", dateFormat.format(cal.getTime()));
             cal.add(Calendar.DATE, -1);
@@ -64,8 +65,10 @@ public class DateCalculation {
             myMap.put("startDate", dateFormat.format(cal.getTime()));
         }
         for (Map.Entry<String, String> dt : myMap.entrySet()) {
-            
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.calculateDate : "+"myMapKey" + dt.getKey()+"  myMapValue" + dt.getValue());
+
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.calculateDate : " + "myMapKey" +
+                     dt.getKey() + "  myMapValue" + dt.getValue());
         }
         return myMap;
     }
@@ -80,136 +83,184 @@ public class DateCalculation {
         Date selectedDateFormat = null;
         try {
             selectedDateFormat = sdf.parse(selectedDate);
-            dateInUTCFormat = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).format(selectedDateFormat);
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateToUTCFormat : "+"dateInUTCFormat in utility convertDateToUTCFormat::" + dateInUTCFormat);
+            dateInUTCFormat =
+                    (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).format(selectedDateFormat);
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.convertDateToUTCFormat : " +
+                     "dateInUTCFormat in utility convertDateToUTCFormat::" +
+                     dateInUTCFormat);
         } catch (ParseException e) {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateToUTCFormat : "+e);
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.convertDateToUTCFormat : " + e);
         }
-        
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateToUTCFormat : "+"selectedDateFormat Date " + selectedDateFormat
-                                                                    + "Converted Date " + dateInUTCFormat);
+
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.convertDateToUTCFormat : " +
+                 "selectedDateFormat Date " + selectedDateFormat +
+                 "Converted Date " + dateInUTCFormat);
         return dateInUTCFormat;
     }
 
-    public boolean validateDateRange(String startDate, String endDate, String criteriaStr) throws ParseException {
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDateRange : "+"Inside validate date range method");
+    public boolean validateDateRange(String startDate, String endDate,
+                                     String criteriaStr) throws ParseException {
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.validateDateRange : " +
+                 "Inside validate date range method");
         Date srtDateFormat = null;
         Date endDateFormat = null;
         srtDateFormat = sdf.parse(startDate);
         endDateFormat = sdf.parse(endDate);
         if (criteriaStr.equals("TODAY")) {
             int i = srtDateFormat.compareTo(endDateFormat);
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDateRange : "+"---VALUE---" + i);
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.validateDateRange : " + "---VALUE---" +
+                     i);
             if (i == 0)
                 return true;
             else
                 return false;
         } else {
-            
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDateRange : "
-                                                    +"srtDateFormat:: " + srtDateFormat+"--endDateFormat:: " + endDateFormat
-                                                    +"--srtDateFormat.before(endDateFormat):: " + srtDateFormat.before(endDateFormat));
+
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.validateDateRange : " +
+                     "srtDateFormat:: " + srtDateFormat +
+                     "--endDateFormat:: " + endDateFormat +
+                     "--srtDateFormat.before(endDateFormat):: " +
+                     srtDateFormat.before(endDateFormat));
             return srtDateFormat.before(endDateFormat);
         }
     }
 
     public boolean validateDate(String date) throws ParseException {
-      
+
         Date srtDateFormat = null;
 
         Calendar currDtCal = Calendar.getInstance();
         Date currDt = currDtCal.getTime();
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDate : "+"current date:::::::" + currDt);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.validateDate : " + "current date:::::::" +
+                 currDt);
         srtDateFormat = sdf.parse(date);
 
         if (srtDateFormat.after(currDt)) {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDate : "+"srtDateFormat.after(currDt) in if:" + srtDateFormat.after(currDt));
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.validateDate : " +
+                     "srtDateFormat.after(currDt) in if:" +
+                     srtDateFormat.after(currDt));
             return true;
         } else {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.validateDate : "+"srtDateFormat.after(currDt) in else:" + srtDateFormat.after(currDt));
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.validateDate : " +
+                     "srtDateFormat.after(currDt) in else:" +
+                     srtDateFormat.after(currDt));
             return false;
         }
     }
 
-    public boolean dateCompare(String startDate, String endDate, String criteriaStr) throws ParseException {
-        
+    public boolean dateCompare(String startDate, String endDate,
+                               String criteriaStr) throws ParseException {
+
         Date srtDateFormat = null;
         Date endDateFormat = null;
 
         Calendar currDtCal = Calendar.getInstance();
         Date currDt = currDtCal.getTime();
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.dateCompare : "+"current date:::::::" + currDt);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.dateCompare : " + "current date:::::::" +
+                 currDt);
         srtDateFormat = sdf.parse(startDate);
         endDateFormat = sdf.parse(endDate);
 
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.dateCompare : "+"strtdate:::::::" + srtDateFormat);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.dateCompare : " + "strtdate:::::::" +
+                 srtDateFormat);
         if (criteriaStr.equals("DATE_RANGE")) {
-            
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.dateCompare : inside if for date range --  srtDateFormat.after(currDt) --" 
-                                                        + srtDateFormat.after(currDt));
+
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.dateCompare : inside if for date range --  srtDateFormat.after(currDt) --" +
+                     srtDateFormat.after(currDt));
             if (srtDateFormat.after(currDt))
                 return false;
             else
                 return true;
         } else {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.dateCompare : "+"srtDateFormat:: " + srtDateFormat);
-            
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.dateCompare : " + "srtDateFormat:: " +
+                     srtDateFormat);
+
             return currDt.after(srtDateFormat);
         }
     }
 
-    public boolean dateEqual(String startDate, String endDate, String criteriaStr) throws ParseException {
-       
+    public boolean dateEqual(String startDate, String endDate,
+                             String criteriaStr) throws ParseException {
+
         Date srtDateFormat = null;
         Date endDateFormat = null;
 
         srtDateFormat = sdf.parse(startDate);
         endDateFormat = sdf.parse(endDate);
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.dateEqual : "+"strtdate:::::::" + srtDateFormat);
+        log.info(accessDC.getDisplayRecord() + "DateCalculation.dateEqual : " +
+                 "strtdate:::::::" + srtDateFormat);
         if (criteriaStr.equals("DATE_RANGE")) {
             if (srtDateFormat.equals(endDateFormat))
                 return true;
             else
                 return false;
         } else {
-            
-            
+
+
             return srtDateFormat.before(endDateFormat);
         }
     }
 
     public Date convertDateValueToUTCFormat(String selectedDate) {
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateValueToUTCFormat : "+"selectedDate"+selectedDate);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.convertDateValueToUTCFormat : " +
+                 "selectedDate" + selectedDate);
         String date = "";
         Date dateInUTCFormat = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date selectedDateFormat = null;
         try {
             selectedDateFormat = sdf.parse(selectedDate);
-            date = (new SimpleDateFormat("yyyy-MM-dd'T'00:00:00")).format(selectedDateFormat);
+            date =
+(new SimpleDateFormat("yyyy-MM-dd'T'00:00:00")).format(selectedDateFormat);
             dateInUTCFormat = formatter.parse(date);
         } catch (ParseException e) {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateValueToUTCFormat : "+e);
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.convertDateValueToUTCFormat : " + e);
         }
 
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.convertDateValueToUTCFormat : "+"dateInUTCFormat in convertDateValueToUTCFormat" + dateInUTCFormat);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.convertDateValueToUTCFormat : " +
+                 "dateInUTCFormat in convertDateValueToUTCFormat" +
+                 dateInUTCFormat);
         return dateInUTCFormat;
     }
 
-    public boolean dateOutOdBound(String endDate, String criteriaStr) throws ParseException {
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.dateOutOdBound : "+"endDate bound" + endDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd hh:mm:ss zzz yyyy");
+    public boolean dateOutOdBound(String endDate,
+                                  String criteriaStr) throws ParseException {
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.dateOutOdBound : " + "endDate bound" +
+                 endDate);
+        SimpleDateFormat sdf =
+            new SimpleDateFormat("E MMM dd hh:mm:ss zzz yyyy");
         //         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         String selectedDate1 = "Sat Jan 01 00:00:00 IST 2089";
         Date outOfBoundDate = sdf.parse(selectedDate1);
-        
+
         //Date endDateFormat = null;
         Date endDateFormat = sdf.parse(endDate);
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.dateOutOdBound : "+"endDateFormat: " + endDateFormat+" -- outOfBoundDate: " + outOfBoundDate);
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.dateOutOdBound : " + "endDateFormat: " +
+                 endDateFormat + " -- outOfBoundDate: " + outOfBoundDate);
         //Date outOfBoundDate=new Date(2089-01-01);
-        
+
         if (criteriaStr.equals("DATE_RANGE")) {
-            log.info(accessDC.getDisplayRecord()+"DateCalculation.dateOutOdBound : " + endDateFormat.after(outOfBoundDate));
+            log.info(accessDC.getDisplayRecord() +
+                     "DateCalculation.dateOutOdBound : " +
+                     endDateFormat.after(outOfBoundDate));
 
             if (endDateFormat.after(outOfBoundDate))
                 return false;
@@ -222,15 +273,18 @@ public class DateCalculation {
         }
     }
 
-    public void convertXMLGregorianCalendarToDate(Date date) throws DatatypeConfigurationException, ParseException {
+    public void convertXMLGregorianCalendarToDate(Date date) throws DatatypeConfigurationException,
+                                                                    ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         GregorianCalendar startDateTime = new GregorianCalendar();
         XMLGregorianCalendar calendar = null;
         startDateTime.setTime(date);
-        calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(startDateTime);
+        calendar =
+                DatatypeFactory.newInstance().newXMLGregorianCalendar(startDateTime);
 
         String xcs = df.format(calendar.toGregorianCalendar().getTime());
-        log.info(accessDC.getDisplayRecord()+"DateCalculation.convertXMLGregorianCalendarToDate : Convert XMLGregorianCalendar To Date \n" +
+        log.info(accessDC.getDisplayRecord() +
+                 "DateCalculation.convertXMLGregorianCalendarToDate : Convert XMLGregorianCalendar To Date \n" +
                 xcs);
     }
 

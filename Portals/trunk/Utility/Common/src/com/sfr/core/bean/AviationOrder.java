@@ -3,7 +3,7 @@ package com.sfr.core.bean;
 import java.io.Serializable;
 
 
-public class AviationOrder extends Order implements Serializable{
+public class AviationOrder extends Order implements Serializable {
     private static final long serialVersionUID = 1L;
     private String deliveryTicket;
     private String CO2;

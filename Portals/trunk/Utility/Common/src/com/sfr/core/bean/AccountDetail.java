@@ -28,6 +28,7 @@ public class AccountDetail extends BaseBean {
     private String textDD;
     private String dueStatus;
     private String attachment;
+
     public void setPayStatus(String payStatus) {
         this.payStatus = payStatus;
     }
@@ -36,7 +37,6 @@ public class AccountDetail extends BaseBean {
         return payStatus;
     }
 
-    
 
     public void setDocumentTypeDesc(String documentTypeDesc) {
         this.documentTypeDesc = documentTypeDesc;
@@ -94,8 +94,6 @@ public class AccountDetail extends BaseBean {
         return CurrrencyCode;
     }
 
-   
-   
 
     public void setDocType(String docType) {
         this.docType = docType;

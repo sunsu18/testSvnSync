@@ -2,7 +2,7 @@ package com.sfr.core.bean;
 
 import com.sfr.util.ThreadSerialization;
 
-public class LedgerDetail extends ThreadSerialization{
+public class LedgerDetail extends ThreadSerialization {
     private static final long serialVersionUID = 1L;
     private String status;
     private String documentNo;

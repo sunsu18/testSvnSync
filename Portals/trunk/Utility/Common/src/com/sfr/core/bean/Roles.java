@@ -8,7 +8,7 @@ public class Roles {
     private List<Integer> customerID;
     private List<String> idString;
     private boolean assigned;
-    
+
 
     public Roles() {
         super();
@@ -39,6 +39,7 @@ public class Roles {
     public List<Integer> getCustomerID() {
         return customerID;
     }
+
     public void setAssigned(boolean assigned) {
         this.assigned = assigned;
     }

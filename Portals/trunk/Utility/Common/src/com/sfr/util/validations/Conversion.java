@@ -14,38 +14,32 @@ public class Conversion {
     }
 
     public String getCurrencyCode(String country) {
-        if (country == null || country.isEmpty())
-        {
+        if (country == null || country.isEmpty()) {
             return null;
-        }else if(country.equalsIgnoreCase("SE"))
-        {
+        } else if (country.equalsIgnoreCase("SE")) {
             return "SEK";
-        }else if (country.equalsIgnoreCase("NO"))
-        {
+        } else if (country.equalsIgnoreCase("NO")) {
             return "NOK";
-        }else if(country.equalsIgnoreCase("DK"))
-        {
+        } else if (country.equalsIgnoreCase("DK")) {
             return "DKK";
-        }
-        else
-        {
+        } else {
             return "US";
         }
 
     }
 
-    public String getCustomerCountryCode(String countryCode)
-    {
-        if(countryCode.equalsIgnoreCase("NO"))
+    public String getCustomerCountryCode(String countryCode) {
+        if (countryCode.equalsIgnoreCase("NO"))
             return "no_NO";
-        if(countryCode.equalsIgnoreCase("SE"))
+        if (countryCode.equalsIgnoreCase("SE"))
             return "se_SE";
-        if(countryCode.equalsIgnoreCase("DK"))
+        if (countryCode.equalsIgnoreCase("DK"))
             return "da_DK";
         else
 
-    return "no_NO";
+            return "no_NO";
     }
+
     public Locale getLocaleFromCountryCode(String countryCode) {
         if (countryCode == null || countryCode.isEmpty())
             return null;
@@ -83,25 +77,24 @@ public class Conversion {
 
         String lang = "";
 
-       if (countryCode != null && !countryCode.isEmpty()){
+        if (countryCode != null && !countryCode.isEmpty()) {
 
-        Map<String, String> paramMap = new HashMap<String, String>();
+            Map<String, String> paramMap = new HashMap<String, String>();
 
-        paramMap.put("se_SE", "SE");
-        paramMap.put("no_NO", "NO");
-        paramMap.put("da_DK", "DK");
-        paramMap.put("pl_PL", "PL");
-        paramMap.put("lv_LV", "LV");
-        paramMap.put("et_EE", "EE");
-        paramMap.put("lt-LT", "LT");
-        paramMap.put("en_EN", "EN");
+            paramMap.put("se_SE", "SE");
+            paramMap.put("no_NO", "NO");
+            paramMap.put("da_DK", "DK");
+            paramMap.put("pl_PL", "PL");
+            paramMap.put("lv_LV", "LV");
+            paramMap.put("et_EE", "EE");
+            paramMap.put("lt-LT", "LT");
+            paramMap.put("en_EN", "EN");
 
-       lang = paramMap.get(countryCode);
+            lang = paramMap.get(countryCode);
 
-        return lang;
-        }
-       else
-           return lang="SE";
+            return lang;
+        } else
+            return lang = "SE";
     }
 
     public static String getLangFromCountryCode(String countryCode) {
@@ -109,13 +102,20 @@ public class Conversion {
         String lang = Constants.LANGUAGE_SWEDISH;
         if (countryCode != null && !countryCode.isEmpty()) {
             Map<String, String> paramMap = new HashMap<String, String>();
-            paramMap.put(Constants.COUNTRY_CD_SWEDEN,Constants.LANGUAGE_SWEDISH);
-            paramMap.put(Constants.COUNTRY_CD_NORWAY,Constants.LANGUAGE_NORWEGIAN);
-            paramMap.put(Constants.COUNTRY_CD_DENMARK,Constants.LANGUAGE_DANISH);
-            paramMap.put(Constants.COUNTRY_CD_POLAND,Constants.LANGUAGE_POLAND);
-            paramMap.put(Constants.COUNTRY_CD_LATVIA,Constants.LANGUAGE_LATVIA);
-            paramMap.put(Constants.COUNTRY_CD_ESTONIA,Constants.LANGUAGE_ESTONIA);
-            paramMap.put(Constants.COUNTRY_CD_LITHUANIA,Constants.LANGUAGE_LITHUNIA);
+            paramMap.put(Constants.COUNTRY_CD_SWEDEN,
+                         Constants.LANGUAGE_SWEDISH);
+            paramMap.put(Constants.COUNTRY_CD_NORWAY,
+                         Constants.LANGUAGE_NORWEGIAN);
+            paramMap.put(Constants.COUNTRY_CD_DENMARK,
+                         Constants.LANGUAGE_DANISH);
+            paramMap.put(Constants.COUNTRY_CD_POLAND,
+                         Constants.LANGUAGE_POLAND);
+            paramMap.put(Constants.COUNTRY_CD_LATVIA,
+                         Constants.LANGUAGE_LATVIA);
+            paramMap.put(Constants.COUNTRY_CD_ESTONIA,
+                         Constants.LANGUAGE_ESTONIA);
+            paramMap.put(Constants.COUNTRY_CD_LITHUANIA,
+                         Constants.LANGUAGE_LITHUNIA);
             paramMap.put(Constants.COUNTRY_CD_UK, Constants.LANGUAGE_ENGLISH);
 
             lang = paramMap.get(countryCode);

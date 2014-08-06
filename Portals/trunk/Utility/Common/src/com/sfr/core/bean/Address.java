@@ -206,14 +206,15 @@ public class Address extends BaseBean {
         sb.append("  state=<" + this.state + ">");
         sb.append("  street=<" + this.street + ">");
         sb.append("  telephone=<" + this.telephone + ">");
-        sb.append("  specialTreatmentFlagStopCode=<" + this.specialTreatmentFlagStopCode + ">");
+        sb.append("  specialTreatmentFlagStopCode=<" +
+                  this.specialTreatmentFlagStopCode + ">");
         sb.append("<Address Ends/>");
         return sb.toString();
     }
 
     public static void main(String[] args) {
         Address a = new Address();
-  
+
     }
 
     @Override
@@ -222,43 +223,60 @@ public class Address extends BaseBean {
         if (obj != null) {
             if (obj instanceof Address) {
                 Address objaddr = (Address)obj;
-                if (objaddr.getAlphaName() != null && this.getAlphaName() != null && !objaddr.getAlphaName().equalsIgnoreCase(this.getAlphaName())) {
+                if (objaddr.getAlphaName() != null &&
+                    this.getAlphaName() != null &&
+                    !objaddr.getAlphaName().equalsIgnoreCase(this.getAlphaName())) {
                     isAddrSame = false;
-                } else if ((objaddr.getAlphaName() == null) != (this.getAlphaName() == null)) {
+                } else if ((objaddr.getAlphaName() == null) !=
+                           (this.getAlphaName() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getAddressLine1() != null && this.getAddressLine1() != null &&
+                if (objaddr.getAddressLine1() != null &&
+                    this.getAddressLine1() != null &&
                     !objaddr.getAddressLine1().equalsIgnoreCase(this.getAddressLine1())) {
                     isAddrSame = false;
-                } else if ((objaddr.getAddressLine1() == null) != (this.getAddressLine1() == null)) {
+                } else if ((objaddr.getAddressLine1() == null) !=
+                           (this.getAddressLine1() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getAddressLine2() != null && this.getAddressLine2() != null &&
+                if (objaddr.getAddressLine2() != null &&
+                    this.getAddressLine2() != null &&
                     !objaddr.getAddressLine2().equalsIgnoreCase(this.getAddressLine2())) {
                     isAddrSame = false;
-                } else if ((objaddr.getAddressLine2() == null) != (this.getAddressLine2() == null)) {
+                } else if ((objaddr.getAddressLine2() == null) !=
+                           (this.getAddressLine2() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getAddressLine3() != null && this.getAddressLine3() != null &&
+                if (objaddr.getAddressLine3() != null &&
+                    this.getAddressLine3() != null &&
                     !objaddr.getAddressLine3().equalsIgnoreCase(this.getAddressLine3())) {
                     isAddrSame = false;
-                } else if ((objaddr.getAddressLine3() == null) != (this.getAddressLine3() == null)) {
+                } else if ((objaddr.getAddressLine3() == null) !=
+                           (this.getAddressLine3() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getAddressLine4() != null && this.getAddressLine4() != null &&
+                if (objaddr.getAddressLine4() != null &&
+                    this.getAddressLine4() != null &&
                     !objaddr.getAddressLine4().equalsIgnoreCase(this.getAddressLine4())) {
                     isAddrSame = false;
-                } else if ((objaddr.getAddressLine4() == null) != (this.getAddressLine4() == null)) {
+                } else if ((objaddr.getAddressLine4() == null) !=
+                           (this.getAddressLine4() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getPostalCode() != null && this.getPostalCode() != null && !objaddr.getPostalCode().equalsIgnoreCase(this.getPostalCode())) {
+                if (objaddr.getPostalCode() != null &&
+                    this.getPostalCode() != null &&
+                    !objaddr.getPostalCode().equalsIgnoreCase(this.getPostalCode())) {
                     isAddrSame = false;
-                } else if ((objaddr.getPostalCode() == null) != (this.getPostalCode() == null)) {
+                } else if ((objaddr.getPostalCode() == null) !=
+                           (this.getPostalCode() == null)) {
                     isAddrSame = false;
                 }
-                if (objaddr.getCountryCode() != null && this.getCountryCode() != null && !objaddr.getCountryCode().equalsIgnoreCase(this.getCountryCode())) {
+                if (objaddr.getCountryCode() != null &&
+                    this.getCountryCode() != null &&
+                    !objaddr.getCountryCode().equalsIgnoreCase(this.getCountryCode())) {
                     isAddrSame = false;
-                } else if ((objaddr.getCountryCode() == null) != (this.getCountryCode() == null)) {
+                } else if ((objaddr.getCountryCode() == null) !=
+                           (this.getCountryCode() == null)) {
                     isAddrSame = false;
                 }
                 return isAddrSame;

@@ -26,25 +26,30 @@ import oracle.adf.share.logging.ADFLogger;
 
 public class EmailUtility {
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    
+
     public EmailUtility() {
         super();
     }
-    public static String sendEmail(String from,String to,String subject,String body,String protocol,String smtphost,String envProperty) throws MessagingException {
-    // Add event code here...
-    AccessDataControl accessDC = new AccessDataControl();
-    Properties props = new Properties();
-    props.setProperty("mail.transport.protocol", protocol);
-    props.setProperty("mail.host", smtphost);
-    // props.setProperty("mail.user", "Navin.Kumar@lntinfotech.com");
-    //props.setProperty("mail.password", "");
+
+    public static String sendEmail(String from, String to, String subject,
+                                   String body, String protocol,
+                                   String smtphost,
+                                   String envProperty) throws MessagingException {
+        // Add event code here...
+        AccessDataControl accessDC = new AccessDataControl();
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", protocol);
+        props.setProperty("mail.host", smtphost);
+        // props.setProperty("mail.user", "Navin.Kumar@lntinfotech.com");
+        //props.setProperty("mail.password", "");
 
         Session mailSession;
         mailSession = Session.getDefaultInstance(props, null);
 
 
         try {
-            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"entered email utility");
+            log.info(accessDC.getDisplayRecord() +
+                     "EmailUtility.sendEmail : " + "entered email utility");
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(mailSession);
 
@@ -52,7 +57,8 @@ public class EmailUtility {
             message.setFrom(new InternetAddress(from));
 
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.TO,
+                                 new InternetAddress(to));
 
             // Set Subject: header field
             message.setSubject(subject);
@@ -64,25 +70,30 @@ public class EmailUtility {
             messageBodyPart.setContent(body, "text/html; charset=\"UTF-8\"");
             multipart.addBodyPart(messageBodyPart);
 
-            messageBodyPart = new MimeBodyPart();           
+            messageBodyPart = new MimeBodyPart();
             File file = new File(envProperty);
-            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"Checking if file at " + envProperty + " does really exists =" + file.exists());
+            log.info(accessDC.getDisplayRecord() +
+                     "EmailUtility.sendEmail : " + "Checking if file at " +
+                     envProperty + " does really exists =" + file.exists());
             DataSource datasource = new FileDataSource(envProperty);
             messageBodyPart.setDataHandler(new DataHandler(datasource));
             messageBodyPart.setHeader("Content-ID", "<statoil2>");
             multipart.addBodyPart(messageBodyPart);
             message.setContent(multipart);
 
-            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"between sending email ");
-          
+            log.info(accessDC.getDisplayRecord() +
+                     "EmailUtility.sendEmail : " + "between sending email ");
+
             // Send message
             Transport.send(message);
-            log.info(accessDC.getDisplayRecord()+"EmailUtility.sendEmail : "+"Sent message successfully....");
+            log.info(accessDC.getDisplayRecord() +
+                     "EmailUtility.sendEmail : " +
+                     "Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-    
-    
+
+
         return null;
     }
 

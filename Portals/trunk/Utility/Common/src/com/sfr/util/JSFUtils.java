@@ -28,20 +28,19 @@ import oracle.adf.share.logging.ADFLogger;
 /**
  * A series of convenience functions for dealing with JSF Bindings.
  * Note: Updated for JDeveloper 11
- * 
+ *
  * @author
  * $Id: JSFUtils.java  2012-06-20 .
  * Version:1.0
  */
 
 
-
 public class JSFUtils {
-   
-   /**
-    * ADF Logger declaration
-    */
-   
+
+    /**
+     * ADF Logger declaration
+     */
+
     public static final ADFLogger LOGGER =
         ADFLogger.createADFLogger(JSFUtils.class);
     private static final String NO_RESOURCE_FOUND = "Missing resource: ";

@@ -5,16 +5,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class SSInvoice extends BaseBean{
+public class SSInvoice extends BaseBean {
     private String nextFetchDocumentNo;
     private String previousFetchDocumentNo;
     private String nextFetchTableDetails;
     private String previousFetchTableDetails;
     private String nextFetchDocumentType;
-    private String previousFetchDocumentType; 
-    private BigDecimal ssTotalAmount;//for service station pagewise total amount
+    private String previousFetchDocumentType;
+    private BigDecimal ssTotalAmount; //for service station pagewise total amount
     private List<Invoice> ssInvoiceList;
-    private BigDecimal grandTotalAmount;//for service station grand total amount 
+    private BigDecimal grandTotalAmount; //for service station grand total amount
     private Date nextFetchOrderDate;
     private Date previousFetchOrderDate;
     private String payItemForNextResults;

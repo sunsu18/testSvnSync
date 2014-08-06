@@ -5,10 +5,10 @@ import com.sfr.util.ThreadSerialization;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShippingInfo extends ThreadSerialization{
-    private static final long serialVersionUID = 1L; 
+public class ShippingInfo extends ThreadSerialization {
+    private static final long serialVersionUID = 1L;
 
-    
+
     private int customerId; // Take it from parent customer
 
     private Address shipToAddress; //CustomerResults/ShipTo/addressLine1 and other
@@ -34,11 +34,11 @@ public class ShippingInfo extends ThreadSerialization{
     private int heatingDeviceSize;
 
     private String taxRateInfo; // To identify whether the shiping info is valid or not for order creation. This field depends on CustomerLoginResponse.CustomerResults.Detail of S0230 WSDl
-    
+
     private String contactInfo;
-    
+
     private String contactPerson;
-    
+
     private String contactPhone;
     private String secMailingName;
 
@@ -134,65 +134,72 @@ public class ShippingInfo extends ThreadSerialization{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String NEW_LINE = System.getProperty("line.separator");
-        
-        sb.append("\t\t<Shipping Info Begins>");
-        sb.append("ShippingInfo: actionType=<" + this.actionType + ">" );
-        sb.append("ShippingInfo: billToSameAsShipToFlag=<" + this.billToSameAsShipToFlag + ">" );
-        sb.append("ShippingInfo: billToSameAsSoldToFlag=<" + this.billToSameAsSoldToFlag + ">" );
-        sb.append("ShippingInfo: shipToSameAsSoldToFlag=<" + this.shipToSameAsSoldToFlag + ">");
-        sb.append("ShippingInfo: billToSameAsOtherBillToFlag=<" + this.billToSameAsOtherBillToFlag + ">");
-        sb.append("ShippingInfo: tankSize=<" + this.tankSize + ">" );
-        sb.append("ShippingInfo: heatingDeviceSize=<" + this.heatingDeviceSize + ">" );
-        sb.append("ShippingInfo: customerId=<" + this.customerId + ">" );
 
-        sb.append(NEW_LINE+"\t\t\tshipToAddress begins:----------------> " );
+        sb.append("\t\t<Shipping Info Begins>");
+        sb.append("ShippingInfo: actionType=<" + this.actionType + ">");
+        sb.append("ShippingInfo: billToSameAsShipToFlag=<" +
+                  this.billToSameAsShipToFlag + ">");
+        sb.append("ShippingInfo: billToSameAsSoldToFlag=<" +
+                  this.billToSameAsSoldToFlag + ">");
+        sb.append("ShippingInfo: shipToSameAsSoldToFlag=<" +
+                  this.shipToSameAsSoldToFlag + ">");
+        sb.append("ShippingInfo: billToSameAsOtherBillToFlag=<" +
+                  this.billToSameAsOtherBillToFlag + ">");
+        sb.append("ShippingInfo: tankSize=<" + this.tankSize + ">");
+        sb.append("ShippingInfo: heatingDeviceSize=<" +
+                  this.heatingDeviceSize + ">");
+        sb.append("ShippingInfo: customerId=<" + this.customerId + ">");
+
+        sb.append(NEW_LINE + "\t\t\tshipToAddress begins:----------------> ");
         if (this.shipToAddress != null) {
             sb.append(this.shipToAddress);
-        }else{
-            sb.append("ShipToAddress IS NULL " );    
+        } else {
+            sb.append("ShipToAddress IS NULL ");
         }
-        sb.append("<----------------shipToAddress ends"+NEW_LINE );
-        
-        sb.append("\t\t\tbillToAddress begins:----------------> " );
+        sb.append("<----------------shipToAddress ends" + NEW_LINE);
+
+        sb.append("\t\t\tbillToAddress begins:----------------> ");
         if (this.billToAddress != null) {
-            sb.append( this.billToAddress );
+            sb.append(this.billToAddress);
+        } else {
+            sb.append("billToAddress IS NULL");
         }
-        else{
-            sb.append( "billToAddress IS NULL");
-        }
-        sb.append("<----------------billToAddress ends"+NEW_LINE );
+        sb.append("<----------------billToAddress ends" + NEW_LINE);
         sb.append("\t\t\ttankInfoList begins->");
         if (this.tankInfoList != null) {
-            sb.append(" tankInfoList.size()=<" + tankInfoList.size() + ">=" );
+            sb.append(" tankInfoList.size()=<" + tankInfoList.size() + ">=");
             for (int i = 0; i < this.tankInfoList.size(); i++) {
-                sb.append(NEW_LINE+"\t\t\t\ttankInfoList object nubmer :-> " + i );
+                sb.append(NEW_LINE +
+                          "\t\t\t\ttankInfoList object nubmer :-> " + i);
                 TankInfo tank = tankInfoList.get(i);
                 if (tank != null)
-                    sb.append( tank );
+                    sb.append(tank);
                 else
                     sb.append("tankInfoList.get(" + i + ") is null");
             }
-        }else{
-            sb.append("ShippingInfo: tankInfoList IS NULL" );
+        } else {
+            sb.append("ShippingInfo: tankInfoList IS NULL");
         }
-        sb.append("<-----------tankInfoList ends."+NEW_LINE);
+        sb.append("<-----------tankInfoList ends." + NEW_LINE);
         sb.append("\t\t\theatingDeviceList begins:->");
         if (this.heatingDeviceList != null) {
-            sb.append("heatingDeviceList.size()=<" + heatingDeviceList.size() + ">=" );
+            sb.append("heatingDeviceList.size()=<" + heatingDeviceList.size() +
+                      ">=");
             for (int i = 0; i < this.heatingDeviceList.size(); i++) {
-                sb.append(NEW_LINE+"\t\t\t\theatingDeviceList object nubmer :-> " + i );
+                sb.append(NEW_LINE +
+                          "\t\t\t\theatingDeviceList object nubmer :-> " + i);
                 HeatingDeviceInfo heat = heatingDeviceList.get(i);
                 if (heat != null)
-                    sb.append( heat);
+                    sb.append(heat);
                 else
-                    sb.append("heatingDeviceList.get(" + i + ") is null" );
+                    sb.append("heatingDeviceList.get(" + i + ") is null");
 
             }
-        }else{
-            sb.append("heatingDeviceList IS NULL" );
+        } else {
+            sb.append("heatingDeviceList IS NULL");
         }
-        sb.append("<-----------heatingDeviceList ends."+NEW_LINE);
-        sb.append("\t\t<Shipping Info Ends/>"+NEW_LINE );
+        sb.append("<-----------heatingDeviceList ends." + NEW_LINE);
+        sb.append("\t\t<Shipping Info Ends/>" + NEW_LINE);
         return sb.toString();
 
 
@@ -249,12 +256,16 @@ public class ShippingInfo extends ThreadSerialization{
 
     @Override
     public boolean equals(Object obj) {
-        boolean istrue=false;
+        boolean istrue = false;
         if (obj instanceof ShippingInfo) {
 
             ShippingInfo newShippingInfo = (ShippingInfo)obj;
-            if (this.getShipToAddress() != null && this.getShipToAddress().getAddressNumber() != null) {
-                if (newShippingInfo != null && newShippingInfo.getShipToAddress() != null && newShippingInfo.getShipToAddress().getAddressNumber() != null) {
+            if (this.getShipToAddress() != null &&
+                this.getShipToAddress().getAddressNumber() != null) {
+                if (newShippingInfo != null &&
+                    newShippingInfo.getShipToAddress() != null &&
+                    newShippingInfo.getShipToAddress().getAddressNumber() !=
+                    null) {
                     if (this.getShipToAddress().getAddressNumber().equals(newShippingInfo.getShipToAddress().getAddressNumber())) {
                         istrue = true;
                     } else {

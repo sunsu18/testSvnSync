@@ -2,7 +2,7 @@ package com.sfr.core.bean;
 
 import com.sfr.util.ThreadSerialization;
 
-public class OrderAdditionalInfo extends ThreadSerialization{
+public class OrderAdditionalInfo extends ThreadSerialization {
     private static final long serialVersionUID = 1L;
     private String referenceNumber; //Is this same as Customer reference number?
     private String contactPerson;

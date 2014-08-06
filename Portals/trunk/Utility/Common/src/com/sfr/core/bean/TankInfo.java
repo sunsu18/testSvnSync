@@ -5,7 +5,7 @@ import com.sfr.util.ThreadSerialization;
 
 import java.util.Date;
 
-public class TankInfo extends ThreadSerialization{
+public class TankInfo extends ThreadSerialization {
 
     private static final long serialVersionUID = 1L;
     private int deliveryId; // take from parent del address
@@ -205,34 +205,34 @@ public class TankInfo extends ThreadSerialization{
         String NEW_LINE = System.getProperty("line.separator");
 
         sb.append("<TankInfo Begins>");
-        sb.append("  actionType=<" + this.actionType + ">" );
-        sb.append("  belowGround=<" + this.belowGround + ">" );
-        sb.append("  capacityMinimum=<" + this.capacityMinimum + ">" );
-        sb.append("  deliveryId=<" + this.deliveryId + ">" );
-        sb.append("  endDate=<" + this.endDate + ">" );
-        sb.append("  guageID=<" + this.guageID + ">" );
-        sb.append("  interfaceID=<" + this.interfaceID + ">" );
-        sb.append("  isBelowGround=<" + this.isBelowGround() + ">" );
-        sb.append("  itemDescription=<" + this.itemDescription + ">" );
-        sb.append("  itemNumber=<" + this.itemNumber + ">" );
-        sb.append("  maxFillUpQuntity=<" + this.maxFillUpQuntity + ">" );
-        sb.append("  shortItemNumber=<" + this.shortItemNumber + ">" );
-        sb.append("  startDate=<" + this.startDate + ">" );
-        sb.append("  stockWarning=<" + this.stockWarning + ">" );
-        sb.append("  tankCapacity=<" + this.tankCapacity + ">" );
-        sb.append("  tankDescription=<" + this.tankDescription + ">" );
-        sb.append("  tanknumber=<" + this.tanknumber + ">" );
-        sb.append("  tankProcessType=<" + this.tankProcessType + ">" );
-        sb.append("  tankStatus=<" + this.tankStatus + ">" );
-        sb.append("  tankUOM=<" + this.tankUOM + ">" );
-        sb.append("  unpumpCapacity=<" + this.unpumpCapacity + ">" );
+        sb.append("  actionType=<" + this.actionType + ">");
+        sb.append("  belowGround=<" + this.belowGround + ">");
+        sb.append("  capacityMinimum=<" + this.capacityMinimum + ">");
+        sb.append("  deliveryId=<" + this.deliveryId + ">");
+        sb.append("  endDate=<" + this.endDate + ">");
+        sb.append("  guageID=<" + this.guageID + ">");
+        sb.append("  interfaceID=<" + this.interfaceID + ">");
+        sb.append("  isBelowGround=<" + this.isBelowGround() + ">");
+        sb.append("  itemDescription=<" + this.itemDescription + ">");
+        sb.append("  itemNumber=<" + this.itemNumber + ">");
+        sb.append("  maxFillUpQuntity=<" + this.maxFillUpQuntity + ">");
+        sb.append("  shortItemNumber=<" + this.shortItemNumber + ">");
+        sb.append("  startDate=<" + this.startDate + ">");
+        sb.append("  stockWarning=<" + this.stockWarning + ">");
+        sb.append("  tankCapacity=<" + this.tankCapacity + ">");
+        sb.append("  tankDescription=<" + this.tankDescription + ">");
+        sb.append("  tanknumber=<" + this.tanknumber + ">");
+        sb.append("  tankProcessType=<" + this.tankProcessType + ">");
+        sb.append("  tankStatus=<" + this.tankStatus + ">");
+        sb.append("  tankUOM=<" + this.tankUOM + ">");
+        sb.append("  unpumpCapacity=<" + this.unpumpCapacity + ">");
 
-        sb.append("<TankInfo Ends/>" );
+        sb.append("<TankInfo Ends/>");
         return sb.toString();
     }
-    public static void main(String[] args)
-    {
-        TankInfo t=new TankInfo();
-   
+
+    public static void main(String[] args) {
+        TankInfo t = new TankInfo();
+
     }
 }

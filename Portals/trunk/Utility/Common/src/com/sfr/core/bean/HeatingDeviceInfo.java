@@ -3,7 +3,7 @@ package com.sfr.core.bean;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.ThreadSerialization;
 
-public class HeatingDeviceInfo extends ThreadSerialization{
+public class HeatingDeviceInfo extends ThreadSerialization {
     private static final long serialVersionUID = 1L;
     private String deviceNumber; // Number of device
     private String deviceType;
@@ -56,22 +56,22 @@ public class HeatingDeviceInfo extends ThreadSerialization{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String NEW_LINE = System.getProperty("line.separator");
-      
-        sb.append("<HeatingDeviceInfo Begins>" );
-        sb.append("  actionType=<" + this.actionType + ">" );
-        sb.append("  deviceName=<" + this.deviceName + ">" );
-        sb.append("  deviceNumber=<" + this.deviceNumber + ">" );
-        sb.append("  deviceType=<" + this.deviceType + ">" );
-        sb.append("  lineId=<" + this.lineId + ">" );
+
+        sb.append("<HeatingDeviceInfo Begins>");
+        sb.append("  actionType=<" + this.actionType + ">");
+        sb.append("  deviceName=<" + this.deviceName + ">");
+        sb.append("  deviceNumber=<" + this.deviceNumber + ">");
+        sb.append("  deviceType=<" + this.deviceType + ">");
+        sb.append("  lineId=<" + this.lineId + ">");
 
 
         sb.append("<HeatingDeviceInfo Ends/>");
         return sb.toString();
     }
-    public static void main(String[] args)
-    {
-        HeatingDeviceInfo t=new HeatingDeviceInfo();
-  
+
+    public static void main(String[] args) {
+        HeatingDeviceInfo t = new HeatingDeviceInfo();
+
     }
 
 }
