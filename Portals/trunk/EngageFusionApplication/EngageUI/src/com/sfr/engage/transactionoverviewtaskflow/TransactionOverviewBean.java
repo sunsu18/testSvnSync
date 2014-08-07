@@ -75,7 +75,7 @@ public class TransactionOverviewBean implements Serializable {
     private ArrayList<SelectItem> driverNameList;
     private List<String> driverNameValue;
     private boolean cardIdPGL = false;
-    private boolean cardGPGL = false;
+    private boolean cardGPGL = true;
     private boolean dNamePGL = false;
     private boolean vNumberPGL = false;
     private boolean reportDefault = false;
@@ -147,6 +147,7 @@ public class TransactionOverviewBean implements Serializable {
     private String palsCountryCode = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
+    private String cardGroupRadio="CardGroup";
 
     public TransactionOverviewBean() {
         conversionUtility = new Conversion();
@@ -170,6 +171,8 @@ public class TransactionOverviewBean implements Serializable {
                 partnerIdValues = new ArrayList<String>();
                 accountIdList = new ArrayList<SelectItem>();
                 accountIdValue = new ArrayList<String>();
+                cardGroupList = new ArrayList<SelectItem>();
+                cardGroupValue = new ArrayList<String>();
                 for (int k = 0; k < partnerInfoList.size(); k++) {  
                     lang = partnerInfoList.get(0).getCountry().toString().trim();
                     SelectItem selectItem = new SelectItem();
@@ -189,13 +192,22 @@ public class TransactionOverviewBean implements Serializable {
                             selectItemAcc.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
                             accountIdList.add(selectItemAcc);
                             accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                            
+                            for(int cg = 0;cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size();cg++){
+                                SelectItem selectItemCg = new SelectItem();
+                                selectItemCg.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+                                selectItemCg.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim()+ partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                                cardGroupList.add(selectItemCg);
+                                cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim()+partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+                            }
                         }
                     }
                     
                 }
             }  
             Collections.sort (partnerIdList,comparator);
-            Collections.sort (accountIdList,comparator);            
+            Collections.sort (accountIdList,comparator);  
+            Collections.sort (cardGroupList,comparator); 
         }
         if(session!=null) {
             if(session.getAttribute("account_Query")!=null)
@@ -277,10 +289,8 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:Locale :" + locale);
         }
         
-       
         reportFormatValue="Default";
-        
-       
+                
     }
 
     /**
@@ -335,6 +345,9 @@ public class TransactionOverviewBean implements Serializable {
             partnerIdValues = (ArrayList<String>)valueChangeEvent.getNewValue();
             accountIdList = new ArrayList<SelectItem>();
             accountIdValue = new ArrayList<String>();
+//            cardGroupList = new ArrayList<SelectItem>();
+//            cardGroupValue = new ArrayList<String>();
+            
             if (partnerInfoList != null) {
                 for (int i = 0; i < partnerIdValues.size(); i++) {
                     for (int k = 0; k < partnerInfoList.size(); k++) {
@@ -354,6 +367,14 @@ public class TransactionOverviewBean implements Serializable {
                                     selectItem.setValue(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
                                     accountIdList.add(selectItem);
                                     accountIdValue.add(partnerInfoList.get(k).getAccountList().get(ac).getAccountNumber().toString());
+                                    
+//                                    for(int cg = 0;cg < partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().size();cg++){
+//                                        SelectItem selectItemCg = new SelectItem();
+//                                        selectItemCg.setLabel(partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getDisplayCardGroupIdName().toString());
+//                                        selectItemCg.setValue(partnerInfoList.get(k).getPartnerValue().toString().trim()+ partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+//                                        cardGroupList.add(selectItemCg);
+//                                        cardGroupValue.add(partnerInfoList.get(k).getPartnerValue().toString().trim()+partnerInfoList.get(k).getAccountList().get(ac).getCardGroup().get(cg).getCardGroupID().toString());
+//                                    }
                                 }
                             }
 
@@ -391,7 +412,9 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "account list is created");
         
-
+        Collections.sort (partnerIdList,comparator);
+        Collections.sort (accountIdList,comparator);  
+//        Collections.sort (cardGroupList,comparator); 
 
     }
 
@@ -1916,6 +1939,42 @@ public class TransactionOverviewBean implements Serializable {
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
         if (valueChangeEvent.getNewValue() != null) {
+//            String[] accountString = populateStringValues(valueChangeEvent.getNewValue().toString()).split(",");
+//            cardGroupList = new ArrayList<SelectItem>();
+//            cardGroupValue = new ArrayList<String>();
+//
+//            for (int z = 0; z < partnerInfoList.size(); z++) {
+//                if (partnerInfoList.get(z).getAccountList() != null &&
+//                    partnerInfoList.get(z).getAccountList().size() > 0) {
+//                    for (int i = 0;
+//                         i < partnerInfoList.get(z).getAccountList().size();
+//                         i++) {
+//                        for (int j = 0; j < accountString.length; j++) {
+//                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+//                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString().trim().equals(accountString[j].toString().trim())) {
+//                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+//                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+//                                    for (int k = 0;
+//                                         k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
+//                                         k++) {
+//                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
+//                                            SelectItem selectItem = new SelectItem();
+//                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+//                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                            cardGroupList.add(selectItem);
+//                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    Collections.sort (accountIdList,comparator);
+//                    Collections.sort (cardGroupList,comparator);
+//                }
+//            }
+            
+            
             getBindings().getCardCardGrpDrVhOneRadio().setValue(null);
             cardGPGL = false;
             cardIdPGL = false;
@@ -1925,6 +1984,7 @@ public class TransactionOverviewBean implements Serializable {
             if (isTableVisible) {
                 isTableVisible = false;
             }
+            
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowSearchResultPG());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardGroupPGL());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getCardNoPGL());
@@ -4382,6 +4442,14 @@ public class TransactionOverviewBean implements Serializable {
 
     public boolean isVehicleName() {
         return vehicleName;
+    }
+
+    public void setCardGroupRadio(String cardGroupRadio) {
+        this.cardGroupRadio = cardGroupRadio;
+    }
+
+    public String getCardGroupRadio() {
+        return cardGroupRadio;
     }
 
 

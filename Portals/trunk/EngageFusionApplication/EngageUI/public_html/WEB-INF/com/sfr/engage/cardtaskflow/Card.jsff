@@ -324,7 +324,7 @@
               </af:inputText>
             </af:column>
            
-            <af:column sortProperty="CardType" filterable="true" width="70px" sortable="true"
+            <af:column sortProperty="CardType" filterable="true" width="90px" sortable="true"
                        headerText="#{sfr.CARD_TYPE}" filterFeatures="caseInsensitive"
                        id="c12">
               <af:inputText value="#{row.bindings.CardType.inputValue}"

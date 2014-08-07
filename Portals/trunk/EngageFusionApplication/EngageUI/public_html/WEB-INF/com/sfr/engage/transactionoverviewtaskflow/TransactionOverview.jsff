@@ -195,7 +195,8 @@
              <af:selectOneRadio id="sor1" autoSubmit="true" layout="horizontal"
                                valueChangeListener="#{pageFlowScope.TransactionOverviewBean.radioButtonValueChangeListener}"
                                binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardCardGrpDrVhOneRadio}"
-                               contentStyle="margin-left: -5px;">
+                               contentStyle="margin-left: -5px;"
+                               value="#{pageFlowScope.TransactionOverviewBean.cardGroupRadio}">
               <af:selectItem label="#{sfr.CARDGROUP}" value="CardGroup" id="si10"/>
               <af:selectItem label="#{sfr.CARD}" value="Card" id="si13"/>
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
@@ -902,7 +903,7 @@
                      inlineStyle="width:250px;"
                      valign="top">
  <af:panelGroupLayout id="dfdf" layout="vertical" inlineStyle="width:250px; height:20px;" valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{pageFlowScope.TransactionOverviewBean.currencyCode}" styleClass="subheading"
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
                                    id="plam3"/>
 
        <!--<af:panelGroupLayout id="pgl14" layout="horizontal" inlineStyle="width:50px;">
@@ -977,7 +978,7 @@
 <af:panelGroupLayout id="tnjw" layout="vertical"
                      inlineStyle="width:250px; height:20px;"
                      valign="top">
-<af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
+<af:outputText value="#{sfr.ENGAGE_PRICES_IN}: #{pageFlowScope.TransactionOverviewBean.currencyCode}" styleClass="subheading"
                                    id="ot24">
                                   <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
                                    </af:outputText>
