@@ -37,7 +37,7 @@ public class HelpInfoBean implements Serializable {
     private String countryPortal;
     private String langPortal;
     private String portal;
-    private String  contactLink;
+    private String contactLink;
     AccessDataControl accessDC = new AccessDataControl();
     Conversion conversionUtility = new Conversion();
 
@@ -47,57 +47,51 @@ public class HelpInfoBean implements Serializable {
 
 
     public HelpInfoBean() {
-        log.fine(accessDC.getDisplayRecord()+ this.getClass() + " Inside Constructor of HelpInfo Bean");
+        log.fine(accessDC.getDisplayRecord() + this.getClass() +
+                 " Inside Constructor of HelpInfo Bean");
         ExternalContext ectx =
             FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession();
 
-        if(session.getAttribute(Constants.userLang) != null){
+        if (session.getAttribute(Constants.userLang) != null) {
             countryPortal = (String)session.getAttribute(Constants.userLang);
+        } else {
+            countryPortal =
+                    (String)session.getAttribute("lang").toString().substring(3);
         }
-        else {
-            countryPortal = (String)session.getAttribute("lang").toString().substring(3);
-        }
 
-        if (session.getAttribute(Constants.HELPLIST+countryPortal) == null) {
-            log.info(accessDC.getDisplayRecord() + this.getClass() +" helpList is null so creating list of Q&A");
+        if (session.getAttribute(Constants.HELPLIST + countryPortal) == null) {
+            log.info(accessDC.getDisplayRecord() + this.getClass() +
+                     " helpList is null so creating list of Q&A");
 
 
+            if (session.getAttribute(Constants.userLang) != null) {
 
-            if(session.getAttribute(Constants.userLang) != null)
-            {
+                countryPortal =
+                        (String)session.getAttribute(Constants.userLang);
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " Session not null and lang/country of user is " +
+                         countryPortal);
+                langPortal =
+                        conversionUtility.getCustomerCountryCode(countryPortal);
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " Session not null and lang of portal is " +
+                         langPortal);
+                portal = Constants.ENGAGE;
+            } else {
 
-                countryPortal = (String)session.getAttribute(Constants.userLang);
-                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session not null and lang/country of user is " + countryPortal);
-                langPortal = conversionUtility.getCustomerCountryCode(countryPortal);
-                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session not null and lang of portal is " + langPortal);
+                countryPortal =
+                        (String)session.getAttribute("lang").toString().substring(3);
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " Session not null and countryPortal from url is " +
+                         countryPortal);
+                langPortal = (String)session.getAttribute("lang");
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " Session not null and lang of Portal from url is " +
+                         langPortal);
                 portal = Constants.ENGAGE;
             }
-            else
-            {
-                //Read from URL
-
-               countryPortal = (String)session.getAttribute("lang").toString().substring(3);
-               log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session not null and countryPortal from url is " + countryPortal);
-                langPortal =  (String)session.getAttribute("lang");
-                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session not null and lang of Portal from url is " + langPortal);
-                portal = Constants.ENGAGE;
-            }
-
-
-
-
-//            else {
-//
-//                countryPortal = "SE";
-//                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session is null and lang/country of user is " + countryPortal);
-//                langPortal = conversionUtility.getCustomerCountryCode(countryPortal);
-//                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Session is null and lang of portal is " + langPortal);
-//                portal = Constants.ENGAGE;
-//
-//            }
-
 
 
             DCBindingContainer bindings =
@@ -107,28 +101,31 @@ public class HelpInfoBean implements Serializable {
                 iter = bindings.findIteratorBinding("PrtGenHelpRVO1Iterator");
 
             } else {
-                log.warning(accessDC.getDisplayRecord() + this.getClass() +" PrtGenHelpRVOIterator bindings is nul");
+                log.warning(accessDC.getDisplayRecord() + this.getClass() +
+                            " PrtGenHelpRVOIterator bindings is nul");
 
                 iter = null;
             }
             ViewObject vo = iter.getViewObject();
-            if(countryPortal.equalsIgnoreCase("US")) {
+            if (countryPortal.equalsIgnoreCase("US")) {
                 countryPortal = "SE";
                 langPortal = "se_SE";
             }
-            log.info(accessDC.getDisplayRecord() + this.getClass() +" country, lang and portalname passed for FAQ are " + countryPortal +", " + langPortal+ " and " + portal);
+            log.info(accessDC.getDisplayRecord() + this.getClass() +
+                     " country, lang and portalname passed for FAQ are " +
+                     countryPortal + ", " + langPortal + " and " + portal);
             vo.setNamedWhereClauseParam("country", countryPortal);
             vo.setNamedWhereClauseParam("lang", langPortal);
             vo.setNamedWhereClauseParam("portalname", portal);
             vo.executeQuery();
 
 
-
             helpList = new ArrayList<Help>();
             if (vo.getEstimatedRowCount() != 0) {
 
 
-                log.info(accessDC.getDisplayRecord() + this.getClass() +" RowCount in helpinfo "+vo.getEstimatedRowCount());
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " RowCount in helpinfo " + vo.getEstimatedRowCount());
 
                 while (vo.hasNext()) {
                     Help help = new Help();
@@ -152,19 +149,21 @@ public class HelpInfoBean implements Serializable {
                 }
 
 
-               session.setAttribute(Constants.HELPLIST+countryPortal, helpList);
+                session.setAttribute(Constants.HELPLIST + countryPortal,
+                                     helpList);
 
             }
 
 
-        }
-        else
-        {
-            log.info(accessDC.getDisplayRecord() + " HelpList is not null so no need to create list of Q&A");
-            helpList = (List<Help>)session.getAttribute(Constants.HELPLIST+countryPortal);
+        } else {
+            log.info(accessDC.getDisplayRecord() +
+                     " HelpList is not null so no need to create list of Q&A");
+            helpList =
+                    (List<Help>)session.getAttribute(Constants.HELPLIST + countryPortal);
 
         }
-        log.fine(accessDC.getDisplayRecord() + " Exiting Constructor of HelpInfo Bean");
+        log.fine(accessDC.getDisplayRecord() +
+                 " Exiting Constructor of HelpInfo Bean");
 
     }
 
@@ -216,21 +215,16 @@ public class HelpInfoBean implements Serializable {
 
     public RichSpacer getGetContactLink() {
 
-        if(countryPortal != null){
+        if (countryPortal != null) {
 
-            if(countryPortal.equalsIgnoreCase("SE"))
-            {
-              contactSELink.setDestination("http://www.statoil.se/sv_SE/pg1332347194333/Kontakt.html");}
-            else
-            if(countryPortal.equalsIgnoreCase("NO"))
-            {
-             contactSELink.setDestination("http://www.statoil.no/no_NO/pg1334073208883/Kundeservice.html");}
-            else
-            if(countryPortal.equalsIgnoreCase("DK"))
-            {
-            contactSELink.setDestination("http://www.statoil.dk/dk_DK/pg1334072569650/Kontakt.html");}
-            else
-            contactSELink.setDestination("http://www.statoil.com");
+            if (countryPortal.equalsIgnoreCase("SE")) {
+                contactSELink.setDestination("http://www.statoil.se/sv_SE/pg1332347194333/Kontakt.html");
+            } else if (countryPortal.equalsIgnoreCase("NO")) {
+                contactSELink.setDestination("http://www.statoil.no/no_NO/pg1334073208883/Kundeservice.html");
+            } else if (countryPortal.equalsIgnoreCase("DK")) {
+                contactSELink.setDestination("http://www.statoil.dk/dk_DK/pg1334072569650/Kontakt.html");
+            } else
+                contactSELink.setDestination("http://www.statoil.com");
 
         }
 
@@ -264,7 +258,6 @@ public class HelpInfoBean implements Serializable {
             return helpinfopanel;
         }
     }
-
 
 
 }

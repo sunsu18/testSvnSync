@@ -17,8 +17,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+
 import java.sql.SQLException;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,14 +31,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichPopup;
@@ -49,10 +55,13 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.model.FilterableQueryDescriptor;
+
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
+
 import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -140,12 +149,11 @@ public class CardBean implements Serializable {
     private String currencyCode;
     Conversion conversionUtility;
     private Locale locale;
-    
-    
+
 
     public CardBean() {
         super();
-        conversionUtility=new Conversion();
+        conversionUtility = new Conversion();
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside Constructor of View Cards");
         ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -166,7 +174,8 @@ public class CardBean implements Serializable {
                 cardGroupList = new ArrayList<SelectItem>();
                 cardGroupValue = new ArrayList<String>();
                 for (int i = 0; i < partnerInfoList.size(); i++) {
-                    lang = partnerInfoList.get(0).getCountry().toString().trim();
+                    lang =
+partnerInfoList.get(0).getCountry().toString().trim();
                     if (partnerInfoList.get(i).getPartnerName() != null &&
                         partnerInfoList.get(i).getPartnerValue() != null) {
                         SelectItem selectItem = new SelectItem();
@@ -175,7 +184,7 @@ public class CardBean implements Serializable {
                         partnerIdList.add(selectItem);
                         partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
                     }
-                    
+
                     if (partnerInfoList.get(i).getAccountList() != null &&
                         partnerInfoList.get(i).getAccountList().size() > 0) {
                         for (int j = 0;
@@ -196,20 +205,22 @@ public class CardBean implements Serializable {
                                     null) {
                                     SelectItem selectItem = new SelectItem();
                                     selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                        partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                     cardGroupList.add(selectItem);
-                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                    cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                       partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                 }
                             }
                         }
                     }
                 }
-//                Collections.sort (partnerInfoList,comparator);
-                Collections.sort (accountIdList,comparator);
-                Collections.sort (cardGroupList,comparator);
+
+                Collections.sort(accountIdList, comparator);
+                Collections.sort(cardGroupList, comparator);
             }
         }
-    
+
 
         if (session != null) {
             if (session.getAttribute("view_card_account_Query") != null) {
@@ -233,8 +244,9 @@ public class CardBean implements Serializable {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              " " + "CardGroup " + cardGroupQuery);
             }
-            if(session.getAttribute("view_card_expiry_Query") != null){
-                expiryQuery = session.getAttribute("view_card_expiry_Query").toString().trim();
+            if (session.getAttribute("view_card_expiry_Query") != null) {
+                expiryQuery =
+                        session.getAttribute("view_card_expiry_Query").toString().trim();
             }
         }
 
@@ -243,43 +255,32 @@ public class CardBean implements Serializable {
         if (lang != null) {
             currencyCode = conversionUtility.getCurrencyCode(lang);
             locale = conversionUtility.getLocaleFromCountryCode(lang);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Locale :" + locale);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Locale :" + locale);
         } else {
             currencyCode = conversionUtility.getCurrencyCode("SE");
             locale = conversionUtility.getLocaleFromCountryCode("SE");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:currencyCode :" + currencyCode);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"Default:Locale :" + locale);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Default:currencyCode :" + currencyCode);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                         "Default:Locale :" + locale);
         }
-//        if (session != null) {
-//            lang = (String)session.getAttribute(Constants.userLang);
-//            currencyCode = conversionUtility.getCurrencyCode(lang);
-//        }
+
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Exiting Constructor of View Cards");
-        
-//        ViewObject vo = ADFUtils.getViewObject("PrtCardTypeNameMap1Iterator");
-//        vo.setNamedWhereClauseParam("country",(String)session.getAttribute(Constants.userLang));
-//        vo.removeNamedWhereClauseParam("cardType");
-//        vo.executeQuery();
-//        if (vo.getEstimatedRowCount() != 0) {
-//            cardTypeNameList = new ArrayList<String>();
-//            PrtCardTypeNameMapVORowImpl currRow = (PrtCardTypeNameMapVORowImpl)vo.next();
-//            if (currRow.getTypeName() != null) {
-//                cardTypeNameList.add(currRow.getTypeName());
-//            }
-//        }
-//        session.setAttribute("cardTypeNameList", cardTypeNameList);
+
     }
 
-    
+
     Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
         @Override
         public int compare(SelectItem s1, SelectItem s2) {
             return s1.getLabel().compareTo(s2.getLabel());
         }
     };
-    
+
     /**
      * @return bindings Object
      */
@@ -319,7 +320,6 @@ public class CardBean implements Serializable {
     }
 
     public String populateStringValues(String var) {
-        //removes  [ ] from list
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside populateStringValues method of View Cards");
         String passingValues = null;
@@ -335,11 +335,11 @@ public class CardBean implements Serializable {
     }
 
     public String[] StringConversion(String passedVal) {
-        // converts List to String
+
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside StringConversion method of View Cards");
         List<String> container;
-        //        String tempString = passedVal.substring(1, passedVal.length() - 1);
+
         String[] val = passedVal.split(",");
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Exiting StringConversion method of View Cards");
@@ -383,21 +383,22 @@ public class CardBean implements Serializable {
                                             SelectItem selectItem =
                                                 new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
                                         }
                                     }
                                 }
                             }
                         }
                     }
-//                    Collections.sort (partnerInfoList,comparator);
-                    Collections.sort (accountIdList,comparator);
-                    Collections.sort (cardGroupList,comparator);
+                    Collections.sort(accountIdList, comparator);
+                    Collections.sort(cardGroupList, comparator);
                 }
             }
-            
+
         } else {
             getBindings().getCardGroup().setValue(null);
             getBindings().getStatus().setValue(null);
@@ -501,16 +502,20 @@ public class CardBean implements Serializable {
             cardGroupList = new ArrayList<SelectItem>();
             cardGroupValue = new ArrayList<String>();
             statusValue = new ArrayList<String>();
-            
-            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+
+            String[] partnerString =
+                StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
 
             if (partnerString.length > 0) {
                 for (int i = 0; i < partnerInfoList.size(); i++) {
-                    for(int p = 0 ; p < partnerString.length ; p++){
-                        if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
+                    for (int p = 0; p < partnerString.length; p++) {
+                        if (partnerInfoList.get(i).getPartnerValue().toString() !=
+                            null &&
                             partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
-                            if (partnerInfoList.get(i).getAccountList() != null &&
-                                partnerInfoList.get(i).getAccountList().size() > 0) {
+                            if (partnerInfoList.get(i).getAccountList() !=
+                                null &&
+                                partnerInfoList.get(i).getAccountList().size() >
+                                0) {
 
                                 for (int j = 0;
                                      j < partnerInfoList.get(i).getAccountList().size();
@@ -519,7 +524,8 @@ public class CardBean implements Serializable {
                                     if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() !=
                                         null) {
 
-                                        SelectItem selectItem = new SelectItem();
+                                        SelectItem selectItem =
+                                            new SelectItem();
                                         selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                         selectItem.setValue(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                                         accountIdList.add(selectItem);
@@ -533,27 +539,29 @@ public class CardBean implements Serializable {
                                          k++) {
                                         if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() !=
                                             null) {
-                                            SelectItem selectItem = new SelectItem();
+                                            SelectItem selectItem =
+                                                new SelectItem();
                                             selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
-                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                             cardGroupList.add(selectItem);
-                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +
+                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    
+
                 }
-//                Collections.sort (partnerInfoList,comparator);
-                Collections.sort (accountIdList,comparator);
-                Collections.sort (cardGroupList,comparator);
+                Collections.sort(accountIdList, comparator);
+                Collections.sort(cardGroupList, comparator);
             }
             statusValue.add("0");
             statusValue.add("1");
             statusValue.add("2");
-            
+
         } else {
             getBindings().getCardGroup().setValue(null);
             getBindings().getAccount().setValue(null);
@@ -649,14 +657,14 @@ public class CardBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside searchResults method of View Cards");
         isTableVisible = false;
-        //        String accountPassingValues = null;
+
         String statusPassingValues = null;
         String currentDate = "";
-        //        String cardGroupPassingValues = null;
+
         try {
             if (getBindings().getPartner().getValue() != null) {
                 if (getBindings().getAccount().getValue() != null) {
-                    //                    accountPassingValues = populateStringValues(getBindings().getAccount().getValue().toString());
+
                 } else {
                     showErrorMessage("ENGAGE_NO_ACCOUNT");
                     return null;
@@ -671,8 +679,6 @@ public class CardBean implements Serializable {
                 }
 
                 if (getBindings().getCardGroup().getValue() != null) {
-                    //                    cardGroupPassingValues = populateStringValues(getBindings().getCardGroup().getValue().toString());
-                    //                    populateCardGroupValues(cardGroupPassingValues);
 
                 } else {
                     showErrorMessage("ENGAGE_NO_CARD_GROUP");
@@ -683,11 +689,15 @@ public class CardBean implements Serializable {
                     ViewObject vo =
                         ADFUtils.getViewObject("PrtViewCardsVO1Iterator");
 
-                    //remove acc & cardgroup
-
-                    if (accountQuery.length() > 1 && accountQuery != null && cardGroupQuery.length() > 1 && expiryQuery!= null) {
+                    if (accountQuery.length() > 1 && accountQuery != null &&
+                        cardGroupQuery.length() > 1 && expiryQuery != null) {
                         if (vo.getWhereClause() != null) {
-                            if (((accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) || ((accountQuery + " AND " + cardGroupQuery + " AND " + expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                            if (((accountQuery + "AND " + cardGroupQuery +
+                                  "AND " +
+                                  expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                                ((accountQuery + " AND " + cardGroupQuery +
+                                  " AND " +
+                                  expiryQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                                 if (mapAccountListValue != null) {
                                     for (int i = 0;
                                          i < mapAccountListValue.size(); i++) {
@@ -707,17 +717,19 @@ public class CardBean implements Serializable {
                                 } else {
                                     vo.removeNamedWhereClauseParam("cardGroup");
                                 }
-                                
-                                vo.removeNamedWhereClauseParam("currentDate");                                                                
+
+                                vo.removeNamedWhereClauseParam("currentDate");
                                 vo.setWhereClause("");
                                 vo.executeQuery();
-                            }
-                            else {
-                                if (((accountQuery + "AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) 
-                                    || ((accountQuery + " AND " + cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
+                            } else {
+                                if (((accountQuery + "AND " +
+                                      cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim())) ||
+                                    ((accountQuery + " AND " +
+                                      cardGroupQuery).trim().equalsIgnoreCase(vo.getWhereClause().trim()))) {
                                     if (mapAccountListValue != null) {
                                         for (int i = 0;
-                                             i < mapAccountListValue.size(); i++) {
+                                             i < mapAccountListValue.size();
+                                             i++) {
                                             String values = "account" + i;
                                             vo.removeNamedWhereClauseParam(values);
                                         }
@@ -733,7 +745,7 @@ public class CardBean implements Serializable {
                                         }
                                     } else {
                                         vo.removeNamedWhereClauseParam("cardGroup");
-                                    }                                                      
+                                    }
                                     vo.setWhereClause("");
                                     vo.executeQuery();
                                 }
@@ -744,8 +756,6 @@ public class CardBean implements Serializable {
                     accountQuery = "(";
                     cardGroupQuery = "(";
                     expiryQuery = "";
-
-                    //account query
 
                     if (accountIdValue.size() > 150) {
                         _logger.info(accessDC.getDisplayRecord() +
@@ -774,7 +784,6 @@ public class CardBean implements Serializable {
                         accountQuery = "(INSTR(:account,ACCOUNT_ID)<>0 ) ";
                     }
 
-                    //cardgroup query
 
                     if (cardGroupValue.size() > 150) {
                         _logger.info(accessDC.getDisplayRecord() +
@@ -807,59 +816,70 @@ public class CardBean implements Serializable {
                                 "(INSTR(:cardGroup,PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0) ";
                     }
 
-                    //                    vo.setNamedWhereClauseParam("accountID", accountPassingValues);
+
                     vo.setNamedWhereClauseParam("partnerId",
                                                 getBindings().getPartner().getValue().toString().trim());
-//                    vo.setNamedWhereClauseParam("status", statusPassingValues);
-                    //                    vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
-                    //                    vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
-                    //                    vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+
                     vo.setNamedWhereClauseParam("countryCd", lang);
-                    
-                    if(!statusPassingValues.contains("2")){
+
+                    if (!statusPassingValues.contains("2")) {
                         Date dateNow = new java.util.Date();
-                        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                        SimpleDateFormat dateformat =
+                            new SimpleDateFormat("dd-MMM-yy");
                         currentDate = dateformat.format(dateNow);
                         expiryQuery = "(CARD_EXPIRY > =: currentDate)";
-                        vo.setNamedWhereClauseParam("status", statusPassingValues);
-                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                    }else{
-                        if(statusPassingValues.contains("0") && !statusPassingValues.contains("1")){
+                        vo.setNamedWhereClauseParam("status",
+                                                    statusPassingValues);
+                        vo.setWhereClause(accountQuery + "AND " +
+                                          cardGroupQuery + "AND " +
+                                          expiryQuery);
+                    } else {
+                        if (statusPassingValues.contains("0") &&
+                            !statusPassingValues.contains("1")) {
                             String status = "0,1,2";
                             vo.setNamedWhereClauseParam("status", status);
                             Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                            SimpleDateFormat dateformat =
+                                new SimpleDateFormat("dd-MMM-yy");
                             currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                        }
-                        else if(!statusPassingValues.contains("0") && statusPassingValues.contains("1")){
+                            expiryQuery =
+                                    "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
+                            vo.setWhereClause(accountQuery + "AND " +
+                                              cardGroupQuery + "AND " +
+                                              expiryQuery);
+                        } else if (!statusPassingValues.contains("0") &&
+                                   statusPassingValues.contains("1")) {
                             String status = "0,1,2";
                             vo.setNamedWhereClauseParam("status", status);
                             Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                            SimpleDateFormat dateformat =
+                                new SimpleDateFormat("dd-MMM-yy");
                             currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                        }
-                        else if(statusPassingValues.equalsIgnoreCase("2")){
+                            expiryQuery =
+                                    "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                            vo.setWhereClause(accountQuery + "AND " +
+                                              cardGroupQuery + "AND " +
+                                              expiryQuery);
+                        } else if (statusPassingValues.equalsIgnoreCase("2")) {
                             String status = "0,1,2";
                             vo.setNamedWhereClauseParam("status", status);
                             Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                            SimpleDateFormat dateformat =
+                                new SimpleDateFormat("dd-MMM-yy");
                             currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                        }
-                        else{
-                            vo.setNamedWhereClauseParam("status", statusPassingValues);
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                            expiryQuery =
+                                    "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                            vo.setWhereClause(accountQuery + "AND " +
+                                              cardGroupQuery + "AND " +
+                                              expiryQuery);
+                        } else {
+                            vo.setNamedWhereClauseParam("status",
+                                                        statusPassingValues);
+                            vo.setWhereClause(accountQuery + "AND " +
+                                              cardGroupQuery);
                         }
                     }
-                    
-                    
-                    
-                            
+
 
                     if (accountIdValue.size() > 150) {
                         _logger.info(accessDC.getDisplayRecord() +
@@ -908,14 +928,17 @@ public class CardBean implements Serializable {
                                                        populateStringValues(getBindings().getCardGroup().getValue().toString()),
                                                        null);
                     }
-                   
-                    if(currentDate != null && (!statusPassingValues.contains("2") || !statusPassingValues.contains("1") || !statusPassingValues.contains("0"))){
-                        vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
+
+                    if (currentDate != null &&
+                        (!statusPassingValues.contains("2") ||
+                         !statusPassingValues.contains("1") ||
+                         !statusPassingValues.contains("0"))) {
+                        vo.defineNamedWhereClauseParam("currentDate",
+                                                       currentDate, null);
                     }
-                    
+
                     vo.executeQuery();
-//                    blockExpiryVisibility();
-                    
+
                     session.setAttribute("view_card_account_Query",
                                          accountQuery);
                     session.setAttribute("view_card_map_Account_List",
@@ -924,7 +947,8 @@ public class CardBean implements Serializable {
                                          cardGroupQuery);
                     session.setAttribute("view_card_map_CardGroup_List",
                                          mapCardGroupListValue);
-                    session.setAttribute("view_card_expiry_Query", expiryQuery);
+                    session.setAttribute("view_card_expiry_Query",
+                                         expiryQuery);
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() + " " +
                                  "Queries are saved in session");
@@ -1197,9 +1221,6 @@ public class CardBean implements Serializable {
     }
 
     public void setDriverNameValue(String driverNameValue) {
-        //        if( AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber") != null){
-        //            this.driverNameValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("DriverNumber").toString().trim();
-        //        }
         this.driverNameValue = driverNameValue;
     }
 
@@ -1304,7 +1325,7 @@ public class CardBean implements Serializable {
                         User user = null;
                         String modifiedBy = null;
                         user =
-                        (User)session.getAttribute(Constants.SESSION_USER_INFO);
+(User)session.getAttribute(Constants.SESSION_USER_INFO);
                         modifiedBy =
                                 user.getFirstName().concat(" ").concat(user.getLastName());
                         BindingContainer bindings =
@@ -1354,8 +1375,7 @@ public class CardBean implements Serializable {
                             }
                             if (getBindings().getPartner().getValue() !=
                                 null) {
-                               executeViewCardsVO();
-//                                blockExpiryVisibility();
+                                executeViewCardsVO();
                                 isTableVisible = true;
                             }
                         }
@@ -1495,7 +1515,6 @@ public class CardBean implements Serializable {
                             if (getBindings().getPartner().getValue() !=
                                 null) {
                                 executeViewCardsVO();
-//                                blockExpiryVisibility();
                                 isTableVisible = true;
                             }
                         }
@@ -1525,9 +1544,9 @@ public class CardBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside exportExcelSpecificAction method of View Cards");
         shuttleStatus = false;
-        String langDB=(String)session.getAttribute("lang");
-        langDB=langDB.substring(langDB.length()-2, langDB.length());
-        langDB=langDB.toUpperCase();
+        String langDB = (String)session.getAttribute("lang");
+        langDB = langDB.substring(langDB.length() - 2, langDB.length());
+        langDB = langDB.toUpperCase();
         ViewObject prtExportInfoRVO =
             ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
@@ -1548,7 +1567,8 @@ public class CardBean implements Serializable {
             }
         }
         if (strViewCardTotalColumns != null) {
-            String[] strHead = strViewCardTotalColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
+            String[] strHead =
+                strViewCardTotalColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
             shuttleList = new ArrayList<SelectItem>();
             for (int col = 0; col < strHead.length; col++) {
                 SelectItem selectItem = new SelectItem();
@@ -1736,9 +1756,9 @@ public class CardBean implements Serializable {
 
     public List getShuttleValue() {
         if (!shuttleStatus) {
-            String langDB=(String)session.getAttribute("lang");
-            langDB=langDB.substring(langDB.length()-2, langDB.length());
-            langDB=langDB.toUpperCase();
+            String langDB = (String)session.getAttribute("lang");
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
             shuttleValue = new ArrayList();
             ViewObject prtExportInfoRVO =
                 ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
@@ -1762,7 +1782,8 @@ public class CardBean implements Serializable {
                 }
             }
             if (strViewCardPrepopulatedColumns != null) {
-                String[] strHead = strViewCardPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
+                String[] strHead =
+                    strViewCardPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
                     shuttleValue.add(strHead[col].toString());
                 }
@@ -1844,32 +1865,32 @@ public class CardBean implements Serializable {
         if (listValues.length > 1) {
             if ("Partner".equalsIgnoreCase(type)) {
                 if (partnerInfoList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {  
-                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey("ENG_ALL")) {
+                        val = (String)resourceBundle.getObject("ENG_ALL");
                     }
                 } else {
                     val = selectedValues;
                 }
-            }else if ("Account".equalsIgnoreCase(type)) {
+            } else if ("Account".equalsIgnoreCase(type)) {
                 if (accountIdList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {  
-                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey("ENG_ALL")) {
+                        val = (String)resourceBundle.getObject("ENG_ALL");
                     }
                 } else {
                     val = selectedValues;
                 }
             } else if ("CardGroup".equalsIgnoreCase(type)) {
                 if (cardGroupList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {  
-                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey("ENG_ALL")) {
+                        val = (String)resourceBundle.getObject("ENG_ALL");
                     }
                 } else {
                     val = selectedValues;
                 }
             } else if ("Status".equalsIgnoreCase(type)) {
                 if (statusList.size() == listValues.length) {
-                    if (resourceBundle.containsKey("ENG_ALL")) {  
-                        val  = (String)resourceBundle.getObject("ENG_ALL");
+                    if (resourceBundle.containsKey("ENG_ALL")) {
+                        val = (String)resourceBundle.getObject("ENG_ALL");
                     }
                 } else {
                     val = selectedValues;
@@ -1932,7 +1953,8 @@ public class CardBean implements Serializable {
 
     public void specificExportExcelListener(FacesContext facesContext,
                                             OutputStream outputStream) throws IOException,
-                                                                              SQLException,Exception {
+                                                                              SQLException,
+                                                                              Exception {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside specificExportExcelListener method of View Cards");
         String selectedValues = "";
@@ -1946,37 +1968,46 @@ public class CardBean implements Serializable {
         selectedValues =
                 selectedValues.substring(0, selectedValues.length() - 1);
 
-        ReportBundle rb=new ReportBundle();
-        
-        
-        String langDB=(String)session.getAttribute("lang");
-        langDB=langDB.substring(langDB.length()-2, langDB.length());
-        langDB=langDB.toUpperCase();
+        ReportBundle rb = new ReportBundle();
+
+
+        String langDB = (String)session.getAttribute("lang");
+        langDB = langDB.substring(langDB.length() - 2, langDB.length());
+        langDB = langDB.toUpperCase();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "langDB =" + langDB);
-        String columnsReport=rb.getContentsForReport("VIEWCARDS",langDB,selectedValues);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +"From Resource Bundle:"+columnsReport);
-        
+        String columnsReport =
+            rb.getContentsForReport("VIEWCARDS", langDB, selectedValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                     "From Resource Bundle:" + columnsReport);
+
         String partnerCompanyName = "";
-        String[] partnerCompanyNameList = StringConversion(populateStringValues(getBindings().getPartner().getValue().toString().trim()));
+        String[] partnerCompanyNameList =
+            StringConversion(populateStringValues(getBindings().getPartner().getValue().toString().trim()));
         String cardGroupDescName = "";
         String[] cardGroupDescList =
             StringConversion(populateStringValues(getBindings().getCardGroup().getValue().toString().trim()));
         String[] accountString =
             StringConversion(populateStringValues(getBindings().getAccount().getValue().toString().trim()));
         for (int z = 0; z < partnerInfoList.size(); z++) {
-            if(partnerCompanyNameList.length > 0){
-                for(int p = 0; p < partnerCompanyNameList.length; p++){
-                    if(partnerInfoList.get(z).getPartnerValue() != null && partnerCompanyNameList[p] != null){
-                        if(partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim())){
-                            partnerCompanyName = partnerCompanyName + partnerInfoList.get(z).getPartnerValue().toString().trim() + ",";
-                            if (partnerInfoList.get(z).getAccountList() != null &&
-                                partnerInfoList.get(z).getAccountList().size() > 0) {
+            if (partnerCompanyNameList.length > 0) {
+                for (int p = 0; p < partnerCompanyNameList.length; p++) {
+                    if (partnerInfoList.get(z).getPartnerValue() != null &&
+                        partnerCompanyNameList[p] != null) {
+                        if (partnerInfoList.get(z).getPartnerValue().trim().equalsIgnoreCase(partnerCompanyNameList[p].trim())) {
+                            partnerCompanyName =
+                                    partnerCompanyName + partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                    ",";
+                            if (partnerInfoList.get(z).getAccountList() !=
+                                null &&
+                                partnerInfoList.get(z).getAccountList().size() >
+                                0) {
                                 for (int i = 0;
                                      i < partnerInfoList.get(z).getAccountList().size();
                                      i++) {
                                     if (accountString.length > 0) {
-                                        for (int j = 0; j < accountString.length; j++) {
+                                        for (int j = 0;
+                                             j < accountString.length; j++) {
                                             if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() !=
                                                 null &&
                                                 partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().trim().equals(accountString[j].trim())) {
@@ -1988,11 +2019,15 @@ public class CardBean implements Serializable {
                                                          k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size();
                                                          k++) {
                                                         if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() !=
-                                                            null && cardGroupDescList.length > 0) {
+                                                            null &&
+                                                            cardGroupDescList.length >
+                                                            0) {
                                                             for (int cg = 0;
-                                                                 cg < cardGroupDescList.length;
+                                                                 cg <
+                                                                 cardGroupDescList.length;
                                                                  cg++) {
-                                                                if ((partnerInfoList.get(z).getPartnerValue().toString().trim()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                                if ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
+                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
                                                                     cardGroupDescName =
                                                                             cardGroupDescName +
                                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
@@ -2012,11 +2047,17 @@ public class CardBean implements Serializable {
                 }
             }
         }
-        partnerCompanyName = (String)partnerCompanyName.subSequence(0, (partnerCompanyName.length()) - 1);
-        cardGroupDescName = (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) - 1);
-        String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
-        String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
-        
+        partnerCompanyName =
+                (String)partnerCompanyName.subSequence(0, (partnerCompanyName.length()) -
+                                                       1);
+        cardGroupDescName =
+                (String)cardGroupDescName.subSequence(0, (cardGroupDescName.length()) -
+                                                      1);
+        String[] headerDataValues =
+            columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
+        String[] headerValues =
+            selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
+
         if ("xls".equalsIgnoreCase(getBindings().getSelectionExportOneRadio().getValue().toString())) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                          "Report in Excel Format");
@@ -2027,7 +2068,6 @@ public class CardBean implements Serializable {
             HSSFCellStyle cs = XLS.createCellStyle();
             HSSFFont f = XLS.createFont();
 
-            //create sheet
             HSSFSheet XLS_SH = XLS.createSheet();
             XLS.setSheetName(0, "CardReport");
 
@@ -2035,15 +2075,15 @@ public class CardBean implements Serializable {
             f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
             f.setColor((short)0);
             cs.setFont(f);
-            
+
             HSSFCellStyle csRight = XLS.createCellStyle();
             HSSFFont fnumberData = XLS.createFont();
             fnumberData.setFontHeightInPoints((short)10);
             fnumberData.setColor((short)0);
             csRight.setFont(fnumberData);
             csRight.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-            
-            
+
+
             HSSFCellStyle csData = XLS.createCellStyle();
             HSSFFont fData = XLS.createFont();
             fData.setFontHeightInPoints((short)10);
@@ -2055,66 +2095,60 @@ public class CardBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(0);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-//            XLS_SH_R_C.setCellValue("Company: " + checkALL(partnerCompanyName,"Partner"));
-            if (resourceBundle.containsKey("PARTNER_ENG")) {  
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("PARTNER_ENG")+": " + checkALL(partnerCompanyName,"Partner"));
+            if (resourceBundle.containsKey("PARTNER_ENG")) {
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("PARTNER_ENG") +
+                                        ": " +
+                                        checkALL(partnerCompanyName, "Partner"));
             }
 
             XLS_SH_R = XLS_SH.createRow(1);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-//            XLS_SH_R_C.setCellValue("Account: " +
-//                                    checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
-//                                             "Account"));
-            if (resourceBundle.containsKey("ACCOUNT")) {  
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ACCOUNT") +": " + 
+            if (resourceBundle.containsKey("ACCOUNT")) {
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ACCOUNT") +
+                                        ": " +
                                         checkALL((populateStringValues(getBindings().getAccount().getValue().toString())),
-                                                "Account"));
+                                                 "Account"));
             }
 
             XLS_SH_R = XLS_SH.createRow(2);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-//            XLS_SH_R_C.setCellValue("CardGroup: " +
-//                                    checkALL(cardGroupDescName, "CardGroup"));
-            if (resourceBundle.containsKey("CARDGROUP")) {  
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("CARDGROUP") +": " + 
+            if (resourceBundle.containsKey("CARDGROUP")) {
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("CARDGROUP") +
+                                        ": " +
                                         checkALL(cardGroupDescName, "CardGroup"));
             }
 
             XLS_SH_R = XLS_SH.createRow(3);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-//            XLS_SH_R_C.setCellValue("Status: " +
-//                                    checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
-//                                             "Status"));
-            if (resourceBundle.containsKey("STATUS")) {  
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("STATUS") +": " + 
+            if (resourceBundle.containsKey("STATUS")) {
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("STATUS") +
+                                        ": " +
                                         checkALL((statusConversionList(populateStringValues(getBindings().getStatus().getValue().toString()))),
-                                                "Status"));
+                                                 "Status"));
             }
 
             for (int row = 4; row < 6; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
-           
-            
+
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
             fcss.setFontHeightInPoints((short)10);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
-            
+
             XLS_SH_R = XLS_SH.createRow(6);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            if (resourceBundle.containsKey("ENG_VIEW_CARD_NOTE")) {  
-                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_VIEW_CARD_NOTE")); 
+            if (resourceBundle.containsKey("ENG_VIEW_CARD_NOTE")) {
+                XLS_SH_R_C.setCellValue((String)resourceBundle.getObject("ENG_VIEW_CARD_NOTE"));
             }
-            //ENG_VIEW_CARD_NOTE
-            
+
             XLS_SH_R = XLS_SH.createRow(7);
 
             XLS_SH_R = XLS_SH.createRow(8);
@@ -2137,8 +2171,8 @@ public class CardBean implements Serializable {
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
                 if (row != null) {
-                    for (int cellValue = 0; cellValue < headerDataValues.length;
-                         cellValue++) {
+                    for (int cellValue = 0;
+                         cellValue < headerDataValues.length; cellValue++) {
                         if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
@@ -2179,18 +2213,22 @@ public class CardBean implements Serializable {
                             if (row.getLastUsed() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                Date date = new Date(row.getLastUsed().dateValue().getTime());
-                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Date date =
+                                    new Date(row.getLastUsed().dateValue().getTime());
+                                SimpleDateFormat sdf =
+                                    new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
                         } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                            if (row.getQuaterlyTxReportTxThreeMonths3() !=
+                                null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
-                                XLS_SH_R_C.setCellStyle(csRight);                             
+                                XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyTxReportTxThreeMonths3().toString().trim());
                             }
                         } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                            if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
+                                null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
@@ -2238,16 +2276,19 @@ public class CardBean implements Serializable {
                             if (row.getManufacturedDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                java.sql.Date date = row.getManufacturedDate().dateValue();
+                                java.sql.Date date =
+                                    row.getManufacturedDate().dateValue();
                                 Date passedDate = new Date(date.getTime());
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
                             }
-                        }else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getBlockTime() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                Date date = new Date(row.getBlockTime().dateValue().getTime());
-                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Date date =
+                                    new Date(row.getBlockTime().dateValue().getTime());
+                                SimpleDateFormat sdf =
+                                    new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
                         }
@@ -2284,8 +2325,8 @@ public class CardBean implements Serializable {
                 if (row != null) {
                     _logger.info(accessDC.getDisplayRecord() +
                                  this.getClass() + " " + "Printing Data");
-                    for (int cellValue = 0; cellValue < headerDataValues.length;
-                         cellValue++) {
+                    for (int cellValue = 0;
+                         cellValue < headerDataValues.length; cellValue++) {
                         if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString().trim());
@@ -2307,7 +2348,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        }else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardgroupId() != null) {
                                 out.print(row.getCardgroupId());
                             }
@@ -2330,27 +2371,31 @@ public class CardBean implements Serializable {
                             }
                         } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getLastUsed() != null) {
-                                Date date = new Date(row.getLastUsed().dateValue().getTime());
-                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Date date =
+                                    new Date(row.getLastUsed().dateValue().getTime());
+                                SimpleDateFormat sdf =
+                                    new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 out.print(sdf.format(date));
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                            if (row.getQuaterlyTxReportTxThreeMonths3() !=
+                                null) {
                                 out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
-                                }
-                                if (cellValue != headerDataValues.length - 1) {
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                            if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                            if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
+                                null) {
                                 out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
-                                }
-                                if (cellValue != headerDataValues.length - 1) {
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
-                            }                          
+                            }
                         } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString().trim());
@@ -2388,7 +2433,8 @@ public class CardBean implements Serializable {
                             }
                         } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getCardExpiryDate() != null) {
-                                Date date = new Date(row.getCardExpiryDate().dateValue().getTime());
+                                Date date =
+                                    new Date(row.getCardExpiryDate().dateValue().getTime());
                                 out.print(formatConversion(date));
                             }
                             if (cellValue != headerDataValues.length - 1) {
@@ -2396,7 +2442,8 @@ public class CardBean implements Serializable {
                             }
                         } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getManufacturedDate() != null) {
-                                Date date = new Date(row.getManufacturedDate().dateValue().getTime());
+                                Date date =
+                                    new Date(row.getManufacturedDate().dateValue().getTime());
                                 out.print(formatConversion(date));
                             }
                             if (cellValue != headerDataValues.length - 1) {
@@ -2404,8 +2451,10 @@ public class CardBean implements Serializable {
                             }
                         } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                             if (row.getBlockTime() != null) {
-                                Date date = new Date(row.getBlockTime().dateValue().getTime());
-                                SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Date date =
+                                    new Date(row.getBlockTime().dateValue().getTime());
+                                SimpleDateFormat sdf =
+                                    new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 out.print(sdf.format(date));
                             }
                             if (cellValue != headerDataValues.length - 1) {
@@ -2444,7 +2493,8 @@ public class CardBean implements Serializable {
                         _logger.info(accessDC.getDisplayRecord() +
                                      this.getClass() + " " + "Printing Data");
                         for (int cellValue = 0;
-                             cellValue < headerDataValues.length; cellValue++) {
+                             cellValue < headerDataValues.length;
+                             cellValue++) {
                             if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString().trim());
@@ -2466,7 +2516,7 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            }else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardgroupId() != null) {
                                     out.print(row.getCardgroupId());
                                 }
@@ -2489,22 +2539,26 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getLastUsed() != null) {
-                                    Date date = new Date(row.getLastUsed().dateValue().getTime());
-                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                    Date date =
+                                        new Date(row.getLastUsed().dateValue().getTime());
+                                    SimpleDateFormat sdf =
+                                        new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                     out.print(sdf.format(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                                if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
+                                if (row.getQuaterlyTxReportTxThreeMonths3() !=
+                                    null) {
                                     out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
-                                if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
+                                if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
+                                    null) {
                                     out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2547,7 +2601,8 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getCardExpiryDate() != null) {
-                                    Date date = new Date(row.getCardExpiryDate().dateValue().getTime());
+                                    Date date =
+                                        new Date(row.getCardExpiryDate().dateValue().getTime());
                                     out.print(formatConversion(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2555,7 +2610,8 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getManufacturedDate() != null) {
-                                    Date date = new Date(row.getManufacturedDate().dateValue().getTime());
+                                    Date date =
+                                        new Date(row.getManufacturedDate().dateValue().getTime());
                                     out.print(formatConversion(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2563,8 +2619,10 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
                                 if (row.getBlockTime() != null) {
-                                    Date date = new Date(row.getBlockTime().dateValue().getTime());
-                                    SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                    Date date =
+                                        new Date(row.getBlockTime().dateValue().getTime());
+                                    SimpleDateFormat sdf =
+                                        new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                     out.print(sdf.format(date));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2649,17 +2707,10 @@ public class CardBean implements Serializable {
         this.vehicleNumberValue = null;
         driverNameList = new ArrayList<SelectItem>();
         vehicleNumberList = new ArrayList<SelectItem>();
-        //this.getBindings().getDriverNumber().setValue(null);
-        //this.getBindings().getVehicleNumber().setValue(null);
+
         this.displayDriverName = null;
         this.displayVehicleName = null;
-        //        if(getBindings().getVehicleDriverRadio().getValue() == null) {
-        //
-        //            getBindings().getVehicleDriverRadio().setValue(null);
-        //        }
 
-        //        getBindings().getVehicleDriverRadio().setValue("");
-        //AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleDriverRadio());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDriverNumber());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getVehicleNumber());
         getBindings().getTruckdriverDetails().show(new RichPopup.PopupHints());
@@ -2677,7 +2728,6 @@ public class CardBean implements Serializable {
                     null)
                     vehicleModifiedDate =
                             AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate").toString().trim();
-                //                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("vehicleModifiedDate")
 
                 if (resourceBundle.containsKey("TRUCK_CARD_ALREADY_EXIST")) {
                     showEditInfoMessage = true;
@@ -2838,7 +2888,7 @@ public class CardBean implements Serializable {
     }
 
     public String resetVehicleDriver() {
-        
+
         associatedAccount =
                 AdfFacesContext.getCurrentInstance().getPageFlowScope().get("associatedAccount").toString().trim();
         User user = null;
@@ -2926,14 +2976,13 @@ public class CardBean implements Serializable {
 
         }
 
-       
-
 
         executeViewCardsVO();
         isTableVisible = true;
         return null;
     }
-    public void executeViewCardsVO(){
+
+    public void executeViewCardsVO() {
         String currentDate = "";
         String accountPassingValues = null;
         String statusPassingValues = null;
@@ -2968,62 +3017,67 @@ public class CardBean implements Serializable {
             cardGroupQuery =
                     session.getAttribute("view_card_cardGroup_Query").toString().trim();
         }
-        if(session.getAttribute("view_card_expiry_Query") != null){
-            expiryQuery = session.getAttribute("view_card_expiry_Query").toString().trim();
+        if (session.getAttribute("view_card_expiry_Query") != null) {
+            expiryQuery =
+                    session.getAttribute("view_card_expiry_Query").toString().trim();
         }
 
 
-        //                                vo.setNamedWhereClauseParam("accountID", accountPassingValues);
         vo.setNamedWhereClauseParam("partnerId",
                                     getBindings().getPartner().getValue().toString().trim());
-        //        vo.setNamedWhereClauseParam("status", statusPassingValues);
-        //                                vo.setNamedWhereClauseParam("cgMain", cardGroupMaintypePassValue);
-        //                                vo.setNamedWhereClauseParam("cgSub", cardGroupSubtypePassValues);
-        //                                vo.setNamedWhereClauseParam("cgSeq", cardGroupSeqPassValues);
+
         vo.setNamedWhereClauseParam("countryCd", lang);
 
 
-
-            if(!statusPassingValues.contains("2")){
+        if (!statusPassingValues.contains("2")) {
+            Date dateNow = new java.util.Date();
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+            currentDate = dateformat.format(dateNow);
+            expiryQuery = "(CARD_EXPIRY > =: currentDate)";
+            vo.setNamedWhereClauseParam("status", statusPassingValues);
+            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " +
+                              expiryQuery);
+        } else {
+            if (statusPassingValues.contains("0") &&
+                !statusPassingValues.contains("1")) {
+                String status = "0,1,2";
+                vo.setNamedWhereClauseParam("status", status);
                 Date dateNow = new java.util.Date();
-                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                SimpleDateFormat dateformat =
+                    new SimpleDateFormat("dd-MMM-yy");
                 currentDate = dateformat.format(dateNow);
-                expiryQuery = "(CARD_EXPIRY > =: currentDate)";
+                expiryQuery =
+                        "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
+                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery +
+                                  "AND " + expiryQuery);
+            } else if (!statusPassingValues.contains("0") &&
+                       statusPassingValues.contains("1")) {
+                String status = "0,1,2";
+                vo.setNamedWhereClauseParam("status", status);
+                Date dateNow = new java.util.Date();
+                SimpleDateFormat dateformat =
+                    new SimpleDateFormat("dd-MMM-yy");
+                currentDate = dateformat.format(dateNow);
+                expiryQuery =
+                        "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery +
+                                  "AND " + expiryQuery);
+            } else if (statusPassingValues.equalsIgnoreCase("2")) {
+                String status = "0,1,2";
+                vo.setNamedWhereClauseParam("status", status);
+                Date dateNow = new java.util.Date();
+                SimpleDateFormat dateformat =
+                    new SimpleDateFormat("dd-MMM-yy");
+                currentDate = dateformat.format(dateNow);
+                expiryQuery =
+                        "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery +
+                                  "AND " + expiryQuery);
+            } else {
                 vo.setNamedWhereClauseParam("status", statusPassingValues);
-                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-            }else{
-                if(statusPassingValues.contains("0") && !statusPassingValues.contains("1")){
-                    String status = "0,1,2";
-                    vo.setNamedWhereClauseParam("status", status);
-                    Date dateNow = new java.util.Date();
-                    SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                    currentDate = dateformat.format(dateNow);
-                    expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
-                    vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                }
-                else if(!statusPassingValues.contains("0") && statusPassingValues.contains("1")){
-                    String status = "0,1,2";
-                    vo.setNamedWhereClauseParam("status", status);
-                    Date dateNow = new java.util.Date();
-                    SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                    currentDate = dateformat.format(dateNow);
-                    expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
-                    vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                }
-                else if(statusPassingValues.equalsIgnoreCase("2")){
-                    String status = "0,1,2";
-                    vo.setNamedWhereClauseParam("status", status);
-                    Date dateNow = new java.util.Date();
-                    SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                    currentDate = dateformat.format(dateNow);
-                    expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
-                    vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                }
-                else{
-                    vo.setNamedWhereClauseParam("status", statusPassingValues);
-                    vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-                }
+                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
             }
+        }
 
         if (accountIdValue.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -3069,12 +3123,15 @@ public class CardBean implements Serializable {
         }
 
 
-        if(currentDate != null && (!statusPassingValues.contains("2") || !statusPassingValues.contains("1") || !statusPassingValues.contains("0"))){
-           vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
+        if (currentDate != null &&
+            (!statusPassingValues.contains("2") || !statusPassingValues.contains("1") ||
+             !statusPassingValues.contains("0"))) {
+            vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
         }
-        
+
         vo.executeQuery();
     }
+
     public void disassociateVehicleDriver(ActionEvent actionEvent) {
         this.reset = true;
         resetVehicleDriver();
@@ -3122,12 +3179,14 @@ public class CardBean implements Serializable {
         return fileName;
     }
 
-    public void resetTableFilter(){
+    public void resetTableFilter() {
         FilterableQueryDescriptor queryDescriptor =
-            (FilterableQueryDescriptor) getBindings().getSearchResultsTB().getFilterModel();
-        if (queryDescriptor != null && queryDescriptor.getFilterCriteria() != null){
+            (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
+        if (queryDescriptor != null &&
+            queryDescriptor.getFilterCriteria() != null) {
             queryDescriptor.getFilterCriteria().clear();
-            getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(), queryDescriptor));
+            getBindings().getSearchResultsTB().queueEvent(new QueryEvent(getBindings().getSearchResultsTB(),
+                                                                         queryDescriptor));
         }
     }
 
@@ -3142,7 +3201,7 @@ public class CardBean implements Serializable {
     public String getLang() {
         return lang;
     }
-    
+
     public void filterTable(ActionEvent actionEvent) {
         FilterableQueryDescriptor qd =
             (FilterableQueryDescriptor)getBindings().getSearchResultsTB().getFilterModel();
@@ -3151,7 +3210,7 @@ public class CardBean implements Serializable {
         getBindings().getSearchResultsTB().queueEvent(queryEvent);
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());
     }
-    
+
     public void resetFilterTable(ActionEvent actionEvent) {
         resetTableFilter();
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResultsTB());

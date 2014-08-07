@@ -48,6 +48,7 @@ public class ChangePasswordBean implements Serializable {
     private HttpServletRequest request;
     private User userBean;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+
     /**
      * @return bindings Object
      */
@@ -67,15 +68,21 @@ public class ChangePasswordBean implements Serializable {
         resourceBundle = new EngageResourceBundle();
         if (session != null) {
             if (null != session.getAttribute(Constants.SESSION_USER_INFO))
-                userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-             _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Inside change password constructor :" + userBean.getRolelist());
-            //lang = (String)session.getAttribute(Constants.userLang);
+                userBean =
+                        (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            _logger.info(AccessDataControl.getDisplayRecord() +
+                         this.getClass() + ".ChangePassword : " +
+                         "Inside change password constructor :" +
+                         userBean.getRolelist());
+
             lang = (String)session.getAttribute("lang");
-            _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Language :" + lang);
+            _logger.info(AccessDataControl.getDisplayRecord() +
+                         this.getClass() + ".ChangePassword : " +
+                         "Language :" + lang);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "Language :" + lang);
-        
+
     }
 
     public String changeUserPassword() {
@@ -121,15 +128,20 @@ public class ChangePasswordBean implements Serializable {
             if (status) {
 
                 if (getBindings().getNewPasswordIT().getValue().equals(getBindings().getConfirmPasswordIT().getValue())) {
-                    //System.out.println("Password Changed Successfully");
+
                     BindingContainer bindings =
                         BindingContext.getCurrent().getCurrentBindingsEntry();
                     OperationBinding operationBinding =
                         bindings.getOperationBinding("changePassword");
-                    _logger.info(AccessDataControl.getDisplayRecord()+this.getClass()+".ChangePassword : "+"Email Id :" + userBean.getEmailID());
-                    operationBinding.getParamsMap().put("userID", userBean.getEmailID());
-                    operationBinding.getParamsMap().put("oldPassword", getBindings().getOldPasswordIT().getValue().toString());
-                    operationBinding.getParamsMap().put("newPassword", getBindings().getNewPasswordIT().getValue().toString());
+                    _logger.info(AccessDataControl.getDisplayRecord() +
+                                 this.getClass() + ".ChangePassword : " +
+                                 "Email Id :" + userBean.getEmailID());
+                    operationBinding.getParamsMap().put("userID",
+                                                        userBean.getEmailID());
+                    operationBinding.getParamsMap().put("oldPassword",
+                                                        getBindings().getOldPasswordIT().getValue().toString());
+                    operationBinding.getParamsMap().put("newPassword",
+                                                        getBindings().getNewPasswordIT().getValue().toString());
                     result = (BaseBean)operationBinding.execute();
 
                     if (result.getStatus() != null &&
@@ -165,28 +177,7 @@ public class ChangePasswordBean implements Serializable {
                             FacesContext.getCurrentInstance().addMessage(null,
                                                                          msg);
                         }
-//                        try {
-//
-//                            ExternalContext ectx =
-//                                FacesContext.getCurrentInstance().getExternalContext();
-//                            HttpServletRequest request =
-//                                (HttpServletRequest)ectx.getRequest();
-//                            ectx =
-//                            FacesContext.getCurrentInstance().getExternalContext();
-//                            request = (HttpServletRequest)ectx.getRequest();
-//                            //                        HttpSession session = request.getSession(false);
-//                            //                        session.setAttribute("passwordChangeRequired", Constants.NO);
-//                            //                        String requestedPage = (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
-//                            ectx.redirect(ectx.getRequestContextPath() +
-//                                          "/faces/card/home");
-//                        } catch (Exception e) {
-//                            FacesMessage msg =
-//                                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//                                                 e.getMessage(), "");
-//                            FacesContext.getCurrentInstance().addMessage(null,
-//                                                                         msg);
-//                        }
-//
+
                     }
 
                 } else {
@@ -204,18 +195,14 @@ public class ChangePasswordBean implements Serializable {
 
         } catch (JboException jboEx) {
             FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                 jboEx.getMessage(),
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, jboEx.getMessage(),
                                  "");
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         msg);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
             FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                 e.getMessage(),
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),
                                  "");
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         msg);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return null;
     }
