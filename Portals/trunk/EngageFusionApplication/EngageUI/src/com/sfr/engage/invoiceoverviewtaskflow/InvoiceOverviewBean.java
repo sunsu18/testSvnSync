@@ -265,7 +265,6 @@ public class InvoiceOverviewBean implements Serializable {
 
         }
 
-        //lang=(String)session.getAttribute(Constants.SESSION_LANGUAGE);
 
         if (session != null) {
             lang = (String)session.getAttribute(Constants.userLang);
@@ -1260,8 +1259,7 @@ public class InvoiceOverviewBean implements Serializable {
         PrtNewInvoiceVORowImpl row =
             (PrtNewInvoiceVORowImpl)invoiceVO.getCurrentRow();
         String invoiceNumberValuePdf = row.getFinalinvoice();
-        String partnerNumberValuePdf =
-            row.getPartnerId(); // Added by siddharth
+        String partnerNumberValuePdf = row.getPartnerId();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                      "invoice number" + invoiceNumberValuePdf);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
@@ -1431,7 +1429,7 @@ public class InvoiceOverviewBean implements Serializable {
 
         prop[1] = new Property();
         prop[1].setName("xPartnerId");
-        prop[1].setValue(partnerNumber.toString().trim()); // Added by siddharth
+        prop[1].setValue(partnerNumber.toString().trim());
 
         prop[2] = new Property();
         prop[2].setName("xContentType");
@@ -1474,13 +1472,13 @@ public class InvoiceOverviewBean implements Serializable {
 
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "UCM LIST SIZE.get(0):" +
-                             UCMInvoiceContentIdList.get(0)); // Instead of printing this, print what was the Invoice search criteria
+                             UCMInvoiceContentIdList.get(0));
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "UCM LIST SIZE.get(0):.getSearchResultMetadata.size()  : " +
                              UCMInvoiceContentIdList.get(0).getSearchResultMetadata().size());
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "content id " +
-                             UCMInvoiceContentIdList.get(0).getContentID()); // toString ki wajeh se null pointer aata hai
+                             UCMInvoiceContentIdList.get(0).getContentID());
                 if (UCMInvoiceContentIdList.size() > 0) {
                     ucmContentId =
                             UCMInvoiceContentIdList.get(0).getContentID();
@@ -1863,7 +1861,7 @@ public class InvoiceOverviewBean implements Serializable {
                 invoice_req =
                         session.getAttribute("SESSION_USER_INVOICE_REQ").toString();
                 partner_req =
-                        session.getAttribute("SESSION_USER_PARTNER_REQ").toString(); // Added by Siddharth
+                        session.getAttribute("SESSION_USER_PARTNER_REQ").toString();
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                              " invoice req = " + invoice_req);
             }
@@ -1885,30 +1883,30 @@ public class InvoiceOverviewBean implements Serializable {
         String email2 = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
             "<head>\n" +
             "<title>Email from SFR</title>\n" +
+            "<style>" +
 
-            "<style>" + "a:link {text-decoration:none;}" +
+            "a:link {text-decoration:none;}" +
             "a:visited {text-decoration:none;}" +
             "a:hover {text-decoration:underline;}" +
             "a:active {text-decoration:underline;}" + "</style>" +
             "</head>\n" +
-
             "\n" +
+
             "<body>\n" +
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
             "  <tr>\n" +
             "    <td align=\"left\" valign=\"top\" bgcolor=\"\" style=\"background-color:;\"><br>\n" +
             "    <br>\n" +
             "    <table width=\"800\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
-            "      <tr>" + "      </tr>" +
+            "      <tr>" + "      </tr>" + "      <tr>" +
 
-            "      <tr>" +
             "        <td align=\"left\" valign=\"top\"><img src=\"cid:image\" width=\"\" height=\"50\" style=\"display:block;\"></td>\n" +
             "      </tr>" + "<tr> " +
             "<td align=\"left\" valign=\"top\" style=\"background-color:rgb(255,255,255); color:#ffffff; font-family:gerogia; font-size:6px;\"><font Color=\"#ffffff\">hi</font></td>" +
             "</tr>" + "      <tr>\n" +
             "        <td width=\"800\" align=\"center\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(58,56,57); color:#000000;\">" +
-
             "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">\n" +
+
             "          <tr>\n" +
             "            <td width=\"50%\" align=\"left\" valign=\"top\" style=\"color:#ffffff; font-family:gerogia; font-size:16px;\">&nbsp;&nbsp;" +
             month + " " + dayOfMonth + ", " + year + " </td>" +
@@ -1921,23 +1919,23 @@ public class InvoiceOverviewBean implements Serializable {
             "          <tr>\n" +
             "            <td align=\"left\" valign=\"top\" style=\"font-family:gerogia; font-size:16px; color:#525252;\">\n" +
             "<div style=\"font-size:16px;\"><br>\n" +
-
             getLocalizedString
 
-            ("ENCLOSED", mailLnag) + "." +
+            (
 
-            getLocalizedString("HESITATE", mailLnag) + "<br>" +
+                "ENCLOSED", mailLnag) + "." + getLocalizedString
+
+            ("HESITATE", mailLnag) + "<br>" +
             getLocalizedString("AUTOGENERATED", mailLnag) + "<br>" +
             getLocalizedString("CONTACTDETAILS", mailLnag) + " " + "<a href=" +
             contact_Link + "><font Color=\"#F89518\">" +
             getLocalizedString("HERE", mailLnag) + "</font></a>" +
-            "<br><br></i>" +
-
-            "</div></td>\n" +
+            "<br><br></i>" + "</div></td>\n" +
 
             "          </tr>\n" +
 
             "        </table>\n" +
+
             "      </tr>\n" +
             "      <tr>\n" +
             "        <td align=\"left\" valign=\"top\" bgcolor=\"#006c00\" style=\"background-color:rgb(243,243,243); \"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"15\">\n" +
