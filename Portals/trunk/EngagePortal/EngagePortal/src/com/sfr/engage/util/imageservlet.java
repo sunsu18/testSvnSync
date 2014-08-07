@@ -57,8 +57,8 @@ public class imageservlet extends HttpServlet {
                            request.getParameter("categId"));
         String imageId = "";
         String categId = "";
-        int image_id = 0;
-        int categ_id = 99;
+        int imageId2 = 0;
+        int categId2 = 99;
         if (request.getParameter("id") != null) {
             imageId = request.getParameter("id").trim();
         }
@@ -67,25 +67,25 @@ public class imageservlet extends HttpServlet {
         }
 
         if (imageId != null && !imageId.equals("")) {
-            image_id =
+            imageId2 =
                     Integer.parseInt(imageId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.imageID & imageIdAsString is better
         }
         if (categId != null && !categId.trim().equals("")) {
-            categ_id =
+            categId2 =
                     Integer.parseInt(categId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.categID & categIdAsString is better
         }
         OutputStream os = response.getOutputStream();
-        Connection Connection1 =
+        Connection connection1 =
             null; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        Connection Connection2 =
+        Connection connection2 =
             null; // TODO : ASHTHA - 02, May, 2014 : why do we need 2 Connections? variable name with first letter lowercase.
 
         try {
-            if (image_id > 0) {
-                Connection1 = DAOFactory.getJNDIConnection();
+            if (imageId2 > 0) {
+                connection1 = DAOFactory.getJNDIConnection();
                 PreparedStatement statement =
-                    Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
-                statement.setInt(1, image_id);
+                    connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
+                statement.setInt(1, imageId2);
 
 
                 ResultSet rs = statement.executeQuery();
@@ -101,12 +101,12 @@ public class imageservlet extends HttpServlet {
                     os.close();
                 } else {
                     PreparedStatement statementDefault =
-                        Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where  image_id=?");
-                    if (categ_id != 99) {
-                        statementDefault.setInt(1, categ_id);
+                        connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where  imageId2=?");
+                    if (categId2 != 99) {
+                        statementDefault.setInt(1, categId2);
                     } else {
                         statementDefault.setInt(1,
-                                                99999); // TODO : ASHTHA - 02, May, 2014 : initialize categ_id to 99999 instead of 99 if that is the default
+                                                99999); // TODO : ASHTHA - 02, May, 2014 : initialize categId2 to 99999 instead of 99 if that is the default
                     }
 
                     ResultSet rsDefault = statementDefault.executeQuery();
@@ -122,7 +122,7 @@ public class imageservlet extends HttpServlet {
                         os.close();
                     } else { // TODO : ASHTHA - 02, May, 2014 : why is this needed?
                         PreparedStatement statementDefault1 =
-                            Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                            connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
                         statementDefault1.setInt(1, 99999);
 
                         ResultSet rsDefault1 =
@@ -141,9 +141,9 @@ public class imageservlet extends HttpServlet {
                     }
                 }
             } else {
-                Connection2 = DAOFactory.getJNDIConnection();
+                connection2 = DAOFactory.getJNDIConnection();
                 PreparedStatement statementDefault2 =
-                    Connection2.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                    connection2.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
                 statementDefault2.setInt(1, 88888);
 
                 ResultSet rsDefault2 = statementDefault2.executeQuery();
@@ -166,11 +166,11 @@ public class imageservlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             try {
-                if (Connection1 != null) {
-                    Connection1.close();
+                if (connection1 != null) {
+                    connection1.close();
                 }
-                if (Connection2 != null) {
-                    Connection2.close();
+                if (connection2 != null) {
+                    connection2.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

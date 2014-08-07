@@ -76,7 +76,7 @@ public class MyPageListener implements PagePhaseListener {
     private List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
     private List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
-
+ 
     boolean addflagaccount = false;
     boolean addflagcardgroup = false;
     boolean addflagcard = false;
@@ -85,7 +85,7 @@ public class MyPageListener implements PagePhaseListener {
     boolean accountOverView = false;
     boolean cardGroupOverview = false;
     boolean skipOtherRoles = false;
-    private AccountInfo account_check = new AccountInfo();
+    private AccountInfo accountCheck = new AccountInfo();
     private CardGroupInfo cardgrp_check = new CardGroupInfo();
     private boolean isChangeInRedirectionRequired = false;
 
@@ -112,7 +112,7 @@ public class MyPageListener implements PagePhaseListener {
 
         boolean createCardGroupList = false;
         boolean createCardList = false;
-        List<CardGroupInfo> cardgrplist_check = new ArrayList<CardGroupInfo>();
+        List<CardGroupInfo>  cardGrpListCheck = new ArrayList<CardGroupInfo>();
 
         try {
             if (phase.equals(ADFLifecycle.PREPARE_MODEL_ID)) {
@@ -288,7 +288,7 @@ public class MyPageListener implements PagePhaseListener {
                 HttpSession session =
                     ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 
-                List<PartnerInfo> partnerinfo_list =
+                List<PartnerInfo> partnerInfoList =
                     new ArrayList<PartnerInfo>();
                 PartnerInfo partnerobj;
 
@@ -301,14 +301,14 @@ public class MyPageListener implements PagePhaseListener {
                              " Executing logic to prepare Partner object");
 
 
-                    partnerinfo_list = new ArrayList<PartnerInfo>();
+                    partnerInfoList = new ArrayList<PartnerInfo>();
 
                     partnerlist = new ArrayList<PartnerInfo>();
 
                     user =
 (User)session.getAttribute(Constants.SESSION_USER_INFO);
                     log.info("useremail after selection " + user.getEmailID());
-                    //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
+                    //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerInfoList
                     for (int i = 0; i < user.getRoleList().size(); i++) {
 
                         if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
@@ -328,23 +328,23 @@ public class MyPageListener implements PagePhaseListener {
                             do {
                                 partnerobj = new PartnerInfo();
 
-                                int pid_start =
+                                int pIdStart =
                                     user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
 
                                 String pid =
-                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
                                                                                                   2,
-                                                                                                  pid_start +
+                                                                                                  pIdStart +
                                                                                                   10);
                                 partnerobj.setPartnerValue(pid);
 
-                                if (partnerinfo_list.size() > 0) {
+                                if (partnerInfoList.size() > 0) {
 
                                     boolean addflag = false;
                                     for (int k = 0;
-                                         k < partnerinfo_list.size(); k++) {
+                                         k < partnerInfoList.size(); k++) {
 
-                                        if (partnerinfo_list.get(k).getPartnerValue().equalsIgnoreCase(pid)) {
+                                        if (partnerInfoList.get(k).getPartnerValue().equalsIgnoreCase(pid)) {
 
                                             addflag = true;
                                             break;
@@ -353,9 +353,9 @@ public class MyPageListener implements PagePhaseListener {
 
                                     }
                                     if (!addflag)
-                                    {   partnerinfo_list.add(partnerobj);}
+                                    {   partnerInfoList.add(partnerobj);}
                                 } else {
-                                    partnerinfo_list.add(partnerobj);
+                                    partnerInfoList.add(partnerobj);
 
                                 }
                                 idlist++;
@@ -368,15 +368,15 @@ public class MyPageListener implements PagePhaseListener {
 
                     log.info(accessDC.getDisplayRecord() + this.getClass() +
                              " Final Partner list size after going through the entire RoleList " +
-                             partnerinfo_list.size());
+                             partnerInfoList.size());
 
                     accountlist = new ArrayList<AccountInfo>();
 
 
-                    if (partnerinfo_list.size() != 0) {
+                    if (partnerInfoList.size() != 0) {
 
-                        partnerlist = partnerinfo_list;
-                        //TODO : HITK - Check if this does not works properly then add partnerinfo_list in session and
+                        partnerlist = partnerInfoList;
+                        //TODO : HITK - Check if this does not works properly then add partnerInfoList in session and
                         //in executeAdmin function read from session
 
 
@@ -472,7 +472,7 @@ public class MyPageListener implements PagePhaseListener {
 
                                         if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
                                             DCBindingContainer bindings;
-                                            partnerinfo_list =
+                                            partnerInfoList =
                                                     new ArrayList<PartnerInfo>();
                                             if (user.getRoleList().get(i).getIdString() !=
                                                 null) {
@@ -506,13 +506,13 @@ public class MyPageListener implements PagePhaseListener {
                                                          session.getAttribute("partnerLang"));
 
 
-                                                int pid_start =
+                                                int pIdStart =
                                                     user.getRoleList().get(i).getIdString().get(partid).indexOf("PP");
 
                                                 String pid =
-                                                    user.getRoleList().get(i).getIdString().get(partid).substring(pid_start +
+                                                    user.getRoleList().get(i).getIdString().get(partid).substring(pIdStart +
                                                                                                                   2,
-                                                                                                                  pid_start +
+                                                                                                                  pIdStart +
                                                                                                                   10);
 
 
@@ -534,12 +534,12 @@ public class MyPageListener implements PagePhaseListener {
                                                     if (idlist != 0) {
 
 
-                                                        pid_start =
+                                                        pIdStart =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
 
                                                         pid =
-user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2,
-                                                              pid_start + 10);
+user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart + 2,
+                                                              pIdStart + 10);
 
                                                     }
                                                     if (partnerId != null &&
@@ -549,9 +549,9 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2,
                                                         executeEmp = false;
 
                                                         if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC") &&
-                                                            partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                            partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
                                                                                                                                            2,
-                                                                                                                                           pid_start +
+                                                                                                                                           pIdStart +
                                                                                                                                            10))) {
 
 
@@ -563,13 +563,13 @@ user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2,
 new AccountInfo();
                                                             cardgrouplist =
                                                                     new ArrayList<CardGroupInfo>();
-                                                            int accid_start =
+                                                            int accIdStart =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).indexOf("AC");
 
                                                             String accid =
-                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(accid_start +
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(accIdStart +
                                                                                                                               2,
-                                                                                                                              accid_start +
+                                                                                                                              accIdStart +
                                                                                                                               12);
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
@@ -581,7 +581,7 @@ new AccountInfo();
                                                                      this.getClass() +
                                                                      " Account overview should be visible");
 
-                                                            AccountInfo account_check =
+                                                            AccountInfo accountCheck =
                                                                 new AccountInfo();
                                                             addflagaccount =
                                                                     false;
@@ -593,15 +593,15 @@ new AccountInfo();
                                                                          this.getClass() +
                                                                          " account id value in account list " +
                                                                          accountlist.get(listsize).getAccountNumber());
-                                                                account_check =
+                                                                accountCheck =
                                                                         accountlist.get(listsize);
 
-                                                                if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                if (accountCheck.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
                                                                     log.info(accessDC.getDisplayRecord() +
                                                                              this.getClass() +
                                                                              "Account ID already exists in partner object");
                                                                 
-                                                                    if (account_check.isAccountOverview()) {
+                                                                    if (accountCheck.isAccountOverview()) {
                                                                         addflagaccount =
                                                                                 true;
                                                                         break;
@@ -614,7 +614,7 @@ new AccountInfo();
                                                                 //This means account only does not exists or Account exists but account overview is false, so in both the cases we have to create new cardgrplist new cardlist .....
 
 
-                                                                String AccountID =
+                                                                String accountID =
                                                                     acc.getAccountNumber();
                                                                 bindings =
                                                                         (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
@@ -659,7 +659,7 @@ new AccountInfo();
 
                                                                     vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
                                                                     vo2.defineNamedWhereClauseParam("accid",
-                                                                                                    AccountID,
+                                                                                                    accountID,
                                                                                                     null);
                                                                     vo2.defineNamedWhereClauseParam("cc",
                                                                                                     (String)session.getAttribute(Constants.userLang),
@@ -756,11 +756,11 @@ new AccountInfo();
 
                                                                             {
 
-                                                                                String CardgroupMainType =
+                                                                                String cardgroupMainType =
                                                                                     cardgrp.getCardGroupMainType().toString();
-                                                                                String CardgroupSubType =
+                                                                                String cardgroupSubType =
                                                                                     cardgrp.getCardGroupSubType().toString();
-                                                                                String CardgroupSeq =
+                                                                                String cardgroupSeq =
                                                                                     cardgrp.getCardGroupSeq().toString();
 
                                                                                 bindings =
@@ -815,16 +815,16 @@ iter3.getViewObject();
                                                                                     vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
 
                                                                                     vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                                    CardgroupSeq,
+                                                                                                                    cardgroupSeq,
                                                                                                                     null);
                                                                                     vo3.defineNamedWhereClauseParam("cc",
                                                                                                                     (String)session.getAttribute(Constants.userLang),
                                                                                                                     null);
                                                                                     vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                                    CardgroupMainType,
+                                                                                                                    cardgroupMainType,
                                                                                                                     null);
                                                                                     vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                                    CardgroupSubType,
+                                                                                                                    cardgroupSubType,
                                                                                                                     null);
 
 
@@ -951,24 +951,24 @@ new CardInfo();
                                                             part.setAccountList(accountlist);
 
                                                         } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG") &&
-                                                                   partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                   partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
                                                                                                                                                   2,
-                                                                                                                                                  pid_start +
+                                                                                                                                                  pIdStart +
                                                                                                                                                   10))) {
-                                                            AccountInfo account_check =
+                                                            AccountInfo accountCheck =
                                                                 new AccountInfo();
 
 
-                                                            int cgid_start =
+                                                            int cgIdStart =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).indexOf("CG");
 
-                                                            String CardGroupID =
-                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                            String cardGroupID =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               2);
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
                                                                      " CardGroupId is " +
-                                                                     CardGroupID);
+                                                                     cardGroupID);
 
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
@@ -986,17 +986,17 @@ new AccountInfo();
 
 
                                                             String CardgroupMainType =
-                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               2,
-                                                                                                                              cgid_start +
+                                                                                                                              cgIdStart +
                                                                                                                               5);
                                                             String CardgroupSubType =
-                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               5,
-                                                                                                                              cgid_start +
+                                                                                                                              cgIdStart +
                                                                                                                               8);
                                                             String CardgroupSeq =
-                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               8);
                                                             cardgrp.setCardGroupMainType(CardgroupMainType);
                                                             cardgrp.setCardGroupSubType(CardgroupSubType);
@@ -1172,7 +1172,7 @@ new CardInfo();
                                                                     }
 
                                                                 }
-                                                                account_check =
+                                                                accountCheck =
                                                                         new AccountInfo();
                                                                 createCardGroupList =
                                                                         true;
@@ -1187,17 +1187,17 @@ new CardInfo();
                                                                              this.getClass() +
                                                                              " account id value in account list " +
                                                                              accountlist.get(listsize).getAccountNumber());
-                                                                    account_check =
+                                                                    accountCheck =
                                                                             accountlist.get(listsize);
 
-                                                                    if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                    if (accountCheck.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                  this.getClass() +
                                                                                  " Account ID already exists in partner object");
                                                                         createCardGroupList =
                                                                                 false;
 
-                                                                        if (account_check.isAccountOverview()) {
+                                                                        if (accountCheck.isAccountOverview()) {
                                                                             addflagaccount =
                                                                                     true;
                                                                             break;
@@ -1226,7 +1226,7 @@ new CardInfo();
                                                                         //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
                                                                         //the existing one
                                                                         cardgrouplist =
-                                                                                account_check.getCardGroup();
+                                                                                accountCheck.getCardGroup();
                                                                         cardgrp.setCard(cardlist);
                                                                         cardgrp.setCardGroupOverview(true);
 
@@ -1364,19 +1364,19 @@ new CardInfo();
                                                 createCardList = true;
 
 
-                                                int ccid_start =
+                                                int ccIdStart =
                                                     user.getRoleList().get(i).getIdString().get(idlist).indexOf("CC");
 
                                                 String cardId =
-                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(ccid_start +
+                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(ccIdStart +
                                                                                                                   2);
 
-                                                int pid_start =
+                                                int pIdStart =
                                                     user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
                                                 String pid =
-                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pIdStart +
                                                                                                                   2,
-                                                                                                                  pid_start +
+                                                                                                                  pIdStart +
                                                                                                                   10);
 
                                                 if (partnerId != null &&
@@ -1509,7 +1509,7 @@ new CardInfo();
                                                                     }
                                                                 }
                                                             }
-                                                            account_check =
+                                                            accountCheck =
                                                                     new AccountInfo();
                                                             cardgrp_check =
                                                                     new CardGroupInfo();
@@ -1529,45 +1529,45 @@ new CardInfo();
                                                                          this.getClass() +
                                                                          "account id value in account list " +
                                                                          accountlist.get(listsize).getAccountNumber());
-                                                                account_check =
+                                                                accountCheck =
                                                                         accountlist.get(listsize);
 
 
-                                                                if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                if (accountCheck.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
                                                                     createCardGroupList =
                                                                             false;
                                                                     cardgrouplist =
-                                                                            account_check.getCardGroup();
+                                                                            accountCheck.getCardGroup();
                                                                     addflagaccount =
                                                                             false;
 
-                                                                    if (account_check.isAccountOverview()) {
+                                                                    if (accountCheck.isAccountOverview()) {
                                                                         accountOverView =
                                                                                 true;
                                                                         break;
                                                                     }
-                                                                    cardgrplist_check =
-                                                                            account_check.getCardGroup();
+                                                                     cardGrpListCheck =
+                                                                            accountCheck.getCardGroup();
 
                                                                     for (int cardgrplistsize =
                                                                          0;
                                                                          cardgrplistsize <
-                                                                         cardgrplist_check.size();
+                                                                          cardGrpListCheck.size();
                                                                          cardgrplistsize++) {
                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                  this.getClass() +
                                                                                  " cardgrp id value in account list " +
-                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupMainType());
+                                                                                  cardGrpListCheck.get(cardgrplistsize).getCardGroupMainType());
                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                  this.getClass() +
                                                                                  " cardgrp id value in account list " +
-                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupSubType());
+                                                                                  cardGrpListCheck.get(cardgrplistsize).getCardGroupSubType());
                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                  this.getClass() +
                                                                                  " cardgrp id value in account list " +
-                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupSeq());
+                                                                                  cardGrpListCheck.get(cardgrplistsize).getCardGroupSeq());
                                                                         cardgrp_check =
-                                                                                cardgrplist_check.get(cardgrplistsize);
+                                                                                 cardGrpListCheck.get(cardgrplistsize);
                                                                         if (cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
                                                                             cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
                                                                             cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
@@ -1887,7 +1887,7 @@ new CardInfo();
         cardgrouplist = new ArrayList<CardGroupInfo>();
 
 
-        String Partnerid = partnerlist.get(partIndex).getPartnerValue();
+        String partnerid = partnerlist.get(partIndex).getPartnerValue();
 
 
         DCBindingContainer bindings;
@@ -1908,11 +1908,11 @@ new CardInfo();
 
             log.info(accessDC.getDisplayRecord() + this.getClass() +
                      accessDC.getDisplayRecord() + this.getClass() +
-                     " Partner id passed in Account VO is " + Partnerid);
+                     " Partner id passed in Account VO is " + partnerid);
 
-            part.setPartnerValue(Partnerid);
+            part.setPartnerValue(partnerid);
 
-            part.setPartnerName(getPartnerName(Partnerid));
+            part.setPartnerName(getPartnerName(partnerid));
 
             if (session.getAttribute("partnerLang") != null) {
                 part.setCountry((String)session.getAttribute("partnerLang"));
@@ -1927,7 +1927,7 @@ new CardInfo();
 
             ViewObject accountVO = iter1.getViewObject();
             accountVO.setWhereClause("PARTNER_ID =: pid");
-            accountVO.defineNamedWhereClauseParam("pid", Partnerid, null);
+            accountVO.defineNamedWhereClauseParam("pid", partnerid, null);
             accountVO.setNamedWhereClauseParam("countryCode",
                                                (String)session.getAttribute("partnerLang"));
 
@@ -2651,12 +2651,12 @@ new CardInfo();
         return conv;
     }
 
-    public void setAccount_check(AccountInfo account_check) {
-        this.account_check = account_check;
+    public void setaccountCheck(AccountInfo accountCheck) {
+        this.accountCheck = accountCheck;
     }
 
-    public AccountInfo getAccount_check() {
-        return account_check;
+    public AccountInfo getaccountCheck() {
+        return accountCheck;
     }
 
     public void setCardgrp_check(CardGroupInfo cardgrp_check) {

@@ -95,22 +95,22 @@ public class ImageMapServlet extends HttpServlet {
                 if (rs.next()) {
 
 
-                    String image_id = rs.getString("imageid");
+                    String imageId = rs.getString("imageid");
 
                     try {
 
-                        if (image_id != null) {
-                            log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record found in image map table with image id " + image_id);
+                        if (imageId != null) {
+                            log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record found in image map table with image id " + imageId);
 
-                            int img_id = Integer.parseInt(image_id);
+                            int imgId = Integer.parseInt(imageId);
 
-                            PreparedStatement statement2 = connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
-                            statement2.setInt(1, img_id);
+                            PreparedStatement statement2 = connection1.prepareStatement("SELECT imageId,prt_img from PRT_GEN_IMAGE where imageId=?");
+                            statement2.setInt(1, imgId);
 
                            
                             ResultSet rs2 = statement2.executeQuery();
                             if (rs2.next()) {
-                                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record image found for " + img_id);
+                                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record image found for " + imgId);
 
                                 Blob blob = rs2.getBlob("prt_img");
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
@@ -125,17 +125,17 @@ public class ImageMapServlet extends HttpServlet {
                         }
                         else
                         {
-                            image_id = "102";
+                            imageId = "102";
                             //if imageId is null, then to fetch default imageId?
-                            int img_id = Integer.parseInt(image_id);
+                            int imgId = Integer.parseInt(imageId);
 
-                            PreparedStatement statement2 = connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
-                            statement2.setInt(1, img_id);
+                            PreparedStatement statement2 = connection1.prepareStatement("SELECT imageId,prt_img from PRT_GEN_IMAGE where imageId=?");
+                            statement2.setInt(1, imgId);
 
                             
                             ResultSet rs2 = statement2.executeQuery();
                             if (rs2.next()) {
-                                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record image found for " + img_id);
+                                log.info(accessDC.getDisplayRecord()+ this.getClass() + " Record image found for " + imgId);
 
                                 Blob blob = rs2.getBlob("prt_img");
                                 BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());

@@ -98,10 +98,10 @@ public class LoginBean extends LoginBackingBean {
     }
 
     /**
-     * @param c_name
+     * @param cName
      * @param value
      */
-    public void eraseCookie(String c_name, String value) {
+    public void eraseCookie(String cName, String value) {
         FacesContext fctx = null;
         ExtendedRenderKitService erks = null;
         StringBuilder sb1 = null;
@@ -114,7 +114,7 @@ public class LoginBean extends LoginBackingBean {
             sb1.append("date.setTime(date.getTime() - (7 * 24 * 60 * 60 * 1000));");
             sb1.append("var expires = date.toGMTString();");
             sb1.append("document.cookie=\"");
-            sb1.append(c_name);
+            sb1.append(cName);
             sb1.append("\"+ \"=\" +\'");
             sb1.append(value);
             sb1.append("\'+ expires + \"; path=/\";");
@@ -126,15 +126,15 @@ public class LoginBean extends LoginBackingBean {
     }
 
     /**
-     * @param c_name
+     * @param cName
      * @return
      */
-    public String getCookieVal(String c_name) {
+    public String getCookieVal(String cName) {
         String val = null;
         Cookie dum = null;
         try {
             val = null;
-            dum = getCookie(c_name);
+            dum = getCookie(cName);
             if (dum != null) {
                 val = dum.getValue();
             }
