@@ -200,14 +200,6 @@ public class DriverInfoBean implements Serializable {
     }
 
     /**
-     * This method performs search functionality in DriverInfo Page.
-     * @param actionEvent
-     */
-    /*public void searchAction(ActionEvent actionEvent) {
-        searchResults(true);
-    }*/
-
-    /**
          * This method performs search functionality in VehicleInfo Page.
          *
          */
@@ -380,7 +372,7 @@ public class DriverInfoBean implements Serializable {
             ViewObject vo =ADFUtils.getViewObject("PrtDriverInformationVO1Iterator");
             vo.setNamedWhereClauseParam("countryCd", countryParam);
             vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountId AND trim(DRIVER_NAME) LIKE '%'||:driverName||'%'");
-            //System.out.println("values of i" + values[i]);
+          
             vo.defineNamedWhereClauseParam("accountId", values[i].trim(),
                                            null);
             if (getBindings().getDriverName().getValue() != null && getBindings().getDriverName().getValue().toString().length()>0) {
@@ -398,8 +390,6 @@ public class DriverInfoBean implements Serializable {
                         PrtDriverInformationVORowImpl currRow =
                             (PrtDriverInformationVORowImpl)vo.next();
                         if (currRow != null) {
-                            //currRow.getCardNumber().isEmpty() || editCardNumberList.contains(currRow.getCardNumber())
-                            //if(current Row Card number is blank || or is in the allowed card numbers which is list of cards in session set by MyPageListener Part)
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " "+ " Current row card number:::::::: "+currRow.getCardNumber());
                             if(currRow.getCardNumber()== null || linkedCardValues.contains(currRow.getCardNumber().toString())){
                                 _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Is it coming inside to create driver details details List");
@@ -499,8 +489,7 @@ public class DriverInfoBean implements Serializable {
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting SearchResultsExecution method");
         return null;
-        // searchResultsShow = true;
-        //AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
+
     }
 
     /**
@@ -517,19 +506,13 @@ public class DriverInfoBean implements Serializable {
         return searchResultsShow;
     }
 
-    /**
-     * @param actionEvent
-     */
-    public void newDriverSave(ActionEvent actionEvent) {
-        // Add event code here...
-    }
 
     /**
      * This Method will save new driver information in DB.
      * @return
      */
     public String newDriverSave() {
-        // Add event code here...
+     
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Add new Driver save method");
         User user         = null;
         String modifiedBy = null;
@@ -567,8 +550,6 @@ public class DriverInfoBean implements Serializable {
                             warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                             showErrorMsgFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
-                            //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg ,"");
-                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -594,8 +575,6 @@ public class DriverInfoBean implements Serializable {
                             warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                             showErrorMsgFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
-                            //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg, "");
-                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -638,8 +617,6 @@ public class DriverInfoBean implements Serializable {
                 warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
-                //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"),"");
-                //FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
         }
@@ -652,7 +629,7 @@ public class DriverInfoBean implements Serializable {
             return null;
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new driver save method:::::::::");
-        // AdfFacesContext.getCurrentInstance().addPartialTarget(searchResults);
+
         return null;
     }
 
@@ -772,8 +749,6 @@ public class DriverInfoBean implements Serializable {
                                     warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                                     showErrorMsgEditFlag = true;
                                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                                    //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                                    //FacesContext.getCurrentInstance().addMessage(null, msg);
                                     return null;
 
                                 }
@@ -803,8 +778,6 @@ public class DriverInfoBean implements Serializable {
                                 warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                                 showErrorMsgEditFlag = true;
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                                //FacesMessage msg  = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                                //FacesContext.getCurrentInstance().addMessage(null, msg);
                                 return null;
 
                             }
@@ -832,8 +805,6 @@ public class DriverInfoBean implements Serializable {
                             warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                             showErrorMsgEditFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                            //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, warningMsg,"");
-                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                      }
@@ -877,8 +848,6 @@ public class DriverInfoBean implements Serializable {
                 warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgEditFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
-                //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("MANDATORY_CHECK"), "");
-                //FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
         }
@@ -1245,7 +1214,6 @@ public class DriverInfoBean implements Serializable {
              cardNumberList  = new ArrayList<SelectItem>();
              populateCardNumberList(valueChangeEvent.getNewValue().toString() , "Add" , getBindings().getAddPartnerNumberId().getValue().toString());
              AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
-//             System.out.println("addAccountNumber =" + addAccountIdVal);
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass()+" Exiting AddAccountNumberValueChangeListener method");
     }
@@ -1270,7 +1238,6 @@ public class DriverInfoBean implements Serializable {
                                                         if(type.equals("Add")){
                                                           addAccountIdVal = accountNo;
                                                           cardNumberList.add(selectItem);
-//                                                          System.out.println("addAccountNumber =" + addAccountIdVal);
                                                         }else if(type.equals("Edit")){
                                                             editAccountIdVal = accountNo;
                                                             editCardNumberList.add(selectItem);
