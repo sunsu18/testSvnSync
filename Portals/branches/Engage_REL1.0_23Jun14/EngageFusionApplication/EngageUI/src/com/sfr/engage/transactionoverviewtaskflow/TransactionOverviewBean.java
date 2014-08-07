@@ -2719,13 +2719,8 @@ public class TransactionOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(7);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            if(reportFormatValue.equalsIgnoreCase("International")){
-                XLS_SH_R_C.setCellValue("Please note that in some cases it can take 2 days for national transactions to appear in the portal");
-            }
-            else{
-                XLS_SH_R_C.setCellValue("Please note that international transactions are not yet shown in the portal.In some cases it can take 2 days for national transactions to appear in the portal");
-            }
-             
+            XLS_SH_R_C.setCellValue("Please note that in some cases it can take 2 days for national transactions to appear in the portal");
+            
             
             XLS_SH_R = XLS_SH.createRow(8);
             XLS_SH_R_C = XLS_SH_R.createCell(0);

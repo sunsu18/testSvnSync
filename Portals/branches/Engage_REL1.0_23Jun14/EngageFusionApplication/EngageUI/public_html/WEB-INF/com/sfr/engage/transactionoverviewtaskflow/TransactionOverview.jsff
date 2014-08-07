@@ -441,7 +441,7 @@
         <af:panelGroupLayout id="noteInternal" layout="vertical" halign="right"
                               inlineStyle="height:25.0px;">  
          <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE}" id="ot99" styleClass="popupoutputText"
-                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteInternationalText}" noWrap="true" rendered="#{pageFlowScope.TransactionOverviewBean.reportFormatValue eq 'International' ? false : true}"/>  
+                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.noteInternationalText}" noWrap="true" rendered="false"/>  
             <af:outputText value="#{sfr.TRANSACTIONS_INTERNATIONAL_NOTE_1}" id="ot299" styleClass="popupoutputText"
                            noWrap="true"/>             
             </af:panelGroupLayout>        
