@@ -1,22 +1,17 @@
 package com.sfr.engage.changepasswordtaskflow;
 
+
 import com.sfr.core.bean.BaseBean;
 import com.sfr.core.bean.User;
-import com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomeBean;
-
 import com.sfr.engage.model.resources.EngageResourceBundle;
-
 import com.sfr.util.AccessDataControl;
-
 import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
 
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -27,12 +22,11 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 
-import oracle.adf.view.rich.context.AdfFacesContext;
-
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 import oracle.jbo.JboException;
+
 
 public class ChangePasswordBean implements Serializable {
 
