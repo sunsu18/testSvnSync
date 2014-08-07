@@ -1572,8 +1572,8 @@ partnerInfoList.get(0).getCountry().toString().trim();
             shuttleList = new ArrayList<SelectItem>();
             for (int col = 0; col < strHead.length; col++) {
                 SelectItem selectItem = new SelectItem();
-                selectItem.setLabel(strHead[col].toString());
-                selectItem.setValue(strHead[col].toString());
+                selectItem.setLabel(strHead[col]);
+                selectItem.setValue(strHead[col]);
                 shuttleList.add(selectItem);
             }
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShuttleExcel());
@@ -1785,7 +1785,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                 String[] strHead =
                     strViewCardPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {
-                    shuttleValue.add(strHead[col].toString());
+                    shuttleValue.add(strHead[col]);
                 }
             }
         }
@@ -2027,7 +2027,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                                                  cardGroupDescList.length;
                                                                  cg++) {
                                                                 if ((partnerInfoList.get(z).getPartnerValue().toString().trim() +
-                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].toString().trim())) {
+                                                                     partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().trim()).equals(cardGroupDescList[cg].trim())) {
                                                                     cardGroupDescName =
                                                                             cardGroupDescName +
                                                                             partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName() +
@@ -2155,7 +2155,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
                 XLS_SH_R_C.setCellStyle(css);
-                XLS_SH_R_C.setCellValue(headerValues[col].toString());
+                XLS_SH_R_C.setCellValue(headerValues[col]);
             }
 
             int rowVal = 8;
@@ -2173,43 +2173,43 @@ partnerInfoList.get(0).getCountry().toString().trim();
                 if (row != null) {
                     for (int cellValue = 0;
                          cellValue < headerDataValues.length; cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getPartnerId().toString().trim());
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getAccountId().toString().trim());
                             }
-                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupDescription());
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardgroupId().trim());
                             }
-                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardType() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardType().toString().trim());
                             }
-                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getTypeName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getTypeName().toString().trim());
                             }
-                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getLastUsed() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2219,51 +2219,51 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                     new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
-                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyTxReportTxThreeMonths3() !=
                                 null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyTxReportTxThreeMonths3().toString().trim());
                             }
-                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
                                 null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                             }
-                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardEmbossNum().toString().trim());
                             }
-                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardTextline2() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardTextline2().toString().trim());
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getVehicleNumber() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getVehicleNumber().toString().trim());
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getDriverName() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverName().toString().trim());
                             }
-                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockAction() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(statusConversion(row.getBlockAction().toString().trim()));
                             }
-                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardExpiryDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2272,7 +2272,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 Date passedDate = new Date(date.getTime());
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
                             }
-                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getManufacturedDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2281,7 +2281,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 Date passedDate = new Date(date.getTime());
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
                             }
-                        } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockTime() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2308,7 +2308,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
             PrintWriter out = new PrintWriter(outputStream);
 
             for (int col = 0; col < headerValues.length; col++) {
-                out.print(headerValues[col].toString().trim());
+                out.print(headerValues[col].trim());
                 if (col < headerValues.length - 1) {
                     out.print(";");
                 }
@@ -2327,49 +2327,49 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                  this.getClass() + " " + "Printing Data");
                     for (int cellValue = 0;
                          cellValue < headerDataValues.length; cellValue++) {
-                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getPartnerId() != null) {
                                 out.print(row.getPartnerId().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getAccountId() != null) {
                                 out.print(row.getAccountId().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupDescription() != null) {
                                 out.print(row.getCardgroupDescription());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 out.print(row.getCardgroupId());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardType() != null) {
                                 out.print(row.getCardType().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getTypeName() != null) {
                                 out.print(row.getTypeName().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getLastUsed() != null) {
                                 Date date =
                                     new Date(row.getLastUsed().dateValue().getTime());
@@ -2380,7 +2380,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyTxReportTxThreeMonths3() !=
                                 null) {
                                 out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
@@ -2388,7 +2388,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
                                 null) {
                                 out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
@@ -2396,42 +2396,42 @@ partnerInfoList.get(0).getCountry().toString().trim();
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardEmbossNum() != null) {
                                 out.print(row.getCardEmbossNum().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardTextline2() != null) {
                                 out.print(row.getCardTextline2().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getVehicleNumber() != null) {
                                 out.print(row.getVehicleNumber().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getDriverName() != null) {
                                 out.print(row.getDriverName().toString().trim());
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockAction() != null) {
-                                out.print(statusConversion(row.getBlockAction().toString().trim()));
+                                out.print(statusConversion(row.getBlockAction().trim()));
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardExpiryDate() != null) {
                                 Date date =
                                     new Date(row.getCardExpiryDate().dateValue().getTime());
@@ -2440,7 +2440,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getManufacturedDate() != null) {
                                 Date date =
                                     new Date(row.getManufacturedDate().dateValue().getTime());
@@ -2449,7 +2449,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                        } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getBlockTime() != null) {
                                 Date date =
                                     new Date(row.getBlockTime().dateValue().getTime());
@@ -2475,7 +2475,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                 PrintWriter out = new PrintWriter(outputStream);
 
                 for (int col = 0; col < headerValues.length; col++) {
-                    out.print(headerValues[col].toString().trim());
+                    out.print(headerValues[col].trim());
                     if (col < headerValues.length - 1) {
                         out.print("|");
                     }
@@ -2495,49 +2495,49 @@ partnerInfoList.get(0).getCountry().toString().trim();
                         for (int cellValue = 0;
                              cellValue < headerDataValues.length;
                              cellValue++) {
-                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getPartnerId() != null) {
                                     out.print(row.getPartnerId().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getAccountId() != null) {
                                     out.print(row.getAccountId().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardgroupDescription() != null) {
                                     out.print(row.getCardgroupDescription());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardgroupId() != null) {
                                     out.print(row.getCardgroupId());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardType() != null) {
                                     out.print(row.getCardType().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Type Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getTypeName() != null) {
                                     out.print(row.getTypeName().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Last Used".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getLastUsed() != null) {
                                     Date date =
                                         new Date(row.getLastUsed().dateValue().getTime());
@@ -2548,7 +2548,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyTxReportTxThreeMonths3() !=
                                     null) {
                                     out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
@@ -2556,7 +2556,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyFuelReportFuelThreeMonths3() !=
                                     null) {
                                     out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
@@ -2564,42 +2564,42 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardEmbossNum() != null) {
                                     out.print(row.getCardEmbossNum().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Card Textline 2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardTextline2() != null) {
                                     out.print(row.getCardTextline2().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Vehicle".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getVehicleNumber() != null) {
                                     out.print(row.getVehicleNumber().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Driver".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     out.print(row.getDriverName().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Status".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getBlockAction() != null) {
                                     out.print(statusConversion(row.getBlockAction().toString().trim()));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Expiry".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardExpiryDate() != null) {
                                     Date date =
                                         new Date(row.getCardExpiryDate().dateValue().getTime());
@@ -2608,7 +2608,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getManufacturedDate() != null) {
                                     Date date =
                                         new Date(row.getManufacturedDate().dateValue().getTime());
@@ -2617,7 +2617,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].toString().trim())) {
+                            } else if ("Blocked".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getBlockTime() != null) {
                                     Date date =
                                         new Date(row.getBlockTime().dateValue().getTime());

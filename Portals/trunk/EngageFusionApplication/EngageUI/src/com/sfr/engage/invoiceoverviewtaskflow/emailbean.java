@@ -26,7 +26,7 @@ import oracle.adf.share.logging.ADFLogger;
 public class emailbean {
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
-    
+
     public emailbean() {
         super();
     }
@@ -61,7 +61,8 @@ public class emailbean {
             multipart.addBodyPart(messageBodyPart);
 
             messageBodyPart = new MimeBodyPart();
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Length 2" + responseByteArr.length);
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                         "Length 2" + responseByteArr.length);
             DataSource source =
                 new ByteArrayDataSource(responseByteArr, "application/pdf");
             messageBodyPart.setDataHandler(new DataHandler(source));
@@ -82,7 +83,8 @@ public class emailbean {
             message.setContent(multipart, "text/html; charset=\"UTF-8\"");
 
             Transport.send(message);
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Sent message successfully....");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                         "Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
