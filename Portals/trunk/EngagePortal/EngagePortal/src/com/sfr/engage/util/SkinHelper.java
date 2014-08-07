@@ -51,7 +51,7 @@ public class SkinHelper extends ThreadSerialization {
     public String getCurrentSkin() {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession(); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+        HttpSession session = request.getSession(); 
 
 //        if (request != null && request.getParameter("profile") != null) {
 //            profile = request.getParameter("profile");

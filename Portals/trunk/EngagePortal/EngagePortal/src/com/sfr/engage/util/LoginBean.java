@@ -53,7 +53,9 @@ public class LoginBean extends LoginBackingBean {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession(false);
 
-        String lang = DAOFactory.getDefaultLanguage();// TODO : ASHTHA - 02, May, 2014 : Use from sesion
+        // TODO : ASHTHA - 02, May, 2014 : Use from sesion
+        String lang = DAOFactory.getDefaultLanguage();
+        
         if (session.getAttribute(Constants.SESSION_LANGUAGE) != null) {
             lang = (String)session.getAttribute(Constants.SESSION_LANGUAGE);
         }

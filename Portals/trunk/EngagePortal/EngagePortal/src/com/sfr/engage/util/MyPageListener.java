@@ -12,7 +12,6 @@ import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVORowImpl;
-import com.sfr.services.core.dao.factory.DAOFactory;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
@@ -21,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+
+import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -52,28 +53,28 @@ import oracle.webcenter.portalframework.sitestructure.SiteStructureContext;
 public class MyPageListener implements PagePhaseListener {
 
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
-    Conversion conv = new Conversion();
+    private AccessDataControl accessDC = new AccessDataControl();
+    private Conversion conv = new Conversion();
     private boolean passwordChangeRequired;
     private boolean consistsTwoCardStatus = false;
     private User user = null;
 
-    PartnerInfo part = new PartnerInfo();
-    AccountInfo acc = new AccountInfo();
-    CardGroupInfo cardgrp = new CardGroupInfo();
-    CardInfo card = new CardInfo();
+    private PartnerInfo part = new PartnerInfo();
+    private AccountInfo acc = new AccountInfo();
+    private CardGroupInfo cardgrp = new CardGroupInfo();
+    private CardInfo card = new CardInfo();
 
-    List<AccountInfo> accountlist = new ArrayList<AccountInfo>();
-    List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
-    List<CardInfo> cardlist = new ArrayList<CardInfo>();
-    List<CardInfo> unblockedcardlist = new ArrayList<CardInfo>();
-    List<CardInfo> perBlockAndTempBlockCardList;
-    List<CardInfo> perBlockAndActiveCardList;
-    List<CardInfo> perBlockCardList;
-    List<CardInfo> tempBlockCardList;
-    List<CardInfo> activeCardList;
-    List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
-    List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
+    private List<AccountInfo> accountlist = new ArrayList<AccountInfo>();
+    private List<CardGroupInfo> cardgrouplist = new ArrayList<CardGroupInfo>();
+    private List<CardInfo> cardlist = new ArrayList<CardInfo>();
+    private List<CardInfo> unblockedcardlist = new ArrayList<CardInfo>();
+    private List<CardInfo> perBlockAndTempBlockCardList;
+    private List<CardInfo> perBlockAndActiveCardList;
+    private List<CardInfo> perBlockCardList;
+    private List<CardInfo> tempBlockCardList;
+    private List<CardInfo> activeCardList;
+    private List<PartnerInfo> partnerlist = new ArrayList<PartnerInfo>();
+    private List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
 
     boolean addflagaccount = false;
@@ -84,12 +85,12 @@ public class MyPageListener implements PagePhaseListener {
     boolean accountOverView = false;
     boolean cardGroupOverview = false;
     boolean skipOtherRoles = false;
-    AccountInfo account_check = new AccountInfo();
-    CardGroupInfo cardgrp_check = new CardGroupInfo();
-    boolean isChangeInRedirectionRequired = false;
+    private AccountInfo account_check = new AccountInfo();
+    private CardGroupInfo cardgrp_check = new CardGroupInfo();
+    private boolean isChangeInRedirectionRequired = false;
 
 
-    HashSet cardTypeHS = new HashSet();
+    Set cardTypeHS = new HashSet();
 
     public void afterPhase(PagePhaseEvent pagePhaseEvent) {
         if (pagePhaseEvent.getPhaseId() == Lifecycle.PREPARE_RENDER_ID) {
@@ -292,956 +293,434 @@ public class MyPageListener implements PagePhaseListener {
                 PartnerInfo partnerobj;
 
                 if (session.getAttribute(Constants.SESSION_USER_INFO) !=
-                    null) {
-                    if (session.getAttribute("executePartnerObjLogic") ==
-                        null) {
+                    null &&
+                    session.getAttribute("executePartnerObjLogic") == null) {
 
 
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 " Executing logic to prepare Partner object");
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " Executing logic to prepare Partner object");
 
 
-                        partnerinfo_list = new ArrayList<PartnerInfo>();
+                    partnerinfo_list = new ArrayList<PartnerInfo>();
 
-                        partnerlist = new ArrayList<PartnerInfo>();
+                    partnerlist = new ArrayList<PartnerInfo>();
 
-                        user =
+                    user =
 (User)session.getAttribute(Constants.SESSION_USER_INFO);
-                        log.info("useremail after selection " +
-                                 user.getEmailID());
-                        //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
-                        for (int i = 0; i < user.getRoleList().size(); i++) {
+                    log.info("useremail after selection " + user.getEmailID());
+                    //This for loop is to go through the entire roleList and corressponding id's and to fetch the partner ids and keep it in partnerinfo_list
+                    for (int i = 0; i < user.getRoleList().size(); i++) {
 
-                            if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
-                                (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2C_SFR)) ||
-                                (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-                                 (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP))))
-
-                            {
-
-                                if (user.getRoleList().get(i).getIdString() !=
-                                    null) {
-                                    int idlist = 0;
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " user.getRoleList().get(i).getIdString().size()" +
-                                             user.getRoleList().get(i).getIdString().size());
-                                    do {
-                                        partnerobj = new PartnerInfo();
-
-                                        int pid_start =
-                                            user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
-
-                                        String pid =
-                                            user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                          2,
-                                                                                                          pid_start +
-                                                                                                          10);
-                                        partnerobj.setPartnerValue(pid);
-
-                                        if (partnerinfo_list.size() > 0) {
-
-                                            boolean addflag = false;
-                                            for (int k = 0;
-                                                 k < partnerinfo_list.size();
-                                                 k++) {
-
-                                                if (partnerinfo_list.get(k).getPartnerValue().equalsIgnoreCase(pid)) {
-
-                                                    addflag = true;
-                                                    break;
-                                                }
-
-
-                                            }
-                                            if (!addflag)
-                                                partnerinfo_list.add(partnerobj);
-                                        } else {
-                                            partnerinfo_list.add(partnerobj);
-
-                                        }
-                                        idlist++;
-                                    } while (idlist <
-                                             user.getRoleList().get(i).getIdString().size());
-
-                                }
-                            }
-                        }
-
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 " Final Partner list size after going through the entire RoleList " +
-                                 partnerinfo_list.size());
-
-                        accountlist = new ArrayList<AccountInfo>();
-
-
-                        if (partnerinfo_list.size() != 0) {
-
-                            partnerlist = partnerinfo_list;
-                            //TODO : HITK - Check if this does not works properly then add partnerinfo_list in session and
-                            //in executeAdmin function read from session
-
-
-                        }
-                        partnerListSession = new ArrayList<PartnerInfo>();
-
-
-                        cardTypeHS = new HashSet();
-
-                        for (int i = 0; i < user.getRoleList().size(); i++) {
-
-
-                            if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
-                                log.info(accessDC.getDisplayRecord() +
-                                         this.getClass() +
-                                         " User contains Admin role");
-
-
-                                if (user.getRoleList().get(i).getIdString() !=
-                                    null) {
-                                    session.setAttribute("partnerLang",
-                                                         user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
-                                                                                                                             2));
-                                    session.setAttribute(Constants.userLang,
-                                                         user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
-                                                                                                                             2));
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " partner lang in session setted as " +
-                                             session.getAttribute("partnerLang"));
-
-                                    int partIndex = 0;
-                                    do {
-                                        executeAdmin(user, partIndex);
-                                        partIndex++;
-                                    } while (partIndex <
-                                             user.getRoleList().get(i).getIdString().size());
-                                }
-                                log.info(accessDC.getDisplayRecord() +
-                                         this.getClass() +
-                                         (" Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
-                                log.info(accessDC.getDisplayRecord() +
-                                         this.getClass() +
-                                         "cardTypeHS size is " +
-                                         cardTypeHS.size());
-                                session.setAttribute("cardTypeList",
-                                                     cardTypeHS);
-
-                            }
-
-                        }
-
-
-                        if (session != null)
+                        if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                            (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2C_SFR)) ||
+                            (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                             (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP))) &&
+                            user.getRoleList().get(i).getIdString() != null)
 
                         {
+
+
+                            int idlist = 0;
                             log.info(accessDC.getDisplayRecord() +
                                      this.getClass() +
-                                     "Session is not null & executePartnerObjLogic value is " +
-                                     session.getAttribute("executePartnerObjLogic"));
+                                     " user.getRoleList().get(i).getIdString().size()" +
+                                     user.getRoleList().get(i).getIdString().size());
+                            do {
+                                partnerobj = new PartnerInfo();
 
-                            if (session.getAttribute("executePartnerObjLogic") ==
-                                null) {
+                                int pid_start =
+                                    user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
 
-                                for (int partid = 0;
-                                     partid < partnerlist.size(); partid++) {
-                                    String partnerId =
-                                        partnerlist.get(partid).getPartnerValue().toString();
-                                    part = new PartnerInfo();
-                                    accountlist = new ArrayList<AccountInfo>();
+                                String pid =
+                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                  2,
+                                                                                                  pid_start +
+                                                                                                  10);
+                                partnerobj.setPartnerValue(pid);
 
-                                    //This variable is just to compare if partner Id from partner list matches with id's from IDM's getattributes
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " inside partner iterator " +
-                                             partid);
-                                    //TODO : HITK - For multipartner add one for loop for partnerlist size
-                                    //TODO : HITK- Also to check if partner list values are proper or else get it from session
-                                    skipOtherRoles = false;
+                                if (partnerinfo_list.size() > 0) {
 
-                                    if (partnerListSession != null) {
-                                        for (int k = 0;
-                                             k < partnerListSession.size();
-                                             k++)
-                                            if (partnerListSession.get(k).getPartnerValue().equalsIgnoreCase(partnerId) &&
-                                                partnerListSession.get(k).isCompanyOverview()) {
-                                                skipOtherRoles = true;
-                                                break;
-                                            } else
-                                                skipOtherRoles = false;
+                                    boolean addflag = false;
+                                    for (int k = 0;
+                                         k < partnerinfo_list.size(); k++) {
+
+                                        if (partnerinfo_list.get(k).getPartnerValue().equalsIgnoreCase(pid)) {
+
+                                            addflag = true;
+                                            break;
+                                        }
+
+
                                     }
-                                    if (!skipOtherRoles) {
-                                        for (int i = 0;
-                                             i < user.getRoleList().size();
-                                             i++) {
+                                    if (!addflag)
+                                    {   partnerinfo_list.add(partnerobj);}
+                                } else {
+                                    partnerinfo_list.add(partnerobj);
 
-                                            if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
-                                                DCBindingContainer bindings;
-                                                partnerinfo_list =
-                                                        new ArrayList<PartnerInfo>();
-                                                if (user.getRoleList().get(i).getIdString() !=
+                                }
+                                idlist++;
+                            } while (idlist <
+                                     user.getRoleList().get(i).getIdString().size());
+
+
+                        }
+                    }
+
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " Final Partner list size after going through the entire RoleList " +
+                             partnerinfo_list.size());
+
+                    accountlist = new ArrayList<AccountInfo>();
+
+
+                    if (partnerinfo_list.size() != 0) {
+
+                        partnerlist = partnerinfo_list;
+                        //TODO : HITK - Check if this does not works properly then add partnerinfo_list in session and
+                        //in executeAdmin function read from session
+
+
+                    }
+                    partnerListSession = new ArrayList<PartnerInfo>();
+
+
+                    cardTypeHS = new HashSet();
+
+                    for (int i = 0; i < user.getRoleList().size(); i++) {
+
+
+                        if (user.getRoleList().get(i).getRoleName().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                            log.info(accessDC.getDisplayRecord() +
+                                     this.getClass() +
+                                     " User contains Admin role");
+
+
+                            if (user.getRoleList().get(i).getIdString() !=
+                                null) {
+                                session.setAttribute("partnerLang",
+                                                     user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
+                                                                                                                         2));
+                                session.setAttribute(Constants.userLang,
+                                                     user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
+                                                                                                                         2));
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " partner lang in session setted as " +
+                                         session.getAttribute("partnerLang"));
+
+                                int partIndex = 0;
+                                do {
+                                    executeAdmin(user, partIndex);
+                                    partIndex++;
+                                } while (partIndex <
+                                         user.getRoleList().get(i).getIdString().size());
+                            }
+                            log.info(accessDC.getDisplayRecord() +
+                                     this.getClass() +
+                                     (" Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
+                            log.info(accessDC.getDisplayRecord() +
+                                     this.getClass() + "cardTypeHS size is " +
+                                     cardTypeHS.size());
+                            session.setAttribute("cardTypeList", cardTypeHS);
+
+                        }
+
+                    }
+
+
+                    if (session != null)
+
+                    {
+                        log.info(accessDC.getDisplayRecord() +
+                                 this.getClass() +
+                                 "Session is not null & executePartnerObjLogic value is " +
+                                 session.getAttribute("executePartnerObjLogic"));
+
+                        if (session.getAttribute("executePartnerObjLogic") ==
+                            null) {
+
+                            for (int partid = 0; partid < partnerlist.size();
+                                 partid++) {
+                                String partnerId =
+                                    partnerlist.get(partid).getPartnerValue().toString();
+                                part = new PartnerInfo();
+                                accountlist = new ArrayList<AccountInfo>();
+
+                                //This variable is just to compare if partner Id from partner list matches with id's from IDM's getattributes
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " inside partner iterator " + partid);
+                                //TODO : HITK - For multipartner add one for loop for partnerlist size
+                                //TODO : HITK- Also to check if partner list values are proper or else get it from session
+                                skipOtherRoles = false;
+
+                                if (partnerListSession != null) {
+                                    for (int k = 0;
+                                         k < partnerListSession.size(); k++)
+                                        if (partnerListSession.get(k).getPartnerValue().equalsIgnoreCase(partnerId) &&
+                                            partnerListSession.get(k).isCompanyOverview()) {
+                                            skipOtherRoles = true;
+                                            break;
+                                        } else
+                                        {  skipOtherRoles = false; }
+                                }
+                                if (!skipOtherRoles) {
+                                    for (int i = 0;
+                                         i < user.getRoleList().size(); i++) {
+
+                                        if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+                                            DCBindingContainer bindings;
+                                            partnerinfo_list =
+                                                    new ArrayList<PartnerInfo>();
+                                            if (user.getRoleList().get(i).getIdString() !=
+                                                null) {
+
+
+                                                int idlist = 0;
+                                                log.info(accessDC.getDisplayRecord() +
+                                                         this.getClass() +
+                                                         " TEMP ------------->" +
+                                                         user.getRoleList().get(i).getIdString().size());
+                                                log.info(accessDC.getDisplayRecord() +
+                                                         this.getClass() +
+                                                         " Partner id " +
+                                                         partid + " " +
+                                                         user.getRoleList().get(i).getIdString().get(idlist));
+
+                                                if (session.getAttribute("partnerLang") ==
+                                                    null){
+                                                    session.setAttribute("partnerLang",
+                                                                         user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
+                                                                                                                                             2));}
+                                                if (session.getAttribute(Constants.userLang) ==
+                                                    null)
+                                                { session.setAttribute(Constants.userLang,
+                                                                         user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
+                                                                                                                                             2)); }
+
+                                                log.info(accessDC.getDisplayRecord() +
+                                                         this.getClass() +
+                                                         " partner lang in session setted as " +
+                                                         session.getAttribute("partnerLang"));
+
+
+                                                int pid_start =
+                                                    user.getRoleList().get(i).getIdString().get(partid).indexOf("PP");
+
+                                                String pid =
+                                                    user.getRoleList().get(i).getIdString().get(partid).substring(pid_start +
+                                                                                                                  2,
+                                                                                                                  pid_start +
+                                                                                                                  10);
+
+
+                                                part.setPartnerValue(partnerId);
+                                                part.setPartnerName(getPartnerName(partnerId));
+                                                if (session.getAttribute("partnerLang") !=
                                                     null) {
-
-
-                                                    int idlist = 0;
+                                                    part.setCountry((String)session.getAttribute("partnerLang"));
+                                                } else {
                                                     log.info(accessDC.getDisplayRecord() +
                                                              this.getClass() +
-                                                             " TEMP ------------->" +
-                                                             user.getRoleList().get(i).getIdString().size());
-                                                    log.info(accessDC.getDisplayRecord() +
-                                                             this.getClass() +
-                                                             " Partner id " +
-                                                             partid + " " +
-                                                             user.getRoleList().get(i).getIdString().get(idlist));
-
-                                                    if (session.getAttribute("partnerLang") ==
-                                                        null)
-                                                        session.setAttribute("partnerLang",
-                                                                             user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
-                                                                                                                                                 2));
-                                                    if (session.getAttribute(Constants.userLang) ==
-                                                        null)
-                                                        session.setAttribute(Constants.userLang,
-                                                                             user.getRoleList().get(i).getIdString().get(0).toString().substring(0,
-                                                                                                                                                 2));
-
-                                                    log.info(accessDC.getDisplayRecord() +
-                                                             this.getClass() +
-                                                             " partner lang in session setted as " +
-                                                             session.getAttribute("partnerLang"));
+                                                             " partner language null in session");
+                                                    part.setCountry(null);
+                                                }
+                                                part.setCompanyOverview(false);
 
 
-                                                    int pid_start =
-                                                        user.getRoleList().get(i).getIdString().get(partid).indexOf("PP");
-
-                                                    String pid =
-                                                        user.getRoleList().get(i).getIdString().get(partid).substring(pid_start +
-                                                                                                                      2,
-                                                                                                                      pid_start +
-                                                                                                                      10);
+                                                do {
+                                                    if (idlist != 0) {
 
 
-                                                    part.setPartnerValue(partnerId);
-                                                    part.setPartnerName(getPartnerName(partnerId));
-                                                    if (session.getAttribute("partnerLang") !=
-                                                        null) {
-                                                        part.setCountry((String)session.getAttribute("partnerLang"));
-                                                    } else {
-                                                        log.info(accessDC.getDisplayRecord() +
-                                                                 this.getClass() +
-                                                                 " partner language null in session");
-                                                        part.setCountry(null);
-                                                    }
-                                                    part.setCompanyOverview(false);
+                                                        pid_start =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
 
-
-                                                    do {
-                                                        if (idlist != 0) {
-
-
-                                                            pid_start =
-                                                                    user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
-
-                                                            pid =
+                                                        pid =
 user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start + 2,
                                                               pid_start + 10);
 
-                                                        }
-                                                        if (partnerId != null)
-                                                            if (partnerId.equals(pid)) {
+                                                    }
+                                                    if (partnerId != null &&
+                                                        partnerId.equals(pid)) {
 
 
-                                                                executeEmp =
-                                                                        false;
+                                                        executeEmp = false;
 
-                                                                if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC") &&
-                                                                    partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                                                                   2,
-                                                                                                                                                   pid_start +
-                                                                                                                                                   10))) {
+                                                        if (user.getRoleList().get(i).getIdString().get(idlist).contains("AC") &&
+                                                            partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                                                           2,
+                                                                                                                                           pid_start +
+                                                                                                                                           10))) {
 
 
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " Account B2B Manager");
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " Account B2B Manager");
 
-                                                                    acc =
+                                                            acc =
 new AccountInfo();
-                                                                    cardgrouplist =
-                                                                            new ArrayList<CardGroupInfo>();
-                                                                    int accid_start =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("AC");
+                                                            cardgrouplist =
+                                                                    new ArrayList<CardGroupInfo>();
+                                                            int accid_start =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).indexOf("AC");
 
-                                                                    String accid =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(accid_start +
-                                                                                                                                      2,
-                                                                                                                                      accid_start +
-                                                                                                                                      12);
+                                                            String accid =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(accid_start +
+                                                                                                                              2,
+                                                                                                                              accid_start +
+                                                                                                                              12);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " account id " +
+                                                                     accid);
+                                                            acc.setAccountNumber(accid);
+                                                            acc.setAccountOverview(true);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " Account overview should be visible");
+
+                                                            AccountInfo account_check =
+                                                                new AccountInfo();
+                                                            addflagaccount =
+                                                                    false;
+                                                            for (int listsize =
+                                                                 0;
+                                                                 listsize < accountlist.size();
+                                                                 listsize++) {
+                                                                log.info(accessDC.getDisplayRecord() +
+                                                                         this.getClass() +
+                                                                         " account id value in account list " +
+                                                                         accountlist.get(listsize).getAccountNumber());
+                                                                account_check =
+                                                                        accountlist.get(listsize);
+
+                                                                if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
                                                                     log.info(accessDC.getDisplayRecord() +
                                                                              this.getClass() +
-                                                                             " account id " +
-                                                                             accid);
-                                                                    acc.setAccountNumber(accid);
-                                                                    acc.setAccountOverview(true);
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " Account overview should be visible");
-
-                                                                    AccountInfo account_check =
-                                                                        new AccountInfo();
-                                                                    addflagaccount =
-                                                                            false;
-                                                                    for (int listsize =
-                                                                         0;
-                                                                         listsize <
-                                                                         accountlist.size();
-                                                                         listsize++) {
-                                                                        log.info(accessDC.getDisplayRecord() +
-                                                                                 this.getClass() +
-                                                                                 " account id value in account list " +
-                                                                                 accountlist.get(listsize).getAccountNumber());
-                                                                        account_check =
-                                                                                accountlist.get(listsize);
-
-                                                                        if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                     this.getClass() +
-                                                                                     "Account ID already exists in partner object");
-                                                                            //                                                        executeEmp = true;
-                                                                            if (account_check.isAccountOverview()) {
-                                                                                addflagaccount =
-                                                                                        true;
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                    }
-
-
-                                                                    if (!addflagaccount) {
-                                                                        //This means account only does not exists or Account exists but account overview is false, so in both the cases we have to create new cardgrplist new cardlist .....
-
-
-                                                                        String AccountID =
-                                                                            acc.getAccountNumber();
-                                                                        bindings =
-                                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-                                                                        if (bindings ==
-                                                                            null ||
-                                                                            bindings.findIteratorBinding("PrtCardgroupVO1Iterator") ==
-                                                                            null) {
-                                                                            bindings =
-                                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                                        }
-
-                                                                        DCIteratorBinding iter2;
-                                                                        if (bindings !=
-                                                                            null) {
-                                                                            iter2 =
-                                                                                    bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
-
-                                                                        } else {
-                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                     this.getClass() +
-                                                                                     " Error : PrtCardgroupVO1Iterator is null");
-                                                                            iter2 =
-                                                                                    null;
-                                                                        }
-
-                                                                        if (iter2 !=
-                                                                            null) {
-                                                                            ViewObject vo2 =
-                                                                                iter2.getViewObject();
-
-
-                                                                            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo2.getWhereClause())) {
-
-                                                                                vo2.removeNamedWhereClauseParam("cgid");
-                                                                                vo2.removeNamedWhereClauseParam("cc");
-                                                                                vo2.removeNamedWhereClauseParam("cgmain");
-                                                                                vo2.removeNamedWhereClauseParam("cgsub");
-                                                                                vo2.setWhereClause("");
-                                                                                vo2.executeQuery();
-
-                                                                            }
-
-                                                                            vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
-                                                                            vo2.defineNamedWhereClauseParam("accid",
-                                                                                                            AccountID,
-                                                                                                            null);
-                                                                            vo2.defineNamedWhereClauseParam("cc",
-                                                                                                            (String)session.getAttribute(Constants.userLang),
-                                                                                                            null);
-
-
-                                                                            vo2.executeQuery();
-                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                     this.getClass() +
-                                                                                     " row count from cardgroup vo" +
-                                                                                     vo2.getEstimatedRowCount());
-
-                                                                            if (vo2.getEstimatedRowCount() !=
-                                                                                0) {
-
-
-                                                                                while (vo2.hasNext()) {
-
-
-                                                                                    cardgrp =
-                                                                                            new CardGroupInfo();
-                                                                                    cardlist =
-                                                                                            new ArrayList<CardInfo>();
-                                                                                    unblockedcardlist =
-                                                                                            new ArrayList<CardInfo>();
-
-                                                                                    PrtCardgroupVORowImpl currRowcardgrp =
-                                                                                        (PrtCardgroupVORowImpl)vo2.next();
-
-                                                                                    if (currRowcardgrp !=
-                                                                                        null) {
-
-
-                                                                                        if (currRowcardgrp.getCardgroupSeq() !=
-                                                                                            null) {
-                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                     this.getClass() +
-                                                                                                     " Cardgroup id is " +
-                                                                                                     currRowcardgrp.getCardgroupSeq());
-                                                                                            cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
-                                                                                            cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
-                                                                                            cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
-                                                                                            cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
-
-                                                                                            if (currRowcardgrp.getCardgroupDescription() !=
-                                                                                                null) {
-                                                                                                cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
-                                                                                                cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()) +
-                                                                                                                                  "-" +
-                                                                                                                                  currRowcardgrp.getCardgroupDescription().toString());
-                                                                                                log.info("------->" +
-                                                                                                         currRowcardgrp.getCardgroupDescription().toString());
-                                                                                            } else {
-                                                                                                cardgrp.setCardGroupName(cardgrp.getCardGroupID());
-                                                                                                cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
-                                                                                            }
-
-
-                                                                                            cardgrp.setCardGroupOverview(true);
-
-                                                                                        }
-
-                                                                                        addflagcardgroup =
-                                                                                                false;
-                                                                                        for (int k =
-                                                                                             0;
-                                                                                             k <
-                                                                                             cardgrouplist.size();
-                                                                                             k++) {
-                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                     this.getClass() +
-                                                                                                     " cardgroup id value in cardgroup list " +
-                                                                                                     cardgrouplist.get(k).getCardGroupID());
-                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                     this.getClass() +
-                                                                                                     " New cardgroup id value to compare" +
-                                                                                                     cardgrp.getCardGroupID());
-
-
-                                                                                            if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
-                                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                                         this.getClass() +
-                                                                                                         " cardgroup id already exists in cardgroup list");
-                                                                                                addflagcardgroup =
-                                                                                                        true;
-                                                                                                break;
-                                                                                            }
-                                                                                        }
-
-
-                                                                                    }
-                                                                                    if (!addflagcardgroup)
-                                                                                    //add cardlist in cardgroup
-
-                                                                                    {
-
-                                                                                        String CardgroupMainType =
-                                                                                            cardgrp.getCardGroupMainType().toString();
-                                                                                        String CardgroupSubType =
-                                                                                            cardgrp.getCardGroupSubType().toString();
-                                                                                        String CardgroupSeq =
-                                                                                            cardgrp.getCardGroupSeq().toString();
-
-                                                                                        bindings =
-                                                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-                                                                                        if (bindings ==
-                                                                                            null ||
-                                                                                            bindings.findIteratorBinding("PrtCardVO1Iterator") ==
-                                                                                            null) {
-                                                                                            bindings =
-                                                                                                    (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                                                        }
-                                                                                        DCIteratorBinding iter3;
-                                                                                        if (bindings !=
-                                                                                            null) {
-                                                                                            iter3 =
-                                                                                                    bindings.findIteratorBinding("PrtCardVO1Iterator");
-
-                                                                                        } else {
-                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                     this.getClass() +
-                                                                                                     " Error : PrtCardVO1Iterator is null");
-                                                                                            iter3 =
-                                                                                                    null;
-                                                                                        }
-
-                                                                                        if (iter3 !=
-                                                                                            null) {
-                                                                                            ViewObject vo3 =
-                                                                                                iter3.getViewObject();
-
-                                                                                            vo3 =
-iter3.getViewObject();
-
-                                                                                            if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
-
-                                                                                                vo3.removeNamedWhereClauseParam("cgid");
-                                                                                                vo3.removeNamedWhereClauseParam("cc");
-                                                                                                vo3.removeNamedWhereClauseParam("cgmain");
-                                                                                                vo3.removeNamedWhereClauseParam("cgsub");
-                                                                                                vo3.setWhereClause("");
-                                                                                                vo3.executeQuery();
-                                                                                            }
-
-                                                                                            if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-
-                                                                                                vo3.removeNamedWhereClauseParam("cardid");
-                                                                                                vo3.removeNamedWhereClauseParam("cc");
-                                                                                                vo3.setWhereClause("");
-                                                                                                vo3.executeQuery();
-                                                                                            }
-
-                                                                                            vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-
-                                                                                            vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                                            CardgroupSeq,
-                                                                                                                            null);
-                                                                                            vo3.defineNamedWhereClauseParam("cc",
-                                                                                                                            (String)session.getAttribute(Constants.userLang),
-                                                                                                                            null);
-                                                                                            vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                                            CardgroupMainType,
-                                                                                                                            null);
-                                                                                            vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                                            CardgroupSubType,
-                                                                                                                            null);
-
-
-                                                                                            vo3.executeQuery();
-                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                     this.getClass() +
-                                                                                                     " row count from cardgroup vo" +
-                                                                                                     vo3.getEstimatedRowCount());
-
-                                                                                            if (vo3.getEstimatedRowCount() !=
-                                                                                                0) {
-
-
-                                                                                                while (vo3.hasNext()) {
-
-
-                                                                                                    card =
-new CardInfo();
-                                                                                                    PrtCardVORowImpl currRowcard =
-                                                                                                        (PrtCardVORowImpl)vo3.next();
-
-                                                                                                    if (currRowcard !=
-                                                                                                        null) {
-
-
-                                                                                                        if (currRowcard.getPrtCardPk() !=
-                                                                                                            null) {
-
-                                                                                                            card.setCardID(currRowcard.getPrtCardPk().toString());
-
-
-                                                                                                        }
-
-                                                                                                        if (currRowcard.getBlockAction() !=
-                                                                                                            null &&
-                                                                                                            currRowcard.getBlockAction().equalsIgnoreCase("2")) {
-
-                                                                                                        } else if (currRowcard.getCardExpiry() ==
-                                                                                                                   null ||
-                                                                                                                   currRowcard.getCardExpiry().after(new Date())) {
-                                                                                                            unblockedcardlist.add(card);
-                                                                                                        }
-
-                                                                                                        if (currRowcard.getCardEmbossNum() !=
-                                                                                                            null) {
-                                                                                                            card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
-                                                                                                        }
-
-                                                                                                        if (currRowcard.getCardTextline2() !=
-                                                                                                            null) {
-                                                                                                            card.setCardTextline2(currRowcard.getCardTextline2().toString());
-                                                                                                        }
-
-                                                                                                        addflagcard =
-                                                                                                                false;
-                                                                                                        for (int k =
-                                                                                                             0;
-                                                                                                             k <
-                                                                                                             cardlist.size();
-                                                                                                             k++) {
-                                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                                     this.getClass() +
-                                                                                                                     " cardgroup id value in cardgroup list " +
-                                                                                                                     cardlist.get(k).getCardID());
-                                                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                                                     this.getClass() +
-                                                                                                                     " New cardgroup id value to compare" +
-                                                                                                                     card.getCardID());
-
-
-                                                                                                            if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
-                                                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                                                         this.getClass() +
-                                                                                                                         " card id already exists in card list");
-                                                                                                                addflagcard =
-                                                                                                                        true;
-                                                                                                                break;
-                                                                                                            }
-                                                                                                        }
-
-
-                                                                                                    }
-                                                                                                    if (!addflagcard)
-                                                                                                        cardlist.add(card);
-
-
-                                                                                                }
-
-                                                                                                cardgrp.setCard(cardlist);
-                                                                                                cardgrp.setUnblockedCardList(unblockedcardlist);
-                                                                                                cardgrouplist.add(cardgrp);
-
-                                                                                            }
-
-                                                                                        }
-
-
-                                                                                    }
-
-
-                                                                                }
-                                                                                acc.setCardGroup(cardgrouplist);
-                                                                                for (int z =
-                                                                                     0;
-                                                                                     z <
-                                                                                     accountlist.size();
-                                                                                     z++)
-                                                                                    if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
-
-                                                                                        accountlist.set(z,
-                                                                                                        acc);
-
-                                                                                    }
-                                                                                if (!accountlist.contains(acc))
-                                                                                    accountlist.add(acc);
-
-
-                                                                            }
-
-                                                                        }
-
-
-                                                                    }
-                                                                    part.setAccountList(accountlist);
-
-                                                                } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG") &&
-                                                                           partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                                                                          2,
-                                                                                                                                                          pid_start +
-                                                                                                                                                          10))) {
-                                                                    AccountInfo account_check =
-                                                                        new AccountInfo();
-
-
-                                                                    int cgid_start =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("CG");
-
-                                                                    String CardGroupID =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
-                                                                                                                                      2);
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " CardGroupId is " +
-                                                                             CardGroupID);
-
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " Card Group B2B Manager");
-
-                                                                    acc =
-new AccountInfo();
-
-                                                                    cardgrp =
-                                                                            new CardGroupInfo();
-                                                                    cardlist =
-                                                                            new ArrayList<CardInfo>();
-                                                                    unblockedcardlist =
-                                                                            new ArrayList<CardInfo>();
-
-
-                                                                    String CardgroupMainType =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
-                                                                                                                                      2,
-                                                                                                                                      cgid_start +
-                                                                                                                                      5);
-                                                                    String CardgroupSubType =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
-                                                                                                                                      5,
-                                                                                                                                      cgid_start +
-                                                                                                                                      8);
-                                                                    String CardgroupSeq =
-                                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
-                                                                                                                                      8);
-                                                                    cardgrp.setCardGroupMainType(CardgroupMainType);
-                                                                    cardgrp.setCardGroupSubType(CardgroupSubType);
-                                                                    cardgrp.setCardGroupSeq(CardgroupSeq);
-                                                                    cardgrp.setCardGroupID((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
-                                                                    cardgrp.setCardGroupName(getcardGroupName(CardgroupMainType,
-                                                                                                              CardgroupSubType,
-                                                                                                              CardgroupSeq));
-                                                                    if (cardgrp.getCardGroupName() !=
-                                                                        null) {
-                                                                        cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType)).concat(CardgroupSeq) +
-                                                                                                          "-" +
-                                                                                                          cardgrp.getCardGroupName());
-                                                                    } else
-
-                                                                        cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
-
-
-                                                                    cardgrp.setCardGroupOverview(true);
-
-
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " cardgroup seq " +
-                                                                             CardgroupSeq);
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " Cardgroup Maintype " +
-                                                                             CardgroupMainType);
-                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                             this.getClass() +
-                                                                             " CardgroupSubtype " +
-                                                                             CardgroupSubType);
-
-                                                                    //Execute CardgroupVO to fetch corresponding Account number
-
-
-                                                                    bindings =
-                                                                            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-                                                                    if (bindings ==
-                                                                        null ||
-                                                                        bindings.findIteratorBinding("PrtCardVO1Iterator") ==
-                                                                        null) {
-                                                                        bindings =
-                                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                                                                    }
-                                                                    DCIteratorBinding iter3;
-                                                                    if (bindings !=
-                                                                        null) {
-                                                                        iter3 =
-                                                                                bindings.findIteratorBinding("PrtCardVO1Iterator");
-
-                                                                    } else {
-                                                                        log.info(accessDC.getDisplayRecord() +
-                                                                                 this.getClass() +
-                                                                                 "Error : PrtCardVO1Iterator is null");
-                                                                        iter3 =
-                                                                                null;
-                                                                    }
-
-
-                                                                    if (iter3 !=
-                                                                        null) {
-                                                                        ViewObject vo3 =
-                                                                            iter3.getViewObject();
-
-                                                                        vo3 =
-iter3.getViewObject();
-
-
-                                                                        if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
-
-                                                                            vo3.removeNamedWhereClauseParam("cardid");
-                                                                            vo3.removeNamedWhereClauseParam("cc");
-                                                                            vo3.setWhereClause("");
-                                                                            vo3.executeQuery();
-                                                                        }
-
-
-                                                                        vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
-
-                                                                        vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                        CardgroupSeq,
-                                                                                                        null);
-                                                                        vo3.defineNamedWhereClauseParam("cc",
-                                                                                                        (String)session.getAttribute(Constants.userLang),
-                                                                                                        null);
-                                                                        vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                        CardgroupMainType,
-                                                                                                        null);
-                                                                        vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                        CardgroupSubType,
-                                                                                                        null);
-
-
-                                                                        vo3.executeQuery();
-                                                                        log.info(accessDC.getDisplayRecord() +
-                                                                                 this.getClass() +
-                                                                                 "row count from cardgroup vo" +
-                                                                                 vo3.getEstimatedRowCount());
-
-                                                                        if (vo3.getEstimatedRowCount() !=
-                                                                            0) {
-
-
-                                                                            while (vo3.hasNext()) {
-
-
-                                                                                card =
-new CardInfo();
-                                                                                PrtCardVORowImpl currRowcard =
-                                                                                    (PrtCardVORowImpl)vo3.next();
-
-                                                                                if (currRowcard !=
-                                                                                    null) {
-
-
-                                                                                    if (currRowcard.getPrtCardPk() !=
-                                                                                        null) {
-
-                                                                                        card.setCardID(currRowcard.getPrtCardPk().toString());
-
-
-                                                                                    }
-
-                                                                                    if (currRowcard.getBlockAction() !=
-                                                                                        null &&
-                                                                                        currRowcard.getBlockAction().equalsIgnoreCase("2")) {
-
-                                                                                    } else if (currRowcard.getCardExpiry() ==
-                                                                                               null ||
-                                                                                               currRowcard.getCardExpiry().after(new Date())) {
-                                                                                        unblockedcardlist.add(card);
-                                                                                    }
-                                                                                    if (currRowcard.getCardEmbossNum() !=
-                                                                                        null) {
-                                                                                        card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
-                                                                                        card.setDisplayCardNumber("XXXX" +
-                                                                                                                  currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length() -
-                                                                                                                                                                      4,
-                                                                                                                                                                      currRowcard.getCardEmbossNum().toString().length()));
-                                                                                    }
-
-                                                                                    if (currRowcard.getCardTextline2() !=
-                                                                                        null) {
-                                                                                        card.setCardTextline2(currRowcard.getCardTextline2().toString());
-                                                                                    }
-
-                                                                                    if (currRowcard.getBlockAction() !=
-                                                                                        null)
-                                                                                        card.setBlockAction(currRowcard.getBlockAction().toString());
-
-                                                                                    if (currRowcard.getBlockAction() !=
-                                                                                        null &&
-                                                                                        currRowcard.getBlockAction().equalsIgnoreCase("1") ||
-                                                                                        currRowcard.getBlockAction().equalsIgnoreCase("0")) {
-                                                                                        if ((currRowcard.getCardExpiry() !=
-                                                                                             null &&
-                                                                                             currRowcard.getCardExpiry().before(new Date()))) {
-                                                                                            card.setBlockAction("2");
-
-                                                                                        }
-
-
-                                                                                    }
-
-                                                                                    if (currRowcard.getAccountId() !=
-                                                                                        null) {
-
-                                                                                        acc.setAccountNumber(currRowcard.getAccountId().toString());
-                                                                                    }
-
-                                                                                    cardlist.add(card);
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                        account_check =
-                                                                                new AccountInfo();
-                                                                        createCardGroupList =
-                                                                                true;
+                                                                             "Account ID already exists in partner object");
+                                                                
+                                                                    if (account_check.isAccountOverview()) {
                                                                         addflagaccount =
-                                                                                false;
-                                                                        for (int listsize =
-                                                                             0;
-                                                                             listsize <
-                                                                             accountlist.size();
-                                                                             listsize++) {
-                                                                            log.info(accessDC.getDisplayRecord() +
-                                                                                     this.getClass() +
-                                                                                     " account id value in account list " +
-                                                                                     accountlist.get(listsize).getAccountNumber());
-                                                                            account_check =
-                                                                                    accountlist.get(listsize);
+                                                                                true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
 
-                                                                            if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                         this.getClass() +
-                                                                                         " Account ID already exists in partner object");
-                                                                                createCardGroupList =
-                                                                                        false;
 
-                                                                                if (account_check.isAccountOverview()) {
-                                                                                    addflagaccount =
-                                                                                            true;
-                                                                                    break;
+                                                            if (!addflagaccount) {
+                                                                //This means account only does not exists or Account exists but account overview is false, so in both the cases we have to create new cardgrplist new cardlist .....
+
+
+                                                                String AccountID =
+                                                                    acc.getAccountNumber();
+                                                                bindings =
+                                                                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                if (bindings ==
+                                                                    null ||
+                                                                    bindings.findIteratorBinding("PrtCardgroupVO1Iterator") ==
+                                                                    null) {
+                                                                    bindings =
+                                                                            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                                }
+
+                                                                DCIteratorBinding iter2;
+                                                                if (bindings !=
+                                                                    null) {
+                                                                    iter2 =
+                                                                            bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
+
+                                                                } else {
+                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                             this.getClass() +
+                                                                             " Error : PrtCardgroupVO1Iterator is null");
+                                                                    iter2 =
+                                                                            null;
+                                                                }
+
+                                                                if (iter2 !=
+                                                                    null) {
+                                                                    ViewObject vo2 =
+                                                                        iter2.getViewObject();
+
+
+                                                                    if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo2.getWhereClause())) {
+
+                                                                        vo2.removeNamedWhereClauseParam("cgid");
+                                                                        vo2.removeNamedWhereClauseParam("cc");
+                                                                        vo2.removeNamedWhereClauseParam("cgmain");
+                                                                        vo2.removeNamedWhereClauseParam("cgsub");
+                                                                        vo2.setWhereClause("");
+                                                                        vo2.executeQuery();
+
+                                                                    }
+
+                                                                    vo2.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
+                                                                    vo2.defineNamedWhereClauseParam("accid",
+                                                                                                    AccountID,
+                                                                                                    null);
+                                                                    vo2.defineNamedWhereClauseParam("cc",
+                                                                                                    (String)session.getAttribute(Constants.userLang),
+                                                                                                    null);
+
+
+                                                                    vo2.executeQuery();
+                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                             this.getClass() +
+                                                                             " row count from cardgroup vo" +
+                                                                             vo2.getEstimatedRowCount());
+
+                                                                    if (vo2.getEstimatedRowCount() !=
+                                                                        0) {
+
+
+                                                                        while (vo2.hasNext()) {
+
+
+                                                                            cardgrp =
+                                                                                    new CardGroupInfo();
+                                                                            cardlist =
+                                                                                    new ArrayList<CardInfo>();
+                                                                            unblockedcardlist =
+                                                                                    new ArrayList<CardInfo>();
+
+                                                                            PrtCardgroupVORowImpl currRowcardgrp =
+                                                                                (PrtCardgroupVORowImpl)vo2.next();
+
+                                                                            if (currRowcardgrp !=
+                                                                                null) {
+
+
+                                                                                if (currRowcardgrp.getCardgroupSeq() !=
+                                                                                    null) {
+                                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                                             this.getClass() +
+                                                                                             " Cardgroup id is " +
+                                                                                             currRowcardgrp.getCardgroupSeq());
+                                                                                    cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                                                                    cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
+                                                                                    cardgrp.setCardGroupSeq(currRowcardgrp.getCardgroupSeq().toString());
+                                                                                    cardgrp.setCardGroupSubType(currRowcardgrp.getCardgroupSubType().toString());
+
+                                                                                    if (currRowcardgrp.getCardgroupDescription() !=
+                                                                                        null) {
+                                                                                        cardgrp.setCardGroupName(currRowcardgrp.getCardgroupDescription().toString());
+                                                                                        cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()) +
+                                                                                                                          "-" +
+                                                                                                                          currRowcardgrp.getCardgroupDescription().toString());
+                                                                                        log.info("------->" +
+                                                                                                 currRowcardgrp.getCardgroupDescription().toString());
+                                                                                    } else {
+                                                                                        cardgrp.setCardGroupName(cardgrp.getCardGroupID());
+                                                                                        cardgrp.setDisplayCardGroupIdName((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                                                                                    }
+
+
+                                                                                    cardgrp.setCardGroupOverview(true);
+
                                                                                 }
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                        if (!addflagaccount &&
-                                                                            accountlist.size() >
-                                                                            0) {
-                                                                            if (createCardGroupList) {
-                                                                                cardgrp.setCard(cardlist);
-                                                                                log.info("unblocked list " +
-                                                                                         unblockedcardlist.size());
-                                                                                cardgrp.setUnblockedCardList(unblockedcardlist);
-                                                                                cardgrp.setCardGroupOverview(true);
-                                                                                cardgrouplist =
-                                                                                        new ArrayList<CardGroupInfo>();
-                                                                                cardgrouplist.add(cardgrp);
-                                                                                acc.setCardGroup(cardgrouplist);
-                                                                                acc.setAccountOverview(false);
-                                                                                accountlist.add(acc);
-                                                                                part.setAccountList(accountlist);
-                                                                                part.setCompanyOverview(false);
-                                                                            } else {
-                                                                                //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
-                                                                                //the existing one
-                                                                                cardgrouplist =
-                                                                                        account_check.getCardGroup();
-                                                                                cardgrp.setCard(cardlist);
-                                                                                cardgrp.setCardGroupOverview(true);
 
                                                                                 addflagcardgroup =
                                                                                         false;
@@ -1259,6 +738,7 @@ new CardInfo();
                                                                                              " New cardgroup id value to compare" +
                                                                                              cardgrp.getCardGroupID());
 
+
                                                                                     if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
                                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                                  this.getClass() +
@@ -1268,135 +748,290 @@ new CardInfo();
                                                                                         break;
                                                                                     }
                                                                                 }
-                                                                                if (addflagcardgroup) {
 
-                                                                                    //Replace the old cardgroup with new one
-                                                                                    for (int z =
-                                                                                         0;
-                                                                                         z <
-                                                                                         cardgrouplist.size();
-                                                                                         z++) {
-                                                                                        if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp.getCardGroupMainType()) &&
-                                                                                            cardgrouplist.get(z).getCardGroupSubType().equals(cardgrp.getCardGroupSubType()) &&
-                                                                                            cardgrouplist.get(z).getCardGroupSeq().equals(cardgrp.getCardGroupSeq())) {
 
-                                                                                            cardgrouplist.set(z,
-                                                                                                              cardgrp);
+                                                                            }
+                                                                            if (!addflagcardgroup)
+                                                                            //add cardlist in cardgroup
 
-                                                                                        }
-                                                                                    }
+                                                                            {
 
-                                                                                    //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
-                                                                                    for (int z =
-                                                                                         0;
-                                                                                         z <
-                                                                                         accountlist.size();
-                                                                                         z++)
-                                                                                        if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                                String CardgroupMainType =
+                                                                                    cardgrp.getCardGroupMainType().toString();
+                                                                                String CardgroupSubType =
+                                                                                    cardgrp.getCardGroupSubType().toString();
+                                                                                String CardgroupSeq =
+                                                                                    cardgrp.getCardGroupSeq().toString();
 
-                                                                                            acc.setCardGroup(cardgrouplist);
-                                                                                            accountlist.set(z,
-                                                                                                            acc);
-                                                                                            part.setAccountList(accountlist);
-                                                                                            break;
-
-                                                                                        }
+                                                                                bindings =
+                                                                                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                                                if (bindings ==
+                                                                                    null ||
+                                                                                    bindings.findIteratorBinding("PrtCardVO1Iterator") ==
+                                                                                    null) {
+                                                                                    bindings =
+                                                                                            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                                                }
+                                                                                DCIteratorBinding iter3;
+                                                                                if (bindings !=
+                                                                                    null) {
+                                                                                    iter3 =
+                                                                                            bindings.findIteratorBinding("PrtCardVO1Iterator");
 
                                                                                 } else {
-                                                                                    //Add cardgrp to the cardgrp list and then replacae account
+                                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                                             this.getClass() +
+                                                                                             " Error : PrtCardVO1Iterator is null");
+                                                                                    iter3 =
+                                                                                            null;
+                                                                                }
 
-                                                                                    cardgrouplist.add(cardgrp);
-                                                                                    acc.setCardGroup(cardgrouplist);
-                                                                                    //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
-                                                                                    for (int z =
-                                                                                         0;
-                                                                                         z <
-                                                                                         accountlist.size();
-                                                                                         z++)
-                                                                                        if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+                                                                                if (iter3 !=
+                                                                                    null) {
+                                                                                    ViewObject vo3 =
+                                                                                        iter3.getViewObject();
 
-                                                                                            accountlist.set(z,
-                                                                                                            acc);
-                                                                                            part.setAccountList(accountlist);
-                                                                                            break;
+                                                                                    vo3 =
+iter3.getViewObject();
+
+                                                                                    if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
+
+                                                                                        vo3.removeNamedWhereClauseParam("cgid");
+                                                                                        vo3.removeNamedWhereClauseParam("cc");
+                                                                                        vo3.removeNamedWhereClauseParam("cgmain");
+                                                                                        vo3.removeNamedWhereClauseParam("cgsub");
+                                                                                        vo3.setWhereClause("");
+                                                                                        vo3.executeQuery();
+                                                                                    }
+
+                                                                                    if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+
+                                                                                        vo3.removeNamedWhereClauseParam("cardid");
+                                                                                        vo3.removeNamedWhereClauseParam("cc");
+                                                                                        vo3.setWhereClause("");
+                                                                                        vo3.executeQuery();
+                                                                                    }
+
+                                                                                    vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+
+                                                                                    vo3.defineNamedWhereClauseParam("cgid",
+                                                                                                                    CardgroupSeq,
+                                                                                                                    null);
+                                                                                    vo3.defineNamedWhereClauseParam("cc",
+                                                                                                                    (String)session.getAttribute(Constants.userLang),
+                                                                                                                    null);
+                                                                                    vo3.defineNamedWhereClauseParam("cgmain",
+                                                                                                                    CardgroupMainType,
+                                                                                                                    null);
+                                                                                    vo3.defineNamedWhereClauseParam("cgsub",
+                                                                                                                    CardgroupSubType,
+                                                                                                                    null);
+
+
+                                                                                    vo3.executeQuery();
+                                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                                             this.getClass() +
+                                                                                             " row count from cardgroup vo" +
+                                                                                             vo3.getEstimatedRowCount());
+
+                                                                                    if (vo3.getEstimatedRowCount() !=
+                                                                                        0) {
+
+
+                                                                                        while (vo3.hasNext()) {
+
+
+                                                                                            card =
+new CardInfo();
+                                                                                            PrtCardVORowImpl currRowcard =
+                                                                                                (PrtCardVORowImpl)vo3.next();
+
+                                                                                            if (currRowcard !=
+                                                                                                null) {
+
+
+                                                                                                if (currRowcard.getPrtCardPk() !=
+                                                                                                    null) {
+
+                                                                                                    card.setCardID(currRowcard.getPrtCardPk().toString());
+
+
+                                                                                                }
+
+                                                                                                if (currRowcard.getBlockAction() !=
+                                                                                                    null &&
+                                                                                                    currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+
+                                                                                                } else if (currRowcard.getCardExpiry() ==
+                                                                                                           null ||
+                                                                                                           currRowcard.getCardExpiry().after(new Date())) {
+                                                                                                    unblockedcardlist.add(card);
+                                                                                                }
+
+                                                                                                if (currRowcard.getCardEmbossNum() !=
+                                                                                                    null) {
+                                                                                                    card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                                }
+
+                                                                                                if (currRowcard.getCardTextline2() !=
+                                                                                                    null) {
+                                                                                                    card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                                                }
+
+                                                                                                addflagcard =
+                                                                                                        false;
+                                                                                                for (int k =
+                                                                                                     0;
+                                                                                                     k <
+                                                                                                     cardlist.size();
+                                                                                                     k++) {
+                                                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                                                             this.getClass() +
+                                                                                                             " cardgroup id value in cardgroup list " +
+                                                                                                             cardlist.get(k).getCardID());
+                                                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                                                             this.getClass() +
+                                                                                                             " New cardgroup id value to compare" +
+                                                                                                             card.getCardID());
+
+
+                                                                                                    if (cardlist.get(k).getCardID().equalsIgnoreCase(card.getCardID())) {
+                                                                                                        log.info(accessDC.getDisplayRecord() +
+                                                                                                                 this.getClass() +
+                                                                                                                 " card id already exists in card list");
+                                                                                                        addflagcard =
+                                                                                                                true;
+                                                                                                        break;
+                                                                                                    }
+                                                                                                }
+
+
+                                                                                            }
+                                                                                            if (!addflagcard)
+                                                                                            {  cardlist.add(card);}
+
 
                                                                                         }
+
+                                                                                        cardgrp.setCard(cardlist);
+                                                                                        cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                                        cardgrouplist.add(cardgrp);
+
+                                                                                    }
+
                                                                                 }
+
+
                                                                             }
-                                                                        }
-                                                                        if (accountlist.size() ==
-                                                                            0) {
-                                                                            cardgrp.setCard(cardlist);
-                                                                            log.info("unblocked list " +
-                                                                                     unblockedcardlist.size());
-                                                                            cardgrp.setUnblockedCardList(unblockedcardlist);
-                                                                            cardgrp.setCardGroupOverview(true);
-                                                                            cardgrouplist =
-                                                                                    new ArrayList<CardGroupInfo>();
-                                                                            cardgrouplist.add(cardgrp);
-                                                                            acc.setCardGroup(cardgrouplist);
-                                                                            acc.setAccountOverview(false);
-                                                                            accountlist.add(acc);
-                                                                            part.setAccountList(accountlist);
-                                                                            part.setCompanyOverview(false);
+
 
                                                                         }
+                                                                        acc.setCardGroup(cardgrouplist);
+                                                                        for (int z =
+                                                                             0;
+                                                                             z <
+                                                                             accountlist.size();
+                                                                             z++)
+                                                                            if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+
+                                                                                accountlist.set(z,
+                                                                                                acc);
+
+                                                                            }
+                                                                        if (!accountlist.contains(acc))
+                                                                        { accountlist.add(acc);}
+
 
                                                                     }
+
                                                                 }
+
+
                                                             }
-                                                        idlist++;
-                                                    } while (idlist <
-                                                             user.getRoleList().get(i).getIdString().size());
-                                                }
+                                                            part.setAccountList(accountlist);
 
-                                            } else if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP)) {
-                                                log.info(accessDC.getDisplayRecord() +
-                                                         this.getClass() +
-                                                         " CARD AMIN as user role =======>" +
-                                                         user.getRoleList().get(i).getRoleName());
-
-
-                                                int idlist = 0;
-
-                                                log.info(accessDC.getDisplayRecord() +
-                                                         this.getClass() +
-                                                         "TEMP ------------->" +
-                                                         user.getRoleList().get(i).getIdString().size());
-                                                DCBindingContainer bindings;
-                                                do {
-                                                    executeEmp = false;
-                                                    log.info(accessDC.getDisplayRecord() +
-                                                             this.getClass() +
-                                                             " User is B2B Employee");
-                                                    createCardGroupList =
-                                                            false;
-                                                    acc = new AccountInfo();
-                                                    cardgrp =
-                                                            new CardGroupInfo();
-
-                                                    createCardGroupList =
-                                                            false;
-                                                    createCardList = true;
+                                                        } else if (user.getRoleList().get(i).getIdString().get(idlist).contains("CG") &&
+                                                                   partnerId.equals(user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                                                                  2,
+                                                                                                                                                  pid_start +
+                                                                                                                                                  10))) {
+                                                            AccountInfo account_check =
+                                                                new AccountInfo();
 
 
-                                                    int ccid_start =
-                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("CC");
+                                                            int cgid_start =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).indexOf("CG");
 
-                                                    String cardId =
-                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(ccid_start +
-                                                                                                                      2);
+                                                            String CardGroupID =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                                                                              2);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " CardGroupId is " +
+                                                                     CardGroupID);
 
-                                                    int pid_start =
-                                                        user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
-                                                    String pid =
-                                                        user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
-                                                                                                                      2,
-                                                                                                                      pid_start +
-                                                                                                                      10);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " Card Group B2B Manager");
 
-                                                    if (partnerId != null)
-                                                        if (partnerId.equals(pid)) {
+                                                            acc =
+new AccountInfo();
+
+                                                            cardgrp =
+                                                                    new CardGroupInfo();
+                                                            cardlist =
+                                                                    new ArrayList<CardInfo>();
+                                                            unblockedcardlist =
+                                                                    new ArrayList<CardInfo>();
+
+
+                                                            String CardgroupMainType =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                                                                              2,
+                                                                                                                              cgid_start +
+                                                                                                                              5);
+                                                            String CardgroupSubType =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                                                                              5,
+                                                                                                                              cgid_start +
+                                                                                                                              8);
+                                                            String CardgroupSeq =
+                                                                user.getRoleList().get(i).getIdString().get(idlist).substring(cgid_start +
+                                                                                                                              8);
+                                                            cardgrp.setCardGroupMainType(CardgroupMainType);
+                                                            cardgrp.setCardGroupSubType(CardgroupSubType);
+                                                            cardgrp.setCardGroupSeq(CardgroupSeq);
+                                                            cardgrp.setCardGroupID((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
+                                                            cardgrp.setCardGroupName(getcardGroupName(CardgroupMainType,
+                                                                                                      CardgroupSubType,
+                                                                                                      CardgroupSeq));
+                                                            if (cardgrp.getCardGroupName() !=
+                                                                null) {
+                                                                cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType)).concat(CardgroupSeq) +
+                                                                                                  "-" +
+                                                                                                  cardgrp.getCardGroupName());
+                                                            } else
+
+                                                            { cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq))); }
+
+
+                                                            cardgrp.setCardGroupOverview(true);
+
+
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " cardgroup seq " +
+                                                                     CardgroupSeq);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " Cardgroup Maintype " +
+                                                                     CardgroupMainType);
+                                                            log.info(accessDC.getDisplayRecord() +
+                                                                     this.getClass() +
+                                                                     " CardgroupSubtype " +
+                                                                     CardgroupSubType);
+
+                                                            //Execute CardgroupVO to fetch corresponding Account number
 
 
                                                             bindings =
@@ -1417,7 +1052,7 @@ new CardInfo();
                                                             } else {
                                                                 log.info(accessDC.getDisplayRecord() +
                                                                          this.getClass() +
-                                                                         " Error : PrtCardVO1Iterator is null");
+                                                                         "Error : PrtCardVO1Iterator is null");
                                                                 iter3 = null;
                                                             }
 
@@ -1427,38 +1062,53 @@ new CardInfo();
                                                                 ViewObject vo3 =
                                                                     iter3.getViewObject();
 
-                                                                if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
+                                                                vo3 =
+iter3.getViewObject();
 
-                                                                    vo3.removeNamedWhereClauseParam("cgid");
+
+                                                                if ("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc".equalsIgnoreCase(vo3.getWhereClause())) {
+
+                                                                    vo3.removeNamedWhereClauseParam("cardid");
                                                                     vo3.removeNamedWhereClauseParam("cc");
-                                                                    vo3.removeNamedWhereClauseParam("cgmain");
-                                                                    vo3.removeNamedWhereClauseParam("cgsub");
                                                                     vo3.setWhereClause("");
                                                                     vo3.executeQuery();
                                                                 }
 
-                                                                vo3.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
-                                                                vo3.defineNamedWhereClauseParam("cardid",
-                                                                                                cardId,
+
+                                                                vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
+
+                                                                vo3.defineNamedWhereClauseParam("cgid",
+                                                                                                CardgroupSeq,
                                                                                                 null);
                                                                 vo3.defineNamedWhereClauseParam("cc",
                                                                                                 (String)session.getAttribute(Constants.userLang),
+                                                                                                null);
+                                                                vo3.defineNamedWhereClauseParam("cgmain",
+                                                                                                CardgroupMainType,
+                                                                                                null);
+                                                                vo3.defineNamedWhereClauseParam("cgsub",
+                                                                                                CardgroupSubType,
                                                                                                 null);
 
 
                                                                 vo3.executeQuery();
                                                                 log.info(accessDC.getDisplayRecord() +
                                                                          this.getClass() +
-                                                                         " row count from cardgroup vo" +
+                                                                         "row count from cardgroup vo" +
                                                                          vo3.getEstimatedRowCount());
+
                                                                 if (vo3.getEstimatedRowCount() !=
                                                                     0) {
 
+
                                                                     while (vo3.hasNext()) {
+
+
                                                                         card =
 new CardInfo();
                                                                         PrtCardVORowImpl currRowcard =
                                                                             (PrtCardVORowImpl)vo3.next();
+
                                                                         if (currRowcard !=
                                                                             null) {
 
@@ -1468,246 +1118,577 @@ new CardInfo();
 
                                                                                 card.setCardID(currRowcard.getPrtCardPk().toString());
 
-                                                                                if (currRowcard.getCardEmbossNum() !=
-                                                                                    null) {
-                                                                                    card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
-                                                                                }
-
-                                                                                if (currRowcard.getCardTextline2() !=
-                                                                                    null) {
-                                                                                    card.setCardTextline2(currRowcard.getCardTextline2().toString());
-                                                                                }
 
                                                                             }
-                                                                            if (currRowcard.getCardgroupMainType() !=
+
+                                                                            if (currRowcard.getBlockAction() !=
                                                                                 null &&
-                                                                                currRowcard.getCardgroupSubType() !=
-                                                                                null &&
-                                                                                currRowcard.getCardgroupSeq() !=
-                                                                                null &&
-                                                                                currRowcard.getAccountId() !=
-                                                                                null &&
-                                                                                currRowcard.getPartnerId() !=
-                                                                                null &&
-                                                                                currRowcard.getAccountId() !=
-                                                                                null &&
-                                                                                currRowcard.getPartnerId() !=
+                                                                                currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+
+                                                                            } else if (currRowcard.getCardExpiry() ==
+                                                                                       null ||
+                                                                                       currRowcard.getCardExpiry().after(new Date())) {
+                                                                                unblockedcardlist.add(card);
+                                                                            }
+                                                                            if (currRowcard.getCardEmbossNum() !=
                                                                                 null) {
-                                                                                cardgrp.setCardGroupMainType((currRowcard.getCardgroupMainType().toString()));
-                                                                                cardgrp.setCardGroupSubType((currRowcard.getCardgroupSubType().toString()));
-                                                                                cardgrp.setCardGroupSeq(currRowcard.getCardgroupSeq().toString());
-                                                                                cardgrp.setCardGroupID((currRowcard.getCardgroupMainType().toString().concat(currRowcard.getCardgroupSubType().toString())).concat(currRowcard.getCardgroupSeq().toString()));
-                                                                                cardgrp.setCardGroupName(getcardGroupName(currRowcard.getCardgroupMainType().toString(),
-                                                                                                                          currRowcard.getCardgroupSubType().toString(),
-                                                                                                                          currRowcard.getCardgroupSeq().toString()));
+                                                                                card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                                card.setDisplayCardNumber("XXXX" +
+                                                                                                          currRowcard.getCardEmbossNum().toString().substring(currRowcard.getCardEmbossNum().toString().length() -
+                                                                                                                                                              4,
+                                                                                                                                                              currRowcard.getCardEmbossNum().toString().length()));
+                                                                            }
 
-                                                                                if (cardgrp.getCardGroupName() !=
-                                                                                    null)
-                                                                                    cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString()) +
-                                                                                                                      "-" +
-                                                                                                                      cardgrp.getCardGroupName());
-                                                                                else
-                                                                                    cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString()));
+                                                                            if (currRowcard.getCardTextline2() !=
+                                                                                null) {
+                                                                                card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                            }
 
+                                                                            if (currRowcard.getBlockAction() !=
+                                                                                null)
+                                                                            {  card.setBlockAction(currRowcard.getBlockAction().toString()); }
+
+                                                                            if (currRowcard.getBlockAction() !=
+                                                                                null &&
+                                                                                currRowcard.getBlockAction().equalsIgnoreCase("1") ||
+                                                                                currRowcard.getBlockAction().equalsIgnoreCase("0") &&
+                                                                                currRowcard.getCardExpiry() !=
+                                                                                null &&
+                                                                                currRowcard.getCardExpiry().before(new Date())) {
+
+                                                                                card.setBlockAction("2");
+
+
+                                                                            }
+
+                                                                            if (currRowcard.getAccountId() !=
+                                                                                null) {
 
                                                                                 acc.setAccountNumber(currRowcard.getAccountId().toString());
-                                                                                part.setPartnerValue(currRowcard.getPartnerId().toString());
-                                                                                part.setPartnerName(getPartnerName(currRowcard.getPartnerId().toString()));
-                                                                                if (session.getAttribute("partnerLang") !=
-                                                                                    null) {
-                                                                                    part.setCountry((String)session.getAttribute("partnerLang"));
-                                                                                } else {
-                                                                                    log.info(accessDC.getDisplayRecord() +
-                                                                                             this.getClass() +
-                                                                                             " partner language null in session");
-                                                                                    part.setCountry(null);
-                                                                                }
-
-
                                                                             }
+
+                                                                            cardlist.add(card);
                                                                         }
                                                                     }
+
+                                                                }
+                                                                account_check =
+                                                                        new AccountInfo();
+                                                                createCardGroupList =
+                                                                        true;
+                                                                addflagaccount =
+                                                                        false;
+                                                                for (int listsize =
+                                                                     0;
+                                                                     listsize <
+                                                                     accountlist.size();
+                                                                     listsize++) {
+                                                                    log.info(accessDC.getDisplayRecord() +
+                                                                             this.getClass() +
+                                                                             " account id value in account list " +
+                                                                             accountlist.get(listsize).getAccountNumber());
                                                                     account_check =
-                                                                            new AccountInfo();
-                                                                    cardgrp_check =
-                                                                            new CardGroupInfo();
+                                                                            accountlist.get(listsize);
 
-                                                                    accountOverView =
-                                                                            false;
-                                                                    cardGroupOverview =
-                                                                            false;
-                                                                    addflagaccount =
-                                                                            true;
-                                                                    for (int listsize =
-                                                                         0;
-                                                                         listsize <
-                                                                         accountlist.size();
-                                                                         listsize++) {
-
+                                                                    if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
                                                                         log.info(accessDC.getDisplayRecord() +
                                                                                  this.getClass() +
-                                                                                 "account id value in account list " +
-                                                                                 accountlist.get(listsize).getAccountNumber());
-                                                                        account_check =
-                                                                                accountlist.get(listsize);
+                                                                                 " Account ID already exists in partner object");
+                                                                        createCardGroupList =
+                                                                                false;
 
-
-                                                                        if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
-                                                                            createCardGroupList =
-                                                                                    false;
-                                                                            cardgrouplist =
-                                                                                    account_check.getCardGroup();
+                                                                        if (account_check.isAccountOverview()) {
                                                                             addflagaccount =
-                                                                                    false;
-
-                                                                            if (account_check.isAccountOverview()) {
-                                                                                accountOverView =
-                                                                                        true;
-                                                                                break;
-                                                                            }
-                                                                            cardgrplist_check =
-                                                                                    account_check.getCardGroup();
-
-                                                                            for (int cardgrplistsize =
-                                                                                 0;
-                                                                                 cardgrplistsize <
-                                                                                 cardgrplist_check.size();
-                                                                                 cardgrplistsize++) {
-                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                         this.getClass() +
-                                                                                         " cardgrp id value in account list " +
-                                                                                         cardgrplist_check.get(cardgrplistsize).getCardGroupMainType());
-                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                         this.getClass() +
-                                                                                         " cardgrp id value in account list " +
-                                                                                         cardgrplist_check.get(cardgrplistsize).getCardGroupSubType());
-                                                                                log.info(accessDC.getDisplayRecord() +
-                                                                                         this.getClass() +
-                                                                                         " cardgrp id value in account list " +
-                                                                                         cardgrplist_check.get(cardgrplistsize).getCardGroupSeq());
-                                                                                cardgrp_check =
-                                                                                        cardgrplist_check.get(cardgrplistsize);
-                                                                                if (cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
-                                                                                    cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
-                                                                                    cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
-                                                                                    createCardList =
-                                                                                            false;
-
-                                                                                    if (cardgrp_check.isCardGroupOverview()) {
-                                                                                        cardGroupOverview =
-                                                                                                true;
-                                                                                        break;
-                                                                                    } else {
-                                                                                        //Take out the cardgrp obj from list and modify the same cardgrp object to add card in cardgrp's object list
-                                                                                        cardlist =
-                                                                                                cardgrp_check.getCard();
-                                                                                        if (!cardlist.contains(card))
-                                                                                            cardlist.add(card);
-                                                                                        cardgrp_check.setCard(cardlist);
-                                                                                        cardgrp_check.setCardGroupOverview(false);
-                                                                                    }
-                                                                                    //Replace the old cardgrp obj in list with new one cardgrp_check
-                                                                                    for (int z =
-                                                                                         0;
-                                                                                         z <
-                                                                                         cardgrouplist.size();
-                                                                                         z++) {
-                                                                                        if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
-                                                                                            cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
-                                                                                            cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType())) {
-
-                                                                                            cardgrouplist.set(z,
-                                                                                                              cardgrp_check);
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            if (createCardList ==
-                                                                                true) {
-                                                                                //Cardgrp doesnot exists
-                                                                                cardlist =
-                                                                                        new ArrayList<CardInfo>();
-                                                                                cardlist.add(card);
-                                                                                cardgrp.setCard(cardlist);
-                                                                                cardgrp.setCardGroupOverview(false);
-
-                                                                                cardgrouplist.add(cardgrp);
-                                                                            }
-                                                                            if (cardGroupOverview ==
-                                                                                false) {
-                                                                                acc.setCardGroup(cardgrouplist);
-                                                                                //Replace the old account with the new one account obj
-                                                                                for (int z =
-                                                                                     0;
-                                                                                     z <
-                                                                                     accountlist.size();
-                                                                                     z++)
-                                                                                    if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
-
-                                                                                        accountlist.set(z,
-                                                                                                        acc);
-                                                                                    }
-                                                                                part.setAccountList(accountlist);
-                                                                                break;
-                                                                            }
+                                                                                    true;
+                                                                            break;
                                                                         }
+                                                                        break;
                                                                     }
-                                                                    if (addflagaccount ==
-                                                                        true) {
-                                                                        //that means either account list is 0 or account doesnot exists in accountlist
-
+                                                                }
+                                                                if (!addflagaccount &&
+                                                                    accountlist.size() >
+                                                                    0) {
+                                                                    if (createCardGroupList) {
+                                                                        cardgrp.setCard(cardlist);
+                                                                        log.info("unblocked list " +
+                                                                                 unblockedcardlist.size());
+                                                                        cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                        cardgrp.setCardGroupOverview(true);
                                                                         cardgrouplist =
                                                                                 new ArrayList<CardGroupInfo>();
-                                                                        cardlist =
-                                                                                new ArrayList<CardInfo>();
-                                                                        cardlist.add(card);
-                                                                        cardgrp.setCard(cardlist);
-                                                                        cardgrp.setCardGroupOverview(false);
                                                                         cardgrouplist.add(cardgrp);
                                                                         acc.setCardGroup(cardgrouplist);
                                                                         acc.setAccountOverview(false);
                                                                         accountlist.add(acc);
                                                                         part.setAccountList(accountlist);
+                                                                        part.setCompanyOverview(false);
+                                                                    } else {
+                                                                        //Account exists so take cardgroup list from that account object & before adding just check we have to add or update
+                                                                        //the existing one
+                                                                        cardgrouplist =
+                                                                                account_check.getCardGroup();
+                                                                        cardgrp.setCard(cardlist);
+                                                                        cardgrp.setCardGroupOverview(true);
+
+                                                                        addflagcardgroup =
+                                                                                false;
+                                                                        for (int k =
+                                                                             0;
+                                                                             k <
+                                                                             cardgrouplist.size();
+                                                                             k++) {
+                                                                            log.info(accessDC.getDisplayRecord() +
+                                                                                     this.getClass() +
+                                                                                     " cardgroup id value in cardgroup list " +
+                                                                                     cardgrouplist.get(k).getCardGroupID());
+                                                                            log.info(accessDC.getDisplayRecord() +
+                                                                                     this.getClass() +
+                                                                                     " New cardgroup id value to compare" +
+                                                                                     cardgrp.getCardGroupID());
+
+                                                                            if (cardgrouplist.get(k).getCardGroupID().equalsIgnoreCase(cardgrp.getCardGroupID())) {
+                                                                                log.info(accessDC.getDisplayRecord() +
+                                                                                         this.getClass() +
+                                                                                         " cardgroup id already exists in cardgroup list");
+                                                                                addflagcardgroup =
+                                                                                        true;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        if (addflagcardgroup) {
+
+                                                                            //Replace the old cardgroup with new one
+                                                                            for (int z =
+                                                                                 0;
+                                                                                 z <
+                                                                                 cardgrouplist.size();
+                                                                                 z++) {
+                                                                                if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp.getCardGroupMainType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupSubType().equals(cardgrp.getCardGroupSubType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupSeq().equals(cardgrp.getCardGroupSeq())) {
+
+                                                                                    cardgrouplist.set(z,
+                                                                                                      cardgrp);
+
+                                                                                }
+                                                                            }
+
+                                                                            //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
+                                                                            for (int z =
+                                                                                 0;
+                                                                                 z <
+                                                                                 accountlist.size();
+                                                                                 z++)
+                                                                                if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+
+                                                                                    acc.setCardGroup(cardgrouplist);
+                                                                                    accountlist.set(z,
+                                                                                                    acc);
+                                                                                    part.setAccountList(accountlist);
+                                                                                    break;
+
+                                                                                }
+
+                                                                        } else {
+                                                                            //Add cardgrp to the cardgrp list and then replacae account
+
+                                                                            cardgrouplist.add(cardgrp);
+                                                                            acc.setCardGroup(cardgrouplist);
+                                                                            //Replace the new account also with old one by adding newly created cardgrp obj to the cardgrp list
+                                                                            for (int z =
+                                                                                 0;
+                                                                                 z <
+                                                                                 accountlist.size();
+                                                                                 z++)
+                                                                                if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+
+                                                                                    accountlist.set(z,
+                                                                                                    acc);
+                                                                                    part.setAccountList(accountlist);
+                                                                                    break;
+
+                                                                                }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if (accountlist.size() ==
+                                                                    0) {
+                                                                    cardgrp.setCard(cardlist);
+                                                                    log.info("unblocked list " +
+                                                                             unblockedcardlist.size());
+                                                                    cardgrp.setUnblockedCardList(unblockedcardlist);
+                                                                    cardgrp.setCardGroupOverview(true);
+                                                                    cardgrouplist =
+                                                                            new ArrayList<CardGroupInfo>();
+                                                                    cardgrouplist.add(cardgrp);
+                                                                    acc.setCardGroup(cardgrouplist);
+                                                                    acc.setAccountOverview(false);
+                                                                    accountlist.add(acc);
+                                                                    part.setAccountList(accountlist);
+                                                                    part.setCompanyOverview(false);
+
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+                                                    idlist++;
+                                                } while (idlist <
+                                                         user.getRoleList().get(i).getIdString().size());
+                                            }
+
+                                        } else if (user.getRoleList().get(i).getRoleName().equals(Constants.ROLE_WCP_CARD_B2B_EMP)) {
+                                            log.info(accessDC.getDisplayRecord() +
+                                                     this.getClass() +
+                                                     " CARD AMIN as user role =======>" +
+                                                     user.getRoleList().get(i).getRoleName());
+
+
+                                            int idlist = 0;
+
+                                            log.info(accessDC.getDisplayRecord() +
+                                                     this.getClass() +
+                                                     "TEMP ------------->" +
+                                                     user.getRoleList().get(i).getIdString().size());
+                                            DCBindingContainer bindings;
+                                            do {
+                                                executeEmp = false;
+                                                log.info(accessDC.getDisplayRecord() +
+                                                         this.getClass() +
+                                                         " User is B2B Employee");
+                                                createCardGroupList = false;
+                                                acc = new AccountInfo();
+                                                cardgrp = new CardGroupInfo();
+
+                                                createCardGroupList = false;
+                                                createCardList = true;
+
+
+                                                int ccid_start =
+                                                    user.getRoleList().get(i).getIdString().get(idlist).indexOf("CC");
+
+                                                String cardId =
+                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(ccid_start +
+                                                                                                                  2);
+
+                                                int pid_start =
+                                                    user.getRoleList().get(i).getIdString().get(idlist).indexOf("PP");
+                                                String pid =
+                                                    user.getRoleList().get(i).getIdString().get(idlist).substring(pid_start +
+                                                                                                                  2,
+                                                                                                                  pid_start +
+                                                                                                                  10);
+
+                                                if (partnerId != null &&
+                                                    partnerId.equals(pid)) {
+
+
+                                                    bindings =
+                                                            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+                                                    if (bindings == null ||
+                                                        bindings.findIteratorBinding("PrtCardVO1Iterator") ==
+                                                        null) {
+                                                        bindings =
+                                                                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                                                    }
+                                                    DCIteratorBinding iter3;
+                                                    if (bindings != null) {
+                                                        iter3 =
+                                                                bindings.findIteratorBinding("PrtCardVO1Iterator");
+
+                                                    } else {
+                                                        log.info(accessDC.getDisplayRecord() +
+                                                                 this.getClass() +
+                                                                 " Error : PrtCardVO1Iterator is null");
+                                                        iter3 = null;
+                                                    }
+
+
+                                                    if (iter3 != null) {
+                                                        ViewObject vo3 =
+                                                            iter3.getViewObject();
+
+                                                        if ("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub".equalsIgnoreCase(vo3.getWhereClause())) {
+
+                                                            vo3.removeNamedWhereClauseParam("cgid");
+                                                            vo3.removeNamedWhereClauseParam("cc");
+                                                            vo3.removeNamedWhereClauseParam("cgmain");
+                                                            vo3.removeNamedWhereClauseParam("cgsub");
+                                                            vo3.setWhereClause("");
+                                                            vo3.executeQuery();
+                                                        }
+
+                                                        vo3.setWhereClause("PRT_CARD_PK =: cardid AND COUNTRY_CODE =: cc");
+                                                        vo3.defineNamedWhereClauseParam("cardid",
+                                                                                        cardId,
+                                                                                        null);
+                                                        vo3.defineNamedWhereClauseParam("cc",
+                                                                                        (String)session.getAttribute(Constants.userLang),
+                                                                                        null);
+
+
+                                                        vo3.executeQuery();
+                                                        log.info(accessDC.getDisplayRecord() +
+                                                                 this.getClass() +
+                                                                 " row count from cardgroup vo" +
+                                                                 vo3.getEstimatedRowCount());
+                                                        if (vo3.getEstimatedRowCount() !=
+                                                            0) {
+
+                                                            while (vo3.hasNext()) {
+                                                                card =
+new CardInfo();
+                                                                PrtCardVORowImpl currRowcard =
+                                                                    (PrtCardVORowImpl)vo3.next();
+                                                                if (currRowcard !=
+                                                                    null) {
+
+
+                                                                    if (currRowcard.getPrtCardPk() !=
+                                                                        null) {
+
+                                                                        card.setCardID(currRowcard.getPrtCardPk().toString());
+
+                                                                        if (currRowcard.getCardEmbossNum() !=
+                                                                            null) {
+                                                                            card.setExternalCardID(currRowcard.getCardEmbossNum().toString());
+                                                                        }
+
+                                                                        if (currRowcard.getCardTextline2() !=
+                                                                            null) {
+                                                                            card.setCardTextline2(currRowcard.getCardTextline2().toString());
+                                                                        }
+
+                                                                    }
+                                                                    if (currRowcard.getCardgroupMainType() !=
+                                                                        null &&
+                                                                        currRowcard.getCardgroupSubType() !=
+                                                                        null &&
+                                                                        currRowcard.getCardgroupSeq() !=
+                                                                        null &&
+                                                                        currRowcard.getAccountId() !=
+                                                                        null &&
+                                                                        currRowcard.getPartnerId() !=
+                                                                        null &&
+                                                                        currRowcard.getAccountId() !=
+                                                                        null &&
+                                                                        currRowcard.getPartnerId() !=
+                                                                        null) {
+                                                                        cardgrp.setCardGroupMainType((currRowcard.getCardgroupMainType().toString()));
+                                                                        cardgrp.setCardGroupSubType((currRowcard.getCardgroupSubType().toString()));
+                                                                        cardgrp.setCardGroupSeq(currRowcard.getCardgroupSeq().toString());
+                                                                        cardgrp.setCardGroupID((currRowcard.getCardgroupMainType().toString().concat(currRowcard.getCardgroupSubType().toString())).concat(currRowcard.getCardgroupSeq().toString()));
+                                                                        cardgrp.setCardGroupName(getcardGroupName(currRowcard.getCardgroupMainType().toString(),
+                                                                                                                  currRowcard.getCardgroupSubType().toString(),
+                                                                                                                  currRowcard.getCardgroupSeq().toString()));
+
+                                                                        if (cardgrp.getCardGroupName() !=
+                                                                            null)
+                                                                        { cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString()) +
+                                                                                                              "-" +
+                                                                                                              cardgrp.getCardGroupName()); }
+                                                                        else
+                                                                        { cardgrp.setDisplayCardGroupIdName((currRowcard.getCardgroupMainType().toString().concat((currRowcard.getCardgroupSubType().toString()))).concat(currRowcard.getCardgroupSeq().toString()));
+                                                                        }
+
+
+                                                                        acc.setAccountNumber(currRowcard.getAccountId().toString());
+                                                                        part.setPartnerValue(currRowcard.getPartnerId().toString());
+                                                                        part.setPartnerName(getPartnerName(currRowcard.getPartnerId().toString()));
+                                                                        if (session.getAttribute("partnerLang") !=
+                                                                            null) {
+                                                                            part.setCountry((String)session.getAttribute("partnerLang"));
+                                                                        } else {
+                                                                            log.info(accessDC.getDisplayRecord() +
+                                                                                     this.getClass() +
+                                                                                     " partner language null in session");
+                                                                            part.setCountry(null);
+                                                                        }
+
 
                                                                     }
                                                                 }
                                                             }
+                                                            account_check =
+                                                                    new AccountInfo();
+                                                            cardgrp_check =
+                                                                    new CardGroupInfo();
+
+                                                            accountOverView =
+                                                                    false;
+                                                            cardGroupOverview =
+                                                                    false;
+                                                            addflagaccount =
+                                                                    true;
+                                                            for (int listsize =
+                                                                 0;
+                                                                 listsize < accountlist.size();
+                                                                 listsize++) {
+
+                                                                log.info(accessDC.getDisplayRecord() +
+                                                                         this.getClass() +
+                                                                         "account id value in account list " +
+                                                                         accountlist.get(listsize).getAccountNumber());
+                                                                account_check =
+                                                                        accountlist.get(listsize);
+
+
+                                                                if (account_check.getAccountNumber().equalsIgnoreCase(acc.getAccountNumber())) {
+                                                                    createCardGroupList =
+                                                                            false;
+                                                                    cardgrouplist =
+                                                                            account_check.getCardGroup();
+                                                                    addflagaccount =
+                                                                            false;
+
+                                                                    if (account_check.isAccountOverview()) {
+                                                                        accountOverView =
+                                                                                true;
+                                                                        break;
+                                                                    }
+                                                                    cardgrplist_check =
+                                                                            account_check.getCardGroup();
+
+                                                                    for (int cardgrplistsize =
+                                                                         0;
+                                                                         cardgrplistsize <
+                                                                         cardgrplist_check.size();
+                                                                         cardgrplistsize++) {
+                                                                        log.info(accessDC.getDisplayRecord() +
+                                                                                 this.getClass() +
+                                                                                 " cardgrp id value in account list " +
+                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupMainType());
+                                                                        log.info(accessDC.getDisplayRecord() +
+                                                                                 this.getClass() +
+                                                                                 " cardgrp id value in account list " +
+                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupSubType());
+                                                                        log.info(accessDC.getDisplayRecord() +
+                                                                                 this.getClass() +
+                                                                                 " cardgrp id value in account list " +
+                                                                                 cardgrplist_check.get(cardgrplistsize).getCardGroupSeq());
+                                                                        cardgrp_check =
+                                                                                cardgrplist_check.get(cardgrplistsize);
+                                                                        if (cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
+                                                                            cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
+                                                                            cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
+                                                                            createCardList =
+                                                                                    false;
+
+                                                                            if (cardgrp_check.isCardGroupOverview()) {
+                                                                                cardGroupOverview =
+                                                                                        true;
+                                                                                break;
+                                                                            } else {
+                                                                                //Take out the cardgrp obj from list and modify the same cardgrp object to add card in cardgrp's object list
+                                                                                cardlist =
+                                                                                        cardgrp_check.getCard();
+                                                                                if (!cardlist.contains(card))
+                                                                                {  cardlist.add(card);}
+                                                                                cardgrp_check.setCard(cardlist);
+                                                                                cardgrp_check.setCardGroupOverview(false);
+                                                                            }
+                                                                            //Replace the old cardgrp obj in list with new one cardgrp_check
+                                                                            for (int z =
+                                                                                 0;
+                                                                                 z <
+                                                                                 cardgrouplist.size();
+                                                                                 z++) {
+                                                                                if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType())) {
+
+                                                                                    cardgrouplist.set(z,
+                                                                                                      cardgrp_check);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    if (createCardList ==
+                                                                        true) {
+                                                                        //Cardgrp doesnot exists
+                                                                        cardlist =
+                                                                                new ArrayList<CardInfo>();
+                                                                        cardlist.add(card);
+                                                                        cardgrp.setCard(cardlist);
+                                                                        cardgrp.setCardGroupOverview(false);
+
+                                                                        cardgrouplist.add(cardgrp);
+                                                                    }
+                                                                    if (cardGroupOverview ==
+                                                                        false) {
+                                                                        acc.setCardGroup(cardgrouplist);
+                                                                        //Replace the old account with the new one account obj
+                                                                        for (int z =
+                                                                             0;
+                                                                             z <
+                                                                             accountlist.size();
+                                                                             z++)
+                                                                            if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
+
+                                                                                accountlist.set(z,
+                                                                                                acc);
+                                                                            }
+                                                                        part.setAccountList(accountlist);
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (addflagaccount ==
+                                                                true) {
+                                                                //that means either account list is 0 or account doesnot exists in accountlist
+
+                                                                cardgrouplist =
+                                                                        new ArrayList<CardGroupInfo>();
+                                                                cardlist =
+                                                                        new ArrayList<CardInfo>();
+                                                                cardlist.add(card);
+                                                                cardgrp.setCard(cardlist);
+                                                                cardgrp.setCardGroupOverview(false);
+                                                                cardgrouplist.add(cardgrp);
+                                                                acc.setCardGroup(cardgrouplist);
+                                                                acc.setAccountOverview(false);
+                                                                accountlist.add(acc);
+                                                                part.setAccountList(accountlist);
+
+                                                            }
                                                         }
-                                                    idlist++;
-                                                } while (idlist <
-                                                         user.getRoleList().get(i).getIdString().size());
+                                                    }
+                                                }
+                                                idlist++;
+                                            } while (idlist <
+                                                     user.getRoleList().get(i).getIdString().size());
 
-                                            }
                                         }
-                                        partnerListSession.add(part);
                                     }
+                                    partnerListSession.add(part);
                                 }
-                                if (session != null &&
-                                    partnerListSession != null &&
-                                    partnerListSession.size() > 0) {
-                                    session.setAttribute("Partner_Object_List",
-                                                         partnerListSession);
+                            }
+                            if (session != null &&
+                                partnerListSession != null &&
+                                partnerListSession.size() > 0) {
+                                session.setAttribute("Partner_Object_List",
+                                                     partnerListSession);
 
 
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " partner list added");
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " session not null");
-                                    session.setAttribute("executePartnerObjLogic",
-                                                         "no");
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " Session variable added");
-                                    log.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " flag value changed now");
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " partner list added");
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " session not null");
+                                session.setAttribute("executePartnerObjLogic",
+                                                     "no");
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " Session variable added");
+                                log.info(accessDC.getDisplayRecord() +
+                                         this.getClass() +
+                                         " flag value changed now");
 
-                                }
                             }
                         }
                     }
+
                 }
                 log.info(accessDC.getDisplayRecord() + this.getClass() +
                          " Exit From Binding phase");
@@ -1767,12 +1748,12 @@ new CardInfo();
 
 
         if (userList != null)
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
+        {   log.info(accessDC.getDisplayRecord() + this.getClass() +
                      ".setUserInfoInSession : " + "userlist size " +
-                     userList.size());
+                     userList.size()); }
         else
-            log.info(accessDC.getDisplayRecord() + this.getClass() +
-                     "userlist size is null");
+        { log.info(accessDC.getDisplayRecord() + this.getClass() +
+                     "userlist size is null");}
 
         if (userList != null && !userList.isEmpty()) {
             //TODO : We are setting 1st user value from the List. Is that right ?
@@ -1787,8 +1768,8 @@ new CardInfo();
                     log.info("Taking lang paramter from user object inside setUserInfoSession mehtod ");
                     session.setAttribute(Constants.DISPLAY_PORTAL_LANG,
                                          user.getCountry().toString());
-                    session.setAttribute(Constants.AUTHENTICATE_FLAG,
-                                         "true"); // Added by siddharth
+                    session.setAttribute(Constants.AUTHENTICATE_FLAG, "true");
+                    // Added by siddharth
                 }
 
 
@@ -1982,7 +1963,7 @@ new CardInfo();
                         bindings =
                                 (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
                     }
-                    //
+                   
 
 
                     DCIteratorBinding iter2;
@@ -2037,8 +2018,7 @@ new CardInfo();
 
                             if (currRowcardgrp != null) {
                                 if (currRowcardgrp.getCardgroupSeq() != null) {
-                                    //                                log.info(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() +  this.getClass() + "Result from Execution of CardGroup VO: Cardgroup id is " +
-                                    //                                                   (currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
+                               
 
                                     cardgrp.setCardGroupID((currRowcardgrp.getCardgroupMainType().toString().concat(currRowcardgrp.getCardgroupSubType().toString())).concat(currRowcardgrp.getCardgroupSeq().toString()));
                                     cardgrp.setCardGroupMainType(currRowcardgrp.getCardgroupMainType().toString());
@@ -2171,13 +2151,14 @@ new CardInfo();
                 }
             }
             partnerListSession.add(part);
-            if (session != null) {
-                if (session.getAttribute("executePartnerObjLogic") == null) {
-                    session.setAttribute("Partner_Object_List",
-                                         partnerListSession);
-                    log.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Partner object added in session");
-                }
+            if (session != null &&
+                session.getAttribute("executePartnerObjLogic") == null) {
+
+                session.setAttribute("Partner_Object_List",
+                                     partnerListSession);
+                log.info(accessDC.getDisplayRecord() + this.getClass() +
+                         " Partner object added in session");
+
             }
 
         } else {
@@ -2221,34 +2202,30 @@ new CardInfo();
                 }
 
                 if (currRowcard.getBlockAction() != null)
-                    card.setBlockAction(currRowcard.getBlockAction().toString());
+                { card.setBlockAction(currRowcard.getBlockAction().toString());}
 
                 if (currRowcard.getBlockAction() != null &&
                     currRowcard.getBlockAction().equalsIgnoreCase("1") ||
-                    currRowcard.getBlockAction().equalsIgnoreCase("0")) {
-                    if ((currRowcard.getCardExpiry() != null &&
-                         currRowcard.getCardExpiry().before(new Date()))) {
-                        card.setBlockAction("2");
+                    currRowcard.getBlockAction().equalsIgnoreCase("0") &&
+                    currRowcard.getCardExpiry() != null &&
+                    currRowcard.getCardExpiry().before(new Date())) {
 
-                    }
+                    card.setBlockAction("2");
 
 
                 }
 
-                if (currRowcard.getCardType() != null) {
-                    if (currRowcard.getCardType().toString().startsWith("2") &&
-                        !consistsTwoCardStatus) {
-                        consistsTwoCardStatus = true;
-                    }
+                if (currRowcard.getCardType() != null &&
+                    currRowcard.getCardType().toString().startsWith("2") &&
+                    !consistsTwoCardStatus) {
+
+                    consistsTwoCardStatus = true;
 
                 }
                 addflagcard = false;
 
 
-                if (currRowcard.getBlockAction() != null &&
-                    currRowcard.getBlockAction().equalsIgnoreCase("2")) {
-
-                } else if (currRowcard.getCardExpiry() == null ||
+                if (currRowcard.getCardExpiry() == null ||
                            currRowcard.getCardExpiry().after(new Date())) {
                     unblockedcardlist.add(card);
                 }
@@ -2256,7 +2233,7 @@ new CardInfo();
                 if (currRowcard.getBlockAction() != null &&
                     currRowcard.getBlockAction().equalsIgnoreCase("0")) {
                     if (currRowcard.getCardExpiry().after(new Date()))
-                        activeCardList.add(card);
+                    {activeCardList.add(card);}
                     else {
                         perBlockCardList.add(card);
                         perBlockAndTempBlockCardList.add(card);
@@ -2268,7 +2245,7 @@ new CardInfo();
                            currRowcard.getBlockAction().equalsIgnoreCase("1")) {
 
                     if (currRowcard.getCardExpiry().after(new Date()))
-                        tempBlockCardList.add(card);
+                    { tempBlockCardList.add(card); }
                     else {
                         perBlockCardList.add(card);
                         perBlockAndActiveCardList.add(card);
@@ -2285,7 +2262,7 @@ new CardInfo();
 
             }
             if (!addflagcard)
-                cardlist.add(card);
+            {cardlist.add(card);}
         }
 
     }
@@ -2307,8 +2284,7 @@ new CardInfo();
             bindings =
                     (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         }
-        //        else
-        //            log.info("PrtPartnerVO1Iterator bindings found in template");
+
 
         DCIteratorBinding iter1;
         if (bindings != null &&
@@ -2316,22 +2292,23 @@ new CardInfo();
             iter1 = bindings.findIteratorBinding("PrtPartnerVO1Iterator");
             ViewObject partnerVO = iter1.getViewObject();
             partnerVO.setWhereClause("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode");
-            //            log.info(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " Partner id passed in Partner VO is " + partnerid);
+           
             partnerVO.defineNamedWhereClauseParam("pid", partnerid, null);
 
             partnerVO.defineNamedWhereClauseParam("countryCode",
                                                   (String)session.getAttribute("partnerLang"),
                                                   null);
-            //partnerVO.defineNamedWhereClauseParam("countryCode", user.getRoleList().get(0).getIdString().get(0).toString().substring(0,2), null);
+           
             partnerVO.executeQuery();
-            //            log.info(accessDC.getDisplayRecord()+this.getClass()+accessDC.getDisplayRecord() + this.getClass() + " RowCount for Partner VO  " + partnerVO.getEstimatedRowCount());
+           
             if (partnerVO.getEstimatedRowCount() > 0) {
                 PrtPartnerVORowImpl currRowcard =
                     (PrtPartnerVORowImpl)partnerVO.next();
-                if (currRowcard != null) {
-                    if (currRowcard.getCompanyName() != null) {
-                        partnerName = currRowcard.getCompanyName().toString();
-                    }
+                if (currRowcard != null &&
+                    currRowcard.getCompanyName() != null) {
+
+                    partnerName = currRowcard.getCompanyName().toString();
+
                 }
             }
             if ("PARTNER_ID =: pid AND COUNTRY_CODE =: countryCode".equalsIgnoreCase(partnerVO.getWhereClause())) {
@@ -2397,16 +2374,16 @@ new CardInfo();
             if (cardGroupVO.getEstimatedRowCount() > 0) {
                 PrtCardgroupVORowImpl currRowcard =
                     (PrtCardgroupVORowImpl)cardGroupVO.next();
-                if (currRowcard != null) {
-                    if (currRowcard.getCardgroupDescription() != null) {
-                        cardGroupName =
-                                currRowcard.getCardgroupDescription().toString();
-                        log.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 " cardGroupName returned from database for cardGroupid " +
-                                 CardgroupMainType + " " + CardgroupSubType +
-                                 " " + CardgroupSeq + " is " + cardGroupName);
-                    }
+                if (currRowcard != null &&
+                    currRowcard.getCardgroupDescription() != null) {
+
+                    cardGroupName =
+                            currRowcard.getCardgroupDescription().toString();
+                    log.info(accessDC.getDisplayRecord() + this.getClass() +
+                             " cardGroupName returned from database for cardGroupid " +
+                             CardgroupMainType + " " + CardgroupSubType + " " +
+                             CardgroupSeq + " is " + cardGroupName);
+
                 }
             }
         } else {
@@ -2480,5 +2457,229 @@ new CardInfo();
 
     public boolean isConsistsTwoCardStatus() {
         return consistsTwoCardStatus;
+    }
+
+    public void setPart(PartnerInfo part) {
+        this.part = part;
+    }
+
+    public PartnerInfo getPart() {
+        return part;
+    }
+
+    public void setAcc(AccountInfo acc) {
+        this.acc = acc;
+    }
+
+    public AccountInfo getAcc() {
+        return acc;
+    }
+
+    public void setCardgrp(CardGroupInfo cardgrp) {
+        this.cardgrp = cardgrp;
+    }
+
+    public CardGroupInfo getCardgrp() {
+        return cardgrp;
+    }
+
+    public void setCard(CardInfo card) {
+        this.card = card;
+    }
+
+    public CardInfo getCard() {
+        return card;
+    }
+
+    public void setAccountlist(List<AccountInfo> accountlist) {
+        this.accountlist = accountlist;
+    }
+
+    public List<AccountInfo> getAccountlist() {
+        return accountlist;
+    }
+
+    public void setCardgrouplist(List<CardGroupInfo> cardgrouplist) {
+        this.cardgrouplist = cardgrouplist;
+    }
+
+    public List<CardGroupInfo> getCardgrouplist() {
+        return cardgrouplist;
+    }
+
+    public void setCardlist(List<CardInfo> cardlist) {
+        this.cardlist = cardlist;
+    }
+
+    public List<CardInfo> getCardlist() {
+        return cardlist;
+    }
+
+    public void setUnblockedcardlist(List<CardInfo> unblockedcardlist) {
+        this.unblockedcardlist = unblockedcardlist;
+    }
+
+    public List<CardInfo> getUnblockedcardlist() {
+        return unblockedcardlist;
+    }
+
+    public void setPerBlockAndTempBlockCardList(List<CardInfo> perBlockAndTempBlockCardList) {
+        this.perBlockAndTempBlockCardList = perBlockAndTempBlockCardList;
+    }
+
+    public List<CardInfo> getPerBlockAndTempBlockCardList() {
+        return perBlockAndTempBlockCardList;
+    }
+
+    public void setPerBlockAndActiveCardList(List<CardInfo> perBlockAndActiveCardList) {
+        this.perBlockAndActiveCardList = perBlockAndActiveCardList;
+    }
+
+    public List<CardInfo> getPerBlockAndActiveCardList() {
+        return perBlockAndActiveCardList;
+    }
+
+    public void setPerBlockCardList(List<CardInfo> perBlockCardList) {
+        this.perBlockCardList = perBlockCardList;
+    }
+
+    public List<CardInfo> getPerBlockCardList() {
+        return perBlockCardList;
+    }
+
+    public void setTempBlockCardList(List<CardInfo> tempBlockCardList) {
+        this.tempBlockCardList = tempBlockCardList;
+    }
+
+    public List<CardInfo> getTempBlockCardList() {
+        return tempBlockCardList;
+    }
+
+    public void setActiveCardList(List<CardInfo> activeCardList) {
+        this.activeCardList = activeCardList;
+    }
+
+    public List<CardInfo> getActiveCardList() {
+        return activeCardList;
+    }
+
+    public void setPartnerListSession(List<PartnerInfo> partnerListSession) {
+        this.partnerListSession = partnerListSession;
+    }
+
+    public List<PartnerInfo> getPartnerListSession() {
+        return partnerListSession;
+    }
+
+    public void setAddflagaccount(boolean addflagaccount) {
+        this.addflagaccount = addflagaccount;
+    }
+
+    public boolean isAddflagaccount() {
+        return addflagaccount;
+    }
+
+    public void setAddflagcardgroup(boolean addflagcardgroup) {
+        this.addflagcardgroup = addflagcardgroup;
+    }
+
+    public boolean isAddflagcardgroup() {
+        return addflagcardgroup;
+    }
+
+    public void setAddflagcard(boolean addflagcard) {
+        this.addflagcard = addflagcard;
+    }
+
+    public boolean isAddflagcard() {
+        return addflagcard;
+    }
+
+    public void setExecuteEmp(boolean executeEmp) {
+        this.executeEmp = executeEmp;
+    }
+
+    public boolean isExecuteEmp() {
+        return executeEmp;
+    }
+
+    public void setExecuteAcc(boolean executeAcc) {
+        this.executeAcc = executeAcc;
+    }
+
+    public boolean isExecuteAcc() {
+        return executeAcc;
+    }
+
+    public void setAccountOverView(boolean accountOverView) {
+        this.accountOverView = accountOverView;
+    }
+
+    public boolean isAccountOverView() {
+        return accountOverView;
+    }
+
+    public void setCardGroupOverview(boolean cardGroupOverview) {
+        this.cardGroupOverview = cardGroupOverview;
+    }
+
+    public boolean isCardGroupOverview() {
+        return cardGroupOverview;
+    }
+
+    public void setSkipOtherRoles(boolean skipOtherRoles) {
+        this.skipOtherRoles = skipOtherRoles;
+    }
+
+    public boolean isSkipOtherRoles() {
+        return skipOtherRoles;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
+
+    public void setConv(Conversion conv) {
+        this.conv = conv;
+    }
+
+    public Conversion getConv() {
+        return conv;
+    }
+
+    public void setAccount_check(AccountInfo account_check) {
+        this.account_check = account_check;
+    }
+
+    public AccountInfo getAccount_check() {
+        return account_check;
+    }
+
+    public void setCardgrp_check(CardGroupInfo cardgrp_check) {
+        this.cardgrp_check = cardgrp_check;
+    }
+
+    public CardGroupInfo getCardgrp_check() {
+        return cardgrp_check;
+    }
+
+    public void setIsChangeInRedirectionRequired(boolean isChangeInRedirectionRequired) {
+        this.isChangeInRedirectionRequired = isChangeInRedirectionRequired;
+    }
+
+    public boolean isIsChangeInRedirectionRequired() {
+        return isChangeInRedirectionRequired;
+    }
+
+    public void setCardTypeHS(Set cardTypeHS) {
+        this.cardTypeHS = cardTypeHS;
+    }
+
+    public Set getCardTypeHS() {
+        return cardTypeHS;
     }
 }
