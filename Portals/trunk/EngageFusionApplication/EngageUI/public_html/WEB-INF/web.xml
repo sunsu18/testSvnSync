@@ -155,4 +155,15 @@
       <is-xml>true</is-xml>
     </jsp-property-group>
   </jsp-config>
+  <security-constraint>
+    <web-resource-collection>
+       <web-resource-name>restricted methods</web-resource-name>
+       <url-pattern>/*</url-pattern>
+       <http-method>TRACE</http-method>
+       <http-method>PUT</http-method>
+       <http-method>OPTIONS</http-method>
+       <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <auth-constraint />
+</security-constraint>
 </web-app>
