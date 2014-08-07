@@ -100,18 +100,19 @@ public class MenuVisibleHelper {
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
         securityContext = ADFContext.getCurrent().getSecurityContext();
-        if (user == null && session.getAttribute(Constants.SESSION_USER_INFO) != null) {
+        if (user == null &&
+            session.getAttribute(Constants.SESSION_USER_INFO) != null) {
             user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
 
-            log.info(accessDC.getDisplayRecord() + this.getClass() + "Inside menuVisible helper construstor. user role list is " +user.getRolelist());
+            log.info(accessDC.getDisplayRecord() + this.getClass() +
+                     "Inside menuVisible helper construstor. user role list is " +
+                     user.getRolelist());
         }
 
         if (session != null) {
             lang = (String)session.getAttribute(Constants.userLang);
         }
-        
-        
-        
+
 
     }
 
@@ -193,7 +194,8 @@ public class MenuVisibleHelper {
 
     public String getMenuTransactionOverview() {
         if (sfr.containsKey("TRANSACTION_OVERVIEW"))
-            menuTransactionOverview = (String)sfr.getObject("TRANSACTION_OVERVIEW");
+            menuTransactionOverview =
+                    (String)sfr.getObject("TRANSACTION_OVERVIEW");
         return menuTransactionOverview;
     }
 
@@ -403,7 +405,8 @@ public class MenuVisibleHelper {
 
     public String getMenuChangePassword() {
         if (sfr.containsKey("ENGAGE_CHANGE_PASSWORD"))
-            menuChangePassword = (String)sfr.getObject("ENGAGE_CHANGE_PASSWORD");
+            menuChangePassword =
+                    (String)sfr.getObject("ENGAGE_CHANGE_PASSWORD");
         return menuChangePassword;
     }
 
@@ -422,18 +425,19 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleAccount() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.
+
+                getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 visibleAccount = true;
                 visibleSelectAssociation = false;
-                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Account tab Visible " );
+
             }
         }
         return visibleAccount;
@@ -444,17 +448,17 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleAccountSummary() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||   
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 visibleAccountSummary = true;
-                visibleSelectAssociation= false;
-               // log.info(accessDC.getDisplayRecord() + this.getClass() + " Account Summary link Visible " );
+                visibleSelectAssociation = false;
+
             }
         }
         return visibleAccountSummary;
@@ -465,15 +469,16 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleVehicles() {
-        if(securityContext.isAuthenticated()){
-            if(lang != null && !lang.equalsIgnoreCase("SE")){
-                if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-                   
-                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (lang != null && !lang.equalsIgnoreCase("SE")) {
+                if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                    user.
+
+                    getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                     visibleVehicles = true;
-                    visibleSelectAssociation= false;
-                    //log.info(accessDC.getDisplayRecord() + this.getClass() + " Vehicle link Visible " );
+                    visibleSelectAssociation = false;
+
                 }
             }
         }
@@ -485,15 +490,16 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleDrivers() {
-        if(securityContext.isAuthenticated()){
-            if(lang != null && !lang.equalsIgnoreCase("SE")){
-                if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-                   
-                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (lang != null && !lang.equalsIgnoreCase("SE")) {
+                if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                    user.
+
+                    getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                     visibleDrivers = true;
                     visibleSelectAssociation = false;
-                    //log.info(accessDC.getDisplayRecord() + this.getClass() + " Driver link Visible " );
+
                 }
             }
         }
@@ -505,19 +511,20 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleTransactions() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                   visibleTransactions = true;
-                   visibleSelectAssociation = false;
-                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Tab Visible " );
-               }
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.
+
+                getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
+                visibleTransactions = true;
+                visibleSelectAssociation = false;
+
+            }
 
         }
         return visibleTransactions;
@@ -528,19 +535,20 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleTransactionOverview() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                   visibleTransactionOverview = true;
-                   visibleSelectAssociation = false;
-                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Transaction Overview link Visible " );
-               }
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.
+
+                getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
+                visibleTransactionOverview = true;
+                visibleSelectAssociation = false;
+
+            }
         }
         return visibleTransactionOverview;
     }
@@ -550,17 +558,17 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleInvoiceOverview() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
-                   visibleInvoiceOverview = true;
-                   visibleSelectAssociation =false;
-                  // log.info(accessDC.getDisplayRecord() + this.getClass() + " Invoice Overview link Visible " );
-               }
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
+                visibleInvoiceOverview = true;
+                visibleSelectAssociation = false;
+
+            }
         }
         return visibleInvoiceOverview;
     }
@@ -570,18 +578,19 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleCardServices() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.
+
+                getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 visibleCardServices = true;
-                visibleSelectAssociation= false;
-                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Card Service tab Visible " );
+                visibleSelectAssociation = false;
+
             }
         }
         return visibleCardServices;
@@ -592,18 +601,19 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleViewCards() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.
+
+                getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 visibleViewCards = true;
                 visibleSelectAssociation = false;
-               // log.info(accessDC.getDisplayRecord() + this.getClass() + " View Cards link Visible " );
+
             }
         }
         return visibleViewCards;
@@ -614,63 +624,84 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisiblePricing() {
-        if(securityContext.isAuthenticated()){
-            if(session.getAttribute("ListPriceVisible") != null){
-                visiblePricing = (Boolean.parseBoolean(session.getAttribute("ListPriceVisible").toString()));
-                visibleSelectAssociation= false;
+        if (securityContext.isAuthenticated()) {
+            if (session.getAttribute("ListPriceVisible") != null) {
+                visiblePricing =
+                        (Boolean.parseBoolean(session.getAttribute("ListPriceVisible").toString()));
+                visibleSelectAssociation = false;
                 return visiblePricing;
-            }
-            else{
-                if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
-                   user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)){
-                       Set<String> cardTypeSet = new HashSet<String>();
-                       List<String> customerTypeList=new ArrayList<String>();
-                       if(session.getAttribute("cardTypeList")!=null){
-                           cardTypeSet = (Set<String>)session.getAttribute("cardTypeList");
-                       }
+            } else {
+                if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                    user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR)) {
+                    Set<String> cardTypeSet = new HashSet<String>();
+                    List<String> customerTypeList = new ArrayList<String>();
+                    if (session.getAttribute("cardTypeList") != null) {
+                        cardTypeSet =
+                                (Set<String>)session.getAttribute("cardTypeList");
+                    }
 
-                       List<String> cardTypeListTemp = new ArrayList<String>(cardTypeSet);
-                       String cardTypeList= cardTypeListTemp.toString().substring(1, cardTypeListTemp.toString().length()-1).replace("", "");
+                    List<String> cardTypeListTemp =
+                        new ArrayList<String>(cardTypeSet);
+                    String cardTypeList =
+                        cardTypeListTemp.toString().substring(1,
+                                                              cardTypeListTemp.toString().length() -
+                                                              1).replace("",
+                                                                         "");
 
-                       DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-                       DCIteratorBinding iter1;
-                       if (bindings != null) {
-                           iter1 = bindings.findIteratorBinding("PrtCustomerCardMapRVO1_1Iterator");
-                       }
-                       else{
-                           log.severe(accessDC.getDisplayRecord() + this.getClass() + "bindings is null for customer card map in menu visible helper");
-                           iter1 = null;
-                       }
+                    DCBindingContainer bindings =
+                        (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+                    DCIteratorBinding iter1;
+                    if (bindings != null) {
+                        iter1 =
+                                bindings.findIteratorBinding("PrtCustomerCardMapRVO1_1Iterator");
+                    } else {
+                        log.severe(accessDC.getDisplayRecord() +
+                                   this.getClass() +
+                                   "bindings is null for customer card map in menu visible helper");
+                        iter1 = null;
+                    }
 
-                       if (iter1 != null) {
-                           ViewObject prtCustomerCardMapVO = iter1.getViewObject();
-                           if(cardTypeList != null){
-                                prtCustomerCardMapVO.setNamedWhereClauseParam("cardType", cardTypeList);
-                            }
-                            prtCustomerCardMapVO.executeQuery();
+                    if (iter1 != null) {
+                        ViewObject prtCustomerCardMapVO =
+                            iter1.getViewObject();
+                        if (cardTypeList != null) {
+                            prtCustomerCardMapVO.setNamedWhereClauseParam("cardType",
+                                                                          cardTypeList);
+                        }
+                        prtCustomerCardMapVO.executeQuery();
 
-                            if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
-                                while (prtCustomerCardMapVO.hasNext()) {
-                                    PrtCustomerCardMapRVO1RowImpl currRow = (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
-                                    if (currRow != null) {
-                                        customerTypeList.add(currRow.getCustomerType());
-                                        log.info(accessDC.getDisplayRecord() + this.getClass() + " card type list for user is " + cardTypeList);
+                        if (prtCustomerCardMapVO.getEstimatedRowCount() != 0) {
+                            while (prtCustomerCardMapVO.hasNext()) {
+                                PrtCustomerCardMapRVO1RowImpl currRow =
+                                    (PrtCustomerCardMapRVO1RowImpl)prtCustomerCardMapVO.next();
+                                if (currRow != null) {
+                                    customerTypeList.add(currRow.getCustomerType());
+                                    log.info(accessDC.getDisplayRecord() +
+                                             this.getClass() +
+                                             " card type list for user is " +
+                                             cardTypeList);
 
-                                        log.info(accessDC.getDisplayRecord() + this.getClass() + " customer type list for user is " + customerTypeList);
+                                    log.info(accessDC.getDisplayRecord() +
+                                             this.getClass() +
+                                             " customer type list for user is " +
+                                             customerTypeList);
 
-                                        if(customerTypeList.toString().trim().contains("B2B TRUCK")){
-                                            visiblePricing = true;
-                                            log.info(accessDC.getDisplayRecord() + this.getClass() + " Pricing tab Visible " );
+                                    if (customerTypeList.toString().trim().contains("B2B TRUCK")) {
+                                        visiblePricing = true;
+                                        log.info(accessDC.getDisplayRecord() +
+                                                 this.getClass() +
+                                                 " Pricing tab Visible ");
 
-                                        }
                                     }
                                 }
                             }
-                            session.setAttribute("ListPriceVisible", visiblePricing);
-                            //log.info(accessDC.getDisplayRecord() + this.getClass() + " pricing tab visibility set into session " + session.getAttribute("ListPriceVisible"));
+                        }
+                        session.setAttribute("ListPriceVisible",
+                                             visiblePricing);
 
-                       }
-                   }
+
+                    }
+                }
             }
         }
         return visiblePricing;
@@ -681,8 +712,8 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleListPrice() {
-        if(securityContext.isAuthenticated()){
-            if(visiblePricing){
+        if (securityContext.isAuthenticated()) {
+            if (visiblePricing) {
                 visibleListPrice = true;
                 visibleSelectAssociation = false;
             }
@@ -695,18 +726,18 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleSetup() {
-        if(securityContext.isAuthenticated()){
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR)||
-               user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)){
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) ||
+                user.getRolelist().contains(Constants.ROLE_WCP_CARD_SALES_REP)) {
                 visibleSetup = true;
                 visibleSelectAssociation = false;
-                //log.info(accessDC.getDisplayRecord() + this.getClass() + " Setup Tab Visible " );
+
             }
         }
         return visibleSetup;
@@ -717,7 +748,7 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleChangePassword() {
-        if(securityContext.isAuthenticated()){
+        if (securityContext.isAuthenticated()) {
             visibleChangePassword = true;
             visibleSelectAssociation = false;
         }
@@ -738,31 +769,26 @@ public class MenuVisibleHelper {
 
     public boolean isVisibleSelectAssociation() {
         System.out.println("inside selectAssociation");
-        if(securityContext.isAuthenticated())
-        {
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR))
-                visibleSelectAssociation = true; 
-            
-//            FacesContext facesCtx = FacesContext.getCurrentInstance();
-//                    String currentViewId = facesCtx.getViewRoot().getViewId();
-//                    System.out.println("currentViewId in menuvisble helper is " + currentViewId);
-            
-        visibleAccount = false;
-        visibleAccountSummary = false;
-        visibleVehicles = false;
-        visibleDrivers = false;
-        visibleTransactions = false;
-        visibleTransactionOverview = false;
-        visibleInvoiceOverview = false;
-        visibleCardServices = false;
-        visibleViewCards = false;
-        visiblePricing = false;
-        visibleListPrice = false;
-        visibleSetup = false;
-        visibleChangePassword = false;
-        
+        if (securityContext.isAuthenticated()) {
+            if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR))
+                visibleSelectAssociation = true;
+
+            visibleAccount = false;
+            visibleAccountSummary = false;
+            visibleVehicles = false;
+            visibleDrivers = false;
+            visibleTransactions = false;
+            visibleTransactionOverview = false;
+            visibleInvoiceOverview = false;
+            visibleCardServices = false;
+            visibleViewCards = false;
+            visiblePricing = false;
+            visibleListPrice = false;
+            visibleSetup = false;
+            visibleChangePassword = false;
+
         }
-        
+
         return visibleSelectAssociation;
     }
 
@@ -772,7 +798,7 @@ public class MenuVisibleHelper {
 
     public String getSelectAssociation() {
         if (sfr.containsKey("SELECT_ASSOCIATION"))
-        selectAssociation= (String)sfr.getObject("SELECT_ASSOCIATION");
+            selectAssociation = (String)sfr.getObject("SELECT_ASSOCIATION");
         return selectAssociation;
     }
 }

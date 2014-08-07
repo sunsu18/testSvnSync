@@ -20,15 +20,14 @@ public class SkinHelper extends ThreadSerialization {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
 
-    String portal;
-    String style;
-    String skinStyleCardPrivate = "sfrCardPrivate";
-    String skinStyleCardBusiness = "sfrCardBusiness";
-    String skinStyleJet = "sfrJet";
-    String skinStylePetro = "sfrPetro";
-    String profile;
+    private String portal;
+    private String skinStyleCardPrivate = "sfrCardPrivate";
+    private String skinStyleCardBusiness = "sfrCardBusiness";
+    private String skinStyleJet = "sfrJet";
+    private String skinStylePetro = "sfrPetro";
+    private String profile;
     AccessDataControl accessDC = new AccessDataControl();
-    String locale;
+    private String locale;
 
 
     private String currentSkin;
@@ -134,5 +133,45 @@ public class SkinHelper extends ThreadSerialization {
                 }
 
                 return locale;
+    }
+
+    public void setPortal(String portal) {
+        this.portal = portal;
+    }
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public void setSkinStyleCardPrivate(String skinStyleCardPrivate) {
+        this.skinStyleCardPrivate = skinStyleCardPrivate;
+    }
+
+    public String getSkinStyleCardPrivate() {
+        return skinStyleCardPrivate;
+    }
+
+    public void setSkinStyleCardBusiness(String skinStyleCardBusiness) {
+        this.skinStyleCardBusiness = skinStyleCardBusiness;
+    }
+
+    public String getSkinStyleCardBusiness() {
+        return skinStyleCardBusiness;
+    }
+
+    public void setSkinStyleJet(String skinStyleJet) {
+        this.skinStyleJet = skinStyleJet;
+    }
+
+    public String getSkinStyleJet() {
+        return skinStyleJet;
+    }
+
+    public void setSkinStylePetro(String skinStylePetro) {
+        this.skinStylePetro = skinStylePetro;
+    }
+
+    public String getSkinStylePetro() {
+        return skinStylePetro;
     }
 }
