@@ -1562,43 +1562,10 @@ public class AccountSummaryBean implements Serializable {
 
 
         public void setAdfTree(RichTree adfTree) {
-            if (adfTree != null) {
-                //
-                //                RichTree tree = adfTree;
-                //                //UIComponent tree = adfTree;
-                //                if (tree != null) {
-                //                    System.out.println("UIComponent tree not null");
-                //                    CollectionModel model =
-                //                        (CollectionModel)tree.getValue();
-                //
-                //                    if(model!= null)
-                //                    {
-                //                    System.out.println("Model not null");
-                //                    JUCtrlHierBinding treeBinding = (JUCtrlHierBinding)model.getWrappedData();
-                //                    if(treeBinding!=null) {
-                //                        System.out.println("Tree binding is not null");
-                //                        JUCtrlHierNodeBinding rootNode =
-                //                         treeBinding.getRootNodeBinding();
-                //                        if(rootNode != null)
-                //                            System.out.println("Root node not null");
-                //                        else
-                //                            System.out.println("Root node is null");
-                //                    }else
-                //                        System.out.println("Tree binding is null");
-                //                }
-                //
-                //                }
-                //                else
-                //                    System.out.println("UIComponent tree is null");
-
-            }
             this.adfTree = adfTree;
         }
 
         public RichTree getAdfTree() {
-            if (adfTree != null) {
-
-            }
             return adfTree;
         }
 
@@ -1746,11 +1713,9 @@ public class AccountSummaryBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getDefaultPanel());
             //clicked node belongs to card so execute card overview
             for (Object o : nodeBinding1.getAttributeValues()) {
-
                 cardId = o.toString();
                 log.info(accessDC.getDisplayRecord() + this.getClass() +
                          " inside card overview id is " + id);
-
             }
             cardOverview();
 

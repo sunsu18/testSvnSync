@@ -454,10 +454,6 @@ public class VehicleInfoBean implements Serializable {
             acc.setAccountNumber(values[i]);
             List<VehicleInfo> myVehicleList = new ArrayList<VehicleInfo>();
             vo.setNamedWhereClauseParam("countryCd", countryParam);
-            //            vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND (PrtTruckInformationEO.REGISTRATION_NUMBER IS NULL OR PrtTruckInformationEO.REGISTRATION_NUMBER like concat(:registrationNumber,'%'))");
-            //            System.out.println("values of i" + values[i]);
-            //            vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(),
-            //                                           null);
             if (getBindings().getRegisterNumber().getValue() != null &&
                 getBindings().getRegisterNumber().getValue().toString().length() >
                 0) {
@@ -587,8 +583,6 @@ public class VehicleInfoBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
-            //                searchResultsShow = false;
-            //                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         }
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Exiting SearchResultsExecution method");
@@ -679,8 +673,6 @@ public class VehicleInfoBean implements Serializable {
                                     resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                             showErrorMsgFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
-                            //FacesMessage msg =new FacesMessage(FacesMessage.SEVERITY_INFO,warningMsg,"");
-                            //FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                     }
