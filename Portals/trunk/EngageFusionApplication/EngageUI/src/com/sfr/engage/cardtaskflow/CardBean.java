@@ -86,25 +86,25 @@ public class CardBean implements Serializable {
     private String partnerCountry;
     private String lang;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
-    private ArrayList<SelectItem> accountIdList;
+    private AccessDataControl accessDC = new AccessDataControl();
+    private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
-    private ArrayList<SelectItem> cardGroupList;
+    private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
-    private ArrayList<SelectItem> statusList;
+    private List<SelectItem> statusList;
     private List<String> statusValue;
-    private ArrayList<SelectItem> partnerIdList;
+    private List<SelectItem> partnerIdList;
     private List<String> partnerIdValue;
-    ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
     private boolean driverPGL = false;
     private boolean vehiclePGL = false;
     private String cardAssociation = null;
     private String associatedAccount = null;
-    private ArrayList<SelectItem> vehicleNumberList;
+    private List<SelectItem> vehicleNumberList;
     private String vehicleNumberValue;
-    private ArrayList<SelectItem> driverNameList;
+    private List<SelectItem> driverNameList;
     private String driverNameValue;
-    Map<String, String> truckDriverList = new HashMap<String, String>();
+    private Map<String, String> truckDriverList = new HashMap<String, String>();
     private String displayDriverName;
     private String displayVehicleName;
     private String strViewCardTotalColumns = "";
@@ -145,9 +145,9 @@ public class CardBean implements Serializable {
     private String contentType;
     private String fileName;
     private boolean reset = false;
-    private ArrayList<String> cardTypeNameList = new ArrayList<String>();
+    private List<String> cardTypeNameList = new ArrayList<String>();
     private String currencyCode;
-    Conversion conversionUtility;
+    private Conversion conversionUtility;
     private Locale locale;
 
 
@@ -291,7 +291,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         return bindings;
     }
 
-    public ArrayList<SelectItem> getAccountIdList() {
+    public List<SelectItem> getAccountIdList() {
         return accountIdList;
     }
 
@@ -307,7 +307,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         this.cardGroupList = cardGroupList;
     }
 
-    public ArrayList<SelectItem> getCardGroupList() {
+    public List<SelectItem> getCardGroupList() {
         return cardGroupList;
     }
 
@@ -437,7 +437,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         return null;
     }
 
-    public ArrayList<SelectItem> getStatusList() {
+    public List<SelectItem> getStatusList() {
 
         if (statusList == null) {
             statusList = new ArrayList<SelectItem>();
@@ -480,7 +480,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         this.partnerIdList = partnerIdList;
     }
 
-    public ArrayList<SelectItem> getPartnerIdList() {
+    public List<SelectItem> getPartnerIdList() {
         return partnerIdList;
     }
 
@@ -1200,7 +1200,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         this.vehicleNumberList = vehicleNumberList;
     }
 
-    public ArrayList<SelectItem> getVehicleNumberList() {
+    public List<SelectItem> getVehicleNumberList() {
         return vehicleNumberList;
     }
 
@@ -1216,7 +1216,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         this.driverNameList = driverNameList;
     }
 
-    public ArrayList<SelectItem> getDriverNameList() {
+    public List<SelectItem> getDriverNameList() {
         return driverNameList;
     }
 
@@ -3190,7 +3190,7 @@ partnerInfoList.get(0).getCountry().toString().trim();
         }
     }
 
-    public ArrayList<String> getCardTypeNameList() {
+    public List<String> getCardTypeNameList() {
         return cardTypeNameList;
     }
 

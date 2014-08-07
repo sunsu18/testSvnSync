@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -58,11 +59,11 @@ public class DriverInfoBean implements Serializable {
     private transient Bindings bindings;
     private List<Account> myAccount;
     private boolean searchResultsShow = false;
-    HashMap<String, String> driverMap = new HashMap<String, String>();
-    ResourceBundle resourceBundle;
+    private Map<String, String> driverMap = new HashMap<String, String>();
+    private ResourceBundle resourceBundle;
     private String driverN;
     private String accountsList;
-    private ArrayList<SelectItem> linkedAccountList;
+    private List<SelectItem> linkedAccountList;
     private String addAccountIdVal = null;
     private String editAccountIdVal = null;
     private List<String> linkedAccountLOVValues;
@@ -73,32 +74,32 @@ public class DriverInfoBean implements Serializable {
     private ExternalContext ectx;
     private HttpServletRequest request;
     private List<PartnerInfo> partnerInfoList;
-    private ArrayList<SelectItem> cardNumberList;
-    private ArrayList<SelectItem>editCardNumberList;
+    private List<SelectItem> cardNumberList;
+    private List<SelectItem>editCardNumberList;
     private String addAccountIdDisplayValue = null;
     private String addCardIdDisplayValue = null;
     private String editAccountIdDisplayValue = null;
     private String editCardIdDisplayValue = null;
     private String countryParam;
-    private ArrayList<String> linkedCardValues;
+    private List<String> linkedCardValues;
     private String cardId = null;
     private String warningMsg = null;
     private boolean showErrorMsgFlag = false;
     private boolean showErrorMsgEditFlag = false;
-    private ArrayList<String> validateAccountCard;
+    private List<String> validateAccountCard;
     private String previousCardId = null;
 
     private String linkedPartnerLOVValues = null;
-    private ArrayList<SelectItem> linkedPartnerList = null;
-    private ArrayList<SelectItem> linkedAddAccountList;
-    private ArrayList<SelectItem> linkedEditAccountList;
+    private List<SelectItem> linkedPartnerList = null;
+    private List<SelectItem> linkedAddAccountList;
+    private List<SelectItem> linkedEditAccountList;
     private String addPartnerNumberDisplayValue;
     private String editPartnerNumberDisplayValue;
-    HashMap<String, String> cardNumberMap = new HashMap<String, String>();
+    private Map<String, String> cardNumberMap = new HashMap<String, String>();
     private String addPartnerIdVal = null;
     private String editPartnerIdVal = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
 
 
 
@@ -181,7 +182,7 @@ public class DriverInfoBean implements Serializable {
     
     
 
-    public ArrayList<SelectItem> getLinkedAccountList() {
+    public List<SelectItem> getLinkedAccountList() {
         return linkedAccountList;
     }
 
@@ -1385,7 +1386,7 @@ public class DriverInfoBean implements Serializable {
         this.cardNumberList = cardNumberList;
     }
 
-    public ArrayList<SelectItem> getCardNumberList() {
+    public List<SelectItem> getCardNumberList() {
         return cardNumberList;
     }
 
@@ -1429,7 +1430,7 @@ public class DriverInfoBean implements Serializable {
         this.editCardNumberList = editCardNumberList;
     }
 
-    public ArrayList<SelectItem> getEditCardNumberList() {
+    public List<SelectItem> getEditCardNumberList() {
         return editCardNumberList;
     }
 
@@ -1445,7 +1446,7 @@ public class DriverInfoBean implements Serializable {
         this.linkedCardValues = linkedCardValues;
     }
 
-    public ArrayList<String> getLinkedCardValues() {
+    public List<String> getLinkedCardValues() {
         return linkedCardValues;
     }
 
@@ -1485,7 +1486,7 @@ public class DriverInfoBean implements Serializable {
         this.validateAccountCard = validateAccountCard;
     }
 
-    public ArrayList<String> getValidateAccountCard() {
+    public List<String> getValidateAccountCard() {
         return validateAccountCard;
     }
 
@@ -1509,7 +1510,7 @@ public class DriverInfoBean implements Serializable {
         this.linkedPartnerList = linkedPartnerList;
     }
 
-    public ArrayList<SelectItem> getLinkedPartnerList() {
+    public List<SelectItem> getLinkedPartnerList() {
         return linkedPartnerList;
     }
 
@@ -1559,7 +1560,7 @@ public class DriverInfoBean implements Serializable {
         this.linkedAddAccountList = linkedAddAccountList;
     }
 
-    public ArrayList<SelectItem> getLinkedAddAccountList() {
+    public List<SelectItem> getLinkedAddAccountList() {
         return linkedAddAccountList;
     }
 
@@ -1672,11 +1673,23 @@ public class DriverInfoBean implements Serializable {
         this.linkedEditAccountList = linkedEditAccountList;
     }
 
-    public ArrayList<SelectItem> getLinkedEditAccountList() {
+    public List<SelectItem> getLinkedEditAccountList() {
         return linkedEditAccountList;
     }
 
-   public class Bindings {
+    public void setDriverMap(Map<String, String> driverMap) {
+        this.driverMap = driverMap;
+    }
+
+    public Map<String, String> getDriverMap() {
+        return driverMap;
+    }
+
+    public void setLinkedAccountList(List<SelectItem> linkedAccountList) {
+        this.linkedAccountList = linkedAccountList;
+    }
+
+    public class Bindings {
         private RichSelectManyChoice linkedAccount;
         private RichPanelGroupLayout searchResults;
         private RichPopup newDriver;

@@ -41,26 +41,26 @@ public class TransactionOverviewBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
 
-    private ArrayList<SelectItem> partnerIdList;
+    private List<SelectItem> partnerIdList;
     private List<String> partnerIdValue;
-    private ArrayList<String> partnerIdValues;
-    private ArrayList<SelectItem> accountIdList;
+    private List<String> partnerIdValues;
+    private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
-    private ArrayList<SelectItem> reportFormatList;
+    private List<SelectItem> reportFormatList;
     private String reportFormatValue;
-    private ArrayList<SelectItem> termianlList;
+    private List<SelectItem> termianlList;
     private List shuttleList = new ArrayList();
     private List shuttleValue;
     private List<String> terminalValue;
-    private ArrayList<SelectItem> typeList;
+    private List<SelectItem> typeList;
     private List<String> typeValue;
-    private ArrayList<SelectItem> cardNumberList;
+    private List<SelectItem> cardNumberList;
     private List<String> cardNumberValue;
-    private ArrayList<SelectItem> cardGroupList;
+    private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
-    private ArrayList<SelectItem> vehicleNumberList;
+    private List<SelectItem> vehicleNumberList;
     private List<String> vehicleNumberValue;
-    private ArrayList<SelectItem> driverNameList;
+    private List<SelectItem> driverNameList;
     private List<String> driverNameValue;
     private boolean cardIdPGL = false;
     private boolean cardGPGL = true;
@@ -78,7 +78,7 @@ public class TransactionOverviewBean implements Serializable {
     private List<PartnerInfo> partnerInfoList;
     private Boolean isTableVisible = false;
     private Boolean value=false;
-    ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
     private Float sum = 0.00f;
     private Float foreignGrossAmountSum = 0.00f;
     private Float vatSum = 0.00f;
@@ -91,7 +91,7 @@ public class TransactionOverviewBean implements Serializable {
     private String fileName;
     private Locale locale;
     private String partnerCountry = null;
-    Conversion conversionUtility;
+    private Conversion conversionUtility;
     private ValueListSplit valueList;
     private String accountQuery="(";
     private String accountQueryVehicle="(";
@@ -134,7 +134,7 @@ public class TransactionOverviewBean implements Serializable {
     private String urefTransactionId = null;
     private String palsCountryCode = null;
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
     private String cardGroupRadio="CardGroup";
 
     public TransactionOverviewBean() {
@@ -295,23 +295,23 @@ public class TransactionOverviewBean implements Serializable {
      * This method is used to populate Account Id
      * @return accountIdList
      */
-    public ArrayList<SelectItem> getAccountIdList() {
+    public List<SelectItem> getAccountIdList() {
         return accountIdList;
     }
 
-    public ArrayList<SelectItem> getCardNumberList() {
+    public List<SelectItem> getCardNumberList() {
         return cardNumberList;
     }
 
-    public ArrayList<SelectItem> getCardGroupList() {
+    public List<SelectItem> getCardGroupList() {
         return cardGroupList;
     }
 
-    public ArrayList<SelectItem> getVehicleNumberList() {
+    public List<SelectItem> getVehicleNumberList() {
         return vehicleNumberList;
     }
 
-    public ArrayList<SelectItem> getDriverNameList() {
+    public List<SelectItem> getDriverNameList() {
         return driverNameList;
     }
 
@@ -508,7 +508,7 @@ public class TransactionOverviewBean implements Serializable {
         return vNumberPGL;
     }
 
-    public ArrayList<SelectItem> getTermianlList() {
+    public List<SelectItem> getTermianlList() {
         if (termianlList == null) {
             termianlList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
@@ -691,7 +691,7 @@ public class TransactionOverviewBean implements Serializable {
         }
     };
 
-    public ArrayList<SelectItem> getTypeList() {
+    public List<SelectItem> getTypeList() {
         if (typeList == null) {
             typeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
@@ -4269,7 +4269,7 @@ public class TransactionOverviewBean implements Serializable {
         this.partnerIdList = partnerIdList;
     }
 
-    public ArrayList<SelectItem> getPartnerIdList() {
+    public List<SelectItem> getPartnerIdList() {
         return partnerIdList;
     }
 
@@ -4281,7 +4281,7 @@ public class TransactionOverviewBean implements Serializable {
         return partnerIdValue;
     }
 
-    public ArrayList<SelectItem> getReportFormatList() {
+    public List<SelectItem> getReportFormatList() {
         if (reportFormatList == null) {
             reportFormatList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();

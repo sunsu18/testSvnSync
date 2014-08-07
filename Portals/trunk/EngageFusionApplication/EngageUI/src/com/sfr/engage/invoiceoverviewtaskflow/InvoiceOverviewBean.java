@@ -95,10 +95,10 @@ public class InvoiceOverviewBean implements Serializable {
     private List<String> cardGroupValue;
     private String invoiceTypeValue;
     private List<String> cardValue;
-    private ArrayList<SelectItem> accountList = null;
-    private ArrayList<SelectItem> invoiceTypeList = null;
-    private ArrayList<SelectItem> cardGroupList = null;
-    private ArrayList<SelectItem> cardList = null;
+    private List<SelectItem> accountList = null;
+    private List<SelectItem> invoiceTypeList = null;
+    private List<SelectItem> cardGroupList = null;
+    private List<SelectItem> cardList = null;
     private boolean searchResults = false;
     private boolean cardGroupVisible = false;
     private boolean cardVisible = false;
@@ -117,11 +117,11 @@ public class InvoiceOverviewBean implements Serializable {
     private String currencyCode;
     private String lang;
     private String invoiceNumberPdfValue;
-    Map<String, String> ucmInvoiceContentList = new HashMap<String, String>();
-    AccessDataControl accessDC = new AccessDataControl();
+    private Map<String, String> ucmInvoiceContentList = new HashMap<String, String>();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     private List<PartnerInfo> partnerInfoList;
-    private ArrayList<SelectItem> partnerList = null;
+    private List<SelectItem> partnerList = null;
     private List<String> partnerValue = null;
     private RichSelectOneRadio radioBtnPopUp;
     private RichPanelGroupLayout transactionPanel;
@@ -137,12 +137,12 @@ public class InvoiceOverviewBean implements Serializable {
     private RichInputText email_recipient_popup;
     private RichOutputText invoice_form;
     private emailbean email;
-    User global_user = new User();
-    String invoice_req;
+    private User global_user = new User();
+    private String invoice_req;
     private String partner_req;
     private RichSpacer spacerFetchUserEmail;
     private String mailRecipient;
-    EngageEmaiUtilityl emailutility;
+    private EngageEmaiUtilityl emailutility;
     private String accountQueryDetail = "(";
     private String accountQuery = "(";
     private String cardGroupQuery = "(";
@@ -332,19 +332,19 @@ public class InvoiceOverviewBean implements Serializable {
         }
     };
 
-    public ArrayList<SelectItem> getAccountList() {
+    public List<SelectItem> getAccountList() {
         return accountList;
     }
 
-    public ArrayList<SelectItem> getCardGroupList() {
+    public List<SelectItem> getCardGroupList() {
         return cardGroupList;
     }
 
-    public ArrayList<SelectItem> getCardList() {
+    public List<SelectItem> getCardList() {
         return cardList;
     }
 
-    public ArrayList<SelectItem> getInvoiceTypeList() {
+    public List<SelectItem> getInvoiceTypeList() {
         if (invoiceTypeList == null) {
             invoiceTypeList = new ArrayList<SelectItem>();
             SelectItem selectItem = new SelectItem();
@@ -1568,7 +1568,7 @@ public class InvoiceOverviewBean implements Serializable {
         this.partnerList = partnerList;
     }
 
-    public ArrayList<SelectItem> getPartnerList() {
+    public List<SelectItem> getPartnerList() {
         return partnerList;
     }
 

@@ -49,8 +49,8 @@ public class AuthenticatedHomeBean implements Serializable {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
     private transient Bindings bindings;
-    String customerType = "B2B";
-    String lang = "SE";
+    private String customerType = "B2B";
+    private String lang = "SE";
     private String infoValue = "";
     //TODO : Message class in EngageCore is not seriliazed.Make it serilizable class
     private List<Messages> messages;
@@ -58,20 +58,20 @@ public class AuthenticatedHomeBean implements Serializable {
     private boolean infoPanelVisible;
     private String customerTypeValue;
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
     private List<PartnerInfo> partnerInfoList;
-    private ArrayList<String> partnerId = new ArrayList<String>();
+    private List<String> partnerId = new ArrayList<String>();
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
     private String country = null;
     private Locale locale;
-    Conversion conversionUtility;
+    private Conversion conversionUtility;
     private String emptyText = null;
     private User user = null;
     private boolean roleCsr = false;
     private RichPanelGroupLayout authenticatedPanel;
-    ResourceBundle resourceBundle;
+    private ResourceBundle resourceBundle;
     private boolean authenticatedPanelVisible = false;
     private boolean invoicesPanel = false;
     private boolean webshopPanel = false;
@@ -81,8 +81,8 @@ public class AuthenticatedHomeBean implements Serializable {
     private String profile = "private";
     private String profileSession = "";
     private String langSession = "";
-    SecurityContext securityContext = null;
-    ADFContext adfCtx = null;
+    private SecurityContext securityContext = null;
+    private ADFContext adfCtx = null;
     private List<PartnerInfo> partnerListDefault =
         new ArrayList<PartnerInfo>();
     private User userInfo;

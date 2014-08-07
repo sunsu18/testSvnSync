@@ -66,7 +66,7 @@ public class AccountSummaryBean implements Serializable {
 
     private String id;
 
-    private ArrayList<String> cardTypeList = new ArrayList<String>();
+    private List<String> cardTypeList = new ArrayList<String>();
 
     private String accountId;
     private String cardGroupId;
@@ -138,7 +138,7 @@ public class AccountSummaryBean implements Serializable {
     private boolean displayperblockedandtempcards = false;
     private boolean displayallcards = true;
     private RichPanelGroupLayout noSearchResults;
-    EngageResourceBundle resourceBundle;
+    private EngageResourceBundle resourceBundle;
     private RichPanelGroupLayout treePanel;
     private List filterAttributes = new ArrayList();
     private RichTree blockcardshiddentree;
@@ -1767,7 +1767,7 @@ public class AccountSummaryBean implements Serializable {
         this.cardTypeList = cardTypeList;
     }
 
-    public ArrayList<String> getCardTypeList() {
+    public List<String> getCardTypeList() {
         return cardTypeList;
     }
 

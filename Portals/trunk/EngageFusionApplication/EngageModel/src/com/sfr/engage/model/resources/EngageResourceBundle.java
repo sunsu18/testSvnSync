@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ListResourceBundle;
 
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -324,7 +326,7 @@ public class EngageResourceBundle extends ListResourceBundle {
                 return contents;
             }
 
-            HashMap<String, String> map = parseHashMap(contents);
+            Map<String, String> map = parseHashMap(contents);
 
             String amDef = "com.sfr.engage.model.module.EngageAppModule";
             String config = "EngageAppModuleLocal";
@@ -374,7 +376,7 @@ public class EngageResourceBundle extends ListResourceBundle {
      *This methods replaces default values of keys with those retrieved from database.
      * @param map
      */
-    private void parseArray(HashMap<String, String> map) {
+    private void parseArray(Map<String, String> map) {
 
         for (int i = 0; i < contents.length; i++) {
             contents[i][1] = map.get(contents[i][0]);
@@ -388,10 +390,10 @@ public class EngageResourceBundle extends ListResourceBundle {
      * @return
      * @throws Exception
      */
-    private HashMap<String, String> parseHashMap(Object[][] params) throws Exception {
+    private Map<String, String> parseHashMap(Object[][] params) throws Exception {
 
         try {
-            HashMap<String, String> map =
+            Map<String, String> map =
                 new HashMap<String, String>(params.length);
             for (int i = 0; i < params.length; i++) {
                 map.put((String)params[i][0], (String)params[i][1]);
