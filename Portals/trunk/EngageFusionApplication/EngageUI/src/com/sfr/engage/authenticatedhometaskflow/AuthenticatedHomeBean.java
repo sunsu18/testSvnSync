@@ -267,8 +267,6 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                         infovalue.setTitle(currRow.getTitle() +
                                                            ":");
-                                        System.out.println("title" +
-                                                           currRow.getTitle());
                                     } else {
                                         infovalue.setTitle(null);
                                     }
@@ -280,8 +278,6 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                             infovalue.setTitle(currRow.getTitle() +
                                                                ":");
-                                            System.out.println("title" +
-                                                               currRow.getTitle());
                                         }
 
                                         else {
@@ -335,8 +331,6 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                         message.setTitle(currRow.getTitle() +
                                                          ":");
-                                        System.out.println("title" +
-                                                           currRow.getTitle());
                                     } else {
                                         message.setTitle(null);
                                     }
@@ -348,8 +342,6 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                             message.setTitle(currRow.getTitle() +
                                                              ":");
-                                            System.out.println("title" +
-                                                               currRow.getTitle());
                                         }
 
                                         else {

@@ -1,5 +1,7 @@
 package com.sfr.engage.invoiceoverviewtaskflow;
 
+import com.sfr.util.AccessDataControl;
+
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -18,8 +20,13 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import oracle.adf.share.logging.ADFLogger;
+
 
 public class emailbean {
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
+    
     public emailbean() {
         super();
     }
@@ -54,8 +61,7 @@ public class emailbean {
             multipart.addBodyPart(messageBodyPart);
 
             messageBodyPart = new MimeBodyPart();
-
-            System.out.println("Length 2" + responseByteArr.length);
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Length 2" + responseByteArr.length);
             DataSource source =
                 new ByteArrayDataSource(responseByteArr, "application/pdf");
             messageBodyPart.setDataHandler(new DataHandler(source));
@@ -76,7 +82,7 @@ public class emailbean {
             message.setContent(multipart, "text/html; charset=\"UTF-8\"");
 
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }

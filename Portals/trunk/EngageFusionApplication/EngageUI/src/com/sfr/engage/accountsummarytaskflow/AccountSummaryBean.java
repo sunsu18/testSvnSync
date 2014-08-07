@@ -655,7 +655,7 @@ public class AccountSummaryBean implements Serializable {
                     for (int p = 0;
                          p < cardgroupsSocList.size() && searchString != null;
                          p++) {
-                        if (searchString.toUpperCase().equalsIgnoreCase(cardgroupsSocList.get(p).toUpperCase())) {
+                        if (searchString.equalsIgnoreCase(cardgroupsSocList.get(p))) {
                             executeSearch = true;
 
                         }
@@ -675,7 +675,7 @@ public class AccountSummaryBean implements Serializable {
                     for (int p = 0;
                          p < cardsSocList.size() && searchString != null;
                          p++) {
-                        if (searchString.toUpperCase().equalsIgnoreCase(cardsSocList.get(p).toUpperCase())) {
+                        if (searchString.equalsIgnoreCase(cardsSocList.get(p))) {
                             executeSearch = true;
                         }
 
@@ -690,7 +690,7 @@ public class AccountSummaryBean implements Serializable {
                     for (int p = 0;
                          p < cardTextline2SocList.size() && searchString !=
                          null; p++) {
-                        if (searchString.toUpperCase().equalsIgnoreCase(cardTextline2SocList.get(p).toUpperCase())) {
+                        if (searchString.equalsIgnoreCase(cardTextline2SocList.get(p))) {
                             executeSearch = true;
                         }
 

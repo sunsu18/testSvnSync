@@ -30,8 +30,7 @@ public class PrtGenStringRVOImpl extends ViewObjectImpl {
      * hasNextForCollection - overridden for custom java data source support.
      */
     protected boolean hasNextForCollection(Object qc) {
-        boolean bRet = super.hasNextForCollection(qc);
-        return bRet;
+        return super.hasNextForCollection(qc);
     }
 
     /**
@@ -39,15 +38,13 @@ public class PrtGenStringRVOImpl extends ViewObjectImpl {
      */
     protected ViewRowImpl createRowFromResultSet(Object qc,
                                                  ResultSet resultSet) {
-        ViewRowImpl value = super.createRowFromResultSet(qc, resultSet);
-        return value;
+        return super.createRowFromResultSet(qc, resultSet);
     }
 
     /**
      * getQueryHitCount - overridden for custom java data source support.
      */
     public long getQueryHitCount(ViewRowSetImpl viewRowSet) {
-        long value = super.getQueryHitCount(viewRowSet);
-        return value;
+        return super.getQueryHitCount(viewRowSet);
     }
 }

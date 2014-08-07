@@ -8,27 +8,18 @@ import com.sfr.engage.model.resources.*;
 import com.sfr.util.*;
 import com.sfr.util.constants.*;
 import com.sfr.util.validations.*;
-
 import java.io.*;
-
 import java.sql.*;
-
 import java.text.*;
-
 import java.util.*;
 import java.util.Date;
-
 import javax.el.*;
-
 import javax.faces.application.*;
 import javax.faces.context.*;
 import javax.faces.event.*;
 import javax.faces.model.*;
-
 import javax.servlet.http.*;
-
 import oracle.adf.model.*;
-import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.logging.*;
 import oracle.adf.view.rich.component.rich.*;
 import oracle.adf.view.rich.component.rich.data.*;
@@ -39,12 +30,9 @@ import oracle.adf.view.rich.context.*;
 import oracle.adf.view.rich.event.*;
 import oracle.adf.view.rich.model.FilterableQueryDescriptor;
 import oracle.adf.view.rich.util.*;
-
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
-
 import oracle.jbo.*;
-
 import org.apache.poi.hssf.usermodel.*;
 
 

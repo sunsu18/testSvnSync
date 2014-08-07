@@ -8,49 +8,36 @@ import com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdom
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtCardTypeNameMapVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1Impl;
 import com.sfr.engage.model.queries.rvo.PrtExportInfoRVOImpl;
-import com.sfr.engage.model.queries.rvo.PrtGenHelpRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
-
-import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtAccountVOImpl;
-import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardTransactionHeaderVORowImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtCardgroupVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtDriverInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtInvoiceDetailVoImpl;
-import com.sfr.engage.model.queries.uvo.PrtInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtNewInvoiceVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtPartnerVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtTruckInformationVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewCardsVOImpl;
 import com.sfr.engage.model.queries.uvo.PrtViewVehicleDriverVOImpl;
 import com.sfr.util.AccessDataControl;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.GregorianCalendar;
-
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
 import oracle.jbo.ViewObject;
 import oracle.jbo.domain.Date;
-
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
-import com.sfr.util.AccessDataControl;
-
 import oracle.adf.share.logging.ADFLogger;
 
 
@@ -209,7 +196,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
             try {
                String modifiedDate = null;
                 DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-                java.util.Date effectiveFromDate =(java.util.Date)GregorianCalendar.getInstance().getTime();;
+                java.util.Date effectiveFromDate =GregorianCalendar.getInstance().getTime();;
                 modifiedDate = sdf.format(effectiveFromDate);
                 
                 Statement stmt = getDBTransaction().createStatement(0);

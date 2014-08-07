@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import oracle.adf.model.BindingContext;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
@@ -36,11 +37,13 @@ public class AssociationSelection {
     private List<UserDetails> userdetailslist = new ArrayList<UserDetails>();
     private RichTable searchUsersTable;
     private List<User> userlist = new ArrayList<User>();
-    HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-    UserDetails userdetails;
+    private HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+    private UserDetails userdetails;
     public String selectedUser;
     private RichCommandButton confirmButton;
-    EngageResourceBundle resourceBundle = new EngageResourceBundle();
+    private EngageResourceBundle resourceBundle = new EngageResourceBundle();
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     public AssociationSelection() {
     }
@@ -54,12 +57,11 @@ public class AssociationSelection {
     }
 
     public void SearchIDMUsers(ActionEvent actionEvent) {
-        // Add event code here...
         userdetailslist = new ArrayList<UserDetails>();
         userlist = new ArrayList<User>();
         userdetailslist.clear();
         String finaluserid ="";
-        System.out.println("searching");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searching");
         String regex = "\\d+";
         if(searchText.getValue()!=null && searchText.getValue().toString().matches(regex))
         {
@@ -67,47 +69,38 @@ public class AssociationSelection {
             BindingContext.getCurrent().getCurrentBindingsEntry();
         OperationBinding operationBinding =
             bindings.getOperationBinding("searchUser");
-        System.out.println((AccessDataControl.getDisplayRecord()+this.getClass() + "searchText is " + searchText.getValue().toString()));
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searchText is " + searchText.getValue().toString());
         
         if(searchText.getValue().toString().length()==8)
         {   
-            System.out.println("appending lang");
-            
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Appending lang");
             if(session!=null)
             finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString());
-            System.out.println("finaluserid " + finaluserid);
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "finaluserid " + finaluserid);
             operationBinding.getParamsMap().put("customerId", finaluserid);
             userlist = (List<User>)operationBinding.execute();
-            
-            System.out.println("searched user list size is  " + userlist.size()); 
-        // myArr = new String [userlist.size()][2];
-        
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searched user list size is  " + userlist.size());        
         
         if(userlist!=null && userlist.size()>0)
         {
             for(int b=0;b<userlist.size();b++)
             {
-                System.out.println("user " + b + " -> " + userlist.get(b).getEmailID());
-                System.out.println("user " + b + " -> " + userlist.get(b).getFirstName());
-                
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getEmailID());
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getFirstName());
                 for(int r=0;r<userlist.get(b).getRoleList().size();r++) {
-                    if(userlist.get(b).getRoleList().get(r).getRoleName().equalsIgnoreCase(Constants.ROLE_WCP_CARD_B2B_ADMIN))
-                    
-                    {   userdetails = new UserDetails();
-                      
+                    if(userlist.get(b).getRoleList().get(r).getRoleName().equalsIgnoreCase(Constants.ROLE_WCP_CARD_B2B_ADMIN)){
+                        userdetails = new UserDetails();
                         userdetails.setUseremail(userlist.get(b).getEmailID()); 
-                        if(userlist.get(b).getRoleList().get(r).getIdString()!=null)
-                        userdetails.setPartnerids(userlist.get(b).getRoleList().get(r).getIdString().toString().replaceAll("PP", "").replaceAll("NO", "").replaceAll("DK", "").replaceAll("SE", ""));    
-                        
-                        if(userlist.get(b).getFirstName()!=null)
+                        if(userlist.get(b).getRoleList().get(r).getIdString()!=null){
+                            userdetails.setPartnerids(userlist.get(b).getRoleList().get(r).getIdString().toString().replaceAll("PP", "").replaceAll("NO", "").replaceAll("DK", "").replaceAll("SE", ""));    
+                        }
+                        if(userlist.get(b).getFirstName()!=null){
                             userdetails.setFirstname(userlist.get(b).getFirstName());
-                        
-                        if(userlist.get(b).getLastName()!=null)
+                        }
+                        if(userlist.get(b).getLastName()!=null){
                             userdetails.setLastname(userlist.get(b).getLastName()); 
-                        
+                        }
                         userdetailslist.add(userdetails);
-                        //myArr[b][0] =  userlist.get(b).getEmailID();
-                        // myArr[b][1] =  userlist.get(b).getRoleList().get(r).getIdString().toString();
                     }
                 }
                 
@@ -116,22 +109,14 @@ public class AssociationSelection {
                     
                 
             }
-            
-            System.out.println("userdetails are as follows ");
-            for(int b=0;b<userdetailslist.size();b++)
-                System.out.println("User email -> " + userdetailslist.get(b).getUseremail() + " partners ids " + userdetailslist.get(b).getPartnerids());
-            
-            
-        //        System.out.println("2d array data is ");
-        //        for(int b=0;b<userlist.size();b++) {
-        //            System.out.println("user " + myArr[b][0]);
-        //            System.out.println("ids " + myArr[b][1]);
-        //        }
-            
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "userdetails are as follows ");
+            for(int b=0;b<userdetailslist.size();b++){
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "User email -> " + userdetailslist.get(b).getUseremail() + " partners ids " + userdetailslist.get(b).getPartnerids());
+            }
             confirmButton.setVisible(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(confirmButton);
-        searchResultsIdm.setVisible(true);  
-        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsIdm);
+            searchResultsIdm.setVisible(true);  
+            AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsIdm);
         
         }
         else {
@@ -162,9 +147,8 @@ public class AssociationSelection {
     }
     
     public String showErrorMessage(String errorVar) {
-        System.out.println("throwing error message");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Throwing error message");
         if (errorVar != null) {
-            
             if (resourceBundle.containsKey(errorVar)) {
                 FacesMessage msg =
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -202,32 +186,25 @@ public class AssociationSelection {
     }
 
     public void userconfirmed(ActionEvent actionEvent) {
-        // Add event code here...
-        //System.out.println("selected boolean " + selectedBoolean.getValue().toString());
-        
         RichTable userTable = getSearchUsersTable();
         UserDetails selectedRow = (UserDetails)userTable.getSelectedRowData();
-        
         if (selectedRow != null) {
-        System.out.println("selected row is " + selectedRow.getUseremail());
-        System.out.println("User email ==>"+ selectedRow.getUseremail());
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "selected row is " + selectedRow.getUseremail());
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "User email ==>"+ selectedRow.getUseremail());
         selectedUser = selectedRow.getUseremail();
-        
             for(int k=0;k<userlist.size();k++) {
-                if(userlist.get(k).getEmailID().equalsIgnoreCase(selectedUser))
-                {
+                if(userlist.get(k).getEmailID().equalsIgnoreCase(selectedUser)){
                     session.setAttribute(Constants.SESSION_USER_INFO,userlist.get(k));
-                    System.out.println("user in session is " + userlist.get(k).getEmailID());
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user in session is " + userlist.get(k).getEmailID());
                     break;
                 }
             }
-            
-            System.out.println("redirecting to home page");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "redirecting to home page");
             ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             try {
                 ectx.redirect(ectx.getRequestContextPath() + "/faces/card/home");
             } catch (IOException e) {
-                System.out.println("exception " + e.getMessage());
+                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + "exception " + e.getMessage());
             }
         }
         else {
