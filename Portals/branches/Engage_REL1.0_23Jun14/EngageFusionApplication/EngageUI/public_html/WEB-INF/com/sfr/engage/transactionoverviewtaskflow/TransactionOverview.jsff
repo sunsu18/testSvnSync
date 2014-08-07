@@ -467,7 +467,7 @@
          </af:panelGroupLayout>
 
           <af:separator id="s28" styleClass="vertical_seprator_trans"
-                    inlineStyle="height:20.0px !important;" />
+                    inlineStyle="height:20.0px !important;" visible="#{pageFlowScope.TransactionOverviewBean.noteVisible}"/>
 
 
              
