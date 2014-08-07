@@ -2432,7 +2432,7 @@ new CardInfo();
         Roles rr = new Roles();
         List<String> idString = new ArrayList<String>();
 
-        rr.setRoleName(Constants.ROLE_WCP_CARD_ADMIN);
+        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
         idString.add("NOPP26773218");
         idString.add("DKPP26773219");
         rr.setIdString(idString);
@@ -2442,7 +2442,7 @@ new CardInfo();
         user.setRoleList(listrole);
 
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
 
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
