@@ -67,24 +67,6 @@ public class HomeCarouselBean {
 
     }
 
-    // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary methods. Avoid using names like 'timepass'
-
-    /**
-     * @return
-     */
-    public String timepass() {
-        // Add event code here...
-        return null;
-    }
-
-
-
-    /**
-     * @param actionEvent
-     */
-    public void goProductCatalogListener(ActionEvent actionEvent) {
-
-    }
 
     /**
      * @param customerType
@@ -129,7 +111,7 @@ public class HomeCarouselBean {
     public RichSpacer getTestSpacer() {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+        HttpSession session = request.getSession(false);
 
         if(session!=null)
         { WsPortalCatalogLink = "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile");}
@@ -198,7 +180,7 @@ public class HomeCarouselBean {
     public String getCard1() {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
+        HttpSession session = request.getSession(false);
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
 
@@ -439,16 +421,14 @@ public class HomeCarouselBean {
 
 
     public void goProductCatalog(ActionEvent actionEvent) {
-        // Add event code here...
+        
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = (HttpSession)request.getSession(false);
+        HttpSession session = request.getSession(false);
 
 
         try {
-            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
-            //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
-            //System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+          
             ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
 
 

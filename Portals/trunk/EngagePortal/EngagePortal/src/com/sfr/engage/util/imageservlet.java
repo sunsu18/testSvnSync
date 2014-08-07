@@ -45,10 +45,16 @@ public class imageservlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException,
+                                                           IOException {
         response.setContentType(CONTENT_TYPE);
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Request -----------------------> " + request.getParameter("id"));
-        System.out.println(accessDC.getDisplayRecord()+this.getClass()+"Request -----------------------> " + request.getParameter("categId"));
+        System.out.println(accessDC.getDisplayRecord() + this.getClass() +
+                           "Request -----------------------> " +
+                           request.getParameter("id"));
+        System.out.println(accessDC.getDisplayRecord() + this.getClass() +
+                           "Request -----------------------> " +
+                           request.getParameter("categId"));
         String imageId = "";
         String categId = "";
         int image_id = 0;
@@ -61,26 +67,32 @@ public class imageservlet extends HttpServlet {
         }
 
         if (imageId != null && !imageId.equals("")) {
-            image_id = Integer.parseInt(imageId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.imageID & imageIdAsString is better
+            image_id =
+                    Integer.parseInt(imageId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.imageID & imageIdAsString is better
         }
         if (categId != null && !categId.trim().equals("")) {
-            categ_id = Integer.parseInt(categId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.categID & categIdAsString is better
+            categ_id =
+                    Integer.parseInt(categId); // TODO : ASHTHA - 02, May, 2014 : Confusing names.categID & categIdAsString is better
         }
         OutputStream os = response.getOutputStream();
-        Connection Connection1 = null; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
-        Connection Connection2 = null; // TODO : ASHTHA - 02, May, 2014 : why do we need 2 Connections? variable name with first letter lowercase.
+        Connection Connection1 =
+            null; // TODO : ASHTHA - 02, May, 2014 : variable name with first letter lowercase
+        Connection Connection2 =
+            null; // TODO : ASHTHA - 02, May, 2014 : why do we need 2 Connections? variable name with first letter lowercase.
 
         try {
             if (image_id > 0) {
                 Connection1 = DAOFactory.getJNDIConnection();
-                PreparedStatement statement = Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                PreparedStatement statement =
+                    Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                 statement.setInt(1, image_id);
 
-                //statement.setInt(1, new Integer(imageId));
+
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
                     Blob blob = rs.getBlob("prt_img");
-                    BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
+                    BufferedInputStream in =
+                        new BufferedInputStream(blob.getBinaryStream());
                     int b;
                     byte[] buffer = new byte[10240];
                     while ((b = in.read(buffer, 0, 10240)) != -1) {
@@ -88,17 +100,20 @@ public class imageservlet extends HttpServlet {
                     }
                     os.close();
                 } else {
-                    PreparedStatement statementDefault = Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where  image_id=?");
+                    PreparedStatement statementDefault =
+                        Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where  image_id=?");
                     if (categ_id != 99) {
                         statementDefault.setInt(1, categ_id);
                     } else {
-                        statementDefault.setInt(1, 99999); // TODO : ASHTHA - 02, May, 2014 : initialize categ_id to 99999 instead of 99 if that is the default
+                        statementDefault.setInt(1,
+                                                99999); // TODO : ASHTHA - 02, May, 2014 : initialize categ_id to 99999 instead of 99 if that is the default
                     }
-                    //statement.setInt(1, new Integer(imageId));
+
                     ResultSet rsDefault = statementDefault.executeQuery();
                     if (rsDefault.next()) {
                         Blob blob = rsDefault.getBlob("prt_img");
-                        BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
+                        BufferedInputStream in =
+                            new BufferedInputStream(blob.getBinaryStream());
                         int b;
                         byte[] buffer = new byte[10240];
                         while ((b = in.read(buffer, 0, 10240)) != -1) {
@@ -106,13 +121,16 @@ public class imageservlet extends HttpServlet {
                         }
                         os.close();
                     } else { // TODO : ASHTHA - 02, May, 2014 : why is this needed?
-                        PreparedStatement statementDefault1 = Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                        PreparedStatement statementDefault1 =
+                            Connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                         statementDefault1.setInt(1, 99999);
-                        //statement.setInt(1, new Integer(imageId));
-                        ResultSet rsDefault1 = statementDefault1.executeQuery();
+
+                        ResultSet rsDefault1 =
+                            statementDefault1.executeQuery();
                         if (rsDefault1.next()) {
                             Blob blob = rsDefault1.getBlob("prt_img");
-                            BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
+                            BufferedInputStream in =
+                                new BufferedInputStream(blob.getBinaryStream());
                             int b;
                             byte[] buffer = new byte[10240];
                             while ((b = in.read(buffer, 0, 10240)) != -1) {
@@ -124,13 +142,15 @@ public class imageservlet extends HttpServlet {
                 }
             } else {
                 Connection2 = DAOFactory.getJNDIConnection();
-                PreparedStatement statementDefault2 = Connection2.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
+                PreparedStatement statementDefault2 =
+                    Connection2.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                 statementDefault2.setInt(1, 88888);
-                //statement.setInt(1, new Integer(imageId));
+
                 ResultSet rsDefault2 = statementDefault2.executeQuery();
                 if (rsDefault2.next()) {
                     Blob blob = rsDefault2.getBlob("prt_img");
-                    BufferedInputStream in = new BufferedInputStream(blob.getBinaryStream());
+                    BufferedInputStream in =
+                        new BufferedInputStream(blob.getBinaryStream());
                     int b;
                     byte[] buffer = new byte[10240];
                     while ((b = in.read(buffer, 0, 10240)) != -1) {
@@ -140,7 +160,9 @@ public class imageservlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            System.out.println(accessDC.getDisplayRecord()+this.getClass()+".doGet :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
+            System.out.println(accessDC.getDisplayRecord() + this.getClass() +
+                               ".doGet :EXCEPTION OCCURED. Cause:" +
+                               e.getCause() + ":Message" + e.getMessage());
             e.printStackTrace();
         } finally {
             try {
@@ -152,7 +174,10 @@ public class imageservlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println(accessDC.getDisplayRecord()+this.getClass()+".doGet : :EXCEPTION OCCURED. Cause:" + e.getCause() + ":Message" + e.getMessage());
+                System.out.println(accessDC.getDisplayRecord() +
+                                   this.getClass() +
+                                   ".doGet : :EXCEPTION OCCURED. Cause:" +
+                                   e.getCause() + ":Message" + e.getMessage());
             }
         }
 
