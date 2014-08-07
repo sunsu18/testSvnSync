@@ -2,9 +2,13 @@ package com.sfr.engage.model.queries.uvo;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
+import com.sfr.util.AccessDataControl;
+
 import java.sql.SQLException;
 
 import java.util.ResourceBundle;
+
+import oracle.adf.share.logging.ADFLogger;
 
 import oracle.jbo.domain.Date;
 import oracle.jbo.domain.Number;
@@ -1129,6 +1133,8 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int QUATERLYTXREPORT = AttributesEnum.QuaterlyTxReport.index();
     public static final int QUATERLYFUELREPORT = AttributesEnum.QuaterlyFuelReport.index();
     public static final int LASTUSEDDATE = AttributesEnum.LastUsedDate.index();
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
     /**
      * This is the default constructor (do not remove).
@@ -1673,11 +1679,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
                      && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){   
                 oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
-                System.out.println("block date===============>" + date);
                 return date;
             }else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
                 oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
-                System.out.println("expiry date===============>" + date);
                 return date;
             }
         }
@@ -2664,7 +2668,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
                return result;
-//        return (String) getAttributeInternal(STATUS);
     }
 
     /**
@@ -2685,7 +2688,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                     result = getCardgroupMainType().toString().trim()+getCardgroupSubType().toString().trim()+getCardgroupSeq().toString().trim();
                 }
                 return result;
-//        return (String) getAttributeInternal(CARDGROUPID);
     }
 
     /**
@@ -2766,7 +2768,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
                 oracle.jbo.domain.Date date = new oracle.jbo.domain.Date(d);
                 return date;
             } catch (SQLException e) {
-                System.out.println("inside catch of last used date");
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside catch of last used date");
             }
         }
         return null;

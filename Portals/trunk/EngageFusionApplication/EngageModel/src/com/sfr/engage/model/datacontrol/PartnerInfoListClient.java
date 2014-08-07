@@ -47,7 +47,6 @@ public class PartnerInfoListClient {
                session = request.getSession(false);
                
                if(session!= null) {
-                    //System.out.println("partner list from session");
                    partnerlist = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
                    
                    for(int z=0; z < partnerlist.size();z++)

@@ -5,7 +5,6 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:h="http://java.sun.com/jsf/html"
          xmlns:c="http://java.sun.com/jsp/jstl/core">
-          <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
 <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
     <af:panelGroupLayout id="pgl2">
     <af:spacer width="10" height="20" id="s9ghghg"/>
@@ -132,10 +131,6 @@
           <af:panelGroupLayout id="pgl57" layout="vertical" valign="top"
                                inlineStyle="width:500px; height:206.0px;">
 
-              <!-- <af:panelGroupLayout id="pgl28" layout="vertical">
-                <af:panelGroupLayout id="pgl29" layout="horizontal">-->
-
-
                   <h:panelGrid columns="4" id="pg1" cellpadding="3"
                cellspacing="2" style="text-align:left; vertical-align:top;">
   <af:panelGroupLayout id="pgl70"
@@ -202,8 +197,6 @@
               <af:selectItem label="#{sfr.VEHICLE}" value="Vehicle"
                              id="si11"/>
               <af:selectItem label="#{sfr.DRIVER}" value="Driver" id="si12"/>
-              <!--<f:selectItems value="#{pageFlowScope.ledgerBean.searchItemCriteriaLOV}"
-                             id="si1"/>-->
             </af:selectOneRadio>
 
 
@@ -217,7 +210,6 @@
                                  visible="#{pageFlowScope.TransactionOverviewBean.cardIdPGL}"
                                  binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardNoPGL}">
             <h:panelGrid columns="4" id="pg3">
-            <!--<af:spacer width="10" height="10" id="spacer5"/>-->
                <af:panelGroupLayout id="pgl72"
                       inlineStyle="height:auto; text-align:justify; width:10.0px;overflow:hidden;"
                                                layout="vertical">
@@ -276,9 +268,6 @@
               <af:panelGroupLayout id="pgl45"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
-            <!--<af:selectOneChoice id="soc5">
-            <af:selectItem label="test" value="test" id="si9"/>
-            </af:selectOneChoice>-->
               <af:selectManyChoice id="smc4"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.cardGroup}"
                                    valuePassThru="true"
@@ -318,9 +307,6 @@
             <af:panelGroupLayout id="pgl48"
                      inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                                layout="vertical">
-            <!--<af:selectOneChoice id="soc5">
-            <af:selectItem label="test" value="test" id="si9"/>
-            </af:selectOneChoice>-->
               <af:selectManyChoice id="smc5"
                                    binding="#{pageFlowScope.TransactionOverviewBean.bindings.driverName}"
                                    valuePassThru="true"
@@ -402,7 +388,7 @@
                            layout="vertical"
                            binding="#{pageFlowScope.TransactionOverviewBean.bindings.showSearchResultPG}">
         <af:panelGroupLayout id="pgl15" layout="vertical">
-         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal"><!--#{pageFlowScope.TransactionOverviewBean.isTableVisible}-->
+         <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
           <af:spacer height="10" id="spacer18" width="0"/>
           <af:panelGroupLayout id="pgl73" inlineStyle="width:948.0px;"
                                layout="horizontal">
@@ -410,8 +396,6 @@
             <af:outputText value="#{sfr.ENGAGE_TRANSACTION_DETAILS} :" id="outputText8"
                            styleClass="heading heading_account " noWrap="true"/>
                           <af:spacer width="10" id="s74"/>  
-                          
-        <!--  <af:commandLink text="legend " id="cl2" styleClass="legend_icon" > -->
            <af:panelGroupLayout id="pgl35" styleClass="info_legend"
                              layout="horizontal">
             <af:showPopupBehavior triggerType="mouseOver"  popupId="p2"/>
@@ -425,8 +409,6 @@
           </af:panelGroupLayout>
           </af:noteWindow>
         </af:popup>
-   <!--       </af:commandLink> -->
-          <!--<af:spacer width="10" height="10" id="s53"/>-->
           <af:panelGroupLayout id="panelGroupLayout3" layout="horizontal"
                         halign="right">
           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}" id="cb4"
@@ -511,12 +493,10 @@
              <af:panelGroupLayout id="pgl77" layout="horizontal">
             <af:outputText value="#{row.TransactionDt}" id="ot33" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
             <af:convertDateTime pattern="dd.MM.yyyy"/>
-              <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionDt.format}"/>-->
             </af:outputText>
             <af:spacer width="4" height="1" id="s29"/>
             <af:outputText value="#{row.TransactionTime}" id="ot47" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}">
              <af:convertDateTime pattern="HH:mm:ss"/>
-             <!--<af:convertDateTime pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.TransactionTime.format}"/>-->
             </af:outputText>
             </af:panelGroupLayout>
              <f:facet name="footer">
@@ -553,8 +533,6 @@
                      id="c29">
             <af:panelGroupLayout id="pgl32" layout="horizontal">
             <af:outputText value="#{row.CardGroupDesc}" id="ot37" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
-             <!--<af:outputText value="#{row.CardgroupSubType}" id="ot48" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
-             <af:outputText value="#{row.CardgroupSeq}" id="ot58" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>-->
             </af:panelGroupLayout>
           </af:column>
            <af:column sortProperty="Card1Id" filterable="true" sortable="true" filterFeatures="caseInsensitive"
@@ -613,15 +591,6 @@
               <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
             </af:outputText>
           </af:column>
-        <!--<af:column sortProperty="CurrencyDiscountAmount" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.FOREGIN_DISCOUNTED_PRICE}"
-                     id="c27">
-            <af:outputText value="#{row.CurrencyDiscountAmount}" id="ot81" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyDiscountAmount.format}"/>
-            </af:outputText>
-          </af:column>-->
            <af:column sortProperty="CurrencyGrossAmount" filterable="true"
                      sortable="true" align="right" visible="#{!pageFlowScope.TransactionOverviewBean.reportDefault}"
                      headerText="#{sfr.FOREGIN_GROSS_AMOUNT}"
@@ -653,33 +622,10 @@
             </af:outputText>
           </af:column>
 
-         <!--<af:column sortProperty="CurrencyVat" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.FOREGIN_VAT}"
-                     id="c12">
-            <af:outputText value="#{row.CurrencyVat}" id="ot82" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyVat.format}"/>
-            </af:outputText>
-          </af:column>
-          <af:column sortProperty="CurrencyNetAmount" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.FOREGIN_NET}"
-                     id="c2">
-            <af:outputText value="#{row.CurrencyNetAmount}" id="ot77" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.CurrencyNetAmount.format}"/>
-            </af:outputText>
-          </af:column>-->
-
            <af:column sortProperty="InvoicedGrossAmountRebated" filterable="true"
                      sortable="true" align="right"
                      headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}"
                      id="c6">
-            <!--<af:outputText value="#{row.InvoicedGrossAmount}" id="ot30" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedGrossAmount.format}"/>
-            </af:outputText>-->
              <af:panelGroupLayout id="pgl20">
               <af:commandLink shortDesc="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedGrossAmountRebated.tooltip}"
                               id="it3"
@@ -749,34 +695,6 @@
             </af:panelGroupLayout>
             </f:facet>
           </af:column>
-
-          <!--  <af:column sortProperty="InvoiceDiscountAmount" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.INVOICED_DISCOUNT}"
-                     id="c8">
-            <af:outputText value="#{row.InvoiceDiscountAmount}" id="ot60" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoiceDiscountAmount.format}"/>
-            </af:outputText>
-          </af:column>
-            <af:column sortProperty="InvoicedVat" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.INVOICED_VAT}"
-                     id="c9">
-            <af:outputText value="#{row.InvoicedVat}" id="ot75" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedVat.format}"/>
-            </af:outputText>
-          </af:column>
-          <af:column sortProperty="InvoicedNetAmount" filterable="true"
-                     sortable="false"
-                     headerText="#{sfr.INVOICED_NET}"
-                     id="c24">
-            <af:outputText value="#{row.InvoicedNetAmount}" id="ot40" styleClass="#{(row.TransactionType)=='PRE' ? 'transaction_italic' : 'transaction_regular'}">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.InvoicedNetAmount.format}"/>
-            </af:outputText>
-          </af:column>-->
            <af:column sortProperty="InvoiceNo" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" width="108" align="left"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
@@ -817,13 +735,11 @@
                      sortable="true" align="left" headerNoWrap="true"
                      headerText="#{sfr.ODOMETER}"
                      id="c19">
-            <!--<af:outputText value="#{row.OdometerPortal}" id="ot76"/>-->
              <h:panelGrid id="pg4" columns="3">
           <af:outputText value="#{row.Odometer}" id="ot76" visible="#{row.OdometerPortal eq null ? true : false}" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           <af:commandLink text="#{row.OdometerPortal}" visible="#{row.OdometerPortal ne null ? true : false}"
                           id="cl1" styleClass="links_odometer af_goLink "
                           actionListener="#{pageFlowScope.TransactionOverviewBean.odometerLink_Action}">
-                          <!--<af:showPopupBehavior triggerType="click" popupId="::p1"/>-->
                           </af:commandLink>
           <af:commandImageLink id="cil1"
                             action="#{pageFlowScope.TransactionOverviewBean.odometerEditAction}"
@@ -848,14 +764,6 @@
           </af:commandImageLink>
             </h:panelGrid>
           </af:column>
-         <!-- <af:column sortProperty="VatRate" filterable="true" sortable="false"
-                     headerText="#{bindings.PrtCardTransactionOverviewRVO13.hints.VatRate.label}"
-                     id="c4">
-            <af:outputText value="#{row.VatRate}" id="ot35">
-              <af:convertNumber groupingUsed="false"
-                                pattern="#{bindings.PrtCardTransactionOverviewRVO13.hints.VatRate.format}"/>
-            </af:outputText>
-          </af:column>-->
           <af:column sortProperty="kmTotal" filterable="true" sortable="true"  width="60" visible="#{pageFlowScope.TransactionOverviewBean.VNumberPGL or pageFlowScope.TransactionOverviewBean.reportRawData}"
                      headerText="#{sfr.ENGAGE_KM_TOTAL}" align="right" headerNoWrap="true"
                      id="c26">
@@ -882,13 +790,6 @@
         </af:table>
       </af:panelGroupLayout>
       <af:spacer width="10" height="10" id="s9"/>
-        <!--<af:commandButton text="ExportToExcel" id="cb1">
-         <af:fileDownloadActionListener contentType="application/vnd.ms-excel"
-                                         filename="Transaction_Report.xls"
-                                        method="#{pageFlowScope.TransactionOverviewBean.exportToExcelListener}"/>
-        </af:commandButton>
-         <af:spacer width="10" height="10" id="spac8"/>-->
-
       </af:panelGroupLayout>
        <af:popup id="pp1" contentDelivery="immediate"
               autoCancel="disabled">
@@ -906,14 +807,7 @@
 <af:outputText value="#{sfr.ENGAGE_PRICES_IN_CURRENCY} : #{bindings.PurchaseCurrency.inputValue}" styleClass="subheading"
                                    id="plam3"/>
 
-       <!--<af:panelGroupLayout id="pgl14" layout="horizontal" inlineStyle="width:50px;">
-                <af:spacer width="2" height="1" id="s19"/>
-                <af:separator id="s29"/>
-              </af:panelGroupLayout>-->
-                  <!--<af:spacer width="10" height="5" id="spacer8"/>-->
-
                 </af:panelGroupLayout>
-                  <!--<af:spacer width="10" height="5" id="spacer9"/>-->
  <af:panelGroupLayout id="er" layout="vertical">
  <af:separator id="jhj" inlineStyle="width:250px; height:1px; background-color:Scrollbar;"/>
  <af:panelGroupLayout id="pgl16" styleClass="infoPanel" layout="horizontal"
@@ -983,13 +877,7 @@
                                   <af:convertNumber locale="#{pageFlowScope.TransactionOverviewBean.locale}"/>
                                    </af:outputText>
 
-                  <!--<af:panelGroupLayout id="pgl15" layout="horizontal" inlineStyle="width:50px;">
-                <af:spacer width="2" height="1" id="s32"/>
-                <af:separator id="s31" />
-              </af:panelGroupLayout>-->
-                  <!--<af:spacer width="10" height="5" id="spacer10"/>-->
                    </af:panelGroupLayout>
-                    <!--<af:spacer width="10" height="5" id="spacedfdfr9"/>-->
         <af:panelGroupLayout id="bvb" layout="horizontal">
                    <af:spacer width="15" height="5" id="jgawu"/>
  <af:separator id="uyuy"
@@ -1188,16 +1076,6 @@
                                     action="#{pageFlowScope.TransactionOverviewBean.editDriverCancel}"
                                     immediate="true" styleClass="buttonback buttontext">
                   </af:commandButton>
-                  <!--<af:commandButton text="#{sfr.SAVE}" id="editsave"
-                                  actionListener="#{bindings.Commit.execute}"
-                                  action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
-                                  partialSubmit="true" styleClass="buttonback buttontext"/>-->
-
-                <!--<af:commandButton text="#{sfr.CANCEL}" id="cb8"
-                                  actionListener="#{bindings.Rollback.execute}"
-                                  immediate="true"
-                                  action="#{pageFlowScope.DriverInfoBean.editDriverCancel}" styleClass="buttonback buttontext">
-                </af:commandButton>-->
                 </af:panelGroupLayout>
                 </af:panelGroupLayout>
            </af:toolbar>

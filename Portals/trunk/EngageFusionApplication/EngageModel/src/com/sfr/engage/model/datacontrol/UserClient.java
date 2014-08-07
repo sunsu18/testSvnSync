@@ -5,19 +5,18 @@ import com.sfr.core.bean.BaseBean;
 import com.sfr.core.bean.User;
 import com.sfr.services.core.bo.UserBO;
 import com.sfr.util.AccessDataControl;
-
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.naming.NamingException;
-
 import javax.xml.datatype.DatatypeConfigurationException;
+import oracle.adf.share.logging.ADFLogger;
 
 
 public class UserClient {
     UserBO userBO;
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
     public UserClient() {
         userBO = new UserBO();
@@ -25,7 +24,7 @@ public class UserClient {
 
     public BaseBean changePassword(String userID, String oldPassword,
                                    String newPassword) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".changePassword : "+"In change password of client");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".changePassword : "+"In change password of client");
         if (userID != null && oldPassword != null && newPassword != null) {
             return userBO.changePassword(userID, oldPassword, newPassword);
         } else {
@@ -36,11 +35,9 @@ public class UserClient {
     public BaseBean createUser(User user) throws DatatypeConfigurationException, SQLException, NamingException {
         BaseBean baseBean = new BaseBean();
         if (user != null) {
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".createUser : "+"------FIRST NAME ----------" +
-                               user.getFirstName());
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".createUser : "+"------FIRST NAME ----------" + user.getFirstName());
             baseBean = userBO.createUser(user);
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".createUser : "+"-----------BASE BEAN-------" +
-                               baseBean.getStatus());
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".createUser : "+"-----------BASE BEAN-------" + baseBean.getStatus());
             return baseBean;
         } else {
             return null;
@@ -48,9 +45,9 @@ public class UserClient {
     }
 
     public BaseBean deleteUser(String userID, String customerId,Boolean isUserDeleteForced) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".deleteUser : "+"inside deleteUser");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".deleteUser : "+"inside deleteUser");
         if (userID != null && customerId != null) {
-        System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".deleteUser : "+"USER ID "+userID+"\nCUSTOMER ID "+customerId+"\nFLAG --"+isUserDeleteForced);
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".deleteUser : "+"USER ID "+userID+"\nCUSTOMER ID "+customerId+"\nFLAG --"+isUserDeleteForced);
             return userBO.deleteUser(userID);
         } else {
             return null;
@@ -67,7 +64,7 @@ public class UserClient {
 
     public List<User> searchUser(String customerId) throws NumberFormatException {
         if (customerId != null) {
-           System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".searchUser : "+"CUSTOMER ID in user client "+customerId);
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".searchUser : "+"CUSTOMER ID in user client "+customerId);
             return userBO.searchUser(customerId);
         } else {
             return null;

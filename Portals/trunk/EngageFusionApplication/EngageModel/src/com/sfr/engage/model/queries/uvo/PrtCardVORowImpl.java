@@ -1363,14 +1363,11 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         java.util.Date utilDate;
         if("0".equalsIgnoreCase(getBlockAction().toString().trim()) ||  "1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().before(new java.util.Date()))
         {
-            //System.out.println("card expiry should br visible " + getCardEmbossNum());
             utilDate = new java.util.Date();
             utilDate = (Date) getAttributeInternal(CARDEXPIRY);
             sq =  new java.sql.Timestamp(utilDate.getTime());
         return sq;
         }
-        //System.out.println("card expiry not visble for " + getCardEmbossNum());
-        
         return (Timestamp) getAttributeInternal(BLOCKTIME);
     }
 
@@ -1607,8 +1604,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
             }
         }
         return result;
-
-        //return (String) getAttributeInternal(STATUS);
     }
 
     /**
@@ -1625,12 +1620,9 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public Date getExpirydate() {
         
-        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
-        {
-            //System.out.println("card expiry should br visible " + getCardEmbossNum());
-        return (Date) getAttributeInternal(CARDEXPIRY);
+        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date())){
+            return (Date) getAttributeInternal(CARDEXPIRY);
         }
-        //System.out.println("card expiry not visble for " + getCardEmbossNum());
         return null;
     }
 

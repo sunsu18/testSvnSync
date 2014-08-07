@@ -1523,7 +1523,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public Float getkmTotal() {
         Float val;
-                       //Number actualValue;
+                       
                        Float temp1;
                        Float temp2;
                        if(getOdometerPortal() != null) {
@@ -1546,7 +1546,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                                }
                        }
                                return val;
-        //return (Float) getAttributeInternal(KMTOTAL);
+        
     }
 
     /**
@@ -1575,7 +1575,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }        
         return avgKMperLTR;
-        //return (Float) getAttributeInternal(KMPERLT);
+        
     }
 
     /**
@@ -1600,7 +1600,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             val = 0.0f;
         }
         return val;
-        //return (Float) getAttributeInternal(LTPERHUNDRED);
+        
     }
 
     /**
@@ -1658,7 +1658,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         return cardGroupDesc;
-        //return (String) getAttributeInternal(CARDGROUPDESC);
+        
     }
 
     /**
@@ -1687,7 +1687,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
                val=formatConversion(f,locale);
             }
         }
-        //return (String) getAttributeInternal(TOTALAMOUNT);
+        
         return val;
     }
 
@@ -1713,7 +1713,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         return result;
-        //return (String) getAttributeInternal(INVOICENO);
+        
     }
 
     /**
@@ -1759,7 +1759,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
             }
         }
         return cardTextLine;
-        //return (String) getAttributeInternal(CARDTEXTLINE2);
+        
     }
 
     /**

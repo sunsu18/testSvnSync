@@ -49,6 +49,9 @@ import oracle.jbo.domain.Date;
 
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
+import com.sfr.util.AccessDataControl;
+
+import oracle.adf.share.logging.ADFLogger;
 
 
 // ---------------------------------------------------------------------
@@ -58,6 +61,8 @@ import oracle.jbo.server.ViewObjectImpl;
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
 public class EngageAppModuleImpl extends ApplicationModuleImpl implements EngageAppModule {
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
     private Date sysDate;
     /**
      * This is the default constructor (do not remove).
@@ -154,8 +159,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
          * This method is used to delete Driver/Truck details for the Account.
          */
             public void deleteAllForAccount(String accountId, String type, String countryCd, String regDriverValue ){
-            System.out.println("Account Number in Application module===>"+accountId);
-            
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Account Number in Application module" + accountId);
+
             Connection con=null;
             PreparedStatement pStmt = null;
             String statement = null;
@@ -164,19 +169,19 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                         con = stmt.getConnection();
                         if(type.equals("driver")){
                             if(regDriverValue!= null){
-                            System.out.println("Inside this block of driver in application moule");
-                            statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
+                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
+                                statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"' and DRIVER_NAME ='"+regDriverValue+"'";
                             }else{
-                                System.out.println("Inside else block of driver in application moule");
-                            statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
+                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of driver in application moule");
+                                statement = "DELETE PRT_DRIVER_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and COUNTRY_CODE ='"+countryCd+"'";
                             }
                         }else{
                             if(regDriverValue!= null){
-                            System.out.println("Inside this block of vehicle in application moule");
-                            statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
+                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
+                                statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"' and REGISTRATION_NUMBER ='"+regDriverValue+"'";
                             }else{
-                                System.out.println("Inside else block of vehilce in application moule");
-                            statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
+                                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of vehilce in application moule");
+                                statement = "DELETE PRT_TRUCK_INFORMATION where ACCOUNT_NUMBER = '"+accountId+"'";
                             }
                         }
     
@@ -195,7 +200,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
             }
 
         public void updateVehicleDriver(String cardNumber, String type, String countryCd, String vehicleDriverValue,String associatedAccount,String modifiedBy ) {
-            System.out.println("inside update vehicle driver method in AM");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside update vehicle driver method in AM");
             Connection con=null;
             PreparedStatement pStmt = null;
             String statement = null;
@@ -215,20 +220,17 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                 }
                 if(type.equals("Driver")){
                     if(vehicleDriverValue!= null){
-                    System.out.println("Inside this block of driver in application moule");
+                        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of driver in application moule");
                         statement = "UPDATE PRT_DRIVER_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and DRIVER_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
-                    
                     }
                  
                 }else if(type.equals("Vehicle")){
                         if(vehicleDriverValue!= null ){
-                    System.out.println("Inside this block of vehicle in application moule");
-                        statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
-                        
+                            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of vehicle in application moule");
+                            statement = "UPDATE PRT_TRUCK_INFORMATION SET CARD_NUMBER = '"+cardNumber+"', MODIFIED_BY = '"+modifiedBy+"',MODIFIED_DATE = '"+modifiedDate+"' where COUNTRY_CODE ='"+countryCd+"' and VEHICLE_NUMBER ='"+vehicleDriverValue+"' and ACCOUNT_NUMBER ='"+associatedAccount+"'";
                         }
                     }
                 
-        
                 pStmt = con.prepareStatement(statement);
                 pStmt.executeUpdate();
                 con.commit();
@@ -244,7 +246,8 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
 
         public void updatePreviousOdometer(String cardNumber, String accountId, String countryCd, String partnerId, String transactionId, String previousOdometer ) {
-            System.out.println("inside update previous odometer");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
+                         "Inside update previous odometer");
             Connection con=null;
             PreparedStatement pStmt = null;
             String statement = null;
@@ -254,7 +257,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
                 con = stmt.getConnection();
                 
                 if(cardNumber != null && accountId != null && countryCd != null && partnerId != null && transactionId != null){
-                System.out.println("Inside this block of update previous odometer in application moule");
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside this block of update previous odometer in application moule");
                 statement = "UPDATE PRT_CARD_TRANSACTION_HEADER SET PREVIOUS_ODOMETER = '"+previousOdometer+"' where PALS_COUNTRY_CODE ='"+countryCd+"' and KSID ='"+cardNumber+"' and ACCOUNT_ID ='"+accountId+"' and PARTNER_ID ='"+partnerId+"' and UREF_TRANSACTION_ID ='"+transactionId+"'";
                 }
                 pStmt = con.prepareStatement(statement);
@@ -273,8 +276,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
 
         public void updateOdometerPortal(String urefTransactionId, String palsCountryCode, String odoMeterPortalValue, String modifiedBy){
-        System.out.println("Inside UpdateOdometerPortal mehthod in application module" );
-        
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside UpdateOdometerPortal mehthod in application module");
         try {
             ViewObject rvo = getPrtCardTransactionHeaderVO1();
             ViewCriteria vc = rvo.createViewCriteria();
@@ -317,7 +319,7 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         vc.add(vcr);
         vo.applyViewCriteria(vc);
         vo.executeQuery();
-        System.out.println("getGeneralErrorMessage Row Count:" + vo.getRowCount());
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "getGeneralErrorMessage Row Count: " + vo.getRowCount());
         while (vo.hasNext()) {
             Row tran = vo.next();
             translatedValue = (String)tran.getAttribute("KeyValue");
@@ -337,12 +339,12 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         vo.applyViewCriteria(vc);
         vo.executeQuery();
         if(vo!=null && vo.getRowCount()!=1){
-            System.out.println(AccessDataControl.getDisplayRecord()+this.getClass()+".getTranslation : vo=<" + vo.getRowCount()+"> key=<" +translationkey+"> and lang=<"+ccCode+">"+"vo.hasNext<"+vo.hasNext()+">");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + ".getTranslation : vo=<" + vo.getRowCount()+"> key=<" +translationkey+"> and lang=<"+ccCode+">"+"vo.hasNext<"+vo.hasNext()+">");
         }
         while (vo.hasNext()) {
             Row tran = vo.next();
             if(tran.getAttribute("KeyValue") != null)
-            translatedValue = (String)tran.getAttribute("KeyValue");//rvo.clearViewCriterias();
+            translatedValue = (String)tran.getAttribute("KeyValue");
             break;
         }
         return translatedValue;

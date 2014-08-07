@@ -440,23 +440,6 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
         setAttributeInternal(CARD, value);
     }
 
-
-//    /**
-//     * Gets the attribute value for the calculated attribute CardTextLine2_1.
-//     * @return the CardTextLine2_1
-//     */
-//    public String getCardTextLine2() {
-//        return (String) getAttributeInternal(CARDTEXTLINE2_1);
-//    }
-//
-//    /**
-//     * Sets <code>value</code> as the attribute value for the calculated attribute CardTextLine2_1.
-//     * @param value value to set the  CardTextLine2_1
-//     */
-//    public void setCardTextLine2_1(String value) {
-//        setAttributeInternal(CARDTEXTLINE2_1, value);
-//    }
-
     /**
      * Gets the attribute value for the calculated attribute CardTextLine2.
      * @return the CardTextLine2
@@ -494,7 +477,6 @@ public class PrtHomeTransactionsRVORowImpl extends ViewRowImpl {
             }
         }
         return cardTextLine;
-    //        return (String) getAttributeInternal(CARDTEXTLINE2);
     }
 
     /**
