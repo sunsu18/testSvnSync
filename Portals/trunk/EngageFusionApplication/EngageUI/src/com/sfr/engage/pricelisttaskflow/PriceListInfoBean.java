@@ -79,10 +79,11 @@ public class PriceListInfoBean {
         vo.setNamedWhereClauseParam("currencycode", currency_code);
         vo.setNamedWhereClauseParam("pricinguom", "LT");
         vo.executeQuery();
-        if (vo.getEstimatedRowCount() != 0)
+        if (vo.getEstimatedRowCount() != 0){
             log.info(accessDC.getDisplayRecord() + this.getClass() +
                      "Number of items fetched from database table for price list is " +
                      vo.getEstimatedRowCount());
+        }
 
 
         log.fine(accessDC.getDisplayRecord() + this.getClass() +

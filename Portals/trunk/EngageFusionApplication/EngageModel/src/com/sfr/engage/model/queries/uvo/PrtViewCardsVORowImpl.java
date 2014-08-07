@@ -2725,8 +2725,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public String getQuaterlyTxReport() {
         String result = "";
-        if(getQuaterlyTxReportTxThreeMonths3()!=null)
+        if(getQuaterlyTxReportTxThreeMonths3()!=null){
             result = getQuaterlyTxReportTxThreeMonths3().toString().trim();
+        }
         return result;
     }
 
@@ -2744,8 +2745,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public String getQuaterlyFuelReport() {
         String result = "";
-        if(getQuaterlyFuelReportFuelThreeMonths3()!=null)
+        if(getQuaterlyFuelReportFuelThreeMonths3()!=null){
             result = getQuaterlyFuelReportFuelThreeMonths3().toString().trim();
+        }
         return result;
     }
 

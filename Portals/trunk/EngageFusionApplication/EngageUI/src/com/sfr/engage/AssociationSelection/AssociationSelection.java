@@ -70,8 +70,9 @@ public class AssociationSelection {
 
             if (searchText.getValue().toString().length() == 8) {
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Appending lang");
-                if (session != null)
+                if (session != null) {
                     finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString());
+                }
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "finaluserid " + finaluserid);
                 operationBinding.getParamsMap().put("customerId", finaluserid);
                 userlist = (List<User>)operationBinding.execute();

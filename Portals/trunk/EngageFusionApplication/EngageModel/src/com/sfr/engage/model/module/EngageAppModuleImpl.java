@@ -330,8 +330,9 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
         }
         while (vo.hasNext()) {
             Row tran = vo.next();
-            if(tran.getAttribute("KeyValue") != null)
-            translatedValue = (String)tran.getAttribute("KeyValue");
+            if(tran.getAttribute("KeyValue") != null){
+                translatedValue = (String)tran.getAttribute("KeyValue");
+            }
             break;
         }
         return translatedValue;

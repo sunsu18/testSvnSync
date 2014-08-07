@@ -61,21 +61,16 @@ public class ChangePasswordBean implements Serializable {
         userBean = new User();
         resourceBundle = new EngageResourceBundle();
         if (session != null) {
-            if (null != session.getAttribute(Constants.SESSION_USER_INFO))
-                userBean =
-                        (User)session.getAttribute(Constants.SESSION_USER_INFO);
-            _logger.info(AccessDataControl.getDisplayRecord() +
-                         this.getClass() + ".ChangePassword : " +
-                         "Inside change password constructor :" +
+            if (null != session.getAttribute(Constants.SESSION_USER_INFO)) {
+                userBean = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            }
+            _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Inside change password constructor :" +
                          userBean.getRolelist());
 
             lang = (String)session.getAttribute("lang");
-            _logger.info(AccessDataControl.getDisplayRecord() +
-                         this.getClass() + ".ChangePassword : " +
-                         "Language :" + lang);
+            _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Language :" + lang);
         }
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     "Language :" + lang);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Language :" + lang);
 
     }
 
@@ -83,39 +78,24 @@ public class ChangePasswordBean implements Serializable {
         try {
             BaseBean result = new BaseBean();
             boolean status = true;
-            if (getBindings().getOldPasswordIT().getValue() == null ||
-                getBindings().getOldPasswordIT().getValue().toString().length() <
-                0) {
+            if (getBindings().getOldPasswordIT().getValue() == null || getBindings().getOldPasswordIT().getValue().toString().length() < 0) {
                 status = false;
                 if (resourceBundle.containsKey("ENGAGE_NO_OLD_PASSWORD")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("ENGAGE_NO_OLD_PASSWORD"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_NO_OLD_PASSWORD"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
-            if (getBindings().getNewPasswordIT().getValue() == null ||
-                getBindings().getNewPasswordIT().getValue().toString().length() <
-                0) {
+            if (getBindings().getNewPasswordIT().getValue() == null || getBindings().getNewPasswordIT().getValue().toString().length() < 0) {
                 status = false;
                 if (resourceBundle.containsKey("ENGAGE_NO_NEW_PASSWORD")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("ENGAGE_NO_NEW_PASSWORD"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_NO_NEW_PASSWORD"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
-            if (getBindings().getConfirmPasswordIT().getValue() == null ||
-                getBindings().getConfirmPasswordIT().getValue().toString().length() <
-                0) {
+            if (getBindings().getConfirmPasswordIT().getValue() == null || getBindings().getConfirmPasswordIT().getValue().toString().length() < 0) {
                 status = false;
                 if (resourceBundle.containsKey("ENGAGE_NO_CONFIRM_PASSWORD")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("ENGAGE_NO_CONFIRM_PASSWORD"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_NO_CONFIRM_PASSWORD"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             }
@@ -123,79 +103,53 @@ public class ChangePasswordBean implements Serializable {
 
                 if (getBindings().getNewPasswordIT().getValue().equals(getBindings().getConfirmPasswordIT().getValue())) {
 
-                    BindingContainer bindings =
-                        BindingContext.getCurrent().getCurrentBindingsEntry();
-                    OperationBinding operationBinding =
-                        bindings.getOperationBinding("changePassword");
-                    _logger.info(AccessDataControl.getDisplayRecord() +
-                                 this.getClass() + ".ChangePassword : " +
-                                 "Email Id :" + userBean.getEmailID());
-                    operationBinding.getParamsMap().put("userID",
-                                                        userBean.getEmailID());
-                    operationBinding.getParamsMap().put("oldPassword",
-                                                        getBindings().getOldPasswordIT().getValue().toString());
-                    operationBinding.getParamsMap().put("newPassword",
-                                                        getBindings().getNewPasswordIT().getValue().toString());
+                    BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+                    OperationBinding operationBinding = bindings.getOperationBinding("changePassword");
+                    _logger.info(AccessDataControl.getDisplayRecord() + this.getClass() + ".ChangePassword : " + "Email Id :" + userBean.getEmailID());
+                    operationBinding.getParamsMap().put("userID", userBean.getEmailID());
+                    operationBinding.getParamsMap().put("oldPassword", getBindings().getOldPasswordIT().getValue().toString());
+                    operationBinding.getParamsMap().put("newPassword", getBindings().getNewPasswordIT().getValue().toString());
                     result = (BaseBean)operationBinding.execute();
 
-                    if (result.getStatus() != null &&
-                        result.getStatus().equalsIgnoreCase("error")) {
+                    if (result.getStatus() != null && result.getStatus().equalsIgnoreCase("error")) {
                         String error = null;
 
-                        if (result.getErrorList() != null &&
-                            result.getErrorList().size() != 0 &&
-                            result.getErrorList().get(0) != null &&
-                            result.getErrorList().get(0).getErrorCode() !=
-                            null) {
+                        if (result.getErrorList() != null && result.getErrorList().size() != 0 && result.getErrorList().get(0) != null &&
+                            result.getErrorList().get(0).getErrorCode() != null) {
 
-                            error =
-                                    result.getErrorList().get(0).getErrorCode();
+                            error = result.getErrorList().get(0).getErrorCode();
                             error = getWSDLErrorMessage(error);
 
                         } else {
                             error = "ENGAGE_UNKNOWN_ERROR";
                             error = getWSDLErrorMessage(error);
                         }
-                        FacesMessage msg =
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                             error, "");
-                        FacesContext.getCurrentInstance().addMessage(null,
-                                                                     msg);
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, error, "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
 
                     } else {
                         if (resourceBundle.containsKey("ENGAGE_PASSWORD_CHANGED_SUCCESS")) {
                             FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                                 (String)resourceBundle.getObject("ENGAGE_PASSWORD_CHANGED_SUCCESS"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null,
-                                                                         msg);
+                                new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("ENGAGE_PASSWORD_CHANGED_SUCCESS"), "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
 
                     }
 
                 } else {
                     if (resourceBundle.containsKey("ENGAGE_NO_SAME_PASSWORD")) {
-                        FacesMessage msg =
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                             (String)resourceBundle.getObject("ENGAGE_NO_SAME_PASSWORD"),
-                                             "");
-                        FacesContext.getCurrentInstance().addMessage(null,
-                                                                     msg);
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("ENGAGE_NO_SAME_PASSWORD"), "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
                     }
                 }
 
             }
 
         } catch (JboException jboEx) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, jboEx.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, jboEx.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return null;
@@ -204,10 +158,8 @@ public class ChangePasswordBean implements Serializable {
 
     private String getWSDLErrorMessage(String error) {
 
-        BindingContainer bindings =
-            BindingContext.getCurrent().getCurrentBindingsEntry();
-        OperationBinding operationBinding =
-            bindings.getOperationBinding("getWebServiceErrorMessage");
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("getWebServiceErrorMessage");
         operationBinding.getParamsMap().put("errorMessage", error);
         operationBinding.getParamsMap().put("countryCode", lang);
         String result = (String)operationBinding.execute();

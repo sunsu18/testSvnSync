@@ -115,8 +115,7 @@ public class VehicleInfoBean implements Serializable {
 
     public VehicleInfoBean() {
         super();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside Constructor of Vehicle Info");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Constructor of Vehicle Info");
         resourceBundle = new EngageResourceBundle();
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
@@ -131,42 +130,27 @@ public class VehicleInfoBean implements Serializable {
         linkedAccountLOVValues = new ArrayList<String>();
 
         if (session.getAttribute("Partner_Object_List") != null) {
-            partnerInfoList =
-                    (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
+            partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
         }
 
         if (partnerInfoList != null && partnerInfoList.size() > 0) {
             for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                countryParam =
-                        partnerInfoList.get(0).getCountry().toString().trim();
+                countryParam = partnerInfoList.get(0).getCountry().toString().trim();
                 SelectItem selectItemPartner = new SelectItem();
-                if (partnerInfoList.get(pa).getPartnerName() != null &&
-                    partnerInfoList.get(pa).getPartnerValue() != null) {
+                if (partnerInfoList.get(pa).getPartnerName() != null && partnerInfoList.get(pa).getPartnerValue() != null) {
                     selectItemPartner.setLabel(partnerInfoList.get(pa).getPartnerName().toString().trim());
                     selectItemPartner.setValue(partnerInfoList.get(pa).getPartnerValue().toString().trim());
                     linkedPartnerList.add(selectItemPartner);
                 }
-                if (partnerInfoList.get(pa).getAccountList() != null &&
-                    partnerInfoList.get(pa).getAccountList().size() > 0) {
-                    for (int ac = 0;
-                         ac < partnerInfoList.get(pa).getAccountList().size();
-                         ac++) {
-                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() !=
-                            null &&
-                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() >
-                            0) {
-                            for (int cg = 0;
-                                 cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size();
-                                 cg++) {
-                                if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() !=
-                                    null &&
-                                    partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() >
-                                    0) {
-                                    for (int cc = 0;
-                                         cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();
-                                         cc++) {
-                                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() !=
-                                            null &&
+                if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                    for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null &&
+                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0) {
+                            for (int cg = 0; cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++) {
+                                if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null &&
+                                    partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() > 0) {
+                                    for (int cc = 0; cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size(); cc++) {
+                                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
                                             partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
                                             null) {
                                             linkedCardValues.add(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString().trim());
@@ -181,20 +165,13 @@ public class VehicleInfoBean implements Serializable {
                     }
                 }
             }
-            if (partnerInfoList.size() == 1 &&
-                partnerInfoList.get(0).getPartnerValue() != null) {
-                linkedPartnerLOVValues =
-                        partnerInfoList.get(0).getPartnerValue().toString().trim();
+            if (partnerInfoList.size() == 1 && partnerInfoList.get(0).getPartnerValue() != null) {
+                linkedPartnerLOVValues = partnerInfoList.get(0).getPartnerValue().toString().trim();
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    if (partnerInfoList.get(pa).getAccountList() != null &&
-                        partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() !=
-                                null) {
-                                SelectItem selectItemAccount =
-                                    new SelectItem();
+                    if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null) {
+                                SelectItem selectItemAccount = new SelectItem();
                                 selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                                 selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                                 linkedAccountList.add(selectItemAccount);
@@ -206,8 +183,7 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting from Constructor of Vehicle Info");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting from Constructor of Vehicle Info");
     }
 
     public List<SelectItem> getLinkedAccountList() {
@@ -251,44 +227,31 @@ public class VehicleInfoBean implements Serializable {
     public String searchResults(boolean value) {
 
         try {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside Search methof of Vehicle Info");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Search methof of Vehicle Info");
             if (value == true) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside Search methof of Vehicle Info for boolean true");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Search methof of Vehicle Info for boolean true");
                 if (getBindings().getLinkedPartner().getValue() != null) {
                     if (getBindings().getLinkedAccount().getValue() != null) {
                         searchResultsExecution();
                     } else {
                         if (resourceBundle.containsKey("VEHICLE_LINKED_ACCOUNT")) {
-                            FacesMessage msg =
-                                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                 (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"),
-                                                 "");
-                            FacesContext.getCurrentInstance().addMessage(null,
-                                                                         msg);
+                            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_LINKED_ACCOUNT"), "");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
                             return null;
                         }
                     }
                 } else {
                     if (resourceBundle.containsKey("LINKED_PARTNER")) {
-                        FacesMessage msg =
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                             (String)resourceBundle.getObject("LINKED_PARTNER"),
-                                             "");
-                        FacesContext.getCurrentInstance().addMessage(null,
-                                                                     msg);
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("LINKED_PARTNER"), "");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
                         return null;
                     }
                 }
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside Search method of Vehicle Info for boolean fasle Add/Edit");
-                if (getBindings().getLinkedPartner().getValue() == null &&
-                    getBindings().getLinkedAccount().getValue() == null &&
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Search method of Vehicle Info for boolean fasle Add/Edit");
+                if (getBindings().getLinkedPartner().getValue() == null && getBindings().getLinkedAccount().getValue() == null &&
                     addAccountNumberVal != null && addPartnerIdVal != null) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                  " Inside Search method of Vehicle Info for Account and Partner values not selected(null)");
                     if (linkedAccountLOVValues == null) {
                         linkedAccountLOVValues = new ArrayList<String>();
@@ -303,22 +266,17 @@ public class VehicleInfoBean implements Serializable {
                     this.linkedPartnerLOVValues = addPartnerIdVal;
                     linkedAccountLOVValues.add(addAccountNumberVal);
                 } else {
-                    if (getBindings().getLinkedPartner().getValue() != null &&
-                        getBindings().getLinkedAccount().getValue() != null) {
-                        _logger.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
+                    if (getBindings().getLinkedPartner().getValue() != null && getBindings().getLinkedAccount().getValue() != null) {
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                      " Inside Search method of Vehicle Info for Account and Partner values not null");
-                        String searchValues =
-                            getBindings().getLinkedAccount().getValue().toString().trim();
+                        String searchValues = getBindings().getLinkedAccount().getValue().toString().trim();
                         String[] search = StringConversion(searchValues);
-                        if (addAccountNumberVal != null &&
-                            addPartnerIdVal != null) {
+                        if (addAccountNumberVal != null && addPartnerIdVal != null) {
                             if (addPartnerIdVal.equals(getBindings().getLinkedPartner().getValue().toString().trim())) {
                                 int count = 0;
                                 for (int i = 0; i < search.length; i++) {
                                     if ((addAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
-                                        _logger.info(accessDC.getDisplayRecord() +
-                                                     this.getClass() +
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                      " Inside Search method of Vehicle Info for Add Account check.");
                                         count = 1;
                                     }
@@ -327,16 +285,12 @@ public class VehicleInfoBean implements Serializable {
                                     linkedAccountLOVValues.add(addAccountNumberVal);
                                 }
                             } else {
-                                linkedAccountLOVValues =
-                                        new ArrayList<String>();
-                                linkedAccountList =
-                                        new ArrayList<SelectItem>();
+                                linkedAccountLOVValues = new ArrayList<String>();
+                                linkedAccountList = new ArrayList<SelectItem>();
                                 linkedPartnerLOVValues = null;
 
                                 if (linkedAddAccountList.size() > 0) {
-                                    for (int i = 0;
-                                         i < linkedAddAccountList.size();
-                                         i++) {
+                                    for (int i = 0; i < linkedAddAccountList.size(); i++) {
                                         linkedAccountList.add(linkedAddAccountList.get(i));
                                     }
                                 }
@@ -344,14 +298,12 @@ public class VehicleInfoBean implements Serializable {
                                 this.linkedPartnerLOVValues = addPartnerIdVal;
                             }
                         }
-                        if (editAccountNumberVal != null &&
-                            editPartnerIdVal != null) {
+                        if (editAccountNumberVal != null && editPartnerIdVal != null) {
                             if (editPartnerIdVal.equals(getBindings().getLinkedPartner().getValue().toString().trim())) {
                                 int count = 0;
                                 for (int i = 0; i < search.length; i++) {
                                     if ((editAccountNumberVal.equalsIgnoreCase(search[i].trim()))) {
-                                        _logger.info(accessDC.getDisplayRecord() +
-                                                     this.getClass() +
+                                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                                      " Inside Search method of Vehicle Info for Edit Account check.");
                                         count = 1;
                                     }
@@ -360,16 +312,12 @@ public class VehicleInfoBean implements Serializable {
                                     linkedAccountLOVValues.add(editAccountNumberVal);
                                 }
                             } else {
-                                linkedAccountLOVValues =
-                                        new ArrayList<String>();
-                                linkedAccountList =
-                                        new ArrayList<SelectItem>();
+                                linkedAccountLOVValues = new ArrayList<String>();
+                                linkedAccountList = new ArrayList<SelectItem>();
                                 linkedPartnerLOVValues = null;
 
                                 if (linkedEditAccountList.size() > 0) {
-                                    for (int i = 0;
-                                         i < linkedEditAccountList.size();
-                                         i++) {
+                                    for (int i = 0; i < linkedEditAccountList.size(); i++) {
                                         linkedAccountList.add(linkedEditAccountList.get(i));
                                     }
                                 }
@@ -379,22 +327,17 @@ public class VehicleInfoBean implements Serializable {
                         }
                     }
                 }
-                _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                             " Exiting search method of Vehicle Info");
+                _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting search method of Vehicle Info");
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
                 addAccountNumberVal = null;
                 editAccountNumberVal = null;
                 searchResultsExecution();
             }
         } catch (JboException ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return null;
@@ -408,13 +351,10 @@ public class VehicleInfoBean implements Serializable {
     }
 
     public String searchResultsExecution() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside searchResultsExecution method of Vehicle Info");
-        ViewObject vo =
-            ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResultsExecution method of Vehicle Info");
+        ViewObject vo = ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
         if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Removing dynamic where caluse for Account & Registration number");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Removing dynamic where caluse for Account & Registration number");
             vo.removeNamedWhereClauseParam("accountNumber");
             vo.removeNamedWhereClauseParam("registrationNumber");
             vo.setWhereClause("");
@@ -422,8 +362,7 @@ public class VehicleInfoBean implements Serializable {
         }
 
         if ("trim(ACCOUNT_NUMBER) =: accountNumber".equalsIgnoreCase(vo.getWhereClause())) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Removing dynamic where caluse for Account");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Removing dynamic where caluse for Account");
             vo.removeNamedWhereClauseParam("accountNumber");
             vo.setWhereClause("");
             vo.executeQuery();
@@ -431,15 +370,10 @@ public class VehicleInfoBean implements Serializable {
 
         int count = 0;
         String[] values;
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     " Select account number:::::::: " +
-                     getBindings().getLinkedAccount().getValue());
-        String selectedValues =
-            getBindings().getLinkedAccount().getValue().toString().trim();
-        String passingValues =
-            selectedValues.substring(1, selectedValues.length() - 1);
-        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                     " Passing account number:::::::: " + passingValues);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Select account number:::::::: " + getBindings().getLinkedAccount().getValue());
+        String selectedValues = getBindings().getLinkedAccount().getValue().toString().trim();
+        String passingValues = selectedValues.substring(1, selectedValues.length() - 1);
+        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Passing account number:::::::: " + passingValues);
         if (passingValues.contains(",")) {
             values = passingValues.split(",");
             count = values.length;
@@ -455,44 +389,27 @@ public class VehicleInfoBean implements Serializable {
             acc.setAccountNumber(values[i]);
             List<VehicleInfo> myVehicleList = new ArrayList<VehicleInfo>();
             vo.setNamedWhereClauseParam("countryCd", countryParam);
-            if (getBindings().getRegisterNumber().getValue() != null &&
-                getBindings().getRegisterNumber().getValue().toString().length() >
-                0) {
+            if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length() > 0) {
                 vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'");
-                vo.defineNamedWhereClauseParam("accountNumber",
-                                               values[i].trim(), null);
-                vo.defineNamedWhereClauseParam("registrationNumber",
-                                               getBindings().getRegisterNumber().getValue().toString().trim(),
-                                               null);
+                vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(), null);
+                vo.defineNamedWhereClauseParam("registrationNumber", getBindings().getRegisterNumber().getValue().toString().trim(), null);
             } else {
                 vo.setWhereClause("trim(ACCOUNT_NUMBER) =: accountNumber");
-                vo.defineNamedWhereClauseParam("accountNumber",
-                                               values[i].trim(), null);
+                vo.defineNamedWhereClauseParam("accountNumber", values[i].trim(), null);
 
             }
             vo.executeQuery();
             if (vo.getEstimatedRowCount() != 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " +
-                             " Row count after query execution:::::::: " +
-                             vo.getEstimatedRowCount());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Row count after query execution:::::::: " + vo.getEstimatedRowCount());
                 for (int j = 0; j < vo.getEstimatedRowCount(); j++) {
                     while (vo.hasNext()) {
-                        PrtTruckInformationVORowImpl currRow =
-                            (PrtTruckInformationVORowImpl)vo.next();
+                        PrtTruckInformationVORowImpl currRow = (PrtTruckInformationVORowImpl)vo.next();
                         if (currRow != null) {
-                            _logger.info(accessDC.getDisplayRecord() +
-                                         this.getClass() + " " +
-                                         " Current row card number:::::::: " +
-                                         currRow.getCardNumber());
-                            if (currRow.getCardNumber() == null ||
-                                linkedCardValues.contains(currRow.getCardNumber().toString())) {
-                                _logger.info(accessDC.getDisplayRecord() +
-                                             this.getClass() +
-                                             " Is it coming inside to create vehicle details details List");
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Current row card number:::::::: " + currRow.getCardNumber());
+                            if (currRow.getCardNumber() == null || linkedCardValues.contains(currRow.getCardNumber().toString())) {
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Is it coming inside to create vehicle details details List");
                                 VehicleInfo vehicle = new VehicleInfo();
-                                if (currRow.getPrtTruckInformationPk() !=
-                                    null) {
+                                if (currRow.getPrtTruckInformationPk() != null) {
                                     vehicle.setPrtTruckInformationPK(currRow.getPrtTruckInformationPk().toString().trim());
                                 }
                                 vehicle.setAccountNumber(currRow.getAccountNumber());
@@ -531,35 +448,25 @@ public class VehicleInfoBean implements Serializable {
         }
         myAccountList = new ArrayList<Account>();
         if (myAccount.size() > 0) {
-            if (getBindings().getRegisterNumber().getValue() != null &&
-                getBindings().getRegisterNumber().getValue().toString().length() >
-                0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             "Inside if block of new account list");
+            if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length() > 0) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block of new account list");
                 for (int k = 0; k < myAccount.size(); k++) {
                     if (myAccount.get(k).getVehicleInfoList().size() > 0) {
-                        _logger.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     "Inside if block to create new Account list");
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside if block to create new Account list");
                         myAccountList.add(myAccount.get(k));
                     }
                 }
             } else {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             "Inside else block of new account list");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of new account list");
                 if (myAccount.size() > 50) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 "Inside else block of for list size greater than 50");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of for list size greater than 50");
                     for (int m = 0; m < myAccount.size(); m++) {
                         if (myAccount.get(m).getVehicleInfoList().size() > 0) {
                             myAccountList.add(myAccount.get(m));
                         }
                     }
                 } else {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 "Inside else block of for list size greater than 50");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside else block of for list size greater than 50");
                     for (int m = 0; m < myAccount.size(); m++) {
                         myAccountList.add(myAccount.get(m));
                     }
@@ -568,25 +475,20 @@ public class VehicleInfoBean implements Serializable {
         }
 
         if (myAccountList.size() > 0) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside if block of the show condition of panel");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside if block of the show condition of panel");
             searchResultsShow = true;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside else block of the show condition of panel");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside else block of the show condition of panel");
             searchResultsShow = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
             if (resourceBundle.containsKey("NO_RECORDS_FOUND_VEHICLE")) {
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_VEHICLE"),
-                                     "");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("NO_RECORDS_FOUND_VEHICLE"), "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return null;
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting SearchResultsExecution method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting SearchResultsExecution method");
         return null;
     }
 
@@ -616,46 +518,33 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String newVehicleSave() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside Add new vehicle save method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Add new vehicle save method");
         User user = null;
         String modifiedBy = null;
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         if (user != null) {
-            modifiedBy =
-                    user.getFirstName().concat(" ").concat(user.getLastName());
+            modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
             if (modifiedBy == null) {
                 modifiedBy = user.getUserID();
             }
         }
-        if (getBindings().getAddPartnerNumberId().getValue() != null &&
-            getBindings().getAddAccountId().getValue() != null &&
-            getBindings().getAddVehicleNumber().getValue() != null &&
-            getBindings().getAddInternalName().getValue() != null &&
-            getBindings().getAddVehicleNumber().getValue().toString().trim() !=
-            null &&
-            getBindings().getAddInternalName().getValue().toString().trim() !=
-            null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside Add new vehicle save method after null check condition");
-            ViewObject driverVo =
-                ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+        if (getBindings().getAddPartnerNumberId().getValue() != null && getBindings().getAddAccountId().getValue() != null &&
+            getBindings().getAddVehicleNumber().getValue() != null && getBindings().getAddInternalName().getValue() != null &&
+            getBindings().getAddVehicleNumber().getValue().toString().trim() != null &&
+            getBindings().getAddInternalName().getValue().toString().trim() != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Add new vehicle save method after null check condition");
+            ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
             driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
             if (addAccountNumberVal == null) {
-                if (getBindings().getAddAccountId().getValue() != null)
-                    addAccountNumberVal =
-                            getBindings().getAddAccountId().getValue().toString().trim();
+                if (getBindings().getAddAccountId().getValue() != null) {
+                    addAccountNumberVal = getBindings().getAddAccountId().getValue().toString().trim();
+                }
             }
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         " Value of addAccountNumberVal:::::::::" +
-                         addAccountNumberVal);
-            driverVo.defineNamedWhereClauseParam("accountId",
-                                                 addAccountNumberVal, null);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Value of addAccountNumberVal:::::::::" + addAccountNumberVal);
+            driverVo.defineNamedWhereClauseParam("accountId", addAccountNumberVal, null);
             if (getBindings().getAddCardId().getValue() != null) {
-                driverVo.defineNamedWhereClauseParam("cardNo",
-                                                     getBindings().getAddCardId().getValue().toString().trim(),
-                                                     null);
+                driverVo.defineNamedWhereClauseParam("cardNo", getBindings().getAddCardId().getValue().toString().trim(), null);
             } else {
                 driverVo.defineNamedWhereClauseParam("cardNo", " ", null);
             }
@@ -663,15 +552,12 @@ public class VehicleInfoBean implements Serializable {
 
             driverVo.executeQuery();
             if (driverVo.getEstimatedRowCount() > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside vehicle method to check Existing driver for selected card:::::::::");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside vehicle method to check Existing driver for selected card:::::::::");
                 while (driverVo.hasNext()) {
-                    PrtDriverInformationVORowImpl currRow =
-                        (PrtDriverInformationVORowImpl)driverVo.next();
+                    PrtDriverInformationVORowImpl currRow = (PrtDriverInformationVORowImpl)driverVo.next();
                     if (currRow != null) {
                         if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
-                            warningMsg =
-                                    resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                            warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                             showErrorMsgFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
                             return null;
@@ -680,30 +566,23 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
 
-            ViewObject truckVo =
-                ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+            ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
             truckVo.setNamedWhereClauseParam("countryCd", countryParam);
             truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-            truckVo.defineNamedWhereClauseParam("accountId",
-                                                addAccountNumberVal, null);
+            truckVo.defineNamedWhereClauseParam("accountId", addAccountNumberVal, null);
             if (getBindings().getAddCardId().getValue() != null) {
-                truckVo.defineNamedWhereClauseParam("cardNo",
-                                                    getBindings().getAddCardId().getValue().toString().trim(),
-                                                    null);
+                truckVo.defineNamedWhereClauseParam("cardNo", getBindings().getAddCardId().getValue().toString().trim(), null);
             } else {
                 truckVo.defineNamedWhereClauseParam("cardNo", "", null);
             }
             truckVo.executeQuery();
             if (truckVo.getEstimatedRowCount() > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside vehicle method to check Existing vehicle for selected card:::::::::");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside vehicle method to check Existing vehicle for selected card:::::::::");
                 while (truckVo.hasNext()) {
-                    PrtTruckInformationVORowImpl currRow =
-                        (PrtTruckInformationVORowImpl)truckVo.next();
+                    PrtTruckInformationVORowImpl currRow = (PrtTruckInformationVORowImpl)truckVo.next();
                     if (currRow != null) {
                         if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                            warningMsg =
-                                    resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
+                            warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                             showErrorMsgFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
                             return null;
@@ -715,64 +594,46 @@ public class VehicleInfoBean implements Serializable {
 
             getBindings().getNewVehicle().hide();
 
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            DCIteratorBinding vehicleInfoItr =
-                (DCIteratorBinding)bindings.get("PrtTruckInformationVO2Iterator");
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding vehicleInfoItr = (DCIteratorBinding)bindings.get("PrtTruckInformationVO2Iterator");
             Row vehicleInfoRow = vehicleInfoItr.getCurrentRow();
 
             if (vehicleInfoRow != null) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside new vehicle save current row is not null:::::::::");
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Value of add account id:::::::::" +
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside new vehicle save current row is not null:::::::::");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Value of add account id:::::::::" +
                              getBindings().getAddAccountId().getValue().toString());
-                if (getBindings().getAddAccountId().getValue() != null)
-                    vehicleInfoRow.setAttribute("AccountNumber",
-                                                getBindings().getAddAccountId().getValue().toString().trim());
+                if (getBindings().getAddAccountId().getValue() != null) {
+                    vehicleInfoRow.setAttribute("AccountNumber", getBindings().getAddAccountId().getValue().toString().trim());
+                }
                 if (getBindings().getAddCardId().getValue() != null) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "Value of add card id:::::::::" +
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Value of add card id:::::::::" +
                                  getBindings().getAddCardId().getValue().toString());
-                    vehicleInfoRow.setAttribute("CardNumber",
-                                                getBindings().getAddCardId().getValue().toString().trim());
+                    vehicleInfoRow.setAttribute("CardNumber", getBindings().getAddCardId().getValue().toString().trim());
                 } else {
                     vehicleInfoRow.setAttribute("CardNumber", "");
                 }
                 if (getBindings().getAddReferenceNumber().getValue() != null) {
-                    String refNumber =
-                        getBindings().getAddReferenceNumber().getValue().toString().trim();
-                    String formattedRefNum =
-                        ("0000000000" + refNumber).substring(refNumber.length());
-                    vehicleInfoRow.setAttribute("ReferenceNumber",
-                                                formattedRefNum);
+                    String refNumber = getBindings().getAddReferenceNumber().getValue().toString().trim();
+                    String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                    vehicleInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
                 }
                 vehicleInfoRow.setAttribute("ModifiedBy", modifiedBy);
                 vehicleInfoRow.setAttribute("CountryCode", countryParam);
-                vehicleInfoRow.setAttribute("VehicleNumber",
-                                            getBindings().getAddVehicleNumber().getValue().toString().trim());
-                vehicleInfoRow.setAttribute("InternalName",
-                                            getBindings().getAddInternalName().getValue().toString().trim());
+                vehicleInfoRow.setAttribute("VehicleNumber", getBindings().getAddVehicleNumber().getValue().toString().trim());
+                vehicleInfoRow.setAttribute("InternalName", getBindings().getAddInternalName().getValue().toString().trim());
 
-                if (getBindings().getAddRegistrationNumber().getValue() !=
-                    null) {
-                    vehicleInfoRow.setAttribute("RegistrationNumber",
-                                                getBindings().getAddRegistrationNumber().getValue().toString().trim());
+                if (getBindings().getAddRegistrationNumber().getValue() != null) {
+                    vehicleInfoRow.setAttribute("RegistrationNumber", getBindings().getAddRegistrationNumber().getValue().toString().trim());
                 }
-                OperationBinding newDriverOpn =
-                    bindings.getOperationBinding("Commit");
+                OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                 newDriverOpn.execute();
                 if (newDriverOpn.getErrors().isEmpty()) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 "NO failure in commit operation of Vehicle add:::::::::");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + "NO failure in commit operation of Vehicle add:::::::::");
                 }
             }
         } else {
             if (resourceBundle.containsKey("ENGAGE_SELECT_TRANSACTION_MANDATORY")) {
-                warningMsg =
-                        resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
+                warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowErrorMsg());
                 return null;
@@ -780,14 +641,11 @@ public class VehicleInfoBean implements Serializable {
         }
         searchResults(false);
         if (resourceBundle.containsKey("VEHICLE_ADD")) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ADD"),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_ADD"), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return null;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Exiting new vehicle save method:::::::::");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new vehicle save method:::::::::");
         return null;
     }
 
@@ -795,12 +653,10 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String newVehicleCancel() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Inside new vehicle cancel method :::::::::");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle cancel method :::::::::");
         ResetUtils.reset(getBindings().getNewVehicle());
         getBindings().getNewVehicle().hide();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Exiting new vehicle cancel method:::::::::");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new vehicle cancel method:::::::::");
         return null;
     }
 
@@ -808,8 +664,7 @@ public class VehicleInfoBean implements Serializable {
         String passingValues = null;
         if (var != null) {
             String lovValues = var.trim();
-            String selectedValues =
-                lovValues.substring(1, lovValues.length() - 1);
+            String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
 
         }
@@ -820,12 +675,9 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String newVehicleAddAction() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Inside new vehicle add action method :::::::::");
-        BindingContainer bindings =
-            BindingContext.getCurrent().getCurrentBindingsEntry();
-        OperationBinding createOpn =
-            bindings.getOperationBinding("CreateInsert");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle add action method :::::::::");
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding createOpn = bindings.getOperationBinding("CreateInsert");
         createOpn.execute();
         showErrorMsgFlag = false;
         linkedAddAccountList = new ArrayList<SelectItem>();
@@ -834,21 +686,16 @@ public class VehicleInfoBean implements Serializable {
         addCardIdDisplayValue = null;
         cardNumberList = new ArrayList<SelectItem>();
         if (getBindings().getLinkedPartner().getValue() != null) {
-            if (getBindings().getLinkedAccount().getValue() != null &&
-                linkedAccountLOVValues.size() > 0) {
+            if (getBindings().getLinkedAccount().getValue() != null && linkedAccountLOVValues.size() > 0) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "Inside if block new vehicle add for partner and selected account values :::::::::");
                 if (linkedAccountLOVValues.size() == 1) {
-                    this.addAccountIdDisplayValue =
-                            populateStringValues(getBindings().getLinkedAccount().getValue().toString().trim());
+                    this.addAccountIdDisplayValue = populateStringValues(getBindings().getLinkedAccount().getValue().toString().trim());
                 }
-                this.addPartnerNumberDisplayValue =
-                        getBindings().getLinkedPartner().getValue().toString().trim();
+                this.addPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString().trim();
                 this.addCardIdDisplayValue = null;
-                populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(),
-                                      "Add");
-                populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()),
-                                       "newVehicleAdd",
+                populateAccountNumber(getBindings().getLinkedPartner().getValue().toString(), "Add");
+                populateCardNumberList(populateStringValues(getBindings().getLinkedAccount().getValue().toString()), "newVehicleAdd",
                                        getBindings().getLinkedPartner().getValue().toString());
             }
         } else {
@@ -863,8 +710,7 @@ public class VehicleInfoBean implements Serializable {
             getBindings().getAddRegistrationNumber().setSubmittedValue(null);
             getBindings().getAddRegistrationNumber().setSubmittedValue(getBindings().getRegisterNumber().getValue().toString().trim());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Exiting new vehicle add action method :::::::::");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Exiting new vehicle add action method :::::::::");
         getBindings().getNewVehicle().show(new RichPopup.PopupHints());
 
         return null;
@@ -875,62 +721,44 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String editVehicleSave() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     "Inside new vehicle edit save method :::::::::");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle edit save method :::::::::");
         User user = null;
         String modifiedBy = null;
         user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
         if (user != null) {
-            modifiedBy =
-                    user.getFirstName().concat(" ").concat(user.getLastName());
+            modifiedBy = user.getFirstName().concat(" ").concat(user.getLastName());
             if (modifiedBy == null) {
                 modifiedBy = user.getUserID();
             }
         }
-        if (getBindings().getEditPartnerNumberId().getValue() != null &&
-            getBindings().getEditAccountId().getValue() != null &&
-            getBindings().getEditInternalName().getValue() != null &&
-            getBindings().getEditVehicleNumber().getValue() != null &&
-            getBindings().getEditInternalName().getValue().toString().trim() !=
-            null &&
-            getBindings().getEditVehicleNumber().getValue().toString().trim() !=
-            null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         "Inside new vehicle edit save method after null check :::::::::");
-            ViewObject driverVo =
-                ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
+        if (getBindings().getEditPartnerNumberId().getValue() != null && getBindings().getEditAccountId().getValue() != null &&
+            getBindings().getEditInternalName().getValue() != null && getBindings().getEditVehicleNumber().getValue() != null &&
+            getBindings().getEditInternalName().getValue().toString().trim() != null &&
+            getBindings().getEditVehicleNumber().getValue().toString().trim() != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle edit save method after null check :::::::::");
+            ViewObject driverVo = ADFUtils.getViewObject("PrtDriverInformationVO3Iterator");
             driverVo.setNamedWhereClauseParam("countryCd", countryParam);
             driverVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "Value of edit account number :::::::::" +
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Value of edit account number :::::::::" +
                          getBindings().getEditAccountId().getValue());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "value of editAccountNumberVal:::::::::" +
-                         editAccountNumberVal);
-            driverVo.defineNamedWhereClauseParam("accountId",
-                                                 editAccountNumberVal, null);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "value of editAccountNumberVal:::::::::" + editAccountNumberVal);
+            driverVo.defineNamedWhereClauseParam("accountId", editAccountNumberVal, null);
             if (getBindings().getEditCardId().getValue() != null) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " + "Value of edit card number :::::::::" +
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Value of edit card number :::::::::" +
                              getBindings().getEditCardId().getValue());
-                driverVo.defineNamedWhereClauseParam("cardNo",
-                                                     getBindings().getEditCardId().getValue().toString().trim(),
-                                                     null);
+                driverVo.defineNamedWhereClauseParam("cardNo", getBindings().getEditCardId().getValue().toString().trim(), null);
             } else {
                 driverVo.defineNamedWhereClauseParam("cardNo", "", null);
             }
 
             driverVo.executeQuery();
             if (driverVo.getEstimatedRowCount() > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             "Inside of edit vehicle save method to check for existing driver :::::::::");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside of edit vehicle save method to check for existing driver :::::::::");
                 while (driverVo.hasNext()) {
-                    PrtDriverInformationVORowImpl currRow =
-                        (PrtDriverInformationVORowImpl)driverVo.next();
+                    PrtDriverInformationVORowImpl currRow = (PrtDriverInformationVORowImpl)driverVo.next();
                     if (currRow != null) {
                         if (resourceBundle.containsKey("DRIVER_CARD_EXIST")) {
-                            warningMsg =
-                                    resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
+                            warningMsg = resourceBundle.getObject("DRIVER_CARD_EXIST").toString().concat(" ").concat(currRow.getDriverName());
                             showErrorMsgEditFlag = true;
                             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                             return null;
@@ -939,44 +767,30 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
 
-            if (previousCardId != null &&
-                getBindings().getEditCardId().getValue() != null) {
+            if (previousCardId != null && getBindings().getEditCardId().getValue() != null) {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "Inside of edit vehicle save method to check for existing truck and previous card not null :::::::::");
                 if (!previousCardId.equals(getBindings().getEditCardId().getValue().toString().trim())) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "Previous card not equals to selected edit card, dont allow edit, value of previous card:::::::::" +
-                                 previousCardId);
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+                                 "Previous card not equals to selected edit card, dont allow edit, value of previous card:::::::::" + previousCardId);
 
-                    ViewObject truckVo =
-                        ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
-                    truckVo.setNamedWhereClauseParam("countryCd",
-                                                     countryParam);
+                    ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+                    truckVo.setNamedWhereClauseParam("countryCd", countryParam);
                     truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-                    truckVo.defineNamedWhereClauseParam("accountId",
-                                                        editAccountNumberVal,
-                                                        null);
+                    truckVo.defineNamedWhereClauseParam("accountId", editAccountNumberVal, null);
                     if (getBindings().getEditCardId().getValue() != null) {
-                        truckVo.defineNamedWhereClauseParam("cardNo",
-                                                            getBindings().getEditCardId().getValue().toString().trim(),
-                                                            null);
+                        truckVo.defineNamedWhereClauseParam("cardNo", getBindings().getEditCardId().getValue().toString().trim(), null);
                     } else {
-                        truckVo.defineNamedWhereClauseParam("cardNo", "",
-                                                            null);
+                        truckVo.defineNamedWhereClauseParam("cardNo", "", null);
                     }
                     truckVo.executeQuery();
                     if (truckVo.getEstimatedRowCount() > 0) {
-                        _logger.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     "Checking for existing vehicle in edit vehicle save method:::::::::");
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Checking for existing vehicle in edit vehicle save method:::::::::");
                         while (truckVo.hasNext()) {
-                            PrtTruckInformationVORowImpl currRow =
-                                (PrtTruckInformationVORowImpl)truckVo.next();
+                            PrtTruckInformationVORowImpl currRow = (PrtTruckInformationVORowImpl)truckVo.next();
                             if (currRow != null) {
                                 if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                                    warningMsg =
-                                            resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
+                                    warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                                     showErrorMsgEditFlag = true;
                                     AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                                     return null;
@@ -988,32 +802,24 @@ public class VehicleInfoBean implements Serializable {
             } else {
                 _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                              "Inside of edit vehicle save method to check for existing truck and previous card is null :::::::::");
-                ViewObject truckVo =
-                    ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
+                ViewObject truckVo = ADFUtils.getViewObject("PrtTruckInformationVO3Iterator");
                 truckVo.setNamedWhereClauseParam("countryCd", countryParam);
                 truckVo.setWhereClause("ACCOUNT_NUMBER =: accountId AND CARD_NUMBER =: cardNo");
-                truckVo.defineNamedWhereClauseParam("accountId",
-                                                    editAccountNumberVal,
-                                                    null);
+                truckVo.defineNamedWhereClauseParam("accountId", editAccountNumberVal, null);
                 if (getBindings().getEditCardId().getValue() != null) {
-                    truckVo.defineNamedWhereClauseParam("cardNo",
-                                                        getBindings().getEditCardId().getValue().toString().trim(),
-                                                        null);
+                    truckVo.defineNamedWhereClauseParam("cardNo", getBindings().getEditCardId().getValue().toString().trim(), null);
                 } else {
                     truckVo.defineNamedWhereClauseParam("cardNo", "", null);
                 }
                 truckVo.executeQuery();
                 if (truckVo.getEstimatedRowCount() > 0) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                                  "Checking for existing vehicle in edit vehicle save method for previous card null:::::::::");
                     while (truckVo.hasNext()) {
-                        PrtTruckInformationVORowImpl currRow =
-                            (PrtTruckInformationVORowImpl)truckVo.next();
+                        PrtTruckInformationVORowImpl currRow = (PrtTruckInformationVORowImpl)truckVo.next();
                         if (currRow != null) {
                             if (resourceBundle.containsKey("TRUCK_CARD_EXIST")) {
-                                warningMsg =
-                                        resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
+                                warningMsg = resourceBundle.getObject("TRUCK_CARD_EXIST").toString().concat(" ").concat(currRow.getVehicleNumber());
                                 showErrorMsgEditFlag = true;
                                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                                 return null;
@@ -1024,62 +830,42 @@ public class VehicleInfoBean implements Serializable {
             }
 
             getBindings().getEditVehicle().hide();
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            DCIteratorBinding vehicleInfoItr =
-                (DCIteratorBinding)bindings.get("PrtTruckInformationVO2Iterator");
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding vehicleInfoItr = (DCIteratorBinding)bindings.get("PrtTruckInformationVO2Iterator");
             Row vehicleInfoRow = vehicleInfoItr.getCurrentRow();
             if (vehicleInfoRow != null) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             "Inside new vehicle save current row is not null:::::::::");
-                vehicleInfoRow.setAttribute("AccountNumber",
-                                            getBindings().getEditAccountId().getValue().toString());
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Inside new vehicle save current row is not null:::::::::");
+                vehicleInfoRow.setAttribute("AccountNumber", getBindings().getEditAccountId().getValue().toString());
                 if (getBindings().getEditCardId().getValue() != null) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
-                                 "Value of Edit card id:::::::::" +
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Value of Edit card id:::::::::" +
                                  getBindings().getEditCardId().getValue().toString());
-                    vehicleInfoRow.setAttribute("CardNumber",
-                                                getBindings().getEditCardId().getValue().toString().trim());
+                    vehicleInfoRow.setAttribute("CardNumber", getBindings().getEditCardId().getValue().toString().trim());
                 } else {
                     vehicleInfoRow.setAttribute("CardNumber", "");
                 }
-                if (getBindings().getEditReferenceNumber().getValue() !=
-                    null) {
-                    String refNumber =
-                        getBindings().getEditReferenceNumber().getValue().toString().trim();
-                    String formattedRefNum =
-                        ("0000000000" + refNumber).substring(refNumber.length());
-                    vehicleInfoRow.setAttribute("ReferenceNumber",
-                                                formattedRefNum);
+                if (getBindings().getEditReferenceNumber().getValue() != null) {
+                    String refNumber = getBindings().getEditReferenceNumber().getValue().toString().trim();
+                    String formattedRefNum = ("0000000000" + refNumber).substring(refNumber.length());
+                    vehicleInfoRow.setAttribute("ReferenceNumber", formattedRefNum);
                 }
                 vehicleInfoRow.setAttribute("ModifiedBy", modifiedBy);
                 vehicleInfoRow.setAttribute("CountryCode", countryParam);
-                vehicleInfoRow.setAttribute("VehicleNumber",
-                                            getBindings().getEditVehicleNumber().getValue().toString().trim());
-                vehicleInfoRow.setAttribute("InternalName",
-                                            getBindings().getEditInternalName().getValue().toString().trim());
-                if (getBindings().getEditRegistrationNumber().getValue() !=
-                    null) {
-                    vehicleInfoRow.setAttribute("RegistrationNumber",
-                                                getBindings().getEditRegistrationNumber().getValue().toString().trim());
+                vehicleInfoRow.setAttribute("VehicleNumber", getBindings().getEditVehicleNumber().getValue().toString().trim());
+                vehicleInfoRow.setAttribute("InternalName", getBindings().getEditInternalName().getValue().toString().trim());
+                if (getBindings().getEditRegistrationNumber().getValue() != null) {
+                    vehicleInfoRow.setAttribute("RegistrationNumber", getBindings().getEditRegistrationNumber().getValue().toString().trim());
                 }
-                OperationBinding newDriverOpn =
-                    bindings.getOperationBinding("Commit");
+                OperationBinding newDriverOpn = bindings.getOperationBinding("Commit");
                 newDriverOpn.execute();
                 if (newDriverOpn.getErrors().isEmpty()) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() +
-                                 " No failure or edit commit operation");
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " No failure or edit commit operation");
                 }
             }
 
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Throwing error for mandatory check");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Throwing error for mandatory check");
             if (resourceBundle.containsKey("ENGAGE_SELECT_TRANSACTION_MANDATORY")) {
-                warningMsg =
-                        resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
+                warningMsg = resourceBundle.getObject("ENGAGE_SELECT_TRANSACTION_MANDATORY").toString();
                 showErrorMsgEditFlag = true;
                 AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
                 return null;
@@ -1087,14 +873,11 @@ public class VehicleInfoBean implements Serializable {
         }
         searchResults(false);
         if (resourceBundle.containsKey("VEHICLE_EDIT")) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_EDIT"),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_EDIT"), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return null;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting edit vehicle save method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting edit vehicle save method");
         return null;
     }
 
@@ -1102,12 +885,10 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String editVehicleCancel() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside edit vehicle cancel method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside edit vehicle cancel method");
         ResetUtils.reset(getBindings().getEditVehicle());
         getBindings().getEditVehicle().hide();
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting edit vehicle cancel method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting edit vehicle cancel method");
         return null;
     }
 
@@ -1117,59 +898,41 @@ public class VehicleInfoBean implements Serializable {
      */
     public String tableEditAction() {
         try {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside table edit action method");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside table edit action method");
             showErrorMsgEditFlag = false;
             editAccountIdDisplayValue = null;
             editCardIdDisplayValue = null;
             editCardNumberList = new ArrayList<SelectItem>();
             linkedEditAccountList = new ArrayList<SelectItem>();
-            String primaryKey =
-                (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
-            String accountNumber =
-                (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
-            cardId =
-                    (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
-            previousCardId =
-                    (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         " Value of primary key:::::::" + primaryKey);
-            if (primaryKey != null && accountNumber != null &&
-                getBindings().getLinkedPartner().getValue() != null) {
-                editPartnerNumberDisplayValue =
-                        getBindings().getLinkedPartner().getValue().toString().trim();
+            String primaryKey = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("primarykey");
+            String accountNumber = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountnumber");
+            cardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+            previousCardId = (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("cardid");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Value of primary key:::::::" + primaryKey);
+            if (primaryKey != null && accountNumber != null && getBindings().getLinkedPartner().getValue() != null) {
+                editPartnerNumberDisplayValue = getBindings().getLinkedPartner().getValue().toString().trim();
                 editAccountIdDisplayValue = accountNumber;
                 editAccountNumberVal = editAccountIdDisplayValue;
                 if (editAccountIdDisplayValue != null) {
-                    populateAccountNumber(getBindings().getLinkedPartner().getValue().toString().trim(),
-                                          "Edit");
-                    populateCardNumberList(editAccountIdDisplayValue,
-                                           "editButton",
-                                           getBindings().getLinkedPartner().getValue().toString().trim());
+                    populateAccountNumber(getBindings().getLinkedPartner().getValue().toString().trim(), "Edit");
+                    populateCardNumberList(editAccountIdDisplayValue, "editButton", getBindings().getLinkedPartner().getValue().toString().trim());
                 }
 
-                ViewObject vo =
-                    ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
+                ViewObject vo = ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
                 vo.setNamedWhereClauseParam("countryCd", countryParam);
                 vo.setWhereClause("PRT_TRUCK_INFORMATION_PK =: prtTruckInformationPK");
-                vo.defineNamedWhereClauseParam("prtTruckInformationPK",
-                                               primaryKey, null);
+                vo.defineNamedWhereClauseParam("prtTruckInformationPK", primaryKey, null);
                 vo.executeQuery();
                 getBindings().getEditVehicle().show(new RichPopup.PopupHints());
             }
         } catch (JboException ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting table edit action method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting table edit action method");
         return null;
     }
 
@@ -1178,20 +941,15 @@ public class VehicleInfoBean implements Serializable {
      * @return
      */
     public String vehicleDeleteAction() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside Vehicle delete action method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle delete action method");
         if (val.size() != 0) {
             ArrayList<String> validateCard = new ArrayList<String>();
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    if (partnerInfoList.get(pa).getAccountList() != null &&
-                        partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
+                    if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
                             if (validateAccountCard.contains(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString()) &&
-                                partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() ==
-                                false) {
+                                partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() == false) {
                                 validateCard.add(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                             }
                         }
@@ -1199,34 +957,24 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
             if (validateCard != null && validateCard.size() > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " " +
-                             " Inside Vehicle delete action method and list of deleted cards" +
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Inside Vehicle delete action method and list of deleted cards" +
                              validateCard);
                 if (resourceBundle.containsKey("NO_DELETE_VEHICLE")) {
                     String cardList = validateCard.toString();
-                    String validateCardValues =
-                        cardList.substring(1, cardList.length() -
-                                           1).replace(" ", "");
-                    String vehicleErrorMsg =
-                        resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(validateCardValues);
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         vehicleErrorMsg, "");
+                    String validateCardValues = cardList.substring(1, cardList.length() - 1).replace(" ", "");
+                    String vehicleErrorMsg = resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(validateCardValues);
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, vehicleErrorMsg, "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
             }
             getBindings().getDeleteVehicle().show(new RichPopup.PopupHints());
         } else {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE_1"),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE_1"), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return null;
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting Vehicle delete action method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle delete action method");
         return null;
     }
 
@@ -1236,24 +984,19 @@ public class VehicleInfoBean implements Serializable {
      */
     public String deleteVehicleSave() {
         try {
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside Vehicle delete save method");
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle delete save method");
             Iterator iter = val.keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String)iter.next();
                 String vals = val.get(key);
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             "key,val: " + key + "," + vals);
-                ViewObject vo =
-                    ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "key,val: " + key + "," + vals);
+                ViewObject vo = ADFUtils.getViewObject("PrtTruckInformationVO2Iterator");
                 vo.setNamedWhereClauseParam("countryCd", countryParam);
                 vo.setWhereClause("PRT_TRUCK_INFORMATION_PK =: prtTruckInformationPK");
-                vo.defineNamedWhereClauseParam("prtTruckInformationPK", vals,
-                                               null);
+                vo.defineNamedWhereClauseParam("prtTruckInformationPK", vals, null);
                 vo.executeQuery();
                 if (vo.getEstimatedRowCount() != 0) {
-                    _logger.info(accessDC.getDisplayRecord() +
-                                 this.getClass() + " " +
+                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
                                  "Inside Vehicle delete save method to check row count and then removing row");
                     while (vo.hasNext()) {
                         Row r = vo.next();
@@ -1262,50 +1005,35 @@ public class VehicleInfoBean implements Serializable {
                     }
                 }
             }
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            OperationBinding operationBinding =
-                bindings.getOperationBinding("Commit");
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("Commit");
             operationBinding.execute();
             if (operationBinding.getErrors().isEmpty()) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside Vehicle delete for successful deletion");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle delete for successful deletion");
                 getBindings().getDeleteVehicle().hide();
                 val = new HashMap<String, String>();
                 searchResults(false);
                 if (resourceBundle.containsKey("VEHICLE_DELETE_SUCCESS")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                         (String)resourceBundle.getObject("VEHICLE_DELETE_SUCCESS"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, (String)resourceBundle.getObject("VEHICLE_DELETE_SUCCESS"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
             } else {
                 if (resourceBundle.containsKey("VEHICLE_DELETE_FAILURE")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("VEHICLE_DELETE_FAILURE"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
-                _logger.severe(accessDC.getDisplayRecord() + this.getClass() +
-                               "Error while commiting");
+                _logger.severe(accessDC.getDisplayRecord() + this.getClass() + "Error while commiting");
             }
         } catch (JboException ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception ex) {
-            FacesMessage msg =
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(),
-                                 "");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting Vehicle delete save method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle delete save method");
         return null;
     }
 
@@ -1322,13 +1050,11 @@ public class VehicleInfoBean implements Serializable {
      * @param valueChangeEvent
      */
     public void deleteCheckBoxListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside Vehicle delete check box listener to store primary key in Hash Map");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle delete check box listener to store primary key in Hash Map");
         if (valueChangeEvent.getNewValue().equals(true)) {
             validateAccountCard = new ArrayList<String>();
             validateAccountCard.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNo").toString());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         " Value of primary key==>" +
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " Value of primary key==>" +
                          AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
             val.put((String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"),
                     (String)AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
@@ -1339,8 +1065,7 @@ public class VehicleInfoBean implements Serializable {
                 val.remove(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("checkBoxPrimaryKey"));
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting Vehicle delete check box listener to store primary key in Hash Map");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle delete check box listener to store primary key in Hash Map");
     }
 
     /**
@@ -1362,10 +1087,8 @@ public class VehicleInfoBean implements Serializable {
      * @param actionEvent
      */
     public void searchCancel(ActionEvent actionEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside Vehicle Search cancel method");
-        ViewObject vo =
-            ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside Vehicle Search cancel method");
+        ViewObject vo = ADFUtils.getViewObject("PrtTruckInformationVO1Iterator");
 
         if ("trim(ACCOUNT_NUMBER) =: accountNumber AND trim(REGISTRATION_NUMBER) like '%'||:registrationNumber||'%'".equalsIgnoreCase(vo.getWhereClause())) {
             vo.removeNamedWhereClauseParam("accountNumber");
@@ -1388,8 +1111,7 @@ public class VehicleInfoBean implements Serializable {
         getBindings().getLinkedPartner().setValue(null);
         getBindings().getRegisterNumber().setValue(null);
         searchResultsShow = false;
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting Vehicle Search cancel method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting Vehicle Search cancel method");
         AdfFacesContext.getCurrentInstance().addPartialTarget(this.getBindings().getLinkedPartner());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getLinkedAccount());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
@@ -1426,36 +1148,25 @@ public class VehicleInfoBean implements Serializable {
     }
 
     public void AddAccountNumberListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside AddAccountNumberValueChangeListener method");
-        if (valueChangeEvent.getNewValue() != null &&
-            getBindings().getAddPartnerNumberId().getValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside AddAccountNumberValueChangeListener method after null check");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside AddAccountNumberValueChangeListener method");
+        if (valueChangeEvent.getNewValue() != null && getBindings().getAddPartnerNumberId().getValue() != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside AddAccountNumberValueChangeListener method after null check");
             cardNumberList = new ArrayList<SelectItem>();
-            populateCardNumberList(valueChangeEvent.getNewValue().toString(),
-                                   "Add",
-                                   getBindings().getAddPartnerNumberId().getValue().toString());
+            populateCardNumberList(valueChangeEvent.getNewValue().toString(), "Add", getBindings().getAddPartnerNumberId().getValue().toString());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting AddAccountNumberValueChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting AddAccountNumberValueChangeListener method");
     }
 
     public void populateAccountNumber(String partnerId, String type) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside PopulateAccountNmber method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside PopulateAccountNmber method");
         if (partnerId != null) {
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    if (partnerInfoList.get(pa).getPartnerValue().equals(partnerId) &&
-                        partnerInfoList.get(pa).getAccountList() != null &&
+                    if (partnerInfoList.get(pa).getPartnerValue().equals(partnerId) && partnerInfoList.get(pa).getAccountList() != null &&
                         partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() !=
-                                null) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null) {
                                 SelectItem selectItem = new SelectItem();
                                 selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                                 selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
@@ -1470,16 +1181,13 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting PopulateAccountNmber method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting PopulateAccountNmber method");
     }
 
     public void partnerNumberValueChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside partnerNumberValueChangeLIstener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerNumberValueChangeLIstener method");
         if (valueChangeEvent.getNewValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside partnerNumberValueChangeLIstener method after null check");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerNumberValueChangeLIstener method after null check");
             this.searchResultsShow = false;
             this.registrationNumber = null;
             linkedAccountList = new ArrayList<SelectItem>();
@@ -1488,15 +1196,10 @@ public class VehicleInfoBean implements Serializable {
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
                     if (partnerInfoList.get(pa).getPartnerValue() != null &&
                         partnerInfoList.get(pa).getPartnerValue().toString().equals(valueChangeEvent.getNewValue().toString()) &&
-                        partnerInfoList.get(pa).getAccountList() != null &&
-                        partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() !=
-                                null) {
-                                SelectItem selectItemAccount =
-                                    new SelectItem();
+                        partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null) {
+                                SelectItem selectItemAccount = new SelectItem();
                                 selectItemAccount.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                                 selectItemAccount.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString());
                                 linkedAccountList.add(selectItemAccount);
@@ -1510,8 +1213,7 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside else partnerNumberValueChangeLIstener method for no selected partner");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside else partnerNumberValueChangeLIstener method for no selected partner");
             this.linkedAccountLOVValues = null;
             linkedAccountList = new ArrayList<SelectItem>();
             this.linkedAccountLOVValues = null;
@@ -1522,8 +1224,7 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRegisterNumber());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getSearchResults());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting partnerNumberValueChangeLIstener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting partnerNumberValueChangeLIstener method");
     }
 
     Comparator<SelectItem> comparator = new Comparator<SelectItem>() {
@@ -1533,53 +1234,36 @@ public class VehicleInfoBean implements Serializable {
         }
     };
 
-    public void populateCardNumberList(String accountNo, String type,
-                                       String partnerNumber) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside populateCardNumberList method");
+    public void populateCardNumberList(String accountNo, String type, String partnerNumber) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside populateCardNumberList method");
         if (accountNo != null) {
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside populateCardNumberList method after null check");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside populateCardNumberList method after null check");
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    if (partnerInfoList.get(pa).getPartnerValue().equals(partnerNumber) &&
-                        partnerInfoList.get(pa).getAccountList() != null &&
+                    if (partnerInfoList.get(pa).getPartnerValue().equals(partnerNumber) && partnerInfoList.get(pa).getAccountList() != null &&
                         partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
-                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() !=
-                                null &&
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
+                            if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber() != null &&
                                 partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().equals(accountNo)) {
-                                if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() !=
-                                    null &&
-                                    partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() >
-                                    0) {
-                                    for (int cg = 0;
-                                         cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size();
-                                         cg++) {
-                                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() !=
-                                            null &&
-                                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() >
-                                            0) {
-                                            for (int cc = 0;
-                                                 cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();
+                                if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup() != null &&
+                                    partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size() > 0) {
+                                    for (int cg = 0; cg < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().size(); cg++) {
+                                        if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard() != null &&
+                                            partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size() > 0) {
+                                            for (int cc = 0; cc < partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().size();
                                                  cc++) {
                                                 if (partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID() !=
                                                     null &&
                                                     partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() !=
                                                     null) {
-                                                    SelectItem selectItem =
-                                                        new SelectItem();
+                                                    SelectItem selectItem = new SelectItem();
                                                     selectItem.setLabel(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
                                                     selectItem.setValue(partnerInfoList.get(pa).getAccountList().get(ac).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
                                                     if (type.equals("Add")) {
-                                                        addAccountNumberVal =
-                                                                accountNo;
+                                                        addAccountNumberVal = accountNo;
                                                         cardNumberList.add(selectItem);
                                                     } else if (type.equals("Edit")) {
-                                                        editAccountNumberVal =
-                                                                accountNo;
+                                                        editAccountNumberVal = accountNo;
                                                         editCardNumberList.add(selectItem);
                                                     } else if (type.equals("newVehicleAdd")) {
                                                         cardNumberList.add(selectItem);
@@ -1602,8 +1286,7 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting populateCardNumberList method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting populateCardNumberList method");
     }
 
     public void setAddAccountNumberVal(String addAccountNumberVal) {
@@ -1631,72 +1314,56 @@ public class VehicleInfoBean implements Serializable {
     }
 
     public void editAccountNumberChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside editAccountNumberValueChangeListener method");
-        if (valueChangeEvent.getNewValue() != null &&
-            getBindings().getEditPartnerNumberId().getValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside editAccountNumberValueChangeListener method after null check");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editAccountNumberValueChangeListener method");
+        if (valueChangeEvent.getNewValue() != null && getBindings().getEditPartnerNumberId().getValue() != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside editAccountNumberValueChangeListener method after null check");
             editCardNumberList = new ArrayList<SelectItem>();
             cardId = null;
-            populateCardNumberList(valueChangeEvent.getNewValue().toString(),
-                                   "Edit",
-                                   getBindings().getEditPartnerNumberId().getValue().toString());
+            populateCardNumberList(valueChangeEvent.getNewValue().toString(), "Edit", getBindings().getEditPartnerNumberId().getValue().toString());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         "editAccountNumber =" + editAccountNumberVal);
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + "editAccountNumber =" + editAccountNumberVal);
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting editAccountNumberValueChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting editAccountNumberValueChangeListener method");
     }
 
     public void editCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside editCardNumberChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside editCardNumberChangeListener method");
         if (valueChangeEvent.getNewValue() != null) {
             cardId = valueChangeEvent.getNewValue().toString();
         } else {
             this.cardId = null;
             this.cardId = "";
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting editCardNumberChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting editCardNumberChangeListener method");
         this.showErrorMsgEditFlag = false;
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
     }
 
     public void addCardNumberChangeListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside addCardNumberChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside addCardNumberChangeListener method");
         if (valueChangeEvent.getNewValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside addCardNumberChangeListener method after null check");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside addCardNumberChangeListener method after null check");
             this.showErrorMsgEditFlag = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getShowEditErrorMessage());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting addCardNumberChangeListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting addCardNumberChangeListener method");
     }
 
 
     public void AddPartnerNumberListener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside AddPartnerNumberListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside AddPartnerNumberListener method");
         if (valueChangeEvent.getNewValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside AddPartnerNumberListener method after null check");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside AddPartnerNumberListener method after null check");
             linkedAddAccountList = new ArrayList<SelectItem>();
             cardNumberList = new ArrayList<SelectItem>();
             addPartnerIdVal = null;
             addPartnerIdVal = valueChangeEvent.getNewValue().toString();
-            populateAccountNumber(valueChangeEvent.getNewValue().toString(),
-                                  "Add");
+            populateAccountNumber(valueChangeEvent.getNewValue().toString(), "Add");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside AddPartnerNumberListener method if no partner selected");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside AddPartnerNumberListener method if no partner selected");
             this.addAccountIdDisplayValue = null;
             linkedAddAccountList = new ArrayList<SelectItem>();
             this.addAccountIdDisplayValue = null;
@@ -1704,27 +1371,22 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAddCardId());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting AddPartnerNumberListener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting AddPartnerNumberListener method");
     }
 
     public void EditPartnerNumberLIstener(ValueChangeEvent valueChangeEvent) {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside EditPartnerNumberLIstener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside EditPartnerNumberLIstener method");
         if (valueChangeEvent.getNewValue() != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside EditPartnerNumberLIstener method after null check");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside EditPartnerNumberLIstener method after null check");
             linkedEditAccountList = new ArrayList<SelectItem>();
             editCardNumberList = new ArrayList<SelectItem>();
             editPartnerIdVal = null;
             editPartnerIdVal = valueChangeEvent.getNewValue().toString();
-            populateAccountNumber(valueChangeEvent.getNewValue().toString(),
-                                  "Edit");
+            populateAccountNumber(valueChangeEvent.getNewValue().toString(), "Edit");
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         } else {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside EditPartnerNumberLIstener method if no partner selected");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside EditPartnerNumberLIstener method if no partner selected");
             this.editAccountIdDisplayValue = null;
             linkedEditAccountList = new ArrayList<SelectItem>();
             this.editAccountIdDisplayValue = null;
@@ -1735,30 +1397,21 @@ public class VehicleInfoBean implements Serializable {
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditAccountId());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getEditCardId());
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting EditPartnerNumberLIstener method");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting EditPartnerNumberLIstener method");
     }
 
     public String deleteAllRecordsAction() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside deleteAllRecordsAction method for account");
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") !=
-            null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside deleteAllRecordsAction method for account after null check");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside deleteAllRecordsAction method for account");
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside deleteAllRecordsAction method for account after null check");
             int validateDeleteAccountCount = 0;
-            displayAccountNumber =
-                    AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
+            displayAccountNumber = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim();
             if (partnerInfoList != null && partnerInfoList.size() > 0) {
                 for (int pa = 0; pa < partnerInfoList.size(); pa++) {
-                    if (partnerInfoList.get(pa).getAccountList() != null &&
-                        partnerInfoList.get(pa).getAccountList().size() > 0) {
-                        for (int ac = 0;
-                             ac < partnerInfoList.get(pa).getAccountList().size();
-                             ac++) {
+                    if (partnerInfoList.get(pa).getAccountList() != null && partnerInfoList.get(pa).getAccountList().size() > 0) {
+                        for (int ac = 0; ac < partnerInfoList.get(pa).getAccountList().size(); ac++) {
                             if (partnerInfoList.get(pa).getAccountList().get(ac).getAccountNumber().toString().equals(displayAccountNumber) &&
-                                partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() ==
-                                false) {
+                                partnerInfoList.get(pa).getAccountList().get(ac).isAccountOverview() == false) {
                                 validateDeleteAccountCount = 1;
                             }
                         }
@@ -1768,11 +1421,8 @@ public class VehicleInfoBean implements Serializable {
 
             if (validateDeleteAccountCount > 0) {
                 if (resourceBundle.containsKey("NO_DELETE_VEHICLE")) {
-                    String vehicleErrorMsg =
-                        resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(displayAccountNumber);
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         vehicleErrorMsg, "");
+                    String vehicleErrorMsg = resourceBundle.getObject("NO_DELETE_VEHICLE").toString().concat(displayAccountNumber);
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, vehicleErrorMsg, "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
@@ -1782,8 +1432,7 @@ public class VehicleInfoBean implements Serializable {
             if (myAccountList.size() > 0) {
                 for (int i = 0; i < myAccountList.size(); i++) {
                     if (myAccountList.get(i).getAccountNumber().trim().equals(displayAccountNumber)) {
-                        if (myAccountList.get(i).getVehicleInfoList().size() >
-                            0) {
+                        if (myAccountList.get(i).getVehicleInfoList().size() > 0) {
                             count = 1;
                         } else {
                             count = 0;
@@ -1792,45 +1441,31 @@ public class VehicleInfoBean implements Serializable {
                 }
             }
             if (count > 0) {
-                _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                             " Inside deleteAllRecordsAction to open delete all pop up");
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside deleteAllRecordsAction to open delete all pop up");
                 getBindings().getDeleteAllInfoVehicle().show(new RichPopup.PopupHints());
             } else {
                 if (resourceBundle.containsKey("NO_RECORDS_FOUND_DELETE_ALL")) {
-                    FacesMessage msg =
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                         (String)resourceBundle.getObject("NO_RECORDS_FOUND_DELETE_ALL"),
-                                         "");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, (String)resourceBundle.getObject("NO_RECORDS_FOUND_DELETE_ALL"), "");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return null;
                 }
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting deleteAllRecordsAction method for account");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting deleteAllRecordsAction method for account");
         return null;
     }
 
     public String deleteAllForAccount() {
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Inside deleteAllForAccount method for account");
-        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") !=
-            null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside deleteAllForAccount method for account after null check");
-            BindingContainer bindings =
-                BindingContext.getCurrent().getCurrentBindingsEntry();
-            OperationBinding operationBinding =
-                bindings.getOperationBinding("deleteAllForAccount");
-            operationBinding.getParamsMap().put("accountId",
-                                                AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside deleteAllForAccount method for account");
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber") != null) {
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside deleteAllForAccount method for account after null check");
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("deleteAllForAccount");
+            operationBinding.getParamsMap().put("accountId", AdfFacesContext.getCurrentInstance().getPageFlowScope().get("accountNumber").toString().trim());
             operationBinding.getParamsMap().put("type", "vehicle");
             operationBinding.getParamsMap().put("countryCd", countryParam);
-            if (getBindings().getRegisterNumber().getValue() != null &&
-                getBindings().getRegisterNumber().getValue().toString().length() >
-                0) {
-                operationBinding.getParamsMap().put("regDriverValue",
-                                                    registrationNumber);
+            if (getBindings().getRegisterNumber().getValue() != null && getBindings().getRegisterNumber().getValue().toString().length() > 0) {
+                operationBinding.getParamsMap().put("regDriverValue", registrationNumber);
             } else {
                 operationBinding.getParamsMap().put("regDriverValue", null);
             }
@@ -1842,8 +1477,7 @@ public class VehicleInfoBean implements Serializable {
 
             }
         }
-        _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
-                     " Exiting deleteAllForAccount method for account");
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting deleteAllForAccount method for account");
         return null;
     }
 
@@ -1914,8 +1548,7 @@ public class VehicleInfoBean implements Serializable {
 
     public String getEditCardIdDisplayValue() {
         if (cardId != null) {
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() +
-                         " Inside getEditCardIdDisplayValue method");
+            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " Inside getEditCardIdDisplayValue method");
             editCardIdDisplayValue = cardId;
         }
         return editCardIdDisplayValue;
