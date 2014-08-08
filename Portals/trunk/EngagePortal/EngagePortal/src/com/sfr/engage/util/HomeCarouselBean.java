@@ -32,26 +32,26 @@ import oracle.jbo.ViewObject;
  */
 public class HomeCarouselBean {
 
-    private String customerType = "B2B";
-    private String lang = "SE";
-    private String profile = "private";
+    String customerType = "B2B";
+    String lang = "SE";
+    String profile = "private";
     private RichSpacer testSpacer;
-    private String banner;
-    private String card1;
-    private String card2;
+    String banner;
+    String card1;
+    String card2;
     // TODO : ASHTHA - 02, May, 2014 : Shouldn't all params have same standard as card1/card2
-    private String cardName1;
-    private String cardName2;
-    private String cardDesc1;
-    private String cardDesc2;
-    private String card1LearnMore;
-    private String card2LearnMore;
-    
+    String card_name1;
+    String card_name2;
+    String card_desc1;
+    String card_desc2;
+    String card1_learn_more;
+    String card2_learn_more;
+    String card1_apply_now;
+    String card2_apply_now;
+    ResourceBundle resourceBundle;
+    AccessDataControl accessDC = new AccessDataControl();
 
-    private ResourceBundle resourceBundle;
-    private AccessDataControl accessDC = new AccessDataControl();
-
-    private String wsPortalCatalogLink = "";
+    String WsPortalCatalogLink = "";
 
     /**
      * Default Constructor : initialized UI components
@@ -60,13 +60,31 @@ public class HomeCarouselBean {
         getCard1();
         getCard2();
         resourceBundle = new EngageResourceBundle();
-        getcardName1();
-        getcardName2();
-        getcardDesc1();
-        getcardDesc2();
+        getCard_name1();
+        getCard_name2();
+        getCard_desc1();
+        getCard_desc2();
 
     }
 
+    // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary methods. Avoid using names like 'timepass'
+
+    /**
+     * @return
+     */
+    public String timepass() {
+        // Add event code here...
+        return null;
+    }
+
+
+
+    /**
+     * @param actionEvent
+     */
+    public void goProductCatalogListener(ActionEvent actionEvent) {
+
+    }
 
     /**
      * @param customerType
@@ -109,48 +127,36 @@ public class HomeCarouselBean {
      * @return
      */
     public RichSpacer getTestSpacer() {
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
 
-        if (session != null) {
-            wsPortalCatalogLink =
-                    "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" +
-                    session.getAttribute("lang") + "&profile=" +
-                    session.getAttribute("profile");
-        }
+        if(session!=null)
+        { WsPortalCatalogLink = "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile");}
         Conversion conv = new Conversion();
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
-        if (profile.equalsIgnoreCase("business")) {
-            customerType = "B2B";
-        } else {
-            customerType = "B2C";
-        }
+        if(profile.equalsIgnoreCase("business"))
+            { customerType = "B2B";}
+        else
+            { customerType = "B2C";}
 
-        DCBindingContainer bindings =
-            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCBindingContainer bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding iter;
         if (bindings != null) {
             iter = bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
         } else {
-            System.out.println(accessDC.getDisplayRecord() + this.getClass() +
-                               " Error : ProductsDisplayRVO1Iterator bindings is null");
+                 System.out.println(accessDC.getDisplayRecord() + this.getClass() + " Error : ProductsDisplayRVO1Iterator bindings is null");
             iter = null;
         }
         ViewObject vo = iter.getViewObject();
 
-        vo.setNamedWhereClauseParam("countryCode",
-                                    conv.getLangForWERCSURL((lang)));
+        vo.setNamedWhereClauseParam("countryCode", conv.getLangForWERCSURL((lang)));
 
         vo.setNamedWhereClauseParam("catalogType", "PP");
         vo.setNamedWhereClauseParam("customerType", customerType);
-        System.out.println(accessDC.getDisplayRecord() + this.getClass() +
-                           "countryCode + customerType" +
-                           conv.getLangForWERCSURL((lang)) + "," +
-                           customerType);
+        System.out.println(accessDC.getDisplayRecord() + this.getClass() + "countryCode + customerType" + conv.getLangForWERCSURL((lang)) + ","+customerType);
         vo.executeQuery();
 
         return testSpacer;
@@ -178,6 +184,7 @@ public class HomeCarouselBean {
     }
 
 
+
     /**
      * @param card1
      */
@@ -189,10 +196,9 @@ public class HomeCarouselBean {
      * @return
      */
     public String getCard1() {
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
 
@@ -201,21 +207,21 @@ public class HomeCarouselBean {
             if (lang.equalsIgnoreCase("se_SE")) {
                 card1 = "Statoil-Commercial-Cards";
             } else if (lang.equalsIgnoreCase("en_US")) {
-                card1 = "Statoil-Commercial-Cards"; // To be changed later
+                card1 = "Statoil-Commercial-Cards";   // To be changed later
             } else if (lang.equalsIgnoreCase("da_DK")) {
                 card1 = "Statoil-Business-Cards";
             } else if (lang.equalsIgnoreCase("no_NO")) {
-                card1 = "Statoil-Business-Cards"; //To be changed later
+                card1 = "Statoil-Business-Cards";   //To be changed later
             }
         } else if (profile.equalsIgnoreCase("business")) {
             if (lang.equalsIgnoreCase("se_SE")) {
                 card1 = "Statoil-Commercial-Cards";
-            } else if (lang.equalsIgnoreCase("en_US")) {
-                card1 = "Statoil-Commercial-Cards"; // To be changed later
-            } else if (lang.equalsIgnoreCase("da_DK")) {
+                } else if (lang.equalsIgnoreCase("en_US")) {
+                card1 = "Statoil-Commercial-Cards";   // To be changed later
+                } else if (lang.equalsIgnoreCase("da_DK")) {
                 card1 = "Statoil-Business-Cards";
-            } else if (lang.equalsIgnoreCase("no_NO")) {
-                card1 = "Statoil-Business-Cards"; //To be changed later
+                } else if (lang.equalsIgnoreCase("no_NO")) {
+                card1 = "Statoil-Business-Cards";   //To be changed later
             }
         }
         return card1;
@@ -233,11 +239,9 @@ public class HomeCarouselBean {
      */
     public String getCard2() {
 
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
-
+        HttpSession session = (HttpSession)request.getSession(false); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
 
@@ -246,25 +250,21 @@ public class HomeCarouselBean {
             if (lang.equalsIgnoreCase("se_SE")) {
                 card2 = "Statoil-MasterCard";
             } else if (lang.equalsIgnoreCase("en_US")) {
-                //To be changed later
-                card2 = "Statoil-MasterCard";
+                card2 = "Statoil-MasterCard";   //To be changed later
             } else if (lang.equalsIgnoreCase("da_DK")) {
                 card2 = "Europe-Card";
             } else if (lang.equalsIgnoreCase("no_NO")) {
-                //To be changed later
-                card2 = "Europe-Card";
+                card2 = "Europe-Card";  //To be changed later
             }
         } else if (profile.equalsIgnoreCase("business")) {
             if (lang.equalsIgnoreCase("se_SE")) {
                 card2 = "Statoil-MasterCard";
-            } else if (lang.equalsIgnoreCase("en_US")) {
-                //To be changed later
-                card2 = "Statoil-MasterCard";
-            } else if (lang.equalsIgnoreCase("da_DK")) {
+                } else if (lang.equalsIgnoreCase("en_US")) {
+                card2 = "Statoil-MasterCard";   //To be changed later
+                } else if (lang.equalsIgnoreCase("da_DK")) {
                 card2 = "Europe-Card";
-            } else if (lang.equalsIgnoreCase("no_NO")) {
-                //To be changed later
-                card2 = "Europe-Card";
+                } else if (lang.equalsIgnoreCase("no_NO")) {
+                card2 = "Europe-Card";  //To be changed later
             }
         }
         return card2;
@@ -273,234 +273,196 @@ public class HomeCarouselBean {
     /**
      * @return
      */
-    public String getcardName1() {
+    public String getCard_name1() {
         // TODO : ASHTHA - 02, May, 2014 : Logic for fetching text can be simplified below, if basic naming rules are followed.
         // Then you need not iterate and check what actual card description key is.
         // So instead of description key from STATOIL_COMPANY_CARD it should be, Company-Card_desc as eg
         /**
          *if (resourceBundle.containsKey("STATOIL_COMPANY_CARD")) {
-                cardName1 = (String)resourceBundle.getObject("card1" + "_desc");
+                card_name1 = (String)resourceBundle.getObject("card1" + "_desc");
             }
          */
 
         if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
-            cardName1 = "STATOIL_COMMERCIAL_CARD";
-            // TODO : ASHTHA - 02, May, 2014 : Is this needed. If not remove from all the below.
+            card_name1 = "STATOIL_COMMERCIAL_CARD"; // TODO : ASHTHA - 02, May, 2014 : Is this needed. If not remove from all the below.
             if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD")) {
-                cardName1 =
-                        (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD");
+                card_name1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD");
             }
         } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
 
-            cardName1 = "STATOIL_BUSINESS_CARD";
+            card_name1 = "STATOIL_BUSINESS_CARD";
             if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD")) {
-                cardName1 =
-                        (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD");
+                card_name1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD");
             }
         }
 
-        return cardName1;
+        return card_name1;
     }
 
     /**
-     * @param cardName2
+     * @param card_name2
      */
-    public void setcardName2(String cardName2) {
-        this.cardName2 = cardName2;
+    public void setCard_name2(String card_name2) {
+        this.card_name2 = card_name2;
     }
 
     /**
      * @return
      */
-    public String getcardName2() {
+    public String getCard_name2() {
 
         if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
-            cardName2 = "STATOIL_MASTER_CARD";
+            card_name2 = "STATOIL_MASTER_CARD";
             if (resourceBundle.containsKey("STATOIL_MASTER_CARD")) {
-                cardName2 =
-                        (String)resourceBundle.getObject("STATOIL_MASTER_CARD");
+                card_name2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD");
             }
         } else if (card2.equalsIgnoreCase("Europe-Card")) {
 
-            cardName2 = "STATOIL_EUROPE_CARD";
+            card_name2 = "STATOIL_EUROPE_CARD";
             if (resourceBundle.containsKey("STATOIL_EUROPE_CARD")) {
 
-                cardName2 =
-                        (String)resourceBundle.getObject("STATOIL_EUROPE_CARD");
+                card_name2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD");
             }
         }
 
-        return cardName2;
+        return card_name2;
     }
 
     /**
-     * @param cardName1
+     * @param card_name1
      */
-    public void setcardName1(String cardName1) {
-        this.cardName1 = cardName1;
+    public void setCard_name1(String card_name1) {
+        this.card_name1 = card_name1;
     }
 
     /**
-     * @param cardDesc1
+     * @param card_desc1
      */
-    public void setcardDesc1(String cardDesc1) {
-        this.cardDesc1 = cardDesc1;
-    }
-
-    /**
-     * @return
-     */
-    public String getcardDesc1() {
-
-        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards") &&
-            resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_TEXT")) {
-
-            cardDesc1 =
-                    (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_TEXT");
-
-        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards") &&
-                   resourceBundle.containsKey("STATOIL_BUSINESS_CARD_TEXT")) {
-
-            cardDesc1 =
-                    (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_TEXT");
-
-        }
-
-        return cardDesc1;
-    }
-
-    /**
-     * @param cardDesc2
-     */
-    public void setcardDesc2(String cardDesc2) {
-        this.cardDesc2 = cardDesc2;
+    public void setCard_desc1(String card_desc1) {
+        this.card_desc1 = card_desc1;
     }
 
     /**
      * @return
      */
-    public String getcardDesc2() {
+    public String getCard_desc1() {
 
-        if (card2.equalsIgnoreCase("Statoil-MasterCard") &&
-            resourceBundle.containsKey("STATOIL_MASTER_CARD_TEXT")) {
-
-            cardDesc2 =
-                    (String)resourceBundle.getObject("STATOIL_MASTER_CARD_TEXT");
-
-        } else if (card2.equalsIgnoreCase("Europe-Card") &&
-                   resourceBundle.containsKey("STATOIL_EUROPE_CARD_TEXT")) {
-
-            cardDesc2 =
-                    (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_TEXT");
-
+        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
+            if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_TEXT")) {
+                card_desc1 = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_TEXT");
+            }
+        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
+            if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_TEXT")) {
+                card_desc1 = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_TEXT");
+            }
         }
 
-        return cardDesc2;
+        return card_desc1;
     }
 
-
     /**
-     * @param card1LearnMore
+     * @param card_desc2
      */
-    public void setcard1LearnMore(String card1LearnMore) {
-        this.card1LearnMore = card1LearnMore;
+    public void setCard_desc2(String card_desc2) {
+        this.card_desc2 = card_desc2;
     }
 
     /**
      * @return
      */
-    public String getcard1LearnMore() {
+    public String getCard_desc2() {
 
-        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards") &&
-            resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_LINK")) {
-
-            card1LearnMore =
-                    (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_LINK");
-
-        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards") &&
-                   resourceBundle.containsKey("STATOIL_BUSINESS_CARD_LINK")) {
-
-            card1LearnMore =
-                    (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_LINK");
-
+        if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_TEXT")) {
+                card_desc2 = (String)resourceBundle.getObject("STATOIL_MASTER_CARD_TEXT");
+            }
+        } else if (card2.equalsIgnoreCase("Europe-Card")) {
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_TEXT")) {
+                card_desc2 = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_TEXT");
+            }
         }
 
-        return card1LearnMore;
+        return card_desc2;
     }
 
+
     /**
-     * @param card2LearnMore
+     * @param card1_learn_more
      */
-    public void setcard2LearnMore(String card2LearnMore) {
-        this.card2LearnMore = card2LearnMore;
+    public void setCard1_learn_more(String card1_learn_more) {
+        this.card1_learn_more = card1_learn_more;
     }
 
     /**
      * @return
      */
-    public String getcard2LearnMore() {
-        if (card2.equalsIgnoreCase("Statoil-MasterCard") &&
-            resourceBundle.containsKey("STATOIL_MASTER_CARD_LINK")) {
+    public String getCard1_learn_more() {
 
-            card2LearnMore =
-                    (String)resourceBundle.getObject("STATOIL_MASTER_CARD_LINK");
-
-        } else if (card2.equalsIgnoreCase("Europe-Card") &&
-                   resourceBundle.containsKey("STATOIL_EUROPE_CARD_LINK")) {
-
-            card2LearnMore =
-                    (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LINK");
-
+        if (card1.equalsIgnoreCase("Statoil-Commercial-Cards")) {
+            if (resourceBundle.containsKey("STATOIL_COMMERCIAL_CARD_LINK")) {
+                card1_learn_more = (String)resourceBundle.getObject("STATOIL_COMMERCIAL_CARD_LINK");
+            }
+        } else if (card1.equalsIgnoreCase("Statoil-Business-Cards")) {
+            if (resourceBundle.containsKey("STATOIL_BUSINESS_CARD_LINK")) {
+                card1_learn_more = (String)resourceBundle.getObject("STATOIL_BUSINESS_CARD_LINK");
+            }
         }
 
-        return card2LearnMore;
+        return card1_learn_more;
     }
+
+    /**
+     * @param card2_learn_more
+     */
+    public void setCard2_learn_more(String card2_learn_more) {
+        this.card2_learn_more = card2_learn_more;
+    }
+
+    /**
+     * @return
+     */
+    public String getCard2_learn_more() {
+        if (card2.equalsIgnoreCase("Statoil-MasterCard")) {
+            if (resourceBundle.containsKey("STATOIL_MASTER_CARD_LINK")) {
+                card2_learn_more = (String)resourceBundle.getObject("STATOIL_MASTER_CARD_LINK");
+            }
+        } else if (card2.equalsIgnoreCase("Europe-Card")) {
+            if (resourceBundle.containsKey("STATOIL_EUROPE_CARD_LINK")) {
+                card2_learn_more = (String)resourceBundle.getObject("STATOIL_EUROPE_CARD_LINK");
+            }
+        }
+
+        return card2_learn_more;
+    }
+
+
 
 
     public void goProductCatalog(ActionEvent actionEvent) {
-
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+        // Add event code here...
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = (HttpSession)request.getSession(false);
 
 
         try {
+            //System.out.println("Request Context ="+ ectx.getRequestContextPath());
+            //String urlRedirect = request.getContextPath() + "/faces/card/transaction/transactions";
+            //System.out.println("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
+            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile"));
 
-            ectx.redirect("https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang=" +
-                          session.getAttribute("lang") + "&profile=" +
-                          session.getAttribute("profile"));
 
 
         } catch (IOException e) {
-            System.out.println(AccessDataControl.getDisplayRecord() +
-                               this.getClass() +
-                               " Error : while redirecting to Product Catalog overview page");
+            System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() +" Error : while redirecting to Product Catalog overview page");
         }
     }
 
-    public void setwsPortalCatalogLink(String wsPortalCatalogLink) {
-        this.wsPortalCatalogLink = wsPortalCatalogLink;
+    public void setWsPortalCatalogLink(String WsPortalCatalogLink) {
+        this.WsPortalCatalogLink = WsPortalCatalogLink;
     }
 
-    public String getwsPortalCatalogLink() {
-        return wsPortalCatalogLink;
-    }
-
-
-    public void setResourceBundle(ResourceBundle resourceBundle) {
-        this.resourceBundle = resourceBundle;
-    }
-
-    public ResourceBundle getResourceBundle() {
-        return resourceBundle;
-    }
-
-    public void setAccessDC(AccessDataControl accessDC) {
-        this.accessDC = accessDC;
-    }
-
-    public AccessDataControl getAccessDC() {
-        return accessDC;
+    public String getWsPortalCatalogLink() {
+        return WsPortalCatalogLink;
     }
 }

@@ -20,14 +20,15 @@ public class SkinHelper extends ThreadSerialization {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
 
-    private String portal;
-    private String skinStyleCardPrivate = "sfrCardPrivate";
-    private String skinStyleCardBusiness = "sfrCardBusiness";
-    private String skinStyleJet = "sfrJet";
-    private String skinStylePetro = "sfrPetro";
-    private String profile;
+    String portal;
+    String style;
+    String skinStyleCardPrivate = "sfrCardPrivate";
+    String skinStyleCardBusiness = "sfrCardBusiness";
+    String skinStyleJet = "sfrJet";
+    String skinStylePetro = "sfrPetro";
+    String profile;
     AccessDataControl accessDC = new AccessDataControl();
-    private String locale;
+    String locale;
 
 
     private String currentSkin;
@@ -51,7 +52,7 @@ public class SkinHelper extends ThreadSerialization {
     public String getCurrentSkin() {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(); 
+        HttpSession session = (HttpSession)request.getSession(); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
 
 //        if (request != null && request.getParameter("profile") != null) {
 //            profile = request.getParameter("profile");
@@ -70,9 +71,9 @@ public class SkinHelper extends ThreadSerialization {
 
             session.setAttribute("portal", request.getParameter("portal"));
         } else {
-            String defaultProfile = "card";
+            String default_profile = "card";
 
-            session.setAttribute("portal", defaultProfile);
+            session.setAttribute("portal", default_profile);
         }
 
         portal = (String)session.getAttribute("portal");
@@ -133,45 +134,5 @@ public class SkinHelper extends ThreadSerialization {
                 }
 
                 return locale;
-    }
-
-    public void setPortal(String portal) {
-        this.portal = portal;
-    }
-
-    public String getPortal() {
-        return portal;
-    }
-
-    public void setSkinStyleCardPrivate(String skinStyleCardPrivate) {
-        this.skinStyleCardPrivate = skinStyleCardPrivate;
-    }
-
-    public String getSkinStyleCardPrivate() {
-        return skinStyleCardPrivate;
-    }
-
-    public void setSkinStyleCardBusiness(String skinStyleCardBusiness) {
-        this.skinStyleCardBusiness = skinStyleCardBusiness;
-    }
-
-    public String getSkinStyleCardBusiness() {
-        return skinStyleCardBusiness;
-    }
-
-    public void setSkinStyleJet(String skinStyleJet) {
-        this.skinStyleJet = skinStyleJet;
-    }
-
-    public String getSkinStyleJet() {
-        return skinStyleJet;
-    }
-
-    public void setSkinStylePetro(String skinStylePetro) {
-        this.skinStylePetro = skinStylePetro;
-    }
-
-    public String getSkinStylePetro() {
-        return skinStylePetro;
     }
 }
