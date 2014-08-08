@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *  2. Override toString() method
  *  3. Class name first letter to be capitalized
  */
-public class imageservlet extends HttpServlet {
+public class ImageServlet extends HttpServlet {
 
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class imageservlet extends HttpServlet {
 
     /**
      */
-    public imageservlet() {
+    public ImageServlet() {
         super();
     }
 

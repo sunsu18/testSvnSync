@@ -468,7 +468,7 @@
   </servlet>
   <servlet>
     <servlet-name>imageservlet</servlet-name>
-    <servlet-class>com.sfr.engage.util.imageservlet</servlet-class>
+    <servlet-class>com.sfr.engage.util.ImageServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>ImageMapServlet</servlet-name>
