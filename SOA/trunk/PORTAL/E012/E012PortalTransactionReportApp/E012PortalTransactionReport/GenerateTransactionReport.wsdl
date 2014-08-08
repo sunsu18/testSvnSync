@@ -2,6 +2,7 @@
 <wsdl:definitions
      name="GenerateTransactionReport"
      targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
+     xmlns:ns2="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
      xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
      xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
      xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport"
@@ -19,6 +20,10 @@
             <import namespace="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO"
                  schemaLocation="xsd/E012PortalTransactionReportABO.xsd"/>
         </schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
+                 schemaLocation="xsd/SOARuleEngineNotification.xsd"/>
+        </xsd:schema>
     </wsdl:types>
     <wsdl:message name="GenerateTransactionReportRequestMessage">
         <wsdl:part name="payload" element="ns1:TransactionRequest"/>

@@ -393,7 +393,7 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex);          
 }]]>
             </bpelx:exec>
-            <assign name="Assign1">
+            <assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1">
               <copy>
                 <from variable="inputVariable" part="payload"
                       query="/ns1:TransactionRequest/RuleID"/>
@@ -421,16 +421,33 @@ addAuditTrailEntry("Exception: " + ex);
                     query="/ns4:NotificationRequest/ns4:NotificationTime"/>
               </copy>
               <copy>
+                <from expression="'harneet.kochhar@lntinfotech.com;nitpa@statoilfuelretail.com;Ashish.Thakkar@statoilfuelretail.com;audhildandersen.randa@statoilfuelretail.com'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body" query="/ns4:NotificationRequest/ns4:EmailID"/>
+              </copy>
+              <copy>
+                <from expression="'Transaction Report Notification'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:NotificationSubject"/>
+              </copy>
+              <copy>
+                <from expression="'Hello, Please find attached the Transaction Report subscribed by you.'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:NotificationBody"/>
+              </copy>
+              <copy>
+                <from expression="concat('Company:',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Partner'),',Account: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Account'),',Type: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Type'),',Report: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/ReportType'),',Period: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateFrom'),' to ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateTo'),',,,Please note that international transactions are not yet visible in the portal. In some cases; it may take 2 days before national transactions is shown.,Note: All prices are in DKK ...')"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
+              </copy>
+              <copy>
                 <from variable="base64TxnData"/>
                 <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
                     part="body"
                     query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
-              </copy>
-              <copy>
-                <from expression="'TransactionReport.xls'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
-                    part="body"
-                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
               </copy>
               <copy>
                 <from expression="'XML'"/>
@@ -449,6 +466,12 @@ addAuditTrailEntry("Exception: " + ex);
                 <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
                     part="body"
                     query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionType"/>
+              </copy>
+              <copy>
+                <from expression="'TransactionReport.xls'"/>
+                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                    part="body"
+                    query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
               </copy>
             </assign>
             <!--bpelx:exec import="java.io.ByteArrayOutputStream"/>
