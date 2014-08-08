@@ -121,7 +121,7 @@ public class ImageMapServlet extends HttpServlet {
                                 }
 
                             }
-
+                            rs2.close();
                         }
                         else
                         {
@@ -146,7 +146,7 @@ public class ImageMapServlet extends HttpServlet {
                                 }
 
                             }
-
+                            rs2.close();
                         }
                     } catch (Exception e) {
                         log.severe(accessDC.getDisplayRecord()+ this.getClass() + " Error : Internal Query Error for PRT_GEN_IMAGE table " + e.getMessage());
@@ -165,7 +165,7 @@ public class ImageMapServlet extends HttpServlet {
                     log.severe(accessDC.getDisplayRecord()+ this.getClass() + " Error : No record found in image map table");
 
                 }
-
+                rs.close();
             }
         } catch (Exception e) {
             log.severe(accessDC.getDisplayRecord()+ this.getClass() + "External Query Error for PRT_GEN_IMAGE_MAP table " + e.getMessage());

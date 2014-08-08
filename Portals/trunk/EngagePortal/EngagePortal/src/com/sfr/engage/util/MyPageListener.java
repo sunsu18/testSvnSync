@@ -77,20 +77,20 @@ public class MyPageListener implements PagePhaseListener {
     private List<PartnerInfo> partnerListSession = new ArrayList<PartnerInfo>();
 
  
-    boolean addflagaccount = false;
-    boolean addflagcardgroup = false;
-    boolean addflagcard = false;
-    boolean executeEmp = false;
-    boolean executeAcc = false;
-    boolean accountOverView = false;
-    boolean cardGroupOverview = false;
-    boolean skipOtherRoles = false;
+    private boolean addflagaccount = false;
+    private boolean addflagcardgroup = false;
+    private boolean addflagcard = false;
+    private boolean executeEmp = false;
+    private boolean executeAcc = false;
+    private boolean accountOverView = false;
+    private boolean cardGroupOverview = false;
+    private boolean skipOtherRoles = false;
     private AccountInfo accountCheck = new AccountInfo();
     private CardGroupInfo cardGrpCheck = new CardGroupInfo();
     private boolean isChangeInRedirectionRequired = false;
 
 
-    Set cardTypeHS = new HashSet();
+    private Set cardTypeHS = new HashSet();
 
     public void afterPhase(PagePhaseEvent pagePhaseEvent) {
         if (pagePhaseEvent.getPhaseId() == Lifecycle.PREPARE_RENDER_ID) {
@@ -861,6 +861,7 @@ new CardInfo();
                                                                                                 if (currRowcard.getBlockAction() !=
                                                                                                     null &&
                                                                                                     currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+                                                                                                    log.info("card is not expired");
 
                                                                                                 } else if (currRowcard.getCardExpiry() ==
                                                                                                            null ||
@@ -1124,6 +1125,7 @@ new CardInfo();
                                                                             if (currRowcard.getBlockAction() !=
                                                                                 null &&
                                                                                 currRowcard.getBlockAction().equalsIgnoreCase("2")) {
+                                                                                log.info("card is not expired");
 
                                                                             } else if (currRowcard.getCardExpiry() ==
                                                                                        null ||
@@ -1865,7 +1867,7 @@ new CardInfo();
         return true;
     }
 
-
+//TODO : HITK - user obj passed for future use
     private void executeAdmin(User user, int partIndex) {
         //Since the user logged in has Admin role so not much handling / filtering is required at this point
         //1.Take partner id as request for Account View Object , 2.Execute Account VO, 3.Take the account id from Account View Object result, 4.Pass it to CardGroup View Object,
@@ -2409,7 +2411,7 @@ new CardInfo();
         Roles rr = new Roles();
         List<String> idString = new ArrayList<String>();
 
-        rr.setRoleName(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        rr.setRoleName(role);
         idString.add("NOPP26773218");
         idString.add("DKPP26773219");
         rr.setIdString(idString);

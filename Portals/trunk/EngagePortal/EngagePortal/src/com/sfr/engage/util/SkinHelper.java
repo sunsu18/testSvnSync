@@ -27,7 +27,7 @@ public class SkinHelper extends ThreadSerialization {
     String skinStyleJet = "sfrJet";
     String skinStylePetro = "sfrPetro";
     String profile;
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
     String locale;
 
 
@@ -53,12 +53,6 @@ public class SkinHelper extends ThreadSerialization {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = (HttpSession)request.getSession(); // TODO : ASHTHA - 02, May, 2014 : Remove unnecessary casting
-
-//        if (request != null && request.getParameter("profile") != null) {
-//            profile = request.getParameter("profile");
-//        } else {
-//            profile = "private";
-//        }
 
         if(session.getAttribute("profile") != null)
         {profile = (String)session.getAttribute("profile");}
@@ -134,5 +128,13 @@ public class SkinHelper extends ThreadSerialization {
                 }
 
                 return locale;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
     }
 }

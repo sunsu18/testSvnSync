@@ -48,7 +48,7 @@ public class LoginBean extends LoginBackingBean {
      * @return
      */
     public String sfrLogout() {
-        System.out.println(AccessDataControl.getDisplayRecord() + this.getClass() + " Logout button clciked");
+        
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession(false);
