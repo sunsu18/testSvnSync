@@ -86,7 +86,7 @@ public class MyPageListener implements PagePhaseListener {
     boolean cardGroupOverview = false;
     boolean skipOtherRoles = false;
     private AccountInfo accountCheck = new AccountInfo();
-    private CardGroupInfo cardgrp_check = new CardGroupInfo();
+    private CardGroupInfo cardGrpCheck = new CardGroupInfo();
     private boolean isChangeInRedirectionRequired = false;
 
 
@@ -985,34 +985,34 @@ new AccountInfo();
                                                                     new ArrayList<CardInfo>();
 
 
-                                                            String CardgroupMainType =
+                                                            String cardgroupMainType =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               2,
                                                                                                                               cgIdStart +
                                                                                                                               5);
-                                                            String CardgroupSubType =
+                                                            String cardgroupSubType =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               5,
                                                                                                                               cgIdStart +
                                                                                                                               8);
-                                                            String CardgroupSeq =
+                                                            String cardgroupSeq =
                                                                 user.getRoleList().get(i).getIdString().get(idlist).substring(cgIdStart +
                                                                                                                               8);
-                                                            cardgrp.setCardGroupMainType(CardgroupMainType);
-                                                            cardgrp.setCardGroupSubType(CardgroupSubType);
-                                                            cardgrp.setCardGroupSeq(CardgroupSeq);
-                                                            cardgrp.setCardGroupID((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq)));
-                                                            cardgrp.setCardGroupName(getcardGroupName(CardgroupMainType,
-                                                                                                      CardgroupSubType,
-                                                                                                      CardgroupSeq));
+                                                            cardgrp.setCardGroupMainType(cardgroupMainType);
+                                                            cardgrp.setCardGroupSubType(cardgroupSubType);
+                                                            cardgrp.setCardGroupSeq(cardgroupSeq);
+                                                            cardgrp.setCardGroupID((cardgroupMainType.concat(cardgroupSubType).concat(cardgroupSeq)));
+                                                            cardgrp.setCardGroupName(getcardGroupName(cardgroupMainType,
+                                                                                                      cardgroupSubType,
+                                                                                                      cardgroupSeq));
                                                             if (cardgrp.getCardGroupName() !=
                                                                 null) {
-                                                                cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType)).concat(CardgroupSeq) +
+                                                                cardgrp.setDisplayCardGroupIdName((cardgroupMainType.concat(cardgroupSubType)).concat(cardgroupSeq) +
                                                                                                   "-" +
                                                                                                   cardgrp.getCardGroupName());
                                                             } else
 
-                                                            { cardgrp.setDisplayCardGroupIdName((CardgroupMainType.concat(CardgroupSubType).concat(CardgroupSeq))); }
+                                                            { cardgrp.setDisplayCardGroupIdName((cardgroupMainType.concat(cardgroupSubType).concat(cardgroupSeq))); }
 
 
                                                             cardgrp.setCardGroupOverview(true);
@@ -1021,15 +1021,15 @@ new AccountInfo();
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
                                                                      " cardgroup seq " +
-                                                                     CardgroupSeq);
+                                                                     cardgroupSeq);
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
                                                                      " Cardgroup Maintype " +
-                                                                     CardgroupMainType);
+                                                                     cardgroupMainType);
                                                             log.info(accessDC.getDisplayRecord() +
                                                                      this.getClass() +
                                                                      " CardgroupSubtype " +
-                                                                     CardgroupSubType);
+                                                                     cardgroupSubType);
 
                                                             //Execute CardgroupVO to fetch corresponding Account number
 
@@ -1078,16 +1078,16 @@ iter3.getViewObject();
                                                                 vo3.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
 
                                                                 vo3.defineNamedWhereClauseParam("cgid",
-                                                                                                CardgroupSeq,
+                                                                                                cardgroupSeq,
                                                                                                 null);
                                                                 vo3.defineNamedWhereClauseParam("cc",
                                                                                                 (String)session.getAttribute(Constants.userLang),
                                                                                                 null);
                                                                 vo3.defineNamedWhereClauseParam("cgmain",
-                                                                                                CardgroupMainType,
+                                                                                                cardgroupMainType,
                                                                                                 null);
                                                                 vo3.defineNamedWhereClauseParam("cgsub",
-                                                                                                CardgroupSubType,
+                                                                                                cardgroupSubType,
                                                                                                 null);
 
 
@@ -1511,7 +1511,7 @@ new CardInfo();
                                                             }
                                                             accountCheck =
                                                                     new AccountInfo();
-                                                            cardgrp_check =
+                                                            cardGrpCheck =
                                                                     new CardGroupInfo();
 
                                                             accountOverView =
@@ -1566,39 +1566,39 @@ new CardInfo();
                                                                                  this.getClass() +
                                                                                  " cardgrp id value in account list " +
                                                                                   cardGrpListCheck.get(cardgrplistsize).getCardGroupSeq());
-                                                                        cardgrp_check =
+                                                                        cardGrpCheck =
                                                                                  cardGrpListCheck.get(cardgrplistsize);
-                                                                        if (cardgrp_check.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
-                                                                            cardgrp_check.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
-                                                                            cardgrp_check.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
+                                                                        if (cardGrpCheck.getCardGroupMainType().equalsIgnoreCase(cardgrp.getCardGroupMainType()) &&
+                                                                            cardGrpCheck.getCardGroupSubType().equalsIgnoreCase(cardgrp.getCardGroupSubType()) &&
+                                                                            cardGrpCheck.getCardGroupSeq().equalsIgnoreCase(cardgrp.getCardGroupSeq())) {
                                                                             createCardList =
                                                                                     false;
 
-                                                                            if (cardgrp_check.isCardGroupOverview()) {
+                                                                            if (cardGrpCheck.isCardGroupOverview()) {
                                                                                 cardGroupOverview =
                                                                                         true;
                                                                                 break;
                                                                             } else {
                                                                                 //Take out the cardgrp obj from list and modify the same cardgrp object to add card in cardgrp's object list
                                                                                 cardlist =
-                                                                                        cardgrp_check.getCard();
+                                                                                        cardGrpCheck.getCard();
                                                                                 if (!cardlist.contains(card))
                                                                                 {  cardlist.add(card);}
-                                                                                cardgrp_check.setCard(cardlist);
-                                                                                cardgrp_check.setCardGroupOverview(false);
+                                                                                cardGrpCheck.setCard(cardlist);
+                                                                                cardGrpCheck.setCardGroupOverview(false);
                                                                             }
-                                                                            //Replace the old cardgrp obj in list with new one cardgrp_check
+                                                                            //Replace the old cardgrp obj in list with new one cardGrpCheck
                                                                             for (int z =
                                                                                  0;
                                                                                  z <
                                                                                  cardgrouplist.size();
                                                                                  z++) {
-                                                                                if (cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
-                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType()) &&
-                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardgrp_check.getCardGroupMainType())) {
+                                                                                if (cardgrouplist.get(z).getCardGroupMainType().equals(cardGrpCheck.getCardGroupMainType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardGrpCheck.getCardGroupMainType()) &&
+                                                                                    cardgrouplist.get(z).getCardGroupMainType().equals(cardGrpCheck.getCardGroupMainType())) {
 
                                                                                     cardgrouplist.set(z,
-                                                                                                      cardgrp_check);
+                                                                                                      cardGrpCheck);
                                                                                 }
                                                                             }
                                                                         }
@@ -1953,7 +1953,7 @@ new CardInfo();
 
 
                     }
-                    String AccountID = acc.getAccountNumber();
+                    String accountID = acc.getAccountNumber();
 
                     bindings =
                             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
@@ -1992,7 +1992,7 @@ new CardInfo();
                     cardGroupVO = iter2.getViewObject();
                     cardGroupVO.setWhereClause("ACCOUNT_ID =: accid AND COUNTRY_CODE =: cc");
 
-                    cardGroupVO.defineNamedWhereClauseParam("accid", AccountID,
+                    cardGroupVO.defineNamedWhereClauseParam("accid", accountID,
                                                             null);
                     cardGroupVO.defineNamedWhereClauseParam("cc",
                                                             (String)session.getAttribute(Constants.userLang),
@@ -2044,11 +2044,11 @@ new CardInfo();
                             }
 
 
-                            String CardgroupMainType =
+                            String cardgroupMainType =
                                 cardgrp.getCardGroupMainType().toString();
-                            String CardgroupSubType =
+                            String cardgroupSubType =
                                 cardgrp.getCardGroupSubType().toString();
-                            String CardgroupSeq =
+                            String cardgroupSeq =
                                 cardgrp.getCardGroupSeq().toString();
 
 
@@ -2089,7 +2089,7 @@ new CardInfo();
 
 
                             cardVO.defineNamedWhereClauseParam("cgid",
-                                                               CardgroupSeq,
+                                                               cardgroupSeq,
                                                                null);
                             cardVO.defineNamedWhereClauseParam("cc",
                                                                (String)session.getAttribute("partnerLang"),
@@ -2097,13 +2097,13 @@ new CardInfo();
 
 
                             cardVO.defineNamedWhereClauseParam("cgmain",
-                                                               CardgroupMainType,
+                                                               cardgroupMainType,
                                                                null);
                             cardVO.defineNamedWhereClauseParam("cgsub",
-                                                               CardgroupSubType,
+                                                               cardgroupSubType,
                                                                null);
                             cardVO.defineNamedWhereClauseParam("acid",
-                                                               AccountID,
+                                                               accountID,
                                                                null);
 
 
@@ -2326,9 +2326,9 @@ new CardInfo();
         return partnerName;
     }
 
-    public String getcardGroupName(String CardgroupMainType,
-                                   String CardgroupSubType,
-                                   String CardgroupSeq) {
+    public String getcardGroupName(String cardgroupMainType,
+                                   String cardgroupSubType,
+                                   String cardgroupSeq) {
         String cardGroupName = "";
         DCBindingContainer bindings =
             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -2353,18 +2353,18 @@ new CardInfo();
             cardGroupVO.setWhereClause("CARDGROUP_SEQ =: cgid AND COUNTRY_CODE =: cc AND CARDGROUP_MAIN_TYPE=: cgmain AND CARDGROUP_SUB_TYPE=: cgsub");
             log.info(accessDC.getDisplayRecord() + this.getClass() +
                      " cardGroup id passed in cardGroup VO is " +
-                     CardgroupMainType + " " + CardgroupSubType + " " +
-                     CardgroupSeq);
+                     cardgroupMainType + " " + cardgroupSubType + " " +
+                     cardgroupSeq);
 
-            cardGroupVO.defineNamedWhereClauseParam("cgid", CardgroupSeq,
+            cardGroupVO.defineNamedWhereClauseParam("cgid", cardgroupSeq,
                                                     null);
 
             cardGroupVO.defineNamedWhereClauseParam("cc",
                                                     (String)session.getAttribute("partnerLang"),
                                                     null);
             cardGroupVO.defineNamedWhereClauseParam("cgmain",
-                                                    CardgroupMainType, null);
-            cardGroupVO.defineNamedWhereClauseParam("cgsub", CardgroupSubType,
+                                                    cardgroupMainType, null);
+            cardGroupVO.defineNamedWhereClauseParam("cgsub", cardgroupSubType,
                                                     null);
             cardGroupVO.executeQuery();
             log.info(accessDC.getDisplayRecord() + this.getClass() +
@@ -2381,8 +2381,8 @@ new CardInfo();
                             currRowcard.getCardgroupDescription().toString();
                     log.info(accessDC.getDisplayRecord() + this.getClass() +
                              " cardGroupName returned from database for cardGroupid " +
-                             CardgroupMainType + " " + CardgroupSubType + " " +
-                             CardgroupSeq + " is " + cardGroupName);
+                             cardgroupMainType + " " + cardgroupSubType + " " +
+                             cardgroupSeq + " is " + cardGroupName);
 
                 }
             }
@@ -2659,12 +2659,12 @@ new CardInfo();
         return accountCheck;
     }
 
-    public void setCardgrp_check(CardGroupInfo cardgrp_check) {
-        this.cardgrp_check = cardgrp_check;
+    public void setcardGrpCheck(CardGroupInfo cardGrpCheck) {
+        this.cardGrpCheck = cardGrpCheck;
     }
 
-    public CardGroupInfo getCardgrp_check() {
-        return cardgrp_check;
+    public CardGroupInfo getcardGrpCheck() {
+        return cardGrpCheck;
     }
 
     public void setIsChangeInRedirectionRequired(boolean isChangeInRedirectionRequired) {

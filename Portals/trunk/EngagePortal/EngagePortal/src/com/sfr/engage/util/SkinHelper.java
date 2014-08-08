@@ -70,9 +70,9 @@ public class SkinHelper extends ThreadSerialization {
 
             session.setAttribute("portal", request.getParameter("portal"));
         } else {
-            String default_profile = "card";
+            String defaultProfile = "card";
 
-            session.setAttribute("portal", default_profile);
+            session.setAttribute("portal", defaultProfile);
         }
 
         portal = (String)session.getAttribute("portal");

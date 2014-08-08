@@ -84,7 +84,7 @@ public class imageservlet extends HttpServlet {
             if (imageId2 > 0) {
                 connection1 = DAOFactory.getJNDIConnection();
                 PreparedStatement statement =
-                    connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
+                    connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                 statement.setInt(1, imageId2);
 
 
@@ -101,7 +101,7 @@ public class imageservlet extends HttpServlet {
                     os.close();
                 } else {
                     PreparedStatement statementDefault =
-                        connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where  imageId2=?");
+                        connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where  image_id=?");
                     if (categId2 != 99) {
                         statementDefault.setInt(1, categId2);
                     } else {
@@ -122,7 +122,7 @@ public class imageservlet extends HttpServlet {
                         os.close();
                     } else { // TODO : ASHTHA - 02, May, 2014 : why is this needed?
                         PreparedStatement statementDefault1 =
-                            connection1.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
+                            connection1.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                         statementDefault1.setInt(1, 99999);
 
                         ResultSet rsDefault1 =
@@ -143,7 +143,7 @@ public class imageservlet extends HttpServlet {
             } else {
                 connection2 = DAOFactory.getJNDIConnection();
                 PreparedStatement statementDefault2 =
-                    connection2.prepareStatement("SELECT imageId2,prt_img from PRT_GEN_IMAGE where imageId2=?");
+                    connection2.prepareStatement("SELECT image_id,prt_img from PRT_GEN_IMAGE where image_id=?");
                 statementDefault2.setInt(1, 88888);
 
                 ResultSet rsDefault2 = statementDefault2.executeQuery();
