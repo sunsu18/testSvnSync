@@ -60,6 +60,7 @@ public class AssociationSelectionBean {
         userdetailslist = new ArrayList<UserDetails>();
         userlist = new ArrayList<User>();
         userdetailslist.clear();
+        
         String finaluserid = "";
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Searching");
         String regex = "\\d+";
@@ -80,9 +81,13 @@ public class AssociationSelectionBean {
                     for (int b = 0; b < userlist.size(); b++) {
                         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getEmailID());
                         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user " + b + " -> " + userlist.get(b).getFirstName());
+                        _logger.info(accessDC.getDisplayRecord() + this.getClass() +" userlist.get(b).getRoleList().size()" + userlist.get(b).getRoleList().size());
+                        
 
                         for (int r = 0; r < userlist.get(b).getRoleList().size(); r++) {
+                            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user role" + b + " -> " + userlist.get(b).getRoleList().get(r).getRoleName());
                             if (userlist.get(b).getRoleList().get(r).getRoleName().equalsIgnoreCase(Constants.ROLE_WCP_CARD_B2B_ADMIN)) {
+                                
                                 userdetails = new UserDetails();
                                 userdetails.setUseremail(userlist.get(b).getEmailID());
                                 if (userlist.get(b).getRoleList().get(r).getIdString() != null) {
@@ -99,12 +104,13 @@ public class AssociationSelectionBean {
                                     userdetails.setLastname(userlist.get(b).getLastName());
                                 }
                                 userdetailslist.add(userdetails);
+                                
                             }
                         }
 
 
                     }
-                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "userdetails are as follows ");
+                    _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "userdetails are as follows size" + userdetailslist.size());
                     for (int b = 0; b < userdetailslist.size(); b++) {
                         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "User email -> " + userdetailslist.get(b).getUseremail() +
                                      " partners ids " + userdetailslist.get(b).getPartnerids());
@@ -187,6 +193,7 @@ public class AssociationSelectionBean {
             for (int k = 0; k < userlist.size(); k++) {
                 if (userlist.get(k).getEmailID().equalsIgnoreCase(selectedUser)) {
                     session.setAttribute(Constants.SESSION_USER_INFO, userlist.get(k));
+                    session.setAttribute("executePartnerObjLogic", null);
                     _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "user in session is " + userlist.get(k).getEmailID());
                     break;
                 }

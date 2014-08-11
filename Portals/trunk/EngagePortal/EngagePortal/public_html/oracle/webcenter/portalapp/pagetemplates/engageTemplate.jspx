@@ -107,6 +107,16 @@
                             <af:commandMenuItem id="pt_logoutcbTest"  rendered="#{securityContext.authenticated}"
                                action="#{LoginBean.sfrLogout}"
                                text="#{sfr.LOGOUT}" inlineStyle="margin-left: -55px;font-size: 12px;"/>
+                               <af:commandImageLink id="pt_cil1" icon="/images/1407335730_change_user.png" inlineStyle="margin-left: -95px;"
+                                                    action="#{homeCarousalBean.redirectToSelectAssociate}"
+                                                    rendered="#{MenuVisibleHelperBean.visibleSelectAssociation}"/>
+                               <!--<af:image
+                                source="/images/1407335730_change_user.png"
+                                         id="pt_i1" shortDesc="" inlineStyle="margin-left: -95px;"/>-->
+                                <!--<af:commandMenuItem id="pt_cmi1"  rendered="#{securityContext.authenticated}"
+                               
+                                inlineStyle="margin-left: -95px;margin-top:-10px;"
+                                                    icon="/images/1407335730_change_user.png"/>-->
                            <!--<af:commandToolbarButton id="pt_ctb1"
                             rendered="#{securityContext.authenticated}"
                             inlineStyle="background-image: none; border-style: none; font-size: 12px; margin-left: -6px; margin-top: -4px; padding: 0px 0px 0px 0px; height: 10px; width: 10px; background-color: #F3F3F3;"

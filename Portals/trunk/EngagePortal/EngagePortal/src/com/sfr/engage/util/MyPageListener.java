@@ -199,8 +199,8 @@ public class MyPageListener implements PagePhaseListener {
             if (phase == PhaseId.RESTORE_VIEW.getOrdinal()) {
                 ExternalContext ectx =
                     FacesContext.getCurrentInstance().getExternalContext();
-                HttpServletRequest request =
-                    ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
+//                HttpServletRequest request =
+//                    ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest());
                 HttpSession session =
                     ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
                 if (!AdfFacesContext.getCurrentInstance().isPostback()) {
@@ -1731,7 +1731,7 @@ new CardInfo();
             if (request.getServerName().contains("101") ||
                 request.getServerName().contains("localhost") ||
                 request.getServerName().contains("127.0")) {
-                userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+                userList.add(populateUser(Constants.ROLE_WCP_CARD_CSR));
             } else {
                 userList =
                         userClient.searchUserWithUserId(securityContext.getUserName());
@@ -2429,7 +2429,7 @@ new CardInfo();
         user.setRoleList(listrole);
 
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
 
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");

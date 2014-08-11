@@ -3,6 +3,7 @@ package com.sfr.engage.util;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.AccessDataControl;
+import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.io.IOException;
@@ -455,5 +456,24 @@ public class HomeCarouselBean {
 
     public String getwsPortalCatalogLink() {
         return wsPortalCatalogLink;
+    }
+
+    public String redirectToSelectAssociate() {
+        HttpSession session =
+            ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+        ExternalContext ectx =
+            FacesContext.getCurrentInstance().getExternalContext();
+        session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
+                             "/faces/card/support/selectAssociation");
+        log.info(AccessDataControl.getDisplayRecord() + this.getClass() + " redirect to select association");
+        String requestedPage =
+            (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
+        try {
+            ectx.redirect(ectx.getRequestContextPath() +
+                      requestedPage);
+        } catch (IOException e) {
+            log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " cannot redirect to select association page");
+        }
+        return null;
     }
 }

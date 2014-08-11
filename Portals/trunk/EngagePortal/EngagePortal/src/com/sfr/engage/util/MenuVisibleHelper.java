@@ -737,10 +737,10 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleSelectAssociation() {
-        System.out.println("inside selectAssociation");
+        
         if(securityContext.isAuthenticated())
         {
-            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR))
+            if(user.getRolelist().contains(Constants.ROLE_WCP_CARD_CSR) || session.getAttribute("CSR")!=null)
             { visibleSelectAssociation = true;  }
             
         visibleAccount = false;
