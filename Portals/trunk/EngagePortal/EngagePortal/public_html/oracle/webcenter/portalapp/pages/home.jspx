@@ -291,13 +291,13 @@
                                            layout="vertical" halign="left">
                         <af:outputText id="outputText6"
                                        styleClass="cardheader"
-                                       value="#{requestScope.homeCarousalBean.card_name1}"
+                                       value="#{requestScope.homeCarousalBean.cardName1}"
                                        noWrap="true"/>
                         <af:panelGroupLayout id="pgl15" layout="vertical"
                                              inlineStyle="width:280px;min-height:108px;">
                           <af:spacer width="10" height="5" id="s9"/>
                           <af:outputText id="outputText10"
-                                         value="#{requestScope.homeCarousalBean.card_desc1}"
+                                         value="#{requestScope.homeCarousalBean.cardDesc1}"
                                          styleClass="contenttext"/>
                         </af:panelGroupLayout>
                             <af:spacer width="10" height="10" id="s12"/>
@@ -308,7 +308,7 @@
                                 <af:goImageLink id="gl2"
                                                      text="#{sfr.CARD_1_LINK}"
                                                      styleClass="greylinks"
-                                                     destination="#{homeCarousalBean.card1_learn_more}"
+                                                     destination="#{homeCarousalBean.card1LearnMore}"
                                                 targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="s10"/>
                                 <af:panelGroupLayout id="pgl22"
@@ -317,18 +317,7 @@
 
                               </af:panelGroupLayout>
                               <af:spacer height="10" id="s25" width="100"/>
-                              <!--<af:panelGroupLayout id="pgl23"
-                                                   layout="horizontal"
-                                                   halign="start">
-                              <af:goImageLink text="#{sfr.APPLY_NOW}"
-                                                     id="goLink1"
-                                                     styleClass="greylinks"
-                                                     destination="#{homeCarousalBean.card1_apply_now}"
-                                                targetFrame="_blank"/>
-                                <af:spacer width="2" height="10" id="s26"/>
-                                <af:panelGroupLayout id="pgl27"
-                                                     styleClass="arrow_learn_more"
-                                                     layout="vertical"/></af:panelGroupLayout>-->
+
                             </af:panelGroupLayout>
                              <af:spacer width="10" height="10" id="s26"/>
                           </af:panelGroupLayout>
@@ -344,17 +333,17 @@
                       <af:panelGroupLayout id="panelGroupLayout2"
                                            layout="vertical" halign="left">
                         <!--<af:outputText id="outputText7"
-                                       value="#{homeCarousalBean.card_name2}"
+                                       value="#{homeCarousalBean.cardName2}"
                                        styleClass="cardheader" noWrap="true"/>-->
                                        <af:outputText id="outputText7"
-                                       value="#{requestScope.homeCarousalBean.card_name2}"
+                                       value="#{requestScope.homeCarousalBean.cardName2}"
                                        styleClass="cardheader" noWrap="true"/>
                         <af:panelGroupLayout id="panelGroupLayout5"
                                              layout="vertical"
                                              inlineStyle="width:280px;">
                           <af:spacer width="10" height="5" id="spacer4"/>
                           <af:outputText id="outputText11"
-                                         value="#{requestScope.homeCarousalBean.card_desc2}"
+                                         value="#{requestScope.homeCarousalBean.cardDesc2}"
                                          styleClass="contenttext"/>
                         </af:panelGroupLayout>
                             <af:spacer width="10" height="10" id="s28"/>
@@ -366,27 +355,14 @@
                                 <af:goImageLink id="commandImageLink1"
                                                      text="#{sfr.CARD_2_LINK}"
                                                      styleClass="greylinks"
-                                                     destination="#{homeCarousalBean.card2_learn_more}"
+                                                     destination="#{homeCarousalBean.card2LearnMore}"
                                                 targetFrame="_blank"/>
                                 <af:spacer width="2" height="10" id="spacer2"/>
                                 <af:panelGroupLayout id="panelGroupLayout6"
                                                      styleClass="arrow_learn_more"
                                                      layout="vertical"/>
                               </af:panelGroupLayout>
-                              <!--<af:spacer width="10" height="100" id="s32"/>-->
-                              <!--<af:panelGroupLayout id="panelGroupLayout7"
-                                                   layout="horizontal"
-                                                   halign="start">
-                                <af:goImageLink text="#{sfr.APPLY_NOW}"
-                                                     id="commandImageLink2"
-                                                     styleClass="greylinks"
-                                                     destination="#{homeCarousalBean.card2_apply_now}"
-                                                targetFrame="_blank"/>
-                                <af:spacer width="2" height="10" id="spacer5"/>
-                                <af:panelGroupLayout id="panelGroupLayout8"
-                                                     styleClass="arrow_learn_more"
-                                                     layout="vertical"/>
-                              </af:panelGroupLayout>-->
+                            
                             </af:panelGroupLayout>
                             <af:spacer width="10" height="10" id="s30"/>
                           </af:panelGroupLayout>
@@ -401,9 +377,7 @@
                             id="r1"
                            visible="#{securityContext.authenticated}"/>
               </cust:panelCustomizable>
-              <!--f:facet name="editor">
-                <pe:pageEditorPanel id="pep1"/>
-              </f:facet-->
+         
             </pe:pageCustomizable>
           </f:facet>
         </af:pageTemplate>
