@@ -458,13 +458,14 @@ public class MyPageListener implements PagePhaseListener {
 
                                 if (partnerListSession != null) {
                                     for (int k = 0;
-                                         k < partnerListSession.size(); k++)
+                                         k < partnerListSession.size(); k++){
                                         if (partnerListSession.get(k).getPartnerValue().equalsIgnoreCase(partnerId) &&
                                             partnerListSession.get(k).isCompanyOverview()) {
                                             skipOtherRoles = true;
                                             break;
                                         } else
                                         {  skipOtherRoles = false; }
+                                }
                                 }
                                 if (!skipOtherRoles) {
                                     for (int i = 0;
@@ -932,12 +933,13 @@ new CardInfo();
                                                                              0;
                                                                              z <
                                                                              accountlist.size();
-                                                                             z++)
+                                                                             z++){
                                                                             if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
 
                                                                                 accountlist.set(z,
                                                                                                 acc);
 
+                                                                            } 
                                                                             }
                                                                         if (!accountlist.contains(acc))
                                                                         { accountlist.add(acc);}
@@ -1281,6 +1283,7 @@ new CardInfo();
                                                                                  z <
                                                                                  accountlist.size();
                                                                                  z++)
+                                                                            {
                                                                                 if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
 
                                                                                     acc.setCardGroup(cardgrouplist);
@@ -1290,6 +1293,7 @@ new CardInfo();
                                                                                     break;
 
                                                                                 }
+                                                                        }
 
                                                                         } else {
                                                                             //Add cardgrp to the cardgrp list and then replacae account
@@ -1302,6 +1306,7 @@ new CardInfo();
                                                                                  z <
                                                                                  accountlist.size();
                                                                                  z++)
+                                                                            {
                                                                                 if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
 
                                                                                     accountlist.set(z,
@@ -1310,6 +1315,8 @@ new CardInfo();
                                                                                     break;
 
                                                                                 }
+                                                                        }
+                                                                            
                                                                         }
                                                                     }
                                                                 }
@@ -1624,12 +1631,13 @@ new CardInfo();
                                                                              0;
                                                                              z <
                                                                              accountlist.size();
-                                                                             z++)
+                                                                             z++){
                                                                             if (accountlist.get(z).getAccountNumber().equals(acc.getAccountNumber())) {
 
                                                                                 accountlist.set(z,
                                                                                                 acc);
                                                                             }
+                                                                             }
                                                                         part.setAccountList(accountlist);
                                                                         break;
                                                                     }
@@ -1723,7 +1731,7 @@ new CardInfo();
             if (request.getServerName().contains("101") ||
                 request.getServerName().contains("localhost") ||
                 request.getServerName().contains("127.0")) {
-                userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+                userList.add(populateUser(Constants.ROLE_WCP_CARD_CSR));
             } else {
                 userList =
                         userClient.searchUserWithUserId(securityContext.getUserName());
@@ -2421,7 +2429,7 @@ new CardInfo();
         user.setRoleList(listrole);
 
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
 
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
