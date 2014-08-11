@@ -90,7 +90,7 @@
           usageId="com_sfr_engage_portal_requestsPageDef"/>
     <page path="/oracle/webcenter/portalapp/engagepages/menus/changepassword.jspx"
           usageId="com_sfr_engage_portal_changepasswordPageDef"/>
-    <page path="/oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx"
+    <page path="/oracle/webcenter/portalapp/engagepages/setup/selectAssociation.jspx"
           usageId="com_sfr_engage_portal_selectAssociationPageDef"/>
   </pageMap>
   <definitionFactories>
@@ -192,7 +192,7 @@
     <page id="com_sfr_engage_portal_changepasswordPageDef"
           path="oracle.webcenter.portalapp.engagepages.menus.changepasswordPageDef"/>
     <page id="com_sfr_engage_portal_selectAssociationPageDef"
-          path="oracle.webcenter.portalapp.engagepages.support.selectAssociationPageDef"/>
+          path="oracle.webcenter.portalapp.engagepages.setup.selectAssociationPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="EngageAppModuleDataControl"

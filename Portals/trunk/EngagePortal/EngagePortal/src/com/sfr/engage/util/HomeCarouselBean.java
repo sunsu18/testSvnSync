@@ -464,7 +464,7 @@ public class HomeCarouselBean {
         ExternalContext ectx =
             FacesContext.getCurrentInstance().getExternalContext();
         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
-                             "/faces/card/support/selectAssociation");
+                             "/faces/card/setup/selectAssociation");
         log.info(AccessDataControl.getDisplayRecord() + this.getClass() + " redirect to select association");
         String requestedPage =
             (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);

@@ -4,16 +4,19 @@
                 Package="oracle.webcenter.portalapp.engagepages.support">
   <parameters>
     <parameter id="page_parent"
-               value="/oracle/webcenter/portalapp/pagehierarchy/engagepages/menus/supportPages.xml"/>
+               value="/oracle/webcenter/portalapp/pagehierarchy/engagepages/menus/setupPages.xml"/>
     <parameter id="page_info"
-               value="title=selectAssociation;desc=;keywords=;createdBy=weblogic;createDate=2014-07-24T19:17:06;lastUpdatedBy=weblogic;lastUpdateDate=2014-07-24T19:17:06;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx;excluded=false;style="/>
+               value="title=selectAssociation;desc=;keywords=;createdBy=weblogic;createDate=2014-08-11T19:47:39;lastUpdatedBy=weblogic;lastUpdateDate=2014-08-11T19:47:39;permissionClass=oracle.webcenter.security.auth.HierarchicalResourcePermission;target=serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/setup/selectAssociation.jspx;excluded=false;style="/>
     <parameter id="page_title" value="selectAssociation"/>
   </parameters>
   <executables>
     <variableIterator id="variables"/>
-    <page viewId="${preferenceBean.defaultPageTemplate}" path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
+    <page viewId="${preferenceBean.defaultPageTemplate}"
+          path="oracle.webcenter.portalapp.pagetemplates.engageTemplatePageDef"
           id="pageTemplateBinding" Refresh="ifNeeded"/>
-          <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="pageeditorpanel"
+              taskFlowId="#{pageEditorBean.pageEditorPanel}"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
     <taskFlow id="AssociationSelectionTaskFlow1"
               taskFlowId="/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow"
               activation="deferred"
@@ -21,7 +24,7 @@
   </executables>
   <bindings/>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
-              target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/support/selectAssociation.jspx"
+              target="serviceID=oracle.webcenter.page,scopeID=s8bba98ff_4cbb_40b8_beee_296c916a23ed,resourceID=/oracle/webcenter/portalapp/engagepages/setup/selectAssociation.jspx"
               xmlns="http://xmlns.oracle.com/adf/security">
     <privilege-map operation="create" privilege="create"/>
     <privilege-map operation="delete" privilege="delete"/>

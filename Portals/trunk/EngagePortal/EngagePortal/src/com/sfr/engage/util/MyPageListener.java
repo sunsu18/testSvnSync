@@ -251,7 +251,7 @@ public class MyPageListener implements PagePhaseListener {
                                              "true");
                         session.setAttribute("CSR", true);
                         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
-                                             "/faces/card/support/selectAssociation");
+                                             "/faces/card/setup/selectAssociation");
                         log.info("redirect to select association");
                         String requestedPage =
                             (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
@@ -1731,7 +1731,7 @@ new CardInfo();
             if (request.getServerName().contains("101") ||
                 request.getServerName().contains("localhost") ||
                 request.getServerName().contains("127.0")) {
-                userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+                userList.add(populateUser(Constants.ROLE_WCP_CARD_CSR));
             } else {
                 userList =
                         userClient.searchUserWithUserId(securityContext.getUserName());
@@ -2429,7 +2429,7 @@ new CardInfo();
         user.setRoleList(listrole);
 
 
-        user.setRolelist(Constants.ROLE_WCP_CARD_B2B_ADMIN);
+        user.setRolelist(Constants.ROLE_WCP_CARD_CSR);
 
         user.setUserID("B2BMgr1@test.com");
         user.setEmailID("hiten.karamchandani@lntinfotech.com");
