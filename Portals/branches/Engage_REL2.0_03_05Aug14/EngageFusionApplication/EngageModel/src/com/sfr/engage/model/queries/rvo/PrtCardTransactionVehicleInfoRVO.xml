@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardTransactionVehicleInfoRVO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVOImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtCardTransactionVehicleInfoRVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="countryCd"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="paramValue"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT PTI.INTERNAL_NAME || '-' || DECODE(PC.CARD_EMBOSS_NUM,NULL,PTI.REFERENCE_NUMBER,PC.CARD_EMBOSS_NUM) AS VEHICLE_NUMBER
+      ,PC.PRT_CARD_PK
+      ,PTI.REFERENCE_NUMBER
+      ,ACCOUNT_NUMBER
+FROM PRT_TRUCK_INFORMATION PTI
+LEFT JOIN PRT_CARD PC
+ON    (PTI.CARD_NUMBER        = PC.PRT_CARD_PK
+AND    PTI.ACCOUNT_NUMBER     = PC.ACCOUNT_ID
+AND    PTI.COUNTRY_CODE       = PC.COUNTRY_CODE)
+WHERE PTI.COUNTRY_CODE         = :countryCd
+AND   'Vehicle'                = :paramValue]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="VehicleNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VEHICLE_NUMBER"
+    Expression="VEHICLE_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="41"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PrtCardPk"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRT_CARD_PK"
+    Expression="PRT_CARD_PK"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReferenceNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="REFERENCE_NUMBER"
+    Expression="REFERENCE_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_NUMBER"
+    Expression="ACCOUNT_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

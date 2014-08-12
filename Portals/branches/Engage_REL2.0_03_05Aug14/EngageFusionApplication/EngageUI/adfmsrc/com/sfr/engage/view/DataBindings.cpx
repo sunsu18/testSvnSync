@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.61.92" id="DataBindings" SeparateXMLFiles="false"
+             Package="com.sfr.engage.view" ClientType="Generic"
+             ErrorHandlerClass="com.sfr.engage.model.exception.CustomErrorHandler">
+
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding" className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+
+
+  <pageMap>
+    <page path="/WEB-INF/com/sfr/engage/cardtaskflow/Card.jsff" usageId="com_sfr_engage_view_CardPageDef"/>
+    <page path="/test.jspx" usageId="com_sfr_engage_view_testPageDef"/>
+
+    <page path="/WEB-INF/com/sfr/engage/vehicleinfotaskflow/VehicleInfo.jsff"
+          usageId="com_sfr_engage_view_VehicleInfoPageDef"/>
+
+    <page path="/WEB-INF/com/sfr/engage/driverinfotaskflow/DriverInfo.jsff"
+          usageId="com_sfr_engage_view_DriverInfoPageDef"/>
+ <page path="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHome.jsff"
+          usageId="com_sfr_engage_view_AuthenticatedHomePageDef"/>
+
+    <page path="/WEB-INF/com/sfr/engage/changepasswordtaskflow/ChangePassword.jsff"
+          usageId="com_sfr_engage_view_ChangePasswordPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/pricelisttaskflow/PriceListInfo.jsff"
+          usageId="com_sfr_engage_view_PriceListInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/helptaskflow/HelpInfo.jsff"
+          usageId="com_sfr_engage_view_HelpInfoPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/invoiceoverviewtaskflow/InvoiceOverview.jsff"
+          usageId="com_sfr_engage_view_InvoiceOverviewPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/transactionoverviewtaskflow/TransactionOverview.jsff"
+          usageId="com_sfr_engage_view_TransactionOverviewPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/accountsummarytaskflow/AccountSummary.jsff"
+          usageId="com_sfr_engage_view_AccountSummaryPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/associationselectiontaskflow/Association.jsff"
+          usageId="com_sfr_engage_view_AssociationPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="com_sfr_engage_view_CardPageDef"
+          path="com.sfr.engage.cardtaskflow.CardPageDef"/>
+    <page id="com_sfr_engage_view_testPageDef" path="com.sfr.engage.view.pageDefs.testPageDef"/>
+
+    <page id="com_sfr_engage_view_VehicleInfoPageDef"
+          path="com.sfr.engage.vehicleinfotaskflow.VehicleInfoPageDef"/>
+
+    <page id="com_sfr_engage_view_DriverInfoPageDef"
+          path="com.sfr.engage.driverinfotaskflow.DriverInfoPageDef"/>
+<page id="com_sfr_engage_view_AuthenticatedHomePageDef"
+          path="com.sfr.engage.authenticatedhometaskflow.AuthenticatedHomePageDef"/>
+
+    <page id="com_sfr_engage_view_ChangePasswordPageDef"
+          path="com.sfr.engage.changepasswordtaskflow.ChangePasswordPageDef"/>
+    <page id="com_sfr_engage_view_PriceListInfoPageDef"
+          path="com.sfr.engage.pricelisttaskflow.PriceListInfoPageDef"/>
+    <page id="com_sfr_engage_view_HelpInfoPageDef"
+          path="com.sfr.engage.helptaskflow.HelpInfoPageDef"/>
+    <page id="com_sfr_engage_view_InvoiceOverviewPageDef"
+          path="com.sfr.engage.invoiceoverviewtaskflow.InvoiceOverviewPageDef"/>
+    <page id="com_sfr_engage_view_TransactionOverviewPageDef"
+          path="com.sfr.engage.transactionoverviewtaskflow.TransactionOverviewPageDef"/>
+          <page id="com_sfr_engage_view_AccountSummaryPageDef" 
+          path="com.sfr.engage.accountsummarytaskflow.AccountSummaryPageDef"/>
+    <page id="com_sfr_engage_view_AssociationPageDef"
+          path="com.sfr.engage.associationselectiontaskflow.AssociationPageDef"/>
+  </pageDefinitionUsages>
+
+  <dataControlUsages>
+    <dc id="PartnerInfoListClient"
+        path="com.sfr.engage.model.PartnerInfoListClient"/>
+    <dc id="UserClient" path="com.sfr.engage.model.UserClient"/>
+    <BC4JDataControl id="EngageAppModuleDataControl" Package="com.sfr.engage.model.module" FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true" SupportsSortCollection="true"
+                     Configuration="EngageAppModuleLocal" syncMode="Immediate" xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+
+</Application>

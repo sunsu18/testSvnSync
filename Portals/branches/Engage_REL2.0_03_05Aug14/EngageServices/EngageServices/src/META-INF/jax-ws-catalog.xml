@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://sfre007t.statoilfuelretail.com:11518/ucm-ws/UCMCustomWebPort?WSDL"
+          uri="http://sfre007t.statoilfuelretail.com:11518/ucm-ws/UCMCustomWebPort?WSDL"/>
+</catalog>

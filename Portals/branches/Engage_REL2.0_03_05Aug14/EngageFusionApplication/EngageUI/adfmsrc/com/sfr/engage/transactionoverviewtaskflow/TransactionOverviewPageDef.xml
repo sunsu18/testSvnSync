@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="TransactionOverviewPageDef"
+                Package="com.sfr.engage.transactionoverviewtaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PrtCardTransactionOverviewRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardTransactionOverviewRVO1Iterator"/>
+    <iterator id="PrtCardDriverVehicleInfoRVO1Iterator"
+              Binds="PrtCardDriverVehicleInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtPartnerVO1Iterator" Binds="PrtPartnerVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <searchRegion Binds="PrtCardTransactionOverviewRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtCardTransactionOverviewRVO12Query"/>    
+    <iterator id="PrtExportInfoRVO1Iterator" Binds="PrtExportInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardTransactionVehicleInfoRVO1Iterator"
+              Binds="PrtCardTransactionVehicleInfoRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1Iterator"
+              Binds="PrtCardTransactionHeaderUrefIdUpdateOdometerRvo1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <!--<tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO10">
+        <AttrNames>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="PalsCountryCode"/>
+          <Item Value="kmTotal"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="grandTotal"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="Ksid"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="DriverName"/>
+          <Item Value="Odometer"/>
+          <Item Value="PurchaseCountryCode"/>
+          <Item Value="ProductName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>-->
+    <!--<tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO110">
+        <AttrNames>
+          <Item Value="DeltaTimestamp"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>-->
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyUnitPrice">
+      <AttrNames>
+        <Item Value="CurrencyUnitPrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyGrossAmount">
+      <AttrNames>
+        <Item Value="CurrencyGrossAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyVat">
+      <AttrNames>
+        <Item Value="CurrencyVat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyNetAmount">
+      <AttrNames>
+        <Item Value="CurrencyNetAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedGrossAmount">
+      <AttrNames>
+        <Item Value="InvoicedGrossAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedUnitPrice">
+      <AttrNames>
+        <Item Value="InvoicedUnitPrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoiceDiscountAmount">
+      <AttrNames>
+        <Item Value="InvoiceDiscountAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedGrossAmountRebated">
+      <AttrNames>
+        <Item Value="InvoicedGrossAmountRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedNetAmount">
+      <AttrNames>
+        <Item Value="InvoicedNetAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedVat">
+      <AttrNames>
+        <Item Value="InvoicedVat"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="kmTotal">
+      <AttrNames>
+        <Item Value="kmTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="kmPerLt">
+      <AttrNames>
+        <Item Value="kmPerLt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="ltPerHundred">
+      <AttrNames>
+        <Item Value="ltPerHundred"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="PalsCountryCode">
+      <AttrNames>
+        <Item Value="PalsCountryCode"/>
+      </AttrNames>
+    </attributeValues>
+  <!--  <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO12">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO120">
+        <AttrNames>
+          <Item Value="PurchaseCountryCode"/>
+          <Item Value="Card1Id"/>
+          <Item Value="Odometer"/>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="RecieptNo"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="Quantity"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="DriverName"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="kmTotal"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="ProductName"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="UnitOfMeasure"/>
+          <Item Value="UrefTransactionId"/>
+          <Item Value="PalsCountryCode"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="TransactionType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>-->
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
+            DataControl="EngageAppModuleDataControl"/>
+    <action id="Rollback" RequiresUpdateModel="false"
+            Action="rollbackTransaction"
+            DataControl="EngageAppModuleDataControl"/>
+    <methodAction id="updateOdometerPortal"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateOdometerPortal" IsViewObjectMethod="false">
+      <NamedData NDName="urefTransactionId" NDType="java.lang.String"/>
+      <NamedData NDName="palsCountryCode" NDType="java.lang.String"/>
+      <NamedData NDName="odoMeterPortalValue" NDType="java.lang.String"/>
+      <NamedData NDName="modifiedBy" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="ModifiedBy">
+      <AttrNames>
+        <Item Value="ModifiedBy"/>
+      </AttrNames>
+    </attributeValues>
+<!--    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="LastModifiedDate">
+      <AttrNames>
+        <Item Value="LastModifiedDate"/>
+      </AttrNames>
+    </attributeValues>--><!-- Change with Portal Modified Date-->
+    <tree IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+          id="PrtCardTransactionOverviewRVO13">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionOverviewRVO"
+                      Name="PrtCardTransactionOverviewRVO130">
+        <AttrNames>
+          <Item Value="PurchaseCountryCode"/>
+          <Item Value="Card1Id"/>
+          <Item Value="OdometerPortal"/>
+          <Item Value="Odometer"/>
+          <Item Value="TransactionDt"/>
+          <Item Value="TransactionTime"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="InvoiceNumberCollective"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMainType"/>
+          <Item Value="CardgroupSubType"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="PreviousOdometer"/>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <!--<Item Value="VatRate"/>-->
+          <Item Value="CurrencyUnitPrice"/>
+          <Item Value="CurrencyGrossAmount"/>
+          <Item Value="UnitOfMeasure"/>
+          <Item Value="CurrencyVat"/>
+          <Item Value="CurrencyDiscountAmount"/>
+          <Item Value="CurrencyNetAmount"/>
+          <Item Value="InvoicedVat"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="InvoicedGrossAmountRebated"/>
+          <Item Value="InvoicedUnitPriceRebated"/>
+          <Item Value="InvoivedVatRebated"/>
+          <Item Value="InvoicedNetAmountRebated"/>
+          <Item Value="InvoiceNo"/>
+          <Item Value="CardTextLine2"/>
+          <!--<Item Value="InvoicedNetAmount"/>
+          <Item Value="InvoiceDiscountAmount"/>-->
+          <Item Value="DriverNumber"/>
+          <Item Value="DriverName"/>
+          <Item Value="VehicleNumber"/>
+          <Item Value="InternalName"/>
+          <Item Value="kmTotal"/>
+          <Item Value="kmPerLt"/>
+          <Item Value="ltPerHundred"/>
+          <Item Value="PurchaseCurrency"/>
+          <Item Value="TransactionType"/>
+           <Item Value="UrefTransactionId"/>
+          <Item Value="PalsCountryCode"/>
+          <Item Value="CardGroupDesc"/>
+          <Item Value="CardgroupId"/>
+          <Item Value="TotalAmount"/>
+          <Item Value="Ksid"/>
+          <Item Value="PartnerId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>    
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="PurchaseCurrency">
+      <AttrNames>
+        <Item Value="PurchaseCurrency"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyUnitPriceRebated">
+      <AttrNames>
+        <Item Value="CurrencyUnitPriceRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="CurrencyGrossAmountRebated">
+      <AttrNames>
+        <Item Value="CurrencyGrossAmountRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedUnitPriceRebated">
+      <AttrNames>
+        <Item Value="InvoicedUnitPriceRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoivedVatRebated">
+      <AttrNames>
+        <Item Value="InvoivedVatRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="InvoicedNetAmountRebated">
+      <AttrNames>
+        <Item Value="InvoicedNetAmountRebated"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="PortalModifiedDate">
+      <AttrNames>
+        <Item Value="PortalModifiedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updatePreviousOdometer"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updatePreviousOdometer"
+                  IsViewObjectMethod="false">
+      <NamedData NDName="cardNumber" NDType="java.lang.String"/>
+      <NamedData NDName="accountId" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="partnerId" NDType="java.lang.String"/>
+      <NamedData NDName="transactionId" NDType="java.lang.String"/>
+      <NamedData NDName="previousOdometer" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PrtCardTransactionOverviewRVO1Iterator"
+                     id="Odometer">
+      <AttrNames>
+        <Item Value="Odometer"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

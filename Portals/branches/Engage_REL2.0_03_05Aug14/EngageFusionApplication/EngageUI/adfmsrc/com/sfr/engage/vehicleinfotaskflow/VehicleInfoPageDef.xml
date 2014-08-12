@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="VehicleInfoPageDef"
+                Package="com.sfr.engage.vehicleinfotaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="PrtTruckInformationVO1Iterator" Binds="PrtTruckInformationVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="-1"/>
+    <iterator Binds="PrtTruckInformationVO2" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtTruckInformationVO2Iterator"/>
+    <iterator id="PrtAccountVO1Iterator" Binds="PrtAccountVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtTruckInformationVO3Iterator" Binds="PrtTruckInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtDriverInformationVO3Iterator"
+              Binds="PrtDriverInformationVO3"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="VehicleNumber">
+      <AttrNames>
+        <Item Value="VehicleNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <!--<attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="CardNumber">
+      <AttrNames>
+        <Item Value="CardNumber"/>
+      </AttrNames>
+    </attributeValues>-->
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="InternalName">
+      <AttrNames>
+        <Item Value="InternalName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="RegistrationNumber">
+      <AttrNames>
+        <Item Value="RegistrationNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="Brand">
+      <AttrNames>
+        <Item Value="Brand"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="Year">
+      <AttrNames>
+        <Item Value="Year"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="RegistrationDate">
+      <AttrNames>
+        <Item Value="RegistrationDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="EndDate">
+      <AttrNames>
+        <Item Value="EndDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="FuelType">
+      <AttrNames>
+        <Item Value="FuelType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="MaxFuel">
+      <AttrNames>
+        <Item Value="MaxFuel"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="Odometer">
+      <AttrNames>
+        <Item Value="Odometer"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="PrtTruckInformationVO2Iterator" id="CreateInsert"
+            InstanceName="EngageAppModuleDataControl.PrtTruckInformationVO2"
+            DataControl="EngageAppModuleDataControl" RequiresUpdateModel="true"
+            Action="createInsertRow"/>
+    <!--<list IterBinding="PrtTruckInformationVO2Iterator" id="AccountNumber"
+          DTSupportsMRU="true" StaticList="false"
+          ListIter="PrtAccountVO1Iterator">
+      <AttrNames>
+        <Item Value="AccountNumber"/>
+      </AttrNames>
+      <ListAttrNames>
+        <Item Value="AccountId"/>
+      </ListAttrNames>
+      <ListDisplayAttrNames>
+        <Item Value="AccountId"/>
+      </ListDisplayAttrNames>
+    </list>-->
+    <methodAction id="deleteAllForAccount"
+                  InstanceName="EngageAppModuleDataControl.dataProvider"
+                  DataControl="EngageAppModuleDataControl"
+                  RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="deleteAllForAccount" IsViewObjectMethod="false">
+      <NamedData NDName="accountId" NDType="java.lang.String"/>
+      <NamedData NDName="type" NDType="java.lang.String"/>
+      <NamedData NDName="countryCd" NDType="java.lang.String"/>
+      <NamedData NDName="regDriverValue" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PrtTruckInformationVO2Iterator"
+                     id="ReferenceNumber">
+      <AttrNames>
+        <Item Value="ReferenceNumber"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
