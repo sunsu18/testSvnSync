@@ -1,11 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+            xmlns:af="http://xmlns.oracle.com/adf/faces/rich" >
 <!--<c:set var="sfr" value="#{adfBundle['com.sfr.engage.model.resources.EngageResourceBundle']}"/>-->
-    <af:panelGroupLayout id="MainPanel" layout="vertical" styleClass="spacerStyle">
+    <af:panelGroupLayout id="MainPanel" layout="scroll" styleClass="spacerStyle">
    <af:spacer width="10" height="20" id="s9"/>
     <af:panelGroupLayout id="Panel1" layout="horizontal">
 
@@ -34,31 +31,22 @@
   <af:panelGroupLayout id="pgl3"
                        
                        partialTriggers="cb1" visible="false"
-                       binding="#{pageFlowScope.AssociationSelectionBean.searchResultsIdm}">
+                       binding="#{pageFlowScope.AssociationSelectionBean.searchResultsIdm}"
+                       >
                        <af:spacer height="25" id="s2"/>
                        <af:outputText value="#{sfr.SEARCH_RESULTS_ENG}" id="ot2"/>
- <!--<af:forEach var="var" items="#{pageFlowScope.selectAssBean.userlist}">
 
-          <af:showDetailItem text="#{var.emailID}" id="sdi1"
-                               stretchChildren="none"
-                               inlineStyle="height:auto !important;">
-            <af:spacer width="10" height="10" id="s2"/>
-            <af:outputText value="#{var.firstName}" id="otj1"
-                           inlineStyle="background-color: white;" escape="false"/>
-           <af:spacer width="10" height="10" id="s7"/>
-            </af:showDetailItem>
-
-        </af:forEach>-->
 
 <af:table var="row" rowBandingInterval="1" id="t1"
-           width="945px"
+          
                            emptyText="#{sfr.NO_DATA}"
                           fetchSize="-1" columnResizing="disabled" disableColumnReordering="true"
                             autoHeightRows="10" 
           
           rowSelection="single"
           value="#{pageFlowScope.AssociationSelectionBean.userdetailslist}"
-          binding="#{pageFlowScope.AssociationSelectionBean.searchUsersTable}">
+          binding="#{pageFlowScope.AssociationSelectionBean.searchUsersTable}"
+          width="365">
                   <af:column sortable="false" id="c13" width="28px" align="center">
      <af:selectBooleanRadio  
                             id="sbr1" group="g1" autoSubmit="true"
