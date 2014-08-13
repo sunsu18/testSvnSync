@@ -24,7 +24,7 @@
    <af:inputText  id="it1"
                  binding="#{pageFlowScope.AssociationSelectionBean.searchText}"/>
                  <af:spacer width="30" id="s1"/>
-    <af:commandButton text="Search" id="cb1"
+    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                      actionListener="#{pageFlowScope.AssociationSelectionBean.SearchIDMUsers}"/>
   </af:panelGroupLayout>
   
