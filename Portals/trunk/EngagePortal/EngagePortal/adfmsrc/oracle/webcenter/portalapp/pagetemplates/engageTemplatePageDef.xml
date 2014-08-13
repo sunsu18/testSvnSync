@@ -10,6 +10,25 @@
               <iterator Binds="PrtAccountVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtAccountVO1Iterator"/>
     <iterator Binds="PrtCardgroupVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardgroupVO1Iterator"/>
     <iterator Binds="PrtCardVO1" RangeSize="10" DataControl="EngageAppModuleDataControl" id="PrtCardVO1Iterator"/>
+    <iterator Binds="PrtUserPreferredLangVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserPreferredLangVO1Iterator"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <tree IterBinding="PrtUserPreferredLangVO1Iterator"
+          id="PrtUserPreferredLangVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVO"
+                      Name="PrtUserPreferredLangVO10">
+        <AttrNames>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="PreferredLang"/>
+          <Item Value="SNo"/>
+          <Item Value="UserId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+  </bindings>
 </pageDefinition>

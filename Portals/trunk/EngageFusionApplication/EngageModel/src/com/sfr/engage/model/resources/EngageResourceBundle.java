@@ -1,9 +1,10 @@
 package com.sfr.engage.model.resources;
 
-
+import com.sfr.core.bean.User;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVOImpl;
 import com.sfr.engage.model.queries.rvo.PrtGenStringRVORowImpl;
 
+import com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVORowImpl;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import oracle.jbo.ApplicationModule;
 import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
+import oracle.jbo.ViewObject;
 import oracle.jbo.client.Configuration;
 
 
@@ -290,7 +292,7 @@ public class EngageResourceBundle extends ListResourceBundle {
         long startTime = System.currentTimeMillis();
         clearCache();
 
-        String langValue;
+        String langValue = "se_SE";
         String key = "";
         String value = "";
         String authenticatedUser = "false";
@@ -306,20 +308,36 @@ public class EngageResourceBundle extends ListResourceBundle {
                     (String)session.getAttribute(Constants.AUTHENTICATE_FLAG);
         }
 
-
         if (session.getAttribute("lang") != null &&
             !authenticatedUser.equals("true")) {
             langValue = (String)session.getAttribute("lang");
-        } else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=
-                   null && authenticatedUser.equals("true")) {
-            langValue =
-                    conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
-        } else {
-            langValue = "se_SE";
+        }else{
+            User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            String userEmail = user.getEmailID();
+            String amDef = "com.sfr.engage.model.module.EngageAppModule";
+            String config = "EngageAppModuleLocal";
+            ApplicationModule am = Configuration.createRootApplicationModule(amDef, config);
+            ViewObject vo = am.findViewObject("PrtUserPreferredLangVO1");
+            vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
+            vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
+            vo.executeQuery();
+            if(vo.getEstimatedRowCount()!=0){
+                while(vo.hasNext()){
+                    PrtUserPreferredLangVORowImpl currRow = (PrtUserPreferredLangVORowImpl)vo.next();
+                    langValue = currRow.getPreferredLang();
+                }
+            }
+            else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=null && authenticatedUser.equals("true")) {
+                langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+            } else {
+                langValue = "se_SE";
+            }
+            Configuration.releaseRootApplicationModule(am, true);
         }
+        
+        
 
         try {
-
             if (session.getAttribute("TRANSLATION_" + langValue) != null) {
                 contents =
                         (Object[][])session.getAttribute("TRANSLATION_" + langValue);

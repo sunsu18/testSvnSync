@@ -122,6 +122,9 @@
   <ViewUsage
     Name="PrtCardsPerRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtCardsPerRVO"/>
+  <ViewUsage
+    Name="PrtUserPreferredLangVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVO"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
