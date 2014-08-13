@@ -89,14 +89,14 @@
                                   </c:if>
                                 </li>
                               </c:forEach>
-                              <af:commandImageLink id="pt_cil1" inlineStyle="margin-left: -80px;"
+                              <af:commandImageLink id="pt_cil1" inlineStyle="margin-left: -125px;"
                                                    rendered="#{securityContext.authenticated}"
                                                    icon="/images/Flags/#{SkinHelper.flag}.jpg"
                                                    action="#{SkinHelper.changePreferredLang}"/>
                                <af:commandMenuItem id="pt_logoutcbTest" rendered="#{securityContext.authenticated}"
                                action="#{LoginBean.sfrLogout}"
                                text="#{sfr.LOGOUT}" inlineStyle="margin-left: -55px;font-size: 12px;"/>
-                               <af:commandImageLink id="pt_cil2" icon="/images/1407335730_change_user.png" inlineStyle="margin-left: -95px;"
+                               <af:commandImageLink id="pt_cil2" icon="/images/1407335730_change_user.png" inlineStyle="margin-left: -90px;"
                                                     action="#{homeCarousalBean.redirectToSelectAssociate}"
                                                     rendered="#{MenuVisibleHelperBean.visibleSelectAssociation}"/>
                                <!--<af:image
