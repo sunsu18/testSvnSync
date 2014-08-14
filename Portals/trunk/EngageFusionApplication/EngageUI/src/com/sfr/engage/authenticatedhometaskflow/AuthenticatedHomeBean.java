@@ -179,6 +179,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                          " Top products count is " +
                          vo.getEstimatedRowCount());
             }
+            
             resourceBundle = new EngageResourceBundle();
             Date date = new Date();
             java.sql.Date passedDate = new java.sql.Date(date.getTime());
@@ -225,6 +226,20 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                 if (customerTypeValue != null) {
                     ViewObject prtPCMFeedsVO =
                         ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
+                    
+                    
+                    
+                    if(prtPCMFeedsVO.getWhereClause() != null && "INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE >=:fromDate AND EFFECTIVE_DATE <=:toDate AND INSTR(:showFlag,trim(SHOW_FLAG))<>0".equalsIgnoreCase(prtPCMFeedsVO.getWhereClause())){
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("customerType");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("infoType");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("countryCode");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("fromDate");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("toDate");
+                        prtPCMFeedsVO.removeNamedWhereClauseParam("showFlag");
+                        prtPCMFeedsVO.setWhereClause("");
+                        prtPCMFeedsVO.executeQuery();
+                    }
+                    
                     prtPCMFeedsVO.setWhereClause("INSTR(:customerType,CUSTOMER_TYPE)<>0  AND INFORMATION_TYPE =:infoType AND COUNTRY_CODE=:countryCode AND EFFECTIVE_DATE <=:fromDate AND END_DATE >=:toDate");
                     prtPCMFeedsVO.defineNamedWhereClauseParam("customerType",
                                                               customerTypeValue,

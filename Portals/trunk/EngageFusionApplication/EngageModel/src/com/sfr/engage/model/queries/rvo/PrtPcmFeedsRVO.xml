@@ -6,25 +6,26 @@
   Name="PrtPcmFeedsRVO"
   Version="11.1.1.61.92"
   InheritPersonalization="true"
-  SelectList="PrtPcmFeedsEO.PRT_PCM_FEEDS_PK, 
-       PrtPcmFeedsEO.CUSTOMER_TYPE, 
-       PrtPcmFeedsEO.INFORMATION_TYPE, 
-       PrtPcmFeedsEO.PROMOTION_CHECK, 
-       PrtPcmFeedsEO.EFFECTIVE_DATE, 
-       PrtPcmFeedsEO.END_DATE, 
-       PrtPcmFeedsEO.MESSAGE_LANG, 
-       PrtPcmFeedsEO.MESSAGE_ENGLISH, 
-       PrtPcmFeedsEO.COUNTRY_CODE, 
-       PrtPcmFeedsEO.MODIFIED_BY, 
-       PrtPcmFeedsEO.MODIFIED_DATE, 
-       PrtPcmFeedsEO.TITLE"
   FromList="PRT_PCM_FEEDS PrtPcmFeedsEO"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl"
-  ComponentClass="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl">
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVOImpl"
+  SelectList="PrtPcmFeedsEO.COUNTRY_CODE, 
+       PrtPcmFeedsEO.CUSTOMER_TYPE, 
+       PrtPcmFeedsEO.EFFECTIVE_DATE, 
+       PrtPcmFeedsEO.END_DATE, 
+       PrtPcmFeedsEO.INFORMATION_TYPE, 
+       PrtPcmFeedsEO.MESSAGE_ENGLISH, 
+       PrtPcmFeedsEO.MESSAGE_LANG, 
+       PrtPcmFeedsEO.MODIFIED_BY, 
+       PrtPcmFeedsEO.MODIFIED_DATE, 
+       PrtPcmFeedsEO.PROMOTION_CHECK, 
+       PrtPcmFeedsEO.PRT_PCM_FEEDS_PK, 
+       PrtPcmFeedsEO.SHOW_FLAG, 
+       PrtPcmFeedsEO.TITLE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -33,12 +34,12 @@
     Name="PrtPcmFeedsEO"
     Entity="com.sfr.engage.model.entities.PrtPcmFeedsEO"/>
   <ViewAttribute
-    Name="PrtPcmFeedsPk"
+    Name="CountryCode"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="PrtPcmFeedsPk"
+    EntityAttrName="CountryCode"
     EntityUsage="PrtPcmFeedsEO"
-    AliasName="PRT_PCM_FEEDS_PK"/>
+    AliasName="COUNTRY_CODE"/>
   <ViewAttribute
     Name="CustomerType"
     IsNotNull="true"
@@ -46,20 +47,6 @@
     EntityAttrName="CustomerType"
     EntityUsage="PrtPcmFeedsEO"
     AliasName="CUSTOMER_TYPE"/>
-  <ViewAttribute
-    Name="InformationType"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="InformationType"
-    EntityUsage="PrtPcmFeedsEO"
-    AliasName="INFORMATION_TYPE"/>
-  <ViewAttribute
-    Name="PromotionCheck"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="PromotionCheck"
-    EntityUsage="PrtPcmFeedsEO"
-    AliasName="PROMOTION_CHECK"/>
   <ViewAttribute
     Name="EffectiveDate"
     IsNotNull="true"
@@ -75,12 +62,12 @@
     EntityUsage="PrtPcmFeedsEO"
     AliasName="END_DATE"/>
   <ViewAttribute
-    Name="MessageLang"
+    Name="InformationType"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="MessageLang"
+    EntityAttrName="InformationType"
     EntityUsage="PrtPcmFeedsEO"
-    AliasName="MESSAGE_LANG"/>
+    AliasName="INFORMATION_TYPE"/>
   <ViewAttribute
     Name="MessageEnglish"
     PrecisionRule="true"
@@ -88,12 +75,12 @@
     EntityUsage="PrtPcmFeedsEO"
     AliasName="MESSAGE_ENGLISH"/>
   <ViewAttribute
-    Name="CountryCode"
+    Name="MessageLang"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="CountryCode"
+    EntityAttrName="MessageLang"
     EntityUsage="PrtPcmFeedsEO"
-    AliasName="COUNTRY_CODE"/>
+    AliasName="MESSAGE_LANG"/>
   <ViewAttribute
     Name="ModifiedBy"
     IsNotNull="true"
@@ -109,9 +96,39 @@
     EntityUsage="PrtPcmFeedsEO"
     AliasName="MODIFIED_DATE"/>
   <ViewAttribute
+    Name="PromotionCheck"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PromotionCheck"
+    EntityUsage="PrtPcmFeedsEO"
+    AliasName="PROMOTION_CHECK"/>
+  <ViewAttribute
+    Name="PrtPcmFeedsPk"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PrtPcmFeedsPk"
+    EntityUsage="PrtPcmFeedsEO"
+    AliasName="PRT_PCM_FEEDS_PK"/>
+  <ViewAttribute
+    Name="ShowFlag"
+    PrecisionRule="true"
+    EntityAttrName="ShowFlag"
+    EntityUsage="PrtPcmFeedsEO"
+    AliasName="SHOW_FLAG"/>
+  <ViewAttribute
     Name="Title"
     PrecisionRule="true"
     EntityAttrName="Title"
     EntityUsage="PrtPcmFeedsEO"
     AliasName="TITLE"/>
+  <ViewAttribute
+    Name="readFlag"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Boolean"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="BIT"/>
 </ViewObject>

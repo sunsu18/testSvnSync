@@ -3514,6 +3514,11 @@
                                 <name>/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/messageinboxtaskflow/MessageInboxTaskFlo.xml#MessageInboxTaskFlo</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3746,6 +3751,11 @@
                                 <name>/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/messageinboxtaskflow/MessageInboxTaskFlo.xml#MessageInboxTaskFlo</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -3949,6 +3959,11 @@
                                 <name>/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/messageinboxtaskflow/MessageInboxTaskFlo.xml#MessageInboxTaskFlo</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -4025,6 +4040,11 @@
                                 <name>/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow</name>
                                 <actions>view</actions>
                             </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/messageinboxtaskflow/MessageInboxTaskFlo.xml#MessageInboxTaskFlo</name>
+                                <actions>view</actions>
+                            </permission>
                         </permissions>
                     </grant>
                     <grant>
@@ -4085,6 +4105,11 @@
                             <permission>
                                 <class>oracle.adf.controller.security.TaskFlowPermission</class>
                                 <name>/WEB-INF/com/sfr/engage/associationselectiontaskflow/AssociationSelectionTaskFlow.xml#AssociationSelectionTaskFlow</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/com/sfr/engage/messageinboxtaskflow/MessageInboxTaskFlo.xml#MessageInboxTaskFlo</name>
                                 <actions>view</actions>
                             </permission>
                         </permissions>

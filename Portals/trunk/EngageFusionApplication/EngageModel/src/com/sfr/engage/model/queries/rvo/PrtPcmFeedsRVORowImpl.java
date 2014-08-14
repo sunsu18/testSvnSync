@@ -16,17 +16,19 @@ import oracle.jbo.server.ViewRowImpl;
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
 public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
+
+
     /**
      * AttributesEnum: generated enum for identifying attributes and accessors. Do not modify.
      */
     public enum AttributesEnum {
-        PrtPcmFeedsPk {
+        CountryCode {
             public Object get(PrtPcmFeedsRVORowImpl obj) {
-                return obj.getPrtPcmFeedsPk();
+                return obj.getCountryCode();
             }
 
             public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
-                obj.setPrtPcmFeedsPk((BigDecimal)value);
+                obj.setCountryCode((String)value);
             }
         }
         ,
@@ -37,26 +39,6 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
 
             public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
                 obj.setCustomerType((String)value);
-            }
-        }
-        ,
-        InformationType {
-            public Object get(PrtPcmFeedsRVORowImpl obj) {
-                return obj.getInformationType();
-            }
-
-            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
-                obj.setInformationType((String)value);
-            }
-        }
-        ,
-        PromotionCheck {
-            public Object get(PrtPcmFeedsRVORowImpl obj) {
-                return obj.getPromotionCheck();
-            }
-
-            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
-                obj.setPromotionCheck((String)value);
             }
         }
         ,
@@ -80,13 +62,13 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        MessageLang {
+        InformationType {
             public Object get(PrtPcmFeedsRVORowImpl obj) {
-                return obj.getMessageLang();
+                return obj.getInformationType();
             }
 
             public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
-                obj.setMessageLang((String)value);
+                obj.setInformationType((String)value);
             }
         }
         ,
@@ -100,13 +82,13 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        CountryCode {
+        MessageLang {
             public Object get(PrtPcmFeedsRVORowImpl obj) {
-                return obj.getCountryCode();
+                return obj.getMessageLang();
             }
 
             public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
-                obj.setCountryCode((String)value);
+                obj.setMessageLang((String)value);
             }
         }
         ,
@@ -130,6 +112,36 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PromotionCheck {
+            public Object get(PrtPcmFeedsRVORowImpl obj) {
+                return obj.getPromotionCheck();
+            }
+
+            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
+                obj.setPromotionCheck((String)value);
+            }
+        }
+        ,
+        PrtPcmFeedsPk {
+            public Object get(PrtPcmFeedsRVORowImpl obj) {
+                return obj.getPrtPcmFeedsPk();
+            }
+
+            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
+                obj.setPrtPcmFeedsPk((BigDecimal)value);
+            }
+        }
+        ,
+        ShowFlag {
+            public Object get(PrtPcmFeedsRVORowImpl obj) {
+                return obj.getShowFlag();
+            }
+
+            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
+                obj.setShowFlag((String)value);
+            }
+        }
+        ,
         Title {
             public Object get(PrtPcmFeedsRVORowImpl obj) {
                 return obj.getTitle();
@@ -137,6 +149,16 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
 
             public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
                 obj.setTitle((String)value);
+            }
+        }
+        ,
+        readFlag {
+            public Object get(PrtPcmFeedsRVORowImpl obj) {
+                return obj.getreadFlag();
+            }
+
+            public void put(PrtPcmFeedsRVORowImpl obj, Object value) {
+                obj.setreadFlag((Boolean)value);
             }
         }
         ;
@@ -167,18 +189,20 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
         }
     }
 
-    public static final int PRTPCMFEEDSPK = AttributesEnum.PrtPcmFeedsPk.index();
+    public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int CUSTOMERTYPE = AttributesEnum.CustomerType.index();
-    public static final int INFORMATIONTYPE = AttributesEnum.InformationType.index();
-    public static final int PROMOTIONCHECK = AttributesEnum.PromotionCheck.index();
     public static final int EFFECTIVEDATE = AttributesEnum.EffectiveDate.index();
     public static final int ENDDATE = AttributesEnum.EndDate.index();
-    public static final int MESSAGELANG = AttributesEnum.MessageLang.index();
+    public static final int INFORMATIONTYPE = AttributesEnum.InformationType.index();
     public static final int MESSAGEENGLISH = AttributesEnum.MessageEnglish.index();
-    public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
+    public static final int MESSAGELANG = AttributesEnum.MessageLang.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int PROMOTIONCHECK = AttributesEnum.PromotionCheck.index();
+    public static final int PRTPCMFEEDSPK = AttributesEnum.PrtPcmFeedsPk.index();
+    public static final int SHOWFLAG = AttributesEnum.ShowFlag.index();
     public static final int TITLE = AttributesEnum.Title.index();
+    public static final int READFLAG = AttributesEnum.readFlag.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -195,19 +219,19 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the attribute value for PRT_PCM_FEEDS_PK using the alias name PrtPcmFeedsPk.
-     * @return the PRT_PCM_FEEDS_PK
+     * Gets the attribute value for COUNTRY_CODE using the alias name CountryCode.
+     * @return the COUNTRY_CODE
      */
-    public BigDecimal getPrtPcmFeedsPk() {
-        return (BigDecimal) getAttributeInternal(PRTPCMFEEDSPK);
+    public String getCountryCode() {
+        return (String) getAttributeInternal(COUNTRYCODE);
     }
 
     /**
-     * Sets <code>value</code> as attribute value for PRT_PCM_FEEDS_PK using the alias name PrtPcmFeedsPk.
-     * @param value value to set the PRT_PCM_FEEDS_PK
+     * Sets <code>value</code> as attribute value for COUNTRY_CODE using the alias name CountryCode.
+     * @param value value to set the COUNTRY_CODE
      */
-    public void setPrtPcmFeedsPk(BigDecimal value) {
-        setAttributeInternal(PRTPCMFEEDSPK, value);
+    public void setCountryCode(String value) {
+        setAttributeInternal(COUNTRYCODE, value);
     }
 
     /**
@@ -224,38 +248,6 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
      */
     public void setCustomerType(String value) {
         setAttributeInternal(CUSTOMERTYPE, value);
-    }
-
-    /**
-     * Gets the attribute value for INFORMATION_TYPE using the alias name InformationType.
-     * @return the INFORMATION_TYPE
-     */
-    public String getInformationType() {
-        return (String) getAttributeInternal(INFORMATIONTYPE);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for INFORMATION_TYPE using the alias name InformationType.
-     * @param value value to set the INFORMATION_TYPE
-     */
-    public void setInformationType(String value) {
-        setAttributeInternal(INFORMATIONTYPE, value);
-    }
-
-    /**
-     * Gets the attribute value for PROMOTION_CHECK using the alias name PromotionCheck.
-     * @return the PROMOTION_CHECK
-     */
-    public String getPromotionCheck() {
-        return (String) getAttributeInternal(PROMOTIONCHECK);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for PROMOTION_CHECK using the alias name PromotionCheck.
-     * @param value value to set the PROMOTION_CHECK
-     */
-    public void setPromotionCheck(String value) {
-        setAttributeInternal(PROMOTIONCHECK, value);
     }
 
     /**
@@ -291,19 +283,19 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the attribute value for MESSAGE_LANG using the alias name MessageLang.
-     * @return the MESSAGE_LANG
+     * Gets the attribute value for INFORMATION_TYPE using the alias name InformationType.
+     * @return the INFORMATION_TYPE
      */
-    public String getMessageLang() {
-        return (String) getAttributeInternal(MESSAGELANG);
+    public String getInformationType() {
+        return (String) getAttributeInternal(INFORMATIONTYPE);
     }
 
     /**
-     * Sets <code>value</code> as attribute value for MESSAGE_LANG using the alias name MessageLang.
-     * @param value value to set the MESSAGE_LANG
+     * Sets <code>value</code> as attribute value for INFORMATION_TYPE using the alias name InformationType.
+     * @param value value to set the INFORMATION_TYPE
      */
-    public void setMessageLang(String value) {
-        setAttributeInternal(MESSAGELANG, value);
+    public void setInformationType(String value) {
+        setAttributeInternal(INFORMATIONTYPE, value);
     }
 
     /**
@@ -323,19 +315,19 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the attribute value for COUNTRY_CODE using the alias name CountryCode.
-     * @return the COUNTRY_CODE
+     * Gets the attribute value for MESSAGE_LANG using the alias name MessageLang.
+     * @return the MESSAGE_LANG
      */
-    public String getCountryCode() {
-        return (String) getAttributeInternal(COUNTRYCODE);
+    public String getMessageLang() {
+        return (String) getAttributeInternal(MESSAGELANG);
     }
 
     /**
-     * Sets <code>value</code> as attribute value for COUNTRY_CODE using the alias name CountryCode.
-     * @param value value to set the COUNTRY_CODE
+     * Sets <code>value</code> as attribute value for MESSAGE_LANG using the alias name MessageLang.
+     * @param value value to set the MESSAGE_LANG
      */
-    public void setCountryCode(String value) {
-        setAttributeInternal(COUNTRYCODE, value);
+    public void setMessageLang(String value) {
+        setAttributeInternal(MESSAGELANG, value);
     }
 
     /**
@@ -371,6 +363,54 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for PROMOTION_CHECK using the alias name PromotionCheck.
+     * @return the PROMOTION_CHECK
+     */
+    public String getPromotionCheck() {
+        return (String) getAttributeInternal(PROMOTIONCHECK);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PROMOTION_CHECK using the alias name PromotionCheck.
+     * @param value value to set the PROMOTION_CHECK
+     */
+    public void setPromotionCheck(String value) {
+        setAttributeInternal(PROMOTIONCHECK, value);
+    }
+
+    /**
+     * Gets the attribute value for PRT_PCM_FEEDS_PK using the alias name PrtPcmFeedsPk.
+     * @return the PRT_PCM_FEEDS_PK
+     */
+    public BigDecimal getPrtPcmFeedsPk() {
+        return (BigDecimal) getAttributeInternal(PRTPCMFEEDSPK);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PRT_PCM_FEEDS_PK using the alias name PrtPcmFeedsPk.
+     * @param value value to set the PRT_PCM_FEEDS_PK
+     */
+    public void setPrtPcmFeedsPk(BigDecimal value) {
+        setAttributeInternal(PRTPCMFEEDSPK, value);
+    }
+
+    /**
+     * Gets the attribute value for SHOW_FLAG using the alias name ShowFlag.
+     * @return the SHOW_FLAG
+     */
+    public String getShowFlag() {
+        return (String) getAttributeInternal(SHOWFLAG);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for SHOW_FLAG using the alias name ShowFlag.
+     * @param value value to set the SHOW_FLAG
+     */
+    public void setShowFlag(String value) {
+        setAttributeInternal(SHOWFLAG, value);
+    }
+
+    /**
      * Gets the attribute value for TITLE using the alias name Title.
      * @return the TITLE
      */
@@ -384,6 +424,28 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
      */
     public void setTitle(String value) {
         setAttributeInternal(TITLE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute readFlag.
+     * @return the readFlag
+     */
+    public Boolean getreadFlag() {
+        if(this.getShowFlag()!=null && (this.getShowFlag().trim().equalsIgnoreCase("NO"))){
+            return true;  
+        }
+        else{
+            return false;
+        }
+//        return (Boolean) getAttributeInternal(READFLAG);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute readFlag.
+     * @param value value to set the  readFlag
+     */
+    public void setreadFlag(Boolean value) {
+        setAttributeInternal(READFLAG, value);
     }
 
     /**
@@ -418,4 +480,6 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
         }
         super.setAttrInvokeAccessor(index, value, attrDef);
     }
+
+
 }

@@ -36,6 +36,8 @@
           usageId="com_sfr_engage_view_AccountSummaryPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/associationselectiontaskflow/Association.jsff"
           usageId="com_sfr_engage_view_AssociationPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/messageinboxtaskflow/messageInbox.jsff"
+          usageId="com_sfr_engage_view_messageInboxPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -64,6 +66,8 @@
           path="com.sfr.engage.accountsummarytaskflow.AccountSummaryPageDef"/>
     <page id="com_sfr_engage_view_AssociationPageDef"
           path="com.sfr.engage.associationselectiontaskflow.AssociationPageDef"/>
+    <page id="com_sfr_engage_view_messageInboxPageDef"
+          path="com.sfr.engage.messageinboxtaskflow.messageInboxPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>

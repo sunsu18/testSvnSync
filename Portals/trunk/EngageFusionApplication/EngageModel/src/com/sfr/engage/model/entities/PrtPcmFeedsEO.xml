@@ -170,6 +170,20 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="ShowFlag"
+    Precision="3"
+    ColumnName="SHOW_FLAG"
+    SQLType="CHAR"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    TableName="PRT_PCM_FEEDS"
+    RetrievedOnUpdate="true"
+    RetrievedOnInsert="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="PrtPcmFeedsPk1"
     PrimaryKey="true">

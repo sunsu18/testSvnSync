@@ -281,7 +281,9 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "BLOCKED_DATE_TIME", "" }, { "SELECT_ASSOCIATION", "" },
       { "SEARCH_USER", "" }, { "USERS", "" }, { "CONFIRM", "" },
       { "PLEASE_ENTER_VALID_PARTNER_ID", "" },
-      { "PLEASE_SELECT_A_USER", "" } };
+      { "PLEASE_SELECT_A_USER", "" },{ "ENGAGE_MESSAGE_INBOX", "" },{"ENGAGE_MESSAGE_DETAILS",""},{"ENGAGE_CATEGORY",""} ,
+      {"ENGAGE_CATEGORY_ADMIN",""},{"ENGAGE_CATEGORY_NON_ADMIN",""},{"ENG_READ",""},{"ENG_UNREAD",""},{"ENG_NO_ADMIN_MSGS",""},
+      {"ENGAGE_DATE",""},{"ENGAGE_TYPE",""},{"ENGAGE_MESSAGE",""},{"ENGAGE_TITLE",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

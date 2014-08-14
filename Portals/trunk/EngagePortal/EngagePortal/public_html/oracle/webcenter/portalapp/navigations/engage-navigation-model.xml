@@ -36,7 +36,7 @@
                            attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{false}"
+            <url visible="#{true}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="messages"
                  url="page://oracle/webcenter/portalapp/engagepages/accounts/messages.jspx">

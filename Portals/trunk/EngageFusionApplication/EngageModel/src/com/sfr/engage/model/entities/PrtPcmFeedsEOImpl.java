@@ -143,6 +143,16 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
                 obj.setTitle((String)value);
             }
         }
+        ,
+        ShowFlag {
+            public Object get(PrtPcmFeedsEOImpl obj) {
+                return obj.getShowFlag();
+            }
+
+            public void put(PrtPcmFeedsEOImpl obj, Object value) {
+                obj.setShowFlag((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static int firstIndex = 0;
@@ -171,6 +181,7 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
         }
     }
 
+
     public static final int PRTPCMFEEDSPK = AttributesEnum.PrtPcmFeedsPk.index();
     public static final int CUSTOMERTYPE = AttributesEnum.CustomerType.index();
     public static final int INFORMATIONTYPE = AttributesEnum.InformationType.index();
@@ -183,12 +194,14 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
     public static final int TITLE = AttributesEnum.Title.index();
+    public static final int SHOWFLAG = AttributesEnum.ShowFlag.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public PrtPcmFeedsEOImpl() {
     }
+
 
     /**
      * @return the definition object for this instance class.
@@ -390,6 +403,22 @@ public class PrtPcmFeedsEOImpl extends EntityImpl {
      */
     public void setTitle(String value) {
         setAttributeInternal(TITLE, value);
+    }
+
+    /**
+     * Gets the attribute value for ShowFlag, using the alias name ShowFlag.
+     * @return the ShowFlag
+     */
+    public String getShowFlag() {
+        return (String)getAttributeInternal(SHOWFLAG);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ShowFlag.
+     * @param value value to set the ShowFlag
+     */
+    public void setShowFlag(String value) {
+        setAttributeInternal(SHOWFLAG, value);
     }
 
     /**
