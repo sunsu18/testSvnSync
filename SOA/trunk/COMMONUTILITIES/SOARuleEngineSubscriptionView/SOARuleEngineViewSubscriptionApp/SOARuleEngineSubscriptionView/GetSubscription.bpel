@@ -1,0 +1,164 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Aug 07 16:27:18 IST 2014
+  Author:  10602239
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="GetSubscription"
+               targetNamespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscriptionView/GetSubscription"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://www.lntinfotech.com/integration/SOARuleEngineSubscriptionView/GetSubscription"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://www.lntinfotech.com/integration/SOARuleEngineSubscriptionView"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineViewSubscriptionApp/SOARuleEngineSubscriptionView/SelectSubscriptionDBAdapter"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineViewSubscriptionApp/SOARuleEngineSubscriptionView/selectSubscriptionDBAdapterV1"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectSubscriptionDBAdapterV1"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineViewSubscriptionApp/SOARuleEngineSubscriptionView/SOARuleEngineNotificationJMSAdapter"
+         xmlns:ns6="http://www.lntinfotech.com/integration/SOARuleEngineNotification">
+
+    <import namespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscriptionView/GetSubscription" location="GetSubscription.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="getsubscription_client" partnerLinkType="client:GetSubscription" myRole="GetSubscriptionProvider"/>
+    <partnerLink name="selectSubscriptionDBAdapterV1"
+                 partnerLinkType="ns3:selectSubscriptionDBAdapterV1_plt"
+                 partnerRole="selectSubscriptionDBAdapterV1_role"/>
+    <partnerLink name="SOARuleEngineNotificationJMSAdapter"
+                 partnerLinkType="ns5:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:GetSubscriptionRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:GetSubscriptionResponseMessage"/>
+    <variable name="GetRuleSubscriberDetailsDBAdapter_IV"
+              messageType="ns3:selectSubscriptionDBAdapterV1Select_inputParameters"/>
+    <variable name="GetRuleSubscriberDetailsDBAdapter_OV"
+              messageType="ns3:RuleengineRulesubscribersCollection_msg"/>
+    <variable name="SOARuleEngineNotificationV1JMSAdapter_IV"
+              messageType="ns5:Produce_Message_msg"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <sequence name="FaultHandlingSequence">
+        <assign name="AssignFault">
+          <copy>
+            <from>$inputVariable.payload/RuleID</from>
+            <to>$SOARuleEngineNotificationV1JMSAdapter_IV.body/ns6:RuleID</to>
+          </copy>
+          <copy>
+            <from>'nitin.palde@lntinfotech.com'</from>
+            <to>$SOARuleEngineNotificationV1JMSAdapter_IV.body/ns6:EmailID</to>
+          </copy>
+          <copy>
+            <from>'About notification subsciption'</from>
+            <to>$SOARuleEngineNotificationV1JMSAdapter_IV.body/ns6:NotificationSubject</to>
+          </copy>
+          <copy>
+            <from>"&lt;%'Dear Technical Associate,&lt;br&gt;&lt;br&gt;Error in view subscription. Please look into it.&lt;br&gt;&lt;br&gt;SFR'%&gt;"</from>
+            <to>$SOARuleEngineNotificationV1JMSAdapter_IV.body/ns6:NotificationBody</to>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOARuleEngineNotificationV1JMSAdapter"
+                bpelx:invokeAsDetail="no"
+                partnerLink="SOARuleEngineNotificationJMSAdapter"
+                portType="ns5:Produce_Message_ptt" operation="Produce_Message"
+                inputVariable="SOARuleEngineNotificationV1JMSAdapter_IV"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in GetSubscription.wsdl) -->
+    <receive name="receiveInput" partnerLink="getsubscription_client" portType="client:GetSubscription" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignInput">
+      <copy>
+        <from>$inputVariable.payload/RuleID</from>
+        <to>$GetRuleSubscriberDetailsDBAdapter_IV.selectSubscriptionDBAdapterV1Select_inputParameters/ns4:Rule_ID</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/CustomerID</from>
+        <to>$GetRuleSubscriberDetailsDBAdapter_IV.selectSubscriptionDBAdapterV1Select_inputParameters/ns4:Customer_ID</to>
+      </copy>
+    </assign>
+    <invoke name="InvokeGetRuleSubscriberDetailsDBAdapter"
+            partnerLink="selectSubscriptionDBAdapterV1"
+            portType="ns3:selectSubscriptionDBAdapterV1_ptt"
+            operation="selectSubscriptionDBAdapterV1Select"
+            bpelx:invokeAsDetail="no"
+            inputVariable="GetRuleSubscriberDetailsDBAdapter_IV"
+            outputVariable="GetRuleSubscriberDetailsDBAdapter_OV"/>
+    <if name="If">
+      <documentation>IF Rule is Subscribed</documentation>
+      <condition>count($GetRuleSubscriberDetailsDBAdapter_OV.RuleengineRulesubscribersCollection/ns4:RuleengineRulesubscribers/ns4:rrsRrmRuleid)</condition>
+      <sequence name="ReplyResponseSequence">
+        <assign name="XformRuleSubscriberToResponse">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:transformation"/>
+          </bpelx:annotation>
+          <copy>
+            <from>ora:doXSLTransformForDoc("xsl/RuleSubscriber_to_Response.xsl", $GetRuleSubscriberDetailsDBAdapter_OV.RuleengineRulesubscribersCollection)</from>
+            <to variable="outputVariable" part="payload"/>
+          </copy>
+        </assign>
+        <assign name="AssignParameters">
+          <copy>
+            <from>oraext:parseXML($outputVariable.payload/SubscriptionView/Parameters)</from>
+            <to>$outputVariable.payload/SubscriptionView/Parameters</to>
+          </copy>
+        </assign>
+      </sequence>
+      <else>
+        <documentation>not Subscribed</documentation>
+        <empty name="Empty"/>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="getsubscription_client" portType="client:GetSubscription" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

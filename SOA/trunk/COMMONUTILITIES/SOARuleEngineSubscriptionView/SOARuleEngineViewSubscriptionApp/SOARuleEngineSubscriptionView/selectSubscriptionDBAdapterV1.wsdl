@@ -1,0 +1,25 @@
+<?binding.jca selectSubscriptionDBAdapterV1_db.jca?>
+<wsdl:definitions name="selectSubscriptionDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineViewSubscriptionApp/SOARuleEngineSubscriptionView/selectSubscriptionDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineViewSubscriptionApp/SOARuleEngineSubscriptionView/selectSubscriptionDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectSubscriptionDBAdapterV1">
+    <plt:partnerLinkType name="selectSubscriptionDBAdapterV1_plt">
+        <plt:role name="selectSubscriptionDBAdapterV1_role">
+            <plt:portType name="tns:selectSubscriptionDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectSubscriptionDBAdapterV1" schemaLocation="xsd/selectSubscriptionDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="selectSubscriptionDBAdapterV1Select_inputParameters">
+        <wsdl:part name="selectSubscriptionDBAdapterV1Select_inputParameters" element="top:selectSubscriptionDBAdapterV1Select_Rule_ID_Customer_IDInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="RuleengineRulesubscribersCollection_msg">
+        <wsdl:part name="RuleengineRulesubscribersCollection" element="top:RuleengineRulesubscribersCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="selectSubscriptionDBAdapterV1_ptt">
+        <wsdl:operation name="selectSubscriptionDBAdapterV1Select">
+            <wsdl:input message="tns:selectSubscriptionDBAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:RuleengineRulesubscribersCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

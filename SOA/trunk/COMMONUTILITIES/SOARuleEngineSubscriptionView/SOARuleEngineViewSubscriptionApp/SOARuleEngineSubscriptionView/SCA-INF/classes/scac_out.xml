@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>138</line>
+      <col/>
+      <file>GetSubscription.bpel</file>
+      <name>GetSubscription.bpel</name>
+      <fix>Make sure that the expression in &lt;bpel:condition> is a boolean expression.</fix>
+      <msg>The expression count($GetRuleSubscriberDetailsDBAdapter_OV.Rule ... in &lt;bpel:condition> is not a boolean expression.</msg>
+   </Fault>
+</Faults>
