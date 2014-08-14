@@ -154,7 +154,7 @@ public class SkinHelper extends ThreadSerialization {
         String userEmail = user.getEmailID();
         DCBindingContainer bindings;
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-        if (bindings == null || bindings.findIteratorBinding("PrtCardgroupVO1Iterator") == null) {
+        if (bindings == null || bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator") == null) {
             bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         }
         DCIteratorBinding iter;
@@ -231,7 +231,7 @@ public class SkinHelper extends ThreadSerialization {
         DCBindingContainer bindings;
         String preferredLang = "en_US";
         bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-        if (bindings == null || bindings.findIteratorBinding("PrtCardgroupVO1Iterator") == null) {
+        if (bindings == null || bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator") == null) {
             bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         }
         DCIteratorBinding iter;
@@ -252,28 +252,29 @@ public class SkinHelper extends ThreadSerialization {
                     if(currRow.getUserId() != null && currRow.getPreferredLang() != null){
                         preferredLang = currRow.getPreferredLang();
                     }
+                    
+                    if(preferredLang.equalsIgnoreCase("da_DK")){
+                        flag = "English";
+                    } else if(preferredLang.equalsIgnoreCase("se_SE")){
+                        flag = "English";
+                    } else if(preferredLang.equalsIgnoreCase("no_NO")){
+                        flag = "English";
+                    } else if(preferredLang.equalsIgnoreCase("en_US")){
+                        Conversion conv = new Conversion();
+                        preferredLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+                        if(preferredLang.equalsIgnoreCase("da_DK")){
+                            flag = "Denmark";
+                        } else if(preferredLang.equalsIgnoreCase("se_SE")){
+                            flag = "Swedish";
+                        } else if(preferredLang.equalsIgnoreCase("no_NO")){
+                            flag = "Norway";
+                        }
+                    }
                 }
             } else{
                 flag = "English";
             }
             
-            if(preferredLang.equalsIgnoreCase("da_DK")){
-                flag = "English";
-            } else if(preferredLang.equalsIgnoreCase("se_SE")){
-                flag = "English";
-            } else if(preferredLang.equalsIgnoreCase("no_NO")){
-                flag = "English";
-            } else if(preferredLang.equalsIgnoreCase("en_US")){
-                Conversion conv = new Conversion();
-                preferredLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
-                if(preferredLang.equalsIgnoreCase("da_DK")){
-                    flag = "Denmark";
-                } else if(preferredLang.equalsIgnoreCase("se_SE")){
-                    flag = "Swedish";
-                } else if(preferredLang.equalsIgnoreCase("no_NO")){
-                    flag = "Norway";
-                }
-            }
         }
         return flag;
     }
