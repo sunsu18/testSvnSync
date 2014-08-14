@@ -360,6 +360,7 @@ public class TransactionOverviewBean implements Serializable {
         cardGPGL = false;
         vNumberPGL = false;
         dNamePGL = false;
+        cardGroupRadio = null;
         if (isTableVisible) {
             isTableVisible = false;
         }
@@ -1746,7 +1747,7 @@ public class TransactionOverviewBean implements Serializable {
             cardIdPGL = false;
             dNamePGL = false;
             vNumberPGL = false;
-
+            cardGroupRadio = null;
             if (isTableVisible) {
                 isTableVisible = false;
             }
