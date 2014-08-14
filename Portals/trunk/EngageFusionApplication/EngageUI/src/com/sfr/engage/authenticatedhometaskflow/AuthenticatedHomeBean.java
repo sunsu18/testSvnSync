@@ -6,6 +6,7 @@ import com.sfr.engage.core.Messages;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.queries.rvo.PrtCustomerCardMapRVO1RowImpl;
 import com.sfr.engage.model.queries.rvo.PrtPcmFeedsRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
@@ -41,6 +42,8 @@ import oracle.adf.view.rich.component.rich.data.RichTree;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.component.rich.output.RichSpacer;
+
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.ViewObject;
 
@@ -224,6 +227,33 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                          " lang passed in PRTPCMFEEDS is " +
                          conversionUtility.getCustomerCountryCode(langSession));
                 if (customerTypeValue != null) {
+                    User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+                    String userEmail = user.getEmailID();
+                    String preferredLang = "";
+                    ViewObject vo = ADFUtils.getViewObject("PrtUserPreferredLangVO1Iterator");
+                    vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
+                    vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
+                    vo.executeQuery();
+                    Conversion conv = new Conversion();
+                    String userCountryLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+                    if (vo.getEstimatedRowCount() != 0) {
+                        while (vo.hasNext()) {
+                            PrtUserPreferredLangVORowImpl currRow = (PrtUserPreferredLangVORowImpl)vo.next();
+                            if(currRow.getUserId() != null && currRow.getPreferredLang() != null){
+                                preferredLang = currRow.getPreferredLang();
+                            }
+                            
+                        }
+                    } else {
+                        preferredLang = userCountryLang;
+                    }
+                    
+                    if("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())){
+                        vo.removeNamedWhereClauseParam("userEmail");
+                        vo.setWhereClause("");
+                        vo.executeQuery();
+                    }
+                    
                     ViewObject prtPCMFeedsVO =
                         ADFUtils.getViewObject("PrtPcmFeedsRVO1Iterator");
                     
@@ -277,7 +307,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                             if (currRow != null) {
                                 Messages infovalue = new Messages();
-                                if (currRow.getMessageLang() != null) {
+                                if (preferredLang.equalsIgnoreCase(userCountryLang) && currRow.getMessageLang() != null) {
                                     if (currRow.getTitle() != null) {
 
                                         infovalue.setTitle(currRow.getTitle() +
@@ -288,7 +318,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                     infovalue.setMessage(currRow.getMessageLang());
                                 } else {
-                                    if (currRow.getMessageEnglish() != null) {
+                                    if (preferredLang.equalsIgnoreCase("en_US") && currRow.getMessageEnglish() != null) {
                                         if (currRow.getTitle() != null) {
 
                                             infovalue.setTitle(currRow.getTitle() +
@@ -341,7 +371,8 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                             if (currRow != null) {
                                 Messages message = new Messages();
-                                if (currRow.getMessageLang() != null) {
+                                if (preferredLang.equalsIgnoreCase(userCountryLang) && currRow.getMessageLang() != null) {
+                                
                                     if (currRow.getTitle() != null) {
 
                                         message.setTitle(currRow.getTitle() +
@@ -352,7 +383,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
                                     message.setMessage(currRow.getMessageLang());
                                 } else {
-                                    if (currRow.getMessageEnglish() != null) {
+                                    if (preferredLang.equalsIgnoreCase("en_US") && currRow.getMessageEnglish() != null) {
                                         if (currRow.getTitle() != null) {
 
                                             message.setTitle(currRow.getTitle() +
@@ -418,8 +449,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                              partnerIdList);
 
                     if (session != null) {
-                        user =
-(User)session.getAttribute(Constants.SESSION_USER_INFO);
+                        user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
                         roleCsr = false;
                         if (user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
                             user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
@@ -464,7 +494,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
                         }
 
                     }
-
+                    
 
                 }
             } catch (Exception e) {
@@ -474,6 +504,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
 
         }
+       
         log.info(accessDC.getDisplayRecord() + this.getClass() +
                  " exiting constructor of AuthenticatedHomeBean");
 
@@ -782,6 +813,7 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
         private RichSpacer bindingSpacer;
         private RichTable invoiceTable;
         private RichPanelGroupLayout infoFromStatoil;
+        private RichPanelGroupLayout messagePanel;
 
         public void setInfoText(RichOutputText infoText) {
             this.infoText = infoText;
@@ -813,6 +845,14 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
 
         public RichPanelGroupLayout getInfoFromStatoil() {
             return infoFromStatoil;
+        }
+
+        public void setMessagePanel(RichPanelGroupLayout messagePanel) {
+            this.messagePanel = messagePanel;
+        }
+
+        public RichPanelGroupLayout getMessagePanel() {
+            return messagePanel;
         }
     }
 }

@@ -34,6 +34,9 @@
     <iterator Binds="PrtCustomerCardMapRVO1_1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCustomerCardMapRVO1_1Iterator"/>
+    <iterator Binds="PrtUserPreferredLangVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtUserPreferredLangVO1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="PrtInvoiceVO1Iterator" id="PrtInvoiceVO1">
@@ -150,5 +153,18 @@
         <Item Value="CustomerType"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="PrtUserPreferredLangVO1Iterator"
+          id="PrtUserPreferredLangVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtUserPreferredLangVO"
+                      Name="PrtUserPreferredLangVO10">
+        <AttrNames>
+          <Item Value="SNo"/>
+          <Item Value="UserId"/>
+          <Item Value="PreferredLang"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

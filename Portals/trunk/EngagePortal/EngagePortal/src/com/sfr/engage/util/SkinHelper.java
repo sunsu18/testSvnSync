@@ -275,6 +275,11 @@ public class SkinHelper extends ThreadSerialization {
                 flag = "English";
             }
             
+            if("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())){
+                vo.removeNamedWhereClauseParam("userEmail");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
         }
         return flag;
     }

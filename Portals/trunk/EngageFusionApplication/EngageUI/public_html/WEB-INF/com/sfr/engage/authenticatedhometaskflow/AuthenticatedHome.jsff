@@ -190,7 +190,7 @@
         <af:spacer width="12" height="10" id="s14"/>
         <af:panelGroupLayout id="pgl33" layout="vertical">
           <af:panelGroupLayout id="pgl22" layout="vertical"
-                               inlineStyle="width:650.0px;">
+                               inlineStyle="width:650.0px;" binding="#{pageFlowScope.AuthenticatedHomeBean.bindings.messagePanel}">
             <af:panelGroupLayout id="pgl6" layout="horizontal"
                                                       styleClass="paneltopbackground panel_padding_authenticated"
                                                       inlineStyle="width:650px; height:30.0px;">
@@ -336,9 +336,7 @@
                   </af:table>
                  </af:panelGroupLayout>
                 </af:panelGroupLayout>
-
-
-              </af:panelGroupLayout>
+            </af:panelGroupLayout>
             </af:panelGroupLayout>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
