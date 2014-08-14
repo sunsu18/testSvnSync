@@ -263,10 +263,7 @@
       <af:column sortProperty="readFlag" width="50" align="center"
                  
                  id="c2">
-       <af:selectBooleanCheckbox value="#{row.bindings.readFlag.inputValue}"
-                                 label="#{row.bindings.readFlag.label}"
-                                 shortDesc="#{bindings.PrtPcmFeedsRVO1.hints.readFlag.tooltip}"
-                                 id="sbc1"/>
+       <af:selectBooleanCheckbox value="#{row.readFlag}"   id="sbc1"/>
        <!--<af:outputText value="#{row.readFlag}" id="ot11"/>-->
          <!--<af:selectBooleanCheckbox value="#{row.readFlag}"
                                     />-->
@@ -275,7 +272,9 @@
                  headerText="#{sfr.ENGAGE_DATE}"
                  id="c6">
        <f:facet name="filter">
-        <af:inputDate value="#{vs.filterCriteria.EffectiveDate}" id="id2"/>
+        <af:inputDate value="#{vs.filterCriteria.EffectiveDate}" id="id2">
+          <af:convertDateTime pattern="dd.MM.yyyy"/>
+          </af:inputDate>
        </f:facet>
        <af:outputText value="#{row.EffectiveDate}" id="ot16">
         <af:convertDateTime pattern="dd.MM.yyyy"/>

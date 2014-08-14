@@ -431,7 +431,7 @@ public class PrtPcmFeedsRVORowImpl extends ViewRowImpl {
      * @return the readFlag
      */
     public Boolean getreadFlag() {
-        if(this.getShowFlag()!=null && (this.getShowFlag().trim().equalsIgnoreCase("NO"))){
+        if(this.getShowFlag()!=null && this.getShowFlag().trim().equalsIgnoreCase("NO")){
             return true;  
         }
         else{
