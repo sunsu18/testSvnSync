@@ -160,7 +160,8 @@ public class TransactionOverviewBean implements Serializable {
         terminalValue = new ArrayList<String>();
         typeValue = new ArrayList<String>();
         partnerId = null;
-
+        cardGroupRadio = "CardGroup";
+        
         if (session.getAttribute("Partner_Object_List") != null) {
             partnerInfoList = (List<PartnerInfo>)session.getAttribute("Partner_Object_List");
             if (partnerInfoList != null) {
