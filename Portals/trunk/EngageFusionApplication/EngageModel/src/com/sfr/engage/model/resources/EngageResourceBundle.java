@@ -302,6 +302,10 @@ public class EngageResourceBundle extends ListResourceBundle {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession();
         Conversion conv = new Conversion();
+        String amDef = "com.sfr.engage.model.module.EngageAppModule";
+        String config = "EngageAppModuleLocal";
+        ApplicationModule am =
+            Configuration.createRootApplicationModule(amDef, config);
 
         if (session.getAttribute(Constants.AUTHENTICATE_FLAG) != null) {
             authenticatedUser =
@@ -315,11 +319,7 @@ public class EngageResourceBundle extends ListResourceBundle {
                    null && authenticatedUser.equals("true")) {
             User user =
                 (User)session.getAttribute(Constants.SESSION_USER_INFO);
-            String userEmail = user.getEmailID();
-            String amDef = "com.sfr.engage.model.module.EngageAppModule";
-            String config = "EngageAppModuleLocal";
-            ApplicationModule am =
-                Configuration.createRootApplicationModule(amDef, config);
+            String userEmail = user.getEmailID();            
             ViewObject vo = am.findViewObject("PrtUserPreferredLangVO1");
             vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
             vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
@@ -348,16 +348,10 @@ public class EngageResourceBundle extends ListResourceBundle {
                 contents =
                         (Object[][])session.getAttribute("TRANSLATION_" + langValue);
                 return contents;
-            }           
+            }          
             
 
-            Map<String, String> map = parseHashMap(contents);
-
-            String amDef = "com.sfr.engage.model.module.EngageAppModule";
-            String config = "EngageAppModuleLocal";
-
-            ApplicationModule am =
-                Configuration.createRootApplicationModule(amDef, config);
+            Map<String, String> map = parseHashMap(contents);           
 
             PrtGenStringRVOImpl vo =
                 (PrtGenStringRVOImpl)am.findViewObject("PrtGenStringRVO1");
