@@ -22,7 +22,8 @@
     <taskFlow id="AuthenticatedHomeTaskFlow1"
               taskFlowId="/WEB-INF/com/sfr/engage/authenticatedhometaskflow/AuthenticatedHomeTaskFlow.xml#AuthenticatedHomeTaskFlow"
               activation="deferred"
-              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"
+              RefreshCondition="#{sessionScope.refreshCondition eq 'true' or sessionScope.refreshCondition eq null}"/>
     <iterator Binds="PrtAccountVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtAccountVO1Iterator"/>

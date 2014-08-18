@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
+import oracle.adf.share.ADFContext;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.binding.OperationBinding;
 import oracle.javatools.resourcebundle.ResourceBundleManagerRT;
@@ -216,14 +217,18 @@ public class SkinHelper extends ThreadSerialization {
                 vo.removeNamedWhereClauseParam("userEmail");
                 vo.setWhereClause("");
                 vo.executeQuery();
-            }
+            }            
+            
             FacesContext fctx = FacesContext.getCurrentInstance();
+            ExternalContext ectx = fctx.getExternalContext();
+            HttpSession sessionPage = (HttpSession)ectx.getSession(true);            
+            sessionPage.setAttribute("refreshCondition", "true");            
             String refreshpage = fctx.getViewRoot().getViewId();
             if (refreshpage.contains("/home")) {
                 ViewHandler ViewH = fctx.getApplication().getViewHandler();
                 UIViewRoot UIV = ViewH.createView(fctx, refreshpage);
                 UIV.setViewId(refreshpage);
-                fctx.setViewRoot(UIV);
+                fctx.setViewRoot(UIV);                
             }
             
         }
