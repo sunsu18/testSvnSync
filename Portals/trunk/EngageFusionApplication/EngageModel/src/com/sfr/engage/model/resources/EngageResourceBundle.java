@@ -291,8 +291,7 @@ public class EngageResourceBundle extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         long startTime = System.currentTimeMillis();
-        clearCache();
-
+        clearCache();        
         String langValue = "se_SE";
         String key = "";
         String value = "";
@@ -307,43 +306,50 @@ public class EngageResourceBundle extends ListResourceBundle {
         if (session.getAttribute(Constants.AUTHENTICATE_FLAG) != null) {
             authenticatedUser =
                     (String)session.getAttribute(Constants.AUTHENTICATE_FLAG);
-        }
+        }     
 
         if (session.getAttribute("lang") != null &&
             !authenticatedUser.equals("true")) {
             langValue = (String)session.getAttribute("lang");
-        }else{
-            User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+        } else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=
+                   null && authenticatedUser.equals("true")) {
+            User user =
+                (User)session.getAttribute(Constants.SESSION_USER_INFO);
             String userEmail = user.getEmailID();
             String amDef = "com.sfr.engage.model.module.EngageAppModule";
             String config = "EngageAppModuleLocal";
-            ApplicationModule am = Configuration.createRootApplicationModule(amDef, config);
+            ApplicationModule am =
+                Configuration.createRootApplicationModule(amDef, config);
             ViewObject vo = am.findViewObject("PrtUserPreferredLangVO1");
             vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
             vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
             vo.executeQuery();
-            if(vo.getEstimatedRowCount()!=0){
-                while(vo.hasNext()){
-                    PrtUserPreferredLangVORowImpl currRow = (PrtUserPreferredLangVORowImpl)vo.next();
+            if (vo.getEstimatedRowCount() != 0) {
+                while (vo.hasNext()) {
+                    PrtUserPreferredLangVORowImpl currRow =
+                        (PrtUserPreferredLangVORowImpl)vo.next();
                     langValue = currRow.getPreferredLang();
                 }
-            }
-            else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=null && authenticatedUser.equals("true")) {
-                langValue = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
             } else {
-                langValue = "se_SE";
+                langValue =
+                        conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
             }
-            Configuration.releaseRootApplicationModule(am, true);
+            if ("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())) {
+                vo.removeNamedWhereClauseParam("userEmail");
+                vo.setWhereClause("");
+                vo.executeQuery();
+            }
+        } else {
+            langValue = "se_SE";
         }
-        
-        
 
         try {
             if (session.getAttribute("TRANSLATION_" + langValue) != null) {
                 contents =
                         (Object[][])session.getAttribute("TRANSLATION_" + langValue);
                 return contents;
-            }
+            }           
+            
 
             Map<String, String> map = parseHashMap(contents);
 
@@ -362,7 +368,7 @@ public class EngageResourceBundle extends ListResourceBundle {
             vc.add(vcr1);
             vo.applyViewCriteria(vc);
             vo.executeQuery();
-
+            
             while (vo.hasNext()) {
                 PrtGenStringRVORowImpl currRow =
                     (PrtGenStringRVORowImpl)vo.next();
@@ -378,6 +384,7 @@ public class EngageResourceBundle extends ListResourceBundle {
             Configuration.releaseRootApplicationModule(am, true);
 
             parseArray(map);
+            
         } catch (SQLException sqe) {
 
         } catch (Exception e) {
