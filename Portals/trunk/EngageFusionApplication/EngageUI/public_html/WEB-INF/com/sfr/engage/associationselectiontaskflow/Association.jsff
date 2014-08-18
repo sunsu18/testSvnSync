@@ -46,8 +46,8 @@
           rowSelection="single"
           value="#{pageFlowScope.AssociationSelectionBean.userdetailslist}"
           binding="#{pageFlowScope.AssociationSelectionBean.searchUsersTable}"
-          width="365">
-                  <af:column sortable="false" id="c13" width="28px" align="center">
+          styleClass="AFStretchWidth">
+                  <af:column sortable="false" id="c13" width="28" align="center">
      <af:selectBooleanRadio  
                             id="sbr1" group="g1" autoSubmit="true"
                             >
