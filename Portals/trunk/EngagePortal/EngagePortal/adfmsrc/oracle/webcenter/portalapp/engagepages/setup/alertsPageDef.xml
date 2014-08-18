@@ -10,6 +10,10 @@
     <variableIterator id="variables"/>
     <page viewId="${preferenceBean.defaultPageTemplate}" id="pageTemplateBinding" Refresh="ifNeeded"/>
     <taskFlow id="pageeditorpanel" taskFlowId="#{pageEditorBean.pageEditorPanel}" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="AlertsTaskFlow1"
+              taskFlowId="/WEB-INF/com/sfr/engage/alertstaskflow/AlertsTaskFlow.xml#AlertsTaskFlow"
+              activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
   <permission permissionClass="oracle.webcenter.security.auth.HierarchicalResourcePermission"
