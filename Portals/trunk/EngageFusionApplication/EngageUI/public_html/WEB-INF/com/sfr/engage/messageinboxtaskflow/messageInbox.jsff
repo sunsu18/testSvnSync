@@ -84,7 +84,7 @@
                        id="si2"/>
                        </af:forEach>
        </af:selectOneChoice>
-       <af:spacer width="20" height="20" id="s41"/>
+       <af:spacer width="20" height="15" id="s41"/>
        <af:selectManyChoice id="smc4" autoSubmit="true" partialTriggers="cb2"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.messageType}"
                             value="#{pageFlowScope.MessageInboxBean.messageTypeValue}"
@@ -111,6 +111,7 @@
      
       </af:panelGroupLayout>
      </h:panelGrid>
+     <af:spacer width="10" height="50" id="spacer8"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl5">
      <af:separator id="s4" styleClass="vertical_seprator_trans"
@@ -145,7 +146,7 @@
                            inlineStyle="height:auto; text-align:justify; width:10.0px;"
                            layout="vertical">
        <af:outputText value=":" id="outputText4"/>
-       <af:spacer width="20" height="20" id="spacer5"/>
+       <af:spacer width="20" height="24" id="spacer5"/>
        <af:outputText value=":" id="ot5"/>
        <af:spacer width="20" height="20" id="s29"/>
        <af:outputText value=":" id="ot7"/>
@@ -167,7 +168,7 @@
                         id="selectItem4"/>
         </af:forEach>
        </af:selectManyChoice>
-       <af:spacer width="20" height="20" id="s31"/>
+       <af:spacer width="20" height="15" id="s31"/>
         <af:selectManyChoice id="smc1" autoSubmit="true" disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.account}" partialTriggers="smc2 cb2"
                             value="#{pageFlowScope.MessageInboxBean.accountValue}"
@@ -179,7 +180,7 @@
                         id="si1"/>
         </af:forEach>
        </af:selectManyChoice>
-       <af:spacer width="20" height="20" id="s32"/>
+       <af:spacer width="20" height="15" id="s32"/>
        <af:selectManyChoice id="selectManyChoice3"
                             disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}" partialTriggers="smc2 cb2"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.cardGroup}"
@@ -192,7 +193,7 @@
                         id="selectItem2"/>
         </af:forEach>
        </af:selectManyChoice>
-       <af:spacer width="20" height="20" id="spacer6"/>
+       <af:spacer width="20" height="15" id="spacer6"/>
        <af:selectManyChoice id="selectManyChoice4" partialTriggers="smc2 cb2"
        disabled="#{pageFlowScope.MessageInboxBean.isMessageAdmin}"
                             binding="#{pageFlowScope.MessageInboxBean.bindings.card}"
@@ -253,7 +254,7 @@
                 inlineStyle="height:auto;"
                emptyText="#{bindings.PrtPcmFeedsRVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
                fetchSize="#{bindings.PrtPcmFeedsRVO1.rangeSize}"
-               rowBandingInterval="0" width="900" columnResizing="disabled"
+               rowBandingInterval="1" width="900" columnResizing="disabled"
                filterModel="#{bindings.PrtPcmFeedsRVO11Query.queryDescriptor}"
                queryListener="#{bindings.PrtPcmFeedsRVO11Query.processQuery}"
                filterVisible="true" varStatus="vs"
@@ -280,21 +281,30 @@
         <af:convertDateTime pattern="dd.MM.yyyy"/>
        </af:outputText>
       </af:column>
-      <af:column sortProperty="InformationType" filterable="true" width="80" 
-                 sortable="true"
-                 headerText="#{sfr.ENGAGE_TYPE}"
-                 id="c4">
-       <af:outputText value="#{row.InformationType}" id="ot13"/>
-      </af:column>
+      
       <af:column sortProperty="Title" filterable="true" sortable="true" width="200"
                 headerText="#{sfr.ENGAGE_TITLE}"
                  id="c5">
-       <af:outputText value="#{row.Title}" id="ot17"/>
+       <af:outputText value="#{row.Title}" id="ot17" escape="false"/>
       </af:column>
-      <af:column sortProperty="MessageEnglish" filterable="true" sortable="true" width="360"
+      <af:column sortProperty="MessageEnglish" filterable="true" sortable="true" width="550"
                  headerText="#{sfr.ENGAGE_MESSAGE}"
-                 id="c1">
-       <af:inputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" id="ot3"  contentStyle="width:352px;" readOnly="true"/>
+                 id="c1" noWrap="false">
+      
+  <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" id="ot3"
+         escape="false" styleClass="contenttext"
+         />
+      
+  <!--<af:panelGroupLayout id="pgl19"
+                                   inlineStyle="width:350px;" layout="horizontal"
+                                   >
+          <af:outputText value="#{row.MessageLang eq null? row.MessageEnglish : row.MessageLang}" escape="false"  inlineStyle="white-space: -moz-pre-wrap"
+                        id="it1">
+            
+          </af:outputText>
+          </af:panelGroupLayout>-->
+        
+
       </af:column>
      
      </af:table>
