@@ -7,6 +7,9 @@ import com.sfr.util.AccessDataControl;
 import com.sfr.util.ThreadSerialization;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
+
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -214,6 +217,14 @@ public class SkinHelper extends ThreadSerialization {
                 vo.setWhereClause("");
                 vo.executeQuery();
             }
+            FacesContext fctx = FacesContext.getCurrentInstance();
+            String refreshpage = fctx.getViewRoot().getViewId();
+            if (refreshpage.contains("/home")) {
+                ViewHandler ViewH = fctx.getApplication().getViewHandler();
+                UIViewRoot UIV = ViewH.createView(fctx, refreshpage);
+                UIV.setViewId(refreshpage);
+                fctx.setViewRoot(UIV);
+            }
             
         }
         
@@ -279,7 +290,7 @@ public class SkinHelper extends ThreadSerialization {
                 vo.removeNamedWhereClauseParam("userEmail");
                 vo.setWhereClause("");
                 vo.executeQuery();
-            }
+            }            
         }
         return flag;
     }
