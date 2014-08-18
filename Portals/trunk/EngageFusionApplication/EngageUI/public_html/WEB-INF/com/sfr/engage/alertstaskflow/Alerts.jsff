@@ -227,13 +227,17 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
                    inlineStyle="height: 150px !important;"/>
        <af:panelGroupLayout id="pgl16" layout="vertical">
        <af:panelGroupLayout layout="horizontal" id="pgl17">
-         <af:selectBooleanRadio label="Ltr/day" id="sbr1"  autoSubmit="true"/>
-         <af:selectBooleanRadio label="Ltr/week" id="sbr2"  autoSubmit="true"/>
-         <af:selectBooleanRadio label="Ltr/month" id="sbr3"  autoSubmit="true"/>
+         <af:selectBooleanRadio id="sbr1"  autoSubmit="true"/>
+         <af:outputText id="ot4" value="Ltr/day"/>
+         <af:selectBooleanRadio id="sbr2"  autoSubmit="true"/>
+         <af:outputText id="ot25" value="Ltr/week"/>
+         <af:selectBooleanRadio  id="sbr3"  autoSubmit="true"/>
+         <af:outputText id="ot26" value="Ltr/month"/>
        </af:panelGroupLayout>
-       <af:panelGroupLayout layout="horizontal" id="pgl20">
+        <af:spacer width="10" height="10" id="s48"/>
+        <af:panelGroupLayout layout="horizontal" id="pgl20">
          <af:outputText value="#{sfr.PLEASE_ENTER_QUANTITY}  :  " id="ot14"/>
-         <af:inputText id="it3"/>
+         <af:inputText id="it3" inlineStyle="width:25.0px;"/>
          <af:outputText value=" ltr" id="ot15"/>
         </af:panelGroupLayout>
        </af:panelGroupLayout>
