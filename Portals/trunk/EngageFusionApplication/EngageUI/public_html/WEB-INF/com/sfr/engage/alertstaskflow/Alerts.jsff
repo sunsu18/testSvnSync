@@ -237,7 +237,9 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
         <af:spacer width="10" height="10" id="s48"/>
         <af:panelGroupLayout layout="horizontal" id="pgl20">
          <af:outputText value="#{sfr.PLEASE_ENTER_QUANTITY}  :  " id="ot14"/>
-         <af:inputText id="it3" inlineStyle="width:25.0px;"/>
+         <af:inputText id="it3" 
+                       contentStyle="width:45.0px;"/>
+                       <af:spacer width="10" id="s49"/>
          <af:outputText value=" ltr" id="ot15"/>
         </af:panelGroupLayout>
        </af:panelGroupLayout>
