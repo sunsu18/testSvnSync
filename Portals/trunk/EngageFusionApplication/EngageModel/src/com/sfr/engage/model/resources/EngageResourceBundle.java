@@ -116,9 +116,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "ENGAGE_INVOICE_DETAILS", "" }, { "ENGAGE_INVOICE_TYPE", "" },
       { "ENGAGE_CARD_GROUP", "" }, { "ENGAGE_CARD", "" },
       { "ENGAGE_PASSWORD_CHANGED_SUCCESS", "" },
-      { "TRANSACTION_OVERVIEW", "" }, { "ENGAGE_INVOICE_OVERVIEW", "" },
-      { "ENGAGE_ACCOUNT", "" }, { "ENGAGE_FROM", "" }, { "ENGAGE_TO", "" },
-      { "ENGAGE_INVOICE_DETAILS", "" }, { "ENGAGE_INVOICE_TYPE", "" },
+      { "TRANSACTION_OVERVIEW", "" },
       { "ENGAGE_CANCEL", "" }, { "ENGAGE_INVOICE_INVOICE_NO", "" },
       { "ENGAGE_INVOICE_INVOICE_DATE", "" }, { "ENGAGE_INVOICE_DUE_DATE", "" },
       { "ENGAGE_INVOICE_TYPE_1", "" }, { "ENGAGE_INVOICE_NET", "" },
@@ -284,6 +282,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "PLEASE_SELECT_A_USER", "" },{ "ENGAGE_MESSAGE_INBOX", "" },{"ENGAGE_MESSAGE_DETAILS",""},{"ENGAGE_CATEGORY",""} ,
       {"ENGAGE_CATEGORY_ADMIN",""},{"ENGAGE_CATEGORY_NON_ADMIN",""},{"ENG_READ",""},{"ENG_UNREAD",""},{"ENG_NO_ADMIN_MSGS",""},
       {"ENGAGE_DATE",""},{"ENGAGE_TYPE",""},{"ENGAGE_MESSAGE",""},{"ENGAGE_TITLE",""}};
+      { "PLEASE_SELECT_A_USER", "" },{"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},{"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},{"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},{"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},{"PLEASE_ENTER_QUANTITY",""} };
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
