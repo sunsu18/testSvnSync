@@ -38,6 +38,8 @@
           usageId="com_sfr_engage_view_AssociationPageDef"/>
     <page path="/WEB-INF/com/sfr/engage/messageinboxtaskflow/messageInbox.jsff"
           usageId="com_sfr_engage_view_messageInboxPageDef"/>
+    <page path="/WEB-INF/com/sfr/engage/alertstaskflow/Alerts.jsff"
+          usageId="com_sfr_engage_view_AlertsPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_sfr_engage_view_CardPageDef"
@@ -68,6 +70,8 @@
           path="com.sfr.engage.associationselectiontaskflow.AssociationPageDef"/>
     <page id="com_sfr_engage_view_messageInboxPageDef"
           path="com.sfr.engage.messageinboxtaskflow.messageInboxPageDef"/>
+    <page id="com_sfr_engage_view_AlertsPageDef"
+          path="com.sfr.engage.alertstaskflow.AlertsPageDef"/>
   </pageDefinitionUsages>
 
   <dataControlUsages>
