@@ -54,6 +54,7 @@
   <xsl:template match="/">
     <ns3:PrtCardTransactionHeaderCollection>
       <xsl:for-each select="$InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection/top:Cc077Vs1CssordDtaCollection/top:Cc077Vs1CssordDta">
+       <xsl:if test="not((top:slgtransstatusKd = 'PRE') and (top:prelimstatusKd = 'EXP'))">
         <xsl:variable name="lastOdometerReading"
                       select="oraext:query-database(concat(&quot;select ODOMETER from PRT_CARD_TRANSACTION_HEADER where KSID = '&quot;,top:leveringksId,&quot;' and PALS_COUNTRY_CODE = '&quot;,/inp1:invocationMsg/inp1:CountryCode,&quot;' and TRANSACTION_TIME = ( select max(TRANSACTION_TIME) from PRT_CARD_TRANSACTION_HEADER where TRANSACTION_TIME &lt; '&quot;,xp20:format-dateTime(concat(top:ordrelevDt,&quot;T&quot;,top:ordrelevTid),&quot;[D01]-[MN,*-3]-[Y0001] [h01]:[m01]:[s01] [PN]&quot;),&quot;' and KSID = '&quot;,top:leveringksId,&quot;'and PALS_COUNTRY_CODE = '&quot;,/inp1:invocationMsg/inp1:CountryCode,&quot;' and PARTNER_ID = '&quot;,top:partnerId,&quot;' and ACCOUNT_ID = '&quot;,top:kontoId,&quot;' )&quot;),false(),false(),&quot;jdbc/ENGPORTALNXA&quot;)"/>
         <xsl:variable name="lastPortalOdometerReading"
@@ -91,6 +92,7 @@
             </xsl:otherwise>
           </xsl:choose>
         </ns3:PrtCardTransactionHeader>
+        </xsl:if>
       </xsl:for-each>
     </ns3:PrtCardTransactionHeaderCollection>
   </xsl:template>

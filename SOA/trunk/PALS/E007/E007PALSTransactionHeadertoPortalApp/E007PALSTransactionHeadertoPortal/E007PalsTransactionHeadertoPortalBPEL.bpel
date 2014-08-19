@@ -50,7 +50,8 @@
          xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1"
          xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1"
          xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter"
-         xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification">
+         xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification"
+         xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/DeleteTxnHeaderPortalDBAdapterV1">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,6 +97,9 @@
     <partnerLink name="SOAPALSNotificationJMSAdapter"
                  partnerLinkType="ns21:Produce_Message_plt"
                  partnerRole="Produce_Message_role"/>
+    <partnerLink name="DeleteTxnHeaderPortalDBAdapterV1"
+                 partnerLinkType="ns23:DeleteTxnHeaderPortalDBAdapterV1_plt"
+                 partnerRole="DeleteTxnHeaderPortalDBAdapterV1_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveTransactionHeaderReqMsg_IV"
@@ -648,6 +652,10 @@
             </scope>
             <scope name="InsertTxnHeaderDatatoPortalScope"
                    variableAccessSerializable="no">
+              <variables>
+                <variable name="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV"
+                          messageType="ns23:PrtCardTransactionHeaderCollection_msg"/>
+              </variables>
               <sequence name="InsertTxnHeaderDatatoPortalSequence">
                 <!--assign name="Xform_TxnHeaderPals_to_Portal">
                   <bpelx:annotation>
@@ -674,16 +682,47 @@
                         partnerLink="MergeTxnHeaderPortalDBAdapterV1"
                         portType="ns11:MergeTxnHeaderPortalDBAdapterV1_ptt"
                         operation="merge" bpelx:invokeAsDetail="no"/>
-                <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer">
-                  <bpelx:annotation>
-                    <bpelx:pattern>transformation</bpelx:pattern>
-                  </bpelx:annotation>
-                  <copy>
-                    <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_PortalTxnHeaderOdometer.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
-                    <to variable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV"
-                        part="PrtCardTransactionHeaderCollection"/>
-                  </copy>
-                </assign>
+                <flow name="Flow1">
+                  <sequence name="Sequence">
+                    <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer">
+                      <bpelx:annotation>
+                        <bpelx:pattern>transformation</bpelx:pattern>
+                      </bpelx:annotation>
+                      <copy>
+                        <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_PortalTxnHeaderOdometer.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
+                        <to variable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV"
+                            part="PrtCardTransactionHeaderCollection"/>
+                      </copy>
+                    </assign>
+                  </sequence>
+                  <sequence name="Sequence6">
+                    <switch name="Switch9">
+                      <case condition="bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta/ns8:slgtransstatusKd')='PRE' and bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta/ns8:prelimstatusKd')='EXP'">
+                        <sequence>
+                          <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer"
+                                  xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
+                            <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+                              <bpelx:pattern>transformation</bpelx:pattern>
+                            </bpelx:annotation>
+                            <copy>
+                              <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_DeletePortalTxnHeader.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
+                              <to variable="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV"
+                                  part="PrtCardTransactionHeaderCollection"/>
+                            </copy>
+                          </assign>
+                          <invoke name="InvokeDeleteTxnHeaderPortalDBAdapterV1"
+                                  inputVariable="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV"
+                                  partnerLink="DeleteTxnHeaderPortalDBAdapterV1"
+                                  portType="ns23:DeleteTxnHeaderPortalDBAdapterV1_ptt"
+                                  operation="delete" bpelx:invokeAsDetail="no"/>
+                        </sequence>
+                      </case>
+                      <otherwise>
+                        <empty name="NothingToDelete"/>
+                      </otherwise>
+                    </switch>
+                  </sequence>
+                </flow>
                 <invoke name="InvokeUpdateTxnHeaderPortalDBAdapterV1"
                         inputVariable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV"
                         partnerLink="UpdateTxnHeaderPortalDBAdapterV1"

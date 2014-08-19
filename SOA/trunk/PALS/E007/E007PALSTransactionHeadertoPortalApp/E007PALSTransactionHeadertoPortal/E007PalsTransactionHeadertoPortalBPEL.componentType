@@ -52,4 +52,8 @@
              ui:wsdlLocation="SOAPALSNotificationJMSAdapter.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter#wsdl.interface(Produce_Message_ptt)"/>
   </reference>
+  <reference name="DeleteTxnHeaderPortalDBAdapterV1"
+             ui:wsdlLocation="DeleteTxnHeaderPortalDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/DeleteTxnHeaderPortalDBAdapterV1#wsdl.interface(DeleteTxnHeaderPortalDBAdapterV1_ptt)"/>
+  </reference>
 </componentType>

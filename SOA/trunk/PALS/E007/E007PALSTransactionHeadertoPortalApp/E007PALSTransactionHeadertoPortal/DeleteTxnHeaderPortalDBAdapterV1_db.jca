@@ -1,0 +1,15 @@
+<adapter-config name="DeleteTxnHeaderPortalDBAdapterV1" adapter="Database Adapter" wsdlLocation="DeleteTxnHeaderPortalDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="PortalDB(Dev)" adapterRef=""/>
+  <endpoint-interaction portType="DeleteTxnHeaderPortalDBAdapterV1_ptt" operation="delete">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="DeleteTxnHeaderPortalDBAdapterV1.PrtCardTransactionHeader"/>
+      <property name="DmlType" value="delete"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="OptimizeMerge" value="true"/>
+      <property name="MappingsMetaDataURL" value="DeleteTxnHeaderPortalDBAdapterV1-or-mappings.xml"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

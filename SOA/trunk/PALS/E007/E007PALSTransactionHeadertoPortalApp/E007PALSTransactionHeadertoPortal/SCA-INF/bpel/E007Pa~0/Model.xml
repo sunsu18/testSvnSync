@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="E007PalsTransactionHeadertoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalService" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E007/E007InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/MergeTxnHeaderPortalDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateTxnHeaderPortalDBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/CommonErrorHandlerJMSAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns:ns16="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter" xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification" id="BpPrc0">
+<process name="E007PalsTransactionHeadertoPortalBPEL" targetNamespace="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalBPEL" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://oracle.com/sca/soapservice/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/E007PalsTransactionHeadertoPortalService" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.statoilfuelretail.com/integration/E007/E007InvocationReqMsg" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectDeltaTSSOADBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectDeltaTSSOADBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/GetPALSDB2RecordCountDBAdapterV1" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectPALSTxnHeaderRecordsDBAdapterV1" xmlns:ns9="http://www.statoilfuelretail.com/integration/E007/TxnHeaderValidate" xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/MergeTxnHeaderPortalDBAdapterV1" xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateTxnHeaderPortalDBAdapterV1" xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SelectErrorRecordsSOADBAdapterV1" xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/CommonErrorHandlerJMSAdapter" xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/SelectErrorRecordsSOADBAdapterV1" xmlns:ns16="http://www.statoilfuelretail.com/integration/engage/ErrorHandling.xsd" xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertTxnHeaderSOAErrorLogDBAdapterV1" xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/UpdateEmailErrorFlagSOADBAdapterV1" xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/InsertDeltaTSSOADBAdapterV1" xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/top/InsertDeltaTSSOADBAdapterV1" xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/jms/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/SOAPALSNotificationJMSAdapter" xmlns:ns22="http://www.statoilfuelretail.com/integration/engage/PalsNotification" xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/E007PALSTransactionHeadertoPortalApp/E007PALSTransactionHeadertoPortal/DeleteTxnHeaderPortalDBAdapterV1" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +21,7 @@
     <partnerLink name="UpdateEmailErrorFlagSOADBAdapterV1" partnerLinkType="ns18:UpdateEmailErrorFlagSOADBAdapterV1_plt" partnerRole="UpdateEmailErrorFlagSOADBAdapterV1_role"/>
     <partnerLink name="InsertDeltaTSSOADBAdapterV1" partnerLinkType="ns19:InsertDeltaTSSOADBAdapterV1_plt" partnerRole="InsertDeltaTSSOADBAdapterV1_role"/>
     <partnerLink name="SOAPALSNotificationJMSAdapter" partnerLinkType="ns21:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+    <partnerLink name="DeleteTxnHeaderPortalDBAdapterV1" partnerLinkType="ns23:DeleteTxnHeaderPortalDBAdapterV1_plt" partnerRole="DeleteTxnHeaderPortalDBAdapterV1_role"/>
   </partnerLinks>
   <variables>
     <variable name="ReceiveTransactionHeaderReqMsg_IV" messageType="ns1:requestMessage"/>
@@ -37,7 +38,6 @@
     <variable name="InvokeSelectPALSTxnRecordDBAdapterV1_OV" messageType="ns7:Cc077Vs1CssordDtaCollection_msg"/>
     <variable name="dataCount" type="xsd:integer"/>
     <!--variable name="payloadValidate" element="ns9:TransactionHeader"/-->
-    <variable name="payloadValidate" element="ns9:TransactionHeader"/>
     <variable name="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1_IV" messageType="ns10:EngageSoaTxnheaderErrorlogCollection_msg"/>
     <variable name="InvokeMergeTxnHeaderDataPortalDBAdapterV1_IV" messageType="ns11:PrtCardTransactionHeaderCollection_msg"/>
     <variable name="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV" messageType="ns12:PrtCardTransactionHeaderCollection_msg"/>
@@ -47,6 +47,7 @@
     <variable name="InvokeUpdateEmailErrorFlagSOADBAdapterV1_IV" messageType="ns18:EngageSoaTxnheaderErrorlogCollection_msg"/>
     <variable name="InvokeInsertDeltaTSSOADBAdapterV1_IV" messageType="ns19:EngageSoaDeltatableCollection_msg"/>
     <variable name="InvokeSOAPALSNotifationJMSAdapter_IV" messageType="ns21:Produce_Message_msg"/>
+    <variable name="payloadValidate" element="ns9:TransactionHeader"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catch faultName="bpelx:remoteFault" id="BpCFt0"><sequence name="RemoteFaultSequence" id="BpSeq0"><assign name="AssignRemoteFault" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss0">
@@ -427,6 +428,9 @@
               </sequence>
             </scope>
             <scope name="InsertTxnHeaderDatatoPortalScope" variableAccessSerializable="no" id="BpScp4">
+              <variables>
+                <variable name="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV" messageType="ns23:PrtCardTransactionHeaderCollection_msg"/>
+              </variables>
               <sequence name="InsertTxnHeaderDatatoPortalSequence" id="BpSeq12">
                 <!--assign name="Xform_TxnHeaderPals_to_Portal">
                   <bpelx:annotation>
@@ -448,21 +452,46 @@
                   </copy>
                 </assign>
                 <invoke name="InvokeMergeTxnHeaderDataPortalDBAdapterV1" inputVariable="InvokeMergeTxnHeaderDataPortalDBAdapterV1_IV" partnerLink="MergeTxnHeaderPortalDBAdapterV1" portType="ns11:MergeTxnHeaderPortalDBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv8"/>
-                <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer" id="BpAss21">
-                  <bpelx:annotation>
-                    <bpelx:pattern>transformation</bpelx:pattern>
-                  </bpelx:annotation>
-                  <copy>
-                    <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_PortalTxnHeaderOdometer.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
-                    <to variable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV" part="PrtCardTransactionHeaderCollection"/>
-                  </copy>
-                </assign>
-                <invoke name="InvokeUpdateTxnHeaderPortalDBAdapterV1" inputVariable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV" partnerLink="UpdateTxnHeaderPortalDBAdapterV1" portType="ns12:UpdateTxnHeaderPortalDBAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv9"/>
+                <flow name="Flow1" id="BpFlw0">
+                  <sequence name="Sequence" id="BpSeq13">
+                    <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer" id="BpAss21">
+                      <bpelx:annotation>
+                        <bpelx:pattern>transformation</bpelx:pattern>
+                      </bpelx:annotation>
+                      <copy>
+                        <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_PortalTxnHeaderOdometer.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
+                        <to variable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV" part="PrtCardTransactionHeaderCollection"/>
+                      </copy>
+                    </assign>
+                  </sequence>
+                  <sequence name="Sequence6" id="BpSeq14">
+                    <switch name="Switch9" id="BpSwt3">
+                      <case condition="bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta/ns8:slgtransstatusKd')='PRE' and bpws:getVariableData('InvokeSelectPALSTxnRecordDBAdapterV1_OV','Cc077Vs1CssordDtaCollection','/ns8:Cc077Vs1CssordDtaCollection/ns8:Cc077Vs1CssordDta/ns8:prelimstatusKd')='EXP'">
+                        <sequence id="BpSeq15">
+                          <assign name="Xform_PortalTxnHeader_PortalTxnHeaderLastOdometer" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss22">
+                            <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+                              <bpelx:pattern>transformation</bpelx:pattern>
+                            </bpelx:annotation>
+                            <copy>
+                              <from expression="ora:doXSLTransformForDoc('xsl/PortalTxnHeader_DeletePortalTxnHeader.xsl', $ReceiveTransactionHeaderReqMsg_IV.part1, 'InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection', $InvokeSelectPALSTxnRecordDBAdapterV1_OV.Cc077Vs1CssordDtaCollection)"/>
+                              <to variable="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV" part="PrtCardTransactionHeaderCollection"/>
+                            </copy>
+                          </assign>
+                          <invoke name="InvokeDeleteTxnHeaderPortalDBAdapterV1" inputVariable="InvokeDeleteTxnHeaderPortalDBAdapterV1_IV" partnerLink="DeleteTxnHeaderPortalDBAdapterV1" portType="ns23:DeleteTxnHeaderPortalDBAdapterV1_ptt" operation="delete" bpelx:invokeAsDetail="no" id="BpInv9"/>
+                        </sequence>
+                      </case>
+                      <otherwise>
+                        <empty name="NothingToDelete" id="BpEmp0"/>
+                      </otherwise>
+                    </switch>
+                  </sequence>
+                </flow>
+                <invoke name="InvokeUpdateTxnHeaderPortalDBAdapterV1" inputVariable="InvokeUpdateTxnHeaderPortalDBAdapterV1_IV" partnerLink="UpdateTxnHeaderPortalDBAdapterV1" portType="ns12:UpdateTxnHeaderPortalDBAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv10"/>
               </sequence>
             </scope>
           </sequence>
         </scope>
-        <assign name="AssignLatestDeltaTSSOADBAdapterV1" id="BpAss22">
+        <assign name="AssignLatestDeltaTSSOADBAdapterV1" id="BpAss23">
           <copy>
             <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:InterfaceID"/>
             <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns20:EngageSoaDeltatableCollection/ns20:EngageSoaDeltatable/ns20:interfaceid"/>
@@ -484,8 +513,8 @@
             <to variable="InvokeInsertDeltaTSSOADBAdapterV1_IV" part="EngageSoaDeltatableCollection" query="/ns20:EngageSoaDeltatableCollection/ns20:EngageSoaDeltatable/ns20:modifiedbytimestamp"/>
           </copy>
         </assign>
-        <invoke name="InvokeInsertDeltaTSSOADBAdapterV1" inputVariable="InvokeInsertDeltaTSSOADBAdapterV1_IV" partnerLink="InsertDeltaTSSOADBAdapterV1" portType="ns19:InsertDeltaTSSOADBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv10"/>
-        <assign name="NextBatch" id="BpAss23">
+        <invoke name="InvokeInsertDeltaTSSOADBAdapterV1" inputVariable="InvokeInsertDeltaTSSOADBAdapterV1_IV" partnerLink="InsertDeltaTSSOADBAdapterV1" portType="ns19:InsertDeltaTSSOADBAdapterV1_ptt" operation="merge" bpelx:invokeAsDetail="no" id="BpInv11"/>
+        <assign name="NextBatch" id="BpAss24">
           <copy>
             <from expression="bpws:getVariableData('batchCountIterator') + 1"/>
             <to variable="batchCountIterator"/>
@@ -493,16 +522,16 @@
         </assign>
       </sequence>
     </while>
-    <switch name="Switch3" id="BpSwt3">
+    <switch name="Switch3" id="BpSwt4">
       <case condition="bpws:getVariableData('errorFlag') = 'true'">
         <bpelx:annotation>
           <bpelx:general>
             <bpelx:property name="userLabel">If Error Occured</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <sequence name="Sequence3" id="BpSeq13">
-          <invoke name="InvokeSelectErrorRecordsSOAAdapterV1" inputVariable="InvokeSelectErrorRecordsSOAAdapterV1_IV" outputVariable="InvokeSelectErrorRecordsSOAAdapterV1_OV" partnerLink="SelectErrorRecordsSOADBAdapterV1" portType="ns13:SelectErrorRecordsSOADBAdapterV1_ptt" operation="SelectErrorRecordsSOADBAdapterV1" bpelx:invokeAsDetail="no" id="BpInv11"/>
-          <assign name="Xform_ErrorData_to_ErrorDescription" id="BpAss24">
+        <sequence name="Sequence3" id="BpSeq16">
+          <invoke name="InvokeSelectErrorRecordsSOAAdapterV1" inputVariable="InvokeSelectErrorRecordsSOAAdapterV1_IV" outputVariable="InvokeSelectErrorRecordsSOAAdapterV1_OV" partnerLink="SelectErrorRecordsSOADBAdapterV1" portType="ns13:SelectErrorRecordsSOADBAdapterV1_ptt" operation="SelectErrorRecordsSOADBAdapterV1" bpelx:invokeAsDetail="no" id="BpInv12"/>
+          <assign name="Xform_ErrorData_to_ErrorDescription" id="BpAss25">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -511,7 +540,7 @@
               <to variable="InvokeInsertTxnHeaderSOAerrlogDBAdapterv1_IV" part="EngageSoaTxnheaderErrorlogCollection"/>
             </copy>
           </assign>
-          <assign name="AssignCommonErrorHandlerValues" id="BpAss25">
+          <assign name="AssignCommonErrorHandlerValues" id="BpAss26">
             <copy>
               <from expression="ora:getCompositeInstanceId()"/>
               <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:InstanceID"/>
@@ -565,8 +594,8 @@
               <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:Subject"/>
             </copy>
           </assign>
-          <invoke name="InvokeCommonErrorHandler" inputVariable="InvokeCommonErrorHandler_IV" partnerLink="CommonErrorHandlerJMSAdapter" portType="ns14:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv12"/>
-          <assign name="Xform_SOAErrorREcords_to_EmailFlagUpdate" id="BpAss26">
+          <invoke name="InvokeCommonErrorHandler" inputVariable="InvokeCommonErrorHandler_IV" partnerLink="CommonErrorHandlerJMSAdapter" portType="ns14:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv13"/>
+          <assign name="Xform_SOAErrorREcords_to_EmailFlagUpdate" id="BpAss27">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>
@@ -575,27 +604,27 @@
               <to variable="InvokeUpdateEmailErrorFlagSOADBAdapterV1_IV" part="EngageSoaTxnheaderErrorlogCollection"/>
             </copy>
           </assign>
-          <invoke name="InvokeUpdateEmailErrorFlagSOADBAdapterV1" inputVariable="InvokeUpdateEmailErrorFlagSOADBAdapterV1_IV" partnerLink="UpdateEmailErrorFlagSOADBAdapterV1" portType="ns18:UpdateEmailErrorFlagSOADBAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv13"/>
+          <invoke name="InvokeUpdateEmailErrorFlagSOADBAdapterV1" inputVariable="InvokeUpdateEmailErrorFlagSOADBAdapterV1_IV" partnerLink="UpdateEmailErrorFlagSOADBAdapterV1" portType="ns18:UpdateEmailErrorFlagSOADBAdapterV1_ptt" operation="update" bpelx:invokeAsDetail="no" id="BpInv14"/>
         </sequence>
       </case>
     </switch>
-    <switch name="Switch5" id="BpSwt4">
+    <switch name="Switch5" id="BpSwt5">
       <case condition="bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:LastInvokeFlag')='True'">
         <bpelx:annotation>
           <bpelx:general>
             <bpelx:property name="userLabel">If last invocation flag is set</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <sequence name="Sequence4" id="BpSeq14">
-          <switch name="Switch7" id="BpSwt5">
+        <sequence name="Sequence4" id="BpSeq17">
+          <switch name="Switch7" id="BpSwt6">
             <case condition="(number(bpws:getVariableData('InvokeGetPALSDB2RecordCountDBAdapterV1_OV','GetPALSDB2RecordCountDBAdapterV1Output','/ns6:GetPALSDB2RecordCountDBAdapterV1Output/ns6:count')))-((number(bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchSize')) * number(bpws:getVariableData('ReceiveTransactionHeaderReqMsg_IV','part1','/ns2:invocationMsg/ns2:BatchCount'))))>0">
               <bpelx:annotation>
                 <bpelx:general>
                   <bpelx:property name="userLabel">If all records are not processed.</bpelx:property>
                 </bpelx:general>
               </bpelx:annotation>
-              <sequence name="Sequence5" id="BpSeq15">
-                <assign name="AssignIncompletetransferError" id="BpAss27">
+              <sequence name="Sequence5" id="BpSeq18">
+                <assign name="AssignIncompletetransferError" id="BpAss28">
                   <copy>
                     <from expression="ora:getCompositeInstanceId()"/>
                     <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:CommonErrorData/ns16:InstanceID"/>
@@ -637,7 +666,7 @@
                     <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorSummary"/>
                   </copy>
                   <copy>
-                    <from expression="'Unable to process all data from PALS'"/>
+                    <from expression="'Incomplete data transfer.'"/>
                     <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:ErrorDetails/ns16:ErrorDescription"/>
                   </copy>
                   <copy>
@@ -649,19 +678,19 @@
                     <to variable="InvokeCommonErrorHandler_IV" part="body" query="/ns16:ErrorInfo/ns16:ErrorNotification/ns16:Subject"/>
                   </copy>
                 </assign>
-                <invoke name="InvokeCommonErrorHandlerJMSAdapter" inputVariable="InvokeCommonErrorHandler_IV" partnerLink="CommonErrorHandlerJMSAdapter" portType="ns14:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv14"/>
+                <invoke name="InvokeCommonErrorHandlerJMSAdapter" inputVariable="InvokeCommonErrorHandler_IV" partnerLink="CommonErrorHandlerJMSAdapter" portType="ns14:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv15"/>
               </sequence>
             </case>
             <otherwise>
-              <sequence id="BpSeq16">
-                <switch name="Switch6" id="BpSwt6">
+              <sequence id="BpSeq19">
+                <switch name="Switch6" id="BpSwt7">
                   <case condition="count(bpws:getVariableData('InvokeSelectDeltaTSSOADBAdapterV1_OV','EngageSoaDeltatableCollection','/ns4:EngageSoaDeltatableCollection/ns4:EngageSoaDeltatable')) > 0">
                     <bpelx:annotation>
                       <bpelx:general>
                         <bpelx:property name="userLabel">If records are selected</bpelx:property>
                       </bpelx:general>
                     </bpelx:annotation>
-                    <assign name="AssignPALSJMSNotificationDelta" id="BpAss28">
+                    <assign name="AssignPALSJMSNotificationDelta" id="BpAss29">
                       <copy>
                         <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:SenderSystem"/>
                         <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
@@ -705,7 +734,7 @@
                     </assign>
                   </case>
                   <otherwise>
-                    <assign name="AssignPALSJMSNotification" id="BpAss29">
+                    <assign name="AssignPALSJMSNotification" id="BpAss30">
                       <copy>
                         <from variable="ReceiveTransactionHeaderReqMsg_IV" part="part1" query="/ns2:invocationMsg/ns2:SenderSystem"/>
                         <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:SourceSystem"/>
@@ -749,9 +778,9 @@
                     </assign>
                   </otherwise>
                 </switch>
-                <switch name="Switch8" id="BpSwt7">
+                <switch name="Switch8" id="BpSwt8">
                   <case condition="bpws:getVariableData('errorFlag') = 'true'">
-                    <assign name="AssignPALSNotifiactionWithError" id="BpAss30">
+                    <assign name="AssignPALSNotifiactionWithError" id="BpAss31">
                       <copy>
                         <from expression="'Error'"/>
                         <to variable="InvokeSOAPALSNotifationJMSAdapter_IV" part="body" query="/ns22:Notification/ns22:ErrorFlag"/>
@@ -759,7 +788,7 @@
                     </assign>
                   </case>
                 </switch>
-                <invoke name="InvokeSOAPALSNotifationJMSAdapter" inputVariable="InvokeSOAPALSNotifationJMSAdapter_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns21:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv15"/>
+                <invoke name="InvokeSOAPALSNotifationJMSAdapter" inputVariable="InvokeSOAPALSNotifationJMSAdapter_IV" partnerLink="SOAPALSNotificationJMSAdapter" portType="ns21:Produce_Message_ptt" operation="Produce_Message" bpelx:invokeAsDetail="no" id="BpInv16"/>
               </sequence>
             </otherwise>
           </switch>
