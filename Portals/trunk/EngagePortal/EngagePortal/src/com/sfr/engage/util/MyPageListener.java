@@ -2234,30 +2234,37 @@ new CardInfo();
 
 
                 if (currRowcard.getCardExpiry() == null ||
-                           currRowcard.getCardExpiry().after(new Date())) {
+                           currRowcard.getCardExpiry().after(new Date()) && (card.getBlockAction()!="2" || !currRowcard.getBlockAction().equalsIgnoreCase("2"))) {
                     unblockedcardlist.add(card);
                 }
 
                 if (currRowcard.getBlockAction() != null &&
-                    currRowcard.getBlockAction().equalsIgnoreCase("0")) {
-                    if (currRowcard.getCardExpiry().after(new Date()))
-                    {activeCardList.add(card);}
-                    else {
+                    currRowcard.getBlockAction().equalsIgnoreCase("0")) 
+                    {
+                        if (currRowcard.getCardExpiry().after(new Date()))
+                        {
+                        activeCardList.add(card);
+                        }
+                        else 
+                        {
                         perBlockCardList.add(card);
                         perBlockAndTempBlockCardList.add(card);
-                    }
+                        }
 
 
                     perBlockAndActiveCardList.add(card);
                 } else if (currRowcard.getBlockAction() != null &&
-                           currRowcard.getBlockAction().equalsIgnoreCase("1")) {
+                           currRowcard.getBlockAction().equalsIgnoreCase("1")) 
+                            {
 
-                    if (currRowcard.getCardExpiry().after(new Date()))
-                    { tempBlockCardList.add(card); }
-                    else {
-                        perBlockCardList.add(card);
-                        perBlockAndActiveCardList.add(card);
-                    }
+                                if (currRowcard.getCardExpiry().after(new Date()))
+                                { 
+                                tempBlockCardList.add(card); 
+                                }
+                                else {
+                                        perBlockCardList.add(card);
+                                        perBlockAndActiveCardList.add(card);
+                                    }
 
                     perBlockAndTempBlockCardList.add(card);
                 } else if (currRowcard.getBlockAction() != null &&
@@ -2270,7 +2277,9 @@ new CardInfo();
 
             }
             if (!addflagcard)
-            {cardlist.add(card);}
+            {
+                cardlist.add(card);
+            }
         }
 
     }
