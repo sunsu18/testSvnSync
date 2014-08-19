@@ -2131,18 +2131,7 @@ new CardInfo();
                                 cardgrp.setTempBlockCardList(tempBlockCardList);
                                 cardgrp.setActiveCardList(activeCardList);
 
-                                log.info("tempBlockAndActiveCardList size " +
-                                         unblockedcardlist.size());
-                                log.info("perBlockAndActiveCardList size " +
-                                         perBlockAndActiveCardList.size());
-                                log.info("perBlockAndTempBlockCardList size " +
-                                         perBlockAndTempBlockCardList.size());
-                                log.info("perBlockCardList size " +
-                                         perBlockCardList.size());
-                                log.info("tempBlockCardList size " +
-                                         tempBlockCardList.size());
-                                log.info("activeCardList size " +
-                                         activeCardList.size());
+//                                
 
                                 cardgrouplist.add(cardgrp);
                             }
@@ -2236,7 +2225,7 @@ new CardInfo();
 
 
                 if (currRowcard.getCardExpiry() == null ||
-                           currRowcard.getCardExpiry().after(new Date())) {
+                           currRowcard.getCardExpiry().after(new Date()) && !card.getBlockAction().equalsIgnoreCase("2")) {
                     unblockedcardlist.add(card);
                 }
 
