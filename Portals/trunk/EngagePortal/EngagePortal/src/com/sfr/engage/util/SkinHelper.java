@@ -127,20 +127,56 @@ public class SkinHelper extends ThreadSerialization {
 
     public String getLocale() {
         HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+        String authenticatedUser = "false";
+        Conversion conv = new Conversion();
+        if (session.getAttribute(Constants.AUTHENTICATE_FLAG) != null) {
+            authenticatedUser = (String)session.getAttribute(Constants.AUTHENTICATE_FLAG);
+        }
 
-                if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("se_SE")) {
-                    locale = "sv";
-                }
-                else
-                    if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("ee_EE")) {
-                    locale = "et";
-                }
-                else if(session.getAttribute("lang")!= null && session.getAttribute("lang").toString().equalsIgnoreCase("no_NO") || session.getAttribute("lang").toString().equalsIgnoreCase("da_DK") || session.getAttribute("lang").toString().equalsIgnoreCase("lv_LV") || session.getAttribute("lang").toString().equalsIgnoreCase("lt_LT") || session.getAttribute("lang").toString().equalsIgnoreCase("pl_PL"))
-                {
-                    locale = session.getAttribute("lang").toString().substring(0,2);
-                }
 
-                return locale;
+        if (session.getAttribute("lang") != null &&
+            !authenticatedUser.equals("true")) {
+            locale = (String)session.getAttribute("lang");
+        } else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=
+                   null && authenticatedUser.equals("true")) {
+            User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
+            String userEmail = user.getEmailID();            
+            DCBindingContainer bindings;
+            bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
+            if (bindings == null || bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator") == null) {
+                bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+            }
+            DCIteratorBinding iter;
+            if (bindings != null) {
+                iter = bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator");
+            } else {
+                iter = null;
+            }
+            if (iter != null) {
+                ViewObject vo = iter.getViewObject();
+                vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
+                vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
+                vo.executeQuery();
+                if (vo.getEstimatedRowCount() != 0) {
+                    while (vo.hasNext()) {
+                        PrtUserPreferredLangVORowImpl currRow =
+                            (PrtUserPreferredLangVORowImpl)vo.next();
+                        locale = currRow.getPreferredLang();
+                    }
+                } else {
+                    locale = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+                }
+                if ("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())) {
+                    vo.removeNamedWhereClauseParam("userEmail");
+                    vo.setWhereClause("");
+                    vo.executeQuery();
+                }
+            } else {
+                locale = "se_SE";
+            }
+        }
+        
+        return locale;
     }
 
     public void setAccessDC(AccessDataControl accessDC) {

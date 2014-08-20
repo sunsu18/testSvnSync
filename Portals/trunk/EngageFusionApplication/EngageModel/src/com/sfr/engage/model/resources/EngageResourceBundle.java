@@ -302,10 +302,7 @@ public class EngageResourceBundle extends ListResourceBundle {
         HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
         HttpSession session = request.getSession();
         Conversion conv = new Conversion();
-        String amDef = "com.sfr.engage.model.module.EngageAppModule";
-        String config = "EngageAppModuleLocal";
-        ApplicationModule am =
-            Configuration.createRootApplicationModule(amDef, config);
+        
 
         if (session.getAttribute(Constants.AUTHENTICATE_FLAG) != null) {
             authenticatedUser =
@@ -317,6 +314,11 @@ public class EngageResourceBundle extends ListResourceBundle {
             langValue = (String)session.getAttribute("lang");
         } else if (session.getAttribute(Constants.DISPLAY_PORTAL_LANG) !=
                    null && authenticatedUser.equals("true")) {
+            //TODO:Need to review this
+            String amDef = "com.sfr.engage.model.module.EngageAppModule";
+            String config = "EngageAppModuleLocal";
+            ApplicationModule am =
+                Configuration.createRootApplicationModule(amDef, config);
             User user =
                 (User)session.getAttribute(Constants.SESSION_USER_INFO);
             String userEmail = user.getEmailID();            
@@ -339,6 +341,7 @@ public class EngageResourceBundle extends ListResourceBundle {
                 vo.setWhereClause("");
                 vo.executeQuery();
             }
+            Configuration.releaseRootApplicationModule(am, true);
         } else {
             langValue = "se_SE";
         }
@@ -349,8 +352,11 @@ public class EngageResourceBundle extends ListResourceBundle {
                         (Object[][])session.getAttribute("TRANSLATION_" + langValue);
                 return contents;
             }          
-            
-
+            //TODO:Need to review this
+            String amDef = "com.sfr.engage.model.module.EngageAppModule";
+            String config = "EngageAppModuleLocal";
+            ApplicationModule am =
+                Configuration.createRootApplicationModule(amDef, config);
             Map<String, String> map = parseHashMap(contents);           
 
             PrtGenStringRVOImpl vo =
