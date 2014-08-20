@@ -22,14 +22,16 @@
       <af:separator id="s4"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s6"/>
+ <af:subform defaultCommand="cb1" id="f1">
   <af:panelGroupLayout id="pgl1" layout="horizontal">
    <af:outputText value="#{sfr.SEARCH_USER} :" id="ot1"/>
    <af:inputText  id="it1"
                  binding="#{pageFlowScope.AssociationSelectionBean.searchText}"/>
                  <af:spacer width="30" id="s1"/>
-    <af:commandButton text="Search" id="cb1"
+    <af:commandButton text="#{sfr.SEARCH}" id="cb1"
                      actionListener="#{pageFlowScope.AssociationSelectionBean.SearchIDMUsers}"/>
   </af:panelGroupLayout>
+  </af:subform>
   
   <af:panelGroupLayout id="pgl3"
                        
