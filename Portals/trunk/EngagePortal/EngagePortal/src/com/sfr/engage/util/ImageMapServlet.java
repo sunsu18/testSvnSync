@@ -33,7 +33,7 @@ public class ImageMapServlet extends HttpServlet {
     @SuppressWarnings("compatibility")
     private static final long serialVersionUID = 1L;
 
-    AccessDataControl accessDC = new AccessDataControl();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     public static final ADFLogger log = AccessDataControl.getSFRLogger();
 
@@ -41,14 +41,6 @@ public class ImageMapServlet extends HttpServlet {
      */
     public ImageMapServlet() {
         super();
-    }
-
-    /**
-     * @param config
-     * @throws ServletException
-     */
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
     }
 
     /**
@@ -177,4 +169,11 @@ public class ImageMapServlet extends HttpServlet {
     }
 
 
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
+    }
 }
