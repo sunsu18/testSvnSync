@@ -492,9 +492,14 @@ public class TransactionOverviewBean implements Serializable {
     public List getShuttleValue() {
         if (getBindings().getCardCardGrpDrVhOneRadio().getValue() != null && getBindings().getReportFormat().getValue() != null) {
             if (!shuttleStatus) {
-                String langDB = (String)session.getAttribute("lang");
-                langDB = langDB.substring(langDB.length() - 2, langDB.length());
-                langDB = langDB.toUpperCase();
+                String langDB = (String)session.getAttribute("langReport");
+                if (langDB.equalsIgnoreCase("en_US")) {
+                    langDB = "EN";
+                } else {
+                    langDB =
+                            langDB.substring(langDB.length() - 2, langDB.length());
+                    langDB = langDB.toUpperCase();
+                }
                 if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
                     shuttleValue = new ArrayList();
                     ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
@@ -1931,7 +1936,7 @@ public class TransactionOverviewBean implements Serializable {
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Entering getValues..");
         String selectedValues = "";
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Size ==" + shuttleValue.size());
-
+        resourceBundle = new EngageResourceBundle();
         for (int i = 0; i < shuttleValue.size(); i++) {
 
             selectedValues = selectedValues + shuttleValue.get(i).toString().trim() + "|";
@@ -1942,9 +1947,13 @@ public class TransactionOverviewBean implements Serializable {
 
 
         ReportBundle rb = new ReportBundle();
-        String langDB = (String)session.getAttribute("lang");
-        langDB = langDB.substring(langDB.length() - 2, langDB.length());
-        langDB = langDB.toUpperCase();
+        String langDB = (String)session.getAttribute("langReport");
+        if (langDB.equalsIgnoreCase("en_US")) {
+            langDB = "en_US".toUpperCase();
+        } else {
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
+        }        
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
         String columnsReport = rb.getContentsForReport("TRANSACTION", langDB, passedString);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
@@ -2136,15 +2145,12 @@ public class TransactionOverviewBean implements Serializable {
             int valNetLoc = 0;
             ViewObject prtCardTransactionOverViewRVO = ADFUtils.getViewObject("PrtCardTransactionOverviewRVO1Iterator");
             RowSetIterator iterator = prtCardTransactionOverViewRVO.createRowSetIterator(null);
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "view object row count ==" +
-                         prtCardTransactionOverViewRVO.getEstimatedRowCount());
             iterator.reset();
-            while (iterator.hasNext()) {
+            while (iterator.hasNext()) {            
                 PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
                 rowVal = rowVal + 1;
                 XLS_SH_R = XLS_SH.createRow(rowVal);
-                if (row != null) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing excel Data");
+                if (row != null) {                    
                     int dataColumn = 0;
                     if (cellValueSpace > 0) {
                         dataColumn = dataColumn + cellValueSpace;
@@ -2214,13 +2220,13 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getUnitOfMeasure().toString());
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                             }
-                        } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                             if (row.getCurrencyGrossAmount() != null) {
                                 valForeign = true;
@@ -2229,21 +2235,19 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                             }
-                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Header String =" + headerValues[cellValue].trim());
+                        } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {                            
                             if (row.getInvoicedGrossAmountRebated() != null) {
                                 val = true;
                                 valLoc = dataColumn;
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
-                                XLS_SH_R_C.setCellStyle(csRight);
-                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Total Amount =" + row.getInvoicedGrossAmountRebated());
+                                XLS_SH_R_C.setCellStyle(csRight);                                
                                 XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmountRebated(), locale));
                             }
                         } else if ("Invoice No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                             XLS_SH_R_C.setCellStyle(csData);
                             if (row.getInvoiceNo() != null) {
-                                XLS_SH_R_C.setCellValue(row.getInvoiceNo().toString());
+                                XLS_SH_R_C.setCellValue(row.getInvoiceNo());
                             }
                         } else if ("Discounted Price".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
@@ -2271,7 +2275,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (row.getCard1Id() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
-                                XLS_SH_R_C.setCellValue(row.getCard1Id().toString());
+                                XLS_SH_R_C.setCellValue(row.getCard1Id());
                             }
                         } else if ("Vehicle No".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getVehicleNumber() != null) {
@@ -2319,7 +2323,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2415,8 +2419,7 @@ public class TransactionOverviewBean implements Serializable {
             iterator.reset();
             while (iterator.hasNext()) {
                 PrtCardTransactionOverviewRVORowImpl row = (PrtCardTransactionOverviewRVORowImpl)iterator.next();
-                if (row != null) {
-                    _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Printing Data");
+                if (row != null) {                    
                     for (int cellValue = 0; cellValue < headerDataValues.length; cellValue++) {
 
 
@@ -2495,14 +2498,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyGrossAmount() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                             }
@@ -2759,14 +2762,14 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCurrencyUnitPrice() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCurrencyGrossAmount() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                                 }
@@ -2902,9 +2905,13 @@ public class TransactionOverviewBean implements Serializable {
 
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
         shuttleStatus = false;
-        String langDB = (String)session.getAttribute("lang");
-        langDB = langDB.substring(langDB.length() - 2, langDB.length());
-        langDB = langDB.toUpperCase();
+        String langDB = (String)session.getAttribute("langReport");
+        if (langDB.equalsIgnoreCase("en_US")) {
+            langDB = "EN";
+        } else {
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
+        }
         if ("CardGroup".equalsIgnoreCase(getBindings().getCardCardGrpDrVhOneRadio().getValue().toString())) {
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
             prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
