@@ -35,7 +35,7 @@
   
   <af:panelGroupLayout id="pgl3"
                        
-                       partialTriggers="cb1" visible="false"
+                       partialTriggers="f1:cb1" visible="false"
                        binding="#{pageFlowScope.AssociationSelectionBean.searchResultsIdm}">
                        <af:spacer height="25" id="s2"/>
                        <af:outputText value="#{sfr.SEARCH_RESULTS_ENG}" id="ot2"/>
