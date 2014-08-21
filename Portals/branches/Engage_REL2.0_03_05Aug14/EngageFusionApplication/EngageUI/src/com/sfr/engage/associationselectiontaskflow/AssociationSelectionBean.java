@@ -63,14 +63,14 @@ public class AssociationSelectionBean {
         String finaluserid = "";
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "Searching");
         String regex = "\\d+";
-        if (searchText.getValue() != null && searchText.getValue().toString().matches(regex)) {
+        if (searchText.getValue() != null && searchText.getValue().toString().trim().matches(regex)) {
             BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
             OperationBinding operationBinding = bindings.getOperationBinding("searchUser");
-            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searchText is " + searchText.getValue().toString());
-            if (searchText.getValue().toString().length() == 8) {
+            _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "searchText is " + searchText.getValue().toString().trim());
+            if (searchText.getValue().toString().trim().length() == 8) {
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "appending lang");
                 if (session != null) {
-                    finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString());
+                    finaluserid = (session.getAttribute(Constants.DISPLAY_PORTAL_LANG).toString()).concat("PP").concat(searchText.getValue().toString().trim());
                 }
                 _logger.fine(accessDC.getDisplayRecord() + this.getClass() + "finaluserid " + finaluserid);
                 operationBinding.getParamsMap().put("customerId", finaluserid);
