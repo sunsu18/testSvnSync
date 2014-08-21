@@ -1275,9 +1275,13 @@ public class CardBean implements Serializable {
     public void exportExcelSpecificAction(ActionEvent actionEvent) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside exportExcelSpecificAction method of View Cards");
         shuttleStatus = false;
-        String langDB = (String)session.getAttribute("lang");
-        langDB = langDB.substring(langDB.length() - 2, langDB.length());
-        langDB = langDB.toUpperCase();
+        String langDB = (String)session.getAttribute("langReport");
+        if (langDB.equalsIgnoreCase("en_US")) {
+            langDB = "EN";
+        } else {
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
+        }
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "VIEWCARDS");
@@ -1463,9 +1467,14 @@ public class CardBean implements Serializable {
 
     public List getShuttleValue() {
         if (!shuttleStatus) {
-            String langDB = (String)session.getAttribute("lang");
-            langDB = langDB.substring(langDB.length() - 2, langDB.length());
-            langDB = langDB.toUpperCase();
+            String langDB = (String)session.getAttribute("langReport");
+            if (langDB.equalsIgnoreCase("en_US")) {
+                langDB = "EN";
+            } else {
+                langDB =
+                        langDB.substring(langDB.length() - 2, langDB.length());
+                langDB = langDB.toUpperCase();
+            }
             shuttleValue = new ArrayList();
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
             prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
@@ -1633,11 +1642,13 @@ public class CardBean implements Serializable {
         selectedValues = selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb = new ReportBundle();
-
-
-        String langDB = (String)session.getAttribute("lang");
-        langDB = langDB.substring(langDB.length() - 2, langDB.length());
-        langDB = langDB.toUpperCase();
+        String langDB = (String)session.getAttribute("langReport");
+        if (langDB.equalsIgnoreCase("en_US")) {
+            langDB = "en_US".toUpperCase();
+        } else {
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
+        }     
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "langDB =" + langDB);
         String columnsReport = rb.getContentsForReport("VIEWCARDS", langDB, selectedValues);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
