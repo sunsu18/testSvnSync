@@ -14,7 +14,10 @@
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
 	<wsdl:types>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://www.lntinfotech.com/integration/SOARuleEngine" schemaLocation="SOARuleEngine.xsd" />
+			<import namespace="http://www.lntinfotech.com/integration/SOARuleEngine" schemaLocation="xsd/SOARuleEngine.xsd" />
+		</schema>
+                <schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.lntinfotech.com/integration/RuleServiceABO" schemaLocation="xsd/RuleServiceABO.xsd" />
 		</schema>
 	</wsdl:types>
 

@@ -9,4 +9,8 @@
     <interface.wsdl interface="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions#wsdl.interface(ProcessSubscriptions)"
                     callbackInterface="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions#wsdl.interface(ProcessSubscriptionsCallback)"/>
   </service>
+  <reference name="SelectRuleEngineSubscribtionsDBAdapterV1"
+             ui:wsdlLocation="SelectRuleEngineSubscribtionsDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1#wsdl.interface(SelectRuleEngineSubscribtionsDBAdapterV1_ptt)"/>
+  </reference>
 </componentType>

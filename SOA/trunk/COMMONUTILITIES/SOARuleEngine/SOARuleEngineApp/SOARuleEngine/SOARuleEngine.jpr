@@ -359,6 +359,7 @@
    <value n="ProcessRuleSubscriptions_ProcessName" v="ProcessRuleSubscriptions"/>
    <value n="ProcessRuleSubscriptions_Template" v="BPEL_ASYNC_PROCESS"/>
    <value n="ProcessRuleSubscriptions_wsdl" v="ProcessRuleSubscriptions.wsdl"/>
+   <url n="ProcessSubscriptions_bpelFileURL" path="ProcessSubscriptions.bpel"/>
    <value n="ProcessSubscriptions_Namespace" v="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions"/>
    <value n="ProcessSubscriptions_ProcessName" v="ProcessSubscriptions"/>
    <value n="ProcessSubscriptions_Template" v="BPEL_ASYNC_PROCESS"/>

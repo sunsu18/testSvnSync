@@ -12,6 +12,9 @@
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
   <import namespace="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions"
           location="ProcessSubscriptions.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1"
+          location="SelectRuleEngineSubscribtionsDBAdapterV1.wsdl"
+          importType="wsdl"/>
   <service name="processsubscriptions_client_ep"
            ui:wsdlLocation="ProcessSubscriptions.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions#wsdl.interface(ProcessSubscriptions)"
@@ -26,8 +29,22 @@
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
               many="false">async.persist</property>
   </component>
+  <reference name="SelectRuleEngineSubscribtionsDBAdapterV1"
+             ui:wsdlLocation="SelectRuleEngineSubscribtionsDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1#wsdl.interface(SelectRuleEngineSubscribtionsDBAdapterV1_ptt)"/>
+    <binding.jca config="SelectRuleEngineSubscribtionsDBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">1</property>
+  </reference>
   <wire>
     <source.uri>processsubscriptions_client_ep</source.uri>
     <target.uri>ProcessSubscriptions/processsubscriptions_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ProcessSubscriptions/SelectRuleEngineSubscribtionsDBAdapterV1</source.uri>
+    <target.uri>SelectRuleEngineSubscribtionsDBAdapterV1</target.uri>
   </wire>
 </composite>

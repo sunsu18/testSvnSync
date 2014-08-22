@@ -15,7 +15,24 @@
          xmlns:client="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions"
          xmlns:ora="http://schemas.oracle.com/xpath/extension"
          xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
-         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1"
+         xmlns:ns3="http://www.lntinfotech.com/integration/SOARuleEngine"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/top/SelectRuleEngineSubscribtionsDBAdapterV1"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/file/SOARuleEngineApp/SOARuleEngine/Write"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:ns5="http://www.lntinfotech.com/integration/RuleServiceABO">
 
     <import namespace="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions" location="ProcessSubscriptions.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
@@ -31,6 +48,9 @@
       with the client role are automatically set using WS-Addressing.
     -->
         <partnerLink name="processsubscriptions_client" partnerLinkType="client:ProcessSubscriptions" myRole="ProcessSubscriptionsProvider" partnerRole="ProcessSubscriptionsRequester"/>
+        <partnerLink name="SelectRuleEngineSubscribtionsDBAdapterV1"
+                     partnerLinkType="ns1:SelectRuleEngineSubscribtionsDBAdapterV1_plt"
+                     partnerRole="SelectRuleEngineSubscribtionsDBAdapterV1_role"/>
     </partnerLinks>
 
     <!-- 
@@ -45,6 +65,13 @@
 
         <!-- Reference to the message that will be sent back to the requester during callback -->
         <variable name="outputVariable" messageType="client:ProcessSubscriptionsResponseMessage"/>
+        <variable name="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV"
+                  messageType="ns1:SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters"/>
+        <variable name="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV"
+                  messageType="ns1:RuleengineRulesubscribersCollection_msg"/>
+        <variable name="FileName" type="xsd:string"/>
+        <variable name="ruleServiceRequest"
+                  element="ns5:RuleServiceRequest"/>
     </variables>
 
     <!-- 
@@ -57,7 +84,42 @@
     <sequence name="main">
         <!-- Receive input from requestor. (Note: This maps to operation defined in ProcessSubscriptions.wsdl) -->
         <receive name="receiveInput" partnerLink="processsubscriptions_client" portType="client:ProcessSubscriptions" operation="process" variable="inputVariable" createInstance="yes"/>
-
+        <assign name="CreateNextScheduleTime">
+            <copy>
+                <from>$inputVariable.payload/ns3:Request</from>
+                <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:NextScheduleTime</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeSelectRuleEngineSubscribtionsDBAdapterV1"
+                partnerLink="SelectRuleEngineSubscribtionsDBAdapterV1"
+                portType="ns1:SelectRuleEngineSubscribtionsDBAdapterV1_ptt"
+                operation="SelectRuleEngineSubscribtionsDBAdapterV1Select"
+                inputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV"
+                outputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV"
+                bpelx:invokeAsDetail="no"/>
+        <forEach parallel="yes" counterName="RuleCounter" name="ForEachRule">
+            <startCounterValue>1</startCounterValue>
+            <finalCounterValue>count($InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers/ns2:rrsId)</finalCounterValue>
+            <scope name="Scope1">
+                <bpelx:annotation>
+                    <bpelx:general>
+                        <bpelx:property name="userLabel">ForEachRuleScope</bpelx:property>
+                    </bpelx:general>
+                </bpelx:annotation>
+                <sequence name="ForEachRuleSequence">
+                    <assign name="XformCreateRuleServiceRequest">
+                        <bpelx:annotation>
+                            <bpelx:pattern patternName="bpelx:transformation"/>
+                        </bpelx:annotation>
+                        <copy>
+                            <from>ora:doXSLTransformForDoc("xsl/RuleSubscriber_to_RuleService.xsl", $InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection)</from>
+                            <to variable="ruleServiceRequest"/>
+                        </copy>
+                    </assign>
+                    <assign name="Assign1"></assign>
+                </sequence>
+            </scope>
+        </forEach>
         <!-- 
           Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
         -->
