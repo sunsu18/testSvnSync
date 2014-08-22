@@ -1523,29 +1523,34 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
      */
     public Float getkmTotal() {
         Float val;
-                       
-                       Float temp1;
-                       Float temp2;
-                       if(getOdometerPortal() != null) {
 
-                       temp1=Float.parseFloat(getOdometerPortal());
-                       temp2=Float.parseFloat(getPreviousOdometer());
-                       val=temp1 - temp2;
-                           if(val<0)
-                           {
-                            val=0.0f;
-                           }
+        Float temp1;
+        Float temp2;
+        if (getOdometerPortal() != null) {
+            if (getPreviousOdometer() != null) {
+                temp1 = Float.parseFloat(getOdometerPortal());
+                temp2 = Float.parseFloat(getPreviousOdometer());
+                val = temp1 - temp2;
+                if (val < 0) {
+                    val = 0.0f;
+                }
+            }else{
+                val=0.0f;
+            }
 
-                       }else {
-                           temp1=Float.parseFloat(getOdometer());
-                           temp2=Float.parseFloat(getPreviousOdometer());
-                           val=temp1 - temp2;
-                               if(val<0)
-                               {
-                                val=0.0f;
-                               }
-                       }
-                               return val;
+        } else {
+            if (getOdometer() != null && getPreviousOdometer() != null) {
+                temp1 = Float.parseFloat(getOdometer());
+                temp2 = Float.parseFloat(getPreviousOdometer());
+                val = temp1 - temp2;
+                if (val < 0) {
+                    val = 0.0f;
+                }
+            }else{
+                val=0.0f;
+            }
+        }
+        return val;
         
     }
 
@@ -1568,7 +1573,7 @@ public class PrtCardTransactionOverviewRVORowImpl extends ViewRowImpl {
         if (qty == null || qty == 0) {
             return 0.0f;
         }else {
-            if(totalKm == null || totalKm ==0) {
+            if(totalKm == null || totalKm ==0.0f) {
                 return 0.0f; 
             }else {
                 avgKMperLTR = (Float)totalKm / qty;       
