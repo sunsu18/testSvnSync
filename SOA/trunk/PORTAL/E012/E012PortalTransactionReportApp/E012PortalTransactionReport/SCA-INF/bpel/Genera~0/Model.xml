@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="GenerateTransactionReport" targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1" xmlns:ns4="http://www.lntinfotech.com/integration/SOARuleEngineNotification" id="BpPrc0">
+<process name="GenerateTransactionReport" targetNamespace="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:ns1="http://www.statoilfuelretail.com/integration/engage/E012PortalTransactionReportABO" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/file/E012PortalTransactionReportApp/E012PortalTransactionReport/WriteTransactionReport" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1" xmlns:ns4="http://www.lntinfotech.com/integration/SOARuleEngineNotification" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineServiceJMSConsumerV1" xmlns:ns6="http://www.lntinfotech.com/integration/RuleServiceABO" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,6 +16,7 @@
     <partnerLink name="generatetransactionreport_client" partnerLinkType="client:GenerateTransactionReport" myRole="GenerateTransactionReportProvider"/>
     <partnerLink name="WriteTransactionReport" partnerLinkType="ns2:Write_plt" partnerRole="Write_role"/>
     <partnerLink name="SOARuleEngineNotificationJMSProducerV1" partnerLinkType="ns3:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+    <partnerLink name="SOARuleEngineServiceJMSConsumerV1" partnerLinkType="ns5:Consume_Message_plt" myRole="Consume_Message_role"/>
   </partnerLinks>
 
   <!-- 
@@ -34,6 +35,7 @@
     <variable name="InvokeWriteTransactionReport_IV" messageType="ns2:Write_msg"/>
     <variable name="byteArrayString" type="xsd:string"/>
     <variable name="base64TxnData" type="xsd:base64Binary"/>
+    <variable name="SOARuleEngineServiceJMSConsumerV1_IV" messageType="ns5:Consume_Message_msg"/>
   </variables>
   <faultHandlers id="BpFhs0">
     <catchAll id="BpCAl0">
@@ -50,16 +52,28 @@
   <sequence name="main" id="BpSeq0">
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in GenerateTransactionReport.wsdl) -->
-    <receive name="receiveInput" partnerLink="generatetransactionreport_client" portType="client:GenerateTransactionReport" operation="generate" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
-    <assign name="XformInputToTxnInput" id="BpAss0">
-      <bpelx:annotation>
-        <bpelx:pattern>transformation</bpelx:pattern>
+    <pick name="PickGenerateReportRequest" createInstance="yes" id="BpPck0">
+      <onMessage variable="inputVariable" partnerLink="generatetransactionreport_client" portType="client:GenerateTransactionReport" operation="generate" id="BpOMs0">
+        <assign name="XformInputToTxnInput" id="BpAss0">
+          <bpelx:annotation>
+            <bpelx:pattern>transformation</bpelx:pattern>
+          </bpelx:annotation>
+          <copy>
+            <from expression="ora:doXSLTransformForDoc('xsl/E012Input_to_TransactionReportInput.xsl', $inputVariable.payload)"/>
+            <to variable="transactionReportInput"/>
+          </copy>
+        </assign>
+      </onMessage>
+      <onMessage variable="SOARuleEngineServiceJMSConsumerV1_IV" partnerLink="SOARuleEngineServiceJMSConsumerV1" portType="ns5:Consume_Message_ptt" operation="Consume_Message" id="BpOMs1"><assign name="XformInputToTxnInput" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss1">
+      <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+         <bpelx:pattern>transformation</bpelx:pattern>
       </bpelx:annotation>
       <copy>
-        <from expression="ora:doXSLTransformForDoc('xsl/E012Input_to_TransactionReportInput.xsl', $inputVariable.payload)"/>
-        <to variable="transactionReportInput"/>
+         <from expression="ora:doXSLTransformForDoc('xsl/E012JMSInput_to_TransactionReportInput.xsl', $SOARuleEngineServiceJMSConsumerV1_IV.body)"/>
+         <to variable="transactionReportInput"/>
       </copy>
-    </assign>
+   </assign></onMessage>
+    </pick>
     <bpelx:exec import="e012portaltransactionreport.TransactionReport" id="BxExe0"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportInput" id="BxExe1"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportOutput" id="BxExe2"/>
@@ -299,7 +313,7 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex); 
 }]]>
     </bpelx:exec>
-    <assign name="TxnReportToTxnReport" id="BpAss1">
+    <assign name="TxnReportToTxnReport" id="BpAss2">
       <bpelx:annotation>
         <bpelx:pattern>transformation</bpelx:pattern>
       </bpelx:annotation>
@@ -354,44 +368,118 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex);          
 }]]>
             </bpelx:exec>
-            <assign name="Assign1" id="BpAss2">
-              <copy>
-                <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/RuleID"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
-              </copy>
-              <copy>
-                <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/RuleSubscriptionID"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:SubscriptionID"/>
-              </copy>
-              <copy>
-                <from expression="'EMAIL'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationChannel"/>
-              </copy>
-              <copy>
-                <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/NotificationDateTime"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationTime"/>
-              </copy>
-              <copy>
-                <from variable="base64TxnData"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
-              </copy>
-              <copy>
-                <from expression="'TransactionReport.xls'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
-              </copy>
-              <copy>
-                <from expression="'XML'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentType"/>
-              </copy>
-              <copy>
-                <from expression="'YES'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionRequired"/>
-              </copy>
-              <copy>
-                <from expression="'EXCEL'"/>
-                <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionType"/>
-              </copy>
-            </assign>
+            <switch name="Switch2" id="BpSwt1">
+              <case condition="true()"><assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss3">
+                  <copy>
+                    <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/RuleID"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
+                  </copy>
+                  <copy>
+                    <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/RuleSubscriptionID"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:SubscriptionID"/>
+                  </copy>
+                  <copy>
+                    <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/NotificationInfo/NotificationMode"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationChannel"/>
+                  </copy>
+                  <copy>
+                    <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/NotificationDateTime"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationTime"/>
+                  </copy>
+                  <copy>
+                    <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/NotificationInfo/EmailID"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:EmailID"/>
+                  </copy>
+                  <copy>
+                    <from expression="concat('Subscription:',bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/RuleSubscriptionID'),' -Transaction Report Notification')"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationSubject"/>
+                  </copy>
+                  <copy>
+                    <from expression="concat('Hello, &lt;/br>&lt;/br>Please find attached the Transaction Report subscribed by you.&lt;/br>&lt;/br>&lt;/br>','&lt;/br>')"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationBody"/>
+                  </copy>
+                  <copy>
+                    <from expression="concat('Company:',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Partner'),',Account: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Account'),',Type: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Type'),',Report: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/ReportType'),',Period: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateFrom'),' to ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateTo'),',,,Please note that international transactions are not yet visible in the portal. In some cases; it may take 2 days before national transactions is shown.,Note: All prices are in DKK ...')"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
+                  </copy>
+                  <copy>
+                    <from variable="base64TxnData"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
+                  </copy>
+                  <copy>
+                    <from expression="'XML'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentType"/>
+                  </copy>
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionRequired"/>
+                  </copy>
+                  <copy>
+                    <from expression="'EXCEL'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionType"/>
+                  </copy>
+                  <copy>
+                    <from expression="'TransactionReport.xls'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
+                  </copy>
+                </assign></case>
+              <otherwise>
+                <assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" id="BpAss4">
+                  <copy>
+                    <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/RuleID"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
+                  </copy>
+                  <copy>
+                    <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/RuleSubscriptionID"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:SubscriptionID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'EMAIL'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationChannel"/>
+                  </copy>
+                  <copy>
+                    <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/NotificationDateTime"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationTime"/>
+                  </copy>
+                  <copy>
+                    <from expression="'harneet.kochhar@lntinfotech.com;nitpa@statoilfuelretail.com;Ashish.Thakkar@statoilfuelretail.com;audhildandersen.randa@statoilfuelretail.com'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:EmailID"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Transaction Report Notification'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationSubject"/>
+                  </copy>
+                  <copy>
+                    <from expression="'Hello, Please find attached the Transaction Report subscribed by you.'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationBody"/>
+                  </copy>
+                  <copy>
+                    <from expression="concat('Company:',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Partner'),',Account: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Account'),',Type: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Type'),',Report: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/ReportType'),',Period: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateFrom'),' to ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateTo'),',,,Please note that international transactions are not yet visible in the portal. In some cases; it may take 2 days before national transactions is shown.,Note: All prices are in DKK ...')"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
+                  </copy>
+                  <copy>
+                    <from variable="base64TxnData"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
+                  </copy>
+                  <copy>
+                    <from expression="'XML'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentType"/>
+                  </copy>
+                  <copy>
+                    <from expression="'YES'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionRequired"/>
+                  </copy>
+                  <copy>
+                    <from expression="'EXCEL'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ConversionType"/>
+                  </copy>
+                  <copy>
+                    <from expression="'TransactionReport.xls'"/>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:AttachmentName"/>
+                  </copy>
+                </assign>
+              </otherwise>
+            </switch>
             <!--bpelx:exec import="java.io.ByteArrayOutputStream"/>
         <bpelx:exec import="javax.xml.transform.*"/>
         <bpelx:exec import="javax.xml.transform.dom.*"/>
@@ -433,7 +521,7 @@ setVariableData("byteArrayString",byteArrayString);
       </case>
       <otherwise>
         <sequence id="BpSeq2">
-          <assign name="TrasnactionReportToWriteTrasnactionReport" bpelx:validate="yes" id="BpAss3">
+          <assign name="TrasnactionReportToWriteTrasnactionReport" bpelx:validate="yes" id="BpAss5">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>

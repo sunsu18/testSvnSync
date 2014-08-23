@@ -17,10 +17,17 @@
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineNotificationJMSProducerV1"
           location="SOARuleEngineNotificationJMSProducerV1.wsdl"
           importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineServiceJMSConsumerV1"
+          location="SOARuleEngineServiceJMSConsumerV1.wsdl" importType="wsdl"/>
   <service name="generatetransactionreport_client_ep"
            ui:wsdlLocation="GenerateTransactionReport.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport#wsdl.interface(GenerateTransactionReport)"/>
     <binding.ws port="http://xmlns.oracle.com/E012PortalTransactionReportApp/E012PortalTransactionReport/GenerateTransactionReport#wsdl.endpoint(generatetransactionreport_client_ep/GenerateTransactionReport_pt)"/>
+  </service>
+  <service name="SOARuleEngineServiceJMSConsumerV1"
+           ui:wsdlLocation="SOARuleEngineServiceJMSConsumerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E012PortalTransactionReportApp/E012PortalTransactionReport/SOARuleEngineServiceJMSConsumerV1#wsdl.interface(Consume_Message_ptt)"/>
+    <binding.jca config="SOARuleEngineServiceJMSConsumerV1_jms.jca"/>
   </service>
   <component name="GenerateTransactionReport" version="1.1">
     <implementation.bpel src="GenerateTransactionReport.bpel"/>
@@ -48,5 +55,9 @@
   <wire>
     <source.uri>GenerateTransactionReport/SOARuleEngineNotificationJMSProducerV1</source.uri>
     <target.uri>SOARuleEngineNotificationJMSProducerV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>SOARuleEngineServiceJMSConsumerV1</source.uri>
+    <target.uri>GenerateTransactionReport/SOARuleEngineServiceJMSConsumerV1</target.uri>
   </wire>
 </composite>
