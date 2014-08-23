@@ -1,80 +1,138 @@
 package e012portaltransactionreport;
 
+/**
+ */
 public class TransactionReportInput {
+    /**
+     */
     public TransactionReportInput() {
         super();
     }
-    private String Country,Partner,Account,Type,ReportType,TransactionBasis,TransactionBasisValues,TransactionDateFrom,TransactionDateTo;
+    private String country,partner,account,type,reportType,transactionBasis,transactionBasisValues,transactionDateFrom,transactionDateTo;
 
-    public void setPartner(String Partner) {
-        this.Partner = Partner;
+    /**
+     * @param partner
+     */
+    public void setPartner(String partner) {
+        this.partner = partner;
     }
 
+    /**
+     * @return
+     */
     public String getPartner() {
-        return Partner;
+        return partner;
     }
 
-    public void setAccount(String Account) {
-        this.Account = Account;
+    /**
+     * @param account
+     */
+    public void setAccount(String account) {
+        this.account = account;
     }
 
+    /**
+     * @return
+     */
     public String getAccount() {
-        return Account;
+        return account;
     }
 
-    public void setType(String Type) {
-        this.Type = Type;
+    /**
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
+    /**
+     * @return
+     */
     public String getType() {
-        return Type;
+        return type;
     }
 
-    public void setReportType(String ReportType) {
-        this.ReportType = ReportType;
+    /**
+     * @param reportType
+     */
+    public void setReportType(String reportType) {
+        this.reportType = reportType;
     }
 
+    /**
+     * @return
+     */
     public String getReportType() {
-        return ReportType;
+        return reportType;
     }
 
-    public void setTransactionBasis(String TransactionBasis) {
-        this.TransactionBasis = TransactionBasis;
+    /**
+     * @param transactionBasis
+     */
+    public void setTransactionBasis(String transactionBasis) {
+        this.transactionBasis = transactionBasis;
     }
 
+    /**
+     * @return
+     */
     public String getTransactionBasis() {
-        return TransactionBasis;
+        return transactionBasis;
     }
 
-    public void setTransactionBasisValues(String TransactionBasisValues) {
-        this.TransactionBasisValues = TransactionBasisValues;
+    /**
+     * @param transactionBasisValues
+     */
+    public void setTransactionBasisValues(String transactionBasisValues) {
+        this.transactionBasisValues = transactionBasisValues;
     }
 
+    /**
+     * @return
+     */
     public String getTransactionBasisValues() {
-        return TransactionBasisValues;
+        return transactionBasisValues;
     }
 
-    public void setTransactionDateFrom(String TransactionDateFrom) {
-        this.TransactionDateFrom = TransactionDateFrom;
+    /**
+     * @param transactionDateFrom
+     */
+    public void setTransactionDateFrom(String transactionDateFrom) {
+        this.transactionDateFrom = transactionDateFrom;
     }
 
+    /**
+     * @return
+     */
     public String getTransactionDateFrom() {
-        return TransactionDateFrom;
+        return transactionDateFrom;
     }
 
-    public void setTransactionDateTo(String TransactionDateTo) {
-        this.TransactionDateTo = TransactionDateTo;
+    /**
+     * @param transactionDateTo
+     */
+    public void setTransactionDateTo(String transactionDateTo) {
+        this.transactionDateTo = transactionDateTo;
     }
 
+    /**
+     * @return
+     */
     public String getTransactionDateTo() {
-        return TransactionDateTo;
+        return transactionDateTo;
     }
 
-    public void setCountry(String Country) {
-        this.Country = Country;
+    /**
+     * @param country
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
+    /**
+     * @return
+     */
     public String getCountry() {
-        return Country;
+        return country;
     }
 }

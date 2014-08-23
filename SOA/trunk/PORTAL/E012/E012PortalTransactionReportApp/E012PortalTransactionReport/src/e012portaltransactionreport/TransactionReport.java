@@ -5,26 +5,28 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.io.*;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.Currency;
 
-
+/**
+ */
 public class TransactionReport {
     public TransactionReport() {
         super();
     }
-    
 
-    public static ArrayList<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
+
+    /**
+     * @param transactionInput
+     * @return
+     * @throws SQLException
+     */
+    public static List<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
 {
-    //TransactionReportInput input = new TransactionReportInput()
-    ArrayList transactionArray = new ArrayList<TransactionReportOutput>();
-    Connection conn = null;
+        List<TransactionReportOutput> transactionArray;
+        transactionArray = new ArrayList<TransactionReportOutput>();
+        Connection conn = null;
     PreparedStatement pstmt = null;
     try {
         String Country=transactionInput.getCountry();
@@ -111,9 +113,6 @@ public class TransactionReport {
         "ORDER BY PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT DESC";
             
         pstmt = conn.prepareStatement(query); // create a statement
-        //pstmt.setInt(1, MESSAGENO); // set input parameter 1
-        //pstmt.setDate(2, (java.sql.Date)TIMESTAMP);// set input parameter 2
-        //pstmt.setString(4, CustomerNo); // set input parameter 4
         ResultSet rs = pstmt.executeQuery(query);
         while (rs.next()) {
                 TransactionReportOutput transaction = new TransactionReportOutput();
@@ -184,7 +183,10 @@ public class TransactionReport {
     return transactionArray;
 }
 
-    public static void main(String[] args) throws SQLException 
+    /*Main class created to test the java class
+      @param args
+      @throws SQLException
+    public static void main() throws SQLException 
     {
         TransactionReportInput input= new TransactionReportInput();
         input.setCountry("DK");
@@ -203,5 +205,6 @@ public class TransactionReport {
         transaction=(TransactionReportOutput)transactionArray.get(1);
         System.out.println(transaction.getTRANSACTION_ID());
         System.out.println("Goodbye!");
-    }
+    }*/
+    
 }
