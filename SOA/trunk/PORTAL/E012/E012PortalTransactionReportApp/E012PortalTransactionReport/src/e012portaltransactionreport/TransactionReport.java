@@ -5,6 +5,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +16,20 @@ public class TransactionReport {
     public TransactionReport() {
         super();
     }
+    
 
-
-    /**
+ /**
      * @param transactionInput
      * @return
      * @throws SQLException
      */
-    public static List<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
+    //public static List<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
+    public static ArrayList<TransactionReportOutput> GenerateTransactionReport(TransactionReportInput transactionInput) throws SQLException 
 {
-        List<TransactionReportOutput> transactionArray;
-        transactionArray = new ArrayList<TransactionReportOutput>();
-        Connection conn = null;
+    //List<TransactionReportOutput> transactionArray;
+    // transactionArray = new ArrayList<TransactionReportOutput>();
+    ArrayList transactionArray = new ArrayList<TransactionReportOutput>();
+    Connection conn = null;
     PreparedStatement pstmt = null;
     try {
         String Country=transactionInput.getCountry();
@@ -206,5 +209,5 @@ public class TransactionReport {
         System.out.println(transaction.getTRANSACTION_ID());
         System.out.println("Goodbye!");
     }*/
-    
-}
+        
+    }
