@@ -15,6 +15,11 @@
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1"
           location="SelectRuleEngineSubscribtionsDBAdapterV1.wsdl"
           importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineApp/SOARuleEngine/SOARuleEngineServiceJMSProducerV1"
+          location="SOARuleEngineServiceJMSProducerV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+          location="UpdateRuleEngineNextScheduleTimeDBAdapterV1.wsdl"
+          importType="wsdl"/>
   <service name="processsubscriptions_client_ep"
            ui:wsdlLocation="ProcessSubscriptions.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions#wsdl.interface(ProcessSubscriptions)"
@@ -39,6 +44,21 @@
     <property name="jca.retry.backoff" type="xs:int" many="false"
               override="may">1</property>
   </reference>
+  <reference name="SOARuleEngineServiceJMSProducerV1"
+             ui:wsdlLocation="SOARuleEngineServiceJMSProducerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineApp/SOARuleEngine/SOARuleEngineServiceJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="SOARuleEngineServiceJMSProducerV1_jms.jca"/>
+  </reference>
+  <reference name="UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+             ui:wsdlLocation="UpdateRuleEngineNextScheduleTimeDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/UpdateRuleEngineNextScheduleTimeDBAdapterV1#wsdl.interface(UpdateRuleEngineNextScheduleTimeDBAdapterV1_ptt)"/>
+    <binding.jca config="UpdateRuleEngineNextScheduleTimeDBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">1</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">1</property>
+  </reference>
   <wire>
     <source.uri>processsubscriptions_client_ep</source.uri>
     <target.uri>ProcessSubscriptions/processsubscriptions_client</target.uri>
@@ -46,5 +66,13 @@
   <wire>
     <source.uri>ProcessSubscriptions/SelectRuleEngineSubscribtionsDBAdapterV1</source.uri>
     <target.uri>SelectRuleEngineSubscribtionsDBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ProcessSubscriptions/SOARuleEngineServiceJMSProducerV1</source.uri>
+    <target.uri>SOARuleEngineServiceJMSProducerV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ProcessSubscriptions/UpdateRuleEngineNextScheduleTimeDBAdapterV1</source.uri>
+    <target.uri>UpdateRuleEngineNextScheduleTimeDBAdapterV1</target.uri>
   </wire>
 </composite>

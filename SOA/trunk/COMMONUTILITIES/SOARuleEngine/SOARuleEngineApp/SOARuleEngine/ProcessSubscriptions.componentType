@@ -13,4 +13,12 @@
              ui:wsdlLocation="SelectRuleEngineSubscribtionsDBAdapterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/SelectRuleEngineSubscribtionsDBAdapterV1#wsdl.interface(SelectRuleEngineSubscribtionsDBAdapterV1_ptt)"/>
   </reference>
+  <reference name="SOARuleEngineServiceJMSProducerV1"
+             ui:wsdlLocation="SOARuleEngineServiceJMSProducerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineApp/SOARuleEngine/SOARuleEngineServiceJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
+  <reference name="UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+             ui:wsdlLocation="UpdateRuleEngineNextScheduleTimeDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/UpdateRuleEngineNextScheduleTimeDBAdapterV1#wsdl.interface(UpdateRuleEngineNextScheduleTimeDBAdapterV1_ptt)"/>
+  </reference>
 </componentType>

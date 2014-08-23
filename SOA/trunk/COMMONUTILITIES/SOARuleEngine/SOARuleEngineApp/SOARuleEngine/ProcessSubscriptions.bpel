@@ -32,7 +32,11 @@
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
          xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/file/SOARuleEngineApp/SOARuleEngine/Write"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-         xmlns:ns5="http://www.lntinfotech.com/integration/RuleServiceABO">
+         xmlns:ns5="http://www.lntinfotech.com/integration/RuleServiceABO"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineApp/SOARuleEngine/SOARuleEngineServiceJMSProducerV1"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/jms/SOARuleEngineApp/SOARuleEngine/SOARuleEngineServiceJMSConsumerV1"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineApp/SOARuleEngine/UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/sp/UpdateRuleEngineNextScheduleTimeDBAdapterV1">
 
     <import namespace="http://xmlns.oracle.com/SOARuleEngineApp/SOARuleEngine/ProcessSubscriptions" location="ProcessSubscriptions.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
@@ -51,6 +55,12 @@
         <partnerLink name="SelectRuleEngineSubscribtionsDBAdapterV1"
                      partnerLinkType="ns1:SelectRuleEngineSubscribtionsDBAdapterV1_plt"
                      partnerRole="SelectRuleEngineSubscribtionsDBAdapterV1_role"/>
+        <partnerLink name="SOARuleEngineServiceJMSProducerV1"
+                     partnerLinkType="ns6:Produce_Message_plt"
+                     partnerRole="Produce_Message_role"/>
+        <partnerLink name="UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+                     partnerLinkType="ns8:UpdateRuleEngineNextScheduleTimeDBAdapterV1_plt"
+                     partnerRole="UpdateRuleEngineNextScheduleTimeDBAdapterV1_role"/>
     </partnerLinks>
 
     <!-- 
@@ -72,8 +82,13 @@
         <variable name="FileName" type="xsd:string"/>
         <variable name="ruleServiceRequest"
                   element="ns5:RuleServiceRequest"/>
+        <variable name="ScheduleDateTime" type="xsd:dateTime"/>
     </variables>
-
+    <faultHandlers>
+        <catchAll>
+            <empty name="Empty1"/>
+        </catchAll>
+    </faultHandlers>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        ORCHESTRATION LOGIC                                               
@@ -83,10 +98,17 @@
     -->
     <sequence name="main">
         <!-- Receive input from requestor. (Note: This maps to operation defined in ProcessSubscriptions.wsdl) -->
-        <receive name="receiveInput" partnerLink="processsubscriptions_client" portType="client:ProcessSubscriptions" operation="process" variable="inputVariable" createInstance="yes"/>
+        <receive name="ReceiveRuleEngineRequest" createInstance="yes"
+                 partnerLink="processsubscriptions_client"
+                 portType="client:ProcessSubscriptions" operation="process"
+                 variable="inputVariable"/>
         <assign name="CreateNextScheduleTime">
             <copy>
-                <from>$inputVariable.payload/ns3:Request</from>
+                <from>xp20:current-dateTime()</from>
+                <to>$ScheduleDateTime</to>
+            </copy>
+            <copy>
+                <from>concat(string(xp20:format-dateTime(string($ScheduleDateTime),'[Y0001][M01][D01]')),'000000')</from>
                 <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:NextScheduleTime</to>
             </copy>
         </assign>
@@ -106,17 +128,88 @@
                         <bpelx:property name="userLabel">ForEachRuleScope</bpelx:property>
                     </bpelx:general>
                 </bpelx:annotation>
+                <variables>
+                    <variable name="SOARuleEngineServiceJMSProducerV1_IV"
+                              messageType="ns6:Produce_Message_msg"/>
+                    <variable name="UpdateRuleEngineNextScheduleTimeDBAdapterV1_OV"
+                              messageType="ns8:args_out_msg"/>
+                    <variable name="UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV"
+                              messageType="ns8:args_in_msg"/>
+                </variables>
+                <faultHandlers>
+                    <catchAll>
+                        <empty name="Empty2"/>
+                    </catchAll>
+                </faultHandlers>
                 <sequence name="ForEachRuleSequence">
                     <assign name="XformCreateRuleServiceRequest">
+                        <bpelx:skipCondition>true()</bpelx:skipCondition>
                         <bpelx:annotation>
                             <bpelx:pattern patternName="bpelx:transformation"/>
                         </bpelx:annotation>
                         <copy>
                             <from>ora:doXSLTransformForDoc("xsl/RuleSubscriber_to_RuleService.xsl", $InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection)</from>
-                            <to variable="ruleServiceRequest"/>
+                            <to variable="SOARuleEngineServiceJMSProducerV1_IV"
+                                part="body"/>
                         </copy>
                     </assign>
-                    <assign name="Assign1"></assign>
+                    <assign name="AssignParameters">
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRrmRuleid/ns2:rrmRuleid</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/RuleID</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsId</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/RuleSubscriptionID</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsNextscheduletime</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationDateTime</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsChannelprotocol</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationInfo/NotificationMode</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRcmCustomerid/ns2:rcmFirstname</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationInfo/FirstName</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRcmCustomerid/ns2:rcmLastname</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationInfo/LastName</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRcmCustomerid/ns2:rcmEmailid</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationInfo/EmailID</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRcmCustomerid/ns2:rcmMobilenumber</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/NotificationInfo/MobileNumber</to>
+                        </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>oraext:parseXML($InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsParameters)</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/Parameters</to>
+                        </copy>
+                    </assign>
+                    <invoke name="InvokeSOARuleEngineServiceJMSProducerV1"
+                            partnerLink="SOARuleEngineServiceJMSProducerV1"
+                            portType="ns6:Produce_Message_ptt"
+                            operation="Produce_Message"
+                            inputVariable="SOARuleEngineServiceJMSProducerV1_IV"
+                            bpelx:invokeAsDetail="no"/>
+                    <assign name="AssignSubscriptionID">
+                        <copy>
+                            <from>$SOARuleEngineServiceJMSProducerV1_IV.body/RuleSubscriptionID</from>
+                            <to>$UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV.InputParameters/ns9:SUBSCRIPTIONID</to>
+                        </copy>
+                    </assign>
+                    <invoke name="InvokeUpdateRuleEngineNextScheduleTimeDBAdapterV1"
+                            partnerLink="UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+                            portType="ns8:UpdateRuleEngineNextScheduleTimeDBAdapterV1_ptt"
+                            operation="UpdateRuleEngineNextScheduleTimeDBAdapterV1"
+                            inputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV"
+                            outputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_OV"
+                            bpelx:invokeAsDetail="no"/>
                 </sequence>
             </scope>
         </forEach>

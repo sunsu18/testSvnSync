@@ -1,0 +1,13 @@
+<adapter-config name="UpdateRuleEngineNextScheduleTimeDBAdapterV1" adapter="Database Adapter" wsdlLocation="UpdateRuleEngineNextScheduleTimeDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustomNXA" UIConnectionName="DEV-SOA-ENGAGE" adapterRef=""/>
+  <endpoint-interaction portType="UpdateRuleEngineNextScheduleTimeDBAdapterV1_ptt" operation="UpdateRuleEngineNextScheduleTimeDBAdapterV1">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ENGSOACUSTOM"/>
+      <property name="ProcedureName" value="RULEENGINE_NEXTSCHEDULETIME"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>
