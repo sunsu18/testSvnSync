@@ -1935,9 +1935,12 @@ public class InvoiceOverviewBean implements Serializable {
     public void exportExcelSpecificActionInvoices(ActionEvent actionEvent) {
 
         shuttleStatus = false;
+        String langDB = (String)session.getAttribute("lang");
+        langDB = langDB.substring(langDB.length() - 2, langDB.length());
+        langDB = langDB.toUpperCase();
 
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-        prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+        prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "INVOICES");
         prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
         prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
@@ -2064,9 +2067,10 @@ public class InvoiceOverviewBean implements Serializable {
         selectedValues = selectedValues.substring(0, selectedValues.length() - 1);
 
         ReportBundle rb = new ReportBundle();
-        String reportLang = (String)session.getAttribute("lang");
-        reportLang = reportLang.toUpperCase();
-        String columnsReport = rb.getContentsForReport("INVOICES", lang, selectedValues);
+        String langDB = (String)session.getAttribute("lang");
+        langDB = langDB.substring(langDB.length() - 2, langDB.length());
+        langDB = langDB.toUpperCase();
+        String columnsReport = rb.getContentsForReport("INVOICES", langDB, selectedValues);
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "From Resource Bundle:" + columnsReport);
         String[] headerDataValues = columnsReport.split(Constants.ENGAGE_REPORT_DELIMITER);
 
@@ -2647,9 +2651,12 @@ public class InvoiceOverviewBean implements Serializable {
     public List getShuttleValue() {
 
         if (!shuttleStatus) {
+            String langDB = (String)session.getAttribute("lang");
+            langDB = langDB.substring(langDB.length() - 2, langDB.length());
+            langDB = langDB.toUpperCase();
             shuttleValue = new ArrayList();
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
-            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", lang);
+            prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "INVOICES");
             prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
             prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");

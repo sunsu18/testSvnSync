@@ -317,7 +317,7 @@ public class EngageResourceBundle extends ListResourceBundle {
         } else {
             langValue = "se_SE";
         }
-
+        session.setAttribute("lang",langValue);
         try {
 
             if (session.getAttribute("TRANSLATION_" + langValue) != null) {
