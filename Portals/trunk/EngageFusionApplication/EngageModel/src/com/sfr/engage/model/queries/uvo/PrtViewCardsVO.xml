@@ -1464,11 +1464,10 @@ pc.cardgroup_sub_type, pc.cardgroup_seq, pc.card_textline_2, pctnm.country, pctn
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
-    SQLType="VARCHAR"
-    Precision="255"/>
+    SQLType="FLOAT"/>
   <ViewAttribute
     Name="QuaterlyFuelReport"
     IsUpdateable="false"

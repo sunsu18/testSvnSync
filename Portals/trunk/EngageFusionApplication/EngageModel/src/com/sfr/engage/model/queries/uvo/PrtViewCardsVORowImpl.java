@@ -982,7 +982,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
 
             public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setQuaterlyTxReport((String)value);
+                obj.setQuaterlyTxReport((Float)value);
             }
         }
         ,
@@ -1034,6 +1034,9 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     }
     ResourceBundle resourceBundle;
 
+
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    AccessDataControl accessDC = new AccessDataControl();
 
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
@@ -1133,8 +1136,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int QUATERLYTXREPORT = AttributesEnum.QuaterlyTxReport.index();
     public static final int QUATERLYFUELREPORT = AttributesEnum.QuaterlyFuelReport.index();
     public static final int LASTUSEDDATE = AttributesEnum.LastUsedDate.index();
-    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
-    AccessDataControl accessDC = new AccessDataControl();
 
     /**
      * This is the default constructor (do not remove).
@@ -2723,10 +2724,10 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * Gets the attribute value for the calculated attribute QuaterlyTxReport.
      * @return the QuaterlyTxReport
      */
-    public String getQuaterlyTxReport() {
-        String result = "";
+    public Float getQuaterlyTxReport() {
+        Float result = 0.0f;
         if(getQuaterlyTxReportTxThreeMonths3()!=null){
-            result = getQuaterlyTxReportTxThreeMonths3().toString().trim();
+            result = Float.parseFloat(getQuaterlyTxReportTxThreeMonths3().toString().trim());
         }
         return result;
     }
@@ -2735,7 +2736,7 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * Sets <code>value</code> as the attribute value for the calculated attribute QuaterlyTxReport.
      * @param value value to set the  QuaterlyTxReport
      */
-    public void setQuaterlyTxReport(String value) {
+    public void setQuaterlyTxReport(Float value) {
         setAttributeInternal(QUATERLYTXREPORT, value);
     }
 
