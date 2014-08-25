@@ -1197,6 +1197,15 @@ font-style:normal;
     margin-top: 3px;
     margin-bottom:3px;
 }
+
+.vertical_seprator_user_display{
+    width:1px !important;
+    height:120px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 3px;
+    margin-bottom:-15px;
+}
 /*Button Background*/
 
 @agent gecko{

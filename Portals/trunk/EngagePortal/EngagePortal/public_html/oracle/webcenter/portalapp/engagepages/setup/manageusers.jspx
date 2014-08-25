@@ -10,7 +10,9 @@
           <f:facet name="content">
             <pe:pageCustomizable id="hm_pgc1">
               <cust:panelCustomizable id="hm_pnc1" layout="vertical">
-                <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground"></af:panelGroupLayout>
+                <af:panelGroupLayout id="pgl_01" layout="vertical" inlineStyle="width:962px; height:830px;" styleClass="portalbackground">
+                  <af:region value="#{bindings.UserDisplayTaskFlow1.regionModel}" id="r1"/>
+                </af:panelGroupLayout>
               </cust:panelCustomizable>
             </pe:pageCustomizable>
           </f:facet>
