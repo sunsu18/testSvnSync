@@ -336,8 +336,11 @@
                        sortable="true" filterFeatures="caseInsensitive" id="c15"
                        align="right">
               <af:outputText value="#{row.QuaterlyTxReport}" id="ot39">
-                <af:convertNumber groupingUsed="false"
-                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyTxReport.format}"/>
+                <!--<af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyTxReport.format}"/>-->
+                                   <af:convertNumber locale="#{pageFlowScope.CardBean.locale}"
+                                    minFractionDigits="2"
+                                    maxFractionDigits="2"/>
               </af:outputText>
             </af:column>
             <af:column headerText="#{sfr.AVG_MONTHLY_FEULINGS}"
@@ -346,8 +349,11 @@
                        filterFeatures="caseInsensitive" id="c16" align="right">
               <af:outputText value="#{row.QuaterlyFuelReportFuelThreeMonths3}"
                              id="ot40">
-                <af:convertNumber groupingUsed="false"
-                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyFuelReportFuelThreeMonths3.format}"/>
+                <!--<af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtViewCardsVO11.hints.QuaterlyFuelReportFuelThreeMonths3.format}"/>-->
+                                   <af:convertNumber locale="#{pageFlowScope.CardBean.locale}"
+                                    minFractionDigits="2"
+                                    maxFractionDigits="2"/>
               </af:outputText>
             </af:column>
             <af:column sortProperty="VehicleNumber" filterable="true"
@@ -392,7 +398,7 @@
                 <f:validator binding="#{row.bindings.Status.validator}"/>
               </af:inputText>
             </af:column>
-            <af:column headerText="#{sfr.MANUFACTURED_DATE}" filterable="true"
+            <af:column headerText="#{sfr.ENGAGE_PRODUCED_DATE}" filterable="true"
                        sortProperty="ManufacturedDate" width="110px"
                        sortable="true" align="center" id="c4"
                        filterFeatures="caseInsensitive">

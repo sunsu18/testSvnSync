@@ -279,7 +279,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "BLOCKED_DATE_TIME", "" }, { "SELECT_ASSOCIATION", "" },
       { "SEARCH_USER", "" }, { "USERS", "" }, { "CONFIRM", "" },
       { "PLEASE_ENTER_VALID_PARTNER_ID", "" },
-      { "PLEASE_SELECT_A_USER", "" } };
+      { "PLEASE_SELECT_A_USER", "" },{"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},{"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},{"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},{"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},{"PLEASE_ENTER_QUANTITY",""},{"ENGAGE_PRODUCED_DATE",""},};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
