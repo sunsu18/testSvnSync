@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 import java.sql.SQLException;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -1851,13 +1852,13 @@ public class CardBean implements Serializable {
                             if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getQuaterlyTxReportTxThreeMonths3().toString().trim());
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuaterlyTxReportTxThreeMonths3().toString())), locale));
                             }
                         } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csRight);
-                                XLS_SH_R_C.setCellValue(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getQuaterlyFuelReportFuelThreeMonths3().toString())), locale));
                             }
                         } else if ("Card".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardEmbossNum() != null) {
@@ -1897,7 +1898,7 @@ public class CardBean implements Serializable {
                                 Date passedDate = new Date(date.getTime());
                                 XLS_SH_R_C.setCellValue(formatConversion(passedDate));
                             }
-                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Produced Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getManufacturedDate() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -1995,14 +1996,14 @@ public class CardBean implements Serializable {
                             }
                         } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
-                                out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
+                                out.print((formatConversion((Float.parseFloat(row.getQuaterlyTxReportTxThreeMonths3().toString())), locale)));
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
                         } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
-                                out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                                out.print((formatConversion((Float.parseFloat(row.getQuaterlyFuelReportFuelThreeMonths3().toString())), locale)));
                             }
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
@@ -2050,7 +2051,7 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Produced Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getManufacturedDate() != null) {
                                 Date date = new Date(row.getManufacturedDate().dateValue().getTime());
                                 out.print(formatConversion(date));
@@ -2148,14 +2149,16 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
-                                    out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
+//                                    out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
+                                out.print(formatConversion((Float.parseFloat(row.getQuaterlyTxReportTxThreeMonths3().toString())), locale));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
                             } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
-                                    out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+//                                    out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
+                                out.print(formatConversion((Float.parseFloat(row.getQuaterlyFuelReportFuelThreeMonths3().toString())), locale));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
@@ -2203,7 +2206,7 @@ public class CardBean implements Serializable {
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("Manufactured".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Produced Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getManufacturedDate() != null) {
                                     Date date = new Date(row.getManufacturedDate().dateValue().getTime());
                                     out.print(formatConversion(date));
@@ -2233,7 +2236,13 @@ public class CardBean implements Serializable {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting specificExportExcelListener method of View Cards");
     }
 
-
+    public String formatConversion(Float passedValue, Locale countryLocale) {
+        String val = "";
+        NumberFormat numberFormat = NumberFormat.getInstance(countryLocale);
+        numberFormat.setMaximumFractionDigits(2);
+        val = numberFormat.format(passedValue);
+        return val;
+    }
     public String confirmationCancelAction() {
         getBindings().getConfirmationExcel().hide();
         return null;
@@ -2737,6 +2746,14 @@ public class CardBean implements Serializable {
 
     public Conversion getConversionUtility() {
         return conversionUtility;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 
     public class Bindings {

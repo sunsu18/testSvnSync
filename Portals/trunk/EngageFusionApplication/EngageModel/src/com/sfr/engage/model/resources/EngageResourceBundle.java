@@ -282,7 +282,8 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "PLEASE_SELECT_A_USER", "" },{ "ENGAGE_MESSAGE_INBOX", "" },{"ENGAGE_MESSAGE_DETAILS",""},{"ENGAGE_CATEGORY",""} ,
       {"ENGAGE_CATEGORY_ADMIN",""},{"ENGAGE_CATEGORY_NON_ADMIN",""},{"ENG_READ",""},{"ENG_UNREAD",""},{"ENG_NO_ADMIN_MSGS",""},
       {"ENGAGE_DATE",""},{"ENGAGE_TYPE",""},{"ENGAGE_MESSAGE",""},{"ENGAGE_TITLE",""},
-      { "PLEASE_SELECT_A_USER", "" },{"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},{"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},{"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},{"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},{"PLEASE_ENTER_QUANTITY",""} };
+      { "PLEASE_SELECT_A_USER", "" },{"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},{"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},{"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},{"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},{"PLEASE_ENTER_QUANTITY",""} ,
+      {"ENGAGE_PRODUCED_DATE",""},};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.
