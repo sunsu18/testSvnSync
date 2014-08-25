@@ -156,32 +156,32 @@
                 </assign>
                 <extensionActivity>
                     <bpelx:exec name="Java_Embedding" language="java">
-                        <![CDATA[/*Write your java code below e.g.                 
-	System.out.println("Hello, World");                
-*/                
-try {                
-String headerRows; 
-headerRows = null; 
- 
-//Element headerData = (Element)getVariableData("inputVariable","payload","/ns1:ReportHeader"); 
-//int k = Integer.parseInt(getVariableData("headerRowCount").toString()); 
-//for(int i=0;i < 1;i++)  
-//{ 
-//System.out.println("Hello, World");                
+                        <![CDATA[/*Write your java code below e.g.                  
+	System.out.println("Hello, World");                 
+*/                 
+try {                 
+String headerRows;  
+headerRows = null;  
+  
+//Element headerData = (Element)getVariableData("inputVariable","payload","/ns1:ReportHeader");  
+//int k = Integer.parseInt(getVariableData("headerRowCount").toString());  
+//for(int i=0;i < 1;i++)   
+//{  
+//System.out.println("Hello, World");                 
 //    headerRows = headerData.getNodeValue(); 
-    headerRows = getVariableData("reportHeader").toString(); 
-//} 
- 
-String input = getVariableData("encodedExcelFormatData").toString();          
-ExcelGenerator tr = new ExcelGenerator();             
-tr.setRD(input.toString());  
-tr.setRowHeader(headerRows); 
-tr.generateExcel();            
-setVariableData("encodedReportData", tr.getRD());          
-}               
-catch (Exception e)               
-{                
-addAuditTrailEntry(e);                
+    headerRows = getVariableData("reportHeader").toString();  
+//}  
+  
+String input = getVariableData("encodedExcelFormatData").toString();           
+ExcelGenerator tr = new ExcelGenerator();              
+tr.setRD(input.toString());   
+tr.setRowHeader(headerRows);  
+tr.generateExcel();             
+setVariableData("encodedReportData", tr.getRD());           
+}                
+catch (Exception e)                
+{                 
+addAuditTrailEntry(e);                 
 }]]>
                     </bpelx:exec>
                 </extensionActivity>

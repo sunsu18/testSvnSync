@@ -14,8 +14,9 @@
     <xsd:sequence>
       <xsd:element name="RuleID" type="xsd:string" minOccurs="0"/>
       <xsd:element name="SubscriptionID" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="InputFormatType" type="xsd:string"/>
       <xsd:element name="OutputFormatType" type="xsd:string"/>
-      <xsd:element name="ReportHeader" type="xsd:string" maxOccurs="unbounded">
+      <xsd:element name="ReportHeader" type="xsd:string" minOccurs="0">
         <xsd:annotation id="ri">
           <xsd:documentation>
             report Information is the header rows data which gives the customer
@@ -24,7 +25,7 @@
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="ReportData" type="xsd:base64Binary"/>
-      <xsd:element name="ReportTrailer" type="xsd:string" maxOccurs="unbounded">
+      <xsd:element name="ReportTrailer" type="xsd:string" minOccurs="0">
         <xsd:annotation id="col">
           <xsd:documentation>
             Row Total of Columns to Show in report.

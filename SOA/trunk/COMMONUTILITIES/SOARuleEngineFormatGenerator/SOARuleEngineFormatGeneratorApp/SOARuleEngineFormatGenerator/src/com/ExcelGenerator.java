@@ -13,6 +13,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import org.eclipse.persistence.internal.oxm.conversion.Base64;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -41,7 +43,7 @@ public class ExcelGenerator {
     private FileOutputStream fileOut;
     private ByteArrayOutputStream baos;
    
-    private String RD, RN, str, filename, RowHeader;
+    private String RD, RN, str, filename, RowHeader, rows[];
     private InputSource is;
     private Integer rownum;
     
@@ -76,7 +78,8 @@ public class ExcelGenerator {
         cf = workbook.createFont();
         af = workbook.createFont();
         f.setFontName("Arial");
-        cf.setFontName("Lucida Calligraphy");
+        cf.setFontName("Arial");
+        cf.setItalic(true);
         af.setFontName("Arial");
         f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
         cs = workbook.createCellStyle();
@@ -97,15 +100,16 @@ public class ExcelGenerator {
         children = node.getChildNodes();
         //children = parent.getChildNodes();
         
-        rowInformation = sheet.createRow(rownum);
-        rownum = rownum + 1;
-//        for(int k=0; k < RowHeader.length;k++){
+        rows = RowHeader.split(",");
+//        rowInformation = sheet.createRow(rownum);
+//        rownum = rownum + 1;
+        for(int k=0; k < rows.length;k++){
             
                 rowInformation = sheet.createRow(rownum);
                 rownum = rownum + 1;
-                rowInformation.createCell(0).setCellValue(RowHeader);
+                rowInformation.createCell(0).setCellValue(rows[k]);
                 rowInformation.getCell(0).setCellStyle(cs);                    
-//            }
+            }
                 rowInformation = sheet.createRow(rownum);
                 rownum = rownum + 1;
         
@@ -159,7 +163,10 @@ public class ExcelGenerator {
             RD = encoder.encode(new String(baos.toByteArray()));            
             setRD(RD);
             
-//            setRD(xmlData);
+            byte[] encodedBytes = Base64.base64Encode(baos.toByteArray()); 
+            String base64 = new String(encodedBytes); 
+            
+            setRD(base64);
             fileOut = new FileOutputStream(filename);
             workbook.write(fileOut);
             fileOut.close();
