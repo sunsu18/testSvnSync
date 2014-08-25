@@ -2212,13 +2212,13 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getUnitOfMeasure().toString());
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csRight);
                                 XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                             }
-                        } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
 
                             if (row.getCurrencyGrossAmount() != null) {
                                 valForeign = true;
@@ -2317,7 +2317,7 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
                                 XLS_SH_R_C.setCellStyle(csData);
@@ -2493,14 +2493,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyUnitPrice() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                             }
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCurrencyGrossAmount() != null) {
                                 out.print(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                             }
@@ -2604,7 +2604,7 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                        } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                             if (row.getCardgroupId() != null) {
                                 out.print(row.getCardgroupId().toString());
                             }
@@ -2757,14 +2757,14 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("ForeginUnitPrice".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Unit price, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCurrencyUnitPrice() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyUnitPrice().toString())), locale));
                                 }
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("ForeginGrossAmount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("Gross amount, purchase currency".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCurrencyGrossAmount() != null) {
                                     out.print(formatConversion((Float.parseFloat(row.getCurrencyGrossAmount().toString())), locale));
                                 }
@@ -2846,7 +2846,7 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getCardgroupId() != null) {
                                     out.print(row.getCardgroupId().toString());
                                 }
