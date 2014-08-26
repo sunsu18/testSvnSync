@@ -164,47 +164,7 @@
             </copy><copy>
                 <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationBody</from>
                 <to>$Body</to>
-            </copy></assign><scope name="Scope1">
-            <bpelx:annotation>
-                <bpelx:general>
-                    <bpelx:property name="userLabel">InsertNotificationHistoryScope</bpelx:property>
-                </bpelx:general>
-            </bpelx:annotation>
-            <variables>
-                <variable name="InvokeCreateNotificationHistorySOADBAdapter_IV"
-                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
-                <variable name="InvokeCreateNotificationHistorySOADBAdapter_OV"
-                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
-            </variables>
-            <sequence name="Sequence6">
-                <bpelx:skipCondition>not($inputVariable.payload/ns2:RuleID) or not($inputVariable.payload/ns2:SubscriptionID)</bpelx:skipCondition>
-                <assign name="AssignCreateNotificationHistorySOADBAdapter">
-                    <copy>
-                        <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:SubscriptionID</from>
-                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhRrsId</to>
-                    </copy>
-                    <copy>
-                        <from>$Body</from>
-                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhBody</to>
-                    </copy>
-                    <copy>
-                        <from>$Subject</from>
-                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhSubject</to>
-                    </copy>
-                    <copy>
-                        <from>concat($EmailID,';',$EmailCC)</from>
-                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhEmail</to>
-                    </copy>
-                </assign>
-                <invoke name="InvokeCreateNotificationHistorySOADBAdapter"
-                        partnerLink="CreateNotificationHistorySOADBAdapter"
-                        portType="ns3:CreateNotificationHistorySOADBAdapter_ptt"
-                        operation="insert"
-                        inputVariable="InvokeCreateNotificationHistorySOADBAdapter_IV"
-                        outputVariable="InvokeCreateNotificationHistorySOADBAdapter_OV"
-                        bpelx:invokeAsDetail="no"/>
-            </sequence>
-        </scope>
+            </copy></assign>
         <if name="NotificationChannel">
             <documentation>Email</documentation>
             <condition>xp20:upper-case(string($ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationChannel))='EMAIL'</condition>
@@ -446,6 +406,51 @@
                        faultName="bpelx:timeout"/>
             </else>
         </if>
+        <scope name="Scope1">
+            <bpelx:annotation>
+                <bpelx:general>
+                    <bpelx:property name="userLabel">InsertNotificationHistoryScope</bpelx:property>
+                </bpelx:general>
+            </bpelx:annotation>
+            <variables>
+                <variable name="InvokeCreateNotificationHistorySOADBAdapter_IV"
+                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
+                <variable name="InvokeCreateNotificationHistorySOADBAdapter_OV"
+                          messageType="ns3:RuleengineNotificationhistoryCollection_msg"/>
+            </variables>
+            <sequence name="Sequence6">
+                <bpelx:skipCondition>not($inputVariable.payload/ns2:RuleID) or not($inputVariable.payload/ns2:SubscriptionID)</bpelx:skipCondition>
+                <assign name="AssignCreateNotificationHistorySOADBAdapter">
+                    <copy>
+                        <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:SubscriptionID</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhRrsId</to>
+                    </copy>
+                    <copy>
+                        <from>ora:getCurrentDateTime()</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhSenttime</to>
+                    </copy>
+                    <copy>
+                        <from>concat($EmailID,';',$EmailCC)</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhEmail</to>
+                    </copy>
+                    <copy>
+                        <from>$Body</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhBody</to>
+                    </copy>
+                    <copy>
+                        <from>$Subject</from>
+                        <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhSubject</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeCreateNotificationHistorySOADBAdapter"
+                        partnerLink="CreateNotificationHistorySOADBAdapter"
+                        portType="ns3:CreateNotificationHistorySOADBAdapter_ptt"
+                        operation="insert"
+                        inputVariable="InvokeCreateNotificationHistorySOADBAdapter_IV"
+                        outputVariable="InvokeCreateNotificationHistorySOADBAdapter_OV"
+                        bpelx:invokeAsDetail="no"/>
+            </sequence>
+        </scope>
         <!-- 
           Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
         -->
