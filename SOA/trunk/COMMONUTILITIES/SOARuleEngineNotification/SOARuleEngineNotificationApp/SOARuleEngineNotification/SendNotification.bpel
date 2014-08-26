@@ -108,81 +108,63 @@
     <sequence name="main">
         <!-- Receive input from requestor. (Note: This maps to operation defined in SendNotification.wsdl) -->
         <sequence name="Sequence8">
-            <receive name="ReceiveSOARuleEngineNotificationJMSConsumerV1"
-                     createInstance="yes"
-                     partnerLink="SOARuleEngineNotificationJMSConsumerV1"
-                     portType="ns5:Consume_Message_ptt"
-                     operation="Consume_Message"
-                     variable="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"/>
-            <assign name="AssignNotificationData">
-                <copy>
-                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</from>
-                    <to>$inputVariable.payload</to>
-                </copy>
-                <copy>
-                    <from>'Harneet.kochhar@lntinfotech.com'</from>
-                    <to>$EmailID</to>
-                </copy>
-                <copy>
-                    <from>'RuleEngineTestMail'</from>
-                    <to>$Subject</to>
-                </copy>
-                <copy>
-                    <from>'RuleEngineTestBody'</from>
-                    <to>$Body</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:EmailID</from>
-                    <to>$EmailID</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:NotificationSubject</from>
-                    <to>$Subject</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:NotificationBody</from>
-                    <to>$Body</to>
-                </copy>
-            </assign>
-        </sequence>
-        <sequence name="Sequence9">
-            <bpelx:skipCondition>true()</bpelx:skipCondition>
-            <receive name="receiveInput" partnerLink="sendnotification_client"
-                     portType="client:SendNotification" operation="process"
-                     variable="inputVariable" createInstance="no"/>
-            <assign name="AssignNotificationData"
-                    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
-                <copy>
-                    <from>$inputVariable.payload</from>
-                    <to>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</to>
-                </copy>
-                <copy>
-                    <from>'Harneet.kochhar@lntinfotech.com'</from>
-                    <to>$EmailID</to>
-                </copy>
-                <copy>
-                    <from>'RuleEngineTestMail'</from>
-                    <to>$Subject</to>
-                </copy>
-                <copy>
-                    <from>'RuleEngineTestBody'</from>
-                    <to>$Body</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:EmailID</from>
-                    <to>$EmailID</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:NotificationSubject</from>
-                    <to>$Subject</to>
-                </copy>
-                <copy ignoreMissingFromData="yes">
-                    <from>$inputVariable.payload/ns2:NotificationBody</from>
-                    <to>$Body</to>
-                </copy>
-            </assign>
-        </sequence>
-        <scope name="Scope1">
+            <pick name="PickRuleEngineNotificationInput" createInstance="yes">
+                <onMessage variable="ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV"
+                           partnerLink="SOARuleEngineNotificationJMSConsumerV1"
+                           portType="ns5:Consume_Message_ptt"
+                           operation="Consume_Message">
+                    <sequence>
+                        <assign name="AssignNotificationData">
+                            <copy>
+                                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</from>
+                                <to>$inputVariable.payload</to>
+                            </copy>
+                        </assign>
+                    </sequence>
+                </onMessage>
+                <onMessage partnerLink="sendnotification_client"
+                           portType="client:SendNotification"
+                           operation="process" variable="inputVariable">
+                    <sequence name="Sequence9">
+                        <bpelx:skipCondition>true()</bpelx:skipCondition>
+                        <assign name="AssignNotificationData"
+                                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+                            <copy>
+                                <from>$inputVariable.payload</from>
+                                <to>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body</to>
+                            </copy>
+                        </assign>
+                    </sequence>
+                </onMessage>
+            </pick>
+        </sequence><assign name="AssignNotificationData"
+                           xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+      
+      
+      
+   <copy>
+         <from>'Harneet.kochhar@lntinfotech.com'</from>
+         <to>$EmailID</to>
+      </copy><copy>
+         <from>'RuleEngineTestMail'</from>
+         <to>$Subject</to>
+      </copy><copy>
+         <from>'RuleEngineTestBody'</from>
+         <to>$Body</to>
+      </copy><copy>
+                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:EmailID</from>
+                <to>$EmailID</to>
+            </copy><copy>
+                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationSubject</from>
+                <to>$Subject</to>
+            </copy><copy>
+                <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationBody</from>
+                <to>$Body</to>
+            </copy></assign><scope name="Scope1">
             <bpelx:annotation>
                 <bpelx:general>
                     <bpelx:property name="userLabel">InsertNotificationHistoryScope</bpelx:property>
@@ -198,7 +180,7 @@
                 <bpelx:skipCondition>not($inputVariable.payload/ns2:RuleID) or not($inputVariable.payload/ns2:SubscriptionID)</bpelx:skipCondition>
                 <assign name="AssignCreateNotificationHistorySOADBAdapter">
                     <copy>
-                        <from>$inputVariable.payload/ns2:SubscriptionID</from>
+                        <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:SubscriptionID</from>
                         <to>$InvokeCreateNotificationHistorySOADBAdapter_IV.RuleengineNotificationhistoryCollection/ns4:RuleengineNotificationhistory/ns4:rnhRrsId</to>
                     </copy>
                     <copy>
@@ -225,7 +207,7 @@
         </scope>
         <if name="NotificationChannel">
             <documentation>Email</documentation>
-            <condition>xp20:upper-case(string($inputVariable.payload/ns2:NotificationChannel))='EMAIL'</condition>
+            <condition>xp20:upper-case(string($ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationChannel))='EMAIL'</condition>
             <sequence name="SendEmail">
                 <scope name="Email1">
                     <bpelx:annotation>
@@ -308,7 +290,7 @@
                                 </assign>
                                 <if name="ConversionRequired">
                                     <documentation>Yes</documentation>
-                                    <condition>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ConversionRequired='YES'</condition>
+                                    <condition>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ConversionRequired='YES'</condition>
                                     <scope name="Scope2">
                                         <variables>
                                             <variable name="InvokeSOARuleEngineFormatGenerator_IV"
@@ -319,21 +301,21 @@
                                                       messageType="ns8:Write_msg"/>
                                         </variables>
                                         <sequence name="Sequence7">
-                                            <assign name="Assign1">
+                                            <assign name="AssignSOARuleEngineFormatGenerator_IV">
                                                 <copy>
-                                                    <from>$inputVariable.payload/ns2:RuleID</from>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:RuleID</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:RuleID</to>
                                                 </copy>
                                                 <copy>
-                                                    <from>$inputVariable.payload/ns2:SubscriptionID</from>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:SubscriptionID</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:SubscriptionID</to>
                                                 </copy>
                                                 <copy>
-                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ConversionType</from>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ConversionType</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:OutputFormatType</to>
                                                 </copy>
                                                 <copy ignoreMissingFromData="yes">
-                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ReportHeader</from>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ReportHeader</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportHeader</to>
                                                 </copy>
                                                 <copy>
@@ -341,7 +323,7 @@
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportData</to>
                                                 </copy>
                                                 <copy ignoreMissingFromData="yes">
-                                                    <from>$inputVariable.payload/ns2:Attachment/ns2:Attachment/ns2:ReportTrailer</from>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ReportTrailer</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportTrailer</to>
                                                 </copy>
                                             </assign>
@@ -352,18 +334,21 @@
                                                     inputVariable="InvokeSOARuleEngineFormatGenerator_IV"
                                                     outputVariable="InvokeSOARuleEngineFormatGenerator_OV"
                                                     bpelx:invokeAsDetail="no"/>
-                                            <assign name="Assign2">
-                                                <copy>
-                                                    <from>$InvokeSOARuleEngineFormatGenerator_OV.payload/ns7:ReportData</from>
-                                                    <to>$Invoke1_Write_InputVariable.opaque</to>
-                                                </copy>
-                                            </assign>
-                                            <invoke name="Invoke1"
-                                                    partnerLink="sa"
-                                                    portType="ns8:Write_ptt"
-                                                    operation="Write"
-                                                    inputVariable="Invoke1_Write_InputVariable"
-                                                    bpelx:invokeAsDetail="no"/>
+                                            <sequence name="Sequence10">
+                                                <bpelx:skipCondition>1=1</bpelx:skipCondition>
+                                                <assign name="Assign2">
+                                                    <copy>
+                                                        <from>$InvokeSOARuleEngineFormatGenerator_OV.payload/ns7:ReportData</from>
+                                                        <to>$Invoke1_Write_InputVariable.opaque</to>
+                                                    </copy>
+                                                </assign>
+                                                <invoke name="Invoke1"
+                                                        partnerLink="sa"
+                                                        portType="ns8:Write_ptt"
+                                                        operation="Write"
+                                                        inputVariable="Invoke1_Write_InputVariable"
+                                                        bpelx:invokeAsDetail="no"/>
+                                            </sequence>
                                             <assign name="EmailParamsAssign"
                                                     xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
       

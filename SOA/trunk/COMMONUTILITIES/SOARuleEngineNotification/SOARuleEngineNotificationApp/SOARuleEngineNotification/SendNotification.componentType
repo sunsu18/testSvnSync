@@ -22,7 +22,7 @@
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineNotificationApp/SOARuleEngineNotification/CreateNotificationHistorySOADBAdapter#wsdl.interface(CreateNotificationHistorySOADBAdapter_ptt)"/>
   </reference>
   <reference name="SOARuleEngineFormatGenerator"
-             ui:wsdlLocation="http://elb1cn14:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl">
+             ui:wsdlLocation="http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl">
     <interface.wsdl interface="http://www.lntinfotech.com/integration/SOARuleEngineFormatGeneratorApp/SOARuleEngineFormatGenerator/GenerateFormat#wsdl.interface(GenerateFormat)"/>
   </reference>
   <reference name="sa" ui:wsdlLocation="sa.wsdl">

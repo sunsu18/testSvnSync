@@ -21,7 +21,7 @@
           location="SOARuleEngineNotificationJMSConsumerV1.wsdl"
           importType="wsdl"/>
   <import namespace="http://www.lntinfotech.com/integration/SOARuleEngineFormatGeneratorApp/SOARuleEngineFormatGenerator/GenerateFormat"
-          location="http://elb1cn14:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl"
+          location="http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl"
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/SOARuleEngineNotificationApp/SOARuleEngineNotification/sa"
           location="sa.wsdl" importType="wsdl"/>
@@ -61,7 +61,7 @@
               override="may">1</property>
   </reference>
   <reference name="SOARuleEngineFormatGenerator"
-             ui:wsdlLocation="http://elb1cn14:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl">
+             ui:wsdlLocation="http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/GenerateFormat.wsdl">
     <interface.wsdl interface="http://www.lntinfotech.com/integration/SOARuleEngineFormatGeneratorApp/SOARuleEngineFormatGenerator/GenerateFormat#wsdl.interface(GenerateFormat)"/>
     <binding.ws port="http://www.lntinfotech.com/integration/SOARuleEngineFormatGeneratorApp/SOARuleEngineFormatGenerator/GenerateFormat#wsdl.endpoint(generateformat_client_ep/GenerateFormat_pt)"
                 location="http://10.24.240.15:7021/soa-infra/services/CommonUtilities/SOARuleEngineFormatGenerator/generateformat_client_ep?WSDL"
