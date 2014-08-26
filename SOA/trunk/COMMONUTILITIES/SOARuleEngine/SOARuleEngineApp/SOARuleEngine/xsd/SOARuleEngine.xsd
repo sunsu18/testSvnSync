@@ -12,8 +12,8 @@
   </xsd:element>
   <xsd:complexType name="RuleEngineRequestType">
     <xsd:sequence>
-      <xsd:element name="Request" type="xsd:string"/>
-      <xsd:element name="DataTime" type="xsd:string"/>
+      <xsd:element name="BatchSize" type="xsd:integer"/>
+      <xsd:element name="DateTime" type="xsd:dateTime"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RuleEngineResponse" type="RuleEngineResponseType"/>

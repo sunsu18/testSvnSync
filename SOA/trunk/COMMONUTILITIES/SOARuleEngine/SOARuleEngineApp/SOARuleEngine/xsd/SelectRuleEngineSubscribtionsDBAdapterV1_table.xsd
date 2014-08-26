@@ -256,10 +256,11 @@
          </xs:element>
       </xs:sequence>
    </xs:complexType>
-   <xs:element name="SelectRuleEngineSubscribtionsDBAdapterV1Select_NextScheduleTimeInputParameters" type="SelectRuleEngineSubscribtionsDBAdapterV1Select_NextScheduleTime"/>
-   <xs:complexType name="SelectRuleEngineSubscribtionsDBAdapterV1Select_NextScheduleTime">
+   <xs:element name="SelectRuleEngineSubscribtionsDBAdapterV1Select_NEXTSCHEDULETIME_ROWNUMInputParameters" type="SelectRuleEngineSubscribtionsDBAdapterV1Select_NEXTSCHEDULETIME_ROWNUM"/>
+   <xs:complexType name="SelectRuleEngineSubscribtionsDBAdapterV1Select_NEXTSCHEDULETIME_ROWNUM">
       <xs:sequence>
-         <xs:element name="NextScheduleTime" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="NEXTSCHEDULETIME" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="ROWNUM" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

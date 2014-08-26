@@ -122,12 +122,15 @@
             <queries>
                <query name="SelectRuleEngineSubscribtionsDBAdapterV1Select" xsi:type="read-all-query">
                   <arguments>
-                     <argument name="NextScheduleTime">
+                     <argument name="NEXTSCHEDULETIME">
+                        <type>java.lang.String</type>
+                     </argument>
+                     <argument name="ROWNUM">
                         <type>java.lang.String</type>
                      </argument>
                   </arguments>
                   <call xsi:type="sql-call">
-                     <sql>SELECT RRS_FREQUENCY, RRS_SCHEDULEDAY, RRS_SCHEDULEDATE, RRS_SCHEDULEMONTH, RRS_CHANNELPROTOCOL, RRS_FILEFORMAT, RRS_STATUS, RRS_LASTMAILSENT, RRS_PARAMETERS, RRS_CUSTOM1, RRS_CUSTOM2, RRS_CUSTOM3, RRS_CUSTOM4, RRS_CUSTOM5, RRS_ID, RRS_NEXTSCHEDULETIME, RRS_RRM_RULEID, RRS_RCM_CUSTOMERID FROM RULEENGINE_RULESUBSCRIBERS WHERE (RRS_NEXTSCHEDULETIME = #NextScheduleTime)</sql>
+                     <sql>SELECT RRS_FREQUENCY, RRS_SCHEDULEDAY, RRS_SCHEDULEDATE, RRS_SCHEDULEMONTH, RRS_CHANNELPROTOCOL, RRS_FILEFORMAT, RRS_STATUS, RRS_LASTMAILSENT, RRS_PARAMETERS, RRS_CUSTOM1, RRS_CUSTOM2, RRS_CUSTOM3, RRS_CUSTOM4, RRS_CUSTOM5, RRS_ID, RRS_NEXTSCHEDULETIME, RRS_RRM_RULEID, RRS_RCM_CUSTOMERID FROM RULEENGINE_RULESUBSCRIBERS WHERE ((RRS_NEXTSCHEDULETIME = #NEXTSCHEDULETIME) AND (ROWNUM &lt;= #ROWNUM))</sql>
                   </call>
                   <reference-class>SelectRuleEngineSubscribtionsDBAdapterV1.RuleengineRulesubscribers</reference-class>
                   <container xsi:type="list-container-policy">

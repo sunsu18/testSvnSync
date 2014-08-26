@@ -146,8 +146,8 @@
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_CUSTOM3:db_column_type">VARCHAR2</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_STATUS:db_column_size">20</entry>
    <entry key="RULEENGINE_CUSTOMER_MASTER.RCM_CUSTOM5:db_column_not_null">false</entry>
-   <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_LASTMAILSENT:db_column_not_null">false</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_CUSTOM5:db_column_size">20</entry>
+   <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_LASTMAILSENT:db_column_not_null">false</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_SCHEDULEDATE:db_column_not_null">false</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_RCM_CUSTOMERID:db_column_not_null">true</entry>
    <entry key="RULEENGINE_CUSTOMER_MASTER.RCM_FIRSTNAME:db_column_not_null">true</entry>
@@ -162,6 +162,6 @@
    <entry key="RULEENGINE_RULE_MASTER.RRM_CUSTOM4:db_column_not_null">false</entry>
    <entry key="RULEENGINE_CUSTOMER_MASTER.RCM_CUSTOM4:db_column_type">VARCHAR2</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_SCHEDULEDATE:db_column_type">VARCHAR2</entry>
-   <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_RRM_RULEID:db_column_type">NUMBER</entry>
    <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_CUSTOM1:db_column_type">VARCHAR2</entry>
+   <entry key="RULEENGINE_RULESUBSCRIBERS.RRS_RRM_RULEID:db_column_type">NUMBER</entry>
 </properties>

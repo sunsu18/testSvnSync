@@ -83,6 +83,7 @@
         <variable name="ruleServiceRequest"
                   element="ns5:RuleServiceRequest"/>
         <variable name="ScheduleDateTime" type="xsd:dateTime"/>
+        <variable name="rowNum" type="xsd:integer"/>
     </variables>
     <faultHandlers>
         <catchAll>
@@ -102,16 +103,48 @@
                  partnerLink="processsubscriptions_client"
                  portType="client:ProcessSubscriptions" operation="process"
                  variable="inputVariable"/>
-        <assign name="CreateNextScheduleTime">
-            <copy>
-                <from>xp20:current-dateTime()</from>
-                <to>$ScheduleDateTime</to>
-            </copy>
-            <copy>
-                <from>concat(string(xp20:format-dateTime(string($ScheduleDateTime),'[Y0001][M01][D01]')),'000000')</from>
-                <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:NextScheduleTime</to>
-            </copy>
-        </assign>
+        <if name="Check">
+            <documentation>RunForDateProvided</documentation>
+            <condition>normalize-space($inputVariable.payload/ns3:DateTime)!=''</condition><assign name="CreateNextScheduleTime"
+                                                                              xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      
+      
+      
+      
+   <copy>
+                    <from>$inputVariable.payload/ns3:DateTime</from>
+                    <to>$ScheduleDateTime</to>
+                </copy><copy>
+         <from>$inputVariable.payload/ns3:BatchSize</from>
+         <to>$rowNum</to>
+      </copy><copy>
+         <from>concat(string(xp20:format-dateTime(string($ScheduleDateTime),'[Y0001][M01][D01]')),'000000')</from>
+         <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:NEXTSCHEDULETIME</to>
+      </copy><copy>
+         <from>$rowNum</from>
+         <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:ROWNUM</to>
+      </copy></assign><else>
+                <documentation>RunTodaySchedule</documentation>
+                <assign name="CreateNextScheduleTime">
+                    <copy>
+                        <from>xp20:current-dateTime()</from>
+                        <to>$ScheduleDateTime</to>
+                    </copy>
+                    <copy>
+                        <from>$inputVariable.payload/ns3:BatchSize</from>
+                        <to>$rowNum</to>
+                    </copy>
+                    <copy>
+                        <from>concat(string(xp20:format-dateTime(string($ScheduleDateTime),'[Y0001][M01][D01]')),'000000')</from>
+                        <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:NEXTSCHEDULETIME</to>
+                    </copy>
+                    <copy>
+                        <from>$rowNum</from>
+                        <to>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV.SelectRuleEngineSubscribtionsDBAdapterV1Select_inputParameters/ns2:ROWNUM</to>
+                    </copy>
+                </assign>
+            </else>
+        </if>
         <invoke name="InvokeSelectRuleEngineSubscribtionsDBAdapterV1"
                 partnerLink="SelectRuleEngineSubscribtionsDBAdapterV1"
                 portType="ns1:SelectRuleEngineSubscribtionsDBAdapterV1_ptt"
@@ -119,7 +152,7 @@
                 inputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV"
                 outputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV"
                 bpelx:invokeAsDetail="no"/>
-        <forEach parallel="yes" counterName="RuleCounter" name="ForEachRule">
+        <forEach parallel="no" counterName="RuleCounter" name="ForEachRule">
             <startCounterValue>1</startCounterValue>
             <finalCounterValue>count($InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers/ns2:rrsId)</finalCounterValue>
             <scope name="Scope1">
@@ -210,6 +243,9 @@
                             inputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV"
                             outputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_OV"
                             bpelx:invokeAsDetail="no"/>
+                    <extensionActivity>
+                        <bpelx:dehydrate name="Dehydrate1"/>
+                    </extensionActivity>
                 </sequence>
             </scope>
         </forEach>
