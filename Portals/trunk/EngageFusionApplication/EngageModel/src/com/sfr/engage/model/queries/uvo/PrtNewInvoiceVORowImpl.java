@@ -25,6 +25,16 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        InvoicedCard {
+            public Object get(PrtNewInvoiceVORowImpl obj) {
+                return obj.getInvoicedCard();
+            }
+
+            public void put(PrtNewInvoiceVORowImpl obj, Object value) {
+                obj.setInvoicedCard((String)value);
+            }
+        }
+        ,
         InvoicingDate {
             public Object get(PrtNewInvoiceVORowImpl obj) {
                 return obj.getInvoicingDate();
@@ -32,6 +42,16 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
 
             public void put(PrtNewInvoiceVORowImpl obj, Object value) {
                 obj.setInvoicingDate((Date)value);
+            }
+        }
+        ,
+        CountryCode {
+            public Object get(PrtNewInvoiceVORowImpl obj) {
+                return obj.getCountryCode();
+            }
+
+            public void put(PrtNewInvoiceVORowImpl obj, Object value) {
+                obj.setCountryCode((String)value);
             }
         }
         ,
@@ -145,16 +165,6 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        InvoicedCard {
-            public Object get(PrtNewInvoiceVORowImpl obj) {
-                return obj.getInvoicedCard();
-            }
-
-            public void put(PrtNewInvoiceVORowImpl obj, Object value) {
-                obj.setInvoicedCard((String)value);
-            }
-        }
-        ,
         netAmount {
             public Object get(PrtNewInvoiceVORowImpl obj) {
                 return obj.getnetAmount();
@@ -194,7 +204,9 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
 
 
     public static final int FINALINVOICE = AttributesEnum.Finalinvoice.index();
+    public static final int INVOICEDCARD = AttributesEnum.InvoicedCard.index();
     public static final int INVOICINGDATE = AttributesEnum.InvoicingDate.index();
+    public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
     public static final int INVOICEDATE = AttributesEnum.InvoiceDate.index();
     public static final int INVOICINGDUEDATE = AttributesEnum.InvoicingDueDate.index();
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
@@ -206,7 +218,6 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
     public static final int INVVATAMT = AttributesEnum.InvVatAmt.index();
     public static final int INVOICEDOCTYPE = AttributesEnum.InvoiceDocType.index();
     public static final int INVOICELEVEL = AttributesEnum.InvoiceLevel.index();
-    public static final int INVOICEDCARD = AttributesEnum.InvoicedCard.index();
     public static final int NETAMOUNT = AttributesEnum.netAmount.index();
 
     /**
@@ -245,6 +256,22 @@ public class PrtNewInvoiceVORowImpl extends ViewRowImpl {
      */
     public void setInvoicingDate(Date value) {
         setAttributeInternal(INVOICINGDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CountryCode.
+     * @return the CountryCode
+     */
+    public String getCountryCode() {
+        return (String) getAttributeInternal(COUNTRYCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CountryCode.
+     * @param value value to set the  CountryCode
+     */
+    public void setCountryCode(String value) {
+        setAttributeInternal(COUNTRYCODE, value);
     }
 
     /**

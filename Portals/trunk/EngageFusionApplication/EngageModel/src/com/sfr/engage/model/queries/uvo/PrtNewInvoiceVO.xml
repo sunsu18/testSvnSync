@@ -40,8 +40,10 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select distinct decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) as finalInvoice ,
+    <![CDATA[select max(decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number))  as finalInvoice ,
+max(prt_card_invoice.invoiced_card) as  invoiced_card,
 prt_card_payment_doc.INVOICING_DATE,
+prt_card_payment_doc.COUNTRY_CODE,
 prt_card_invoice.invoice_date,
 prt_card_payment_doc.invoicing_due_date,
 prt_card_payment_doc.partner_id,
@@ -52,19 +54,19 @@ prt_card_payment_doc.cardgroup_seq,
 prt_card_invoice_details.inv_gross_amt
 ,prt_card_invoice_details.inv_vat_amt,
 prt_card_payment_doc.invoice_doc_type,
-prt_card_payment_doc.invoice_level,
-prt_card_invoice.invoiced_card
-from prt_card_invoice join prt_card_payment_doc ON 
+prt_card_payment_doc.invoice_level
+
+from prt_card_invoice left join prt_card_invoice_details on 
+(prt_card_invoice_details.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
+and prt_card_invoice.country_code = prt_card_invoice_details.country_code
+) left join prt_card_payment_doc ON 
 (prt_card_payment_doc.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
 )
-left join prt_card_invoice_details on 
-(prt_card_invoice_details.invoice_doc_number = decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number)
-and prt_card_invoice. country_code = prt_card_invoice_details. country_code
-)
-Where prt_card_invoice.ROWID IN (SELECT MAX(prt_card_invoice.ROWID ) FROM prt_card_invoice GROUP BY decode(prt_card_invoice.collective_invoice_number,null,prt_card_invoice.invoice_number,prt_card_invoice.collective_invoice_number) ) AND
-prt_card_payment_doc.COUNTRY_CODE = :countryCode AND
-INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID)<>0
-AND prt_card_payment_doc.INVOICING_DATE >=:fromDateBV AND prt_card_payment_doc.INVOICING_DATE <=:toDateBV
+WHERE prt_card_payment_doc.COUNTRY_CODE = :countryCode 
+AND INSTR(:partnerId,prt_card_payment_doc.PARTNER_ID)<>0
+AND prt_card_payment_doc.INVOICING_DATE >=:fromDateBV 
+AND prt_card_payment_doc.INVOICING_DATE <=:toDateBV
+group by prt_card_payment_doc.INVOICING_DATE, prt_card_payment_doc.COUNTRY_CODE, prt_card_invoice.invoice_date, prt_card_payment_doc.invoicing_due_date, prt_card_payment_doc.partner_id, prt_card_payment_doc.account_id, prt_card_payment_doc.cardgroup_main_type, prt_card_payment_doc.cardgroup_sub_type, prt_card_payment_doc.cardgroup_seq, prt_card_invoice_details.inv_gross_amt, prt_card_invoice_details.inv_vat_amt, prt_card_payment_doc.invoice_doc_type, prt_card_payment_doc.invoice_level 
 order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.invoicing_due_date]]>
   </SQLQuery>
   <ViewAttribute
@@ -83,6 +85,21 @@ order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.in
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
+    Name="InvoicedCard"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVOICED_CARD"
+    Expression="INVOICED_CARD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
     Name="InvoicingDate"
     IsUpdateable="false"
     IsPersistent="false"
@@ -94,6 +111,22 @@ order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.in
     Expression="INVOICING_DATE">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="2"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COUNTRY_CODE"
+    Expression="COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -261,21 +294,6 @@ order by prt_card_invoice.invoice_date,finalInvoice desc,prt_card_payment_doc.in
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="InvoicedCard"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="10"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="INVOICED_CARD"
-    Expression="INVOICED_CARD"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
