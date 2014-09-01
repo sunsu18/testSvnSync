@@ -1,5 +1,7 @@
 package com.sfr.services.core.dao.factory;
 
+import com.sfr.core.bean.Roles;
+import com.sfr.core.bean.User;
 import com.sfr.services.client.proxy.user.OIMUserManagermentImpl;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.ConfigurationUtility;
@@ -359,8 +361,9 @@ public class DAOFactory {
 
             // use datasource for connection to physical data source.
             // Give JNDI name under lookup.
+            System.out.println("value of JNDI===========>"+getPropertyValue("JNDI_NAME"));
             datasource =
-                    (DataSource)objinitialContext.lookup(getPropertyValue("JNDI_NAME"));
+                    (DataSource)objinitialContext.lookup("jdbc/wcpcustom");
 
             if (datasource != null) {
                 connection = datasource.getConnection();
@@ -910,6 +913,312 @@ public class DAOFactory {
                  "country in DAOFactory:" + columnName);
         return result;
     }
+    
+    /**
+     * @param sqlQuery
+     * @param params
+     * @param returnParam
+     * @return
+     * @throws SQLException
+     * @throws NamingException
+     */
+    public static User executeSqlQuery(String userEmail) throws SQLException,
+                                                                         NamingException {
+
+
+        PreparedStatement objPrepStmt = null;
+        PreparedStatement objPrepStmt1 = null;
+        PreparedStatement objPrepStmt2 = null;
+        ResultSet objRS = null;
+        ResultSet resultRs1 = null;
+        ResultSet resultRs2 = null;
+        Map<String,String> result = new HashMap<String,String>();
+        Connection connection = null;
+        
+        List<String> listOfRoles = new ArrayList<String>();
+        
+        User user = new User();
+        List<Roles> myRoleList = new ArrayList<Roles>();
+        Roles roles = new Roles();
+        String country = null;
+        String rolesString = "";
+        
+        try {
+            connection = getJNDIConnection();
+            if (null != connection) {
+                List<String> params = new ArrayList<String>();
+                List<String> params1 = new ArrayList<String>();
+                //List<String> params2 = new ArrayList<String>();
+                params.add(userEmail.trim());
+                params1.add(userEmail.trim());
+                //params2.add(userEmail.trim());
+                String sqlStatement = null;
+                sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
+                                     ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ";
+                objPrepStmt = connection.prepareStatement(sqlStatement);
+                if (null != objPrepStmt) {
+                    for (int iCount = 0; iCount < params.size(); iCount++) {
+                        objPrepStmt.setString(iCount + 1, params.get(iCount));
+                    }
+                    objRS = objPrepStmt.executeQuery();
+                    
+                    while(objRS.next()){
+                        country = objRS.getString("COUNTRY_CODE");
+                        if(objRS.getString("USER_EMAIL") != null){
+                        user.setEmailID(objRS.getString("USER_EMAIL"));
+                        }
+                        if(objRS.getString("USER_FIRST_NAME") != null){
+                        user.setFirstName(objRS.getString("USER_FIRST_NAME"));
+                        }
+                        if(objRS.getString("USER_MIDDLE_NAME") != null){
+                        user.setMiddleName(objRS.getString("USER_MIDDLE_NAME"));
+                        }
+                        if(objRS.getString("USER_LAST_NAME") != null){
+                        user.setLastName(objRS.getString("USER_LAST_NAME"));
+                        }
+                        if(objRS.getDate(5) != null){
+                        user.setDob(objRS.getDate(5));
+                        }
+                        if(objRS.getString("USER_PHONE_NO") != null){
+                        user.setPhoneNumber(objRS.getString("USER_PHONE_NO"));
+                        }
+                        if(objRS.getString("USER_LANG") != null){
+                        user.setLang(objRS.getString("USER_LANG"));
+                        }
+                        if(objRS.getString("COUNTRY_CODE") != null){
+                        user.setCountry(objRS.getString("COUNTRY_CODE"));
+                        }
+                        if(objRS.getString("USER_SHORTNAME") != null){
+                        user.setUserID(objRS.getString("USER_SHORTNAME"));
+                        }
+                        if(objRS.getString("USER_STATUS") != null){
+                            user.setActive(objRS.getString("USER_STATUS").toString().equalsIgnoreCase("enabled") ? true : false);
+                        }
+                    }
+                }
+                
+                 params1.add(country);
+                 
+                 String sqlStatement1 = null;
+                 sqlStatement1 = "SELECT DISTINCT USER_ROLE FROM PRT_CARD_USER_ROLE_MAPPING where trim(USER_EMAIL) = ? and  trim(country_code) = ? ";
+                 objPrepStmt1 = connection.prepareStatement(sqlStatement1);
+                 if (null != objPrepStmt1) {
+                     for (int iCount = 0; iCount < params1.size(); iCount++) {
+                         objPrepStmt1.setString(iCount + 1, params1.get(iCount));
+                     }
+                     resultRs1 = objPrepStmt1.executeQuery();
+                     
+                     while(resultRs1.next()){
+                     String roleName = null;
+                     List<String> params2 = new ArrayList<String>();
+                     List<String> roleAssociation = new ArrayList<String>();
+                     roleName = resultRs1.getString("USER_ROLE");
+                         System.out.println("Role name======>"+roleName);
+                         if(rolesString != null && rolesString.length()> 0){
+                            rolesString =  rolesString+roleName+"|";
+                         }else{
+                             rolesString = "|"+rolesString+roleName+"|";
+                         }
+                     params2.add(userEmail.trim());
+                     params2.add(country);
+                     params2.add(roleName);
+                     listOfRoles.add(roleName);
+                         
+                     String sqlStatement2 = null;
+                     sqlStatement2 = "SELECT US_ROLE_ID,USER_EMAIL,USER_ROLE,MODIFIED_BY,MODIFIED_DATE,USER_ASSOCIATION,COUNTRY_CODE,ASSOCIATION_TYPE,PARTNER_ID"  + 
+                     " FROM PRT_CARD_USER_ROLE_MAPPING WHERE trim(USER_EMAIL) = ? AND trim(country_code) = ? AND trim(USER_ROLE) = ? ";
+                     objPrepStmt2 = connection.prepareStatement(sqlStatement2);  
+                     if (null != objPrepStmt2) {
+                         for (int iCount = 0; iCount < params2.size(); iCount++) {
+                             System.out.println("value of iCount=====>"+iCount);
+                             objPrepStmt2.setString(iCount + 1, params2.get(iCount));
+                         }
+                     
+                     resultRs2 =  objPrepStmt2.executeQuery();
+                     
+                     while(resultRs2.next()){
+                         System.out.println("Is it coming inside resultst2===========>");
+                         roles = new Roles();
+                         String roleAssocList = null;
+                         if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("PP")
+                            && resultRs2.getString("USER_ASSOCIATION") != null)
+                         {
+                               roleAssocList = country+"PP"+resultRs2.getString("USER_ASSOCIATION").toString();
+                               roleAssociation.add(roleAssocList);
+                               
+                         }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("AC")
+                                 && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                         {
+                               roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"AC"+resultRs2.getString("USER_ASSOCIATION").toString();
+                               roleAssociation.add(roleAssocList);
+                               
+                         }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CG")
+                                 && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                         {
+                               roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CG"+resultRs2.getString("USER_ASSOCIATION").toString();
+                               roleAssociation.add(roleAssocList);
+                               
+                         }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CC")
+                                 && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                         {
+                               roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CC"+resultRs2.getString("USER_ASSOCIATION").toString();
+                               roleAssociation.add(roleAssocList);
+                               
+                         }else if(resultRs2.getString("USER_ASSOCIATION") != null  && resultRs2.getString("ASSOCIATION_TYPE").equals("CSR")){
+                                    roleAssocList = country+resultRs2.getString("USER_ASSOCIATION").toString();
+                                    roleAssociation.add(roleAssocList);
+                         }else{
+                             roleAssocList = "";
+                             roleAssociation.add(roleAssocList);
+                         }
+                         
+                     }
+                     }
+                     roles.setRoleName(roleName);
+                     roles.setIdString(roleAssociation);
+                     myRoleList.add(roles);
+                 }
+                     
+                 user.setRolelist(rolesString);
+                 user.setRoleList(myRoleList);
+             }
+            }
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+            throw sqe;
+        } catch (NamingException ne) {
+            ne.printStackTrace();
+            throw ne;
+        } finally {
+            if (null != connection) {
+                connection.close();
+            }
+        }
+            return user;
+    }
+    
+    
+    /**
+     * @param branchPlantCountry
+     * @param shippingAddressNo
+     * @return
+     * @throws SQLException
+     * @throws NamingException
+     */
+   /* public User getUserRoleForUserId(String userEmail) throws SQLException,NamingException {
+        System.out.println("Inside DAOFactory infor for weblogic user");
+        AccessDataControl accessDC = new AccessDataControl();
+        //List<String> result = null;
+        ResultSet resultRs = null;
+        ResultSet resultRs1 = null;
+        ResultSet resultRs2 = null;
+        
+        
+        List<String> listOfRoles = new ArrayList<String>();
+        
+        User user = new User();
+        List<Roles> myRoleList = new ArrayList<Roles>();
+        Roles roles = new Roles();
+        String country = null;
+
+        List<String> params = new ArrayList<String>();
+        List<String> params1 = new ArrayList<String>();
+        List<String> params2 = new ArrayList<String>();
+        params.add(userEmail.trim());
+        params1.add(userEmail.trim());
+        params2.add(userEmail.trim());
+        
+        
+        
+        resultRs =  executeSqlQuery("SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
+                                     ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ",params);
+         
+         while(resultRs.next()){
+             country = resultRs.getString("COUNTRY_CODE");
+             if(resultRs.getString("USER_EMAIL") != null){
+             user.setEmailID(resultRs.getString("USER_EMAIL"));
+             }
+             if(resultRs.getString("USER_FIRST_NAME") != null){
+             user.setFirstName(resultRs.getString("USER_FIRST_NAME"));
+             }
+             if(resultRs.getString("USER_MIDDLE_NAME") != null){
+             user.setMiddleName(resultRs.getString("USER_MIDDLE_NAME"));
+             }
+             if(resultRs.getString("USER_LAST_NAME") != null){
+             user.setLastName(resultRs.getString("USER_LAST_NAME"));
+             }
+             if(resultRs.getDate(5) != null){
+             user.setDob(resultRs.getDate(5));
+             }
+             if(resultRs.getString("USER_PHONE_NO") != null){
+             user.setPhoneNumber(resultRs.getString("USER_PHONE_NO"));
+             }
+             if(resultRs.getString("USER_LANG") != null){
+             user.setLang(resultRs.getString("USER_LANG"));
+             }
+             if(resultRs.getString("COUNTRY_CODE") != null){
+             user.setCountry(resultRs.getString("COUNTRY_CODE"));
+             }
+             if(resultRs.getString("USER_SHORTNAME") != null){
+             user.setUserID(resultRs.getString("USER_SHORTNAME"));
+             }
+             if(resultRs.getString("USER_STATUS") != null){
+                 user.setActive(resultRs.getString("USER_STATUS").toString().equalsIgnoreCase("enabled") ? true : false);
+             }
+         }
+        params1.add(country);
+        resultRs1 = executeSqlQuery("select distinct USER_ROLE FROM PRT_CARD_USER_ROLE_MAPPING where trim(USER_EMAIL) = ? and  trim(country_code) = ? ",params1);
+        while(resultRs1.next()){
+            String roleName = null;
+            List<String> roleAssociation = new ArrayList<String>();
+            roleName = resultRs1.getString(1);
+            params2.add(country);
+            params2.add(roleName);
+            listOfRoles.add(roleName);
+            
+            resultRs2 =  executeSqlQuery("SELECT US_ROLE_ID,USER_EMAIL,USER_ROLE,MODIFIED_BY,MODIFIED_DATE,USER_ASSOCIATION,COUNTRY_CODE,ASSOCIATION_TYPE,PARTNER_ID" + 
+                                        "FROM PRT_CARD_USER_ROLE_MAPPING WHERE trim(USER_EMAIL) = ? AND trim(country_code) = ? AND trim(USER_ROLE) = ? ",params2);   
+            
+            while(resultRs2.next()){
+                String roleAssocList = null;
+                if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("PP")
+                   && resultRs2.getString("USER_ASSOCIATION") != null)
+                {
+                      roleAssocList = country+"PP"+resultRs2.getString("USER_ASSOCIATION").toString();
+                      roleAssociation.add(roleAssocList);
+                      
+                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("AC")
+                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                {
+                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"AC"+resultRs2.getString("USER_ASSOCIATION").toString();
+                      roleAssociation.add(roleAssocList);
+                      
+                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CG")
+                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                {
+                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CG"+resultRs2.getString("USER_ASSOCIATION").toString();
+                      roleAssociation.add(roleAssocList);
+                      
+                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CC")
+                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
+                {
+                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CC"+resultRs2.getString("USER_ASSOCIATION").toString();
+                      roleAssociation.add(roleAssocList);
+                      
+                }else{
+                    roleAssocList = "";
+                    roleAssociation.add(roleAssocList);
+                }
+                
+            }
+            roles.setRoleName(roleName);
+            roles.setIdString(roleAssociation);
+            myRoleList.add(roles);
+        }
+        user.setRoleList(myRoleList);
+        
+        return user;
+    }*/
 
 
 }

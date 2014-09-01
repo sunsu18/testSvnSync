@@ -54,6 +54,13 @@
                   CollectionBeanClass="UpdateableCollection">
     <ParameterInfo id="userId" Type="java.lang.String" isStructured="false"/>
   </MethodAccessor>
+  <MethodAccessor IsCollection="true" Type="com.sfr.core.bean.User"
+                  BeanClass="com.sfr.core.bean.User" id="searchUserWithUserId"
+                  ReturnNodeName="User"
+                  CollectionBeanClass="UpdateableCollection">
+    <ParameterInfo id="userId" Type="java.lang.String" isStructured="false"/>
+    <ParameterInfo id="param" Type="java.lang.String" isStructured="false"/>
+  </MethodAccessor>
   <ConstructorMethod IsCollection="true"
                      Type="com.sfr.engage.model.datacontrol.UserClient"
                      BeanClass="com.sfr.engage.model.datacontrol.UserClient"

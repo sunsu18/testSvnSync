@@ -67,6 +67,29 @@ public class UserBO {
         }
         return userBean;
     }
+    
+    /**
+     *Methos is used for Engage Poral to read user information form database instead of OPSS call
+     * and creates User object
+     * @param userId
+     * @param param
+     * @return
+     * @throws NumberFormatException
+     * @throws Exception
+     */
+    public User searchUserWithUserId(String userId,String param) throws NumberFormatException,
+                                                           Exception {
+        UserDAO userDAO = new UserDAO();
+        User userBean = new User();
+        try {
+            log.info(accessDC.getDisplayRecord() + this.getClass() +
+                     " .searchUserWithUserId : " + "user id in BO " + userId);
+            userBean = userDAO.searchUserWithUserId(userId,param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userBean;
+    }
 
     public BaseBean isPasswordChangeRequired(String userId) {
         UserDAO userDAO = new UserDAO();

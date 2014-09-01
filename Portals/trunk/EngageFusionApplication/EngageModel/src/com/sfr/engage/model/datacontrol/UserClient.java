@@ -105,4 +105,15 @@ public class UserClient {
             return null;
         }
     }
+    
+    public List<User> searchUserWithUserId(String userId,String param) throws NumberFormatException,
+                                                                 Exception {
+        List<User> userList= new ArrayList<User>();
+        if (userId != null) {
+            userList.add(userBO.searchUserWithUserId(userId, param));
+            return userList;
+        } else {
+            return null;
+        }
+    }
 }

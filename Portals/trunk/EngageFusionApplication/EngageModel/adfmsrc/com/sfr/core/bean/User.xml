@@ -16,6 +16,7 @@
   <Attribute Name="designation" Type="java.lang.String"/>
   <Attribute Name="primarySiteID" Type="java.lang.Integer"/>
   <Attribute Name="status" Type="java.lang.String"/>
+  <Attribute Name="country" Type="java.lang.String"/>
   <AccessorAttribute id="employeeNumber" IsCollection="true"
                      Type="java.util.List"
                      CollectionBeanClass="UpdateableCollection">

@@ -348,6 +348,43 @@ public class UserDAO {
         }
         return dateInISO8601;
     }
+    /**
+     * Methos is used for Engage Poral to read user information form database instead of OPSS call
+     * and creates User object
+     * @param userId
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    public User searchUserWithUserId(String userId,String param) throws Exception {
+        System.out.println("Inside UserDAO infor for weblogic user");
+        User user = new User();
+       
+        if(userId != null && param != null){       
+            user = DAOFactory.executeSqlQuery(userId);
+        }
+        
+        List<User> userList = new ArrayList<User>();
+        userList.add(user);
+        
+        for(int u =0 ; u<userList.size(); u++){
+            System.out.println(userList.get(u).getEmailID());
+            System.out.println(userList.get(u).getFirstName());
+            System.out.println(userList.get(u).getLastName());
+            System.out.println(userList.get(u).getLang());
+            System.out.println(userList.get(u).getPhoneNumber());
+            System.out.println(userList.get(u).getCountry());
+            System.out.println("Role list in userdao===>"+userList.get(u).getRolelist());
+            if(userList.get(u).getRoleList().size()>0){
+                for(int r=0 ; r<userList.get(u).getRoleList().size();r++){
+                    System.out.println("value of rolename====>"+userList.get(u).getRoleList().get(r).getRoleName()+" role association=====>"+userList.get(u).getRoleList().get(r).getIdString());
+                    //System.out.println("role name=====>"+userList.get(u).getRoleList().get(r).getRoleName());
+                    //System.out.println("role Association=====>"+userList.get(u).getRoleList().get(r).getIdString());
+                }
+            }
+        }
+        return user;
+    }
 
     /**
      * method to serch user with userId

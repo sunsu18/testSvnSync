@@ -1729,10 +1729,14 @@ new CardInfo();
             if (request.getServerName().contains("101") ||
                 request.getServerName().contains("localhost") ||
                 request.getServerName().contains("127.0")) {
-                userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+               // userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
+                if(securityContext.getUserName().equalsIgnoreCase("weblogic")){
+                    System.out.println("Inside setusersession infor for weblogic user");
+                    userList = userClient.searchUserWithUserId("B2BMgr1@test.com", "DB");
+                }
             } else {
-                userList =
-                        userClient.searchUserWithUserId(securityContext.getUserName());
+                //userList = userClient.searchUserWithUserId(securityContext.getUserName());
+                userList = userClient.searchUserWithUserId(securityContext.getUserName(), "DB");
             }
             long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
