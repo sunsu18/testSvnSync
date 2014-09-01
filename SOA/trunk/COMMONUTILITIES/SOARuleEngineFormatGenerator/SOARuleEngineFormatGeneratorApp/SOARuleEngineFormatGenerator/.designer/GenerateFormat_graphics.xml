@@ -6,7 +6,7 @@
    <partnerlink_locations>
       <partnerlink name="generateformat_client" x="0" y="364" side="left"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,282,842,494" show_swimlanes="true">
+   <graph_layout viewport="0,300,756,340" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
