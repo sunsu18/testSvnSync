@@ -368,7 +368,6 @@ public class UserDisplayBean {
             getBindings().getCardGroup().setDisabled(false);
             getBindings().getCard().setDisabled(false);
             getBindings().getRole().setDisabled(false);
-            getBindings().getSearchStringInputtext().resetValue();
             getBindings().getSearchStringInputtext().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartner());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
@@ -500,25 +499,8 @@ public class UserDisplayBean {
         isEmpVisible = false;
         isAccMgrVisible = false;
         isAdminVisible = false;
-        if(getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)){
-            isCgMgrVisible = true;
-            isEmpVisible = true;
-            isAccMgrVisible = true;
-            isAdminVisible = true;
-        }else{
-            if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")){
-                isAdminVisible = true;
-            }
-            if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")){
-                isAccMgrVisible = true;
-            }
-            if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")){
-                isCgMgrVisible = true;
-            }
-            if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")){
-                isEmpVisible = true;
-            }
-        }
+        boolean resultDisplay = false;
+        
         try{
             if(getBindings().getMultipleCardRadio().getValue().equals(true) && getBindings().getSingleCardRadio().getValue().equals(false)){
                 if(getBindings().getPartner().getValue() != null){
@@ -549,6 +531,7 @@ public class UserDisplayBean {
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
                         vo.executeQuery();
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")){
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
@@ -607,6 +590,7 @@ public class UserDisplayBean {
                         session.setAttribute("user_display_account_Query", accountQuery);
                         session.setAttribute("user_display_map_Account_List", mapAccountListValue);
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_CG")){
                         
@@ -666,6 +650,7 @@ public class UserDisplayBean {
                         session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
                         session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")){
                         
@@ -724,6 +709,7 @@ public class UserDisplayBean {
                         session.setAttribute("user_display_card_Query", cardQuery);
                         session.setAttribute("user_display_map_Card_List", mapCardListValue);
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     
                 }else {
@@ -781,6 +767,7 @@ public class UserDisplayBean {
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         vo.executeQuery();
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_MGR_AC")){
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAccMgrRVO1Iterator");
@@ -845,12 +832,13 @@ public class UserDisplayBean {
                         vo.setNamedWhereClauseParam("roleName", "WCP_CARD_B2B_MGR");
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
-                        vo.defineNamedWhereClauseParam("cardGroup", passingCardgroup, null);
+                        vo.defineNamedWhereClauseParam("cardGroup", passingPartner + passingCardgroup, null);
                         
                         vo.executeQuery();
                         session.setAttribute("user_display_cardGroup_Query", cardGroupQuery);
                         session.setAttribute("user_display_map_CardGroup_List", mapCardGroupListValue);
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_EMP")){
                         
@@ -887,12 +875,33 @@ public class UserDisplayBean {
                         session.setAttribute("user_display_card_Query", cardQuery);
                         session.setAttribute("user_display_map_Card_List", mapCardListValue);
                         isTableVisible = true;
+                        resultDisplay = true;
                     }
                 } else{
                     showErrorMessage("ENGAGE_NO_CARD");
                 }
             }
-            
+            if(resultDisplay){
+                if(getBindings().getSearchStringInputtext().getValue() != null && getBindings().getSearchStringInputtext().getValue().equals(true)){
+                    isCgMgrVisible = true;
+                    isEmpVisible = true;
+                    isAccMgrVisible = true;
+                    isAdminVisible = true;
+                }else{
+                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_ADMIN")){
+                        isAdminVisible = true;
+                    }
+                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_AC")){
+                        isAccMgrVisible = true;
+                    }
+                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_MGR_CG")){
+                        isCgMgrVisible = true;
+                    }
+                    if(getBindings().getRole().getValue().toString().contains("WCP_CARD_B2B_EMP")){
+                        isEmpVisible = true;
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

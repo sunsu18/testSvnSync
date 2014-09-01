@@ -407,10 +407,9 @@
                        id="c27">
               <af:outputText value="#{row.CardGroup}" id="ot42"/>
             </af:column>
-            <af:column sortProperty="Card" filterable="true" sortable="true"
-                       headerText="#{sfr.CARD}"
-                       id="c32">
-              <af:outputText value="#{row.Card}" id="ot47"/>
+            <af:column headerText="#{sfr.CARD}"
+                       id="c9">
+              <af:outputText value="#{row.Card}" id="ot29"/>
             </af:column>
           </af:table>
         </af:showDetailItem>
