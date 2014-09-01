@@ -292,7 +292,11 @@ public class EngageResourceBundle extends ListResourceBundle {
       {"PLEASE_ENTER_QUANTITY",""},{"USER_DISPLAY",""},{"B2B_ADMIN",""},
       {"B2B_MANAGER_AC",""}, {"B2B_EMPLOYEE",""},{"SEARCH_BY_INPUT",""},
       {"ROLE",""},{"ENGAGE_NO_ROLE",""},{"B2B_MANAGER_CG",""},{"PHONE_NO",""},
-      {"LAST_NAME",""},{"MIDDLE_NAME",""},{"FIRST_NAME",""},{"USER_EMAIL",""},{"ALERT_NOTE",""},{"SUCCESS_ALERT",""},{"INVALID_INPUT_ALERT",""},{"FAILURE_ALERT",""},{"BUSINESS_HOURS_ALERT_NOTE",""},{"FUEL_CAPACITY_ALERT_NOTE",""},{"LTR_DAY",""},{"LTR_WEEK",""},{"LTR_MONTH",""},{"LTRS",""}};
+      {"LAST_NAME",""},{"MIDDLE_NAME",""},{"FIRST_NAME",""},{"USER_EMAIL",""},
+      {"ALERT_NOTE",""},{"SUCCESS_ALERT",""},{"INVALID_INPUT_ALERT",""},
+      {"FAILURE_ALERT",""},{"BUSINESS_HOURS_ALERT_NOTE",""},
+      {"FUEL_CAPACITY_ALERT_NOTE",""},{"LTR_DAY",""},{"LTR_WEEK",""},
+      {"LTR_MONTH",""},{"LTRS",""},{"SEARCH_TEXT",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

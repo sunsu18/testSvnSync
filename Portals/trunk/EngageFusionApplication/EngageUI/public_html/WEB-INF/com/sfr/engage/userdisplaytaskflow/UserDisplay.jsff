@@ -15,7 +15,8 @@
         <af:panelGroupLayout id="pgl9" layout="horizontal">
           <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
         </af:panelGroupLayout>
-        <af:spacer width="10" height="15" id="s17"/>
+        <af:spacer width="15" height="25" id="s17"/>
+        <af:outputText value="#{sfr.SEARCH_TEXT}"/>
         <af:panelGroupLayout id="pgl3" valign="top" layout="horizontal">
           <af:panelGroupLayout id="pgl16" layout="vertical">
             <af:spacer height="12" width="10" id="s12"/>
@@ -184,32 +185,32 @@
                     queryListener="#{bindings.PrtUserDisplayForAdminRVO1Query.processQuery}"
                     filterVisible="true" varStatus="vs" id="t1" >
             <af:column sortProperty="UserEmail" filterable="true"
-                       sortable="true" width="155"
+                       sortable="true"
                        headerText="#{sfr.USER_EMAIL}"
                        id="c2">
               <af:outputText value="#{row.UserEmail}" id="ot20"/>
             </af:column>
             <af:column sortProperty="UserFirstName" filterable="true"
-                       sortable="true" width="145"
+                       sortable="true"
                        headerText="#{sfr.FIRST_NAME}"
                        id="c5">
               <af:outputText value="#{row.UserFirstName}" id="ot21"/>
             </af:column>
             <af:column sortProperty="UserMiddleName" filterable="true"
-                       sortable="true" width="145"
+                       sortable="true"
                        headerText="#{sfr.MIDDLE_NAME}"
                        id="c4">
               <af:outputText value="#{row.UserMiddleName}" id="ot13"/>
             </af:column>
             <af:column sortProperty="UserLastName" filterable="true"
-                       sortable="true" width="145"
+                       sortable="true"
                        headerText="#{sfr.LAST_NAME}"
                        id="c1">
               <af:outputText value="#{row.UserLastName}" id="ot23"/>
             </af:column>
             <af:column sortProperty="UserPhoneNo" filterable="true"
-                       sortable="true" width="145"
-                       headerText="#{sfr.PHONE_NO }"
+                       sortable="true"
+                       headerText="#{sfr.PHONE_NO}"
                        id="c6">
               <af:outputText value="#{row.UserPhoneNo}" id="ot9">
                 <af:convertNumber groupingUsed="false"
@@ -217,10 +218,25 @@
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true"
-                       sortable="true" width="145"
+                       sortable="true"
                        headerText="#{sfr.PARTNER_ENG}"
                        id="c3">
               <af:outputText value="#{row.PartnerId}" id="ot22"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.ACCOUNT}"
+                       id="c113">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot31"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.CARDGROUP}"
+                       id="c13">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot33"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.CARD}"
+                       id="c16">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot34"/>
             </af:column>
           </af:table>
         </af:showDetailItem>
@@ -236,48 +252,56 @@
                     queryListener="#{bindings.PrtUserDisplayForAccMgrRVO1Query.processQuery}"
                     filterVisible="true" varStatus="vs" id="t2">
             <af:column sortProperty="UserEmail" filterable="true"
-                       sortable="true" width="130"
+                       sortable="true" 
                        headerText="#{sfr.USER_EMAIL}"
                        id="c10">
               <af:outputText value="#{row.UserEmail}" id="ot26"/>
             </af:column>
             <af:column sortProperty="UserFirstName" filterable="true"
-                       sortable="true" width="125"
+                       sortable="true" 
                        headerText="#{sfr.FIRST_NAME}"
                        id="c11">
               <af:outputText value="#{row.UserFirstName}" id="ot24"/>
             </af:column>
             <af:column sortProperty="UserMiddleName" filterable="true"
-                       sortable="true" width="125"
-                       headerText="#{sfr.MIDDLE_NAME}"
+                       sortable="true"
+                       headerText="#{sfr.MIDDLE_NAME}" 
                        id="c14">
               <af:outputText value="#{row.UserMiddleName}" id="ot28"/>
             </af:column>
-            <af:column sortProperty="UserLastName" filterable="true"
-                       sortable="true" width="125"
-                       headerText="#{sfr.LAST_NAME}"
-                       id="c13">
-              <af:outputText value="#{row.UserLastName}" id="ot31"/>
-            </af:column>
-            <af:column sortProperty="UserPhoneNo" filterable="true"
-                       sortable="true" width="125"
-                       headerText="#{sfr.PHONE_NO}"
+            <af:column headerText="#{sfr.LAST_NAME}" sortProperty="UserLastName" filterable="true"
+                       sortable="true"
                        id="c12">
-              <af:outputText value="#{row.UserPhoneNo}" id="ot30">
+              <af:outputText value="#{row.UserLastName}" id="ot30"/>
+            </af:column>
+            <af:column headerText="#{sfr.PHONE_NO}" sortProperty="UserPhoneNo" filterable="true"
+                       sortable="true"
+                       id="c34">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot47">
                 <af:convertNumber groupingUsed="false"
                                   pattern="#{bindings.PrtUserDisplayForAccMgrRVO1.hints.UserPhoneNo.format}"/>
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true"
-                       sortable="true" width="125"
+                       sortable="true"
                        headerText="#{sfr.PARTNER_ENG}"
                        id="c7">
               <af:outputText value="#{row.PartnerId}" id="ot25"/>
             </af:column>
             <af:column sortProperty="AccountId" filterable="true"
-                       sortable="true" width="125"
+                       sortable="true" 
                        headerText="#{sfr.ACCOUNT}" id="c8">
               <af:outputText value="#{row.AccountId}" id="ot27"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.CARDGROUP}"
+                       id="c19">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot37"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.CARD}"
+                       id="c29">
+              <af:outputText value="#{sfr.ENG_ALL}" id="ot43"/>
             </af:column>
           </af:table>
         </af:showDetailItem>
@@ -293,32 +317,32 @@
                     queryListener="#{bindings.PrtUserDisplayForCgMgrRVO1Query.processQuery}"
                     filterVisible="true" varStatus="vs" id="t3">
             <af:column sortProperty="UserEmail" filterable="true"
-                       sortable="true" width="112"
+                       sortable="true" 
                        headerText="#{sfr.USER_EMAIL}"
                        id="c22">
               <af:outputText value="#{row.UserEmail}" id="ot32"/>
             </af:column>
             <af:column sortProperty="UserFirstName" filterable="true"
-                       sortable="true" width="110"
+                       sortable="true"
                        headerText="#{sfr.FIRST_NAME}"
                        id="c17">
               <af:outputText value="#{row.UserFirstName}" id="ot38"/>
             </af:column>
             <af:column sortProperty="UserMiddleName" filterable="true"
-                       sortable="true" width="110"
+                       sortable="true" 
                        headerText="#{sfr.MIDDLE_NAME}"
                        id="c21">
               <af:outputText value="#{row.UserMiddleName}" id="ot36"/>
             </af:column>
             <af:column sortProperty="UserLastName" filterable="true"
-                       sortable="true" width="110"
+                       sortable="true" 
                        headerText="#{sfr.LAST_NAME}"
                        id="c23">
               <af:outputText value="#{row.UserLastName}" id="ot35"/>
             </af:column>
             <af:column sortProperty="UserPhoneNo" filterable="true"
-                       sortable="true" width="110"
-                       headerText="#{sfr.PHONE_NO }"
+                       sortable="true"
+                       headerText="#{sfr.PHONE_NO}"
                        id="c20">
               <af:outputText value="#{row.UserPhoneNo}" id="ot39">
                 <af:convertNumber groupingUsed="false"
@@ -326,22 +350,25 @@
               </af:outputText>
             </af:column>
             <af:column sortProperty="PartnerId" filterable="true"
-                       sortable="true" width="110"
+                       sortable="true"
                        headerText="#{sfr.PARTNER_ENG}"
                        id="c15">
               <af:outputText value="#{row.PartnerId}" id="ot40"/>
             </af:column>
-            <af:column sortProperty="AccountId" filterable="true"
-                       sortable="true" width="110"
-                       headerText="#{sfr.ACCOUNT}"
-                       id="c16">
-              <af:outputText value="#{row.AccountId}" id="ot37"/>
-            </af:column>
-            <af:column sortProperty="CardGroup" filterable="true"
-                       sortable="true" width="110"
-                       headerText="#{sfr.CARDGROUP}"
+            <af:column headerText="#{sfr.ACCOUNT}" filterable="true"
+                       sortable="true" sortProperty="AccountId"
                        id="c18">
-              <af:outputText value="#{row.CardGroup}" id="ot33"/>
+              <af:outputText value="#{row.AccountId}" id="ot52"/>
+            </af:column>
+            <af:column headerText="#{sfr.CARDGROUP}" filterable="true"
+                       sortable="true" sortProperty="CardGroup"
+                       id="c35">
+              <af:outputText value="#{row.CardGroup}" id="ot53"/>
+            </af:column>
+            <af:column sortable="true"
+                       headerText="#{sfr.CARD}"
+                       id="c32">
+              <af:outputText value="#{sfr.ENG_ALL}" id="oat22"/>
             </af:column>
           </af:table>
         </af:showDetailItem>
@@ -407,7 +434,8 @@
                        id="c27">
               <af:outputText value="#{row.CardGroup}" id="ot42"/>
             </af:column>
-            <af:column headerText="#{sfr.CARD}"
+            <af:column headerText="#{sfr.CARD}" sortProperty="Card" 
+                       filterable="true" sortable="true"
                        id="c9">
               <af:outputText value="#{row.Card}" id="ot29"/>
             </af:column>
