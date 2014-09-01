@@ -949,10 +949,20 @@ public class DAOFactory {
                 List<String> params = new ArrayList<String>();
                 List<String> params1 = new ArrayList<String>();
                 //List<String> params2 = new ArrayList<String>();
-                params.add(userEmail.trim());
-                params1.add(userEmail.trim());
+                //params.add(userEmail.trim());
+                //params1.add(userEmail.trim());
                 //params2.add(userEmail.trim());
                 String sqlStatement = null;
+                if(userEmail.trim().contains("@")){
+                    params.add(userEmail.trim());
+                    sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
+                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ";
+                    
+                }else{
+                    params.add(userEmail.trim());
+                    sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
+                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_SHORTNAME) = ? ";
+                }
                 sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
                                      ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ";
                 objPrepStmt = connection.prepareStatement(sqlStatement);
@@ -963,6 +973,7 @@ public class DAOFactory {
                     objRS = objPrepStmt.executeQuery();
                     
                     while(objRS.next()){
+                        userEmail = objRS.getString("USER_EMAIL");
                         country = objRS.getString("COUNTRY_CODE");
                         if(objRS.getString("USER_EMAIL") != null){
                         user.setEmailID(objRS.getString("USER_EMAIL"));
@@ -996,7 +1007,7 @@ public class DAOFactory {
                         }
                     }
                 }
-                
+                 params1.add(userEmail.trim());
                  params1.add(country);
                  
                  String sqlStatement1 = null;
