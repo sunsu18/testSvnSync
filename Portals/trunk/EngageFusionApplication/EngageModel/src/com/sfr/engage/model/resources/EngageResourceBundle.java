@@ -279,11 +279,20 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "BLOCKED_DATE_TIME", "" }, { "SELECT_ASSOCIATION", "" },
       { "SEARCH_USER", "" }, { "USERS", "" }, { "CONFIRM", "" },
       { "PLEASE_ENTER_VALID_PARTNER_ID", "" },
-      { "PLEASE_SELECT_A_USER", "" },{ "ENGAGE_MESSAGE_INBOX", "" },{"ENGAGE_MESSAGE_DETAILS",""},{"ENGAGE_CATEGORY",""} ,
-      {"ENGAGE_CATEGORY_ADMIN",""},{"ENGAGE_CATEGORY_NON_ADMIN",""},{"ENG_READ",""},{"ENG_UNREAD",""},{"ENG_NO_ADMIN_MSGS",""},
-      {"ENGAGE_DATE",""},{"ENGAGE_TYPE",""},{"ENGAGE_MESSAGE",""},{"ENGAGE_TITLE",""},
-      { "PLEASE_SELECT_A_USER", "" },{"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},{"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},{"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},{"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},{"PLEASE_ENTER_QUANTITY",""} ,
-      {"ENGAGE_PRODUCED_DATE",""},};
+      { "PLEASE_SELECT_A_USER", "" },{ "ENGAGE_MESSAGE_INBOX", "" },
+      {"ENGAGE_MESSAGE_DETAILS",""},{"ENGAGE_CATEGORY",""} ,
+      {"ENGAGE_CATEGORY_ADMIN",""},{"ENGAGE_CATEGORY_NON_ADMIN",""},
+      {"ENG_READ",""},{"ENG_UNREAD",""},{"ENG_NO_ADMIN_MSGS",""},
+      {"ENGAGE_DATE",""},{"ENGAGE_TYPE",""},{"ENGAGE_MESSAGE",""},
+      {"ENGAGE_TITLE",""},{ "PLEASE_SELECT_A_USER", "" },
+      {"ALERT_CONFIGURATIONS",""},{"FUELING_OUTSIDE_BUSINESS_HOURS",""},
+      {"FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD",""},{"VIEW_ALERTS",""},
+      {"BUSINESS_DAYS",""},{"MONDAY",""},{"TUESDAY",""},{"WEDNESDAY",""},
+      {"THURSDAY",""},{"FRIDAY",""},{"SATURDAY",""},{"SUNDAY",""},
+      {"PLEASE_ENTER_QUANTITY",""},{"USER_DISPLAY",""},{"B2B_ADMIN",""},
+      {"B2B_MANAGER_AC",""}, {"B2B_EMPLOYEE",""},{"SEARCH_BY_INPUT",""},
+      {"ROLE",""},{"ENGAGE_NO_ROLE",""},{"B2B_MANAGER_CG",""},{"PHONE_NO",""},
+      {"LAST_NAME",""},{"MIDDLE_NAME",""},{"FIRST_NAME",""},{"USER_EMAIL",""}};
 
     /**
      * This method populates the values of all resource keys from database through PrtGenTranslationVO based on lang parameter.

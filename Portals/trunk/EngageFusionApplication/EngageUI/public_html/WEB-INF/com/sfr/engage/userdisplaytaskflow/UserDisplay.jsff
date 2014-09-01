@@ -21,7 +21,8 @@
             <af:spacer height="12" width="10" id="s12"/>
             <af:selectBooleanRadio text="" label="" id="multiplecard" group="A" selected="true"
                                    valueChangeListener="#{pageFlowScope.UserDisplayBean.multicardRadioValueChangeListener}"
-                                   autoSubmit="true"/>
+                                   autoSubmit="true"
+                                   binding="#{pageFlowScope.UserDisplayBean.bindings.multipleCardRadio}"/>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl6" layout="horizontal" inlineStyle="width:960.0px;">
             <af:panelGroupLayout id="pgl7" layout="vertical" valign="top" inlineStyle="width:390px; height:100.0px;">
@@ -131,7 +132,8 @@
                <af:selectManyChoice id="smc4" contentStyle="width: 175px; height:14px;" showRequired="false"
                                   value="#{pageFlowScope.UserDisplayBean.roleValue}"
                                   binding="#{pageFlowScope.UserDisplayBean.bindings.role}"
-                                    partialTriggers="multiplecard singlecard">
+                                    partialTriggers="multiplecard singlecard"
+                                    valueChangeListener="#{pageFlowScope.UserDisplayBean.roleValueChangeListener}">
                   <af:forEach items="#{pageFlowScope.UserDisplayBean.roleList}" var="listItem">
                     <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
                   </af:forEach>
@@ -146,11 +148,274 @@
       <af:panelGroupLayout id="pgl15" valign="top" layout="horizontal" halign="start">
         <af:selectBooleanRadio text="" label="" group="A" id="singlecard"
                                valueChangeListener="#{pageFlowScope.UserDisplayBean.singlecardRadioValueChangeListener}"
+                               binding="#{pageFlowScope.UserDisplayBean.bindings.singleCardRadio}"
                                autoSubmit="true"/>
         <af:spacer height="18" width="10" id="s13"/>
         <af:outputText id="ot6" value="#{sfr.SEARCH_BY_INPUT}"/>
         <af:outputText value=":" id="ot8"/>
+        <af:inputText id="it1" value="#{pageFlowScope.UserDisplayBean.searchString}" binding="#{pageFlowScope.UserDisplayBean.bindings.searchStringInputtext}" disabled="true">
+          <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.UserDisplayBean.suggestedSearchString}"/>
+        </af:inputText>
       </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgal1" halign="right" layout="horizontal" inlineStyle="width:962px;">
+        <af:commandButton text="#{sfr.SEARCH}" id="cb2" actionListener="#{pageFlowScope.UserDisplayBean.searchResult}"/>
+        <af:spacer width="10" height="10" id="s15"/>
+        <af:commandButton text="#{sfr.CLEAR}" id="cb3"
+                          actionListener="#{pageFlowScope.UserDisplayBean.clearSearchListener}"/>
+        <af:spacer width="24" height="10" id="s23"/>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:spacer width="5" height="10" id="spacer1"/>
+    <af:panelGroupLayout id="panelGroupLayout1" layout="horizontal">
+      <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+    </af:panelGroupLayout>
+    <af:spacer width="10" height="10" id="s14"/>
+    <af:panelGroupLayout id="pgl0" layout="vertical" visible="#{pageFlowScope.UserDisplayBean.isTableVisible}" inlineStyle="width:962px;" partialTriggers="cb2 cb3 smc1 soc3 smc2 smc3 smc4 multiplecard singlecard">
+      <af:panelAccordion id="pa1" discloseNone="true"  discloseMany="true" dimensionsFrom="children">
+        <af:showDetailItem text="B2B_ADMIN" id="sdi1" stretchChildren="first" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForAdminRVO1.collectionModel}"
+                    var="row" styleClass="AFStretchWidth"
+                    rows="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForAdminRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
+                    rowBandingInterval="0" width="962px" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10"
+                    filterModel="#{bindings.PrtUserDisplayForAdminRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForAdminRVO1Query.processQuery}"
+                    filterVisible="true" varStatus="vs" id="t1" >
+            <af:column sortProperty="UserEmail" filterable="true"
+                       sortable="true" width="155"
+                       headerText="#{sfr.USER_EMAIL}"
+                       id="c2">
+              <af:outputText value="#{row.UserEmail}" id="ot20"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true"
+                       sortable="true" width="145"
+                       headerText="#{sfr.FIRST_NAME}"
+                       id="c5">
+              <af:outputText value="#{row.UserFirstName}" id="ot21"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true"
+                       sortable="true" width="145"
+                       headerText="#{sfr.MIDDLE_NAME}"
+                       id="c4">
+              <af:outputText value="#{row.UserMiddleName}" id="ot13"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true"
+                       sortable="true" width="145"
+                       headerText="#{sfr.LAST_NAME}"
+                       id="c1">
+              <af:outputText value="#{row.UserLastName}" id="ot23"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true"
+                       sortable="true" width="145"
+                       headerText="#{sfr.PHONE_NO }"
+                       id="c6">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot9">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtUserDisplayForAdminRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true"
+                       sortable="true" width="145"
+                       headerText="#{sfr.PARTNER_ENG}"
+                       id="c3">
+              <af:outputText value="#{row.PartnerId}" id="ot22"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="B2B_MANAGER_AC" id="sdi2" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAccMgrVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForAccMgrRVO1.collectionModel}"
+                    var="row" width="962px"
+                    rows="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForAccMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
+                    rowBandingInterval="0" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10"
+                    filterModel="#{bindings.PrtUserDisplayForAccMgrRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForAccMgrRVO1Query.processQuery}"
+                    filterVisible="true" varStatus="vs" id="t2">
+            <af:column sortProperty="UserEmail" filterable="true"
+                       sortable="true" width="130"
+                       headerText="#{sfr.USER_EMAIL}"
+                       id="c10">
+              <af:outputText value="#{row.UserEmail}" id="ot26"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.FIRST_NAME}"
+                       id="c11">
+              <af:outputText value="#{row.UserFirstName}" id="ot24"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.MIDDLE_NAME}"
+                       id="c14">
+              <af:outputText value="#{row.UserMiddleName}" id="ot28"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.LAST_NAME}"
+                       id="c13">
+              <af:outputText value="#{row.UserLastName}" id="ot31"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.PHONE_NO}"
+                       id="c12">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot30">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtUserDisplayForAccMgrRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.PARTNER_ENG}"
+                       id="c7">
+              <af:outputText value="#{row.PartnerId}" id="ot25"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true"
+                       sortable="true" width="125"
+                       headerText="#{sfr.ACCOUNT}" id="c8">
+              <af:outputText value="#{row.AccountId}" id="ot27"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="B2B_MANAGER_CG" id="sdi3" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isCgMgrVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForCgMgrRVO1.collectionModel}"
+                    var="row" width="962px"
+                    rows="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForCgMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
+                    rowBandingInterval="0" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10"
+                    filterModel="#{bindings.PrtUserDisplayForCgMgrRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForCgMgrRVO1Query.processQuery}"
+                    filterVisible="true" varStatus="vs" id="t3">
+            <af:column sortProperty="UserEmail" filterable="true"
+                       sortable="true" width="112"
+                       headerText="#{sfr.USER_EMAIL}"
+                       id="c22">
+              <af:outputText value="#{row.UserEmail}" id="ot32"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.FIRST_NAME}"
+                       id="c17">
+              <af:outputText value="#{row.UserFirstName}" id="ot38"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.MIDDLE_NAME}"
+                       id="c21">
+              <af:outputText value="#{row.UserMiddleName}" id="ot36"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.LAST_NAME}"
+                       id="c23">
+              <af:outputText value="#{row.UserLastName}" id="ot35"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.PHONE_NO }"
+                       id="c20">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot39">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtUserDisplayForCgMgrRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.PARTNER_ENG}"
+                       id="c15">
+              <af:outputText value="#{row.PartnerId}" id="ot40"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.ACCOUNT}"
+                       id="c16">
+              <af:outputText value="#{row.AccountId}" id="ot37"/>
+            </af:column>
+            <af:column sortProperty="CardGroup" filterable="true"
+                       sortable="true" width="110"
+                       headerText="#{sfr.CARDGROUP}"
+                       id="c18">
+              <af:outputText value="#{row.CardGroup}" id="ot33"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+        <af:showDetailItem text="B2B_EMPLOYEE" id="sdi4" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isEmpVisible}">
+          <af:table value="#{bindings.PrtUserDisplayForEmpRVO1.collectionModel}"
+                    var="row" width="962px"
+                    rows="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
+                    emptyText="#{bindings.PrtUserDisplayForEmpRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                    fetchSize="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
+                    rowBandingInterval="0" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10"
+                    filterModel="#{bindings.PrtUserDisplayForEmpRVO1Query.queryDescriptor}"
+                    queryListener="#{bindings.PrtUserDisplayForEmpRVO1Query.processQuery}"
+                    filterVisible="true" varStatus="vs" id="t4">
+            <af:column sortProperty="UserEmail" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.USER_EMAIL}"
+                       id="c25">
+              <af:outputText value="#{row.UserEmail}" id="ot50"/>
+            </af:column>
+            <af:column sortProperty="UserFirstName" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.FIRST_NAME}"
+                       id="c31">
+              <af:outputText value="#{row.UserFirstName}" id="ot49"/>
+            </af:column>
+            <af:column sortProperty="UserMiddleName" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.MIDDLE_NAME}"
+                       id="c33">
+              <af:outputText value="#{row.UserMiddleName}" id="ot51"/>
+            </af:column>
+            <af:column sortProperty="UserLastName" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.LAST_NAME}"
+                       id="c28">
+              <af:outputText value="#{row.UserLastName}" id="ot46"/>
+            </af:column>
+            <af:column sortProperty="UserPhoneNo" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.PHONE_NO}"
+                       id="c30">
+              <af:outputText value="#{row.UserPhoneNo}" id="ot48">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.PrtUserDisplayForEmpRVO1.hints.UserPhoneNo.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="PartnerId" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.PARTNER_ENG}"
+                       id="c26">
+              <af:outputText value="#{row.PartnerId}" id="ot44"/>
+            </af:column>
+            <af:column sortProperty="AccountId" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.ACCOUNT}"
+                       id="c24">
+              <af:outputText value="#{row.AccountId}" id="ot45"/>
+            </af:column>
+            <af:column sortProperty="CardGroup" filterable="true"
+                       sortable="true"
+                       headerText="#{sfr.CARDGROUP}"
+                       id="c27">
+              <af:outputText value="#{row.CardGroup}" id="ot42"/>
+            </af:column>
+            <af:column sortProperty="Card" filterable="true" sortable="true"
+                       headerText="#{sfr.CARD}"
+                       id="c32">
+              <af:outputText value="#{row.Card}" id="ot47"/>
+            </af:column>
+          </af:table>
+        </af:showDetailItem>
+      </af:panelAccordion>
+      <af:spacer id="s62" height="20px" width="10px"/>
     </af:panelGroupLayout>
   </af:panelGroupLayout>
 </jsp:root>
