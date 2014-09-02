@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"  xmlns:h="http://java.sun.com/jsf/html" version="2.1">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"  xmlns:h="http://java.sun.com/jsf/html" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core">
+          
   <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="spacerStyle">
     <af:spacer width="10" height="10" id="s10"/>
     <af:panelGroupLayout id="pgl2" layout="horizontal">
@@ -7,6 +9,10 @@
                      styleClass="heading"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="5" id="s1"/>
+     <af:outputText value="#{sfr.ALERT_NOTE}"  
+                           id="ot59" styleClass="popupoutputText" 
+                           noWrap="true"/>
+    <af:spacer width="10" height="5" id="s53"/>
     <af:panelGroupLayout id="pgl3" layout="horizontal">
       <af:separator id="s2"
                     inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
@@ -16,8 +22,6 @@
     <af:panelGroupLayout id="pgl10">
       <af:spacer width="10" height="10" id="s5"/>
     </af:panelGroupLayout>
-   <!--<af:outputText value="Alert List" id="ot4"
-                     styleClass="heading"/>-->
     <af:panelGroupLayout id="pgl4">
       <af:spacer width="10" height="10" id="s4"/>
     </af:panelGroupLayout>
@@ -29,105 +33,134 @@
           <af:outputText value="#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}" id="ot5"/>
 
           <af:spacer width="10" height="10" id="s3"/>
-          <af:commandButton id="cb3" text="#{sfr.ADD}" actionListener="#{backingBeanScope.AlertsBean.configureBusinessHoursAlert}"/>
+          <af:commandButton id="cb3" text="#{sfr.ADD}" actionListener="#{pageFlowScope.AlertsBean.configureBusinessHoursAlert}"/>
           <af:outputText value="#{sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD}"
                          id="ot6"/>
          
           <af:spacer width="10" height="10" id="s19"/>
           <af:commandButton id="cb2" text="#{sfr.ADD}"
-                            actionListener="#{backingBeanScope.AlertsBean.configureFuelCapacityAlert}"/>
+                            actionListener="#{pageFlowScope.AlertsBean.configureFuelCapacityAlert}"/>
         </h:panelGrid>
         
 <af:popup id="p1" contentDelivery="immediate"
              
              autoCancel="disabled" animate="false"
-          binding="#{backingBeanScope.AlertsBean.alert1Popup}">
+          binding="#{pageFlowScope.AlertsBean.alert1Popup}">
     <af:dialog id="d1" title="#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}"
                
-               shortDesc="#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}" styleClass="textDialogs"
-               contentWidth="450" type="none" inlineStyle="width:550px;"
-               closeIconVisible="false">
+               shortDesc="#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}" styleClass="textDialogs" type="none"
+               closeIconVisible="false" partialTriggers="cb5"
+               binding="#{pageFlowScope.AlertsBean.alert1PopupDialog}">
      <af:panelGroupLayout id="pgl19">
       <af:separator id="s24"
-                    inlineStyle="width: 550px; margin-left: 0px!important;"/>
+                    inlineStyle="width: 320px; margin-left: 0px!important;"/>
      </af:panelGroupLayout>
      <af:panelGroupLayout id="pgl63">
       <af:panelGroupLayout id="pgl60" styleClass="successPanel"
                            layout="horizontal"
                            visible="false"
-                           inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot63" value="Alert Saved successfully"
-                      styleClass="successOutputText" noWrap="true"
-                      rendered="false"/>
+                           binding="#{pageFlowScope.AlertsBean.alertSuccessProperty}"
+                           inlineStyle="width:320.0px;">
+       <af:outputText id="ot63" value="#{sfr.SUCCESS_ALERT}"
+                      styleClass="successOutputText" noWrap="true"/>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl8" styleClass="infoPanel" layout="horizontal"
-                           visible="false"
-                           inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot64" value="Validate input data"
+                           visible="false" inlineStyle="width:320.0px;"
+                           binding="#{pageFlowScope.AlertsBean.alert1ValidData}">
+       <af:outputText id="ot64" value="#{sfr.INVALID_INPUT_ALERT}"
                       styleClass="infoOutputText" noWrap="true"
-                      rendered="false"/>
+                      />
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl61" styleClass="errorPanel"
                            layout="horizontal"
-                           visible="false"
-                           inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot65" value="Alert didn't got saved" noWrap="true"
+                           visible="false" rendered="false">
+       <af:outputText id="ot65" value="#{sfr.FAILURE_ALERT}" noWrap="true"
                       styleClass="errorOutputText" rendered="false"/>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl64" 
-                           layout="horizontal" inlineStyle="width:450.0px;"
+                           layout="horizontal"
                            visible="true">
                               <h:panelGrid columns="3" id="pg2" cellpadding="3" cellspacing="2"
                      width="275">
           <af:outputText value="#{sfr.PARTNER_ENG}" id="ot8"/>
 
           <af:spacer width="10" height="10" id="s7"/>
-              <af:selectManyChoice id="smc45" autoSubmit="true" contentStyle="width: 175px;"
-                                   value="#{backingBeanScope.AlertsBean.partnerValue}">
-        <af:forEach var="listItem"
-                    items="#{backingBeanScope.AlertsBean.partnerList}">
-         <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
-                        id="select_item_account1"/>
-        </af:forEach>
-       </af:selectManyChoice>
+
+        <af:selectOneChoice id="soc1" contentStyle="width: 175px;" unselectedLabel="#{sfr.PLEASE_SELECT}" binding="#{pageFlowScope.AlertsBean.alert1PartnerValues}">
+         <f:selectItems value="#{pageFlowScope.AlertsBean.partnerAlert1List}"
+                        id="si7"/>
+        </af:selectOneChoice>
        </h:panelGrid>
       </af:panelGroupLayout>
      </af:panelGroupLayout>
      <af:spacer height="10" id="s13"/>
+     
+     <af:outputText value="#{sfr.BUSINESS_HOURS_ALERT_NOTE}"  
+                           id="ot30" styleClass="popupoutputText" 
+                           noWrap="true"/>
+        <af:spacer height="10" id="s50"/>
+                           
      <af:panelGroupLayout id="pgl28" layout="vertical">
       <af:spacer height="10" id="s39"/>
 <af:table summary="Alert table"  var="row" rowBandingInterval="1" id="t1" emptyText="#{sfr.NO_DATA}"
 fetchSize="-1" columnResizing="disabled" disableColumnReordering="true"
-autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.fueltimings}"
-          width="400">
+autoHeightRows="10" rowSelection="single" value="#{pageFlowScope.AlertsBean.fueltimings}"
+          binding="#{pageFlowScope.AlertsBean.alert1Table}">
                   <af:column sortable="false" id="c13"  align="center" headerText="#{sfr.BUSINESS_DAYS}">
      <af:outputText value="#{row.weekday}" id="ot2"/>
                   </af:column>
-                  <af:column sortable="false" id="c1"  align="center" headerText="#{sfr.ENGAGE_FROM}">
+                  <af:column sortable="false" id="c1"  align="center" headerText="#{sfr.ENGAGE_FROM}"
+                             styleClass="alertPopup1">
      
-        <af:inputText id="it1" value="#{row.from}" readOnly="true"
-                      binding="#{backingBeanScope.AlertsBean.fromTimings}"/>
+       <af:panelGroupLayout id="pgl30" layout="horizontal">
+   <af:inputText id="it1" value="#{row.fromHh}" readOnly="true"
+                      binding="#{pageFlowScope.AlertsBean.fromTimingsHh}"
+                 maximumLength="2"/>
+        <af:outputText value=":" id="ot27"/>
+        <af:inputText id="it4" value="#{row.fromMm}" readOnly="true"
+                      binding="#{pageFlowScope.AlertsBean.fromTimingsMm}"
+                      maximumLength="2"/>
+</af:panelGroupLayout>
        </af:column>
-                   <af:column sortable="false" id="c2"  align="center" headerText="#{sfr.ENGAGE_TO}">
+                   <af:column sortable="false" id="c2"  align="center" headerText="#{sfr.ENGAGE_TO}" styleClass="alertPopup1">
      
-       <af:inputText id="it2" value="#{row.to}" readOnly="true"
-                     binding="#{backingBeanScope.AlertsBean.toTimings}"/>
+       <af:panelGroupLayout id="pgl35" layout="horizontal">
+  <af:inputText id="it2" value="#{row.toHh}" readOnly="true"
+                     binding="#{pageFlowScope.AlertsBean.toTimingsHh}"
+                maximumLength="2"/>
+       <af:outputText value=":" id="ot28"/> 
+       <af:inputText id="it5" value="#{row.toMm}" readOnly="true"
+                     binding="#{pageFlowScope.AlertsBean.toTimingsMm}"
+                     maximumLength="2"/>
+</af:panelGroupLayout>
+       
                   </af:column>
                   
 
                 </af:table>
       <af:spacer width="10" height="2" id="s6"/>
      </af:panelGroupLayout>
-     <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right"
-                          styleClass="AFStretchWidth">
+     <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right">
        <af:commandButton text="#{sfr.EDIT}" id="cb1"
-                        actionListener="#{backingBeanScope.AlertsBean.editAlert1Timings}"/>
+                        actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"
+                         binding="#{pageFlowScope.AlertsBean.editButtonAlert1}"/>
                          <af:spacer width="20" id="s61"/>
       <af:commandButton text="#{sfr.OK}" id="cb5"
-                        />
+                        actionListener="#{pageFlowScope.AlertsBean.setBusinessHoursAlert}"
+                        partialSubmit="true"
+                        binding="#{pageFlowScope.AlertsBean.okButtonAlert1}">
+                         <af:clientListener method="enforcePreventUserInput"
+                                 type="action"/>
+                        </af:commandButton>
       <af:spacer width="20" id="s9"/>
       <af:commandButton text="#{sfr.CANCEL}" id="cb4"
-                        actionListener="#{backingBeanScope.AlertsBean.claoseAlert1Popup}"/>
+                        actionListener="#{pageFlowScope.AlertsBean.claoseAlert1Popup}"
+                        binding="#{pageFlowScope.AlertsBean.cancelButtonAlert1}"/>
+                        
+                        
+                         <af:commandButton text="Close" id="cb10" 
+                        rendered="false" binding="#{pageFlowScope.AlertsBean.closeButtonAlert1}"
+                                           actionListener="#{pageFlowScope.AlertsBean.closeAlert1Popup}"/>
       <af:spacer width="20" height="20" id="s60"
                  inlineStyle="margin-top: 13px;"/>
      </af:panelGroupLayout>
@@ -137,7 +170,7 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
    <af:popup id="p2" contentDelivery="immediate"
              
              autoCancel="disabled" animate="false"
-          binding="#{backingBeanScope.AlertsBean.alert2Popup}">
+          binding="#{pageFlowScope.AlertsBean.alert2Popup}">
     <af:dialog id="d2" title="#{sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD}"
                
                shortDesc="#{sfr.FUELING_OVER_CERTAIN_QUANTITY_IN_GIVEN_PERIOD}" styleClass="textDialogs"
@@ -147,27 +180,33 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
       <af:separator id="s11"
                     inlineStyle="width: 610px; margin-left: 0px!important;"/>
      </af:panelGroupLayout>
+     <af:spacer height="5" id="s51"/>
+          <af:outputText value="#{sfr.FUEL_CAPACITY_ALERT_NOTE}"  
+                           id="ot29" styleClass="popupoutputText" 
+                           noWrap="true"/>
+     <af:spacer height="5" id="s52"/>
      <af:panelGroupLayout id="pgl6">
       <af:panelGroupLayout id="pgl7" styleClass="successPanel"
                            layout="horizontal"
-                           visible="false"
-                           inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot3" value="Alert Saved successfully"
+                           inlineStyle="width:610.0px;" rendered="false"
+                           binding="#{pageFlowScope.AlertsBean.successAlert2}">
+       <af:outputText id="ot3" value="#{sfr.SUCCESS_ALERT}"
                       styleClass="successOutputText" noWrap="true"
-                      rendered="false"/>
+                      />
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl9" styleClass="infoPanel" layout="horizontal"
                            visible="false"
-                           inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot7" value="Validate input data"
-                      styleClass="infoOutputText" noWrap="true"
-                      rendered="false"/>
+                           inlineStyle="width:610.0px;"
+                           binding="#{pageFlowScope.AlertsBean.alert2ValidData}">
+       <af:outputText id="ot7" value="#{sfr.INVALID_INPUT_ALERT}"
+                      styleClass="infoOutputText" noWrap="true" 
+                      />
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl11" styleClass="errorPanel"
                            layout="horizontal"
                            visible="false"
                            inlineStyle="width:325.0px;" rendered="false">
-       <af:outputText id="ot9" value="Alert didn't got saved" noWrap="true"
+       <af:outputText id="ot9" value="#{sfr.FAILURE_ALERT}" noWrap="true"
                       styleClass="errorOutputText" rendered="false"/>
       </af:panelGroupLayout>
       <af:panelGroupLayout id="pgl15" layout="horizontal">
@@ -177,49 +216,52 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
                      width="275">
          <af:outputText value="#{sfr.PARTNER_ENG}" id="ot10"/>
          <af:spacer width="10" height="10" id="s12"/>
-         <af:selectManyChoice id="smc1" autoSubmit="true"
-                              contentStyle="width: 175px;"
-                              value="#{backingBeanScope.AlertsBean.partnerValue}">
-          <af:forEach var="listItem"
-                      items="#{backingBeanScope.AlertsBean.partnerList}">
-           <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+         
+         <af:selectManyChoice id="smc1"
+                             contentStyle="width: 175px;"
+                              autoSubmit="true"
+                              valueChangeListener="#{pageFlowScope.AlertsBean.partnerValueChangeListener}"
+                              value="#{pageFlowScope.AlertsBean.partnerIdValue}"
+                              binding="#{pageFlowScope.AlertsBean.partnerDropdownAlert2}">
+          
+           <f:selectItems value="#{pageFlowScope.AlertsBean.partnerIdList}"
                           id="si1"/>
-          </af:forEach>
+         
          </af:selectManyChoice>
+        
          <af:outputText value="#{sfr.ACCOUNT}" id="ot11"/>
          <af:spacer width="10" height="10" id="s14"/>
          <af:selectManyChoice id="smc4" autoSubmit="true"
                               
                               contentStyle="width: 175px;"
-                              value="#{backingBeanScope.AlertsBean.accountValue}">
-          <af:forEach var="listItem"
-                      items="#{backingBeanScope.AlertsBean.accountList}">
-           <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
-                          id="select_item_account"/>
-          </af:forEach>
+                              value="#{pageFlowScope.AlertsBean.accountIdValue}"
+                              valueChangeListener="#{pageFlowScope.AlertsBean.accountValueChangeListener}"
+                              binding="#{pageFlowScope.AlertsBean.accountDropdwonAlert2}"
+                              partialTriggers="smc1">
+                              
+          <f:selectItems value="#{pageFlowScope.AlertsBean.accountIdList}"
+                          id="si4"/>
          </af:selectManyChoice>
          <af:outputText value="#{sfr.CARDGROUP}" id="ot13"/>
          <af:spacer width="10" height="10" id="s25"/>
          <af:selectManyChoice id="smc3" contentStyle="width: 175px;"
-                              value="#{backingBeanScope.AlertsBean.cardGroupValue}">
-          <af:forEach var="listItem"
-                      items="#{backingBeanScope.AlertsBean.cardGroupList}">
-           <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                              value="#{pageFlowScope.AlertsBean.cardGroupValue}"
+                              binding="#{pageFlowScope.AlertsBean.cardGroupDowndownAlert2}"
+                              valueChangeListener="#{pageFlowScope.AlertsBean.cardgroupValueChangeListener}"
+                              partialTriggers="smc1 smc4" autoSubmit="true">
+                              
+          <f:selectItems value="#{pageFlowScope.AlertsBean.cardGroupList}"
                           id="si2"/>
-          </af:forEach>
          </af:selectManyChoice>
          <af:outputText value="#{sfr.CARD}" id="ot12"/>
          <af:spacer width="10" height="10" id="s16"/>
-         <af:selectManyChoice id="soc3"
-                              
-                              contentStyle="width: 175px;"
-                              value="#{backingBeanScope.AlertsBean.cardValue}">
-          <af:forEach 
-                      var="listItem"
-                      items="#{backingBeanScope.AlertsBean.cardList}">
-           <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+         <af:selectManyChoice id="soc3" contentStyle="width: 175px;"
+                              value="#{pageFlowScope.AlertsBean.cardNumberValue}"
+                              binding="#{pageFlowScope.AlertsBean.cardDropdownAlert2}"
+                              partialTriggers="smc1 smc4 smc3"
+                              autoSubmit="true">
+          <f:selectItems value="#{pageFlowScope.AlertsBean.cardNumberList}"
                           id="si3"/>
-          </af:forEach>
          </af:selectManyChoice>
         </h:panelGrid>
        </af:panelGroupLayout>
@@ -227,20 +269,30 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
                    inlineStyle="height: 150px !important;"/>
        <af:panelGroupLayout id="pgl16" layout="vertical">
        <af:panelGroupLayout layout="horizontal" id="pgl17">
-         <af:selectBooleanRadio id="sbr1"  autoSubmit="true"/>
-         <af:outputText id="ot4" value="Ltr/day"/>
-         <af:selectBooleanRadio id="sbr2"  autoSubmit="true"/>
-         <af:outputText id="ot25" value="Ltr/week"/>
-         <af:selectBooleanRadio  id="sbr3"  autoSubmit="true"/>
-         <af:outputText id="ot26" value="Ltr/month"/>
+         <af:selectBooleanRadio id="sbr1"  autoSubmit="true" group="g1"
+                                selected="true"
+                                binding="#{pageFlowScope.AlertsBean.ltrPerDayRadio}"
+                                />
+         <af:outputText id="ot4" value="#{sfr.LTR_DAY}"/>
+         <af:selectBooleanRadio id="sbr2"  autoSubmit="true" group="g1"
+                                binding="#{pageFlowScope.AlertsBean.ltrPerWeekRadio}"
+                                />
+         <af:outputText id="ot25" value="#{sfr.LTR_WEEK}"/>
+         <af:selectBooleanRadio  id="sbr3"  autoSubmit="true" group="g1"
+                                binding="#{pageFlowScope.AlertsBean.ltrPerMonthRadio}"
+                                />
+         <af:outputText id="ot26" value="#{sfr.LTR_MONTH}"/>
        </af:panelGroupLayout>
         <af:spacer width="10" height="10" id="s48"/>
         <af:panelGroupLayout layout="horizontal" id="pgl20">
          <af:outputText value="#{sfr.PLEASE_ENTER_QUANTITY}  :  " id="ot14"/>
          <af:inputText id="it3" 
-                       contentStyle="width:45.0px;"/>
+                       contentStyle="width:45.0px;"
+                       
+                       binding="#{pageFlowScope.AlertsBean.fuelCapacityAlert2}"
+                       />
                        <af:spacer width="10" id="s49"/>
-         <af:outputText value=" ltr" id="ot15"/>
+         <af:outputText value=" #{sfr.LTRS}" id="ot15"/>
         </af:panelGroupLayout>
        </af:panelGroupLayout>
       </af:panelGroupLayout>
@@ -254,12 +306,25 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
      <af:panelGroupLayout id="pgl14" layout="horizontal" halign="right"
                           styleClass="AFStretchWidth">
        <!--<af:commandButton text="#{sfr.EDIT}" id="cb1"
-                        actionListener="#{backingBeanScope.AlertsBean.editAlert1Timings}"/>-->
+                        actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"/>-->
                          <af:spacer width="20" id="s21"/>
-      <af:commandButton text="#{sfr.OK}" id="cb6"/>
+      <af:commandButton text="#{sfr.OK}" id="cb6" 
+                        actionListener="#{pageFlowScope.AlertsBean.setFuelCapacityAlert}"
+                        binding="#{pageFlowScope.AlertsBean.okButtonAlert2}">
+       <af:clientListener method="enforcePreventUserInput"
+                                 type="action"/>
+      
+      </af:commandButton>
+
       <af:spacer width="20" id="s22"/>
       <af:commandButton text="#{sfr.CANCEL}" id="cb7"
-                        actionListener="#{backingBeanScope.AlertsBean.claoseAlert1Popup}"/>
+                        actionListener="#{pageFlowScope.AlertsBean.claoseAlert1Popup}"
+                        binding="#{pageFlowScope.AlertsBean.cancelButtonAlert2}"/>
+        <af:commandButton text="Close" id="cb11"
+                        
+                       actionListener="#{pageFlowScope.AlertsBean.claoseAlert1Popup}"
+                          binding="#{pageFlowScope.AlertsBean.closeButtonAlert2}"
+                          rendered="false"/>
       <af:spacer width="20" height="20" id="s23"
                  inlineStyle="margin-top: 13px;"/>
      </af:panelGroupLayout>
@@ -294,7 +359,7 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
             <af:panelGroupLayout id="pgl25"
                                  inlineStyle="height:auto; text-align:justify; width:4.0px;"
                                  layout="vertical">
-              <af:outputText value="*" id="col"/>
+              <!--<af:outputText value="*" id="col"/>-->
               <af:spacer width="20" height="15" id="s34"/>
               <af:outputText value=" " id="ot17"/>
               <af:spacer width="20" height="25" id="s35"/>
@@ -316,35 +381,35 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
             <af:panelGroupLayout id="pgl26"
                                  inlineStyle="height:auto; text-align:justify; width:200.0px;"
                                  layout="vertical">
-              <af:selectManyChoice id="smc5" showRequired="false"
+              <!--<af:selectManyChoice id="smc5" showRequired="false"
                                    contentStyle="width: 175px;"
                                    
                                    autoSubmit="true" partialTriggers="cb3"
                                   
                                    
-                                   value="#{backingBeanScope.AlertsBean.partnerValue}">
+                                   value="#{pageFlowScope.AlertsBean.partnerValue}">
                 <af:forEach var="listItem"
-                            items="#{backingBeanScope.AlertsBean.partnerList}">
+                            items="#{pageFlowScope.AlertsBean.partnerList}">
                   <af:selectItem label="#{listItem.label}"
                                  value="#{listItem.value}"
                                  id="si4"/>
                 </af:forEach>
-              </af:selectManyChoice>
+              </af:selectManyChoice>-->
               <af:spacer width="20" height="17" id="s41"/>
-              <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
+              <!--<af:selectManyChoice id="smc2" contentStyle="width: 175px;"
                                    
                                    partialTriggers="soc3 cb3"
                                    
                                    autoSubmit="true"
                                    
-                                   value="#{backingBeanScope.AlertsBean.accountValue}">
+                                   value="#{pageFlowScope.AlertsBean.accountValue}">
                 <af:forEach 
                             var="listItem"
-                            items="#{backingBeanScope.AlertsBean.accountList}">
+                            items="#{pageFlowScope.AlertsBean.accountList}">
                   <af:selectItem id="si5" value="#{listItem.value}"
                                  label="#{listItem.label}"></af:selectItem>
                 </af:forEach>
-              </af:selectManyChoice>
+              </af:selectManyChoice>-->
             </af:panelGroupLayout>
           </h:panelGrid>
         </af:panelGroupLayout>
@@ -379,35 +444,35 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
             <af:panelGroupLayout id="pgl33"
                                  inlineStyle="height:60px; text-align:justify; width:200.0px;"
                                  layout="vertical">
-              <af:selectManyChoice id="smc7" contentStyle="width:175px;"
+              <!--<af:selectManyChoice id="smc7" contentStyle="width:175px;"
                                    
                                    partialTriggers="soc3 smc2 cb3"
                                    
                                    
                                    autoSubmit="true"
-                                   value="#{backingBeanScope.AlertsBean.cardGroupValue}">
+                                   value="#{pageFlowScope.AlertsBean.cardGroupValue}">
                 <af:forEach 
                             var="listItem"
-                            items="#{backingBeanScope.AlertsBean.cardGroupList}">
+                            items="#{pageFlowScope.AlertsBean.cardGroupList}">
                   <af:selectItem id="si6" value="#{listItem.value}"
                                  label="#{listItem.label}"></af:selectItem>
                 </af:forEach>
-              </af:selectManyChoice>
+              </af:selectManyChoice>-->
               <af:spacer width="20" height="13" id="s43"/>
-              <af:selectManyChoice id="smc8" contentStyle="width: 175px;"
+              <!--<af:selectManyChoice id="smc8" contentStyle="width: 175px;"
                                    
                                    
                                     autoSubmit="true"
                                    
-                                   value="#{backingBeanScope.AlertsBean.cardValue}">
+                                   value="#{pageFlowScope.AlertsBean.cardValue}">
                 <af:forEach 
                             var="listItem"
-                            items="#{backingBeanScope.AlertsBean.cardList}">
+                            items="#{pageFlowScope.AlertsBean.cardList}">
                   <af:selectItem value="#{listItem.value}"
                                  label="#{listItem.label}"
                                  id="select_item_type"/>
                 </af:forEach>
-              </af:selectManyChoice>
+              </af:selectManyChoice>-->
             </af:panelGroupLayout>
           </h:panelGrid>
           <af:spacer width="10" height="30" id="s46"/>
@@ -420,6 +485,7 @@ autoHeightRows="10" rowSelection="single" value="#{backingBeanScope.AlertsBean.f
             <af:spacer width="24" height="10" id="s33"/>
           </af:panelGroupLayout>
         </af:panelGroupLayout>
-      </af:panelGroupLayout>                  
-                         </af:panelGroupLayout>
+      </af:panelGroupLayout>
+  
+ </af:panelGroupLayout>
 </jsp:root>

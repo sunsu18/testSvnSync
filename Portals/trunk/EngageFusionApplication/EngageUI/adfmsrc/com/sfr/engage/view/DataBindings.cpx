@@ -79,6 +79,7 @@
   </pageDefinitionUsages>
 
   <dataControlUsages>
+    <dc id="Alerts" path="com.sfr.engage.model.Alerts"/>
     <dc id="PartnerInfoListClient"
         path="com.sfr.engage.model.PartnerInfoListClient"/>
     <dc id="UserClient" path="com.sfr.engage.model.UserClient"/>

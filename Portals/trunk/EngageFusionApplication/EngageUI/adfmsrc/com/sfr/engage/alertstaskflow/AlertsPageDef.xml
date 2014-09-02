@@ -5,6 +5,82 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
+    <iterator Binds="PrtCardRuleSubscriptionVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardRuleSubscriptionVO1Iterator"/>
+    <iterator Binds="PrtCardRuleBusinessHoursVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardRuleBusinessHoursVO1Iterator"/>
+    <iterator Binds="PrtCardFuelCapacityVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardFuelCapacityVO1Iterator"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <methodAction id="subscribeAlerts" InstanceName="Alerts.dataProvider"
+                  DataControl="Alerts" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="subscribeAlerts"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.Alerts.methodResults.subscribeAlerts_Alerts_dataProvider_subscribeAlerts_result">
+      <NamedData NDName="subscribeRequest"
+                 NDType="com.sfr.engage.core.AlertsSubscribeRequest"/>
+    </methodAction>
+    <tree IterBinding="PrtCardRuleSubscriptionVO1Iterator"
+          id="PrtCardRuleSubscriptionVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"
+                      Name="PrtCardRuleSubscriptionVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="UserId"/>
+          <Item Value="SubscrId"/>
+          <Item Value="RuleId"/>
+          <Item Value="SubscrDate"/>
+          <Item Value="SubscrStatus"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMain"/>
+          <Item Value="CardgroupSub"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="CardKsid"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardRuleBusinessHoursVO1Iterator"
+          id="PrtCardRuleBusinessHoursVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO"
+                      Name="PrtCardRuleBusinessHoursVO10">
+        <AttrNames>
+          <Item Value="RuleBusiId"/>
+          <Item Value="CountryCode"/>
+          <Item Value="SubscrId"/>
+          <Item Value="RuleId"/>
+          <Item Value="Day"/>
+          <Item Value="BusiStartFrom"/>
+          <Item Value="BusiStartTo"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrtCardFuelCapacityVO1Iterator"
+          id="PrtCardFuelCapacityVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO"
+                      Name="PrtCardFuelCapacityVO10">
+        <AttrNames>
+          <Item Value="CountryCode"/>
+          <Item Value="SubscrId"/>
+          <Item Value="RuleId"/>
+          <Item Value="FuelPerDay"/>
+          <Item Value="FuelPerWeek"/>
+          <Item Value="FuelPerMonth"/>
+          <Item Value="ModifiedBy"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="RuleFuelCapId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" DataControl="EngageAppModuleDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+  </bindings>
 </pageDefinition>
