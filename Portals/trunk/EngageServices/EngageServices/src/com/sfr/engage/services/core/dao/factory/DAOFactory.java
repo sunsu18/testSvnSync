@@ -1,13 +1,18 @@
 package com.sfr.engage.services.core.dao.factory;
 
 
+import com.sfr.engage.services.client.alerts.SubscriberRegistration;
+import com.sfr.engage.services.client.alerts.type.SubscribeResponseType;
 import com.sfr.engage.services.client.ucm.UCMCustomWeb;
+import com.sfr.services.client.proxy.user.OIMUserManagermentImpl;
 import com.sfr.services.core.dao.factory.WebServiceProxy;
 import com.sfr.util.AccessDataControl;
 import com.sfr.util.ConfigurationUtility;
 import com.sfr.util.constants.Constants;
 
 import java.io.Serializable;
+
+import java.net.MalformedURLException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -137,5 +142,29 @@ public class DAOFactory implements Serializable {
             }
         }
         return connection;
+    }
+    
+  
+    
+    public SubscriberRegistration setAlerts() {
+        String wsdlUrl = new com.sfr.services.core.dao.factory.DAOFactory().getPropertyValue(Constants.ENGAGE_SUBSCRIBE_ALERT);
+        String targetNamespace = "http://xmlns.oracle.com/SubscriberRegistrationApp/SubscriberRegistration/SubscriberRegistration";
+        String serviceName = "subscriberregistration_client_ep";
+       String portName = "SubscriberRegistration_pt";
+
+        SubscriberRegistration subscriberRegistration = null;
+        Class<SubscriberRegistration> serviceEndPoint = SubscriberRegistration.class;
+        try {
+            WebServiceProxy client =
+                new WebServiceProxy(wsdlUrl, serviceName, targetNamespace);
+
+            subscriberRegistration = client.getServicePort(portName, serviceEndPoint);
+    
+    
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return subscriberRegistration;
     }
 }
