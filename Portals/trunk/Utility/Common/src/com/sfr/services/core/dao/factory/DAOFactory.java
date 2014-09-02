@@ -363,7 +363,7 @@ public class DAOFactory {
             // Give JNDI name under lookup.
             System.out.println("value of JNDI===========>"+getPropertyValue("JNDI_NAME"));
             datasource =
-                    (DataSource)objinitialContext.lookup("jdbc/wcpcustom");
+                    (DataSource)objinitialContext.lookup(getPropertyValue("JNDI_NAME").toString());
 
             if (datasource != null) {
                 connection = datasource.getConnection();
