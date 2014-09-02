@@ -3,8 +3,10 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:pe="http://xmlns.oracle.com/adf/pageeditor"
           xmlns:cust="http://xmlns.oracle.com/adf/faces/customizable">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+ 
   <f:view locale="#{SkinHelper.locale}">
     <af:document id="d1" title="#{sfr.ALERTS}">
+     <af:resource type="javascript" source="/js/modalPopup.js"/>
       <af:form id="f1">
         <af:pageTemplate value="#{bindings.pageTemplateBinding.templateModel}" id="pt1">
           <f:facet name="content">

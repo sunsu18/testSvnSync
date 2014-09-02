@@ -173,15 +173,6 @@
                 <attribute value="#{MenuVisibleHelperBean.menuChangePassword}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{MenuVisibleHelperBean.visibleSelectAssociation}"
-                 url="page://oracle/webcenter/portalapp/engagepages/setup/selectAssociation.jspx"
-                 factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
-                 id="selectAssociation">
-              <attributes>
-                <attribute attributeId="Title" isKey="false"
-                           value="#{MenuVisibleHelperBean.selectAssociation}"/>
-              </attributes>
-            </url>
             <url visible="#{false}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="webprofile"
@@ -290,6 +281,14 @@
          factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory" id="login">
       <attributes>
         <attribute isKey="false" attributeId="Title" value="login"/>
+      </attributes>
+    </url>
+    <url visible="#{MenuVisibleHelperBean.visibleSelectAssociation}"
+         url="page://oracle/webcenter/portalapp/engagepages/setup/selectAssociation.jspx"
+         id="selectAssociation"
+         factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory">
+      <attributes>
+        <attribute value="#{MenuVisibleHelperBean.selectAssociation}" attributeId="Title" isKey="false"/>
       </attributes>
     </url>
   </contents>

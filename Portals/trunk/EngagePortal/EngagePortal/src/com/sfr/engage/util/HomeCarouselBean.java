@@ -48,9 +48,13 @@ public class HomeCarouselBean {
     String cardDesc2;
     String card1LearnMore;
     String card2LearnMore;
-    ResourceBundle resourceBundle;
-    AccessDataControl accessDC = new AccessDataControl();
-    public static final ADFLogger log = AccessDataControl.getSFRLogger();
+     ResourceBundle resourceBundle = new EngageResourceBundle();
+     AccessDataControl accessDC = new AccessDataControl();
+     static final ADFLogger log = AccessDataControl.getSFRLogger();
+     ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+     HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
+     HttpSession session = request.getSession(false); 
+    
     
 
     String wsPortalCatalogLink = "";
@@ -59,13 +63,6 @@ public class HomeCarouselBean {
      * Default Constructor : initialized UI components
      */
     public HomeCarouselBean() {
-        getCard1();
-        getCard2();
-        resourceBundle = new EngageResourceBundle();
-        getcardName1();
-        getcardName2();
-        getcardDesc1();
-        getcardDesc2();
 
     }
 
@@ -112,9 +109,6 @@ public class HomeCarouselBean {
      * @return
      */
     public RichSpacer getTestSpacer() {
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false); 
 
         if(session!=null)
         { wsPortalCatalogLink = "https://shop.statoilfuelretail.com/WsPortal/faces/sfr/productCatalog?lang="+ session.getAttribute("lang")+"&profile="+session.getAttribute("profile");}
@@ -181,9 +175,7 @@ public class HomeCarouselBean {
      * @return
      */
     public String getCard1() {
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+        
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
 
@@ -228,9 +220,7 @@ public class HomeCarouselBean {
      */
     public String getCard2() {
 
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false); 
+        
         lang = (String)session.getAttribute("lang");
         profile = (String)session.getAttribute("profile");
 
@@ -434,9 +424,7 @@ public class HomeCarouselBean {
 
     public void goProductCatalog(ActionEvent actionEvent) {
     
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest)ectx.getRequest();
-        HttpSession session = request.getSession(false);
+        
 
 
         try {
@@ -459,12 +447,10 @@ public class HomeCarouselBean {
     }
 
     public String redirectToSelectAssociate() {
-        HttpSession session =
-            ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-        ExternalContext ectx =
-            FacesContext.getCurrentInstance().getExternalContext();
+       
+       
         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
-                             "/faces/card/setup/selectAssociation");
+                             "/faces/selectAssociation");
         log.info(AccessDataControl.getDisplayRecord() + this.getClass() + " redirect to select association");
         String requestedPage =
             (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
@@ -475,5 +461,45 @@ public class HomeCarouselBean {
             log.severe(AccessDataControl.getDisplayRecord() + this.getClass() + " cannot redirect to select association page");
         }
         return null;
+    }
+
+    public void setEctx(ExternalContext ectx) {
+        this.ectx = ectx;
+    }
+
+    public ExternalContext getEctx() {
+        return ectx;
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setResourceBundle(ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
+    }
+
+    public ResourceBundle getResourceBundle() {
+        return resourceBundle;
+    }
+
+    public void setAccessDC(AccessDataControl accessDC) {
+        this.accessDC = accessDC;
+    }
+
+    public AccessDataControl getAccessDC() {
+        return accessDC;
     }
 }

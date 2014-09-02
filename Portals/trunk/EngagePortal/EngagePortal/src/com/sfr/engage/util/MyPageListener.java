@@ -249,7 +249,7 @@ public class MyPageListener implements PagePhaseListener {
                                              "true");
                         session.setAttribute("CSR", true);
                         session.setAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID,
-                                             "/faces/card/setup/selectAssociation");
+                                             "/faces/selectAssociation");
                         log.info("redirect to select association");
                         String requestedPage =
                             (String)session.getAttribute(Constants.SESSION_PRIMARY_REQUEST_PAGE_ID);
@@ -2133,18 +2133,6 @@ new CardInfo();
                                 cardgrp.setTempBlockCardList(tempBlockCardList);
                                 cardgrp.setActiveCardList(activeCardList);
 
-                                log.info("tempBlockAndActiveCardList size " +
-                                         unblockedcardlist.size());
-                                log.info("perBlockAndActiveCardList size " +
-                                         perBlockAndActiveCardList.size());
-                                log.info("perBlockAndTempBlockCardList size " +
-                                         perBlockAndTempBlockCardList.size());
-                                log.info("perBlockCardList size " +
-                                         perBlockCardList.size());
-                                log.info("tempBlockCardList size " +
-                                         tempBlockCardList.size());
-                                log.info("activeCardList size " +
-                                         activeCardList.size());
 
                                 cardgrouplist.add(cardgrp);
                             }
@@ -2190,6 +2178,9 @@ new CardInfo();
             PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)cardVO.next();
             if (currRowcard != null) {
 
+                if(currRowcard.getCardEmbossNum().toString()!=null) {
+                    log.info("card no " + currRowcard.getCardEmbossNum().toString());
+                }
                 if (currRowcard.getPrtCardPk() != null) {
 
 
@@ -2214,7 +2205,9 @@ new CardInfo();
                 }
 
                 if (currRowcard.getBlockAction() != null)
-                { card.setBlockAction(currRowcard.getBlockAction().toString());}
+                { 
+                    card.setBlockAction(currRowcard.getBlockAction().toString());
+                }
 
                 if (currRowcard.getBlockAction() != null &&
                     currRowcard.getBlockAction().equalsIgnoreCase("1") ||
@@ -2223,6 +2216,9 @@ new CardInfo();
                     currRowcard.getCardExpiry().before(new Date())) {
 
                     card.setBlockAction("2");
+                    
+                    log.info("manually setting card no " + currRowcard.getCardEmbossNum().toString());
+                    
 
 
                 }
@@ -2237,9 +2233,10 @@ new CardInfo();
                 addflagcard = false;
 
 
-                if (currRowcard.getCardExpiry() == null ||
-                           currRowcard.getCardExpiry().after(new Date()) && (card.getBlockAction()!="2" || !currRowcard.getBlockAction().equalsIgnoreCase("2"))) {
+                if (currRowcard.getCardExpiry() == null || currRowcard.getCardExpiry().after(new Date()) && !card.getBlockAction().equalsIgnoreCase("2")) {
+                    
                     unblockedcardlist.add(card);
+                  
                 }
 
                 if (currRowcard.getBlockAction() != null &&
@@ -2248,15 +2245,18 @@ new CardInfo();
                         if (currRowcard.getCardExpiry().after(new Date()))
                         {
                         activeCardList.add(card);
+                           
                         }
                         else 
                         {
                         perBlockCardList.add(card);
                         perBlockAndTempBlockCardList.add(card);
+                            
                         }
 
 
                     perBlockAndActiveCardList.add(card);
+                   
                 } else if (currRowcard.getBlockAction() != null &&
                            currRowcard.getBlockAction().equalsIgnoreCase("1")) 
                             {
@@ -2264,18 +2264,24 @@ new CardInfo();
                                 if (currRowcard.getCardExpiry().after(new Date()))
                                 { 
                                 tempBlockCardList.add(card); 
+                                   
                                 }
                                 else {
                                         perBlockCardList.add(card);
                                         perBlockAndActiveCardList.add(card);
+                                       
                                     }
 
                     perBlockAndTempBlockCardList.add(card);
+                   
+                    
                 } else if (currRowcard.getBlockAction() != null &&
                            currRowcard.getBlockAction().equalsIgnoreCase("2")) {
                     perBlockCardList.add(card);
                     perBlockAndActiveCardList.add(card);
                     perBlockAndTempBlockCardList.add(card);
+                    
+                
                 }
 
 
@@ -2283,6 +2289,7 @@ new CardInfo();
             if (!addflagcard)
             {
                 cardlist.add(card);
+                
             }
         }
 
@@ -2431,8 +2438,9 @@ new CardInfo();
         List<String> idString = new ArrayList<String>();
 
         rr.setRoleName(role);
-        idString.add("NOPP26773218");
-        idString.add("DKPP26773219");
+        idString.add("DKPP26773218");
+        idString.add("NOPP04978201");
+//        idString.add("SEPP04377487");
         rr.setIdString(idString);
         listrole.add(rr);
 
