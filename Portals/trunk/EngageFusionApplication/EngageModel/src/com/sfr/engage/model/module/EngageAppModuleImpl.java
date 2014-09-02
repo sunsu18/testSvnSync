@@ -46,6 +46,7 @@ import oracle.jbo.domain.Date;
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.adf.share.logging.ADFLogger;
 
+import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 
 
@@ -633,5 +634,61 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
      */
     public ViewObjectImpl getPrtUserDisplayForEmpRVO1() {
         return (ViewObjectImpl)findViewObject("PrtUserDisplayForEmpRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardFuelCapacityVO1.
+     * @return PrtCardFuelCapacityVO1
+     */
+    public ViewObjectImpl getPrtCardFuelCapacityVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardFuelCapacityVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleBusinessHoursVO1.
+     * @return PrtCardRuleBusinessHoursVO1
+     */
+    public ViewObjectImpl getPrtCardRuleBusinessHoursVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleBusinessHoursVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleSubscriptionVO1.
+     * @return PrtCardRuleSubscriptionVO1
+     */
+    public ViewObjectImpl getPrtCardRuleSubscriptionVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleSubscriptionVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleBusinessHoursVO2.
+     * @return PrtCardRuleBusinessHoursVO2
+     */
+    public ViewObjectImpl getPrtCardRuleBusinessHoursVO2() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleBusinessHoursVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardFuelCapacityVO2.
+     * @return PrtCardFuelCapacityVO2
+     */
+    public ViewObjectImpl getPrtCardFuelCapacityVO2() {
+        return (ViewObjectImpl)findViewObject("PrtCardFuelCapacityVO2");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleBusinessHoFk1Link1.
+     * @return PrtCardRuleBusinessHoFk1Link1
+     */
+    public ViewLinkImpl getPrtCardRuleBusinessHoFk1Link1() {
+        return (ViewLinkImpl)findViewLink("PrtCardRuleBusinessHoFk1Link1");
+    }
+
+    /**
+     * Container's getter for PrtCardFuelCapacityPrFk1Link1.
+     * @return PrtCardFuelCapacityPrFk1Link1
+     */
+    public ViewLinkImpl getPrtCardFuelCapacityPrFk1Link1() {
+        return (ViewLinkImpl)findViewLink("PrtCardFuelCapacityPrFk1Link1");
     }
 }

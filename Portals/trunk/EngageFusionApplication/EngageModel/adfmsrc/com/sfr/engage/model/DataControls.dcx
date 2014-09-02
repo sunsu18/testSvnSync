@@ -59,4 +59,25 @@
                        xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
     </Source>
   </AdapterDataControl>
+  <AdapterDataControl id="Alerts"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
+                      SupportsTransactions="false" SupportsSortCollection="true"
+                      SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="true"
+                      Definition="com.sfr.engage.model.datacontrol.Alerts"
+                      BeanClass="com.sfr.engage.model.datacontrol.Alerts"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <CreatableTypes>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeResponse"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeCustomerType"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeFrequencyType"/>
+      <TypeInfo FullName="com.sfr.engage.core.AlertsSubscribeRequest"/>
+      <TypeInfo FullName="com.sfr.engage.model.datacontrol.Alerts"/>
+    </CreatableTypes>
+    <Source>
+      <bean-definition BeanClass="com.sfr.engage.model.datacontrol.Alerts"
+                       xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+    </Source>
+  </AdapterDataControl>
 </DataControlConfigs>

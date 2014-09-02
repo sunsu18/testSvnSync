@@ -137,6 +137,33 @@
   <ViewUsage
     Name="PrtUserDisplayForEmpRVO1"
     ViewObjectName="com.sfr.engage.model.queries.rvo.PrtUserDisplayForEmpRVO"/>
+  <ViewUsage
+    Name="PrtCardFuelCapacityVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO"/>
+  <ViewUsage
+    Name="PrtCardRuleBusinessHoursVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO"/>
+  <ViewUsage
+    Name="PrtCardRuleSubscriptionVO1"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleSubscriptionVO"/>
+  <ViewUsage
+    Name="PrtCardRuleBusinessHoursVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardRuleBusinessHoursVO"/>
+  <ViewUsage
+    Name="PrtCardFuelCapacityVO2"
+    ViewObjectName="com.sfr.engage.model.queries.uvo.PrtCardFuelCapacityVO"/>
+  <ViewLinkUsage
+    Name="PrtCardRuleBusinessHoFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardRuleBusinessHoFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardRuleSubscriptionVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardRuleBusinessHoursVO2"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="PrtCardFuelCapacityPrFk1Link1"
+    ViewLinkObjectName="com.sfr.engage.model.fklinks.PrtCardFuelCapacityPrFk1Link"
+    SrcViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardRuleSubscriptionVO1"
+    DstViewUsageName="com.sfr.engage.model.module.EngageAppModule.PrtCardFuelCapacityVO2"
+    Reversed="false"/>
   <ClientInterface>
     <Method
       Name="deleteAllForAccount">
