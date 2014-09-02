@@ -240,6 +240,7 @@ public class Constants {
     public static final String UDC_FAST_LUBES = "UDC_FAST_LUBES";
     public static final String UDC_AV_TANK_NUMBER = "UDC_AV_TANK_NUMBER";
     public static final String LOV_AV_SALES_SEARCH_CRT = "AV_SALES_SEARCH_CRT";
+    
 
     public static final String RADIO_LEDGER = "LEDG_RADIO_VALUE";
     //public static final String LOV_AVIATION_ORDER_SEARCH_CRITERIA = "INV_SEARCH_CRT";
@@ -756,6 +757,7 @@ public class Constants {
     public static final String ENGAGE_REPORT_DELIMITER = "\\|";
     public static final String DISPLAY_PORTAL_LANG = "DISPLAY_PORTAL_LANG";
     public static final String AUTHENTICATE_FLAG = "AUTHENTICATE_FLAG";
+    public static final String ENGAGE_SUBSCRIBE_ALERT = "ENGAGE_SUBSCRIBE_ALERT";
 
 
 }
