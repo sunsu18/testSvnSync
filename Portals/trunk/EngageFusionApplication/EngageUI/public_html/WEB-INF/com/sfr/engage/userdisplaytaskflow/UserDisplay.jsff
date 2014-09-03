@@ -176,10 +176,11 @@
       <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s14"/>
-    <af:panelGroupLayout id="pgl73" inlineStyle="width:948px;" layout="horizontal">
-      <af:outputText value="#{sfr.ENGAGE_USER_DETAILS}:" id="outputText8" styleClass="subheading"/>
-    </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl0" layout="vertical" visible="#{pageFlowScope.UserDisplayBean.isTableVisible}" inlineStyle="width:962px;" partialTriggers="cb2 cb3 smc1 soc3 smc2 smc3 smc4 multiplecard singlecard">
+      <af:panelGroupLayout id="pgl73" inlineStyle="width:948px;" layout="horizontal">
+        <af:outputText value="#{sfr.ENGAGE_USER_DETAILS}:" id="outputText8" styleClass="subheading"/>
+      </af:panelGroupLayout>
+      <af:spacer width="10" height="15" id="spacer2"/>
       <af:panelAccordion id="pa1" discloseNone="true"  discloseMany="true" dimensionsFrom="children">
         <af:showDetailItem text="#{sfr.B2B_ADMIN}" id="sdi1" stretchChildren="first" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
           <af:table value="#{bindings.PrtUserDisplayForAdminRVO1.collectionModel}"
