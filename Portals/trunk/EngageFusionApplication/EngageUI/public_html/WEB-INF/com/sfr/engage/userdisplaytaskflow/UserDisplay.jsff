@@ -15,17 +15,24 @@
         <af:panelGroupLayout id="pgl9" layout="horizontal">
           <af:separator id="s3" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
         </af:panelGroupLayout>
-        <af:spacer width="15" height="25" id="s17"/>
-        <af:outputText value="#{sfr.SEARCH_TEXT}"/>
+        <af:spacer height="15" width="10" id="s13"/>
+        <af:panelGroupLayout id="pgl17" valign="top" layout="horizontal" halign="start">
+          <af:selectBooleanRadio text="" id="multiplecard" group="A" selected="true"
+                                 valueChangeListener="#{pageFlowScope.UserDisplayBean.multicardRadioValueChangeListener}"
+                                 autoSubmit="true"
+                                 binding="#{pageFlowScope.UserDisplayBean.bindings.multipleCardRadio}"/>
+          <af:spacer height="18" width="10" id="s24"/>
+          <af:outputText value="#{sfr.SEARCH_TEXT}"/>
+        </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl3" valign="top" layout="horizontal">
           <af:panelGroupLayout id="pgl16" layout="vertical">
-            <af:spacer height="12" width="10" id="s12"/>
-            <af:selectBooleanRadio text="" label="" id="multiplecard" group="A" selected="true"
+            <af:spacer height="18" width="10" id="s12"/>
+            <!--<af:selectBooleanRadio text="" label="" id="multiplecard" group="A" selected="true"
                                    valueChangeListener="#{pageFlowScope.UserDisplayBean.multicardRadioValueChangeListener}"
                                    autoSubmit="true"
-                                   binding="#{pageFlowScope.UserDisplayBean.bindings.multipleCardRadio}"/>
+                                   binding="#{pageFlowScope.UserDisplayBean.bindings.multipleCardRadio}"/>-->
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl6" layout="horizontal" inlineStyle="width:960.0px;">
+          <af:panelGroupLayout id="pgl6" layout="horizontal" inlineStyle="width:960.0px; height:125px;">
             <af:panelGroupLayout id="pgl7" layout="vertical" valign="top" inlineStyle="width:390px; height:100.0px;">
              <h:panelGrid columns="4" id="pg2" cellpadding="3" cellspacing="2" style="text-align:left; vertical-align:top;">
                <af:panelGroupLayout id="pgl36" inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;" layout="vertical">
@@ -102,9 +109,7 @@
                 <af:outputText value=" " id="ot5"/>
                 <af:spacer width="20" height="84" id="s5"/>
                 <af:outputText value=" " id="ot17"/>
-                <!--<af:spacer width="20" height="20" id="s10"/>-->
                 <af:outputText value=" " id="ot18"/>
-                <!--<af:spacer width="20" height="20" id="s12"/>-->
                 <af:outputText value=" " id="ot19"/>
              </af:panelGroupLayout>
              <af:panelGroupLayout id="pgl13" inlineStyle="height:auto; text-align:justify; width:110.0px;overflow:hidden;" layout="vertical">
@@ -133,7 +138,7 @@
                <af:selectManyChoice id="smc4" contentStyle="width: 175px; height:14px;" showRequired="false"
                                   value="#{pageFlowScope.UserDisplayBean.roleValue}"
                                   binding="#{pageFlowScope.UserDisplayBean.bindings.role}"
-                                    partialTriggers="multiplecard singlecard"
+                                    partialTriggers="multiplecard singlecard" autoSubmit="true"
                                     valueChangeListener="#{pageFlowScope.UserDisplayBean.roleValueChangeListener}">
                   <af:forEach items="#{pageFlowScope.UserDisplayBean.roleList}" var="listItem">
                     <af:selectItem label="#{listItem.label}" value="#{listItem.value}" id="si2"/>
@@ -151,7 +156,7 @@
                                valueChangeListener="#{pageFlowScope.UserDisplayBean.singlecardRadioValueChangeListener}"
                                binding="#{pageFlowScope.UserDisplayBean.bindings.singleCardRadio}"
                                autoSubmit="true"/>
-        <af:spacer height="18" width="10" id="s13"/>
+        <af:spacer height="18" width="10" id="s17"/>
         <af:outputText id="ot6" value="#{sfr.SEARCH_BY_INPUT}"/>
         <af:outputText value=":" id="ot8"/>
         <af:inputText id="it1" value="#{pageFlowScope.UserDisplayBean.searchString}" binding="#{pageFlowScope.UserDisplayBean.bindings.searchStringInputtext}" disabled="true">
@@ -171,9 +176,12 @@
       <af:separator id="separator1" inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="10" id="s14"/>
+    <af:panelGroupLayout id="pgl73" inlineStyle="width:948px;" layout="horizontal">
+      <af:outputText value="#{sfr.ENGAGE_USER_DETAILS}:" id="outputText8" styleClass="subheading"/>
+    </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl0" layout="vertical" visible="#{pageFlowScope.UserDisplayBean.isTableVisible}" inlineStyle="width:962px;" partialTriggers="cb2 cb3 smc1 soc3 smc2 smc3 smc4 multiplecard singlecard">
       <af:panelAccordion id="pa1" discloseNone="true"  discloseMany="true" dimensionsFrom="children">
-        <af:showDetailItem text="B2B_ADMIN" id="sdi1" stretchChildren="first" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
+        <af:showDetailItem text="#{sfr.B2B_ADMIN}" id="sdi1" stretchChildren="first" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
           <af:table value="#{bindings.PrtUserDisplayForAdminRVO1.collectionModel}"
                     var="row" styleClass="AFStretchWidth"
                     rows="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
@@ -240,7 +248,7 @@
             </af:column>
           </af:table>
         </af:showDetailItem>
-        <af:showDetailItem text="B2B_MANAGER_AC" id="sdi2" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAccMgrVisible}">
+        <af:showDetailItem text="#{sfr.B2B_MANAGER_AC}" id="sdi2" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAccMgrVisible}">
           <af:table value="#{bindings.PrtUserDisplayForAccMgrRVO1.collectionModel}"
                     var="row" width="962px"
                     rows="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
@@ -305,7 +313,7 @@
             </af:column>
           </af:table>
         </af:showDetailItem>
-        <af:showDetailItem text="B2B_MANAGER_CG" id="sdi3" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isCgMgrVisible}">
+        <af:showDetailItem text="#{sfr.B2B_MANAGER_CG}" id="sdi3" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isCgMgrVisible}">
           <af:table value="#{bindings.PrtUserDisplayForCgMgrRVO1.collectionModel}"
                     var="row" width="962px"
                     rows="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
@@ -372,7 +380,7 @@
             </af:column>
           </af:table>
         </af:showDetailItem>
-        <af:showDetailItem text="B2B_EMPLOYEE" id="sdi4" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isEmpVisible}">
+        <af:showDetailItem text="#{sfr.B2B_EMPLOYEE}" id="sdi4" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isEmpVisible}">
           <af:table value="#{bindings.PrtUserDisplayForEmpRVO1.collectionModel}"
                     var="row" width="962px"
                     rows="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
@@ -434,10 +442,10 @@
                        id="c27">
               <af:outputText value="#{row.CardGroup}" id="ot42"/>
             </af:column>
-            <af:column headerText="#{sfr.CARD}" sortProperty="Card" 
+            <af:column headerText="#{sfr.CARD}" sortProperty="Cardembossno" 
                        filterable="true" sortable="true"
-                       id="c9">
-              <af:outputText value="#{row.Card}" id="ot29"/>
+                       id="c36">
+              <af:outputText value="#{row.Cardembossno}" id="ot54"/>
             </af:column>
           </af:table>
         </af:showDetailItem>

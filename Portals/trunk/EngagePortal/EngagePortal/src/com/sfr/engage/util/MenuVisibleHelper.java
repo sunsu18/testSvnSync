@@ -82,6 +82,7 @@ public class MenuVisibleHelper {
     private boolean visibleSetup = false;
     private boolean visibleChangePassword = false;
     private boolean visibleSelectAssociation = false;
+    private boolean visibleManageUser = false;
 
     private User user = null;
     SecurityContext securityContext;
@@ -756,7 +757,7 @@ public class MenuVisibleHelper {
         visibleListPrice = false;
         visibleSetup = false;
         visibleChangePassword = false;
-        
+        visibleManageUser = false;
         }
         
         return visibleSelectAssociation;
@@ -767,8 +768,21 @@ public class MenuVisibleHelper {
     }
 
     public String getSelectAssociation() {
-        if (sfr.containsKey("SELECT_ASSOCIATION"))
-        { selectAssociation= (String)sfr.getObject("SELECT_ASSOCIATION"); }
+        if (sfr.containsKey("SELECT_ASSOCIATION")){
+            selectAssociation= (String)sfr.getObject("SELECT_ASSOCIATION");
+        }
         return selectAssociation;
+    }
+
+    public void setVisibleManageUser(boolean visibleManageUser) {
+        this.visibleManageUser = visibleManageUser;
+    }
+
+    public boolean isVisibleManageUser() {
+        if(securityContext.isAuthenticated()){
+            visibleManageUser = true;
+            visibleSelectAssociation = false;
+        }
+        return visibleManageUser;
     }
 }

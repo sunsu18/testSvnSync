@@ -92,6 +92,7 @@
           <Item Value="AccountId"/>
           <Item Value="CardGroup"/>
           <Item Value="Card"/>
+          <Item Value="Cardembossno"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

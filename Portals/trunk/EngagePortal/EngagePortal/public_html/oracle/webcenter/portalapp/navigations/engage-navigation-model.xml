@@ -199,7 +199,7 @@
                 <attribute value="#{MenuVisibleHelperBean.menuAlerts}" isKey="false" attributeId="Title"/>
               </attributes>
             </url>
-            <url visible="#{true}"
+            <url visible="#{MenuVisibleHelperBean.visibleManageUser}"
                  factoryClass="oracle.webcenter.portalframework.sitestructure.rc.AdfPageResourceFactory"
                  id="manageusers"
                  url="page://oracle/webcenter/portalapp/engagepages/setup/manageusers.jspx">

@@ -32,7 +32,7 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT ROLEMAP.USER_EMAIL,INFO.USER_FIRST_NAME,INFO.USER_MIDDLE_NAME,INFO.USER_LAST_NAME,INFO.USER_PHONE_NO,ROLEMAP.USER_ROLE,ROLEMAP.PARTNER_ID,CARD.ACCOUNT_ID,(CARD.cardgroup_main_type||CARD.cardgroup_sub_type||CARD.cardgroup_seq) as "CARD_GROUP",CARD.PRT_CARD_PK as CARD
+    <![CDATA[SELECT ROLEMAP.USER_EMAIL,INFO.USER_FIRST_NAME,INFO.USER_MIDDLE_NAME,INFO.USER_LAST_NAME,INFO.USER_PHONE_NO,ROLEMAP.USER_ROLE,ROLEMAP.PARTNER_ID,CARD.ACCOUNT_ID,(CARD.cardgroup_main_type||CARD.cardgroup_sub_type||CARD.cardgroup_seq) as "CARD_GROUP",CARD.PRT_CARD_PK as CARD,CARD.CARD_EMBOSS_NUM as CARDEMBOSSNO
 FROM PRT_CARD_USER_ROLE_MAPPING ROLEMAP  LEFT JOIN PRT_CARD_USER_INFORMATION INFO 
 ON (INFO.USER_EMAIL = ROLEMAP.USER_EMAIL AND INFO.COUNTRY_CODE = ROLEMAP.COUNTRY_CODE) 
 LEFT JOIN PRT_CARD CARD
@@ -186,6 +186,21 @@ AND ROLEMAP.ASSOCIATION_TYPE = 'CC']]>
     ColumnType="VARCHAR2"
     AliasName="CARD"
     Expression="CARD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Cardembossno"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARDEMBOSSNO"
+    Expression="CARDEMBOSSNO"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="20"/>

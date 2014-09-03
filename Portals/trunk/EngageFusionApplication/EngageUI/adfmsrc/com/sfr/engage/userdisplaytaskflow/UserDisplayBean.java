@@ -368,6 +368,7 @@ public class UserDisplayBean {
             getBindings().getCardGroup().setDisabled(false);
             getBindings().getCard().setDisabled(false);
             getBindings().getRole().setDisabled(false);
+            getBindings().getSearchStringInputtext().resetValue();
             getBindings().getSearchStringInputtext().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartner());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
@@ -416,6 +417,7 @@ public class UserDisplayBean {
             getBindings().getCardGroup().setDisabled(false);
             getBindings().getCard().setDisabled(false);
             getBindings().getRole().setDisabled(false);
+            getBindings().getSearchStringInputtext().resetValue();
             getBindings().getSearchStringInputtext().setDisabled(true);
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getPartner());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getAccount());
