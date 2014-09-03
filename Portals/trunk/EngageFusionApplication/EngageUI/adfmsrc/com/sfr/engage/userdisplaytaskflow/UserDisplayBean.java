@@ -73,6 +73,7 @@ public class UserDisplayBean {
         session = request.getSession(false);
         partnerIdValue = new ArrayList<String>();
         roleValue = new ArrayList<String>();
+        valueList = new ValueListSplit();
         roleValue.add("WCP_CARD_B2B_ADMIN");
         roleValue.add("WCP_CARD_B2B_MGR_AC");
         roleValue.add("WCP_CARD_B2B_MGR_CG");
