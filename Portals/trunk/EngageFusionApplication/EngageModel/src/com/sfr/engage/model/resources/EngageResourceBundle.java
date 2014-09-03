@@ -129,7 +129,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       { "DRIVER", "" }, { "CLEAR", "" }, { "TRANSACTION_DATE", "" },
       { "ENGAGE_PALS_COUNTRY_CODE", "" }, { "ENGAGE_PRODUCT", "" },
       { "ENGAGE_QUANTITY", "" }, { "ENGAGE_RECEIPT_NO", "" },
-      { "ENGAGE_PRICES_IN_CURRENCY", "" },
+      { "ENGAGE_PRICES_IN_CURRENCY", "" },{"ENGAGE_PRODUCED_DATE",""},
       { "ENGAGE_PRICES_AS_SHOWN_ON_RECEIPT", "" }, { "ENGAGE_PRICES_IN", "" },
       { "ENGAGE_PRICE", "" }, { "ENGAGE_AMOUNT", "" },
       { "ENGAGE_GROSS_AMOUNT", "" }, { "ENGAGE_DISCOUNT", "" },
