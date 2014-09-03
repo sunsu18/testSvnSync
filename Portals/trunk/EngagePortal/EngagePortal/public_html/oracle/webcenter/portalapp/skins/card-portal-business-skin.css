@@ -1,3 +1,11 @@
+af|statusIndicator::connected-icon, af|statusIndicator::disconnected-icon, af|statusIndicator::idle-icon {
+   content: ;
+ }
+  
+af|statusIndicator::connecting-icon, af|statusIndicator::processing-icon, af|statusIndicator::reconnecting-icon {
+   content: url(/images/ajax-loader-new.gif);
+ }
+
 /*Auto-Suggest UI*/
 
 .AFAutoSuggestBusyStyle {
@@ -899,7 +907,10 @@ margin-top: 5px;
 }
 
 /*******************************AF:Table***********************************/
-
+.alertPopup1 .af_inputText_content{
+    
+    width:20px !important;
+}
 
 .af_inputText_content, .WCInputText {
 font-family : Lucida Sans,Georgia,Serif !important;
