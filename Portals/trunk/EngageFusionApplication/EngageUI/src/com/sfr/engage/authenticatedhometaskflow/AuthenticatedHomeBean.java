@@ -16,6 +16,9 @@ import com.sfr.util.validations.Conversion;
 import java.io.IOException;
 import java.io.Serializable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -185,7 +188,12 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
             
             resourceBundle = new EngageResourceBundle();
             Date date = new Date();
-            java.sql.Date passedDate = new java.sql.Date(date.getTime());
+//            java.sql.Date passedDate = new java.sql.Date(date.getTime());
+                                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+                   
+                    String passedDate = sdf.format(date);
+
+            
             Set<String> cardTypeSet = new HashSet<String>();
             List<String> customerTypeList = new ArrayList<String>();
             if (session.getAttribute("cardTypeList") != null) {
