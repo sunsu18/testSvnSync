@@ -296,7 +296,7 @@ public class EngageResourceBundle extends ListResourceBundle {
       {"ALERT_NOTE",""},{"SUCCESS_ALERT",""},{"INVALID_INPUT_ALERT",""},
       {"FAILURE_ALERT",""},{"BUSINESS_HOURS_ALERT_NOTE",""},
       {"FUEL_CAPACITY_ALERT_NOTE",""},{"LTR_DAY",""},{"LTR_WEEK",""},
-      {"LTR_MONTH",""},{"LTRS",""},{"SEARCH_TEXT",""},{"PLEASE_WAIT"},
+      {"LTR_MONTH",""},{"LTRS",""},{"SEARCH_TEXT",""},{"PLEASE_WAIT",""},
       {"ENGAGE_USER_DETAILS",""},{"ENGAGE_ENTER_CARD",""}};
 
     /**
