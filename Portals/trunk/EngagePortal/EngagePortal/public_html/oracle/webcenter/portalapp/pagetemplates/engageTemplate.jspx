@@ -139,7 +139,7 @@
                              halign="center">
           <af:image source="/images/ajax-loader.gif" id="i23"
                     inlineStyle="width:20.0px;margin-right:10px;"/>
-          <af:outputText value="Please Wait" id="outpxt1"
+          <af:outputText value="#{sfr.PLEASE_WAIT}" id="outpxt1"
                          styleClass="popupoutputTextGeo"
                          inlineStyle="font-size:15.0px;"/>
         </af:panelGroupLayout>

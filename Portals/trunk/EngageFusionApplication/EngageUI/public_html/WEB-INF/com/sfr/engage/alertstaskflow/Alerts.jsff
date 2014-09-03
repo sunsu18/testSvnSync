@@ -9,7 +9,7 @@
                      styleClass="heading"/>
     </af:panelGroupLayout>
     <af:spacer width="10" height="5" id="s1"/>
-     <af:outputText value="#{sfr.ALERT_NOTE}"  
+     <af:outputText value="* #{sfr.ALERT_NOTE}"  
                            id="ot59" styleClass="popupoutputText" 
                            noWrap="true"/>
     <af:spacer width="10" height="5" id="s53"/>
@@ -95,7 +95,7 @@
      </af:panelGroupLayout>
      <af:spacer height="10" id="s13"/>
      
-     <af:outputText value="#{sfr.BUSINESS_HOURS_ALERT_NOTE}"  
+     <af:outputText value="* #{sfr.BUSINESS_HOURS_ALERT_NOTE}"  
                            id="ot30" styleClass="popupoutputText" 
                            noWrap="true"/>
         <af:spacer height="10" id="s50"/>
@@ -181,7 +181,7 @@ autoHeightRows="10" rowSelection="single" value="#{pageFlowScope.AlertsBean.fuel
                     inlineStyle="width: 610px; margin-left: 0px!important;"/>
      </af:panelGroupLayout>
      <af:spacer height="5" id="s51"/>
-          <af:outputText value="#{sfr.FUEL_CAPACITY_ALERT_NOTE}"  
+          <af:outputText value="* #{sfr.FUEL_CAPACITY_ALERT_NOTE}"  
                            id="ot29" styleClass="popupoutputText" 
                            noWrap="true"/>
      <af:spacer height="5" id="s52"/>
