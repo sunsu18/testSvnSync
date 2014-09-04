@@ -27,7 +27,7 @@
             <af:panelGroupLayout id="pgl12"
                                  inlineStyle="height:auto; text-align:justify; width:4.0px;"
                                  layout="vertical">
-              <af:outputText value="*" id="col"/>
+              <!--<af:outputText value="*" id="col"/>-->
               <af:spacer width="20" height="15" id="s21"/>
               <af:outputText value=" " id="ot14"/>
               <af:spacer width="20" height="25" id="s18"/>
@@ -219,7 +219,7 @@
                     selectedRowKeys="#{bindings.PrtViewCardsVO11.collectionModel.selectedRow}"
                     selectionListener="#{bindings.PrtViewCardsVO11.collectionModel.makeCurrent}"
                     rowSelection="single" id="t1" disableColumnReordering="true"
-                    columnResizing="disabled" autoHeightRows="20"
+                    columnResizing="disabled" autoHeightRows="15"
                     contentDelivery="immediate"
                     binding="#{pageFlowScope.CardBean.bindings.searchResultsTB}">
             <af:column sortProperty="PartnerId" headerText="#{sfr.PARTNER_ENG}"

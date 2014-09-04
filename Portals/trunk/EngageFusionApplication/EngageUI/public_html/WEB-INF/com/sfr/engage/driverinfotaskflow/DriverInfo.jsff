@@ -25,7 +25,7 @@
             <af:panelGroupLayout id="pgl36"
                                  inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;"
                                  layout="vertical">
-              <af:outputText value="*#{sfr.PARTNER_ENG}" id="gff"/>
+              <af:outputText value="#{sfr.PARTNER_ENG}" id="gff"/>
               <af:spacer width="20" height="20" id="s45"/>
               <af:outputText value=" #{sfr.ACCOUNT}" id="ot13"/>
               <af:spacer width="20" height="20" id="s20"/>
