@@ -85,8 +85,13 @@
       <af:panelGroupLayout id="pgl33" layout="horizontal">
       <af:separator id="s294" inlineStyle="height: 0px;opacity: 0.30;"/>
     </af:panelGroupLayout>
- <af:panelGroupLayout id="pgl36" layout="horizontal">
-                                      <af:selectManyChoice id="smc1"
+ <af:panelGroupLayout id="pgl36" layout="vertical">
+   <af:spacer width="10" height="10" id="s32l"/>
+ <af:outputText id = "label" value="#{sfr.CARD_STATUS_SELECTOR} :"/>
+  <af:spacer width="10" height="5" id="s32ls"/>
+                         <af:panelGroupLayout id="pgl37" layout="horizontal">
+                           <!--<af:spacer width="10" height="10" id="s32ld"/>-->
+               <af:selectManyChoice id="smc1"
                                    value="#{pageFlowScope.AccountSummaryBean.filterAttributes}" partialTriggers="::cb10" inlineStyle="width:135.0px;">
                 <af:selectItem label="#{sfr.PERMANENT_BLOCKED}" value="Hardblock Cards" id="si4"/>
                 <af:selectItem label="#{sfr.TEMPORARY_BLOCKED}" value="Softblock Cards" id="si7"/>
@@ -95,6 +100,7 @@
    <af:spacer width="10" id="s320"/>
    <!--<af:commandButton text="Filter" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>-->
       <af:commandImageLink icon="/images/filter_business.png" id="cb11" actionListener="#{pageFlowScope.AccountSummaryBean.hideBlockedCards}"/>
+</af:panelGroupLayout>
     </af:panelGroupLayout>
      <af:panelGroupLayout id="Both" layout="horizontal">
      <af:panelGroupLayout id="Tree" layout="vertical"
