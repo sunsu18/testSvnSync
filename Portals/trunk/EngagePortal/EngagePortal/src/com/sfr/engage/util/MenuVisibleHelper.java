@@ -83,7 +83,8 @@ public class MenuVisibleHelper {
     private boolean visibleChangePassword = false;
     private boolean visibleSelectAssociation = false;
     private boolean visibleManageUser = false;
-
+    private boolean visibleAlerts = false;
+    
     private User user = null;
     SecurityContext securityContext;
     private HttpSession session;
@@ -758,6 +759,7 @@ public class MenuVisibleHelper {
         visibleSetup = false;
         visibleChangePassword = false;
         visibleManageUser = false;
+            visibleAlerts = false;
         }
         
         return visibleSelectAssociation;
@@ -779,10 +781,33 @@ public class MenuVisibleHelper {
     }
 
     public boolean isVisibleManageUser() {
-        if(securityContext.isAuthenticated()){
+        if(securityContext.isAuthenticated() && user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_EMP) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN)){
             visibleManageUser = true;
             visibleSelectAssociation = false;
         }
         return visibleManageUser;
+    }
+
+    public void setVisibleAlerts(boolean visibleAlerts) {
+        this.visibleAlerts = visibleAlerts;
+    }
+
+    public boolean isVisibleAlerts() {
+        if(securityContext.isAuthenticated() && user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_SFR) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_JET) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2C_PETRO) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_ADMIN) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_MGR) ||
+               user.getRolelist().contains(Constants.ROLE_WCP_CARD_B2B_ADMIN)){
+            visibleAlerts = true;
+            visibleSelectAssociation = false;
+        }
+        return visibleAlerts;
     }
 }
