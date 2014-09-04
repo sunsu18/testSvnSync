@@ -96,7 +96,7 @@ public class InvoiceOverviewBean implements Serializable {
     private String invoiceTypeValue;
     private List<String> cardValue;
     private List<SelectItem> accountList = null;
-    private List<SelectItem> invoiceTypeList = null;
+//    private List<SelectItem> invoiceTypeList = null;
     private List<SelectItem> cardGroupList = null;
     private List<SelectItem> cardList = null;
     private boolean searchResults = false;
@@ -309,20 +309,20 @@ public class InvoiceOverviewBean implements Serializable {
         return cardList;
     }
 
-    public List<SelectItem> getInvoiceTypeList() {
-        if (invoiceTypeList == null) {
-            invoiceTypeList = new ArrayList<SelectItem>();
-            SelectItem selectItem = new SelectItem();
-            selectItem.setLabel("Card");
-            selectItem.setValue("Card");
-            invoiceTypeList.add(selectItem);
-            SelectItem selectItem1 = new SelectItem();
-            selectItem1.setLabel("Bulk");
-            selectItem1.setValue("Bulk");
-            invoiceTypeList.add(selectItem1);
-        }
-        return invoiceTypeList;
-    }
+//    public List<SelectItem> getInvoiceTypeList() {
+//        if (invoiceTypeList == null) {
+//            invoiceTypeList = new ArrayList<SelectItem>();
+//            SelectItem selectItem = new SelectItem();
+//            selectItem.setLabel("Card");
+//            selectItem.setValue("Card");
+//            invoiceTypeList.add(selectItem);
+//            SelectItem selectItem1 = new SelectItem();
+//            selectItem1.setLabel("Bulk");
+//            selectItem1.setValue("Bulk");
+//            invoiceTypeList.add(selectItem1);
+//        }
+//        return invoiceTypeList;
+//    }
 
     /**
      * @return bindings Object
@@ -2194,12 +2194,13 @@ public class InvoiceOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(2);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-            if (resourceBundle.containsKey("TYPE")) {
-                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
-            }
-            XLS_SH_R = XLS_SH.createRow(3);
-            XLS_SH_R_C = XLS_SH_R.createCell(0);
-            XLS_SH_R_C.setCellStyle(cs);
+            
+//            if (resourceBundle.containsKey("TYPE")) {
+//                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
+//            }
+//            XLS_SH_R = XLS_SH.createRow(3);
+//            XLS_SH_R_C = XLS_SH_R.createCell(0);
+//            XLS_SH_R_C.setCellStyle(cs);
 
             if (resourceBundle.containsKey("ENG_PERIOD")) {
 
@@ -2672,7 +2673,7 @@ public class InvoiceOverviewBean implements Serializable {
             ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
             prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
             prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "INVOICES");
-            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
+//            prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
             prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
             prtExportInfoRVO.executeQuery();
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup shuttle:" +
