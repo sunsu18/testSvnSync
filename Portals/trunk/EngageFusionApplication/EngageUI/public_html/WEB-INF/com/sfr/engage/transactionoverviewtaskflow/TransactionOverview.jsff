@@ -31,7 +31,7 @@
                       inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;"
                                                layout="vertical">
 
-        <af:outputText value="*" id="op51"/>
+        <!--<af:outputText value="*" id="op51"/>-->
         <af:spacer width="20" height="84" id="s45"/>
          <af:outputText value=" " id="ot7"/>
            <af:spacer width="20" height="20" id="s20"/>
@@ -137,11 +137,11 @@
                       inlineStyle="height:auto; text-align:justify; width:6.0px;overflow:hidden;"
                                                layout="vertical">
 
-        <af:outputText value="*" id="ot96"/>
+        <!--<af:outputText value="*" id="ot96"/>-->
         <af:spacer width="20" height="20" id="s70"/>
-         <af:outputText value="*" id="ot93"/>
+         <!--<af:outputText value="*" id="ot93"/>-->
            <af:spacer width="20" height="20" id="s71"/>
-         <af:outputText value="*" id="ot94"/>
+         <!--<af:outputText value="*" id="ot94"/>-->
          </af:panelGroupLayout>
 
  <af:panelGroupLayout id="s66"
@@ -479,7 +479,7 @@
                   filterVisible="true" varStatus="vs"
                   selectedRowKeys="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel.selectedRow}"
                   selectionListener="#{bindings.PrtCardTransactionOverviewRVO13.collectionModel.makeCurrent}"
-                  rowSelection="single" id="t1" autoHeightRows="20">
+                  rowSelection="single" id="t1" autoHeightRows="15">
         <af:column sortProperty="TransactionDt" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" width="160" align="center"
                      headerText="#{sfr.TRANSACTION_DATE}"
