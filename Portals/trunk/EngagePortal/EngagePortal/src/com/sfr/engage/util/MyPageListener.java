@@ -6,6 +6,7 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.CardInfo;
+import com.sfr.engage.core.MyCardComp;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.datacontrol.UserClient;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
@@ -17,6 +18,7 @@ import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -410,15 +412,12 @@ public class MyPageListener implements PagePhaseListener {
                                 do {
                                     executeAdmin(user, partIndex);
                                     partIndex++;
-                                } while (partIndex <
-                                         user.getRoleList().get(i).getIdString().size());
+                                } while (partIndex < user.getRoleList().get(i).getIdString().size());
                             }
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() +
-                                     (" Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role"));
-                            log.info(accessDC.getDisplayRecord() +
-                                     this.getClass() + "cardTypeHS size is " +
-                                     cardTypeHS.size());
+                            System.out.println(accessDC.getDisplayRecord() + this.getClass() + " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role");
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + " Session variable added to avoid multiple execution of code on my page listner after executing B2B Admin role");
+                            System.out.println(accessDC.getDisplayRecord() + this.getClass() + "cardTypeHS size is " + cardTypeHS.size());
+                            log.info(accessDC.getDisplayRecord() + this.getClass() + "cardTypeHS size is " + cardTypeHS.size());
                             session.setAttribute("cardTypeList", cardTypeHS);
 
                         }
@@ -1733,6 +1732,7 @@ new CardInfo();
                 if(securityContext.getUserName().equalsIgnoreCase("weblogic")){
                     System.out.println("Inside setusersession infor for weblogic user");
                     userList = userClient.searchUserWithUserId("B2BMgr1@test.com", "DB");
+                    
                 }
             } else {
                 //userList = userClient.searchUserWithUserId(securityContext.getUserName());
@@ -1984,7 +1984,7 @@ new CardInfo();
                                 bindings.findIteratorBinding("PrtCardgroupVO1Iterator");
 
                     } else {
-                        log.info(accessDC.getDisplayRecord() +
+                        log.severe(accessDC.getDisplayRecord() +
                                  this.getClass() +
                                  "Error : PrtCardgroupVO1Iterator Bindings is null in my page listner for Admin role");
                         iter2 = null;
@@ -2125,6 +2125,7 @@ new CardInfo();
                                 cardViewObject(cardVO);
                             }
                             if (!addflagcardgroup) {
+                                Collections.sort(cardlist, new MyCardComp());
                                 cardgrp.setCard(cardlist);
                                 cardgrp.setUnblockedCardList(unblockedcardlist);
                                 cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
@@ -2167,7 +2168,6 @@ new CardInfo();
             iter1 = null;
         }
         log.info(accessDC.getDisplayRecord() + this.getClass() +
-                 accessDC.getDisplayRecord() + this.getClass() +
                  " Exit from execute Admin function");
     }
 
@@ -2178,9 +2178,9 @@ new CardInfo();
             PrtCardVORowImpl currRowcard = (PrtCardVORowImpl)cardVO.next();
             if (currRowcard != null) {
 
-                if(currRowcard.getCardEmbossNum().toString()!=null) {
-                    log.info("card no " + currRowcard.getCardEmbossNum().toString());
-                }
+//                if(currRowcard.getCardEmbossNum().toString()!=null) {
+//                   // log.info("card no " + currRowcard.getCardEmbossNum().toString());
+//                }
                 if (currRowcard.getPrtCardPk() != null) {
 
 
@@ -2217,7 +2217,7 @@ new CardInfo();
 
                     card.setBlockAction("2");
                     
-                    log.info("manually setting card no " + currRowcard.getCardEmbossNum().toString());
+                    //log.info("manually setting card no " + currRowcard.getCardEmbossNum().toString());
                     
 
 
