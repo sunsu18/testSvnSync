@@ -2125,7 +2125,7 @@ new CardInfo();
                                 cardViewObject(cardVO);
                             }
                             if (!addflagcardgroup) {
-                                //Collections.sort(cardlist, new MyCardComp());
+                                Collections.sort(cardlist, new MyCardComp());
                                 cardgrp.setCard(cardlist);
                                 cardgrp.setUnblockedCardList(unblockedcardlist);
                                 cardgrp.setPerBlockAndActiveCardList(perBlockAndActiveCardList);
