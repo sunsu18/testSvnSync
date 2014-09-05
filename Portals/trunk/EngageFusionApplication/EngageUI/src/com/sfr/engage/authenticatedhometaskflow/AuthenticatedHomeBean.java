@@ -188,10 +188,10 @@ bindings.findIteratorBinding("ProductsDisplayRVO1Iterator");
             
             resourceBundle = new EngageResourceBundle();
             Date date = new Date();
-//            java.sql.Date passedDate = new java.sql.Date(date.getTime());
-                                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
-                   
-                    String passedDate = sdf.format(date);
+            java.sql.Date passedDate = new java.sql.Date(date.getTime());
+//                                DateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+//                   
+//                    String passedDate = sdf.format(date);
 
             
             Set<String> cardTypeSet = new HashSet<String>();
