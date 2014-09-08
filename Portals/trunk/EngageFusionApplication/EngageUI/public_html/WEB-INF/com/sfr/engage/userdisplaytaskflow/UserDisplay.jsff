@@ -182,17 +182,18 @@
       </af:panelGroupLayout>
       <af:spacer width="10" height="15" id="spacer2"/>
       <af:panelAccordion id="pa1" discloseNone="true"  discloseMany="true" dimensionsFrom="children">
-        <af:showDetailItem text="#{sfr.B2B_ADMIN}" id="sdi1" stretchChildren="first" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
+        <af:showDetailItem text="#{sfr.B2B_ADMIN}" id="sdi1" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAdminVisible}">
           <af:table value="#{bindings.PrtUserDisplayForAdminRVO1.collectionModel}"
                     var="row" styleClass="AFStretchWidth"
                     rows="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
                     emptyText="#{bindings.PrtUserDisplayForAdminRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtUserDisplayForAdminRVO1.rangeSize}"
-                    rowBandingInterval="0" width="962px" disableColumnReordering="true"
+                    rowBandingInterval="1" width="962px" disableColumnReordering="true"
                     columnResizing="disabled" autoHeightRows="10"
                     filterModel="#{bindings.PrtUserDisplayForAdminRVO1Query.queryDescriptor}"
                     queryListener="#{bindings.PrtUserDisplayForAdminRVO1Query.processQuery}"
-                    filterVisible="true" varStatus="vs" id="t1" >
+                    filterVisible="true" varStatus="vs" id="t1"
+                    inlineStyle="margin-left:-35px;">
             <af:column sortProperty="UserEmail" filterable="true"
                        sortable="true"
                        headerText="#{sfr.USER_EMAIL}"
@@ -251,11 +252,11 @@
         </af:showDetailItem>
         <af:showDetailItem text="#{sfr.B2B_MANAGER_AC}" id="sdi2" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isAccMgrVisible}">
           <af:table value="#{bindings.PrtUserDisplayForAccMgrRVO1.collectionModel}"
-                    var="row" width="962px"
+                    var="row" width="962px" inlineStyle="margin-left:-35px;"
                     rows="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
                     emptyText="#{bindings.PrtUserDisplayForAccMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtUserDisplayForAccMgrRVO1.rangeSize}"
-                    rowBandingInterval="0" disableColumnReordering="true"
+                    rowBandingInterval="1" disableColumnReordering="true"
                     columnResizing="disabled" autoHeightRows="10"
                     filterModel="#{bindings.PrtUserDisplayForAccMgrRVO1Query.queryDescriptor}"
                     queryListener="#{bindings.PrtUserDisplayForAccMgrRVO1Query.processQuery}"
@@ -316,11 +317,11 @@
         </af:showDetailItem>
         <af:showDetailItem text="#{sfr.B2B_MANAGER_CG}" id="sdi3" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isCgMgrVisible}">
           <af:table value="#{bindings.PrtUserDisplayForCgMgrRVO1.collectionModel}"
-                    var="row" width="962px"
+                    var="row" width="962px" inlineStyle="margin-left:-35px;"
                     rows="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
                     emptyText="#{bindings.PrtUserDisplayForCgMgrRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtUserDisplayForCgMgrRVO1.rangeSize}"
-                    rowBandingInterval="0" disableColumnReordering="true"
+                    rowBandingInterval="1" disableColumnReordering="true"
                     columnResizing="disabled" autoHeightRows="10"
                     filterModel="#{bindings.PrtUserDisplayForCgMgrRVO1Query.queryDescriptor}"
                     queryListener="#{bindings.PrtUserDisplayForCgMgrRVO1Query.processQuery}"
@@ -383,12 +384,12 @@
         </af:showDetailItem>
         <af:showDetailItem text="#{sfr.B2B_EMPLOYEE}" id="sdi4" stretchChildren="none" inlineStyle="height:auto !important;" rendered="#{pageFlowScope.UserDisplayBean.isEmpVisible}">
           <af:table value="#{bindings.PrtUserDisplayForEmpRVO1.collectionModel}"
-                    var="row" width="962px"
+                    var="row" width="962px" inlineStyle="margin-left:-35px;"
                     rows="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
                     emptyText="#{bindings.PrtUserDisplayForEmpRVO1.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
                     fetchSize="#{bindings.PrtUserDisplayForEmpRVO1.rangeSize}"
-                    rowBandingInterval="0" disableColumnReordering="true"
-                    columnResizing="disabled" autoHeightRows="10"
+                    rowBandingInterval="1" disableColumnReordering="true"
+                    columnResizing="disabled" autoHeightRows="10" 
                     filterModel="#{bindings.PrtUserDisplayForEmpRVO1Query.queryDescriptor}"
                     queryListener="#{bindings.PrtUserDisplayForEmpRVO1Query.processQuery}"
                     filterVisible="true" varStatus="vs" id="t4">

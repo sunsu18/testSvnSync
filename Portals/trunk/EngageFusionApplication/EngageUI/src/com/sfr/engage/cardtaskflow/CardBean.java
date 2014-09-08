@@ -150,6 +150,7 @@ public class CardBean implements Serializable {
     private String currencyCode;
     private Conversion conversionUtility;
     private Locale locale;
+    private boolean blockedDateTime;
 
 
     public CardBean() {
@@ -412,6 +413,12 @@ public class CardBean implements Serializable {
                 selectItem2.setValue("2");
                 statusList.add(selectItem2);
             }
+            SelectItem selectItem3 = new SelectItem();
+            if (resourceBundle.containsKey("EXPIRED")) {
+                selectItem3.setLabel(resourceBundle.getObject("EXPIRED").toString());
+                selectItem3.setValue("E");
+                statusList.add(selectItem3);
+            }
         }
         return statusList;
     }
@@ -499,6 +506,7 @@ public class CardBean implements Serializable {
             statusValue.add("0");
             statusValue.add("1");
             statusValue.add("2");
+            statusValue.add("E");
 
         } else {
             getBindings().getCardGroup().setValue(null);
@@ -574,7 +582,6 @@ public class CardBean implements Serializable {
     public String searchResults() {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside searchResults method of View Cards");
         isTableVisible = false;
-
         String statusPassingValues = null;
         String currentDate = "";
 
@@ -624,8 +631,9 @@ public class CardBean implements Serializable {
                                 } else {
                                     vo.removeNamedWhereClauseParam("cardGroup");
                                 }
-
-                                vo.removeNamedWhereClauseParam("currentDate");
+                                if(expiryQuery.contains("currentDate")){
+                                    vo.removeNamedWhereClauseParam("currentDate");
+                                }
                                 vo.setWhereClause("");
                                 vo.executeQuery();
                             } else {
@@ -667,7 +675,7 @@ public class CardBean implements Serializable {
                         }
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
                         accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
-                        accountQuery = accountQuery + ")";
+                        accountQuery = accountQuery + ") ";
                     } else {
                         mapAccountListValue = null;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
@@ -685,7 +693,7 @@ public class CardBean implements Serializable {
                         }
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
                         cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
-                        cardGroupQuery = cardGroupQuery + ")";
+                        cardGroupQuery = cardGroupQuery + ") ";
                     } else {
                         mapCardGroupListValue = null;
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
@@ -696,45 +704,91 @@ public class CardBean implements Serializable {
                     vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
 
                     vo.setNamedWhereClauseParam("countryCd", lang);
+                    
 
-                    if (!statusPassingValues.contains("2")) {
-                        Date dateNow = new java.util.Date();
-                        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                        currentDate = dateformat.format(dateNow);
+//01 0 1
+                    if (!statusPassingValues.contains("2") && !statusPassingValues.contains("E")) {
                         expiryQuery = "(CARD_EXPIRY > =: currentDate)";
                         vo.setNamedWhereClauseParam("status", statusPassingValues);
                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                     } else {
-                        if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-                            String status = "0,1,2";
-                            vo.setNamedWhereClauseParam("status", status);
-                            Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                            currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                        } else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-                            String status = "0,1,2";
-                            vo.setNamedWhereClauseParam("status", status);
-                            Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                            currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                        } else if (statusPassingValues.equalsIgnoreCase("2")) {
-                            String status = "0,1,2";
-                            vo.setNamedWhereClauseParam("status", status);
-                            Date dateNow = new java.util.Date();
-                            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                            currentDate = dateformat.format(dateNow);
-                            expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                        if(!statusPassingValues.contains("E")){
+                            if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+//02
+                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
+//01
+                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            }else if (statusPassingValues.equalsIgnoreCase("2")) {
+//2
+                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                            }else {
+//012
+                                String status = "0,1,2";
+                                vo.setNamedWhereClauseParam("status", status);
+                                expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            }
                         } else {
-                            vo.setNamedWhereClauseParam("status", statusPassingValues);
-                            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                             if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+                                 if(statusPassingValues.contains("2")){
+//02E
+                                     String status = "0,1,2";
+                                     vo.setNamedWhereClauseParam("status", status);
+                                     expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('0','2'))";
+                                 }else{
+//0E
+                                     String status = "0,1";
+                                     vo.setNamedWhereClauseParam("status", status);
+                                     expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '0'))";
+                                 }
+                                 
+                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
+                                if(statusPassingValues.contains("2")){
+//12E
+                                    String status = "0,1,2";
+                                    vo.setNamedWhereClauseParam("status", status);
+                                    expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                                }else{
+//1E
+                                    String status = "0,1";
+                                    vo.setNamedWhereClauseParam("status", status);
+                                    expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '1'))";
+                                }                                  
+                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            }else if (statusPassingValues.contains("2") && !statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+//2E
+                                  String status = "0,1,2";
+                                  vo.setNamedWhereClauseParam("status", status);
+                                  expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                             }else if(statusPassingValues.equalsIgnoreCase("E")){
+//E
+                                  String status = "0,1";
+                                  vo.setNamedWhereClauseParam("status", status);
+                                  expiryQuery = "(BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate)";
+                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                             }else if(statusPassingValues.contains("0") && statusPassingValues.contains("1") && !statusPassingValues.contains("2")){
+//01E
+                                  String status = "0,1";
+                                  vo.setNamedWhereClauseParam("status", status);
+                                  expiryQuery = "BLOCK_ACTION IN ('0','1')";
+                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                             }
+                             else {
+//012E
+                                 String status = "0,1,2";
+                                 vo.setNamedWhereClauseParam("status", status);
+                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                             }
                         }
                     }
-
 
                     if (accountIdValue.size() > 150) {
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
@@ -763,11 +817,15 @@ public class CardBean implements Serializable {
                         vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                     }
 
-                    if (currentDate != null &&
-                        (!statusPassingValues.contains("2") || !statusPassingValues.contains("1") || !statusPassingValues.contains("0"))) {
+                    if (!statusPassingValues.equalsIgnoreCase("2") &&
+                        !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("2") && statusPassingValues.contains("E")) &&
+                        !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("E"))) {
+                        Date dateNow = new java.util.Date();
+                        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+                        currentDate = dateformat.format(dateNow);
                         vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
                     }
-
+                    
                     vo.executeQuery();
 
                     session.setAttribute("view_card_account_Query", accountQuery);
@@ -1283,11 +1341,15 @@ public class CardBean implements Serializable {
             langDB = langDB.substring(langDB.length() - 2, langDB.length());
             langDB = langDB.toUpperCase();
         }
+        String selectCriteria = "Default";
+        if(!blockedDateTime){
+            selectCriteria = "Active";
+        }
         ViewObject prtExportInfoRVO = ADFUtils.getViewObject("PrtExportInfoRVO1Iterator");
         prtExportInfoRVO.setNamedWhereClauseParam("country_Code", langDB);
         prtExportInfoRVO.setNamedWhereClauseParam("report_Page", "VIEWCARDS");
         prtExportInfoRVO.setNamedWhereClauseParam("report_Type", "Default");
-        prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", "Default");
+        prtExportInfoRVO.setNamedWhereClauseParam("select_Criteria", selectCriteria);
         prtExportInfoRVO.executeQuery();
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + " PrtExportInfoRVO Estimated Row Count in CardGroup:" +
                      prtExportInfoRVO.getEstimatedRowCount());
@@ -1342,11 +1404,8 @@ public class CardBean implements Serializable {
                 }
 
                 else {
-
-
                     reset = false;
                     checkVehicleAssociation();
-
                 }
             } else {
                 if (driverPGL) {
@@ -1611,6 +1670,10 @@ public class CardBean implements Serializable {
             } else if (statusLabel.equalsIgnoreCase("2")) {
                 if (resourceBundle.containsKey("PERMANENT_BLOCKED")) {
                     return resourceBundle.getObject("PERMANENT_BLOCKED").toString();
+                }
+            } else if (statusLabel.equalsIgnoreCase("E")) {
+                if (resourceBundle.containsKey("EXPIRED")) {
+                    return resourceBundle.getObject("EXPIRED").toString();
                 }
             }
         }
@@ -2571,44 +2634,89 @@ public class CardBean implements Serializable {
 
         vo.setNamedWhereClauseParam("countryCd", lang);
 
-
-        if (!statusPassingValues.contains("2")) {
-            Date dateNow = new java.util.Date();
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-            currentDate = dateformat.format(dateNow);
-            expiryQuery = "(CARD_EXPIRY > =: currentDate)";
-            vo.setNamedWhereClauseParam("status", statusPassingValues);
-            vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-        } else {
-            if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-                String status = "0,1,2";
-                vo.setNamedWhereClauseParam("status", status);
-                Date dateNow = new java.util.Date();
-                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                currentDate = dateformat.format(dateNow);
-                expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('0','2')))";
-                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-            } else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-                String status = "0,1,2";
-                vo.setNamedWhereClauseParam("status", status);
-                Date dateNow = new java.util.Date();
-                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                currentDate = dateformat.format(dateNow);
-                expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
-                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-            } else if (statusPassingValues.equalsIgnoreCase("2")) {
-                String status = "0,1,2";
-                vo.setNamedWhereClauseParam("status", status);
-                Date dateNow = new java.util.Date();
-                SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
-                currentDate = dateformat.format(dateNow);
-                expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
-                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-            } else {
-                vo.setNamedWhereClauseParam("status", statusPassingValues);
-                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
-            }
-        }
+        //01 0 1
+                            if (!statusPassingValues.contains("2") && !statusPassingValues.contains("E")) {
+                                expiryQuery = "(CARD_EXPIRY > =: currentDate)";
+                                vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                            } else {
+                                if(!statusPassingValues.contains("E")){
+                                    if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+        //02
+                                        vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                        expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                    }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
+        //01
+                                        vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                        expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                    }else if (statusPassingValues.equalsIgnoreCase("2")) {
+        //2
+                                        vo.setNamedWhereClauseParam("status", statusPassingValues);
+                                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                    }else {
+        //012
+                                        String status = "0,1,2";
+                                        vo.setNamedWhereClauseParam("status", status);
+                                        expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                    }
+                                } else {
+                                     if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+                                         if(statusPassingValues.contains("2")){
+        //02E
+                                             String status = "0,1,2";
+                                             vo.setNamedWhereClauseParam("status", status);
+                                             expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('0','2'))";
+                                         }else{
+        //0E
+                                             String status = "0,1";
+                                             vo.setNamedWhereClauseParam("status", status);
+                                             expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '0'))";
+                                         }
+                                         
+                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                    }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
+                                        if(statusPassingValues.contains("2")){
+        //12E
+                                            String status = "0,1,2";
+                                            vo.setNamedWhereClauseParam("status", status);
+                                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                                        }else{
+        //1E
+                                            String status = "0,1";
+                                            vo.setNamedWhereClauseParam("status", status);
+                                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '1'))";
+                                        }                                  
+                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                    }else if (statusPassingValues.contains("2") && !statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
+        //2E
+                                          String status = "0,1,2";
+                                          vo.setNamedWhereClauseParam("status", status);
+                                          expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                     }else if(statusPassingValues.equalsIgnoreCase("E")){
+        //E
+                                          String status = "0,1";
+                                          vo.setNamedWhereClauseParam("status", status);
+                                          expiryQuery = "(BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate)";
+                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                     }else if(statusPassingValues.contains("0") && statusPassingValues.contains("1") && !statusPassingValues.contains("2")){
+        //01E
+                                          String status = "0,1";
+                                          vo.setNamedWhereClauseParam("status", status);
+                                          expiryQuery = "BLOCK_ACTION IN ('0','1')";
+                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
+                                     }
+                                     else {
+        //012E
+                                         String status = "0,1,2";
+                                         vo.setNamedWhereClauseParam("status", status);
+                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+                                     }
+                                }
+                            }
 
         if (accountIdValue.size() > 150) {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
@@ -2638,7 +2746,12 @@ public class CardBean implements Serializable {
         }
 
 
-        if (currentDate != null && (!statusPassingValues.contains("2") || !statusPassingValues.contains("1") || !statusPassingValues.contains("0"))) {
+        if (!statusPassingValues.equalsIgnoreCase("2") &&
+            !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("2") && statusPassingValues.contains("E")) &&
+            !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("E"))) {
+            Date dateNow = new java.util.Date();
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
+            currentDate = dateformat.format(dateNow);
             vo.defineNamedWhereClauseParam("currentDate", currentDate, null);
         }
 
@@ -2754,6 +2867,23 @@ public class CardBean implements Serializable {
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public void setBlockedDateTime(boolean blockedDateTime) {
+        this.blockedDateTime = blockedDateTime;
+    }
+
+    public boolean isBlockedDateTime() {
+        String statusPassingValues = null;
+        if (getBindings().getStatus().getValue() != null) {
+            statusPassingValues = populateStringValues(getBindings().getStatus().getValue().toString());
+            if(statusPassingValues.equalsIgnoreCase("0")){
+                blockedDateTime = false;
+            }else{
+                blockedDateTime = true;
+            }
+        }
+        return blockedDateTime;
     }
 
     public class Bindings {

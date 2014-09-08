@@ -417,10 +417,10 @@
                 <af:convertDateTime pattern="dd.MM.yyyy"/>
               </af:inputDate>
             </af:column>
-            <af:column headerText="#{sfr.BLOCKED_DATE_TIME}"
+                <af:column headerText="#{sfr.BLOCKED_DATE_TIME}"
                        sortProperty="BlockDate" filterable="true" id="c17"
                        align="center" filterFeatures="caseInsensitive"
-                       width="125px">
+                       width="125px" visible="#{pageFlowScope.CardBean.blockedDateTime}">
               <f:facet name="filter">
                 <af:inputDate value="#{vs.filterCriteria.BlockDate}" id="id7">
                   <af:convertDateTime pattern="dd.MM.yyyy"/>
