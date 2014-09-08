@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
+          id="AlertsSubscribeFrequencyType" Package="com.sfr.engage.core"
+          BeanClass="com.sfr.engage.core.AlertsSubscribeFrequencyType"
+          isJavaBased="true">
+  <Attribute Name="scheduleFrequency" Type="java.lang.String"/>
+  <Attribute Name="scheduleDay" Type="java.lang.String"/>
+  <Attribute Name="scheduleDate" Type="java.lang.String"/>
+  <Attribute Name="scheduleMonth" Type="java.lang.String"/>
+  <ConstructorMethod IsCollection="true"
+                     Type="com.sfr.engage.core.AlertsSubscribeFrequencyType"
+                     BeanClass="com.sfr.engage.core.AlertsSubscribeFrequencyType"
+                     id="AlertsSubscribeFrequencyType"/>
+</JavaBean>

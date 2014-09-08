@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardFuelCapacityEO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  DBObjectType="table"
+  DBObjectName="PRT_CARD_FUEL_CAPACITY"
+  AliasName="PrtCardFuelCapacityEO"
+  BindingStyle="OracleName"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
+  <Attribute
+    Name="CountryCode"
+    IsNotNull="true"
+    Precision="2"
+    ColumnName="COUNTRY_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SubscrId"
+    IsNotNull="true"
+    ColumnName="SUBSCR_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RuleId"
+    IsNotNull="true"
+    ColumnName="RULE_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FuelPerDay"
+    Precision="126"
+    Scale="0"
+    ColumnName="FUEL_PER_DAY"
+    SQLType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FuelPerWeek"
+    Precision="126"
+    Scale="0"
+    ColumnName="FUEL_PER_WEEK"
+    SQLType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="FuelPerMonth"
+    Precision="126"
+    Scale="0"
+    ColumnName="FUEL_PER_MONTH"
+    SQLType="FLOAT"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedBy"
+    IsNotNull="true"
+    Precision="50"
+    ColumnName="MODIFIED_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PRT_CARD_FUEL_CAPACITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    IsNotNull="true"
+    ColumnName="MODIFIED_DATE"
+    SQLType="TIMESTAMP"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    TableName="PRT_CARD_FUEL_CAPACITY"
+    HistoryColumn="DateHistory">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RuleFuelCapId"
+    ColumnName="RULE_FUEL_CAP_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.DBSequence"
+    ColumnType="NUMBER"
+    TableName="PRT_CARD_FUEL_CAPACITY"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="PrtCardRuleSubscriptionEO"
+    Association="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc"
+    AssociationEnd="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc.PrtCardRuleSubscriptionEO"
+    AssociationOtherEnd="com.sfr.engage.model.associations.PrtCardFuelCapacityPrFk1Assoc.PrtCardFuelCapacityEO"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="PrtCardFuelCapacityPk"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_FUEL_CAPACITY_PK"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.RuleFuelCapId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062413">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062413"/>
+      <Attr Name="_checkCondition" Value='"COUNTRY_CODE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062414">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062414"/>
+      <Attr Name="_checkCondition" Value='"SUBSCR_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.SubscrId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062415">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062415"/>
+      <Attr Name="_checkCondition" Value='"RULE_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.RuleId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062416">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062416"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_BY" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.ModifiedBy"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062417">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062417"/>
+      <Attr Name="_checkCondition" Value='"MODIFIED_DATE" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.ModifiedDate"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="SysC0062418">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="SYS_C0062418"/>
+      <Attr Name="_checkCondition" Value='"RULE_FUEL_CAP_ID" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.RuleFuelCapId"/>
+    </AttrArray>
+  </Key>
+  <Key
+    Name="PrtCardFuelCapacityPrFk1">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRT_CARD_RULE_SUBSCRIPTIO_PK"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="PRT_CARD_FUEL_CAPACITY_PR_FK1"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.SubscrId"/>
+      <Item
+        Value="com.sfr.engage.model.entities.PrtCardFuelCapacityEO.CountryCode"/>
+    </AttrArray>
+  </Key>
+</Entity>

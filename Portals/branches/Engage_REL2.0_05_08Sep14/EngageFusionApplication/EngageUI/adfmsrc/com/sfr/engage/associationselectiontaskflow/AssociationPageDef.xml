@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="AssociationPageDef"
+                Package="com.sfr.engage.associationselectiontaskflow">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+  </executables>
+ <bindings>
+    <methodAction id="searchUser" InstanceName="UserClient.dataProvider"
+                  DataControl="UserClient" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="searchUser"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.UserClient.methodResults.searchUser_UserClient_dataProvider_searchUser_result">
+      <NamedData NDName="customerId" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

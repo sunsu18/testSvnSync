@@ -1,0 +1,776 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <af:panelGroupLayout id="pgl1" styleClass="spacerStyle" layout="vertical">
+    <af:panelGroupLayout id="pgl2">
+      <af:spacer width="10" height="20" id="s9ghghg"/>
+      <af:panelGroupLayout id="printPanel1" layout="horizontal">
+        <af:outputText value="#{sfr.DRIVER_INFO}" id="ot1"
+                       styleClass="heading"/>
+        <af:spacer width="20" height="1" id="s1"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s11"/>
+      <af:panelGroupLayout id="pgl9" layout="horizontal">
+        <af:separator id="s4"/>
+      </af:panelGroupLayout>
+      <af:spacer width="5" height="10" id="s44"/>
+      <af:panelGroupLayout id="pgl3" layout="vertical"
+                           inlineStyle="width:440.0px;">
+        <af:panelGroupLayout id="pgl10">
+          <h:panelGrid columns="3" id="pg1" cellpadding="3" cellspacing="2"
+                       style="text-align:left; vertical-align:top;">
+            <af:panelGroupLayout id="pgl36"
+                                 inlineStyle="height:auto; text-align:justify; width:150.0px;overflow:hidden;"
+                                 layout="vertical">
+              <af:outputText value="*#{sfr.PARTNER_ENG}" id="gff"/>
+              <af:spacer width="20" height="20" id="s45"/>
+              <af:outputText value=" #{sfr.ACCOUNT}" id="ot13"/>
+              <af:spacer width="20" height="20" id="s20"/>
+              <af:outputText value=" #{sfr.FILTER_DRIVER_NAME}" id="colon1"/>
+              <af:spacer width="20" height="20" id="s37"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl12"
+                                 inlineStyle="height:auto; text-align:justify; width:10.0px;"
+                                 layout="vertical">
+              <af:outputText value=":" id="col"/>
+              <af:spacer width="20" height="20" id="s21"/>
+              <af:outputText value=":" id="ot14"/>
+              <af:spacer width="20" height="20" id="s18"/>
+              <af:outputText value=":" id="ot18"/>
+              <af:spacer width="20" height="20" id="s19"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pgl13"
+                                 inlineStyle="height:auto; text-align:justify; width:200.0px;"
+                                 layout="vertical">
+              <af:selectOneChoice id="partnerSOC"
+                                  binding="#{pageFlowScope.DriverInfoBean.bindings.linkedPartner}"
+                                  contentStyle="width: 175px;" autoSubmit="true"
+                                  unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                  value="#{pageFlowScope.DriverInfoBean.linkedPartnerLOVValues}"
+                                  valueChangeListener="#{pageFlowScope.DriverInfoBean.partnerNumberValueChangeListener}">
+                <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
+                            var="listItem">
+                  <af:selectItem label="#{listItem.label}"
+                                 value="#{listItem.value}"
+                                 id="select_item_partner"/>
+                </af:forEach>
+              </af:selectOneChoice>
+              <af:spacer width="20" height="20" id="s41"/>
+              <af:selectManyChoice id="smc1"
+                                   binding="#{pageFlowScope.DriverInfoBean.bindings.linkedAccount}"
+                                   contentStyle="width: 150px;height:14px;"
+                                   value="#{pageFlowScope.DriverInfoBean.linkedAccountLOVValues}">
+                <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAccountList}"
+                            var="listItem">
+                  <af:selectItem label="#{listItem.label}"
+                                 value="#{listItem.value}"
+                                 id="select_item_account"/>
+                </af:forEach>
+              </af:selectManyChoice>
+              <af:spacer width="20" height="20" id="s42"/>
+              <af:inputText id="it7" autoSubmit="true"
+                            binding="#{pageFlowScope.DriverInfoBean.bindings.driverName}"
+                            value="#{pageFlowScope.DriverInfoBean.driverN}"
+                            contentStyle="width: 165px;"/>
+              <af:spacer width="20" height="20" id="s43"/>
+            </af:panelGroupLayout>
+          </h:panelGrid>
+        </af:panelGroupLayout>
+        <af:spacer width="12" height="10" id="s15"/>
+        <af:panelGroupLayout id="pgl0" layout="horizontal" halign="right"
+                             inlineStyle="padding-right: 79px;">
+          <af:commandButton text="#{sfr.SEARCH}" id="cb1"
+                            action="#{pageFlowScope.DriverInfoBean.searchAction}"
+                            partialTriggers="it7"></af:commandButton>
+          <af:spacer width="12" height="10" id="s2"/>
+          <af:commandButton id="cb3" text="#{sfr.ADD}"
+                            action="#{pageFlowScope.DriverInfoBean.newDriverAddAction}"
+                            styleClass="buttonback buttontext"></af:commandButton>
+          <af:spacer width="12" height="10" id="s23"/>
+          <af:commandButton text="#{sfr.CLEAR}" id="cb2"
+                            actionListener="#{pageFlowScope.DriverInfoBean.searchCancel}"></af:commandButton>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="pgl4"
+                         binding="#{pageFlowScope.DriverInfoBean.bindings.searchResults}"
+                         visible="#{pageFlowScope.DriverInfoBean.searchResultsShow}">
+      <af:spacer width="10" height="10" id="s13"/>
+      <af:separator id="s3"
+                    inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
+      <af:spacer width="10" height="20" id="s14"/>
+      <af:panelGroupLayout id="pgl5" layout="horizontal"
+                           inlineStyle="width:948.0px;">
+        <af:outputText value="#{sfr.SEARCH_RESULTS_ENG} :" id="ot9"
+                       styleClass="subheading"/>
+        <af:spacer width="690" height="10" id="s16"/>
+        <af:panelGroupLayout id="pgl80" halign="right">
+          <af:commandButton text="#{sfr.DELETE}" id="cb4"
+                            action="#{pageFlowScope.DriverInfoBean.driverDeleteAction}"
+                            styleClass="buttonback buttontext"/>
+        </af:panelGroupLayout>
+      </af:panelGroupLayout>
+      <af:panelGroupLayout id="pgl6">
+        <af:spacer width="10" height="25" id="s6"/>
+        <af:forEach items="#{pageFlowScope.DriverInfoBean.myAccountDriver}"
+                    var="var">
+          <af:panelGroupLayout id="pgl7" layout="horizontal"
+                               inlineStyle="width:948.0px;">
+            <af:outputText value="#{sfr.ACCOUNT} : #{var.accountNumber}"
+                           id="ot2" styleClass="boldtext"/>
+            <af:spacer width="650" height="10" id="s27"/>
+            <af:spacer width="10" height="10" id="s31"/>
+            <af:panelGroupLayout id="pgl15" halign="right"
+                                 visible="#{(pageFlowScope.DriverInfoBean.driverN ne null and not empty pageFlowScope.DriverInfoBean.driverN)? false: true}">
+              <af:commandButton text="#{sfr.DELETE_ALL_ACCOUNT}" id="cb6"
+                                action="#{pageFlowScope.DriverInfoBean.deleteAllRecordsAction}"
+                                styleClass="buttonback buttontext">
+                <af:setPropertyListener from="#{var.accountNumber}"
+                                        to="#{pageFlowScope.accountNumber}"
+                                        type="action"/>
+              </af:commandButton>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+          <af:spacer width="10" height="5" id="s12"/>
+          <af:panelGroupLayout id="pgl8">
+            <af:table var="row" rowBandingInterval="1" id="t1"
+                      value="#{var.driverInfoList}" width="945px"
+                      emptyText="#{not empty var.driverInfoList ? (sfr.ACCESS_DENIED_ENG) : (sfr.NO_DATA)}"
+                      fetchSize="-1" columnResizing="disabled"
+                      disableColumnReordering="true" autoHeightRows="10">
+              <af:column sortable="false" id="c13" width="28px" align="center">
+                <af:selectBooleanCheckbox id="sbc1"
+                                          valueChangeListener="#{pageFlowScope.DriverInfoBean.deleteCheckBoxListener}"
+                                          autoSubmit="true">
+                  <af:setPropertyListener from="#{row.prtDriverInformationPK}"
+                                          to="#{pageFlowScope.checkBoxPrimaryKey}"
+                                          type="valueChange"/>
+                  <af:setPropertyListener from="#{row.accountId}"
+                                          to="#{pageFlowScope.accountNo}"
+                                          type="valueChange"/>
+                </af:selectBooleanCheckbox>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.DRIVER_NUMBER}"
+                         id="c1" width="135">
+                <af:outputText value="#{row.driverNumber}" id="ot4"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.CARD_NUMBER}"
+                         id="c2" width="145">
+                <af:outputText value="#{row.embossCardNumber}" id="ot5"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.DRIVER_NAME_ENG}"
+                         id="c3" width="135">
+                <af:outputText value="#{row.driverName}" id="ot6"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.NATIONALITY}"
+                         id="c4" width="140">
+                <af:outputText value="#{row.nationality}" id="ot7"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.MOBILE_NUMBER}"
+                         id="c5" width="120">
+                <af:outputText value="#{row.mobileNumber}" id="ot8"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.REMARKS}" id="c12"
+                         width="111">
+                <af:outputText value="#{row.remarks}" id="ot15"/>
+              </af:column>
+              <af:column sortable="false" headerText="#{sfr.MORE_DETAILS}"
+                         id="c14" width="89" align="center">
+                <af:commandImageLink id="cil1"
+                                     action="#{pageFlowScope.DriverInfoBean.tableEditAction}"
+                                     icon="/images/edit.png">
+                  <af:setPropertyListener from="#{row.prtDriverInformationPK}"
+                                          type="action"
+                                          to="#{pageFlowScope.primarykey}"/>
+                  <af:setPropertyListener from="#{row.accountId}" type="action"
+                                          to="#{pageFlowScope.accountnumber}"/>
+                  <af:setPropertyListener from="#{row.cardNumber}" type="action"
+                                          to="#{pageFlowScope.cardid}"/>
+                </af:commandImageLink>
+              </af:column>
+            </af:table>
+            <af:spacer width="10" height="30" id="s7"/>
+          </af:panelGroupLayout>
+        </af:forEach>
+      </af:panelGroupLayout>
+    </af:panelGroupLayout>
+    <af:popup id="new_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.newDriver}"
+              autoCancel="disabled">
+      <af:dialog id="newDriver" type="none" contentWidth="715"
+                 closeIconVisible="false">
+        <af:panelGroupLayout id="pgl90" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+          <af:outputText value="#{sfr.ADD_DRIVER}" id="ot31"
+                         styleClass="subheading"/>
+        </af:panelGroupLayout>
+        <af:separator id="s26"
+                      inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+        <af:panelGroupLayout id="pgl61" styleClass="errorPanel"
+                             layout="horizontal"
+                             visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
+                             inlineStyle="width:715.0px;">
+          <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}"
+                         id="ot10"
+                         binding="#{pageFlowScope.DriverInfoBean.bindings.showErrorMsg}"
+                         visible="#{pageFlowScope.DriverInfoBean.showErrorMsgFlag}"
+                         styleClass="errorOutputText" partialTriggers="soc3"/>
+        </af:panelGroupLayout>
+        <af:panelStretchLayout id="psl6" dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="new_driver_panel_toolbar" styleClass="WCPanelColor">
+              <af:panelGroupLayout id="new_footer_panel" layout="vertical"
+                                   halign="right" inlineStyle="width:705.0px;">
+                <af:spacer width="479" height="10" id="s5"/>
+                <af:panelGroupLayout id="pgl11" halign="right">
+                  <af:commandButton text="#{sfr.SAVE}" id="save"
+                                    action="#{pageFlowScope.DriverInfoBean.newDriverSave}"
+                                    styleClass="buttonback buttontext"/>
+                  <af:spacer width="10" height="10" id="s8"/>
+                  <af:commandButton text="#{sfr.CANCEL}" id="ccb11"
+                                    actionListener="#{bindings.Rollback.execute}"
+                                    immediate="true"
+                                    action="#{pageFlowScope.DriverInfoBean.newDriverCancel}"
+                                    styleClass="buttonback buttontext"></af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="newDriver_scroll"
+                                 styleClass="WCPanelMargin" layout="horizontal">
+              <h:panelGrid columns="9" id="popupGrid">
+                <af:outputText value="*#{sfr.PARTNER_ENG}" id="partnerid"/>
+                <af:outputText value=":" id="colonpartner"/>
+                <af:spacer width="15" height="30" id="s1856"/>
+                <af:selectOneChoice id="soc1"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddPartnerNumberListener}"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.addPartnerNumberId}"
+                                    value="#{pageFlowScope.DriverInfoBean.addPartnerNumberDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_partner_item"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:spacer width="57" height="10" id="colnSpace"/>
+                <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Acctid"/>
+                <af:outputText value=":" id="colonpop"/>
+                <af:spacer width="15" height="10" id="s22"/>
+                <af:selectOneChoice id="soc5"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.AddAccountNumberListener}"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.addAccountId}"
+                                    value="#{pageFlowScope.DriverInfoBean.addAccountIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedAddAccountList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_account_item"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:outputText value="*#{sfr.DRIVER_NUMBER}" id="Acctid2"/>
+                <af:outputText value=":" id="colonpop1"/>
+                <af:spacer width="15" height="30" id="s18561"/>
+                <af:inputText value="#{bindings.DriverNumber.inputValue}"
+                              columns="#{bindings.DriverNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverNumber.hints.precision}"
+                              shortDesc="#{bindings.DriverNumber.hints.tooltip}"
+                              id="it2"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.addDriverNumber}">
+                  <f:validator binding="#{bindings.DriverNumber.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="colnSpace1"/>
+                <af:outputText value="#{sfr.CARD_NUMBER}" id="Acctid1"/>
+                <af:outputText value=":" id="colonpop2"/>
+                <af:spacer width="15" height="30" id="s18562"/>
+                <af:selectOneChoice id="soc3"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.addCardId}"
+                                    value="#{pageFlowScope.DriverInfoBean.addCardIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.addCardNumberChangeListener}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.cardNumberList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_card_item"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:outputText value="*#{sfr.DRIVER_NAME_ENG}" id="Acctid3"/>
+                <af:outputText value=":" id="colonpop3"/>
+                <af:spacer width="15" height="30" id="s18563"/>
+                <af:inputText value="#{bindings.DriverName.inputValue}"
+                              columns="#{bindings.DriverName.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverName.hints.precision}"
+                              shortDesc="#{bindings.DriverName.hints.tooltip}"
+                              id="it8"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.addDriverName}">
+                  <f:validator binding="#{bindings.DriverName.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="colnSpace2"/>
+                <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid245"/>
+                <af:outputText value=":" id="colonpop424"/>
+                <af:spacer width="15" height="30" id="s21227"/>
+                <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              required="#{bindings.ReferenceNumber.hints.mandatory}"
+                              columns="#{bindings.ReferenceNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.ReferenceNumber.hints.precision}"
+                              shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
+                              id="it3"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.addReferenceNumber}">
+                  <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.NATIONALITY}" id="Acctid4"/>
+                <af:outputText value=":" id="colonpop4"/>
+                <af:spacer width="15" height="30" id="s18564"/>
+                <af:inputText value="#{bindings.Nationality.inputValue}"
+                              columns="#{bindings.Nationality.hints.displayWidth}"
+                              maximumLength="#{bindings.Nationality.hints.precision}"
+                              shortDesc="#{bindings.Nationality.hints.tooltip}"
+                              id="it5"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.Nationality.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="colnSpace3"/>
+                <af:outputText value="#{sfr.MOBILE_NUMBER}" id="Acctid5"/>
+                <af:outputText value=":" id="colonpop5"/>
+                <af:spacer width="15" height="30" id="s18565"/>
+                <af:inputText value="#{bindings.MobileNumber.inputValue}"
+                              columns="#{bindings.MobileNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.MobileNumber.hints.precision}"
+                              shortDesc="#{bindings.MobileNumber.hints.tooltip}"
+                              id="it9"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.MobileNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.MobileNumber.format}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.PASSPORT_NUMBER}" id="Acctid7"/>
+                <af:outputText value=":" id="colonpop6"/>
+                <af:spacer width="15" height="30" id="s18566"/>
+                <af:inputText value="#{bindings.PassportNumber.inputValue}"
+                              columns="#{bindings.PassportNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.PassportNumber.hints.precision}"
+                              shortDesc="#{bindings.PassportNumber.hints.tooltip}"
+                              id="it6"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.PassportNumber.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="colnSpace4"/>
+                <af:outputText value="#{sfr.LICENSE_NUMBER}" id="Acctid9"/>
+                <af:outputText value=":" id="colonpop7"/>
+                <af:spacer width="15" height="30" id="s18567"/>
+                <af:inputText value="#{bindings.LicenseNumber.inputValue}"
+                              columns="#{bindings.LicenseNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.LicenseNumber.hints.precision}"
+                              shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
+                              id="it19"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.LicenseNumber.validator}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.PASSPORT_EXPIRY}" id="Acctid8"/>
+                <af:outputText value=":" id="colonpop8"/>
+                <af:spacer width="15" height="30" id="s18568"/>
+                <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
+                              shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
+                              id="id6"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.PassportExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
+                </af:inputDate>
+                <af:spacer width="25" height="10" id="colnSpace5"/>
+                <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Acctid10"/>
+                <af:outputText value=":" id="colonpop9"/>
+                <af:spacer width="15" height="30" id="s18569"/>
+                <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
+                              shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
+                              id="id3"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
+                </af:inputDate>
+                <af:outputText value="#{sfr.EMPLOY_START}" id="Acctid11"/>
+                <af:outputText value=":" id="colonpop12"/>
+                <af:spacer width="15" height="30" id="s185612"/>
+                <af:inputDate value="#{bindings.EmployStart.inputValue}"
+                              shortDesc="#{bindings.EmployStart.hints.tooltip}"
+                              id="id5"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.EmployStart.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
+                </af:inputDate>
+                <af:spacer width="25" height="10" id="s24"/>
+                <af:outputText value="#{sfr.EMPLOY_END}" id="Acctid12"/>
+                <af:outputText value=":" id="colonpop11"/>
+                <af:spacer width="15" height="30" id="s185611"/>
+                <af:inputDate value="#{bindings.EmployEnd.inputValue}"
+                              shortDesc="#{bindings.EmployEnd.hints.tooltip}"
+                              id="id2"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.EmployEnd.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
+                </af:inputDate>
+                <af:outputText value="#{sfr.REMARKS}" id="Acctid6"/>
+                <af:outputText value=":" id="colonpop10"/>
+                <af:spacer width="15" height="30" id="s185610"/>
+                <af:inputText value="#{bindings.Remarks.inputValue}"
+                              columns="#{bindings.Remarks.hints.displayWidth}"
+                              maximumLength="#{bindings.Remarks.hints.precision}"
+                              shortDesc="#{bindings.Remarks.hints.tooltip}"
+                              id="it1"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.Remarks.validator}"/>
+                </af:inputText>
+              </h:panelGrid>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    <af:popup id="edit_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriver}"
+              autoCancel="disabled">
+      <af:dialog id="editDriver" type="none" contentWidth="700"
+                 closeIconVisible="false">
+        <af:panelGroupLayout id="pg0006" layout="horizontal"
+                             inlineStyle="font-size:15.0px;">
+          <af:outputText value="#{sfr.EDIT_DRIVER}" id="ot3"
+                         styleClass="subheading"/>
+        </af:panelGroupLayout>
+        <af:separator id="s28"
+                      inlineStyle="width:auto; height:1px; background-color:Scrollbar;margin-left: 0 !important;"/>
+        <af:panelGroupLayout id="pg996" styleClass="errorPanel"
+                             layout="horizontal"
+                             visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
+                             inlineStyle="width:715.0px;">
+          <af:outputText value="#{pageFlowScope.DriverInfoBean.warningMsg}"
+                         id="ot11"
+                         binding="#{pageFlowScope.DriverInfoBean.bindings.showEditErrorMessage}"
+                         visible="#{pageFlowScope.DriverInfoBean.showErrorMsgEditFlag}"
+                         styleClass="errorOutputText" partialTriggers="soc4"/>
+        </af:panelGroupLayout>
+        <af:panelStretchLayout id="pssl6" dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="edit_driver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="edit_footer_panel" layout="vertical"
+                                   inlineStyle="width:662.0px;" halign="right">
+                <af:spacer width="500" height="10" id="ss5"/>
+                <af:panelGroupLayout id="pgl14" halign="right"
+                                     layout="horizontal">
+                  <af:commandButton text="#{sfr.SAVE}" id="editsave"
+                                    action="#{pageFlowScope.DriverInfoBean.editDriverSave}"
+                                    styleClass="buttonback buttontext"/>
+                  <af:spacer width="10" height="10" id="s9"/>
+                  <af:commandButton text="#{sfr.CANCEL}" id="cb8"
+                                    actionListener="#{bindings.Rollback.execute}"
+                                    immediate="true"
+                                    action="#{pageFlowScope.DriverInfoBean.editDriverCancel}"
+                                    styleClass="buttonback buttontext"></af:commandButton>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="editDriver_scroll"
+                                 styleClass="WCPanelMargin">
+              <h:panelGrid columns="9" id="drivGrid">
+                <af:outputText value="*#{sfr.PARTNER_ENG}" id="editpartnerid"/>
+                <af:outputText value=":" id="editpartner"/>
+                <af:spacer width="15" height="30" id="s35"/>
+                <af:selectOneChoice id="soc6"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.EditPartnerNumberLIstener}"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.editPartnerNumberId}"
+                                    value="#{pageFlowScope.DriverInfoBean.editPartnerNumberDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedPartnerList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_partner__edititem"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:spacer width="46" height="10" id="DrivSpac"/>
+                <af:outputText value="*#{sfr.ACCOUNT_ID}" id="Driv1"/>
+                <af:outputText value=":" id="Driv2"/>
+                <af:spacer width="15" height="30" id="Driv3"/>
+                <af:selectOneChoice id="soc2"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editAccountNumberChangeListener}"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.editAccountId}"
+                                    value="#{pageFlowScope.DriverInfoBean.editAccountIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.linkedEditAccountList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_account_edit_item"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:outputText value="*#{sfr.DRIVER_NUMBER}" id="Driv13"/>
+                <af:outputText value=":" id="Driv23"/>
+                <af:spacer width="15" height="30" id="Driv33"/>
+                <af:inputText value="#{bindings.DriverNumber.inputValue}"
+                              columns="#{bindings.DriverNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverNumber.hints.precision}"
+                              shortDesc="#{bindings.DriverNumber.hints.tooltip}"
+                              id="it14"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverNumber}">
+                  <f:validator binding="#{bindings.DriverNumber.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="DrivSpac2"/>
+                <af:outputText value="#{sfr.CARD_NUMBER}" id="Driv12"/>
+                <af:outputText value=":" id="Driv22"/>
+                <af:spacer width="15" height="30" id="Driv32"/>
+                <af:selectOneChoice id="soc4"
+                                    contentStyle="width:165px;height:20.0px;"
+                                    autoSubmit="true"
+                                    binding="#{pageFlowScope.DriverInfoBean.bindings.editCardId}"
+                                    value="#{pageFlowScope.DriverInfoBean.editCardIdDisplayValue}"
+                                    unselectedLabel="#{sfr.PLEASE_SELECT_ENG}"
+                                    valueChangeListener="#{pageFlowScope.DriverInfoBean.editCardNumberChangeListener}">
+                  <af:forEach items="#{pageFlowScope.DriverInfoBean.editCardNumberList}"
+                              var="listItem">
+                    <af:selectItem label="#{listItem.label}"
+                                   value="#{listItem.value}"
+                                   id="select_card_edit_item"/>
+                  </af:forEach>
+                </af:selectOneChoice>
+                <af:outputText value="*#{sfr.DRIVER_NAME_ENG}" id="Driv14"/>
+                <af:outputText value=":" id="Driv24"/>
+                <af:spacer width="15" height="30" id="Driv34"/>
+                <af:inputText value="#{bindings.DriverName.inputValue}"
+                              columns="#{bindings.DriverName.hints.displayWidth}"
+                              maximumLength="#{bindings.DriverName.hints.precision}"
+                              shortDesc="#{bindings.DriverName.hints.tooltip}"
+                              id="it15"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editDriverName}">
+                  <f:validator binding="#{bindings.DriverName.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="DrivSpac3"/>
+                <af:outputText value="#{sfr.REFERENCE_NUMBER}" id="Acctid2456"/>
+                <af:outputText value=":" id="colonpop4245"/>
+                <af:spacer width="15" height="30" id="s212278"/>
+                <af:inputText value="#{bindings.ReferenceNumber.inputValue}"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              required="#{bindings.ReferenceNumber.hints.mandatory}"
+                              columns="#{bindings.ReferenceNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.ReferenceNumber.hints.precision}"
+                              shortDesc="#{bindings.ReferenceNumber.hints.tooltip}"
+                              id="it4"
+                              binding="#{pageFlowScope.DriverInfoBean.bindings.editReferenceNumber}">
+                  <f:validator binding="#{bindings.ReferenceNumber.validator}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.NATIONALITY}" id="Driv15"/>
+                <af:outputText value=":" id="Driv25"/>
+                <af:spacer width="15" height="30" id="Driv35"/>
+                <af:inputText value="#{bindings.Nationality.inputValue}"
+                              columns="#{bindings.Nationality.hints.displayWidth}"
+                              maximumLength="#{bindings.Nationality.hints.precision}"
+                              shortDesc="#{bindings.Nationality.hints.tooltip}"
+                              id="it12"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.Nationality.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="DrivSpac4"/>
+                <af:outputText value="#{sfr.MOBILE_NUMBER}" id="Driv16"/>
+                <af:outputText value=":" id="Driv26"/>
+                <af:spacer width="15" height="30" id="Driv36"/>
+                <af:inputText value="#{bindings.MobileNumber.inputValue}"
+                              columns="#{bindings.MobileNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.MobileNumber.hints.precision}"
+                              shortDesc="#{bindings.MobileNumber.hints.tooltip}"
+                              id="it17"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.MobileNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.MobileNumber.format}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.PASSPORT_NUMBER}" id="Driv18"/>
+                <af:outputText value=":" id="Driv28"/>
+                <af:spacer width="15" height="30" id="Driv38"/>
+                <af:inputText value="#{bindings.PassportNumber.inputValue}"
+                              columns="#{bindings.PassportNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.PassportNumber.hints.precision}"
+                              shortDesc="#{bindings.PassportNumber.hints.tooltip}"
+                              id="it13"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.PassportNumber.validator}"/>
+                </af:inputText>
+                <af:spacer width="25" height="10" id="DrivSpac5"/>
+                <af:outputText value="#{sfr.LICENSE_NUMBER}" id="Driv10"/>
+                <af:outputText value=":" id="Driv20"/>
+                <af:spacer width="15" height="30" id="Driv30"/>
+                <af:inputText value="#{bindings.LicenseNumber.inputValue}"
+                              columns="#{bindings.LicenseNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.LicenseNumber.hints.precision}"
+                              shortDesc="#{bindings.LicenseNumber.hints.tooltip}"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px"
+                              id="it10">
+                  <f:validator binding="#{bindings.LicenseNumber.validator}"/>
+                </af:inputText>
+                <af:outputText value="#{sfr.PASSPORT_EXPIRY}" id="Driv19"/>
+                <af:outputText value=":" id="Driv29"/>
+                <af:spacer width="15" height="30" id="Driv39"/>
+                <af:inputDate value="#{bindings.PassportExpiry.inputValue}"
+                              shortDesc="#{bindings.PassportExpiry.hints.tooltip}"
+                              id="id1"
+                              contentStyle="width:140px;height:16.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.PassportExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.PassportExpiry.format}"/>
+                </af:inputDate>
+                <af:spacer width="25" height="10" id="DrivSpac6"/>
+                <af:outputText value="#{sfr.LICENSE_EXPIRY}" id="Driv111"/>
+                <af:outputText value=":" id="Driv211"/>
+                <af:spacer width="15" height="30" id="Driv311"/>
+                <af:inputDate value="#{bindings.LicenseExpiry.inputValue}"
+                              shortDesc="#{bindings.LicenseExpiry.hints.tooltip}"
+                              id="id8"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.LicenseExpiry.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.LicenseExpiry.format}"/>
+                </af:inputDate>
+                <af:outputText value="#{sfr.EMPLOY_START}" id="Driv122"/>
+                <af:outputText value=":" id="Driv222"/>
+                <af:spacer width="15" height="30" id="Driv322"/>
+                <af:inputDate value="#{bindings.EmployStart.inputValue}"
+                              shortDesc="#{bindings.EmployStart.hints.tooltip}"
+                              id="id4"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.EmployStart.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployStart.format}"/>
+                </af:inputDate>
+                <af:spacer width="25" height="10" id="s17"/>
+                <af:outputText value="#{sfr.EMPLOY_END}" id="Driv133"/>
+                <af:outputText value=":" id="Driv233"/>
+                <af:spacer width="15" height="30" id="Driv333"/>
+                <af:inputDate value="#{bindings.EmployEnd.inputValue}"
+                              shortDesc="#{bindings.EmployEnd.hints.tooltip}"
+                              id="id7"
+                              contentStyle="width:140px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.EmployEnd.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.EmployEnd.format}"/>
+                </af:inputDate>
+                <af:outputText value="#{sfr.REMARKS}" id="Driv17"/>
+                <af:outputText value=":" id="Driv27"/>
+                <af:spacer width="15" height="30" id="Driv37"/>
+                <af:inputText value="#{bindings.Remarks.inputValue}"
+                              columns="#{bindings.Remarks.hints.displayWidth}"
+                              maximumLength="#{bindings.Remarks.hints.precision}"
+                              shortDesc="#{bindings.Remarks.hints.tooltip}"
+                              id="it18"
+                              contentStyle="width:158px;height:14.0px;padding-top: 4px">
+                  <f:validator binding="#{bindings.Remarks.validator}"/>
+                </af:inputText>
+              </h:panelGrid>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    <af:popup id="delete_driver" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.deleteDriver}"
+              autoCancel="disabled">
+      <af:dialog id="deleteDriver" type="none" closeIconVisible="false">
+        <af:panelStretchLayout id="psal6" dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="delete_Driver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="delete_footer_panel" layout="horizontal">
+                <af:spacer width="4" height="10" id="sas5"/>
+                <af:commandButton text="#{sfr.YES}" id="deletesave"
+                                  action="#{pageFlowScope.DriverInfoBean.deleteDriverSave}"
+                                  styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s10"/>
+                <af:commandButton text="#{sfr.NO}" id="cb9"
+                                  actionListener="#{bindings.Rollback.execute}"
+                                  immediate="true"
+                                  action="#{pageFlowScope.DriverInfoBean.deleteDriverCancel}"
+                                  styleClass="buttonback buttontext"></af:commandButton>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="deleteDriver_scroll"
+                                 styleClass="WCPanelMargin">
+              <af:panelGroupLayout id="pgl17" layout="horizontal"
+                                   inlineStyle="font-size:15.0px;">
+                <af:outputText value="#{sfr.DELETE_DRIVER}" id="ot12"
+                               styleClass="subheading"/>
+              </af:panelGroupLayout>
+              <af:separator id="s25"
+                            inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+              <af:panelFormLayout id="pfasl1">
+                <af:outputText value="#{sfr.DELETE_COMFIRMATION_DRIVER}"
+                               id="ot16"/>
+              </af:panelFormLayout>
+              <af:spacer width="10" height="15" id="s32fg"/>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+    <af:popup id="delete_all" contentDelivery="immediate"
+              binding="#{pageFlowScope.DriverInfoBean.bindings.deleteAllInfoDriver}"
+              autoCancel="disabled">
+      <af:dialog id="deleteAllDriver" type="none" closeIconVisible="false">
+        <af:panelStretchLayout id="psl1" dimensionsFrom="children">
+          <f:facet name="bottom">
+            <af:toolbar id="delete_AllDriver_panel_toolbar"
+                        styleClass="WCPanelColor">
+              <af:panelGroupLayout id="deleteAll_footer_panel"
+                                   layout="horizontal">
+                <af:spacer width="4" height="10" id="s32"/>
+                <af:commandButton text="#{sfr.YES}" id="deleteall"
+                                  action="#{pageFlowScope.DriverInfoBean.delteAllForAccount}"
+                                  styleClass="buttonback buttontext"/>
+                <af:spacer width="10" height="10" id="s33"/>
+                <af:commandButton text="#{sfr.NO}" id="cb7"
+                                  actionListener="#{bindings.Rollback.execute}"
+                                  immediate="true"
+                                  action="#{pageFlowScope.DriverInfoBean.deleteAllForAccountCancel}"
+                                  styleClass="buttonback buttontext"></af:commandButton>
+              </af:panelGroupLayout>
+            </af:toolbar>
+          </f:facet>
+          <f:facet name="center">
+            <af:panelGroupLayout id="deleteAllDriver_scroll"
+                                 styleClass="WCPanelMargin">
+              <af:panelGroupLayout id="pgl18" layout="horizontal"
+                                   inlineStyle="font-size:15.0px;">
+                <af:outputText value="#{sfr.DELETE_DRIVER}" id="ot19"
+                               styleClass="subheading"/>
+              </af:panelGroupLayout>
+              <af:separator id="s34"
+                            inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+              <af:panelFormLayout id="pfasl2">
+                <af:outputText value="#{sfr.DELETE_COMFIRMATION_ALL_DRIVER}"
+                               id="ot17"/>
+              </af:panelFormLayout>
+              <af:spacer width="10" height="15" id="s33fg"/>
+            </af:panelGroupLayout>
+          </f:facet>
+        </af:panelStretchLayout>
+      </af:dialog>
+    </af:popup>
+  </af:panelGroupLayout>
+</jsp:root>

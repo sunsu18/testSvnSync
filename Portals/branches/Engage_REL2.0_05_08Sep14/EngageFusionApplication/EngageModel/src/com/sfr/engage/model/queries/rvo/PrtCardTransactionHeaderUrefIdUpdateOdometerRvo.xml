@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtCardTransactionHeaderUrefIdUpdateOdometerRvo"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdometerRvoRowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdometerRvoImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtCardTransactionHeaderUrefIdUpdateOdometerRvo_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="cardNumber"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="accountId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="urefTransId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="partnerId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT T1.KSID,T1.ACCOUNT_ID,T1.PALS_COUNTRY_CODE,T1.PARTNER_ID,T1.UREF_TRANSACTION_ID,T1.TRANSACTION_TIME FROM(select KSID,ACCOUNT_ID,PALS_COUNTRY_CODE,PARTNER_ID,UREF_TRANSACTION_ID,TRANSACTION_TIME from prt_card_transaction_header
+where KSID              = :cardNumber
+AND ACCOUNT_ID          = :accountId
+AND PALS_COUNTRY_CODE   = :countryCode
+AND PARTNER_ID          = :partnerId
+AND TRANSACTION_TIME > (select TRANSACTION_TIME from prt_card_transaction_header
+where KSID              = :cardNumber
+AND ACCOUNT_ID          = :accountId
+AND PALS_COUNTRY_CODE   = :countryCode
+AND PARTNER_ID          = :partnerId
+AND UREF_TRANSACTION_ID = :urefTransId)
+ORDER BY TRANSACTION_TIME ASC) T1
+WHERE ROWNUM = 1]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="Ksid"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="KSID"
+    Expression="KSID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AccountId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ACCOUNT_ID"
+    Expression="ACCOUNT_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PalsCountryCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="2"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PALS_COUNTRY_CODE"
+    Expression="PALS_COUNTRY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartnerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTNER_ID"
+    Expression="PARTNER_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UrefTransactionId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UREF_TRANSACTION_ID"
+    Expression="UREF_TRANSACTION_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransactionTime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="TRANSACTION_TIME"
+    Expression="TRANSACTION_TIME"
+    SQLType="TIMESTAMP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

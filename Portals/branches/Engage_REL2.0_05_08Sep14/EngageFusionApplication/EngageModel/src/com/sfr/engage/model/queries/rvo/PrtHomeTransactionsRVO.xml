@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PrtHomeTransactionsRVO"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  FetchMode="FETCH_AS_NEEDED"
+  FetchSize="5"
+  RangeSize="5"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVORowImpl"
+  ComponentClass="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVOImpl">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.sfr.engage.model.queries.rvo.PrtHomeTransactionsRVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="partnerId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[select * from
+(SELECT PRT_CARD_TRANSACTION_HEADER.PURCHASE_CURRENCY,PRT_CARD_TRANSACTION_HEADER.PARTNER_ID,PRT_CARD_TRANSACTION_HEADER.KSID,PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME,PRT_CARD_TRANSACTION_HEADER.TRANSACTION_DT,PRT_CARD_TRANSACTION_HEADER.transaction_type,PRT_CARD_TRANSACTION_HEADER.card_1_id,PRT_CARD_TRANSACTION_HEADER.station_name,PRT_CARD_TRANSACTION_DETAIL.PRODUCT_NAME,PRT_CARD_TRANSACTION_DETAIL.currency_gross_amount,PRT_CARD_TRANSACTION_DETAIL.Quantity,PRT_CARD_TRANSACTION_DETAIL.UNIT_OF_MEASURE FROM PRT_CARD_TRANSACTION_DETAIL
+inner join PRT_CARD_TRANSACTION_HEADER
+ON (PRT_CARD_TRANSACTION_HEADER.UREF_TRANSACTION_ID=PRT_CARD_TRANSACTION_DETAIL.UREF_TRANSACTION_ID
+and PRT_CARD_TRANSACTION_HEADER.pals_country_code=PRT_CARD_TRANSACTION_DETAIL.pals_country_code)
+where PRT_CARD_TRANSACTION_DETAIL.pals_country_code =:countryCode
+and INSTR(:partnerId,PARTNER_ID)<>0
+AND PRT_CARD_TRANSACTION_DETAIL.PRICE_ELEMENT_CODE IS NULL
+and ((PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NOT NULL AND PRT_CARD_TRANSACTION_HEADER.prelim_status_code !='EXP') OR PRT_CARD_TRANSACTION_HEADER.prelim_status_code IS NULL)
+ORDER by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME DESC)
+where ROWNUM <=5]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="PurchaseCurrency"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PURCHASE_CURRENCY"
+    Expression="PURCHASE_CURRENCY"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PartnerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PARTNER_ID"
+    Expression="PARTNER_ID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ksid"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="KSID"
+    Expression="KSID"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransactionTime"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Timestamp"
+    ColumnType="TIMESTAMP"
+    AliasName="TRANSACTION_TIME"
+    Expression="TRANSACTION_TIME"
+    SQLType="TIMESTAMP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransactionDt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="TRANSACTION_DT"
+    SQLType="DATE"
+    Expression="TRANSACTION_DT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TransactionType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="3"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRANSACTION_TYPE"
+    SQLType="VARCHAR"
+    Expression="TRANSACTION_TYPE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Card1Id"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CARD_1_ID"
+    SQLType="VARCHAR"
+    Expression="CARD_1_ID">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StationName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATION_NAME"
+    SQLType="VARCHAR"
+    Expression="STATION_NAME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProductName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_NAME"
+    SQLType="VARCHAR"
+    Expression="PRODUCT_NAME">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrencyGrossAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="126"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="FLOAT"
+    AliasName="CURRENCY_GROSS_AMOUNT"
+    Expression="CURRENCY_GROSS_AMOUNT"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QUANTITY"
+    SQLType="NUMERIC"
+    Expression="QUANTITY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UnitOfMeasure"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_OF_MEASURE"
+    SQLType="VARCHAR"
+    Expression="UNIT_OF_MEASURE">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Card"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="CardTextLine2"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
+  </ResourceBundle>
+</ViewObject>
