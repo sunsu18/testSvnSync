@@ -408,7 +408,7 @@
                columnResizing="disabled" autoHeightRows="15">
       <af:column sortProperty="PartnerId" headerText="#{sfr.PARTNER_ENG}"
                  filterable="true" sortable="true"
-                 filterFeatures="caseInsensitive" width="90" id="c91">
+                 filterFeatures="caseInsensitive" width="100" id="c91">
        <af:outputText value="#{row.PartnerId}" id="ot95"/>
       </af:column>
       <af:column sortProperty="AccountId" headerText="#{sfr.ENGAGE_ACCOUNT}"
@@ -454,28 +454,28 @@
       </af:column>
       <af:column sortProperty="netAmount" filterable="true" sortable="true"
                  align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_NET}" width="100" id="c2">
+                 headerText="#{sfr.ENGAGE_INVOICE_NET}" width="95" id="c2">
        <af:outputText value="#{row.netAmount}" id="ot44">
         <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvVatAmt" filterable="true" sortable="true"
                  align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_VAT}" width="100" id="c15">
+                 headerText="#{sfr.ENGAGE_INVOICE_VAT}" width="95" id="c15">
        <af:outputText value="#{row.InvVatAmt}" id="ot17">
         <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column sortProperty="InvGrossAmt" filterable="true" sortable="true"
                  align="right" filterFeatures="caseInsensitive"
-                 headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" width="115"
+                 headerText="#{sfr.ENGAGE_INVOICE_TOTAL_AMOUNT}" width="100"
                  id="c3">
        <af:outputText value="#{row.InvGrossAmt}" id="ot10">
         <af:convertNumber locale="#{pageFlowScope.InvoiceOverviewBean.locale}"/>
        </af:outputText>
       </af:column>
       <af:column headerText="#{sfr.ENGAGE_INVOICE}" id="c8" align="center"
-                 width="90">
+                 width="85">
        <af:panelGroupLayout id="pgl21" layout="horizontal">
         <af:commandImageLink id="cil1" styleClass="pdf_icon"
                              icon="/images/pdf1.jpg">

@@ -2195,39 +2195,46 @@ public class InvoiceOverviewBean implements Serializable {
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
             
-//            if (resourceBundle.containsKey("TYPE")) {
-//                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
-//            }
-//            XLS_SH_R = XLS_SH.createRow(3);
-//            XLS_SH_R_C = XLS_SH_R.createCell(0);
-//            XLS_SH_R_C.setCellStyle(cs);
-
+             
             if (resourceBundle.containsKey("ENG_PERIOD")) {
 
                 XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENG_PERIOD") + ": " + formatConversion((Date)getBindings().getFromDate().getValue()) + " " +
                                         resourceBundle.getObject("TO_DATE") + " " + formatConversion((Date)getBindings().getToDate().getValue()));
             }
+            XLS_SH_R = XLS_SH.createRow(3);
+            XLS_SH_R = XLS_SH.createRow(4);
+            XLS_SH_R = XLS_SH.createRow(5);
+            XLS_SH_R_C = XLS_SH_R.createCell(0);
+            XLS_SH_R_C.setCellStyle(cs);
+            
+           
+            
+            if (resourceBundle.containsKey("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")) {
+                XLS_SH_R_C.setCellValue(resourceBundle.getObject("ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN")+ currencyCode);              
+            }
 
-            for (int row = 4; row <= 6; row++) {
+            for (int row = 6; row <= 7; row++) {
                 XLS_SH_R = XLS_SH.createRow(row);
             }
 
             String[] headerValues = selectedValues.split(Constants.ENGAGE_REPORT_DELIMITER);
-
+        
             HSSFCellStyle css = XLS.createCellStyle();
             HSSFFont fcss = XLS.createFont();
             fcss.setFontHeightInPoints((short)10);
             fcss.setItalic(true);
             fcss.setColor((short)0);
             css.setFont(fcss);
-            XLS_SH_R = XLS_SH.createRow(6);
+            XLS_SH_R = XLS_SH.createRow(7); 
+            
+            
             for (int col = 0; col < headerValues.length; col++) {
                 XLS_SH_R_C = XLS_SH_R.createCell(col);
                 XLS_SH_R_C.setCellStyle(css);
                 XLS_SH_R_C.setCellValue(headerValues[col].trim());
             }
 
-            int rowVal = 6;
+            int rowVal = 8; 
 
             ViewObject prtNewInvoiceVO = ADFUtils.getViewObject("PrtNewInvoiceVO1Iterator");
             RowSetIterator iterator = prtNewInvoiceVO.createRowSetIterator(null);
