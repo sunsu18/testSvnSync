@@ -6,7 +6,7 @@ import com.sfr.core.bean.User;
 import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.CardInfo;
-import com.sfr.engage.core.MyCardComp;
+//import com.sfr.engage.core.MyCardComp;
 import com.sfr.engage.core.PartnerInfo;
 import com.sfr.engage.model.datacontrol.UserClient;
 import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
