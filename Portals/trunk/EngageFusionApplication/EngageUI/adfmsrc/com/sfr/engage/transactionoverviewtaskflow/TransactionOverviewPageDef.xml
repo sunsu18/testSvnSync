@@ -246,6 +246,7 @@
           <Item Value="CardTextLine2"/>
           <!--<Item Value="InvoicedNetAmount"/>
           <Item Value="InvoiceDiscountAmount"/>-->
+          <Item Value="Card2Id"/>
           <Item Value="DriverNumber"/>
           <Item Value="DriverName"/>
           <Item Value="VehicleNumber"/>

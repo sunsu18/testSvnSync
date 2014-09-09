@@ -545,6 +545,12 @@
                      id="c10">
             <af:outputText value="#{row.CardTextLine2}" id="ot15"  truncateAt="25" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
           </af:column>
+          <af:column sortProperty="Card2Id" filterable="true" visible="#{pageFlowScope.TransactionOverviewBean.showDriverCode}"
+                     sortable="true" align="left" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.ENGAGE_CARD_2_ID}"
+                     id="c12">
+            <af:outputText value="#{row.Card2Id}" id="ot93" styleClass="#{(row.TransactionType)=='PRE' ? 'faqlink' : 'af_document'}"/>
+          </af:column>
             <af:column sortProperty="StationName" filterable="true" filterFeatures="caseInsensitive"
                      sortable="true" align="left" width="115"
                      headerText="#{sfr.ENGAGE_STATION_NAME}"

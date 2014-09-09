@@ -90,6 +90,7 @@ public class MyPageListener implements PagePhaseListener {
     private AccountInfo accountCheck = new AccountInfo();
     private CardGroupInfo cardGrpCheck = new CardGroupInfo();
     private boolean isChangeInRedirectionRequired = false;
+    private boolean consistTwoInOneCardStatus = false;
 
 
     private Set cardTypeHS = new HashSet();
@@ -1723,22 +1724,24 @@ new CardInfo();
         boolean success = false;
         UserClient userClient = new UserClient();
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 3 && success == false; i++) {
+        
+        /* For loop commenetd by siddharth as user information is fetched from DB instead of
+         * OPSS call so no need to retry thrice*/
+        //for (int i = 0; i < 3 && success == false; i++) {
 
             if (request.getServerName().contains("101") ||
                 request.getServerName().contains("localhost") ||
                 request.getServerName().contains("127.0")) {
                // userList.add(populateUser(Constants.ROLE_WCP_CARD_B2B_ADMIN));
                 if(securityContext.getUserName().equalsIgnoreCase("weblogic")){
-                    System.out.println("Inside setusersession infor for weblogic user");
-                    userList = userClient.searchUserWithUserId("B2BMgr1@test.com", "DB");
+                    userList = userClient.searchUserWithUserId("B2BMgr1@test.com", Constants.ENGAGE_PORTAL);
                     
                 }
             } else {
                 //userList = userClient.searchUserWithUserId(securityContext.getUserName());
-                userList = userClient.searchUserWithUserId(securityContext.getUserName(), "DB");
+                userList = userClient.searchUserWithUserId(securityContext.getUserName(), Constants.ENGAGE_PORTAL);
             }
-            long elapsedTime = System.currentTimeMillis() - startTime;
+            /*long elapsedTime = System.currentTimeMillis() - startTime;
             session.setAttribute("SESSION_USER_ERROR", "");
             if (securityContext.getUserName().equalsIgnoreCase("weblogic") ||
                 securityContext.getUserName().equalsIgnoreCase("wcpadmin")) {
@@ -1748,8 +1751,8 @@ new CardInfo();
             }
             if (!success) {
                 return;
-            }
-        }
+            }*/
+       // }
 
         log.info(accessDC.getDisplayRecord() + this.getClass() +
                  ".setUserInfoInSession : " +
@@ -2144,10 +2147,9 @@ new CardInfo();
                         acc.setCardGroup(cardgrouplist);
                         accountlist.add(acc);
                         part.setAccountList(accountlist);
-                        log.info("Two Card System Value:" +
-                                 part.getPartnerName() + "Status :" +
-                                 consistsTwoCardStatus);
+                        log.info("Two Card System Value:" + part.getPartnerName() + "Status :" + consistsTwoCardStatus);
                         part.setConsistsTwoCard(consistsTwoCardStatus);
+                        part.setConsistTwoInOneCard(consistTwoInOneCardStatus);
                     }
                 }
             }
@@ -2223,12 +2225,13 @@ new CardInfo();
 
                 }
 
-                if (currRowcard.getCardType() != null &&
-                    currRowcard.getCardType().toString().startsWith("2") &&
-                    !consistsTwoCardStatus) {
-
-                    consistsTwoCardStatus = true;
-
+                if (currRowcard.getCardType() != null && currRowcard.getCardType().toString().startsWith("2") && !consistsTwoCardStatus) {
+                        consistsTwoCardStatus = true;
+                }
+                
+                if(currRowcard.getCardType() != null && (currRowcard.getCardType().toString().startsWith("B") || currRowcard.getCardType().toString().startsWith("S")) 
+                   && !consistTwoInOneCardStatus){
+                    consistTwoInOneCardStatus = true;
                 }
                 addflagcard = false;
 
@@ -2710,5 +2713,13 @@ new CardInfo();
 
     public Set getCardTypeHS() {
         return cardTypeHS;
+    }
+
+    public void setConsistTwoInOneCardStatus(boolean consistTwoInOneCardStatus) {
+        this.consistTwoInOneCardStatus = consistTwoInOneCardStatus;
+    }
+
+    public boolean isConsistTwoInOneCardStatus() {
+        return consistTwoInOneCardStatus;
     }
 }

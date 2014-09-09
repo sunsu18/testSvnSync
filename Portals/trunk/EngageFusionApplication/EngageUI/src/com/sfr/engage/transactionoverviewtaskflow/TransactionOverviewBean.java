@@ -147,6 +147,8 @@ public class TransactionOverviewBean implements Serializable {
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     private AccessDataControl accessDC = new AccessDataControl();
     private String cardGroupRadio = "CardGroup";
+    
+    private boolean showDriverCode = false;
 
     public TransactionOverviewBean() {
         conversionUtility = new Conversion();
@@ -1596,6 +1598,25 @@ public class TransactionOverviewBean implements Serializable {
             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
         }
         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Partner ID 2-Card Vehicle Name" + vehicleName);
+        
+            if (lang == "DK" || "DK".equalsIgnoreCase(lang.trim())) {
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " To check Partner for 2 In 1 card");
+                for (int pa = 0; pa < partnerIdValues.size(); pa++) {
+                    for (int k = 0; k < partnerInfoList.size(); k++) {
+                        if (partnerIdValues.get(pa).equalsIgnoreCase(partnerInfoList.get(k).getPartnerValue().toString())) {
+                            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + partnerInfoList.get(k).isConsistsTwoCard());
+                            if (partnerInfoList.get(k).isConsistTwoInOneCard()) {
+                                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+                                showDriverCode = true;
+                            }
+                        }
+                    }
+                }
+            }else {
+                showDriverCode = false;
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Flag of Partner for 2 In 1 card" + showDriverCode);
+            }
+            
         searchResults();
         return null;
     }
@@ -2335,7 +2356,14 @@ public class TransactionOverviewBean implements Serializable {
                                 XLS_SH_R_C.setCellStyle(csData);
                                 XLS_SH_R_C.setCellValue(row.getDriverNumber().toString());
                             }
-                        } else {
+                        } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCard2Id() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
+                            }
+                        }  
+                        else {
                             if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     XLS_SH_R_C = XLS_SH_R.createCell(dataColumn);
@@ -2623,7 +2651,14 @@ public class TransactionOverviewBean implements Serializable {
                             if (cellValue != headerValues.length - 1) {
                                 out.print(";");
                             }
-                        } else {
+                        }else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCard2Id() != null) {
+                                out.print(row.getCard2Id().toString());
+                            }
+                            if (cellValue != headerValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else {
                             if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getDriverName() != null) {
                                     out.print(row.getDriverName().toString());
@@ -2865,7 +2900,14 @@ public class TransactionOverviewBean implements Serializable {
                                 if (cellValue != headerValues.length - 1) {
                                     out.print("|");
                                 }
-                            } else {
+                            }else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getCard2Id() != null) {
+                                    out.print(row.getCard2Id().toString());
+                                }
+                                if (cellValue != headerValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else {
                                 if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                     if (row.getDriverName() != null) {
                                         out.print(row.getDriverName().toString());
@@ -3516,6 +3558,14 @@ public class TransactionOverviewBean implements Serializable {
 
     public String getCardGroupRadio() {
         return cardGroupRadio;
+    }
+
+    public void setShowDriverCode(boolean showDriverCode) {
+        this.showDriverCode = showDriverCode;
+    }
+
+    public boolean isShowDriverCode() {
+        return showDriverCode;
     }
 
 

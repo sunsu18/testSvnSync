@@ -361,9 +361,7 @@ public class DAOFactory {
 
             // use datasource for connection to physical data source.
             // Give JNDI name under lookup.
-            System.out.println("value of JNDI===========>"+getPropertyValue("JNDI_NAME"));
-            datasource =
-                    (DataSource)objinitialContext.lookup(getPropertyValue("JNDI_NAME").toString());
+            datasource = (DataSource)objinitialContext.lookup(getPropertyValue("JNDI_NAME").toString());
 
             if (datasource != null) {
                 connection = datasource.getConnection();
@@ -917,15 +915,16 @@ public class DAOFactory {
     /**
      * @param sqlQuery
      * @param params
-     * @param returnParam
+     * This method is used to create User object fetched from the database for the entered user email/short id.
      * @return
      * @throws SQLException
      * @throws NamingException
      */
     public static User executeSqlQuery(String userEmail) throws SQLException,
                                                                          NamingException {
-
-
+        
+        AccessDataControl accessDC = new AccessDataControl();
+        log.fine(accessDC.getDisplayRecord() +  " Inside executeSqlQuery method to ceate user object from DB");
         PreparedStatement objPrepStmt = null;
         PreparedStatement objPrepStmt1 = null;
         PreparedStatement objPrepStmt2 = null;
@@ -956,15 +955,13 @@ public class DAOFactory {
                 if(userEmail.trim().contains("@")){
                     params.add(userEmail.trim());
                     sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
-                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ";
+                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? AND USER_STATUS ='ACTIVE' ";
                     
                 }else{
                     params.add(userEmail.trim());
                     sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
-                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_SHORTNAME) = ? ";
+                                         ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_SHORTNAME) = ? AND USER_STATUS ='ACTIVE' ";
                 }
-//                sqlStatement = "SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
-//                                     ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ";
                 objPrepStmt = connection.prepareStatement(sqlStatement);
                 if (null != objPrepStmt) {
                     for (int iCount = 0; iCount < params.size(); iCount++) {
@@ -1024,7 +1021,7 @@ public class DAOFactory {
                      List<String> params2 = new ArrayList<String>();
                      List<String> roleAssociation = new ArrayList<String>();
                      roleName = resultRs1.getString("USER_ROLE");
-                         System.out.println("Role name======>"+roleName);
+                     log.info(accessDC.getDisplayRecord() +  " Inside executeSqlQuery method +++++ Role names identifed for user "+roleName);
                          if(rolesString != null && rolesString.length()> 0){
                             rolesString =  rolesString+roleName+"|";
                          }else{
@@ -1041,14 +1038,12 @@ public class DAOFactory {
                      objPrepStmt2 = connection.prepareStatement(sqlStatement2);  
                      if (null != objPrepStmt2) {
                          for (int iCount = 0; iCount < params2.size(); iCount++) {
-                             System.out.println("value of iCount=====>"+iCount);
                              objPrepStmt2.setString(iCount + 1, params2.get(iCount));
                          }
                      
                      resultRs2 =  objPrepStmt2.executeQuery();
                      
                      while(resultRs2.next()){
-                         System.out.println("Is it coming inside resultst2===========>");
                          roles = new Roles();
                          String roleAssocList = null;
                          if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("PP")
@@ -1107,129 +1102,4 @@ public class DAOFactory {
         }
             return user;
     }
-    
-    
-    /**
-     * @param branchPlantCountry
-     * @param shippingAddressNo
-     * @return
-     * @throws SQLException
-     * @throws NamingException
-     */
-   /* public User getUserRoleForUserId(String userEmail) throws SQLException,NamingException {
-        System.out.println("Inside DAOFactory infor for weblogic user");
-        AccessDataControl accessDC = new AccessDataControl();
-        //List<String> result = null;
-        ResultSet resultRs = null;
-        ResultSet resultRs1 = null;
-        ResultSet resultRs2 = null;
-        
-        
-        List<String> listOfRoles = new ArrayList<String>();
-        
-        User user = new User();
-        List<Roles> myRoleList = new ArrayList<Roles>();
-        Roles roles = new Roles();
-        String country = null;
-
-        List<String> params = new ArrayList<String>();
-        List<String> params1 = new ArrayList<String>();
-        List<String> params2 = new ArrayList<String>();
-        params.add(userEmail.trim());
-        params1.add(userEmail.trim());
-        params2.add(userEmail.trim());
-        
-        
-        
-        resultRs =  executeSqlQuery("SELECT USER_EMAIL,USER_FIRST_NAME,USER_MIDDLE_NAME,USER_LAST_NAME,USER_DOB,USER_PHONE_NO,USER_LANG,MODIFIED_BY,COUNTRY_CODE" +
-                                     ",USER_SHORTNAME,USER_STATUS FROM PRT_CARD_USER_INFORMATION WHERE trim(USER_EMAIL) = ? ",params);
-         
-         while(resultRs.next()){
-             country = resultRs.getString("COUNTRY_CODE");
-             if(resultRs.getString("USER_EMAIL") != null){
-             user.setEmailID(resultRs.getString("USER_EMAIL"));
-             }
-             if(resultRs.getString("USER_FIRST_NAME") != null){
-             user.setFirstName(resultRs.getString("USER_FIRST_NAME"));
-             }
-             if(resultRs.getString("USER_MIDDLE_NAME") != null){
-             user.setMiddleName(resultRs.getString("USER_MIDDLE_NAME"));
-             }
-             if(resultRs.getString("USER_LAST_NAME") != null){
-             user.setLastName(resultRs.getString("USER_LAST_NAME"));
-             }
-             if(resultRs.getDate(5) != null){
-             user.setDob(resultRs.getDate(5));
-             }
-             if(resultRs.getString("USER_PHONE_NO") != null){
-             user.setPhoneNumber(resultRs.getString("USER_PHONE_NO"));
-             }
-             if(resultRs.getString("USER_LANG") != null){
-             user.setLang(resultRs.getString("USER_LANG"));
-             }
-             if(resultRs.getString("COUNTRY_CODE") != null){
-             user.setCountry(resultRs.getString("COUNTRY_CODE"));
-             }
-             if(resultRs.getString("USER_SHORTNAME") != null){
-             user.setUserID(resultRs.getString("USER_SHORTNAME"));
-             }
-             if(resultRs.getString("USER_STATUS") != null){
-                 user.setActive(resultRs.getString("USER_STATUS").toString().equalsIgnoreCase("enabled") ? true : false);
-             }
-         }
-        params1.add(country);
-        resultRs1 = executeSqlQuery("select distinct USER_ROLE FROM PRT_CARD_USER_ROLE_MAPPING where trim(USER_EMAIL) = ? and  trim(country_code) = ? ",params1);
-        while(resultRs1.next()){
-            String roleName = null;
-            List<String> roleAssociation = new ArrayList<String>();
-            roleName = resultRs1.getString(1);
-            params2.add(country);
-            params2.add(roleName);
-            listOfRoles.add(roleName);
-            
-            resultRs2 =  executeSqlQuery("SELECT US_ROLE_ID,USER_EMAIL,USER_ROLE,MODIFIED_BY,MODIFIED_DATE,USER_ASSOCIATION,COUNTRY_CODE,ASSOCIATION_TYPE,PARTNER_ID" + 
-                                        "FROM PRT_CARD_USER_ROLE_MAPPING WHERE trim(USER_EMAIL) = ? AND trim(country_code) = ? AND trim(USER_ROLE) = ? ",params2);   
-            
-            while(resultRs2.next()){
-                String roleAssocList = null;
-                if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("PP")
-                   && resultRs2.getString("USER_ASSOCIATION") != null)
-                {
-                      roleAssocList = country+"PP"+resultRs2.getString("USER_ASSOCIATION").toString();
-                      roleAssociation.add(roleAssocList);
-                      
-                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("AC")
-                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
-                {
-                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"AC"+resultRs2.getString("USER_ASSOCIATION").toString();
-                      roleAssociation.add(roleAssocList);
-                      
-                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CG")
-                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
-                {
-                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CG"+resultRs2.getString("USER_ASSOCIATION").toString();
-                      roleAssociation.add(roleAssocList);
-                      
-                }else if(resultRs2.getString("ASSOCIATION_TYPE") != null && resultRs2.getString("ASSOCIATION_TYPE").equals("CC")
-                        && resultRs2.getString("USER_ASSOCIATION") != null && resultRs2.getString("PARTNER_ID") != null)
-                {
-                      roleAssocList = country+"PP"+resultRs2.getString("PARTNER_ID")+"CC"+resultRs2.getString("USER_ASSOCIATION").toString();
-                      roleAssociation.add(roleAssocList);
-                      
-                }else{
-                    roleAssocList = "";
-                    roleAssociation.add(roleAssocList);
-                }
-                
-            }
-            roles.setRoleName(roleName);
-            roles.setIdString(roleAssociation);
-            myRoleList.add(roles);
-        }
-        user.setRoleList(myRoleList);
-        
-        return user;
-    }*/
-
-
 }

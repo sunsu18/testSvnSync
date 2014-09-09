@@ -758,6 +758,7 @@ public class Constants {
     public static final String DISPLAY_PORTAL_LANG = "DISPLAY_PORTAL_LANG";
     public static final String AUTHENTICATE_FLAG = "AUTHENTICATE_FLAG";
     public static final String ENGAGE_SUBSCRIBE_ALERT = "ENGAGE_SUBSCRIBE_ALERT";
+    public static final String ENGAGE_PORTAL = "ENGAGE_PORTAL";
 
 
 }
