@@ -1,0 +1,25 @@
+Sep 9, 2014 7:01:36 PM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+Sep 9, 2014 7:01:36 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+Sep 9, 2014 7:01:36 PM com.collaxa.cube.CubeLogger info
+INFO: validating "GenerateBusinessHourAlert.bpel" ...
+Sep 9, 2014 7:01:36 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+Sep 9, 2014 7:01:36 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSequenceBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELScopeBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELWhileBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELSwitchBlock
+node class name com.collaxa.cube.engine.ext.bpel.v1.blocks.BPELCompensationHandlerBlock
+Sep 9, 2014 7:01:37 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "GenerateBusinessHourAlert" in 78.7 milliseconds [nodes 32=1+31, 406.7 nodes/sec]
+Sep 9, 2014 7:01:40 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "GenerateBusinessHourAlert" in 3.650 seconds
+Sep 9, 2014 7:01:40 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 5 files in 3.6 milliseconds
+
+Sep 9, 2014 7:01:40 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "GenerateBusinessHourAlert" in 65.7 milliseconds
+

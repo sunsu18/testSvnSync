@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="GenerateBusinessHourAlert" targetNamespace="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://www.lntinfotech.com/integration/RuleServiceABO" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="SOARuleEngineServiceJMSConsumerV1" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="RuleServiceABO_Consume_IV" messageType="ns1:Consume_Message_msg"/>
+  </variables>
+  <sequence name="main" id="BpSeq0">
+    <receive name="ReceiveRuleServiceABO" createInstance="yes" variable="RuleServiceABO_Consume_IV" partnerLink="SOARuleEngineServiceJMSConsumerV1" portType="ns1:Consume_Message_ptt" operation="Consume_Message" id="BpRcv0"/>
+    <scope name="checkSubscriptionScope" variableAccessSerializable="no" id="BpScp0">
+      <variables>
+        <variable name="iterator" type="xsd:int"/>
+        <variable name="flag" type="xsd:short"/>
+      </variables>
+      <sequence name="checkSubscriptionSequence" id="BpSeq1">
+        <assign name="AssignInitializeIterator" id="BpAss0">
+          <copy>
+            <from expression="1"/>
+            <to variable="iterator"/>
+          </copy>
+          <copy>
+            <from expression="0"/>
+            <to variable="flag"/>
+          </copy>
+        </assign>
+        <while name="WhileSubscriptionCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" id="BpWhl0">
+          <sequence name="Sequence" id="BpSeq2">
+            <switch name="subscriptionSwitch" id="BpSwt0">
+              <case condition="xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'[FNn]'))">
+                <bpelx:annotation>
+                  <bpelx:general>
+                    <bpelx:property name="userLabel">isSubscribedForToday</bpelx:property>
+                  </bpelx:general>
+                </bpelx:annotation>
+                <assign name="AssignSetFlag" id="BpAss1">
+                  <copy>
+                    <from expression="1"/>
+                    <to variable="flag"/>
+                  </copy>
+                </assign>
+              </case>
+              <otherwise>
+                <empty name="Empty" id="BpEmp0"/>
+              </otherwise>
+            </switch>
+            <assign name="Assign1" id="BpAss2">
+              <copy>
+                <from expression="bpws:getVariableData('iterator') + 1"/>
+                <to variable="iterator"/>
+              </copy>
+            </assign>
+          </sequence>
+        </while>
+        <sequence name="checkPrevDaySubsSequence" id="BpSeq3">
+          <switch name="todaySubscriptionFlagSwitch" id="BpSwt1">
+            <case condition="bpws:getVariableData('flag') = 1">
+              <bpelx:annotation>
+                <bpelx:general>
+                  <bpelx:property name="userLabel">IfFlagSet</bpelx:property>
+                </bpelx:general>
+              </bpelx:annotation>
+              <sequence name="Sequence1" id="BpSeq4">
+                <assign name="AssignInitializeIterator" id="BpAss3">
+                  <copy>
+                    <from expression="1"/>
+                    <to variable="iterator"/>
+                  </copy>
+                  <copy>
+                    <from expression="0"/>
+                    <to variable="flag"/>
+                  </copy>
+                </assign>
+                <while name="WhileSubscriptionCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpWhl1">
+      
+   <sequence name="Sequence2" id="BpSeq5">
+                    <switch name="subscriptionSwitch" id="BpSwt2">
+         <case condition="xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(xp20:subtract-dayTimeDuration-from-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'P1D'),'[FNn]'))">
+            <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+               <bpelx:general>
+                  <bpelx:property name="userLabel">isSubscribedForPrevday</bpelx:property>
+               </bpelx:general>
+            </bpelx:annotation>
+            <assign name="AssignSetFlag" id="BpAss4">
+               <copy>
+                  <from expression="1"/>
+                  <to variable="flag"/>
+               </copy>
+            </assign>
+         </case>
+         <otherwise>
+            <empty name="Empty" id="BpEmp1"/>
+         </otherwise>
+      </switch>
+                    <assign name="AssignIncrementiterator" id="BpAss5">
+                      <copy>
+                        <from expression="bpws:getVariableData('iterator') + 1"/>
+                        <to variable="iterator"/>
+                      </copy>
+                    </assign>
+                  </sequence></while>
+              </sequence>
+            </case>
+            <otherwise>
+              <empty name="Empty" id="BpEmp2"/>
+            </otherwise>
+          </switch>
+        </sequence>
+      </sequence>
+    </scope>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Sep 08 18:35:19 IST 2014
+  Author:  10602239
+  Type: BPEL 1.1 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
