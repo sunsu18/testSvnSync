@@ -1977,6 +1977,48 @@ public class CardBean implements Serializable {
                                 SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                 XLS_SH_R_C.setCellValue(sdf.format(date));
                             }
+                        }else if ("Partner Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCompanyName() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCompanyName().toString().trim());
+                            }
+                        }else if ("Company Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCompanyType() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCompanyType().toString().trim());
+                            }
+                        }else if ("Company Address".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerAddr1() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getPartnerAddr1().toString().trim());
+                            }
+                        }else if ("Postal Code".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerPostalCode() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getPartnerPostalCode().toString().trim());
+                            }
+                        }else if ("City".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerCity() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getPartnerCity().toString().trim());
+                            }
+                        }else if ("Card subgroup ID".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCardgroupSubType() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardgroupSubType().toString().trim());
+                            }
+                        }else if ("Card group number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCardgroupSeq() != null) {
+                                XLS_SH_R_C = XLS_SH_R.createCell(cellValue);
+                                XLS_SH_R_C.setCellStyle(csData);
+                                XLS_SH_R_C.setCellValue(row.getCardgroupSeq().toString().trim());
+                            }
                         }
                     }
 
@@ -2131,6 +2173,55 @@ public class CardBean implements Serializable {
                             if (cellValue != headerDataValues.length - 1) {
                                 out.print(";");
                             }
+                        } else if ("Partner Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCompanyName() != null) {
+                                out.print(row.getCompanyName().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Company Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCompanyType() != null) {
+                                out.print(row.getCompanyType().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Company Address".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerAddr1() != null) {
+                                out.print(row.getPartnerAddr1().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Postal Code".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerPostalCode() != null) {
+                                out.print(row.getPartnerPostalCode().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("City".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getPartnerCity() != null) {
+                                out.print(row.getPartnerCity().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Card subgroup ID".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCardgroupSubType() != null) {
+                                out.print(row.getCardgroupSubType().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
+                        }else if ("Card group number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                            if (row.getCardgroupSeq() != null) {
+                                out.print(row.getCardgroupSeq().toString().trim());
+                            }
+                            if (cellValue != headerDataValues.length - 1) {
+                                out.print(";");
+                            }
                         }
                     }
                     out.println();
@@ -2212,7 +2303,6 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Avg Monthly Usage".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyTxReportTxThreeMonths3() != null) {
-//                                    out.print(row.getQuaterlyTxReportTxThreeMonths3().toString());
                                 out.print(formatConversion((Float.parseFloat(row.getQuaterlyTxReportTxThreeMonths3().toString())), locale));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2220,7 +2310,6 @@ public class CardBean implements Serializable {
                                 }
                             } else if ("Avg Monthly Fuelings".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                 if (row.getQuaterlyFuelReportFuelThreeMonths3() != null) {
-//                                    out.print(row.getQuaterlyFuelReportFuelThreeMonths3().toString());
                                 out.print(formatConversion((Float.parseFloat(row.getQuaterlyFuelReportFuelThreeMonths3().toString())), locale));
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
@@ -2282,6 +2371,55 @@ public class CardBean implements Serializable {
                                     Date date = new Date(row.getBlockTime().dateValue().getTime());
                                     SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm");
                                     out.print(sdf.format(date));
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            } else if ("Partner Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getCompanyName() != null) {
+                                    out.print(row.getCompanyName().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("Company Type".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getCompanyType() != null) {
+                                    out.print(row.getCompanyType().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("Company Address".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerAddr1() != null) {
+                                    out.print(row.getPartnerAddr1().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("Postal Code".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerPostalCode() != null) {
+                                    out.print(row.getPartnerPostalCode().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("City".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getPartnerCity() != null) {
+                                    out.print(row.getPartnerCity().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("Card subgroup ID".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getCardgroupSubType() != null) {
+                                    out.print(row.getCardgroupSubType().toString().trim());
+                                }
+                                if (cellValue != headerDataValues.length - 1) {
+                                    out.print("|");
+                                }
+                            }else if ("Card group number".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                if (row.getCardgroupSeq() != null) {
+                                    out.print(row.getCardgroupSeq().toString().trim());
                                 }
                                 if (cellValue != headerDataValues.length - 1) {
                                     out.print("|");

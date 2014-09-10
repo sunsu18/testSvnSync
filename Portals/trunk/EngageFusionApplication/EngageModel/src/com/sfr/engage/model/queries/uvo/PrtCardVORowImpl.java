@@ -1579,7 +1579,6 @@ public class PrtCardVORowImpl extends ViewRowImpl {
         String result="";
         if(getBlockAction()!=null){
             resourceBundle = new EngageResourceBundle();
-
             if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
             {
                 if (resourceBundle.containsKey("UNBLOCKED_SINGULAR"))
@@ -1592,18 +1591,24 @@ public class PrtCardVORowImpl extends ViewRowImpl {
                 {
                result=resourceBundle.getObject("TEMPORARY_BLOCKED").toString().trim() ;
                 }
-            }else
+            }else if("2".equalsIgnoreCase(getBlockAction().toString().trim()))
             {
-                if("2".equalsIgnoreCase(getBlockAction().toString().trim()) || (getCardExpiry() != null && getCardExpiry().before(new java.util.Date())))
-                 {
-                     if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
-                    {
+                if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
+                {
                     result=resourceBundle.getObject("PERMANENT_BLOCKED").toString().trim() ;
-                     }
+                }
+            }else if(getCardExpiry() != null && getCardExpiry().before(new java.util.Date()) &&
+                     ("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim()))){
+                if (resourceBundle.containsKey("EXPIRED"))
+                {
+                    result=resourceBundle.getObject("EXPIRED").toString().trim() ;
                 }
             }
         }
-        return result;
+               return result;
+        
+        
+        
     }
 
     /**

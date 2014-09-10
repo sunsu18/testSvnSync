@@ -296,16 +296,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        BlockDate {
-            public Object get(PrtViewCardsVORowImpl obj) {
-                return obj.getBlockDate();
-            }
-
-            public void put(PrtViewCardsVORowImpl obj, Object value) {
-                obj.setBlockDate((Date)value);
-            }
-        }
-        ,
         BlockTime {
             public Object get(PrtViewCardsVORowImpl obj) {
                 return obj.getBlockTime();
@@ -313,6 +303,66 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
 
             public void put(PrtViewCardsVORowImpl obj, Object value) {
                 obj.setBlockTime((Timestamp)value);
+            }
+        }
+        ,
+        CompanyName {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getCompanyName();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setCompanyName((String)value);
+            }
+        }
+        ,
+        CompanyType {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getCompanyType();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setCompanyType((String)value);
+            }
+        }
+        ,
+        PartnerAddr1 {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getPartnerAddr1();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setPartnerAddr1((String)value);
+            }
+        }
+        ,
+        PartnerPostalCode {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getPartnerPostalCode();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setPartnerPostalCode((String)value);
+            }
+        }
+        ,
+        PartnerCity {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getPartnerCity();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setPartnerCity((String)value);
+            }
+        }
+        ,
+        BlockDate {
+            public Object get(PrtViewCardsVORowImpl obj) {
+                return obj.getBlockDate();
+            }
+
+            public void put(PrtViewCardsVORowImpl obj, Object value) {
+                obj.setBlockDate((Date)value);
             }
         }
         ,
@@ -1038,6 +1088,11 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
     AccessDataControl accessDC = new AccessDataControl();
 
+
+    public static final int INVOICEADDR1 = AttributesEnum.InvoiceAddr1.index();
+    public static final int INVOICEADDR2 = AttributesEnum.InvoiceAddr2.index();
+
+
     public static final int PARTNERID = AttributesEnum.PartnerId.index();
     public static final int ACCOUNTID = AttributesEnum.AccountId.index();
     public static final int CARDEMBOSSNUM = AttributesEnum.CardEmbossNum.index();
@@ -1065,8 +1120,13 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int TYPE = AttributesEnum.Type.index();
     public static final int TYPENAME = AttributesEnum.TypeName.index();
     public static final int MANUFACTUREDDATE = AttributesEnum.ManufacturedDate.index();
-    public static final int BLOCKDATE = AttributesEnum.BlockDate.index();
     public static final int BLOCKTIME = AttributesEnum.BlockTime.index();
+    public static final int COMPANYNAME = AttributesEnum.CompanyName.index();
+    public static final int COMPANYTYPE = AttributesEnum.CompanyType.index();
+    public static final int PARTNERADDR1 = AttributesEnum.PartnerAddr1.index();
+    public static final int PARTNERPOSTALCODE = AttributesEnum.PartnerPostalCode.index();
+    public static final int PARTNERCITY = AttributesEnum.PartnerCity.index();
+    public static final int BLOCKDATE = AttributesEnum.BlockDate.index();
     public static final int BLOCKCODE = AttributesEnum.BlockCode.index();
     public static final int DUMMY = AttributesEnum.Dummy.index();
     public static final int COUNTRYCODE = AttributesEnum.CountryCode.index();
@@ -1076,8 +1136,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
     public static final int BLOCKTYPE = AttributesEnum.BlockType.index();
     public static final int BLOCKLEVEL = AttributesEnum.BlockLevel.index();
     public static final int ROUTEXCUSTOMERNUMBER = AttributesEnum.RoutexCustomerNumber.index();
-    public static final int INVOICEADDR1 = AttributesEnum.InvoiceAddr1.index();
-    public static final int INVOICEADDR2 = AttributesEnum.InvoiceAddr2.index();
     public static final int INVOICEPOSTALCODE = AttributesEnum.InvoicePostalCode.index();
     public static final int INVOICECITY = AttributesEnum.InvoiceCity.index();
     public static final int ADDRSEQ = AttributesEnum.AddrSeq.index();
@@ -1671,31 +1729,6 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
         setAttributeInternal(BLOCKTYPE, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute BlockDate.
-     * @return the BlockDate
-     */
-    public Date getBlockDate() {
-        if(getBlockAction()!=null){
-            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
-                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){   
-                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
-                return date;
-            }else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
-                oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
-                return date;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute BlockDate.
-     * @param value value to set the  BlockDate
-     */
-    public void setBlockDate(Date value) {
-        setAttributeInternal(BLOCKDATE, value);
-    }
 
     /**
      * Gets the attribute value for the calculated attribute BlockTime.
@@ -1703,11 +1736,11 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public Timestamp getBlockTime() {
         if(getBlockAction()!=null){
-            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) || "2".equalsIgnoreCase(getBlockAction().toString().trim()))
-                     && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())){    
-                return (Timestamp) getAttributeInternal(BLOCKTIME);
-            }
-            else if((getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){
+            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())) ||
+                "2".equalsIgnoreCase(getBlockAction().toString().trim())){   
+                    return (Timestamp) getAttributeInternal(BLOCKTIME);
+            }else if((("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim())) &&
+                      getCardExpiry() != null  && getCardExpiry().getValue().before(new java.util.Date()))){
                 oracle.jbo.domain.Date date = (Date)getAttributeInternal(CARDEXPIRY);
                 oracle.jbo.domain.Timestamp time = new oracle.jbo.domain.Timestamp(date);
                 return time;
@@ -1722,6 +1755,111 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      */
     public void setBlockTime(Timestamp value) {
         setAttributeInternal(BLOCKTIME, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CompanyName.
+     * @return the CompanyName
+     */
+    public String getCompanyName() {
+        return (String) getAttributeInternal(COMPANYNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CompanyName.
+     * @param value value to set the  CompanyName
+     */
+    public void setCompanyName(String value) {
+        setAttributeInternal(COMPANYNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CompanyType.
+     * @return the CompanyType
+     */
+    public String getCompanyType() {
+        return (String) getAttributeInternal(COMPANYTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CompanyType.
+     * @param value value to set the  CompanyType
+     */
+    public void setCompanyType(String value) {
+        setAttributeInternal(COMPANYTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PartnerAddr1.
+     * @return the PartnerAddr1
+     */
+    public String getPartnerAddr1() {
+        return (String) getAttributeInternal(PARTNERADDR1);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerAddr1.
+     * @param value value to set the  PartnerAddr1
+     */
+    public void setPartnerAddr1(String value) {
+        setAttributeInternal(PARTNERADDR1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PartnerPostalCode.
+     * @return the PartnerPostalCode
+     */
+    public String getPartnerPostalCode() {
+        return (String) getAttributeInternal(PARTNERPOSTALCODE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerPostalCode.
+     * @param value value to set the  PartnerPostalCode
+     */
+    public void setPartnerPostalCode(String value) {
+        setAttributeInternal(PARTNERPOSTALCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PartnerCity.
+     * @return the PartnerCity
+     */
+    public String getPartnerCity() {
+        return (String) getAttributeInternal(PARTNERCITY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PartnerCity.
+     * @param value value to set the  PartnerCity
+     */
+    public void setPartnerCity(String value) {
+        setAttributeInternal(PARTNERCITY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute BlockDate.
+     * @return the BlockDate
+     */
+    public Date getBlockDate() {
+        if(getBlockAction()!=null){
+            if(("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().getValue().after(new java.util.Date())) ||
+                "2".equalsIgnoreCase(getBlockAction().toString().trim())){  
+                return (Date) getAttributeInternal(BLOCKDATE);
+            }else if((("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim())) &&
+                getCardExpiry() != null  && getCardExpiry().getValue().before(new java.util.Date()))){
+                return getCardExpiry();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute BlockDate.
+     * @param value value to set the  BlockDate
+     */
+    public void setBlockDate(Date value) {
+        setAttributeInternal(BLOCKDATE, value);
     }
 
     /**
@@ -2709,8 +2847,11 @@ public class PrtViewCardsVORowImpl extends ViewRowImpl {
      * @return the CardExpiryDate
      */
     public Date getCardExpiryDate() {
-        if(getBlockAction()!=null && "0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().getValue().after(new java.util.Date()) ){   
-            return getCardExpiry();
+        if(getBlockAction() != null){
+            if("0".equalsIgnoreCase(getBlockAction().toString().trim()) ||
+               ("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().getValue().before(new java.util.Date()))){   
+                return getCardExpiry();
+            }
         }
         return null;
     }
