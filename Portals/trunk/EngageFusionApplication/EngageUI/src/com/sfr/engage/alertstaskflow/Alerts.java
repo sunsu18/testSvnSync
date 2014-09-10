@@ -11,6 +11,7 @@ import com.sfr.engage.core.PartnerInfo;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
+import com.sfr.util.ADFUtils;
 import com.sfr.util.constants.Constants;
 
 import com.sfr.util.validations.Conversion;
@@ -137,6 +138,7 @@ public class Alerts {
     private RichCommandButton okButtonAlert1;
     private RichCommandButton editButtonAlert1;
     private RichPanelGroupLayout alert2ValidData;
+    private RichPanelGroupLayout searchResultsPanel;
 
 
     public Alerts() {
@@ -808,7 +810,7 @@ populateDefaultDropdown();
             String lovValues = var.trim();
             String selectedValues = lovValues.substring(1, lovValues.length() - 1);
             passingValues = selectedValues.trim();
-
+            System.out.println("passingValues --> " + passingValues);
         }
         return passingValues;
     }
@@ -2240,4 +2242,107 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getAlert2ValidData() {
         return alert2ValidData;
     }
+
+    public void viewSubscribedAlerts(ActionEvent actionEvent) {
+        
+                                      
+        ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+        if(!prtCardRuleSubscriptionVO.equals(null)){
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(partnerDropdownAlert2.getValue().toString()));
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+            String accountQuery = "(";
+            String cardGroupQuery = "(";
+            String cardQuery = "(";
+            
+
+            if (accountIdValue.size() > 150) {
+//                mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
+//                for (int i = 0; i < mapAccountListValue.size(); i++) {
+//                    String values = "account" + i;
+//                    accountQuery = accountQuery + "INSTR(:" + values + ",ACCOUNT_ID)<>0 OR ";
+//                }
+//                _logger.info(accessDC.getDisplayRecord() + this.getClass() + "Account Query Values =" + accountQuery);
+//                accountQuery = accountQuery.substring(0, accountQuery.length() - 3);
+//                accountQuery = accountQuery + ")";
+
+            } else {
+                accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
+                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", populateStringValues(accountDropdwonAlert2.getValue().toString()), null);
+                
+
+            }
+            
+            
+            if (cardGroupValue.size() > 150) {
+
+//                        mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
+//                        for (int i = 0; i < mapCardListValue.size(); i++) {
+//                            String values = "card" + i;
+//                            cardQuery = cardQuery + "INSTR(:" + values + ",INVOICED_CARD)<>0 OR ";
+//                        }
+//                        cardQuery = cardQuery.substring(0, cardQuery.length() - 3);
+//                        cardQuery = cardQuery + ")";
+//
+//                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARD Query Values =" + cardQuery);
+//                        invoiceVO.setWhereClause(accountQuery + "AND " + cardQuery);
+//                        for (int i = 0; i < mapCardListValue.size(); i++) {
+//                            String values = "card" + i;
+//                            String listName = "listName" + i;
+//                            invoiceVO.defineNamedWhereClauseParam(values, mapCardListValue.get(listName), null);
+//                        }
+
+
+                    } else {
+                
+                        cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(cardGroupDowndownAlert2.getValue().toString()), null);
+
+                    
+                    }
+
+        
+
+                    if (cardNumberValue.size() > 150) {
+//                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
+//                        mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
+//                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+//                            String values = "cardGroup" + i;
+//                            cardGroupQuery =
+//                                    cardGroupQuery + "INSTR(:" + values + ",PARTNER_ID||CARDGROUP_MAIN_TYPE||CARDGROUP_SUB_TYPE||CARDGROUP_SEQ)<>0 OR ";
+//                        }
+//                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + "CARDGROUP Query Values =" + cardGroupQuery);
+//                        cardGroupQuery = cardGroupQuery.substring(0, cardGroupQuery.length() - 3);
+//                        cardGroupQuery = cardGroupQuery + ")";
+//                        invoiceVO.setWhereClause(accountQuery + "AND " + cardGroupQuery);
+//                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
+//                            String values = "cardGroup" + i;
+//                            String listName = "listName" + i;
+//                            invoiceVO.defineNamedWhereClauseParam(values, mapCardGroupListValue.get(listName), null);
+//                        }
+
+                    } else {
+                        cardQuery = "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
+                        String cardValuesList = populateStringValues(cardDropdownAlert2.getValue().toString());
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                        prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
+
+                    }
+                    System.out.println("Query: "+prtCardRuleSubscriptionVO.getQuery());
+                    prtCardRuleSubscriptionVO.executeQuery();
+                    System.out.println("Estimated row count for Card Rule Subscription Query:" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                    searchResultsPanel.setRendered(true);
+                    AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
+
+            }
+        }
+
+    public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
+        this.searchResultsPanel = searchResultsPanel;
+    }
+
+    public RichPanelGroupLayout getSearchResultsPanel() {
+        return searchResultsPanel;
+    }
 }
+
