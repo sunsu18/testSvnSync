@@ -759,6 +759,7 @@ public class Constants {
     public static final String AUTHENTICATE_FLAG = "AUTHENTICATE_FLAG";
     public static final String ENGAGE_SUBSCRIBE_ALERT = "ENGAGE_SUBSCRIBE_ALERT";
     public static final String ENGAGE_PORTAL = "ENGAGE_PORTAL";
+    public static final String ENGAGE_2_IN_1_CARD_CHECK = "BAK,BBK,BCK,BDK,BEK,BFK,B5K,B4K,B3K,B2K,B1K,B0K,SAK,SBK,SCK,SDK,SEK,SFK,S5K,S4K,S3K,S2K,S1K,S0K";
 
 
 }

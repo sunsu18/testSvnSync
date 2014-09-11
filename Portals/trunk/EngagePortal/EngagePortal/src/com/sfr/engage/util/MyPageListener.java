@@ -411,6 +411,7 @@ public class MyPageListener implements PagePhaseListener {
 
                                 int partIndex = 0;
                                 do {
+                                    
                                     executeAdmin(user, partIndex);
                                     partIndex++;
                                 } while (partIndex < user.getRoleList().get(i).getIdString().size());
@@ -1900,6 +1901,7 @@ new CardInfo();
         part = new PartnerInfo();
         accountlist = new ArrayList<AccountInfo>();
         cardgrouplist = new ArrayList<CardGroupInfo>();
+        consistTwoInOneCardStatus = false;
 
 
         String partnerid = partnerlist.get(partIndex).getPartnerValue();
@@ -2229,7 +2231,7 @@ new CardInfo();
                         consistsTwoCardStatus = true;
                 }
                 
-                if(currRowcard.getCardType() != null && (currRowcard.getCardType().toString().startsWith("B") || currRowcard.getCardType().toString().startsWith("S")) 
+                if(currRowcard.getCardType() != null && Constants.ENGAGE_2_IN_1_CARD_CHECK.contains(currRowcard.getCardType().toString()) 
                    && !consistTwoInOneCardStatus){
                     consistTwoInOneCardStatus = true;
                 }
