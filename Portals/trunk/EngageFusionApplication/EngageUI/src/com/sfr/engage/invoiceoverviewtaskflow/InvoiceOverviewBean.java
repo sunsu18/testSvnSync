@@ -3499,12 +3499,9 @@ public class InvoiceOverviewBean implements Serializable {
             XLS_SH_R = XLS_SH.createRow(2);
             XLS_SH_R_C = XLS_SH_R.createCell(0);
             XLS_SH_R_C.setCellStyle(cs);
-<<<<<<< .mine
 
-=======
-            
              
->>>>>>> .r1615
+
             //            if (resourceBundle.containsKey("TYPE")) {
             //                XLS_SH_R_C.setCellValue(resourceBundle.getObject("TYPE") + ": " + reportType);
             //            }
