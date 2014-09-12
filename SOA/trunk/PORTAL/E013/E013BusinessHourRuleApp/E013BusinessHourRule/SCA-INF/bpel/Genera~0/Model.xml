@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<process name="GenerateBusinessHourAlert" targetNamespace="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://www.lntinfotech.com/integration/RuleServiceABO" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="BpPrc0">
+<process name="GenerateBusinessHourAlert" targetNamespace="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://www.lntinfotech.com/integration/E013BusinessHourRuleApp/E013BusinessHourRule/GenerateBusinessHourAlert" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:aia="http://www.oracle.com/XSL/Transform/java/oracle.apps.aia.core.xpath.AIAFunctions" xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc" xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath" xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath" xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions" xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk" xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions" xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns2="http://www.lntinfotech.com/integration/RuleServiceABO" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1" xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectTransactionDBAdapterV1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="BpPrc0">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10,19 +10,43 @@
   -->
   <partnerLinks>
     <partnerLink name="SOARuleEngineServiceJMSConsumerV1" partnerLinkType="ns1:Consume_Message_plt" myRole="Consume_Message_role"/>
+    <partnerLink name="selectTransactionDBAdapterV1" partnerLinkType="ns3:selectTransactionDBAdapterV1_plt" partnerRole="selectTransactionDBAdapterV1_role"/>
   </partnerLinks>
   <variables>
     <variable name="RuleServiceABO_Consume_IV" messageType="ns1:Consume_Message_msg"/>
+    <variable name="exception" type="xsd:string"/>
   </variables>
+  <faultHandlers id="BpFhs0">
+    <catchAll id="BpCAl0">
+      <assign name="AssignFault" id="BpAss0">
+        <copy>
+          <from expression="ora:getFaultAsString()"/>
+          <to variable="exception"/>
+        </copy>
+      </assign>
+    </catchAll>
+  </faultHandlers>
   <sequence name="main" id="BpSeq0">
     <receive name="ReceiveRuleServiceABO" createInstance="yes" variable="RuleServiceABO_Consume_IV" partnerLink="SOARuleEngineServiceJMSConsumerV1" portType="ns1:Consume_Message_ptt" operation="Consume_Message" id="BpRcv0"/>
     <scope name="checkSubscriptionScope" variableAccessSerializable="no" id="BpScp0">
       <variables>
         <variable name="iterator" type="xsd:int"/>
         <variable name="flag" type="xsd:short"/>
+        <variable name="preDay" type="xsd:string"/>
+        <variable name="curDay" type="xsd:string"/>
+        <variable name="preDate" type="xsd:string"/>
+        <variable name="curDate" type="xsd:string"/>
+        <variable name="preStartTime" type="xsd:time"/>
+        <variable name="curStartTime" type="xsd:time"/>
+        <variable name="preEndTime" type="xsd:time"/>
+        <variable name="curEndTime" type="xsd:time"/>
       </variables>
       <sequence name="checkSubscriptionSequence" id="BpSeq1">
-        <assign name="AssignInitializeIterator" id="BpAss0">
+        <assign name="AssignInitializeIterator" id="BpAss1">
+          <copy>
+            <from expression="string(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'))"/>
+            <to variable="curDate"/>
+          </copy>
           <copy>
             <from expression="1"/>
             <to variable="iterator"/>
@@ -31,20 +55,42 @@
             <from expression="0"/>
             <to variable="flag"/>
           </copy>
+          <copy>
+            <from expression="string(xp20:subtract-dayTimeDuration-from-dateTime(bpws:getVariableData('curDate'),'P1D'))"/>
+            <to variable="preDate"/>
+          </copy>
+        </assign>
+        <assign name="AssignDay" id="BpAss2">
+          <copy>
+            <from expression="xp20:format-dateTime(bpws:getVariableData('preDate'),'[FNn]')"/>
+            <to variable="preDay"/>
+          </copy>
+          <copy>
+            <from expression="xp20:format-dateTime(bpws:getVariableData('curDate'),'[FNn]')"/>
+            <to variable="curDay"/>
+          </copy>
         </assign>
         <while name="WhileSubscriptionCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" id="BpWhl0">
           <sequence name="Sequence" id="BpSeq2">
             <switch name="subscriptionSwitch" id="BpSwt0">
-              <case condition="xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'[FNn]'))">
+              <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = bpws:getVariableData('curDay')">
                 <bpelx:annotation>
                   <bpelx:general>
                     <bpelx:property name="userLabel">isSubscribedForToday</bpelx:property>
                   </bpelx:general>
                 </bpelx:annotation>
-                <assign name="AssignSetFlag" id="BpAss1">
+                <assign name="AssignSetFlag" id="BpAss3">
                   <copy>
                     <from expression="1"/>
                     <to variable="flag"/>
+                  </copy>
+                  <copy>
+                    <from expression="substring-before(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value'),'to')"/>
+                    <to variable="curStartTime"/>
+                  </copy>
+                  <copy>
+                    <from expression="substring-after(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value'),'to')"/>
+                    <to variable="curEndTime"/>
                   </copy>
                 </assign>
               </case>
@@ -52,7 +98,7 @@
                 <empty name="Empty" id="BpEmp0"/>
               </otherwise>
             </switch>
-            <assign name="Assign1" id="BpAss2">
+            <assign name="AssignIncrementIterator" id="BpAss4">
               <copy>
                 <from expression="bpws:getVariableData('iterator') + 1"/>
                 <to variable="iterator"/>
@@ -69,7 +115,7 @@
                 </bpelx:general>
               </bpelx:annotation>
               <sequence name="Sequence1" id="BpSeq4">
-                <assign name="AssignInitializeIterator" id="BpAss3">
+                <assign name="AssignInitializeIterator" id="BpAss5">
                   <copy>
                     <from expression="1"/>
                     <to variable="iterator"/>
@@ -81,36 +127,277 @@
                 </assign>
                 <while name="WhileSubscriptionCheck" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpWhl1">
       
-   <sequence name="Sequence2" id="BpSeq5">
+   <sequence name="checkPrevDaySubsSequence" id="BpSeq5">
                     <switch name="subscriptionSwitch" id="BpSwt2">
-         <case condition="xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(xp20:subtract-dayTimeDuration-from-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'P1D'),'[FNn]'))">
+         <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = bpws:getVariableData('preDay')">
             <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
                <bpelx:general>
                   <bpelx:property name="userLabel">isSubscribedForPrevday</bpelx:property>
                </bpelx:general>
             </bpelx:annotation>
-            <assign name="AssignSetFlag" id="BpAss4">
-               <copy>
-                  <from expression="1"/>
-                  <to variable="flag"/>
-               </copy>
-            </assign>
+            <assign name="AssignSetFlag" id="BpAss6">
+                          <copy>
+                            <from expression="1"/>
+                            <to variable="flag"/>
+                          </copy>
+                          <copy>
+                            <from expression="substring-before(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value'),'to')"/>
+                            <to variable="preStartTime"/>
+                          </copy>
+                          <copy>
+                            <from expression="substring-after(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value'),'to')"/>
+                            <to variable="preEndTime"/>
+                          </copy>
+                        </assign>
          </case>
          <otherwise>
             <empty name="Empty" id="BpEmp1"/>
          </otherwise>
       </switch>
-                    <assign name="AssignIncrementiterator" id="BpAss5">
+                    <assign name="AssignIncrementiterator" id="BpAss7">
                       <copy>
                         <from expression="bpws:getVariableData('iterator') + 1"/>
                         <to variable="iterator"/>
                       </copy>
                     </assign>
                   </sequence></while>
+                <scope name="Scope1" id="BpScp1">
+                  <bpelx:annotation>
+                    <bpelx:general>
+                      <bpelx:property name="userLabel">minMaxCalculationScope</bpelx:property>
+                    </bpelx:general>
+                  </bpelx:annotation>
+                  <variables>
+                    <variable name="leftMin" type="xsd:string"/>
+                    <variable name="leftMax" type="xsd:string"/>
+                    <variable name="rightMin" type="xsd:string"/>
+                    <variable name="rightMax" type="xsd:string"/>
+                  </variables>
+                  <sequence name="Sequence3" id="BpSeq6">
+                    <switch name="prevDaySubscribedSwitch" id="BpSwt3">
+                      <case condition="bpws:getVariableData('flag') = 1">
+                        <bpelx:annotation>
+                          <bpelx:general>
+                            <bpelx:property name="userLabel">IfSubscribedForPrevDay</bpelx:property>
+                          </bpelx:general>
+                        </bpelx:annotation>
+                        <sequence name="Sequence2" id="BpSeq7">
+                          <switch name="Switch1" id="BpSwt4">
+                            <case condition="bpws:getVariableData('preStartTime')  > bpws:getVariableData('preEndTime')">
+                              <bpelx:annotation>
+                                <bpelx:general>
+                                  <bpelx:property name="userLabel">preStartTimeGreaterthanpreEndTime</bpelx:property>
+                                </bpelx:general>
+                              </bpelx:annotation>
+                              <assign name="AssignLeftLabelTimings" id="BpAss8">
+                                <copy>
+                                  <from expression="concat(xp20:format-dateTime(bpws:getVariableData('preDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('preEndTime'))"/>
+                                  <to variable="leftMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('curStartTime'))"/>
+                                  <to variable="leftMax"/>
+                                </copy>
+                              </assign>
+                            </case>
+                            <otherwise>
+                              <assign name="AssignReverseLeftLabelTimings" id="BpAss9">
+                                <copy>
+                                  <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T','00:00:00.000000')"/>
+                                  <to variable="leftMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('curStartTime'))"/>
+                                  <to variable="leftMax"/>
+                                </copy>
+                              </assign>
+                            </otherwise>
+                          </switch>
+                        </sequence>
+                      </case>
+                      <otherwise>
+                        <assign name="AssignLeftTiming" id="BpAss10">
+                          <copy>
+                            <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T','00:00:00.000000')"/>
+                            <to variable="leftMin"/>
+                          </copy>
+                          <copy>
+                            <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('curStartTime'))"/>
+                            <to variable="leftMax"/>
+                          </copy>
+                        </assign>
+                      </otherwise>
+                    </switch>
+                    <switch name="curDayHourSwitch" id="BpSwt5">
+                      <case condition="bpws:getVariableData('curStartTime') > bpws:getVariableData('curEndTime')">
+                        <bpelx:annotation>
+                          <bpelx:general>
+                            <bpelx:property name="userLabel">ifCurStartTimeGreaterThanCurEndTime</bpelx:property>
+                          </bpelx:general>
+                        </bpelx:annotation>
+                        <assign name="AssignRightLabelTimings" id="BpAss11">
+                          <copy>
+                            <from variable="leftMin"/>
+                            <to variable="rightMin"/>
+                          </copy>
+                          <copy>
+                            <from variable="leftMax"/>
+                            <to variable="rightMax"/>
+                          </copy>
+                        </assign>
+                      </case>
+                      <otherwise>
+                        <assign name="AssignReverseRightLabelTimings" id="BpAss12">
+                          <copy>
+                            <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T',bpws:getVariableData('curEndTime'))"/>
+                            <to variable="rightMin"/>
+                          </copy>
+                          <copy>
+                            <from expression="concat(xp20:format-dateTime(bpws:getVariableData('curDate'),'[Y0001]-[M01]-[D01]'),'T','23:59:59.000000')"/>
+                            <to variable="rightMax"/>
+                          </copy>
+                        </assign>
+                      </otherwise>
+                    </switch>
+                    <scope name="cardDataProcessingScope" variableAccessSerializable="no" id="BpScp2">
+                      <bpelx:annotation>
+                        <bpelx:general>
+                          <bpelx:property name="userLabel">cardDataProcessingScope</bpelx:property>
+                        </bpelx:general>
+                      </bpelx:annotation>
+                      <variables>
+                        <variable name="cardID" type="xsd:string"/>
+                        <variable name="InvokeselectTransactionDBAdapterV1_IV" messageType="ns3:selectTransactionDBAdapterV1Select_inputParameters"/>
+                        <variable name="InvokeselectTransactionDBAdapterV1_OV" messageType="ns3:PrtCardTransactionHeaderCollection_msg"/>
+                      </variables>
+                      <sequence name="cardDataProcessingSequence" id="BpSeq8">
+                        <assign name="AssignIterator" id="BpAss13">
+                          <copy>
+                            <from expression="1"/>
+                            <to variable="iterator"/>
+                          </copy>
+                          <copy>
+                            <from expression="0"/>
+                            <to variable="flag"/>
+                          </copy>
+                        </assign>
+                        <while name="WhileparamterForCARD" condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))" id="BpWhl2">
+                          <sequence name="Sequence4" id="BpSeq9">
+                            <switch name="ifCARDavailableSwitch" id="BpSwt6">
+                              <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = 'CARD'">
+                                <bpelx:annotation>
+                                  <bpelx:general>
+                                    <bpelx:property name="userLabel">ifCARDexists</bpelx:property>
+                                  </bpelx:general>
+                                </bpelx:annotation>
+                                <sequence name="Sequence5" id="BpSeq10">
+                                  <assign name="AssignCARDid" id="BpAss14">
+                                    <copy>
+                                      <from expression="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value')"/>
+                                      <to variable="cardID"/>
+                                    </copy>
+                                    <copy>
+                                      <from expression="1"/>
+                                      <to variable="flag"/>
+                                    </copy>
+                                  </assign>
+    <!--bpelx:exec import="java.lang.String"/>
+                                  <bpelx:exec name="Java_Embedding"
+                                              version="1.5" language="java">
+                                    <![CDATA[/*Write your java code below e.g.   
+	System.out.println("Hello, World");  
+*/  
+String cards = getVariableData("cardID").toString();  
+  
+cards = cards.replaceAll(",","','");  
+cards =  "('".concat(cards.concat("')")); 
+ 
+  
+setVariableData("cardID",cards);]]>
+                                  </bpelx:exec-->
+                                </sequence>
+                              </case>
+                              <otherwise>
+                                <empty name="Empty" id="BpEmp2"/>
+                              </otherwise>
+                            </switch>
+                            <assign name="AssignIncrementIterator" id="BpAss15">
+                              <copy>
+                                <from expression="bpws:getVariableData('iterator') + 1"/>
+                                <to variable="iterator"/>
+                              </copy>
+                            </assign>
+                          </sequence>
+                        </while>
+                        <switch name="FalgSwitch" id="BpSwt7">
+                          <case condition="bpws:getVariableData('flag') = 1">
+                            <bpelx:annotation>
+                              <bpelx:general>
+                                <bpelx:property name="userLabel">ifFlagis1</bpelx:property>
+                              </bpelx:general>
+                            </bpelx:annotation>
+                            <sequence name="fetchTransactionAlertSequence" id="BpSeq11">
+                              <assign name="AssignInvokeselectTransactionDBAdapterV1_IV" id="BpAss16">
+                                <!--copy>
+                                  <from expression="concat(&quot;'&quot;,bpws:getVariableData('leftMin'),&quot;'&quot;)"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV"
+                                      part="selectTransactionDBAdapterV1Select_inputParameters"
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="concat(&quot;'&quot;,bpws:getVariableData('leftMax'),&quot;'&quot;)"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV"
+                                      part="selectTransactionDBAdapterV1Select_inputParameters"
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMax"/>
+                                </copy>
+                                <copy>
+                                  <from expression="concat(&quot;'&quot;,bpws:getVariableData('rightMin'),&quot;'&quot;)"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV"
+                                      part="selectTransactionDBAdapterV1Select_inputParameters"
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="concat(&quot;'&quot;,bpws:getVariableData('rightMax'),&quot;'&quot;)"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV"
+                                      part="selectTransactionDBAdapterV1Select_inputParameters"
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMax"/>
+                                </copy-->
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('leftMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('leftMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMax"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('rightMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMin"/>
+                                </copy>
+                                <copy>
+                                  <from expression="xp20:format-dateTime(bpws:getVariableData('rightMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMax"/>
+                                </copy>
+                                <copy>
+                                  <from expression="bpws:getVariableData('cardID')"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV" part="selectTransactionDBAdapterV1Select_inputParameters" query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:cardID"/>
+                                </copy>
+                              </assign>
+                              <invoke name="InvokeselectTransactionDBAdapterV1" bpelx:invokeAsDetail="no" inputVariable="InvokeselectTransactionDBAdapterV1_IV" outputVariable="InvokeselectTransactionDBAdapterV1_OV" partnerLink="selectTransactionDBAdapterV1" portType="ns3:selectTransactionDBAdapterV1_ptt" operation="selectTransactionDBAdapterV1Select" id="BpInv0"/>
+                            </sequence>
+                          </case>
+                          <otherwise>
+                            <empty name="Empty" id="BpEmp3"/>
+                          </otherwise>
+                        </switch>
+                      </sequence>
+                    </scope>
+                  </sequence>
+                </scope>
               </sequence>
             </case>
             <otherwise>
-              <empty name="Empty" id="BpEmp2"/>
+              <empty name="Empty" id="BpEmp4"/>
             </otherwise>
           </switch>
         </sequence>

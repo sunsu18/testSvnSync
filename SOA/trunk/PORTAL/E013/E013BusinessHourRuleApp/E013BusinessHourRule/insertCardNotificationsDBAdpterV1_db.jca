@@ -1,0 +1,14 @@
+<adapter-config name="insertCardNotificationsDBAdpterV1" adapter="Database Adapter" wsdlLocation="insertCardNotificationsDBAdpterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/WebcenterDB(dev)" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <endpoint-interaction portType="insertCardNotificationsDBAdpterV1_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="insertCardNotificationDBAdpterV1.PrtCardNotifications"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="insertCardNotificationsDBAdpterV1-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

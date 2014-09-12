@@ -1,23 +1,2 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Faults>
-   <Fault>
-      <severity>warning</severity>
-      <loc/>
-      <line>75</line>
-      <col/>
-      <file>GenerateBusinessHourAlert.bpel</file>
-      <name>GenerateBusinessHourAlert.bpel</name>
-      <fix>Use one of the built-in boolean functions from xpath http://www.w3.org/TR/xpath#section-Boolean-Functions to convert the return value to boolean</fix>
-      <msg>xpath expression "xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'[FNn]'))" used in &lt;case> may not return boolean type value, the xpath engine would automatically try to convert the return value to boolean</msg>
-   </Fault>
-   <Fault>
-      <severity>warning</severity>
-      <loc/>
-      <line>125</line>
-      <col/>
-      <file>GenerateBusinessHourAlert.bpel</file>
-      <name>GenerateBusinessHourAlert.bpel</name>
-      <fix>Use one of the built-in boolean functions from xpath http://www.w3.org/TR/xpath#section-Boolean-Functions to convert the return value to boolean</fix>
-      <msg>xpath expression "xp20:compare(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name'),xp20:format-dateTime(xp20:subtract-dayTimeDuration-from-dateTime(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/NotificationDateTime'),'P1D'),'[FNn]'))" used in &lt;case> may not return boolean type value, the xpath engine would automatically try to convert the return value to boolean</msg>
-   </Fault>
-</Faults>
+<Faults/>

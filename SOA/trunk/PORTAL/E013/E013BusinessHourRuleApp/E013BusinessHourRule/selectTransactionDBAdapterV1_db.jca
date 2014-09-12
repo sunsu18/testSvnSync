@@ -1,0 +1,14 @@
+<adapter-config name="selectTransactionDBAdapterV1" adapter="Database Adapter" wsdlLocation="selectTransactionDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/PORTALNXA" UIConnectionName="WebcenterDB(dev)" adapterRef=""/>
+  <endpoint-interaction portType="selectTransactionDBAdapterV1_ptt" operation="selectTransactionDBAdapterV1Select">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="selectTransactionDBAdapterV1.PrtCardTransactionHeader"/>
+      <property name="QueryName" value="selectTransactionDBAdapterV1Select"/>
+      <property name="MappingsMetaDataURL" value="selectTransactionDBAdapterV1-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

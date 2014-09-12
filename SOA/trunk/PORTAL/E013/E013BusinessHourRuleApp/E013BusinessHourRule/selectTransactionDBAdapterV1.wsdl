@@ -1,0 +1,25 @@
+<?binding.jca selectTransactionDBAdapterV1_db.jca?>
+<wsdl:definitions name="selectTransactionDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectTransactionDBAdapterV1">
+    <plt:partnerLinkType name="selectTransactionDBAdapterV1_plt">
+        <plt:role name="selectTransactionDBAdapterV1_role">
+            <plt:portType name="tns:selectTransactionDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectTransactionDBAdapterV1" schemaLocation="xsd/selectTransactionDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="selectTransactionDBAdapterV1Select_inputParameters">
+        <wsdl:part name="selectTransactionDBAdapterV1Select_inputParameters" element="top:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="PrtCardTransactionHeaderCollection_msg">
+        <wsdl:part name="PrtCardTransactionHeaderCollection" element="top:PrtCardTransactionHeaderCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="selectTransactionDBAdapterV1_ptt">
+        <wsdl:operation name="selectTransactionDBAdapterV1Select">
+            <wsdl:input message="tns:selectTransactionDBAdapterV1Select_inputParameters"/>
+            <wsdl:output message="tns:PrtCardTransactionHeaderCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

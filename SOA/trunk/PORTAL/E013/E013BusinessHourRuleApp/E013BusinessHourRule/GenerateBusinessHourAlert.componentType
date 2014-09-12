@@ -8,4 +8,12 @@
            ui:wsdlLocation="SOARuleEngineServiceJMSConsumerV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1#wsdl.interface(Consume_Message_ptt)"/>
   </service>
+  <reference name="selectTransactionDBAdapterV1"
+             ui:wsdlLocation="selectTransactionDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1#wsdl.interface(selectTransactionDBAdapterV1_ptt)"/>
+  </reference>
+  <reference name="insertCardNotificationsDBAdpterV1"
+             ui:wsdlLocation="insertCardNotificationsDBAdpterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1#wsdl.interface(insertCardNotificationsDBAdpterV1_ptt)"/>
+  </reference>
 </componentType>

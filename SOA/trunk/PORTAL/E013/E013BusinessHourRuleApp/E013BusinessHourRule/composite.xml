@@ -12,10 +12,22 @@
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1"
           location="SOARuleEngineServiceJMSConsumerV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1"
+          location="selectTransactionDBAdapterV1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1"
+          location="insertCardNotificationsDBAdpterV1.wsdl" importType="wsdl"/>
   <service name="SOARuleEngineServiceJMSConsumerV1"
            ui:wsdlLocation="SOARuleEngineServiceJMSConsumerV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1#wsdl.interface(Consume_Message_ptt)"/>
     <binding.jca config="SOARuleEngineServiceJMSConsumerV1_jms.jca"/>
+  </service>
+  <service name="Service1"
+           ui:wsdlLocation="SOARuleEngineServiceJMSConsumerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1#wsdl.interface(Consume_Message_ptt)"/>
+    <binding.ws port="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineServiceJMSConsumerV1#wsdl.endpoint(Service1/Consume_Message_pt)">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">NEVER</property>
+    </binding.ws>
   </service>
   <component name="GenerateBusinessHourAlert" version="1.1">
     <implementation.bpel src="GenerateBusinessHourAlert.bpel"/>
@@ -23,8 +35,44 @@
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
               many="false">sync</property>
   </component>
+  <reference name="selectTransactionDBAdapterV1"
+             ui:wsdlLocation="selectTransactionDBAdapterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1#wsdl.interface(selectTransactionDBAdapterV1_ptt)"/>
+    <binding.jca config="selectTransactionDBAdapterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="insertCardNotificationsDBAdpterV1"
+             ui:wsdlLocation="insertCardNotificationsDBAdpterV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1#wsdl.interface(insertCardNotificationsDBAdpterV1_ptt)"/>
+    <binding.jca config="insertCardNotificationsDBAdpterV1_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">3</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>SOARuleEngineServiceJMSConsumerV1</source.uri>
     <target.uri>GenerateBusinessHourAlert/SOARuleEngineServiceJMSConsumerV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>Service1</source.uri>
+    <target.uri>GenerateBusinessHourAlert/SOARuleEngineServiceJMSConsumerV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>GenerateBusinessHourAlert/selectTransactionDBAdapterV1</source.uri>
+    <target.uri>selectTransactionDBAdapterV1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>GenerateBusinessHourAlert/insertCardNotificationsDBAdpterV1</source.uri>
+    <target.uri>insertCardNotificationsDBAdpterV1</target.uri>
   </wire>
 </composite>

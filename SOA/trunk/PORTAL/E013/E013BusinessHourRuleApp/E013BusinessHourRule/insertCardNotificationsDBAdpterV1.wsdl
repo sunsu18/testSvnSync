@@ -1,0 +1,21 @@
+<?binding.jca insertCardNotificationsDBAdpterV1_db.jca?>
+<wsdl:definitions name="insertCardNotificationsDBAdpterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/insertCardNotificationDBAdpterV1">
+    <plt:partnerLinkType name="insertCardNotificationsDBAdpterV1_plt">
+        <plt:role name="insertCardNotificationsDBAdpterV1_role">
+            <plt:portType name="tns:insertCardNotificationsDBAdpterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/insertCardNotificationDBAdpterV1" schemaLocation="xsd/insertCardNotificationsDBAdpterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="PrtCardNotificationsCollection_msg">
+        <wsdl:part name="PrtCardNotificationsCollection" element="top:PrtCardNotificationsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="insertCardNotificationsDBAdpterV1_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:PrtCardNotificationsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
