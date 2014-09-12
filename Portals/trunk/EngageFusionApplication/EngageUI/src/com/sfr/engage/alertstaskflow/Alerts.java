@@ -453,7 +453,7 @@ populateDefaultDropdown();
                 fueltimings.add(f);
     }
     
-  /*  public void configureDefaultTimings(String subscriptionId,String country) {
+    public void configureDefaultTimings(String subscriptionId,String country) {
         configureFuelTimings = new ArrayList<FuelTimings>();
         configureFuelTimings.clear();
         
@@ -508,7 +508,7 @@ populateDefaultDropdown();
             }
     }
 
-*/
+
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
         defaultTimings();
         System.out.println("fueltimings size " + fueltimings.size());
@@ -2633,7 +2633,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getAlert2ValidData() {
         return alert2ValidData;
     }
-/*
+
     public void viewSubscribedAlerts(ActionEvent actionEvent) {
         
                                       
@@ -2649,7 +2649,7 @@ populateDefaultDropdown();
             String cardQuery = "(";
             
 
-            if (accountIdValue.size() > 150) {
+            if (accountIdValue2.size() > 150) {
 //                mapAccountListValue = valueList.callValueList(accountValue.size(), accountValue);
 //                for (int i = 0; i < mapAccountListValue.size(); i++) {
 //                    String values = "account" + i;
@@ -2661,13 +2661,13 @@ populateDefaultDropdown();
 
             } else {
                 accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
-                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", populateStringValues(accountDropdwonAlert2.getValue().toString()), null);
+                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", populateStringValues(viewAlertsAccountDropdown.getValue().toString()), null);
                 
 
             }
             
             
-            if (cardGroupValue.size() > 150) {
+            if (cardGroupValue2.size() > 150) {
 
 //                        mapCardListValue = valueList.callValueList(cardValue.size(), cardValue);
 //                        for (int i = 0; i < mapCardListValue.size(); i++) {
@@ -2689,14 +2689,14 @@ populateDefaultDropdown();
                     } else {
                 
                         cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
-                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(cardGroupDowndownAlert2.getValue().toString()), null);
+                        prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", populateStringValues(viewAlertCardGroupDropdown.getValue().toString()), null);
 
                     
                     }
 
         
 
-                    if (cardNumberValue.size() > 150) {
+                    if (cardNumberValue2.size() > 150) {
 //                        _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
 //                        mapCardGroupListValue = valueList.callValueList(cardGroupValue.size(), cardGroupValue);
 //                        for (int i = 0; i < mapCardGroupListValue.size(); i++) {
@@ -2716,7 +2716,7 @@ populateDefaultDropdown();
 
                     } else {
                         cardQuery = "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
-                        String cardValuesList = populateStringValues(cardDropdownAlert2.getValue().toString());
+                        String cardValuesList = populateStringValues(viewAlertDropdown.getValue().toString());
                         prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
                         prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
 
@@ -2766,9 +2766,9 @@ populateDefaultDropdown();
         }
     }
     
-    */
     
-    /*
+    
+    
     public void searchCorrespondingDetalis() {
         for (int i = 0; i < partnerInfoList.size(); i++) {
             if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
@@ -2792,7 +2792,7 @@ populateDefaultDropdown();
         }
     }
     
-    */
+    
 
     public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
         this.searchResultsPanel = searchResultsPanel;
@@ -2801,7 +2801,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getSearchResultsPanel() {
         return searchResultsPanel;
     }
-/*
+
     public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
         // Add event code here...
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
@@ -2891,9 +2891,9 @@ populateDefaultDropdown();
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
         }
     }
-    */
     
-    /*
+    
+    
     public void fetchFuelCapacity(String subscriptionId, String country) {
         DCBindingContainer bindings;
 
@@ -2953,7 +2953,7 @@ populateDefaultDropdown();
             }
     }
 
-*/
+
     public void setConfigureAlert1Popup(RichPopup configureAlert1Popup) {
         this.configureAlert1Popup = configureAlert1Popup;
     }
@@ -3279,7 +3279,7 @@ populateDefaultDropdown();
         return searchStringInputtext;
     }
 
-   /* public List suggesstedItemsResult(String string) {
+    public List suggesstedItemsResult(String string) {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         System.out.println("size " + suggestedCardNumberList.size());
@@ -3293,7 +3293,7 @@ populateDefaultDropdown();
         }
         return selectItems;
         
-    }*/
+    }
 
     public void setSuggestedCardNumberList(List<String> suggestedCardNumberList) {
         this.suggestedCardNumberList = suggestedCardNumberList;
@@ -3334,7 +3334,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getCardSelectionPanel() {
         return cardSelectionPanel;
     }
-/*
+
     public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
 //        if(cardSelectionPanelRadio.getValue()!=null && cardSelectionPanelRadio.getValue().toString().equals(true)) {
@@ -3370,7 +3370,7 @@ populateDefaultDropdown();
 //                System.out.println("Search by all");
 //        }
     }
-*/
+
 
     public void setSelectionPanel(boolean SelectionPanel) {
         this.SelectionPanel = SelectionPanel;
