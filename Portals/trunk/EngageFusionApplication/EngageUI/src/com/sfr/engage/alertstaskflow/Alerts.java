@@ -1,14 +1,19 @@
 package com.sfr.engage.alertstaskflow;
 
 import com.sfr.core.bean.User;
+import com.sfr.engage.core.AccountInfo;
 import com.sfr.engage.core.AlertsSubscribeCustomerType;
 import com.sfr.engage.core.AlertsSubscribeFrequencyType;
 import com.sfr.engage.core.AlertsSubscribeRequest;
 import com.sfr.engage.core.AlertsSubscribeResponse;
+import com.sfr.engage.core.CardGroupInfo;
 import com.sfr.engage.core.FuelTimings;
 
 import com.sfr.engage.core.PartnerInfo;
 
+import com.sfr.engage.model.queries.rvo.PrtCardFuelCapacityRVORowImpl;
+import com.sfr.engage.model.queries.rvo.PrtCardRuleBusinessHoursRVORowImpl;
+import com.sfr.engage.model.queries.uvo.PrtAccountVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
 import com.sfr.util.ADFUtils;
@@ -63,6 +68,7 @@ import oracle.jbo.ViewObject;
 
 public class Alerts {
     private List<FuelTimings> fueltimings = new ArrayList<FuelTimings>();
+    private List<FuelTimings> configureFuelTimings = new ArrayList<FuelTimings>();
     private RichPopup alert1Popup;
 
     private HttpSession session;
@@ -71,7 +77,11 @@ public class Alerts {
     private List<PartnerInfo> partnerInfoList;
 
     private List<SelectItem> partnerAlert1List;
+    private List<SelectItem> configurePartnerAlert1List;
     private List<String> partnerValue = null;
+    private String searchString;
+    private boolean SelectionPanel = false;
+    private boolean cardsSelectionPanel = false;
     
 //    private List<SelectItem> partnerAlert2List;
 //    private List<String> partnerValue2 = null;
@@ -88,18 +98,37 @@ public class Alerts {
 //    private List<String> cardValue;
     
     
-        private List<SelectItem> partnerIdList;
+    private List<SelectItem> partnerIdList;
+    
+    private List<SelectItem> configurePartnerIdList;
+    
+    
     private List<String> partnerIdValue;
+    private List<String> configurePartnerIdValue;
+    private List<String> configurePartnerIdValue2;
     
     private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
+    
+    private List<SelectItem> configureAccountIdList;
+    private List<String> configureAccountIdValue;
+    
     private List<String> initailAccountIdVAlue;
     private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
+    
+    private List<SelectItem> configureCardGroupList;
+    private List<String> configureCardGroupValue;
+    
     private List<String> initialCardGroupValue;
     private List<SelectItem> cardNumberList;
     private List<String> cardNumberValue;
+    
     private List<String> initialCardValue;
+    
+    private List<SelectItem> configureCardNumberList;
+    private List<String> configureCardNumberValue;
+    
     
     private RichPopup alert2Popup;
     private String langValue;
@@ -139,6 +168,42 @@ public class Alerts {
     private RichCommandButton editButtonAlert1;
     private RichPanelGroupLayout alert2ValidData;
     private RichPanelGroupLayout searchResultsPanel;
+    private RichPopup configureAlert1Popup;
+    private RichDialog configureAlert1PopupDialog;
+    private RichSelectOneChoice configureAlert1PartnerValues;
+    private RichTable configureAlert1Table;
+    private RichInputText configureFromTimingsHh;
+    private RichInputText configureFromTimingsMm;
+    private RichInputText configureToTimingsHh;
+    private RichInputText configureToTimingsMm;
+    private RichCommandButton editButtonConfigureAlert1;
+    private RichCommandButton okButtonConfigureAlert1;
+    private RichCommandButton cancelButtonConfigureAlert1;
+    private RichCommandButton closeButtonConfigureAlert1;
+    private RichPopup configureAlert2Popup;
+    private RichSelectManyChoice configurePartnerDropdownAlert2;
+    private RichSelectManyChoice configureAccountDropdwonAlert2;
+    private RichSelectManyChoice configureCardGroupDowndownAlert2;
+    private RichSelectManyChoice configureCardDropdownAlert2;
+    private RichSelectBooleanRadio configureLtrPerDayRadio;
+    private RichSelectBooleanRadio configureLtrPerWeekRadio;
+    private RichSelectBooleanRadio configureLtrPerMonthRadio;
+    private RichInputText configureFuelCapacityAlert2;
+    private RichCommandButton configureOkButtonAlert2;
+    private RichCommandButton configureCloseButtonAlert2;
+    private RichCommandButton configureCancelButtonAlert2;
+    private RichInputText searchStringInputtext;
+    private List<String> suggestedCardNumberList;
+    private RichPanelGroupLayout mainSelectionPanel;
+    private RichSelectBooleanRadio mainSelectionPanelRadio;
+    private RichSelectBooleanRadio cardSelectionPanelRadio;
+    private RichPanelGroupLayout cardSelectionPanel;
+    private String passingPartner = "";
+    private String passingAccount = "";
+    private String passingCardgrpMain = "";
+    private String passingCardgrpSub = "";
+    private String passingCardgrpSeq = "";
+    private String passingCardKsId = "";
 
 
     public Alerts() {
@@ -155,6 +220,7 @@ public class Alerts {
         
         partnerIdList = new ArrayList<SelectItem>();
         partnerIdValue = new ArrayList<String>();
+        
         accountIdList = new ArrayList<SelectItem>();
         accountIdValue = new ArrayList<String>();
         initailAccountIdVAlue = new ArrayList<String>();
@@ -164,6 +230,7 @@ public class Alerts {
         cardGroupValue = new ArrayList<String>();
         cardNumberList = new ArrayList<SelectItem>();
         cardNumberValue = new ArrayList<String>();
+        suggestedCardNumberList = new ArrayList<String>();
         
         
         Conversion conv = new Conversion();
@@ -257,6 +324,7 @@ populateDefaultDropdown();
                                         cardNumberList.add(selectItem);
                                         cardNumberValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
                                     }
                             }
                         }
@@ -349,7 +417,61 @@ populateDefaultDropdown();
         f.setToMm("00");
                 fueltimings.add(f);
     }
+    
+    public void configureDefaultTimings(String subscriptionId,String country) {
+        configureFuelTimings = new ArrayList<FuelTimings>();
+        configureFuelTimings.clear();
+        
+        
+        DCBindingContainer bindings;
 
+        bindings =
+                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+    
+
+
+        DCIteratorBinding iter1;
+        if (bindings != null &&
+            bindings.findIteratorBinding("PrtCardRuleBusinessHoursRVO1Iterator") != null) {
+            iter1 = bindings.findIteratorBinding("PrtCardRuleBusinessHoursRVO1Iterator");
+        
+        
+
+        ViewObject businessHoursVO = iter1.getViewObject();
+      
+        businessHoursVO.setNamedWhereClauseParam("SubID",subscriptionId);
+        
+        businessHoursVO.setNamedWhereClauseParam("countryCode",country);
+
+        businessHoursVO.executeQuery();
+
+        FuelTimings f;
+        if (businessHoursVO.getEstimatedRowCount() != 0) {
+            while (businessHoursVO.hasNext()) {
+                     f = new FuelTimings();
+                
+                PrtCardRuleBusinessHoursRVORowImpl currRow =
+                    (PrtCardRuleBusinessHoursRVORowImpl)businessHoursVO.next();
+                
+        if (currRow != null) {
+            if (currRow.getDay() != null && currRow.getBusiStartFrom() !=null && currRow.getBusiStartTo() != null) {
+                System.out.println("currRow.getDay() " + currRow.getDay());
+                if (resourceBundle.containsKey(currRow.getDay().toString().toUpperCase())) {
+                    System.out.println("resourceBundle contains currRow.getDay()");
+                    f.setWeekday((String)resourceBundle.getObject(currRow.getDay().toString().toUpperCase()));
+                    System.out.println("f.setWeekday " + f.getWeekday());
+                }
+                f.setFromHh(currRow.getBusiStartFrom().toString().substring(0, currRow.getBusiStartFrom().toString().indexOf(":")));
+                f.setFromMm(currRow.getBusiStartFrom().toString().substring(currRow.getBusiStartFrom().toString().indexOf(":")+1));
+                f.setToHh(currRow.getBusiStartTo().toString().substring(0, currRow.getBusiStartTo().toString().indexOf(":")));
+                f.setToMm(currRow.getBusiStartTo().toString().substring(currRow.getBusiStartTo().toString().indexOf(":")+1));
+            }
+        configureFuelTimings.add(f);
+        }
+            }
+        }
+            }
+    }
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
         defaultTimings();
         AdfFacesContext.getCurrentInstance().addPartialTarget(alert1Table);
@@ -2247,6 +2369,8 @@ populateDefaultDropdown();
         
                                       
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
+        if(SelectionPanel)
+        {
         if(!prtCardRuleSubscriptionVO.equals(null)){
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(partnerDropdownAlert2.getValue().toString()));
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
@@ -2335,7 +2459,65 @@ populateDefaultDropdown();
                     AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
 
             }
+    }
+        else if(cardsSelectionPanel) {
+            
+            if(suggestedCardNumberList.contains(searchStringInputtext.getValue().toString().trim()))
+            {
+            searchCorrespondingDetalis();
+
+            if(!prtCardRuleSubscriptionVO.equals(null)){
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId",passingPartner);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
+                prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
+                String cardQuery = "(INSTR(:card,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ||CARD_KSID)<>0 OR (CARD_KSID = 'ALL')";
+                String cardValuesList = passingPartner+passingAccount+passingCardgrpMain+passingCardgrpSub+passingCardgrpSeq+passingCardKsId;
+                System.out.println("cardValuesList " +cardValuesList);
+                prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("card", cardValuesList, null);
+                
+            String accountQuery = "INSTR(:account,PARTNER_ID||ACCOUNT_ID)<>0 OR (ACCOUNT_ID = 'ALL')) ";
+            String accountValueList = passingPartner+passingAccount;
+            System.out.println("accountValueList " + accountValueList);
+            prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("account", accountValueList , null);
+            
+            String cardGroupQuery = "(INSTR(:cardGroup,PARTNER_ID||ACCOUNT_ID||CARDGROUP_MAIN||CARDGROUP_SUB||CARDGROUP_SEQ)<>0 OR ((CARDGROUP_MAIN = 'ALL') AND (CARDGROUP_SUB = 'ALL') AND (CARDGROUP_SEQ = 'ALL'))) ";
+            String cardgrpValueList = passingPartner+passingAccount+passingCardgrpMain+passingCardgrpSub+passingCardgrpSeq;
+            System.out.println("cardgrpValueList " + cardgrpValueList);
+            prtCardRuleSubscriptionVO.defineNamedWhereClauseParam("cardGroup", cardgrpValueList, null);
+                        
+                        
+                prtCardRuleSubscriptionVO.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + cardQuery);
+                System.out.println("Query for card search : "+prtCardRuleSubscriptionVO.getQuery());
+                prtCardRuleSubscriptionVO.executeQuery();
+                System.out.println("Estimated row count for Card Rule Subscription Query in case of card selection :" + prtCardRuleSubscriptionVO.getEstimatedRowCount());
+                searchResultsPanel.setRendered(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
         }
+        }
+        }
+    }
+    public void searchCorrespondingDetalis() {
+        for (int i = 0; i < partnerInfoList.size(); i++) {
+            if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+                passingPartner = partnerInfoList.get(i).getPartnerValue();
+                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+                    passingAccount = partnerInfoList.get(i).getAccountList().get(j).getAccountNumber();
+                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                        passingCardgrpMain = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupMainType();
+                        passingCardgrpSub = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupSubType();
+                        passingCardgrpSeq = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupSeq();
+                        for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++){
+                            if( partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null &&
+                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().equalsIgnoreCase(searchStringInputtext.getValue().toString().trim())){
+                                passingCardKsId = partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
         this.searchResultsPanel = searchResultsPanel;
@@ -2343,6 +2525,635 @@ populateDefaultDropdown();
 
     public RichPanelGroupLayout getSearchResultsPanel() {
         return searchResultsPanel;
+    }
+
+    public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim());
+        }
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
+                configurePartnerAlert1List = new ArrayList<SelectItem>();
+                configurePartnerIdValue = new ArrayList<String>();
+                SelectItem selectItem = new SelectItem();
+                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 //partnerIdList.add(selectItem);
+                 configurePartnerIdValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 configurePartnerAlert1List.add(selectItem);
+                configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(),CountryCode);
+                configureAlert1PartnerValues.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                RichPopup.PopupHints ps = new RichPopup.PopupHints();
+                configureAlert1Popup.show(ps);
+            }
+            else
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("2")) {
+               
+                configurePartnerIdList = new ArrayList<SelectItem>();
+                configurePartnerIdValue2 = new ArrayList<String>();
+                SelectItem selectItem = new SelectItem();
+                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 //partnerIdList.add(selectItem);
+                 configurePartnerIdValue2.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+                 configurePartnerIdList.add(selectItem);
+                 
+                 
+                 
+                configureAccountIdList = new ArrayList<SelectItem>();
+                configureAccountIdValue = new ArrayList<String>();
+                selectItem = new SelectItem();
+                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+                 //partnerIdList.add(selectItem);
+                 configureAccountIdValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+                 configureAccountIdList.add(selectItem);
+                 
+                configureCardGroupList = new ArrayList<SelectItem>();
+                configureCardGroupValue = new ArrayList<String>();
+                selectItem = new SelectItem();
+                if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim().equals("ALLALLALL"))
+                {
+                 selectItem.setLabel("ALL");
+                 selectItem.setValue("ALL");
+                 //partnerIdList.add(selectItem);
+                 configureCardGroupValue.add("ALL");
+                 configureCardGroupList.add(selectItem);
+                }
+                
+                configureCardNumberList = new ArrayList<SelectItem>();
+                configureCardNumberValue = new ArrayList<String>();
+                selectItem = new SelectItem();
+               
+                 selectItem.setLabel(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+                 selectItem.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+                 //partnerIdList.add(selectItem);
+                 configureCardNumberValue.add(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+                 configureCardNumberList.add(selectItem);
+
+                
+                
+                fetchFuelCapacity(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(),CountryCode);
+                RichPopup.PopupHints ps = new RichPopup.PopupHints();
+                configureAlert2Popup.show(ps);
+                
+                
+                
+            }
+        }
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey") != null) {
+             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+        }
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey") != null) {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("AccountIdkey").toString().trim());
+        }
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey") != null) {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardGroupkey").toString().trim());
+        }
+        if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey") != null) {
+            System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
+        }
+    }
+    
+    public void fetchFuelCapacity(String subscriptionId, String country) {
+        DCBindingContainer bindings;
+
+        bindings =
+                (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        
+
+
+        DCIteratorBinding iter1;
+        if (bindings != null &&
+            bindings.findIteratorBinding("PrtCardFuelCapacityRVO1Iterator") != null) {
+            iter1 = bindings.findIteratorBinding("PrtCardFuelCapacityRVO1Iterator");
+        
+        
+
+        ViewObject fuelCapacityVO = iter1.getViewObject();
+        
+        fuelCapacityVO.setNamedWhereClauseParam("subID",subscriptionId);
+        
+        fuelCapacityVO.setNamedWhereClauseParam("countryCode",country);
+
+        fuelCapacityVO.executeQuery();
+                configureLtrPerDayRadio.setSelected(false);
+                configureLtrPerWeekRadio.setSelected(false);
+                configureLtrPerMonthRadio.setSelected(false);
+        
+        if (fuelCapacityVO.getEstimatedRowCount() != 0) {
+            while (fuelCapacityVO.hasNext()) {
+                
+                
+                PrtCardFuelCapacityRVORowImpl currRow =
+                    (PrtCardFuelCapacityRVORowImpl)fuelCapacityVO.next();
+                
+        if (currRow != null) {
+            if(currRow.getFuelPerDay()!=null) {
+                configureLtrPerDayRadio.setSelected(true);
+                configureFuelCapacityAlert2.setValue(currRow.getFuelPerDay());
+            }
+            else if(currRow.getFuelPerWeek()!=null) {
+                configureLtrPerWeekRadio.setSelected(true);
+                configureFuelCapacityAlert2.setValue(currRow.getFuelPerWeek());
+            }else if(currRow.getFuelPerMonth() != null) {
+                configureLtrPerMonthRadio.setSelected(true);
+                configureFuelCapacityAlert2.setValue(currRow.getFuelPerMonth());
+            }
+            
+        }
+        
+        
+    }
+        }
+        
+                AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerDayRadio);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerWeekRadio);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(configureLtrPerMonthRadio);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(configureFuelCapacityAlert2);
+            }
+    }
+    public void setConfigureAlert1Popup(RichPopup configureAlert1Popup) {
+        this.configureAlert1Popup = configureAlert1Popup;
+    }
+
+    public RichPopup getConfigureAlert1Popup() {
+        return configureAlert1Popup;
+    }
+
+    public void setConfigureAlert1PopupDialog(RichDialog configureAlert1PopupDialog) {
+        this.configureAlert1PopupDialog = configureAlert1PopupDialog;
+    }
+
+    public RichDialog getConfigureAlert1PopupDialog() {
+        return configureAlert1PopupDialog;
+    }
+
+    public void setConfigureAlert1PartnerValues(RichSelectOneChoice configureAlert1PartnerValues) {
+        this.configureAlert1PartnerValues = configureAlert1PartnerValues;
+    }
+
+    public RichSelectOneChoice getConfigureAlert1PartnerValues() {
+        return configureAlert1PartnerValues;
+    }
+
+    public void setConfigurePartnerAlert1List(List<SelectItem> configurePartnerAlert1List) {
+        this.configurePartnerAlert1List = configurePartnerAlert1List;
+    }
+
+    public List<SelectItem> getConfigurePartnerAlert1List() {
+        return configurePartnerAlert1List;
+    }
+
+    public void setConfigureFuelTimings(List<FuelTimings> configureFuelTimings) {
+        this.configureFuelTimings = configureFuelTimings;
+    }
+
+    public List<FuelTimings> getConfigureFuelTimings() {
+        return configureFuelTimings;
+    }
+
+    public void setConfigureAlert1Table(RichTable configureAlert1Table) {
+        this.configureAlert1Table = configureAlert1Table;
+    }
+
+    public RichTable getConfigureAlert1Table() {
+        return configureAlert1Table;
+    }
+
+    public void setConfigureFromTimingsHh(RichInputText configureFromTimingsHh) {
+        this.configureFromTimingsHh = configureFromTimingsHh;
+    }
+
+    public RichInputText getConfigureFromTimingsHh() {
+        return configureFromTimingsHh;
+    }
+
+    public void setConfigureFromTimingsMm(RichInputText configureFromTimingsMm) {
+        this.configureFromTimingsMm = configureFromTimingsMm;
+    }
+
+    public RichInputText getConfigureFromTimingsMm() {
+        return configureFromTimingsMm;
+    }
+
+    public void setConfigureToTimingsHh(RichInputText configureToTimingsHh) {
+        this.configureToTimingsHh = configureToTimingsHh;
+    }
+
+    public RichInputText getConfigureToTimingsHh() {
+        return configureToTimingsHh;
+    }
+
+    public void setConfigureToTimingsMm(RichInputText configureToTimingsMm) {
+        this.configureToTimingsMm = configureToTimingsMm;
+    }
+
+    public RichInputText getConfigureToTimingsMm() {
+        return configureToTimingsMm;
+    }
+
+    public void setEditButtonConfigureAlert1(RichCommandButton editButtonConfigureAlert1) {
+        this.editButtonConfigureAlert1 = editButtonConfigureAlert1;
+    }
+
+    public RichCommandButton getEditButtonConfigureAlert1() {
+        return editButtonConfigureAlert1;
+    }
+
+    public void editAlert1ConfigureTimings(ActionEvent actionEvent) {
+        // Add event code here...
+    }
+
+    public void setBusinessHoursConfigureAlert(ActionEvent actionEvent) {
+        // Add event code here...
+    }
+
+    public void setOkButtonConfigureAlert1(RichCommandButton okButtonConfigureAlert1) {
+        this.okButtonConfigureAlert1 = okButtonConfigureAlert1;
+    }
+
+    public RichCommandButton getOkButtonConfigureAlert1() {
+        return okButtonConfigureAlert1;
+    }
+
+    public void claoseConfigureAlert1Popup(ActionEvent actionEvent) {
+        // Add event code here...
+        
+        getConfigureAlert1Popup().hide();
+        
+    }
+
+    public void setCancelButtonConfigureAlert1(RichCommandButton cancelButtonConfigureAlert1) {
+        this.cancelButtonConfigureAlert1 = cancelButtonConfigureAlert1;
+    }
+
+    public RichCommandButton getCancelButtonConfigureAlert1() {
+        return cancelButtonConfigureAlert1;
+    }
+
+    public void setCloseButtonConfigureAlert1(RichCommandButton closeButtonConfigureAlert1) {
+        this.closeButtonConfigureAlert1 = closeButtonConfigureAlert1;
+    }
+
+    public RichCommandButton getCloseButtonConfigureAlert1() {
+        return closeButtonConfigureAlert1;
+    }
+
+    public void closeConfigureAlert1Popup(ActionEvent actionEvent) {
+        // Add event code here...
+        getConfigureAlert1Popup().hide();
+    }
+
+    public void setConfigurePartnerIdValue(List<String> configurePartnerIdValue) {
+        this.configurePartnerIdValue = configurePartnerIdValue;
+    }
+
+    public List<String> getConfigurePartnerIdValue() {
+        return configurePartnerIdValue;
+    }
+
+    public void setConfigureAlert2Popup(RichPopup configureAlert2Popup) {
+        this.configureAlert2Popup = configureAlert2Popup;
+    }
+
+    public RichPopup getConfigureAlert2Popup() {
+        return configureAlert2Popup;
+    }
+
+    public void setConfigurePartnerDropdownAlert2(RichSelectManyChoice configurePartnerDropdownAlert2) {
+        this.configurePartnerDropdownAlert2 = configurePartnerDropdownAlert2;
+    }
+
+    public RichSelectManyChoice getConfigurePartnerDropdownAlert2() {
+        return configurePartnerDropdownAlert2;
+    }
+
+    public void setConfigurePartnerIdValue2(List<String> configurePartnerIdValue2) {
+        this.configurePartnerIdValue2 = configurePartnerIdValue2;
+    }
+
+    public List<String> getConfigurePartnerIdValue2() {
+        return configurePartnerIdValue2;
+    }
+
+    public void setConfigurePartnerIdList(List<SelectItem> configurePartnerIdList) {
+        this.configurePartnerIdList = configurePartnerIdList;
+    }
+
+    public List<SelectItem> getConfigurePartnerIdList() {
+        return configurePartnerIdList;
+    }
+
+    public void setConfigureAccountIdList(List<SelectItem> configureAccountIdList) {
+        this.configureAccountIdList = configureAccountIdList;
+    }
+
+    public List<SelectItem> getConfigureAccountIdList() {
+        return configureAccountIdList;
+    }
+
+    public void setConfigureAccountIdValue(List<String> configureAccountIdValue) {
+        this.configureAccountIdValue = configureAccountIdValue;
+    }
+
+    public List<String> getConfigureAccountIdValue() {
+        return configureAccountIdValue;
+    }
+
+    public void setConfigureCardGroupList(List<SelectItem> configureCardGroupList) {
+        this.configureCardGroupList = configureCardGroupList;
+    }
+
+    public List<SelectItem> getConfigureCardGroupList() {
+        return configureCardGroupList;
+    }
+
+    public void setConfigureCardGroupValue(List<String> configureCardGroupValue) {
+        this.configureCardGroupValue = configureCardGroupValue;
+    }
+
+    public List<String> getConfigureCardGroupValue() {
+        return configureCardGroupValue;
+    }
+
+    public void setConfigureCardNumberList(List<SelectItem> configureCardNumberList) {
+        this.configureCardNumberList = configureCardNumberList;
+    }
+
+    public List<SelectItem> getConfigureCardNumberList() {
+        return configureCardNumberList;
+    }
+
+    public void setConfigureCardNumberValue(List<String> configureCardNumberValue) {
+        this.configureCardNumberValue = configureCardNumberValue;
+    }
+
+    public List<String> getConfigureCardNumberValue() {
+        return configureCardNumberValue;
+    }
+
+    public void setConfigureAccountDropdwonAlert2(RichSelectManyChoice configureAccountDropdwonAlert2) {
+        this.configureAccountDropdwonAlert2 = configureAccountDropdwonAlert2;
+    }
+
+    public RichSelectManyChoice getConfigureAccountDropdwonAlert2() {
+        return configureAccountDropdwonAlert2;
+    }
+
+    public void setConfigureCardGroupDowndownAlert2(RichSelectManyChoice configureCardGroupDowndownAlert2) {
+        this.configureCardGroupDowndownAlert2 = configureCardGroupDowndownAlert2;
+    }
+
+    public RichSelectManyChoice getConfigureCardGroupDowndownAlert2() {
+        return configureCardGroupDowndownAlert2;
+    }
+
+    public void setConfigureCardDropdownAlert2(RichSelectManyChoice configureCardDropdownAlert2) {
+        this.configureCardDropdownAlert2 = configureCardDropdownAlert2;
+    }
+
+    public RichSelectManyChoice getConfigureCardDropdownAlert2() {
+        return configureCardDropdownAlert2;
+    }
+
+    public void setConfigureLtrPerDayRadio(RichSelectBooleanRadio configureLtrPerDayRadio) {
+        this.configureLtrPerDayRadio = configureLtrPerDayRadio;
+    }
+
+    public RichSelectBooleanRadio getConfigureLtrPerDayRadio() {
+        return configureLtrPerDayRadio;
+    }
+
+    public void setConfigureLtrPerWeekRadio(RichSelectBooleanRadio configureLtrPerWeekRadio) {
+        this.configureLtrPerWeekRadio = configureLtrPerWeekRadio;
+    }
+
+    public RichSelectBooleanRadio getConfigureLtrPerWeekRadio() {
+        return configureLtrPerWeekRadio;
+    }
+
+    public void setConfigureLtrPerMonthRadio(RichSelectBooleanRadio configureLtrPerMonthRadio) {
+        this.configureLtrPerMonthRadio = configureLtrPerMonthRadio;
+    }
+
+    public RichSelectBooleanRadio getConfigureLtrPerMonthRadio() {
+        return configureLtrPerMonthRadio;
+    }
+
+    public void setConfigureFuelCapacityAlert2(RichInputText configureFuelCapacityAlert2) {
+        this.configureFuelCapacityAlert2 = configureFuelCapacityAlert2;
+    }
+
+    public RichInputText getConfigureFuelCapacityAlert2() {
+        return configureFuelCapacityAlert2;
+    }
+
+    public void setConfigureOkButtonAlert2(RichCommandButton configureOkButtonAlert2) {
+        this.configureOkButtonAlert2 = configureOkButtonAlert2;
+    }
+
+    public RichCommandButton getConfigureOkButtonAlert2() {
+        return configureOkButtonAlert2;
+    }
+
+    public void setConfigureFuelCapacityAlert(ActionEvent actionEvent) {
+        // Add event code here...
+    }
+
+    public void claoseConfigureAlert2Popup(ActionEvent actionEvent) {
+        // Add event code here...
+        getConfigureAlert2Popup().hide();
+    }
+
+    public void setConfigureCloseButtonAlert2(RichCommandButton configureCloseButtonAlert2) {
+        this.configureCloseButtonAlert2 = configureCloseButtonAlert2;
+    }
+
+    public RichCommandButton getConfigureCloseButtonAlert2() {
+        return configureCloseButtonAlert2;
+    }
+
+    public void setConfigureCancelButtonAlert2(RichCommandButton configureCancelButtonAlert2) {
+        this.configureCancelButtonAlert2 = configureCancelButtonAlert2;
+    }
+
+    public RichCommandButton getConfigureCancelButtonAlert2() {
+        return configureCancelButtonAlert2;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
+
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setSearchStringInputtext(RichInputText searchStringInputtext) {
+        this.searchStringInputtext = searchStringInputtext;
+    }
+
+    public RichInputText getSearchStringInputtext() {
+        return searchStringInputtext;
+    }
+
+    public List suggesstedItemsResult(String string) {
+        // Add event code here...
+        ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
+        System.out.println("size " + suggestedCardNumberList.size());
+        for(int i = 0; i < suggestedCardNumberList.size(); i++){
+            if(suggestedCardNumberList.get(i).toString().toUpperCase().contains(string)){
+                SelectItem selectItem = new SelectItem();
+                selectItem.setLabel(suggestedCardNumberList.get(i));
+                selectItem.setValue(suggestedCardNumberList.get(i));
+                selectItems.add(selectItem);
+            }
+        }
+        return selectItems;
+        
+    }
+
+    public void setSuggestedCardNumberList(List<String> suggestedCardNumberList) {
+        this.suggestedCardNumberList = suggestedCardNumberList;
+    }
+
+    public List<String> getSuggestedCardNumberList() {
+        return suggestedCardNumberList;
+    }
+
+    public void setMainSelectionPanel(RichPanelGroupLayout mainSelectionPanel) {
+        this.mainSelectionPanel = mainSelectionPanel;
+    }
+
+    public RichPanelGroupLayout getMainSelectionPanel() {
+        return mainSelectionPanel;
+    }
+
+    public void setMainSelectionPanelRadio(RichSelectBooleanRadio mainSelectionPanelRadio) {
+        this.mainSelectionPanelRadio = mainSelectionPanelRadio;
+    }
+
+    public RichSelectBooleanRadio getMainSelectionPanelRadio() {
+        return mainSelectionPanelRadio;
+    }
+
+    public void setCardSelectionPanelRadio(RichSelectBooleanRadio cardSelectionPanelRadio) {
+        this.cardSelectionPanelRadio = cardSelectionPanelRadio;
+    }
+
+    public RichSelectBooleanRadio getCardSelectionPanelRadio() {
+        return cardSelectionPanelRadio;
+    }
+
+    public void setCardSelectionPanel(RichPanelGroupLayout cardSelectionPanel) {
+        this.cardSelectionPanel = cardSelectionPanel;
+    }
+
+    public RichPanelGroupLayout getCardSelectionPanel() {
+        return cardSelectionPanel;
+    }
+
+    public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+//        if(cardSelectionPanelRadio.getValue()!=null && cardSelectionPanelRadio.getValue().toString().equals(true)) {
+//            SelectionPanel = false;
+//            cardsSelectionPanel = true;
+//            if(cardsSelectionPanel)
+//            System.out.println("Search by card number");
+//        }
+//        else
+        System.out.println("valueChangeEvent " + valueChangeEvent.getNewValue().toString());
+            if(valueChangeEvent.getNewValue()!= null && valueChangeEvent.getNewValue().toString().equals("true")) {
+            SelectionPanel = true;
+            cardsSelectionPanel = false;
+            if(SelectionPanel)
+                System.out.println("Search by all");
+        }
+    }
+
+    public void cardSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
+        // Add event code here...
+        System.out.println("valueChangeEvent " + valueChangeEvent.getNewValue().toString());
+        if(valueChangeEvent.getNewValue()!=null && valueChangeEvent.getNewValue().toString().equals("true")) {
+            SelectionPanel = false;
+            cardsSelectionPanel = true;
+            if(cardsSelectionPanel)
+            System.out.println("Search by card number");
+        }
+//        else
+//            if(mainSelectionPanelRadio.getValue().toString().equals(true)) {
+//            SelectionPanel = true;
+//            cardsSelectionPanel = false;
+//            if(SelectionPanel)
+//                System.out.println("Search by all");
+//        }
+    }
+
+    public void setSelectionPanel(boolean SelectionPanel) {
+        this.SelectionPanel = SelectionPanel;
+    }
+
+    public boolean isSelectionPanel() {
+        return SelectionPanel;
+    }
+
+    public void setCardsSelectionPanel(boolean cardsSelectionPanel) {
+        this.cardsSelectionPanel = cardsSelectionPanel;
+    }
+
+    public boolean isCardsSelectionPanel() {
+        return cardsSelectionPanel;
+    }
+
+    public void setPassingPartner(String passingPartner) {
+        this.passingPartner = passingPartner;
+    }
+
+    public String getPassingPartner() {
+        return passingPartner;
+    }
+
+    public void setPassingAccount(String passingAccount) {
+        this.passingAccount = passingAccount;
+    }
+
+    public String getPassingAccount() {
+        return passingAccount;
+    }
+
+    public void setPassingCardgrpMain(String passingCardgrpMain) {
+        this.passingCardgrpMain = passingCardgrpMain;
+    }
+
+    public String getPassingCardgrpMain() {
+        return passingCardgrpMain;
+    }
+
+    public void setPassingCardgrpSub(String passingCardgrpSub) {
+        this.passingCardgrpSub = passingCardgrpSub;
+    }
+
+    public String getPassingCardgrpSub() {
+        return passingCardgrpSub;
+    }
+
+    public void setPassingCardgrpSeq(String passingCardgrpSeq) {
+        this.passingCardgrpSeq = passingCardgrpSeq;
+    }
+
+    public String getPassingCardgrpSeq() {
+        return passingCardgrpSeq;
+    }
+
+    public void setPassingCardKsId(String passingCardKsId) {
+        this.passingCardKsId = passingCardKsId;
+    }
+
+    public String getPassingCardKsId() {
+        return passingCardKsId;
     }
 }
 

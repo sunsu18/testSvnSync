@@ -14,6 +14,18 @@
     <iterator Binds="PrtCardFuelCapacityVO1" RangeSize="25"
               DataControl="EngageAppModuleDataControl"
               id="PrtCardFuelCapacityVO1Iterator"/>
+    <iterator Binds="PrtCardRuleSubscriptionRVO1" RangeSize="25"
+              DataControl="EngageAppModuleDataControl"
+              id="PrtCardRuleSubscriptionRVO1Iterator"/>
+    <searchRegion Binds="PrtCardRuleSubscriptionRVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PrtCardRuleSubscriptionRVO1Query"/>
+    <iterator id="PrtCardFuelCapacityRVO1Iterator"
+              Binds="PrtCardFuelCapacityRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
+    <iterator id="PrtCardRuleBusinessHoursRVO1Iterator"
+              Binds="PrtCardRuleBusinessHoursRVO1"
+              DataControl="EngageAppModuleDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <methodAction id="subscribeAlerts" InstanceName="Alerts.dataProvider"
@@ -82,5 +94,36 @@
     </tree>
     <action id="Commit" DataControl="EngageAppModuleDataControl"
             RequiresUpdateModel="true" Action="commitTransaction"/>
+   <!-- <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator"
+          id="PrtCardRuleSubscriptionRVO1">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO"
+                      Name="PrtCardRuleSubscriptionRVO10">
+        <AttrNames>
+          <Item Value="SubscrId"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardGroup"/>
+          <Item Value="CardKsid"/>
+          <Item Value="SubscrDate"/>
+        </AttrNames>
+      </nodeDefinition>
+     </tree> -->
+    <tree IterBinding="PrtCardRuleSubscriptionRVO1Iterator"
+          id="PrtCardRuleSubscriptionRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardRuleSubscriptionRVO"
+                      Name="PrtCardRuleSubscriptionRVO110">
+        <AttrNames>
+          <Item Value="SubscrId"/>
+          <Item Value="RuleId"/>
+          <Item Value="PartnerId"/>
+          <Item Value="AccountId"/>
+          <Item Value="CardgroupMain"/>
+          <Item Value="CardgroupSeq"/>
+          <Item Value="CardgroupSub"/>
+          <Item Value="CardKsid"/>
+          <Item Value="SubscrDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

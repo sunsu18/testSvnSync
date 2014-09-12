@@ -9,9 +9,12 @@
   BindingStyle="OracleName"
   CustomQuery="true"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardFuelCapacityRVORowImpl">
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
     <SchemaBasedProperties>
@@ -19,10 +22,18 @@
         ResId="com.sfr.engage.model.queries.rvo.PrtCardFuelCapacityRVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="subID"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT COUNTRY_CODE,SUBSCR_ID,FUEL_PER_DAY,FUEL_PER_WEEK,FUEL_PER_MONTH,RULE_FUEL_CAP_ID 
+    <![CDATA[SELECT FUEL_PER_DAY,FUEL_PER_WEEK,FUEL_PER_MONTH
 FROM PRT_CARD_FUEL_CAPACITY 
-WHERE SUBSCR_ID = : SubID]]>
+WHERE SUBSCR_ID = : subID and COUNTRY_CODE = :countryCode]]>
   </SQLQuery>
   <ViewAttribute
     Name="CountryCode"
@@ -34,7 +45,6 @@ WHERE SUBSCR_ID = : SubID]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="COUNTRY_CODE"
-    Expression="COUNTRY_CODE"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="2"/>
@@ -49,7 +59,6 @@ WHERE SUBSCR_ID = : SubID]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="SUBSCR_ID"
-    Expression="SUBSCR_ID"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -66,7 +75,7 @@ WHERE SUBSCR_ID = : SubID]]>
     ColumnType="FLOAT"
     AliasName="FUEL_PER_DAY"
     Expression="FUEL_PER_DAY"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -82,7 +91,7 @@ WHERE SUBSCR_ID = : SubID]]>
     ColumnType="FLOAT"
     AliasName="FUEL_PER_WEEK"
     Expression="FUEL_PER_WEEK"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -98,7 +107,7 @@ WHERE SUBSCR_ID = : SubID]]>
     ColumnType="FLOAT"
     AliasName="FUEL_PER_MONTH"
     Expression="FUEL_PER_MONTH"
-    SQLType="FLOAT">
+    SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -112,7 +121,6 @@ WHERE SUBSCR_ID = : SubID]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="RULE_FUEL_CAP_ID"
-    Expression="RULE_FUEL_CAP_ID"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>

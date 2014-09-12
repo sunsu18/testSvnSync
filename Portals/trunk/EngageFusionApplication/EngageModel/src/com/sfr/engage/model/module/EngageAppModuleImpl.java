@@ -691,4 +691,29 @@ public class EngageAppModuleImpl extends ApplicationModuleImpl implements Engage
     public ViewLinkImpl getPrtCardFuelCapacityPrFk1Link1() {
         return (ViewLinkImpl)findViewLink("PrtCardFuelCapacityPrFk1Link1");
     }
+
+
+    /**
+     * Container's getter for PrtCardRuleSubscriptionRVO1.
+     * @return PrtCardRuleSubscriptionRVO1
+     */
+    public ViewObjectImpl getPrtCardRuleSubscriptionRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleSubscriptionRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardFuelCapacityRVO1.
+     * @return PrtCardFuelCapacityRVO1
+     */
+    public ViewObjectImpl getPrtCardFuelCapacityRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardFuelCapacityRVO1");
+    }
+
+    /**
+     * Container's getter for PrtCardRuleBusinessHoursRVO1.
+     * @return PrtCardRuleBusinessHoursRVO1
+     */
+    public ViewObjectImpl getPrtCardRuleBusinessHoursRVO1() {
+        return (ViewObjectImpl)findViewObject("PrtCardRuleBusinessHoursRVO1");
+    }
 }

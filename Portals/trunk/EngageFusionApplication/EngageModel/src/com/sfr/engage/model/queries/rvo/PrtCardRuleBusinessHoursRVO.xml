@@ -9,9 +9,12 @@
   BindingStyle="OracleName"
   CustomQuery="true"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="com.sfr.engage.model.queries.rvo.PrtCardRuleBusinessHoursRVORowImpl">
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <Properties>
     <SchemaBasedProperties>
@@ -19,9 +22,17 @@
         ResId="com.sfr.engage.model.queries.rvo.PrtCardRuleBusinessHoursRVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="SubID"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="countryCode"
+    Kind="where"
+    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT RULE_BUSI_ID,COUNTRY_CODE,SUBSCR_ID,RULE_ID,DAY,BUSI_START_FROM,BUSI_START_TO 
-FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID]]>
+    <![CDATA[SELECT DAY,BUSI_START_FROM,BUSI_START_TO 
+FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID and COUNTRY_CODE = :countryCode]]>
   </SQLQuery>
   <ViewAttribute
     Name="RuleBusiId"
@@ -32,7 +43,6 @@ FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="RULE_BUSI_ID"
-    Expression="RULE_BUSI_ID"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -48,7 +58,6 @@ FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID]]>
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="COUNTRY_CODE"
-    Expression="COUNTRY_CODE"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="2"/>
@@ -63,7 +72,6 @@ FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="SUBSCR_ID"
-    Expression="SUBSCR_ID"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
@@ -78,7 +86,6 @@ FROM PRT_CARD_RULE_BUSINESS_HOURS WHERE SUBSCR_ID = :SubID]]>
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
     AliasName="RULE_ID"
-    Expression="RULE_ID"
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>

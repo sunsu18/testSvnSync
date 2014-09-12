@@ -171,20 +171,6 @@ INSTR(:pId,SUB.PARTNER_ID)<>0]]>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </ViewAttribute>
-  <ViewAttribute
-    Name="CardGroup"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="11"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CARD_GROUP"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="11"/>
-    </DesignTime>
-  </ViewAttribute>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>
