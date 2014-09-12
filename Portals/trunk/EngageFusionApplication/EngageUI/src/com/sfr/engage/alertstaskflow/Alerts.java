@@ -99,16 +99,21 @@ public class Alerts {
     
     
     private List<SelectItem> partnerIdList;
+    private List<SelectItem> partnerIdList2;
     
     private List<SelectItem> configurePartnerIdList;
     
     
     private List<String> partnerIdValue;
+    private List<String> partnerIdValue2;
+    
     private List<String> configurePartnerIdValue;
     private List<String> configurePartnerIdValue2;
     
     private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
+    private List<SelectItem> accountIdList2;
+    private List<String> accountIdValue2;
     
     private List<SelectItem> configureAccountIdList;
     private List<String> configureAccountIdValue;
@@ -116,6 +121,8 @@ public class Alerts {
     private List<String> initailAccountIdVAlue;
     private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
+    private List<SelectItem> cardGroupList2;
+    private List<String> cardGroupValue2;
     
     private List<SelectItem> configureCardGroupList;
     private List<String> configureCardGroupValue;
@@ -123,6 +130,8 @@ public class Alerts {
     private List<String> initialCardGroupValue;
     private List<SelectItem> cardNumberList;
     private List<String> cardNumberValue;
+    private List<SelectItem> cardNumberList2;
+    private List<String> cardNumberValue2;
     
     private List<String> initialCardValue;
     
@@ -204,6 +213,10 @@ public class Alerts {
     private String passingCardgrpSub = "";
     private String passingCardgrpSeq = "";
     private String passingCardKsId = "";
+    private RichSelectManyChoice viewAlertDropdown;
+    private RichSelectManyChoice viewAlertCardGroupDropdown;
+    private RichSelectManyChoice viewAlertsPartnerDropdown;
+    private RichSelectManyChoice viewAlertsAccountDropdown;
 
 
     public Alerts() {
@@ -221,8 +234,13 @@ public class Alerts {
         partnerIdList = new ArrayList<SelectItem>();
         partnerIdValue = new ArrayList<String>();
         
+        partnerIdList2 = new ArrayList<SelectItem>();
+        partnerIdValue2 = new ArrayList<String>();
+        
         accountIdList = new ArrayList<SelectItem>();
         accountIdValue = new ArrayList<String>();
+        accountIdList2 = new ArrayList<SelectItem>();
+        accountIdValue2 = new ArrayList<String>();
         initailAccountIdVAlue = new ArrayList<String>();
         initialCardGroupValue = new ArrayList<String>();
         initialCardValue = new ArrayList<String>();
@@ -230,6 +248,10 @@ public class Alerts {
         cardGroupValue = new ArrayList<String>();
         cardNumberList = new ArrayList<SelectItem>();
         cardNumberValue = new ArrayList<String>();
+        cardGroupList2 = new ArrayList<SelectItem>();
+        cardGroupValue2 = new ArrayList<String>();
+        cardNumberList2 = new ArrayList<SelectItem>();
+        cardNumberValue2 = new ArrayList<String>();
         suggestedCardNumberList = new ArrayList<String>();
         
         
@@ -290,7 +312,9 @@ populateDefaultDropdown();
                     selectItem.setLabel(partnerInfoList.get(i).getPartnerName().toString());
                     selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString());
                     partnerIdList.add(selectItem);
+                    partnerIdList2.add(selectItem);
                     partnerIdValue.add(partnerInfoList.get(i).getPartnerValue().toString());
+                    partnerIdValue2.add(partnerInfoList.get(i).getPartnerValue().toString());
                     partnerAlert1List.add(selectItem);
                 }
 
@@ -301,7 +325,9 @@ populateDefaultDropdown();
                             selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                             selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString()+partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                             accountIdList.add(selectItem);
+                            accountIdList2.add(selectItem);
                             accountIdValue.add(partnerInfoList.get(i).getPartnerValue().toString()+partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                            accountIdValue2.add(partnerInfoList.get(i).getPartnerValue().toString()+partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
                         }
                         for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
                             if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
@@ -310,7 +336,10 @@ populateDefaultDropdown();
                                 selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() + partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
                                                     partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                                 cardGroupList.add(selectItem);
+                                cardGroupList2.add(selectItem);
                                 cardGroupValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
+                                                   partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                cardGroupValue2.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
                             }
                             
@@ -322,7 +351,10 @@ populateDefaultDropdown();
                                         selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+ partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                         cardNumberList.add(selectItem);
+                                        cardNumberList2.add(selectItem);
                                         cardNumberValue.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
+                                                   partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                        cardNumberValue2.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+
                                                    partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
                                         suggestedCardNumberList.add(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
                                     }
@@ -341,6 +373,9 @@ populateDefaultDropdown();
             Collections.sort(accountIdList, comparator);
             Collections.sort(cardGroupList, comparator);
             Collections.sort(cardNumberList, comparator);
+            Collections.sort(accountIdList2, comparator);
+            Collections.sort(cardGroupList2, comparator);
+            Collections.sort(cardNumberList2, comparator);
         }
     }
     public void defaultTimings() {
@@ -418,7 +453,7 @@ populateDefaultDropdown();
                 fueltimings.add(f);
     }
     
-    public void configureDefaultTimings(String subscriptionId,String country) {
+  /*  public void configureDefaultTimings(String subscriptionId,String country) {
         configureFuelTimings = new ArrayList<FuelTimings>();
         configureFuelTimings.clear();
         
@@ -472,8 +507,11 @@ populateDefaultDropdown();
         }
             }
     }
+
+*/
     public void configureBusinessHoursAlert(ActionEvent actionEvent) {
         defaultTimings();
+        System.out.println("fueltimings size " + fueltimings.size());
         AdfFacesContext.getCurrentInstance().addPartialTarget(alert1Table);
         alert1ValidData.setVisible(false);
         AdfFacesContext.getCurrentInstance().addPartialTarget(alert1ValidData);
@@ -1122,6 +1160,176 @@ populateDefaultDropdown();
        
     }
     
+    public void partner2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
+       // _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside partnerValueChangeListener method of User Display");
+        if (valueChangeEvent.getNewValue() != null) {
+            accountIdList2 = new ArrayList<SelectItem>();
+            accountIdValue2 = new ArrayList<String>();
+            cardGroupList2 = new ArrayList<SelectItem>();
+            cardGroupValue2 = new ArrayList<String>();
+            cardNumberList2 = new ArrayList<SelectItem>();
+            cardNumberValue2 = new ArrayList<String>();
+            
+            String[] partnerString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()));
+
+            if (partnerString.length > 0) {
+                for (int i = 0; i < partnerInfoList.size(); i++) {
+                    for (int p = 0; p < partnerString.length; p++) {
+                        if (partnerInfoList.get(i).getPartnerValue().toString() != null &&
+                            partnerInfoList.get(i).getPartnerValue().toString().equals(partnerString[p].trim())) {
+                            if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
+
+                                for (int j = 0; j < partnerInfoList.get(i).getAccountList().size(); j++) {
+
+                                    if (partnerInfoList.get(i).getAccountList().get(j).getAccountNumber() != null) {
+                                        SelectItem selectItem = new SelectItem();
+                                        selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString()+partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                        accountIdList2.add(selectItem);
+                                        accountIdValue2.add(partnerInfoList.get(i).getPartnerValue().toString()+partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString());
+                                    }
+
+
+                                    for (int k = 0; k < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().size(); k++) {
+                                        if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() + partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupList2.add(selectItem);
+                                            cardGroupValue2.add(partnerInfoList.get(i).getPartnerValue().toString().trim() + partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString() +
+                                                               partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString());
+                                        }
+                                        
+                                        for (int cc = 0; cc < partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
+                                                    SelectItem selectItem = new SelectItem();
+                                                    selectItem.setLabel(partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                    selectItem.setValue(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                    cardNumberList2.add(selectItem);
+                                                    cardNumberValue2.add(partnerInfoList.get(i).getPartnerValue().toString().trim() +partnerInfoList.get(i).getAccountList().get(j).getAccountNumber().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(i).getAccountList().get(j).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+//                initailAccountIdVAlue = accountIdValue;
+//                initialCardGroupValue = cardGroupValue;
+//                initialCardValue = cardNumberValue;
+//                System.out.println("Account id value length partnerValueChangeListener" + initailAccountIdVAlue.size());
+//                System.out.println("Cardgroup id value length partnerValueChangeListener" + initialCardGroupValue.size());
+//                System.out.println("Card id value length partnerValueChangeListener" + initialCardValue.size());
+                Collections.sort(accountIdList2, comparator);
+                Collections.sort(cardGroupList2, comparator);
+                Collections.sort(cardNumberList2, comparator);
+            }
+        }
+//        } else {
+//            accountDropdwonAlert2.setValue(null);
+//            cardDropdownAlert2.setValue(null);
+//            cardDropdownAlert2.setValue(null);
+//            this.accountIdValue = null;
+//            //System.out.println("Account id value length partnerelse" + accountIdValue.size());
+//            this.accountIdList = null;
+//            this.cardGroupValue = null;
+//            this.cardGroupList = null;
+//            this.cardNumberList = null;
+//            this.cardNumberValue = null;
+//        }
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+       
+    }
+    
+    public void account2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
+      
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] accountString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
+            
+            System.out.println("accountlist");
+            for(int y=0; y<accountString.length;y++)
+                System.out.println(accountString[y]);
+            cardGroupList2 = new ArrayList<SelectItem>();
+            cardGroupValue2 = new ArrayList<String>();
+            cardNumberList2 = new ArrayList<SelectItem>();
+            cardNumberValue2 = new ArrayList<String>();
+            
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                System.out.println("z " + z);
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                        System.out.println("i " + i);
+                        for (int j = 0; j < accountString.length; j++) {
+                            System.out.println("accc frmo partnerlist " + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber());
+                            System.out.println("acc comparing " + accountString[j].substring(8,18).trim());
+                            System.out.println("checking bopolean " + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8,18).trim()));
+                            if (partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() != null &&
+                                partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().equals(accountString[j].substring(8,18).trim())) {
+                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0) {
+                                    for (int k = 0; k < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); k++) {
+                                        System.out.println("k " + k);
+                                        if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID() != null) {
+                                            SelectItem selectItem = new SelectItem();
+                                            selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getDisplayCardGroupIdName().toString());
+                                            selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+
+                                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            cardGroupList2.add(selectItem);
+                                            
+                                            cardGroupValue2.add(partnerInfoList.get(z).getPartnerValue().toString().trim() + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString());
+                                            System.out.println(partnerInfoList.get(z).getPartnerValue().toString().trim() + partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+
+                                                               partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString() + "added in cardGroupValue");
+                                        }
+                                        
+                                        for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().size(); cc++) {
+                                            if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID() != null &&
+                                                partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID() != null){
+                                                    SelectItem selectItem = new SelectItem();
+                                                    selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getExternalCardID().toString());
+                                                    selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                    cardNumberList2.add(selectItem);
+                                                    cardNumberValue2.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString());
+                                                    System.out.println(partnerInfoList.get(z).getPartnerValue().toString().trim() +partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCardGroupID().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(k).getCard().get(cc).getCardID().toString() + "added in cardNumberValue");
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+//            initialCardValue = cardNumberValue;
+//            initialCardGroupValue = cardGroupValue;
+            Collections.sort(accountIdList2, comparator);
+            Collections.sort(cardGroupList2, comparator);
+            Collections.sort(cardNumberList2, comparator);
+        }
+    
+//        } else {
+//            cardGroupDowndownAlert2.setValue(null);
+//            cardDropdownAlert2.setValue(null);
+//            this.cardGroupValue = null;
+//            this.cardNumberValue = null;
+//        }
+        
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+        
+    }
+    
     public void accountValueChangeListener(ValueChangeEvent valueChangeEvent) {
       
         if (valueChangeEvent.getNewValue() != null) {
@@ -1203,6 +1411,67 @@ populateDefaultDropdown();
         
     }
     
+    public void cardgroup2ValueChangeListener(ValueChangeEvent valueChangeEvent) {
+        
+        if (valueChangeEvent.getNewValue() != null) {
+            String[] cardgroupString = StringConversion(populateStringValues(valueChangeEvent.getNewValue().toString()).replaceAll(" ", ""));
+            
+            System.out.println("accountlist");
+            for(int y=0; y<cardgroupString.length;y++)
+                System.out.println(cardgroupString[y]);
+            
+            cardNumberList2 = new ArrayList<SelectItem>();
+            cardNumberValue2 = new ArrayList<String>();
+            
+            for (int z = 0; z < partnerInfoList.size(); z++) {
+                if (partnerInfoList.get(z).getAccountList() != null && partnerInfoList.get(z).getAccountList().size() > 0) {
+                    for (int i = 0; i < partnerInfoList.get(z).getAccountList().size(); i++) {
+                        if(partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                           partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size() > 0){
+                            for(int cg = 0; cg < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().size(); cg++){
+                                for (int cgs = 0; cgs < cardgroupString.length; cgs++){
+                                    System.out.println("cardgrp from partnerlist  " + partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim());
+                                    System.out.println("comparing cardgrp " + cardgroupString[cgs].substring(18, 29).trim());
+                                    System.out.println("checkin boolean " + (partnerInfoList.get(z).getPartnerValue().toString().trim() +  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()));
+                                    if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup() != null &&
+                                        ((partnerInfoList.get(z).getPartnerValue().toString().trim() +  partnerInfoList.get(z).getAccountList().get(i).getAccountNumber() +
+                                         partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString().trim()).equals(cardgroupString[cgs].trim()))){
+                                             for (int cc = 0; cc < partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().size(); cc++) {
+                                                if (partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID() != null &&
+                                                    partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID() != null){
+                                                    SelectItem selectItem = new SelectItem();
+                                                    selectItem.setLabel(partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getExternalCardID().toString());
+                                                    selectItem.setValue(partnerInfoList.get(z).getPartnerValue().toString().trim() +partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                    cardNumberList2.add(selectItem);
+                                                    cardNumberValue2.add(partnerInfoList.get(z).getPartnerValue().toString().trim() +partnerInfoList.get(z).getAccountList().get(i).getAccountNumber().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCardGroupID().toString()+partnerInfoList.get(z).getAccountList().get(i).getCardGroup().get(cg).getCard().get(cc).getCardID().toString());
+                                                }
+                                             }
+                                         }
+                                }
+                            }
+                           }
+                    }
+//                    initialCardValue = cardNumberValue;
+                    Collections.sort(cardGroupList2, comparator);
+                    Collections.sort(cardNumberList2, comparator);
+                }
+            }
+        }
+//        } 
+        else {
+            cardDropdownAlert2.setValue(null);
+            this.cardNumberValue = null;
+        }
+        
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+        
+    }
+  
+  
     public void cardgroupValueChangeListener(ValueChangeEvent valueChangeEvent) {
         
         if (valueChangeEvent.getNewValue() != null) {
@@ -1249,10 +1518,11 @@ populateDefaultDropdown();
                     Collections.sort(cardNumberList, comparator);
                 }
             }
-        } else {
-            cardDropdownAlert2.setValue(null);
-            this.cardNumberValue = null;
-        }
+        } 
+//        else {
+//            cardDropdownAlert2.setValue(null);
+//            this.cardNumberValue = null;
+//        }
         
         
         AdfFacesContext.getCurrentInstance().addPartialTarget(accountDropdwonAlert2);
@@ -1260,7 +1530,6 @@ populateDefaultDropdown();
         AdfFacesContext.getCurrentInstance().addPartialTarget(cardDropdownAlert2);
         
     }
-  
 
 
     public void setAccountDropdwonAlert2(RichSelectManyChoice accountDropdwonAlert2) {
@@ -2364,7 +2633,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getAlert2ValidData() {
         return alert2ValidData;
     }
-
+/*
     public void viewSubscribedAlerts(ActionEvent actionEvent) {
         
                                       
@@ -2496,6 +2765,10 @@ populateDefaultDropdown();
         }
         }
     }
+    
+    */
+    
+    /*
     public void searchCorrespondingDetalis() {
         for (int i = 0; i < partnerInfoList.size(); i++) {
             if (partnerInfoList.get(i).getAccountList() != null && partnerInfoList.get(i).getAccountList().size() > 0) {
@@ -2518,6 +2791,8 @@ populateDefaultDropdown();
             }
         }
     }
+    
+    */
 
     public void setSearchResultsPanel(RichPanelGroupLayout searchResultsPanel) {
         this.searchResultsPanel = searchResultsPanel;
@@ -2526,7 +2801,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getSearchResultsPanel() {
         return searchResultsPanel;
     }
-
+/*
     public void viewConfiguredAlertPopup(ActionEvent actionEvent) {
         // Add event code here...
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey") != null) {
@@ -2616,7 +2891,9 @@ populateDefaultDropdown();
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("CardKsidkey").toString().trim());
         }
     }
+    */
     
+    /*
     public void fetchFuelCapacity(String subscriptionId, String country) {
         DCBindingContainer bindings;
 
@@ -2675,6 +2952,8 @@ populateDefaultDropdown();
                 AdfFacesContext.getCurrentInstance().addPartialTarget(configureFuelCapacityAlert2);
             }
     }
+
+*/
     public void setConfigureAlert1Popup(RichPopup configureAlert1Popup) {
         this.configureAlert1Popup = configureAlert1Popup;
     }
@@ -3000,7 +3279,7 @@ populateDefaultDropdown();
         return searchStringInputtext;
     }
 
-    public List suggesstedItemsResult(String string) {
+   /* public List suggesstedItemsResult(String string) {
         // Add event code here...
         ArrayList<SelectItem> selectItems = new ArrayList<SelectItem>();
         System.out.println("size " + suggestedCardNumberList.size());
@@ -3014,7 +3293,7 @@ populateDefaultDropdown();
         }
         return selectItems;
         
-    }
+    }*/
 
     public void setSuggestedCardNumberList(List<String> suggestedCardNumberList) {
         this.suggestedCardNumberList = suggestedCardNumberList;
@@ -3055,7 +3334,7 @@ populateDefaultDropdown();
     public RichPanelGroupLayout getCardSelectionPanel() {
         return cardSelectionPanel;
     }
-
+/*
     public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
 //        if(cardSelectionPanelRadio.getValue()!=null && cardSelectionPanelRadio.getValue().toString().equals(true)) {
@@ -3091,6 +3370,7 @@ populateDefaultDropdown();
 //                System.out.println("Search by all");
 //        }
     }
+*/
 
     public void setSelectionPanel(boolean SelectionPanel) {
         this.SelectionPanel = SelectionPanel;
@@ -3154,6 +3434,102 @@ populateDefaultDropdown();
 
     public String getPassingCardKsId() {
         return passingCardKsId;
+    }
+
+    public void setPartnerIdList2(List<SelectItem> partnerIdList2) {
+        this.partnerIdList2 = partnerIdList2;
+    }
+
+    public List<SelectItem> getPartnerIdList2() {
+        return partnerIdList2;
+    }
+
+    public void setPartnerIdValue2(List<String> partnerIdValue2) {
+        this.partnerIdValue2 = partnerIdValue2;
+    }
+
+    public List<String> getPartnerIdValue2() {
+        return partnerIdValue2;
+    }
+
+    public void setAccountIdList2(List<SelectItem> accountIdList2) {
+        this.accountIdList2 = accountIdList2;
+    }
+
+    public List<SelectItem> getAccountIdList2() {
+        return accountIdList2;
+    }
+
+    public void setAccountIdValue2(List<String> accountIdValue2) {
+        this.accountIdValue2 = accountIdValue2;
+    }
+
+    public List<String> getAccountIdValue2() {
+        return accountIdValue2;
+    }
+
+    public void setCardGroupList2(List<SelectItem> cardGroupList2) {
+        this.cardGroupList2 = cardGroupList2;
+    }
+
+    public List<SelectItem> getCardGroupList2() {
+        return cardGroupList2;
+    }
+
+    public void setCardGroupValue2(List<String> cardGroupValue2) {
+        this.cardGroupValue2 = cardGroupValue2;
+    }
+
+    public List<String> getCardGroupValue2() {
+        return cardGroupValue2;
+    }
+
+    public void setCardNumberList2(List<SelectItem> cardNumberList2) {
+        this.cardNumberList2 = cardNumberList2;
+    }
+
+    public List<SelectItem> getCardNumberList2() {
+        return cardNumberList2;
+    }
+
+    public void setCardNumberValue2(List<String> cardNumberValue2) {
+        this.cardNumberValue2 = cardNumberValue2;
+    }
+
+    public List<String> getCardNumberValue2() {
+        return cardNumberValue2;
+    }
+
+    public void setViewAlertDropdown(RichSelectManyChoice viewAlertDropdown) {
+        this.viewAlertDropdown = viewAlertDropdown;
+    }
+
+    public RichSelectManyChoice getViewAlertDropdown() {
+        return viewAlertDropdown;
+    }
+
+    public void setViewAlertCardGroupDropdown(RichSelectManyChoice viewAlertCardGroupDropdown) {
+        this.viewAlertCardGroupDropdown = viewAlertCardGroupDropdown;
+    }
+
+    public RichSelectManyChoice getViewAlertCardGroupDropdown() {
+        return viewAlertCardGroupDropdown;
+    }
+
+    public void setViewAlertsPartnerDropdown(RichSelectManyChoice viewAlertsPartnerDropdown) {
+        this.viewAlertsPartnerDropdown = viewAlertsPartnerDropdown;
+    }
+
+    public RichSelectManyChoice getViewAlertsPartnerDropdown() {
+        return viewAlertsPartnerDropdown;
+    }
+
+    public void setViewAlertsAccountDropdown(RichSelectManyChoice viewAlertsAccountDropdown) {
+        this.viewAlertsAccountDropdown = viewAlertsAccountDropdown;
+    }
+
+    public RichSelectManyChoice getViewAlertsAccountDropdown() {
+        return viewAlertsAccountDropdown;
     }
 }
 

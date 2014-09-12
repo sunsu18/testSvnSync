@@ -96,7 +96,7 @@
                       id="t1" emptyText="#{sfr.NO_DATA}" fetchSize="-1"
                       columnResizing="disabled" disableColumnReordering="true"
                       autoHeightRows="10" rowSelection="single"
-                      value="#{pageFlowScope.AlertsBean.configureFuelTimings}"
+                      value="#{pageFlowScope.AlertsBean.fueltimings}"
                       binding="#{pageFlowScope.AlertsBean.alert1Table}">
               <af:column sortable="false" id="c13" align="center"
                          headerText="#{sfr.BUSINESS_DAYS}">
@@ -198,11 +198,18 @@
                              cellspacing="2" width="275">
                   <af:outputText value="#{sfr.PARTNER_ENG}" id="ot10"/>
                   <af:spacer width="10" height="10" id="s12"/>
+                   <!--<af:selectManyChoice id="smc1" contentStyle="width: 175px;"
+                                       autoSubmit="true"
+                                       
+                                      
+                                      >
+                   
+                  </af:selectManyChoice>-->
                   <af:selectManyChoice id="smc1" contentStyle="width: 175px;"
                                        autoSubmit="true"
                                        valueChangeListener="#{pageFlowScope.AlertsBean.partnerValueChangeListener}"
-                                       value="#{pageFlowScope.AlertsBean.partnerIdValue}"
-                                       binding="#{pageFlowScope.AlertsBean.partnerDropdownAlert2}">
+                                       binding="#{pageFlowScope.AlertsBean.partnerDropdownAlert2}"
+                                       value="#{pageFlowScope.AlertsBean.partnerIdValue}">
                     <f:selectItems value="#{pageFlowScope.AlertsBean.partnerIdList}"
                                    id="si1"/>
                   </af:selectManyChoice>
@@ -313,7 +320,7 @@
     </af:panelGroupLayout>
      <af:selectBooleanRadio id="sbr41" autoSubmit="true" group="mainselection"
                             binding="#{pageFlowScope.AlertsBean.mainSelectionPanelRadio}"
-                            valueChangeListener="#{pageFlowScope.AlertsBean.mainSelectionPanelRadioListner}"/>
+                            />
     <af:panelGroupLayout id="pgl23" layout="horizontal"
                          inlineStyle="width:960.0px;"
                          binding="#{pageFlowScope.AlertsBean.mainSelectionPanel}">
@@ -349,20 +356,19 @@
                                layout="vertical">
             <af:selectManyChoice id="smc2" contentStyle="width: 175px;"
                                  autoSubmit="true"
-                                 valueChangeListener="#{pageFlowScope.AlertsBean.partnerValueChangeListener}"
-                                 value="#{pageFlowScope.AlertsBean.partnerIdValue}"
-                                 binding="#{pageFlowScope.AlertsBean.partnerDropdownAlert2}">
-              <f:selectItems value="#{pageFlowScope.AlertsBean.partnerIdList}"
+                                 valueChangeListener="#{pageFlowScope.AlertsBean.partner2ValueChangeListener}"
+                                 value="#{pageFlowScope.AlertsBean.partnerIdValue2}"
+                                 binding="#{pageFlowScope.AlertsBean.viewAlertsPartnerDropdown}">
+              <f:selectItems value="#{pageFlowScope.AlertsBean.partnerIdList2}"
                              id="si5"/>
             </af:selectManyChoice>
             <af:spacer width="20" height="17" id="s41"/>
             <af:selectManyChoice id="smc5" autoSubmit="true"
                                  contentStyle="width: 175px;"
-                                 value="#{pageFlowScope.AlertsBean.accountIdValue}"
-                                 valueChangeListener="#{pageFlowScope.AlertsBean.accountValueChangeListener}"
-                                 binding="#{pageFlowScope.AlertsBean.accountDropdwonAlert2}"
-                                 partialTriggers="smc1">
-              <f:selectItems value="#{pageFlowScope.AlertsBean.accountIdList}"
+                                 value="#{pageFlowScope.AlertsBean.accountIdValue2}"
+                                 valueChangeListener="#{pageFlowScope.AlertsBean.account2ValueChangeListener}"
+                                 binding="#{pageFlowScope.AlertsBean.viewAlertsAccountDropdown}">
+              <f:selectItems value="#{pageFlowScope.AlertsBean.accountIdList2}"
                              id="si6"/>
             </af:selectManyChoice>
           </af:panelGroupLayout>
@@ -400,22 +406,23 @@
                                inlineStyle="height:60px; text-align:justify; width:200.0px;"
                                layout="vertical">
 <af:selectManyChoice id="smc6" contentStyle="width: 175px;"
-                              value="#{pageFlowScope.AlertsBean.cardGroupValue}"
-                              binding="#{pageFlowScope.AlertsBean.cardGroupDowndownAlert2}"
-                              valueChangeListener="#{pageFlowScope.AlertsBean.cardgroupValueChangeListener}"
-                              partialTriggers="smc1 smc4" autoSubmit="true">
+                     value="#{pageFlowScope.AlertsBean.cardGroupValue2}"
+                     valueChangeListener="#{pageFlowScope.AlertsBean.cardgroup2ValueChangeListener}"
+                               autoSubmit="true"
+                     binding="#{pageFlowScope.AlertsBean.viewAlertCardGroupDropdown}">
                               
-          <f:selectItems value="#{pageFlowScope.AlertsBean.cardGroupList}"
+          <f:selectItems value="#{pageFlowScope.AlertsBean.cardGroupList2}"
                           id="si8"/>
          </af:selectManyChoice>	
             <af:spacer width="20" height="13" id="s43"/>
 
          <af:selectManyChoice id="smc7" contentStyle="width: 175px;"
-                              value="#{pageFlowScope.AlertsBean.cardNumberValue}"
-                              binding="#{pageFlowScope.AlertsBean.cardDropdownAlert2}"
-                              partialTriggers="smc1 smc4 smc3"
-                              autoSubmit="true">
-          <f:selectItems value="#{pageFlowScope.AlertsBean.cardNumberList}"
+                              value="#{pageFlowScope.AlertsBean.cardNumberValue2}"
+                              
+                             
+                              autoSubmit="true"
+                              binding="#{pageFlowScope.AlertsBean.viewAlertDropdown}">
+          <f:selectItems value="#{pageFlowScope.AlertsBean.cardNumberList2}"
                           id="si9"/>
          </af:selectManyChoice>
           </af:panelGroupLayout>
@@ -428,7 +435,7 @@
     </af:panelGroupLayout>
     <af:selectBooleanRadio id="sbr42" autoSubmit="true" group="mainselection"
                            binding="#{pageFlowScope.AlertsBean.cardSelectionPanelRadio}"
-                           valueChangeListener="#{pageFlowScope.AlertsBean.cardSelectionPanelRadioListner}"/>
+                           />
           <af:panelGroupLayout id="pgl66" layout="horizontal" inlineStyle="width:960.0px;"
                                binding="#{pageFlowScope.AlertsBean.cardSelectionPanel}">
             <af:panelGroupLayout id="pgl67" layout="horizontal" inlineStyle="width : 370.0px;">          
@@ -551,7 +558,7 @@
       </af:table>
 
         </af:panelGroupLayout>
-          <af:popup id="p3" contentDelivery="immediate" autoCancel="disabled"
+          <!--<af:popup id="p3" contentDelivery="immediate" autoCancel="disabled"
                 animate="false"
                 binding="#{pageFlowScope.AlertsBean.configureAlert1Popup}">
         <af:dialog id="d3" title="#{sfr.FUELING_OUTSIDE_BUSINESS_HOURS}"
@@ -676,9 +683,9 @@
                        inlineStyle="margin-top: 13px;"/>
           </af:panelGroupLayout>
         </af:dialog>
-      </af:popup>
+      </af:popup>-->
       
-         <af:popup id="p4" contentDelivery="immediate" autoCancel="disabled"
+         <!--<af:popup id="p4" contentDelivery="immediate" autoCancel="disabled"
                 animate="false"
                 binding="#{pageFlowScope.AlertsBean.configureAlert2Popup}">
         <af:dialog id="d4"
@@ -802,8 +809,8 @@
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl65" layout="horizontal" halign="right"
                                styleClass="AFStretchWidth">
-            <!--<af:commandButton text="#{sfr.EDIT}" id="cb1"
-                        actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"/>-->
+            --><!--<af:commandButton text="#{sfr.EDIT}" id="cb1"
+                        actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"/>--><!--
             <af:spacer width="20" id="s78"/>
             <af:commandButton text="#{sfr.OK}" id="cb16"
                               
@@ -825,6 +832,6 @@
                        inlineStyle="margin-top: 13px;"/>
           </af:panelGroupLayout>
         </af:dialog>
-      </af:popup>
+      </af:popup>-->
   </af:panelGroupLayout>
 </jsp:root>
