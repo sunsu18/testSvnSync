@@ -15,6 +15,7 @@
     <af:separator id="s2"
                   inlineStyle="width:962px; height:1px; background-color:Scrollbar;"/>
    </af:panelGroupLayout>
+
    <af:spacer width="10" height="15" id="s17"/>
    <af:panelGroupLayout id="pgl6" layout="horizontal"
                         inlineStyle="width:960.0px;">
@@ -358,6 +359,8 @@
       </af:panelStretchLayout>
      </af:dialog>
     </af:popup>
+    
+    
     <af:popup id="confirmation_columns" contentDelivery="immediate"
               binding="#{pageFlowScope.InvoiceOverviewBean.bindings.confirmationExcel}"
               autoCancel="disabled">
@@ -494,7 +497,7 @@
     </af:panelGroupLayout>
    </af:panelGroupLayout>
    <af:popup id="p1" contentDelivery="immediate"
-             binding="#{pageFlowScope.InvoiceOverviewBean.confirmation_mail_popup}"
+             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.confirmation_mail_popup}"
              autoCancel="disabled" animate="false">
     <af:dialog id="d1" title="#{sfr.EMAIL_CONFIRMATION}"
                dialogListener="#{pageFlowScope.InvoiceOverviewBean.confirmation_popup_value}"
@@ -545,7 +548,7 @@
                            layout="horizontal">
        <af:inputText value="#{pageFlowScope.InvoiceOverviewBean.to_recipient}"
                      id="it12" readOnly="true"
-                     binding="#{pageFlowScope.InvoiceOverviewBean.email_recipient_popup}"
+                     binding="#{pageFlowScope.InvoiceOverviewBean.bindings.email_recipient_popup}"
                      contentStyle="width: 300px; margin-left: -2px;"
                      autoSubmit="true"
                      valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.resetResults}"></af:inputText>
@@ -582,7 +585,7 @@
                         styleClass="subheading"/>
          <af:spacer width="10" height="10" id="sa15"/>
          <af:outputText value="#{bindings.Finalinvoice1.inputValue}" id="ot69"
-                        binding="#{pageFlowScope.InvoiceOverviewBean.collectiveInvoNoOt}"
+                        binding="#{pageFlowScope.InvoiceOverviewBean.bindings.collectiveInvoNoOt}"
                         inlineStyle="font-weight:bolder; font-size:15.0px;"/>
          <af:spacer width="30" height="10" id="ss15"/>
          <af:outputText value="#{sfr.ENGAGE_INVOICE_POPUP_2} :" id="ot28"
@@ -663,12 +666,12 @@
            <af:selectOneRadio id="selectOneRadio1" layout="horizontal"
                               autoSubmit="true"
                               inlineStyle="margin-left: -25px;"
-                              binding="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUp}"
-                              valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUpVCE}">
+                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.radioBtnPopUp}"
+                              valueChangeListener="#{pageFlowScope.InvoiceOverviewBean.radioBtnPopUpVCE}"
+                              value="#{pageFlowScope.InvoiceOverviewBean.defaultSelection}">
             <af:selectItem label="#{sfr.TRANSACTIONS}" value="Transactions"
                            id="selectItem1"/>
             <af:selectItem label="#{sfr.INVOICE_COLLECTIONS}"
-                           rendered="#{(bindings.InvoiceDocType.inputValue eq 'FAK' and bindings.InvoiceLevel.inputValue eq 'SEP')? false: true}"
                            value="InvoiceCollections" id="selectItem2"/>
            </af:selectOneRadio>
           </af:panelGroupLayout>
@@ -682,33 +685,39 @@
         </af:panelGroupLayout>
         <af:spacer width="10" height="20" id="s23"/>
         <af:panelGroupLayout id="pgl29" layout="vertical"
-                             visible="#{pageFlowScope.InvoiceOverviewBean.isTransactionVisible}"
-                             binding="#{pageFlowScope.InvoiceOverviewBean.transactionPanel}">
-         <af:panelGroupLayout id="pgl126" layout="horizontal"
-                              inlineStyle="width:125.0px;">
-          <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}" id="ot37"
-                         styleClass="subheading"/>
-          <af:panelGroupLayout id="pgl26" layout="horizontal" halign="right"
-                               inlineStyle="width:610.0px; height:15.0px;">
-           <af:panelGroupLayout id="pgl59" inlineStyle="width:50.0px;"
-                                layout="horizontal">
-            <af:panelGroupLayout id="pgl51" styleClass="filter_table"
+                             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.transactionPanel}"
+                             visible="#{pageFlowScope.InvoiceOverviewBean.isTransactionVisible}">
+         <af:panelGroupLayout id="pgl126" layout="horizontal">
+           <af:outputText value="#{sfr.ENGAGE_INVOICE_DELIVERY}" id="ot37"
+                          styleClass="subheading"/>
+          <af:panelGroupLayout id="pgl66" layout="vertical" halign="right"
+                               inlineStyle="width:670.0px; height:15.0px;">
+           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL}"
+                             id="commandButton1"
+                             actionListener="#{pageFlowScope.InvoiceOverviewBean.exportExcelSpecificActionTransactions}"/>
+           <af:panelGroupLayout id="pgl26" layout="horizontal" halign="right"
+                                inlineStyle="width:600.0px; height:15.0px;">
+            <af:panelGroupLayout id="pgl59" inlineStyle="width:50.0px;"
                                  layout="horizontal">
-             <af:showPopupBehavior triggerType="mouseOver" popupId="p3"/>
+             <af:panelGroupLayout id="pgl51" styleClass="filter_table"
+                                  layout="horizontal">
+              <af:showPopupBehavior triggerType="mouseOver" popupId="p3"/>
+             </af:panelGroupLayout>
+             <af:popup id="p2">
+              <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
+               <af:panelGroupLayout id="pgl52" layout="vertical">
+                <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot71"
+                               styleClass="outputText3"/>
+               </af:panelGroupLayout>
+              </af:noteWindow>
+             </af:popup>
             </af:panelGroupLayout>
-            <af:popup id="p2">
-             <af:noteWindow id="nw1" inlineStyle="width:350.0px;">
-              <af:panelGroupLayout id="pgl52" layout="vertical">
-               <af:outputText value="#{sfr.ENGAGE_FILTER_MESSAGE}" id="ot71"
-                              styleClass="outputText3"/>
-              </af:panelGroupLayout>
-             </af:noteWindow>
-            </af:popup>
+            <af:separator id="s55" styleClass="vertical_seprator_trans"
+                          inlineStyle="height:20.0px !important;"/>
+            <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
+                           id="ot27" styleClass="popupoutputText"
+                           noWrap="true"/>
            </af:panelGroupLayout>
-           <af:separator id="s55" styleClass="vertical_seprator_trans"
-                         inlineStyle="height:20.0px !important;"/>
-           <af:outputText value="* #{sfr.ENGAGE_NOTE_ALL_PRICES_BELOW_ARE_IN} #{pageFlowScope.InvoiceOverviewBean.currencyCode}"
-                          id="ot27" styleClass="popupoutputText" noWrap="true"/>
           </af:panelGroupLayout>
          </af:panelGroupLayout>
          <af:spacer width="10" height="10" id="s25"/>
@@ -739,7 +748,9 @@
                    binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceResultsPopup}">
           <af:column headerText="#{sfr.INVOICE_LINENO}" id="c114" width="50"
                      sortable="true">
-           <af:outputText value="#{vs.index+1}" id="ot42"/>
+           <af:outputText value="#{vs.index+1}" id="ot42">
+          
+           </af:outputText>
           </af:column>
           <af:column sortProperty="InvoiceNumberNonCollective" filterable="true"
                      filterFeatures="caseInsensitive" sortable="true"
@@ -794,7 +805,7 @@
         </af:panelGroupLayout>
         <af:panelGroupLayout id="panelGroupLayout1" layout="vertical"
                              visible="#{pageFlowScope.InvoiceOverviewBean.isInvoiceCollectionVisible}"
-                             binding="#{pageFlowScope.InvoiceOverviewBean.invoiceCollectionPanel}">
+                             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.invoiceCollectionPanel}">
          <af:panelGroupLayout id="panelGroupLayout2" layout="horizontal">
           <af:outputText value="#{sfr.COLLECTION_DETAILS}" id="outputText1"
                          styleClass="subheading" noWrap="true"/>
@@ -927,6 +938,70 @@
      </af:panelStretchLayout>
     </af:dialog>
    </af:popup>
+    <af:popup id="p5" contentDelivery="immediate"
+              autoCancel="disabled"
+              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.specificColumnsTransactions}">
+     <af:dialog id="d2" title="#{sfr.TRANSACTION_SPECIFIC}"
+                type="none" closeIconVisible="true">
+      <af:panelStretchLayout id="psl3" inlineStyle="width:350.0px;">
+       <f:facet name="center">
+        <af:panelGroupLayout id="pgl68" styleClass="WCPanelMargin">
+         <af:separator id="s27"
+                       inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
+         <af:selectManyShuttle id="sms1"
+                               value="#{pageFlowScope.InvoiceOverviewBean.shuttleValueTransaction}"
+                               partialTriggers="cb8"
+                               leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
+                               trailingHeader="#{sfr.REPORT_SELECTED_VALUES}"
+                               binding="#{pageFlowScope.InvoiceOverviewBean.bindings.shuttleExcelTransactions}">
+          <af:forEach items="#{pageFlowScope.InvoiceOverviewBean.shuttleListTransaction}"
+                      var="listItem">
+           <af:selectItem label="#{listItem.label}" value="#{listItem.value}"
+                          id="si3"/>
+          </af:forEach>
+         </af:selectManyShuttle>
+         <af:spacer width="4" height="10" id="s29"/>
+         <h:panelGrid columns="6">
+          <af:outputText value="*" id="ot15"/>
+          <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot5"/>
+          <af:spacer width="10" height="15" id="s31"/>
+          <af:outputText value=":" id="ot18"/>
+          <af:spacer width="10" height="15" id="s63"/>
+          <af:selectOneRadio id="sor3" autoSubmit="true"
+                             layout="horizontal"
+                             binding="#{pageFlowScope.InvoiceOverviewBean.bindings.transactionSelectionExportOneRadio}">
+           <af:selectItem label="xls" value="xls" id="si7"/>
+           <af:selectItem label="csv" value="csv" id="si8"/>
+           <af:selectItem label="csv2" value="csv2" id="si9"/>
+          </af:selectOneRadio>
+         </h:panelGrid>
+         <af:spacer width="10" height="15" id="s44"/>
+        </af:panelGroupLayout>
+       </f:facet>
+       <f:facet name="bottom">
+        <af:toolbar id="t4"
+                    styleClass="WCPanelColor">
+         <af:panelGroupLayout layout="vertical" id="pgl69">
+          <af:spacer width="4" height="10" id="s46"/>
+          <af:panelGroupLayout id="pgl70"
+                               layout="horizontal">
+           <af:spacer width="4" height="10" id="s62"/>
+           <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}"
+                             id="cb8">
+                            
+                             ><!-- actionListener="#{pageFlowScope.InvoiceOverviewBean.getValuesForTransactionExcel}"-->
+           <af:clientListener method="exitFromPopupConfirmation" type="action"/>
+           <af:fileDownloadActionListener contentType="#{pageFlowScope.InvoiceOverviewBean.contentTypeTransaction}"
+                                          filename="#{pageFlowScope.InvoiceOverviewBean.transactionFileNamefileName}"
+                                          method="#{pageFlowScope.InvoiceOverviewBean.specificTransactionExportExcelListener}"/>
+           </af:commandButton>
+          </af:panelGroupLayout>
+         </af:panelGroupLayout>
+        </af:toolbar>
+       </f:facet>
+      </af:panelStretchLayout>
+     </af:dialog>
+    </af:popup>
   </af:panelGroupLayout>
  </af:panelGroupLayout>
 </jsp:root>
