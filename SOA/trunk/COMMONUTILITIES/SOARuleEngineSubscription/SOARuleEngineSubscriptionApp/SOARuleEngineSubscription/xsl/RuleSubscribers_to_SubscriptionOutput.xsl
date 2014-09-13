@@ -54,9 +54,9 @@
          <xsl:variable name="CountPosition">
             <xsl:value-of select="position()"/>
           </xsl:variable>
-        <SubscriptionCollection>
+        <SubscribeCollection>
           <Identifier>
-            <xsl:value-of select="/ns1:SubscribeRequest/SubscriptionCollection[position()=$CountPosition]/Identifier"/>
+            <xsl:value-of select="/ns1:SubscribeRequest/SubscribeCollection[position()=$CountPosition]/Identifier"/>
           </Identifier>
           <RuleID>
             <xsl:value-of select="top:rrsRrmRuleid"/>
@@ -67,7 +67,7 @@
           <SubscriptionID>
             <xsl:value-of select="top:rrsId"/>
           </SubscriptionID>
-        </SubscriptionCollection>
+        </SubscribeCollection>
       </xsl:for-each>
     </ns1:SubscribeResponse>
   </xsl:template>

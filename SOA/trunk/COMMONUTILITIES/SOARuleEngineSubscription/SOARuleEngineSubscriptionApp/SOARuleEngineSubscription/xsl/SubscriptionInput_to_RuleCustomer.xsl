@@ -44,7 +44,7 @@
                 exclude-result-prefixes="xsi xsl ns1 wsdl plnk client xsd top plt tns xp20 bpws bpel bpm ora socket mhdr oraext dvm hwf med ids xdk xref ldap">
   <xsl:template match="/">
     <top:RuleengineCustomerMasterCollection>
-      <xsl:for-each select="/ns1:SubscribeRequest/SubscriptionCollection">
+      <xsl:for-each select="/ns1:SubscribeRequest/SubscribeCollection">
         <top:RuleengineCustomerMaster>
           <top:rcmCustomerid>
             <xsl:value-of select="Customer/CustomerID"/>

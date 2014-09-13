@@ -65,7 +65,10 @@
   </variables>
   <faultHandlers>
     <catchAll>
-      <empty name="Empty"/>
+      <sequence name="CatchAllSequence">
+        <empty name="Empty"/>
+        <rethrow name="RethrowFault"/>
+      </sequence>
     </catchAll>
   </faultHandlers>
   <!-- 
@@ -99,8 +102,8 @@
           </variables>
           <faultHandlers>
             <catchAll>
-              <sequence name="Sequence1">
-                <empty name="Empty"/>
+              <sequence name="CatchAllSequence">
+                <empty name="SendNotification"/>
                 <rethrow name="RethrowFault"/>
               </sequence>
             </catchAll>
@@ -170,16 +173,14 @@
           <variables>
             <variable name="unsubscribe_OV"
                       messageType="client:UnsubscribeResponseMessage"/>
-            <variable name="UpdateRuleEngineCustomerInfoDBAdapterV1_IV"
-                      messageType="ns3:RuleengineRulesubscribersCollection_msg"/>
             <variable name="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
                       messageType="ns4:RuleengineRulesubscribersCollection_msg"/>
           </variables>
           <faultHandlers>
             <catchAll>
-              <sequence name="Sequence2">
-                <empty name="Empty"/>
-                <rethrow name="Rethrow1"/>
+              <sequence name="CatchAllSequence">
+                <empty name="SendNotification"/>
+                <rethrow name="RethrowFault"/>
               </sequence>
             </catchAll>
           </faultHandlers>
@@ -233,9 +234,9 @@
           </variables>
           <faultHandlers>
             <catchAll>
-              <sequence name="Sequence3">
-                <empty name="Empty"/>
-                <rethrow name="Rethrow2"/>
+              <sequence name="CatchAllSequence">
+                <empty name="SendNotification"/>
+                <rethrow name="RethrowFault"/>
               </sequence>
             </catchAll>
           </faultHandlers>
@@ -277,7 +278,12 @@
               <bpelx:annotation>
                 <bpelx:pattern patternName="bpelx:transformation"/>
               </bpelx:annotation>
+              <copy>
+                <from>ora:doXSLTransformForDoc("xsl/RuleSubscribers_to_UpdateOutput.xsl", $update_IV.payload)</from>
+                <to variable="update_OV" part="payload"/>
+              </copy>
             </assign>
+            <empty name="UpdateNextScheduleTime"/>
             <reply name="ReplyOutput" partnerLink="subscription_client"
                    portType="client:Subscription" operation="update"
                    variable="update_OV"/>

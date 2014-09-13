@@ -13,11 +13,11 @@
   </xsd:element>
   <xsd:complexType name="SubscribeRequestType">
     <xsd:sequence>
-      <xsd:element name="SubscriptionCollection" maxOccurs="unbounded"
-                   type="SubscriptionsRequestType" minOccurs="1"/>
+      <xsd:element name="SubscribeCollection" maxOccurs="unbounded" minOccurs="1"
+                   type="SubscribeCollectionType"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="SubscriptionsRequestType">
+  <xsd:complexType name="SubscribeCollectionType">
     <xsd:sequence>
       <xsd:element name="Identifier" type="xsd:string"/>
       <xsd:element name="RuleID" type="xsd:integer"/>
@@ -37,11 +37,12 @@
                type="SubscribeResponseType"/>
   <xsd:complexType name="SubscribeResponseType">
     <xsd:sequence>
-      <xsd:element name="SubscriptionCollection" type="SubscriptionsResponseType"
+      <xsd:element name="SubscribeCollection"
+                   type="SubscribeResponseCollectionType"
                    maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="SubscriptionsResponseType">
+  <xsd:complexType name="SubscribeResponseCollectionType">
     <xsd:sequence>
       <xsd:element name="Identifier" type="xsd:string"/>
       <xsd:element name="RuleID" type="xsd:integer"/>
@@ -86,11 +87,11 @@
   <xsd:element name="UnsubscribeRequest" type="UnsubscribeRequestType"/>
   <xsd:complexType name="UnsubscribeRequestType">
     <xsd:sequence>
-      <xsd:element name="UnsubscribeList" type="UnsubscribeListType"
+      <xsd:element name="UnsubscribeCollection" type="UnsubscribeCollectionType"
                    maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="UnsubscribeListType">
+  <xsd:complexType name="UnsubscribeCollectionType">
     <xsd:sequence>
       <xsd:element name="SubscriptionID" type="xsd:string"/>
       <xsd:element name="CustomerID" type="xsd:string"/>
@@ -99,19 +100,50 @@
   <xsd:element name="UnsubscribeResponse" type="UnsubscribeResponseType"/>
   <xsd:complexType name="UnsubscribeResponseType">
     <xsd:sequence>
-      <xsd:element name="Response" type="xsd:string"/>
+      <xsd:element name="UnsubscribeCollection"
+                   type="UnsubscribeResponseCollectionType"
+                   maxOccurs="unbounded"/>
     </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="UnsubscribeResponseCollectionType">
+    <xsd:complexContent>
+      <xsd:extension base="UnsubscribeCollectionType">
+        <xsd:sequence>
+          <xsd:element name="Status" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="UpdateRequest" type="UpdateRequestType"/>
   <xsd:complexType name="UpdateRequestType">
+    <xsd:sequence>
+      <xsd:element name="UpdateSubscriptionCollection" maxOccurs="unbounded"
+                   minOccurs="1" type="UpdateSubscriptionCollectionType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="UpdateSubscriptionCollectionType">
     <xsd:complexContent>
-      <xsd:extension base="SubscribeRequestType"/>
+      <xsd:extension base="SubscribeCollectionType">
+        <xsd:sequence>
+          <xsd:element name="SubscriptionID" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="UpdateResponse" type="UpdateResponseType"/>
   <xsd:complexType name="UpdateResponseType">
+    <xsd:sequence>
+      <xsd:element name="UpdateSubscriptionCollection"
+                   type="UpdateResponseCollectionType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="UpdateResponseCollectionType">
     <xsd:complexContent>
-      <xsd:extension base="UnsubscribeResponseType"/>
+      <xsd:extension base="SubscribeResponseCollectionType">
+        <xsd:sequence>
+          <xsd:element name="Status" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="Fault" type="FaultType"/>
