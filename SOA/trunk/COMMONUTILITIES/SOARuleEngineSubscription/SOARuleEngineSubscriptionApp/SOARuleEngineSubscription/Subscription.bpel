@@ -1,0 +1,291 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Sep 03 18:20:56 IST 2014
+  Author:  292001
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Subscription"
+               targetNamespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/InsertRuleEngineSubscriptionsDBAdapterV1"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/InsertRuleEngineCustomerInfoDBAdapterV1"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/UpdateRuleEngineCustomerInfoDBAdapterV1"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/UpdateRuleEngineSubscriptionsDBAdapterV1">
+
+    <import namespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription" location="Subscription.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="subscription_client" partnerLinkType="client:Subscription" myRole="SubscriptionProvider"/>
+    <partnerLink name="InsertRuleEngineSubscriptionsDBAdapterV1"
+                 partnerLinkType="ns1:InsertRuleEngineSubscriptionsDBAdapterV1_plt"
+                 partnerRole="InsertRuleEngineSubscriptionsDBAdapterV1_role"/>
+    <partnerLink name="InsertRuleEngineCustomerInfoDBAdapterV1"
+                 partnerLinkType="ns2:InsertRuleEngineCustomerInfoDBAdapterV1_plt"
+                 partnerRole="InsertRuleEngineCustomerInfoDBAdapterV1_role"/>
+    <partnerLink name="UpdateRuleEngineSubscriptionsDBAdapterV1"
+                 partnerLinkType="ns4:UpdateRuleEngineSubscriptionsDBAdapterV1_plt"
+                 partnerRole="UpdateRuleEngineSubscriptionsDBAdapterV1_role"/>
+    <partnerLink name="UpdateRuleEngineCustomerInfoDBAdapterV1"
+                 partnerLinkType="ns3:UpdateRuleEngineCustomerInfoDBAdapterV1_plt"
+                 partnerRole="UpdateRuleEngineCustomerInfoDBAdapterV1_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="unsubscribe_IV"
+              messageType="client:UnsubscribeRequestMessage"/>
+    <variable name="subscribe_IV" messageType="client:SubscribeRequestMessage"/>
+    <variable name="update_IV" messageType="client:UpdateRequestMessage"/>
+  </variables>
+  <faultHandlers>
+    <catchAll>
+      <empty name="Empty"/>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in Subscription.wsdl) -->
+    <pick name="Pick1" createInstance="yes">
+      <onMessage variable="subscribe_IV" partnerLink="subscription_client"
+                 portType="client:Subscription" operation="subscribe">
+        <scope name="SubscribeScope" exitOnStandardFault="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">SubscribeScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <variables>
+            <variable name="subscribe_OV"
+                      messageType="client:SubscribeResponseMessage"/>
+            <variable name="InsertRuleEngineSubscriptionsDBAdapterV1_IV"
+                      messageType="ns1:RuleengineRulesubscribersCollection_msg"/>
+            <variable name="InsertRuleEngineSubscriptionsDBAdapterV1_OV"
+                      messageType="ns1:RuleengineRulesubscribersCollection_msg"/>
+            <variable name="InsertRuleEngineCustomerInfoDBAdapterV1_IV"
+                      messageType="ns2:RuleengineCustomerMasterCollection_msg"/>
+          </variables>
+          <faultHandlers>
+            <catchAll>
+              <sequence name="Sequence1">
+                <empty name="Empty"/>
+                <rethrow name="RethrowFault"/>
+              </sequence>
+            </catchAll>
+          </faultHandlers>
+          <sequence name="SubscribeSequence">
+            <sequence name="CustomerMasterSequence">
+              <assign name="XformSubscriptionInputToCustomerInfo">
+                <bpelx:annotation>
+                  <bpelx:pattern patternName="bpelx:transformation"/>
+                </bpelx:annotation>
+                <copy>
+                  <from>ora:doXSLTransformForDoc("xsl/SubscriptionInput_to_RuleCustomer.xsl", $subscribe_IV.payload)</from>
+                  <to variable="InsertRuleEngineCustomerInfoDBAdapterV1_IV"
+                      part="RuleengineCustomerMasterCollection"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeInsertRuleEngineCustomerInfoDBAdapterV1"
+                      partnerLink="InsertRuleEngineCustomerInfoDBAdapterV1"
+                      portType="ns2:InsertRuleEngineCustomerInfoDBAdapterV1_ptt"
+                      operation="merge"
+                      inputVariable="InsertRuleEngineCustomerInfoDBAdapterV1_IV"
+                      bpelx:invokeAsDetail="no"/>
+            </sequence>
+            <sequence name="RuleSubscriberSequence">
+              <assign name="XformSubscriptionInputToRuleSubscribers">
+                <bpelx:annotation>
+                  <bpelx:pattern patternName="bpelx:transformation"/>
+                </bpelx:annotation>
+                <copy>
+                  <from>ora:doXSLTransformForDoc("xsl/SubscriptionInput_to_RuleSubscribers.xsl", $subscribe_IV.payload)</from>
+                  <to variable="InsertRuleEngineSubscriptionsDBAdapterV1_IV"
+                      part="RuleengineRulesubscribersCollection"/>
+                </copy>
+              </assign>
+              <invoke name="InvokeInsertRuleEngineSubscriptionsDBAdapterV1"
+                      partnerLink="InsertRuleEngineSubscriptionsDBAdapterV1"
+                      portType="ns1:InsertRuleEngineSubscriptionsDBAdapterV1_ptt"
+                      operation="insert"
+                      inputVariable="InsertRuleEngineSubscriptionsDBAdapterV1_IV"
+                      outputVariable="InsertRuleEngineSubscriptionsDBAdapterV1_OV"
+                      bpelx:invokeAsDetail="no"/>
+            </sequence>
+            <empty name="GenerateNextScheduleTime"/>
+            <assign name="XformRuleSubscribersToSubscriptionOutput">
+              <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:transformation"/>
+              </bpelx:annotation>
+              <copy>
+                <from>ora:doXSLTransformForDoc("xsl/RuleSubscribers_to_SubscriptionOutput.xsl", $subscribe_IV.payload, "InsertRuleEngineSubscriptionsDBAdapterV1_OV.RuleengineRulesubscribersCollection", $InsertRuleEngineSubscriptionsDBAdapterV1_OV.RuleengineRulesubscribersCollection)</from>
+                <to variable="subscribe_OV" part="payload"/>
+              </copy>
+            </assign>
+            <reply name="replyOutput" partnerLink="subscription_client"
+                   portType="client:Subscription" operation="subscribe"
+                   variable="subscribe_OV"/>
+          </sequence>
+        </scope>
+      </onMessage>
+      <onMessage variable="unsubscribe_IV" partnerLink="subscription_client"
+                 portType="client:Subscription" operation="unsubscribe">
+        <scope name="UnsubscribeScope" exitOnStandardFault="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">UnsubscribeScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <variables>
+            <variable name="unsubscribe_OV"
+                      messageType="client:UnsubscribeResponseMessage"/>
+            <variable name="UpdateRuleEngineCustomerInfoDBAdapterV1_IV"
+                      messageType="ns3:RuleengineRulesubscribersCollection_msg"/>
+            <variable name="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                      messageType="ns4:RuleengineRulesubscribersCollection_msg"/>
+          </variables>
+          <faultHandlers>
+            <catchAll>
+              <sequence name="Sequence2">
+                <empty name="Empty"/>
+                <rethrow name="Rethrow1"/>
+              </sequence>
+            </catchAll>
+          </faultHandlers>
+          <sequence name="UnsubscribeSequence">
+            <assign name="XformSubscriptionInputToUnsubscribeRule">
+              <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:transformation"/>
+              </bpelx:annotation>
+              <copy>
+                <from>ora:doXSLTransformForDoc("xsl/SubscriptionInput_to_UnsubscribeRule.xsl", $unsubscribe_IV.payload)</from>
+                <to variable="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                    part="RuleengineRulesubscribersCollection"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeUpdateRuleEngineSubscriptionsDBAdapterV1"
+                    partnerLink="UpdateRuleEngineSubscriptionsDBAdapterV1"
+                    portType="ns4:UpdateRuleEngineSubscriptionsDBAdapterV1_ptt"
+                    operation="update"
+                    inputVariable="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                    bpelx:invokeAsDetail="no"/>
+            <assign name="XformRuleSubscriberToUnsubscribeOutput">
+              <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:transformation"/>
+              </bpelx:annotation>
+              <copy>
+                <from>ora:doXSLTransformForDoc("xsl/RuleSubscribers_to_UnsubscribeOutput.xsl", $unsubscribe_IV.payload)</from>
+                <to variable="unsubscribe_OV" part="payload"/>
+              </copy>
+            </assign>
+            <reply name="replyOutput" variable="unsubscribe_OV"
+                   partnerLink="subscription_client"
+                   portType="client:Subscription" operation="unsubscribe"/>
+          </sequence>
+        </scope>
+      </onMessage>
+      <onMessage variable="update_IV" partnerLink="subscription_client"
+                 portType="client:Subscription" operation="update">
+        <scope name="UpdateSubscriptionScope" exitOnStandardFault="no">
+          <bpelx:annotation>
+            <bpelx:general>
+              <bpelx:property name="userLabel">UpdateSubscriptionScope</bpelx:property>
+            </bpelx:general>
+          </bpelx:annotation>
+          <variables>
+            <variable name="update_OV"
+                      messageType="client:UpdateResponseMessage"/>
+            <variable name="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                      messageType="ns4:RuleengineRulesubscribersCollection_msg"/>
+            <variable name="UpdateRuleEngineCustomerInfoDBAdapterV1_IV"
+                      messageType="ns3:RuleengineCustomerMasterCollection_msg"/>
+          </variables>
+          <faultHandlers>
+            <catchAll>
+              <sequence name="Sequence3">
+                <empty name="Empty"/>
+                <rethrow name="Rethrow2"/>
+              </sequence>
+            </catchAll>
+          </faultHandlers>
+          <sequence name="UpdateSubscriptionSequence">
+            <assign name="XformSubscriptionInputToUpdateRule">
+         <bpelx:annotation xmlns:bpelx="http://schemas.oracle.com/bpel/extension">
+            <bpelx:pattern patternName="bpelx:transformation"/>
+         </bpelx:annotation>
+         <copy>
+            <from>ora:doXSLTransformForDoc("xsl/SubscriptionInput_to_UpdateRule.xsl", $update_IV.payload)</from>
+            <to variable="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                part="RuleengineRulesubscribersCollection"/>
+         </copy>
+      </assign>
+            <invoke name="InvokeUpdateRuleEngineSubscriptionsDBAdapterV1"
+                    partnerLink="UpdateRuleEngineSubscriptionsDBAdapterV1"
+                    portType="ns4:UpdateRuleEngineSubscriptionsDBAdapterV1_ptt"
+                    operation="update"
+                    inputVariable="UpdateRuleEngineSubscriptionsDBAdapterV1_IV"
+                    bpelx:invokeAsDetail="no"/>
+            <assign name="XformSubscriptionInputToUpdateCustomerInfo">
+              <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:transformation"/>
+              </bpelx:annotation>
+              <copy>
+                <from>ora:doXSLTransformForDoc("xsl/SubscriptionInput_to_UpdateCustomerInfo.xsl", $update_IV.payload)</from>
+                <to variable="UpdateRuleEngineCustomerInfoDBAdapterV1_IV"
+                    part="RuleengineCustomerMasterCollection"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeUpdateRuleEngineCustomerInfoDBAdapterV1"
+                    partnerLink="UpdateRuleEngineCustomerInfoDBAdapterV1"
+                    portType="ns3:UpdateRuleEngineCustomerInfoDBAdapterV1_ptt"
+                    operation="update"
+                    inputVariable="UpdateRuleEngineCustomerInfoDBAdapterV1_IV"
+                    xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+                    bpelx:invokeAsDetail="no"/>
+            <assign name="XformRuleSubscriberToUpdateOutput">
+              <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:transformation"/>
+              </bpelx:annotation>
+            </assign>
+            <reply name="ReplyOutput" partnerLink="subscription_client"
+                   portType="client:Subscription" operation="update"
+                   variable="update_OV"/>
+          </sequence>
+        </scope>
+      </onMessage>
+    </pick>
+
+    <!-- Generate reply to synchronous request -->
+  </sequence>
+</process>

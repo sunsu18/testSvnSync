@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Subscription"
+             targetNamespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://www.lntinfotech.com/integration/SOARuleEngineSubscription/Subscription"
+             xmlns:ns1="http://www.lntinfotech.com/integration/SOARuleEngineSubscription"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscription" schemaLocation="xsd/SOARuleEngineSubscriptionABO.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="SubscribeRequestMessage">
+		<wsdl:part name="payload" element="ns1:SubscribeRequest" />
+	</wsdl:message>
+	<wsdl:message name="SubscribeResponseMessage">
+		<wsdl:part name="payload" element="ns1:SubscribeResponse" />
+	</wsdl:message>
+        <wsdl:message name="UnsubscribeRequestMessage">
+		<wsdl:part name="payload" element="ns1:UnsubscribeRequest" />
+	</wsdl:message>
+	<wsdl:message name="UnsubscribeResponseMessage">
+		<wsdl:part name="payload" element="ns1:UnsubscribeResponse" />
+	</wsdl:message>
+         <wsdl:message name="UpdateRequestMessage">
+		<wsdl:part name="payload" element="ns1:UpdateRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateResponseMessage">
+		<wsdl:part name="payload" element="ns1:UpdateResponse" />
+	</wsdl:message>
+ <wsdl:message name="FaultResponseMessage">
+  <wsdl:part name="Fault" element="ns1:Fault"/>
+ </wsdl:message>
+ <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the Subscription BPEL process -->
+	<wsdl:portType name="Subscription">
+		<wsdl:operation name="subscribe">
+			<wsdl:input  message="client:SubscribeRequestMessage" />
+			<wsdl:output message="client:SubscribeResponseMessage"/>
+   <wsdl:fault message="client:FaultResponseMessage" name="Fault"/>
+  </wsdl:operation>
+                <wsdl:operation name="unsubscribe">
+			<wsdl:input  message="client:UnsubscribeRequestMessage" />
+			<wsdl:output message="client:UnsubscribeResponseMessage"/>
+   <wsdl:fault message="client:FaultResponseMessage" name="Fault"/>
+  </wsdl:operation>
+                <wsdl:operation name="update">
+			<wsdl:input  message="client:UpdateRequestMessage" />
+			<wsdl:output message="client:UpdateResponseMessage"/>
+   <wsdl:fault message="client:FaultResponseMessage" name="Fault"/>
+  </wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="Subscription">
+		<plnk:role name="SubscriptionProvider" portType="client:Subscription"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

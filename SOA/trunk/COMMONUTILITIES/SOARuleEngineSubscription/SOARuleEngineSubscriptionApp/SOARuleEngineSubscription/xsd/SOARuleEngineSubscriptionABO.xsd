@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.lntinfotech.com/integration/SOARuleEngineSubscription"
+            targetNamespace="http://www.lntinfotech.com/integration/SOARuleEngineSubscription"
+            elementFormDefault="unqualified">
+  <xsd:element name="SubscribeRequest"
+               type="SubscribeRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="SubscribeRequestType">
+    <xsd:sequence>
+      <xsd:element name="SubscriptionCollection" maxOccurs="unbounded"
+                   type="SubscriptionsRequestType" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubscriptionsRequestType">
+    <xsd:sequence>
+      <xsd:element name="Identifier" type="xsd:string"/>
+      <xsd:element name="RuleID" type="xsd:integer"/>
+      <xsd:element name="Customer" type="CustomerType"/>
+      <xsd:element name="SubscribeFrequency" type="SubscribeFrequencyType"/>
+      <xsd:element name="NotificationChannel" type="xsd:string"/>
+      <xsd:element name="NotificationFormat" type="xsd:string"/>
+      <xsd:element name="Parameters" type="ParametersType"/>
+      <xsd:element name="Custom1" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom2" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom3" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom4" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom5" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SubscribeResponse"
+               type="SubscribeResponseType"/>
+  <xsd:complexType name="SubscribeResponseType">
+    <xsd:sequence>
+      <xsd:element name="SubscriptionCollection" type="SubscriptionsResponseType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubscriptionsResponseType">
+    <xsd:sequence>
+      <xsd:element name="Identifier" type="xsd:string"/>
+      <xsd:element name="RuleID" type="xsd:integer"/>
+      <xsd:element name="CustomerID" type="xsd:string"/>
+      <xsd:element name="SubscriptionID" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerType">
+    <xsd:sequence>
+      <xsd:element name="CustomerID" type="xsd:string"/>
+      <xsd:element name="FirstName" type="xsd:string"/>
+      <xsd:element name="LastName" type="xsd:string"/>
+      <xsd:element name="EmailID" type="xsd:string"/>
+      <xsd:element name="MobileNumber" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="Custom1" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom2" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom3" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom4" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Custom5" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubscribeFrequencyType">
+    <xsd:sequence>
+      <xsd:element name="ScheduleFrequency" type="xsd:string"/>
+      <xsd:element name="ScheduleDay" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ScheduleDate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ScheduleMonth" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParametersType">
+    <xsd:sequence>
+      <xsd:element name="Parameter" type="ParameterType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParameterType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UnsubscribeRequest" type="UnsubscribeRequestType"/>
+  <xsd:complexType name="UnsubscribeRequestType">
+    <xsd:sequence>
+      <xsd:element name="UnsubscribeList" type="UnsubscribeListType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="UnsubscribeListType">
+    <xsd:sequence>
+      <xsd:element name="SubscriptionID" type="xsd:string"/>
+      <xsd:element name="CustomerID" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UnsubscribeResponse" type="UnsubscribeResponseType"/>
+  <xsd:complexType name="UnsubscribeResponseType">
+    <xsd:sequence>
+      <xsd:element name="Response" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="UpdateRequest" type="UpdateRequestType"/>
+  <xsd:complexType name="UpdateRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="SubscribeRequestType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UpdateResponse" type="UpdateResponseType"/>
+  <xsd:complexType name="UpdateResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="UnsubscribeResponseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="Fault" type="FaultType"/>
+  <xsd:complexType name="FaultType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string"/>
+      <xsd:element name="Summary" type="xsd:string"/>
+      <xsd:element name="Detail" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

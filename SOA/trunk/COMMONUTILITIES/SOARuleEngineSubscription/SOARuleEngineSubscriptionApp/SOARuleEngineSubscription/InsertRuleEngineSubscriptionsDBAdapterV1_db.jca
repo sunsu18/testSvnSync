@@ -1,0 +1,15 @@
+<adapter-config name="InsertRuleEngineSubscriptionsDBAdapterV1" adapter="Database Adapter" wsdlLocation="InsertRuleEngineSubscriptionsDBAdapterV1.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/SOACustom" UIConnectionName="soacustom_DEV" adapterRef=""/>
+  <endpoint-interaction portType="InsertRuleEngineSubscriptionsDBAdapterV1_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="InsertRuleEngineSubscriptionsDBAdapterV1.RuleengineRulesubscribers"/>
+      <property name="DmlType" value="insert"/>
+      <property name="OutputCompletedXml" value="true"/>
+      <property name="MappingsMetaDataURL" value="InsertRuleEngineSubscriptionsDBAdapterV1-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

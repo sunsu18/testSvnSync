@@ -1,0 +1,21 @@
+<?binding.jca UpdateRuleEngineSubscriptionsDBAdapterV1_db.jca?>
+<wsdl:definitions name="UpdateRuleEngineSubscriptionsDBAdapterV1" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/UpdateRuleEngineSubscriptionsDBAdapterV1" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOARuleEngineSubscriptionApp/SOARuleEngineSubscription/UpdateRuleEngineSubscriptionsDBAdapterV1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateRuleEngineSubscriptionsDBAdapterV1">
+    <plt:partnerLinkType name="UpdateRuleEngineSubscriptionsDBAdapterV1_plt">
+        <plt:role name="UpdateRuleEngineSubscriptionsDBAdapterV1_role">
+            <plt:portType name="tns:UpdateRuleEngineSubscriptionsDBAdapterV1_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/UpdateRuleEngineSubscriptionsDBAdapterV1" schemaLocation="xsd/UpdateRuleEngineSubscriptionsDBAdapterV1_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="RuleengineRulesubscribersCollection_msg">
+        <wsdl:part name="RuleengineRulesubscribersCollection" element="top:RuleengineRulesubscribersCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="UpdateRuleEngineSubscriptionsDBAdapterV1_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:RuleengineRulesubscribersCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
