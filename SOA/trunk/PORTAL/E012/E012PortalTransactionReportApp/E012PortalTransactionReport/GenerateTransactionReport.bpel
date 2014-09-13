@@ -82,7 +82,10 @@
   </variables>
   <faultHandlers>
     <catchAll>
-      <empty name="Empty"/>
+      <sequence name="Sequence4">
+        <empty name="Empty"/>
+        <throw name="ThrowRollbackFault" faultName="bpelx:rollback"/>
+      </sequence>
     </catchAll>
   </faultHandlers>
   <!-- 
@@ -144,7 +147,6 @@
                   query="/ns1:TransactionReportInput/TransactionDateFrom"/>
             </copy>
           </assign>
-          <empty name="Empty3"/>
         </sequence>
       </case>
       <case condition="bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/Frequency')='WEEKLY'">

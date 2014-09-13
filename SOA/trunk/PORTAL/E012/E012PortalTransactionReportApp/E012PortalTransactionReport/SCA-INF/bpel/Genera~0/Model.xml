@@ -39,7 +39,10 @@
   </variables>
   <faultHandlers id="BpFhs0">
     <catchAll id="BpCAl0">
-      <empty name="Empty" id="BpEmp0"/>
+      <sequence name="Sequence4" id="BpSeq0">
+        <empty name="Empty" id="BpEmp0"/>
+        <throw name="Throw2" faultName="bpelx:timeout" id="BpThw0"/>
+      </sequence>
     </catchAll>
   </faultHandlers>
   <!-- 
@@ -49,7 +52,7 @@
      services integrated within this business process                  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
-  <sequence name="main" id="BpSeq0">
+  <sequence name="main" id="BpSeq1">
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in GenerateTransactionReport.wsdl) -->
     <pick name="PickGenerateReportRequest" createInstance="yes" id="BpPck0">
@@ -81,7 +84,7 @@
             <bpelx:property name="userLabel">YEARLY</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <sequence id="BpSeq1">
+        <sequence id="BpSeq2">
           <assign name="AssignDates" id="BpAss2">
             <copy>
               <from expression="xp20:format-dateTime(string(xp20:subtract-dayTimeDuration-from-dateTime(string(xp20:current-dateTime()),'P1D')),'[DD]-[MN,*-3]-[YYYY]')"/>
@@ -117,7 +120,7 @@
             <bpelx:property name="userLabel">DAILY</bpelx:property>
           </bpelx:general>
         </bpelx:annotation>
-        <sequence name="Sequence3" id="BpSeq2">
+        <sequence name="Sequence3" id="BpSeq3">
           <empty name="Empty4" id="BpEmp4"/>
         </sequence>
       </case>
@@ -390,7 +393,7 @@ addAuditTrailEntry("Exception: " + ex);
           <variables>
             <variable name="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" messageType="ns3:Produce_Message_msg"/>
           </variables>
-          <sequence name="Sequence2" id="BpSeq3">
+          <sequence name="Sequence2" id="BpSeq4">
           <bpelx:exec import="java.io.ByteArrayOutputStream" id="BxExe8"/>
           <bpelx:exec import="java.io.StringWriter" id="BxExe9"/>
         <bpelx:exec import="javax.xml.transform.*" id="BxExe10"/>
@@ -581,7 +584,7 @@ setVariableData("byteArrayString",byteArrayString);
         </scope>
       </case>
       <otherwise>
-        <sequence id="BpSeq4">
+        <sequence id="BpSeq5">
           <assign name="TrasnactionReportToWriteTrasnactionReport" bpelx:validate="yes" id="BpAss7">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>

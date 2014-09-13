@@ -4,6 +4,7 @@
   <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
     <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
       <property name="PayloadType" value="TextMessage"/>
+      <property name="MessageSelector" value="RuleID='1'"/>
       <property name="UseMessageListener" value="false"/>
       <property name="DestinationName" value="jms/SOARuleEngineServiceJMSQueueV1"/>
     </activation-spec>
