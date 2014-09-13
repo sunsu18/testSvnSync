@@ -9,7 +9,7 @@
       <partnerlink name="SOARuleEngineServiceJMSProducerV1" x="945" y="827" side="right"/>
       <partnerlink name="UpdateRuleEngineNextScheduleTimeDBAdapterV1" x="945" y="1010" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,597,1016,495" show_swimlanes="true">
+   <graph_layout viewport="52,822,949,495" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>

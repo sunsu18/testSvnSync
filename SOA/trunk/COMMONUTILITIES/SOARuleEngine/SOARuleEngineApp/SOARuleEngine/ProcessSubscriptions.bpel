@@ -168,6 +168,7 @@
                               messageType="ns8:args_out_msg"/>
                     <variable name="UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV"
                               messageType="ns8:args_in_msg"/>
+                    <variable name="ruleID" type="xsd:integer"/>
                 </variables>
                 <faultHandlers>
                     <catchAll>
@@ -227,13 +228,22 @@
                             <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsFrequency</from>
                             <to>$SOARuleEngineServiceJMSProducerV1_IV.body/Frequency</to>
                         </copy>
+                        <copy>
+                           <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsRrmRuleid/ns2:rrmRuleid</from>
+                            <to>$ruleID</to>
+                        </copy>
                     </assign>
                     <invoke name="InvokeSOARuleEngineServiceJMSProducerV1"
                             partnerLink="SOARuleEngineServiceJMSProducerV1"
                             portType="ns6:Produce_Message_ptt"
                             operation="Produce_Message"
                             inputVariable="SOARuleEngineServiceJMSProducerV1_IV"
-                            bpelx:invokeAsDetail="no"/>
+                            bpelx:invokeAsDetail="no">
+                        <bpelx:toProperties>
+                            <bpelx:toProperty name="jca.jms.JMSProperty.RuleID"
+                                              variable="ruleID"/>
+                        </bpelx:toProperties>
+                    </invoke>
                     <assign name="AssignSubscriptionID">
                         <copy>
                             <from>$SOARuleEngineServiceJMSProducerV1_IV.body/RuleSubscriptionID</from>
