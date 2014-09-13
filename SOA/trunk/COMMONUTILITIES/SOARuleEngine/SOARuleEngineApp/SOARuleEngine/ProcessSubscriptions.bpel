@@ -152,7 +152,7 @@
                 inputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_IV"
                 outputVariable="InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV"
                 bpelx:invokeAsDetail="no"/>
-        <forEach parallel="no" counterName="RuleCounter" name="ForEachRule">
+        <forEach parallel="yes" counterName="RuleCounter" name="ForEachRule">
             <startCounterValue>1</startCounterValue>
             <finalCounterValue>count($InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers/ns2:rrsId)</finalCounterValue>
             <scope name="Scope1">
@@ -223,6 +223,10 @@
                             <from>oraext:parseXML($InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsParameters)</from>
                             <to>$SOARuleEngineServiceJMSProducerV1_IV.body/Parameters</to>
                         </copy>
+                        <copy bpelx:insertMissingToData="yes">
+                            <from>$InvokeSelectRuleEngineSubscribtionsDBAdapterV1_OV.RuleengineRulesubscribersCollection/ns2:RuleengineRulesubscribers[$RuleCounter]/ns2:rrsFrequency</from>
+                            <to>$SOARuleEngineServiceJMSProducerV1_IV.body/Frequency</to>
+                        </copy>
                     </assign>
                     <invoke name="InvokeSOARuleEngineServiceJMSProducerV1"
                             partnerLink="SOARuleEngineServiceJMSProducerV1"
@@ -243,9 +247,6 @@
                             inputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_IV"
                             outputVariable="UpdateRuleEngineNextScheduleTimeDBAdapterV1_OV"
                             bpelx:invokeAsDetail="no"/>
-                    <extensionActivity>
-                        <bpelx:dehydrate name="Dehydrate1"/>
-                    </extensionActivity>
                 </sequence>
             </scope>
         </forEach>

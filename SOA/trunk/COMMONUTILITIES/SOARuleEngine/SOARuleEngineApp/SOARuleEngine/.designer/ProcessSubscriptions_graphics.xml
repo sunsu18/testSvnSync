@@ -4,12 +4,12 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="processsubscriptions_client" x="0" y="672" side="left"/>
+      <partnerlink name="processsubscriptions_client" x="0" y="627" side="left"/>
       <partnerlink name="SelectRuleEngineSubscribtionsDBAdapterV1" x="945" y="456" side="right"/>
       <partnerlink name="SOARuleEngineServiceJMSProducerV1" x="945" y="827" side="right"/>
       <partnerlink name="UpdateRuleEngineNextScheduleTimeDBAdapterV1" x="945" y="1010" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,147,970,495" show_swimlanes="true">
+   <graph_layout viewport="0,597,1016,495" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
