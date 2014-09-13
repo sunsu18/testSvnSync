@@ -139,32 +139,35 @@
             </pick>
         </sequence><assign name="AssignNotificationData"
                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
-      
-      
-      
-      
-      
-      
-      
-   <copy>
-         <from>'Harneet.kochhar@lntinfotech.com'</from>
-         <to>$EmailID</to>
-      </copy><copy>
-         <from>'RuleEngineTestMail'</from>
-         <to>$Subject</to>
-      </copy><copy>
-         <from>'RuleEngineTestBody'</from>
-         <to>$Body</to>
-      </copy><copy>
+            <copy>
+                <from>'Harneet.kochhar@lntinfotech.com'</from>
+                <to>$EmailID</to>
+            </copy>
+            <copy>
+                <from>'RuleEngineTestMail'</from>
+                <to>$Subject</to>
+            </copy>
+            <copy>
+                <from>'RuleEngineTestBody'</from>
+                <to>$Body</to>
+            </copy>
+            <copy>
                 <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:EmailID</from>
                 <to>$EmailID</to>
-            </copy><copy>
+            </copy>
+            <copy>
                 <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationSubject</from>
                 <to>$Subject</to>
-            </copy><copy>
+            </copy>
+            <copy>
                 <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationBody</from>
                 <to>$Body</to>
-            </copy></assign>
+            </copy>
+            <copy>
+                <from>'Harneet.kochhar@lntinfotech.com'</from>
+                <to>$EmailCC</to>
+            </copy>
+        </assign>
         <if name="NotificationChannel">
             <documentation>Email</documentation>
             <condition>xp20:upper-case(string($ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:NotificationChannel))='EMAIL'</condition>
@@ -271,20 +274,20 @@
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:SubscriptionID</to>
                                                 </copy>
                                                 <copy>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:AttachmentType</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:InputFormatType</to>
+                                                </copy>
+                                                <copy>
                                                     <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ConversionType</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:OutputFormatType</to>
-                                                </copy>
-                                                <copy ignoreMissingFromData="yes">
-                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ReportHeader</from>
-                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportHeader</to>
                                                 </copy>
                                                 <copy>
                                                     <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:base64BinaryData</from>
                                                     <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportData</to>
                                                 </copy>
-                                                <copy ignoreMissingFromData="yes">
-                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:ReportTrailer</from>
-                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportTrailer</to>
+                                                <copy>
+                                                    <from>$ReceiveSOARuleEngineNotificationJMSConsumerV1_Consume_Message_IV.body/ns2:Attachment/ns2:Attachment/ns2:AttachmentName</from>
+                                                    <to>$InvokeSOARuleEngineFormatGenerator_IV.payload/ns7:ReportName</to>
                                                 </copy>
                                             </assign>
                                             <invoke name="InvokeSOARuleEngineFormatGenerator"
