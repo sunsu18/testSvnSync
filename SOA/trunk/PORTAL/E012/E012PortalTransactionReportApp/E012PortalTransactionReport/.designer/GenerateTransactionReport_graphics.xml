@@ -6,21 +6,24 @@
    <partnerlink_locations>
       <partnerlink name="generatetransactionreport_client" x="0" y="30" side="left"/>
       <partnerlink name="SOARuleEngineServiceJMSConsumerV1" x="0" y="97" side="left"/>
-      <partnerlink name="SOARuleEngineNotificationJMSProducerV1" x="0" y="1036" side="left"/>
-      <partnerlink name="WriteTransactionReport" x="1379" y="747" side="right"/>
+      <partnerlink name="SOARuleEngineNotificationJMSProducerV1" x="0" y="1479" side="left"/>
+      <partnerlink name="WriteTransactionReport" x="1379" y="1190" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,802,874,495" show_swimlanes="true">
+   <graph_layout viewport="22,260,1016,495" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/faultHandlers/catchAll" type="catchall"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/pick" type="pick"/>
       <layout_item collapsed="false" xpath="/process/sequence/pick/onMessage[1]" type="onMessage"/>
       <layout_item collapsed="false" xpath="/process/sequence/pick/onMessage[2]" type="onMessage"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/case/scope" type="scope" showhandlers="true"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/case/scope/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/case/scope/sequence/switch" type="switch"/>
-      <layout_item collapsed="false" xpath="/process/sequence/switch/otherwise/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[1]" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[1]/case[1]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[1]/case[4]/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[2]" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[2]/case/scope" type="scope" showhandlers="true"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[2]/case/scope/sequence" type="sequence"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[2]/case/scope/sequence/switch" type="switch"/>
+      <layout_item collapsed="false" xpath="/process/sequence/switch[2]/otherwise/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>
 </graphics>

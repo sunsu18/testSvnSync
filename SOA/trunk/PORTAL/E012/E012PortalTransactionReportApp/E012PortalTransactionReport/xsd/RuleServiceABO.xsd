@@ -13,6 +13,7 @@
             <xsd:element name="NotificationDateTime" type="xsd:dateTime" minOccurs="0"/>
             <xsd:element name="NotificationInfo" type="NotificationInfoType"/>
             <xsd:element name="Parameters" type="ParametersType" minOccurs="0"/>
+            <xsd:element name="Frequency" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="NotificationInfoType">
