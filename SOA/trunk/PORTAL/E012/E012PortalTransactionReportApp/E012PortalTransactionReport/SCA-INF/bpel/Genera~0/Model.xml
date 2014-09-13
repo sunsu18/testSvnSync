@@ -74,6 +74,54 @@
       </copy>
    </assign></onMessage>
     </pick>
+    <switch name="Switch3" id="BpSwt0">
+      <case condition="bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/Frequency')='YEARLY'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">YEARLY</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence id="BpSeq1">
+          <assign name="AssignDates" id="BpAss2">
+            <copy>
+              <from expression="xp20:format-dateTime(string(xp20:subtract-dayTimeDuration-from-dateTime(string(xp20:current-dateTime()),'P1D')),'[DD]-[MN,*-3]-[YYYY]')"/>
+              <to variable="transactionReportInput" query="/ns1:TransactionReportInput/TransactionDateTo"/>
+            </copy>
+            <copy>
+              <from expression="xp20:format-dateTime(xp20:subtract-dayTimeDuration-from-dateTime(xp20:current-dateTime(),'P1Y'),'[DD]-[MN,*-3]-[YYYY]')"/>
+              <to variable="transactionReportInput" query="/ns1:TransactionReportInput/TransactionDateFrom"/>
+            </copy>
+          </assign>
+          <empty name="Empty3" id="BpEmp1"/>
+        </sequence>
+      </case>
+      <case condition="bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/Frequency')='WEEKLY'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">WEEKLY</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <empty name="Empty2" id="BpEmp2"/>
+      </case>
+      <case condition="bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/Frequency')='MONTHLY'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">MONTHLY</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <empty name="Empty1" id="BpEmp3"/>
+      </case>
+      <case condition="bpws:getVariableData('SOARuleEngineServiceJMSConsumerV1_IV','body','/ns6:RuleServiceRequest/Frequency')='DAILY'">
+        <bpelx:annotation>
+          <bpelx:general>
+            <bpelx:property name="userLabel">DAILY</bpelx:property>
+          </bpelx:general>
+        </bpelx:annotation>
+        <sequence name="Sequence3" id="BpSeq2">
+          <empty name="Empty4" id="BpEmp4"/>
+        </sequence>
+      </case>
+    </switch>
     <bpelx:exec import="e012portaltransactionreport.TransactionReport" id="BxExe0"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportInput" id="BxExe1"/>
     <bpelx:exec import="e012portaltransactionreport.TransactionReportOutput" id="BxExe2"/>
@@ -313,7 +361,7 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex); 
 }]]>
     </bpelx:exec>
-    <assign name="TxnReportToTxnReport" id="BpAss2">
+    <assign name="TxnReportToTxnReport" id="BpAss3">
       <bpelx:annotation>
         <bpelx:pattern>transformation</bpelx:pattern>
       </bpelx:annotation>
@@ -322,7 +370,16 @@ addAuditTrailEntry("Exception: " + ex);
         <to variable="transactionReportOutput"/>
       </copy>
     </assign>
-    <switch name="Switch1" id="BpSwt0">
+    <assign name="TxnReportToTxnReportAggregation" id="BpAss4">
+      <bpelx:annotation>
+        <bpelx:pattern>transformation</bpelx:pattern>
+      </bpelx:annotation>
+      <copy>
+        <from expression="ora:doXSLTransformForDoc('xsl/TxnReport_to_TxnReportAggregation.xsl', $transactionReportOutput, 'transactionReportInput', $transactionReportInput)"/>
+        <to variable="transactionReportOutput"/>
+      </copy>
+    </assign>
+    <switch name="Switch1" id="BpSwt1">
       <case condition="1=1">
         <bpelx:annotation>
           <bpelx:general>
@@ -333,7 +390,7 @@ addAuditTrailEntry("Exception: " + ex);
           <variables>
             <variable name="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" messageType="ns3:Produce_Message_msg"/>
           </variables>
-          <sequence name="Sequence2" id="BpSeq1">
+          <sequence name="Sequence2" id="BpSeq3">
           <bpelx:exec import="java.io.ByteArrayOutputStream" id="BxExe8"/>
           <bpelx:exec import="java.io.StringWriter" id="BxExe9"/>
         <bpelx:exec import="javax.xml.transform.*" id="BxExe10"/>
@@ -368,8 +425,8 @@ catch (Exception ex) {
 addAuditTrailEntry("Exception: " + ex);          
 }]]>
             </bpelx:exec>
-            <switch name="Switch2" id="BpSwt1">
-              <case condition="true()"><assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss3">
+            <switch name="Switch2" id="BpSwt2">
+              <case condition="true()"><assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpAss5">
                   <copy>
                     <from variable="SOARuleEngineServiceJMSConsumerV1_IV" part="body" query="/ns6:RuleServiceRequest/RuleID"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
@@ -398,10 +455,12 @@ addAuditTrailEntry("Exception: " + ex);
                     <from expression="concat('Hello, &lt;/br>&lt;/br>Please find attached the Transaction Report subscribed by you.&lt;/br>&lt;/br>&lt;/br>','&lt;/br>')"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationBody"/>
                   </copy>
-                  <copy>
+                  <!--copy>
                     <from expression="concat('Company:',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Partner'),',Account: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Account'),',Type: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Type'),',Report: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/ReportType'),',Period: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateFrom'),' to ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateTo'),',,,Please note that international transactions are not yet visible in the portal. In some cases; it may take 2 days before national transactions is shown.,Note: All prices are in DKK ...')"/>
-                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
-                  </copy>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                        part="body"
+                        query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
+                  </copy-->
                   <copy>
                     <from variable="base64TxnData"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
@@ -424,7 +483,7 @@ addAuditTrailEntry("Exception: " + ex);
                   </copy>
                 </assign></case>
               <otherwise>
-                <assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" id="BpAss4">
+                <assign name="AssignInvokeSOARuleEngineNotificationJMSProducerV1" id="BpAss6">
                   <copy>
                     <from variable="inputVariable" part="payload" query="/ns1:TransactionRequest/RuleID"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:RuleID"/>
@@ -453,10 +512,12 @@ addAuditTrailEntry("Exception: " + ex);
                     <from expression="'Hello, Please find attached the Transaction Report subscribed by you.'"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:NotificationBody"/>
                   </copy>
-                  <copy>
+                  <!--copy>
                     <from expression="concat('Company:',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Partner'),',Account: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Account'),',Type: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/Type'),',Report: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/ReportType'),',Period: ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateFrom'),' to ',bpws:getVariableData('transactionReportInput','/ns1:TransactionReportInput/TransactionDateTo'),',,,Please note that international transactions are not yet visible in the portal. In some cases; it may take 2 days before national transactions is shown.,Note: All prices are in DKK ...')"/>
-                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
-                  </copy>
+                    <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV"
+                        part="body"
+                        query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:ReportHeader"/>
+                  </copy-->
                   <copy>
                     <from variable="base64TxnData"/>
                     <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_Produce_Message_IV" part="body" query="/ns4:NotificationRequest/ns4:Attachment/ns4:Attachment/ns4:base64BinaryData"/>
@@ -520,8 +581,8 @@ setVariableData("byteArrayString",byteArrayString);
         </scope>
       </case>
       <otherwise>
-        <sequence id="BpSeq2">
-          <assign name="TrasnactionReportToWriteTrasnactionReport" bpelx:validate="yes" id="BpAss5">
+        <sequence id="BpSeq4">
+          <assign name="TrasnactionReportToWriteTrasnactionReport" bpelx:validate="yes" id="BpAss7">
             <bpelx:annotation>
               <bpelx:pattern>transformation</bpelx:pattern>
             </bpelx:annotation>

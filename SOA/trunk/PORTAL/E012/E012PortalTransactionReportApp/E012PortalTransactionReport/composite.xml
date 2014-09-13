@@ -32,7 +32,8 @@
   <component name="GenerateTransactionReport" version="1.1">
     <implementation.bpel src="GenerateTransactionReport.bpel"/>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
-              many="false">async.persist</property>
+              many="false">sync</property>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
   <reference name="WriteTransactionReport"
              ui:wsdlLocation="WriteTransactionReport.wsdl">
