@@ -42,7 +42,8 @@
   <component name="SendNotification" version="2.0">
     <implementation.bpel src="SendNotification.bpel"/>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
-              many="false">async.persist</property>
+              many="false">sync</property>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
   </component>
   <reference name="NotificationService"
              ui:wsdlLocation="NotificationService.wsdl">
