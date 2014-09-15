@@ -960,6 +960,8 @@ public class InvoiceOverviewBean implements Serializable {
 
         _logger.info(accessDC.getDisplayRecord() + this.getClass() +
                      " Entering exportExcelSpecificActionTransactions");
+        defaultSelection = "Transactions";
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         shuttleStatusTransaction = false;
         String langDB = (String)session.getAttribute("langReport");
         if (langDB.equalsIgnoreCase("en_US")) {
@@ -2515,7 +2517,8 @@ public class InvoiceOverviewBean implements Serializable {
 
 
         //////////////////////////////
-
+        defaultSelection = "Transactions";
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         if (shuttleValueTransaction == null &&
             getBindings().getTransactionSelectionExportOneRadio().getValue() ==
             null) {
@@ -2844,18 +2847,96 @@ public class InvoiceOverviewBean implements Serializable {
                                             XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getkmPerLt().toString())),
                                                                                      locale));
                                         }
-                                    } else {
-                                        if ("L/100KM".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
-                                            if (row.getltPerHundred() !=
+                                    } else if ("L/100KM".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getltPerHundred() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csRight);
+                                            XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),
+                                                                                     locale));
+                                        }
+
+                                    }
+                                    ////
+                                    else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getTransactionDt() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            String time = "";
+                                            if (row.getTransactionTime() !=
                                                 null) {
-                                                XLS_SH_R_C =
-                                                        XLS_SH_R.createCell(cellValue);
-                                                XLS_SH_R_C.setCellStyle(csRight);
-                                                XLS_SH_R_C.setCellValue(formatConversion((Float.parseFloat(row.getltPerHundred().toString())),
-                                                                                         locale));
+                                                time =
+getTimeHour(row.getTransactionTime().timestampValue());
                                             }
+                                            XLS_SH_R_C.setCellValue(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) +
+                                                                    "  " +
+                                                                    time);
+                                        }
+                                    } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getPartnerId() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getPartnerId().toString());
+                                        }
+                                    } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getAccountId() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getAccountId().toString());
+                                        }
+                                    } else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardTextLine2() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getCardTextLine2().toString());
+                                        }
+                                    } else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getInvoicedGrossAmountRebated() !=
+                                            null) {
+
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csRight);
+                                            XLS_SH_R_C.setCellValue(formatConversion(row.getInvoicedGrossAmountRebated(),
+                                                                                     locale));
+                                        }
+                                    } else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        XLS_SH_R_C =
+                                                XLS_SH_R.createCell(cellValue);
+                                        XLS_SH_R_C.setCellStyle(csRight);
+                                        if (row.getInvoivedVatRebated() !=
+                                            null) {
+
+                                            XLS_SH_R_C.setCellValue(formatConversion(row.getInvoivedVatRebated(),
+                                                                                     locale));
+                                        }
+                                    } else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardGroupDesc() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getCardGroupDesc().toString());
+                                        }
+                                    } else if ("CardGroup".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardgroupId() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getCardgroupId().toString());
+                                        }
+                                    } else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCard2Id() != null) {
+                                            XLS_SH_R_C =
+                                                    XLS_SH_R.createCell(cellValue);
+                                            XLS_SH_R_C.setCellStyle(csData);
+                                            XLS_SH_R_C.setCellValue(row.getCard2Id().toString());
                                         }
                                     }
+
 
                                 }
 
@@ -3082,6 +3163,82 @@ public class InvoiceOverviewBean implements Serializable {
                                             out.print(";");
                                         }
                                     }
+                                    else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getTransactionDt() != null) {
+
+                                            String time = "";
+                                            if (row.getTransactionTime() != null) {
+                                                time = getTimeHour(row.getTransactionTime().timestampValue());
+                                            }
+                                            out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) + " " + time);
+                                            if (cellValue != headerValues.length - 1) {
+                                                out.print(";");
+                                            }
+                                        }
+                                    } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getPartnerId() != null) {
+                                            out.print(row.getPartnerId().toString());
+                                        }
+                                        if (cellValue != headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getAccountId() != null) {
+                                            out.print(row.getAccountId().toString());
+                                        }
+                                        if (cellValue != headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    } 
+                                    else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                if (row.getCardTextLine2() != null) {
+                                                                    out.print(row.getCardTextLine2().toString());
+                                                                }
+                                                                if (cellValue != headerValues.length - 1) {
+                                                                    out.print(";");
+                                                                }
+                                                            }
+                                    else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                               if (row.getInvoicedNetAmountRebated() != null) {
+                                                                   out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
+                                                               }
+                                                               if (cellValue != headerValues.length - 1) {
+                                                                   out.print(";");
+                                                               }
+                                                           }
+                                    else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+
+                                                                if (row.getInvoivedVatRebated() != null) {
+                                                                    out.print(formatConversion(row.getInvoivedVatRebated(), locale));
+                                                                }
+                                                                if (cellValue != headerValues.length - 1) {
+                                                                    out.print(";");
+                                                                }
+                                                            }
+                                    else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                if (row.getCardGroupDesc() != null) {
+                                                                    out.print(row.getCardGroupDesc().toString());
+                                                                }
+                                                                if (cellValue != headerValues.length - 1) {
+                                                                    out.print(";");
+                                                                }
+                                    } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        if (row.getCardgroupId() != null) {
+                                            out.print(row.getCardgroupId().toString());
+                                        }
+                                        if (cellValue != headerValues.length - 1) {
+                                            out.print(";");
+                                        }
+                                    }
+                                    else if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                if (row.getCard2Id() != null) {
+                                                                    out.print(row.getCard2Id().toString());
+                                                                }
+                                                                if (cellValue != headerValues.length - 1) {
+                                                                    out.print(";");
+                                                                }
+                                                            }
+                                    
                                 }
                                 out.println();
                             }
@@ -3292,8 +3449,7 @@ public class InvoiceOverviewBean implements Serializable {
                                                 headerValues.length - 1) {
                                                 out.print("|");
                                             }
-                                        } else {
-                                            if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                        } else if ("Driver Name".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
                                                 if (row.getDriverName() !=
                                                     null) {
                                                     out.print(row.getDriverName().toString());
@@ -3304,6 +3460,94 @@ public class InvoiceOverviewBean implements Serializable {
                                                 }
                                             }
 
+                                        else if ("Discounted Price".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getInvoicedUnitPriceRebated() !=
+                                                null) {
+                                                out.print(formatConversion(Float.parseFloat(row.getInvoicedUnitPriceRebated().toString()),
+                                                                           locale));
+                                            }
+                                            if (cellValue !=
+                                                headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } 
+                                        else if ("Date".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getTransactionDt() != null) {
+
+                                                String time = "";
+                                                if (row.getTransactionTime() != null) {
+                                                    time = getTimeHour(row.getTransactionTime().timestampValue());
+                                                }
+                                                out.print(formatConversion(new Date(row.getTransactionDt().timestampValue().getTime())) + " " + time);
+                                                if (cellValue != headerValues.length - 1) {
+                                                    out.print("|");
+                                                }
+                                            }
+                                        } else if ("Partner".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getPartnerId() != null) {
+                                                out.print(row.getPartnerId().toString());
+                                            }
+                                            if (cellValue != headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } else if ("Account".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getAccountId() != null) {
+                                                out.print(row.getAccountId().toString());
+                                            }
+                                            if (cellValue != headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        } 
+                                        else if ("CardTextLine2".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                    if (row.getCardTextLine2() != null) {
+                                                                        out.print(row.getCardTextLine2().toString());
+                                                                    }
+                                                                    if (cellValue != headerValues.length - 1) {
+                                                                        out.print("|");
+                                                                    }
+                                                                }
+                                        else if ("Total Amount".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                   if (row.getInvoicedNetAmountRebated() != null) {
+                                                                       out.print(formatConversion(row.getInvoicedNetAmountRebated(), locale));
+                                                                   }
+                                                                   if (cellValue != headerValues.length - 1) {
+                                                                       out.print("|");
+                                                                   }
+                                                               }
+                                        else if ("Vat".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+
+                                                                    if (row.getInvoivedVatRebated() != null) {
+                                                                        out.print(formatConversion(row.getInvoivedVatRebated(), locale));
+                                                                    }
+                                                                    if (cellValue != headerValues.length - 1) {
+                                                                        out.print("|");
+                                                                    }
+                                                                }
+                                        else if ("CardGroup Description".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                    if (row.getCardGroupDesc() != null) {
+                                                                        out.print(row.getCardGroupDesc().toString());
+                                                                    }
+                                                                    if (cellValue != headerValues.length - 1) {
+                                                                        out.print("|");
+                                                                    }
+                                        } else if ("CardGroup Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                            if (row.getCardgroupId() != null) {
+                                                out.print(row.getCardgroupId().toString());
+                                            }
+                                            if (cellValue != headerValues.length - 1) {
+                                                out.print("|");
+                                            }
+                                        }
+                                        else 
+                                        {
+                                            if ("Card2Id".equalsIgnoreCase(headerDataValues[cellValue].trim())) {
+                                                                    if (row.getCard2Id() != null) {
+                                                                        out.print(row.getCard2Id().toString());
+                                                                    }
+                                                                    if (cellValue != headerValues.length - 1) {
+                                                                        out.print("|");
+                                                                    }
+                                                                }
                                         }
 
 
@@ -4240,7 +4484,7 @@ public class InvoiceOverviewBean implements Serializable {
                 }
             }
             if (strTransactionPrepopulatedColumns != null) {
-                //                shuttleStatusTransaction=true;
+                                shuttleStatusTransaction=true;
                 String[] strHead =
                     strTransactionPrepopulatedColumns.split(Constants.ENGAGE_REPORT_DELIMITER);
                 for (int col = 0; col < strHead.length; col++) {

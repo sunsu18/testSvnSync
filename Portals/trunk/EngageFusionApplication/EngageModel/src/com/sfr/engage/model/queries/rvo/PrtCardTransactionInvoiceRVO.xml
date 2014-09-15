@@ -442,11 +442,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_UNIT_PRICE"
     Expression="CURRENCY_UNIT_PRICE"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -538,11 +538,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="INVOICED_NET_AMOUNT_REBATED"
     Expression="INVOICED_NET_AMOUNT_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -554,11 +554,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="INVOIVED_VAT_REBATED"
     Expression="INVOIVED_VAT_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -570,11 +570,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="INVOICED_UNIT_PRICE_REBATED"
     Expression="INVOICED_UNIT_PRICE_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -586,11 +586,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_GROSS_AMOUNT_REBATED"
     Expression="CURRENCY_GROSS_AMOUNT_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -602,11 +602,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_UNIT_PRICE_REBATED"
     Expression="CURRENCY_UNIT_PRICE_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -618,11 +618,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_GROSS_AMOUNT"
     Expression="CURRENCY_GROSS_AMOUNT"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -649,11 +649,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_VAT"
     Expression="CURRENCY_VAT"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -665,11 +665,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_DISCOUNT_AMOUNT"
     Expression="CURRENCY_DISCOUNT_AMOUNT"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -681,11 +681,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="CURRENCY_NET_AMOUNT"
     Expression="CURRENCY_NET_AMOUNT"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -697,11 +697,11 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     PrecisionRule="true"
     Precision="126"
     Scale="0"
-    Type="oracle.jbo.domain.Number"
+    Type="java.lang.Float"
     ColumnType="FLOAT"
     AliasName="INVOICED_GROSS_AMOUNT_REBATED"
     Expression="INVOICED_GROSS_AMOUNT_REBATED"
-    SQLType="NUMERIC">
+    SQLType="FLOAT">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
@@ -796,6 +796,66 @@ order by PRT_CARD_TRANSACTION_HEADER.TRANSACTION_TIME desc]]>
     ColumnType="FLOAT"
     AliasName="VIEW_ATTR"
     SQLType="FLOAT"/>
+  <ViewAttribute
+    Name="grandTotal"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Float"
+    ColumnType="FLOAT"
+    AliasName="VIEW_ATTR"
+    SQLType="FLOAT"/>
+  <ViewAttribute
+    Name="CardGroupDesc"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="TotalAmount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="InvoiceNo"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="CardTextLine2"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="CardgroupId"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.sfr.engage.model.EngageModelBundle"/>

@@ -574,8 +574,8 @@
              autoCancel="disabled">
     <af:dialog id="invoiceDetails" contentWidth="800" type="none"
                closeIconVisible="false">
-     <af:panelStretchLayout id="pssl6" dimensionsFrom="children">
-      <f:facet name="center">
+     <!--af:panelStretchLayout id="pssl6" dimensionsFrom="children">
+      <f:facet name="center">-->
        <af:panelGroupLayout id="invoiceDetails_scroll"
                             styleClass="WCPanelMargin"
                             inlineStyle="margin:5px;">
@@ -1027,8 +1027,8 @@
                            action="#{pageFlowScope.InvoiceOverviewBean.invoiceDetailsCancel}"></af:commandButton>
         </af:panelGroupLayout>
        </af:panelGroupLayout>
-      </f:facet>
-     </af:panelStretchLayout>
+       <!--</f:facet>
+     </af:panelStretchLayout>-->
     </af:dialog>
    </af:popup>
     <af:popup id="p5" contentDelivery="immediate"
@@ -1043,7 +1043,7 @@
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
          <af:selectManyShuttle id="sms1"
                                value="#{pageFlowScope.InvoiceOverviewBean.shuttleValueTransaction}"
-                               partialTriggers="cb8"
+                               partialTriggers="cb10"
                                leadingHeader="#{sfr.REPORT_AVAILABLE_VALUES}"
                                trailingHeader="#{sfr.REPORT_SELECTED_VALUES}"
                                binding="#{pageFlowScope.InvoiceOverviewBean.bindings.shuttleExcelTransactions}">
