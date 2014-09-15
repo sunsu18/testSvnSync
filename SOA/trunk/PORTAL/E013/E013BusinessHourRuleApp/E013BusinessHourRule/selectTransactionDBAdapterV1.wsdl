@@ -11,7 +11,7 @@
         </schema>
     </wsdl:types>
     <wsdl:message name="selectTransactionDBAdapterV1Select_inputParameters">
-        <wsdl:part name="selectTransactionDBAdapterV1Select_inputParameters" element="top:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters"/>
+        <wsdl:part name="selectTransactionDBAdapterV1Select_inputParameters" element="top:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters"/>
     </wsdl:message>
     <wsdl:message name="PrtCardTransactionHeaderCollection_msg">
         <wsdl:part name="PrtCardTransactionHeaderCollection" element="top:PrtCardTransactionHeaderCollection"/>

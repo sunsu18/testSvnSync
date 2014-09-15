@@ -297,14 +297,15 @@
          </xs:element>
       </xs:sequence>
    </xs:complexType>
-   <xs:element name="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters" type="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID"/>
-   <xs:complexType name="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID">
+   <xs:element name="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters" type="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCode"/>
+   <xs:complexType name="selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCode">
       <xs:sequence>
          <xs:element name="leftMin" type="xs:string" minOccurs="1" maxOccurs="1"/>
          <xs:element name="leftMax" type="xs:string" minOccurs="1" maxOccurs="1"/>
          <xs:element name="rightMin" type="xs:string" minOccurs="1" maxOccurs="1"/>
          <xs:element name="rightMax" type="xs:string" minOccurs="1" maxOccurs="1"/>
          <xs:element name="cardID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="CountryCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

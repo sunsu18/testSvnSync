@@ -33,7 +33,9 @@
          xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/selectTransactionDBAdapterV1"
          xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/selectTransactionDBAdapterV1"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1">
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1"
+         xmlns:ns7="http://www.lntinfotech.com/integration/SOARuleEngineNotification">
 
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,20 +54,54 @@
     <partnerLink name="insertCardNotificationsDBAdpterV1"
                  partnerLinkType="ns5:insertCardNotificationsDBAdpterV1_plt"
                  partnerRole="insertCardNotificationsDBAdpterV1_role"/>
+    <partnerLink name="SOARuleEngineNotificationJMSProducerV1"
+                 partnerLinkType="ns6:Produce_Message_plt"
+                 partnerRole="Produce_Message_role"/>
   </partnerLinks>
   <variables>
     <variable name="RuleServiceABO_Consume_IV"
               messageType="ns1:Consume_Message_msg"/>
     <variable name="exception" type="xsd:string"/>
+    <variable name="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+              messageType="ns6:Produce_Message_msg"/>
   </variables>
   <faultHandlers>
     <catchAll>
-      <assign name="AssignFault">
-        <copy>
-          <from expression="ora:getFaultAsString()"/>
-          <to variable="exception"/>
-        </copy>
-      </assign>
+      <sequence name="FaultHandlingSequence">
+        <assign name="AssignNotificationReq">
+          <copy>
+            <from expression="ora:getFaultAsString()"/>
+            <to variable="exception"/>
+          </copy>
+          <copy>
+            <from expression="'Email'"/>
+            <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+                part="body"
+                query="/ns7:NotificationRequest/ns7:NotificationChannel"/>
+          </copy>
+          <copy>
+            <from expression="'harneet.kochhar@lntinfotech.com;nitin.palde@lntinfotech.com'"/>
+            <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+                part="body" query="/ns7:NotificationRequest/ns7:EmailID"/>
+          </copy>
+          <copy>
+            <from expression="'Error during execution of interface E013'"/>
+            <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+                part="body"
+                query="/ns7:NotificationRequest/ns7:NotificationSubject"/>
+          </copy>
+          <copy>
+            <from expression="'Hi Associate, &lt;br>&lt;br> Exception occurred during execution of interface E013. Please look into the issue.'"/>
+            <to variable="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+                part="body"
+                query="/ns7:NotificationRequest/ns7:NotificationBody"/>
+          </copy>
+        </assign>
+        <invoke name="InvokeSOARuleEngineNotificationJMSProducerV1" bpelx:invokeAsDetail="no"
+                inputVariable="InvokeSOARuleEngineNotificationJMSProducerV1_IV"
+                partnerLink="SOARuleEngineNotificationJMSProducerV1"
+                portType="ns6:Produce_Message_ptt" operation="Produce_Message"/>
+      </sequence>
     </catchAll>
   </faultHandlers>
   <sequence name="main">
@@ -85,6 +121,7 @@
         <variable name="curStartTime" type="xsd:time"/>
         <variable name="preEndTime" type="xsd:time"/>
         <variable name="curEndTime" type="xsd:time"/>
+        <variable name="CountryCode" type="xsd:string"/>
       </variables>
       <sequence name="checkSubscriptionSequence">
         <assign name="AssignInitializeIterator">
@@ -113,6 +150,46 @@
           <copy>
             <from expression="xp20:format-dateTime(bpws:getVariableData('curDate'),'[FNn]')"/>
             <to variable="curDay"/>
+          </copy>
+        </assign>
+        
+        <while name="WhileCountryCodeCheck"
+               condition="bpws:getVariableData('iterator') &lt;= count(bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter'))">
+          <sequence name="Sequence">
+            <switch name="countryCodeSwitch">
+              <case condition="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Name') = 'CountryCode'">
+                <bpelx:annotation>
+                  <bpelx:general>
+                    <bpelx:property name="userLabel">isCountryCodeGiven</bpelx:property>
+                  </bpelx:general>
+                </bpelx:annotation>
+                <assign name="AssignCountryCode">
+                  <copy>
+                    <from expression="1"/>
+                    <to variable="flag"/>
+                  </copy>
+                  <copy>
+                    <from expression="bpws:getVariableData('RuleServiceABO_Consume_IV','body','/ns2:RuleServiceRequest/Parameters/Parameter[$iterator]/Value')"/>
+                    <to variable="CountryCode"/>
+                  </copy>
+                </assign>
+              </case>
+              <otherwise>
+                <empty name="Empty"/>
+              </otherwise>
+            </switch>
+            <assign name="AssignIncrementIterator">
+              <copy>
+                <from expression="bpws:getVariableData('iterator') + 1"/>
+                <to variable="iterator"/>
+              </copy>
+            </assign>
+          </sequence>
+        </while>
+        <assign name="Assigniterator">
+          <copy>
+            <from expression="1"/>
+            <to variable="iterator"/>
           </copy>
         </assign>
         <while name="WhileSubscriptionCheck"
@@ -154,10 +231,10 @@
         </while>
         <sequence name="checkPrevDaySubsSequence">
           <switch name="todaySubscriptionFlagSwitch">
-            <case condition="bpws:getVariableData('flag') = 1">
+            <case condition="(bpws:getVariableData('flag') = 1) and (bpws:getVariableData('CountryCode')  != '')">
               <bpelx:annotation>
                 <bpelx:general>
-                  <bpelx:property name="userLabel">IfFlagSet</bpelx:property>
+                  <bpelx:property name="userLabel">IfFlagSetAndCountryCodeAvailable</bpelx:property>
                 </bpelx:general>
               </bpelx:annotation>
               <sequence name="Sequence1">
@@ -417,34 +494,40 @@ setVariableData("cardID",cards);]]>
                                       query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMax"/>
                                 </copy-->
                                 <copy>
+                                  <from variable="CountryCode"/>
+                                  <to variable="InvokeselectTransactionDBAdapterV1_IV"
+                                      part="selectTransactionDBAdapterV1Select_inputParameters"
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:CountryCode"/>
+                                </copy>
+                                <copy>
                                   <from expression="xp20:format-dateTime(bpws:getVariableData('leftMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
                                       part="selectTransactionDBAdapterV1Select_inputParameters"
-                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMin"/>
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:leftMin"/>
                                 </copy>
                                 <copy>
                                   <from expression="xp20:format-dateTime(bpws:getVariableData('leftMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
                                       part="selectTransactionDBAdapterV1Select_inputParameters"
-                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:leftMax"/>
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:leftMax"/>
                                 </copy>
                                 <copy>
                                   <from expression="xp20:format-dateTime(bpws:getVariableData('rightMin'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
                                       part="selectTransactionDBAdapterV1Select_inputParameters"
-                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMin"/>
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:rightMin"/>
                                 </copy>
                                 <copy>
                                   <from expression="xp20:format-dateTime(bpws:getVariableData('rightMax'),'[D01]-[MN,*-3]-[Y01] [h01].[m01].[s01].[f001] [PN]')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
                                       part="selectTransactionDBAdapterV1Select_inputParameters"
-                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:rightMax"/>
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:rightMax"/>
                                 </copy>
                                 <copy>
                                   <from expression="bpws:getVariableData('cardID')"/>
                                   <to variable="InvokeselectTransactionDBAdapterV1_IV"
                                       part="selectTransactionDBAdapterV1Select_inputParameters"
-                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardIDInputParameters/ns4:cardID"/>
+                                      query="/ns4:selectTransactionDBAdapterV1Select_leftMin_leftMax_rightMin_rightMax_cardID_CountryCodeInputParameters/ns4:cardID"/>
                                 </copy>
                               </assign>
                               <invoke name="InvokeselectTransactionDBAdapterV1" bpelx:invokeAsDetail="no"
@@ -458,7 +541,7 @@ setVariableData("cardID",cards);]]>
                                   <bpelx:pattern>transformation</bpelx:pattern>
                                 </bpelx:annotation>
                                 <copy>
-                                  <from expression="ora:doXSLTransformForDoc('xsl/TransactionToCardNotifications.xsl', $InvokeselectTransactionDBAdapterV1_OV.PrtCardTransactionHeaderCollection)"/>
+                                  <from expression="ora:doXSLTransformForDoc('xsl/TransactionToCardNotifications.xsl', $InvokeselectTransactionDBAdapterV1_OV.PrtCardTransactionHeaderCollection, 'RuleServiceABO_Consume_IV.body', $RuleServiceABO_Consume_IV.body)"/>
                                   <to variable="insertCardNotificationsDBAdpterV1_IV"
                                       part="PrtCardNotificationsCollection"/>
                                 </copy>

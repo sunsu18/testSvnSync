@@ -16,4 +16,8 @@
              ui:wsdlLocation="insertCardNotificationsDBAdpterV1.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/E013BusinessHourRuleApp/E013BusinessHourRule/insertCardNotificationsDBAdpterV1#wsdl.interface(insertCardNotificationsDBAdpterV1_ptt)"/>
   </reference>
+  <reference name="SOARuleEngineNotificationJMSProducerV1"
+             ui:wsdlLocation="SOARuleEngineNotificationJMSProducerV1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/E013BusinessHourRuleApp/E013BusinessHourRule/SOARuleEngineNotificationJMSProducerV1#wsdl.interface(Produce_Message_ptt)"/>
+  </reference>
 </componentType>

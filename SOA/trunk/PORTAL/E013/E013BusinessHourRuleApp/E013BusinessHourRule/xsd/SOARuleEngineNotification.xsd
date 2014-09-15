@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
+            targetNamespace="http://www.lntinfotech.com/integration/SOARuleEngineNotification"
+            elementFormDefault="qualified">
+  <xsd:element name="NotificationRequest" type="NotificationRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="NotificationRequestType">
+    <xsd:sequence>
+      <xsd:element name="RuleID" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="SubscriptionID" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="NotificationChannel" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotificationTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="EmailID" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotificationSubject" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotificationBody" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="AlertInfo" type="AlertInfoType" minOccurs="0"/>
+      <xsd:element name="Attachment" minOccurs="0">
+        <xsd:complexType>
+          <xsd:complexContent>
+            <xsd:extension base="AttachmentsType"/>
+          </xsd:complexContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AlertInfoType">
+    <xsd:sequence>
+      <xsd:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="XMLDataType">
+    <xsd:choice>
+      <xsd:element name="AnyData" type="xsd:anyType"/>
+      <xsd:element name="Parameters" type="ParameterType"/>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentsType">
+    <xsd:sequence>
+      <xsd:element name="Attachment" type="AttachmentType"
+                   maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AttachmentType">
+    <xsd:sequence>
+      <xsd:element name="ReportHeader" type="xsd:string" minOccurs="0"/>
+      <xsd:choice>
+        <xsd:element name="XMLData" type="XMLDataType"/>
+        <xsd:element name="base64BinaryData" type="xsd:base64Binary"/>
+      </xsd:choice>
+      <xsd:element name="ReportTrailer" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="AttachmentType" type="xsd:string"/>
+      <xsd:element name="ConversionRequired" type="xsd:string"/>
+      <xsd:element name="ConversionType" type="xsd:string"/>
+      <xsd:element name="AttachmentName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ParameterType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="NotificationResponse" type="NotificationResponseType"/>
+  <xsd:complexType name="NotificationResponseType">
+    <xsd:sequence>
+      <xsd:element name="Response" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
