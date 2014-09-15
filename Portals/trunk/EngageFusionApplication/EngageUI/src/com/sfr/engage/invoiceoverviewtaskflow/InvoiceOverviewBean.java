@@ -186,6 +186,8 @@ public class InvoiceOverviewBean implements Serializable {
     private String transactionFileNamefileName;
     private String transactionStandardTransaction;
     private String transactionStandardExtraTransaction;
+    private boolean showNonCollectiveInvoicePanel = false;
+    private String invoiceType;
 
 
     public InvoiceOverviewBean() {
@@ -205,6 +207,7 @@ public class InvoiceOverviewBean implements Serializable {
         cardGroupValue = new ArrayList<String>();
         valueList = new ValueListSplit();
         cGCardVisible = true;
+        invoiceType = null;
 
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      " Inside Constructor of Invoice overview bean");
@@ -891,6 +894,7 @@ public class InvoiceOverviewBean implements Serializable {
         defaultSelection = "Transactions";
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getRadioBtnPopUp());
         isTransactionVisible = true;
+        invoiceType = null;
         BindingContainer bindings =
             BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding itr =
@@ -909,33 +913,36 @@ public class InvoiceOverviewBean implements Serializable {
 
 
         if (invoiceGroupingValue != null) {
-            if (invoiceGroupingValue.equals("FAK")) {
-
-
-                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
-                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
-                                                              invoiceNumberValue,
-                                                              null);
-                cardTransactionVO.defineNamedWhereClauseParam("country_code",
-                                                              lang, null);
-            } else {
-                if (invoiceGroupingValue.equals("SAM")) {
-
-                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
-                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
-                                                                  invoiceNumberValue,
-                                                                  null);
-                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
-                                                                  lang, null);
-                }
-            }
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "cardTransaction Query=" +
-                         cardTransactionVO.getQuery());
-            cardTransactionVO.executeQuery();
-            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
-                         "cardTransactionVO estimatedRow:" +
-                         cardTransactionVO.getEstimatedRowCount());
+            invoiceType = invoiceGroupingValue;
+//            if (invoiceGroupingValue.equals("FAK")) {
+//
+//
+//                cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
+//                cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo",
+//                                                              invoiceNumberValue,
+//                                                              null);
+//                cardTransactionVO.defineNamedWhereClauseParam("country_code",
+//                                                              lang, null);
+//            } else {
+//                if (invoiceGroupingValue.equals("SAM")) {
+//
+//                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
+//                    cardTransactionVO.defineNamedWhereClauseParam("collecInvNo",
+//                                                                  invoiceNumberValue,
+//                                                                  null);
+//                    cardTransactionVO.defineNamedWhereClauseParam("country_code",
+//                                                                  lang, null);
+//                }
+//            }
+//            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+//                         "cardTransaction Query=" +
+//                         cardTransactionVO.getQuery());
+//            cardTransactionVO.executeQuery();
+//            _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " +
+//                         "cardTransactionVO estimatedRow:" +
+//                         cardTransactionVO.getEstimatedRowCount());
+            
+            executeInvoiceTransactions(invoiceGroupingValue,invoiceNumberValue);
         }
         getBindings().getRadioBtnPopUp().setSubmittedValue(null);
         getBindings().getRadioBtnPopUp().setValue(null);
@@ -1670,11 +1677,16 @@ public class InvoiceOverviewBean implements Serializable {
         if (valueChangeEvent != null &&
             valueChangeEvent.getNewValue() != null &&
             valueChangeEvent.getNewValue().equals("Transactions")) {
+            if(getBindings().getCollectiveInvoNoOt().getValue() != null){
+            removeDynamicconditionOnTxQuery();
+            executeInvoiceTransactions(invoiceType,getBindings().getCollectiveInvoNoOt().getValue().toString().trim());
+            }
             isTransactionVisible = true;
             isInvoiceCollectionVisible = false;
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceCollectionPanel());
             AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getTransactionPanel());
         } else {
+            showNonCollectiveInvoicePanel = false;
             isTransactionVisible = false;
             isInvoiceCollectionVisible = true;
             String invoiceNo =
@@ -1777,6 +1789,7 @@ public class InvoiceOverviewBean implements Serializable {
                          "Queries are saved in session");
 
         }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceTransactionPanel());
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() +
                      "Exiting radioBtnPopUpVCE for Invoices");
     }
@@ -3906,6 +3919,18 @@ public class InvoiceOverviewBean implements Serializable {
         getBindings().getInvoiceResultsCollection().queueEvent(queryEvent3);
 
         AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
+        
+        FilterableQueryDescriptor qdNonCollectiveInvoiceTx =
+
+                    (FilterableQueryDescriptor)getBindings().getNonInvoiceCollectiveTxTable().getFilterModel();
+                
+                QueryEvent qENonCollectiveInvoiceTx =
+
+                    new QueryEvent(getBindings().getNonInvoiceCollectiveTxTable(), qdNonCollectiveInvoiceTx);
+
+                getBindings().getNonInvoiceCollectiveTxTable().queueEvent(qENonCollectiveInvoiceTx);
+
+                AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceCollectiveTxTable());
 
 
     }
@@ -3913,11 +3938,6 @@ public class InvoiceOverviewBean implements Serializable {
 
     public void resetFilterTable(ActionEvent actionEvent) {
         resetTableFilter();
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
-        AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
-
     }
 
 
@@ -3973,6 +3993,27 @@ public class InvoiceOverviewBean implements Serializable {
                                                                                   queryDescriptor3));
 
         }
+        
+        FilterableQueryDescriptor nonCollecTxtableDescriptor =
+
+                    (FilterableQueryDescriptor)getBindings().getNonInvoiceCollectiveTxTable().getFilterModel();
+
+                if (nonCollecTxtableDescriptor != null && nonCollecTxtableDescriptor.getFilterCriteria() != null)
+
+                {
+
+                    nonCollecTxtableDescriptor.getFilterCriteria().clear();
+
+                    getBindings().getNonInvoiceCollectiveTxTable().queueEvent(new QueryEvent(getBindings().getNonInvoiceCollectiveTxTable(), nonCollecTxtableDescriptor));
+
+                }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResults());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsPopup());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getInvoiceResultsCollection());
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceCollectiveTxTable());
+
+              
+                
     }
 
 
@@ -4161,62 +4202,6 @@ public class InvoiceOverviewBean implements Serializable {
         this.shuttleValueTransaction = shuttleValueTransaction;
     }
 
-    //    public void getValuesForTransactionExcel(ActionEvent actionEvent) {
-    //
-    //        if (shuttleValueTransaction == null &&
-    //            getBindings().getTransactionSelectionExportOneRadio().getValue() ==
-    //            null) {
-    //            if (shuttleValueTransaction == null) {
-    //                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-    //                    FacesMessage msg =
-    //                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-    //                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
-    //                                         "");
-    //                    FacesContext.getCurrentInstance().addMessage(null, msg);
-    //                }
-    //
-    //            } else {
-    //                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
-    //                    FacesMessage msg =
-    //                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-    //                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
-    //                                         "");
-    //                    FacesContext.getCurrentInstance().addMessage(null, msg);
-    //                }
-    //            }
-    //        } else {
-    //            if (getBindings().getTransactionSelectionExportOneRadio().getValue() !=
-    //                null) {
-    //                if (shuttleValueTransaction == null) {
-    //                    if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR")) {
-    //                        FacesMessage msg =
-    //                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-    //                                             (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR"),
-    //                                             "");
-    //                        FacesContext.getCurrentInstance().addMessage(null,
-    //                                                                     msg);
-    //                    }
-    //                } else {
-    //                    if (shuttleValueTransaction.size() > 0 &&
-    //                        getBindings().getTransactionSelectionExportOneRadio().getValue() !=
-    //                        null) {
-    //                        shuttleStatusTransaction = true;
-    //                        //                        getBindings().getConfirmationExcel().show(new RichPopup.PopupHints());
-    //                    }
-    //                }
-    //            } else {
-    //                if (resourceBundle.containsKey("TRANSACTION_SPECIFIC_ERROR_SELECTION")) {
-    //                    FacesMessage msg =
-    //                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-    //                                         (String)resourceBundle.getObject("TRANSACTION_SPECIFIC_ERROR_SELECTION"),
-    //                                         "");
-    //                    FacesContext.getCurrentInstance().addMessage(null, msg);
-    //                }
-    //            }
-    //        }
-    //    }
-
-
     public List getShuttleValueTransaction() {
 
         if (!shuttleStatusTransaction) {
@@ -4326,9 +4311,83 @@ public class InvoiceOverviewBean implements Serializable {
         }
         return transactionFileNamefileName;
     }
+    
+    public String collectiveInvoiceNumberAction(){
+            String nonCollectiveInvoiceNumberValue = null;
+            //showNonCollectiveInvoicePanel = false;
+            ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+            BindingContainer bc =BindingContext.getCurrent().getCurrentBindingsEntry();
+            DCIteratorBinding transVoItr = (DCIteratorBinding)bc.get("PrtCardTransactionInvoiceRVO1Iterator");
+            removeDynamicconditionOnTxQuery();
+            
+            if(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("collectiveInvoiceNumber") != null){
+                nonCollectiveInvoiceNumberValue = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("collectiveInvoiceNumber").toString();
+                executeInvoiceTransactions(Constants.ENGAGE_INVOICE_TX_LINK,nonCollectiveInvoiceNumberValue);
+            }
+            if(transVoItr.getEstimatedRowCount() > 0){
+                showNonCollectiveInvoicePanel = true;
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getBindings().getNonInvoiceTransactionPanel());
+            return null;
+        }
+    
+    public void executeInvoiceTransactions(String invoiceType, String invoiceNumber){
+            ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+            resetTableFilter();
+            if (invoiceNumber != null && invoiceType != null) {
+                if (invoiceType.equals("FAK") || invoiceType.equals(Constants.ENGAGE_INVOICE_TX_LINK)) {
+                    cardTransactionVO.setWhereClause("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code");
+                    cardTransactionVO.defineNamedWhereClauseParam("nonCollecInvNo", invoiceNumber, null);
+                    cardTransactionVO.defineNamedWhereClauseParam("country_code", lang, null);
+                } else {
+                    if (invoiceType.equals("SAM")) {
+                        
+                        cardTransactionVO.setWhereClause("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code");
+                        cardTransactionVO.defineNamedWhereClauseParam("collecInvNo", invoiceNumber, null);
+                        cardTransactionVO.defineNamedWhereClauseParam("country_code", lang, null);
+                    }
+                }
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransaction Query=" + cardTransactionVO.getQuery());
+                cardTransactionVO.executeQuery();
+                _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "cardTransactionVO estimatedRow:" + cardTransactionVO.getEstimatedRowCount());
+            }
+        }
+    
+    public void removeDynamicconditionOnTxQuery(){
+        ViewObject cardTransactionVO = ADFUtils.getViewObject("PrtCardTransactionInvoiceRVO1Iterator");
+        if ("INVOICE_NUMBER_COLLECTIVE =:collecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+            cardTransactionVO.removeNamedWhereClauseParam("collecInvNo");
+            cardTransactionVO.removeNamedWhereClauseParam("country_code");
+            cardTransactionVO.setWhereClause("");
+            cardTransactionVO.executeQuery();
+        }
+        if ("INVOICE_NUMBER_NON_COLLECTIVE =:nonCollecInvNo and pals_country_code=:country_code".equalsIgnoreCase(cardTransactionVO.getWhereClause())) {
+            cardTransactionVO.removeNamedWhereClauseParam("nonCollecInvNo");
+            cardTransactionVO.removeNamedWhereClauseParam("country_code");
+            cardTransactionVO.setWhereClause("");
+            cardTransactionVO.executeQuery();
+        }
+        
+    }
 
     public void setContentTypeTransaction(String contentTypeTransaction) {
         this.contentTypeTransaction = contentTypeTransaction;
+    }
+
+    public void setShowNonCollectiveInvoicePanel(boolean showNonCollectiveInvoicePanel) {
+        this.showNonCollectiveInvoicePanel = showNonCollectiveInvoicePanel;
+    }
+
+    public boolean isShowNonCollectiveInvoicePanel() {
+        return showNonCollectiveInvoicePanel;
+    }
+
+    public void setInvoiceType(String invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoiceType() {
+        return invoiceType;
     }
 
 
@@ -4362,6 +4421,8 @@ public class InvoiceOverviewBean implements Serializable {
         private RichPopup specificColumnsTransactions;
         private RichSelectManyShuttle shuttleExcelTransactions;
         private RichSelectOneRadio transactionSelectionExportOneRadio;
+        private RichPanelGroupLayout nonInvoiceTransactionPanel;
+        private RichTable nonInvoiceCollectiveTxTable;
 
 
         public void setRadioBtnPopUp(RichSelectOneRadio radioBtnPopUp) {
@@ -4656,6 +4717,22 @@ public class InvoiceOverviewBean implements Serializable {
 
         public RichTable getInvoiceResultsPopup() {
             return invoiceResultsPopup;
+        }
+        
+        public void setNonInvoiceTransactionPanel(RichPanelGroupLayout nonInvoiceTransactionPanel) {
+            this.nonInvoiceTransactionPanel = nonInvoiceTransactionPanel;
+        }
+
+        public RichPanelGroupLayout getNonInvoiceTransactionPanel() {
+            return nonInvoiceTransactionPanel;
+        }
+
+        public void setNonInvoiceCollectiveTxTable(RichTable nonInvoiceCollectiveTxTable) {
+            this.nonInvoiceCollectiveTxTable = nonInvoiceCollectiveTxTable;
+        }
+
+        public RichTable getNonInvoiceCollectiveTxTable() {
+            return nonInvoiceCollectiveTxTable;
         }
     }
 }

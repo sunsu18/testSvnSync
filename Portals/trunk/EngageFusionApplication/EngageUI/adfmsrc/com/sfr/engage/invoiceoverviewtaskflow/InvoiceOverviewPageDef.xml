@@ -191,5 +191,21 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <tree IterBinding="PrtCardTransactionInvoiceRVO1Iterator"
+          id="PrtCardTransactionInvoiceRVO11">
+      <nodeDefinition DefName="com.sfr.engage.model.queries.rvo.PrtCardTransactionInvoiceRVO"
+                      Name="PrtCardTransactionInvoiceRVO110">
+        <AttrNames>
+          <Item Value="UnitOfMeasure"/>
+          <Item Value="ProductName"/>
+          <Item Value="Quantity"/>
+          <Item Value="StationName"/>
+          <Item Value="InvoiceNumberNonCollective"/>
+          <Item Value="Card1Id"/>
+          <Item Value="InvoicedGrossAmount"/>
+          <Item Value="InvoicedNetAmount"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

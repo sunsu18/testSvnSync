@@ -861,7 +861,14 @@
                      filterFeatures="caseInsensitive" sortable="true"
                      headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}" id="c13"
                      width="90">
-           <af:outputText value="#{row.InvoiceNumber}" id="ot55"/>
+           <af:commandLink text="#{row.InvoiceNumber}" 
+                           action="#{pageFlowScope.InvoiceOverviewBean.collectiveInvoiceNumberAction}"
+                           styleClass="links af_goLink">
+            <af:setPropertyListener from="#{row.InvoiceNumber}"
+                                to="#{pageFlowScope.collectiveInvoiceNumber}"
+                                type="action"/>
+            </af:commandLink>
+           <!--<af:outputText value="#{row.InvoiceNumber}" id="ot55"/>-->
           </af:column>
           <af:column sortProperty="InvoiceDate" filterable="true" align="center"
                      filterFeatures="caseInsensitive" sortable="true"
@@ -927,6 +934,92 @@
            </af:outputText>
           </af:column>
          </af:table>
+         <af:spacer width="10" height="15" id="spc67124"/>
+         <af:panelGroupLayout id="NonCollectiveInvoiceTxPane1" layout="vertical"
+                              visible="#{pageFlowScope.InvoiceOverviewBean.showNonCollectiveInvoicePanel}"
+                              binding="#{pageFlowScope.InvoiceOverviewBean.bindings.nonInvoiceTransactionPanel}">
+         <af:panelGroupLayout id="pgl67" halign="right">
+          <af:commandButton text="#{sfr.ENGAGE_FILTER}" id="cb8"
+                            actionListener="#{pageFlowScope.InvoiceOverviewBean.filterTable}"/>
+          <af:spacer width="10" height="10" id="s27"/>
+          <af:commandButton text="#{sfr.ENGAGE_RESETFILTER}"
+                            id="cb9"
+                            actionListener="#{pageFlowScope.InvoiceOverviewBean.resetFilterTable}"/>
+         </af:panelGroupLayout>
+         <af:table value="#{bindings.PrtCardTransactionInvoiceRVO11.collectionModel}"
+                   var="row" rows="#{bindings.PrtCardTransactionInvoiceRVO11.rangeSize}"
+                   emptyText="#{bindings.PrtCardTransactionInvoiceRVO11.viewable ? (sfr.NO_DATA) : (sfr.ACCESS_DENIED_ENG)}"
+                   fetchSize="#{bindings.PrtCardTransactionInvoiceRVO11.rangeSize}"
+                   rowBandingInterval="1"
+                   filterModel="#{bindings.PrtCardTransactionInvoiceRVO1Query.queryDescriptor}"
+                   queryListener="#{bindings.PrtCardTransactionInvoiceRVO1Query.processQuery}"
+                   filterVisible="true" varStatus="vs"
+                   selectedRowKeys="#{bindings.PrtCardTransactionInvoiceRVO11.collectionModel.selectedRow}"
+                   selectionListener="#{bindings.PrtCardTransactionInvoiceRVO11.collectionModel.makeCurrent}"
+                   rowSelection="single" id="t4" columnResizing="disabled"
+                   disableColumnReordering="true" inlineStyle="height:100px;"
+                   autoHeightRows="5" width="835px"
+                   binding="#{pageFlowScope.InvoiceOverviewBean.bindings.nonInvoiceCollectiveTxTable}">
+            <af:column headerText="#{sfr.INVOICE_LINENO}" id="c1" width="50"
+                       sortable="true">
+                      <af:outputText value="#{vs.index+1}" id="ot18"/>
+           </af:column>
+           <af:column sortProperty="InvoiceNumberNonCollective" filterable="true"
+                     sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.ENGAGE_INVOICE_INVOICE_NO}"
+                     id="c25" width="95">
+           <af:outputText value="#{row.InvoiceNumberNonCollective}" id="ot66"/>
+          </af:column>
+          <af:column sortProperty="ProductName" filterable="true"
+                     sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.INVOICE_PRODUCT_NAME}"
+                     id="c28" width="85" >
+           <af:outputText value="#{row.ProductName}" id="ot76" truncateAt="20"/>
+          </af:column>
+          <af:column sortProperty="Quantity" filterable="true" sortable="true"
+                     filterFeatures="caseInsensitive"
+                     headerText="#{sfr.INVOICE_QUANTITY}"
+                     id="c30" width="75">
+           <af:outputText value="#{row.Quantity} #{row.UnitOfMeasure}" id="ot2">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>
+          </af:column>
+          <af:column sortProperty="StationName" filterable="true"
+                     sortable="true" filterFeatures="caseInsensitive"
+                     width="110" headerText="#{sfr.INVOICE_STATION}"
+                     id="c32">
+           <af:outputText value="#{row.StationName}" id="ot15" truncateAt="15"/>
+          </af:column>
+          
+          <af:column sortProperty="Card1Id" filterable="true" sortable="true"
+                     headerText="#{sfr.INVOICE_CARD}" width="147"
+                     id="c24" filterFeatures="caseInsensitive">
+           <af:outputText value="#{row.Card1Id}" id="ot67"/>
+          </af:column>
+          <af:column sortProperty="InvoicedNetAmount" filterable="true"
+                     sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.INVOICE_NET}" width="118"
+                     id="c26">
+           <af:outputText value="#{row.InvoicedNetAmount}" id="ot5">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>
+          </af:column>
+          <af:column sortProperty="InvoicedGrossAmount" filterable="true"
+                     sortable="true" filterFeatures="caseInsensitive"
+                     headerText="#{sfr.INVOICE_GROSS_AMOUNT}" width="98"
+                     id="c27">
+            <af:outputText value="#{row.InvoicedGrossAmount}" id="ot78">
+            <af:convertNumber groupingUsed="true" pattern="##.##"
+                              locale="#{pageFlowScope.InvoiceOverviewBean.locale}"
+                              minFractionDigits="2"/>
+           </af:outputText>
+          </af:column>
+         </af:table>
+         </af:panelGroupLayout>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl44" layout="horizontal">
          <af:spacer width="762" height="30" id="ss5"/>
@@ -946,7 +1039,7 @@
       <af:panelStretchLayout id="psl3" inlineStyle="width:350.0px;">
        <f:facet name="center">
         <af:panelGroupLayout id="pgl68" styleClass="WCPanelMargin">
-         <af:separator id="s27"
+         <af:separator id="s64"
                        inlineStyle="width:auto; height:1px; background-color:Scrollbar;"/>
          <af:selectManyShuttle id="sms1"
                                value="#{pageFlowScope.InvoiceOverviewBean.shuttleValueTransaction}"
@@ -962,10 +1055,10 @@
          </af:selectManyShuttle>
          <af:spacer width="4" height="10" id="s29"/>
          <h:panelGrid columns="6">
-          <af:outputText value="*" id="ot15"/>
-          <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot5"/>
+          <af:outputText value="*" id="ot55"/>
+          <af:outputText value="#{sfr.EXPORT_TO_SPECIFIC}" id="ot68"/>
           <af:spacer width="10" height="15" id="s31"/>
-          <af:outputText value=":" id="ot18"/>
+          <af:outputText value=":" id="ot77"/>
           <af:spacer width="10" height="15" id="s63"/>
           <af:selectOneRadio id="sor3" autoSubmit="true"
                              layout="horizontal"
@@ -979,7 +1072,7 @@
         </af:panelGroupLayout>
        </f:facet>
        <f:facet name="bottom">
-        <af:toolbar id="t4"
+        <af:toolbar id="t5"
                     styleClass="WCPanelColor">
          <af:panelGroupLayout layout="vertical" id="pgl69">
           <af:spacer width="4" height="10" id="s46"/>
@@ -987,7 +1080,7 @@
                                layout="horizontal">
            <af:spacer width="4" height="10" id="s62"/>
            <af:commandButton text="#{sfr.TRANSACTION_EXPORT_EXCEL_TEXT}"
-                             id="cb8">
+                             id="cb10">
                             
                              ><!-- actionListener="#{pageFlowScope.InvoiceOverviewBean.getValuesForTransactionExcel}"-->
            <af:clientListener method="exitFromPopupConfirmation" type="action"/>
