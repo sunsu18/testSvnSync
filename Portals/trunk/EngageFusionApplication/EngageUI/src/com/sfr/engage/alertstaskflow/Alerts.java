@@ -2641,7 +2641,7 @@ populateDefaultDropdown();
         if(SelectionPanel)
         {
         if(!prtCardRuleSubscriptionVO.equals(null)){
-            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(partnerDropdownAlert2.getValue().toString()));
+            prtCardRuleSubscriptionVO.setNamedWhereClauseParam("pId", populateStringValues(viewAlertsPartnerDropdown.getValue().toString()));
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("userId", userEmail);
             prtCardRuleSubscriptionVO.setNamedWhereClauseParam("countryCode", CountryCode);
             String accountQuery = "(";
