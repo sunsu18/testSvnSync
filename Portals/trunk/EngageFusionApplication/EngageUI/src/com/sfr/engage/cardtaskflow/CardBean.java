@@ -231,7 +231,7 @@ public class CardBean implements Serializable {
             }
         }
 
-        statusValue.add("0");
+        statusValue.add(Constants.ENGAGE_CARD_ACTIVE);
 
         if (lang != null) {
             currencyCode = conversionUtility.getCurrencyCode(lang);
@@ -398,19 +398,19 @@ public class CardBean implements Serializable {
 
             if (resourceBundle.containsKey("UNBLOCKED_PLURAL")) {
                 selectItem.setLabel(resourceBundle.getObject("UNBLOCKED_PLURAL").toString());
-                selectItem.setValue("0");
+                selectItem.setValue(Constants.ENGAGE_CARD_ACTIVE);
                 statusList.add(selectItem);
             }
             SelectItem selectItem1 = new SelectItem();
             if (resourceBundle.containsKey("TEMPORARY_BLOCKED")) {
                 selectItem1.setLabel(resourceBundle.getObject("TEMPORARY_BLOCKED").toString());
-                selectItem1.setValue("1");
+                selectItem1.setValue(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED);
                 statusList.add(selectItem1);
             }
             SelectItem selectItem2 = new SelectItem();
             if (resourceBundle.containsKey("PERMANENT_BLOCKED")) {
                 selectItem2.setLabel(resourceBundle.getObject("PERMANENT_BLOCKED").toString());
-                selectItem2.setValue("2");
+                selectItem2.setValue(Constants.ENGAGE_CARD_PERMANENT_BLOCKED);
                 statusList.add(selectItem2);
             }
             SelectItem selectItem3 = new SelectItem();
@@ -503,9 +503,9 @@ public class CardBean implements Serializable {
                 Collections.sort(accountIdList, comparator);
                 Collections.sort(cardGroupList, comparator);
             }
-            statusValue.add("0");
-            statusValue.add("1");
-            statusValue.add("2");
+            statusValue.add(Constants.ENGAGE_CARD_ACTIVE);
+            statusValue.add(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED);
+            statusValue.add(Constants.ENGAGE_CARD_PERMANENT_BLOCKED);
             statusValue.add("E");
 
         } else {
@@ -706,84 +706,84 @@ public class CardBean implements Serializable {
                     vo.setNamedWhereClauseParam("countryCd", lang);
                     
 
-//01 0 1
-                    if (!statusPassingValues.contains("2") && !statusPassingValues.contains("E")) {
+//for active,temporary blocked status or only active or only temporary blocked status(01, 0, 1)
+                    if (!statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains("E")) {
                         expiryQuery = "(CARD_EXPIRY > =: currentDate)";
                         vo.setNamedWhereClauseParam("status", statusPassingValues);
                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                     } else {
                         if(!statusPassingValues.contains("E")){
-                            if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-//02
+                            if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+//for active & permanent blocked status(02)
                                 vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                expiryQuery = "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED +"'))";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                            }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-//01
+                            }else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+//for active temporary blocked status(01)
                                 vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                expiryQuery = "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '"+ Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                            }else if (statusPassingValues.equalsIgnoreCase("2")) {
-//2
+                            }else if (statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
+//for permanent blocked status(2)
                                 vo.setNamedWhereClauseParam("status", statusPassingValues);
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                             }else {
-//012
-                                String status = "0,1,2";
+//for active,permanent and temporary blocked status(012)
+                                String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                 vo.setNamedWhereClauseParam("status", status);
-                                expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                expiryQuery = "((BLOCK_ACTION IN ('"+ Constants.ENGAGE_CARD_ACTIVE+"','"+ Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                             }
                         } else {
-                             if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-                                 if(statusPassingValues.contains("2")){
-//02E
-                                     String status = "0,1,2";
+                             if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+                                 if(statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+//for active, expired and permanent blocked status(02E)
+                                     String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                      vo.setNamedWhereClauseParam("status", status);
-                                     expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('0','2'))";
+                                     expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                  }else{
-//0E
-                                     String status = "0,1";
+//for expired and active status(0E)
+                                     String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                      vo.setNamedWhereClauseParam("status", status);
-                                     expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '0'))";
+                                     expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"'))";
                                  }
                                  
                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                            }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-                                if(statusPassingValues.contains("2")){
-//12E
-                                    String status = "0,1,2";
+                            }else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+                                if(statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+//for expired ,permanent & temporary blocked status(12E)
+                                    String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                     vo.setNamedWhereClauseParam("status", status);
-                                    expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                                    expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"','"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"')))";
                                 }else{
-//1E
-                                    String status = "0,1";
+//for expired and temporary blocked status(1E)
+                                    String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                     vo.setNamedWhereClauseParam("status", status);
-                                    expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '1'))";
+                                    expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"'))";
                                 }                                  
                                   vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                            }else if (statusPassingValues.contains("2") && !statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-//2E
-                                  String status = "0,1,2";
+                            }else if (statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+//for expired and permanent blocked status(2E)
+                                  String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                   vo.setNamedWhereClauseParam("status", status);
-                                  expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                  expiryQuery = "((BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                   vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                              }else if(statusPassingValues.equalsIgnoreCase("E")){
-//E
-                                  String status = "0,1";
+//for expired status(E)
+                                  String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                   vo.setNamedWhereClauseParam("status", status);
-                                  expiryQuery = "(BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate)";
+                                  expiryQuery = "(BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY < =: currentDate)";
                                   vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                             }else if(statusPassingValues.contains("0") && statusPassingValues.contains("1") && !statusPassingValues.contains("2")){
-//01E
-                                  String status = "0,1";
+                             }else if(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && !statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+//for active, expired and temporary blocked status(01E)
+                                  String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                   vo.setNamedWhereClauseParam("status", status);
-                                  expiryQuery = "BLOCK_ACTION IN ('0','1')";
+                                  expiryQuery = "BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"')";
                                   vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                              }
                              else {
-//012E
-                                 String status = "0,1,2";
+//for All combination - 012E
+                                 String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                  vo.setNamedWhereClauseParam("status", status);
                                  vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                              }
@@ -817,9 +817,9 @@ public class CardBean implements Serializable {
                         vo.defineNamedWhereClauseParam("cardGroup", populateStringValues(getBindings().getCardGroup().getValue().toString()), null);
                     }
 
-                    if (!statusPassingValues.equalsIgnoreCase("2") &&
-                        !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("2") && statusPassingValues.contains("E")) &&
-                        !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("E"))) {
+                    if (!statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&
+                        !(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && statusPassingValues.contains("E")) &&
+                        !(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && statusPassingValues.contains("E"))) {
                         Date dateNow = new java.util.Date();
                         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
                         currentDate = dateformat.format(dateNow);
@@ -882,7 +882,7 @@ public class CardBean implements Serializable {
         this.cardGroupValue = null;
         cardGroupList = new ArrayList<SelectItem>();
         statusValue = new ArrayList<String>();
-        statusValue.add("0");
+        statusValue.add(Constants.ENGAGE_CARD_ACTIVE);
         isTableVisible = false;
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Exiting clearSearchListener method of View Cards");
     }
@@ -1659,15 +1659,15 @@ public class CardBean implements Serializable {
         if (statusLabel != null) {
             statusLabel = statusLabel.trim();
 
-            if (statusLabel.equalsIgnoreCase("0")) {
+            if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_ACTIVE)) {
                 if (resourceBundle.containsKey("UNBLOCKED_PLURAL")) {
                     return resourceBundle.getObject("UNBLOCKED_PLURAL").toString();
                 }
-            } else if (statusLabel.equalsIgnoreCase("1")) {
+            } else if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
                 if (resourceBundle.containsKey("TEMPORARY_BLOCKED")) {
                     return resourceBundle.getObject("TEMPORARY_BLOCKED").toString();
                 }
-            } else if (statusLabel.equalsIgnoreCase("2")) {
+            } else if (statusLabel.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
                 if (resourceBundle.containsKey("PERMANENT_BLOCKED")) {
                     return resourceBundle.getObject("PERMANENT_BLOCKED").toString();
                 }
@@ -2771,85 +2771,86 @@ public class CardBean implements Serializable {
         vo.setNamedWhereClauseParam("partnerId", getBindings().getPartner().getValue().toString().trim());
 
         vo.setNamedWhereClauseParam("countryCd", lang);
+                            
 
-        //01 0 1
-                            if (!statusPassingValues.contains("2") && !statusPassingValues.contains("E")) {
+        //for active,temporary blocked status or only active or only temporary blocked status(01, 0, 1)
+                            if (!statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains("E")) {
                                 expiryQuery = "(CARD_EXPIRY > =: currentDate)";
                                 vo.setNamedWhereClauseParam("status", statusPassingValues);
                                 vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                             } else {
                                 if(!statusPassingValues.contains("E")){
-                                    if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-        //02
+                                    if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+        //for active & permanent blocked status(02)
                                         vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                        expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        expiryQuery = "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_ACTIVE + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '" + Constants.ENGAGE_CARD_PERMANENT_BLOCKED +"'))";
                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                                    }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-        //01
+                                    }else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+        //for active temporary blocked status(01)
                                         vo.setNamedWhereClauseParam("status", statusPassingValues);
-                                        expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        expiryQuery = "((BLOCK_ACTION = '" + Constants.ENGAGE_CARD_TEMPORARY_BLOCKED + "' AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '"+ Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                                    }else if (statusPassingValues.equalsIgnoreCase("2")) {
-        //2
+                                    }else if (statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)) {
+        //for permanent blocked status(2)
                                         vo.setNamedWhereClauseParam("status", statusPassingValues);
                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                                     }else {
-        //012
-                                        String status = "0,1,2";
+        //for active,permanent and temporary blocked status(012)
+                                        String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                         vo.setNamedWhereClauseParam("status", status);
-                                        expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                        expiryQuery = "((BLOCK_ACTION IN ('"+ Constants.ENGAGE_CARD_ACTIVE+"','"+ Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY > =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                         vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                                     }
                                 } else {
-                                     if (statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-                                         if(statusPassingValues.contains("2")){
-        //02E
-                                             String status = "0,1,2";
+                                     if (statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+                                         if(statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+        //for active, expired and permanent blocked status(02E)
+                                             String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                              vo.setNamedWhereClauseParam("status", status);
-                                             expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('0','2'))";
+                                             expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"' AND CARD_EXPIRY < =: currentDate) OR BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                          }else{
-        //0E
-                                             String status = "0,1";
+        //for expired and active status(0E)
+                                             String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                              vo.setNamedWhereClauseParam("status", status);
-                                             expiryQuery = "((BLOCK_ACTION = '1' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '0'))";
+                                             expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"'))";
                                          }
                                          
                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                                    }else if (!statusPassingValues.contains("0") && statusPassingValues.contains("1")) {
-                                        if(statusPassingValues.contains("2")){
-        //12E
-                                            String status = "0,1,2";
+                                    }else if (!statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+                                        if(statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+        //for expired ,permanent & temporary blocked status(12E)
+                                            String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                             vo.setNamedWhereClauseParam("status", status);
-                                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('1','2')))";
+                                            expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"','"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"')))";
                                         }else{
-        //1E
-                                            String status = "0,1";
+        //for expired and temporary blocked status(1E)
+                                            String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                             vo.setNamedWhereClauseParam("status", status);
-                                            expiryQuery = "((BLOCK_ACTION = '0' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '1'))";
+                                            expiryQuery = "((BLOCK_ACTION = '"+Constants.ENGAGE_CARD_ACTIVE+"' AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"'))";
                                         }                                  
                                           vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                                    }else if (statusPassingValues.contains("2") && !statusPassingValues.contains("0") && !statusPassingValues.contains("1")) {
-        //2E
-                                          String status = "0,1,2";
+                                    }else if (statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && !statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && !statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED)) {
+        //for expired and permanent blocked status(2E)
+                                          String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                           vo.setNamedWhereClauseParam("status", status);
-                                          expiryQuery = "((BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '2'))";
+                                          expiryQuery = "((BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY < =: currentDate) OR (BLOCK_ACTION = '"+Constants.ENGAGE_CARD_PERMANENT_BLOCKED+"'))";
                                           vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                                      }else if(statusPassingValues.equalsIgnoreCase("E")){
-        //E
-                                          String status = "0,1";
+        //for expired status(E)
+                                          String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                           vo.setNamedWhereClauseParam("status", status);
-                                          expiryQuery = "(BLOCK_ACTION IN ('0','1') AND CARD_EXPIRY < =: currentDate)";
+                                          expiryQuery = "(BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"') AND CARD_EXPIRY < =: currentDate)";
                                           vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
-                                     }else if(statusPassingValues.contains("0") && statusPassingValues.contains("1") && !statusPassingValues.contains("2")){
-        //01E
-                                          String status = "0,1";
+                                     }else if(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && !statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED)){
+        //for active, expired and temporary blocked status(01E)
+                                          String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED;
                                           vo.setNamedWhereClauseParam("status", status);
-                                          expiryQuery = "BLOCK_ACTION IN ('0','1')";
+                                          expiryQuery = "BLOCK_ACTION IN ('"+Constants.ENGAGE_CARD_ACTIVE+"','"+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+"')";
                                           vo.setWhereClause(accountQuery + "AND " + cardGroupQuery + "AND " + expiryQuery);
                                      }
                                      else {
-        //012E
-                                         String status = "0,1,2";
+        //for All combination - 012E
+                                         String status = Constants.ENGAGE_CARD_ACTIVE+","+Constants.ENGAGE_CARD_TEMPORARY_BLOCKED+","+Constants.ENGAGE_CARD_PERMANENT_BLOCKED;
                                          vo.setNamedWhereClauseParam("status", status);
                                          vo.setWhereClause(accountQuery + "AND " + cardGroupQuery);
                                      }
@@ -2884,9 +2885,9 @@ public class CardBean implements Serializable {
         }
 
 
-        if (!statusPassingValues.equalsIgnoreCase("2") &&
-            !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("2") && statusPassingValues.contains("E")) &&
-            !(statusPassingValues.contains("0") && statusPassingValues.contains("1") && statusPassingValues.contains("E"))) {
+        if (!statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) &&
+            !(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && statusPassingValues.contains(Constants.ENGAGE_CARD_PERMANENT_BLOCKED) && statusPassingValues.contains("E")) &&
+            !(statusPassingValues.contains(Constants.ENGAGE_CARD_ACTIVE) && statusPassingValues.contains(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED) && statusPassingValues.contains("E"))) {
             Date dateNow = new java.util.Date();
             SimpleDateFormat dateformat = new SimpleDateFormat("dd-MMM-yy");
             currentDate = dateformat.format(dateNow);
@@ -3015,7 +3016,7 @@ public class CardBean implements Serializable {
         String statusPassingValues = null;
         if (getBindings().getStatus().getValue() != null) {
             statusPassingValues = populateStringValues(getBindings().getStatus().getValue().toString());
-            if(statusPassingValues.equalsIgnoreCase("0")){
+            if(statusPassingValues.equalsIgnoreCase(Constants.ENGAGE_CARD_ACTIVE)){
                 blockedDateTime = false;
             }else{
                 blockedDateTime = true;

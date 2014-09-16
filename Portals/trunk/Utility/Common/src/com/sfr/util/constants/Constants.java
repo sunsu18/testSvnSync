@@ -762,5 +762,8 @@ public class Constants {
     public static final String ENGAGE_2_IN_1_CARD_CHECK = "BAK,BBK,BCK,BDK,BEK,BFK,B5K,B4K,B3K,B2K,B1K,B0K,SAK,SBK,SCK,SDK,SEK,SFK,S5K,S4K,S3K,S2K,S1K,S0K";
     public static final String ENGAGE_INVOICE_TX_LINK = "InvoiceTransactionLink";
 
-
+    //Engage Card Status Constants(value of block_code in prt_card table)
+    public static final String ENGAGE_CARD_ACTIVE = "0";
+    public static final String ENGAGE_CARD_TEMPORARY_BLOCKED = "1";
+    public static final String ENGAGE_CARD_PERMANENT_BLOCKED = "2";
 }

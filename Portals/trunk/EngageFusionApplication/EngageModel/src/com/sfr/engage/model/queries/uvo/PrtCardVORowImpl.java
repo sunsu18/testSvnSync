@@ -3,6 +3,8 @@ package com.sfr.engage.model.queries.uvo;
 
 import com.sfr.engage.model.resources.EngageResourceBundle;
 
+import com.sfr.util.constants.Constants;
+
 import java.math.BigDecimal;
 
 import java.sql.Date;
@@ -1359,15 +1361,23 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      * @return the BLOCK_TIME
      */
     public Timestamp getBlockTime() {
-        java.sql.Timestamp sq;
-        java.util.Date utilDate;
-        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) ||  "1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().before(new java.util.Date()))
+        if(getCardExpiry().before(new java.util.Date())&& getCardExpiry() != null)
         {
-            utilDate = new java.util.Date();
-            utilDate = (Date) getAttributeInternal(CARDEXPIRY);
-            sq =  new java.sql.Timestamp(utilDate.getTime());
-        return sq;
+            if(getBlockAction() != null)
+            {
+                if(Constants.ENGAGE_CARD_ACTIVE.equalsIgnoreCase(getBlockAction().toString().trim()) ||
+                   Constants.ENGAGE_CARD_TEMPORARY_BLOCKED.equalsIgnoreCase(getBlockAction().toString().trim()))
+                {
+                    java.sql.Timestamp sq;
+                    java.util.Date utilDate;
+                    utilDate = new java.util.Date();
+                    utilDate = (Date) getAttributeInternal(CARDEXPIRY);
+                    sq =  new java.sql.Timestamp(utilDate.getTime());
+                    return sq;
+                }
+            }
         }
+        
         return (Timestamp) getAttributeInternal(BLOCKTIME);
     }
 
@@ -1577,38 +1587,39 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      */
     public String getStatus() {
         String result="";
-        if(getBlockAction()!=null){
+        if(getBlockAction()!=null)
+        {
             resourceBundle = new EngageResourceBundle();
-            if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
-            {
-                if (resourceBundle.containsKey("UNBLOCKED_SINGULAR"))
-                {
-                result= resourceBundle.getObject("UNBLOCKED_SINGULAR").toString().trim() ;
-                 }
-            }else if("1".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null  && getCardExpiry().after(new java.util.Date()))
-            {
-                if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
-                {
-               result=resourceBundle.getObject("TEMPORARY_BLOCKED").toString().trim() ;
-                }
-            }else if("2".equalsIgnoreCase(getBlockAction().toString().trim()))
+            if(Constants.ENGAGE_CARD_PERMANENT_BLOCKED.equalsIgnoreCase(getBlockAction().toString().trim()))
             {
                 if (resourceBundle.containsKey("PERMANENT_BLOCKED"))
                 {
                     result=resourceBundle.getObject("PERMANENT_BLOCKED").toString().trim() ;
                 }
-            }else if(getCardExpiry() != null && getCardExpiry().before(new java.util.Date()) &&
-                     ("0".equalsIgnoreCase(getBlockAction().toString().trim()) || "1".equalsIgnoreCase(getBlockAction().toString().trim()))){
+            }else if(getCardExpiry() != null && getCardExpiry().after(new java.util.Date()))
+            {
+                if(Constants.ENGAGE_CARD_ACTIVE.equalsIgnoreCase(getBlockAction().toString().trim()))
+                {
+                    if (resourceBundle.containsKey("UNBLOCKED_SINGULAR"))
+                    {
+                        result= resourceBundle.getObject("UNBLOCKED_SINGULAR").toString().trim() ;
+                    }
+                }else if(Constants.ENGAGE_CARD_TEMPORARY_BLOCKED.equalsIgnoreCase(getBlockAction().toString().trim()))
+                {
+                    if (resourceBundle.containsKey("TEMPORARY_BLOCKED"))
+                    {
+                        result=resourceBundle.getObject("TEMPORARY_BLOCKED").toString().trim() ;
+                    }
+                }
+            } else 
+            {
                 if (resourceBundle.containsKey("EXPIRED"))
                 {
                     result=resourceBundle.getObject("EXPIRED").toString().trim() ;
                 }
             }
         }
-               return result;
-        
-        
-        
+        return result;
     }
 
     /**
@@ -1624,10 +1635,15 @@ public class PrtCardVORowImpl extends ViewRowImpl {
      * @return the Expirydate
      */
     public Date getExpirydate() {
-        
-        if("0".equalsIgnoreCase(getBlockAction().toString().trim()) && getCardExpiry() != null && getCardExpiry().after(new java.util.Date())){
-            return (Date) getAttributeInternal(CARDEXPIRY);
+        if(getBlockAction() != null && getCardExpiry() != null)
+        {
+            if(Constants.ENGAGE_CARD_ACTIVE.equalsIgnoreCase(getBlockAction().toString().trim()) &&
+               getCardExpiry().after(new java.util.Date()))
+            {
+                return (Date) getAttributeInternal(CARDEXPIRY);
+            }
         }
+        
         return null;
     }
 
