@@ -130,7 +130,7 @@
             </af:table>
             <af:spacer width="10" height="2" id="s6"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right">
+          <af:panelGroupLayout id="pgl50" layout="horizontal" halign="right" inlineStyle="width: 320px;">
             <af:commandButton text="#{sfr.EDIT}" id="cb1"
                               actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"
                               binding="#{pageFlowScope.AlertsBean.editButtonAlert1}"/>
@@ -149,8 +149,8 @@
             <af:commandButton text="Close" id="cb10" rendered="false"
                               binding="#{pageFlowScope.AlertsBean.closeButtonAlert1}"
                               actionListener="#{pageFlowScope.AlertsBean.closeAlert1Popup}"/>
-            <af:spacer width="20" height="20" id="s60"
-                       inlineStyle="margin-top: 13px;"/>
+            <!--<af:spacer width="20" height="20" id="s60"
+                       inlineStyle="margin-top: 13px;"/>-->
           </af:panelGroupLayout>
         </af:dialog>
       </af:popup>
@@ -495,12 +495,12 @@
         </af:column>
         <af:column sortProperty="PartnerId" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.PartnerId.label}"
-                   id="c5" width="160">
+                   id="c5" width="110">
           <af:outputText value="#{row.PartnerId}" id="ot38"/>
         </af:column>
         <af:column sortProperty="AccountId" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.AccountId.label}"
-                   id="c4" width="115">
+                   id="c4" width="95">
           <af:outputText value="#{row.AccountId}" id="ot34"/>
         </af:column>
         <!--<af:column sortProperty="CardgroupMain" filterable="true"
@@ -514,11 +514,15 @@
                    id="c6">
           <af:outputText value="#{row.CardgroupSeq}" id="ot32"/>
         </af:column>-->
-        <!--<af:column sortProperty="CardgroupSub" filterable="true" sortable="true"
-                   headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.CardgroupSub.label}"
+        <af:column sortProperty="CardgroupSub" filterable="true" sortable="true"
+                   width="100" headerText="CardGroupId"
                    id="c10">
-          <af:outputText value="#{row.CardgroupSub}" id="ot35"/>
-        </af:column>-->
+          <af:outputText value="#{row.CardgroupMain}" id="ot35"
+                         visible="#{row.CardgroupMain eq 'ALL'}"/>
+         <af:outputText value="#{row.CardgroupMain}#{row.CardgroupSub}#{row.CardgroupSeq}"
+                        id="ot62"
+                         visible="#{row.CardgroupMain ne 'ALL'}"/>
+        </af:column>
         <af:column sortProperty="CardKsid" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.CardKsid.label}"
                    id="c3" width="115">
@@ -534,7 +538,7 @@
             <af:convertDateTime pattern="#{bindings.PrtCardRuleSubscriptionRVO11.hints.SubscrDate.format}"/>
           </af:outputText>
         </af:column>
-                    <af:column id="c6" width="80">
+                    <af:column id="c6" width="40">
               <af:commandImageLink id="cil1"
                            
                             icon="/images/edit.png"
@@ -573,16 +577,16 @@
           <af:panelGroupLayout id="pgl39">
             <af:panelGroupLayout id="pgl40" styleClass="successPanel"
                                  layout="horizontal" visible="false"
-                                 binding="#{pageFlowScope.AlertsBean.alertSuccessProperty}"
+                                 
                                  inlineStyle="width:320.0px;">
               <af:outputText id="ot32" value="#{sfr.SUCCESS_ALERT}"
                              styleClass="successOutputText" noWrap="true"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl41" styleClass="infoPanel"
                                  layout="horizontal" visible="false"
-                                 inlineStyle="width:320.0px;"
-                                 binding="#{pageFlowScope.AlertsBean.alert1ValidData}">
-              <af:outputText id="ot35" value="#{sfr.INVALID_INPUT_ALERT}"
+                                 inlineStyle="width:320.0px;">
+                                 
+              <af:outputText id="ot61" value="#{sfr.INVALID_INPUT_ALERT}"
                              styleClass="infoOutputText" noWrap="true"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl43" styleClass="errorPanel"
@@ -601,7 +605,7 @@
                                     unselectedLabel="#{sfr.PLEASE_SELECT}"
                                     binding="#{pageFlowScope.AlertsBean.configureAlert1PartnerValues}"
                                     value="#{pageFlowScope.AlertsBean.configurePartnerIdValue}"
-                                    >
+                                    readOnly="true">
                   <f:selectItems value="#{pageFlowScope.AlertsBean.configurePartnerAlert1List}"
                                  id="si10"/>
                 </af:selectOneChoice>
@@ -639,7 +643,7 @@
                                 binding="#{pageFlowScope.AlertsBean.configureFromTimingsMm}"/>
                 </af:panelGroupLayout>
               </af:column>
-              <af:column sortable="false" id="c10" align="center"
+              <af:column sortable="false" id="c12" align="center"
                          headerText="#{sfr.ENGAGE_TO}" styleClass="alertPopup1">
                 <af:panelGroupLayout id="pgl47" layout="horizontal">
                   <af:inputText id="it8" value="#{row.toHh}" readOnly="true"
@@ -656,13 +660,13 @@
             </af:table>
             <af:spacer width="10" height="2" id="s59"/>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl48" layout="horizontal" halign="right">
-            <af:commandButton text="#{sfr.EDIT}" id="cb12"
+          <af:panelGroupLayout id="pgl48" layout="horizontal" halign="right" inlineStyle="width:320.0px;">
+            <!--<af:commandButton text="#{sfr.EDIT}" id="cb12"
                               
                               binding="#{pageFlowScope.AlertsBean.editButtonConfigureAlert1}"
-                              actionListener="#{pageFlowScope.AlertsBean.editAlert1ConfigureTimings}"/>
+                              actionListener="#{pageFlowScope.AlertsBean.editAlert1ConfigureTimings}"/>-->
             <af:spacer width="20" id="s62"/>
-            <af:commandButton text="#{sfr.OK}" id="cb13"
+            <!--<af:commandButton text="#{sfr.OK}" id="cb13"
                               
                               partialSubmit="true"
                               
@@ -670,17 +674,17 @@
                               binding="#{pageFlowScope.AlertsBean.okButtonConfigureAlert1}">
               <af:clientListener method="enforcePreventUserInput"
                                  type="action"/>
-            </af:commandButton>
+            </af:commandButton>-->
             <af:spacer width="20" id="s63"/>
             <af:commandButton text="#{sfr.CANCEL}" id="cb14" actionListener="#{pageFlowScope.AlertsBean.claoseConfigureAlert1Popup}"
                               binding="#{pageFlowScope.AlertsBean.cancelButtonConfigureAlert1}"/>
-            <af:commandButton text="Close" id="cb15" rendered="false"
+            <!--<af:commandButton text="Close" id="cb15" rendered="false"
                              
                               
                               binding="#{pageFlowScope.AlertsBean.closeButtonConfigureAlert1}"
-                              actionListener="#{pageFlowScope.AlertsBean.closeConfigureAlert1Popup}"/>
-            <af:spacer width="20" height="20" id="s64"
-                       inlineStyle="margin-top: 13px;"/>
+                              actionListener="#{pageFlowScope.AlertsBean.closeConfigureAlert1Popup}"/>-->
+            <!--<af:spacer width="20" height="20" id="s64"
+                       inlineStyle="margin-top: 13px;"/>-->
           </af:panelGroupLayout>
         </af:dialog>
       </af:popup>
@@ -705,14 +709,14 @@
             <af:panelGroupLayout id="pgl52" styleClass="successPanel"
                                  layout="horizontal"
                                  inlineStyle="width:610.0px;" rendered="false"
-                                 binding="#{pageFlowScope.AlertsBean.successAlert2}">
+                                 >
               <af:outputText id="ot45" value="#{sfr.SUCCESS_ALERT}"
                              styleClass="successOutputText" noWrap="true"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pgl53" styleClass="infoPanel"
                                  layout="horizontal" visible="false"
                                  inlineStyle="width:610.0px;"
-                                 binding="#{pageFlowScope.AlertsBean.alert2ValidData}">
+                                 >
               <af:outputText id="ot46" value="#{sfr.INVALID_INPUT_ALERT}"
                              styleClass="infoOutputText" noWrap="true"/>
             </af:panelGroupLayout>
@@ -734,7 +738,8 @@
                                        valueChangeListener="#{pageFlowScope.AlertsBean.partnerValueChangeListener}"
                                        
                                        binding="#{pageFlowScope.AlertsBean.configurePartnerDropdownAlert2}"
-                                       value="#{pageFlowScope.AlertsBean.configurePartnerIdValue2}">
+                                       value="#{pageFlowScope.AlertsBean.configurePartnerIdValue2}"
+                                       readOnly="true">
                     <f:selectItems value="#{pageFlowScope.AlertsBean.configurePartnerIdList}"
                                    id="si11"/>
                   </af:selectManyChoice>
@@ -746,7 +751,8 @@
                                        
                                        
                                        partialTriggers="smc1"
-                                       binding="#{pageFlowScope.AlertsBean.configureAccountDropdwonAlert2}">
+                                       binding="#{pageFlowScope.AlertsBean.configureAccountDropdwonAlert2}"
+                                       readOnly="true">
                     <f:selectItems value="#{pageFlowScope.AlertsBean.configureAccountIdList}"
                                    id="si12"/>
                   </af:selectManyChoice>
@@ -758,7 +764,8 @@
                                        valueChangeListener="#{pageFlowScope.AlertsBean.cardgroupValueChangeListener}"
                                        partialTriggers="smc1 smc4"
                                        autoSubmit="true"
-                                       binding="#{pageFlowScope.AlertsBean.configureCardGroupDowndownAlert2}">
+                                       binding="#{pageFlowScope.AlertsBean.configureCardGroupDowndownAlert2}"
+                                       readOnly="true">
                     <f:selectItems value="#{pageFlowScope.AlertsBean.configureCardGroupList}"
                                    id="si13"/>
                   </af:selectManyChoice>
@@ -769,7 +776,8 @@
                                        
                                        partialTriggers="smc1 smc4 smc3"
                                        autoSubmit="true"
-                                       binding="#{pageFlowScope.AlertsBean.configureCardDropdownAlert2}">
+                                       binding="#{pageFlowScope.AlertsBean.configureCardDropdownAlert2}"
+                                       readOnly="true">
                     <f:selectItems value="#{pageFlowScope.AlertsBean.configureCardNumberList}"
                                    id="si14"/>
                   </af:selectManyChoice>
@@ -812,13 +820,13 @@
             <!--<af:commandButton text="#{sfr.EDIT}" id="cb1"
                         actionListener="#{pageFlowScope.AlertsBean.editAlert1Timings}"/>-->
             <af:spacer width="20" id="s78"/>
-            <af:commandButton text="#{sfr.OK}" id="cb16"
+            <!--<af:commandButton text="#{sfr.OK}" id="cb16"
                               
                               binding="#{pageFlowScope.AlertsBean.configureOkButtonAlert2}"
                               actionListener="#{pageFlowScope.AlertsBean.setConfigureFuelCapacityAlert}">
               <af:clientListener method="enforcePreventUserInput"
                                  type="action"/>
-            </af:commandButton>
+            </af:commandButton>-->
             <af:spacer width="20" id="s79"/>
             <af:commandButton text="#{sfr.CANCEL}" id="cb18"
                               
