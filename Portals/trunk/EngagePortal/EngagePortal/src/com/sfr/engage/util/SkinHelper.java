@@ -187,7 +187,19 @@ public class SkinHelper extends ThreadSerialization {
         return accessDC;
     }
 
-    public String changePreferredLang() {
+    public void changePreferredLangToEng(){
+        String selectedFlag = "en_US";
+        changePreferredLang(selectedFlag);
+    }
+    
+    public void changePreferredLangToOtherLang(){
+        Conversion conv = new Conversion();
+        HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
+        String selectedFlag = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+        changePreferredLang(selectedFlag);
+    }
+
+    public void changePreferredLang(String selectedFlag) {
         _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside changePreferredLang of SkinHelper");
         HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
         User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
@@ -217,19 +229,17 @@ public class SkinHelper extends ThreadSerialization {
                         if(user.getFirstName() != null){
                             userName = user.getFirstName();
                         }
-                        if(preferredLang.equalsIgnoreCase("en_US")){
-                            Conversion conv = new Conversion();
-                            preferredLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+                        if(preferredLang.equalsIgnoreCase(selectedFlag)){
                         }
                         else{
-                            preferredLang = "en_US";
+                            currRow.remove();
+                            //instead of removing can I jst edit the col?
+                            Row row = vo.createRow();
+                            row.setAttribute("UserId", userEmail);
+                            row.setAttribute("PreferredLang", selectedFlag);
+                            row.setAttribute("ModifiedBy", userName);
                         }
-                        currRow.remove();
-                        //instead of removing can I jst edit the col?
-                        Row row = vo.createRow();
-                        row.setAttribute("UserId", userEmail);
-                        row.setAttribute("PreferredLang", preferredLang);
-                        row.setAttribute("ModifiedBy", userName);
+
                     }
                 }
             }else {
@@ -240,7 +250,7 @@ public class SkinHelper extends ThreadSerialization {
                 }
                 Row row = vo.createRow();
                 row.setAttribute("UserId", userEmail);
-                row.setAttribute("PreferredLang", "en_US");
+                row.setAttribute("PreferredLang", selectedFlag);
                 row.setAttribute("ModifiedBy", userName);
                 //commit should be done here or outside else block?
             }
@@ -268,8 +278,6 @@ public class SkinHelper extends ThreadSerialization {
             }
             
         }
-        
-        return null;
     }
 
     public void setFlag(String flag) {
@@ -278,60 +286,14 @@ public class SkinHelper extends ThreadSerialization {
 
     public String getFlag() {
         HttpSession session = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
-        User user = (User)session.getAttribute(Constants.SESSION_USER_INFO);
-        String userEmail = user.getEmailID();
-        DCBindingContainer bindings;
-        String preferredLang = "en_US";
-        bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry().get("pageTemplateBinding");
-        if (bindings == null || bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator") == null) {
-            bindings = (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
-        }
-        DCIteratorBinding iter;
-        if (bindings != null) {
-            iter = bindings.findIteratorBinding("PrtUserPreferredLangVO1Iterator");
-        } else {
-            iter = null;
-        }
-        if (iter != null) {
-            ViewObject vo = iter.getViewObject();
-            vo.setWhereClause("PrtUserPreferredLangEO.USER_ID=:userEmail");
-            vo.defineNamedWhereClauseParam("userEmail", userEmail, null);
-            vo.executeQuery();
-            
-            if (vo.getEstimatedRowCount() != 0) {
-                while (vo.hasNext()) {
-                    PrtUserPreferredLangVORowImpl currRow = (PrtUserPreferredLangVORowImpl)vo.next();
-                    if(currRow.getUserId() != null && currRow.getPreferredLang() != null){
-                        preferredLang = currRow.getPreferredLang();
-                    }
-                    
-                    if(preferredLang.equalsIgnoreCase("da_DK")){
-                        flag = "English";
-                    } else if(preferredLang.equalsIgnoreCase("se_SE")){
-                        flag = "English";
-                    } else if(preferredLang.equalsIgnoreCase("no_NO")){
-                        flag = "English";
-                    } else if(preferredLang.equalsIgnoreCase("en_US")){
-                        Conversion conv = new Conversion();
-                        preferredLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
-                        if(preferredLang.equalsIgnoreCase("da_DK")){
-                            flag = "Denmark";
-                        } else if(preferredLang.equalsIgnoreCase("se_SE")){
-                            flag = "Swedish";
-                        } else if(preferredLang.equalsIgnoreCase("no_NO")){
-                            flag = "Norway";
-                        }
-                    }
-                }
-            } else{
-                flag = "English";
-            }
-            
-            if("PrtUserPreferredLangEO.USER_ID=:userEmail".equalsIgnoreCase(vo.getWhereClause())){
-                vo.removeNamedWhereClauseParam("userEmail");
-                vo.setWhereClause("");
-                vo.executeQuery();
-            }            
+        Conversion conv = new Conversion();
+        String preferredLang = conv.getCustomerCountryCode((String)session.getAttribute(Constants.DISPLAY_PORTAL_LANG));
+        if(preferredLang.equalsIgnoreCase("da_DK")){
+            flag = "Denmark";
+        } else if(preferredLang.equalsIgnoreCase("se_SE")){
+            flag = "Swedish";
+        } else if(preferredLang.equalsIgnoreCase("no_NO")){
+            flag = "Norway";
         }
         return flag;
     }

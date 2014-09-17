@@ -5,6 +5,8 @@ import com.sfr.engage.core.ValueListSplit;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
 import com.sfr.util.AccessDataControl;
+import com.sfr.util.constants.Constants;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -530,7 +532,7 @@ public class UserDisplayBean {
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")){
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName","WCP_CARD_B2B_ADMIN");
+                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_ADMIN);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString().trim()));
                         vo.executeQuery();
                         isTableVisible = true;
@@ -556,7 +558,7 @@ public class UserDisplayBean {
                         }
                         accountQuery = "(";  
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName","WCP_CARD_B2B_MGR");
+                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (accountIdValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values > 150 ");
@@ -634,7 +636,7 @@ public class UserDisplayBean {
                         
                         vo.setWhereClause(cardGroupQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", "WCP_CARD_B2B_MGR");
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardGroupValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values > 150 ");
@@ -693,7 +695,7 @@ public class UserDisplayBean {
                         }
                         vo.setWhereClause(cardQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", "WCP_CARD_B2B_EMP");
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
                         vo.setNamedWhereClauseParam("PID", populateStringValues(getBindings().getPartner().getValue().toString()));
                         if (cardNumberValue.size() > 150) {
                             _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values > 150 ");
@@ -766,7 +768,7 @@ public class UserDisplayBean {
                     if(getBindings().getRole().getValue().toString().trim().contains("WCP_CARD_B2B_ADMIN")){
                         ViewObject vo = ADFUtils.getViewObject("PrtUserDisplayForAdminRVO1Iterator");
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName","WCP_CARD_B2B_ADMIN");
+                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_ADMIN);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         vo.executeQuery();
                         isTableVisible = true;
@@ -797,7 +799,7 @@ public class UserDisplayBean {
                         accountQuery = "INSTR(:account,ACCOUNT_ID)<>0 ";
                         vo.setWhereClause(accountQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName","WCP_CARD_B2B_MGR");
+                        vo.setNamedWhereClauseParam("roleName",Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Account Values < 150 ");
                         vo.defineNamedWhereClauseParam("account", passingAccount, null);
@@ -832,7 +834,7 @@ public class UserDisplayBean {
                         
                         vo.setWhereClause(cardGroupQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", "WCP_CARD_B2B_MGR");
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_MGR);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "CardGroup Values < 150 ");
                         vo.defineNamedWhereClauseParam("cardGroup", passingPartner + passingCardgroup, null);
@@ -869,7 +871,7 @@ public class UserDisplayBean {
                         cardQuery = "INSTR(:card,CARD)<>0 ";
                         vo.setWhereClause(cardQuery);
                         vo.setNamedWhereClauseParam("cc", lang);
-                        vo.setNamedWhereClauseParam("roleName", "WCP_CARD_B2B_EMP");
+                        vo.setNamedWhereClauseParam("roleName", Constants.ROLE_WCP_CARD_B2B_EMP);
                         vo.setNamedWhereClauseParam("PID", passingPartner);
                         _logger.info(accessDC.getDisplayRecord() + this.getClass() + " " + "Card Values < 150 ");
                         vo.defineNamedWhereClauseParam("card", passingCard, null);
