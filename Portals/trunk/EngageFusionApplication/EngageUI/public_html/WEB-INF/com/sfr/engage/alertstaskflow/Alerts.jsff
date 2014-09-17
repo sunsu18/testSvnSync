@@ -318,9 +318,13 @@
     <af:panelGroupLayout id="pgl22">
       <af:spacer width="10" height="10" id="s32"/>
     </af:panelGroupLayout>
+    <af:panelGroupLayout layout="horizontal">
      <af:selectBooleanRadio id="sbr41" autoSubmit="true" group="mainselection"
                             binding="#{pageFlowScope.AlertsBean.mainSelectionPanelRadio}"
                             valueChangeListener="#{pageFlowScope.AlertsBean.mainSelectionPanelRadioListner}"/>
+        <af:outputText value="#{sfr.SEARCH_BY_INPUT}" id="ot66"/>
+        <af:outputText value=":" id="ot67"/>
+        </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl23" layout="horizontal"
                          inlineStyle="width:960.0px;"
                          binding="#{pageFlowScope.AlertsBean.mainSelectionPanel}">
@@ -433,6 +437,7 @@
       </af:panelGroupLayout>
 
     </af:panelGroupLayout>
+    <af:panelGroupLayout layout="horizontal" id="pgl68">
     <af:selectBooleanRadio id="sbr42" autoSubmit="true" group="mainselection"
                            binding="#{pageFlowScope.AlertsBean.cardSelectionPanelRadio}"
                            valueChangeListener="#{pageFlowScope.AlertsBean.cardSelectionPanelRadioListner}"/>
@@ -454,6 +459,7 @@
           <af:spacer width="10" height="10" id="s47"/>
           <af:commandButton text="#{sfr.CLEAR}" id="cb9"/>
           <af:spacer width="24" height="10" id="s33"/>
+        </af:panelGroupLayout>
         </af:panelGroupLayout>
     </af:panelGroupLayout>
     
@@ -495,12 +501,12 @@
         </af:column>
         <af:column sortProperty="PartnerId" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.PartnerId.label}"
-                   id="c5" width="110">
+                   id="c5" width="90">
           <af:outputText value="#{row.PartnerId}" id="ot38"/>
         </af:column>
         <af:column sortProperty="AccountId" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.AccountId.label}"
-                   id="c4" width="95">
+                   id="c4" width="90">
           <af:outputText value="#{row.AccountId}" id="ot34"/>
         </af:column>
         <!--<af:column sortProperty="CardgroupMain" filterable="true"
@@ -525,7 +531,7 @@
         </af:column>
         <af:column sortProperty="CardKsid" filterable="true" sortable="true"
                    headerText="#{bindings.PrtCardRuleSubscriptionRVO11.hints.CardKsid.label}"
-                   id="c3" width="115">
+                   id="c3" width="140">
           <af:outputText value="#{row.CardKsid}" id="ot31"/>
         </af:column>
         <af:column sortProperty="SubscrDate" filterable="true" sortable="true"
