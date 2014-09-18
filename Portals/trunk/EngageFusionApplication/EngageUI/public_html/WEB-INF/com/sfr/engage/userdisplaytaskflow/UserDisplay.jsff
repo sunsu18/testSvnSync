@@ -22,7 +22,7 @@
                                  autoSubmit="true"
                                  binding="#{pageFlowScope.UserDisplayBean.bindings.multipleCardRadio}"/>
           <af:spacer height="18" width="10" id="s24"/>
-          <af:outputText value="#{sfr.SEARCH_TEXT}"/>
+          <af:outputText value="#{sfr.SEARCH_TEXT}" id="ot29"/>
         </af:panelGroupLayout>
         <af:panelGroupLayout id="pgl3" valign="top" layout="horizontal">
           <af:panelGroupLayout id="pgl16" layout="vertical">

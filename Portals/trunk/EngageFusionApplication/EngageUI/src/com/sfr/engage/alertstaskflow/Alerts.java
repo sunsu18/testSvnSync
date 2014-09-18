@@ -12,6 +12,7 @@ import com.sfr.engage.model.queries.rvo.PrtCardFuelCapacityRVORowImpl;
 import com.sfr.engage.model.queries.rvo.PrtCardRuleBusinessHoursRVORowImpl;
 import com.sfr.engage.model.resources.EngageResourceBundle;
 import com.sfr.util.ADFUtils;
+import com.sfr.util.AccessDataControl;
 import com.sfr.util.constants.Constants;
 import com.sfr.util.validations.Conversion;
 
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpSession;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
+import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
@@ -57,17 +59,15 @@ public class Alerts {
     private List<FuelTimings> fueltimings = new ArrayList<FuelTimings>();
     private List<FuelTimings> configureFuelTimings = new ArrayList<FuelTimings>();
     private RichPopup alert1Popup;
-
     private HttpSession session;
     private ExternalContext ectx;
     private HttpServletRequest request;
     private List<PartnerInfo> partnerInfoList;
-
     private List<SelectItem> partnerAlert1List;
     private List<SelectItem> configurePartnerAlert1List;
     private List<String> partnerValue = null;
     private String searchString;
-    private boolean SelectionPanel = false;
+    private boolean SelectionPanel = true;
     private boolean cardsSelectionPanel = false;
     private String configuredPartner;
 
@@ -88,48 +88,35 @@ public class Alerts {
 
     private List<SelectItem> partnerIdList;
     private List<SelectItem> partnerIdList2;
-
     private List<SelectItem> configurePartnerIdList;
-
-
     private List<String> partnerIdValue;
     private List<String> partnerIdValue2;
-
     private String configurePartnerIdValue;
     private List<String> configurePartnerIdValue2;
-
     private List<SelectItem> accountIdList;
     private List<String> accountIdValue;
     private List<SelectItem> accountIdList2;
     private List<String> accountIdValue2;
-
     private List<SelectItem> configureAccountIdList;
     private List<String> configureAccountIdValue;
-
     private List<String> initailAccountIdVAlue;
     private List<String> initailAccountId2VAlue;
     private List<SelectItem> cardGroupList;
     private List<String> cardGroupValue;
     private List<SelectItem> cardGroupList2;
     private List<String> cardGroupValue2;
-
     private List<SelectItem> configureCardGroupList;
     private List<String> configureCardGroupValue;
-
     private List<String> initialCardGroupValue;
     private List<String> initialCardGroup2Value;
     private List<SelectItem> cardNumberList;
     private List<String> cardNumberValue;
     private List<SelectItem> cardNumberList2;
     private List<String> cardNumberValue2;
-
     private List<String> initialCardValue;
     private List<String> initialCard2Value;
-
     private List<SelectItem> configureCardNumberList;
     private List<String> configureCardNumberValue;
-
-
     private RichPopup alert2Popup;
     private String langValue;
     AlertsSubscribeRequest req = new AlertsSubscribeRequest();
@@ -143,7 +130,6 @@ public class Alerts {
     private RichInputText toTimingsHh;
     private RichInputText toTimingsMm;
     private RichTable alert1Table;
-
     private RichSelectManyChoice accountDropdwonAlert2;
     private RichSelectManyChoice cardGroupDowndownAlert2;
     private RichSelectManyChoice cardDropdownAlert2;
@@ -208,12 +194,14 @@ public class Alerts {
     private RichSelectManyChoice viewAlertCardGroupDropdown;
     private RichSelectManyChoice viewAlertsPartnerDropdown;
     private RichSelectManyChoice viewAlertsAccountDropdown;
-
+    public static final ADFLogger _logger = AccessDataControl.getSFRLogger();
+    private AccessDataControl accessDC = new AccessDataControl();
 
     public Alerts() {
         ectx = FacesContext.getCurrentInstance().getExternalContext();
         request = (HttpServletRequest)ectx.getRequest();
         session = request.getSession(false);
+        
         partnerInfoList = new ArrayList<PartnerInfo>();
         partnerAlert1List = new ArrayList<SelectItem>();
 
@@ -1279,6 +1267,8 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
 
     }
 
@@ -1378,6 +1368,8 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
 
     }
 
@@ -1546,6 +1538,8 @@ public class Alerts {
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertsAccountDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertCardGroupDropdown);
         AdfFacesContext.getCurrentInstance().addPartialTarget(viewAlertDropdown);
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
 
     }
 
@@ -2639,6 +2633,8 @@ public class Alerts {
     }
 
     public void viewSubscribedAlerts(ActionEvent actionEvent) {
+        
+        //TODO : HITK - validate dropdown values 
 
 
         ViewObject prtCardRuleSubscriptionVO = ADFUtils.getViewObject("PrtCardRuleSubscriptionRVO1Iterator");
@@ -2702,6 +2698,14 @@ public class Alerts {
                     searchResultsPanel.setRendered(true);
                     AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
                 }
+            }
+            else
+                
+            {
+                //TODO : HITK - Hide search results & validate card number
+                System.out.println("nothing to search");
+                
+                
             }
         }
     }
@@ -3129,22 +3133,22 @@ public class Alerts {
         if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey") != null) {
             System.out.println(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim());
             if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("1")) {
-                configurePartnerAlert1List = new ArrayList<SelectItem>();
-                configurePartnerIdValue = "";
-                SelectItem selectItem = new SelectItem();
-                selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                //partnerIdList.add(selectItem);
-                configuredPartner = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                configurePartnerIdValue = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                configurePartnerAlert1List.add(selectItem);
-                configureAlert1PartnerValues.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                //setConfigurePartnerIdValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
-                AdfFacesContext.getCurrentInstance().addPartialTarget(configureAlert1PartnerValues);
-
-                System.out.println("Value setted is  " + configuredPartner);
+                configuredPartner = AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim();
+//                configurePartnerAlert1List = new ArrayList<SelectItem>();
+//                configurePartnerIdValue = "";
+//                SelectItem selectItem = new SelectItem();
+//                selectItem.setLabel(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                selectItem.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                //partnerIdList.add(selectItem);
+//                configuredPartner = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                configurePartnerIdValue = (getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                configurePartnerAlert1List.add(selectItem);
+//                configureAlert1PartnerValues.setValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                //setConfigurePartnerIdValue(getPartnerName(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim()));
+//                AdfFacesContext.getCurrentInstance().addPartialTarget(configureAlert1PartnerValues);
+//                System.out.println("Value setted is  " + configuredPartner);
                 configureDefaultTimings(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("SubscrIdkey").toString().trim(), CountryCode);
-                configureAlert1PartnerValues.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
+//                configureAlert1PartnerValues.setValue(AdfFacesContext.getCurrentInstance().getPageFlowScope().get("PartnerIdkey").toString().trim());
                 RichPopup.PopupHints ps = new RichPopup.PopupHints();
                 configureAlert1Popup.show(ps);
             } else if (AdfFacesContext.getCurrentInstance().getPageFlowScope().get("RuleIdkey").toString().trim().equalsIgnoreCase("2")) {
@@ -3657,7 +3661,6 @@ public class Alerts {
     }
 
     public void mainSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
-        // Add event code here...
         //        if(cardSelectionPanelRadio.getValue()!=null && cardSelectionPanelRadio.getValue().toString().equals(true)) {
         //            SelectionPanel = false;
         //            cardsSelectionPanel = true;
@@ -3665,18 +3668,72 @@ public class Alerts {
         //            System.out.println("Search by card number");
         //        }
         //        else
-        System.out.println("valueChangeEvent " + valueChangeEvent.getNewValue().toString());
+        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
+            getViewAlertsPartnerDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
+            getViewAlertsAccountDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
+            getViewAlertCardGroupDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
+            getViewAlertDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
+            getSearchStringInputtext().resetValue();
+            getSearchStringInputtext().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+        }else{
+            getViewAlertsPartnerDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
+            getViewAlertsAccountDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
+            getViewAlertCardGroupDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
+            getViewAlertDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
+            getSearchStringInputtext().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+        }
+        
+        
+        System.out.println("valueChangeEvent mainSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
             SelectionPanel = true;
             cardsSelectionPanel = false;
             if (SelectionPanel)
                 System.out.println("Search by all");
         }
+        
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
     }
 
     public void cardSelectionPanelRadioListner(ValueChangeEvent valueChangeEvent) {
-        // Add event code here...
-        System.out.println("valueChangeEvent " + valueChangeEvent.getNewValue().toString());
+
+        if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().equals(true)) {
+            getViewAlertsPartnerDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
+            getViewAlertsAccountDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
+            getViewAlertCardGroupDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
+            getViewAlertDropdown().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
+            getSearchStringInputtext().resetValue();
+            getSearchStringInputtext().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+        }else{
+            getViewAlertsPartnerDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsPartnerDropdown());
+            getViewAlertsAccountDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertsAccountDropdown());
+            getViewAlertCardGroupDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertCardGroupDropdown());
+            getViewAlertDropdown().setDisabled(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getViewAlertDropdown());
+            getSearchStringInputtext().setDisabled(true);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(getSearchStringInputtext());
+        }
+
+        System.out.println("valueChangeEvent cardSelectionPanelRadioListner" + valueChangeEvent.getNewValue().toString());
         if (valueChangeEvent.getNewValue() != null && valueChangeEvent.getNewValue().toString().equals("true")) {
             SelectionPanel = false;
             cardsSelectionPanel = true;
@@ -3690,6 +3747,9 @@ public class Alerts {
         //            if(SelectionPanel)
         //                System.out.println("Search by all");
         //        }
+        
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
     }
 
 
@@ -3883,6 +3943,22 @@ public class Alerts {
 
     public List<String> getInitialCard2Value() {
         return initialCard2Value;
+    }
+
+    public void clearSearchListener(ActionEvent actionEvent) {
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Inside clearSearchListener method of Alerts");
+        getViewAlertsPartnerDropdown().setValue(null);
+        this.partnerIdValue2 = null;
+        getViewAlertsAccountDropdown().setValue(null);
+        this.accountIdValue2 = null;
+        getViewAlertCardGroupDropdown().setValue(null);
+        this.cardGroupValue2 = null;
+        getViewAlertDropdown().setValue(null);
+        this.cardNumberValue2 = null;
+        searchResultsPanel.setRendered(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(searchResultsPanel);
+        getSearchStringInputtext().setValue(null);
+        _logger.fine(accessDC.getDisplayRecord() + this.getClass() + " Outside clearSearchListener method of Alerts");
     }
 }
 

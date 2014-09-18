@@ -1171,6 +1171,14 @@ font-style:normal;
     margin-bottom:3px;
 }
 
+.vertical_seprator_alerts{
+    width:1px !important;
+    height:80px !important;
+    background-color:#C3C3C3 !important;
+    margin-left: -15px!important;
+    margin-top: 20px;
+    margin-bottom:3px;
+}
 
 .vertical_seperator_transaction{
     width:1px !important;

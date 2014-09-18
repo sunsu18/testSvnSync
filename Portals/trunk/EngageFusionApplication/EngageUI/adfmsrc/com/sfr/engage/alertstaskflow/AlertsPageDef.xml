@@ -122,6 +122,8 @@
           <Item Value="CardgroupSub"/>
           <Item Value="CardKsid"/>
           <Item Value="SubscrDate"/>
+          <Item Value="CardEmbossNumber"/>
+          <Item Value="CardgroupId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
