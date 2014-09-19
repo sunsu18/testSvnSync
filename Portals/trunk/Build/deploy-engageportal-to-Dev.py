@@ -21,9 +21,5 @@ artifactLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\w
 print ("Hello, Python!")
 print "Hello, Python!"
 connect(adminUser,adminPassword,adminUrl)
-startEdit()
 deploy(applicationName,artifactLocation,targets=targetsName,stageMode=stageModeValue,upload='true',remote='true')
-save()
-activate()
-stopEdit()
 disconnect()
