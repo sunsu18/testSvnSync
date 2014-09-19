@@ -20,7 +20,8 @@ artifactLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\w
 
 connect(adminUser,adminPassword,adminUrl)
 startEdit()
-activate()
-save()
 deploy(applicationName,artifactLocation,targets=targetsName,stageMode=stageModeValue,upload='true',remote='true')
+save()
+activate()
+stopEdit()
 disconnect()
