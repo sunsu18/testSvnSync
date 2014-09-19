@@ -19,5 +19,8 @@ stageModeValue='stage'
 artifactLocation=r'C:\Users\10607024\.jenkins\jobs\Engage Build and Deployment\workspace\EngagePortal\deploy\EngagePortal_application1.ear'
 
 connect(adminUser,adminPassword,adminUrl)
+startEdit()
+activate()
+save()
 deploy(applicationName,artifactLocation,targets=targetsName,stageMode=stageModeValue,upload='true',remote='true')
 disconnect()
